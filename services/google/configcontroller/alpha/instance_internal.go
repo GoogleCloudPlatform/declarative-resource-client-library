@@ -987,6 +987,9 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1944,5 +1947,121 @@ func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldD
 }
 
 func extractInstanceFields(r *Instance) error {
+	vBundlesConfig := r.BundlesConfig
+	if vBundlesConfig == nil {
+		// note: explicitly not the empty object.
+		vBundlesConfig = &InstanceBundlesConfig{}
+	}
+	if err := extractInstanceBundlesConfigFields(r, vBundlesConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBundlesConfig) {
+		r.BundlesConfig = vBundlesConfig
+	}
+	vManagementConfig := r.ManagementConfig
+	if vManagementConfig == nil {
+		// note: explicitly not the empty object.
+		vManagementConfig = &InstanceManagementConfig{}
+	}
+	if err := extractInstanceManagementConfigFields(r, vManagementConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vManagementConfig) {
+		r.ManagementConfig = vManagementConfig
+	}
+	return nil
+}
+func extractInstanceBundlesConfigFields(r *Instance, o *InstanceBundlesConfig) error {
+	vConfigControllerConfig := o.ConfigControllerConfig
+	if vConfigControllerConfig == nil {
+		// note: explicitly not the empty object.
+		vConfigControllerConfig = &InstanceBundlesConfigConfigControllerConfig{}
+	}
+	if err := extractInstanceBundlesConfigConfigControllerConfigFields(r, vConfigControllerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigControllerConfig) {
+		o.ConfigControllerConfig = vConfigControllerConfig
+	}
+	return nil
+}
+func extractInstanceBundlesConfigConfigControllerConfigFields(r *Instance, o *InstanceBundlesConfigConfigControllerConfig) error {
+	return nil
+}
+func extractInstanceManagementConfigFields(r *Instance, o *InstanceManagementConfig) error {
+	vStandardManagementConfig := o.StandardManagementConfig
+	if vStandardManagementConfig == nil {
+		// note: explicitly not the empty object.
+		vStandardManagementConfig = &InstanceManagementConfigStandardManagementConfig{}
+	}
+	if err := extractInstanceManagementConfigStandardManagementConfigFields(r, vStandardManagementConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStandardManagementConfig) {
+		o.StandardManagementConfig = vStandardManagementConfig
+	}
+	return nil
+}
+func extractInstanceManagementConfigStandardManagementConfigFields(r *Instance, o *InstanceManagementConfigStandardManagementConfig) error {
+	return nil
+}
+
+func postReadExtractInstanceFields(r *Instance) error {
+	vBundlesConfig := r.BundlesConfig
+	if vBundlesConfig == nil {
+		// note: explicitly not the empty object.
+		vBundlesConfig = &InstanceBundlesConfig{}
+	}
+	if err := postReadExtractInstanceBundlesConfigFields(r, vBundlesConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBundlesConfig) {
+		r.BundlesConfig = vBundlesConfig
+	}
+	vManagementConfig := r.ManagementConfig
+	if vManagementConfig == nil {
+		// note: explicitly not the empty object.
+		vManagementConfig = &InstanceManagementConfig{}
+	}
+	if err := postReadExtractInstanceManagementConfigFields(r, vManagementConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vManagementConfig) {
+		r.ManagementConfig = vManagementConfig
+	}
+	return nil
+}
+func postReadExtractInstanceBundlesConfigFields(r *Instance, o *InstanceBundlesConfig) error {
+	vConfigControllerConfig := o.ConfigControllerConfig
+	if vConfigControllerConfig == nil {
+		// note: explicitly not the empty object.
+		vConfigControllerConfig = &InstanceBundlesConfigConfigControllerConfig{}
+	}
+	if err := extractInstanceBundlesConfigConfigControllerConfigFields(r, vConfigControllerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigControllerConfig) {
+		o.ConfigControllerConfig = vConfigControllerConfig
+	}
+	return nil
+}
+func postReadExtractInstanceBundlesConfigConfigControllerConfigFields(r *Instance, o *InstanceBundlesConfigConfigControllerConfig) error {
+	return nil
+}
+func postReadExtractInstanceManagementConfigFields(r *Instance, o *InstanceManagementConfig) error {
+	vStandardManagementConfig := o.StandardManagementConfig
+	if vStandardManagementConfig == nil {
+		// note: explicitly not the empty object.
+		vStandardManagementConfig = &InstanceManagementConfigStandardManagementConfig{}
+	}
+	if err := extractInstanceManagementConfigStandardManagementConfigFields(r, vStandardManagementConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStandardManagementConfig) {
+		o.StandardManagementConfig = vStandardManagementConfig
+	}
+	return nil
+}
+func postReadExtractInstanceManagementConfigStandardManagementConfigFields(r *Instance, o *InstanceManagementConfigStandardManagementConfig) error {
 	return nil
 }

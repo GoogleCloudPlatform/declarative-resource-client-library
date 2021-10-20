@@ -876,6 +876,9 @@ func (c *Client) GetCertificateTemplate(ctx context.Context, r *CertificateTempl
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractCertificateTemplateFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -1043,7 +1046,7 @@ func applyCertificateTemplateHelper(c *Client, ctx context.Context, rawDesired *
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeCertificateTemplateNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -1051,12 +1054,22 @@ func applyCertificateTemplateHelper(c *Client, ctx context.Context, rawDesired *
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeCertificateTemplateDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractCertificateTemplateFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractCertificateTemplateFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffCertificateTemplate(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

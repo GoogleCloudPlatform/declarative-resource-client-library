@@ -2297,6 +2297,9 @@ func diffCertificateTemplate(c *Client, desired, actual *CertificateTemplate, op
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -4828,5 +4831,285 @@ func convertOpNameToCertificateTemplateApiOperation(opName string, fieldDiffs []
 }
 
 func extractCertificateTemplateFields(r *CertificateTemplate) error {
+	vPredefinedValues := r.PredefinedValues
+	if vPredefinedValues == nil {
+		// note: explicitly not the empty object.
+		vPredefinedValues = &CertificateTemplatePredefinedValues{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesFields(r, vPredefinedValues); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPredefinedValues) {
+		r.PredefinedValues = vPredefinedValues
+	}
+	vIdentityConstraints := r.IdentityConstraints
+	if vIdentityConstraints == nil {
+		// note: explicitly not the empty object.
+		vIdentityConstraints = &CertificateTemplateIdentityConstraints{}
+	}
+	if err := extractCertificateTemplateIdentityConstraintsFields(r, vIdentityConstraints); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vIdentityConstraints) {
+		r.IdentityConstraints = vIdentityConstraints
+	}
+	vPassthroughExtensions := r.PassthroughExtensions
+	if vPassthroughExtensions == nil {
+		// note: explicitly not the empty object.
+		vPassthroughExtensions = &CertificateTemplatePassthroughExtensions{}
+	}
+	if err := extractCertificateTemplatePassthroughExtensionsFields(r, vPassthroughExtensions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPassthroughExtensions) {
+		r.PassthroughExtensions = vPassthroughExtensions
+	}
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValues) error {
+	vKeyUsage := o.KeyUsage
+	if vKeyUsage == nil {
+		// note: explicitly not the empty object.
+		vKeyUsage = &CertificateTemplatePredefinedValuesKeyUsage{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesKeyUsageFields(r, vKeyUsage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKeyUsage) {
+		o.KeyUsage = vKeyUsage
+	}
+	vCaOptions := o.CaOptions
+	if vCaOptions == nil {
+		// note: explicitly not the empty object.
+		vCaOptions = &CertificateTemplatePredefinedValuesCaOptions{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesCaOptionsFields(r, vCaOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCaOptions) {
+		o.CaOptions = vCaOptions
+	}
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesKeyUsageFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsage) error {
+	vBaseKeyUsage := o.BaseKeyUsage
+	if vBaseKeyUsage == nil {
+		// note: explicitly not the empty object.
+		vBaseKeyUsage = &CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageFields(r, vBaseKeyUsage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBaseKeyUsage) {
+		o.BaseKeyUsage = vBaseKeyUsage
+	}
+	vExtendedKeyUsage := o.ExtendedKeyUsage
+	if vExtendedKeyUsage == nil {
+		// note: explicitly not the empty object.
+		vExtendedKeyUsage = &CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageFields(r, vExtendedKeyUsage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vExtendedKeyUsage) {
+		o.ExtendedKeyUsage = vExtendedKeyUsage
+	}
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) error {
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) error {
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) error {
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesCaOptionsFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesCaOptions) error {
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesPolicyIdsFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesPolicyIds) error {
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesAdditionalExtensionsFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesAdditionalExtensions) error {
+	vObjectId := o.ObjectId
+	if vObjectId == nil {
+		// note: explicitly not the empty object.
+		vObjectId = &CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdFields(r, vObjectId); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vObjectId) {
+		o.ObjectId = vObjectId
+	}
+	return nil
+}
+func extractCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) error {
+	return nil
+}
+func extractCertificateTemplateIdentityConstraintsFields(r *CertificateTemplate, o *CertificateTemplateIdentityConstraints) error {
+	vCelExpression := o.CelExpression
+	if vCelExpression == nil {
+		// note: explicitly not the empty object.
+		vCelExpression = &CertificateTemplateIdentityConstraintsCelExpression{}
+	}
+	if err := extractCertificateTemplateIdentityConstraintsCelExpressionFields(r, vCelExpression); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCelExpression) {
+		o.CelExpression = vCelExpression
+	}
+	return nil
+}
+func extractCertificateTemplateIdentityConstraintsCelExpressionFields(r *CertificateTemplate, o *CertificateTemplateIdentityConstraintsCelExpression) error {
+	return nil
+}
+func extractCertificateTemplatePassthroughExtensionsFields(r *CertificateTemplate, o *CertificateTemplatePassthroughExtensions) error {
+	return nil
+}
+func extractCertificateTemplatePassthroughExtensionsAdditionalExtensionsFields(r *CertificateTemplate, o *CertificateTemplatePassthroughExtensionsAdditionalExtensions) error {
+	return nil
+}
+
+func postReadExtractCertificateTemplateFields(r *CertificateTemplate) error {
+	vPredefinedValues := r.PredefinedValues
+	if vPredefinedValues == nil {
+		// note: explicitly not the empty object.
+		vPredefinedValues = &CertificateTemplatePredefinedValues{}
+	}
+	if err := postReadExtractCertificateTemplatePredefinedValuesFields(r, vPredefinedValues); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPredefinedValues) {
+		r.PredefinedValues = vPredefinedValues
+	}
+	vIdentityConstraints := r.IdentityConstraints
+	if vIdentityConstraints == nil {
+		// note: explicitly not the empty object.
+		vIdentityConstraints = &CertificateTemplateIdentityConstraints{}
+	}
+	if err := postReadExtractCertificateTemplateIdentityConstraintsFields(r, vIdentityConstraints); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vIdentityConstraints) {
+		r.IdentityConstraints = vIdentityConstraints
+	}
+	vPassthroughExtensions := r.PassthroughExtensions
+	if vPassthroughExtensions == nil {
+		// note: explicitly not the empty object.
+		vPassthroughExtensions = &CertificateTemplatePassthroughExtensions{}
+	}
+	if err := postReadExtractCertificateTemplatePassthroughExtensionsFields(r, vPassthroughExtensions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPassthroughExtensions) {
+		r.PassthroughExtensions = vPassthroughExtensions
+	}
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValues) error {
+	vKeyUsage := o.KeyUsage
+	if vKeyUsage == nil {
+		// note: explicitly not the empty object.
+		vKeyUsage = &CertificateTemplatePredefinedValuesKeyUsage{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesKeyUsageFields(r, vKeyUsage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKeyUsage) {
+		o.KeyUsage = vKeyUsage
+	}
+	vCaOptions := o.CaOptions
+	if vCaOptions == nil {
+		// note: explicitly not the empty object.
+		vCaOptions = &CertificateTemplatePredefinedValuesCaOptions{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesCaOptionsFields(r, vCaOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCaOptions) {
+		o.CaOptions = vCaOptions
+	}
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesKeyUsageFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsage) error {
+	vBaseKeyUsage := o.BaseKeyUsage
+	if vBaseKeyUsage == nil {
+		// note: explicitly not the empty object.
+		vBaseKeyUsage = &CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageFields(r, vBaseKeyUsage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBaseKeyUsage) {
+		o.BaseKeyUsage = vBaseKeyUsage
+	}
+	vExtendedKeyUsage := o.ExtendedKeyUsage
+	if vExtendedKeyUsage == nil {
+		// note: explicitly not the empty object.
+		vExtendedKeyUsage = &CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageFields(r, vExtendedKeyUsage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vExtendedKeyUsage) {
+		o.ExtendedKeyUsage = vExtendedKeyUsage
+	}
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) error {
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) error {
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) error {
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesCaOptionsFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesCaOptions) error {
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesPolicyIdsFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesPolicyIds) error {
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesAdditionalExtensionsFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesAdditionalExtensions) error {
+	vObjectId := o.ObjectId
+	if vObjectId == nil {
+		// note: explicitly not the empty object.
+		vObjectId = &CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
+	}
+	if err := extractCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdFields(r, vObjectId); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vObjectId) {
+		o.ObjectId = vObjectId
+	}
+	return nil
+}
+func postReadExtractCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdFields(r *CertificateTemplate, o *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) error {
+	return nil
+}
+func postReadExtractCertificateTemplateIdentityConstraintsFields(r *CertificateTemplate, o *CertificateTemplateIdentityConstraints) error {
+	vCelExpression := o.CelExpression
+	if vCelExpression == nil {
+		// note: explicitly not the empty object.
+		vCelExpression = &CertificateTemplateIdentityConstraintsCelExpression{}
+	}
+	if err := extractCertificateTemplateIdentityConstraintsCelExpressionFields(r, vCelExpression); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCelExpression) {
+		o.CelExpression = vCelExpression
+	}
+	return nil
+}
+func postReadExtractCertificateTemplateIdentityConstraintsCelExpressionFields(r *CertificateTemplate, o *CertificateTemplateIdentityConstraintsCelExpression) error {
+	return nil
+}
+func postReadExtractCertificateTemplatePassthroughExtensionsFields(r *CertificateTemplate, o *CertificateTemplatePassthroughExtensions) error {
+	return nil
+}
+func postReadExtractCertificateTemplatePassthroughExtensionsAdditionalExtensionsFields(r *CertificateTemplate, o *CertificateTemplatePassthroughExtensionsAdditionalExtensions) error {
 	return nil
 }

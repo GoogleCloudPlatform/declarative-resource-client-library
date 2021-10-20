@@ -801,6 +801,9 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1359,5 +1362,43 @@ func convertOpNameToServiceAccountApiOperation(opName string, fieldDiffs []*dcl.
 }
 
 func extractServiceAccountFields(r *ServiceAccount) error {
+	vActasResources := r.ActasResources
+	if vActasResources == nil {
+		// note: explicitly not the empty object.
+		vActasResources = &ServiceAccountActasResources{}
+	}
+	if err := extractServiceAccountActasResourcesFields(r, vActasResources); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vActasResources) {
+		r.ActasResources = vActasResources
+	}
+	return nil
+}
+func extractServiceAccountActasResourcesFields(r *ServiceAccount, o *ServiceAccountActasResources) error {
+	return nil
+}
+func extractServiceAccountActasResourcesResourcesFields(r *ServiceAccount, o *ServiceAccountActasResourcesResources) error {
+	return nil
+}
+
+func postReadExtractServiceAccountFields(r *ServiceAccount) error {
+	vActasResources := r.ActasResources
+	if vActasResources == nil {
+		// note: explicitly not the empty object.
+		vActasResources = &ServiceAccountActasResources{}
+	}
+	if err := postReadExtractServiceAccountActasResourcesFields(r, vActasResources); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vActasResources) {
+		r.ActasResources = vActasResources
+	}
+	return nil
+}
+func postReadExtractServiceAccountActasResourcesFields(r *ServiceAccount, o *ServiceAccountActasResources) error {
+	return nil
+}
+func postReadExtractServiceAccountActasResourcesResourcesFields(r *ServiceAccount, o *ServiceAccountActasResourcesResources) error {
 	return nil
 }

@@ -1034,6 +1034,9 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2147,5 +2150,149 @@ func convertOpNameToFeatureApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractFeatureFields(r *Feature) error {
+	vResourceState := r.ResourceState
+	if vResourceState == nil {
+		// note: explicitly not the empty object.
+		vResourceState = &FeatureResourceState{}
+	}
+	if err := extractFeatureResourceStateFields(r, vResourceState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceState) {
+		r.ResourceState = vResourceState
+	}
+	vSpec := r.Spec
+	if vSpec == nil {
+		// note: explicitly not the empty object.
+		vSpec = &FeatureSpec{}
+	}
+	if err := extractFeatureSpecFields(r, vSpec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSpec) {
+		r.Spec = vSpec
+	}
+	vState := r.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureState{}
+	}
+	if err := extractFeatureStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		r.State = vState
+	}
+	return nil
+}
+func extractFeatureResourceStateFields(r *Feature, o *FeatureResourceState) error {
+	return nil
+}
+func extractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
+	vMulticlusteringress := o.Multiclusteringress
+	if vMulticlusteringress == nil {
+		// note: explicitly not the empty object.
+		vMulticlusteringress = &FeatureSpecMulticlusteringress{}
+	}
+	if err := extractFeatureSpecMulticlusteringressFields(r, vMulticlusteringress); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMulticlusteringress) {
+		o.Multiclusteringress = vMulticlusteringress
+	}
+	return nil
+}
+func extractFeatureSpecMulticlusteringressFields(r *Feature, o *FeatureSpecMulticlusteringress) error {
+	return nil
+}
+func extractFeatureStateFields(r *Feature, o *FeatureState) error {
+	vState := o.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureStateState{}
+	}
+	if err := extractFeatureStateStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		o.State = vState
+	}
+	return nil
+}
+func extractFeatureStateStateFields(r *Feature, o *FeatureStateState) error {
+	return nil
+}
+
+func postReadExtractFeatureFields(r *Feature) error {
+	vResourceState := r.ResourceState
+	if vResourceState == nil {
+		// note: explicitly not the empty object.
+		vResourceState = &FeatureResourceState{}
+	}
+	if err := postReadExtractFeatureResourceStateFields(r, vResourceState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceState) {
+		r.ResourceState = vResourceState
+	}
+	vSpec := r.Spec
+	if vSpec == nil {
+		// note: explicitly not the empty object.
+		vSpec = &FeatureSpec{}
+	}
+	if err := postReadExtractFeatureSpecFields(r, vSpec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSpec) {
+		r.Spec = vSpec
+	}
+	vState := r.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureState{}
+	}
+	if err := postReadExtractFeatureStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		r.State = vState
+	}
+	return nil
+}
+func postReadExtractFeatureResourceStateFields(r *Feature, o *FeatureResourceState) error {
+	return nil
+}
+func postReadExtractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
+	vMulticlusteringress := o.Multiclusteringress
+	if vMulticlusteringress == nil {
+		// note: explicitly not the empty object.
+		vMulticlusteringress = &FeatureSpecMulticlusteringress{}
+	}
+	if err := extractFeatureSpecMulticlusteringressFields(r, vMulticlusteringress); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMulticlusteringress) {
+		o.Multiclusteringress = vMulticlusteringress
+	}
+	return nil
+}
+func postReadExtractFeatureSpecMulticlusteringressFields(r *Feature, o *FeatureSpecMulticlusteringress) error {
+	return nil
+}
+func postReadExtractFeatureStateFields(r *Feature, o *FeatureState) error {
+	vState := o.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureStateState{}
+	}
+	if err := extractFeatureStateStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		o.State = vState
+	}
+	return nil
+}
+func postReadExtractFeatureStateStateFields(r *Feature, o *FeatureStateState) error {
 	return nil
 }

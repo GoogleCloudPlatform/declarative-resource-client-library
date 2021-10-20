@@ -767,6 +767,9 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1641,5 +1644,43 @@ func convertOpNameToMetricDescriptorApiOperation(opName string, fieldDiffs []*dc
 }
 
 func extractMetricDescriptorFields(r *MetricDescriptor) error {
+	vMetadata := r.Metadata
+	if vMetadata == nil {
+		// note: explicitly not the empty object.
+		vMetadata = &MetricDescriptorMetadata{}
+	}
+	if err := extractMetricDescriptorMetadataFields(r, vMetadata); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetadata) {
+		r.Metadata = vMetadata
+	}
+	return nil
+}
+func extractMetricDescriptorLabelsFields(r *MetricDescriptor, o *MetricDescriptorLabels) error {
+	return nil
+}
+func extractMetricDescriptorMetadataFields(r *MetricDescriptor, o *MetricDescriptorMetadata) error {
+	return nil
+}
+
+func postReadExtractMetricDescriptorFields(r *MetricDescriptor) error {
+	vMetadata := r.Metadata
+	if vMetadata == nil {
+		// note: explicitly not the empty object.
+		vMetadata = &MetricDescriptorMetadata{}
+	}
+	if err := postReadExtractMetricDescriptorMetadataFields(r, vMetadata); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetadata) {
+		r.Metadata = vMetadata
+	}
+	return nil
+}
+func postReadExtractMetricDescriptorLabelsFields(r *MetricDescriptor, o *MetricDescriptorLabels) error {
+	return nil
+}
+func postReadExtractMetricDescriptorMetadataFields(r *MetricDescriptor, o *MetricDescriptorMetadata) error {
 	return nil
 }

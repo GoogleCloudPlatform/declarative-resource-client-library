@@ -3169,6 +3169,9 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -7266,5 +7269,447 @@ func convertOpNameToClusterApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractClusterFields(r *Cluster) error {
+	// *ClusterClusterConfig is a reused type - that's not compatible with function extractors.
+
+	vStatus := r.Status
+	if vStatus == nil {
+		// note: explicitly not the empty object.
+		vStatus = &ClusterStatus{}
+	}
+	if err := extractClusterStatusFields(r, vStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatus) {
+		r.Status = vStatus
+	}
+	vMetrics := r.Metrics
+	if vMetrics == nil {
+		// note: explicitly not the empty object.
+		vMetrics = &ClusterMetrics{}
+	}
+	if err := extractClusterMetricsFields(r, vMetrics); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetrics) {
+		r.Metrics = vMetrics
+	}
+	return nil
+}
+func extractClusterClusterConfigFields(r *Cluster, o *ClusterClusterConfig) error {
+	vGceClusterConfig := o.GceClusterConfig
+	if vGceClusterConfig == nil {
+		// note: explicitly not the empty object.
+		vGceClusterConfig = &ClusterClusterConfigGceClusterConfig{}
+	}
+	if err := extractClusterClusterConfigGceClusterConfigFields(r, vGceClusterConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGceClusterConfig) {
+		o.GceClusterConfig = vGceClusterConfig
+	}
+	// *ClusterInstanceGroupConfig is a reused type - that's not compatible with function extractors.
+
+	// *ClusterInstanceGroupConfig is a reused type - that's not compatible with function extractors.
+
+	// *ClusterInstanceGroupConfig is a reused type - that's not compatible with function extractors.
+
+	vSoftwareConfig := o.SoftwareConfig
+	if vSoftwareConfig == nil {
+		// note: explicitly not the empty object.
+		vSoftwareConfig = &ClusterClusterConfigSoftwareConfig{}
+	}
+	if err := extractClusterClusterConfigSoftwareConfigFields(r, vSoftwareConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSoftwareConfig) {
+		o.SoftwareConfig = vSoftwareConfig
+	}
+	vEncryptionConfig := o.EncryptionConfig
+	if vEncryptionConfig == nil {
+		// note: explicitly not the empty object.
+		vEncryptionConfig = &ClusterClusterConfigEncryptionConfig{}
+	}
+	if err := extractClusterClusterConfigEncryptionConfigFields(r, vEncryptionConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEncryptionConfig) {
+		o.EncryptionConfig = vEncryptionConfig
+	}
+	vAutoscalingConfig := o.AutoscalingConfig
+	if vAutoscalingConfig == nil {
+		// note: explicitly not the empty object.
+		vAutoscalingConfig = &ClusterClusterConfigAutoscalingConfig{}
+	}
+	if err := extractClusterClusterConfigAutoscalingConfigFields(r, vAutoscalingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAutoscalingConfig) {
+		o.AutoscalingConfig = vAutoscalingConfig
+	}
+	vSecurityConfig := o.SecurityConfig
+	if vSecurityConfig == nil {
+		// note: explicitly not the empty object.
+		vSecurityConfig = &ClusterClusterConfigSecurityConfig{}
+	}
+	if err := extractClusterClusterConfigSecurityConfigFields(r, vSecurityConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecurityConfig) {
+		o.SecurityConfig = vSecurityConfig
+	}
+	vLifecycleConfig := o.LifecycleConfig
+	if vLifecycleConfig == nil {
+		// note: explicitly not the empty object.
+		vLifecycleConfig = &ClusterClusterConfigLifecycleConfig{}
+	}
+	if err := extractClusterClusterConfigLifecycleConfigFields(r, vLifecycleConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLifecycleConfig) {
+		o.LifecycleConfig = vLifecycleConfig
+	}
+	vEndpointConfig := o.EndpointConfig
+	if vEndpointConfig == nil {
+		// note: explicitly not the empty object.
+		vEndpointConfig = &ClusterClusterConfigEndpointConfig{}
+	}
+	if err := extractClusterClusterConfigEndpointConfigFields(r, vEndpointConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpointConfig) {
+		o.EndpointConfig = vEndpointConfig
+	}
+	return nil
+}
+func extractClusterClusterConfigGceClusterConfigFields(r *Cluster, o *ClusterClusterConfigGceClusterConfig) error {
+	vReservationAffinity := o.ReservationAffinity
+	if vReservationAffinity == nil {
+		// note: explicitly not the empty object.
+		vReservationAffinity = &ClusterClusterConfigGceClusterConfigReservationAffinity{}
+	}
+	if err := extractClusterClusterConfigGceClusterConfigReservationAffinityFields(r, vReservationAffinity); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vReservationAffinity) {
+		o.ReservationAffinity = vReservationAffinity
+	}
+	vNodeGroupAffinity := o.NodeGroupAffinity
+	if vNodeGroupAffinity == nil {
+		// note: explicitly not the empty object.
+		vNodeGroupAffinity = &ClusterClusterConfigGceClusterConfigNodeGroupAffinity{}
+	}
+	if err := extractClusterClusterConfigGceClusterConfigNodeGroupAffinityFields(r, vNodeGroupAffinity); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNodeGroupAffinity) {
+		o.NodeGroupAffinity = vNodeGroupAffinity
+	}
+	return nil
+}
+func extractClusterClusterConfigGceClusterConfigReservationAffinityFields(r *Cluster, o *ClusterClusterConfigGceClusterConfigReservationAffinity) error {
+	return nil
+}
+func extractClusterClusterConfigGceClusterConfigNodeGroupAffinityFields(r *Cluster, o *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) error {
+	return nil
+}
+func extractClusterInstanceGroupConfigFields(r *Cluster, o *ClusterInstanceGroupConfig) error {
+	vDiskConfig := o.DiskConfig
+	if vDiskConfig == nil {
+		// note: explicitly not the empty object.
+		vDiskConfig = &ClusterInstanceGroupConfigDiskConfig{}
+	}
+	if err := extractClusterInstanceGroupConfigDiskConfigFields(r, vDiskConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDiskConfig) {
+		o.DiskConfig = vDiskConfig
+	}
+	vManagedGroupConfig := o.ManagedGroupConfig
+	if vManagedGroupConfig == nil {
+		// note: explicitly not the empty object.
+		vManagedGroupConfig = &ClusterInstanceGroupConfigManagedGroupConfig{}
+	}
+	if err := extractClusterInstanceGroupConfigManagedGroupConfigFields(r, vManagedGroupConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vManagedGroupConfig) {
+		o.ManagedGroupConfig = vManagedGroupConfig
+	}
+	return nil
+}
+func extractClusterInstanceGroupConfigDiskConfigFields(r *Cluster, o *ClusterInstanceGroupConfigDiskConfig) error {
+	return nil
+}
+func extractClusterInstanceGroupConfigManagedGroupConfigFields(r *Cluster, o *ClusterInstanceGroupConfigManagedGroupConfig) error {
+	return nil
+}
+func extractClusterInstanceGroupConfigAcceleratorsFields(r *Cluster, o *ClusterInstanceGroupConfigAccelerators) error {
+	return nil
+}
+func extractClusterClusterConfigSoftwareConfigFields(r *Cluster, o *ClusterClusterConfigSoftwareConfig) error {
+	return nil
+}
+func extractClusterClusterConfigInitializationActionsFields(r *Cluster, o *ClusterClusterConfigInitializationActions) error {
+	return nil
+}
+func extractClusterClusterConfigEncryptionConfigFields(r *Cluster, o *ClusterClusterConfigEncryptionConfig) error {
+	return nil
+}
+func extractClusterClusterConfigAutoscalingConfigFields(r *Cluster, o *ClusterClusterConfigAutoscalingConfig) error {
+	return nil
+}
+func extractClusterClusterConfigSecurityConfigFields(r *Cluster, o *ClusterClusterConfigSecurityConfig) error {
+	vKerberosConfig := o.KerberosConfig
+	if vKerberosConfig == nil {
+		// note: explicitly not the empty object.
+		vKerberosConfig = &ClusterClusterConfigSecurityConfigKerberosConfig{}
+	}
+	if err := extractClusterClusterConfigSecurityConfigKerberosConfigFields(r, vKerberosConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKerberosConfig) {
+		o.KerberosConfig = vKerberosConfig
+	}
+	return nil
+}
+func extractClusterClusterConfigSecurityConfigKerberosConfigFields(r *Cluster, o *ClusterClusterConfigSecurityConfigKerberosConfig) error {
+	return nil
+}
+func extractClusterClusterConfigLifecycleConfigFields(r *Cluster, o *ClusterClusterConfigLifecycleConfig) error {
+	return nil
+}
+func extractClusterClusterConfigEndpointConfigFields(r *Cluster, o *ClusterClusterConfigEndpointConfig) error {
+	return nil
+}
+func extractClusterStatusFields(r *Cluster, o *ClusterStatus) error {
+	return nil
+}
+func extractClusterStatusHistoryFields(r *Cluster, o *ClusterStatusHistory) error {
+	return nil
+}
+func extractClusterMetricsFields(r *Cluster, o *ClusterMetrics) error {
+	return nil
+}
+
+func postReadExtractClusterFields(r *Cluster) error {
+	// *ClusterClusterConfig is a reused type - that's not compatible with function extractors.
+
+	vStatus := r.Status
+	if vStatus == nil {
+		// note: explicitly not the empty object.
+		vStatus = &ClusterStatus{}
+	}
+	if err := postReadExtractClusterStatusFields(r, vStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatus) {
+		r.Status = vStatus
+	}
+	vMetrics := r.Metrics
+	if vMetrics == nil {
+		// note: explicitly not the empty object.
+		vMetrics = &ClusterMetrics{}
+	}
+	if err := postReadExtractClusterMetricsFields(r, vMetrics); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetrics) {
+		r.Metrics = vMetrics
+	}
+	return nil
+}
+func postReadExtractClusterClusterConfigFields(r *Cluster, o *ClusterClusterConfig) error {
+	vGceClusterConfig := o.GceClusterConfig
+	if vGceClusterConfig == nil {
+		// note: explicitly not the empty object.
+		vGceClusterConfig = &ClusterClusterConfigGceClusterConfig{}
+	}
+	if err := extractClusterClusterConfigGceClusterConfigFields(r, vGceClusterConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGceClusterConfig) {
+		o.GceClusterConfig = vGceClusterConfig
+	}
+	// *ClusterInstanceGroupConfig is a reused type - that's not compatible with function extractors.
+
+	// *ClusterInstanceGroupConfig is a reused type - that's not compatible with function extractors.
+
+	// *ClusterInstanceGroupConfig is a reused type - that's not compatible with function extractors.
+
+	vSoftwareConfig := o.SoftwareConfig
+	if vSoftwareConfig == nil {
+		// note: explicitly not the empty object.
+		vSoftwareConfig = &ClusterClusterConfigSoftwareConfig{}
+	}
+	if err := extractClusterClusterConfigSoftwareConfigFields(r, vSoftwareConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSoftwareConfig) {
+		o.SoftwareConfig = vSoftwareConfig
+	}
+	vEncryptionConfig := o.EncryptionConfig
+	if vEncryptionConfig == nil {
+		// note: explicitly not the empty object.
+		vEncryptionConfig = &ClusterClusterConfigEncryptionConfig{}
+	}
+	if err := extractClusterClusterConfigEncryptionConfigFields(r, vEncryptionConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEncryptionConfig) {
+		o.EncryptionConfig = vEncryptionConfig
+	}
+	vAutoscalingConfig := o.AutoscalingConfig
+	if vAutoscalingConfig == nil {
+		// note: explicitly not the empty object.
+		vAutoscalingConfig = &ClusterClusterConfigAutoscalingConfig{}
+	}
+	if err := extractClusterClusterConfigAutoscalingConfigFields(r, vAutoscalingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAutoscalingConfig) {
+		o.AutoscalingConfig = vAutoscalingConfig
+	}
+	vSecurityConfig := o.SecurityConfig
+	if vSecurityConfig == nil {
+		// note: explicitly not the empty object.
+		vSecurityConfig = &ClusterClusterConfigSecurityConfig{}
+	}
+	if err := extractClusterClusterConfigSecurityConfigFields(r, vSecurityConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecurityConfig) {
+		o.SecurityConfig = vSecurityConfig
+	}
+	vLifecycleConfig := o.LifecycleConfig
+	if vLifecycleConfig == nil {
+		// note: explicitly not the empty object.
+		vLifecycleConfig = &ClusterClusterConfigLifecycleConfig{}
+	}
+	if err := extractClusterClusterConfigLifecycleConfigFields(r, vLifecycleConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLifecycleConfig) {
+		o.LifecycleConfig = vLifecycleConfig
+	}
+	vEndpointConfig := o.EndpointConfig
+	if vEndpointConfig == nil {
+		// note: explicitly not the empty object.
+		vEndpointConfig = &ClusterClusterConfigEndpointConfig{}
+	}
+	if err := extractClusterClusterConfigEndpointConfigFields(r, vEndpointConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpointConfig) {
+		o.EndpointConfig = vEndpointConfig
+	}
+	return nil
+}
+func postReadExtractClusterClusterConfigGceClusterConfigFields(r *Cluster, o *ClusterClusterConfigGceClusterConfig) error {
+	vReservationAffinity := o.ReservationAffinity
+	if vReservationAffinity == nil {
+		// note: explicitly not the empty object.
+		vReservationAffinity = &ClusterClusterConfigGceClusterConfigReservationAffinity{}
+	}
+	if err := extractClusterClusterConfigGceClusterConfigReservationAffinityFields(r, vReservationAffinity); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vReservationAffinity) {
+		o.ReservationAffinity = vReservationAffinity
+	}
+	vNodeGroupAffinity := o.NodeGroupAffinity
+	if vNodeGroupAffinity == nil {
+		// note: explicitly not the empty object.
+		vNodeGroupAffinity = &ClusterClusterConfigGceClusterConfigNodeGroupAffinity{}
+	}
+	if err := extractClusterClusterConfigGceClusterConfigNodeGroupAffinityFields(r, vNodeGroupAffinity); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNodeGroupAffinity) {
+		o.NodeGroupAffinity = vNodeGroupAffinity
+	}
+	return nil
+}
+func postReadExtractClusterClusterConfigGceClusterConfigReservationAffinityFields(r *Cluster, o *ClusterClusterConfigGceClusterConfigReservationAffinity) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigGceClusterConfigNodeGroupAffinityFields(r *Cluster, o *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) error {
+	return nil
+}
+func postReadExtractClusterInstanceGroupConfigFields(r *Cluster, o *ClusterInstanceGroupConfig) error {
+	vDiskConfig := o.DiskConfig
+	if vDiskConfig == nil {
+		// note: explicitly not the empty object.
+		vDiskConfig = &ClusterInstanceGroupConfigDiskConfig{}
+	}
+	if err := extractClusterInstanceGroupConfigDiskConfigFields(r, vDiskConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDiskConfig) {
+		o.DiskConfig = vDiskConfig
+	}
+	vManagedGroupConfig := o.ManagedGroupConfig
+	if vManagedGroupConfig == nil {
+		// note: explicitly not the empty object.
+		vManagedGroupConfig = &ClusterInstanceGroupConfigManagedGroupConfig{}
+	}
+	if err := extractClusterInstanceGroupConfigManagedGroupConfigFields(r, vManagedGroupConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vManagedGroupConfig) {
+		o.ManagedGroupConfig = vManagedGroupConfig
+	}
+	return nil
+}
+func postReadExtractClusterInstanceGroupConfigDiskConfigFields(r *Cluster, o *ClusterInstanceGroupConfigDiskConfig) error {
+	return nil
+}
+func postReadExtractClusterInstanceGroupConfigManagedGroupConfigFields(r *Cluster, o *ClusterInstanceGroupConfigManagedGroupConfig) error {
+	return nil
+}
+func postReadExtractClusterInstanceGroupConfigAcceleratorsFields(r *Cluster, o *ClusterInstanceGroupConfigAccelerators) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigSoftwareConfigFields(r *Cluster, o *ClusterClusterConfigSoftwareConfig) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigInitializationActionsFields(r *Cluster, o *ClusterClusterConfigInitializationActions) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigEncryptionConfigFields(r *Cluster, o *ClusterClusterConfigEncryptionConfig) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigAutoscalingConfigFields(r *Cluster, o *ClusterClusterConfigAutoscalingConfig) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigSecurityConfigFields(r *Cluster, o *ClusterClusterConfigSecurityConfig) error {
+	vKerberosConfig := o.KerberosConfig
+	if vKerberosConfig == nil {
+		// note: explicitly not the empty object.
+		vKerberosConfig = &ClusterClusterConfigSecurityConfigKerberosConfig{}
+	}
+	if err := extractClusterClusterConfigSecurityConfigKerberosConfigFields(r, vKerberosConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKerberosConfig) {
+		o.KerberosConfig = vKerberosConfig
+	}
+	return nil
+}
+func postReadExtractClusterClusterConfigSecurityConfigKerberosConfigFields(r *Cluster, o *ClusterClusterConfigSecurityConfigKerberosConfig) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigLifecycleConfigFields(r *Cluster, o *ClusterClusterConfigLifecycleConfig) error {
+	return nil
+}
+func postReadExtractClusterClusterConfigEndpointConfigFields(r *Cluster, o *ClusterClusterConfigEndpointConfig) error {
+	return nil
+}
+func postReadExtractClusterStatusFields(r *Cluster, o *ClusterStatus) error {
+	return nil
+}
+func postReadExtractClusterStatusHistoryFields(r *Cluster, o *ClusterStatusHistory) error {
+	return nil
+}
+func postReadExtractClusterMetricsFields(r *Cluster, o *ClusterMetrics) error {
 	return nil
 }

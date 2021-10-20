@@ -21,6 +21,10 @@ dependencies:
 - samples/basic.certificate_authority.json
 - samples/basic.certificate_template.json
 variables:
+- name: project
+  type: project
+- name: ca_name
+  type: resource_name
 - name: region
   type: region
 - name: template
@@ -29,13 +33,5 @@ variables:
   type: project
 - name: project
   type: project
-- name: ca_name
-  type: resource_name
-- name: region
-  type: region
-- name: region
-  type: region
 - name: cert
   type: resource_name
-- name: project
-  type: project

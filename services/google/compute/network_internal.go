@@ -614,6 +614,9 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1074,5 +1077,37 @@ func convertOpNameToNetworkApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractNetworkFields(r *Network) error {
+	vRoutingConfig := r.RoutingConfig
+	if vRoutingConfig == nil {
+		// note: explicitly not the empty object.
+		vRoutingConfig = &NetworkRoutingConfig{}
+	}
+	if err := extractNetworkRoutingConfigFields(r, vRoutingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRoutingConfig) {
+		r.RoutingConfig = vRoutingConfig
+	}
+	return nil
+}
+func extractNetworkRoutingConfigFields(r *Network, o *NetworkRoutingConfig) error {
+	return nil
+}
+
+func postReadExtractNetworkFields(r *Network) error {
+	vRoutingConfig := r.RoutingConfig
+	if vRoutingConfig == nil {
+		// note: explicitly not the empty object.
+		vRoutingConfig = &NetworkRoutingConfig{}
+	}
+	if err := postReadExtractNetworkRoutingConfigFields(r, vRoutingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRoutingConfig) {
+		r.RoutingConfig = vRoutingConfig
+	}
+	return nil
+}
+func postReadExtractNetworkRoutingConfigFields(r *Network, o *NetworkRoutingConfig) error {
 	return nil
 }

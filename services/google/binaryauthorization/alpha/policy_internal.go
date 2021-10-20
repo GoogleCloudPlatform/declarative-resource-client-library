@@ -704,6 +704,9 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1446,5 +1449,25 @@ func convertOpNameToPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 }
 
 func extractPolicyFields(r *Policy) error {
+	// *PolicyAdmissionRule is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractPolicyAdmissionWhitelistPatternsFields(r *Policy, o *PolicyAdmissionWhitelistPatterns) error {
+	return nil
+}
+func extractPolicyAdmissionRuleFields(r *Policy, o *PolicyAdmissionRule) error {
+	return nil
+}
+
+func postReadExtractPolicyFields(r *Policy) error {
+	// *PolicyAdmissionRule is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractPolicyAdmissionWhitelistPatternsFields(r *Policy, o *PolicyAdmissionWhitelistPatterns) error {
+	return nil
+}
+func postReadExtractPolicyAdmissionRuleFields(r *Policy, o *PolicyAdmissionRule) error {
 	return nil
 }

@@ -749,6 +749,9 @@ func diffSpoke(c *Client, desired, actual *Spoke, opts ...dcl.ApplyOption) ([]*d
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1268,5 +1271,15 @@ func convertOpNameToSpokeApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 }
 
 func extractSpokeFields(r *Spoke) error {
+	return nil
+}
+func extractSpokeLinkedRouterApplianceInstancesFields(r *Spoke, o *SpokeLinkedRouterApplianceInstances) error {
+	return nil
+}
+
+func postReadExtractSpokeFields(r *Spoke) error {
+	return nil
+}
+func postReadExtractSpokeLinkedRouterApplianceInstancesFields(r *Spoke, o *SpokeLinkedRouterApplianceInstances) error {
 	return nil
 }

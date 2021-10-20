@@ -1005,6 +1005,9 @@ func diffServiceAttachment(c *Client, desired, actual *ServiceAttachment, opts .
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1921,5 +1924,49 @@ func convertOpNameToServiceAttachmentApiOperation(opName string, fieldDiffs []*d
 }
 
 func extractServiceAttachmentFields(r *ServiceAttachment) error {
+	vPscServiceAttachmentId := r.PscServiceAttachmentId
+	if vPscServiceAttachmentId == nil {
+		// note: explicitly not the empty object.
+		vPscServiceAttachmentId = &ServiceAttachmentPscServiceAttachmentId{}
+	}
+	if err := extractServiceAttachmentPscServiceAttachmentIdFields(r, vPscServiceAttachmentId); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPscServiceAttachmentId) {
+		r.PscServiceAttachmentId = vPscServiceAttachmentId
+	}
+	return nil
+}
+func extractServiceAttachmentConnectedEndpointsFields(r *ServiceAttachment, o *ServiceAttachmentConnectedEndpoints) error {
+	return nil
+}
+func extractServiceAttachmentConsumerAcceptListsFields(r *ServiceAttachment, o *ServiceAttachmentConsumerAcceptLists) error {
+	return nil
+}
+func extractServiceAttachmentPscServiceAttachmentIdFields(r *ServiceAttachment, o *ServiceAttachmentPscServiceAttachmentId) error {
+	return nil
+}
+
+func postReadExtractServiceAttachmentFields(r *ServiceAttachment) error {
+	vPscServiceAttachmentId := r.PscServiceAttachmentId
+	if vPscServiceAttachmentId == nil {
+		// note: explicitly not the empty object.
+		vPscServiceAttachmentId = &ServiceAttachmentPscServiceAttachmentId{}
+	}
+	if err := postReadExtractServiceAttachmentPscServiceAttachmentIdFields(r, vPscServiceAttachmentId); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPscServiceAttachmentId) {
+		r.PscServiceAttachmentId = vPscServiceAttachmentId
+	}
+	return nil
+}
+func postReadExtractServiceAttachmentConnectedEndpointsFields(r *ServiceAttachment, o *ServiceAttachmentConnectedEndpoints) error {
+	return nil
+}
+func postReadExtractServiceAttachmentConsumerAcceptListsFields(r *ServiceAttachment, o *ServiceAttachmentConsumerAcceptLists) error {
+	return nil
+}
+func postReadExtractServiceAttachmentPscServiceAttachmentIdFields(r *ServiceAttachment, o *ServiceAttachmentPscServiceAttachmentId) error {
 	return nil
 }

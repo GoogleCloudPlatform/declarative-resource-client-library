@@ -47,10 +47,10 @@ variables:
   type: org_id
 - name: id1
   type: resource_name
-- name: billing_account
-  type: billing_account
 - name: test_service_account
   type: test_service_account
+- name: billing_account
+  type: billing_account
 - name: policy
   type: resource_name
 - name: association

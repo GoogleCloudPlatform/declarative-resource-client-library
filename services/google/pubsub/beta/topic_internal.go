@@ -618,6 +618,9 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]*d
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -989,5 +992,37 @@ func convertOpNameToTopicApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 }
 
 func extractTopicFields(r *Topic) error {
+	vMessageStoragePolicy := r.MessageStoragePolicy
+	if vMessageStoragePolicy == nil {
+		// note: explicitly not the empty object.
+		vMessageStoragePolicy = &TopicMessageStoragePolicy{}
+	}
+	if err := extractTopicMessageStoragePolicyFields(r, vMessageStoragePolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMessageStoragePolicy) {
+		r.MessageStoragePolicy = vMessageStoragePolicy
+	}
+	return nil
+}
+func extractTopicMessageStoragePolicyFields(r *Topic, o *TopicMessageStoragePolicy) error {
+	return nil
+}
+
+func postReadExtractTopicFields(r *Topic) error {
+	vMessageStoragePolicy := r.MessageStoragePolicy
+	if vMessageStoragePolicy == nil {
+		// note: explicitly not the empty object.
+		vMessageStoragePolicy = &TopicMessageStoragePolicy{}
+	}
+	if err := postReadExtractTopicMessageStoragePolicyFields(r, vMessageStoragePolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMessageStoragePolicy) {
+		r.MessageStoragePolicy = vMessageStoragePolicy
+	}
+	return nil
+}
+func postReadExtractTopicMessageStoragePolicyFields(r *Topic, o *TopicMessageStoragePolicy) error {
 	return nil
 }

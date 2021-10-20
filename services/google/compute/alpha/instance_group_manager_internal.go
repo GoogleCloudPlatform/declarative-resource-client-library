@@ -2736,6 +2736,9 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -6040,5 +6043,309 @@ func convertOpNameToInstanceGroupManagerApiOperation(opName string, fieldDiffs [
 }
 
 func extractInstanceGroupManagerFields(r *InstanceGroupManager) error {
+	vDistributionPolicy := r.DistributionPolicy
+	if vDistributionPolicy == nil {
+		// note: explicitly not the empty object.
+		vDistributionPolicy = &InstanceGroupManagerDistributionPolicy{}
+	}
+	if err := extractInstanceGroupManagerDistributionPolicyFields(r, vDistributionPolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDistributionPolicy) {
+		r.DistributionPolicy = vDistributionPolicy
+	}
+	vCurrentActions := r.CurrentActions
+	if vCurrentActions == nil {
+		// note: explicitly not the empty object.
+		vCurrentActions = &InstanceGroupManagerCurrentActions{}
+	}
+	if err := extractInstanceGroupManagerCurrentActionsFields(r, vCurrentActions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCurrentActions) {
+		r.CurrentActions = vCurrentActions
+	}
+	vStatus := r.Status
+	if vStatus == nil {
+		// note: explicitly not the empty object.
+		vStatus = &InstanceGroupManagerStatus{}
+	}
+	if err := extractInstanceGroupManagerStatusFields(r, vStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatus) {
+		r.Status = vStatus
+	}
+	vUpdatePolicy := r.UpdatePolicy
+	if vUpdatePolicy == nil {
+		// note: explicitly not the empty object.
+		vUpdatePolicy = &InstanceGroupManagerUpdatePolicy{}
+	}
+	if err := extractInstanceGroupManagerUpdatePolicyFields(r, vUpdatePolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vUpdatePolicy) {
+		r.UpdatePolicy = vUpdatePolicy
+	}
+	vStatefulPolicy := r.StatefulPolicy
+	if vStatefulPolicy == nil {
+		// note: explicitly not the empty object.
+		vStatefulPolicy = &InstanceGroupManagerStatefulPolicy{}
+	}
+	if err := extractInstanceGroupManagerStatefulPolicyFields(r, vStatefulPolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatefulPolicy) {
+		r.StatefulPolicy = vStatefulPolicy
+	}
+	return nil
+}
+func extractInstanceGroupManagerDistributionPolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerDistributionPolicy) error {
+	return nil
+}
+func extractInstanceGroupManagerDistributionPolicyZonesFields(r *InstanceGroupManager, o *InstanceGroupManagerDistributionPolicyZones) error {
+	return nil
+}
+func extractInstanceGroupManagerVersionsFields(r *InstanceGroupManager, o *InstanceGroupManagerVersions) error {
+	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractInstanceGroupManagerFixedOrPercentFields(r *InstanceGroupManager, o *InstanceGroupManagerFixedOrPercent) error {
+	return nil
+}
+func extractInstanceGroupManagerCurrentActionsFields(r *InstanceGroupManager, o *InstanceGroupManagerCurrentActions) error {
+	return nil
+}
+func extractInstanceGroupManagerStatusFields(r *InstanceGroupManager, o *InstanceGroupManagerStatus) error {
+	vVersionTarget := o.VersionTarget
+	if vVersionTarget == nil {
+		// note: explicitly not the empty object.
+		vVersionTarget = &InstanceGroupManagerStatusVersionTarget{}
+	}
+	if err := extractInstanceGroupManagerStatusVersionTargetFields(r, vVersionTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVersionTarget) {
+		o.VersionTarget = vVersionTarget
+	}
+	vStateful := o.Stateful
+	if vStateful == nil {
+		// note: explicitly not the empty object.
+		vStateful = &InstanceGroupManagerStatusStateful{}
+	}
+	if err := extractInstanceGroupManagerStatusStatefulFields(r, vStateful); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStateful) {
+		o.Stateful = vStateful
+	}
+	return nil
+}
+func extractInstanceGroupManagerStatusVersionTargetFields(r *InstanceGroupManager, o *InstanceGroupManagerStatusVersionTarget) error {
+	return nil
+}
+func extractInstanceGroupManagerStatusStatefulFields(r *InstanceGroupManager, o *InstanceGroupManagerStatusStateful) error {
+	vPerInstanceConfigs := o.PerInstanceConfigs
+	if vPerInstanceConfigs == nil {
+		// note: explicitly not the empty object.
+		vPerInstanceConfigs = &InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+	}
+	if err := extractInstanceGroupManagerStatusStatefulPerInstanceConfigsFields(r, vPerInstanceConfigs); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPerInstanceConfigs) {
+		o.PerInstanceConfigs = vPerInstanceConfigs
+	}
+	return nil
+}
+func extractInstanceGroupManagerStatusStatefulPerInstanceConfigsFields(r *InstanceGroupManager, o *InstanceGroupManagerStatusStatefulPerInstanceConfigs) error {
+	return nil
+}
+func extractInstanceGroupManagerAutoHealingPoliciesFields(r *InstanceGroupManager, o *InstanceGroupManagerAutoHealingPolicies) error {
+	return nil
+}
+func extractInstanceGroupManagerUpdatePolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicy) error {
+	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
+
+	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractInstanceGroupManagerNamedPortsFields(r *InstanceGroupManager, o *InstanceGroupManagerNamedPorts) error {
+	return nil
+}
+func extractInstanceGroupManagerStatefulPolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicy) error {
+	vPreservedState := o.PreservedState
+	if vPreservedState == nil {
+		// note: explicitly not the empty object.
+		vPreservedState = &InstanceGroupManagerStatefulPolicyPreservedState{}
+	}
+	if err := extractInstanceGroupManagerStatefulPolicyPreservedStateFields(r, vPreservedState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPreservedState) {
+		o.PreservedState = vPreservedState
+	}
+	return nil
+}
+func extractInstanceGroupManagerStatefulPolicyPreservedStateFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedState) error {
+	return nil
+}
+func extractInstanceGroupManagerStatefulPolicyPreservedStateDisksFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateDisks) error {
+	return nil
+}
+
+func postReadExtractInstanceGroupManagerFields(r *InstanceGroupManager) error {
+	vDistributionPolicy := r.DistributionPolicy
+	if vDistributionPolicy == nil {
+		// note: explicitly not the empty object.
+		vDistributionPolicy = &InstanceGroupManagerDistributionPolicy{}
+	}
+	if err := postReadExtractInstanceGroupManagerDistributionPolicyFields(r, vDistributionPolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDistributionPolicy) {
+		r.DistributionPolicy = vDistributionPolicy
+	}
+	vCurrentActions := r.CurrentActions
+	if vCurrentActions == nil {
+		// note: explicitly not the empty object.
+		vCurrentActions = &InstanceGroupManagerCurrentActions{}
+	}
+	if err := postReadExtractInstanceGroupManagerCurrentActionsFields(r, vCurrentActions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCurrentActions) {
+		r.CurrentActions = vCurrentActions
+	}
+	vStatus := r.Status
+	if vStatus == nil {
+		// note: explicitly not the empty object.
+		vStatus = &InstanceGroupManagerStatus{}
+	}
+	if err := postReadExtractInstanceGroupManagerStatusFields(r, vStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatus) {
+		r.Status = vStatus
+	}
+	vUpdatePolicy := r.UpdatePolicy
+	if vUpdatePolicy == nil {
+		// note: explicitly not the empty object.
+		vUpdatePolicy = &InstanceGroupManagerUpdatePolicy{}
+	}
+	if err := postReadExtractInstanceGroupManagerUpdatePolicyFields(r, vUpdatePolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vUpdatePolicy) {
+		r.UpdatePolicy = vUpdatePolicy
+	}
+	vStatefulPolicy := r.StatefulPolicy
+	if vStatefulPolicy == nil {
+		// note: explicitly not the empty object.
+		vStatefulPolicy = &InstanceGroupManagerStatefulPolicy{}
+	}
+	if err := postReadExtractInstanceGroupManagerStatefulPolicyFields(r, vStatefulPolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatefulPolicy) {
+		r.StatefulPolicy = vStatefulPolicy
+	}
+	return nil
+}
+func postReadExtractInstanceGroupManagerDistributionPolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerDistributionPolicy) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerDistributionPolicyZonesFields(r *InstanceGroupManager, o *InstanceGroupManagerDistributionPolicyZones) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerVersionsFields(r *InstanceGroupManager, o *InstanceGroupManagerVersions) error {
+	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractInstanceGroupManagerFixedOrPercentFields(r *InstanceGroupManager, o *InstanceGroupManagerFixedOrPercent) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerCurrentActionsFields(r *InstanceGroupManager, o *InstanceGroupManagerCurrentActions) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatusFields(r *InstanceGroupManager, o *InstanceGroupManagerStatus) error {
+	vVersionTarget := o.VersionTarget
+	if vVersionTarget == nil {
+		// note: explicitly not the empty object.
+		vVersionTarget = &InstanceGroupManagerStatusVersionTarget{}
+	}
+	if err := extractInstanceGroupManagerStatusVersionTargetFields(r, vVersionTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVersionTarget) {
+		o.VersionTarget = vVersionTarget
+	}
+	vStateful := o.Stateful
+	if vStateful == nil {
+		// note: explicitly not the empty object.
+		vStateful = &InstanceGroupManagerStatusStateful{}
+	}
+	if err := extractInstanceGroupManagerStatusStatefulFields(r, vStateful); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStateful) {
+		o.Stateful = vStateful
+	}
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatusVersionTargetFields(r *InstanceGroupManager, o *InstanceGroupManagerStatusVersionTarget) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatusStatefulFields(r *InstanceGroupManager, o *InstanceGroupManagerStatusStateful) error {
+	vPerInstanceConfigs := o.PerInstanceConfigs
+	if vPerInstanceConfigs == nil {
+		// note: explicitly not the empty object.
+		vPerInstanceConfigs = &InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+	}
+	if err := extractInstanceGroupManagerStatusStatefulPerInstanceConfigsFields(r, vPerInstanceConfigs); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPerInstanceConfigs) {
+		o.PerInstanceConfigs = vPerInstanceConfigs
+	}
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatusStatefulPerInstanceConfigsFields(r *InstanceGroupManager, o *InstanceGroupManagerStatusStatefulPerInstanceConfigs) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerAutoHealingPoliciesFields(r *InstanceGroupManager, o *InstanceGroupManagerAutoHealingPolicies) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerUpdatePolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicy) error {
+	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
+
+	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractInstanceGroupManagerNamedPortsFields(r *InstanceGroupManager, o *InstanceGroupManagerNamedPorts) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatefulPolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicy) error {
+	vPreservedState := o.PreservedState
+	if vPreservedState == nil {
+		// note: explicitly not the empty object.
+		vPreservedState = &InstanceGroupManagerStatefulPolicyPreservedState{}
+	}
+	if err := extractInstanceGroupManagerStatefulPolicyPreservedStateFields(r, vPreservedState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPreservedState) {
+		o.PreservedState = vPreservedState
+	}
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatefulPolicyPreservedStateFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedState) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatefulPolicyPreservedStateDisksFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateDisks) error {
 	return nil
 }

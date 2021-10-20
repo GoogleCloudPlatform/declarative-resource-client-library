@@ -1145,6 +1145,9 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2464,5 +2467,177 @@ func convertOpNameToFeatureMembershipApiOperation(opName string, fieldDiffs []*d
 }
 
 func extractFeatureMembershipFields(r *FeatureMembership) error {
+	vConfigmanagement := r.Configmanagement
+	if vConfigmanagement == nil {
+		// note: explicitly not the empty object.
+		vConfigmanagement = &FeatureMembershipConfigmanagement{}
+	}
+	if err := extractFeatureMembershipConfigmanagementFields(r, vConfigmanagement); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigmanagement) {
+		r.Configmanagement = vConfigmanagement
+	}
+	return nil
+}
+func extractFeatureMembershipConfigmanagementFields(r *FeatureMembership, o *FeatureMembershipConfigmanagement) error {
+	vConfigSync := o.ConfigSync
+	if vConfigSync == nil {
+		// note: explicitly not the empty object.
+		vConfigSync = &FeatureMembershipConfigmanagementConfigSync{}
+	}
+	if err := extractFeatureMembershipConfigmanagementConfigSyncFields(r, vConfigSync); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigSync) {
+		o.ConfigSync = vConfigSync
+	}
+	vPolicyController := o.PolicyController
+	if vPolicyController == nil {
+		// note: explicitly not the empty object.
+		vPolicyController = &FeatureMembershipConfigmanagementPolicyController{}
+	}
+	if err := extractFeatureMembershipConfigmanagementPolicyControllerFields(r, vPolicyController); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPolicyController) {
+		o.PolicyController = vPolicyController
+	}
+	vBinauthz := o.Binauthz
+	if vBinauthz == nil {
+		// note: explicitly not the empty object.
+		vBinauthz = &FeatureMembershipConfigmanagementBinauthz{}
+	}
+	if err := extractFeatureMembershipConfigmanagementBinauthzFields(r, vBinauthz); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBinauthz) {
+		o.Binauthz = vBinauthz
+	}
+	vHierarchyController := o.HierarchyController
+	if vHierarchyController == nil {
+		// note: explicitly not the empty object.
+		vHierarchyController = &FeatureMembershipConfigmanagementHierarchyController{}
+	}
+	if err := extractFeatureMembershipConfigmanagementHierarchyControllerFields(r, vHierarchyController); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHierarchyController) {
+		o.HierarchyController = vHierarchyController
+	}
+	return nil
+}
+func extractFeatureMembershipConfigmanagementConfigSyncFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSync) error {
+	vGit := o.Git
+	if vGit == nil {
+		// note: explicitly not the empty object.
+		vGit = &FeatureMembershipConfigmanagementConfigSyncGit{}
+	}
+	if err := extractFeatureMembershipConfigmanagementConfigSyncGitFields(r, vGit); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGit) {
+		o.Git = vGit
+	}
+	return nil
+}
+func extractFeatureMembershipConfigmanagementConfigSyncGitFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncGit) error {
+	return nil
+}
+func extractFeatureMembershipConfigmanagementPolicyControllerFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementPolicyController) error {
+	return nil
+}
+func extractFeatureMembershipConfigmanagementBinauthzFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementBinauthz) error {
+	return nil
+}
+func extractFeatureMembershipConfigmanagementHierarchyControllerFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementHierarchyController) error {
+	return nil
+}
+
+func postReadExtractFeatureMembershipFields(r *FeatureMembership) error {
+	vConfigmanagement := r.Configmanagement
+	if vConfigmanagement == nil {
+		// note: explicitly not the empty object.
+		vConfigmanagement = &FeatureMembershipConfigmanagement{}
+	}
+	if err := postReadExtractFeatureMembershipConfigmanagementFields(r, vConfigmanagement); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigmanagement) {
+		r.Configmanagement = vConfigmanagement
+	}
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementFields(r *FeatureMembership, o *FeatureMembershipConfigmanagement) error {
+	vConfigSync := o.ConfigSync
+	if vConfigSync == nil {
+		// note: explicitly not the empty object.
+		vConfigSync = &FeatureMembershipConfigmanagementConfigSync{}
+	}
+	if err := extractFeatureMembershipConfigmanagementConfigSyncFields(r, vConfigSync); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigSync) {
+		o.ConfigSync = vConfigSync
+	}
+	vPolicyController := o.PolicyController
+	if vPolicyController == nil {
+		// note: explicitly not the empty object.
+		vPolicyController = &FeatureMembershipConfigmanagementPolicyController{}
+	}
+	if err := extractFeatureMembershipConfigmanagementPolicyControllerFields(r, vPolicyController); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPolicyController) {
+		o.PolicyController = vPolicyController
+	}
+	vBinauthz := o.Binauthz
+	if vBinauthz == nil {
+		// note: explicitly not the empty object.
+		vBinauthz = &FeatureMembershipConfigmanagementBinauthz{}
+	}
+	if err := extractFeatureMembershipConfigmanagementBinauthzFields(r, vBinauthz); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBinauthz) {
+		o.Binauthz = vBinauthz
+	}
+	vHierarchyController := o.HierarchyController
+	if vHierarchyController == nil {
+		// note: explicitly not the empty object.
+		vHierarchyController = &FeatureMembershipConfigmanagementHierarchyController{}
+	}
+	if err := extractFeatureMembershipConfigmanagementHierarchyControllerFields(r, vHierarchyController); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHierarchyController) {
+		o.HierarchyController = vHierarchyController
+	}
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementConfigSyncFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSync) error {
+	vGit := o.Git
+	if vGit == nil {
+		// note: explicitly not the empty object.
+		vGit = &FeatureMembershipConfigmanagementConfigSyncGit{}
+	}
+	if err := extractFeatureMembershipConfigmanagementConfigSyncGitFields(r, vGit); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGit) {
+		o.Git = vGit
+	}
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementConfigSyncGitFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncGit) error {
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementPolicyControllerFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementPolicyController) error {
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementBinauthzFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementBinauthz) error {
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementHierarchyControllerFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementHierarchyController) error {
 	return nil
 }

@@ -783,6 +783,9 @@ func diffCapacityCommitment(c *Client, desired, actual *CapacityCommitment, opts
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1537,5 +1540,43 @@ func convertOpNameToCapacityCommitmentApiOperation(opName string, fieldDiffs []*
 }
 
 func extractCapacityCommitmentFields(r *CapacityCommitment) error {
+	vFailureStatus := r.FailureStatus
+	if vFailureStatus == nil {
+		// note: explicitly not the empty object.
+		vFailureStatus = &CapacityCommitmentFailureStatus{}
+	}
+	if err := extractCapacityCommitmentFailureStatusFields(r, vFailureStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFailureStatus) {
+		r.FailureStatus = vFailureStatus
+	}
+	return nil
+}
+func extractCapacityCommitmentFailureStatusFields(r *CapacityCommitment, o *CapacityCommitmentFailureStatus) error {
+	return nil
+}
+func extractCapacityCommitmentFailureStatusDetailsFields(r *CapacityCommitment, o *CapacityCommitmentFailureStatusDetails) error {
+	return nil
+}
+
+func postReadExtractCapacityCommitmentFields(r *CapacityCommitment) error {
+	vFailureStatus := r.FailureStatus
+	if vFailureStatus == nil {
+		// note: explicitly not the empty object.
+		vFailureStatus = &CapacityCommitmentFailureStatus{}
+	}
+	if err := postReadExtractCapacityCommitmentFailureStatusFields(r, vFailureStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFailureStatus) {
+		r.FailureStatus = vFailureStatus
+	}
+	return nil
+}
+func postReadExtractCapacityCommitmentFailureStatusFields(r *CapacityCommitment, o *CapacityCommitmentFailureStatus) error {
+	return nil
+}
+func postReadExtractCapacityCommitmentFailureStatusDetailsFields(r *CapacityCommitment, o *CapacityCommitmentFailureStatusDetails) error {
 	return nil
 }

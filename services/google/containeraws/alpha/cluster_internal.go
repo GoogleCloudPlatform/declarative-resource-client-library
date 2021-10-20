@@ -2151,6 +2151,9 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -4511,5 +4514,295 @@ func convertOpNameToClusterApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractClusterFields(r *Cluster) error {
+	vNetworking := r.Networking
+	if vNetworking == nil {
+		// note: explicitly not the empty object.
+		vNetworking = &ClusterNetworking{}
+	}
+	if err := extractClusterNetworkingFields(r, vNetworking); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworking) {
+		r.Networking = vNetworking
+	}
+	vControlPlane := r.ControlPlane
+	if vControlPlane == nil {
+		// note: explicitly not the empty object.
+		vControlPlane = &ClusterControlPlane{}
+	}
+	if err := extractClusterControlPlaneFields(r, vControlPlane); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vControlPlane) {
+		r.ControlPlane = vControlPlane
+	}
+	vAuthorization := r.Authorization
+	if vAuthorization == nil {
+		// note: explicitly not the empty object.
+		vAuthorization = &ClusterAuthorization{}
+	}
+	if err := extractClusterAuthorizationFields(r, vAuthorization); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAuthorization) {
+		r.Authorization = vAuthorization
+	}
+	vWorkloadIdentityConfig := r.WorkloadIdentityConfig
+	if vWorkloadIdentityConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkloadIdentityConfig = &ClusterWorkloadIdentityConfig{}
+	}
+	if err := extractClusterWorkloadIdentityConfigFields(r, vWorkloadIdentityConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkloadIdentityConfig) {
+		r.WorkloadIdentityConfig = vWorkloadIdentityConfig
+	}
+	return nil
+}
+func extractClusterNetworkingFields(r *Cluster, o *ClusterNetworking) error {
+	return nil
+}
+func extractClusterControlPlaneFields(r *Cluster, o *ClusterControlPlane) error {
+	vSshConfig := o.SshConfig
+	if vSshConfig == nil {
+		// note: explicitly not the empty object.
+		vSshConfig = &ClusterControlPlaneSshConfig{}
+	}
+	if err := extractClusterControlPlaneSshConfigFields(r, vSshConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSshConfig) {
+		o.SshConfig = vSshConfig
+	}
+	vRootVolume := o.RootVolume
+	if vRootVolume == nil {
+		// note: explicitly not the empty object.
+		vRootVolume = &ClusterControlPlaneRootVolume{}
+	}
+	if err := extractClusterControlPlaneRootVolumeFields(r, vRootVolume); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRootVolume) {
+		o.RootVolume = vRootVolume
+	}
+	vMainVolume := o.MainVolume
+	if vMainVolume == nil {
+		// note: explicitly not the empty object.
+		vMainVolume = &ClusterControlPlaneMainVolume{}
+	}
+	if err := extractClusterControlPlaneMainVolumeFields(r, vMainVolume); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMainVolume) {
+		o.MainVolume = vMainVolume
+	}
+	vDatabaseEncryption := o.DatabaseEncryption
+	if vDatabaseEncryption == nil {
+		// note: explicitly not the empty object.
+		vDatabaseEncryption = &ClusterControlPlaneDatabaseEncryption{}
+	}
+	if err := extractClusterControlPlaneDatabaseEncryptionFields(r, vDatabaseEncryption); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDatabaseEncryption) {
+		o.DatabaseEncryption = vDatabaseEncryption
+	}
+	vAwsServicesAuthentication := o.AwsServicesAuthentication
+	if vAwsServicesAuthentication == nil {
+		// note: explicitly not the empty object.
+		vAwsServicesAuthentication = &ClusterControlPlaneAwsServicesAuthentication{}
+	}
+	if err := extractClusterControlPlaneAwsServicesAuthenticationFields(r, vAwsServicesAuthentication); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAwsServicesAuthentication) {
+		o.AwsServicesAuthentication = vAwsServicesAuthentication
+	}
+	vProxyConfig := o.ProxyConfig
+	if vProxyConfig == nil {
+		// note: explicitly not the empty object.
+		vProxyConfig = &ClusterControlPlaneProxyConfig{}
+	}
+	if err := extractClusterControlPlaneProxyConfigFields(r, vProxyConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vProxyConfig) {
+		o.ProxyConfig = vProxyConfig
+	}
+	return nil
+}
+func extractClusterControlPlaneSshConfigFields(r *Cluster, o *ClusterControlPlaneSshConfig) error {
+	return nil
+}
+func extractClusterControlPlaneRootVolumeFields(r *Cluster, o *ClusterControlPlaneRootVolume) error {
+	return nil
+}
+func extractClusterControlPlaneMainVolumeFields(r *Cluster, o *ClusterControlPlaneMainVolume) error {
+	return nil
+}
+func extractClusterControlPlaneDatabaseEncryptionFields(r *Cluster, o *ClusterControlPlaneDatabaseEncryption) error {
+	return nil
+}
+func extractClusterControlPlaneAwsServicesAuthenticationFields(r *Cluster, o *ClusterControlPlaneAwsServicesAuthentication) error {
+	return nil
+}
+func extractClusterControlPlaneProxyConfigFields(r *Cluster, o *ClusterControlPlaneProxyConfig) error {
+	return nil
+}
+func extractClusterAuthorizationFields(r *Cluster, o *ClusterAuthorization) error {
+	return nil
+}
+func extractClusterAuthorizationAdminUsersFields(r *Cluster, o *ClusterAuthorizationAdminUsers) error {
+	return nil
+}
+func extractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadIdentityConfig) error {
+	return nil
+}
+
+func postReadExtractClusterFields(r *Cluster) error {
+	vNetworking := r.Networking
+	if vNetworking == nil {
+		// note: explicitly not the empty object.
+		vNetworking = &ClusterNetworking{}
+	}
+	if err := postReadExtractClusterNetworkingFields(r, vNetworking); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworking) {
+		r.Networking = vNetworking
+	}
+	vControlPlane := r.ControlPlane
+	if vControlPlane == nil {
+		// note: explicitly not the empty object.
+		vControlPlane = &ClusterControlPlane{}
+	}
+	if err := postReadExtractClusterControlPlaneFields(r, vControlPlane); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vControlPlane) {
+		r.ControlPlane = vControlPlane
+	}
+	vAuthorization := r.Authorization
+	if vAuthorization == nil {
+		// note: explicitly not the empty object.
+		vAuthorization = &ClusterAuthorization{}
+	}
+	if err := postReadExtractClusterAuthorizationFields(r, vAuthorization); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAuthorization) {
+		r.Authorization = vAuthorization
+	}
+	vWorkloadIdentityConfig := r.WorkloadIdentityConfig
+	if vWorkloadIdentityConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkloadIdentityConfig = &ClusterWorkloadIdentityConfig{}
+	}
+	if err := postReadExtractClusterWorkloadIdentityConfigFields(r, vWorkloadIdentityConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkloadIdentityConfig) {
+		r.WorkloadIdentityConfig = vWorkloadIdentityConfig
+	}
+	return nil
+}
+func postReadExtractClusterNetworkingFields(r *Cluster, o *ClusterNetworking) error {
+	return nil
+}
+func postReadExtractClusterControlPlaneFields(r *Cluster, o *ClusterControlPlane) error {
+	vSshConfig := o.SshConfig
+	if vSshConfig == nil {
+		// note: explicitly not the empty object.
+		vSshConfig = &ClusterControlPlaneSshConfig{}
+	}
+	if err := extractClusterControlPlaneSshConfigFields(r, vSshConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSshConfig) {
+		o.SshConfig = vSshConfig
+	}
+	vRootVolume := o.RootVolume
+	if vRootVolume == nil {
+		// note: explicitly not the empty object.
+		vRootVolume = &ClusterControlPlaneRootVolume{}
+	}
+	if err := extractClusterControlPlaneRootVolumeFields(r, vRootVolume); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRootVolume) {
+		o.RootVolume = vRootVolume
+	}
+	vMainVolume := o.MainVolume
+	if vMainVolume == nil {
+		// note: explicitly not the empty object.
+		vMainVolume = &ClusterControlPlaneMainVolume{}
+	}
+	if err := extractClusterControlPlaneMainVolumeFields(r, vMainVolume); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMainVolume) {
+		o.MainVolume = vMainVolume
+	}
+	vDatabaseEncryption := o.DatabaseEncryption
+	if vDatabaseEncryption == nil {
+		// note: explicitly not the empty object.
+		vDatabaseEncryption = &ClusterControlPlaneDatabaseEncryption{}
+	}
+	if err := extractClusterControlPlaneDatabaseEncryptionFields(r, vDatabaseEncryption); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDatabaseEncryption) {
+		o.DatabaseEncryption = vDatabaseEncryption
+	}
+	vAwsServicesAuthentication := o.AwsServicesAuthentication
+	if vAwsServicesAuthentication == nil {
+		// note: explicitly not the empty object.
+		vAwsServicesAuthentication = &ClusterControlPlaneAwsServicesAuthentication{}
+	}
+	if err := extractClusterControlPlaneAwsServicesAuthenticationFields(r, vAwsServicesAuthentication); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAwsServicesAuthentication) {
+		o.AwsServicesAuthentication = vAwsServicesAuthentication
+	}
+	vProxyConfig := o.ProxyConfig
+	if vProxyConfig == nil {
+		// note: explicitly not the empty object.
+		vProxyConfig = &ClusterControlPlaneProxyConfig{}
+	}
+	if err := extractClusterControlPlaneProxyConfigFields(r, vProxyConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vProxyConfig) {
+		o.ProxyConfig = vProxyConfig
+	}
+	return nil
+}
+func postReadExtractClusterControlPlaneSshConfigFields(r *Cluster, o *ClusterControlPlaneSshConfig) error {
+	return nil
+}
+func postReadExtractClusterControlPlaneRootVolumeFields(r *Cluster, o *ClusterControlPlaneRootVolume) error {
+	return nil
+}
+func postReadExtractClusterControlPlaneMainVolumeFields(r *Cluster, o *ClusterControlPlaneMainVolume) error {
+	return nil
+}
+func postReadExtractClusterControlPlaneDatabaseEncryptionFields(r *Cluster, o *ClusterControlPlaneDatabaseEncryption) error {
+	return nil
+}
+func postReadExtractClusterControlPlaneAwsServicesAuthenticationFields(r *Cluster, o *ClusterControlPlaneAwsServicesAuthentication) error {
+	return nil
+}
+func postReadExtractClusterControlPlaneProxyConfigFields(r *Cluster, o *ClusterControlPlaneProxyConfig) error {
+	return nil
+}
+func postReadExtractClusterAuthorizationFields(r *Cluster, o *ClusterAuthorization) error {
+	return nil
+}
+func postReadExtractClusterAuthorizationAdminUsersFields(r *Cluster, o *ClusterAuthorizationAdminUsers) error {
+	return nil
+}
+func postReadExtractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadIdentityConfig) error {
 	return nil
 }

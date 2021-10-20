@@ -593,6 +593,9 @@ func (c *Client) GetUptimeCheckConfig(ctx context.Context, r *UptimeCheckConfig)
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractUptimeCheckConfigFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -760,7 +763,7 @@ func applyUptimeCheckConfigHelper(c *Client, ctx context.Context, rawDesired *Up
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeUptimeCheckConfigNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -768,12 +771,22 @@ func applyUptimeCheckConfigHelper(c *Client, ctx context.Context, rawDesired *Up
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeUptimeCheckConfigDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractUptimeCheckConfigFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractUptimeCheckConfigFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffUptimeCheckConfig(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

@@ -1646,6 +1646,9 @@ func diffServerTlsPolicy(c *Client, desired, actual *ServerTlsPolicy, opts ...dc
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -3148,5 +3151,211 @@ func convertOpNameToServerTlsPolicyApiOperation(opName string, fieldDiffs []*dcl
 }
 
 func extractServerTlsPolicyFields(r *ServerTlsPolicy) error {
+	vServerCertificate := r.ServerCertificate
+	if vServerCertificate == nil {
+		// note: explicitly not the empty object.
+		vServerCertificate = &ServerTlsPolicyServerCertificate{}
+	}
+	if err := extractServerTlsPolicyServerCertificateFields(r, vServerCertificate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vServerCertificate) {
+		r.ServerCertificate = vServerCertificate
+	}
+	vMtlsPolicy := r.MtlsPolicy
+	if vMtlsPolicy == nil {
+		// note: explicitly not the empty object.
+		vMtlsPolicy = &ServerTlsPolicyMtlsPolicy{}
+	}
+	if err := extractServerTlsPolicyMtlsPolicyFields(r, vMtlsPolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMtlsPolicy) {
+		r.MtlsPolicy = vMtlsPolicy
+	}
+	return nil
+}
+func extractServerTlsPolicyServerCertificateFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificate) error {
+	vLocalFilepath := o.LocalFilepath
+	if vLocalFilepath == nil {
+		// note: explicitly not the empty object.
+		vLocalFilepath = &ServerTlsPolicyServerCertificateLocalFilepath{}
+	}
+	if err := extractServerTlsPolicyServerCertificateLocalFilepathFields(r, vLocalFilepath); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLocalFilepath) {
+		o.LocalFilepath = vLocalFilepath
+	}
+	vGrpcEndpoint := o.GrpcEndpoint
+	if vGrpcEndpoint == nil {
+		// note: explicitly not the empty object.
+		vGrpcEndpoint = &ServerTlsPolicyServerCertificateGrpcEndpoint{}
+	}
+	if err := extractServerTlsPolicyServerCertificateGrpcEndpointFields(r, vGrpcEndpoint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGrpcEndpoint) {
+		o.GrpcEndpoint = vGrpcEndpoint
+	}
+	vCertificateProviderInstance := o.CertificateProviderInstance
+	if vCertificateProviderInstance == nil {
+		// note: explicitly not the empty object.
+		vCertificateProviderInstance = &ServerTlsPolicyServerCertificateCertificateProviderInstance{}
+	}
+	if err := extractServerTlsPolicyServerCertificateCertificateProviderInstanceFields(r, vCertificateProviderInstance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCertificateProviderInstance) {
+		o.CertificateProviderInstance = vCertificateProviderInstance
+	}
+	return nil
+}
+func extractServerTlsPolicyServerCertificateLocalFilepathFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificateLocalFilepath) error {
+	return nil
+}
+func extractServerTlsPolicyServerCertificateGrpcEndpointFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificateGrpcEndpoint) error {
+	return nil
+}
+func extractServerTlsPolicyServerCertificateCertificateProviderInstanceFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificateCertificateProviderInstance) error {
+	return nil
+}
+func extractServerTlsPolicyMtlsPolicyFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicy) error {
+	return nil
+}
+func extractServerTlsPolicyMtlsPolicyClientValidationCaFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicyClientValidationCa) error {
+	vGrpcEndpoint := o.GrpcEndpoint
+	if vGrpcEndpoint == nil {
+		// note: explicitly not the empty object.
+		vGrpcEndpoint = &ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint{}
+	}
+	if err := extractServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointFields(r, vGrpcEndpoint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGrpcEndpoint) {
+		o.GrpcEndpoint = vGrpcEndpoint
+	}
+	vCertificateProviderInstance := o.CertificateProviderInstance
+	if vCertificateProviderInstance == nil {
+		// note: explicitly not the empty object.
+		vCertificateProviderInstance = &ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance{}
+	}
+	if err := extractServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceFields(r, vCertificateProviderInstance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCertificateProviderInstance) {
+		o.CertificateProviderInstance = vCertificateProviderInstance
+	}
+	return nil
+}
+func extractServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) error {
+	return nil
+}
+func extractServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) error {
+	return nil
+}
+
+func postReadExtractServerTlsPolicyFields(r *ServerTlsPolicy) error {
+	vServerCertificate := r.ServerCertificate
+	if vServerCertificate == nil {
+		// note: explicitly not the empty object.
+		vServerCertificate = &ServerTlsPolicyServerCertificate{}
+	}
+	if err := postReadExtractServerTlsPolicyServerCertificateFields(r, vServerCertificate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vServerCertificate) {
+		r.ServerCertificate = vServerCertificate
+	}
+	vMtlsPolicy := r.MtlsPolicy
+	if vMtlsPolicy == nil {
+		// note: explicitly not the empty object.
+		vMtlsPolicy = &ServerTlsPolicyMtlsPolicy{}
+	}
+	if err := postReadExtractServerTlsPolicyMtlsPolicyFields(r, vMtlsPolicy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMtlsPolicy) {
+		r.MtlsPolicy = vMtlsPolicy
+	}
+	return nil
+}
+func postReadExtractServerTlsPolicyServerCertificateFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificate) error {
+	vLocalFilepath := o.LocalFilepath
+	if vLocalFilepath == nil {
+		// note: explicitly not the empty object.
+		vLocalFilepath = &ServerTlsPolicyServerCertificateLocalFilepath{}
+	}
+	if err := extractServerTlsPolicyServerCertificateLocalFilepathFields(r, vLocalFilepath); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLocalFilepath) {
+		o.LocalFilepath = vLocalFilepath
+	}
+	vGrpcEndpoint := o.GrpcEndpoint
+	if vGrpcEndpoint == nil {
+		// note: explicitly not the empty object.
+		vGrpcEndpoint = &ServerTlsPolicyServerCertificateGrpcEndpoint{}
+	}
+	if err := extractServerTlsPolicyServerCertificateGrpcEndpointFields(r, vGrpcEndpoint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGrpcEndpoint) {
+		o.GrpcEndpoint = vGrpcEndpoint
+	}
+	vCertificateProviderInstance := o.CertificateProviderInstance
+	if vCertificateProviderInstance == nil {
+		// note: explicitly not the empty object.
+		vCertificateProviderInstance = &ServerTlsPolicyServerCertificateCertificateProviderInstance{}
+	}
+	if err := extractServerTlsPolicyServerCertificateCertificateProviderInstanceFields(r, vCertificateProviderInstance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCertificateProviderInstance) {
+		o.CertificateProviderInstance = vCertificateProviderInstance
+	}
+	return nil
+}
+func postReadExtractServerTlsPolicyServerCertificateLocalFilepathFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificateLocalFilepath) error {
+	return nil
+}
+func postReadExtractServerTlsPolicyServerCertificateGrpcEndpointFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificateGrpcEndpoint) error {
+	return nil
+}
+func postReadExtractServerTlsPolicyServerCertificateCertificateProviderInstanceFields(r *ServerTlsPolicy, o *ServerTlsPolicyServerCertificateCertificateProviderInstance) error {
+	return nil
+}
+func postReadExtractServerTlsPolicyMtlsPolicyFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicy) error {
+	return nil
+}
+func postReadExtractServerTlsPolicyMtlsPolicyClientValidationCaFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicyClientValidationCa) error {
+	vGrpcEndpoint := o.GrpcEndpoint
+	if vGrpcEndpoint == nil {
+		// note: explicitly not the empty object.
+		vGrpcEndpoint = &ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint{}
+	}
+	if err := extractServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointFields(r, vGrpcEndpoint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGrpcEndpoint) {
+		o.GrpcEndpoint = vGrpcEndpoint
+	}
+	vCertificateProviderInstance := o.CertificateProviderInstance
+	if vCertificateProviderInstance == nil {
+		// note: explicitly not the empty object.
+		vCertificateProviderInstance = &ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance{}
+	}
+	if err := extractServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceFields(r, vCertificateProviderInstance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCertificateProviderInstance) {
+		o.CertificateProviderInstance = vCertificateProviderInstance
+	}
+	return nil
+}
+func postReadExtractServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) error {
+	return nil
+}
+func postReadExtractServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceFields(r *ServerTlsPolicy, o *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) error {
 	return nil
 }

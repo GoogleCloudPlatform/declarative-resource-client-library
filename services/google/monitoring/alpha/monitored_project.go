@@ -298,7 +298,7 @@ func applyMonitoredProjectHelper(c *Client, ctx context.Context, rawDesired *Mon
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeMonitoredProjectNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -306,12 +306,22 @@ func applyMonitoredProjectHelper(c *Client, ctx context.Context, rawDesired *Mon
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeMonitoredProjectDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractMonitoredProjectFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractMonitoredProjectFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffMonitoredProject(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

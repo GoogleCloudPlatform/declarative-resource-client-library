@@ -1160,6 +1160,9 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2236,5 +2239,21 @@ func convertOpNameToForwardingRuleApiOperation(opName string, fieldDiffs []*dcl.
 }
 
 func extractForwardingRuleFields(r *ForwardingRule) error {
+	return nil
+}
+func extractForwardingRuleMetadataFilterFields(r *ForwardingRule, o *ForwardingRuleMetadataFilter) error {
+	return nil
+}
+func extractForwardingRuleMetadataFilterFilterLabelFields(r *ForwardingRule, o *ForwardingRuleMetadataFilterFilterLabel) error {
+	return nil
+}
+
+func postReadExtractForwardingRuleFields(r *ForwardingRule) error {
+	return nil
+}
+func postReadExtractForwardingRuleMetadataFilterFields(r *ForwardingRule, o *ForwardingRuleMetadataFilter) error {
+	return nil
+}
+func postReadExtractForwardingRuleMetadataFilterFilterLabelFields(r *ForwardingRule, o *ForwardingRuleMetadataFilterFilterLabel) error {
 	return nil
 }

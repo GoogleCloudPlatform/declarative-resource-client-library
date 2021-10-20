@@ -311,6 +311,9 @@ func diffMetricsScope(c *Client, desired, actual *MetricsScope, opts ...dcl.Appl
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -640,5 +643,15 @@ func convertOpNameToMetricsScopeApiOperation(opName string, fieldDiffs []*dcl.Fi
 }
 
 func extractMetricsScopeFields(r *MetricsScope) error {
+	return nil
+}
+func extractMetricsScopeMonitoredProjectsFields(r *MetricsScope, o *MetricsScopeMonitoredProjects) error {
+	return nil
+}
+
+func postReadExtractMetricsScopeFields(r *MetricsScope) error {
+	return nil
+}
+func postReadExtractMetricsScopeMonitoredProjectsFields(r *MetricsScope, o *MetricsScopeMonitoredProjects) error {
 	return nil
 }

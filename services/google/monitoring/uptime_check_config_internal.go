@@ -1483,6 +1483,9 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -3006,5 +3009,155 @@ func convertOpNameToUptimeCheckConfigApiOperation(opName string, fieldDiffs []*d
 }
 
 func extractUptimeCheckConfigFields(r *UptimeCheckConfig) error {
+	vMonitoredResource := r.MonitoredResource
+	if vMonitoredResource == nil {
+		// note: explicitly not the empty object.
+		vMonitoredResource = &UptimeCheckConfigMonitoredResource{}
+	}
+	if err := extractUptimeCheckConfigMonitoredResourceFields(r, vMonitoredResource); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMonitoredResource) {
+		r.MonitoredResource = vMonitoredResource
+	}
+	vResourceGroup := r.ResourceGroup
+	if vResourceGroup == nil {
+		// note: explicitly not the empty object.
+		vResourceGroup = &UptimeCheckConfigResourceGroup{}
+	}
+	if err := extractUptimeCheckConfigResourceGroupFields(r, vResourceGroup); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceGroup) {
+		r.ResourceGroup = vResourceGroup
+	}
+	vHttpCheck := r.HttpCheck
+	if vHttpCheck == nil {
+		// note: explicitly not the empty object.
+		vHttpCheck = &UptimeCheckConfigHttpCheck{}
+	}
+	if err := extractUptimeCheckConfigHttpCheckFields(r, vHttpCheck); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpCheck) {
+		r.HttpCheck = vHttpCheck
+	}
+	vTcpCheck := r.TcpCheck
+	if vTcpCheck == nil {
+		// note: explicitly not the empty object.
+		vTcpCheck = &UptimeCheckConfigTcpCheck{}
+	}
+	if err := extractUptimeCheckConfigTcpCheckFields(r, vTcpCheck); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTcpCheck) {
+		r.TcpCheck = vTcpCheck
+	}
+	return nil
+}
+func extractUptimeCheckConfigMonitoredResourceFields(r *UptimeCheckConfig, o *UptimeCheckConfigMonitoredResource) error {
+	return nil
+}
+func extractUptimeCheckConfigResourceGroupFields(r *UptimeCheckConfig, o *UptimeCheckConfigResourceGroup) error {
+	return nil
+}
+func extractUptimeCheckConfigHttpCheckFields(r *UptimeCheckConfig, o *UptimeCheckConfigHttpCheck) error {
+	vAuthInfo := o.AuthInfo
+	if vAuthInfo == nil {
+		// note: explicitly not the empty object.
+		vAuthInfo = &UptimeCheckConfigHttpCheckAuthInfo{}
+	}
+	if err := extractUptimeCheckConfigHttpCheckAuthInfoFields(r, vAuthInfo); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAuthInfo) {
+		o.AuthInfo = vAuthInfo
+	}
+	return nil
+}
+func extractUptimeCheckConfigHttpCheckAuthInfoFields(r *UptimeCheckConfig, o *UptimeCheckConfigHttpCheckAuthInfo) error {
+	return nil
+}
+func extractUptimeCheckConfigTcpCheckFields(r *UptimeCheckConfig, o *UptimeCheckConfigTcpCheck) error {
+	return nil
+}
+func extractUptimeCheckConfigContentMatchersFields(r *UptimeCheckConfig, o *UptimeCheckConfigContentMatchers) error {
+	return nil
+}
+
+func postReadExtractUptimeCheckConfigFields(r *UptimeCheckConfig) error {
+	vMonitoredResource := r.MonitoredResource
+	if vMonitoredResource == nil {
+		// note: explicitly not the empty object.
+		vMonitoredResource = &UptimeCheckConfigMonitoredResource{}
+	}
+	if err := postReadExtractUptimeCheckConfigMonitoredResourceFields(r, vMonitoredResource); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMonitoredResource) {
+		r.MonitoredResource = vMonitoredResource
+	}
+	vResourceGroup := r.ResourceGroup
+	if vResourceGroup == nil {
+		// note: explicitly not the empty object.
+		vResourceGroup = &UptimeCheckConfigResourceGroup{}
+	}
+	if err := postReadExtractUptimeCheckConfigResourceGroupFields(r, vResourceGroup); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceGroup) {
+		r.ResourceGroup = vResourceGroup
+	}
+	vHttpCheck := r.HttpCheck
+	if vHttpCheck == nil {
+		// note: explicitly not the empty object.
+		vHttpCheck = &UptimeCheckConfigHttpCheck{}
+	}
+	if err := postReadExtractUptimeCheckConfigHttpCheckFields(r, vHttpCheck); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpCheck) {
+		r.HttpCheck = vHttpCheck
+	}
+	vTcpCheck := r.TcpCheck
+	if vTcpCheck == nil {
+		// note: explicitly not the empty object.
+		vTcpCheck = &UptimeCheckConfigTcpCheck{}
+	}
+	if err := postReadExtractUptimeCheckConfigTcpCheckFields(r, vTcpCheck); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTcpCheck) {
+		r.TcpCheck = vTcpCheck
+	}
+	return nil
+}
+func postReadExtractUptimeCheckConfigMonitoredResourceFields(r *UptimeCheckConfig, o *UptimeCheckConfigMonitoredResource) error {
+	return nil
+}
+func postReadExtractUptimeCheckConfigResourceGroupFields(r *UptimeCheckConfig, o *UptimeCheckConfigResourceGroup) error {
+	return nil
+}
+func postReadExtractUptimeCheckConfigHttpCheckFields(r *UptimeCheckConfig, o *UptimeCheckConfigHttpCheck) error {
+	vAuthInfo := o.AuthInfo
+	if vAuthInfo == nil {
+		// note: explicitly not the empty object.
+		vAuthInfo = &UptimeCheckConfigHttpCheckAuthInfo{}
+	}
+	if err := extractUptimeCheckConfigHttpCheckAuthInfoFields(r, vAuthInfo); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAuthInfo) {
+		o.AuthInfo = vAuthInfo
+	}
+	return nil
+}
+func postReadExtractUptimeCheckConfigHttpCheckAuthInfoFields(r *UptimeCheckConfig, o *UptimeCheckConfigHttpCheckAuthInfo) error {
+	return nil
+}
+func postReadExtractUptimeCheckConfigTcpCheckFields(r *UptimeCheckConfig, o *UptimeCheckConfigTcpCheck) error {
+	return nil
+}
+func postReadExtractUptimeCheckConfigContentMatchersFields(r *UptimeCheckConfig, o *UptimeCheckConfigContentMatchers) error {
 	return nil
 }

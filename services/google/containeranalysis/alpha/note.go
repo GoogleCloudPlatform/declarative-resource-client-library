@@ -754,6 +754,9 @@ func (c *Client) GetNote(ctx context.Context, r *Note) (*Note, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractNoteFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -921,7 +924,7 @@ func applyNoteHelper(c *Client, ctx context.Context, rawDesired *Note, opts ...d
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeNoteNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -929,12 +932,22 @@ func applyNoteHelper(c *Client, ctx context.Context, rawDesired *Note, opts ...d
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeNoteDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractNoteFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractNoteFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffNote(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

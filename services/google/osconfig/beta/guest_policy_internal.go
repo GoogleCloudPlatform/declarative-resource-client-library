@@ -4508,6 +4508,9 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -10156,5 +10159,645 @@ func convertOpNameToGuestPolicyApiOperation(opName string, fieldDiffs []*dcl.Fie
 }
 
 func extractGuestPolicyFields(r *GuestPolicy) error {
+	vAssignment := r.Assignment
+	if vAssignment == nil {
+		// note: explicitly not the empty object.
+		vAssignment = &GuestPolicyAssignment{}
+	}
+	if err := extractGuestPolicyAssignmentFields(r, vAssignment); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAssignment) {
+		r.Assignment = vAssignment
+	}
+	return nil
+}
+func extractGuestPolicyAssignmentFields(r *GuestPolicy, o *GuestPolicyAssignment) error {
+	return nil
+}
+func extractGuestPolicyAssignmentGroupLabelsFields(r *GuestPolicy, o *GuestPolicyAssignmentGroupLabels) error {
+	return nil
+}
+func extractGuestPolicyAssignmentOSTypesFields(r *GuestPolicy, o *GuestPolicyAssignmentOSTypes) error {
+	return nil
+}
+func extractGuestPolicyPackagesFields(r *GuestPolicy, o *GuestPolicyPackages) error {
+	return nil
+}
+func extractGuestPolicyPackageRepositoriesFields(r *GuestPolicy, o *GuestPolicyPackageRepositories) error {
+	vApt := o.Apt
+	if vApt == nil {
+		// note: explicitly not the empty object.
+		vApt = &GuestPolicyPackageRepositoriesApt{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesAptFields(r, vApt); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vApt) {
+		o.Apt = vApt
+	}
+	vYum := o.Yum
+	if vYum == nil {
+		// note: explicitly not the empty object.
+		vYum = &GuestPolicyPackageRepositoriesYum{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesYumFields(r, vYum); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYum) {
+		o.Yum = vYum
+	}
+	vZypper := o.Zypper
+	if vZypper == nil {
+		// note: explicitly not the empty object.
+		vZypper = &GuestPolicyPackageRepositoriesZypper{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesZypperFields(r, vZypper); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vZypper) {
+		o.Zypper = vZypper
+	}
+	vGoo := o.Goo
+	if vGoo == nil {
+		// note: explicitly not the empty object.
+		vGoo = &GuestPolicyPackageRepositoriesGoo{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesGooFields(r, vGoo); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoo) {
+		o.Goo = vGoo
+	}
+	return nil
+}
+func extractGuestPolicyPackageRepositoriesAptFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesApt) error {
+	return nil
+}
+func extractGuestPolicyPackageRepositoriesYumFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesYum) error {
+	return nil
+}
+func extractGuestPolicyPackageRepositoriesZypperFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesZypper) error {
+	return nil
+}
+func extractGuestPolicyPackageRepositoriesGooFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesGoo) error {
+	return nil
+}
+func extractGuestPolicyRecipesFields(r *GuestPolicy, o *GuestPolicyRecipes) error {
+	return nil
+}
+func extractGuestPolicyRecipesArtifactsFields(r *GuestPolicy, o *GuestPolicyRecipesArtifacts) error {
+	vRemote := o.Remote
+	if vRemote == nil {
+		// note: explicitly not the empty object.
+		vRemote = &GuestPolicyRecipesArtifactsRemote{}
+	}
+	if err := extractGuestPolicyRecipesArtifactsRemoteFields(r, vRemote); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRemote) {
+		o.Remote = vRemote
+	}
+	vGcs := o.Gcs
+	if vGcs == nil {
+		// note: explicitly not the empty object.
+		vGcs = &GuestPolicyRecipesArtifactsGcs{}
+	}
+	if err := extractGuestPolicyRecipesArtifactsGcsFields(r, vGcs); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGcs) {
+		o.Gcs = vGcs
+	}
+	return nil
+}
+func extractGuestPolicyRecipesArtifactsRemoteFields(r *GuestPolicy, o *GuestPolicyRecipesArtifactsRemote) error {
+	return nil
+}
+func extractGuestPolicyRecipesArtifactsGcsFields(r *GuestPolicy, o *GuestPolicyRecipesArtifactsGcs) error {
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsFields(r *GuestPolicy, o *GuestPolicyRecipesInstallSteps) error {
+	vFileCopy := o.FileCopy
+	if vFileCopy == nil {
+		// note: explicitly not the empty object.
+		vFileCopy = &GuestPolicyRecipesInstallStepsFileCopy{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsFileCopyFields(r, vFileCopy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileCopy) {
+		o.FileCopy = vFileCopy
+	}
+	vArchiveExtraction := o.ArchiveExtraction
+	if vArchiveExtraction == nil {
+		// note: explicitly not the empty object.
+		vArchiveExtraction = &GuestPolicyRecipesInstallStepsArchiveExtraction{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsArchiveExtractionFields(r, vArchiveExtraction); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vArchiveExtraction) {
+		o.ArchiveExtraction = vArchiveExtraction
+	}
+	vMsiInstallation := o.MsiInstallation
+	if vMsiInstallation == nil {
+		// note: explicitly not the empty object.
+		vMsiInstallation = &GuestPolicyRecipesInstallStepsMsiInstallation{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsMsiInstallationFields(r, vMsiInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMsiInstallation) {
+		o.MsiInstallation = vMsiInstallation
+	}
+	vDpkgInstallation := o.DpkgInstallation
+	if vDpkgInstallation == nil {
+		// note: explicitly not the empty object.
+		vDpkgInstallation = &GuestPolicyRecipesInstallStepsDpkgInstallation{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsDpkgInstallationFields(r, vDpkgInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDpkgInstallation) {
+		o.DpkgInstallation = vDpkgInstallation
+	}
+	vRpmInstallation := o.RpmInstallation
+	if vRpmInstallation == nil {
+		// note: explicitly not the empty object.
+		vRpmInstallation = &GuestPolicyRecipesInstallStepsRpmInstallation{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsRpmInstallationFields(r, vRpmInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRpmInstallation) {
+		o.RpmInstallation = vRpmInstallation
+	}
+	vFileExec := o.FileExec
+	if vFileExec == nil {
+		// note: explicitly not the empty object.
+		vFileExec = &GuestPolicyRecipesInstallStepsFileExec{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsFileExecFields(r, vFileExec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileExec) {
+		o.FileExec = vFileExec
+	}
+	vScriptRun := o.ScriptRun
+	if vScriptRun == nil {
+		// note: explicitly not the empty object.
+		vScriptRun = &GuestPolicyRecipesInstallStepsScriptRun{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsScriptRunFields(r, vScriptRun); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScriptRun) {
+		o.ScriptRun = vScriptRun
+	}
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsFileCopyFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsFileCopy) error {
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsArchiveExtractionFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsArchiveExtraction) error {
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsMsiInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsMsiInstallation) error {
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsDpkgInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsDpkgInstallation) error {
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsRpmInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsRpmInstallation) error {
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsFileExecFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsFileExec) error {
+	return nil
+}
+func extractGuestPolicyRecipesInstallStepsScriptRunFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsScriptRun) error {
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateSteps) error {
+	vFileCopy := o.FileCopy
+	if vFileCopy == nil {
+		// note: explicitly not the empty object.
+		vFileCopy = &GuestPolicyRecipesUpdateStepsFileCopy{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsFileCopyFields(r, vFileCopy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileCopy) {
+		o.FileCopy = vFileCopy
+	}
+	vArchiveExtraction := o.ArchiveExtraction
+	if vArchiveExtraction == nil {
+		// note: explicitly not the empty object.
+		vArchiveExtraction = &GuestPolicyRecipesUpdateStepsArchiveExtraction{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsArchiveExtractionFields(r, vArchiveExtraction); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vArchiveExtraction) {
+		o.ArchiveExtraction = vArchiveExtraction
+	}
+	vMsiInstallation := o.MsiInstallation
+	if vMsiInstallation == nil {
+		// note: explicitly not the empty object.
+		vMsiInstallation = &GuestPolicyRecipesUpdateStepsMsiInstallation{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsMsiInstallationFields(r, vMsiInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMsiInstallation) {
+		o.MsiInstallation = vMsiInstallation
+	}
+	vDpkgInstallation := o.DpkgInstallation
+	if vDpkgInstallation == nil {
+		// note: explicitly not the empty object.
+		vDpkgInstallation = &GuestPolicyRecipesUpdateStepsDpkgInstallation{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsDpkgInstallationFields(r, vDpkgInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDpkgInstallation) {
+		o.DpkgInstallation = vDpkgInstallation
+	}
+	vRpmInstallation := o.RpmInstallation
+	if vRpmInstallation == nil {
+		// note: explicitly not the empty object.
+		vRpmInstallation = &GuestPolicyRecipesUpdateStepsRpmInstallation{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsRpmInstallationFields(r, vRpmInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRpmInstallation) {
+		o.RpmInstallation = vRpmInstallation
+	}
+	vFileExec := o.FileExec
+	if vFileExec == nil {
+		// note: explicitly not the empty object.
+		vFileExec = &GuestPolicyRecipesUpdateStepsFileExec{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsFileExecFields(r, vFileExec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileExec) {
+		o.FileExec = vFileExec
+	}
+	vScriptRun := o.ScriptRun
+	if vScriptRun == nil {
+		// note: explicitly not the empty object.
+		vScriptRun = &GuestPolicyRecipesUpdateStepsScriptRun{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsScriptRunFields(r, vScriptRun); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScriptRun) {
+		o.ScriptRun = vScriptRun
+	}
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsFileCopyFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsFileCopy) error {
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsArchiveExtractionFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsArchiveExtraction) error {
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsMsiInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsMsiInstallation) error {
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsDpkgInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsDpkgInstallation) error {
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsRpmInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsRpmInstallation) error {
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsFileExecFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsFileExec) error {
+	return nil
+}
+func extractGuestPolicyRecipesUpdateStepsScriptRunFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsScriptRun) error {
+	return nil
+}
+
+func postReadExtractGuestPolicyFields(r *GuestPolicy) error {
+	vAssignment := r.Assignment
+	if vAssignment == nil {
+		// note: explicitly not the empty object.
+		vAssignment = &GuestPolicyAssignment{}
+	}
+	if err := postReadExtractGuestPolicyAssignmentFields(r, vAssignment); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAssignment) {
+		r.Assignment = vAssignment
+	}
+	return nil
+}
+func postReadExtractGuestPolicyAssignmentFields(r *GuestPolicy, o *GuestPolicyAssignment) error {
+	return nil
+}
+func postReadExtractGuestPolicyAssignmentGroupLabelsFields(r *GuestPolicy, o *GuestPolicyAssignmentGroupLabels) error {
+	return nil
+}
+func postReadExtractGuestPolicyAssignmentOSTypesFields(r *GuestPolicy, o *GuestPolicyAssignmentOSTypes) error {
+	return nil
+}
+func postReadExtractGuestPolicyPackagesFields(r *GuestPolicy, o *GuestPolicyPackages) error {
+	return nil
+}
+func postReadExtractGuestPolicyPackageRepositoriesFields(r *GuestPolicy, o *GuestPolicyPackageRepositories) error {
+	vApt := o.Apt
+	if vApt == nil {
+		// note: explicitly not the empty object.
+		vApt = &GuestPolicyPackageRepositoriesApt{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesAptFields(r, vApt); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vApt) {
+		o.Apt = vApt
+	}
+	vYum := o.Yum
+	if vYum == nil {
+		// note: explicitly not the empty object.
+		vYum = &GuestPolicyPackageRepositoriesYum{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesYumFields(r, vYum); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYum) {
+		o.Yum = vYum
+	}
+	vZypper := o.Zypper
+	if vZypper == nil {
+		// note: explicitly not the empty object.
+		vZypper = &GuestPolicyPackageRepositoriesZypper{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesZypperFields(r, vZypper); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vZypper) {
+		o.Zypper = vZypper
+	}
+	vGoo := o.Goo
+	if vGoo == nil {
+		// note: explicitly not the empty object.
+		vGoo = &GuestPolicyPackageRepositoriesGoo{}
+	}
+	if err := extractGuestPolicyPackageRepositoriesGooFields(r, vGoo); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoo) {
+		o.Goo = vGoo
+	}
+	return nil
+}
+func postReadExtractGuestPolicyPackageRepositoriesAptFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesApt) error {
+	return nil
+}
+func postReadExtractGuestPolicyPackageRepositoriesYumFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesYum) error {
+	return nil
+}
+func postReadExtractGuestPolicyPackageRepositoriesZypperFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesZypper) error {
+	return nil
+}
+func postReadExtractGuestPolicyPackageRepositoriesGooFields(r *GuestPolicy, o *GuestPolicyPackageRepositoriesGoo) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesFields(r *GuestPolicy, o *GuestPolicyRecipes) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesArtifactsFields(r *GuestPolicy, o *GuestPolicyRecipesArtifacts) error {
+	vRemote := o.Remote
+	if vRemote == nil {
+		// note: explicitly not the empty object.
+		vRemote = &GuestPolicyRecipesArtifactsRemote{}
+	}
+	if err := extractGuestPolicyRecipesArtifactsRemoteFields(r, vRemote); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRemote) {
+		o.Remote = vRemote
+	}
+	vGcs := o.Gcs
+	if vGcs == nil {
+		// note: explicitly not the empty object.
+		vGcs = &GuestPolicyRecipesArtifactsGcs{}
+	}
+	if err := extractGuestPolicyRecipesArtifactsGcsFields(r, vGcs); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGcs) {
+		o.Gcs = vGcs
+	}
+	return nil
+}
+func postReadExtractGuestPolicyRecipesArtifactsRemoteFields(r *GuestPolicy, o *GuestPolicyRecipesArtifactsRemote) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesArtifactsGcsFields(r *GuestPolicy, o *GuestPolicyRecipesArtifactsGcs) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsFields(r *GuestPolicy, o *GuestPolicyRecipesInstallSteps) error {
+	vFileCopy := o.FileCopy
+	if vFileCopy == nil {
+		// note: explicitly not the empty object.
+		vFileCopy = &GuestPolicyRecipesInstallStepsFileCopy{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsFileCopyFields(r, vFileCopy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileCopy) {
+		o.FileCopy = vFileCopy
+	}
+	vArchiveExtraction := o.ArchiveExtraction
+	if vArchiveExtraction == nil {
+		// note: explicitly not the empty object.
+		vArchiveExtraction = &GuestPolicyRecipesInstallStepsArchiveExtraction{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsArchiveExtractionFields(r, vArchiveExtraction); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vArchiveExtraction) {
+		o.ArchiveExtraction = vArchiveExtraction
+	}
+	vMsiInstallation := o.MsiInstallation
+	if vMsiInstallation == nil {
+		// note: explicitly not the empty object.
+		vMsiInstallation = &GuestPolicyRecipesInstallStepsMsiInstallation{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsMsiInstallationFields(r, vMsiInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMsiInstallation) {
+		o.MsiInstallation = vMsiInstallation
+	}
+	vDpkgInstallation := o.DpkgInstallation
+	if vDpkgInstallation == nil {
+		// note: explicitly not the empty object.
+		vDpkgInstallation = &GuestPolicyRecipesInstallStepsDpkgInstallation{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsDpkgInstallationFields(r, vDpkgInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDpkgInstallation) {
+		o.DpkgInstallation = vDpkgInstallation
+	}
+	vRpmInstallation := o.RpmInstallation
+	if vRpmInstallation == nil {
+		// note: explicitly not the empty object.
+		vRpmInstallation = &GuestPolicyRecipesInstallStepsRpmInstallation{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsRpmInstallationFields(r, vRpmInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRpmInstallation) {
+		o.RpmInstallation = vRpmInstallation
+	}
+	vFileExec := o.FileExec
+	if vFileExec == nil {
+		// note: explicitly not the empty object.
+		vFileExec = &GuestPolicyRecipesInstallStepsFileExec{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsFileExecFields(r, vFileExec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileExec) {
+		o.FileExec = vFileExec
+	}
+	vScriptRun := o.ScriptRun
+	if vScriptRun == nil {
+		// note: explicitly not the empty object.
+		vScriptRun = &GuestPolicyRecipesInstallStepsScriptRun{}
+	}
+	if err := extractGuestPolicyRecipesInstallStepsScriptRunFields(r, vScriptRun); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScriptRun) {
+		o.ScriptRun = vScriptRun
+	}
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsFileCopyFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsFileCopy) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsArchiveExtractionFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsArchiveExtraction) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsMsiInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsMsiInstallation) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsDpkgInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsDpkgInstallation) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsRpmInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsRpmInstallation) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsFileExecFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsFileExec) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesInstallStepsScriptRunFields(r *GuestPolicy, o *GuestPolicyRecipesInstallStepsScriptRun) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateSteps) error {
+	vFileCopy := o.FileCopy
+	if vFileCopy == nil {
+		// note: explicitly not the empty object.
+		vFileCopy = &GuestPolicyRecipesUpdateStepsFileCopy{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsFileCopyFields(r, vFileCopy); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileCopy) {
+		o.FileCopy = vFileCopy
+	}
+	vArchiveExtraction := o.ArchiveExtraction
+	if vArchiveExtraction == nil {
+		// note: explicitly not the empty object.
+		vArchiveExtraction = &GuestPolicyRecipesUpdateStepsArchiveExtraction{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsArchiveExtractionFields(r, vArchiveExtraction); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vArchiveExtraction) {
+		o.ArchiveExtraction = vArchiveExtraction
+	}
+	vMsiInstallation := o.MsiInstallation
+	if vMsiInstallation == nil {
+		// note: explicitly not the empty object.
+		vMsiInstallation = &GuestPolicyRecipesUpdateStepsMsiInstallation{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsMsiInstallationFields(r, vMsiInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMsiInstallation) {
+		o.MsiInstallation = vMsiInstallation
+	}
+	vDpkgInstallation := o.DpkgInstallation
+	if vDpkgInstallation == nil {
+		// note: explicitly not the empty object.
+		vDpkgInstallation = &GuestPolicyRecipesUpdateStepsDpkgInstallation{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsDpkgInstallationFields(r, vDpkgInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDpkgInstallation) {
+		o.DpkgInstallation = vDpkgInstallation
+	}
+	vRpmInstallation := o.RpmInstallation
+	if vRpmInstallation == nil {
+		// note: explicitly not the empty object.
+		vRpmInstallation = &GuestPolicyRecipesUpdateStepsRpmInstallation{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsRpmInstallationFields(r, vRpmInstallation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRpmInstallation) {
+		o.RpmInstallation = vRpmInstallation
+	}
+	vFileExec := o.FileExec
+	if vFileExec == nil {
+		// note: explicitly not the empty object.
+		vFileExec = &GuestPolicyRecipesUpdateStepsFileExec{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsFileExecFields(r, vFileExec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFileExec) {
+		o.FileExec = vFileExec
+	}
+	vScriptRun := o.ScriptRun
+	if vScriptRun == nil {
+		// note: explicitly not the empty object.
+		vScriptRun = &GuestPolicyRecipesUpdateStepsScriptRun{}
+	}
+	if err := extractGuestPolicyRecipesUpdateStepsScriptRunFields(r, vScriptRun); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScriptRun) {
+		o.ScriptRun = vScriptRun
+	}
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsFileCopyFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsFileCopy) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsArchiveExtractionFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsArchiveExtraction) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsMsiInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsMsiInstallation) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsDpkgInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsDpkgInstallation) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsRpmInstallationFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsRpmInstallation) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsFileExecFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsFileExec) error {
+	return nil
+}
+func postReadExtractGuestPolicyRecipesUpdateStepsScriptRunFields(r *GuestPolicy, o *GuestPolicyRecipesUpdateStepsScriptRun) error {
 	return nil
 }

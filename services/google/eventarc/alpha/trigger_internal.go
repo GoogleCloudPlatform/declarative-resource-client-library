@@ -1233,6 +1233,9 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2315,5 +2318,127 @@ func convertOpNameToTriggerApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractTriggerFields(r *Trigger) error {
+	vDestination := r.Destination
+	if vDestination == nil {
+		// note: explicitly not the empty object.
+		vDestination = &TriggerDestination{}
+	}
+	if err := extractTriggerDestinationFields(r, vDestination); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDestination) {
+		r.Destination = vDestination
+	}
+	vTransport := r.Transport
+	if vTransport == nil {
+		// note: explicitly not the empty object.
+		vTransport = &TriggerTransport{}
+	}
+	if err := extractTriggerTransportFields(r, vTransport); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTransport) {
+		r.Transport = vTransport
+	}
+	return nil
+}
+func extractTriggerMatchingCriteriaFields(r *Trigger, o *TriggerMatchingCriteria) error {
+	return nil
+}
+func extractTriggerDestinationFields(r *Trigger, o *TriggerDestination) error {
+	vCloudRunService := o.CloudRunService
+	if vCloudRunService == nil {
+		// note: explicitly not the empty object.
+		vCloudRunService = &TriggerDestinationCloudRunService{}
+	}
+	if err := extractTriggerDestinationCloudRunServiceFields(r, vCloudRunService); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudRunService) {
+		o.CloudRunService = vCloudRunService
+	}
+	return nil
+}
+func extractTriggerDestinationCloudRunServiceFields(r *Trigger, o *TriggerDestinationCloudRunService) error {
+	return nil
+}
+func extractTriggerTransportFields(r *Trigger, o *TriggerTransport) error {
+	vPubsub := o.Pubsub
+	if vPubsub == nil {
+		// note: explicitly not the empty object.
+		vPubsub = &TriggerTransportPubsub{}
+	}
+	if err := extractTriggerTransportPubsubFields(r, vPubsub); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPubsub) {
+		o.Pubsub = vPubsub
+	}
+	return nil
+}
+func extractTriggerTransportPubsubFields(r *Trigger, o *TriggerTransportPubsub) error {
+	return nil
+}
+
+func postReadExtractTriggerFields(r *Trigger) error {
+	vDestination := r.Destination
+	if vDestination == nil {
+		// note: explicitly not the empty object.
+		vDestination = &TriggerDestination{}
+	}
+	if err := postReadExtractTriggerDestinationFields(r, vDestination); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDestination) {
+		r.Destination = vDestination
+	}
+	vTransport := r.Transport
+	if vTransport == nil {
+		// note: explicitly not the empty object.
+		vTransport = &TriggerTransport{}
+	}
+	if err := postReadExtractTriggerTransportFields(r, vTransport); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTransport) {
+		r.Transport = vTransport
+	}
+	return nil
+}
+func postReadExtractTriggerMatchingCriteriaFields(r *Trigger, o *TriggerMatchingCriteria) error {
+	return nil
+}
+func postReadExtractTriggerDestinationFields(r *Trigger, o *TriggerDestination) error {
+	vCloudRunService := o.CloudRunService
+	if vCloudRunService == nil {
+		// note: explicitly not the empty object.
+		vCloudRunService = &TriggerDestinationCloudRunService{}
+	}
+	if err := extractTriggerDestinationCloudRunServiceFields(r, vCloudRunService); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudRunService) {
+		o.CloudRunService = vCloudRunService
+	}
+	return nil
+}
+func postReadExtractTriggerDestinationCloudRunServiceFields(r *Trigger, o *TriggerDestinationCloudRunService) error {
+	return nil
+}
+func postReadExtractTriggerTransportFields(r *Trigger, o *TriggerTransport) error {
+	vPubsub := o.Pubsub
+	if vPubsub == nil {
+		// note: explicitly not the empty object.
+		vPubsub = &TriggerTransportPubsub{}
+	}
+	if err := extractTriggerTransportPubsubFields(r, vPubsub); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPubsub) {
+		o.Pubsub = vPubsub
+	}
+	return nil
+}
+func postReadExtractTriggerTransportPubsubFields(r *Trigger, o *TriggerTransportPubsub) error {
 	return nil
 }

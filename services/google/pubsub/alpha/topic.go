@@ -201,6 +201,9 @@ func (c *Client) GetTopic(ctx context.Context, r *Topic) (*Topic, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractTopicFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -368,7 +371,7 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeTopicNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -376,12 +379,22 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeTopicDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractTopicFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractTopicFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffTopic(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

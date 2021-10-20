@@ -751,6 +751,9 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]*d
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1311,5 +1314,15 @@ func convertOpNameToRouteApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 }
 
 func extractRouteFields(r *Route) error {
+	return nil
+}
+func extractRouteWarningFields(r *Route, o *RouteWarning) error {
+	return nil
+}
+
+func postReadExtractRouteFields(r *Route) error {
+	return nil
+}
+func postReadExtractRouteWarningFields(r *Route, o *RouteWarning) error {
 	return nil
 }

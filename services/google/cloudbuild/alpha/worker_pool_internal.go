@@ -28,6 +28,12 @@ import (
 
 func (r *WorkerPool) validate() error {
 
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"NetworkConfig"}, r.NetworkConfig); err != nil {
+		return err
+	}
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"WorkerConfig"}, r.WorkerConfig); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
@@ -446,6 +452,21 @@ func (c *Client) workerPoolDiffsForRawDesired(ctx context.Context, rawDesired *W
 
 func canonicalizeWorkerPoolInitialState(rawInitial, rawDesired *WorkerPool) (*WorkerPool, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if !dcl.IsZeroValue(rawInitial.NetworkConfig) {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			rawInitial.NetworkConfig = EmptyWorkerPoolNetworkConfig
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.WorkerConfig) {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			rawInitial.WorkerConfig = EmptyWorkerPoolWorkerConfig
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -466,6 +487,23 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.NetworkConfig != nil || rawInitial.NetworkConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			rawDesired.NetworkConfig = nil
+			rawInitial.NetworkConfig = nil
+		}
+	}
+
+	if rawDesired.WorkerConfig != nil || rawInitial.WorkerConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			rawDesired.WorkerConfig = nil
+			rawInitial.WorkerConfig = nil
+		}
+	}
+
 	canonicalDesired := &WorkerPool{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -791,6 +829,9 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
+
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
 
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
@@ -1424,5 +1465,65 @@ func convertOpNameToWorkerPoolApiOperation(opName string, fieldDiffs []*dcl.Fiel
 }
 
 func extractWorkerPoolFields(r *WorkerPool) error {
+	vWorkerConfig := r.WorkerConfig
+	if vWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkerConfig = &WorkerPoolWorkerConfig{}
+	}
+	if err := extractWorkerPoolWorkerConfigFields(r, vWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
+		r.WorkerConfig = vWorkerConfig
+	}
+	vNetworkConfig := r.NetworkConfig
+	if vNetworkConfig == nil {
+		// note: explicitly not the empty object.
+		vNetworkConfig = &WorkerPoolNetworkConfig{}
+	}
+	if err := extractWorkerPoolNetworkConfigFields(r, vNetworkConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+		r.NetworkConfig = vNetworkConfig
+	}
+	return nil
+}
+func extractWorkerPoolWorkerConfigFields(r *WorkerPool, o *WorkerPoolWorkerConfig) error {
+	return nil
+}
+func extractWorkerPoolNetworkConfigFields(r *WorkerPool, o *WorkerPoolNetworkConfig) error {
+	return nil
+}
+
+func postReadExtractWorkerPoolFields(r *WorkerPool) error {
+	vWorkerConfig := r.WorkerConfig
+	if vWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkerConfig = &WorkerPoolWorkerConfig{}
+	}
+	if err := postReadExtractWorkerPoolWorkerConfigFields(r, vWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
+		r.WorkerConfig = vWorkerConfig
+	}
+	vNetworkConfig := r.NetworkConfig
+	if vNetworkConfig == nil {
+		// note: explicitly not the empty object.
+		vNetworkConfig = &WorkerPoolNetworkConfig{}
+	}
+	if err := postReadExtractWorkerPoolNetworkConfigFields(r, vNetworkConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+		r.NetworkConfig = vNetworkConfig
+	}
+	return nil
+}
+func postReadExtractWorkerPoolWorkerConfigFields(r *WorkerPool, o *WorkerPoolWorkerConfig) error {
+	return nil
+}
+func postReadExtractWorkerPoolNetworkConfigFields(r *WorkerPool, o *WorkerPoolNetworkConfig) error {
 	return nil
 }

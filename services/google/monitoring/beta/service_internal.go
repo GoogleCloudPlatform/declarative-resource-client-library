@@ -2251,6 +2251,9 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -4377,5 +4380,317 @@ func convertOpNameToServiceApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractServiceFields(r *Service) error {
+	vCustom := r.Custom
+	if vCustom == nil {
+		// note: explicitly not the empty object.
+		vCustom = &ServiceCustom{}
+	}
+	if err := extractServiceCustomFields(r, vCustom); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCustom) {
+		r.Custom = vCustom
+	}
+	vAppEngine := r.AppEngine
+	if vAppEngine == nil {
+		// note: explicitly not the empty object.
+		vAppEngine = &ServiceAppEngine{}
+	}
+	if err := extractServiceAppEngineFields(r, vAppEngine); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAppEngine) {
+		r.AppEngine = vAppEngine
+	}
+	vCloudEndpoints := r.CloudEndpoints
+	if vCloudEndpoints == nil {
+		// note: explicitly not the empty object.
+		vCloudEndpoints = &ServiceCloudEndpoints{}
+	}
+	if err := extractServiceCloudEndpointsFields(r, vCloudEndpoints); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudEndpoints) {
+		r.CloudEndpoints = vCloudEndpoints
+	}
+	vClusterIstio := r.ClusterIstio
+	if vClusterIstio == nil {
+		// note: explicitly not the empty object.
+		vClusterIstio = &ServiceClusterIstio{}
+	}
+	if err := extractServiceClusterIstioFields(r, vClusterIstio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vClusterIstio) {
+		r.ClusterIstio = vClusterIstio
+	}
+	vMeshIstio := r.MeshIstio
+	if vMeshIstio == nil {
+		// note: explicitly not the empty object.
+		vMeshIstio = &ServiceMeshIstio{}
+	}
+	if err := extractServiceMeshIstioFields(r, vMeshIstio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMeshIstio) {
+		r.MeshIstio = vMeshIstio
+	}
+	vIstioCanonicalService := r.IstioCanonicalService
+	if vIstioCanonicalService == nil {
+		// note: explicitly not the empty object.
+		vIstioCanonicalService = &ServiceIstioCanonicalService{}
+	}
+	if err := extractServiceIstioCanonicalServiceFields(r, vIstioCanonicalService); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vIstioCanonicalService) {
+		r.IstioCanonicalService = vIstioCanonicalService
+	}
+	vCloudRun := r.CloudRun
+	if vCloudRun == nil {
+		// note: explicitly not the empty object.
+		vCloudRun = &ServiceCloudRun{}
+	}
+	if err := extractServiceCloudRunFields(r, vCloudRun); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudRun) {
+		r.CloudRun = vCloudRun
+	}
+	vGkeNamespace := r.GkeNamespace
+	if vGkeNamespace == nil {
+		// note: explicitly not the empty object.
+		vGkeNamespace = &ServiceGkeNamespace{}
+	}
+	if err := extractServiceGkeNamespaceFields(r, vGkeNamespace); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeNamespace) {
+		r.GkeNamespace = vGkeNamespace
+	}
+	vGkeWorkload := r.GkeWorkload
+	if vGkeWorkload == nil {
+		// note: explicitly not the empty object.
+		vGkeWorkload = &ServiceGkeWorkload{}
+	}
+	if err := extractServiceGkeWorkloadFields(r, vGkeWorkload); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeWorkload) {
+		r.GkeWorkload = vGkeWorkload
+	}
+	vGkeService := r.GkeService
+	if vGkeService == nil {
+		// note: explicitly not the empty object.
+		vGkeService = &ServiceGkeService{}
+	}
+	if err := extractServiceGkeServiceFields(r, vGkeService); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeService) {
+		r.GkeService = vGkeService
+	}
+	vTelemetry := r.Telemetry
+	if vTelemetry == nil {
+		// note: explicitly not the empty object.
+		vTelemetry = &ServiceTelemetry{}
+	}
+	if err := extractServiceTelemetryFields(r, vTelemetry); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTelemetry) {
+		r.Telemetry = vTelemetry
+	}
+	return nil
+}
+func extractServiceCustomFields(r *Service, o *ServiceCustom) error {
+	return nil
+}
+func extractServiceAppEngineFields(r *Service, o *ServiceAppEngine) error {
+	return nil
+}
+func extractServiceCloudEndpointsFields(r *Service, o *ServiceCloudEndpoints) error {
+	return nil
+}
+func extractServiceClusterIstioFields(r *Service, o *ServiceClusterIstio) error {
+	return nil
+}
+func extractServiceMeshIstioFields(r *Service, o *ServiceMeshIstio) error {
+	return nil
+}
+func extractServiceIstioCanonicalServiceFields(r *Service, o *ServiceIstioCanonicalService) error {
+	return nil
+}
+func extractServiceCloudRunFields(r *Service, o *ServiceCloudRun) error {
+	return nil
+}
+func extractServiceGkeNamespaceFields(r *Service, o *ServiceGkeNamespace) error {
+	return nil
+}
+func extractServiceGkeWorkloadFields(r *Service, o *ServiceGkeWorkload) error {
+	return nil
+}
+func extractServiceGkeServiceFields(r *Service, o *ServiceGkeService) error {
+	return nil
+}
+func extractServiceTelemetryFields(r *Service, o *ServiceTelemetry) error {
+	return nil
+}
+
+func postReadExtractServiceFields(r *Service) error {
+	vCustom := r.Custom
+	if vCustom == nil {
+		// note: explicitly not the empty object.
+		vCustom = &ServiceCustom{}
+	}
+	if err := postReadExtractServiceCustomFields(r, vCustom); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCustom) {
+		r.Custom = vCustom
+	}
+	vAppEngine := r.AppEngine
+	if vAppEngine == nil {
+		// note: explicitly not the empty object.
+		vAppEngine = &ServiceAppEngine{}
+	}
+	if err := postReadExtractServiceAppEngineFields(r, vAppEngine); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAppEngine) {
+		r.AppEngine = vAppEngine
+	}
+	vCloudEndpoints := r.CloudEndpoints
+	if vCloudEndpoints == nil {
+		// note: explicitly not the empty object.
+		vCloudEndpoints = &ServiceCloudEndpoints{}
+	}
+	if err := postReadExtractServiceCloudEndpointsFields(r, vCloudEndpoints); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudEndpoints) {
+		r.CloudEndpoints = vCloudEndpoints
+	}
+	vClusterIstio := r.ClusterIstio
+	if vClusterIstio == nil {
+		// note: explicitly not the empty object.
+		vClusterIstio = &ServiceClusterIstio{}
+	}
+	if err := postReadExtractServiceClusterIstioFields(r, vClusterIstio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vClusterIstio) {
+		r.ClusterIstio = vClusterIstio
+	}
+	vMeshIstio := r.MeshIstio
+	if vMeshIstio == nil {
+		// note: explicitly not the empty object.
+		vMeshIstio = &ServiceMeshIstio{}
+	}
+	if err := postReadExtractServiceMeshIstioFields(r, vMeshIstio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMeshIstio) {
+		r.MeshIstio = vMeshIstio
+	}
+	vIstioCanonicalService := r.IstioCanonicalService
+	if vIstioCanonicalService == nil {
+		// note: explicitly not the empty object.
+		vIstioCanonicalService = &ServiceIstioCanonicalService{}
+	}
+	if err := postReadExtractServiceIstioCanonicalServiceFields(r, vIstioCanonicalService); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vIstioCanonicalService) {
+		r.IstioCanonicalService = vIstioCanonicalService
+	}
+	vCloudRun := r.CloudRun
+	if vCloudRun == nil {
+		// note: explicitly not the empty object.
+		vCloudRun = &ServiceCloudRun{}
+	}
+	if err := postReadExtractServiceCloudRunFields(r, vCloudRun); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudRun) {
+		r.CloudRun = vCloudRun
+	}
+	vGkeNamespace := r.GkeNamespace
+	if vGkeNamespace == nil {
+		// note: explicitly not the empty object.
+		vGkeNamespace = &ServiceGkeNamespace{}
+	}
+	if err := postReadExtractServiceGkeNamespaceFields(r, vGkeNamespace); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeNamespace) {
+		r.GkeNamespace = vGkeNamespace
+	}
+	vGkeWorkload := r.GkeWorkload
+	if vGkeWorkload == nil {
+		// note: explicitly not the empty object.
+		vGkeWorkload = &ServiceGkeWorkload{}
+	}
+	if err := postReadExtractServiceGkeWorkloadFields(r, vGkeWorkload); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeWorkload) {
+		r.GkeWorkload = vGkeWorkload
+	}
+	vGkeService := r.GkeService
+	if vGkeService == nil {
+		// note: explicitly not the empty object.
+		vGkeService = &ServiceGkeService{}
+	}
+	if err := postReadExtractServiceGkeServiceFields(r, vGkeService); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeService) {
+		r.GkeService = vGkeService
+	}
+	vTelemetry := r.Telemetry
+	if vTelemetry == nil {
+		// note: explicitly not the empty object.
+		vTelemetry = &ServiceTelemetry{}
+	}
+	if err := postReadExtractServiceTelemetryFields(r, vTelemetry); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTelemetry) {
+		r.Telemetry = vTelemetry
+	}
+	return nil
+}
+func postReadExtractServiceCustomFields(r *Service, o *ServiceCustom) error {
+	return nil
+}
+func postReadExtractServiceAppEngineFields(r *Service, o *ServiceAppEngine) error {
+	return nil
+}
+func postReadExtractServiceCloudEndpointsFields(r *Service, o *ServiceCloudEndpoints) error {
+	return nil
+}
+func postReadExtractServiceClusterIstioFields(r *Service, o *ServiceClusterIstio) error {
+	return nil
+}
+func postReadExtractServiceMeshIstioFields(r *Service, o *ServiceMeshIstio) error {
+	return nil
+}
+func postReadExtractServiceIstioCanonicalServiceFields(r *Service, o *ServiceIstioCanonicalService) error {
+	return nil
+}
+func postReadExtractServiceCloudRunFields(r *Service, o *ServiceCloudRun) error {
+	return nil
+}
+func postReadExtractServiceGkeNamespaceFields(r *Service, o *ServiceGkeNamespace) error {
+	return nil
+}
+func postReadExtractServiceGkeWorkloadFields(r *Service, o *ServiceGkeWorkload) error {
+	return nil
+}
+func postReadExtractServiceGkeServiceFields(r *Service, o *ServiceGkeService) error {
+	return nil
+}
+func postReadExtractServiceTelemetryFields(r *Service, o *ServiceTelemetry) error {
 	return nil
 }

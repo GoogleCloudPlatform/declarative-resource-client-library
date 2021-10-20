@@ -1629,6 +1629,9 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -3565,5 +3568,267 @@ func convertOpNameToFeatureApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractFeatureFields(r *Feature) error {
+	vResourceState := r.ResourceState
+	if vResourceState == nil {
+		// note: explicitly not the empty object.
+		vResourceState = &FeatureResourceState{}
+	}
+	if err := extractFeatureResourceStateFields(r, vResourceState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceState) {
+		r.ResourceState = vResourceState
+	}
+	vSpec := r.Spec
+	if vSpec == nil {
+		// note: explicitly not the empty object.
+		vSpec = &FeatureSpec{}
+	}
+	if err := extractFeatureSpecFields(r, vSpec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSpec) {
+		r.Spec = vSpec
+	}
+	vState := r.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureState{}
+	}
+	if err := extractFeatureStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		r.State = vState
+	}
+	return nil
+}
+func extractFeatureResourceStateFields(r *Feature, o *FeatureResourceState) error {
+	return nil
+}
+func extractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
+	vMulticlusteringress := o.Multiclusteringress
+	if vMulticlusteringress == nil {
+		// note: explicitly not the empty object.
+		vMulticlusteringress = &FeatureSpecMulticlusteringress{}
+	}
+	if err := extractFeatureSpecMulticlusteringressFields(r, vMulticlusteringress); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMulticlusteringress) {
+		o.Multiclusteringress = vMulticlusteringress
+	}
+	vCloudauditlogging := o.Cloudauditlogging
+	if vCloudauditlogging == nil {
+		// note: explicitly not the empty object.
+		vCloudauditlogging = &FeatureSpecCloudauditlogging{}
+	}
+	if err := extractFeatureSpecCloudauditloggingFields(r, vCloudauditlogging); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudauditlogging) {
+		o.Cloudauditlogging = vCloudauditlogging
+	}
+	return nil
+}
+func extractFeatureSpecMulticlusteringressFields(r *Feature, o *FeatureSpecMulticlusteringress) error {
+	return nil
+}
+func extractFeatureSpecCloudauditloggingFields(r *Feature, o *FeatureSpecCloudauditlogging) error {
+	return nil
+}
+func extractFeatureStateFields(r *Feature, o *FeatureState) error {
+	vState := o.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureStateState{}
+	}
+	if err := extractFeatureStateStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		o.State = vState
+	}
+	vServicemesh := o.Servicemesh
+	if vServicemesh == nil {
+		// note: explicitly not the empty object.
+		vServicemesh = &FeatureStateServicemesh{}
+	}
+	if err := extractFeatureStateServicemeshFields(r, vServicemesh); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vServicemesh) {
+		o.Servicemesh = vServicemesh
+	}
+	return nil
+}
+func extractFeatureStateStateFields(r *Feature, o *FeatureStateState) error {
+	return nil
+}
+func extractFeatureStateServicemeshFields(r *Feature, o *FeatureStateServicemesh) error {
+	return nil
+}
+func extractFeatureStateServicemeshAnalysisMessagesFields(r *Feature, o *FeatureStateServicemeshAnalysisMessages) error {
+	vMessageBase := o.MessageBase
+	if vMessageBase == nil {
+		// note: explicitly not the empty object.
+		vMessageBase = &FeatureStateServicemeshAnalysisMessagesMessageBase{}
+	}
+	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r, vMessageBase); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMessageBase) {
+		o.MessageBase = vMessageBase
+	}
+	return nil
+}
+func extractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r *Feature, o *FeatureStateServicemeshAnalysisMessagesMessageBase) error {
+	vType := o.Type
+	if vType == nil {
+		// note: explicitly not the empty object.
+		vType = &FeatureStateServicemeshAnalysisMessagesMessageBaseType{}
+	}
+	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseTypeFields(r, vType); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vType) {
+		o.Type = vType
+	}
+	return nil
+}
+func extractFeatureStateServicemeshAnalysisMessagesMessageBaseTypeFields(r *Feature, o *FeatureStateServicemeshAnalysisMessagesMessageBaseType) error {
+	return nil
+}
+
+func postReadExtractFeatureFields(r *Feature) error {
+	vResourceState := r.ResourceState
+	if vResourceState == nil {
+		// note: explicitly not the empty object.
+		vResourceState = &FeatureResourceState{}
+	}
+	if err := postReadExtractFeatureResourceStateFields(r, vResourceState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceState) {
+		r.ResourceState = vResourceState
+	}
+	vSpec := r.Spec
+	if vSpec == nil {
+		// note: explicitly not the empty object.
+		vSpec = &FeatureSpec{}
+	}
+	if err := postReadExtractFeatureSpecFields(r, vSpec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSpec) {
+		r.Spec = vSpec
+	}
+	vState := r.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureState{}
+	}
+	if err := postReadExtractFeatureStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		r.State = vState
+	}
+	return nil
+}
+func postReadExtractFeatureResourceStateFields(r *Feature, o *FeatureResourceState) error {
+	return nil
+}
+func postReadExtractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
+	vMulticlusteringress := o.Multiclusteringress
+	if vMulticlusteringress == nil {
+		// note: explicitly not the empty object.
+		vMulticlusteringress = &FeatureSpecMulticlusteringress{}
+	}
+	if err := extractFeatureSpecMulticlusteringressFields(r, vMulticlusteringress); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMulticlusteringress) {
+		o.Multiclusteringress = vMulticlusteringress
+	}
+	vCloudauditlogging := o.Cloudauditlogging
+	if vCloudauditlogging == nil {
+		// note: explicitly not the empty object.
+		vCloudauditlogging = &FeatureSpecCloudauditlogging{}
+	}
+	if err := extractFeatureSpecCloudauditloggingFields(r, vCloudauditlogging); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCloudauditlogging) {
+		o.Cloudauditlogging = vCloudauditlogging
+	}
+	return nil
+}
+func postReadExtractFeatureSpecMulticlusteringressFields(r *Feature, o *FeatureSpecMulticlusteringress) error {
+	return nil
+}
+func postReadExtractFeatureSpecCloudauditloggingFields(r *Feature, o *FeatureSpecCloudauditlogging) error {
+	return nil
+}
+func postReadExtractFeatureStateFields(r *Feature, o *FeatureState) error {
+	vState := o.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &FeatureStateState{}
+	}
+	if err := extractFeatureStateStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		o.State = vState
+	}
+	vServicemesh := o.Servicemesh
+	if vServicemesh == nil {
+		// note: explicitly not the empty object.
+		vServicemesh = &FeatureStateServicemesh{}
+	}
+	if err := extractFeatureStateServicemeshFields(r, vServicemesh); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vServicemesh) {
+		o.Servicemesh = vServicemesh
+	}
+	return nil
+}
+func postReadExtractFeatureStateStateFields(r *Feature, o *FeatureStateState) error {
+	return nil
+}
+func postReadExtractFeatureStateServicemeshFields(r *Feature, o *FeatureStateServicemesh) error {
+	return nil
+}
+func postReadExtractFeatureStateServicemeshAnalysisMessagesFields(r *Feature, o *FeatureStateServicemeshAnalysisMessages) error {
+	vMessageBase := o.MessageBase
+	if vMessageBase == nil {
+		// note: explicitly not the empty object.
+		vMessageBase = &FeatureStateServicemeshAnalysisMessagesMessageBase{}
+	}
+	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r, vMessageBase); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMessageBase) {
+		o.MessageBase = vMessageBase
+	}
+	return nil
+}
+func postReadExtractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r *Feature, o *FeatureStateServicemeshAnalysisMessagesMessageBase) error {
+	vType := o.Type
+	if vType == nil {
+		// note: explicitly not the empty object.
+		vType = &FeatureStateServicemeshAnalysisMessagesMessageBaseType{}
+	}
+	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseTypeFields(r, vType); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vType) {
+		o.Type = vType
+	}
+	return nil
+}
+func postReadExtractFeatureStateServicemeshAnalysisMessagesMessageBaseTypeFields(r *Feature, o *FeatureStateServicemeshAnalysisMessagesMessageBaseType) error {
 	return nil
 }

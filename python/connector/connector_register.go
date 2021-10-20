@@ -170,7 +170,7 @@ import (
 
 	privateca_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/alpha_connector"
 
-	vmwareengine_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmwareengine/alpha_connector"
+	vmware_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha_connector"
 
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
@@ -335,7 +335,7 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	privateca_alpha_connector.RegisterServers(grpcServer)
 
-	vmwareengine_alpha_connector.RegisterServers(grpcServer)
+	vmware_alpha_connector.RegisterServers(grpcServer)
 
 	return &connectorpb.InitializeResponse{
 		Status: &statuspb.Status{

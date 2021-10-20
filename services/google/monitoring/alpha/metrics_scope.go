@@ -150,6 +150,9 @@ func (c *Client) GetMetricsScope(ctx context.Context, r *MetricsScope) (*Metrics
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractMetricsScopeFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -240,7 +243,7 @@ func applyMetricsScopeHelper(c *Client, ctx context.Context, rawDesired *Metrics
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeMetricsScopeNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -248,12 +251,22 @@ func applyMetricsScopeHelper(c *Client, ctx context.Context, rawDesired *Metrics
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeMetricsScopeDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractMetricsScopeFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractMetricsScopeFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffMetricsScope(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

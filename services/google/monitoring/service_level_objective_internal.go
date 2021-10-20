@@ -3950,6 +3950,9 @@ func diffServiceLevelObjective(c *Client, desired, actual *ServiceLevelObjective
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -8447,5 +8450,709 @@ func convertOpNameToServiceLevelObjectiveApiOperation(opName string, fieldDiffs 
 }
 
 func extractServiceLevelObjectiveFields(r *ServiceLevelObjective) error {
+	vServiceLevelIndicator := r.ServiceLevelIndicator
+	if vServiceLevelIndicator == nil {
+		// note: explicitly not the empty object.
+		vServiceLevelIndicator = &ServiceLevelObjectiveServiceLevelIndicator{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorFields(r, vServiceLevelIndicator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vServiceLevelIndicator) {
+		r.ServiceLevelIndicator = vServiceLevelIndicator
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicator) error {
+	vBasicSli := o.BasicSli
+	if vBasicSli == nil {
+		// note: explicitly not the empty object.
+		vBasicSli = &ServiceLevelObjectiveServiceLevelIndicatorBasicSli{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliFields(r, vBasicSli); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBasicSli) {
+		o.BasicSli = vBasicSli
+	}
+	vRequestBased := o.RequestBased
+	if vRequestBased == nil {
+		// note: explicitly not the empty object.
+		vRequestBased = &ServiceLevelObjectiveServiceLevelIndicatorRequestBased{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedFields(r, vRequestBased); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRequestBased) {
+		o.RequestBased = vRequestBased
+	}
+	vWindowsBased := o.WindowsBased
+	if vWindowsBased == nil {
+		// note: explicitly not the empty object.
+		vWindowsBased = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBased{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedFields(r, vWindowsBased); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWindowsBased) {
+		o.WindowsBased = vWindowsBased
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorBasicSliFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSli) error {
+	vAvailability := o.Availability
+	if vAvailability == nil {
+		// note: explicitly not the empty object.
+		vAvailability = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityFields(r, vAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAvailability) {
+		o.Availability = vAvailability
+	}
+	vLatency := o.Latency
+	if vLatency == nil {
+		// note: explicitly not the empty object.
+		vLatency = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyFields(r, vLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLatency) {
+		o.Latency = vLatency
+	}
+	vOperationAvailability := o.OperationAvailability
+	if vOperationAvailability == nil {
+		// note: explicitly not the empty object.
+		vOperationAvailability = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityFields(r, vOperationAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationAvailability) {
+		o.OperationAvailability = vOperationAvailability
+	}
+	vOperationLatency := o.OperationLatency
+	if vOperationLatency == nil {
+		// note: explicitly not the empty object.
+		vOperationLatency = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyFields(r, vOperationLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationLatency) {
+		o.OperationLatency = vOperationLatency
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBased) error {
+	vGoodTotalRatio := o.GoodTotalRatio
+	if vGoodTotalRatio == nil {
+		// note: explicitly not the empty object.
+		vGoodTotalRatio = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioFields(r, vGoodTotalRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoodTotalRatio) {
+		o.GoodTotalRatio = vGoodTotalRatio
+	}
+	vDistributionCut := o.DistributionCut
+	if vDistributionCut == nil {
+		// note: explicitly not the empty object.
+		vDistributionCut = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutFields(r, vDistributionCut); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDistributionCut) {
+		o.DistributionCut = vDistributionCut
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) error {
+	vGoodTotalRatioThreshold := o.GoodTotalRatioThreshold
+	if vGoodTotalRatioThreshold == nil {
+		// note: explicitly not the empty object.
+		vGoodTotalRatioThreshold = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdFields(r, vGoodTotalRatioThreshold); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoodTotalRatioThreshold) {
+		o.GoodTotalRatioThreshold = vGoodTotalRatioThreshold
+	}
+	vMetricMeanInRange := o.MetricMeanInRange
+	if vMetricMeanInRange == nil {
+		// note: explicitly not the empty object.
+		vMetricMeanInRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeFields(r, vMetricMeanInRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetricMeanInRange) {
+		o.MetricMeanInRange = vMetricMeanInRange
+	}
+	vMetricSumInRange := o.MetricSumInRange
+	if vMetricSumInRange == nil {
+		// note: explicitly not the empty object.
+		vMetricSumInRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeFields(r, vMetricSumInRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetricSumInRange) {
+		o.MetricSumInRange = vMetricSumInRange
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold) error {
+	vPerformance := o.Performance
+	if vPerformance == nil {
+		// note: explicitly not the empty object.
+		vPerformance = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceFields(r, vPerformance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPerformance) {
+		o.Performance = vPerformance
+	}
+	vBasicSliPerformance := o.BasicSliPerformance
+	if vBasicSliPerformance == nil {
+		// note: explicitly not the empty object.
+		vBasicSliPerformance = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceFields(r, vBasicSliPerformance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBasicSliPerformance) {
+		o.BasicSliPerformance = vBasicSliPerformance
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance) error {
+	vGoodTotalRatio := o.GoodTotalRatio
+	if vGoodTotalRatio == nil {
+		// note: explicitly not the empty object.
+		vGoodTotalRatio = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioFields(r, vGoodTotalRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoodTotalRatio) {
+		o.GoodTotalRatio = vGoodTotalRatio
+	}
+	vDistributionCut := o.DistributionCut
+	if vDistributionCut == nil {
+		// note: explicitly not the empty object.
+		vDistributionCut = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutFields(r, vDistributionCut); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDistributionCut) {
+		o.DistributionCut = vDistributionCut
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance) error {
+	vAvailability := o.Availability
+	if vAvailability == nil {
+		// note: explicitly not the empty object.
+		vAvailability = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityFields(r, vAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAvailability) {
+		o.Availability = vAvailability
+	}
+	vLatency := o.Latency
+	if vLatency == nil {
+		// note: explicitly not the empty object.
+		vLatency = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyFields(r, vLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLatency) {
+		o.Latency = vLatency
+	}
+	vOperationAvailability := o.OperationAvailability
+	if vOperationAvailability == nil {
+		// note: explicitly not the empty object.
+		vOperationAvailability = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityFields(r, vOperationAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationAvailability) {
+		o.OperationAvailability = vOperationAvailability
+	}
+	vOperationLatency := o.OperationLatency
+	if vOperationLatency == nil {
+		// note: explicitly not the empty object.
+		vOperationLatency = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyFields(r, vOperationLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationLatency) {
+		o.OperationLatency = vOperationLatency
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange) error {
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange) error {
+	return nil
+}
+
+func postReadExtractServiceLevelObjectiveFields(r *ServiceLevelObjective) error {
+	vServiceLevelIndicator := r.ServiceLevelIndicator
+	if vServiceLevelIndicator == nil {
+		// note: explicitly not the empty object.
+		vServiceLevelIndicator = &ServiceLevelObjectiveServiceLevelIndicator{}
+	}
+	if err := postReadExtractServiceLevelObjectiveServiceLevelIndicatorFields(r, vServiceLevelIndicator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vServiceLevelIndicator) {
+		r.ServiceLevelIndicator = vServiceLevelIndicator
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicator) error {
+	vBasicSli := o.BasicSli
+	if vBasicSli == nil {
+		// note: explicitly not the empty object.
+		vBasicSli = &ServiceLevelObjectiveServiceLevelIndicatorBasicSli{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliFields(r, vBasicSli); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBasicSli) {
+		o.BasicSli = vBasicSli
+	}
+	vRequestBased := o.RequestBased
+	if vRequestBased == nil {
+		// note: explicitly not the empty object.
+		vRequestBased = &ServiceLevelObjectiveServiceLevelIndicatorRequestBased{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedFields(r, vRequestBased); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRequestBased) {
+		o.RequestBased = vRequestBased
+	}
+	vWindowsBased := o.WindowsBased
+	if vWindowsBased == nil {
+		// note: explicitly not the empty object.
+		vWindowsBased = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBased{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedFields(r, vWindowsBased); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWindowsBased) {
+		o.WindowsBased = vWindowsBased
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorBasicSliFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSli) error {
+	vAvailability := o.Availability
+	if vAvailability == nil {
+		// note: explicitly not the empty object.
+		vAvailability = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityFields(r, vAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAvailability) {
+		o.Availability = vAvailability
+	}
+	vLatency := o.Latency
+	if vLatency == nil {
+		// note: explicitly not the empty object.
+		vLatency = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyFields(r, vLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLatency) {
+		o.Latency = vLatency
+	}
+	vOperationAvailability := o.OperationAvailability
+	if vOperationAvailability == nil {
+		// note: explicitly not the empty object.
+		vOperationAvailability = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityFields(r, vOperationAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationAvailability) {
+		o.OperationAvailability = vOperationAvailability
+	}
+	vOperationLatency := o.OperationLatency
+	if vOperationLatency == nil {
+		// note: explicitly not the empty object.
+		vOperationLatency = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyFields(r, vOperationLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationLatency) {
+		o.OperationLatency = vOperationLatency
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorRequestBasedFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBased) error {
+	vGoodTotalRatio := o.GoodTotalRatio
+	if vGoodTotalRatio == nil {
+		// note: explicitly not the empty object.
+		vGoodTotalRatio = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioFields(r, vGoodTotalRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoodTotalRatio) {
+		o.GoodTotalRatio = vGoodTotalRatio
+	}
+	vDistributionCut := o.DistributionCut
+	if vDistributionCut == nil {
+		// note: explicitly not the empty object.
+		vDistributionCut = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutFields(r, vDistributionCut); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDistributionCut) {
+		o.DistributionCut = vDistributionCut
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) error {
+	vGoodTotalRatioThreshold := o.GoodTotalRatioThreshold
+	if vGoodTotalRatioThreshold == nil {
+		// note: explicitly not the empty object.
+		vGoodTotalRatioThreshold = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdFields(r, vGoodTotalRatioThreshold); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoodTotalRatioThreshold) {
+		o.GoodTotalRatioThreshold = vGoodTotalRatioThreshold
+	}
+	vMetricMeanInRange := o.MetricMeanInRange
+	if vMetricMeanInRange == nil {
+		// note: explicitly not the empty object.
+		vMetricMeanInRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeFields(r, vMetricMeanInRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetricMeanInRange) {
+		o.MetricMeanInRange = vMetricMeanInRange
+	}
+	vMetricSumInRange := o.MetricSumInRange
+	if vMetricSumInRange == nil {
+		// note: explicitly not the empty object.
+		vMetricSumInRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeFields(r, vMetricSumInRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetricSumInRange) {
+		o.MetricSumInRange = vMetricSumInRange
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold) error {
+	vPerformance := o.Performance
+	if vPerformance == nil {
+		// note: explicitly not the empty object.
+		vPerformance = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceFields(r, vPerformance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPerformance) {
+		o.Performance = vPerformance
+	}
+	vBasicSliPerformance := o.BasicSliPerformance
+	if vBasicSliPerformance == nil {
+		// note: explicitly not the empty object.
+		vBasicSliPerformance = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceFields(r, vBasicSliPerformance); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBasicSliPerformance) {
+		o.BasicSliPerformance = vBasicSliPerformance
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance) error {
+	vGoodTotalRatio := o.GoodTotalRatio
+	if vGoodTotalRatio == nil {
+		// note: explicitly not the empty object.
+		vGoodTotalRatio = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioFields(r, vGoodTotalRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoodTotalRatio) {
+		o.GoodTotalRatio = vGoodTotalRatio
+	}
+	vDistributionCut := o.DistributionCut
+	if vDistributionCut == nil {
+		// note: explicitly not the empty object.
+		vDistributionCut = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutFields(r, vDistributionCut); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDistributionCut) {
+		o.DistributionCut = vDistributionCut
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance) error {
+	vAvailability := o.Availability
+	if vAvailability == nil {
+		// note: explicitly not the empty object.
+		vAvailability = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityFields(r, vAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAvailability) {
+		o.Availability = vAvailability
+	}
+	vLatency := o.Latency
+	if vLatency == nil {
+		// note: explicitly not the empty object.
+		vLatency = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyFields(r, vLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLatency) {
+		o.Latency = vLatency
+	}
+	vOperationAvailability := o.OperationAvailability
+	if vOperationAvailability == nil {
+		// note: explicitly not the empty object.
+		vOperationAvailability = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityFields(r, vOperationAvailability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationAvailability) {
+		o.OperationAvailability = vOperationAvailability
+	}
+	vOperationLatency := o.OperationLatency
+	if vOperationLatency == nil {
+		// note: explicitly not the empty object.
+		vOperationLatency = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyFields(r, vOperationLatency); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOperationLatency) {
+		o.OperationLatency = vOperationLatency
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange) error {
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange) error {
+	vRange := o.Range
+	if vRange == nil {
+		// note: explicitly not the empty object.
+		vRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{}
+	}
+	if err := extractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeFields(r, vRange); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRange) {
+		o.Range = vRange
+	}
+	return nil
+}
+func postReadExtractServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeFields(r *ServiceLevelObjective, o *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange) error {
 	return nil
 }

@@ -1033,6 +1033,9 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1958,5 +1961,121 @@ func convertOpNameToAutoscalingPolicyApiOperation(opName string, fieldDiffs []*d
 }
 
 func extractAutoscalingPolicyFields(r *AutoscalingPolicy) error {
+	vBasicAlgorithm := r.BasicAlgorithm
+	if vBasicAlgorithm == nil {
+		// note: explicitly not the empty object.
+		vBasicAlgorithm = &AutoscalingPolicyBasicAlgorithm{}
+	}
+	if err := extractAutoscalingPolicyBasicAlgorithmFields(r, vBasicAlgorithm); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBasicAlgorithm) {
+		r.BasicAlgorithm = vBasicAlgorithm
+	}
+	vWorkerConfig := r.WorkerConfig
+	if vWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkerConfig = &AutoscalingPolicyWorkerConfig{}
+	}
+	if err := extractAutoscalingPolicyWorkerConfigFields(r, vWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
+		r.WorkerConfig = vWorkerConfig
+	}
+	vSecondaryWorkerConfig := r.SecondaryWorkerConfig
+	if vSecondaryWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vSecondaryWorkerConfig = &AutoscalingPolicySecondaryWorkerConfig{}
+	}
+	if err := extractAutoscalingPolicySecondaryWorkerConfigFields(r, vSecondaryWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryWorkerConfig) {
+		r.SecondaryWorkerConfig = vSecondaryWorkerConfig
+	}
+	return nil
+}
+func extractAutoscalingPolicyBasicAlgorithmFields(r *AutoscalingPolicy, o *AutoscalingPolicyBasicAlgorithm) error {
+	vYarnConfig := o.YarnConfig
+	if vYarnConfig == nil {
+		// note: explicitly not the empty object.
+		vYarnConfig = &AutoscalingPolicyBasicAlgorithmYarnConfig{}
+	}
+	if err := extractAutoscalingPolicyBasicAlgorithmYarnConfigFields(r, vYarnConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYarnConfig) {
+		o.YarnConfig = vYarnConfig
+	}
+	return nil
+}
+func extractAutoscalingPolicyBasicAlgorithmYarnConfigFields(r *AutoscalingPolicy, o *AutoscalingPolicyBasicAlgorithmYarnConfig) error {
+	return nil
+}
+func extractAutoscalingPolicyWorkerConfigFields(r *AutoscalingPolicy, o *AutoscalingPolicyWorkerConfig) error {
+	return nil
+}
+func extractAutoscalingPolicySecondaryWorkerConfigFields(r *AutoscalingPolicy, o *AutoscalingPolicySecondaryWorkerConfig) error {
+	return nil
+}
+
+func postReadExtractAutoscalingPolicyFields(r *AutoscalingPolicy) error {
+	vBasicAlgorithm := r.BasicAlgorithm
+	if vBasicAlgorithm == nil {
+		// note: explicitly not the empty object.
+		vBasicAlgorithm = &AutoscalingPolicyBasicAlgorithm{}
+	}
+	if err := postReadExtractAutoscalingPolicyBasicAlgorithmFields(r, vBasicAlgorithm); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBasicAlgorithm) {
+		r.BasicAlgorithm = vBasicAlgorithm
+	}
+	vWorkerConfig := r.WorkerConfig
+	if vWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkerConfig = &AutoscalingPolicyWorkerConfig{}
+	}
+	if err := postReadExtractAutoscalingPolicyWorkerConfigFields(r, vWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
+		r.WorkerConfig = vWorkerConfig
+	}
+	vSecondaryWorkerConfig := r.SecondaryWorkerConfig
+	if vSecondaryWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vSecondaryWorkerConfig = &AutoscalingPolicySecondaryWorkerConfig{}
+	}
+	if err := postReadExtractAutoscalingPolicySecondaryWorkerConfigFields(r, vSecondaryWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryWorkerConfig) {
+		r.SecondaryWorkerConfig = vSecondaryWorkerConfig
+	}
+	return nil
+}
+func postReadExtractAutoscalingPolicyBasicAlgorithmFields(r *AutoscalingPolicy, o *AutoscalingPolicyBasicAlgorithm) error {
+	vYarnConfig := o.YarnConfig
+	if vYarnConfig == nil {
+		// note: explicitly not the empty object.
+		vYarnConfig = &AutoscalingPolicyBasicAlgorithmYarnConfig{}
+	}
+	if err := extractAutoscalingPolicyBasicAlgorithmYarnConfigFields(r, vYarnConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYarnConfig) {
+		o.YarnConfig = vYarnConfig
+	}
+	return nil
+}
+func postReadExtractAutoscalingPolicyBasicAlgorithmYarnConfigFields(r *AutoscalingPolicy, o *AutoscalingPolicyBasicAlgorithmYarnConfig) error {
+	return nil
+}
+func postReadExtractAutoscalingPolicyWorkerConfigFields(r *AutoscalingPolicy, o *AutoscalingPolicyWorkerConfig) error {
+	return nil
+}
+func postReadExtractAutoscalingPolicySecondaryWorkerConfigFields(r *AutoscalingPolicy, o *AutoscalingPolicySecondaryWorkerConfig) error {
 	return nil
 }

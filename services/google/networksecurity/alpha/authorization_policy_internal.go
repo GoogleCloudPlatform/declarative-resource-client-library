@@ -1078,6 +1078,9 @@ func diffAuthorizationPolicy(c *Client, desired, actual *AuthorizationPolicy, op
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2051,5 +2054,55 @@ func convertOpNameToAuthorizationPolicyApiOperation(opName string, fieldDiffs []
 }
 
 func extractAuthorizationPolicyFields(r *AuthorizationPolicy) error {
+	return nil
+}
+func extractAuthorizationPolicyRulesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRules) error {
+	return nil
+}
+func extractAuthorizationPolicyRulesSourcesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesSources) error {
+	return nil
+}
+func extractAuthorizationPolicyRulesDestinationsFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinations) error {
+	vHttpHeaderMatch := o.HttpHeaderMatch
+	if vHttpHeaderMatch == nil {
+		// note: explicitly not the empty object.
+		vHttpHeaderMatch = &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
+	}
+	if err := extractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r, vHttpHeaderMatch); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpHeaderMatch) {
+		o.HttpHeaderMatch = vHttpHeaderMatch
+	}
+	return nil
+}
+func extractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) error {
+	return nil
+}
+
+func postReadExtractAuthorizationPolicyFields(r *AuthorizationPolicy) error {
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRules) error {
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesSourcesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesSources) error {
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesDestinationsFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinations) error {
+	vHttpHeaderMatch := o.HttpHeaderMatch
+	if vHttpHeaderMatch == nil {
+		// note: explicitly not the empty object.
+		vHttpHeaderMatch = &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
+	}
+	if err := extractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r, vHttpHeaderMatch); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpHeaderMatch) {
+		o.HttpHeaderMatch = vHttpHeaderMatch
+	}
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) error {
 	return nil
 }

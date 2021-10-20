@@ -4247,6 +4247,9 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -9338,5 +9341,753 @@ func convertOpNameToWorkflowTemplateApiOperation(opName string, fieldDiffs []*dc
 }
 
 func extractWorkflowTemplateFields(r *WorkflowTemplate) error {
+	vPlacement := r.Placement
+	if vPlacement == nil {
+		// note: explicitly not the empty object.
+		vPlacement = &WorkflowTemplatePlacement{}
+	}
+	if err := extractWorkflowTemplatePlacementFields(r, vPlacement); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPlacement) {
+		r.Placement = vPlacement
+	}
+	return nil
+}
+func extractWorkflowTemplatePlacementFields(r *WorkflowTemplate, o *WorkflowTemplatePlacement) error {
+	vManagedCluster := o.ManagedCluster
+	if vManagedCluster == nil {
+		// note: explicitly not the empty object.
+		vManagedCluster = &WorkflowTemplatePlacementManagedCluster{}
+	}
+	if err := extractWorkflowTemplatePlacementManagedClusterFields(r, vManagedCluster); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vManagedCluster) {
+		o.ManagedCluster = vManagedCluster
+	}
+	vClusterSelector := o.ClusterSelector
+	if vClusterSelector == nil {
+		// note: explicitly not the empty object.
+		vClusterSelector = &WorkflowTemplatePlacementClusterSelector{}
+	}
+	if err := extractWorkflowTemplatePlacementClusterSelectorFields(r, vClusterSelector); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vClusterSelector) {
+		o.ClusterSelector = vClusterSelector
+	}
+	return nil
+}
+func extractWorkflowTemplatePlacementManagedClusterFields(r *WorkflowTemplate, o *WorkflowTemplatePlacementManagedCluster) error {
+	// *ClusterClusterConfig is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractWorkflowTemplatePlacementClusterSelectorFields(r *WorkflowTemplate, o *WorkflowTemplatePlacementClusterSelector) error {
+	return nil
+}
+func extractWorkflowTemplateJobsFields(r *WorkflowTemplate, o *WorkflowTemplateJobs) error {
+	vHadoopJob := o.HadoopJob
+	if vHadoopJob == nil {
+		// note: explicitly not the empty object.
+		vHadoopJob = &WorkflowTemplateJobsHadoopJob{}
+	}
+	if err := extractWorkflowTemplateJobsHadoopJobFields(r, vHadoopJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHadoopJob) {
+		o.HadoopJob = vHadoopJob
+	}
+	vSparkJob := o.SparkJob
+	if vSparkJob == nil {
+		// note: explicitly not the empty object.
+		vSparkJob = &WorkflowTemplateJobsSparkJob{}
+	}
+	if err := extractWorkflowTemplateJobsSparkJobFields(r, vSparkJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkJob) {
+		o.SparkJob = vSparkJob
+	}
+	vPysparkJob := o.PysparkJob
+	if vPysparkJob == nil {
+		// note: explicitly not the empty object.
+		vPysparkJob = &WorkflowTemplateJobsPysparkJob{}
+	}
+	if err := extractWorkflowTemplateJobsPysparkJobFields(r, vPysparkJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPysparkJob) {
+		o.PysparkJob = vPysparkJob
+	}
+	vHiveJob := o.HiveJob
+	if vHiveJob == nil {
+		// note: explicitly not the empty object.
+		vHiveJob = &WorkflowTemplateJobsHiveJob{}
+	}
+	if err := extractWorkflowTemplateJobsHiveJobFields(r, vHiveJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHiveJob) {
+		o.HiveJob = vHiveJob
+	}
+	vPigJob := o.PigJob
+	if vPigJob == nil {
+		// note: explicitly not the empty object.
+		vPigJob = &WorkflowTemplateJobsPigJob{}
+	}
+	if err := extractWorkflowTemplateJobsPigJobFields(r, vPigJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPigJob) {
+		o.PigJob = vPigJob
+	}
+	vSparkRJob := o.SparkRJob
+	if vSparkRJob == nil {
+		// note: explicitly not the empty object.
+		vSparkRJob = &WorkflowTemplateJobsSparkRJob{}
+	}
+	if err := extractWorkflowTemplateJobsSparkRJobFields(r, vSparkRJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkRJob) {
+		o.SparkRJob = vSparkRJob
+	}
+	vSparkSqlJob := o.SparkSqlJob
+	if vSparkSqlJob == nil {
+		// note: explicitly not the empty object.
+		vSparkSqlJob = &WorkflowTemplateJobsSparkSqlJob{}
+	}
+	if err := extractWorkflowTemplateJobsSparkSqlJobFields(r, vSparkSqlJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkSqlJob) {
+		o.SparkSqlJob = vSparkSqlJob
+	}
+	vPrestoJob := o.PrestoJob
+	if vPrestoJob == nil {
+		// note: explicitly not the empty object.
+		vPrestoJob = &WorkflowTemplateJobsPrestoJob{}
+	}
+	if err := extractWorkflowTemplateJobsPrestoJobFields(r, vPrestoJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPrestoJob) {
+		o.PrestoJob = vPrestoJob
+	}
+	vScheduling := o.Scheduling
+	if vScheduling == nil {
+		// note: explicitly not the empty object.
+		vScheduling = &WorkflowTemplateJobsScheduling{}
+	}
+	if err := extractWorkflowTemplateJobsSchedulingFields(r, vScheduling); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScheduling) {
+		o.Scheduling = vScheduling
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsHadoopJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHadoopJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsHadoopJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsHadoopJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsHadoopJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHadoopJobLoggingConfig) error {
+	return nil
+}
+func extractWorkflowTemplateJobsSparkJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsSparkJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsSparkJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsSparkJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkJobLoggingConfig) error {
+	return nil
+}
+func extractWorkflowTemplateJobsPysparkJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPysparkJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsPysparkJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsPysparkJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsPysparkJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPysparkJobLoggingConfig) error {
+	return nil
+}
+func extractWorkflowTemplateJobsHiveJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHiveJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsHiveJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsHiveJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsHiveJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHiveJobQueryList) error {
+	return nil
+}
+func extractWorkflowTemplateJobsPigJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPigJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsPigJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsPigJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsPigJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsPigJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsPigJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPigJobQueryList) error {
+	return nil
+}
+func extractWorkflowTemplateJobsPigJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPigJobLoggingConfig) error {
+	return nil
+}
+func extractWorkflowTemplateJobsSparkRJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkRJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsSparkRJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsSparkRJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsSparkRJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkRJobLoggingConfig) error {
+	return nil
+}
+func extractWorkflowTemplateJobsSparkSqlJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkSqlJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsSparkSqlJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsSparkSqlJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsSparkSqlJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsSparkSqlJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkSqlJobQueryList) error {
+	return nil
+}
+func extractWorkflowTemplateJobsSparkSqlJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkSqlJobLoggingConfig) error {
+	return nil
+}
+func extractWorkflowTemplateJobsPrestoJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPrestoJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsPrestoJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsPrestoJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsPrestoJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsPrestoJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func extractWorkflowTemplateJobsPrestoJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPrestoJobQueryList) error {
+	return nil
+}
+func extractWorkflowTemplateJobsPrestoJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPrestoJobLoggingConfig) error {
+	return nil
+}
+func extractWorkflowTemplateJobsSchedulingFields(r *WorkflowTemplate, o *WorkflowTemplateJobsScheduling) error {
+	return nil
+}
+func extractWorkflowTemplateParametersFields(r *WorkflowTemplate, o *WorkflowTemplateParameters) error {
+	vValidation := o.Validation
+	if vValidation == nil {
+		// note: explicitly not the empty object.
+		vValidation = &WorkflowTemplateParametersValidation{}
+	}
+	if err := extractWorkflowTemplateParametersValidationFields(r, vValidation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vValidation) {
+		o.Validation = vValidation
+	}
+	return nil
+}
+func extractWorkflowTemplateParametersValidationFields(r *WorkflowTemplate, o *WorkflowTemplateParametersValidation) error {
+	vRegex := o.Regex
+	if vRegex == nil {
+		// note: explicitly not the empty object.
+		vRegex = &WorkflowTemplateParametersValidationRegex{}
+	}
+	if err := extractWorkflowTemplateParametersValidationRegexFields(r, vRegex); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRegex) {
+		o.Regex = vRegex
+	}
+	vValues := o.Values
+	if vValues == nil {
+		// note: explicitly not the empty object.
+		vValues = &WorkflowTemplateParametersValidationValues{}
+	}
+	if err := extractWorkflowTemplateParametersValidationValuesFields(r, vValues); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vValues) {
+		o.Values = vValues
+	}
+	return nil
+}
+func extractWorkflowTemplateParametersValidationRegexFields(r *WorkflowTemplate, o *WorkflowTemplateParametersValidationRegex) error {
+	return nil
+}
+func extractWorkflowTemplateParametersValidationValuesFields(r *WorkflowTemplate, o *WorkflowTemplateParametersValidationValues) error {
+	return nil
+}
+
+func postReadExtractWorkflowTemplateFields(r *WorkflowTemplate) error {
+	vPlacement := r.Placement
+	if vPlacement == nil {
+		// note: explicitly not the empty object.
+		vPlacement = &WorkflowTemplatePlacement{}
+	}
+	if err := postReadExtractWorkflowTemplatePlacementFields(r, vPlacement); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPlacement) {
+		r.Placement = vPlacement
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplatePlacementFields(r *WorkflowTemplate, o *WorkflowTemplatePlacement) error {
+	vManagedCluster := o.ManagedCluster
+	if vManagedCluster == nil {
+		// note: explicitly not the empty object.
+		vManagedCluster = &WorkflowTemplatePlacementManagedCluster{}
+	}
+	if err := extractWorkflowTemplatePlacementManagedClusterFields(r, vManagedCluster); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vManagedCluster) {
+		o.ManagedCluster = vManagedCluster
+	}
+	vClusterSelector := o.ClusterSelector
+	if vClusterSelector == nil {
+		// note: explicitly not the empty object.
+		vClusterSelector = &WorkflowTemplatePlacementClusterSelector{}
+	}
+	if err := extractWorkflowTemplatePlacementClusterSelectorFields(r, vClusterSelector); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vClusterSelector) {
+		o.ClusterSelector = vClusterSelector
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplatePlacementManagedClusterFields(r *WorkflowTemplate, o *WorkflowTemplatePlacementManagedCluster) error {
+	// *ClusterClusterConfig is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractWorkflowTemplatePlacementClusterSelectorFields(r *WorkflowTemplate, o *WorkflowTemplatePlacementClusterSelector) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsFields(r *WorkflowTemplate, o *WorkflowTemplateJobs) error {
+	vHadoopJob := o.HadoopJob
+	if vHadoopJob == nil {
+		// note: explicitly not the empty object.
+		vHadoopJob = &WorkflowTemplateJobsHadoopJob{}
+	}
+	if err := extractWorkflowTemplateJobsHadoopJobFields(r, vHadoopJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHadoopJob) {
+		o.HadoopJob = vHadoopJob
+	}
+	vSparkJob := o.SparkJob
+	if vSparkJob == nil {
+		// note: explicitly not the empty object.
+		vSparkJob = &WorkflowTemplateJobsSparkJob{}
+	}
+	if err := extractWorkflowTemplateJobsSparkJobFields(r, vSparkJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkJob) {
+		o.SparkJob = vSparkJob
+	}
+	vPysparkJob := o.PysparkJob
+	if vPysparkJob == nil {
+		// note: explicitly not the empty object.
+		vPysparkJob = &WorkflowTemplateJobsPysparkJob{}
+	}
+	if err := extractWorkflowTemplateJobsPysparkJobFields(r, vPysparkJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPysparkJob) {
+		o.PysparkJob = vPysparkJob
+	}
+	vHiveJob := o.HiveJob
+	if vHiveJob == nil {
+		// note: explicitly not the empty object.
+		vHiveJob = &WorkflowTemplateJobsHiveJob{}
+	}
+	if err := extractWorkflowTemplateJobsHiveJobFields(r, vHiveJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHiveJob) {
+		o.HiveJob = vHiveJob
+	}
+	vPigJob := o.PigJob
+	if vPigJob == nil {
+		// note: explicitly not the empty object.
+		vPigJob = &WorkflowTemplateJobsPigJob{}
+	}
+	if err := extractWorkflowTemplateJobsPigJobFields(r, vPigJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPigJob) {
+		o.PigJob = vPigJob
+	}
+	vSparkRJob := o.SparkRJob
+	if vSparkRJob == nil {
+		// note: explicitly not the empty object.
+		vSparkRJob = &WorkflowTemplateJobsSparkRJob{}
+	}
+	if err := extractWorkflowTemplateJobsSparkRJobFields(r, vSparkRJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkRJob) {
+		o.SparkRJob = vSparkRJob
+	}
+	vSparkSqlJob := o.SparkSqlJob
+	if vSparkSqlJob == nil {
+		// note: explicitly not the empty object.
+		vSparkSqlJob = &WorkflowTemplateJobsSparkSqlJob{}
+	}
+	if err := extractWorkflowTemplateJobsSparkSqlJobFields(r, vSparkSqlJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkSqlJob) {
+		o.SparkSqlJob = vSparkSqlJob
+	}
+	vPrestoJob := o.PrestoJob
+	if vPrestoJob == nil {
+		// note: explicitly not the empty object.
+		vPrestoJob = &WorkflowTemplateJobsPrestoJob{}
+	}
+	if err := extractWorkflowTemplateJobsPrestoJobFields(r, vPrestoJob); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPrestoJob) {
+		o.PrestoJob = vPrestoJob
+	}
+	vScheduling := o.Scheduling
+	if vScheduling == nil {
+		// note: explicitly not the empty object.
+		vScheduling = &WorkflowTemplateJobsScheduling{}
+	}
+	if err := extractWorkflowTemplateJobsSchedulingFields(r, vScheduling); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScheduling) {
+		o.Scheduling = vScheduling
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsHadoopJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHadoopJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsHadoopJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsHadoopJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsHadoopJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHadoopJobLoggingConfig) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSparkJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsSparkJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsSparkJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSparkJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkJobLoggingConfig) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPysparkJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPysparkJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsPysparkJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsPysparkJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPysparkJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPysparkJobLoggingConfig) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsHiveJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHiveJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsHiveJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsHiveJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsHiveJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsHiveJobQueryList) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPigJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPigJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsPigJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsPigJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsPigJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsPigJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPigJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPigJobQueryList) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPigJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPigJobLoggingConfig) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSparkRJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkRJob) error {
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsSparkRJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsSparkRJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSparkRJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkRJobLoggingConfig) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSparkSqlJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkSqlJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsSparkSqlJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsSparkSqlJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsSparkSqlJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSparkSqlJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkSqlJobQueryList) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSparkSqlJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsSparkSqlJobLoggingConfig) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPrestoJobFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPrestoJob) error {
+	vQueryList := o.QueryList
+	if vQueryList == nil {
+		// note: explicitly not the empty object.
+		vQueryList = &WorkflowTemplateJobsPrestoJobQueryList{}
+	}
+	if err := extractWorkflowTemplateJobsPrestoJobQueryListFields(r, vQueryList); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vQueryList) {
+		o.QueryList = vQueryList
+	}
+	vLoggingConfig := o.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &WorkflowTemplateJobsPrestoJobLoggingConfig{}
+	}
+	if err := extractWorkflowTemplateJobsPrestoJobLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		o.LoggingConfig = vLoggingConfig
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPrestoJobQueryListFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPrestoJobQueryList) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsPrestoJobLoggingConfigFields(r *WorkflowTemplate, o *WorkflowTemplateJobsPrestoJobLoggingConfig) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateJobsSchedulingFields(r *WorkflowTemplate, o *WorkflowTemplateJobsScheduling) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateParametersFields(r *WorkflowTemplate, o *WorkflowTemplateParameters) error {
+	vValidation := o.Validation
+	if vValidation == nil {
+		// note: explicitly not the empty object.
+		vValidation = &WorkflowTemplateParametersValidation{}
+	}
+	if err := extractWorkflowTemplateParametersValidationFields(r, vValidation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vValidation) {
+		o.Validation = vValidation
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateParametersValidationFields(r *WorkflowTemplate, o *WorkflowTemplateParametersValidation) error {
+	vRegex := o.Regex
+	if vRegex == nil {
+		// note: explicitly not the empty object.
+		vRegex = &WorkflowTemplateParametersValidationRegex{}
+	}
+	if err := extractWorkflowTemplateParametersValidationRegexFields(r, vRegex); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRegex) {
+		o.Regex = vRegex
+	}
+	vValues := o.Values
+	if vValues == nil {
+		// note: explicitly not the empty object.
+		vValues = &WorkflowTemplateParametersValidationValues{}
+	}
+	if err := extractWorkflowTemplateParametersValidationValuesFields(r, vValues); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vValues) {
+		o.Values = vValues
+	}
+	return nil
+}
+func postReadExtractWorkflowTemplateParametersValidationRegexFields(r *WorkflowTemplate, o *WorkflowTemplateParametersValidationRegex) error {
+	return nil
+}
+func postReadExtractWorkflowTemplateParametersValidationValuesFields(r *WorkflowTemplate, o *WorkflowTemplateParametersValidationValues) error {
 	return nil
 }

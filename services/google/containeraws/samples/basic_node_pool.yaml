@@ -24,18 +24,14 @@ updates:
   dependencies:
   - samples/minimal.cluster.json
 variables:
-- name: test_service_account
-  type: test_service_account
-- name: cluster
-  type: resource_name
 - name: aws_subnet
   type: aws_subnet
 - name: aws_vpc
   type: aws_vpc
-- name: aws_subnet
-  type: aws_subnet
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
+- name: test_service_account
+  type: test_service_account
 - name: project
   type: project
 - name: aws_region
@@ -48,6 +44,12 @@ variables:
   type: aws_database_encryption_key
 - name: aws_account_id
   type: aws_account_id
+- name: cluster
+  type: resource_name
+- name: pool
+  type: resource_name
+- name: project
+  type: project
 - name: aws_security_group
   type: aws_security_group
 - name: aws_region
@@ -56,11 +58,9 @@ variables:
   type: aws_account_id
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: aws_subnet
   type: aws_subnet
-- name: pool
-  type: resource_name
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix

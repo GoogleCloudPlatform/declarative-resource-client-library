@@ -505,6 +505,9 @@ func (c *Client) GetClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) (*C
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractClientTlsPolicyFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -672,7 +675,7 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeClientTlsPolicyNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -680,12 +683,22 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeClientTlsPolicyDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractClientTlsPolicyFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractClientTlsPolicyFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffClientTlsPolicy(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

@@ -151,6 +151,9 @@ func (c *Client) GetFirewallPolicyAssociation(ctx context.Context, r *FirewallPo
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractFirewallPolicyAssociationFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -318,7 +321,7 @@ func applyFirewallPolicyAssociationHelper(c *Client, ctx context.Context, rawDes
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeFirewallPolicyAssociationNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -326,12 +329,22 @@ func applyFirewallPolicyAssociationHelper(c *Client, ctx context.Context, rawDes
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractFirewallPolicyAssociationFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractFirewallPolicyAssociationFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffFirewallPolicyAssociation(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

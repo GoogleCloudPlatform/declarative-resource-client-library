@@ -1828,6 +1828,9 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -3881,5 +3884,239 @@ func convertOpNameToJobApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, 
 }
 
 func extractJobFields(r *Job) error {
+	vPubsubTarget := r.PubsubTarget
+	if vPubsubTarget == nil {
+		// note: explicitly not the empty object.
+		vPubsubTarget = &JobPubsubTarget{}
+	}
+	if err := extractJobPubsubTargetFields(r, vPubsubTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPubsubTarget) {
+		r.PubsubTarget = vPubsubTarget
+	}
+	vAppEngineHttpTarget := r.AppEngineHttpTarget
+	if vAppEngineHttpTarget == nil {
+		// note: explicitly not the empty object.
+		vAppEngineHttpTarget = &JobAppEngineHttpTarget{}
+	}
+	if err := extractJobAppEngineHttpTargetFields(r, vAppEngineHttpTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAppEngineHttpTarget) {
+		r.AppEngineHttpTarget = vAppEngineHttpTarget
+	}
+	vHttpTarget := r.HttpTarget
+	if vHttpTarget == nil {
+		// note: explicitly not the empty object.
+		vHttpTarget = &JobHttpTarget{}
+	}
+	if err := extractJobHttpTargetFields(r, vHttpTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpTarget) {
+		r.HttpTarget = vHttpTarget
+	}
+	vStatus := r.Status
+	if vStatus == nil {
+		// note: explicitly not the empty object.
+		vStatus = &JobStatus{}
+	}
+	if err := extractJobStatusFields(r, vStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatus) {
+		r.Status = vStatus
+	}
+	vRetryConfig := r.RetryConfig
+	if vRetryConfig == nil {
+		// note: explicitly not the empty object.
+		vRetryConfig = &JobRetryConfig{}
+	}
+	if err := extractJobRetryConfigFields(r, vRetryConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRetryConfig) {
+		r.RetryConfig = vRetryConfig
+	}
+	return nil
+}
+func extractJobPubsubTargetFields(r *Job, o *JobPubsubTarget) error {
+	return nil
+}
+func extractJobAppEngineHttpTargetFields(r *Job, o *JobAppEngineHttpTarget) error {
+	vAppEngineRouting := o.AppEngineRouting
+	if vAppEngineRouting == nil {
+		// note: explicitly not the empty object.
+		vAppEngineRouting = &JobAppEngineHttpTargetAppEngineRouting{}
+	}
+	if err := extractJobAppEngineHttpTargetAppEngineRoutingFields(r, vAppEngineRouting); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAppEngineRouting) {
+		o.AppEngineRouting = vAppEngineRouting
+	}
+	return nil
+}
+func extractJobAppEngineHttpTargetAppEngineRoutingFields(r *Job, o *JobAppEngineHttpTargetAppEngineRouting) error {
+	return nil
+}
+func extractJobHttpTargetFields(r *Job, o *JobHttpTarget) error {
+	vOAuthToken := o.OAuthToken
+	if vOAuthToken == nil {
+		// note: explicitly not the empty object.
+		vOAuthToken = &JobHttpTargetOAuthToken{}
+	}
+	if err := extractJobHttpTargetOAuthTokenFields(r, vOAuthToken); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOAuthToken) {
+		o.OAuthToken = vOAuthToken
+	}
+	vOidcToken := o.OidcToken
+	if vOidcToken == nil {
+		// note: explicitly not the empty object.
+		vOidcToken = &JobHttpTargetOidcToken{}
+	}
+	if err := extractJobHttpTargetOidcTokenFields(r, vOidcToken); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOidcToken) {
+		o.OidcToken = vOidcToken
+	}
+	return nil
+}
+func extractJobHttpTargetOAuthTokenFields(r *Job, o *JobHttpTargetOAuthToken) error {
+	return nil
+}
+func extractJobHttpTargetOidcTokenFields(r *Job, o *JobHttpTargetOidcToken) error {
+	return nil
+}
+func extractJobStatusFields(r *Job, o *JobStatus) error {
+	return nil
+}
+func extractJobStatusDetailsFields(r *Job, o *JobStatusDetails) error {
+	return nil
+}
+func extractJobRetryConfigFields(r *Job, o *JobRetryConfig) error {
+	return nil
+}
+
+func postReadExtractJobFields(r *Job) error {
+	vPubsubTarget := r.PubsubTarget
+	if vPubsubTarget == nil {
+		// note: explicitly not the empty object.
+		vPubsubTarget = &JobPubsubTarget{}
+	}
+	if err := postReadExtractJobPubsubTargetFields(r, vPubsubTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPubsubTarget) {
+		r.PubsubTarget = vPubsubTarget
+	}
+	vAppEngineHttpTarget := r.AppEngineHttpTarget
+	if vAppEngineHttpTarget == nil {
+		// note: explicitly not the empty object.
+		vAppEngineHttpTarget = &JobAppEngineHttpTarget{}
+	}
+	if err := postReadExtractJobAppEngineHttpTargetFields(r, vAppEngineHttpTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAppEngineHttpTarget) {
+		r.AppEngineHttpTarget = vAppEngineHttpTarget
+	}
+	vHttpTarget := r.HttpTarget
+	if vHttpTarget == nil {
+		// note: explicitly not the empty object.
+		vHttpTarget = &JobHttpTarget{}
+	}
+	if err := postReadExtractJobHttpTargetFields(r, vHttpTarget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpTarget) {
+		r.HttpTarget = vHttpTarget
+	}
+	vStatus := r.Status
+	if vStatus == nil {
+		// note: explicitly not the empty object.
+		vStatus = &JobStatus{}
+	}
+	if err := postReadExtractJobStatusFields(r, vStatus); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vStatus) {
+		r.Status = vStatus
+	}
+	vRetryConfig := r.RetryConfig
+	if vRetryConfig == nil {
+		// note: explicitly not the empty object.
+		vRetryConfig = &JobRetryConfig{}
+	}
+	if err := postReadExtractJobRetryConfigFields(r, vRetryConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRetryConfig) {
+		r.RetryConfig = vRetryConfig
+	}
+	return nil
+}
+func postReadExtractJobPubsubTargetFields(r *Job, o *JobPubsubTarget) error {
+	return nil
+}
+func postReadExtractJobAppEngineHttpTargetFields(r *Job, o *JobAppEngineHttpTarget) error {
+	vAppEngineRouting := o.AppEngineRouting
+	if vAppEngineRouting == nil {
+		// note: explicitly not the empty object.
+		vAppEngineRouting = &JobAppEngineHttpTargetAppEngineRouting{}
+	}
+	if err := extractJobAppEngineHttpTargetAppEngineRoutingFields(r, vAppEngineRouting); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAppEngineRouting) {
+		o.AppEngineRouting = vAppEngineRouting
+	}
+	return nil
+}
+func postReadExtractJobAppEngineHttpTargetAppEngineRoutingFields(r *Job, o *JobAppEngineHttpTargetAppEngineRouting) error {
+	return nil
+}
+func postReadExtractJobHttpTargetFields(r *Job, o *JobHttpTarget) error {
+	vOAuthToken := o.OAuthToken
+	if vOAuthToken == nil {
+		// note: explicitly not the empty object.
+		vOAuthToken = &JobHttpTargetOAuthToken{}
+	}
+	if err := extractJobHttpTargetOAuthTokenFields(r, vOAuthToken); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOAuthToken) {
+		o.OAuthToken = vOAuthToken
+	}
+	vOidcToken := o.OidcToken
+	if vOidcToken == nil {
+		// note: explicitly not the empty object.
+		vOidcToken = &JobHttpTargetOidcToken{}
+	}
+	if err := extractJobHttpTargetOidcTokenFields(r, vOidcToken); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOidcToken) {
+		o.OidcToken = vOidcToken
+	}
+	return nil
+}
+func postReadExtractJobHttpTargetOAuthTokenFields(r *Job, o *JobHttpTargetOAuthToken) error {
+	return nil
+}
+func postReadExtractJobHttpTargetOidcTokenFields(r *Job, o *JobHttpTargetOidcToken) error {
+	return nil
+}
+func postReadExtractJobStatusFields(r *Job, o *JobStatus) error {
+	return nil
+}
+func postReadExtractJobStatusDetailsFields(r *Job, o *JobStatusDetails) error {
+	return nil
+}
+func postReadExtractJobRetryConfigFields(r *Job, o *JobRetryConfig) error {
 	return nil
 }

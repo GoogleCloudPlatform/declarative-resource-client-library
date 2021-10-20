@@ -4747,6 +4747,9 @@ func diffOSPolicyAssignment(c *Client, desired, actual *OSPolicyAssignment, opts
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -10197,5 +10200,651 @@ func convertOpNameToOSPolicyAssignmentApiOperation(opName string, fieldDiffs []*
 }
 
 func extractOSPolicyAssignmentFields(r *OSPolicyAssignment) error {
+	vInstanceFilter := r.InstanceFilter
+	if vInstanceFilter == nil {
+		// note: explicitly not the empty object.
+		vInstanceFilter = &OSPolicyAssignmentInstanceFilter{}
+	}
+	if err := extractOSPolicyAssignmentInstanceFilterFields(r, vInstanceFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vInstanceFilter) {
+		r.InstanceFilter = vInstanceFilter
+	}
+	vRollout := r.Rollout
+	if vRollout == nil {
+		// note: explicitly not the empty object.
+		vRollout = &OSPolicyAssignmentRollout{}
+	}
+	if err := extractOSPolicyAssignmentRolloutFields(r, vRollout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRollout) {
+		r.Rollout = vRollout
+	}
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPolicies) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroups) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResources) error {
+	vPkg := o.Pkg
+	if vPkg == nil {
+		// note: explicitly not the empty object.
+		vPkg = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgFields(r, vPkg); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPkg) {
+		o.Pkg = vPkg
+	}
+	vRepository := o.Repository
+	if vRepository == nil {
+		// note: explicitly not the empty object.
+		vRepository = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryFields(r, vRepository); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRepository) {
+		o.Repository = vRepository
+	}
+	vExec := o.Exec
+	if vExec == nil {
+		// note: explicitly not the empty object.
+		vExec = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecFields(r, vExec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vExec) {
+		o.Exec = vExec
+	}
+	vFile := o.File
+	if vFile == nil {
+		// note: explicitly not the empty object.
+		vFile = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFields(r, vFile); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFile) {
+		o.File = vFile
+	}
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) error {
+	vApt := o.Apt
+	if vApt == nil {
+		// note: explicitly not the empty object.
+		vApt = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptFields(r, vApt); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vApt) {
+		o.Apt = vApt
+	}
+	vDeb := o.Deb
+	if vDeb == nil {
+		// note: explicitly not the empty object.
+		vDeb = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebFields(r, vDeb); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDeb) {
+		o.Deb = vDeb
+	}
+	vYum := o.Yum
+	if vYum == nil {
+		// note: explicitly not the empty object.
+		vYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumFields(r, vYum); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYum) {
+		o.Yum = vYum
+	}
+	vZypper := o.Zypper
+	if vZypper == nil {
+		// note: explicitly not the empty object.
+		vZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperFields(r, vZypper); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vZypper) {
+		o.Zypper = vZypper
+	}
+	vRpm := o.Rpm
+	if vRpm == nil {
+		// note: explicitly not the empty object.
+		vRpm = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmFields(r, vRpm); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRpm) {
+		o.Rpm = vRpm
+	}
+	vGooget := o.Googet
+	if vGooget == nil {
+		// note: explicitly not the empty object.
+		vGooget = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetFields(r, vGooget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGooget) {
+		o.Googet = vGooget
+	}
+	vMsi := o.Msi
+	if vMsi == nil {
+		// note: explicitly not the empty object.
+		vMsi = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiFields(r, vMsi); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMsi) {
+		o.Msi = vMsi
+	}
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractOSPolicyAssignmentFileFields(r *OSPolicyAssignment, o *OSPolicyAssignmentFile) error {
+	vRemote := o.Remote
+	if vRemote == nil {
+		// note: explicitly not the empty object.
+		vRemote = &OSPolicyAssignmentFileRemote{}
+	}
+	if err := extractOSPolicyAssignmentFileRemoteFields(r, vRemote); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRemote) {
+		o.Remote = vRemote
+	}
+	vGcs := o.Gcs
+	if vGcs == nil {
+		// note: explicitly not the empty object.
+		vGcs = &OSPolicyAssignmentFileGcs{}
+	}
+	if err := extractOSPolicyAssignmentFileGcsFields(r, vGcs); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGcs) {
+		o.Gcs = vGcs
+	}
+	return nil
+}
+func extractOSPolicyAssignmentFileRemoteFields(r *OSPolicyAssignment, o *OSPolicyAssignmentFileRemote) error {
+	return nil
+}
+func extractOSPolicyAssignmentFileGcsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentFileGcs) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) error {
+	vApt := o.Apt
+	if vApt == nil {
+		// note: explicitly not the empty object.
+		vApt = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptFields(r, vApt); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vApt) {
+		o.Apt = vApt
+	}
+	vYum := o.Yum
+	if vYum == nil {
+		// note: explicitly not the empty object.
+		vYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumFields(r, vYum); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYum) {
+		o.Yum = vYum
+	}
+	vZypper := o.Zypper
+	if vZypper == nil {
+		// note: explicitly not the empty object.
+		vZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperFields(r, vZypper); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vZypper) {
+		o.Zypper = vZypper
+	}
+	vGoo := o.Goo
+	if vGoo == nil {
+		// note: explicitly not the empty object.
+		vGoo = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooFields(r, vGoo); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoo) {
+		o.Goo = vGoo
+	}
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) error {
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) error {
+	// *OSPolicyAssignmentExec is a reused type - that's not compatible with function extractors.
+
+	// *OSPolicyAssignmentExec is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractOSPolicyAssignmentExecFields(r *OSPolicyAssignment, o *OSPolicyAssignmentExec) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractOSPolicyAssignmentInstanceFilterFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilter) error {
+	return nil
+}
+func extractOSPolicyAssignmentInstanceFilterInclusionLabelsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilterInclusionLabels) error {
+	return nil
+}
+func extractOSPolicyAssignmentInstanceFilterExclusionLabelsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilterExclusionLabels) error {
+	return nil
+}
+func extractOSPolicyAssignmentInstanceFilterInventoriesFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilterInventories) error {
+	return nil
+}
+func extractOSPolicyAssignmentRolloutFields(r *OSPolicyAssignment, o *OSPolicyAssignmentRollout) error {
+	vDisruptionBudget := o.DisruptionBudget
+	if vDisruptionBudget == nil {
+		// note: explicitly not the empty object.
+		vDisruptionBudget = &OSPolicyAssignmentRolloutDisruptionBudget{}
+	}
+	if err := extractOSPolicyAssignmentRolloutDisruptionBudgetFields(r, vDisruptionBudget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDisruptionBudget) {
+		o.DisruptionBudget = vDisruptionBudget
+	}
+	return nil
+}
+func extractOSPolicyAssignmentRolloutDisruptionBudgetFields(r *OSPolicyAssignment, o *OSPolicyAssignmentRolloutDisruptionBudget) error {
+	return nil
+}
+
+func postReadExtractOSPolicyAssignmentFields(r *OSPolicyAssignment) error {
+	vInstanceFilter := r.InstanceFilter
+	if vInstanceFilter == nil {
+		// note: explicitly not the empty object.
+		vInstanceFilter = &OSPolicyAssignmentInstanceFilter{}
+	}
+	if err := postReadExtractOSPolicyAssignmentInstanceFilterFields(r, vInstanceFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vInstanceFilter) {
+		r.InstanceFilter = vInstanceFilter
+	}
+	vRollout := r.Rollout
+	if vRollout == nil {
+		// note: explicitly not the empty object.
+		vRollout = &OSPolicyAssignmentRollout{}
+	}
+	if err := postReadExtractOSPolicyAssignmentRolloutFields(r, vRollout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRollout) {
+		r.Rollout = vRollout
+	}
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPolicies) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroups) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResources) error {
+	vPkg := o.Pkg
+	if vPkg == nil {
+		// note: explicitly not the empty object.
+		vPkg = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgFields(r, vPkg); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPkg) {
+		o.Pkg = vPkg
+	}
+	vRepository := o.Repository
+	if vRepository == nil {
+		// note: explicitly not the empty object.
+		vRepository = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryFields(r, vRepository); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRepository) {
+		o.Repository = vRepository
+	}
+	vExec := o.Exec
+	if vExec == nil {
+		// note: explicitly not the empty object.
+		vExec = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecFields(r, vExec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vExec) {
+		o.Exec = vExec
+	}
+	vFile := o.File
+	if vFile == nil {
+		// note: explicitly not the empty object.
+		vFile = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFields(r, vFile); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFile) {
+		o.File = vFile
+	}
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) error {
+	vApt := o.Apt
+	if vApt == nil {
+		// note: explicitly not the empty object.
+		vApt = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptFields(r, vApt); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vApt) {
+		o.Apt = vApt
+	}
+	vDeb := o.Deb
+	if vDeb == nil {
+		// note: explicitly not the empty object.
+		vDeb = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebFields(r, vDeb); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDeb) {
+		o.Deb = vDeb
+	}
+	vYum := o.Yum
+	if vYum == nil {
+		// note: explicitly not the empty object.
+		vYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumFields(r, vYum); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYum) {
+		o.Yum = vYum
+	}
+	vZypper := o.Zypper
+	if vZypper == nil {
+		// note: explicitly not the empty object.
+		vZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperFields(r, vZypper); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vZypper) {
+		o.Zypper = vZypper
+	}
+	vRpm := o.Rpm
+	if vRpm == nil {
+		// note: explicitly not the empty object.
+		vRpm = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmFields(r, vRpm); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRpm) {
+		o.Rpm = vRpm
+	}
+	vGooget := o.Googet
+	if vGooget == nil {
+		// note: explicitly not the empty object.
+		vGooget = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetFields(r, vGooget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGooget) {
+		o.Googet = vGooget
+	}
+	vMsi := o.Msi
+	if vMsi == nil {
+		// note: explicitly not the empty object.
+		vMsi = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiFields(r, vMsi); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMsi) {
+		o.Msi = vMsi
+	}
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractOSPolicyAssignmentFileFields(r *OSPolicyAssignment, o *OSPolicyAssignmentFile) error {
+	vRemote := o.Remote
+	if vRemote == nil {
+		// note: explicitly not the empty object.
+		vRemote = &OSPolicyAssignmentFileRemote{}
+	}
+	if err := extractOSPolicyAssignmentFileRemoteFields(r, vRemote); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRemote) {
+		o.Remote = vRemote
+	}
+	vGcs := o.Gcs
+	if vGcs == nil {
+		// note: explicitly not the empty object.
+		vGcs = &OSPolicyAssignmentFileGcs{}
+	}
+	if err := extractOSPolicyAssignmentFileGcsFields(r, vGcs); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGcs) {
+		o.Gcs = vGcs
+	}
+	return nil
+}
+func postReadExtractOSPolicyAssignmentFileRemoteFields(r *OSPolicyAssignment, o *OSPolicyAssignmentFileRemote) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentFileGcsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentFileGcs) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) error {
+	vApt := o.Apt
+	if vApt == nil {
+		// note: explicitly not the empty object.
+		vApt = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptFields(r, vApt); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vApt) {
+		o.Apt = vApt
+	}
+	vYum := o.Yum
+	if vYum == nil {
+		// note: explicitly not the empty object.
+		vYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumFields(r, vYum); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYum) {
+		o.Yum = vYum
+	}
+	vZypper := o.Zypper
+	if vZypper == nil {
+		// note: explicitly not the empty object.
+		vZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperFields(r, vZypper); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vZypper) {
+		o.Zypper = vZypper
+	}
+	vGoo := o.Goo
+	if vGoo == nil {
+		// note: explicitly not the empty object.
+		vGoo = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo{}
+	}
+	if err := extractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooFields(r, vGoo); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGoo) {
+		o.Goo = vGoo
+	}
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) error {
+	// *OSPolicyAssignmentExec is a reused type - that's not compatible with function extractors.
+
+	// *OSPolicyAssignmentExec is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractOSPolicyAssignmentExecFields(r *OSPolicyAssignment, o *OSPolicyAssignmentExec) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFields(r *OSPolicyAssignment, o *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) error {
+	// *OSPolicyAssignmentFile is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractOSPolicyAssignmentInstanceFilterFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilter) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentInstanceFilterInclusionLabelsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilterInclusionLabels) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentInstanceFilterExclusionLabelsFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilterExclusionLabels) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentInstanceFilterInventoriesFields(r *OSPolicyAssignment, o *OSPolicyAssignmentInstanceFilterInventories) error {
+	return nil
+}
+func postReadExtractOSPolicyAssignmentRolloutFields(r *OSPolicyAssignment, o *OSPolicyAssignmentRollout) error {
+	vDisruptionBudget := o.DisruptionBudget
+	if vDisruptionBudget == nil {
+		// note: explicitly not the empty object.
+		vDisruptionBudget = &OSPolicyAssignmentRolloutDisruptionBudget{}
+	}
+	if err := extractOSPolicyAssignmentRolloutDisruptionBudgetFields(r, vDisruptionBudget); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDisruptionBudget) {
+		o.DisruptionBudget = vDisruptionBudget
+	}
+	return nil
+}
+func postReadExtractOSPolicyAssignmentRolloutDisruptionBudgetFields(r *OSPolicyAssignment, o *OSPolicyAssignmentRolloutDisruptionBudget) error {
 	return nil
 }

@@ -153,6 +153,9 @@ func (c *Client) GetKeyRing(ctx context.Context, r *KeyRing) (*KeyRing, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractKeyRingFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -283,7 +286,7 @@ func applyKeyRingHelper(c *Client, ctx context.Context, rawDesired *KeyRing, opt
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeKeyRingNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -291,12 +294,22 @@ func applyKeyRingHelper(c *Client, ctx context.Context, rawDesired *KeyRing, opt
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeKeyRingDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractKeyRingFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractKeyRingFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffKeyRing(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

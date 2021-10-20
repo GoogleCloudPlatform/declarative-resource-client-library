@@ -424,6 +424,9 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -681,5 +684,9 @@ func convertOpNameToFirewallPolicyApiOperation(opName string, fieldDiffs []*dcl.
 }
 
 func extractFirewallPolicyFields(r *FirewallPolicy) error {
+	return nil
+}
+
+func postReadExtractFirewallPolicyFields(r *FirewallPolicy) error {
 	return nil
 }

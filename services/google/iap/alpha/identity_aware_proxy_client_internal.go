@@ -412,6 +412,9 @@ func diffIdentityAwareProxyClient(c *Client, desired, actual *IdentityAwareProxy
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -635,5 +638,9 @@ func convertOpNameToIdentityAwareProxyClientApiOperation(opName string, fieldDif
 }
 
 func extractIdentityAwareProxyClientFields(r *IdentityAwareProxyClient) error {
+	return nil
+}
+
+func postReadExtractIdentityAwareProxyClientFields(r *IdentityAwareProxyClient) error {
 	return nil
 }

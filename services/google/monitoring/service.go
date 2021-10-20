@@ -740,6 +740,9 @@ func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractServiceFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -907,7 +910,7 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeServiceNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -915,12 +918,22 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeServiceDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractServiceFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractServiceFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffService(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

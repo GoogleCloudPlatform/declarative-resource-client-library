@@ -6368,6 +6368,9 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -15952,5 +15955,1091 @@ func convertOpNameToDashboardApiOperation(opName string, fieldDiffs []*dcl.Field
 }
 
 func extractDashboardFields(r *Dashboard) error {
+	vGridLayout := r.GridLayout
+	if vGridLayout == nil {
+		// note: explicitly not the empty object.
+		vGridLayout = &DashboardGridLayout{}
+	}
+	if err := extractDashboardGridLayoutFields(r, vGridLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGridLayout) {
+		r.GridLayout = vGridLayout
+	}
+	vMosaicLayout := r.MosaicLayout
+	if vMosaicLayout == nil {
+		// note: explicitly not the empty object.
+		vMosaicLayout = &DashboardMosaicLayout{}
+	}
+	if err := extractDashboardMosaicLayoutFields(r, vMosaicLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMosaicLayout) {
+		r.MosaicLayout = vMosaicLayout
+	}
+	vRowLayout := r.RowLayout
+	if vRowLayout == nil {
+		// note: explicitly not the empty object.
+		vRowLayout = &DashboardRowLayout{}
+	}
+	if err := extractDashboardRowLayoutFields(r, vRowLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRowLayout) {
+		r.RowLayout = vRowLayout
+	}
+	vColumnLayout := r.ColumnLayout
+	if vColumnLayout == nil {
+		// note: explicitly not the empty object.
+		vColumnLayout = &DashboardColumnLayout{}
+	}
+	if err := extractDashboardColumnLayoutFields(r, vColumnLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vColumnLayout) {
+		r.ColumnLayout = vColumnLayout
+	}
+	return nil
+}
+func extractDashboardGridLayoutFields(r *Dashboard, o *DashboardGridLayout) error {
+	return nil
+}
+func extractDashboardMosaicLayoutFields(r *Dashboard, o *DashboardMosaicLayout) error {
+	return nil
+}
+func extractDashboardMosaicLayoutTilesFields(r *Dashboard, o *DashboardMosaicLayoutTiles) error {
+	// *DashboardWidget is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func extractDashboardRowLayoutFields(r *Dashboard, o *DashboardRowLayout) error {
+	return nil
+}
+func extractDashboardRowLayoutRowsFields(r *Dashboard, o *DashboardRowLayoutRows) error {
+	return nil
+}
+func extractDashboardColumnLayoutFields(r *Dashboard, o *DashboardColumnLayout) error {
+	return nil
+}
+func extractDashboardColumnLayoutColumnsFields(r *Dashboard, o *DashboardColumnLayoutColumns) error {
+	return nil
+}
+func extractDashboardWidgetFields(r *Dashboard, o *DashboardWidget) error {
+	vXyChart := o.XyChart
+	if vXyChart == nil {
+		// note: explicitly not the empty object.
+		vXyChart = &DashboardWidgetXyChart{}
+	}
+	if err := extractDashboardWidgetXyChartFields(r, vXyChart); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vXyChart) {
+		o.XyChart = vXyChart
+	}
+	vScorecard := o.Scorecard
+	if vScorecard == nil {
+		// note: explicitly not the empty object.
+		vScorecard = &DashboardWidgetScorecard{}
+	}
+	if err := extractDashboardWidgetScorecardFields(r, vScorecard); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScorecard) {
+		o.Scorecard = vScorecard
+	}
+	vText := o.Text
+	if vText == nil {
+		// note: explicitly not the empty object.
+		vText = &DashboardWidgetText{}
+	}
+	if err := extractDashboardWidgetTextFields(r, vText); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vText) {
+		o.Text = vText
+	}
+	vBlank := o.Blank
+	if vBlank == nil {
+		// note: explicitly not the empty object.
+		vBlank = &DashboardWidgetBlank{}
+	}
+	if err := extractDashboardWidgetBlankFields(r, vBlank); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBlank) {
+		o.Blank = vBlank
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartFields(r *Dashboard, o *DashboardWidgetXyChart) error {
+	vXAxis := o.XAxis
+	if vXAxis == nil {
+		// note: explicitly not the empty object.
+		vXAxis = &DashboardWidgetXyChartXAxis{}
+	}
+	if err := extractDashboardWidgetXyChartXAxisFields(r, vXAxis); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vXAxis) {
+		o.XAxis = vXAxis
+	}
+	vYAxis := o.YAxis
+	if vYAxis == nil {
+		// note: explicitly not the empty object.
+		vYAxis = &DashboardWidgetXyChartYAxis{}
+	}
+	if err := extractDashboardWidgetXyChartYAxisFields(r, vYAxis); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYAxis) {
+		o.YAxis = vYAxis
+	}
+	vChartOptions := o.ChartOptions
+	if vChartOptions == nil {
+		// note: explicitly not the empty object.
+		vChartOptions = &DashboardWidgetXyChartChartOptions{}
+	}
+	if err := extractDashboardWidgetXyChartChartOptionsFields(r, vChartOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vChartOptions) {
+		o.ChartOptions = vChartOptions
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsFields(r *Dashboard, o *DashboardWidgetXyChartDataSets) error {
+	vTimeSeriesQuery := o.TimeSeriesQuery
+	if vTimeSeriesQuery == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesQuery = &DashboardWidgetXyChartDataSetsTimeSeriesQuery{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryFields(r, vTimeSeriesQuery); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesQuery) {
+		o.TimeSeriesQuery = vTimeSeriesQuery
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQuery) error {
+	vTimeSeriesFilter := o.TimeSeriesFilter
+	if vTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterFields(r, vTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilter) {
+		o.TimeSeriesFilter = vTimeSeriesFilter
+	}
+	vTimeSeriesFilterRatio := o.TimeSeriesFilterRatio
+	if vTimeSeriesFilterRatio == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilterRatio = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioFields(r, vTimeSeriesFilterRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilterRatio) {
+		o.TimeSeriesFilterRatio = vTimeSeriesFilterRatio
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) error {
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) error {
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) error {
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) error {
+	vNumerator := o.Numerator
+	if vNumerator == nil {
+		// note: explicitly not the empty object.
+		vNumerator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r, vNumerator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNumerator) {
+		o.Numerator = vNumerator
+	}
+	vDenominator := o.Denominator
+	if vDenominator == nil {
+		// note: explicitly not the empty object.
+		vDenominator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r, vDenominator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDenominator) {
+		o.Denominator = vDenominator
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) error {
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) error {
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) error {
+	return nil
+}
+func extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) error {
+	return nil
+}
+func extractDashboardWidgetXyChartThresholdsFields(r *Dashboard, o *DashboardWidgetXyChartThresholds) error {
+	return nil
+}
+func extractDashboardWidgetXyChartXAxisFields(r *Dashboard, o *DashboardWidgetXyChartXAxis) error {
+	return nil
+}
+func extractDashboardWidgetXyChartYAxisFields(r *Dashboard, o *DashboardWidgetXyChartYAxis) error {
+	return nil
+}
+func extractDashboardWidgetXyChartChartOptionsFields(r *Dashboard, o *DashboardWidgetXyChartChartOptions) error {
+	return nil
+}
+func extractDashboardWidgetScorecardFields(r *Dashboard, o *DashboardWidgetScorecard) error {
+	vTimeSeriesQuery := o.TimeSeriesQuery
+	if vTimeSeriesQuery == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesQuery = &DashboardWidgetScorecardTimeSeriesQuery{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryFields(r, vTimeSeriesQuery); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesQuery) {
+		o.TimeSeriesQuery = vTimeSeriesQuery
+	}
+	vGaugeView := o.GaugeView
+	if vGaugeView == nil {
+		// note: explicitly not the empty object.
+		vGaugeView = &DashboardWidgetScorecardGaugeView{}
+	}
+	if err := extractDashboardWidgetScorecardGaugeViewFields(r, vGaugeView); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGaugeView) {
+		o.GaugeView = vGaugeView
+	}
+	vSparkChartView := o.SparkChartView
+	if vSparkChartView == nil {
+		// note: explicitly not the empty object.
+		vSparkChartView = &DashboardWidgetScorecardSparkChartView{}
+	}
+	if err := extractDashboardWidgetScorecardSparkChartViewFields(r, vSparkChartView); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkChartView) {
+		o.SparkChartView = vSparkChartView
+	}
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQuery) error {
+	vTimeSeriesFilter := o.TimeSeriesFilter
+	if vTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterFields(r, vTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilter) {
+		o.TimeSeriesFilter = vTimeSeriesFilter
+	}
+	vTimeSeriesFilterRatio := o.TimeSeriesFilterRatio
+	if vTimeSeriesFilterRatio == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilterRatio = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioFields(r, vTimeSeriesFilterRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilterRatio) {
+		o.TimeSeriesFilterRatio = vTimeSeriesFilterRatio
+	}
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) error {
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) error {
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) error {
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) error {
+	vNumerator := o.Numerator
+	if vNumerator == nil {
+		// note: explicitly not the empty object.
+		vNumerator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r, vNumerator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNumerator) {
+		o.Numerator = vNumerator
+	}
+	vDenominator := o.Denominator
+	if vDenominator == nil {
+		// note: explicitly not the empty object.
+		vDenominator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r, vDenominator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDenominator) {
+		o.Denominator = vDenominator
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) error {
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) error {
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) error {
+	return nil
+}
+func extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) error {
+	return nil
+}
+func extractDashboardWidgetScorecardGaugeViewFields(r *Dashboard, o *DashboardWidgetScorecardGaugeView) error {
+	return nil
+}
+func extractDashboardWidgetScorecardSparkChartViewFields(r *Dashboard, o *DashboardWidgetScorecardSparkChartView) error {
+	return nil
+}
+func extractDashboardWidgetScorecardThresholdsFields(r *Dashboard, o *DashboardWidgetScorecardThresholds) error {
+	return nil
+}
+func extractDashboardWidgetTextFields(r *Dashboard, o *DashboardWidgetText) error {
+	return nil
+}
+func extractDashboardWidgetBlankFields(r *Dashboard, o *DashboardWidgetBlank) error {
+	return nil
+}
+
+func postReadExtractDashboardFields(r *Dashboard) error {
+	vGridLayout := r.GridLayout
+	if vGridLayout == nil {
+		// note: explicitly not the empty object.
+		vGridLayout = &DashboardGridLayout{}
+	}
+	if err := postReadExtractDashboardGridLayoutFields(r, vGridLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGridLayout) {
+		r.GridLayout = vGridLayout
+	}
+	vMosaicLayout := r.MosaicLayout
+	if vMosaicLayout == nil {
+		// note: explicitly not the empty object.
+		vMosaicLayout = &DashboardMosaicLayout{}
+	}
+	if err := postReadExtractDashboardMosaicLayoutFields(r, vMosaicLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMosaicLayout) {
+		r.MosaicLayout = vMosaicLayout
+	}
+	vRowLayout := r.RowLayout
+	if vRowLayout == nil {
+		// note: explicitly not the empty object.
+		vRowLayout = &DashboardRowLayout{}
+	}
+	if err := postReadExtractDashboardRowLayoutFields(r, vRowLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRowLayout) {
+		r.RowLayout = vRowLayout
+	}
+	vColumnLayout := r.ColumnLayout
+	if vColumnLayout == nil {
+		// note: explicitly not the empty object.
+		vColumnLayout = &DashboardColumnLayout{}
+	}
+	if err := postReadExtractDashboardColumnLayoutFields(r, vColumnLayout); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vColumnLayout) {
+		r.ColumnLayout = vColumnLayout
+	}
+	return nil
+}
+func postReadExtractDashboardGridLayoutFields(r *Dashboard, o *DashboardGridLayout) error {
+	return nil
+}
+func postReadExtractDashboardMosaicLayoutFields(r *Dashboard, o *DashboardMosaicLayout) error {
+	return nil
+}
+func postReadExtractDashboardMosaicLayoutTilesFields(r *Dashboard, o *DashboardMosaicLayoutTiles) error {
+	// *DashboardWidget is a reused type - that's not compatible with function extractors.
+
+	return nil
+}
+func postReadExtractDashboardRowLayoutFields(r *Dashboard, o *DashboardRowLayout) error {
+	return nil
+}
+func postReadExtractDashboardRowLayoutRowsFields(r *Dashboard, o *DashboardRowLayoutRows) error {
+	return nil
+}
+func postReadExtractDashboardColumnLayoutFields(r *Dashboard, o *DashboardColumnLayout) error {
+	return nil
+}
+func postReadExtractDashboardColumnLayoutColumnsFields(r *Dashboard, o *DashboardColumnLayoutColumns) error {
+	return nil
+}
+func postReadExtractDashboardWidgetFields(r *Dashboard, o *DashboardWidget) error {
+	vXyChart := o.XyChart
+	if vXyChart == nil {
+		// note: explicitly not the empty object.
+		vXyChart = &DashboardWidgetXyChart{}
+	}
+	if err := extractDashboardWidgetXyChartFields(r, vXyChart); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vXyChart) {
+		o.XyChart = vXyChart
+	}
+	vScorecard := o.Scorecard
+	if vScorecard == nil {
+		// note: explicitly not the empty object.
+		vScorecard = &DashboardWidgetScorecard{}
+	}
+	if err := extractDashboardWidgetScorecardFields(r, vScorecard); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vScorecard) {
+		o.Scorecard = vScorecard
+	}
+	vText := o.Text
+	if vText == nil {
+		// note: explicitly not the empty object.
+		vText = &DashboardWidgetText{}
+	}
+	if err := extractDashboardWidgetTextFields(r, vText); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vText) {
+		o.Text = vText
+	}
+	vBlank := o.Blank
+	if vBlank == nil {
+		// note: explicitly not the empty object.
+		vBlank = &DashboardWidgetBlank{}
+	}
+	if err := extractDashboardWidgetBlankFields(r, vBlank); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBlank) {
+		o.Blank = vBlank
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartFields(r *Dashboard, o *DashboardWidgetXyChart) error {
+	vXAxis := o.XAxis
+	if vXAxis == nil {
+		// note: explicitly not the empty object.
+		vXAxis = &DashboardWidgetXyChartXAxis{}
+	}
+	if err := extractDashboardWidgetXyChartXAxisFields(r, vXAxis); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vXAxis) {
+		o.XAxis = vXAxis
+	}
+	vYAxis := o.YAxis
+	if vYAxis == nil {
+		// note: explicitly not the empty object.
+		vYAxis = &DashboardWidgetXyChartYAxis{}
+	}
+	if err := extractDashboardWidgetXyChartYAxisFields(r, vYAxis); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vYAxis) {
+		o.YAxis = vYAxis
+	}
+	vChartOptions := o.ChartOptions
+	if vChartOptions == nil {
+		// note: explicitly not the empty object.
+		vChartOptions = &DashboardWidgetXyChartChartOptions{}
+	}
+	if err := extractDashboardWidgetXyChartChartOptionsFields(r, vChartOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vChartOptions) {
+		o.ChartOptions = vChartOptions
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsFields(r *Dashboard, o *DashboardWidgetXyChartDataSets) error {
+	vTimeSeriesQuery := o.TimeSeriesQuery
+	if vTimeSeriesQuery == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesQuery = &DashboardWidgetXyChartDataSetsTimeSeriesQuery{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryFields(r, vTimeSeriesQuery); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesQuery) {
+		o.TimeSeriesQuery = vTimeSeriesQuery
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQuery) error {
+	vTimeSeriesFilter := o.TimeSeriesFilter
+	if vTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterFields(r, vTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilter) {
+		o.TimeSeriesFilter = vTimeSeriesFilter
+	}
+	vTimeSeriesFilterRatio := o.TimeSeriesFilterRatio
+	if vTimeSeriesFilterRatio == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilterRatio = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioFields(r, vTimeSeriesFilterRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilterRatio) {
+		o.TimeSeriesFilterRatio = vTimeSeriesFilterRatio
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) error {
+	vNumerator := o.Numerator
+	if vNumerator == nil {
+		// note: explicitly not the empty object.
+		vNumerator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r, vNumerator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNumerator) {
+		o.Numerator = vNumerator
+	}
+	vDenominator := o.Denominator
+	if vDenominator == nil {
+		// note: explicitly not the empty object.
+		vDenominator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r, vDenominator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDenominator) {
+		o.Denominator = vDenominator
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+	}
+	if err := extractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartThresholdsFields(r *Dashboard, o *DashboardWidgetXyChartThresholds) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartXAxisFields(r *Dashboard, o *DashboardWidgetXyChartXAxis) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartYAxisFields(r *Dashboard, o *DashboardWidgetXyChartYAxis) error {
+	return nil
+}
+func postReadExtractDashboardWidgetXyChartChartOptionsFields(r *Dashboard, o *DashboardWidgetXyChartChartOptions) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardFields(r *Dashboard, o *DashboardWidgetScorecard) error {
+	vTimeSeriesQuery := o.TimeSeriesQuery
+	if vTimeSeriesQuery == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesQuery = &DashboardWidgetScorecardTimeSeriesQuery{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryFields(r, vTimeSeriesQuery); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesQuery) {
+		o.TimeSeriesQuery = vTimeSeriesQuery
+	}
+	vGaugeView := o.GaugeView
+	if vGaugeView == nil {
+		// note: explicitly not the empty object.
+		vGaugeView = &DashboardWidgetScorecardGaugeView{}
+	}
+	if err := extractDashboardWidgetScorecardGaugeViewFields(r, vGaugeView); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGaugeView) {
+		o.GaugeView = vGaugeView
+	}
+	vSparkChartView := o.SparkChartView
+	if vSparkChartView == nil {
+		// note: explicitly not the empty object.
+		vSparkChartView = &DashboardWidgetScorecardSparkChartView{}
+	}
+	if err := extractDashboardWidgetScorecardSparkChartViewFields(r, vSparkChartView); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSparkChartView) {
+		o.SparkChartView = vSparkChartView
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQuery) error {
+	vTimeSeriesFilter := o.TimeSeriesFilter
+	if vTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterFields(r, vTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilter) {
+		o.TimeSeriesFilter = vTimeSeriesFilter
+	}
+	vTimeSeriesFilterRatio := o.TimeSeriesFilterRatio
+	if vTimeSeriesFilterRatio == nil {
+		// note: explicitly not the empty object.
+		vTimeSeriesFilterRatio = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioFields(r, vTimeSeriesFilterRatio); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTimeSeriesFilterRatio) {
+		o.TimeSeriesFilterRatio = vTimeSeriesFilterRatio
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) error {
+	vNumerator := o.Numerator
+	if vNumerator == nil {
+		// note: explicitly not the empty object.
+		vNumerator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r, vNumerator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNumerator) {
+		o.Numerator = vNumerator
+	}
+	vDenominator := o.Denominator
+	if vDenominator == nil {
+		// note: explicitly not the empty object.
+		vDenominator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r, vDenominator); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDenominator) {
+		o.Denominator = vDenominator
+	}
+	vSecondaryAggregation := o.SecondaryAggregation
+	if vSecondaryAggregation == nil {
+		// note: explicitly not the empty object.
+		vSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r, vSecondaryAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSecondaryAggregation) {
+		o.SecondaryAggregation = vSecondaryAggregation
+	}
+	vPickTimeSeriesFilter := o.PickTimeSeriesFilter
+	if vPickTimeSeriesFilter == nil {
+		// note: explicitly not the empty object.
+		vPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r, vPickTimeSeriesFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPickTimeSeriesFilter) {
+		o.PickTimeSeriesFilter = vPickTimeSeriesFilter
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) error {
+	vAggregation := o.Aggregation
+	if vAggregation == nil {
+		// note: explicitly not the empty object.
+		vAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+	}
+	if err := extractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r, vAggregation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAggregation) {
+		o.Aggregation = vAggregation
+	}
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterFields(r *Dashboard, o *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardGaugeViewFields(r *Dashboard, o *DashboardWidgetScorecardGaugeView) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardSparkChartViewFields(r *Dashboard, o *DashboardWidgetScorecardSparkChartView) error {
+	return nil
+}
+func postReadExtractDashboardWidgetScorecardThresholdsFields(r *Dashboard, o *DashboardWidgetScorecardThresholds) error {
+	return nil
+}
+func postReadExtractDashboardWidgetTextFields(r *Dashboard, o *DashboardWidgetText) error {
+	return nil
+}
+func postReadExtractDashboardWidgetBlankFields(r *Dashboard, o *DashboardWidgetBlank) error {
 	return nil
 }

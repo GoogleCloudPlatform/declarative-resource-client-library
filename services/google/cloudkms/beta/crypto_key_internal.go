@@ -1162,6 +1162,9 @@ func diffCryptoKey(c *Client, desired, actual *CryptoKey, opts ...dcl.ApplyOptio
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2732,5 +2735,149 @@ func convertOpNameToCryptoKeyApiOperation(opName string, fieldDiffs []*dcl.Field
 }
 
 func extractCryptoKeyFields(r *CryptoKey) error {
+	vPrimary := r.Primary
+	if vPrimary == nil {
+		// note: explicitly not the empty object.
+		vPrimary = &CryptoKeyPrimary{}
+	}
+	if err := extractCryptoKeyPrimaryFields(r, vPrimary); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPrimary) {
+		r.Primary = vPrimary
+	}
+	vVersionTemplate := r.VersionTemplate
+	if vVersionTemplate == nil {
+		// note: explicitly not the empty object.
+		vVersionTemplate = &CryptoKeyVersionTemplate{}
+	}
+	if err := extractCryptoKeyVersionTemplateFields(r, vVersionTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVersionTemplate) {
+		r.VersionTemplate = vVersionTemplate
+	}
+	return nil
+}
+func extractCryptoKeyPrimaryFields(r *CryptoKey, o *CryptoKeyPrimary) error {
+	vAttestation := o.Attestation
+	if vAttestation == nil {
+		// note: explicitly not the empty object.
+		vAttestation = &CryptoKeyPrimaryAttestation{}
+	}
+	if err := extractCryptoKeyPrimaryAttestationFields(r, vAttestation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAttestation) {
+		o.Attestation = vAttestation
+	}
+	vExternalProtectionLevelOptions := o.ExternalProtectionLevelOptions
+	if vExternalProtectionLevelOptions == nil {
+		// note: explicitly not the empty object.
+		vExternalProtectionLevelOptions = &CryptoKeyPrimaryExternalProtectionLevelOptions{}
+	}
+	if err := extractCryptoKeyPrimaryExternalProtectionLevelOptionsFields(r, vExternalProtectionLevelOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vExternalProtectionLevelOptions) {
+		o.ExternalProtectionLevelOptions = vExternalProtectionLevelOptions
+	}
+	return nil
+}
+func extractCryptoKeyPrimaryAttestationFields(r *CryptoKey, o *CryptoKeyPrimaryAttestation) error {
+	vCertChains := o.CertChains
+	if vCertChains == nil {
+		// note: explicitly not the empty object.
+		vCertChains = &CryptoKeyPrimaryAttestationCertChains{}
+	}
+	if err := extractCryptoKeyPrimaryAttestationCertChainsFields(r, vCertChains); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCertChains) {
+		o.CertChains = vCertChains
+	}
+	return nil
+}
+func extractCryptoKeyPrimaryAttestationCertChainsFields(r *CryptoKey, o *CryptoKeyPrimaryAttestationCertChains) error {
+	return nil
+}
+func extractCryptoKeyPrimaryExternalProtectionLevelOptionsFields(r *CryptoKey, o *CryptoKeyPrimaryExternalProtectionLevelOptions) error {
+	return nil
+}
+func extractCryptoKeyVersionTemplateFields(r *CryptoKey, o *CryptoKeyVersionTemplate) error {
+	return nil
+}
+
+func postReadExtractCryptoKeyFields(r *CryptoKey) error {
+	vPrimary := r.Primary
+	if vPrimary == nil {
+		// note: explicitly not the empty object.
+		vPrimary = &CryptoKeyPrimary{}
+	}
+	if err := postReadExtractCryptoKeyPrimaryFields(r, vPrimary); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPrimary) {
+		r.Primary = vPrimary
+	}
+	vVersionTemplate := r.VersionTemplate
+	if vVersionTemplate == nil {
+		// note: explicitly not the empty object.
+		vVersionTemplate = &CryptoKeyVersionTemplate{}
+	}
+	if err := postReadExtractCryptoKeyVersionTemplateFields(r, vVersionTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVersionTemplate) {
+		r.VersionTemplate = vVersionTemplate
+	}
+	return nil
+}
+func postReadExtractCryptoKeyPrimaryFields(r *CryptoKey, o *CryptoKeyPrimary) error {
+	vAttestation := o.Attestation
+	if vAttestation == nil {
+		// note: explicitly not the empty object.
+		vAttestation = &CryptoKeyPrimaryAttestation{}
+	}
+	if err := extractCryptoKeyPrimaryAttestationFields(r, vAttestation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAttestation) {
+		o.Attestation = vAttestation
+	}
+	vExternalProtectionLevelOptions := o.ExternalProtectionLevelOptions
+	if vExternalProtectionLevelOptions == nil {
+		// note: explicitly not the empty object.
+		vExternalProtectionLevelOptions = &CryptoKeyPrimaryExternalProtectionLevelOptions{}
+	}
+	if err := extractCryptoKeyPrimaryExternalProtectionLevelOptionsFields(r, vExternalProtectionLevelOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vExternalProtectionLevelOptions) {
+		o.ExternalProtectionLevelOptions = vExternalProtectionLevelOptions
+	}
+	return nil
+}
+func postReadExtractCryptoKeyPrimaryAttestationFields(r *CryptoKey, o *CryptoKeyPrimaryAttestation) error {
+	vCertChains := o.CertChains
+	if vCertChains == nil {
+		// note: explicitly not the empty object.
+		vCertChains = &CryptoKeyPrimaryAttestationCertChains{}
+	}
+	if err := extractCryptoKeyPrimaryAttestationCertChainsFields(r, vCertChains); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCertChains) {
+		o.CertChains = vCertChains
+	}
+	return nil
+}
+func postReadExtractCryptoKeyPrimaryAttestationCertChainsFields(r *CryptoKey, o *CryptoKeyPrimaryAttestationCertChains) error {
+	return nil
+}
+func postReadExtractCryptoKeyPrimaryExternalProtectionLevelOptionsFields(r *CryptoKey, o *CryptoKeyPrimaryExternalProtectionLevelOptions) error {
+	return nil
+}
+func postReadExtractCryptoKeyVersionTemplateFields(r *CryptoKey, o *CryptoKeyVersionTemplate) error {
 	return nil
 }

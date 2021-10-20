@@ -856,6 +856,9 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1628,5 +1631,71 @@ func convertOpNameToAttestorApiOperation(opName string, fieldDiffs []*dcl.FieldD
 }
 
 func extractAttestorFields(r *Attestor) error {
+	vUserOwnedDrydockNote := r.UserOwnedDrydockNote
+	if vUserOwnedDrydockNote == nil {
+		// note: explicitly not the empty object.
+		vUserOwnedDrydockNote = &AttestorUserOwnedDrydockNote{}
+	}
+	if err := extractAttestorUserOwnedDrydockNoteFields(r, vUserOwnedDrydockNote); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vUserOwnedDrydockNote) {
+		r.UserOwnedDrydockNote = vUserOwnedDrydockNote
+	}
+	return nil
+}
+func extractAttestorUserOwnedDrydockNoteFields(r *Attestor, o *AttestorUserOwnedDrydockNote) error {
+	return nil
+}
+func extractAttestorUserOwnedDrydockNotePublicKeysFields(r *Attestor, o *AttestorUserOwnedDrydockNotePublicKeys) error {
+	vPkixPublicKey := o.PkixPublicKey
+	if vPkixPublicKey == nil {
+		// note: explicitly not the empty object.
+		vPkixPublicKey = &AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
+	}
+	if err := extractAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyFields(r, vPkixPublicKey); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPkixPublicKey) {
+		o.PkixPublicKey = vPkixPublicKey
+	}
+	return nil
+}
+func extractAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyFields(r *Attestor, o *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) error {
+	return nil
+}
+
+func postReadExtractAttestorFields(r *Attestor) error {
+	vUserOwnedDrydockNote := r.UserOwnedDrydockNote
+	if vUserOwnedDrydockNote == nil {
+		// note: explicitly not the empty object.
+		vUserOwnedDrydockNote = &AttestorUserOwnedDrydockNote{}
+	}
+	if err := postReadExtractAttestorUserOwnedDrydockNoteFields(r, vUserOwnedDrydockNote); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vUserOwnedDrydockNote) {
+		r.UserOwnedDrydockNote = vUserOwnedDrydockNote
+	}
+	return nil
+}
+func postReadExtractAttestorUserOwnedDrydockNoteFields(r *Attestor, o *AttestorUserOwnedDrydockNote) error {
+	return nil
+}
+func postReadExtractAttestorUserOwnedDrydockNotePublicKeysFields(r *Attestor, o *AttestorUserOwnedDrydockNotePublicKeys) error {
+	vPkixPublicKey := o.PkixPublicKey
+	if vPkixPublicKey == nil {
+		// note: explicitly not the empty object.
+		vPkixPublicKey = &AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
+	}
+	if err := extractAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyFields(r, vPkixPublicKey); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPkixPublicKey) {
+		o.PkixPublicKey = vPkixPublicKey
+	}
+	return nil
+}
+func postReadExtractAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyFields(r *Attestor, o *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) error {
 	return nil
 }

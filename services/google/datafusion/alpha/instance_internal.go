@@ -956,6 +956,9 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1808,5 +1811,43 @@ func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldD
 }
 
 func extractInstanceFields(r *Instance) error {
+	vNetworkConfig := r.NetworkConfig
+	if vNetworkConfig == nil {
+		// note: explicitly not the empty object.
+		vNetworkConfig = &InstanceNetworkConfig{}
+	}
+	if err := extractInstanceNetworkConfigFields(r, vNetworkConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+		r.NetworkConfig = vNetworkConfig
+	}
+	return nil
+}
+func extractInstanceNetworkConfigFields(r *Instance, o *InstanceNetworkConfig) error {
+	return nil
+}
+func extractInstanceAvailableVersionFields(r *Instance, o *InstanceAvailableVersion) error {
+	return nil
+}
+
+func postReadExtractInstanceFields(r *Instance) error {
+	vNetworkConfig := r.NetworkConfig
+	if vNetworkConfig == nil {
+		// note: explicitly not the empty object.
+		vNetworkConfig = &InstanceNetworkConfig{}
+	}
+	if err := postReadExtractInstanceNetworkConfigFields(r, vNetworkConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+		r.NetworkConfig = vNetworkConfig
+	}
+	return nil
+}
+func postReadExtractInstanceNetworkConfigFields(r *Instance, o *InstanceNetworkConfig) error {
+	return nil
+}
+func postReadExtractInstanceAvailableVersionFields(r *Instance, o *InstanceAvailableVersion) error {
 	return nil
 }

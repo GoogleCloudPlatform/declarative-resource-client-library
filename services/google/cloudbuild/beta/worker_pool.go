@@ -290,6 +290,9 @@ func (c *Client) GetWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPool,
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractWorkerPoolFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -457,7 +460,7 @@ func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPoo
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeWorkerPoolNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -465,12 +468,22 @@ func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPoo
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeWorkerPoolDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractWorkerPoolFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractWorkerPoolFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffWorkerPool(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

@@ -664,6 +664,9 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1096,5 +1099,37 @@ func convertOpNameToOAuthIdpConfigApiOperation(opName string, fieldDiffs []*dcl.
 }
 
 func extractOAuthIdpConfigFields(r *OAuthIdpConfig) error {
+	vResponseType := r.ResponseType
+	if vResponseType == nil {
+		// note: explicitly not the empty object.
+		vResponseType = &OAuthIdpConfigResponseType{}
+	}
+	if err := extractOAuthIdpConfigResponseTypeFields(r, vResponseType); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResponseType) {
+		r.ResponseType = vResponseType
+	}
+	return nil
+}
+func extractOAuthIdpConfigResponseTypeFields(r *OAuthIdpConfig, o *OAuthIdpConfigResponseType) error {
+	return nil
+}
+
+func postReadExtractOAuthIdpConfigFields(r *OAuthIdpConfig) error {
+	vResponseType := r.ResponseType
+	if vResponseType == nil {
+		// note: explicitly not the empty object.
+		vResponseType = &OAuthIdpConfigResponseType{}
+	}
+	if err := postReadExtractOAuthIdpConfigResponseTypeFields(r, vResponseType); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResponseType) {
+		r.ResponseType = vResponseType
+	}
+	return nil
+}
+func postReadExtractOAuthIdpConfigResponseTypeFields(r *OAuthIdpConfig, o *OAuthIdpConfigResponseType) error {
 	return nil
 }

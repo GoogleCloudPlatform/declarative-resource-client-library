@@ -328,6 +328,9 @@ func diffKeyRing(c *Client, desired, actual *KeyRing, opts ...dcl.ApplyOption) (
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -538,5 +541,9 @@ func convertOpNameToKeyRingApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractKeyRingFields(r *KeyRing) error {
+	return nil
+}
+
+func postReadExtractKeyRingFields(r *KeyRing) error {
 	return nil
 }

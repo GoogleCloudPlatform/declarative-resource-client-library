@@ -871,6 +871,9 @@ func diffWorkloadIdentityPoolProvider(c *Client, desired, actual *WorkloadIdenti
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1560,5 +1563,65 @@ func convertOpNameToWorkloadIdentityPoolProviderApiOperation(opName string, fiel
 }
 
 func extractWorkloadIdentityPoolProviderFields(r *WorkloadIdentityPoolProvider) error {
+	vAws := r.Aws
+	if vAws == nil {
+		// note: explicitly not the empty object.
+		vAws = &WorkloadIdentityPoolProviderAws{}
+	}
+	if err := extractWorkloadIdentityPoolProviderAwsFields(r, vAws); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAws) {
+		r.Aws = vAws
+	}
+	vOidc := r.Oidc
+	if vOidc == nil {
+		// note: explicitly not the empty object.
+		vOidc = &WorkloadIdentityPoolProviderOidc{}
+	}
+	if err := extractWorkloadIdentityPoolProviderOidcFields(r, vOidc); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOidc) {
+		r.Oidc = vOidc
+	}
+	return nil
+}
+func extractWorkloadIdentityPoolProviderAwsFields(r *WorkloadIdentityPoolProvider, o *WorkloadIdentityPoolProviderAws) error {
+	return nil
+}
+func extractWorkloadIdentityPoolProviderOidcFields(r *WorkloadIdentityPoolProvider, o *WorkloadIdentityPoolProviderOidc) error {
+	return nil
+}
+
+func postReadExtractWorkloadIdentityPoolProviderFields(r *WorkloadIdentityPoolProvider) error {
+	vAws := r.Aws
+	if vAws == nil {
+		// note: explicitly not the empty object.
+		vAws = &WorkloadIdentityPoolProviderAws{}
+	}
+	if err := postReadExtractWorkloadIdentityPoolProviderAwsFields(r, vAws); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAws) {
+		r.Aws = vAws
+	}
+	vOidc := r.Oidc
+	if vOidc == nil {
+		// note: explicitly not the empty object.
+		vOidc = &WorkloadIdentityPoolProviderOidc{}
+	}
+	if err := postReadExtractWorkloadIdentityPoolProviderOidcFields(r, vOidc); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vOidc) {
+		r.Oidc = vOidc
+	}
+	return nil
+}
+func postReadExtractWorkloadIdentityPoolProviderAwsFields(r *WorkloadIdentityPoolProvider, o *WorkloadIdentityPoolProviderAws) error {
+	return nil
+}
+func postReadExtractWorkloadIdentityPoolProviderOidcFields(r *WorkloadIdentityPoolProvider, o *WorkloadIdentityPoolProviderOidc) error {
 	return nil
 }

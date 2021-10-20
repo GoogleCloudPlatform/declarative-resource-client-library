@@ -679,6 +679,9 @@ func diffTenantOAuthIdpConfig(c *Client, desired, actual *TenantOAuthIdpConfig, 
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1134,5 +1137,37 @@ func convertOpNameToTenantOAuthIdpConfigApiOperation(opName string, fieldDiffs [
 }
 
 func extractTenantOAuthIdpConfigFields(r *TenantOAuthIdpConfig) error {
+	vResponseType := r.ResponseType
+	if vResponseType == nil {
+		// note: explicitly not the empty object.
+		vResponseType = &TenantOAuthIdpConfigResponseType{}
+	}
+	if err := extractTenantOAuthIdpConfigResponseTypeFields(r, vResponseType); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResponseType) {
+		r.ResponseType = vResponseType
+	}
+	return nil
+}
+func extractTenantOAuthIdpConfigResponseTypeFields(r *TenantOAuthIdpConfig, o *TenantOAuthIdpConfigResponseType) error {
+	return nil
+}
+
+func postReadExtractTenantOAuthIdpConfigFields(r *TenantOAuthIdpConfig) error {
+	vResponseType := r.ResponseType
+	if vResponseType == nil {
+		// note: explicitly not the empty object.
+		vResponseType = &TenantOAuthIdpConfigResponseType{}
+	}
+	if err := postReadExtractTenantOAuthIdpConfigResponseTypeFields(r, vResponseType); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResponseType) {
+		r.ResponseType = vResponseType
+	}
+	return nil
+}
+func postReadExtractTenantOAuthIdpConfigResponseTypeFields(r *TenantOAuthIdpConfig, o *TenantOAuthIdpConfigResponseType) error {
 	return nil
 }

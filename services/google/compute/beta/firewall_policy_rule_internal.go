@@ -741,6 +741,9 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1405,5 +1408,43 @@ func convertOpNameToFirewallPolicyRuleApiOperation(opName string, fieldDiffs []*
 }
 
 func extractFirewallPolicyRuleFields(r *FirewallPolicyRule) error {
+	vMatch := r.Match
+	if vMatch == nil {
+		// note: explicitly not the empty object.
+		vMatch = &FirewallPolicyRuleMatch{}
+	}
+	if err := extractFirewallPolicyRuleMatchFields(r, vMatch); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMatch) {
+		r.Match = vMatch
+	}
+	return nil
+}
+func extractFirewallPolicyRuleMatchFields(r *FirewallPolicyRule, o *FirewallPolicyRuleMatch) error {
+	return nil
+}
+func extractFirewallPolicyRuleMatchLayer4ConfigsFields(r *FirewallPolicyRule, o *FirewallPolicyRuleMatchLayer4Configs) error {
+	return nil
+}
+
+func postReadExtractFirewallPolicyRuleFields(r *FirewallPolicyRule) error {
+	vMatch := r.Match
+	if vMatch == nil {
+		// note: explicitly not the empty object.
+		vMatch = &FirewallPolicyRuleMatch{}
+	}
+	if err := postReadExtractFirewallPolicyRuleMatchFields(r, vMatch); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMatch) {
+		r.Match = vMatch
+	}
+	return nil
+}
+func postReadExtractFirewallPolicyRuleMatchFields(r *FirewallPolicyRule, o *FirewallPolicyRuleMatch) error {
+	return nil
+}
+func postReadExtractFirewallPolicyRuleMatchLayer4ConfigsFields(r *FirewallPolicyRule, o *FirewallPolicyRuleMatchLayer4Configs) error {
 	return nil
 }

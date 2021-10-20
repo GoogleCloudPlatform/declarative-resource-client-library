@@ -1093,6 +1093,9 @@ func diffEndpointPolicy(c *Client, desired, actual *EndpointPolicy, opts ...dcl.
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2120,5 +2123,99 @@ func convertOpNameToEndpointPolicyApiOperation(opName string, fieldDiffs []*dcl.
 }
 
 func extractEndpointPolicyFields(r *EndpointPolicy) error {
+	vEndpointMatcher := r.EndpointMatcher
+	if vEndpointMatcher == nil {
+		// note: explicitly not the empty object.
+		vEndpointMatcher = &EndpointPolicyEndpointMatcher{}
+	}
+	if err := extractEndpointPolicyEndpointMatcherFields(r, vEndpointMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpointMatcher) {
+		r.EndpointMatcher = vEndpointMatcher
+	}
+	vTrafficPortSelector := r.TrafficPortSelector
+	if vTrafficPortSelector == nil {
+		// note: explicitly not the empty object.
+		vTrafficPortSelector = &EndpointPolicyTrafficPortSelector{}
+	}
+	if err := extractEndpointPolicyTrafficPortSelectorFields(r, vTrafficPortSelector); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTrafficPortSelector) {
+		r.TrafficPortSelector = vTrafficPortSelector
+	}
+	return nil
+}
+func extractEndpointPolicyEndpointMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcher) error {
+	vMetadataLabelMatcher := o.MetadataLabelMatcher
+	if vMetadataLabelMatcher == nil {
+		// note: explicitly not the empty object.
+		vMetadataLabelMatcher = &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
+	}
+	if err := extractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r, vMetadataLabelMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetadataLabelMatcher) {
+		o.MetadataLabelMatcher = vMetadataLabelMatcher
+	}
+	return nil
+}
+func extractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcher) error {
+	return nil
+}
+func extractEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) error {
+	return nil
+}
+func extractEndpointPolicyTrafficPortSelectorFields(r *EndpointPolicy, o *EndpointPolicyTrafficPortSelector) error {
+	return nil
+}
+
+func postReadExtractEndpointPolicyFields(r *EndpointPolicy) error {
+	vEndpointMatcher := r.EndpointMatcher
+	if vEndpointMatcher == nil {
+		// note: explicitly not the empty object.
+		vEndpointMatcher = &EndpointPolicyEndpointMatcher{}
+	}
+	if err := postReadExtractEndpointPolicyEndpointMatcherFields(r, vEndpointMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpointMatcher) {
+		r.EndpointMatcher = vEndpointMatcher
+	}
+	vTrafficPortSelector := r.TrafficPortSelector
+	if vTrafficPortSelector == nil {
+		// note: explicitly not the empty object.
+		vTrafficPortSelector = &EndpointPolicyTrafficPortSelector{}
+	}
+	if err := postReadExtractEndpointPolicyTrafficPortSelectorFields(r, vTrafficPortSelector); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTrafficPortSelector) {
+		r.TrafficPortSelector = vTrafficPortSelector
+	}
+	return nil
+}
+func postReadExtractEndpointPolicyEndpointMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcher) error {
+	vMetadataLabelMatcher := o.MetadataLabelMatcher
+	if vMetadataLabelMatcher == nil {
+		// note: explicitly not the empty object.
+		vMetadataLabelMatcher = &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
+	}
+	if err := extractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r, vMetadataLabelMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetadataLabelMatcher) {
+		o.MetadataLabelMatcher = vMetadataLabelMatcher
+	}
+	return nil
+}
+func postReadExtractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcher) error {
+	return nil
+}
+func postReadExtractEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) error {
+	return nil
+}
+func postReadExtractEndpointPolicyTrafficPortSelectorFields(r *EndpointPolicy, o *EndpointPolicyTrafficPortSelector) error {
 	return nil
 }

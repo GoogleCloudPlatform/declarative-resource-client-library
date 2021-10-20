@@ -3380,6 +3380,9 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]*dcl
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -7854,5 +7857,431 @@ func convertOpNameToNoteApiOperation(opName string, fieldDiffs []*dcl.FieldDiff,
 }
 
 func extractNoteFields(r *Note) error {
+	vVulnerability := r.Vulnerability
+	if vVulnerability == nil {
+		// note: explicitly not the empty object.
+		vVulnerability = &NoteVulnerability{}
+	}
+	if err := extractNoteVulnerabilityFields(r, vVulnerability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVulnerability) {
+		r.Vulnerability = vVulnerability
+	}
+	vBuild := r.Build
+	if vBuild == nil {
+		// note: explicitly not the empty object.
+		vBuild = &NoteBuild{}
+	}
+	if err := extractNoteBuildFields(r, vBuild); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBuild) {
+		r.Build = vBuild
+	}
+	vImage := r.Image
+	if vImage == nil {
+		// note: explicitly not the empty object.
+		vImage = &NoteImage{}
+	}
+	if err := extractNoteImageFields(r, vImage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vImage) {
+		r.Image = vImage
+	}
+	vPackage := r.Package
+	if vPackage == nil {
+		// note: explicitly not the empty object.
+		vPackage = &NotePackage{}
+	}
+	if err := extractNotePackageFields(r, vPackage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPackage) {
+		r.Package = vPackage
+	}
+	vDiscovery := r.Discovery
+	if vDiscovery == nil {
+		// note: explicitly not the empty object.
+		vDiscovery = &NoteDiscovery{}
+	}
+	if err := extractNoteDiscoveryFields(r, vDiscovery); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDiscovery) {
+		r.Discovery = vDiscovery
+	}
+	vDeployment := r.Deployment
+	if vDeployment == nil {
+		// note: explicitly not the empty object.
+		vDeployment = &NoteDeployment{}
+	}
+	if err := extractNoteDeploymentFields(r, vDeployment); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDeployment) {
+		r.Deployment = vDeployment
+	}
+	vAttestation := r.Attestation
+	if vAttestation == nil {
+		// note: explicitly not the empty object.
+		vAttestation = &NoteAttestation{}
+	}
+	if err := extractNoteAttestationFields(r, vAttestation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAttestation) {
+		r.Attestation = vAttestation
+	}
+	return nil
+}
+func extractNoteRelatedUrlFields(r *Note, o *NoteRelatedUrl) error {
+	return nil
+}
+func extractNoteVulnerabilityFields(r *Note, o *NoteVulnerability) error {
+	vCvssV3 := o.CvssV3
+	if vCvssV3 == nil {
+		// note: explicitly not the empty object.
+		vCvssV3 = &NoteVulnerabilityCvssV3{}
+	}
+	if err := extractNoteVulnerabilityCvssV3Fields(r, vCvssV3); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCvssV3) {
+		o.CvssV3 = vCvssV3
+	}
+	return nil
+}
+func extractNoteVulnerabilityDetailsFields(r *Note, o *NoteVulnerabilityDetails) error {
+	vAffectedVersionStart := o.AffectedVersionStart
+	if vAffectedVersionStart == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionStart = &NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionStartFields(r, vAffectedVersionStart); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionStart) {
+		o.AffectedVersionStart = vAffectedVersionStart
+	}
+	vAffectedVersionEnd := o.AffectedVersionEnd
+	if vAffectedVersionEnd == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionEnd = &NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionEndFields(r, vAffectedVersionEnd); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionEnd) {
+		o.AffectedVersionEnd = vAffectedVersionEnd
+	}
+	vFixedVersion := o.FixedVersion
+	if vFixedVersion == nil {
+		// note: explicitly not the empty object.
+		vFixedVersion = &NoteVulnerabilityDetailsFixedVersion{}
+	}
+	if err := extractNoteVulnerabilityDetailsFixedVersionFields(r, vFixedVersion); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFixedVersion) {
+		o.FixedVersion = vFixedVersion
+	}
+	return nil
+}
+func extractNoteVulnerabilityDetailsAffectedVersionStartFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionStart) error {
+	return nil
+}
+func extractNoteVulnerabilityDetailsAffectedVersionEndFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionEnd) error {
+	return nil
+}
+func extractNoteVulnerabilityDetailsFixedVersionFields(r *Note, o *NoteVulnerabilityDetailsFixedVersion) error {
+	return nil
+}
+func extractNoteVulnerabilityCvssV3Fields(r *Note, o *NoteVulnerabilityCvssV3) error {
+	return nil
+}
+func extractNoteVulnerabilityWindowsDetailsFields(r *Note, o *NoteVulnerabilityWindowsDetails) error {
+	return nil
+}
+func extractNoteVulnerabilityWindowsDetailsFixingKbsFields(r *Note, o *NoteVulnerabilityWindowsDetailsFixingKbs) error {
+	return nil
+}
+func extractNoteBuildFields(r *Note, o *NoteBuild) error {
+	return nil
+}
+func extractNoteImageFields(r *Note, o *NoteImage) error {
+	vFingerprint := o.Fingerprint
+	if vFingerprint == nil {
+		// note: explicitly not the empty object.
+		vFingerprint = &NoteImageFingerprint{}
+	}
+	if err := extractNoteImageFingerprintFields(r, vFingerprint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFingerprint) {
+		o.Fingerprint = vFingerprint
+	}
+	return nil
+}
+func extractNoteImageFingerprintFields(r *Note, o *NoteImageFingerprint) error {
+	return nil
+}
+func extractNotePackageFields(r *Note, o *NotePackage) error {
+	return nil
+}
+func extractNotePackageDistributionFields(r *Note, o *NotePackageDistribution) error {
+	vLatestVersion := o.LatestVersion
+	if vLatestVersion == nil {
+		// note: explicitly not the empty object.
+		vLatestVersion = &NotePackageDistributionLatestVersion{}
+	}
+	if err := extractNotePackageDistributionLatestVersionFields(r, vLatestVersion); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLatestVersion) {
+		o.LatestVersion = vLatestVersion
+	}
+	return nil
+}
+func extractNotePackageDistributionLatestVersionFields(r *Note, o *NotePackageDistributionLatestVersion) error {
+	return nil
+}
+func extractNoteDiscoveryFields(r *Note, o *NoteDiscovery) error {
+	return nil
+}
+func extractNoteDeploymentFields(r *Note, o *NoteDeployment) error {
+	return nil
+}
+func extractNoteAttestationFields(r *Note, o *NoteAttestation) error {
+	vHint := o.Hint
+	if vHint == nil {
+		// note: explicitly not the empty object.
+		vHint = &NoteAttestationHint{}
+	}
+	if err := extractNoteAttestationHintFields(r, vHint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHint) {
+		o.Hint = vHint
+	}
+	return nil
+}
+func extractNoteAttestationHintFields(r *Note, o *NoteAttestationHint) error {
+	return nil
+}
+
+func postReadExtractNoteFields(r *Note) error {
+	vVulnerability := r.Vulnerability
+	if vVulnerability == nil {
+		// note: explicitly not the empty object.
+		vVulnerability = &NoteVulnerability{}
+	}
+	if err := postReadExtractNoteVulnerabilityFields(r, vVulnerability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVulnerability) {
+		r.Vulnerability = vVulnerability
+	}
+	vBuild := r.Build
+	if vBuild == nil {
+		// note: explicitly not the empty object.
+		vBuild = &NoteBuild{}
+	}
+	if err := postReadExtractNoteBuildFields(r, vBuild); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBuild) {
+		r.Build = vBuild
+	}
+	vImage := r.Image
+	if vImage == nil {
+		// note: explicitly not the empty object.
+		vImage = &NoteImage{}
+	}
+	if err := postReadExtractNoteImageFields(r, vImage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vImage) {
+		r.Image = vImage
+	}
+	vPackage := r.Package
+	if vPackage == nil {
+		// note: explicitly not the empty object.
+		vPackage = &NotePackage{}
+	}
+	if err := postReadExtractNotePackageFields(r, vPackage); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPackage) {
+		r.Package = vPackage
+	}
+	vDiscovery := r.Discovery
+	if vDiscovery == nil {
+		// note: explicitly not the empty object.
+		vDiscovery = &NoteDiscovery{}
+	}
+	if err := postReadExtractNoteDiscoveryFields(r, vDiscovery); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDiscovery) {
+		r.Discovery = vDiscovery
+	}
+	vDeployment := r.Deployment
+	if vDeployment == nil {
+		// note: explicitly not the empty object.
+		vDeployment = &NoteDeployment{}
+	}
+	if err := postReadExtractNoteDeploymentFields(r, vDeployment); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vDeployment) {
+		r.Deployment = vDeployment
+	}
+	vAttestation := r.Attestation
+	if vAttestation == nil {
+		// note: explicitly not the empty object.
+		vAttestation = &NoteAttestation{}
+	}
+	if err := postReadExtractNoteAttestationFields(r, vAttestation); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAttestation) {
+		r.Attestation = vAttestation
+	}
+	return nil
+}
+func postReadExtractNoteRelatedUrlFields(r *Note, o *NoteRelatedUrl) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityFields(r *Note, o *NoteVulnerability) error {
+	vCvssV3 := o.CvssV3
+	if vCvssV3 == nil {
+		// note: explicitly not the empty object.
+		vCvssV3 = &NoteVulnerabilityCvssV3{}
+	}
+	if err := extractNoteVulnerabilityCvssV3Fields(r, vCvssV3); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCvssV3) {
+		o.CvssV3 = vCvssV3
+	}
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsFields(r *Note, o *NoteVulnerabilityDetails) error {
+	vAffectedVersionStart := o.AffectedVersionStart
+	if vAffectedVersionStart == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionStart = &NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionStartFields(r, vAffectedVersionStart); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionStart) {
+		o.AffectedVersionStart = vAffectedVersionStart
+	}
+	vAffectedVersionEnd := o.AffectedVersionEnd
+	if vAffectedVersionEnd == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionEnd = &NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionEndFields(r, vAffectedVersionEnd); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionEnd) {
+		o.AffectedVersionEnd = vAffectedVersionEnd
+	}
+	vFixedVersion := o.FixedVersion
+	if vFixedVersion == nil {
+		// note: explicitly not the empty object.
+		vFixedVersion = &NoteVulnerabilityDetailsFixedVersion{}
+	}
+	if err := extractNoteVulnerabilityDetailsFixedVersionFields(r, vFixedVersion); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFixedVersion) {
+		o.FixedVersion = vFixedVersion
+	}
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsAffectedVersionStartFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionStart) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsAffectedVersionEndFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionEnd) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsFixedVersionFields(r *Note, o *NoteVulnerabilityDetailsFixedVersion) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityCvssV3Fields(r *Note, o *NoteVulnerabilityCvssV3) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityWindowsDetailsFields(r *Note, o *NoteVulnerabilityWindowsDetails) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityWindowsDetailsFixingKbsFields(r *Note, o *NoteVulnerabilityWindowsDetailsFixingKbs) error {
+	return nil
+}
+func postReadExtractNoteBuildFields(r *Note, o *NoteBuild) error {
+	return nil
+}
+func postReadExtractNoteImageFields(r *Note, o *NoteImage) error {
+	vFingerprint := o.Fingerprint
+	if vFingerprint == nil {
+		// note: explicitly not the empty object.
+		vFingerprint = &NoteImageFingerprint{}
+	}
+	if err := extractNoteImageFingerprintFields(r, vFingerprint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFingerprint) {
+		o.Fingerprint = vFingerprint
+	}
+	return nil
+}
+func postReadExtractNoteImageFingerprintFields(r *Note, o *NoteImageFingerprint) error {
+	return nil
+}
+func postReadExtractNotePackageFields(r *Note, o *NotePackage) error {
+	return nil
+}
+func postReadExtractNotePackageDistributionFields(r *Note, o *NotePackageDistribution) error {
+	vLatestVersion := o.LatestVersion
+	if vLatestVersion == nil {
+		// note: explicitly not the empty object.
+		vLatestVersion = &NotePackageDistributionLatestVersion{}
+	}
+	if err := extractNotePackageDistributionLatestVersionFields(r, vLatestVersion); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLatestVersion) {
+		o.LatestVersion = vLatestVersion
+	}
+	return nil
+}
+func postReadExtractNotePackageDistributionLatestVersionFields(r *Note, o *NotePackageDistributionLatestVersion) error {
+	return nil
+}
+func postReadExtractNoteDiscoveryFields(r *Note, o *NoteDiscovery) error {
+	return nil
+}
+func postReadExtractNoteDeploymentFields(r *Note, o *NoteDeployment) error {
+	return nil
+}
+func postReadExtractNoteAttestationFields(r *Note, o *NoteAttestation) error {
+	vHint := o.Hint
+	if vHint == nil {
+		// note: explicitly not the empty object.
+		vHint = &NoteAttestationHint{}
+	}
+	if err := extractNoteAttestationHintFields(r, vHint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHint) {
+		o.Hint = vHint
+	}
+	return nil
+}
+func postReadExtractNoteAttestationHintFields(r *Note, o *NoteAttestationHint) error {
 	return nil
 }

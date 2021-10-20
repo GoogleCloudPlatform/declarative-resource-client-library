@@ -1348,6 +1348,9 @@ func diffPacketMirroring(c *Client, desired, actual *PacketMirroring, opts ...dc
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2713,5 +2716,133 @@ func convertOpNameToPacketMirroringApiOperation(opName string, fieldDiffs []*dcl
 }
 
 func extractPacketMirroringFields(r *PacketMirroring) error {
+	vNetwork := r.Network
+	if vNetwork == nil {
+		// note: explicitly not the empty object.
+		vNetwork = &PacketMirroringNetwork{}
+	}
+	if err := extractPacketMirroringNetworkFields(r, vNetwork); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetwork) {
+		r.Network = vNetwork
+	}
+	vCollectorIlb := r.CollectorIlb
+	if vCollectorIlb == nil {
+		// note: explicitly not the empty object.
+		vCollectorIlb = &PacketMirroringCollectorIlb{}
+	}
+	if err := extractPacketMirroringCollectorIlbFields(r, vCollectorIlb); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCollectorIlb) {
+		r.CollectorIlb = vCollectorIlb
+	}
+	vMirroredResources := r.MirroredResources
+	if vMirroredResources == nil {
+		// note: explicitly not the empty object.
+		vMirroredResources = &PacketMirroringMirroredResources{}
+	}
+	if err := extractPacketMirroringMirroredResourcesFields(r, vMirroredResources); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMirroredResources) {
+		r.MirroredResources = vMirroredResources
+	}
+	vFilter := r.Filter
+	if vFilter == nil {
+		// note: explicitly not the empty object.
+		vFilter = &PacketMirroringFilter{}
+	}
+	if err := extractPacketMirroringFilterFields(r, vFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFilter) {
+		r.Filter = vFilter
+	}
+	return nil
+}
+func extractPacketMirroringNetworkFields(r *PacketMirroring, o *PacketMirroringNetwork) error {
+	return nil
+}
+func extractPacketMirroringCollectorIlbFields(r *PacketMirroring, o *PacketMirroringCollectorIlb) error {
+	return nil
+}
+func extractPacketMirroringMirroredResourcesFields(r *PacketMirroring, o *PacketMirroringMirroredResources) error {
+	return nil
+}
+func extractPacketMirroringMirroredResourcesSubnetworksFields(r *PacketMirroring, o *PacketMirroringMirroredResourcesSubnetworks) error {
+	return nil
+}
+func extractPacketMirroringMirroredResourcesInstancesFields(r *PacketMirroring, o *PacketMirroringMirroredResourcesInstances) error {
+	return nil
+}
+func extractPacketMirroringFilterFields(r *PacketMirroring, o *PacketMirroringFilter) error {
+	return nil
+}
+
+func postReadExtractPacketMirroringFields(r *PacketMirroring) error {
+	vNetwork := r.Network
+	if vNetwork == nil {
+		// note: explicitly not the empty object.
+		vNetwork = &PacketMirroringNetwork{}
+	}
+	if err := postReadExtractPacketMirroringNetworkFields(r, vNetwork); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetwork) {
+		r.Network = vNetwork
+	}
+	vCollectorIlb := r.CollectorIlb
+	if vCollectorIlb == nil {
+		// note: explicitly not the empty object.
+		vCollectorIlb = &PacketMirroringCollectorIlb{}
+	}
+	if err := postReadExtractPacketMirroringCollectorIlbFields(r, vCollectorIlb); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCollectorIlb) {
+		r.CollectorIlb = vCollectorIlb
+	}
+	vMirroredResources := r.MirroredResources
+	if vMirroredResources == nil {
+		// note: explicitly not the empty object.
+		vMirroredResources = &PacketMirroringMirroredResources{}
+	}
+	if err := postReadExtractPacketMirroringMirroredResourcesFields(r, vMirroredResources); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMirroredResources) {
+		r.MirroredResources = vMirroredResources
+	}
+	vFilter := r.Filter
+	if vFilter == nil {
+		// note: explicitly not the empty object.
+		vFilter = &PacketMirroringFilter{}
+	}
+	if err := postReadExtractPacketMirroringFilterFields(r, vFilter); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFilter) {
+		r.Filter = vFilter
+	}
+	return nil
+}
+func postReadExtractPacketMirroringNetworkFields(r *PacketMirroring, o *PacketMirroringNetwork) error {
+	return nil
+}
+func postReadExtractPacketMirroringCollectorIlbFields(r *PacketMirroring, o *PacketMirroringCollectorIlb) error {
+	return nil
+}
+func postReadExtractPacketMirroringMirroredResourcesFields(r *PacketMirroring, o *PacketMirroringMirroredResources) error {
+	return nil
+}
+func postReadExtractPacketMirroringMirroredResourcesSubnetworksFields(r *PacketMirroring, o *PacketMirroringMirroredResourcesSubnetworks) error {
+	return nil
+}
+func postReadExtractPacketMirroringMirroredResourcesInstancesFields(r *PacketMirroring, o *PacketMirroringMirroredResourcesInstances) error {
+	return nil
+}
+func postReadExtractPacketMirroringFilterFields(r *PacketMirroring, o *PacketMirroringFilter) error {
 	return nil
 }

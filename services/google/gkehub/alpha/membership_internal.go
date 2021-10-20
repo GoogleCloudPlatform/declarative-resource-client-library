@@ -1704,6 +1704,9 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -3566,5 +3569,217 @@ func convertOpNameToMembershipApiOperation(opName string, fieldDiffs []*dcl.Fiel
 }
 
 func extractMembershipFields(r *Membership) error {
+	vEndpoint := r.Endpoint
+	if vEndpoint == nil {
+		// note: explicitly not the empty object.
+		vEndpoint = &MembershipEndpoint{}
+	}
+	if err := extractMembershipEndpointFields(r, vEndpoint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpoint) {
+		r.Endpoint = vEndpoint
+	}
+	vState := r.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &MembershipState{}
+	}
+	if err := extractMembershipStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		r.State = vState
+	}
+	vAuthority := r.Authority
+	if vAuthority == nil {
+		// note: explicitly not the empty object.
+		vAuthority = &MembershipAuthority{}
+	}
+	if err := extractMembershipAuthorityFields(r, vAuthority); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAuthority) {
+		r.Authority = vAuthority
+	}
+	return nil
+}
+func extractMembershipEndpointFields(r *Membership, o *MembershipEndpoint) error {
+	vGkeCluster := o.GkeCluster
+	if vGkeCluster == nil {
+		// note: explicitly not the empty object.
+		vGkeCluster = &MembershipEndpointGkeCluster{}
+	}
+	if err := extractMembershipEndpointGkeClusterFields(r, vGkeCluster); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeCluster) {
+		o.GkeCluster = vGkeCluster
+	}
+	vKubernetesMetadata := o.KubernetesMetadata
+	if vKubernetesMetadata == nil {
+		// note: explicitly not the empty object.
+		vKubernetesMetadata = &MembershipEndpointKubernetesMetadata{}
+	}
+	if err := extractMembershipEndpointKubernetesMetadataFields(r, vKubernetesMetadata); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKubernetesMetadata) {
+		o.KubernetesMetadata = vKubernetesMetadata
+	}
+	vKubernetesResource := o.KubernetesResource
+	if vKubernetesResource == nil {
+		// note: explicitly not the empty object.
+		vKubernetesResource = &MembershipEndpointKubernetesResource{}
+	}
+	if err := extractMembershipEndpointKubernetesResourceFields(r, vKubernetesResource); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKubernetesResource) {
+		o.KubernetesResource = vKubernetesResource
+	}
+	return nil
+}
+func extractMembershipEndpointGkeClusterFields(r *Membership, o *MembershipEndpointGkeCluster) error {
+	return nil
+}
+func extractMembershipEndpointKubernetesMetadataFields(r *Membership, o *MembershipEndpointKubernetesMetadata) error {
+	return nil
+}
+func extractMembershipEndpointKubernetesResourceFields(r *Membership, o *MembershipEndpointKubernetesResource) error {
+	vResourceOptions := o.ResourceOptions
+	if vResourceOptions == nil {
+		// note: explicitly not the empty object.
+		vResourceOptions = &MembershipEndpointKubernetesResourceResourceOptions{}
+	}
+	if err := extractMembershipEndpointKubernetesResourceResourceOptionsFields(r, vResourceOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceOptions) {
+		o.ResourceOptions = vResourceOptions
+	}
+	return nil
+}
+func extractMembershipEndpointKubernetesResourceMembershipResourcesFields(r *Membership, o *MembershipEndpointKubernetesResourceMembershipResources) error {
+	return nil
+}
+func extractMembershipEndpointKubernetesResourceConnectResourcesFields(r *Membership, o *MembershipEndpointKubernetesResourceConnectResources) error {
+	return nil
+}
+func extractMembershipEndpointKubernetesResourceResourceOptionsFields(r *Membership, o *MembershipEndpointKubernetesResourceResourceOptions) error {
+	return nil
+}
+func extractMembershipStateFields(r *Membership, o *MembershipState) error {
+	return nil
+}
+func extractMembershipAuthorityFields(r *Membership, o *MembershipAuthority) error {
+	return nil
+}
+
+func postReadExtractMembershipFields(r *Membership) error {
+	vEndpoint := r.Endpoint
+	if vEndpoint == nil {
+		// note: explicitly not the empty object.
+		vEndpoint = &MembershipEndpoint{}
+	}
+	if err := postReadExtractMembershipEndpointFields(r, vEndpoint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpoint) {
+		r.Endpoint = vEndpoint
+	}
+	vState := r.State
+	if vState == nil {
+		// note: explicitly not the empty object.
+		vState = &MembershipState{}
+	}
+	if err := postReadExtractMembershipStateFields(r, vState); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vState) {
+		r.State = vState
+	}
+	vAuthority := r.Authority
+	if vAuthority == nil {
+		// note: explicitly not the empty object.
+		vAuthority = &MembershipAuthority{}
+	}
+	if err := postReadExtractMembershipAuthorityFields(r, vAuthority); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAuthority) {
+		r.Authority = vAuthority
+	}
+	return nil
+}
+func postReadExtractMembershipEndpointFields(r *Membership, o *MembershipEndpoint) error {
+	vGkeCluster := o.GkeCluster
+	if vGkeCluster == nil {
+		// note: explicitly not the empty object.
+		vGkeCluster = &MembershipEndpointGkeCluster{}
+	}
+	if err := extractMembershipEndpointGkeClusterFields(r, vGkeCluster); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGkeCluster) {
+		o.GkeCluster = vGkeCluster
+	}
+	vKubernetesMetadata := o.KubernetesMetadata
+	if vKubernetesMetadata == nil {
+		// note: explicitly not the empty object.
+		vKubernetesMetadata = &MembershipEndpointKubernetesMetadata{}
+	}
+	if err := extractMembershipEndpointKubernetesMetadataFields(r, vKubernetesMetadata); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKubernetesMetadata) {
+		o.KubernetesMetadata = vKubernetesMetadata
+	}
+	vKubernetesResource := o.KubernetesResource
+	if vKubernetesResource == nil {
+		// note: explicitly not the empty object.
+		vKubernetesResource = &MembershipEndpointKubernetesResource{}
+	}
+	if err := extractMembershipEndpointKubernetesResourceFields(r, vKubernetesResource); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKubernetesResource) {
+		o.KubernetesResource = vKubernetesResource
+	}
+	return nil
+}
+func postReadExtractMembershipEndpointGkeClusterFields(r *Membership, o *MembershipEndpointGkeCluster) error {
+	return nil
+}
+func postReadExtractMembershipEndpointKubernetesMetadataFields(r *Membership, o *MembershipEndpointKubernetesMetadata) error {
+	return nil
+}
+func postReadExtractMembershipEndpointKubernetesResourceFields(r *Membership, o *MembershipEndpointKubernetesResource) error {
+	vResourceOptions := o.ResourceOptions
+	if vResourceOptions == nil {
+		// note: explicitly not the empty object.
+		vResourceOptions = &MembershipEndpointKubernetesResourceResourceOptions{}
+	}
+	if err := extractMembershipEndpointKubernetesResourceResourceOptionsFields(r, vResourceOptions); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResourceOptions) {
+		o.ResourceOptions = vResourceOptions
+	}
+	return nil
+}
+func postReadExtractMembershipEndpointKubernetesResourceMembershipResourcesFields(r *Membership, o *MembershipEndpointKubernetesResourceMembershipResources) error {
+	return nil
+}
+func postReadExtractMembershipEndpointKubernetesResourceConnectResourcesFields(r *Membership, o *MembershipEndpointKubernetesResourceConnectResources) error {
+	return nil
+}
+func postReadExtractMembershipEndpointKubernetesResourceResourceOptionsFields(r *Membership, o *MembershipEndpointKubernetesResourceResourceOptions) error {
+	return nil
+}
+func postReadExtractMembershipStateFields(r *Membership, o *MembershipState) error {
+	return nil
+}
+func postReadExtractMembershipAuthorityFields(r *Membership, o *MembershipAuthority) error {
 	return nil
 }

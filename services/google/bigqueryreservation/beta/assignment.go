@@ -216,6 +216,9 @@ func (c *Client) GetAssignment(ctx context.Context, r *Assignment) (*Assignment,
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractAssignmentFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -383,7 +386,7 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeAssignmentNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -391,12 +394,22 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeAssignmentDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractAssignmentFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractAssignmentFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffAssignment(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

@@ -1018,6 +1018,9 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1927,5 +1930,99 @@ func convertOpNameToPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 }
 
 func extractPolicyFields(r *Policy) error {
+	vSpec := r.Spec
+	if vSpec == nil {
+		// note: explicitly not the empty object.
+		vSpec = &PolicySpec{}
+	}
+	if err := extractPolicySpecFields(r, vSpec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSpec) {
+		r.Spec = vSpec
+	}
+	return nil
+}
+func extractPolicySpecFields(r *Policy, o *PolicySpec) error {
+	return nil
+}
+func extractPolicySpecRulesFields(r *Policy, o *PolicySpecRules) error {
+	vValues := o.Values
+	if vValues == nil {
+		// note: explicitly not the empty object.
+		vValues = &PolicySpecRulesValues{}
+	}
+	if err := extractPolicySpecRulesValuesFields(r, vValues); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vValues) {
+		o.Values = vValues
+	}
+	vCondition := o.Condition
+	if vCondition == nil {
+		// note: explicitly not the empty object.
+		vCondition = &PolicySpecRulesCondition{}
+	}
+	if err := extractPolicySpecRulesConditionFields(r, vCondition); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCondition) {
+		o.Condition = vCondition
+	}
+	return nil
+}
+func extractPolicySpecRulesValuesFields(r *Policy, o *PolicySpecRulesValues) error {
+	return nil
+}
+func extractPolicySpecRulesConditionFields(r *Policy, o *PolicySpecRulesCondition) error {
+	return nil
+}
+
+func postReadExtractPolicyFields(r *Policy) error {
+	vSpec := r.Spec
+	if vSpec == nil {
+		// note: explicitly not the empty object.
+		vSpec = &PolicySpec{}
+	}
+	if err := postReadExtractPolicySpecFields(r, vSpec); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSpec) {
+		r.Spec = vSpec
+	}
+	return nil
+}
+func postReadExtractPolicySpecFields(r *Policy, o *PolicySpec) error {
+	return nil
+}
+func postReadExtractPolicySpecRulesFields(r *Policy, o *PolicySpecRules) error {
+	vValues := o.Values
+	if vValues == nil {
+		// note: explicitly not the empty object.
+		vValues = &PolicySpecRulesValues{}
+	}
+	if err := extractPolicySpecRulesValuesFields(r, vValues); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vValues) {
+		o.Values = vValues
+	}
+	vCondition := o.Condition
+	if vCondition == nil {
+		// note: explicitly not the empty object.
+		vCondition = &PolicySpecRulesCondition{}
+	}
+	if err := extractPolicySpecRulesConditionFields(r, vCondition); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCondition) {
+		o.Condition = vCondition
+	}
+	return nil
+}
+func postReadExtractPolicySpecRulesValuesFields(r *Policy, o *PolicySpecRulesValues) error {
+	return nil
+}
+func postReadExtractPolicySpecRulesConditionFields(r *Policy, o *PolicySpecRulesCondition) error {
 	return nil
 }

@@ -225,6 +225,9 @@ func (c *Client) GetBackup(ctx context.Context, r *Backup) (*Backup, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractBackupFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -392,7 +395,7 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeBackupNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -400,12 +403,22 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeBackupDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractBackupFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractBackupFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffBackup(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

@@ -399,6 +399,9 @@ func (c *Client) GetWorkload(ctx context.Context, r *Workload) (*Workload, error
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractWorkloadFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -566,7 +569,7 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeWorkloadNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -574,12 +577,22 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeWorkloadDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractWorkloadFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractWorkloadFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffWorkload(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

@@ -460,6 +460,9 @@ func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractFeatureFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -627,7 +630,7 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeFeatureNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -635,12 +638,22 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeFeatureDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractFeatureFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractFeatureFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffFeature(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

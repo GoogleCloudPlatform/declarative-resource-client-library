@@ -663,6 +663,9 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1191,5 +1194,37 @@ func convertOpNameToTenantApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 }
 
 func extractTenantFields(r *Tenant) error {
+	vMfaConfig := r.MfaConfig
+	if vMfaConfig == nil {
+		// note: explicitly not the empty object.
+		vMfaConfig = &TenantMfaConfig{}
+	}
+	if err := extractTenantMfaConfigFields(r, vMfaConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMfaConfig) {
+		r.MfaConfig = vMfaConfig
+	}
+	return nil
+}
+func extractTenantMfaConfigFields(r *Tenant, o *TenantMfaConfig) error {
+	return nil
+}
+
+func postReadExtractTenantFields(r *Tenant) error {
+	vMfaConfig := r.MfaConfig
+	if vMfaConfig == nil {
+		// note: explicitly not the empty object.
+		vMfaConfig = &TenantMfaConfig{}
+	}
+	if err := postReadExtractTenantMfaConfigFields(r, vMfaConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMfaConfig) {
+		r.MfaConfig = vMfaConfig
+	}
+	return nil
+}
+func postReadExtractTenantMfaConfigFields(r *Tenant, o *TenantMfaConfig) error {
 	return nil
 }

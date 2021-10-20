@@ -30,8 +30,6 @@ variables:
   type: resource_name
 - name: displayname
   type: resource_name
-- name: name
-  type: resource_name
 - name: project
   type: project
 - name: displayname
@@ -40,3 +38,5 @@ variables:
   type: project
 - name: project
   type: project
+- name: name
+  type: resource_name

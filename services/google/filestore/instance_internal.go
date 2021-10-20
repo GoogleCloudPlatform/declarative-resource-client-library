@@ -937,6 +937,9 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2041,5 +2044,27 @@ func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldD
 }
 
 func extractInstanceFields(r *Instance) error {
+	return nil
+}
+func extractInstanceFileSharesFields(r *Instance, o *InstanceFileShares) error {
+	return nil
+}
+func extractInstanceFileSharesNfsExportOptionsFields(r *Instance, o *InstanceFileSharesNfsExportOptions) error {
+	return nil
+}
+func extractInstanceNetworksFields(r *Instance, o *InstanceNetworks) error {
+	return nil
+}
+
+func postReadExtractInstanceFields(r *Instance) error {
+	return nil
+}
+func postReadExtractInstanceFileSharesFields(r *Instance, o *InstanceFileShares) error {
+	return nil
+}
+func postReadExtractInstanceFileSharesNfsExportOptionsFields(r *Instance, o *InstanceFileSharesNfsExportOptions) error {
+	return nil
+}
+func postReadExtractInstanceNetworksFields(r *Instance, o *InstanceNetworks) error {
 	return nil
 }

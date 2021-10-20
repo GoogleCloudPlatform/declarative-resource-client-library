@@ -338,6 +338,9 @@ func (c *Client) GetAttestor(ctx context.Context, r *Attestor) (*Attestor, error
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractAttestorFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -505,7 +508,7 @@ func applyAttestorHelper(c *Client, ctx context.Context, rawDesired *Attestor, o
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeAttestorNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -513,12 +516,22 @@ func applyAttestorHelper(c *Client, ctx context.Context, rawDesired *Attestor, o
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeAttestorDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractAttestorFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractAttestorFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffAttestor(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

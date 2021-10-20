@@ -940,6 +940,9 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1870,5 +1873,49 @@ func convertOpNameToWorkloadApiOperation(opName string, fieldDiffs []*dcl.FieldD
 }
 
 func extractWorkloadFields(r *Workload) error {
+	vKmsSettings := r.KmsSettings
+	if vKmsSettings == nil {
+		// note: explicitly not the empty object.
+		vKmsSettings = &WorkloadKmsSettings{}
+	}
+	if err := extractWorkloadKmsSettingsFields(r, vKmsSettings); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKmsSettings) {
+		r.KmsSettings = vKmsSettings
+	}
+	return nil
+}
+func extractWorkloadResourcesFields(r *Workload, o *WorkloadResources) error {
+	return nil
+}
+func extractWorkloadKmsSettingsFields(r *Workload, o *WorkloadKmsSettings) error {
+	return nil
+}
+func extractWorkloadResourceSettingsFields(r *Workload, o *WorkloadResourceSettings) error {
+	return nil
+}
+
+func postReadExtractWorkloadFields(r *Workload) error {
+	vKmsSettings := r.KmsSettings
+	if vKmsSettings == nil {
+		// note: explicitly not the empty object.
+		vKmsSettings = &WorkloadKmsSettings{}
+	}
+	if err := postReadExtractWorkloadKmsSettingsFields(r, vKmsSettings); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vKmsSettings) {
+		r.KmsSettings = vKmsSettings
+	}
+	return nil
+}
+func postReadExtractWorkloadResourcesFields(r *Workload, o *WorkloadResources) error {
+	return nil
+}
+func postReadExtractWorkloadKmsSettingsFields(r *Workload, o *WorkloadKmsSettings) error {
+	return nil
+}
+func postReadExtractWorkloadResourceSettingsFields(r *Workload, o *WorkloadResourceSettings) error {
 	return nil
 }

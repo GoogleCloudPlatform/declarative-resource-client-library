@@ -480,6 +480,9 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -734,5 +737,9 @@ func convertOpNameToReservationApiOperation(opName string, fieldDiffs []*dcl.Fie
 }
 
 func extractReservationFields(r *Reservation) error {
+	return nil
+}
+
+func postReadExtractReservationFields(r *Reservation) error {
 	return nil
 }

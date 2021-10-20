@@ -1569,6 +1569,9 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -3272,5 +3275,189 @@ func convertOpNameToBucketApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 }
 
 func extractBucketFields(r *Bucket) error {
+	vLifecycle := r.Lifecycle
+	if vLifecycle == nil {
+		// note: explicitly not the empty object.
+		vLifecycle = &BucketLifecycle{}
+	}
+	if err := extractBucketLifecycleFields(r, vLifecycle); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLifecycle) {
+		r.Lifecycle = vLifecycle
+	}
+	vLogging := r.Logging
+	if vLogging == nil {
+		// note: explicitly not the empty object.
+		vLogging = &BucketLogging{}
+	}
+	if err := extractBucketLoggingFields(r, vLogging); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogging) {
+		r.Logging = vLogging
+	}
+	vVersioning := r.Versioning
+	if vVersioning == nil {
+		// note: explicitly not the empty object.
+		vVersioning = &BucketVersioning{}
+	}
+	if err := extractBucketVersioningFields(r, vVersioning); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVersioning) {
+		r.Versioning = vVersioning
+	}
+	vWebsite := r.Website
+	if vWebsite == nil {
+		// note: explicitly not the empty object.
+		vWebsite = &BucketWebsite{}
+	}
+	if err := extractBucketWebsiteFields(r, vWebsite); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWebsite) {
+		r.Website = vWebsite
+	}
+	return nil
+}
+func extractBucketCorsFields(r *Bucket, o *BucketCors) error {
+	return nil
+}
+func extractBucketLifecycleFields(r *Bucket, o *BucketLifecycle) error {
+	return nil
+}
+func extractBucketLifecycleRuleFields(r *Bucket, o *BucketLifecycleRule) error {
+	vAction := o.Action
+	if vAction == nil {
+		// note: explicitly not the empty object.
+		vAction = &BucketLifecycleRuleAction{}
+	}
+	if err := extractBucketLifecycleRuleActionFields(r, vAction); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAction) {
+		o.Action = vAction
+	}
+	vCondition := o.Condition
+	if vCondition == nil {
+		// note: explicitly not the empty object.
+		vCondition = &BucketLifecycleRuleCondition{}
+	}
+	if err := extractBucketLifecycleRuleConditionFields(r, vCondition); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCondition) {
+		o.Condition = vCondition
+	}
+	return nil
+}
+func extractBucketLifecycleRuleActionFields(r *Bucket, o *BucketLifecycleRuleAction) error {
+	return nil
+}
+func extractBucketLifecycleRuleConditionFields(r *Bucket, o *BucketLifecycleRuleCondition) error {
+	return nil
+}
+func extractBucketLoggingFields(r *Bucket, o *BucketLogging) error {
+	return nil
+}
+func extractBucketVersioningFields(r *Bucket, o *BucketVersioning) error {
+	return nil
+}
+func extractBucketWebsiteFields(r *Bucket, o *BucketWebsite) error {
+	return nil
+}
+
+func postReadExtractBucketFields(r *Bucket) error {
+	vLifecycle := r.Lifecycle
+	if vLifecycle == nil {
+		// note: explicitly not the empty object.
+		vLifecycle = &BucketLifecycle{}
+	}
+	if err := postReadExtractBucketLifecycleFields(r, vLifecycle); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLifecycle) {
+		r.Lifecycle = vLifecycle
+	}
+	vLogging := r.Logging
+	if vLogging == nil {
+		// note: explicitly not the empty object.
+		vLogging = &BucketLogging{}
+	}
+	if err := postReadExtractBucketLoggingFields(r, vLogging); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogging) {
+		r.Logging = vLogging
+	}
+	vVersioning := r.Versioning
+	if vVersioning == nil {
+		// note: explicitly not the empty object.
+		vVersioning = &BucketVersioning{}
+	}
+	if err := postReadExtractBucketVersioningFields(r, vVersioning); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVersioning) {
+		r.Versioning = vVersioning
+	}
+	vWebsite := r.Website
+	if vWebsite == nil {
+		// note: explicitly not the empty object.
+		vWebsite = &BucketWebsite{}
+	}
+	if err := postReadExtractBucketWebsiteFields(r, vWebsite); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWebsite) {
+		r.Website = vWebsite
+	}
+	return nil
+}
+func postReadExtractBucketCorsFields(r *Bucket, o *BucketCors) error {
+	return nil
+}
+func postReadExtractBucketLifecycleFields(r *Bucket, o *BucketLifecycle) error {
+	return nil
+}
+func postReadExtractBucketLifecycleRuleFields(r *Bucket, o *BucketLifecycleRule) error {
+	vAction := o.Action
+	if vAction == nil {
+		// note: explicitly not the empty object.
+		vAction = &BucketLifecycleRuleAction{}
+	}
+	if err := extractBucketLifecycleRuleActionFields(r, vAction); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAction) {
+		o.Action = vAction
+	}
+	vCondition := o.Condition
+	if vCondition == nil {
+		// note: explicitly not the empty object.
+		vCondition = &BucketLifecycleRuleCondition{}
+	}
+	if err := extractBucketLifecycleRuleConditionFields(r, vCondition); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCondition) {
+		o.Condition = vCondition
+	}
+	return nil
+}
+func postReadExtractBucketLifecycleRuleActionFields(r *Bucket, o *BucketLifecycleRuleAction) error {
+	return nil
+}
+func postReadExtractBucketLifecycleRuleConditionFields(r *Bucket, o *BucketLifecycleRuleCondition) error {
+	return nil
+}
+func postReadExtractBucketLoggingFields(r *Bucket, o *BucketLogging) error {
+	return nil
+}
+func postReadExtractBucketVersioningFields(r *Bucket, o *BucketVersioning) error {
+	return nil
+}
+func postReadExtractBucketWebsiteFields(r *Bucket, o *BucketWebsite) error {
 	return nil
 }

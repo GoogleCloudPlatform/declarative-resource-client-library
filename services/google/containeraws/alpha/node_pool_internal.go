@@ -1435,6 +1435,9 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
+
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2957,5 +2960,155 @@ func convertOpNameToNodePoolApiOperation(opName string, fieldDiffs []*dcl.FieldD
 }
 
 func extractNodePoolFields(r *NodePool) error {
+	vConfig := r.Config
+	if vConfig == nil {
+		// note: explicitly not the empty object.
+		vConfig = &NodePoolConfig{}
+	}
+	if err := extractNodePoolConfigFields(r, vConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfig) {
+		r.Config = vConfig
+	}
+	vAutoscaling := r.Autoscaling
+	if vAutoscaling == nil {
+		// note: explicitly not the empty object.
+		vAutoscaling = &NodePoolAutoscaling{}
+	}
+	if err := extractNodePoolAutoscalingFields(r, vAutoscaling); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAutoscaling) {
+		r.Autoscaling = vAutoscaling
+	}
+	vMaxPodsConstraint := r.MaxPodsConstraint
+	if vMaxPodsConstraint == nil {
+		// note: explicitly not the empty object.
+		vMaxPodsConstraint = &NodePoolMaxPodsConstraint{}
+	}
+	if err := extractNodePoolMaxPodsConstraintFields(r, vMaxPodsConstraint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMaxPodsConstraint) {
+		r.MaxPodsConstraint = vMaxPodsConstraint
+	}
+	return nil
+}
+func extractNodePoolConfigFields(r *NodePool, o *NodePoolConfig) error {
+	vRootVolume := o.RootVolume
+	if vRootVolume == nil {
+		// note: explicitly not the empty object.
+		vRootVolume = &NodePoolConfigRootVolume{}
+	}
+	if err := extractNodePoolConfigRootVolumeFields(r, vRootVolume); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRootVolume) {
+		o.RootVolume = vRootVolume
+	}
+	vSshConfig := o.SshConfig
+	if vSshConfig == nil {
+		// note: explicitly not the empty object.
+		vSshConfig = &NodePoolConfigSshConfig{}
+	}
+	if err := extractNodePoolConfigSshConfigFields(r, vSshConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSshConfig) {
+		o.SshConfig = vSshConfig
+	}
+	return nil
+}
+func extractNodePoolConfigRootVolumeFields(r *NodePool, o *NodePoolConfigRootVolume) error {
+	return nil
+}
+func extractNodePoolConfigTaintsFields(r *NodePool, o *NodePoolConfigTaints) error {
+	return nil
+}
+func extractNodePoolConfigSshConfigFields(r *NodePool, o *NodePoolConfigSshConfig) error {
+	return nil
+}
+func extractNodePoolAutoscalingFields(r *NodePool, o *NodePoolAutoscaling) error {
+	return nil
+}
+func extractNodePoolMaxPodsConstraintFields(r *NodePool, o *NodePoolMaxPodsConstraint) error {
+	return nil
+}
+
+func postReadExtractNodePoolFields(r *NodePool) error {
+	vConfig := r.Config
+	if vConfig == nil {
+		// note: explicitly not the empty object.
+		vConfig = &NodePoolConfig{}
+	}
+	if err := postReadExtractNodePoolConfigFields(r, vConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfig) {
+		r.Config = vConfig
+	}
+	vAutoscaling := r.Autoscaling
+	if vAutoscaling == nil {
+		// note: explicitly not the empty object.
+		vAutoscaling = &NodePoolAutoscaling{}
+	}
+	if err := postReadExtractNodePoolAutoscalingFields(r, vAutoscaling); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAutoscaling) {
+		r.Autoscaling = vAutoscaling
+	}
+	vMaxPodsConstraint := r.MaxPodsConstraint
+	if vMaxPodsConstraint == nil {
+		// note: explicitly not the empty object.
+		vMaxPodsConstraint = &NodePoolMaxPodsConstraint{}
+	}
+	if err := postReadExtractNodePoolMaxPodsConstraintFields(r, vMaxPodsConstraint); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMaxPodsConstraint) {
+		r.MaxPodsConstraint = vMaxPodsConstraint
+	}
+	return nil
+}
+func postReadExtractNodePoolConfigFields(r *NodePool, o *NodePoolConfig) error {
+	vRootVolume := o.RootVolume
+	if vRootVolume == nil {
+		// note: explicitly not the empty object.
+		vRootVolume = &NodePoolConfigRootVolume{}
+	}
+	if err := extractNodePoolConfigRootVolumeFields(r, vRootVolume); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRootVolume) {
+		o.RootVolume = vRootVolume
+	}
+	vSshConfig := o.SshConfig
+	if vSshConfig == nil {
+		// note: explicitly not the empty object.
+		vSshConfig = &NodePoolConfigSshConfig{}
+	}
+	if err := extractNodePoolConfigSshConfigFields(r, vSshConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSshConfig) {
+		o.SshConfig = vSshConfig
+	}
+	return nil
+}
+func postReadExtractNodePoolConfigRootVolumeFields(r *NodePool, o *NodePoolConfigRootVolume) error {
+	return nil
+}
+func postReadExtractNodePoolConfigTaintsFields(r *NodePool, o *NodePoolConfigTaints) error {
+	return nil
+}
+func postReadExtractNodePoolConfigSshConfigFields(r *NodePool, o *NodePoolConfigSshConfig) error {
+	return nil
+}
+func postReadExtractNodePoolAutoscalingFields(r *NodePool, o *NodePoolAutoscaling) error {
+	return nil
+}
+func postReadExtractNodePoolMaxPodsConstraintFields(r *NodePool, o *NodePoolMaxPodsConstraint) error {
 	return nil
 }
