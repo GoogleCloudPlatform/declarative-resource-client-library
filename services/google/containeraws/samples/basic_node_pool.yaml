@@ -26,28 +26,30 @@ updates:
 variables:
 - name: aws_subnet
   type: aws_subnet
-- name: aws_vpc
-  type: aws_vpc
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: aws_account_id
-  type: aws_account_id
-- name: cluster
-  type: resource_name
-- name: project
-  type: project
-- name: aws_region
-  type: aws_region
-- name: aws_subnet
-  type: aws_subnet
 - name: aws_region
   type: aws_region
 - name: aws_account_id
   type: aws_account_id
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
+- name: aws_account_id
+  type: aws_account_id
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: test_service_account
   type: test_service_account
+- name: cluster
+  type: resource_name
+- name: project
+  type: project
+- name: aws_vpc
+  type: aws_vpc
+- name: aws_region
+  type: aws_region
+- name: aws_subnet
+  type: aws_subnet
+- name: aws_security_group
+  type: aws_security_group
 - name: aws_region
   type: aws_region
 - name: aws_account_id
@@ -56,5 +58,7 @@ variables:
   type: aws_volume_encryption_key
 - name: pool
   type: resource_name
-- name: aws_security_group
-  type: aws_security_group
+- name: project
+  type: project
+- name: aws_subnet
+  type: aws_subnet

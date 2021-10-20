@@ -49,11 +49,9 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: region
-  type: region
-- name: project
-  type: project
 - name: spoke
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
