@@ -25,9 +25,7 @@ variables:
   type: project
 - name: topic
   type: resource_name
-- name: job
-  type: resource_name
 - name: region
   type: region
-- name: project
-  type: project
+- name: job
+  type: resource_name
