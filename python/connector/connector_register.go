@@ -34,9 +34,11 @@ import (
 
 	binaryauthorization_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/alpha_connector"
 
-	cloudbuild_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha_connector"
+	cloudbuild_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/connector"
 
 	cloudbuild_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta_connector"
+
+	cloudbuild_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha_connector"
 
 	cloudkms_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/connector"
 
@@ -199,9 +201,11 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	binaryauthorization_alpha_connector.RegisterServers(grpcServer)
 
-	cloudbuild_alpha_connector.RegisterServers(grpcServer)
+	cloudbuild_connector.RegisterServers(grpcServer)
 
 	cloudbuild_beta_connector.RegisterServers(grpcServer)
+
+	cloudbuild_alpha_connector.RegisterServers(grpcServer)
 
 	cloudkms_connector.RegisterServers(grpcServer)
 

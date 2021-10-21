@@ -26,6 +26,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization"
 	binaryauthorization_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/alpha"
 	binaryauthorization_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild"
 	cloudbuild_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha"
 	cloudbuild_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms"
@@ -163,6 +164,8 @@ func Services() *Directory {
 	d.AddResource("ga", "binaryauthorization", "Attestor", binaryauthorization.YAML_attestor)
 	d.AddResource("ga", "binaryauthorization", dcl.TitleToSnakeCase("Policy"), binaryauthorization.YAML_policy)
 	d.AddResource("ga", "binaryauthorization", "Policy", binaryauthorization.YAML_policy)
+	d.AddResource("ga", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild.YAML_worker_pool)
+	d.AddResource("ga", "cloudbuild", "WorkerPool", cloudbuild.YAML_worker_pool)
 	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms.YAML_crypto_key)
 	d.AddResource("ga", "cloudkms", "CryptoKey", cloudkms.YAML_crypto_key)
 	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms.YAML_key_ring)

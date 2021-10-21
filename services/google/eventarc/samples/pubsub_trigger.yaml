@@ -33,11 +33,11 @@ variables:
   type: project
 - name: region
   type: region
+- name: region
+  type: region
 - name: project
   type: project
 - name: service_account
   type: service_account
 - name: project
   type: project
-- name: region
-  type: region

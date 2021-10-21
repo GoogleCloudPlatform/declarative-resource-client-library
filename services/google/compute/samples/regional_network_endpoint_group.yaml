@@ -21,8 +21,6 @@ resource: samples/regional.network_endpoint_group.json
 dependencies:
 - samples/regional.cloudfunctions.function.json
 variables:
-- name: region
-  type: region
 - name: project
   type: project
 - name: function
