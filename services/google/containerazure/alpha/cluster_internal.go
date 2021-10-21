@@ -3093,7 +3093,7 @@ func expandClusterControlPlane(c *Client, f *ClusterControlPlane) (map[string]in
 	}
 	if v, err := expandClusterControlPlaneReplicaPlacementsSlice(c, f.ReplicaPlacements); err != nil {
 		return nil, fmt.Errorf("error expanding ReplicaPlacements into replicaPlacements: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["replicaPlacements"] = v
 	}
 
@@ -3914,7 +3914,7 @@ func expandClusterAuthorization(c *Client, f *ClusterAuthorization) (map[string]
 	m := make(map[string]interface{})
 	if v, err := expandClusterAuthorizationAdminUsersSlice(c, f.AdminUsers); err != nil {
 		return nil, fmt.Errorf("error expanding AdminUsers into adminUsers: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["adminUsers"] = v
 	}
 

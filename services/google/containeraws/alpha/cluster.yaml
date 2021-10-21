@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: ContainerAws/Cluster
-  description: DCL Specification for the ContainerAws Cluster resource
+  description: The ContainerAws Cluster resource
   x-dcl-has-iam: false
 paths:
   get:

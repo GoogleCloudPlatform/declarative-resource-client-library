@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Pubsub/Subscription
-  description: DCL Specification for the Pubsub Subscription resource
+  description: The Pubsub Subscription resource
   x-dcl-has-iam: false
 paths:
   get:

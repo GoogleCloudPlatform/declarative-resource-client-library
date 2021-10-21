@@ -2680,7 +2680,7 @@ func expandServerTlsPolicyMtlsPolicy(c *Client, f *ServerTlsPolicyMtlsPolicy) (m
 	m := make(map[string]interface{})
 	if v, err := expandServerTlsPolicyMtlsPolicyClientValidationCaSlice(c, f.ClientValidationCa); err != nil {
 		return nil, fmt.Errorf("error expanding ClientValidationCa into clientValidationCa: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["clientValidationCa"] = v
 	}
 

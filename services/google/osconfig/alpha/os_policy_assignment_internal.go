@@ -6317,7 +6317,7 @@ func expandOSPolicyAssignmentOSPolicies(c *Client, f *OSPolicyAssignmentOSPolici
 	}
 	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c, f.ResourceGroups); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceGroups into resourceGroups: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["resourceGroups"] = v
 	}
 	if v := f.AllowNoResourceGroupMatch; !dcl.IsEmptyValueIndirect(v) {
@@ -6440,12 +6440,12 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, f *OSPolicyAssi
 	m := make(map[string]interface{})
 	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c, f.InventoryFilters); err != nil {
 		return nil, fmt.Errorf("error expanding InventoryFilters into inventoryFilters: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["inventoryFilters"] = v
 	}
 	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c, f.Resources); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["resources"] = v
 	}
 
@@ -9180,17 +9180,17 @@ func expandOSPolicyAssignmentInstanceFilter(c *Client, f *OSPolicyAssignmentInst
 	}
 	if v, err := expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c, f.InclusionLabels); err != nil {
 		return nil, fmt.Errorf("error expanding InclusionLabels into inclusionLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["inclusionLabels"] = v
 	}
 	if v, err := expandOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c, f.ExclusionLabels); err != nil {
 		return nil, fmt.Errorf("error expanding ExclusionLabels into exclusionLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["exclusionLabels"] = v
 	}
 	if v, err := expandOSPolicyAssignmentInstanceFilterInventoriesSlice(c, f.Inventories); err != nil {
 		return nil, fmt.Errorf("error expanding Inventories into inventories: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["inventories"] = v
 	}
 

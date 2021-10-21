@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Monitoring/MetricsScope
-  description: DCL Specification for the Monitoring MetricsScope resource
+  description: The Monitoring MetricsScope resource
   x-dcl-has-iam: false
 paths:
   get:

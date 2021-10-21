@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Filestore/Instance
-  description: DCL Specification for the Filestore Instance resource
+  description: The Filestore Instance resource
   x-dcl-has-iam: false
 paths:
   get:

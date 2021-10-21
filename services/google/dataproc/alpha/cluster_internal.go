@@ -4964,7 +4964,7 @@ func expandClusterClusterConfig(c *Client, f *ClusterClusterConfig) (map[string]
 	}
 	if v, err := expandClusterClusterConfigInitializationActionsSlice(c, f.InitializationActions); err != nil {
 		return nil, fmt.Errorf("error expanding InitializationActions into initializationActions: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["initializationActions"] = v
 	}
 	if v, err := expandClusterClusterConfigEncryptionConfig(c, f.EncryptionConfig); err != nil {
@@ -5540,7 +5540,7 @@ func expandClusterInstanceGroupConfig(c *Client, f *ClusterInstanceGroupConfig) 
 	}
 	if v, err := expandClusterInstanceGroupConfigAcceleratorsSlice(c, f.Accelerators); err != nil {
 		return nil, fmt.Errorf("error expanding Accelerators into accelerators: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["accelerators"] = v
 	}
 	if v := f.MinCpuPlatform; !dcl.IsEmptyValueIndirect(v) {

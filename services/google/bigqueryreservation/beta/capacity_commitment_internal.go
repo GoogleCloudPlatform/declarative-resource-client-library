@@ -1150,7 +1150,7 @@ func expandCapacityCommitmentFailureStatus(c *Client, f *CapacityCommitmentFailu
 	}
 	if v, err := expandCapacityCommitmentFailureStatusDetailsSlice(c, f.Details); err != nil {
 		return nil, fmt.Errorf("error expanding Details into details: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["details"] = v
 	}
 

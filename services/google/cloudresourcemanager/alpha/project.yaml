@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: CloudResourceManager/Project
-  description: DCL Specification for the CloudResourceManager Project resource
+  description: The CloudResourceManager Project resource
   x-dcl-has-iam: true
 paths:
   get:

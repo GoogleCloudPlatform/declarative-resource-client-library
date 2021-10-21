@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/TargetHttpProxy
-  description: DCL Specification for the Compute TargetHttpProxy resource
+  description: The Compute TargetHttpProxy resource
   x-dcl-has-iam: false
 paths:
   get:

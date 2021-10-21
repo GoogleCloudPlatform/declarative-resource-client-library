@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Vmware/Cluster
-  description: DCL Specification for the Vmware Cluster resource
+  description: The Vmware Cluster resource
   x-dcl-has-iam: false
 paths:
   get:

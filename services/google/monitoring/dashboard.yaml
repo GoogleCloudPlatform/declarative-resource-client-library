@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Monitoring/Dashboard
-  description: DCL Specification for the Monitoring Dashboard resource
+  description: The Monitoring Dashboard resource
   x-dcl-has-iam: false
 paths:
   get:

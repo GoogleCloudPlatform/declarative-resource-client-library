@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: GkeHub/FeatureMembership
-  description: DCL Specification for the GkeHub FeatureMembership resource
+  description: The GkeHub FeatureMembership resource
   x-dcl-has-iam: false
   x-dcl-mutex: '{{project}}/{{location}}/{{feature}}'
 paths:

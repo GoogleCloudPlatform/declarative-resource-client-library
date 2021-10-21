@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/HttpsHealthCheck
-  description: DCL Specification for the Compute HttpsHealthCheck resource
+  description: The Compute HttpsHealthCheck resource
   x-dcl-has-iam: false
 paths:
   get:

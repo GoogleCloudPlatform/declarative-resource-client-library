@@ -28,8 +28,6 @@ variables:
   type: project
 - name: region
   type: region
-- name: zone
-  type: zone
 - name: instance1
   type: resource_name
 - name: project
@@ -40,9 +38,13 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
+- name: region
+  type: region
 - name: project
   type: project
 - name: mirroring
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region

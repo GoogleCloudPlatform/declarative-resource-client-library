@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Logging/LogExclusion
-  description: DCL Specification for the Logging LogExclusion resource
+  description: The Logging LogExclusion resource
   x-dcl-has-iam: false
 paths:
   get:

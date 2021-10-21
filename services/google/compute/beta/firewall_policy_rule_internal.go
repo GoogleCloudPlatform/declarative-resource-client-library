@@ -1128,7 +1128,7 @@ func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch) (map[s
 	}
 	if v, err := expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c, f.Layer4Configs); err != nil {
 		return nil, fmt.Errorf("error expanding Layer4Configs into layer4Configs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["layer4Configs"] = v
 	}
 

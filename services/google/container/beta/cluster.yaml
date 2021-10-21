@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Container/Cluster
-  description: DCL Specification for the Container Cluster resource
+  description: The Container Cluster resource
   x-dcl-has-iam: false
 paths:
   get:

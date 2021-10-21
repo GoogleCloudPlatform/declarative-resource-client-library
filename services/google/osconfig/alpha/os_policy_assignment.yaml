@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: OSConfig/OSPolicyAssignment
-  description: DCL Specification for the OSConfig OSPolicyAssignment resource
+  description: The OSConfig OSPolicyAssignment resource
   x-dcl-has-iam: false
 paths:
   get:

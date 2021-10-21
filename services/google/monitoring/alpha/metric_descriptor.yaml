@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Monitoring/MetricDescriptor
-  description: DCL Specification for the Monitoring MetricDescriptor resource
+  description: The Monitoring MetricDescriptor resource
   x-dcl-has-iam: false
 paths:
   get:

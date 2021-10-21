@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/UrlMap
-  description: DCL Specification for the Compute UrlMap resource
+  description: The Compute UrlMap resource
   x-dcl-has-iam: false
 paths:
   get:

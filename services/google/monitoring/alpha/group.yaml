@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Monitoring/Group
-  description: DCL Specification for the Monitoring Group resource
+  description: The Monitoring Group resource
   x-dcl-has-iam: false
 paths:
   get:

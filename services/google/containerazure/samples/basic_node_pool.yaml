@@ -28,11 +28,9 @@ variables:
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
+- name: project
+  type: project
 - name: cluster
   type: resource_name
-- name: project
-  type: project
 - name: node_pool
   type: resource_name
-- name: project
-  type: project

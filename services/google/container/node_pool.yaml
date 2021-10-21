@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Container/NodePool
-  description: DCL Specification for the Container NodePool resource
+  description: The Container NodePool resource
   x-dcl-has-iam: false
 paths:
   get:

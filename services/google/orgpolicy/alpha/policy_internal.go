@@ -1433,7 +1433,7 @@ func expandPolicySpec(c *Client, f *PolicySpec) (map[string]interface{}, error) 
 	m := make(map[string]interface{})
 	if v, err := expandPolicySpecRulesSlice(c, f.Rules); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["rules"] = v
 	}
 	if v := f.InheritFromParent; !dcl.IsEmptyValueIndirect(v) {

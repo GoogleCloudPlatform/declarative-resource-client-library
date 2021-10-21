@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Dataproc/WorkflowTemplate
-  description: DCL Specification for the Dataproc WorkflowTemplate resource
+  description: The Dataproc WorkflowTemplate resource
   x-dcl-has-iam: false
 paths:
   get:

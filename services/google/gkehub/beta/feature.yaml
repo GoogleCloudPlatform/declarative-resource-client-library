@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: GkeHub/Feature
-  description: DCL Specification for the GkeHub Feature resource
+  description: The GkeHub Feature resource
   x-dcl-has-iam: false
   x-dcl-mutex: '{{project}}/{{location}}/{{feature}}'
 paths:

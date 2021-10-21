@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: NetworkSecurity/AuthorizationPolicy
-  description: DCL Specification for the NetworkSecurity AuthorizationPolicy resource
+  description: The NetworkSecurity AuthorizationPolicy resource
   x-dcl-has-iam: true
 paths:
   get:

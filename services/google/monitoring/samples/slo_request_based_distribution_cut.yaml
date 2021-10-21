@@ -24,8 +24,6 @@ updates:
   dependencies:
   - samples/basic.service.json
 variables:
-- name: project
-  type: project
 - name: name
   type: resource_name
 - name: displayname
@@ -34,5 +32,3 @@ variables:
   type: project
 - name: name
   type: resource_name
-- name: project
-  type: project

@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: GameServices/Realm
-  description: DCL Specification for the GameServices Realm resource
+  description: The GameServices Realm resource
   x-dcl-has-iam: false
 paths:
   get:

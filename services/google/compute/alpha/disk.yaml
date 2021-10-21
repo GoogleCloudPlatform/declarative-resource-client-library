@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/Disk
-  description: DCL Specification for the Compute Disk resource
+  description: The Compute Disk resource
   x-dcl-has-iam: false
 paths:
   get:

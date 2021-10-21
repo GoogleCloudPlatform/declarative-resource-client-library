@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/FirewallPolicyAssociation
-  description: DCL Specification for the Compute FirewallPolicyAssociation resource
+  description: The Compute FirewallPolicyAssociation resource
   x-dcl-has-iam: false
 paths:
   get:

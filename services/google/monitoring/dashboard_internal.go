@@ -8675,7 +8675,7 @@ func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout) (map[strin
 	}
 	if v, err := expandDashboardMosaicLayoutTilesSlice(c, f.Tiles); err != nil {
 		return nil, fmt.Errorf("error expanding Tiles into tiles: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["tiles"] = v
 	}
 
@@ -8924,7 +8924,7 @@ func expandDashboardRowLayout(c *Client, f *DashboardRowLayout) (map[string]inte
 	m := make(map[string]interface{})
 	if v, err := expandDashboardRowLayoutRowsSlice(c, f.Rows); err != nil {
 		return nil, fmt.Errorf("error expanding Rows into rows: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["rows"] = v
 	}
 
@@ -9158,7 +9158,7 @@ func expandDashboardColumnLayout(c *Client, f *DashboardColumnLayout) (map[strin
 	m := make(map[string]interface{})
 	if v, err := expandDashboardColumnLayoutColumnsSlice(c, f.Columns); err != nil {
 		return nil, fmt.Errorf("error expanding Columns into columns: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["columns"] = v
 	}
 
@@ -9277,7 +9277,7 @@ func expandDashboardColumnLayoutColumns(c *Client, f *DashboardColumnLayoutColum
 	}
 	if v, err := expandDashboardWidgetSlice(c, f.Widgets); err != nil {
 		return nil, fmt.Errorf("error expanding Widgets into widgets: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["widgets"] = v
 	}
 
@@ -9532,7 +9532,7 @@ func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart) (map[str
 	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsSlice(c, f.DataSets); err != nil {
 		return nil, fmt.Errorf("error expanding DataSets into dataSets: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["dataSets"] = v
 	}
 	if v := f.TimeshiftDuration; !dcl.IsEmptyValueIndirect(v) {
@@ -9540,7 +9540,7 @@ func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart) (map[str
 	}
 	if v, err := expandDashboardWidgetXyChartThresholdsSlice(c, f.Thresholds); err != nil {
 		return nil, fmt.Errorf("error expanding Thresholds into thresholds: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["thresholds"] = v
 	}
 	if v, err := expandDashboardWidgetXyChartXAxis(c, f.XAxis); err != nil {
@@ -11805,7 +11805,7 @@ func expandDashboardWidgetScorecard(c *Client, f *DashboardWidgetScorecard) (map
 	}
 	if v, err := expandDashboardWidgetScorecardThresholdsSlice(c, f.Thresholds); err != nil {
 		return nil, fmt.Errorf("error expanding Thresholds into thresholds: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["thresholds"] = v
 	}
 

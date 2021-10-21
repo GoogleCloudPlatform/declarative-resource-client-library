@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: NetworkServices/EndpointPolicy
-  description: DCL Specification for the NetworkServices EndpointPolicy resource
+  description: The NetworkServices EndpointPolicy resource
   x-dcl-has-iam: false
 paths:
   get:

@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/NetworkEndpoint
-  description: DCL Specification for the Compute NetworkEndpoint resource
+  description: The Compute NetworkEndpoint resource
   x-dcl-has-iam: false
 paths:
   get:

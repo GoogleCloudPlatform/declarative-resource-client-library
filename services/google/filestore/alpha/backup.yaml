@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Filestore/Backup
-  description: DCL Specification for the Filestore Backup resource
+  description: The Filestore Backup resource
   x-dcl-has-iam: false
 paths:
   get:

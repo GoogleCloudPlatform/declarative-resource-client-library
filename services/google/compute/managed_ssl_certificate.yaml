@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/ManagedSslCertificate
-  description: DCL Specification for the Compute ManagedSslCertificate resource
+  description: The Compute ManagedSslCertificate resource
   x-dcl-has-iam: false
 paths:
   get:

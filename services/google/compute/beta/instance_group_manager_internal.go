@@ -3852,7 +3852,7 @@ func expandInstanceGroupManagerDistributionPolicy(c *Client, f *InstanceGroupMan
 	m := make(map[string]interface{})
 	if v, err := expandInstanceGroupManagerDistributionPolicyZonesSlice(c, f.Zones); err != nil {
 		return nil, fmt.Errorf("error expanding Zones into zones: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["zones"] = v
 	}
 	if v := f.TargetShape; !dcl.IsEmptyValueIndirect(v) {
@@ -5027,7 +5027,7 @@ func expandInstanceGroupManagerUpdatePolicy(c *Client, f *InstanceGroupManagerUp
 	}
 	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.MaxSurge); err != nil {
 		return nil, fmt.Errorf("error expanding MaxSurge into maxSurge: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["maxSurge"] = v
 	}
 	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.MaxUnavailable); err != nil {

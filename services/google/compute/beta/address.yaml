@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/Address
-  description: DCL Specification for the Compute Address resource
+  description: The Compute Address resource
   x-dcl-has-iam: false
 paths:
   get:

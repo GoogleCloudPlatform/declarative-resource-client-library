@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Iam/WorkloadIdentityPool
-  description: DCL Specification for the Iam WorkloadIdentityPool resource
+  description: The Iam WorkloadIdentityPool resource
   x-dcl-has-iam: false
 paths:
   get:

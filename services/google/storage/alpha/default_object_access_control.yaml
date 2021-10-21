@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Storage/DefaultObjectAccessControl
-  description: DCL Specification for the Storage DefaultObjectAccessControl resource
+  description: The Storage DefaultObjectAccessControl resource
   x-dcl-has-iam: false
 paths:
   get:

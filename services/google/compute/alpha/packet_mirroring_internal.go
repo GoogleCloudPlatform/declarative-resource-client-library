@@ -2135,12 +2135,12 @@ func expandPacketMirroringMirroredResources(c *Client, f *PacketMirroringMirrore
 	m := make(map[string]interface{})
 	if v, err := expandPacketMirroringMirroredResourcesSubnetworksSlice(c, f.Subnetworks); err != nil {
 		return nil, fmt.Errorf("error expanding Subnetworks into subnetworks: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["subnetworks"] = v
 	}
 	if v, err := expandPacketMirroringMirroredResourcesInstancesSlice(c, f.Instances); err != nil {
 		return nil, fmt.Errorf("error expanding Instances into instances: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["instances"] = v
 	}
 	if v := f.Tags; v != nil {

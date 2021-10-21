@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Privateca/CertificateTemplate
-  description: DCL Specification for the Privateca CertificateTemplate resource
+  description: The Privateca CertificateTemplate resource
   x-dcl-has-iam: false
 paths:
   get:

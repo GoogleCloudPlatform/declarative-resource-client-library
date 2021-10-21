@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/VpnTunnel
-  description: DCL Specification for the Compute VpnTunnel resource
+  description: The Compute VpnTunnel resource
   x-dcl-has-iam: false
 paths:
   get:

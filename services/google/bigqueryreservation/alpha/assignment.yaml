@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: BigqueryReservation/Assignment
-  description: DCL Specification for the BigqueryReservation Assignment resource
+  description: The BigqueryReservation Assignment resource
   x-dcl-has-iam: false
 paths:
   get:

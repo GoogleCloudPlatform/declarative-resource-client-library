@@ -3039,7 +3039,7 @@ func expandNotePackage(c *Client, f *NotePackage) (map[string]interface{}, error
 	}
 	if v, err := expandNotePackageDistributionSlice(c, f.Distribution); err != nil {
 		return nil, fmt.Errorf("error expanding Distribution into distribution: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["distribution"] = v
 	}
 

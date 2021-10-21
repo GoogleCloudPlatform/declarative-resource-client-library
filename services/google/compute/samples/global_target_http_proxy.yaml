@@ -41,10 +41,10 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
 - name: map2
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: proxy

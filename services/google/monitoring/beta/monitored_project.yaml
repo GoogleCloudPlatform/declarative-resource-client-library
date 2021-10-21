@@ -13,8 +13,19 @@
 # limitations under the License.
 info:
   title: Monitoring/MonitoredProject
-  description: DCL Specification for the Monitoring MonitoredProject resource
+  description: Monitored Project allows you to set a project as monitored by a _metrics
+    scope_, which is a term for a project used to group the metrics of multiple projects,
+    potentially across multiple organizations.  This enables you to view these groups
+    in the Monitoring page of the cloud console.
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: REST API
+    url: https://cloud.google.com/monitoring/api/ref_v3/rest/v1/locations.global.metricsScopes
+  x-dcl-guides:
+  - text: Understanding metrics scopes
+    url: https://cloud.google.com/monitoring/settings#concept-scope
+  - text: API notes
+    url: https://cloud.google.com/monitoring/settings/manage-api
 paths:
   get:
     description: The function used to get information about a MonitoredProject

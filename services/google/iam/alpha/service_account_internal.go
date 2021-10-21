@@ -1139,7 +1139,7 @@ func expandServiceAccountActasResources(c *Client, f *ServiceAccountActasResourc
 	m := make(map[string]interface{})
 	if v, err := expandServiceAccountActasResourcesResourcesSlice(c, f.Resources); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["resources"] = v
 	}
 

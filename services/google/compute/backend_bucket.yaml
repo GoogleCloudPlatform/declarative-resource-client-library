@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/BackendBucket
-  description: DCL Specification for the Compute BackendBucket resource
+  description: The Compute BackendBucket resource
   x-dcl-has-iam: false
 paths:
   get:

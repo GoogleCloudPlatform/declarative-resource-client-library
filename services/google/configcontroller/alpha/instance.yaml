@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: ConfigController/Instance
-  description: DCL Specification for the ConfigController Instance resource
+  description: The ConfigController Instance resource
   x-dcl-has-iam: false
 paths:
   get:

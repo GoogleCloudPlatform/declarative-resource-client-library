@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: ContainerAnalysis/Note
-  description: DCL Specification for the ContainerAnalysis Note resource
+  description: The ContainerAnalysis Note resource
   x-dcl-has-iam: false
 paths:
   get:

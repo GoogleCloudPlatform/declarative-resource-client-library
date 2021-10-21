@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/Snapshot
-  description: DCL Specification for the Compute Snapshot resource
+  description: The Compute Snapshot resource
   x-dcl-has-iam: false
 paths:
   get:

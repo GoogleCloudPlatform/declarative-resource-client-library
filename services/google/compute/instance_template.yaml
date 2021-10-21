@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/InstanceTemplate
-  description: DCL Specification for the Compute InstanceTemplate resource
+  description: The Compute InstanceTemplate resource
   x-dcl-has-iam: false
 paths:
   get:

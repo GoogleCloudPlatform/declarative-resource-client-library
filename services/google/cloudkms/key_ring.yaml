@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Cloudkms/KeyRing
-  description: DCL Specification for the Cloudkms KeyRing resource
+  description: The Cloudkms KeyRing resource
   x-dcl-has-iam: false
 paths:
   get:

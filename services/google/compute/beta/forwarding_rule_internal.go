@@ -1742,7 +1742,7 @@ func expandForwardingRuleMetadataFilter(c *Client, f *ForwardingRuleMetadataFilt
 	}
 	if v, err := expandForwardingRuleMetadataFilterFilterLabelSlice(c, f.FilterLabel); err != nil {
 		return nil, fmt.Errorf("error expanding FilterLabel into filterLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["filterLabels"] = v
 	}
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Dataproc/AutoscalingPolicy
-  description: DCL Specification for the Dataproc AutoscalingPolicy resource
+  description: The Dataproc AutoscalingPolicy resource
   x-dcl-has-iam: false
 paths:
   get:

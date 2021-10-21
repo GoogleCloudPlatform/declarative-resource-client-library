@@ -5020,7 +5020,7 @@ func expandNoteVulnerability(c *Client, f *NoteVulnerability) (map[string]interf
 	}
 	if v, err := expandNoteVulnerabilityDetailsSlice(c, f.Details); err != nil {
 		return nil, fmt.Errorf("error expanding Details into details: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["details"] = v
 	}
 	if v, err := expandNoteVulnerabilityCvssV3(c, f.CvssV3); err != nil {
@@ -5030,7 +5030,7 @@ func expandNoteVulnerability(c *Client, f *NoteVulnerability) (map[string]interf
 	}
 	if v, err := expandNoteVulnerabilityWindowsDetailsSlice(c, f.WindowsDetails); err != nil {
 		return nil, fmt.Errorf("error expanding WindowsDetails into windowsDetails: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["windowsDetails"] = v
 	}
 	if v := f.SourceUpdateTime; !dcl.IsEmptyValueIndirect(v) {
@@ -5871,7 +5871,7 @@ func expandNoteVulnerabilityWindowsDetails(c *Client, f *NoteVulnerabilityWindow
 	}
 	if v, err := expandNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, f.FixingKbs); err != nil {
 		return nil, fmt.Errorf("error expanding FixingKbs into fixingKbs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["fixingKbs"] = v
 	}
 
@@ -6596,7 +6596,7 @@ func expandNotePackage(c *Client, f *NotePackage) (map[string]interface{}, error
 	}
 	if v, err := expandNotePackageDistributionSlice(c, f.Distribution); err != nil {
 		return nil, fmt.Errorf("error expanding Distribution into distribution: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["distribution"] = v
 	}
 

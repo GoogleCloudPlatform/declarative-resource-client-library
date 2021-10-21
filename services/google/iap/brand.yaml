@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Iap/Brand
-  description: DCL Specification for the Iap Brand resource
+  description: The Iap Brand resource
   x-dcl-has-iam: false
 paths:
   get:

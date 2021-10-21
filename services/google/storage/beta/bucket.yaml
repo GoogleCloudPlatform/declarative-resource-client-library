@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Storage/Bucket
-  description: DCL Specification for the Storage Bucket resource
+  description: The Storage Bucket resource
   x-dcl-has-iam: true
 paths:
   get:

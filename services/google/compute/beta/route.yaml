@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/Route
-  description: DCL Specification for the Compute Route resource
+  description: The Compute Route resource
   x-dcl-has-iam: false
 paths:
   get:

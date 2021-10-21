@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Vmware/PrivateCloud
-  description: DCL Specification for the Vmware PrivateCloud resource
+  description: The Vmware PrivateCloud resource
   x-dcl-has-iam: true
 paths:
   get:

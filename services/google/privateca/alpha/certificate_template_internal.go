@@ -3175,7 +3175,7 @@ func expandCertificateTemplatePredefinedValues(c *Client, f *CertificateTemplate
 	}
 	if v, err := expandCertificateTemplatePredefinedValuesPolicyIdsSlice(c, f.PolicyIds); err != nil {
 		return nil, fmt.Errorf("error expanding PolicyIds into policyIds: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["policyIds"] = v
 	}
 	if v := f.AiaOcspServers; v != nil {
@@ -3183,7 +3183,7 @@ func expandCertificateTemplatePredefinedValues(c *Client, f *CertificateTemplate
 	}
 	if v, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["additionalExtensions"] = v
 	}
 
@@ -3313,7 +3313,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsage(c *Client, f *Certificate
 	}
 	if v, err := expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages); err != nil {
 		return nil, fmt.Errorf("error expanding UnknownExtendedKeyUsages into unknownExtendedKeyUsages: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["unknownExtendedKeyUsages"] = v
 	}
 
@@ -4548,7 +4548,7 @@ func expandCertificateTemplatePassthroughExtensions(c *Client, f *CertificateTem
 	}
 	if v, err := expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["additionalExtensions"] = v
 	}
 

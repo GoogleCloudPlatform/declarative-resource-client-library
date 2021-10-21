@@ -1671,7 +1671,7 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, f *Endpo
 	}
 	if v, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, f.MetadataLabels); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataLabels into metadataLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["metadataLabels"] = v
 	}
 

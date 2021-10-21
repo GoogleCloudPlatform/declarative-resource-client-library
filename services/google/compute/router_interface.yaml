@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/RouterInterface
-  description: DCL Specification for the Compute RouterInterface resource
+  description: The Compute RouterInterface resource
   x-dcl-has-iam: false
 paths:
   get:

@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/TargetPool
-  description: DCL Specification for the Compute TargetPool resource
+  description: The Compute TargetPool resource
   x-dcl-has-iam: false
 paths:
   get:

@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Pubsub/Topic
-  description: DCL Specification for the Pubsub Topic resource
+  description: The Pubsub Topic resource
   x-dcl-has-iam: false
 paths:
   get:

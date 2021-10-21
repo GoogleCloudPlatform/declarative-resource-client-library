@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/HealthCheck
-  description: DCL Specification for the Compute HealthCheck resource
+  description: The Compute HealthCheck resource
   x-dcl-has-iam: false
 paths:
   get:

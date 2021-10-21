@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/TargetVpnGateway
-  description: DCL Specification for the Compute TargetVpnGateway resource
+  description: The Compute TargetVpnGateway resource
   x-dcl-has-iam: false
 paths:
   get:

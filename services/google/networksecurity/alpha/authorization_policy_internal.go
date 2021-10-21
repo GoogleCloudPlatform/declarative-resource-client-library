@@ -1516,12 +1516,12 @@ func expandAuthorizationPolicyRules(c *Client, f *AuthorizationPolicyRules) (map
 	m := make(map[string]interface{})
 	if v, err := expandAuthorizationPolicyRulesSourcesSlice(c, f.Sources); err != nil {
 		return nil, fmt.Errorf("error expanding Sources into sources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sources"] = v
 	}
 	if v, err := expandAuthorizationPolicyRulesDestinationsSlice(c, f.Destinations); err != nil {
 		return nil, fmt.Errorf("error expanding Destinations into destinations: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["destinations"] = v
 	}
 

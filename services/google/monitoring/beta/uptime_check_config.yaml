@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Monitoring/UptimeCheckConfig
-  description: DCL Specification for the Monitoring UptimeCheckConfig resource
+  description: The Monitoring UptimeCheckConfig resource
   x-dcl-has-iam: false
 paths:
   get:

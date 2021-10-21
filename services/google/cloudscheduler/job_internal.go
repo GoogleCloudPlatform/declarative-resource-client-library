@@ -3364,7 +3364,7 @@ func expandJobStatus(c *Client, f *JobStatus) (map[string]interface{}, error) {
 	}
 	if v, err := expandJobStatusDetailsSlice(c, f.Details); err != nil {
 		return nil, fmt.Errorf("error expanding Details into details: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["details"] = v
 	}
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/ForwardingRule
-  description: DCL Specification for the Compute ForwardingRule resource
+  description: The Compute ForwardingRule resource
   x-dcl-has-iam: false
 paths:
   get:

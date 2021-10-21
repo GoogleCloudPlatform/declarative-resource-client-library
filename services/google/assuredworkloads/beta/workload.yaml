@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: AssuredWorkloads/Workload
-  description: DCL Specification for the AssuredWorkloads Workload resource
+  description: The AssuredWorkloads Workload resource
   x-dcl-has-iam: false
 paths:
   get:

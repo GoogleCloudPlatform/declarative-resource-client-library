@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Dataproc/Cluster
-  description: DCL Specification for the Dataproc Cluster resource
+  description: The Dataproc Cluster resource
   x-dcl-has-iam: true
 paths:
   get:

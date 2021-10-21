@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Monitoring/Service
-  description: DCL Specification for the Monitoring Service resource
+  description: The Monitoring Service resource
   x-dcl-has-iam: false
 paths:
   get:

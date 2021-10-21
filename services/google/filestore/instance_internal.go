@@ -1414,7 +1414,7 @@ func expandInstanceFileShares(c *Client, f *InstanceFileShares) (map[string]inte
 	}
 	if v, err := expandInstanceFileSharesNfsExportOptionsSlice(c, f.NfsExportOptions); err != nil {
 		return nil, fmt.Errorf("error expanding NfsExportOptions into nfsExportOptions: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["nfsExportOptions"] = v
 	}
 

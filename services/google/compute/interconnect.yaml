@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: Compute/Interconnect
-  description: DCL Specification for the Compute Interconnect resource
+  description: The Compute Interconnect resource
   x-dcl-has-iam: false
 paths:
   get:

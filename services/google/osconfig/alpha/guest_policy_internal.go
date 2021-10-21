@@ -6124,7 +6124,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyAssignmentGroupLabelsSlice(c, f.GroupLabels); err != nil {
 		return nil, fmt.Errorf("error expanding GroupLabels into groupLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["groupLabels"] = v
 	}
 	if v := f.Zones; v != nil {
@@ -6132,7 +6132,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	}
 	if v, err := expandGuestPolicyInstances(f, f.Instances); err != nil {
 		return nil, fmt.Errorf("error expanding Instances into instances: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["instances"] = v
 	}
 	if v := f.InstanceNamePrefixes; v != nil {
@@ -6140,7 +6140,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	}
 	if v, err := expandGuestPolicyAssignmentOSTypesSlice(c, f.OSTypes); err != nil {
 		return nil, fmt.Errorf("error expanding OSTypes into osTypes: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["osTypes"] = v
 	}
 
@@ -7258,17 +7258,17 @@ func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes) (map[string]inte
 	}
 	if v, err := expandGuestPolicyRecipesArtifactsSlice(c, f.Artifacts); err != nil {
 		return nil, fmt.Errorf("error expanding Artifacts into artifacts: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["artifacts"] = v
 	}
 	if v, err := expandGuestPolicyRecipesInstallStepsSlice(c, f.InstallSteps); err != nil {
 		return nil, fmt.Errorf("error expanding InstallSteps into installSteps: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["installSteps"] = v
 	}
 	if v, err := expandGuestPolicyRecipesUpdateStepsSlice(c, f.UpdateSteps); err != nil {
 		return nil, fmt.Errorf("error expanding UpdateSteps into updateSteps: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["updateSteps"] = v
 	}
 	if v := f.DesiredState; !dcl.IsEmptyValueIndirect(v) {

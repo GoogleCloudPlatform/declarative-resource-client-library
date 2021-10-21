@@ -2064,7 +2064,7 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig) (map[string]interface{},
 	}
 	if v, err := expandNodePoolConfigTaintsSlice(c, f.Taints); err != nil {
 		return nil, fmt.Errorf("error expanding Taints into taints: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["taints"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {

@@ -2291,7 +2291,7 @@ func expandBucketLifecycle(c *Client, f *BucketLifecycle) (map[string]interface{
 	m := make(map[string]interface{})
 	if v, err := expandBucketLifecycleRuleSlice(c, f.Rule); err != nil {
 		return nil, fmt.Errorf("error expanding Rule into rule: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["rule"] = v
 	}
 

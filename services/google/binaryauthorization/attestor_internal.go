@@ -1223,7 +1223,7 @@ func expandAttestorUserOwnedDrydockNote(c *Client, f *AttestorUserOwnedDrydockNo
 	}
 	if v, err := expandAttestorUserOwnedDrydockNotePublicKeysSlice(c, f.PublicKeys); err != nil {
 		return nil, fmt.Errorf("error expanding PublicKeys into publicKeys: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["publicKeys"] = v
 	}
 

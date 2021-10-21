@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: DataFusion/Instance
-  description: DCL Specification for the DataFusion Instance resource
+  description: The DataFusion Instance resource
   x-dcl-has-iam: false
 paths:
   get:
