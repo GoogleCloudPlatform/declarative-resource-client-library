@@ -201,6 +201,9 @@ func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyGroup(ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (*Group, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Group
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -222,9 +225,6 @@ func (c *Client) ApplyGroup(ctx context.Context, rawDesired *Group, opts ...dcl.
 func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (*Group, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyGroup...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -208,6 +208,9 @@ func (c *Client) DeleteAllFirewallPolicy(ctx context.Context, parent string, fil
 }
 
 func (c *Client) ApplyFirewallPolicy(ctx context.Context, rawDesired *FirewallPolicy, opts ...dcl.ApplyOption) (*FirewallPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *FirewallPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -229,9 +232,6 @@ func (c *Client) ApplyFirewallPolicy(ctx context.Context, rawDesired *FirewallPo
 func applyFirewallPolicyHelper(c *Client, ctx context.Context, rawDesired *FirewallPolicy, opts ...dcl.ApplyOption) (*FirewallPolicy, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyFirewallPolicy...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

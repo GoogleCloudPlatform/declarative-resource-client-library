@@ -416,6 +416,9 @@ func (c *Client) DeleteAllCapacityCommitment(ctx context.Context, project, locat
 }
 
 func (c *Client) ApplyCapacityCommitment(ctx context.Context, rawDesired *CapacityCommitment, opts ...dcl.ApplyOption) (*CapacityCommitment, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
 		429: dcl.Retryability{
@@ -444,9 +447,6 @@ func (c *Client) ApplyCapacityCommitment(ctx context.Context, rawDesired *Capaci
 func applyCapacityCommitmentHelper(c *Client, ctx context.Context, rawDesired *CapacityCommitment, opts ...dcl.ApplyOption) (*CapacityCommitment, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyCapacityCommitment...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -463,6 +463,9 @@ func (c *Client) DeleteAllEndpointPolicy(ctx context.Context, project, location 
 }
 
 func (c *Client) ApplyEndpointPolicy(ctx context.Context, rawDesired *EndpointPolicy, opts ...dcl.ApplyOption) (*EndpointPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *EndpointPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -484,9 +487,6 @@ func (c *Client) ApplyEndpointPolicy(ctx context.Context, rawDesired *EndpointPo
 func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *EndpointPolicy, opts ...dcl.ApplyOption) (*EndpointPolicy, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyEndpointPolicy...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

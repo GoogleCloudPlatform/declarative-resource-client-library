@@ -203,6 +203,9 @@ func (c *Client) DeleteAllLogExclusion(ctx context.Context, parent string, filte
 }
 
 func (c *Client) ApplyLogExclusion(ctx context.Context, rawDesired *LogExclusion, opts ...dcl.ApplyOption) (*LogExclusion, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *LogExclusion
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -224,9 +227,6 @@ func (c *Client) ApplyLogExclusion(ctx context.Context, rawDesired *LogExclusion
 func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExclusion, opts ...dcl.ApplyOption) (*LogExclusion, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyLogExclusion...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

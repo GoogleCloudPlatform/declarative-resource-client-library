@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="cloudresourcemanager/beta", resources=["folder","project"])
+proto_package(name="cloudresourcemanager/beta", resources=["folder","project","tag_key"])

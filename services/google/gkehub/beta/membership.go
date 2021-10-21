@@ -736,6 +736,9 @@ func (c *Client) DeleteAllMembership(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyMembership(ctx context.Context, rawDesired *Membership, opts ...dcl.ApplyOption) (*Membership, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Membership
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -757,9 +760,6 @@ func (c *Client) ApplyMembership(ctx context.Context, rawDesired *Membership, op
 func applyMembershipHelper(c *Client, ctx context.Context, rawDesired *Membership, opts ...dcl.ApplyOption) (*Membership, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyMembership...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -1884,6 +1884,9 @@ func (c *Client) DeleteAllOSPolicyAssignment(ctx context.Context, project, locat
 }
 
 func (c *Client) ApplyOSPolicyAssignment(ctx context.Context, rawDesired *OSPolicyAssignment, opts ...dcl.ApplyOption) (*OSPolicyAssignment, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *OSPolicyAssignment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -1905,9 +1908,6 @@ func (c *Client) ApplyOSPolicyAssignment(ctx context.Context, rawDesired *OSPoli
 func applyOSPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *OSPolicyAssignment, opts ...dcl.ApplyOption) (*OSPolicyAssignment, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyOSPolicyAssignment...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

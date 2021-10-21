@@ -167,6 +167,9 @@ func (c *Client) DeleteAllMonitoredProject(ctx context.Context, metricsScope str
 }
 
 func (c *Client) ApplyMonitoredProject(ctx context.Context, rawDesired *MonitoredProject, opts ...dcl.ApplyOption) (*MonitoredProject, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
 		403: dcl.Retryability{
@@ -195,9 +198,6 @@ func (c *Client) ApplyMonitoredProject(ctx context.Context, rawDesired *Monitore
 func applyMonitoredProjectHelper(c *Client, ctx context.Context, rawDesired *MonitoredProject, opts ...dcl.ApplyOption) (*MonitoredProject, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyMonitoredProject...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

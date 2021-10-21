@@ -478,6 +478,9 @@ func (c *Client) DeleteAllForwardingRule(ctx context.Context, project, location 
 }
 
 func (c *Client) ApplyForwardingRule(ctx context.Context, rawDesired *ForwardingRule, opts ...dcl.ApplyOption) (*ForwardingRule, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *ForwardingRule
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -499,9 +502,6 @@ func (c *Client) ApplyForwardingRule(ctx context.Context, rawDesired *Forwarding
 func applyForwardingRuleHelper(c *Client, ctx context.Context, rawDesired *ForwardingRule, opts ...dcl.ApplyOption) (*ForwardingRule, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyForwardingRule...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -158,3 +158,32 @@ func flattenProjectParent(c *Client, i interface{}) *string {
 	parent := fmt.Sprintf("%ss/%s", m["type"], m["id"])
 	return &parent
 }
+
+func (r *TagKey) createURL(userBasePath string) (string, error) {
+	params := make(map[string]interface{})
+	return dcl.URL("tagKeys", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
+}
+
+func (r *TagKey) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name": dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("tagKeys/{{name}}", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
+}
+
+func (r *TagKey) updateURL(userBasePath, updateName string) (string, error) {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{
+		"name": dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("tagKeys/{{name}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, fields), nil
+}
+
+func (r *TagKey) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name": dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("tagKeys/{{name}}", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
+}

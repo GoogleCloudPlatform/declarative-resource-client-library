@@ -922,6 +922,9 @@ func (c *Client) DeleteAllCertificateTemplate(ctx context.Context, project, loca
 }
 
 func (c *Client) ApplyCertificateTemplate(ctx context.Context, rawDesired *CertificateTemplate, opts ...dcl.ApplyOption) (*CertificateTemplate, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *CertificateTemplate
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -943,9 +946,6 @@ func (c *Client) ApplyCertificateTemplate(ctx context.Context, rawDesired *Certi
 func applyCertificateTemplateHelper(c *Client, ctx context.Context, rawDesired *CertificateTemplate, opts ...dcl.ApplyOption) (*CertificateTemplate, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyCertificateTemplate...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

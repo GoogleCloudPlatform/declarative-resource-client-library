@@ -445,6 +445,9 @@ func (c *Client) DeleteAllWorkload(ctx context.Context, organization, location s
 }
 
 func (c *Client) ApplyWorkload(ctx context.Context, rawDesired *Workload, opts ...dcl.ApplyOption) (*Workload, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Workload
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -466,9 +469,6 @@ func (c *Client) ApplyWorkload(ctx context.Context, rawDesired *Workload, opts .
 func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, opts ...dcl.ApplyOption) (*Workload, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyWorkload...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -597,6 +597,9 @@ func (c *Client) DeleteAllServerTlsPolicy(ctx context.Context, project, location
 }
 
 func (c *Client) ApplyServerTlsPolicy(ctx context.Context, rawDesired *ServerTlsPolicy, opts ...dcl.ApplyOption) (*ServerTlsPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *ServerTlsPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -618,9 +621,6 @@ func (c *Client) ApplyServerTlsPolicy(ctx context.Context, rawDesired *ServerTls
 func applyServerTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *ServerTlsPolicy, opts ...dcl.ApplyOption) (*ServerTlsPolicy, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyServerTlsPolicy...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -295,6 +295,9 @@ func (c *Client) DeleteAllSpoke(ctx context.Context, project, location string, f
 }
 
 func (c *Client) ApplySpoke(ctx context.Context, rawDesired *Spoke, opts ...dcl.ApplyOption) (*Spoke, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Spoke
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -316,9 +319,6 @@ func (c *Client) ApplySpoke(ctx context.Context, rawDesired *Spoke, opts ...dcl.
 func applySpokeHelper(c *Client, ctx context.Context, rawDesired *Spoke, opts ...dcl.ApplyOption) (*Spoke, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplySpoke...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

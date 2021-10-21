@@ -201,6 +201,9 @@ func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, project,
 }
 
 func (c *Client) ApplyIdentityAwareProxyClient(ctx context.Context, rawDesired *IdentityAwareProxyClient, opts ...dcl.ApplyOption) (*IdentityAwareProxyClient, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *IdentityAwareProxyClient
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -222,9 +225,6 @@ func (c *Client) ApplyIdentityAwareProxyClient(ctx context.Context, rawDesired *
 func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesired *IdentityAwareProxyClient, opts ...dcl.ApplyOption) (*IdentityAwareProxyClient, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyIdentityAwareProxyClient...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

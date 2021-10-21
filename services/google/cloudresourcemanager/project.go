@@ -226,6 +226,9 @@ func (c *Client) DeleteAllProject(ctx context.Context, filter func(*Project) boo
 }
 
 func (c *Client) ApplyProject(ctx context.Context, rawDesired *Project, opts ...dcl.ApplyOption) (*Project, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Project
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -247,9 +250,6 @@ func (c *Client) ApplyProject(ctx context.Context, rawDesired *Project, opts ...
 func applyProjectHelper(c *Client, ctx context.Context, rawDesired *Project, opts ...dcl.ApplyOption) (*Project, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyProject...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

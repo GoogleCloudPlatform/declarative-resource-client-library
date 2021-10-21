@@ -920,7 +920,7 @@ func StringEquals(l, r *string) bool {
 
 // IsPartialSelfLink returns true if this string represents a partial self link.
 func IsPartialSelfLink(s string) bool {
-	return strings.HasPrefix(s, "projects/") || strings.HasPrefix(s, "organizations/") || strings.HasPrefix(s, "folders/") || strings.HasPrefix(s, "billingAccounts/")
+	return strings.HasPrefix(s, "projects/") || strings.HasPrefix(s, "organizations/") || strings.HasPrefix(s, "folders/") || strings.HasPrefix(s, "billingAccounts/") || strings.HasPrefix(s, "tagKeys/")
 }
 
 // IsSelfLink returns true if this string represents a full self link.

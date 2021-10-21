@@ -207,6 +207,9 @@ func (c *Client) DeleteAllRealm(ctx context.Context, project, location string, f
 }
 
 func (c *Client) ApplyRealm(ctx context.Context, rawDesired *Realm, opts ...dcl.ApplyOption) (*Realm, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Realm
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -228,9 +231,6 @@ func (c *Client) ApplyRealm(ctx context.Context, rawDesired *Realm, opts ...dcl.
 func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ...dcl.ApplyOption) (*Realm, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyRealm...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

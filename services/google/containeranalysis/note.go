@@ -1670,6 +1670,9 @@ func (c *Client) DeleteAllNote(ctx context.Context, project string, filter func(
 }
 
 func (c *Client) ApplyNote(ctx context.Context, rawDesired *Note, opts ...dcl.ApplyOption) (*Note, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Note
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -1691,9 +1694,6 @@ func (c *Client) ApplyNote(ctx context.Context, rawDesired *Note, opts ...dcl.Ap
 func applyNoteHelper(c *Client, ctx context.Context, rawDesired *Note, opts ...dcl.ApplyOption) (*Note, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyNote...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

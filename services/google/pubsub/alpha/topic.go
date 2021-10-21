@@ -247,6 +247,9 @@ func (c *Client) DeleteAllTopic(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.ApplyOption) (*Topic, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Topic
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -268,9 +271,6 @@ func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.
 func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ...dcl.ApplyOption) (*Topic, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyTopic...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

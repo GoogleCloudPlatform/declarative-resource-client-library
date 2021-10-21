@@ -162,6 +162,9 @@ func (c *Client) GetKeyRing(ctx context.Context, r *KeyRing) (*KeyRing, error) {
 }
 
 func (c *Client) ApplyKeyRing(ctx context.Context, rawDesired *KeyRing, opts ...dcl.ApplyOption) (*KeyRing, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *KeyRing
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -183,9 +186,6 @@ func (c *Client) ApplyKeyRing(ctx context.Context, rawDesired *KeyRing, opts ...
 func applyKeyRingHelper(c *Client, ctx context.Context, rawDesired *KeyRing, opts ...dcl.ApplyOption) (*KeyRing, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyKeyRing...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

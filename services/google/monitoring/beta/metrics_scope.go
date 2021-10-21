@@ -159,6 +159,9 @@ func (c *Client) GetMetricsScope(ctx context.Context, r *MetricsScope) (*Metrics
 }
 
 func (c *Client) ApplyMetricsScope(ctx context.Context, rawDesired *MetricsScope, opts ...dcl.ApplyOption) (*MetricsScope, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *MetricsScope
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -180,9 +183,6 @@ func (c *Client) ApplyMetricsScope(ctx context.Context, rawDesired *MetricsScope
 func applyMetricsScopeHelper(c *Client, ctx context.Context, rawDesired *MetricsScope, opts ...dcl.ApplyOption) (*MetricsScope, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyMetricsScope...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

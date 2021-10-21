@@ -1968,6 +1968,9 @@ func (c *Client) DeleteAllGuestPolicy(ctx context.Context, project string, filte
 }
 
 func (c *Client) ApplyGuestPolicy(ctx context.Context, rawDesired *GuestPolicy, opts ...dcl.ApplyOption) (*GuestPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *GuestPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -1989,9 +1992,6 @@ func (c *Client) ApplyGuestPolicy(ctx context.Context, rawDesired *GuestPolicy, 
 func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPolicy, opts ...dcl.ApplyOption) (*GuestPolicy, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyGuestPolicy...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

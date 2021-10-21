@@ -22,4 +22,5 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterCloudresourcemanagerAlphaFolderServiceServer(s, &FolderServer{})
 	sdkgrpc.RegisterCloudresourcemanagerAlphaProjectServiceServer(s, &ProjectServer{})
+	sdkgrpc.RegisterCloudresourcemanagerAlphaTagKeyServiceServer(s, &TagKeyServer{})
 }

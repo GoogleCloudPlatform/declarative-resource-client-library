@@ -344,6 +344,9 @@ func (c *Client) DeleteAllWorkloadIdentityPoolProvider(ctx context.Context, proj
 }
 
 func (c *Client) ApplyWorkloadIdentityPoolProvider(ctx context.Context, rawDesired *WorkloadIdentityPoolProvider, opts ...dcl.ApplyOption) (*WorkloadIdentityPoolProvider, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *WorkloadIdentityPoolProvider
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -365,9 +368,6 @@ func (c *Client) ApplyWorkloadIdentityPoolProvider(ctx context.Context, rawDesir
 func applyWorkloadIdentityPoolProviderHelper(c *Client, ctx context.Context, rawDesired *WorkloadIdentityPoolProvider, opts ...dcl.ApplyOption) (*WorkloadIdentityPoolProvider, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyWorkloadIdentityPoolProvider...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -26,15 +26,15 @@ updates:
   - samples/project.workload_identity_pool.json
   - samples/basic.cloudresourcemanager.project.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
-- name: pool
+- name: id
   type: resource_name
-- name: location
+- name: pool
   type: resource_name
 - name: provider
   type: resource_name
 - name: region
   type: region
+- name: location
+  type: resource_name

@@ -429,6 +429,9 @@ func (c *Client) DeleteAllServiceAttachment(ctx context.Context, project, locati
 }
 
 func (c *Client) ApplyServiceAttachment(ctx context.Context, rawDesired *ServiceAttachment, opts ...dcl.ApplyOption) (*ServiceAttachment, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *ServiceAttachment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -450,9 +453,6 @@ func (c *Client) ApplyServiceAttachment(ctx context.Context, rawDesired *Service
 func applyServiceAttachmentHelper(c *Client, ctx context.Context, rawDesired *ServiceAttachment, opts ...dcl.ApplyOption) (*ServiceAttachment, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyServiceAttachment...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

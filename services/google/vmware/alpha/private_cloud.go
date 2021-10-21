@@ -571,6 +571,9 @@ func (c *Client) DeleteAllPrivateCloud(ctx context.Context, project, location st
 }
 
 func (c *Client) ApplyPrivateCloud(ctx context.Context, rawDesired *PrivateCloud, opts ...dcl.ApplyOption) (*PrivateCloud, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(9600*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *PrivateCloud
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -592,9 +595,6 @@ func (c *Client) ApplyPrivateCloud(ctx context.Context, rawDesired *PrivateCloud
 func applyPrivateCloudHelper(c *Client, ctx context.Context, rawDesired *PrivateCloud, opts ...dcl.ApplyOption) (*PrivateCloud, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyPrivateCloud...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(9600*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

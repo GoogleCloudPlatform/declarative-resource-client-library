@@ -1707,6 +1707,9 @@ func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, project, locatio
 }
 
 func (c *Client) ApplyWorkflowTemplate(ctx context.Context, rawDesired *WorkflowTemplate, opts ...dcl.ApplyOption) (*WorkflowTemplate, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *WorkflowTemplate
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -1728,9 +1731,6 @@ func (c *Client) ApplyWorkflowTemplate(ctx context.Context, rawDesired *Workflow
 func applyWorkflowTemplateHelper(c *Client, ctx context.Context, rawDesired *WorkflowTemplate, opts ...dcl.ApplyOption) (*WorkflowTemplate, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyWorkflowTemplate...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

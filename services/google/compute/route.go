@@ -307,6 +307,9 @@ func (c *Client) DeleteAllRoute(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyRoute(ctx context.Context, rawDesired *Route, opts ...dcl.ApplyOption) (*Route, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Route
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -328,9 +331,6 @@ func (c *Client) ApplyRoute(ctx context.Context, rawDesired *Route, opts ...dcl.
 func applyRouteHelper(c *Client, ctx context.Context, rawDesired *Route, opts ...dcl.ApplyOption) (*Route, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyRoute...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

@@ -657,6 +657,9 @@ func (c *Client) GetCryptoKey(ctx context.Context, r *CryptoKey) (*CryptoKey, er
 }
 
 func (c *Client) ApplyCryptoKey(ctx context.Context, rawDesired *CryptoKey, opts ...dcl.ApplyOption) (*CryptoKey, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *CryptoKey
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -678,9 +681,6 @@ func (c *Client) ApplyCryptoKey(ctx context.Context, rawDesired *CryptoKey, opts
 func applyCryptoKeyHelper(c *Client, ctx context.Context, rawDesired *CryptoKey, opts ...dcl.ApplyOption) (*CryptoKey, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyCryptoKey...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

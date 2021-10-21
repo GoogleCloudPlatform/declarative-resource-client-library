@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="cloudresourcemanager/beta", resources=["folder","project"])
+connector(name="cloudresourcemanager/beta", resources=["folder","project","tag_key"])

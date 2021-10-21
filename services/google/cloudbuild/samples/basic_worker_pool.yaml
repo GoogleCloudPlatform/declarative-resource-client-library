@@ -42,6 +42,7 @@ variables:
   type: project
 - name: worker_pool
   type: resource_name
+  docs_value: my-worker-pool-name
 - name: region
   type: region
 - name: project

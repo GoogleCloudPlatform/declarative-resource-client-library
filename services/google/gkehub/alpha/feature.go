@@ -787,6 +787,9 @@ func (c *Client) DeleteAllFeature(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyFeature(ctx context.Context, rawDesired *Feature, opts ...dcl.ApplyOption) (*Feature, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Feature
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -808,9 +811,6 @@ func (c *Client) ApplyFeature(ctx context.Context, rawDesired *Feature, opts ...
 func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opts ...dcl.ApplyOption) (*Feature, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyFeature...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {

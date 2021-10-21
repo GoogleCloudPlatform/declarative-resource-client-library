@@ -1184,6 +1184,9 @@ func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, loc
 }
 
 func (c *Client) ApplyInstanceGroupManager(ctx context.Context, rawDesired *InstanceGroupManager, opts ...dcl.ApplyOption) (*InstanceGroupManager, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
 		412: dcl.Retryability{
@@ -1212,9 +1215,6 @@ func (c *Client) ApplyInstanceGroupManager(ctx context.Context, rawDesired *Inst
 func applyInstanceGroupManagerHelper(c *Client, ctx context.Context, rawDesired *InstanceGroupManager, opts ...dcl.ApplyOption) (*InstanceGroupManager, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyInstanceGroupManager...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
