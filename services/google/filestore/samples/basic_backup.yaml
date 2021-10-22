@@ -25,8 +25,6 @@ updates:
   dependencies:
   - samples/basic.instance.json
 variables:
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: random_int
@@ -35,8 +33,12 @@ variables:
   type: random_int
 - name: instance_name
   type: resource_name
+- name: project
+  type: project
 - name: backup
   type: resource_name
+- name: project
+  type: project
 - name: region
   type: region
 - name: project

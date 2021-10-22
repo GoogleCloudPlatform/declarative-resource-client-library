@@ -620,6 +620,7 @@ class InstanceNetworkInterfaces(object):
     def __init__(
         self,
         access_configs: list = None,
+        ipv6_access_configs: list = None,
         alias_ip_ranges: list = None,
         name: str = None,
         network: str = None,
@@ -627,6 +628,7 @@ class InstanceNetworkInterfaces(object):
         subnetwork: str = None,
     ):
         self.access_configs = access_configs
+        self.ipv6_access_configs = ipv6_access_configs
         self.alias_ip_ranges = alias_ip_ranges
         self.name = name
         self.network = network
@@ -645,6 +647,14 @@ class InstanceNetworkInterfaces(object):
             res.access_configs.extend(
                 InstanceNetworkInterfacesAccessConfigsArray.to_proto(
                     resource.access_configs
+                )
+            )
+        if InstanceNetworkInterfacesIPv6AccessConfigsArray.to_proto(
+            resource.ipv6_access_configs
+        ):
+            res.ipv6_access_configs.extend(
+                InstanceNetworkInterfacesIPv6AccessConfigsArray.to_proto(
+                    resource.ipv6_access_configs
                 )
             )
         if InstanceNetworkInterfacesAliasIPRangesArray.to_proto(
@@ -674,6 +684,9 @@ class InstanceNetworkInterfaces(object):
             access_configs=InstanceNetworkInterfacesAccessConfigsArray.from_proto(
                 resource.access_configs
             ),
+            ipv6_access_configs=InstanceNetworkInterfacesIPv6AccessConfigsArray.from_proto(
+                resource.ipv6_access_configs
+            ),
             alias_ip_ranges=InstanceNetworkInterfacesAliasIPRangesArray.from_proto(
                 resource.alias_ip_ranges
             ),
@@ -697,9 +710,24 @@ class InstanceNetworkInterfacesArray(object):
 
 
 class InstanceNetworkInterfacesAccessConfigs(object):
-    def __init__(self, name: str = None, nat_ip: str = None, type: str = None):
+    def __init__(
+        self,
+        name: str = None,
+        nat_ip: str = None,
+        external_ipv6: str = None,
+        external_ipv6_prefix_length: str = None,
+        set_public_ptr: bool = None,
+        public_ptr_domain_name: str = None,
+        network_tier: str = None,
+        type: str = None,
+    ):
         self.name = name
         self.nat_ip = nat_ip
+        self.external_ipv6 = external_ipv6
+        self.external_ipv6_prefix_length = external_ipv6_prefix_length
+        self.set_public_ptr = set_public_ptr
+        self.public_ptr_domain_name = public_ptr_domain_name
+        self.network_tier = network_tier
         self.type = type
 
     @classmethod
@@ -712,6 +740,24 @@ class InstanceNetworkInterfacesAccessConfigs(object):
             res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.nat_ip):
             res.nat_ip = Primitive.to_proto(resource.nat_ip)
+        if Primitive.to_proto(resource.external_ipv6):
+            res.external_ipv6 = Primitive.to_proto(resource.external_ipv6)
+        if Primitive.to_proto(resource.external_ipv6_prefix_length):
+            res.external_ipv6_prefix_length = Primitive.to_proto(
+                resource.external_ipv6_prefix_length
+            )
+        if Primitive.to_proto(resource.set_public_ptr):
+            res.set_public_ptr = Primitive.to_proto(resource.set_public_ptr)
+        if Primitive.to_proto(resource.public_ptr_domain_name):
+            res.public_ptr_domain_name = Primitive.to_proto(
+                resource.public_ptr_domain_name
+            )
+        if InstanceNetworkInterfacesAccessConfigsNetworkTierEnum.to_proto(
+            resource.network_tier
+        ):
+            res.network_tier = InstanceNetworkInterfacesAccessConfigsNetworkTierEnum.to_proto(
+                resource.network_tier
+            )
         if InstanceNetworkInterfacesAccessConfigsTypeEnum.to_proto(resource.type):
             res.type = InstanceNetworkInterfacesAccessConfigsTypeEnum.to_proto(
                 resource.type
@@ -726,6 +772,17 @@ class InstanceNetworkInterfacesAccessConfigs(object):
         return InstanceNetworkInterfacesAccessConfigs(
             name=Primitive.from_proto(resource.name),
             nat_ip=Primitive.from_proto(resource.nat_ip),
+            external_ipv6=Primitive.from_proto(resource.external_ipv6),
+            external_ipv6_prefix_length=Primitive.from_proto(
+                resource.external_ipv6_prefix_length
+            ),
+            set_public_ptr=Primitive.from_proto(resource.set_public_ptr),
+            public_ptr_domain_name=Primitive.from_proto(
+                resource.public_ptr_domain_name
+            ),
+            network_tier=InstanceNetworkInterfacesAccessConfigsNetworkTierEnum.from_proto(
+                resource.network_tier
+            ),
             type=InstanceNetworkInterfacesAccessConfigsTypeEnum.from_proto(
                 resource.type
             ),
@@ -742,6 +799,102 @@ class InstanceNetworkInterfacesAccessConfigsArray(object):
     @classmethod
     def from_proto(self, resources):
         return [InstanceNetworkInterfacesAccessConfigs.from_proto(i) for i in resources]
+
+
+class InstanceNetworkInterfacesIPv6AccessConfigs(object):
+    def __init__(
+        self,
+        name: str = None,
+        nat_ip: str = None,
+        external_ipv6: str = None,
+        external_ipv6_prefix_length: str = None,
+        set_public_ptr: bool = None,
+        public_ptr_domain_name: str = None,
+        network_tier: str = None,
+        type: str = None,
+    ):
+        self.name = name
+        self.nat_ip = nat_ip
+        self.external_ipv6 = external_ipv6
+        self.external_ipv6_prefix_length = external_ipv6_prefix_length
+        self.set_public_ptr = set_public_ptr
+        self.public_ptr_domain_name = public_ptr_domain_name
+        self.network_tier = network_tier
+        self.type = type
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.ComputeInstanceNetworkInterfacesIPv6AccessConfigs()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.nat_ip):
+            res.nat_ip = Primitive.to_proto(resource.nat_ip)
+        if Primitive.to_proto(resource.external_ipv6):
+            res.external_ipv6 = Primitive.to_proto(resource.external_ipv6)
+        if Primitive.to_proto(resource.external_ipv6_prefix_length):
+            res.external_ipv6_prefix_length = Primitive.to_proto(
+                resource.external_ipv6_prefix_length
+            )
+        if Primitive.to_proto(resource.set_public_ptr):
+            res.set_public_ptr = Primitive.to_proto(resource.set_public_ptr)
+        if Primitive.to_proto(resource.public_ptr_domain_name):
+            res.public_ptr_domain_name = Primitive.to_proto(
+                resource.public_ptr_domain_name
+            )
+        if InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.to_proto(
+            resource.network_tier
+        ):
+            res.network_tier = InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.to_proto(
+                resource.network_tier
+            )
+        if InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum.to_proto(resource.type):
+            res.type = InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum.to_proto(
+                resource.type
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceNetworkInterfacesIPv6AccessConfigs(
+            name=Primitive.from_proto(resource.name),
+            nat_ip=Primitive.from_proto(resource.nat_ip),
+            external_ipv6=Primitive.from_proto(resource.external_ipv6),
+            external_ipv6_prefix_length=Primitive.from_proto(
+                resource.external_ipv6_prefix_length
+            ),
+            set_public_ptr=Primitive.from_proto(resource.set_public_ptr),
+            public_ptr_domain_name=Primitive.from_proto(
+                resource.public_ptr_domain_name
+            ),
+            network_tier=InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.from_proto(
+                resource.network_tier
+            ),
+            type=InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum.from_proto(
+                resource.type
+            ),
+        )
+
+
+class InstanceNetworkInterfacesIPv6AccessConfigsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceNetworkInterfacesIPv6AccessConfigs.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceNetworkInterfacesIPv6AccessConfigs.from_proto(i) for i in resources
+        ]
 
 
 class InstanceNetworkInterfacesAliasIPRanges(object):
@@ -982,6 +1135,26 @@ class InstanceDisksTypeEnum(object):
         ]
 
 
+class InstanceNetworkInterfacesAccessConfigsNetworkTierEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnum.Value(
+            "ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnum.Name(
+            resource
+        )[
+            len("ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnum") :
+        ]
+
+
 class InstanceNetworkInterfacesAccessConfigsTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -998,6 +1171,47 @@ class InstanceNetworkInterfacesAccessConfigsTypeEnum(object):
         return instance_pb2.ComputeInstanceNetworkInterfacesAccessConfigsTypeEnum.Name(
             resource
         )[len("ComputeInstanceNetworkInterfacesAccessConfigsTypeEnum") :]
+
+
+class InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.Value(
+            "ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.Name(
+            resource
+        )[
+            len("ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum") :
+        ]
+
+
+class InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum.Value(
+            "ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum.Name(
+            resource
+        )[
+            len("ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum") :
+        ]
 
 
 class InstanceStatusEnum(object):

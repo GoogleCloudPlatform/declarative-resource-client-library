@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="compute/alpha", resources=["firewall_policy","firewall_policy_association","firewall_policy_rule","forwarding_rule","instance_group_manager","network","packet_mirroring","route","service_attachment"])
+connector(name="compute/alpha", resources=["firewall_policy","firewall_policy_association","firewall_policy_rule","forwarding_rule","instance","instance_group_manager","interconnect","network","packet_mirroring","route","service_attachment","vpn_tunnel"])

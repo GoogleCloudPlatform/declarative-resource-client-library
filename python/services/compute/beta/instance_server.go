@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/beta/compute_beta_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -61,6 +60,18 @@ func ProtoToComputeBetaInstanceDisksTypeEnum(e betapb.ComputeBetaInstanceDisksTy
 	return nil
 }
 
+// ProtoToInstanceNetworkInterfacesAccessConfigsNetworkTierEnum converts a InstanceNetworkInterfacesAccessConfigsNetworkTierEnum enum from its proto representation.
+func ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum(e betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum) *beta.InstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum_name[int32(e)]; ok {
+		e := beta.InstanceNetworkInterfacesAccessConfigsNetworkTierEnum(n[len("ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceNetworkInterfacesAccessConfigsTypeEnum converts a InstanceNetworkInterfacesAccessConfigsTypeEnum enum from its proto representation.
 func ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum(e betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum) *beta.InstanceNetworkInterfacesAccessConfigsTypeEnum {
 	if e == 0 {
@@ -68,6 +79,30 @@ func ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum(e betapb.C
 	}
 	if n, ok := betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum_name[int32(e)]; ok {
 		e := beta.InstanceNetworkInterfacesAccessConfigsTypeEnum(n[len("ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum converts a InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum enum from its proto representation.
+func ProtoToComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(e betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum) *beta.InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum_name[int32(e)]; ok {
+		e := beta.InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(n[len("ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum converts a InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum enum from its proto representation.
+func ProtoToComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(e betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum) *beta.InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum_name[int32(e)]; ok {
+		e := beta.InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(n[len("ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -85,91 +120,94 @@ func ProtoToComputeBetaInstanceStatusEnum(e betapb.ComputeBetaInstanceStatusEnum
 	return nil
 }
 
-// ProtoToInstanceDisks converts a InstanceDisks resource from its proto representation.
+// ProtoToInstanceDisks converts a InstanceDisks object from its proto representation.
 func ProtoToComputeBetaInstanceDisks(p *betapb.ComputeBetaInstanceDisks) *beta.InstanceDisks {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceDisks{
-		AutoDelete:        dcl.Bool(p.AutoDelete),
-		Boot:              dcl.Bool(p.Boot),
-		DeviceName:        dcl.StringOrNil(p.DeviceName),
+		AutoDelete:        dcl.Bool(p.GetAutoDelete()),
+		Boot:              dcl.Bool(p.GetBoot()),
+		DeviceName:        dcl.StringOrNil(p.GetDeviceName()),
 		DiskEncryptionKey: ProtoToComputeBetaInstanceDisksDiskEncryptionKey(p.GetDiskEncryptionKey()),
-		Index:             dcl.Int64OrNil(p.Index),
+		Index:             dcl.Int64OrNil(p.GetIndex()),
 		InitializeParams:  ProtoToComputeBetaInstanceDisksInitializeParams(p.GetInitializeParams()),
 		Interface:         ProtoToComputeBetaInstanceDisksInterfaceEnum(p.GetInterface()),
 		Mode:              ProtoToComputeBetaInstanceDisksModeEnum(p.GetMode()),
-		Source:            dcl.StringOrNil(p.Source),
+		Source:            dcl.StringOrNil(p.GetSource()),
 		Type:              ProtoToComputeBetaInstanceDisksTypeEnum(p.GetType()),
 	}
 	return obj
 }
 
-// ProtoToInstanceDisksDiskEncryptionKey converts a InstanceDisksDiskEncryptionKey resource from its proto representation.
+// ProtoToInstanceDisksDiskEncryptionKey converts a InstanceDisksDiskEncryptionKey object from its proto representation.
 func ProtoToComputeBetaInstanceDisksDiskEncryptionKey(p *betapb.ComputeBetaInstanceDisksDiskEncryptionKey) *beta.InstanceDisksDiskEncryptionKey {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceDisksDiskEncryptionKey{
-		RawKey:          dcl.StringOrNil(p.RawKey),
-		RsaEncryptedKey: dcl.StringOrNil(p.RsaEncryptedKey),
-		Sha256:          dcl.StringOrNil(p.Sha256),
+		RawKey:          dcl.StringOrNil(p.GetRawKey()),
+		RsaEncryptedKey: dcl.StringOrNil(p.GetRsaEncryptedKey()),
+		Sha256:          dcl.StringOrNil(p.GetSha256()),
 	}
 	return obj
 }
 
-// ProtoToInstanceDisksInitializeParams converts a InstanceDisksInitializeParams resource from its proto representation.
+// ProtoToInstanceDisksInitializeParams converts a InstanceDisksInitializeParams object from its proto representation.
 func ProtoToComputeBetaInstanceDisksInitializeParams(p *betapb.ComputeBetaInstanceDisksInitializeParams) *beta.InstanceDisksInitializeParams {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceDisksInitializeParams{
-		DiskName:                 dcl.StringOrNil(p.DiskName),
-		DiskSizeGb:               dcl.Int64OrNil(p.DiskSizeGb),
-		DiskType:                 dcl.StringOrNil(p.DiskType),
-		SourceImage:              dcl.StringOrNil(p.SourceImage),
+		DiskName:                 dcl.StringOrNil(p.GetDiskName()),
+		DiskSizeGb:               dcl.Int64OrNil(p.GetDiskSizeGb()),
+		DiskType:                 dcl.StringOrNil(p.GetDiskType()),
+		SourceImage:              dcl.StringOrNil(p.GetSourceImage()),
 		SourceImageEncryptionKey: ProtoToComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKey(p.GetSourceImageEncryptionKey()),
 	}
 	return obj
 }
 
-// ProtoToInstanceDisksInitializeParamsSourceImageEncryptionKey converts a InstanceDisksInitializeParamsSourceImageEncryptionKey resource from its proto representation.
+// ProtoToInstanceDisksInitializeParamsSourceImageEncryptionKey converts a InstanceDisksInitializeParamsSourceImageEncryptionKey object from its proto representation.
 func ProtoToComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKey(p *betapb.ComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKey) *beta.InstanceDisksInitializeParamsSourceImageEncryptionKey {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceDisksInitializeParamsSourceImageEncryptionKey{
-		RawKey: dcl.StringOrNil(p.RawKey),
-		Sha256: dcl.StringOrNil(p.Sha256),
+		RawKey: dcl.StringOrNil(p.GetRawKey()),
+		Sha256: dcl.StringOrNil(p.GetSha256()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGuestAccelerators converts a InstanceGuestAccelerators resource from its proto representation.
+// ProtoToInstanceGuestAccelerators converts a InstanceGuestAccelerators object from its proto representation.
 func ProtoToComputeBetaInstanceGuestAccelerators(p *betapb.ComputeBetaInstanceGuestAccelerators) *beta.InstanceGuestAccelerators {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceGuestAccelerators{
-		AcceleratorCount: dcl.Int64OrNil(p.AcceleratorCount),
-		AcceleratorType:  dcl.StringOrNil(p.AcceleratorType),
+		AcceleratorCount: dcl.Int64OrNil(p.GetAcceleratorCount()),
+		AcceleratorType:  dcl.StringOrNil(p.GetAcceleratorType()),
 	}
 	return obj
 }
 
-// ProtoToInstanceNetworkInterfaces converts a InstanceNetworkInterfaces resource from its proto representation.
+// ProtoToInstanceNetworkInterfaces converts a InstanceNetworkInterfaces object from its proto representation.
 func ProtoToComputeBetaInstanceNetworkInterfaces(p *betapb.ComputeBetaInstanceNetworkInterfaces) *beta.InstanceNetworkInterfaces {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceNetworkInterfaces{
-		Name:       dcl.StringOrNil(p.Name),
-		Network:    dcl.StringOrNil(p.Network),
-		NetworkIP:  dcl.StringOrNil(p.NetworkIp),
-		Subnetwork: dcl.StringOrNil(p.Subnetwork),
+		Name:       dcl.StringOrNil(p.GetName()),
+		Network:    dcl.StringOrNil(p.GetNetwork()),
+		NetworkIP:  dcl.StringOrNil(p.GetNetworkIp()),
+		Subnetwork: dcl.StringOrNil(p.GetSubnetwork()),
 	}
 	for _, r := range p.GetAccessConfigs() {
 		obj.AccessConfigs = append(obj.AccessConfigs, *ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigs(r))
+	}
+	for _, r := range p.GetIpv6AccessConfigs() {
+		obj.IPv6AccessConfigs = append(obj.IPv6AccessConfigs, *ProtoToComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs(r))
 	}
 	for _, r := range p.GetAliasIpRanges() {
 		obj.AliasIPRanges = append(obj.AliasIPRanges, *ProtoToComputeBetaInstanceNetworkInterfacesAliasIPRanges(r))
@@ -177,51 +215,74 @@ func ProtoToComputeBetaInstanceNetworkInterfaces(p *betapb.ComputeBetaInstanceNe
 	return obj
 }
 
-// ProtoToInstanceNetworkInterfacesAccessConfigs converts a InstanceNetworkInterfacesAccessConfigs resource from its proto representation.
+// ProtoToInstanceNetworkInterfacesAccessConfigs converts a InstanceNetworkInterfacesAccessConfigs object from its proto representation.
 func ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigs(p *betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigs) *beta.InstanceNetworkInterfacesAccessConfigs {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceNetworkInterfacesAccessConfigs{
-		Name:  dcl.StringOrNil(p.Name),
-		NatIP: dcl.StringOrNil(p.NatIp),
-		Type:  ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum(p.GetType()),
+		Name:                     dcl.StringOrNil(p.GetName()),
+		NatIP:                    dcl.StringOrNil(p.GetNatIp()),
+		ExternalIPv6:             dcl.StringOrNil(p.GetExternalIpv6()),
+		ExternalIPv6PrefixLength: dcl.StringOrNil(p.GetExternalIpv6PrefixLength()),
+		SetPublicPtr:             dcl.Bool(p.GetSetPublicPtr()),
+		PublicPtrDomainName:      dcl.StringOrNil(p.GetPublicPtrDomainName()),
+		NetworkTier:              ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum(p.GetNetworkTier()),
+		Type:                     ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum(p.GetType()),
 	}
 	return obj
 }
 
-// ProtoToInstanceNetworkInterfacesAliasIPRanges converts a InstanceNetworkInterfacesAliasIPRanges resource from its proto representation.
+// ProtoToInstanceNetworkInterfacesIPv6AccessConfigs converts a InstanceNetworkInterfacesIPv6AccessConfigs object from its proto representation.
+func ProtoToComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs(p *betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs) *beta.InstanceNetworkInterfacesIPv6AccessConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.InstanceNetworkInterfacesIPv6AccessConfigs{
+		Name:                     dcl.StringOrNil(p.GetName()),
+		NatIP:                    dcl.StringOrNil(p.GetNatIp()),
+		ExternalIPv6:             dcl.StringOrNil(p.GetExternalIpv6()),
+		ExternalIPv6PrefixLength: dcl.StringOrNil(p.GetExternalIpv6PrefixLength()),
+		SetPublicPtr:             dcl.Bool(p.GetSetPublicPtr()),
+		PublicPtrDomainName:      dcl.StringOrNil(p.GetPublicPtrDomainName()),
+		NetworkTier:              ProtoToComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(p.GetNetworkTier()),
+		Type:                     ProtoToComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(p.GetType()),
+	}
+	return obj
+}
+
+// ProtoToInstanceNetworkInterfacesAliasIPRanges converts a InstanceNetworkInterfacesAliasIPRanges object from its proto representation.
 func ProtoToComputeBetaInstanceNetworkInterfacesAliasIPRanges(p *betapb.ComputeBetaInstanceNetworkInterfacesAliasIPRanges) *beta.InstanceNetworkInterfacesAliasIPRanges {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceNetworkInterfacesAliasIPRanges{
-		IPCidrRange:         dcl.StringOrNil(p.IpCidrRange),
-		SubnetworkRangeName: dcl.StringOrNil(p.SubnetworkRangeName),
+		IPCidrRange:         dcl.StringOrNil(p.GetIpCidrRange()),
+		SubnetworkRangeName: dcl.StringOrNil(p.GetSubnetworkRangeName()),
 	}
 	return obj
 }
 
-// ProtoToInstanceScheduling converts a InstanceScheduling resource from its proto representation.
+// ProtoToInstanceScheduling converts a InstanceScheduling object from its proto representation.
 func ProtoToComputeBetaInstanceScheduling(p *betapb.ComputeBetaInstanceScheduling) *beta.InstanceScheduling {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceScheduling{
-		AutomaticRestart:  dcl.Bool(p.AutomaticRestart),
-		OnHostMaintenance: dcl.StringOrNil(p.OnHostMaintenance),
-		Preemptible:       dcl.Bool(p.Preemptible),
+		AutomaticRestart:  dcl.Bool(p.GetAutomaticRestart()),
+		OnHostMaintenance: dcl.StringOrNil(p.GetOnHostMaintenance()),
+		Preemptible:       dcl.Bool(p.GetPreemptible()),
 	}
 	return obj
 }
 
-// ProtoToInstanceServiceAccounts converts a InstanceServiceAccounts resource from its proto representation.
+// ProtoToInstanceServiceAccounts converts a InstanceServiceAccounts object from its proto representation.
 func ProtoToComputeBetaInstanceServiceAccounts(p *betapb.ComputeBetaInstanceServiceAccounts) *beta.InstanceServiceAccounts {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceServiceAccounts{
-		Email: dcl.StringOrNil(p.Email),
+		Email: dcl.StringOrNil(p.GetEmail()),
 	}
 	for _, r := range p.GetScopes() {
 		obj.Scopes = append(obj.Scopes, r)
@@ -229,15 +290,15 @@ func ProtoToComputeBetaInstanceServiceAccounts(p *betapb.ComputeBetaInstanceServ
 	return obj
 }
 
-// ProtoToInstanceShieldedInstanceConfig converts a InstanceShieldedInstanceConfig resource from its proto representation.
+// ProtoToInstanceShieldedInstanceConfig converts a InstanceShieldedInstanceConfig object from its proto representation.
 func ProtoToComputeBetaInstanceShieldedInstanceConfig(p *betapb.ComputeBetaInstanceShieldedInstanceConfig) *beta.InstanceShieldedInstanceConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceShieldedInstanceConfig{
-		EnableSecureBoot:          dcl.Bool(p.EnableSecureBoot),
-		EnableVtpm:                dcl.Bool(p.EnableVtpm),
-		EnableIntegrityMonitoring: dcl.Bool(p.EnableIntegrityMonitoring),
+		EnableSecureBoot:          dcl.Bool(p.GetEnableSecureBoot()),
+		EnableVtpm:                dcl.Bool(p.GetEnableVtpm()),
+		EnableIntegrityMonitoring: dcl.Bool(p.GetEnableIntegrityMonitoring()),
 	}
 	return obj
 }
@@ -245,23 +306,23 @@ func ProtoToComputeBetaInstanceShieldedInstanceConfig(p *betapb.ComputeBetaInsta
 // ProtoToInstance converts a Instance resource from its proto representation.
 func ProtoToInstance(p *betapb.ComputeBetaInstance) *beta.Instance {
 	obj := &beta.Instance{
-		CanIPForward:           dcl.Bool(p.CanIpForward),
-		CpuPlatform:            dcl.StringOrNil(p.CpuPlatform),
-		CreationTimestamp:      dcl.StringOrNil(p.CreationTimestamp),
-		DeletionProtection:     dcl.Bool(p.DeletionProtection),
-		Description:            dcl.StringOrNil(p.Description),
-		Hostname:               dcl.StringOrNil(p.Hostname),
-		Id:                     dcl.StringOrNil(p.Id),
-		MachineType:            dcl.StringOrNil(p.MachineType),
-		MinCpuPlatform:         dcl.StringOrNil(p.MinCpuPlatform),
-		Name:                   dcl.StringOrNil(p.Name),
+		CanIPForward:           dcl.Bool(p.GetCanIpForward()),
+		CpuPlatform:            dcl.StringOrNil(p.GetCpuPlatform()),
+		CreationTimestamp:      dcl.StringOrNil(p.GetCreationTimestamp()),
+		DeletionProtection:     dcl.Bool(p.GetDeletionProtection()),
+		Description:            dcl.StringOrNil(p.GetDescription()),
+		Hostname:               dcl.StringOrNil(p.GetHostname()),
+		Id:                     dcl.StringOrNil(p.GetId()),
+		MachineType:            dcl.StringOrNil(p.GetMachineType()),
+		MinCpuPlatform:         dcl.StringOrNil(p.GetMinCpuPlatform()),
+		Name:                   dcl.StringOrNil(p.GetName()),
 		Scheduling:             ProtoToComputeBetaInstanceScheduling(p.GetScheduling()),
 		ShieldedInstanceConfig: ProtoToComputeBetaInstanceShieldedInstanceConfig(p.GetShieldedInstanceConfig()),
 		Status:                 ProtoToComputeBetaInstanceStatusEnum(p.GetStatus()),
-		StatusMessage:          dcl.StringOrNil(p.StatusMessage),
-		Zone:                   dcl.StringOrNil(p.Zone),
-		Project:                dcl.StringOrNil(p.Project),
-		SelfLink:               dcl.StringOrNil(p.SelfLink),
+		StatusMessage:          dcl.StringOrNil(p.GetStatusMessage()),
+		Zone:                   dcl.StringOrNil(p.GetZone()),
+		Project:                dcl.StringOrNil(p.GetProject()),
+		SelfLink:               dcl.StringOrNil(p.GetSelfLink()),
 	}
 	for _, r := range p.GetDisks() {
 		obj.Disks = append(obj.Disks, *ProtoToComputeBetaInstanceDisks(r))
@@ -314,6 +375,17 @@ func ComputeBetaInstanceDisksTypeEnumToProto(e *beta.InstanceDisksTypeEnum) beta
 	return betapb.ComputeBetaInstanceDisksTypeEnum(0)
 }
 
+// InstanceNetworkInterfacesAccessConfigsNetworkTierEnumToProto converts a InstanceNetworkInterfacesAccessConfigsNetworkTierEnum enum to its proto representation.
+func ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnumToProto(e *beta.InstanceNetworkInterfacesAccessConfigsNetworkTierEnum) betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
+	if e == nil {
+		return betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum(0)
+	}
+	if v, ok := betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum_value["InstanceNetworkInterfacesAccessConfigsNetworkTierEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum(v)
+	}
+	return betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum(0)
+}
+
 // InstanceNetworkInterfacesAccessConfigsTypeEnumToProto converts a InstanceNetworkInterfacesAccessConfigsTypeEnum enum to its proto representation.
 func ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnumToProto(e *beta.InstanceNetworkInterfacesAccessConfigsTypeEnum) betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum {
 	if e == nil {
@@ -323,6 +395,28 @@ func ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnumToProto(e *beta.In
 		return betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum(v)
 	}
 	return betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum(0)
+}
+
+// InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumToProto converts a InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum enum to its proto representation.
+func ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumToProto(e *beta.InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum) betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
+	if e == nil {
+		return betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(0)
+	}
+	if v, ok := betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum_value["InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(v)
+	}
+	return betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(0)
+}
+
+// InstanceNetworkInterfacesIPv6AccessConfigsTypeEnumToProto converts a InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum enum to its proto representation.
+func ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumToProto(e *beta.InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum) betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
+	if e == nil {
+		return betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(0)
+	}
+	if v, ok := betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum_value["InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(v)
+	}
+	return betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(0)
 }
 
 // InstanceStatusEnumToProto converts a InstanceStatusEnum enum to its proto representation.
@@ -336,204 +430,245 @@ func ComputeBetaInstanceStatusEnumToProto(e *beta.InstanceStatusEnum) betapb.Com
 	return betapb.ComputeBetaInstanceStatusEnum(0)
 }
 
-// InstanceDisksToProto converts a InstanceDisks resource to its proto representation.
+// InstanceDisksToProto converts a InstanceDisks object to its proto representation.
 func ComputeBetaInstanceDisksToProto(o *beta.InstanceDisks) *betapb.ComputeBetaInstanceDisks {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceDisks{
-		AutoDelete:        dcl.ValueOrEmptyBool(o.AutoDelete),
-		Boot:              dcl.ValueOrEmptyBool(o.Boot),
-		DeviceName:        dcl.ValueOrEmptyString(o.DeviceName),
-		DiskEncryptionKey: ComputeBetaInstanceDisksDiskEncryptionKeyToProto(o.DiskEncryptionKey),
-		Index:             dcl.ValueOrEmptyInt64(o.Index),
-		InitializeParams:  ComputeBetaInstanceDisksInitializeParamsToProto(o.InitializeParams),
-		Interface:         ComputeBetaInstanceDisksInterfaceEnumToProto(o.Interface),
-		Mode:              ComputeBetaInstanceDisksModeEnumToProto(o.Mode),
-		Source:            dcl.ValueOrEmptyString(o.Source),
-		Type:              ComputeBetaInstanceDisksTypeEnumToProto(o.Type),
-	}
+	p := &betapb.ComputeBetaInstanceDisks{}
+	p.SetAutoDelete(dcl.ValueOrEmptyBool(o.AutoDelete))
+	p.SetBoot(dcl.ValueOrEmptyBool(o.Boot))
+	p.SetDeviceName(dcl.ValueOrEmptyString(o.DeviceName))
+	p.SetDiskEncryptionKey(ComputeBetaInstanceDisksDiskEncryptionKeyToProto(o.DiskEncryptionKey))
+	p.SetIndex(dcl.ValueOrEmptyInt64(o.Index))
+	p.SetInitializeParams(ComputeBetaInstanceDisksInitializeParamsToProto(o.InitializeParams))
+	p.SetInterface(ComputeBetaInstanceDisksInterfaceEnumToProto(o.Interface))
+	p.SetMode(ComputeBetaInstanceDisksModeEnumToProto(o.Mode))
+	p.SetSource(dcl.ValueOrEmptyString(o.Source))
+	p.SetType(ComputeBetaInstanceDisksTypeEnumToProto(o.Type))
 	return p
 }
 
-// InstanceDisksDiskEncryptionKeyToProto converts a InstanceDisksDiskEncryptionKey resource to its proto representation.
+// InstanceDisksDiskEncryptionKeyToProto converts a InstanceDisksDiskEncryptionKey object to its proto representation.
 func ComputeBetaInstanceDisksDiskEncryptionKeyToProto(o *beta.InstanceDisksDiskEncryptionKey) *betapb.ComputeBetaInstanceDisksDiskEncryptionKey {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceDisksDiskEncryptionKey{
-		RawKey:          dcl.ValueOrEmptyString(o.RawKey),
-		RsaEncryptedKey: dcl.ValueOrEmptyString(o.RsaEncryptedKey),
-		Sha256:          dcl.ValueOrEmptyString(o.Sha256),
-	}
+	p := &betapb.ComputeBetaInstanceDisksDiskEncryptionKey{}
+	p.SetRawKey(dcl.ValueOrEmptyString(o.RawKey))
+	p.SetRsaEncryptedKey(dcl.ValueOrEmptyString(o.RsaEncryptedKey))
+	p.SetSha256(dcl.ValueOrEmptyString(o.Sha256))
 	return p
 }
 
-// InstanceDisksInitializeParamsToProto converts a InstanceDisksInitializeParams resource to its proto representation.
+// InstanceDisksInitializeParamsToProto converts a InstanceDisksInitializeParams object to its proto representation.
 func ComputeBetaInstanceDisksInitializeParamsToProto(o *beta.InstanceDisksInitializeParams) *betapb.ComputeBetaInstanceDisksInitializeParams {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceDisksInitializeParams{
-		DiskName:                 dcl.ValueOrEmptyString(o.DiskName),
-		DiskSizeGb:               dcl.ValueOrEmptyInt64(o.DiskSizeGb),
-		DiskType:                 dcl.ValueOrEmptyString(o.DiskType),
-		SourceImage:              dcl.ValueOrEmptyString(o.SourceImage),
-		SourceImageEncryptionKey: ComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKeyToProto(o.SourceImageEncryptionKey),
-	}
+	p := &betapb.ComputeBetaInstanceDisksInitializeParams{}
+	p.SetDiskName(dcl.ValueOrEmptyString(o.DiskName))
+	p.SetDiskSizeGb(dcl.ValueOrEmptyInt64(o.DiskSizeGb))
+	p.SetDiskType(dcl.ValueOrEmptyString(o.DiskType))
+	p.SetSourceImage(dcl.ValueOrEmptyString(o.SourceImage))
+	p.SetSourceImageEncryptionKey(ComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKeyToProto(o.SourceImageEncryptionKey))
 	return p
 }
 
-// InstanceDisksInitializeParamsSourceImageEncryptionKeyToProto converts a InstanceDisksInitializeParamsSourceImageEncryptionKey resource to its proto representation.
+// InstanceDisksInitializeParamsSourceImageEncryptionKeyToProto converts a InstanceDisksInitializeParamsSourceImageEncryptionKey object to its proto representation.
 func ComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKeyToProto(o *beta.InstanceDisksInitializeParamsSourceImageEncryptionKey) *betapb.ComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKey {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKey{
-		RawKey: dcl.ValueOrEmptyString(o.RawKey),
-		Sha256: dcl.ValueOrEmptyString(o.Sha256),
-	}
+	p := &betapb.ComputeBetaInstanceDisksInitializeParamsSourceImageEncryptionKey{}
+	p.SetRawKey(dcl.ValueOrEmptyString(o.RawKey))
+	p.SetSha256(dcl.ValueOrEmptyString(o.Sha256))
 	return p
 }
 
-// InstanceGuestAcceleratorsToProto converts a InstanceGuestAccelerators resource to its proto representation.
+// InstanceGuestAcceleratorsToProto converts a InstanceGuestAccelerators object to its proto representation.
 func ComputeBetaInstanceGuestAcceleratorsToProto(o *beta.InstanceGuestAccelerators) *betapb.ComputeBetaInstanceGuestAccelerators {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceGuestAccelerators{
-		AcceleratorCount: dcl.ValueOrEmptyInt64(o.AcceleratorCount),
-		AcceleratorType:  dcl.ValueOrEmptyString(o.AcceleratorType),
-	}
+	p := &betapb.ComputeBetaInstanceGuestAccelerators{}
+	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
 	return p
 }
 
-// InstanceNetworkInterfacesToProto converts a InstanceNetworkInterfaces resource to its proto representation.
+// InstanceNetworkInterfacesToProto converts a InstanceNetworkInterfaces object to its proto representation.
 func ComputeBetaInstanceNetworkInterfacesToProto(o *beta.InstanceNetworkInterfaces) *betapb.ComputeBetaInstanceNetworkInterfaces {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceNetworkInterfaces{
-		Name:       dcl.ValueOrEmptyString(o.Name),
-		Network:    dcl.ValueOrEmptyString(o.Network),
-		NetworkIp:  dcl.ValueOrEmptyString(o.NetworkIP),
-		Subnetwork: dcl.ValueOrEmptyString(o.Subnetwork),
+	p := &betapb.ComputeBetaInstanceNetworkInterfaces{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
+	p.SetNetworkIp(dcl.ValueOrEmptyString(o.NetworkIP))
+	p.SetSubnetwork(dcl.ValueOrEmptyString(o.Subnetwork))
+	sAccessConfigs := make([]*betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigs, len(o.AccessConfigs))
+	for i, r := range o.AccessConfigs {
+		sAccessConfigs[i] = ComputeBetaInstanceNetworkInterfacesAccessConfigsToProto(&r)
 	}
-	for _, r := range o.AccessConfigs {
-		p.AccessConfigs = append(p.AccessConfigs, ComputeBetaInstanceNetworkInterfacesAccessConfigsToProto(&r))
+	p.SetAccessConfigs(sAccessConfigs)
+	sIPv6AccessConfigs := make([]*betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs, len(o.IPv6AccessConfigs))
+	for i, r := range o.IPv6AccessConfigs {
+		sIPv6AccessConfigs[i] = ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsToProto(&r)
 	}
-	for _, r := range o.AliasIPRanges {
-		p.AliasIpRanges = append(p.AliasIpRanges, ComputeBetaInstanceNetworkInterfacesAliasIPRangesToProto(&r))
+	p.SetIpv6AccessConfigs(sIPv6AccessConfigs)
+	sAliasIPRanges := make([]*betapb.ComputeBetaInstanceNetworkInterfacesAliasIPRanges, len(o.AliasIPRanges))
+	for i, r := range o.AliasIPRanges {
+		sAliasIPRanges[i] = ComputeBetaInstanceNetworkInterfacesAliasIPRangesToProto(&r)
 	}
+	p.SetAliasIpRanges(sAliasIPRanges)
 	return p
 }
 
-// InstanceNetworkInterfacesAccessConfigsToProto converts a InstanceNetworkInterfacesAccessConfigs resource to its proto representation.
+// InstanceNetworkInterfacesAccessConfigsToProto converts a InstanceNetworkInterfacesAccessConfigs object to its proto representation.
 func ComputeBetaInstanceNetworkInterfacesAccessConfigsToProto(o *beta.InstanceNetworkInterfacesAccessConfigs) *betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigs {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigs{
-		Name:  dcl.ValueOrEmptyString(o.Name),
-		NatIp: dcl.ValueOrEmptyString(o.NatIP),
-		Type:  ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnumToProto(o.Type),
-	}
+	p := &betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigs{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetNatIp(dcl.ValueOrEmptyString(o.NatIP))
+	p.SetExternalIpv6(dcl.ValueOrEmptyString(o.ExternalIPv6))
+	p.SetExternalIpv6PrefixLength(dcl.ValueOrEmptyString(o.ExternalIPv6PrefixLength))
+	p.SetSetPublicPtr(dcl.ValueOrEmptyBool(o.SetPublicPtr))
+	p.SetPublicPtrDomainName(dcl.ValueOrEmptyString(o.PublicPtrDomainName))
+	p.SetNetworkTier(ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnumToProto(o.NetworkTier))
+	p.SetType(ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnumToProto(o.Type))
 	return p
 }
 
-// InstanceNetworkInterfacesAliasIPRangesToProto converts a InstanceNetworkInterfacesAliasIPRanges resource to its proto representation.
+// InstanceNetworkInterfacesIPv6AccessConfigsToProto converts a InstanceNetworkInterfacesIPv6AccessConfigs object to its proto representation.
+func ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsToProto(o *beta.InstanceNetworkInterfacesIPv6AccessConfigs) *betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetNatIp(dcl.ValueOrEmptyString(o.NatIP))
+	p.SetExternalIpv6(dcl.ValueOrEmptyString(o.ExternalIPv6))
+	p.SetExternalIpv6PrefixLength(dcl.ValueOrEmptyString(o.ExternalIPv6PrefixLength))
+	p.SetSetPublicPtr(dcl.ValueOrEmptyBool(o.SetPublicPtr))
+	p.SetPublicPtrDomainName(dcl.ValueOrEmptyString(o.PublicPtrDomainName))
+	p.SetNetworkTier(ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumToProto(o.NetworkTier))
+	p.SetType(ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumToProto(o.Type))
+	return p
+}
+
+// InstanceNetworkInterfacesAliasIPRangesToProto converts a InstanceNetworkInterfacesAliasIPRanges object to its proto representation.
 func ComputeBetaInstanceNetworkInterfacesAliasIPRangesToProto(o *beta.InstanceNetworkInterfacesAliasIPRanges) *betapb.ComputeBetaInstanceNetworkInterfacesAliasIPRanges {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceNetworkInterfacesAliasIPRanges{
-		IpCidrRange:         dcl.ValueOrEmptyString(o.IPCidrRange),
-		SubnetworkRangeName: dcl.ValueOrEmptyString(o.SubnetworkRangeName),
-	}
+	p := &betapb.ComputeBetaInstanceNetworkInterfacesAliasIPRanges{}
+	p.SetIpCidrRange(dcl.ValueOrEmptyString(o.IPCidrRange))
+	p.SetSubnetworkRangeName(dcl.ValueOrEmptyString(o.SubnetworkRangeName))
 	return p
 }
 
-// InstanceSchedulingToProto converts a InstanceScheduling resource to its proto representation.
+// InstanceSchedulingToProto converts a InstanceScheduling object to its proto representation.
 func ComputeBetaInstanceSchedulingToProto(o *beta.InstanceScheduling) *betapb.ComputeBetaInstanceScheduling {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceScheduling{
-		AutomaticRestart:  dcl.ValueOrEmptyBool(o.AutomaticRestart),
-		OnHostMaintenance: dcl.ValueOrEmptyString(o.OnHostMaintenance),
-		Preemptible:       dcl.ValueOrEmptyBool(o.Preemptible),
-	}
+	p := &betapb.ComputeBetaInstanceScheduling{}
+	p.SetAutomaticRestart(dcl.ValueOrEmptyBool(o.AutomaticRestart))
+	p.SetOnHostMaintenance(dcl.ValueOrEmptyString(o.OnHostMaintenance))
+	p.SetPreemptible(dcl.ValueOrEmptyBool(o.Preemptible))
 	return p
 }
 
-// InstanceServiceAccountsToProto converts a InstanceServiceAccounts resource to its proto representation.
+// InstanceServiceAccountsToProto converts a InstanceServiceAccounts object to its proto representation.
 func ComputeBetaInstanceServiceAccountsToProto(o *beta.InstanceServiceAccounts) *betapb.ComputeBetaInstanceServiceAccounts {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceServiceAccounts{
-		Email: dcl.ValueOrEmptyString(o.Email),
+	p := &betapb.ComputeBetaInstanceServiceAccounts{}
+	p.SetEmail(dcl.ValueOrEmptyString(o.Email))
+	sScopes := make([]string, len(o.Scopes))
+	for i, r := range o.Scopes {
+		sScopes[i] = r
 	}
-	for _, r := range o.Scopes {
-		p.Scopes = append(p.Scopes, r)
-	}
+	p.SetScopes(sScopes)
 	return p
 }
 
-// InstanceShieldedInstanceConfigToProto converts a InstanceShieldedInstanceConfig resource to its proto representation.
+// InstanceShieldedInstanceConfigToProto converts a InstanceShieldedInstanceConfig object to its proto representation.
 func ComputeBetaInstanceShieldedInstanceConfigToProto(o *beta.InstanceShieldedInstanceConfig) *betapb.ComputeBetaInstanceShieldedInstanceConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceShieldedInstanceConfig{
-		EnableSecureBoot:          dcl.ValueOrEmptyBool(o.EnableSecureBoot),
-		EnableVtpm:                dcl.ValueOrEmptyBool(o.EnableVtpm),
-		EnableIntegrityMonitoring: dcl.ValueOrEmptyBool(o.EnableIntegrityMonitoring),
-	}
+	p := &betapb.ComputeBetaInstanceShieldedInstanceConfig{}
+	p.SetEnableSecureBoot(dcl.ValueOrEmptyBool(o.EnableSecureBoot))
+	p.SetEnableVtpm(dcl.ValueOrEmptyBool(o.EnableVtpm))
+	p.SetEnableIntegrityMonitoring(dcl.ValueOrEmptyBool(o.EnableIntegrityMonitoring))
 	return p
 }
 
 // InstanceToProto converts a Instance resource to its proto representation.
 func InstanceToProto(resource *beta.Instance) *betapb.ComputeBetaInstance {
-	p := &betapb.ComputeBetaInstance{
-		CanIpForward:           dcl.ValueOrEmptyBool(resource.CanIPForward),
-		CpuPlatform:            dcl.ValueOrEmptyString(resource.CpuPlatform),
-		CreationTimestamp:      dcl.ValueOrEmptyString(resource.CreationTimestamp),
-		DeletionProtection:     dcl.ValueOrEmptyBool(resource.DeletionProtection),
-		Description:            dcl.ValueOrEmptyString(resource.Description),
-		Hostname:               dcl.ValueOrEmptyString(resource.Hostname),
-		Id:                     dcl.ValueOrEmptyString(resource.Id),
-		MachineType:            dcl.ValueOrEmptyString(resource.MachineType),
-		MinCpuPlatform:         dcl.ValueOrEmptyString(resource.MinCpuPlatform),
-		Name:                   dcl.ValueOrEmptyString(resource.Name),
-		Scheduling:             ComputeBetaInstanceSchedulingToProto(resource.Scheduling),
-		ShieldedInstanceConfig: ComputeBetaInstanceShieldedInstanceConfigToProto(resource.ShieldedInstanceConfig),
-		Status:                 ComputeBetaInstanceStatusEnumToProto(resource.Status),
-		StatusMessage:          dcl.ValueOrEmptyString(resource.StatusMessage),
-		Zone:                   dcl.ValueOrEmptyString(resource.Zone),
-		Project:                dcl.ValueOrEmptyString(resource.Project),
-		SelfLink:               dcl.ValueOrEmptyString(resource.SelfLink),
+	p := &betapb.ComputeBetaInstance{}
+	p.SetCanIpForward(dcl.ValueOrEmptyBool(resource.CanIPForward))
+	p.SetCpuPlatform(dcl.ValueOrEmptyString(resource.CpuPlatform))
+	p.SetCreationTimestamp(dcl.ValueOrEmptyString(resource.CreationTimestamp))
+	p.SetDeletionProtection(dcl.ValueOrEmptyBool(resource.DeletionProtection))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetHostname(dcl.ValueOrEmptyString(resource.Hostname))
+	p.SetId(dcl.ValueOrEmptyString(resource.Id))
+	p.SetMachineType(dcl.ValueOrEmptyString(resource.MachineType))
+	p.SetMinCpuPlatform(dcl.ValueOrEmptyString(resource.MinCpuPlatform))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetScheduling(ComputeBetaInstanceSchedulingToProto(resource.Scheduling))
+	p.SetShieldedInstanceConfig(ComputeBetaInstanceShieldedInstanceConfigToProto(resource.ShieldedInstanceConfig))
+	p.SetStatus(ComputeBetaInstanceStatusEnumToProto(resource.Status))
+	p.SetStatusMessage(dcl.ValueOrEmptyString(resource.StatusMessage))
+	p.SetZone(dcl.ValueOrEmptyString(resource.Zone))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	sDisks := make([]*betapb.ComputeBetaInstanceDisks, len(resource.Disks))
+	for i, r := range resource.Disks {
+		sDisks[i] = ComputeBetaInstanceDisksToProto(&r)
 	}
-	for _, r := range resource.Disks {
-		p.Disks = append(p.Disks, ComputeBetaInstanceDisksToProto(&r))
+	p.SetDisks(sDisks)
+	sGuestAccelerators := make([]*betapb.ComputeBetaInstanceGuestAccelerators, len(resource.GuestAccelerators))
+	for i, r := range resource.GuestAccelerators {
+		sGuestAccelerators[i] = ComputeBetaInstanceGuestAcceleratorsToProto(&r)
 	}
-	for _, r := range resource.GuestAccelerators {
-		p.GuestAccelerators = append(p.GuestAccelerators, ComputeBetaInstanceGuestAcceleratorsToProto(&r))
+	p.SetGuestAccelerators(sGuestAccelerators)
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.NetworkInterfaces {
-		p.NetworkInterfaces = append(p.NetworkInterfaces, ComputeBetaInstanceNetworkInterfacesToProto(&r))
+	p.SetLabels(mLabels)
+	mMetadata := make(map[string]string, len(resource.Metadata))
+	for k, r := range resource.Metadata {
+		mMetadata[k] = r
 	}
-	for _, r := range resource.ServiceAccounts {
-		p.ServiceAccounts = append(p.ServiceAccounts, ComputeBetaInstanceServiceAccountsToProto(&r))
+	p.SetMetadata(mMetadata)
+	sNetworkInterfaces := make([]*betapb.ComputeBetaInstanceNetworkInterfaces, len(resource.NetworkInterfaces))
+	for i, r := range resource.NetworkInterfaces {
+		sNetworkInterfaces[i] = ComputeBetaInstanceNetworkInterfacesToProto(&r)
 	}
-	for _, r := range resource.Tags {
-		p.Tags = append(p.Tags, r)
+	p.SetNetworkInterfaces(sNetworkInterfaces)
+	sServiceAccounts := make([]*betapb.ComputeBetaInstanceServiceAccounts, len(resource.ServiceAccounts))
+	for i, r := range resource.ServiceAccounts {
+		sServiceAccounts[i] = ComputeBetaInstanceServiceAccountsToProto(&r)
 	}
+	p.SetServiceAccounts(sServiceAccounts)
+	sTags := make([]string, len(resource.Tags))
+	for i, r := range resource.Tags {
+		sTags[i] = r
+	}
+	p.SetTags(sTags)
 
 	return p
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) applyInstance(ctx context.Context, c *beta.Client, request *betapb.ApplyComputeBetaInstanceRequest) (*betapb.ComputeBetaInstance, error) {
 	p := ProtoToInstance(request.GetResource())
 	res, err := c.ApplyInstance(ctx, p)
@@ -544,9 +679,9 @@ func (s *InstanceServer) applyInstance(ctx context.Context, c *beta.Client, requ
 	return r, nil
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyComputeBetaInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) ApplyComputeBetaInstance(ctx context.Context, request *betapb.ApplyComputeBetaInstanceRequest) (*betapb.ComputeBetaInstance, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -556,7 +691,7 @@ func (s *InstanceServer) ApplyComputeBetaInstance(ctx context.Context, request *
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteComputeBetaInstance(ctx context.Context, request *betapb.DeleteComputeBetaInstanceRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -566,12 +701,12 @@ func (s *InstanceServer) DeleteComputeBetaInstance(ctx context.Context, request 
 
 // ListComputeBetaInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListComputeBetaInstance(ctx context.Context, request *betapb.ListComputeBetaInstanceRequest) (*betapb.ListComputeBetaInstanceResponse, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListInstance(ctx, request.Project, request.Zone)
+	resources, err := cl.ListInstance(ctx, request.GetProject(), request.GetZone())
 	if err != nil {
 		return nil, err
 	}
@@ -580,7 +715,9 @@ func (s *InstanceServer) ListComputeBetaInstance(ctx context.Context, request *b
 		rp := InstanceToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListComputeBetaInstanceResponse{Items: protos}, nil
+	p := &betapb.ListComputeBetaInstanceResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigInstance(ctx context.Context, service_account_file string) (*beta.Client, error) {

@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -40,25 +39,25 @@ func ProtoToComputeVpnTunnelStatusEnum(e computepb.ComputeVpnTunnelStatusEnum) *
 // ProtoToVpnTunnel converts a VpnTunnel resource from its proto representation.
 func ProtoToVpnTunnel(p *computepb.ComputeVpnTunnel) *compute.VpnTunnel {
 	obj := &compute.VpnTunnel{
-		Id:                           dcl.Int64OrNil(p.Id),
-		Name:                         dcl.StringOrNil(p.Name),
-		Description:                  dcl.StringOrNil(p.Description),
-		Region:                       dcl.StringOrNil(p.Region),
-		TargetVpnGateway:             dcl.StringOrNil(p.TargetVpnGateway),
-		VpnGateway:                   dcl.StringOrNil(p.VpnGateway),
-		VpnGatewayInterface:          dcl.Int64OrNil(p.VpnGatewayInterface),
-		PeerExternalGateway:          dcl.StringOrNil(p.PeerExternalGateway),
-		PeerExternalGatewayInterface: dcl.Int64OrNil(p.PeerExternalGatewayInterface),
-		PeerGcpGateway:               dcl.StringOrNil(p.PeerGcpGateway),
-		Router:                       dcl.StringOrNil(p.Router),
-		PeerIP:                       dcl.StringOrNil(p.PeerIp),
-		SharedSecret:                 dcl.StringOrNil(p.SharedSecret),
-		SharedSecretHash:             dcl.StringOrNil(p.SharedSecretHash),
+		Id:                           dcl.Int64OrNil(p.GetId()),
+		Name:                         dcl.StringOrNil(p.GetName()),
+		Description:                  dcl.StringOrNil(p.GetDescription()),
+		Region:                       dcl.StringOrNil(p.GetRegion()),
+		TargetVpnGateway:             dcl.StringOrNil(p.GetTargetVpnGateway()),
+		VpnGateway:                   dcl.StringOrNil(p.GetVpnGateway()),
+		VpnGatewayInterface:          dcl.Int64OrNil(p.GetVpnGatewayInterface()),
+		PeerExternalGateway:          dcl.StringOrNil(p.GetPeerExternalGateway()),
+		PeerExternalGatewayInterface: dcl.Int64OrNil(p.GetPeerExternalGatewayInterface()),
+		PeerGcpGateway:               dcl.StringOrNil(p.GetPeerGcpGateway()),
+		Router:                       dcl.StringOrNil(p.GetRouter()),
+		PeerIP:                       dcl.StringOrNil(p.GetPeerIp()),
+		SharedSecret:                 dcl.StringOrNil(p.GetSharedSecret()),
+		SharedSecretHash:             dcl.StringOrNil(p.GetSharedSecretHash()),
 		Status:                       ProtoToComputeVpnTunnelStatusEnum(p.GetStatus()),
-		SelfLink:                     dcl.StringOrNil(p.SelfLink),
-		IkeVersion:                   dcl.Int64OrNil(p.IkeVersion),
-		DetailedStatus:               dcl.StringOrNil(p.DetailedStatus),
-		Project:                      dcl.StringOrNil(p.Project),
+		SelfLink:                     dcl.StringOrNil(p.GetSelfLink()),
+		IkeVersion:                   dcl.Int64OrNil(p.GetIkeVersion()),
+		DetailedStatus:               dcl.StringOrNil(p.GetDetailedStatus()),
+		Project:                      dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetLocalTrafficSelector() {
 		obj.LocalTrafficSelector = append(obj.LocalTrafficSelector, r)
@@ -82,38 +81,46 @@ func ComputeVpnTunnelStatusEnumToProto(e *compute.VpnTunnelStatusEnum) computepb
 
 // VpnTunnelToProto converts a VpnTunnel resource to its proto representation.
 func VpnTunnelToProto(resource *compute.VpnTunnel) *computepb.ComputeVpnTunnel {
-	p := &computepb.ComputeVpnTunnel{
-		Id:                           dcl.ValueOrEmptyInt64(resource.Id),
-		Name:                         dcl.ValueOrEmptyString(resource.Name),
-		Description:                  dcl.ValueOrEmptyString(resource.Description),
-		Region:                       dcl.ValueOrEmptyString(resource.Region),
-		TargetVpnGateway:             dcl.ValueOrEmptyString(resource.TargetVpnGateway),
-		VpnGateway:                   dcl.ValueOrEmptyString(resource.VpnGateway),
-		VpnGatewayInterface:          dcl.ValueOrEmptyInt64(resource.VpnGatewayInterface),
-		PeerExternalGateway:          dcl.ValueOrEmptyString(resource.PeerExternalGateway),
-		PeerExternalGatewayInterface: dcl.ValueOrEmptyInt64(resource.PeerExternalGatewayInterface),
-		PeerGcpGateway:               dcl.ValueOrEmptyString(resource.PeerGcpGateway),
-		Router:                       dcl.ValueOrEmptyString(resource.Router),
-		PeerIp:                       dcl.ValueOrEmptyString(resource.PeerIP),
-		SharedSecret:                 dcl.ValueOrEmptyString(resource.SharedSecret),
-		SharedSecretHash:             dcl.ValueOrEmptyString(resource.SharedSecretHash),
-		Status:                       ComputeVpnTunnelStatusEnumToProto(resource.Status),
-		SelfLink:                     dcl.ValueOrEmptyString(resource.SelfLink),
-		IkeVersion:                   dcl.ValueOrEmptyInt64(resource.IkeVersion),
-		DetailedStatus:               dcl.ValueOrEmptyString(resource.DetailedStatus),
-		Project:                      dcl.ValueOrEmptyString(resource.Project),
+	p := &computepb.ComputeVpnTunnel{}
+	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetTargetVpnGateway(dcl.ValueOrEmptyString(resource.TargetVpnGateway))
+	p.SetVpnGateway(dcl.ValueOrEmptyString(resource.VpnGateway))
+	p.SetVpnGatewayInterface(dcl.ValueOrEmptyInt64(resource.VpnGatewayInterface))
+	p.SetPeerExternalGateway(dcl.ValueOrEmptyString(resource.PeerExternalGateway))
+	p.SetPeerExternalGatewayInterface(dcl.ValueOrEmptyInt64(resource.PeerExternalGatewayInterface))
+	p.SetPeerGcpGateway(dcl.ValueOrEmptyString(resource.PeerGcpGateway))
+	p.SetRouter(dcl.ValueOrEmptyString(resource.Router))
+	p.SetPeerIp(dcl.ValueOrEmptyString(resource.PeerIP))
+	p.SetSharedSecret(dcl.ValueOrEmptyString(resource.SharedSecret))
+	p.SetSharedSecretHash(dcl.ValueOrEmptyString(resource.SharedSecretHash))
+	p.SetStatus(ComputeVpnTunnelStatusEnumToProto(resource.Status))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetIkeVersion(dcl.ValueOrEmptyInt64(resource.IkeVersion))
+	p.SetDetailedStatus(dcl.ValueOrEmptyString(resource.DetailedStatus))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.LocalTrafficSelector {
-		p.LocalTrafficSelector = append(p.LocalTrafficSelector, r)
+	p.SetLabels(mLabels)
+	sLocalTrafficSelector := make([]string, len(resource.LocalTrafficSelector))
+	for i, r := range resource.LocalTrafficSelector {
+		sLocalTrafficSelector[i] = r
 	}
-	for _, r := range resource.RemoteTrafficSelector {
-		p.RemoteTrafficSelector = append(p.RemoteTrafficSelector, r)
+	p.SetLocalTrafficSelector(sLocalTrafficSelector)
+	sRemoteTrafficSelector := make([]string, len(resource.RemoteTrafficSelector))
+	for i, r := range resource.RemoteTrafficSelector {
+		sRemoteTrafficSelector[i] = r
 	}
+	p.SetRemoteTrafficSelector(sRemoteTrafficSelector)
 
 	return p
 }
 
-// ApplyVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnel Apply() method.
+// applyVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnel Apply() method.
 func (s *VpnTunnelServer) applyVpnTunnel(ctx context.Context, c *compute.Client, request *computepb.ApplyComputeVpnTunnelRequest) (*computepb.ComputeVpnTunnel, error) {
 	p := ProtoToVpnTunnel(request.GetResource())
 	res, err := c.ApplyVpnTunnel(ctx, p)
@@ -124,9 +131,9 @@ func (s *VpnTunnelServer) applyVpnTunnel(ctx context.Context, c *compute.Client,
 	return r, nil
 }
 
-// ApplyVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnel Apply() method.
+// applyComputeVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnel Apply() method.
 func (s *VpnTunnelServer) ApplyComputeVpnTunnel(ctx context.Context, request *computepb.ApplyComputeVpnTunnelRequest) (*computepb.ComputeVpnTunnel, error) {
-	cl, err := createConfigVpnTunnel(ctx, request.ServiceAccountFile)
+	cl, err := createConfigVpnTunnel(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +143,7 @@ func (s *VpnTunnelServer) ApplyComputeVpnTunnel(ctx context.Context, request *co
 // DeleteVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnel Delete() method.
 func (s *VpnTunnelServer) DeleteComputeVpnTunnel(ctx context.Context, request *computepb.DeleteComputeVpnTunnelRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigVpnTunnel(ctx, request.ServiceAccountFile)
+	cl, err := createConfigVpnTunnel(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -146,12 +153,12 @@ func (s *VpnTunnelServer) DeleteComputeVpnTunnel(ctx context.Context, request *c
 
 // ListComputeVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnelList() method.
 func (s *VpnTunnelServer) ListComputeVpnTunnel(ctx context.Context, request *computepb.ListComputeVpnTunnelRequest) (*computepb.ListComputeVpnTunnelResponse, error) {
-	cl, err := createConfigVpnTunnel(ctx, request.ServiceAccountFile)
+	cl, err := createConfigVpnTunnel(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListVpnTunnel(ctx, request.Project, request.Region)
+	resources, err := cl.ListVpnTunnel(ctx, request.GetProject(), request.GetRegion())
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +167,9 @@ func (s *VpnTunnelServer) ListComputeVpnTunnel(ctx context.Context, request *com
 		rp := VpnTunnelToProto(r)
 		protos = append(protos, rp)
 	}
-	return &computepb.ListComputeVpnTunnelResponse{Items: protos}, nil
+	p := &computepb.ListComputeVpnTunnelResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigVpnTunnel(ctx context.Context, service_account_file string) (*compute.Client, error) {

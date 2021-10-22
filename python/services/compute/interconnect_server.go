@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -109,19 +108,19 @@ func ProtoToComputeInterconnectStateEnum(e computepb.ComputeInterconnectStateEnu
 	return nil
 }
 
-// ProtoToInterconnectExpectedOutages converts a InterconnectExpectedOutages resource from its proto representation.
+// ProtoToInterconnectExpectedOutages converts a InterconnectExpectedOutages object from its proto representation.
 func ProtoToComputeInterconnectExpectedOutages(p *computepb.ComputeInterconnectExpectedOutages) *compute.InterconnectExpectedOutages {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InterconnectExpectedOutages{
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Description: dcl.StringOrNil(p.GetDescription()),
 		Source:      ProtoToComputeInterconnectExpectedOutagesSourceEnum(p.GetSource()),
 		State:       ProtoToComputeInterconnectExpectedOutagesStateEnum(p.GetState()),
 		IssueType:   ProtoToComputeInterconnectExpectedOutagesIssueTypeEnum(p.GetIssueType()),
-		StartTime:   dcl.Int64OrNil(p.StartTime),
-		EndTime:     dcl.Int64OrNil(p.EndTime),
+		StartTime:   dcl.Int64OrNil(p.GetStartTime()),
+		EndTime:     dcl.Int64OrNil(p.GetEndTime()),
 	}
 	for _, r := range p.GetAffectedCircuits() {
 		obj.AffectedCircuits = append(obj.AffectedCircuits, r)
@@ -129,15 +128,15 @@ func ProtoToComputeInterconnectExpectedOutages(p *computepb.ComputeInterconnectE
 	return obj
 }
 
-// ProtoToInterconnectCircuitInfos converts a InterconnectCircuitInfos resource from its proto representation.
+// ProtoToInterconnectCircuitInfos converts a InterconnectCircuitInfos object from its proto representation.
 func ProtoToComputeInterconnectCircuitInfos(p *computepb.ComputeInterconnectCircuitInfos) *compute.InterconnectCircuitInfos {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InterconnectCircuitInfos{
-		GoogleCircuitId:  dcl.StringOrNil(p.GoogleCircuitId),
-		GoogleDemarcId:   dcl.StringOrNil(p.GoogleDemarcId),
-		CustomerDemarcId: dcl.StringOrNil(p.CustomerDemarcId),
+		GoogleCircuitId:  dcl.StringOrNil(p.GetGoogleCircuitId()),
+		GoogleDemarcId:   dcl.StringOrNil(p.GetGoogleDemarcId()),
+		CustomerDemarcId: dcl.StringOrNil(p.GetCustomerDemarcId()),
 	}
 	return obj
 }
@@ -145,24 +144,24 @@ func ProtoToComputeInterconnectCircuitInfos(p *computepb.ComputeInterconnectCirc
 // ProtoToInterconnect converts a Interconnect resource from its proto representation.
 func ProtoToInterconnect(p *computepb.ComputeInterconnect) *compute.Interconnect {
 	obj := &compute.Interconnect{
-		Description:          dcl.StringOrNil(p.Description),
-		SelfLink:             dcl.StringOrNil(p.SelfLink),
-		Id:                   dcl.Int64OrNil(p.Id),
-		Name:                 dcl.StringOrNil(p.Name),
-		Location:             dcl.StringOrNil(p.Location),
+		Description:          dcl.StringOrNil(p.GetDescription()),
+		SelfLink:             dcl.StringOrNil(p.GetSelfLink()),
+		Id:                   dcl.Int64OrNil(p.GetId()),
+		Name:                 dcl.StringOrNil(p.GetName()),
+		Location:             dcl.StringOrNil(p.GetLocation()),
 		LinkType:             ProtoToComputeInterconnectLinkTypeEnum(p.GetLinkType()),
-		RequestedLinkCount:   dcl.Int64OrNil(p.RequestedLinkCount),
+		RequestedLinkCount:   dcl.Int64OrNil(p.GetRequestedLinkCount()),
 		InterconnectType:     ProtoToComputeInterconnectInterconnectTypeEnum(p.GetInterconnectType()),
-		AdminEnabled:         dcl.Bool(p.AdminEnabled),
-		NocContactEmail:      dcl.StringOrNil(p.NocContactEmail),
-		CustomerName:         dcl.StringOrNil(p.CustomerName),
+		AdminEnabled:         dcl.Bool(p.GetAdminEnabled()),
+		NocContactEmail:      dcl.StringOrNil(p.GetNocContactEmail()),
+		CustomerName:         dcl.StringOrNil(p.GetCustomerName()),
 		OperationalStatus:    ProtoToComputeInterconnectOperationalStatusEnum(p.GetOperationalStatus()),
-		ProvisionedLinkCount: dcl.Int64OrNil(p.ProvisionedLinkCount),
-		PeerIPAddress:        dcl.StringOrNil(p.PeerIpAddress),
-		GoogleIPAddress:      dcl.StringOrNil(p.GoogleIpAddress),
-		GoogleReferenceId:    dcl.StringOrNil(p.GoogleReferenceId),
+		ProvisionedLinkCount: dcl.Int64OrNil(p.GetProvisionedLinkCount()),
+		PeerIPAddress:        dcl.StringOrNil(p.GetPeerIpAddress()),
+		GoogleIPAddress:      dcl.StringOrNil(p.GetGoogleIpAddress()),
+		GoogleReferenceId:    dcl.StringOrNil(p.GetGoogleReferenceId()),
 		State:                ProtoToComputeInterconnectStateEnum(p.GetState()),
-		Project:              dcl.StringOrNil(p.Project),
+		Project:              dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetInterconnectAttachments() {
 		obj.InterconnectAttachments = append(obj.InterconnectAttachments, r)
@@ -253,75 +252,80 @@ func ComputeInterconnectStateEnumToProto(e *compute.InterconnectStateEnum) compu
 	return computepb.ComputeInterconnectStateEnum(0)
 }
 
-// InterconnectExpectedOutagesToProto converts a InterconnectExpectedOutages resource to its proto representation.
+// InterconnectExpectedOutagesToProto converts a InterconnectExpectedOutages object to its proto representation.
 func ComputeInterconnectExpectedOutagesToProto(o *compute.InterconnectExpectedOutages) *computepb.ComputeInterconnectExpectedOutages {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInterconnectExpectedOutages{
-		Name:        dcl.ValueOrEmptyString(o.Name),
-		Description: dcl.ValueOrEmptyString(o.Description),
-		Source:      ComputeInterconnectExpectedOutagesSourceEnumToProto(o.Source),
-		State:       ComputeInterconnectExpectedOutagesStateEnumToProto(o.State),
-		IssueType:   ComputeInterconnectExpectedOutagesIssueTypeEnumToProto(o.IssueType),
-		StartTime:   dcl.ValueOrEmptyInt64(o.StartTime),
-		EndTime:     dcl.ValueOrEmptyInt64(o.EndTime),
+	p := &computepb.ComputeInterconnectExpectedOutages{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetSource(ComputeInterconnectExpectedOutagesSourceEnumToProto(o.Source))
+	p.SetState(ComputeInterconnectExpectedOutagesStateEnumToProto(o.State))
+	p.SetIssueType(ComputeInterconnectExpectedOutagesIssueTypeEnumToProto(o.IssueType))
+	p.SetStartTime(dcl.ValueOrEmptyInt64(o.StartTime))
+	p.SetEndTime(dcl.ValueOrEmptyInt64(o.EndTime))
+	sAffectedCircuits := make([]string, len(o.AffectedCircuits))
+	for i, r := range o.AffectedCircuits {
+		sAffectedCircuits[i] = r
 	}
-	for _, r := range o.AffectedCircuits {
-		p.AffectedCircuits = append(p.AffectedCircuits, r)
-	}
+	p.SetAffectedCircuits(sAffectedCircuits)
 	return p
 }
 
-// InterconnectCircuitInfosToProto converts a InterconnectCircuitInfos resource to its proto representation.
+// InterconnectCircuitInfosToProto converts a InterconnectCircuitInfos object to its proto representation.
 func ComputeInterconnectCircuitInfosToProto(o *compute.InterconnectCircuitInfos) *computepb.ComputeInterconnectCircuitInfos {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInterconnectCircuitInfos{
-		GoogleCircuitId:  dcl.ValueOrEmptyString(o.GoogleCircuitId),
-		GoogleDemarcId:   dcl.ValueOrEmptyString(o.GoogleDemarcId),
-		CustomerDemarcId: dcl.ValueOrEmptyString(o.CustomerDemarcId),
-	}
+	p := &computepb.ComputeInterconnectCircuitInfos{}
+	p.SetGoogleCircuitId(dcl.ValueOrEmptyString(o.GoogleCircuitId))
+	p.SetGoogleDemarcId(dcl.ValueOrEmptyString(o.GoogleDemarcId))
+	p.SetCustomerDemarcId(dcl.ValueOrEmptyString(o.CustomerDemarcId))
 	return p
 }
 
 // InterconnectToProto converts a Interconnect resource to its proto representation.
 func InterconnectToProto(resource *compute.Interconnect) *computepb.ComputeInterconnect {
-	p := &computepb.ComputeInterconnect{
-		Description:          dcl.ValueOrEmptyString(resource.Description),
-		SelfLink:             dcl.ValueOrEmptyString(resource.SelfLink),
-		Id:                   dcl.ValueOrEmptyInt64(resource.Id),
-		Name:                 dcl.ValueOrEmptyString(resource.Name),
-		Location:             dcl.ValueOrEmptyString(resource.Location),
-		LinkType:             ComputeInterconnectLinkTypeEnumToProto(resource.LinkType),
-		RequestedLinkCount:   dcl.ValueOrEmptyInt64(resource.RequestedLinkCount),
-		InterconnectType:     ComputeInterconnectInterconnectTypeEnumToProto(resource.InterconnectType),
-		AdminEnabled:         dcl.ValueOrEmptyBool(resource.AdminEnabled),
-		NocContactEmail:      dcl.ValueOrEmptyString(resource.NocContactEmail),
-		CustomerName:         dcl.ValueOrEmptyString(resource.CustomerName),
-		OperationalStatus:    ComputeInterconnectOperationalStatusEnumToProto(resource.OperationalStatus),
-		ProvisionedLinkCount: dcl.ValueOrEmptyInt64(resource.ProvisionedLinkCount),
-		PeerIpAddress:        dcl.ValueOrEmptyString(resource.PeerIPAddress),
-		GoogleIpAddress:      dcl.ValueOrEmptyString(resource.GoogleIPAddress),
-		GoogleReferenceId:    dcl.ValueOrEmptyString(resource.GoogleReferenceId),
-		State:                ComputeInterconnectStateEnumToProto(resource.State),
-		Project:              dcl.ValueOrEmptyString(resource.Project),
+	p := &computepb.ComputeInterconnect{}
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetLinkType(ComputeInterconnectLinkTypeEnumToProto(resource.LinkType))
+	p.SetRequestedLinkCount(dcl.ValueOrEmptyInt64(resource.RequestedLinkCount))
+	p.SetInterconnectType(ComputeInterconnectInterconnectTypeEnumToProto(resource.InterconnectType))
+	p.SetAdminEnabled(dcl.ValueOrEmptyBool(resource.AdminEnabled))
+	p.SetNocContactEmail(dcl.ValueOrEmptyString(resource.NocContactEmail))
+	p.SetCustomerName(dcl.ValueOrEmptyString(resource.CustomerName))
+	p.SetOperationalStatus(ComputeInterconnectOperationalStatusEnumToProto(resource.OperationalStatus))
+	p.SetProvisionedLinkCount(dcl.ValueOrEmptyInt64(resource.ProvisionedLinkCount))
+	p.SetPeerIpAddress(dcl.ValueOrEmptyString(resource.PeerIPAddress))
+	p.SetGoogleIpAddress(dcl.ValueOrEmptyString(resource.GoogleIPAddress))
+	p.SetGoogleReferenceId(dcl.ValueOrEmptyString(resource.GoogleReferenceId))
+	p.SetState(ComputeInterconnectStateEnumToProto(resource.State))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sInterconnectAttachments := make([]string, len(resource.InterconnectAttachments))
+	for i, r := range resource.InterconnectAttachments {
+		sInterconnectAttachments[i] = r
 	}
-	for _, r := range resource.InterconnectAttachments {
-		p.InterconnectAttachments = append(p.InterconnectAttachments, r)
+	p.SetInterconnectAttachments(sInterconnectAttachments)
+	sExpectedOutages := make([]*computepb.ComputeInterconnectExpectedOutages, len(resource.ExpectedOutages))
+	for i, r := range resource.ExpectedOutages {
+		sExpectedOutages[i] = ComputeInterconnectExpectedOutagesToProto(&r)
 	}
-	for _, r := range resource.ExpectedOutages {
-		p.ExpectedOutages = append(p.ExpectedOutages, ComputeInterconnectExpectedOutagesToProto(&r))
+	p.SetExpectedOutages(sExpectedOutages)
+	sCircuitInfos := make([]*computepb.ComputeInterconnectCircuitInfos, len(resource.CircuitInfos))
+	for i, r := range resource.CircuitInfos {
+		sCircuitInfos[i] = ComputeInterconnectCircuitInfosToProto(&r)
 	}
-	for _, r := range resource.CircuitInfos {
-		p.CircuitInfos = append(p.CircuitInfos, ComputeInterconnectCircuitInfosToProto(&r))
-	}
+	p.SetCircuitInfos(sCircuitInfos)
 
 	return p
 }
 
-// ApplyInterconnect handles the gRPC request by passing it to the underlying Interconnect Apply() method.
+// applyInterconnect handles the gRPC request by passing it to the underlying Interconnect Apply() method.
 func (s *InterconnectServer) applyInterconnect(ctx context.Context, c *compute.Client, request *computepb.ApplyComputeInterconnectRequest) (*computepb.ComputeInterconnect, error) {
 	p := ProtoToInterconnect(request.GetResource())
 	res, err := c.ApplyInterconnect(ctx, p)
@@ -332,9 +336,9 @@ func (s *InterconnectServer) applyInterconnect(ctx context.Context, c *compute.C
 	return r, nil
 }
 
-// ApplyInterconnect handles the gRPC request by passing it to the underlying Interconnect Apply() method.
+// applyComputeInterconnect handles the gRPC request by passing it to the underlying Interconnect Apply() method.
 func (s *InterconnectServer) ApplyComputeInterconnect(ctx context.Context, request *computepb.ApplyComputeInterconnectRequest) (*computepb.ComputeInterconnect, error) {
-	cl, err := createConfigInterconnect(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInterconnect(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -344,7 +348,7 @@ func (s *InterconnectServer) ApplyComputeInterconnect(ctx context.Context, reque
 // DeleteInterconnect handles the gRPC request by passing it to the underlying Interconnect Delete() method.
 func (s *InterconnectServer) DeleteComputeInterconnect(ctx context.Context, request *computepb.DeleteComputeInterconnectRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigInterconnect(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInterconnect(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -354,12 +358,12 @@ func (s *InterconnectServer) DeleteComputeInterconnect(ctx context.Context, requ
 
 // ListComputeInterconnect handles the gRPC request by passing it to the underlying InterconnectList() method.
 func (s *InterconnectServer) ListComputeInterconnect(ctx context.Context, request *computepb.ListComputeInterconnectRequest) (*computepb.ListComputeInterconnectResponse, error) {
-	cl, err := createConfigInterconnect(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInterconnect(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListInterconnect(ctx, request.Project)
+	resources, err := cl.ListInterconnect(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -368,7 +372,9 @@ func (s *InterconnectServer) ListComputeInterconnect(ctx context.Context, reques
 		rp := InterconnectToProto(r)
 		protos = append(protos, rp)
 	}
-	return &computepb.ListComputeInterconnectResponse{Items: protos}, nil
+	p := &computepb.ListComputeInterconnectResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigInterconnect(ctx context.Context, service_account_file string) (*compute.Client, error) {

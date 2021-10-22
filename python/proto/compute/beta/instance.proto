@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 
 enum ComputeBetaInstanceDisksInterfaceEnum {
   ComputeBetaInstanceDisksInterfaceEnumNO_VALUE_DO_NOT_USE = 0;
@@ -36,9 +39,26 @@ enum ComputeBetaInstanceDisksTypeEnum {
   ComputeBetaInstanceDisksTypeEnumPERSISTENT = 2;
 }
 
+enum ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
+  ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnumPREMIUM = 1;
+  ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnumSTANDARD = 2;
+}
+
 enum ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum {
   ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnumNO_VALUE_DO_NOT_USE = 0;
   ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnumONE_TO_ONE_NAT = 1;
+}
+
+enum ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
+  ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumPREMIUM = 1;
+  ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumSTANDARD = 2;
+}
+
+enum ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
+  ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumONE_TO_ONE_NAT = 1;
 }
 
 enum ComputeBetaInstanceStatusEnum {
@@ -118,17 +138,34 @@ message ComputeBetaInstanceGuestAccelerators {
 
 message ComputeBetaInstanceNetworkInterfaces {
   repeated ComputeBetaInstanceNetworkInterfacesAccessConfigs access_configs = 1;
-  repeated ComputeBetaInstanceNetworkInterfacesAliasIPRanges alias_ip_ranges = 2;
-  string name = 3;
-  string network = 4;
-  string network_ip = 5;
-  string subnetwork = 6;
+  repeated ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs ipv6_access_configs = 2;
+  repeated ComputeBetaInstanceNetworkInterfacesAliasIPRanges alias_ip_ranges = 3;
+  string name = 4;
+  string network = 5;
+  string network_ip = 6;
+  string subnetwork = 7;
 }
 
 message ComputeBetaInstanceNetworkInterfacesAccessConfigs {
   string name = 1;
   string nat_ip = 2;
-  ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum type = 3;
+  string external_ipv6 = 3;
+  string external_ipv6_prefix_length = 4;
+  bool set_public_ptr = 5;
+  string public_ptr_domain_name = 6;
+  ComputeBetaInstanceNetworkInterfacesAccessConfigsNetworkTierEnum network_tier = 7;
+  ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum type = 8;
+}
+
+message ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigs {
+  string name = 1;
+  string nat_ip = 2;
+  string external_ipv6 = 3;
+  string external_ipv6_prefix_length = 4;
+  bool set_public_ptr = 5;
+  string public_ptr_domain_name = 6;
+  ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum network_tier = 7;
+  ComputeBetaInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum type = 8;
 }
 
 message ComputeBetaInstanceNetworkInterfacesAliasIPRanges {

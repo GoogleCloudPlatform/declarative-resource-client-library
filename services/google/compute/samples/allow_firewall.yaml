@@ -25,5 +25,3 @@ variables:
   type: project
 - name: firewall
   type: resource_name
-- name: project
-  type: project

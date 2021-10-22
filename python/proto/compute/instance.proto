@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 
 enum ComputeInstanceDisksInterfaceEnum {
   ComputeInstanceDisksInterfaceEnumNO_VALUE_DO_NOT_USE = 0;
@@ -36,9 +39,26 @@ enum ComputeInstanceDisksTypeEnum {
   ComputeInstanceDisksTypeEnumPERSISTENT = 2;
 }
 
+enum ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
+  ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnumPREMIUM = 1;
+  ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnumSTANDARD = 2;
+}
+
 enum ComputeInstanceNetworkInterfacesAccessConfigsTypeEnum {
   ComputeInstanceNetworkInterfacesAccessConfigsTypeEnumNO_VALUE_DO_NOT_USE = 0;
   ComputeInstanceNetworkInterfacesAccessConfigsTypeEnumONE_TO_ONE_NAT = 1;
+}
+
+enum ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
+  ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumPREMIUM = 1;
+  ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumSTANDARD = 2;
+}
+
+enum ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
+  ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumONE_TO_ONE_NAT = 1;
 }
 
 enum ComputeInstanceStatusEnum {
@@ -118,17 +138,34 @@ message ComputeInstanceGuestAccelerators {
 
 message ComputeInstanceNetworkInterfaces {
   repeated ComputeInstanceNetworkInterfacesAccessConfigs access_configs = 1;
-  repeated ComputeInstanceNetworkInterfacesAliasIPRanges alias_ip_ranges = 2;
-  string name = 3;
-  string network = 4;
-  string network_ip = 5;
-  string subnetwork = 6;
+  repeated ComputeInstanceNetworkInterfacesIPv6AccessConfigs ipv6_access_configs = 2;
+  repeated ComputeInstanceNetworkInterfacesAliasIPRanges alias_ip_ranges = 3;
+  string name = 4;
+  string network = 5;
+  string network_ip = 6;
+  string subnetwork = 7;
 }
 
 message ComputeInstanceNetworkInterfacesAccessConfigs {
   string name = 1;
   string nat_ip = 2;
-  ComputeInstanceNetworkInterfacesAccessConfigsTypeEnum type = 3;
+  string external_ipv6 = 3;
+  string external_ipv6_prefix_length = 4;
+  bool set_public_ptr = 5;
+  string public_ptr_domain_name = 6;
+  ComputeInstanceNetworkInterfacesAccessConfigsNetworkTierEnum network_tier = 7;
+  ComputeInstanceNetworkInterfacesAccessConfigsTypeEnum type = 8;
+}
+
+message ComputeInstanceNetworkInterfacesIPv6AccessConfigs {
+  string name = 1;
+  string nat_ip = 2;
+  string external_ipv6 = 3;
+  string external_ipv6_prefix_length = 4;
+  bool set_public_ptr = 5;
+  string public_ptr_domain_name = 6;
+  ComputeInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum network_tier = 7;
+  ComputeInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum type = 8;
 }
 
 message ComputeInstanceNetworkInterfacesAliasIPRanges {

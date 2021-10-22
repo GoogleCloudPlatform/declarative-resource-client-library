@@ -30,3 +30,5 @@ variables:
   type: project
 - name: node_pool
   type: resource_name
+- name: project
+  type: project

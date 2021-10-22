@@ -21,7 +21,7 @@ updates:
 - resource: samples/update.hub.json
   dependencies: []
 variables:
-- name: project
-  type: project
 - name: hub
   type: resource_name
+- name: project
+  type: project
