@@ -38,5 +38,7 @@ variables:
   type: zone
 - name: instance_group_manager
   type: resource_name
+- name: zone
+  type: zone
 - name: autoscaler
   type: resource_name
