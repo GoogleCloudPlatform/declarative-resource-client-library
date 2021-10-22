@@ -54,6 +54,8 @@ variables:
   type: project
 - name: auth2
   type: resource_name
+- name: project
+  type: project
 - name: client2
   type: resource_name
 - name: server2

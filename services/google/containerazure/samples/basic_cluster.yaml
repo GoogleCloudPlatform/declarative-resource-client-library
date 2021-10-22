@@ -25,9 +25,9 @@ variables:
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: project
-  type: project
 - name: cluster
   type: resource_name
 - name: azure_proxy_config_secret_version
   type: azure_proxy_config_secret_version
+- name: project
+  type: project

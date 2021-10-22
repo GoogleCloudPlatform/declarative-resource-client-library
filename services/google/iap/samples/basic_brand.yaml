@@ -20,10 +20,10 @@ resource: samples/basic.brand.json
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
 variables:
-- name: brand
-  type: resource_name
 - name: org_id
   type: org_id
+- name: brand
+  type: resource_name
 - name: project
   type: project
 - name: application

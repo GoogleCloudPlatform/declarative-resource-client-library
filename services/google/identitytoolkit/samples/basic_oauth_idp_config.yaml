@@ -21,9 +21,9 @@ updates:
 - resource: samples/update.oauth_idp_config.json
   dependencies: []
 variables:
+- name: client
+  type: resource_name
 - name: oauthidpconfig
   type: resource_name
 - name: project
   type: project
-- name: client
-  type: resource_name

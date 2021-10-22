@@ -29,7 +29,7 @@ variables:
   type: resource_name
 - name: region
   type: region
-- name: region
-  type: region
 - name: peer
   type: resource_name
+- name: region
+  type: region

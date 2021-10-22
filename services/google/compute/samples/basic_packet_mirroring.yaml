@@ -40,47 +40,39 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: instance1
-  type: resource_name
 - name: zone
   type: zone
-- name: region
-  type: region
+- name: instance1
+  type: resource_name
 - name: service
   type: resource_name
+- name: region
+  type: region
 - name: rule1
   type: resource_name
 - name: region
   type: region
-- name: rule2
-  type: resource_name
 - name: project
   type: project
+- name: rule2
+  type: resource_name
 - name: region
   type: region
 - name: compute_subnetwork
   type: resource_name
-- name: project
-  type: project
 - name: region
   type: region
 - name: range
   type: resource_name
-- name: zone
-  type: zone
 - name: instance2
   type: resource_name
-- name: project
-  type: project
 - name: zone
   type: zone
-- name: project
-  type: project
+- name: zone
+  type: zone
 - name: region
   type: region
-- name: project
-  type: project
+- name: region
+  type: region
 - name: mirroring
   type: resource_name
-- name: region
-  type: region
