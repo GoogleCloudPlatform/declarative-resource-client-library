@@ -33,15 +33,15 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: range
-  type: resource_name
 - name: compute_subnetwork
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: project
-  type: project
+- name: range
+  type: resource_name
 - name: name
   type: resource_name
+- name: project
+  type: project
