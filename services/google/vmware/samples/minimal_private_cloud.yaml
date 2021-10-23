@@ -18,6 +18,8 @@ versions:
 - alpha
 resource: samples/minimal.private_cloud.json
 variables:
+- name: project
+  type: project
 - name: management
   type: resource_name
 - name: cloud
