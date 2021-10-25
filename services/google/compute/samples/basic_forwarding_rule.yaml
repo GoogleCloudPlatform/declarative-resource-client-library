@@ -20,15 +20,11 @@ resource: samples/basic.forwarding_rule.json
 dependencies:
 - samples/first.target_pool.json
 variables:
-- name: project
-  type: project
-- name: region
-  type: region
 - name: pool1
   type: resource_name
-- name: rule
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: rule
+  type: resource_name

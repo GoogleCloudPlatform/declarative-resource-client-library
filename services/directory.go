@@ -92,6 +92,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub"
 	pubsub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/alpha"
 	pubsub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/beta"
+	run_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	storage_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
 	storage_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta"
@@ -520,6 +521,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "osconfig", "OSPolicyAssignment", osconfig_alpha.YAML_os_policy_assignment)
 	d.AddResource("alpha", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub_alpha.YAML_topic)
 	d.AddResource("alpha", "pubsub", "Topic", pubsub_alpha.YAML_topic)
+	d.AddResource("alpha", "run", dcl.TitleToSnakeCase("Service"), run_alpha.YAML_service)
+	d.AddResource("alpha", "run", "Service", run_alpha.YAML_service)
 	d.AddResource("alpha", "storage", dcl.TitleToSnakeCase("Bucket"), storage_alpha.YAML_bucket)
 	d.AddResource("alpha", "storage", "Bucket", storage_alpha.YAML_bucket)
 	d.AddResource("alpha", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_alpha.YAML_certificate_template)

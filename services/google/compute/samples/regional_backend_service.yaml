@@ -21,9 +21,9 @@ updates:
 - resource: samples/update_regional.backend_service.json
   dependencies: []
 variables:
+- name: service
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: service
-  type: resource_name
