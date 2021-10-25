@@ -36,10 +36,10 @@ variables:
   type: project
 - name: template1
   type: resource_name
-- name: project
-  type: project
 - name: template2
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: zone

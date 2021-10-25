@@ -34,26 +34,34 @@ updates:
   - samples/https.health_check.json
   - samples/http.health_check.json
 variables:
-- name: project
-  type: project
-- name: template1
-  type: resource_name
-- name: template2
-  type: resource_name
-- name: region
-  type: region
-- name: pool1
-  type: resource_name
-- name: pool2
-  type: resource_name
-- name: region
-  type: region
 - name: s_check
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
 - name: check
   type: resource_name
 - name: project
   type: project
+- name: template1
+  type: resource_name
+- name: project
+  type: project
+- name: template2
+  type: resource_name
+- name: pool1
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: pool2
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 - name: project
   type: project
 - name: region

@@ -30,11 +30,11 @@ variables:
   type: resource_name
 - name: displayname
   type: resource_name
-- name: displayname
-  type: resource_name
 - name: project
   type: project
 - name: name
   type: resource_name
 - name: project
   type: project
+- name: displayname
+  type: resource_name

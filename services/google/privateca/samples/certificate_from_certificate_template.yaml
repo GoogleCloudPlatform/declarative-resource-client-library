@@ -27,11 +27,11 @@ variables:
   type: resource_name
 - name: region
   type: region
+- name: project
+  type: project
 - name: template
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
 - name: cert
   type: resource_name
+- name: project
+  type: project
