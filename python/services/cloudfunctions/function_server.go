@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	cloudfunctionspb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/cloudfunctions/cloudfunctions_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -73,40 +72,40 @@ func ProtoToCloudfunctionsFunctionIngressSettingsEnum(e cloudfunctionspb.Cloudfu
 	return nil
 }
 
-// ProtoToFunctionSourceRepository converts a FunctionSourceRepository resource from its proto representation.
+// ProtoToFunctionSourceRepository converts a FunctionSourceRepository object from its proto representation.
 func ProtoToCloudfunctionsFunctionSourceRepository(p *cloudfunctionspb.CloudfunctionsFunctionSourceRepository) *cloudfunctions.FunctionSourceRepository {
 	if p == nil {
 		return nil
 	}
 	obj := &cloudfunctions.FunctionSourceRepository{
-		Url:         dcl.StringOrNil(p.Url),
-		DeployedUrl: dcl.StringOrNil(p.DeployedUrl),
+		Url:         dcl.StringOrNil(p.GetUrl()),
+		DeployedUrl: dcl.StringOrNil(p.GetDeployedUrl()),
 	}
 	return obj
 }
 
-// ProtoToFunctionHttpsTrigger converts a FunctionHttpsTrigger resource from its proto representation.
+// ProtoToFunctionHttpsTrigger converts a FunctionHttpsTrigger object from its proto representation.
 func ProtoToCloudfunctionsFunctionHttpsTrigger(p *cloudfunctionspb.CloudfunctionsFunctionHttpsTrigger) *cloudfunctions.FunctionHttpsTrigger {
 	if p == nil {
 		return nil
 	}
 	obj := &cloudfunctions.FunctionHttpsTrigger{
-		Url:           dcl.StringOrNil(p.Url),
+		Url:           dcl.StringOrNil(p.GetUrl()),
 		SecurityLevel: ProtoToCloudfunctionsFunctionHttpsTriggerSecurityLevelEnum(p.GetSecurityLevel()),
 	}
 	return obj
 }
 
-// ProtoToFunctionEventTrigger converts a FunctionEventTrigger resource from its proto representation.
+// ProtoToFunctionEventTrigger converts a FunctionEventTrigger object from its proto representation.
 func ProtoToCloudfunctionsFunctionEventTrigger(p *cloudfunctionspb.CloudfunctionsFunctionEventTrigger) *cloudfunctions.FunctionEventTrigger {
 	if p == nil {
 		return nil
 	}
 	obj := &cloudfunctions.FunctionEventTrigger{
-		EventType:     dcl.StringOrNil(p.EventType),
-		Resource:      dcl.StringOrNil(p.Resource),
-		Service:       dcl.StringOrNil(p.Service),
-		FailurePolicy: dcl.Bool(p.FailurePolicy),
+		EventType:     dcl.StringOrNil(p.GetEventType()),
+		Resource:      dcl.StringOrNil(p.GetResource()),
+		Service:       dcl.StringOrNil(p.GetService()),
+		FailurePolicy: dcl.Bool(p.GetFailurePolicy()),
 	}
 	return obj
 }
@@ -114,27 +113,26 @@ func ProtoToCloudfunctionsFunctionEventTrigger(p *cloudfunctionspb.Cloudfunction
 // ProtoToFunction converts a Function resource from its proto representation.
 func ProtoToFunction(p *cloudfunctionspb.CloudfunctionsFunction) *cloudfunctions.Function {
 	obj := &cloudfunctions.Function{
-		Name:                       dcl.StringOrNil(p.Name),
-		Description:                dcl.StringOrNil(p.Description),
-		SourceArchiveUrl:           dcl.StringOrNil(p.SourceArchiveUrl),
+		Name:                       dcl.StringOrNil(p.GetName()),
+		Description:                dcl.StringOrNil(p.GetDescription()),
+		SourceArchiveUrl:           dcl.StringOrNil(p.GetSourceArchiveUrl()),
 		SourceRepository:           ProtoToCloudfunctionsFunctionSourceRepository(p.GetSourceRepository()),
 		HttpsTrigger:               ProtoToCloudfunctionsFunctionHttpsTrigger(p.GetHttpsTrigger()),
 		EventTrigger:               ProtoToCloudfunctionsFunctionEventTrigger(p.GetEventTrigger()),
 		Status:                     ProtoToCloudfunctionsFunctionStatusEnum(p.GetStatus()),
-		EntryPoint:                 dcl.StringOrNil(p.EntryPoint),
-		Runtime:                    dcl.StringOrNil(p.Runtime),
-		Timeout:                    dcl.StringOrNil(p.Timeout),
-		AvailableMemoryMb:          dcl.Int64OrNil(p.AvailableMemoryMb),
-		ServiceAccountEmail:        dcl.StringOrNil(p.ServiceAccountEmail),
-		UpdateTime:                 dcl.StringOrNil(p.UpdateTime),
-		VersionId:                  dcl.Int64OrNil(p.VersionId),
-		Network:                    dcl.StringOrNil(p.Network),
-		MaxInstances:               dcl.Int64OrNil(p.MaxInstances),
-		VPCConnector:               dcl.StringOrNil(p.VpcConnector),
+		EntryPoint:                 dcl.StringOrNil(p.GetEntryPoint()),
+		Runtime:                    dcl.StringOrNil(p.GetRuntime()),
+		Timeout:                    dcl.StringOrNil(p.GetTimeout()),
+		AvailableMemoryMb:          dcl.Int64OrNil(p.GetAvailableMemoryMb()),
+		ServiceAccountEmail:        dcl.StringOrNil(p.GetServiceAccountEmail()),
+		UpdateTime:                 dcl.StringOrNil(p.GetUpdateTime()),
+		VersionId:                  dcl.Int64OrNil(p.GetVersionId()),
+		MaxInstances:               dcl.Int64OrNil(p.GetMaxInstances()),
+		VPCConnector:               dcl.StringOrNil(p.GetVpcConnector()),
 		VPCConnectorEgressSettings: ProtoToCloudfunctionsFunctionVPCConnectorEgressSettingsEnum(p.GetVpcConnectorEgressSettings()),
 		IngressSettings:            ProtoToCloudfunctionsFunctionIngressSettingsEnum(p.GetIngressSettings()),
-		Region:                     dcl.StringOrNil(p.Region),
-		Project:                    dcl.StringOrNil(p.Project),
+		Region:                     dcl.StringOrNil(p.GetRegion()),
+		Project:                    dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
@@ -183,74 +181,79 @@ func CloudfunctionsFunctionIngressSettingsEnumToProto(e *cloudfunctions.Function
 	return cloudfunctionspb.CloudfunctionsFunctionIngressSettingsEnum(0)
 }
 
-// FunctionSourceRepositoryToProto converts a FunctionSourceRepository resource to its proto representation.
+// FunctionSourceRepositoryToProto converts a FunctionSourceRepository object to its proto representation.
 func CloudfunctionsFunctionSourceRepositoryToProto(o *cloudfunctions.FunctionSourceRepository) *cloudfunctionspb.CloudfunctionsFunctionSourceRepository {
 	if o == nil {
 		return nil
 	}
-	p := &cloudfunctionspb.CloudfunctionsFunctionSourceRepository{
-		Url:         dcl.ValueOrEmptyString(o.Url),
-		DeployedUrl: dcl.ValueOrEmptyString(o.DeployedUrl),
-	}
+	p := &cloudfunctionspb.CloudfunctionsFunctionSourceRepository{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetDeployedUrl(dcl.ValueOrEmptyString(o.DeployedUrl))
 	return p
 }
 
-// FunctionHttpsTriggerToProto converts a FunctionHttpsTrigger resource to its proto representation.
+// FunctionHttpsTriggerToProto converts a FunctionHttpsTrigger object to its proto representation.
 func CloudfunctionsFunctionHttpsTriggerToProto(o *cloudfunctions.FunctionHttpsTrigger) *cloudfunctionspb.CloudfunctionsFunctionHttpsTrigger {
 	if o == nil {
 		return nil
 	}
-	p := &cloudfunctionspb.CloudfunctionsFunctionHttpsTrigger{
-		Url:           dcl.ValueOrEmptyString(o.Url),
-		SecurityLevel: CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumToProto(o.SecurityLevel),
-	}
+	p := &cloudfunctionspb.CloudfunctionsFunctionHttpsTrigger{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetSecurityLevel(CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumToProto(o.SecurityLevel))
 	return p
 }
 
-// FunctionEventTriggerToProto converts a FunctionEventTrigger resource to its proto representation.
+// FunctionEventTriggerToProto converts a FunctionEventTrigger object to its proto representation.
 func CloudfunctionsFunctionEventTriggerToProto(o *cloudfunctions.FunctionEventTrigger) *cloudfunctionspb.CloudfunctionsFunctionEventTrigger {
 	if o == nil {
 		return nil
 	}
-	p := &cloudfunctionspb.CloudfunctionsFunctionEventTrigger{
-		EventType:     dcl.ValueOrEmptyString(o.EventType),
-		Resource:      dcl.ValueOrEmptyString(o.Resource),
-		Service:       dcl.ValueOrEmptyString(o.Service),
-		FailurePolicy: dcl.ValueOrEmptyBool(o.FailurePolicy),
-	}
+	p := &cloudfunctionspb.CloudfunctionsFunctionEventTrigger{}
+	p.SetEventType(dcl.ValueOrEmptyString(o.EventType))
+	p.SetResource(dcl.ValueOrEmptyString(o.Resource))
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	p.SetFailurePolicy(dcl.ValueOrEmptyBool(o.FailurePolicy))
 	return p
 }
 
 // FunctionToProto converts a Function resource to its proto representation.
 func FunctionToProto(resource *cloudfunctions.Function) *cloudfunctionspb.CloudfunctionsFunction {
-	p := &cloudfunctionspb.CloudfunctionsFunction{
-		Name:                       dcl.ValueOrEmptyString(resource.Name),
-		Description:                dcl.ValueOrEmptyString(resource.Description),
-		SourceArchiveUrl:           dcl.ValueOrEmptyString(resource.SourceArchiveUrl),
-		SourceRepository:           CloudfunctionsFunctionSourceRepositoryToProto(resource.SourceRepository),
-		HttpsTrigger:               CloudfunctionsFunctionHttpsTriggerToProto(resource.HttpsTrigger),
-		EventTrigger:               CloudfunctionsFunctionEventTriggerToProto(resource.EventTrigger),
-		Status:                     CloudfunctionsFunctionStatusEnumToProto(resource.Status),
-		EntryPoint:                 dcl.ValueOrEmptyString(resource.EntryPoint),
-		Runtime:                    dcl.ValueOrEmptyString(resource.Runtime),
-		Timeout:                    dcl.ValueOrEmptyString(resource.Timeout),
-		AvailableMemoryMb:          dcl.ValueOrEmptyInt64(resource.AvailableMemoryMb),
-		ServiceAccountEmail:        dcl.ValueOrEmptyString(resource.ServiceAccountEmail),
-		UpdateTime:                 dcl.ValueOrEmptyString(resource.UpdateTime),
-		VersionId:                  dcl.ValueOrEmptyInt64(resource.VersionId),
-		Network:                    dcl.ValueOrEmptyString(resource.Network),
-		MaxInstances:               dcl.ValueOrEmptyInt64(resource.MaxInstances),
-		VpcConnector:               dcl.ValueOrEmptyString(resource.VPCConnector),
-		VpcConnectorEgressSettings: CloudfunctionsFunctionVPCConnectorEgressSettingsEnumToProto(resource.VPCConnectorEgressSettings),
-		IngressSettings:            CloudfunctionsFunctionIngressSettingsEnumToProto(resource.IngressSettings),
-		Region:                     dcl.ValueOrEmptyString(resource.Region),
-		Project:                    dcl.ValueOrEmptyString(resource.Project),
+	p := &cloudfunctionspb.CloudfunctionsFunction{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetSourceArchiveUrl(dcl.ValueOrEmptyString(resource.SourceArchiveUrl))
+	p.SetSourceRepository(CloudfunctionsFunctionSourceRepositoryToProto(resource.SourceRepository))
+	p.SetHttpsTrigger(CloudfunctionsFunctionHttpsTriggerToProto(resource.HttpsTrigger))
+	p.SetEventTrigger(CloudfunctionsFunctionEventTriggerToProto(resource.EventTrigger))
+	p.SetStatus(CloudfunctionsFunctionStatusEnumToProto(resource.Status))
+	p.SetEntryPoint(dcl.ValueOrEmptyString(resource.EntryPoint))
+	p.SetRuntime(dcl.ValueOrEmptyString(resource.Runtime))
+	p.SetTimeout(dcl.ValueOrEmptyString(resource.Timeout))
+	p.SetAvailableMemoryMb(dcl.ValueOrEmptyInt64(resource.AvailableMemoryMb))
+	p.SetServiceAccountEmail(dcl.ValueOrEmptyString(resource.ServiceAccountEmail))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetVersionId(dcl.ValueOrEmptyInt64(resource.VersionId))
+	p.SetMaxInstances(dcl.ValueOrEmptyInt64(resource.MaxInstances))
+	p.SetVpcConnector(dcl.ValueOrEmptyString(resource.VPCConnector))
+	p.SetVpcConnectorEgressSettings(CloudfunctionsFunctionVPCConnectorEgressSettingsEnumToProto(resource.VPCConnectorEgressSettings))
+	p.SetIngressSettings(CloudfunctionsFunctionIngressSettingsEnumToProto(resource.IngressSettings))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
+	mEnvironmentVariables := make(map[string]string, len(resource.EnvironmentVariables))
+	for k, r := range resource.EnvironmentVariables {
+		mEnvironmentVariables[k] = r
+	}
+	p.SetEnvironmentVariables(mEnvironmentVariables)
 
 	return p
 }
 
-// ApplyFunction handles the gRPC request by passing it to the underlying Function Apply() method.
+// applyFunction handles the gRPC request by passing it to the underlying Function Apply() method.
 func (s *FunctionServer) applyFunction(ctx context.Context, c *cloudfunctions.Client, request *cloudfunctionspb.ApplyCloudfunctionsFunctionRequest) (*cloudfunctionspb.CloudfunctionsFunction, error) {
 	p := ProtoToFunction(request.GetResource())
 	res, err := c.ApplyFunction(ctx, p)
@@ -261,9 +264,9 @@ func (s *FunctionServer) applyFunction(ctx context.Context, c *cloudfunctions.Cl
 	return r, nil
 }
 
-// ApplyFunction handles the gRPC request by passing it to the underlying Function Apply() method.
+// applyCloudfunctionsFunction handles the gRPC request by passing it to the underlying Function Apply() method.
 func (s *FunctionServer) ApplyCloudfunctionsFunction(ctx context.Context, request *cloudfunctionspb.ApplyCloudfunctionsFunctionRequest) (*cloudfunctionspb.CloudfunctionsFunction, error) {
-	cl, err := createConfigFunction(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFunction(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +276,7 @@ func (s *FunctionServer) ApplyCloudfunctionsFunction(ctx context.Context, reques
 // DeleteFunction handles the gRPC request by passing it to the underlying Function Delete() method.
 func (s *FunctionServer) DeleteCloudfunctionsFunction(ctx context.Context, request *cloudfunctionspb.DeleteCloudfunctionsFunctionRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFunction(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFunction(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -283,12 +286,12 @@ func (s *FunctionServer) DeleteCloudfunctionsFunction(ctx context.Context, reque
 
 // ListCloudfunctionsFunction handles the gRPC request by passing it to the underlying FunctionList() method.
 func (s *FunctionServer) ListCloudfunctionsFunction(ctx context.Context, request *cloudfunctionspb.ListCloudfunctionsFunctionRequest) (*cloudfunctionspb.ListCloudfunctionsFunctionResponse, error) {
-	cl, err := createConfigFunction(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFunction(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFunction(ctx, request.Project, request.Region)
+	resources, err := cl.ListFunction(ctx, request.GetProject(), request.GetRegion())
 	if err != nil {
 		return nil, err
 	}
@@ -297,7 +300,9 @@ func (s *FunctionServer) ListCloudfunctionsFunction(ctx context.Context, request
 		rp := FunctionToProto(r)
 		protos = append(protos, rp)
 	}
-	return &cloudfunctionspb.ListCloudfunctionsFunctionResponse{Items: protos}, nil
+	p := &cloudfunctionspb.ListCloudfunctionsFunctionResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFunction(ctx context.Context, service_account_file string) (*cloudfunctions.Client, error) {

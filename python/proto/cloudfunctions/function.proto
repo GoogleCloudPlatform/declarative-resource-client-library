@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 
 enum CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum {
   CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumNO_VALUE_DO_NOT_USE = 0;
@@ -67,13 +70,12 @@ message CloudfunctionsFunction {
   int64 version_id = 14;
   map<string, string> labels = 15;
   map<string, string> environment_variables = 16;
-  string network = 17;
-  int64 max_instances = 18;
-  string vpc_connector = 19;
-  CloudfunctionsFunctionVPCConnectorEgressSettingsEnum vpc_connector_egress_settings = 20;
-  CloudfunctionsFunctionIngressSettingsEnum ingress_settings = 21;
-  string region = 22;
-  string project = 23;
+  int64 max_instances = 17;
+  string vpc_connector = 18;
+  CloudfunctionsFunctionVPCConnectorEgressSettingsEnum vpc_connector_egress_settings = 19;
+  CloudfunctionsFunctionIngressSettingsEnum ingress_settings = 20;
+  string region = 21;
+  string project = 22;
 }
 
 message CloudfunctionsFunctionSourceRepository {

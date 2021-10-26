@@ -28,6 +28,16 @@ updates:
   - samples/https.health_check.json
   - samples/first.instance_template.json
 variables:
+- name: autoscaler
+  type: resource_name
+- name: instance_group_manager
+  type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
 - name: project
   type: project
 - name: s_check
@@ -36,7 +46,3 @@ variables:
   type: resource_name
 - name: zone
   type: zone
-- name: instance_group_manager
-  type: resource_name
-- name: autoscaler
-  type: resource_name

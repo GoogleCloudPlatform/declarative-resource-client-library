@@ -20,11 +20,11 @@ resource: samples/complex.guest_policy.json
 dependencies:
 - samples/basic.compute.instance.json
 variables:
+- name: policy
+  type: resource_name
 - name: policy_inst
   type: resource_name
 - name: project
   type: project
-- name: policy
-  type: resource_name
 - name: zone
   type: zone

@@ -21,9 +21,9 @@ resource: samples/lots_of_config.cluster.json
 variables:
 - name: cluster_name
   type: resource_name
-- name: region
-  type: region
 - name: project
   type: project
+- name: region
+  type: region
 - name: zone
   type: zone

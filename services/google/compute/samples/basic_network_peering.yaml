@@ -25,7 +25,7 @@ updates:
 variables:
 - name: compute_network
   type: resource_name
-- name: project
-  type: project
 - name: peering
   type: resource_name
+- name: project
+  type: project

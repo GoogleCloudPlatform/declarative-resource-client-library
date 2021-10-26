@@ -26,23 +26,21 @@ updates:
   - samples/basicservice.run1.service.json
   - samples/secondservice.run1.service.json
 variables:
+- name: name
+  type: resource_name
+- name: name
+  type: resource_name
+- name: name
+  type: resource_name
 - name: project
   type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: region
+  type: region
 - name: secondname
   type: resource_name
-- name: region
-  type: region
-- name: name
-  type: resource_name
-- name: name
-  type: resource_name
-- name: region
-  type: region
 - name: service_account
   type: service_account
-- name: region
-  type: region
-- name: name
-  type: resource_name
-- name: region
-  type: region

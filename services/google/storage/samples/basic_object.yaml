@@ -22,9 +22,9 @@ dependencies:
 variables:
 - name: bucket
   type: resource_name
-- name: project
-  type: project
 - name: content
   type: resource_name
 - name: object
   type: resource_name
+- name: project
+  type: project

@@ -329,9 +329,6 @@ components:
             in `reconciling` for additional information on reconciliation process
             in Cloud Run.
           x-kubernetes-immutable: true
-          x-dcl-references:
-          - resource: Run/Revision
-            field: selfLink
         latestReadyRevision:
           type: string
           x-dcl-go-name: LatestReadyRevision
@@ -340,9 +337,6 @@ components:
             See comments in `reconciling` for additional information on reconciliation
             process in Cloud Run.
           x-kubernetes-immutable: true
-          x-dcl-references:
-          - resource: Run/Revision
-            field: selfLink
         launchStage:
           type: string
           x-dcl-go-name: LaunchStage
@@ -523,18 +517,12 @@ components:
                                     Cloud Secret Manager. Format: {secret_name} if
                                     the secret is in the same project. projects/{project}/secrets/{secret_name}
                                     if the secret is in a different project.'
-                                  x-dcl-references:
-                                  - resource: Secretmanager/Secret
-                                    field: selfLink
                                 version:
                                   type: string
                                   x-dcl-go-name: Version
                                   description: The Cloud Secret Manager secret version.
                                     Can be 'latest' for the latest value or an integer
                                     for a specific version.
-                                  x-dcl-references:
-                                  - resource: Secretmanager/SecretVersion
-                                    field: selfLink
                   image:
                     type: string
                     x-dcl-go-name: Image
@@ -641,9 +629,6 @@ components:
               x-dcl-go-name: Revision
               description: The unique name for the revision. If this field is omitted,
                 it will be automatically generated based on the Service name.
-              x-dcl-references:
-              - resource: Run/Revision
-                field: selfLink
             scaling:
               type: object
               x-dcl-go-name: Scaling
@@ -708,7 +693,7 @@ components:
                           type: string
                           x-dcl-go-type: string
                           x-dcl-references:
-                          - resource: Sqladmin/DatabaseInstance
+                          - resource: Sql/Instance
                             field: selfLink
                   name:
                     type: string
@@ -807,9 +792,6 @@ components:
                   type: string
                   x-dcl-go-name: Connector
                   description: 'VPC Access connector name. Format: projects/{project}/locations/{location}/connectors/{connector}'
-                  x-dcl-references:
-                  - resource: Vpcaccess/Connector
-                    field: selfLink
                 egress:
                   type: string
                   x-dcl-go-name: Egress
@@ -847,9 +829,6 @@ components:
                 x-dcl-go-name: Revision
                 description: Revision to which to send this portion of traffic, if
                   traffic allocation is by revision.
-                x-dcl-references:
-                - resource: Run/Revision
-                  field: selfLink
               tag:
                 type: string
                 x-dcl-go-name: Tag
@@ -888,9 +867,6 @@ components:
                 type: string
                 x-dcl-go-name: Revision
                 description: Revision to which this traffic is sent.
-                x-dcl-references:
-                - resource: Run/Revision
-                  field: selfLink
               tag:
                 type: string
                 x-dcl-go-name: Tag

@@ -22,9 +22,11 @@ dependencies:
 variables:
 - name: configcontroller_network
   type: resource_name
+- name: id
+  type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: region
   type: region
-- name: id
-  type: resource_name

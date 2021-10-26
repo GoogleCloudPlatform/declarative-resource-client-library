@@ -28,6 +28,8 @@ updates:
   - samples/first.instance_template.json
   - samples/second.instance_template.json
 variables:
+- name: instance_group_manager
+  type: resource_name
 - name: project
   type: project
 - name: s_check
@@ -38,5 +40,3 @@ variables:
   type: resource_name
 - name: zone
   type: zone
-- name: instance_group_manager
-  type: resource_name

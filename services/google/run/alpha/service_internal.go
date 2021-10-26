@@ -822,7 +822,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	if dcl.IsNotReturnedByServer(rawNew.LatestReadyRevision) && dcl.IsNotReturnedByServer(rawDesired.LatestReadyRevision) {
 		rawNew.LatestReadyRevision = rawDesired.LatestReadyRevision
 	} else {
-		if dcl.NameToSelfLink(rawDesired.LatestReadyRevision, rawNew.LatestReadyRevision) {
+		if dcl.StringCanonicalize(rawDesired.LatestReadyRevision, rawNew.LatestReadyRevision) {
 			rawNew.LatestReadyRevision = rawDesired.LatestReadyRevision
 		}
 	}
@@ -830,7 +830,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	if dcl.IsNotReturnedByServer(rawNew.LatestCreatedRevision) && dcl.IsNotReturnedByServer(rawDesired.LatestCreatedRevision) {
 		rawNew.LatestCreatedRevision = rawDesired.LatestCreatedRevision
 	} else {
-		if dcl.NameToSelfLink(rawDesired.LatestCreatedRevision, rawNew.LatestCreatedRevision) {
+		if dcl.StringCanonicalize(rawDesired.LatestCreatedRevision, rawNew.LatestCreatedRevision) {
 			rawNew.LatestCreatedRevision = rawDesired.LatestCreatedRevision
 		}
 	}
@@ -1009,7 +1009,7 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 
 	cDes := &ServiceTemplate{}
 
-	if dcl.NameToSelfLink(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
@@ -1099,7 +1099,7 @@ func canonicalizeNewServiceTemplate(c *Client, des, nw *ServiceTemplate) *Servic
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Revision, nw.Revision) {
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
 	}
 	nw.Scaling = canonicalizeNewServiceTemplateScaling(c, des.Scaling, nw.Scaling)
@@ -1292,7 +1292,7 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 
 	cDes := &ServiceTemplateVPCAccess{}
 
-	if dcl.NameToSelfLink(des.Connector, initial.Connector) || dcl.IsZeroValue(des.Connector) {
+	if dcl.StringCanonicalize(des.Connector, initial.Connector) || dcl.IsZeroValue(des.Connector) {
 		cDes.Connector = initial.Connector
 	} else {
 		cDes.Connector = des.Connector
@@ -1348,7 +1348,7 @@ func canonicalizeNewServiceTemplateVPCAccess(c *Client, des, nw *ServiceTemplate
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Connector, nw.Connector) {
+	if dcl.StringCanonicalize(des.Connector, nw.Connector) {
 		nw.Connector = des.Connector
 	}
 
@@ -1813,12 +1813,12 @@ func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRef(des, initia
 
 	cDes := &ServiceTemplateContainersEnvValueSourceSecretKeyRef{}
 
-	if dcl.NameToSelfLink(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
+	if dcl.StringCanonicalize(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
-	if dcl.NameToSelfLink(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1869,10 +1869,10 @@ func canonicalizeNewServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Clien
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Secret, nw.Secret) {
+	if dcl.StringCanonicalize(des.Secret, nw.Secret) {
 		nw.Secret = des.Secret
 	}
-	if dcl.NameToSelfLink(des.Version, nw.Version) {
+	if dcl.StringCanonicalize(des.Version, nw.Version) {
 		nw.Version = des.Version
 	}
 
@@ -2808,7 +2808,7 @@ func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyO
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.NameToSelfLink(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
@@ -2869,7 +2869,7 @@ func canonicalizeNewServiceTraffic(c *Client, des, nw *ServiceTraffic) *ServiceT
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Revision, nw.Revision) {
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -3154,7 +3154,7 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.NameToSelfLink(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
@@ -3220,7 +3220,7 @@ func canonicalizeNewServiceTrafficStatuses(c *Client, des, nw *ServiceTrafficSta
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Revision, nw.Revision) {
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -3434,14 +3434,14 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LatestReadyRevision, actual.LatestReadyRevision, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestReadyRevision")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatestReadyRevision, actual.LatestReadyRevision, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestReadyRevision")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LatestCreatedRevision, actual.LatestCreatedRevision, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestCreatedRevision")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatestCreatedRevision, actual.LatestCreatedRevision, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestCreatedRevision")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3548,7 +3548,7 @@ func compareServiceTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3690,7 +3690,7 @@ func compareServiceTemplateVPCAccessNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Connector, actual.Connector, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Connector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Connector, actual.Connector, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Connector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3876,14 +3876,14 @@ func compareServiceTemplateContainersEnvValueSourceSecretKeyRefNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4185,7 +4185,7 @@ func compareServiceTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4327,7 +4327,7 @@ func compareServiceTrafficStatusesNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

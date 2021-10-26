@@ -24,9 +24,9 @@ updates:
   dependencies:
   - samples/basic.tenant.json
 variables:
-- name: project
-  type: project
 - name: client
   type: resource_name
 - name: oauthidpconfig
   type: resource_name
+- name: project
+  type: project

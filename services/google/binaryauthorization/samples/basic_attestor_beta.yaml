@@ -24,15 +24,15 @@ updates:
   dependencies:
   - samples/basic.containeranalysis.note.json
 variables:
-- name: project
-  type: project
-- name: package
+- name: attestor
   type: resource_name
 - name: note
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
-- name: attestor
+- name: package
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project

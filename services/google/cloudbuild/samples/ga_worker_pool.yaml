@@ -22,15 +22,17 @@ dependencies:
 - samples/basic.compute.address.json
 - samples/basic.servicenetworking.connection.json
 variables:
+- name: address
+  type: resource_name
 - name: cloudbuild_network
   type: resource_name
 - name: project
   type: project
-- name: address
-  type: resource_name
-- name: resource_name
-  type: resource_name
-- name: region
-  type: region
 - name: project
   type: project
+- name: project
+  type: project
+- name: region
+  type: region
+- name: resource_name
+  type: resource_name

@@ -29,6 +29,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild"
 	cloudbuild_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha"
 	cloudbuild_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions"
+	cloudfunctions_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/alpha"
+	cloudfunctions_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms"
 	cloudkms_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/alpha"
 	cloudkms_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/beta"
@@ -97,6 +100,9 @@ import (
 	storage_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
 	storage_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta"
 	vmware_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess"
+	vpcaccess_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/alpha"
+	vpcaccess_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/beta"
 )
 
 type Directory struct {
@@ -167,6 +173,8 @@ func Services() *Directory {
 	d.AddResource("ga", "binaryauthorization", "Policy", binaryauthorization.YAML_policy)
 	d.AddResource("ga", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild.YAML_worker_pool)
 	d.AddResource("ga", "cloudbuild", "WorkerPool", cloudbuild.YAML_worker_pool)
+	d.AddResource("ga", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions.YAML_function)
+	d.AddResource("ga", "cloudfunctions", "Function", cloudfunctions.YAML_function)
 	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms.YAML_crypto_key)
 	d.AddResource("ga", "cloudkms", "CryptoKey", cloudkms.YAML_crypto_key)
 	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms.YAML_key_ring)
@@ -257,6 +265,8 @@ func Services() *Directory {
 	d.AddResource("ga", "storage", "Bucket", storage.YAML_bucket)
 	d.AddResource("ga", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca.YAML_certificate_template)
 	d.AddResource("ga", "privateca", "CertificateTemplate", privateca.YAML_certificate_template)
+	d.AddResource("ga", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess.YAML_connector)
+	d.AddResource("ga", "vpcaccess", "Connector", vpcaccess.YAML_connector)
 	d.AddResource("beta", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_beta.YAML_assignment)
@@ -271,6 +281,8 @@ func Services() *Directory {
 	d.AddResource("beta", "binaryauthorization", "Policy", binaryauthorization_beta.YAML_policy)
 	d.AddResource("beta", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_beta.YAML_worker_pool)
 	d.AddResource("beta", "cloudbuild", "WorkerPool", cloudbuild_beta.YAML_worker_pool)
+	d.AddResource("beta", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions_beta.YAML_function)
+	d.AddResource("beta", "cloudfunctions", "Function", cloudfunctions_beta.YAML_function)
 	d.AddResource("beta", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms_beta.YAML_crypto_key)
 	d.AddResource("beta", "cloudkms", "CryptoKey", cloudkms_beta.YAML_crypto_key)
 	d.AddResource("beta", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms_beta.YAML_key_ring)
@@ -379,6 +391,8 @@ func Services() *Directory {
 	d.AddResource("beta", "storage", "Bucket", storage_beta.YAML_bucket)
 	d.AddResource("beta", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_beta.YAML_certificate_template)
 	d.AddResource("beta", "privateca", "CertificateTemplate", privateca_beta.YAML_certificate_template)
+	d.AddResource("beta", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess_beta.YAML_connector)
+	d.AddResource("beta", "vpcaccess", "Connector", vpcaccess_beta.YAML_connector)
 	d.AddResource("alpha", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "assuredworkloads", "Workload", assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_alpha.YAML_assignment)
@@ -393,6 +407,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "binaryauthorization", "Policy", binaryauthorization_alpha.YAML_policy)
 	d.AddResource("alpha", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_alpha.YAML_worker_pool)
 	d.AddResource("alpha", "cloudbuild", "WorkerPool", cloudbuild_alpha.YAML_worker_pool)
+	d.AddResource("alpha", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions_alpha.YAML_function)
+	d.AddResource("alpha", "cloudfunctions", "Function", cloudfunctions_alpha.YAML_function)
 	d.AddResource("alpha", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms_alpha.YAML_crypto_key)
 	d.AddResource("alpha", "cloudkms", "CryptoKey", cloudkms_alpha.YAML_crypto_key)
 	d.AddResource("alpha", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms_alpha.YAML_key_ring)
@@ -531,5 +547,7 @@ func Services() *Directory {
 	d.AddResource("alpha", "vmware", "PrivateCloud", vmware_alpha.YAML_private_cloud)
 	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("Cluster"), vmware_alpha.YAML_cluster)
 	d.AddResource("alpha", "vmware", "Cluster", vmware_alpha.YAML_cluster)
+	d.AddResource("alpha", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess_alpha.YAML_connector)
+	d.AddResource("alpha", "vpcaccess", "Connector", vpcaccess_alpha.YAML_connector)
 	return d
 }

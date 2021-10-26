@@ -27,9 +27,11 @@ updates:
 variables:
 - name: disk
   type: resource_name
+- name: image
+  type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: zone
   type: zone
-- name: image
-  type: resource_name

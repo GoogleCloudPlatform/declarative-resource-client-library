@@ -39,7 +39,6 @@ class Function(object):
         version_id: int = None,
         labels: dict = None,
         environment_variables: dict = None,
-        network: str = None,
         max_instances: int = None,
         vpc_connector: str = None,
         vpc_connector_egress_settings: str = None,
@@ -63,7 +62,6 @@ class Function(object):
         self.service_account_email = service_account_email
         self.labels = labels
         self.environment_variables = environment_variables
-        self.network = network
         self.max_instances = max_instances
         self.vpc_connector = vpc_connector
         self.vpc_connector_egress_settings = vpc_connector_egress_settings
@@ -131,9 +129,6 @@ class Function(object):
                 self.environment_variables
             )
 
-        if Primitive.to_proto(self.network):
-            request.resource.network = Primitive.to_proto(self.network)
-
         if Primitive.to_proto(self.max_instances):
             request.resource.max_instances = Primitive.to_proto(self.max_instances)
 
@@ -183,7 +178,6 @@ class Function(object):
         self.environment_variables = Primitive.from_proto(
             response.environment_variables
         )
-        self.network = Primitive.from_proto(response.network)
         self.max_instances = Primitive.from_proto(response.max_instances)
         self.vpc_connector = Primitive.from_proto(response.vpc_connector)
         self.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.from_proto(
@@ -254,9 +248,6 @@ class Function(object):
             request.resource.environment_variables = Primitive.to_proto(
                 self.environment_variables
             )
-
-        if Primitive.to_proto(self.network):
-            request.resource.network = Primitive.to_proto(self.network)
 
         if Primitive.to_proto(self.max_instances):
             request.resource.max_instances = Primitive.to_proto(self.max_instances)
@@ -339,8 +330,6 @@ class Function(object):
             resource.environment_variables = Primitive.to_proto(
                 self.environment_variables
             )
-        if Primitive.to_proto(self.network):
-            resource.network = Primitive.to_proto(self.network)
         if Primitive.to_proto(self.max_instances):
             resource.max_instances = Primitive.to_proto(self.max_instances)
         if Primitive.to_proto(self.vpc_connector):

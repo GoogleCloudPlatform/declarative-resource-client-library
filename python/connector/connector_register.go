@@ -40,6 +40,12 @@ import (
 
 	cloudbuild_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha_connector"
 
+	cloudfunctions_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/connector"
+
+	cloudfunctions_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/beta_connector"
+
+	cloudfunctions_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/alpha_connector"
+
 	cloudkms_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/connector"
 
 	cloudkms_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/beta_connector"
@@ -176,6 +182,12 @@ import (
 
 	vmware_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha_connector"
 
+	vpcaccess_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/connector"
+
+	vpcaccess_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/beta_connector"
+
+	vpcaccess_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/alpha_connector"
+
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -208,6 +220,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	cloudbuild_beta_connector.RegisterServers(grpcServer)
 
 	cloudbuild_alpha_connector.RegisterServers(grpcServer)
+
+	cloudfunctions_connector.RegisterServers(grpcServer)
+
+	cloudfunctions_beta_connector.RegisterServers(grpcServer)
+
+	cloudfunctions_alpha_connector.RegisterServers(grpcServer)
 
 	cloudkms_connector.RegisterServers(grpcServer)
 
@@ -344,6 +362,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	privateca_alpha_connector.RegisterServers(grpcServer)
 
 	vmware_alpha_connector.RegisterServers(grpcServer)
+
+	vpcaccess_connector.RegisterServers(grpcServer)
+
+	vpcaccess_beta_connector.RegisterServers(grpcServer)
+
+	vpcaccess_alpha_connector.RegisterServers(grpcServer)
 
 	return &connectorpb.InitializeResponse{
 		Status: &statuspb.Status{

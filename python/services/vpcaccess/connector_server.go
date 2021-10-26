@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	vpcaccesspb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/vpcaccess/vpcaccess_go_proto"
@@ -37,14 +36,14 @@ func ProtoToVpcaccessConnectorStateEnum(e vpcaccesspb.VpcaccessConnectorStateEnu
 	return nil
 }
 
-// ProtoToConnectorSubnet converts a ConnectorSubnet resource from its proto representation.
+// ProtoToConnectorSubnet converts a ConnectorSubnet object from its proto representation.
 func ProtoToVpcaccessConnectorSubnet(p *vpcaccesspb.VpcaccessConnectorSubnet) *vpcaccess.ConnectorSubnet {
 	if p == nil {
 		return nil
 	}
 	obj := &vpcaccess.ConnectorSubnet{
-		Name:      dcl.StringOrNil(p.Name),
-		ProjectId: dcl.StringOrNil(p.ProjectId),
+		Name:      dcl.StringOrNil(p.GetName()),
+		ProjectId: dcl.StringOrNil(p.GetProjectId()),
 	}
 	return obj
 }
@@ -52,18 +51,18 @@ func ProtoToVpcaccessConnectorSubnet(p *vpcaccesspb.VpcaccessConnectorSubnet) *v
 // ProtoToConnector converts a Connector resource from its proto representation.
 func ProtoToConnector(p *vpcaccesspb.VpcaccessConnector) *vpcaccess.Connector {
 	obj := &vpcaccess.Connector{
-		Name:          dcl.StringOrNil(p.Name),
-		Network:       dcl.StringOrNil(p.Network),
-		IPCidrRange:   dcl.StringOrNil(p.IpCidrRange),
+		Name:          dcl.StringOrNil(p.GetName()),
+		Network:       dcl.StringOrNil(p.GetNetwork()),
+		IPCidrRange:   dcl.StringOrNil(p.GetIpCidrRange()),
 		State:         ProtoToVpcaccessConnectorStateEnum(p.GetState()),
-		MinThroughput: dcl.Int64OrNil(p.MinThroughput),
-		MaxThroughput: dcl.Int64OrNil(p.MaxThroughput),
+		MinThroughput: dcl.Int64OrNil(p.GetMinThroughput()),
+		MaxThroughput: dcl.Int64OrNil(p.GetMaxThroughput()),
 		Subnet:        ProtoToVpcaccessConnectorSubnet(p.GetSubnet()),
-		MachineType:   dcl.StringOrNil(p.MachineType),
-		MinInstances:  dcl.Int64OrNil(p.MinInstances),
-		MaxInstances:  dcl.Int64OrNil(p.MaxInstances),
-		Project:       dcl.StringOrNil(p.Project),
-		Location:      dcl.StringOrNil(p.Location),
+		MachineType:   dcl.StringOrNil(p.GetMachineType()),
+		MinInstances:  dcl.Int64OrNil(p.GetMinInstances()),
+		MaxInstances:  dcl.Int64OrNil(p.GetMaxInstances()),
+		Project:       dcl.StringOrNil(p.GetProject()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetConnectedProjects() {
 		obj.ConnectedProjects = append(obj.ConnectedProjects, r)
@@ -82,42 +81,42 @@ func VpcaccessConnectorStateEnumToProto(e *vpcaccess.ConnectorStateEnum) vpcacce
 	return vpcaccesspb.VpcaccessConnectorStateEnum(0)
 }
 
-// ConnectorSubnetToProto converts a ConnectorSubnet resource to its proto representation.
+// ConnectorSubnetToProto converts a ConnectorSubnet object to its proto representation.
 func VpcaccessConnectorSubnetToProto(o *vpcaccess.ConnectorSubnet) *vpcaccesspb.VpcaccessConnectorSubnet {
 	if o == nil {
 		return nil
 	}
-	p := &vpcaccesspb.VpcaccessConnectorSubnet{
-		Name:      dcl.ValueOrEmptyString(o.Name),
-		ProjectId: dcl.ValueOrEmptyString(o.ProjectId),
-	}
+	p := &vpcaccesspb.VpcaccessConnectorSubnet{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetProjectId(dcl.ValueOrEmptyString(o.ProjectId))
 	return p
 }
 
 // ConnectorToProto converts a Connector resource to its proto representation.
 func ConnectorToProto(resource *vpcaccess.Connector) *vpcaccesspb.VpcaccessConnector {
-	p := &vpcaccesspb.VpcaccessConnector{
-		Name:          dcl.ValueOrEmptyString(resource.Name),
-		Network:       dcl.ValueOrEmptyString(resource.Network),
-		IpCidrRange:   dcl.ValueOrEmptyString(resource.IPCidrRange),
-		State:         VpcaccessConnectorStateEnumToProto(resource.State),
-		MinThroughput: dcl.ValueOrEmptyInt64(resource.MinThroughput),
-		MaxThroughput: dcl.ValueOrEmptyInt64(resource.MaxThroughput),
-		Subnet:        VpcaccessConnectorSubnetToProto(resource.Subnet),
-		MachineType:   dcl.ValueOrEmptyString(resource.MachineType),
-		MinInstances:  dcl.ValueOrEmptyInt64(resource.MinInstances),
-		MaxInstances:  dcl.ValueOrEmptyInt64(resource.MaxInstances),
-		Project:       dcl.ValueOrEmptyString(resource.Project),
-		Location:      dcl.ValueOrEmptyString(resource.Location),
+	p := &vpcaccesspb.VpcaccessConnector{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetNetwork(dcl.ValueOrEmptyString(resource.Network))
+	p.SetIpCidrRange(dcl.ValueOrEmptyString(resource.IPCidrRange))
+	p.SetState(VpcaccessConnectorStateEnumToProto(resource.State))
+	p.SetMinThroughput(dcl.ValueOrEmptyInt64(resource.MinThroughput))
+	p.SetMaxThroughput(dcl.ValueOrEmptyInt64(resource.MaxThroughput))
+	p.SetSubnet(VpcaccessConnectorSubnetToProto(resource.Subnet))
+	p.SetMachineType(dcl.ValueOrEmptyString(resource.MachineType))
+	p.SetMinInstances(dcl.ValueOrEmptyInt64(resource.MinInstances))
+	p.SetMaxInstances(dcl.ValueOrEmptyInt64(resource.MaxInstances))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	sConnectedProjects := make([]string, len(resource.ConnectedProjects))
+	for i, r := range resource.ConnectedProjects {
+		sConnectedProjects[i] = r
 	}
-	for _, r := range resource.ConnectedProjects {
-		p.ConnectedProjects = append(p.ConnectedProjects, r)
-	}
+	p.SetConnectedProjects(sConnectedProjects)
 
 	return p
 }
 
-// ApplyConnector handles the gRPC request by passing it to the underlying Connector Apply() method.
+// applyConnector handles the gRPC request by passing it to the underlying Connector Apply() method.
 func (s *ConnectorServer) applyConnector(ctx context.Context, c *vpcaccess.Client, request *vpcaccesspb.ApplyVpcaccessConnectorRequest) (*vpcaccesspb.VpcaccessConnector, error) {
 	p := ProtoToConnector(request.GetResource())
 	res, err := c.ApplyConnector(ctx, p)
@@ -128,9 +127,9 @@ func (s *ConnectorServer) applyConnector(ctx context.Context, c *vpcaccess.Clien
 	return r, nil
 }
 
-// ApplyConnector handles the gRPC request by passing it to the underlying Connector Apply() method.
+// applyVpcaccessConnector handles the gRPC request by passing it to the underlying Connector Apply() method.
 func (s *ConnectorServer) ApplyVpcaccessConnector(ctx context.Context, request *vpcaccesspb.ApplyVpcaccessConnectorRequest) (*vpcaccesspb.VpcaccessConnector, error) {
-	cl, err := createConfigConnector(ctx, request.ServiceAccountFile)
+	cl, err := createConfigConnector(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -140,7 +139,7 @@ func (s *ConnectorServer) ApplyVpcaccessConnector(ctx context.Context, request *
 // DeleteConnector handles the gRPC request by passing it to the underlying Connector Delete() method.
 func (s *ConnectorServer) DeleteVpcaccessConnector(ctx context.Context, request *vpcaccesspb.DeleteVpcaccessConnectorRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigConnector(ctx, request.ServiceAccountFile)
+	cl, err := createConfigConnector(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -150,12 +149,12 @@ func (s *ConnectorServer) DeleteVpcaccessConnector(ctx context.Context, request 
 
 // ListVpcaccessConnector handles the gRPC request by passing it to the underlying ConnectorList() method.
 func (s *ConnectorServer) ListVpcaccessConnector(ctx context.Context, request *vpcaccesspb.ListVpcaccessConnectorRequest) (*vpcaccesspb.ListVpcaccessConnectorResponse, error) {
-	cl, err := createConfigConnector(ctx, request.ServiceAccountFile)
+	cl, err := createConfigConnector(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListConnector(ctx, request.Project, request.Location)
+	resources, err := cl.ListConnector(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +163,9 @@ func (s *ConnectorServer) ListVpcaccessConnector(ctx context.Context, request *v
 		rp := ConnectorToProto(r)
 		protos = append(protos, rp)
 	}
-	return &vpcaccesspb.ListVpcaccessConnectorResponse{Items: protos}, nil
+	p := &vpcaccesspb.ListVpcaccessConnectorResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigConnector(ctx context.Context, service_account_file string) (*vpcaccess.Client, error) {

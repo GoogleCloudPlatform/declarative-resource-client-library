@@ -26,9 +26,9 @@ updates:
 variables:
 - name: compute_network
   type: resource_name
-- name: project
-  type: project
 - name: org_id
   type: org_id
+- name: project
+  type: project
 - name: tag_key
   type: resource_name

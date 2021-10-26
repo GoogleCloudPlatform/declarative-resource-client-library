@@ -28,16 +28,24 @@ updates:
   - samples/basic.compute.address.json
   - samples/basic.servicenetworking.connection.json
 variables:
+- name: address
+  type: resource_name
 - name: cloudbuild_network
   type: resource_name
 - name: project
   type: project
-- name: address
-  type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: region
+  type: region
 - name: worker_pool
   type: resource_name
   docs_value: my-worker-pool-name
-- name: region
-  type: region
-- name: project
-  type: project

@@ -26,17 +26,17 @@ updates:
   dependencies:
   - samples/update.private_cloud.json
 variables:
-- name: project
-  type: project
-- name: zone
-  type: zone
-- name: management
-  type: resource_name
 - name: cloud
   type: resource_name
 - name: cluster
   type: resource_name
+- name: management
+  type: resource_name
 - name: project
   type: project
+- name: project
+  type: project
+- name: zone
+  type: zone
 - name: zone
   type: zone

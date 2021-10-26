@@ -20,9 +20,9 @@ resource: samples/internal.address.json
 dependencies:
 - samples/basic.network.json
 variables:
+- name: address
+  type: resource_name
 - name: compute_network
   type: resource_name
 - name: project
   type: project
-- name: address
-  type: resource_name

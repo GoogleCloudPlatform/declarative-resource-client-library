@@ -27,13 +27,11 @@ updates:
 variables:
 - name: cluster_name
   type: resource_name
-- name: region
-  type: region
 - name: project
   type: project
+- name: project
+  type: project
+- name: region
+  type: region
 - name: zone
   type: zone
-- name: project
-  type: project
-- name: region
-  type: region
