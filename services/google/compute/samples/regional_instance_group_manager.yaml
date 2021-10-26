@@ -36,8 +36,6 @@ updates:
 variables:
 - name: project
   type: project
-- name: template1
-  type: resource_name
 - name: template2
   type: resource_name
 - name: pool1
@@ -48,19 +46,21 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
 - name: s_check
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
 - name: check
   type: resource_name
-- name: instance_group_manager
+- name: template1
   type: resource_name
-- name: zone
-  type: zone
+- name: project
+  type: project
 - name: region
   type: region
+- name: project
+  type: project
+- name: zone
+  type: zone
+- name: instance_group_manager
+  type: resource_name
+- name: project
+  type: project

@@ -21,9 +21,9 @@ updates:
 - resource: samples/update.certificate_template.json
   dependencies: []
 variables:
-- name: project
-  type: project
 - name: region
   type: region
 - name: template
   type: resource_name
+- name: project
+  type: project

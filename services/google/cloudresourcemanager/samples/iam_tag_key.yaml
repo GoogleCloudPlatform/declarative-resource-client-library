@@ -20,7 +20,7 @@ resource: samples/tag_key.iam.binding.json
 dependencies:
 - samples/minimal.tag_key.json
 variables:
-- name: org_id
-  type: org_id
 - name: tag_key
   type: resource_name
+- name: org_id
+  type: org_id

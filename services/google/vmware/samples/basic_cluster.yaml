@@ -36,3 +36,5 @@ variables:
   type: zone
 - name: cluster
   type: resource_name
+- name: zone
+  type: zone

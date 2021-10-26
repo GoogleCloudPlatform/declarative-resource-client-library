@@ -32,9 +32,11 @@ variables:
   type: org_id
 - name: pool
   type: resource_name
+- name: region
+  type: region
 - name: location
   type: resource_name
 - name: provider
   type: resource_name
-- name: region
-  type: region
+- name: provider
+  type: resource_name

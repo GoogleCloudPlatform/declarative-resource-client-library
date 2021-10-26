@@ -38,5 +38,3 @@ variables:
   type: project
 - name: autoscaler
   type: resource_name
-- name: region
-  type: region

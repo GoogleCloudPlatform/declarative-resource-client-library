@@ -18,7 +18,7 @@ versions:
 - ga
 resource: samples/source_image.image.json
 variables:
-- name: image
-  type: resource_name
 - name: project
   type: project
+- name: image
+  type: resource_name

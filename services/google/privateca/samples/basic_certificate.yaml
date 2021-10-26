@@ -24,6 +24,8 @@ updates:
   dependencies:
   - samples/basic.certificate_authority.json
 variables:
+- name: region
+  type: region
 - name: project
   type: project
 - name: ca_name
