@@ -460,7 +460,6 @@ func ProtoToService(p *alphapb.RunAlphaService) *alpha.Service {
 		LaunchStage:           ProtoToRunAlphaServiceLaunchStageEnum(p.GetLaunchStage()),
 		BinaryAuthorization:   ProtoToRunAlphaServiceBinaryAuthorization(p.GetBinaryAuthorization()),
 		Template:              ProtoToRunAlphaServiceTemplate(p.GetTemplate()),
-		ObservedGeneration:    dcl.Int64OrNil(p.GetObservedGeneration()),
 		TerminalCondition:     ProtoToRunAlphaServiceGooglecloudrunopv2Condition(p.GetTerminalCondition()),
 		LatestReadyRevision:   dcl.StringOrNil(p.GetLatestReadyRevision()),
 		LatestCreatedRevision: dcl.StringOrNil(p.GetLatestCreatedRevision()),
@@ -472,9 +471,6 @@ func ProtoToService(p *alphapb.RunAlphaService) *alpha.Service {
 	}
 	for _, r := range p.GetTraffic() {
 		obj.Traffic = append(obj.Traffic, *ProtoToRunAlphaServiceTraffic(r))
-	}
-	for _, r := range p.GetConditions() {
-		obj.Conditions = append(obj.Conditions, *ProtoToRunAlphaServiceGooglecloudrunopv2Condition(r))
 	}
 	for _, r := range p.GetTrafficStatuses() {
 		obj.TrafficStatuses = append(obj.TrafficStatuses, *ProtoToRunAlphaServiceTrafficStatuses(r))
@@ -921,7 +917,6 @@ func ServiceToProto(resource *alpha.Service) *alphapb.RunAlphaService {
 	p.SetLaunchStage(RunAlphaServiceLaunchStageEnumToProto(resource.LaunchStage))
 	p.SetBinaryAuthorization(RunAlphaServiceBinaryAuthorizationToProto(resource.BinaryAuthorization))
 	p.SetTemplate(RunAlphaServiceTemplateToProto(resource.Template))
-	p.SetObservedGeneration(dcl.ValueOrEmptyInt64(resource.ObservedGeneration))
 	p.SetTerminalCondition(RunAlphaServiceGooglecloudrunopv2ConditionToProto(resource.TerminalCondition))
 	p.SetLatestReadyRevision(dcl.ValueOrEmptyString(resource.LatestReadyRevision))
 	p.SetLatestCreatedRevision(dcl.ValueOrEmptyString(resource.LatestCreatedRevision))
@@ -945,11 +940,6 @@ func ServiceToProto(resource *alpha.Service) *alphapb.RunAlphaService {
 		sTraffic[i] = RunAlphaServiceTrafficToProto(&r)
 	}
 	p.SetTraffic(sTraffic)
-	sConditions := make([]*alphapb.RunAlphaServiceGooglecloudrunopv2Condition, len(resource.Conditions))
-	for i, r := range resource.Conditions {
-		sConditions[i] = RunAlphaServiceGooglecloudrunopv2ConditionToProto(&r)
-	}
-	p.SetConditions(sConditions)
 	sTrafficStatuses := make([]*alphapb.RunAlphaServiceTrafficStatuses, len(resource.TrafficStatuses))
 	for i, r := range resource.TrafficStatuses {
 		sTrafficStatuses[i] = RunAlphaServiceTrafficStatusesToProto(&r)

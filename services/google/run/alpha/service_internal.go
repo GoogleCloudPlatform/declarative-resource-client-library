@@ -813,20 +813,10 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 		rawNew.Traffic = canonicalizeNewServiceTrafficSlice(c, rawDesired.Traffic, rawNew.Traffic)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ObservedGeneration) && dcl.IsNotReturnedByServer(rawDesired.ObservedGeneration) {
-		rawNew.ObservedGeneration = rawDesired.ObservedGeneration
-	} else {
-	}
-
 	if dcl.IsNotReturnedByServer(rawNew.TerminalCondition) && dcl.IsNotReturnedByServer(rawDesired.TerminalCondition) {
 		rawNew.TerminalCondition = rawDesired.TerminalCondition
 	} else {
 		rawNew.TerminalCondition = canonicalizeNewServiceGooglecloudrunopv2Condition(c, rawDesired.TerminalCondition, rawNew.TerminalCondition)
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.Conditions) && dcl.IsNotReturnedByServer(rawDesired.Conditions) {
-		rawNew.Conditions = rawDesired.Conditions
-	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LatestReadyRevision) && dcl.IsNotReturnedByServer(rawDesired.LatestReadyRevision) {
@@ -3437,21 +3427,7 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ObservedGeneration, actual.ObservedGeneration, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ObservedGeneration")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.TerminalCondition, actual.TerminalCondition, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceGooglecloudrunopv2ConditionNewStyle, EmptyObject: EmptyServiceGooglecloudrunopv2Condition, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TerminalCondition")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceGooglecloudrunopv2ConditionNewStyle, EmptyObject: EmptyServiceGooglecloudrunopv2Condition, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4533,9 +4509,7 @@ func flattenService(c *Client, i interface{}) *Service {
 	res.BinaryAuthorization = flattenServiceBinaryAuthorization(c, m["binaryAuthorization"])
 	res.Template = flattenServiceTemplate(c, m["template"])
 	res.Traffic = flattenServiceTrafficSlice(c, m["traffic"])
-	res.ObservedGeneration = dcl.FlattenInteger(m["observedGeneration"])
 	res.TerminalCondition = flattenServiceGooglecloudrunopv2Condition(c, m["terminalCondition"])
-	res.Conditions = flattenServiceGooglecloudrunopv2ConditionSlice(c, m["conditions"])
 	res.LatestReadyRevision = dcl.FlattenString(m["latestReadyRevision"])
 	res.LatestCreatedRevision = dcl.FlattenString(m["latestCreatedRevision"])
 	res.TrafficStatuses = flattenServiceTrafficStatusesSlice(c, m["trafficStatuses"])

@@ -241,21 +241,6 @@ components:
           type: string
           x-dcl-go-name: ClientVersion
           description: Arbitrary version identifier for the API client.
-        conditions:
-          type: array
-          x-dcl-go-name: Conditions
-          readOnly: true
-          description: Output only. The Conditions of all other associated sub-resources.
-            They contain additional diagnostics information in case the Service does
-            not reach its Serving state. See comments in `reconciling` for additional
-            information on reconciliation process in Cloud Run.
-          x-kubernetes-immutable: true
-          x-dcl-list-type: list
-          items:
-            type: object
-            $ref: '#/components/schemas/Googlecloudrunopv2Condition'
-            x-dcl-go-name: Conditions
-            x-dcl-go-type: ServiceGooglecloudrunopv2Condition
         createTime:
           type: string
           format: date-time
@@ -388,15 +373,6 @@ components:
             from CreateServiceRequest.parent and CreateServiceRequest.service_id.
             Format: projects/{project}/locations/{location}/services/{service_id}'
           x-dcl-server-generated-parameter: true
-        observedGeneration:
-          type: integer
-          format: int64
-          x-dcl-go-name: ObservedGeneration
-          readOnly: true
-          description: Output only. The generation of this Service currently serving
-            traffic. See comments in `reconciling` for additional information on reconciliation
-            process in Cloud Run.
-          x-kubernetes-immutable: true
         project:
           type: string
           x-dcl-go-name: Project

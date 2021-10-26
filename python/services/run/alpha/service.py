@@ -40,9 +40,7 @@ class Service(object):
         binary_authorization: dict = None,
         template: dict = None,
         traffic: list = None,
-        observed_generation: int = None,
         terminal_condition: dict = None,
-        conditions: list = None,
         latest_ready_revision: str = None,
         latest_created_revision: str = None,
         traffic_statuses: list = None,
@@ -137,12 +135,8 @@ class Service(object):
         )
         self.template = ServiceTemplate.from_proto(response.template)
         self.traffic = ServiceTrafficArray.from_proto(response.traffic)
-        self.observed_generation = Primitive.from_proto(response.observed_generation)
         self.terminal_condition = ServiceGooglecloudrunopv2Condition.from_proto(
             response.terminal_condition
-        )
-        self.conditions = ServiceGooglecloudrunopv2ConditionArray.from_proto(
-            response.conditions
         )
         self.latest_ready_revision = Primitive.from_proto(
             response.latest_ready_revision

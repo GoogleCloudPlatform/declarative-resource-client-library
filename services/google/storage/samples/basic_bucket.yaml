@@ -21,7 +21,7 @@ updates:
 - resource: samples/update.bucket.json
   dependencies: []
 variables:
-- name: bucket
-  type: resource_name
 - name: project
   type: project
+- name: bucket
+  type: resource_name

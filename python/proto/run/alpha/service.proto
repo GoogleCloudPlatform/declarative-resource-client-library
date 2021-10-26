@@ -170,17 +170,15 @@ message RunAlphaService {
   RunAlphaServiceBinaryAuthorization binary_authorization = 17;
   RunAlphaServiceTemplate template = 18;
   repeated RunAlphaServiceTraffic traffic = 19;
-  int64 observed_generation = 20;
-  RunAlphaServiceGooglecloudrunopv2Condition terminal_condition = 21;
-  repeated RunAlphaServiceGooglecloudrunopv2Condition conditions = 22;
-  string latest_ready_revision = 23;
-  string latest_created_revision = 24;
-  repeated RunAlphaServiceTrafficStatuses traffic_statuses = 25;
-  string uri = 26;
-  bool reconciling = 27;
-  string etag = 28;
-  string project = 29;
-  string location = 30;
+  RunAlphaServiceGooglecloudrunopv2Condition terminal_condition = 20;
+  string latest_ready_revision = 21;
+  string latest_created_revision = 22;
+  repeated RunAlphaServiceTrafficStatuses traffic_statuses = 23;
+  string uri = 24;
+  bool reconciling = 25;
+  string etag = 26;
+  string project = 27;
+  string location = 28;
 }
 
 message RunAlphaServiceBinaryAuthorization {

@@ -47,9 +47,7 @@ variables:
   type: billing_account
 - name: policy
   type: resource_name
-- name: network_name
-  type: resource_name
-- name: network_name
-  type: resource_name
 - name: association
+  type: resource_name
+- name: network_name
   type: resource_name

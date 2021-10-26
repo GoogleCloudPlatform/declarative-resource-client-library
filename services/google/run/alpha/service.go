@@ -26,36 +26,34 @@ import (
 )
 
 type Service struct {
-	Name                  *string                              `json:"name"`
-	Description           *string                              `json:"description"`
-	Uid                   *string                              `json:"uid"`
-	Generation            *int64                               `json:"generation"`
-	Labels                map[string]string                    `json:"labels"`
-	Annotations           map[string]string                    `json:"annotations"`
-	CreateTime            *string                              `json:"createTime"`
-	UpdateTime            *string                              `json:"updateTime"`
-	DeleteTime            *string                              `json:"deleteTime"`
-	ExpireTime            *string                              `json:"expireTime"`
-	Creator               *string                              `json:"creator"`
-	LastModifier          *string                              `json:"lastModifier"`
-	Client                *string                              `json:"client"`
-	ClientVersion         *string                              `json:"clientVersion"`
-	Ingress               *ServiceIngressEnum                  `json:"ingress"`
-	LaunchStage           *ServiceLaunchStageEnum              `json:"launchStage"`
-	BinaryAuthorization   *ServiceBinaryAuthorization          `json:"binaryAuthorization"`
-	Template              *ServiceTemplate                     `json:"template"`
-	Traffic               []ServiceTraffic                     `json:"traffic"`
-	ObservedGeneration    *int64                               `json:"observedGeneration"`
-	TerminalCondition     *ServiceGooglecloudrunopv2Condition  `json:"terminalCondition"`
-	Conditions            []ServiceGooglecloudrunopv2Condition `json:"conditions"`
-	LatestReadyRevision   *string                              `json:"latestReadyRevision"`
-	LatestCreatedRevision *string                              `json:"latestCreatedRevision"`
-	TrafficStatuses       []ServiceTrafficStatuses             `json:"trafficStatuses"`
-	Uri                   *string                              `json:"uri"`
-	Reconciling           *bool                                `json:"reconciling"`
-	Etag                  *string                              `json:"etag"`
-	Project               *string                              `json:"project"`
-	Location              *string                              `json:"location"`
+	Name                  *string                             `json:"name"`
+	Description           *string                             `json:"description"`
+	Uid                   *string                             `json:"uid"`
+	Generation            *int64                              `json:"generation"`
+	Labels                map[string]string                   `json:"labels"`
+	Annotations           map[string]string                   `json:"annotations"`
+	CreateTime            *string                             `json:"createTime"`
+	UpdateTime            *string                             `json:"updateTime"`
+	DeleteTime            *string                             `json:"deleteTime"`
+	ExpireTime            *string                             `json:"expireTime"`
+	Creator               *string                             `json:"creator"`
+	LastModifier          *string                             `json:"lastModifier"`
+	Client                *string                             `json:"client"`
+	ClientVersion         *string                             `json:"clientVersion"`
+	Ingress               *ServiceIngressEnum                 `json:"ingress"`
+	LaunchStage           *ServiceLaunchStageEnum             `json:"launchStage"`
+	BinaryAuthorization   *ServiceBinaryAuthorization         `json:"binaryAuthorization"`
+	Template              *ServiceTemplate                    `json:"template"`
+	Traffic               []ServiceTraffic                    `json:"traffic"`
+	TerminalCondition     *ServiceGooglecloudrunopv2Condition `json:"terminalCondition"`
+	LatestReadyRevision   *string                             `json:"latestReadyRevision"`
+	LatestCreatedRevision *string                             `json:"latestCreatedRevision"`
+	TrafficStatuses       []ServiceTrafficStatuses            `json:"trafficStatuses"`
+	Uri                   *string                             `json:"uri"`
+	Reconciling           *bool                               `json:"reconciling"`
+	Etag                  *string                             `json:"etag"`
+	Project               *string                             `json:"project"`
+	Location              *string                             `json:"location"`
 }
 
 func (r *Service) String() string {
@@ -1423,9 +1421,7 @@ func (r *Service) ID() (string, error) {
 		"binaryAuthorization":   dcl.ValueOrEmptyString(nr.BinaryAuthorization),
 		"template":              dcl.ValueOrEmptyString(nr.Template),
 		"traffic":               dcl.ValueOrEmptyString(nr.Traffic),
-		"observedGeneration":    dcl.ValueOrEmptyString(nr.ObservedGeneration),
 		"terminalCondition":     dcl.ValueOrEmptyString(nr.TerminalCondition),
-		"conditions":            dcl.ValueOrEmptyString(nr.Conditions),
 		"latestReadyRevision":   dcl.ValueOrEmptyString(nr.LatestReadyRevision),
 		"latestCreatedRevision": dcl.ValueOrEmptyString(nr.LatestCreatedRevision),
 		"trafficStatuses":       dcl.ValueOrEmptyString(nr.TrafficStatuses),
