@@ -22,7 +22,7 @@ updates:
 - resource: samples/update_organization.firewall_policy.json
   dependencies: []
 variables:
-- name: policy
-  type: resource_name
 - name: org_id
   type: org_id
+- name: policy
+  type: resource_name

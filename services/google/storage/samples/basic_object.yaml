@@ -20,11 +20,11 @@ resource: samples/basic.object.json
 dependencies:
 - samples/basic.bucket.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
-- name: object
-  type: resource_name
+- name: project
+  type: project
 - name: content
+  type: resource_name
+- name: object
   type: resource_name

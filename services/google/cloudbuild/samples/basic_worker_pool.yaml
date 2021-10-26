@@ -34,12 +34,10 @@ variables:
   type: project
 - name: address
   type: resource_name
+- name: worker_pool
+  type: resource_name
+  docs_value: my-worker-pool-name
 - name: region
   type: region
 - name: project
   type: project
-- name: project
-  type: project
-- name: worker_pool
-  type: resource_name
-  docs_value: my-worker-pool-name
