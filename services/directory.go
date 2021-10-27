@@ -95,6 +95,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub"
 	pubsub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/alpha"
 	pubsub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise"
+	recaptchaenterprise_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/alpha"
+	recaptchaenterprise_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/beta"
 	run_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	storage_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
@@ -273,6 +276,8 @@ func Services() *Directory {
 	d.AddResource("ga", "privateca", "CertificateAuthority", privateca.YAML_certificate_authority)
 	d.AddResource("ga", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess.YAML_connector)
 	d.AddResource("ga", "vpcaccess", "Connector", vpcaccess.YAML_connector)
+	d.AddResource("ga", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise.YAML_key)
+	d.AddResource("ga", "recaptchaenterprise", "Key", recaptchaenterprise.YAML_key)
 	d.AddResource("beta", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_beta.YAML_assignment)
@@ -405,6 +410,8 @@ func Services() *Directory {
 	d.AddResource("beta", "privateca", "CertificateAuthority", privateca_beta.YAML_certificate_authority)
 	d.AddResource("beta", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess_beta.YAML_connector)
 	d.AddResource("beta", "vpcaccess", "Connector", vpcaccess_beta.YAML_connector)
+	d.AddResource("beta", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise_beta.YAML_key)
+	d.AddResource("beta", "recaptchaenterprise", "Key", recaptchaenterprise_beta.YAML_key)
 	d.AddResource("alpha", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "assuredworkloads", "Workload", assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_alpha.YAML_assignment)
@@ -567,5 +574,7 @@ func Services() *Directory {
 	d.AddResource("alpha", "vmware", "Cluster", vmware_alpha.YAML_cluster)
 	d.AddResource("alpha", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess_alpha.YAML_connector)
 	d.AddResource("alpha", "vpcaccess", "Connector", vpcaccess_alpha.YAML_connector)
+	d.AddResource("alpha", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise_alpha.YAML_key)
+	d.AddResource("alpha", "recaptchaenterprise", "Key", recaptchaenterprise_alpha.YAML_key)
 	return d
 }

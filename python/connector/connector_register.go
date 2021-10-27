@@ -188,6 +188,12 @@ import (
 
 	vpcaccess_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/alpha_connector"
 
+	recaptchaenterprise_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/connector"
+
+	recaptchaenterprise_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/beta_connector"
+
+	recaptchaenterprise_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/alpha_connector"
+
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -368,6 +374,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	vpcaccess_beta_connector.RegisterServers(grpcServer)
 
 	vpcaccess_alpha_connector.RegisterServers(grpcServer)
+
+	recaptchaenterprise_connector.RegisterServers(grpcServer)
+
+	recaptchaenterprise_beta_connector.RegisterServers(grpcServer)
+
+	recaptchaenterprise_alpha_connector.RegisterServers(grpcServer)
 
 	return &connectorpb.InitializeResponse{
 		Status: &statuspb.Status{

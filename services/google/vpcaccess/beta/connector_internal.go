@@ -981,7 +981,9 @@ func expandConnectorSubnet(c *Client, f *ConnectorSubnet) (map[string]interface{
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.ProjectId; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.ProjectId); err != nil {
+		return nil, fmt.Errorf("error expanding ProjectId into projectId: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["projectId"] = v
 	}
 

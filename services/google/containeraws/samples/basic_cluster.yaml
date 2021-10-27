@@ -47,12 +47,10 @@ variables:
   type: aws_subnet
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
+- name: aws_volume_encryption_key
+  type: aws_volume_encryption_key
 - name: aws_vpc
   type: aws_vpc
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
@@ -61,5 +59,7 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: test_service_account
+  type: test_service_account
 - name: test_service_account
   type: test_service_account
