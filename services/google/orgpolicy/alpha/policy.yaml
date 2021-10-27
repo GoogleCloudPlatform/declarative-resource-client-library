@@ -13,8 +13,20 @@
 # limitations under the License.
 info:
   title: OrgPolicy/Policy
-  description: The OrgPolicy Policy resource
+  description: An organization policy gives you programmatic control over your organization's
+    cloud resources.  Using Organization Policies, you will be able to configure constraints
+    across your entire resource hierarchy.
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: REST API
+    url: https://cloud.google.com/resource-manager/docs/reference/orgpolicy/rest/v2/organizations.policies
+  x-dcl-guides:
+  - text: Understanding Org Policy concepts
+    url: https://cloud.google.com/resource-manager/docs/organization-policy/overview
+  - text: The resource hierarchy
+    url: https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy
+  - text: All valid constraints
+    url: https://cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints
 paths:
   get:
     description: The function used to get information about a Policy

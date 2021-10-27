@@ -13,8 +13,20 @@
 # limitations under the License.
 info:
   title: Privateca/CertificateTemplate
-  description: The Privateca CertificateTemplate resource
+  description: Certificate Authority Service provides reusable and parameterized templates
+    that you can use for common certificate issuance scenarios. A certificate template
+    represents a relatively static and well-defined certificate issuance schema within
+    an organization.  A certificate template can essentially become a full-fledged
+    vertical certificate issuance framework.
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: REST API
+    url: https://cloud.google.com/certificate-authority-service/docs/reference/rest/v1/projects.locations.certificateTemplates
+  x-dcl-guides:
+  - text: Understanding Certificate Templates
+    url: https://cloud.google.com/certificate-authority-service/docs/certificate-template
+  - text: Common configurations and Certificate Profiles
+    url: https://cloud.google.com/certificate-authority-service/docs/certificate-profile
 paths:
   get:
     description: The function used to get information about a CertificateTemplate

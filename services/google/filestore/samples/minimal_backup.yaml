@@ -33,5 +33,3 @@ variables:
   type: region
 - name: zone
   type: zone
-- name: zone
-  type: zone
