@@ -296,7 +296,10 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyReservationDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyReservationDiff(c *Client, ctx context.Context, desired *Reservation, rawDesired *Reservation, ops []reservationApiOperation, opts ...dcl.ApplyOption) (*Reservation, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetReservation(ctx, desired.urlNormalized())

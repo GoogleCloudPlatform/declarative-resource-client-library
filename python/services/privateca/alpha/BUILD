@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="privateca/alpha", resources=["certificate_template"])
+connector(name="privateca/alpha", resources=["certificate_template","ca_pool","certificate","certificate_authority"])

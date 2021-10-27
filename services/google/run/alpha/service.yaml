@@ -655,6 +655,9 @@ components:
                 of the running revision, and determines what permissions the revision
                 has. If not provided, the revision will use the project's default
                 service account.
+              x-dcl-references:
+              - resource: Iam/ServiceAccount
+                field: email
             timeout:
               type: string
               x-dcl-go-name: Timeout
@@ -694,7 +697,7 @@ components:
                           x-dcl-go-type: string
                           x-dcl-references:
                           - resource: Sql/Instance
-                            field: selfLink
+                            field: connectionName
                   name:
                     type: string
                     x-dcl-go-name: Name

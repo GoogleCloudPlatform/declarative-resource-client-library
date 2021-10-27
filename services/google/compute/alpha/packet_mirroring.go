@@ -664,7 +664,10 @@ func applyPacketMirroringHelper(c *Client, ctx context.Context, rawDesired *Pack
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyPacketMirroringDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyPacketMirroringDiff(c *Client, ctx context.Context, desired *PacketMirroring, rawDesired *PacketMirroring, ops []packetMirroringApiOperation, opts ...dcl.ApplyOption) (*PacketMirroring, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetPacketMirroring(ctx, desired.urlNormalized())

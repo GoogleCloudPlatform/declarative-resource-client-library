@@ -573,7 +573,10 @@ func applyForwardingRuleHelper(c *Client, ctx context.Context, rawDesired *Forwa
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyForwardingRuleDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyForwardingRuleDiff(c *Client, ctx context.Context, desired *ForwardingRule, rawDesired *ForwardingRule, ops []forwardingRuleApiOperation, opts ...dcl.ApplyOption) (*ForwardingRule, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetForwardingRule(ctx, desired.urlNormalized())

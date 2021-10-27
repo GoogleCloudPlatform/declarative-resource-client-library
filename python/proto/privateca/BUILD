@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="privateca", resources=["certificate_template"])
+proto_package(name="privateca", resources=["certificate_template","ca_pool","certificate","certificate_authority"])

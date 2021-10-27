@@ -880,7 +880,10 @@ func applyJobHelper(c *Client, ctx context.Context, rawDesired *Job, opts ...dcl
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyJobDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyJobDiff(c *Client, ctx context.Context, desired *Job, rawDesired *Job, ops []jobApiOperation, opts ...dcl.ApplyOption) (*Job, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetJob(ctx, desired.urlNormalized())

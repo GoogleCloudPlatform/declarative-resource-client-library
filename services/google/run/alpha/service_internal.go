@@ -1036,7 +1036,7 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 	} else {
 		cDes.Timeout = des.Timeout
 	}
-	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.NameToSelfLink(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
@@ -1107,7 +1107,7 @@ func canonicalizeNewServiceTemplate(c *Client, des, nw *ServiceTemplate) *Servic
 	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) {
 		nw.Timeout = des.Timeout
 	}
-	if dcl.StringCanonicalize(des.ServiceAccount, nw.ServiceAccount) {
+	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
 	}
 	nw.Containers = canonicalizeNewServiceTemplateContainersSlice(c, des.Containers, nw.Containers)
@@ -3597,7 +3597,7 @@ func compareServiceTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

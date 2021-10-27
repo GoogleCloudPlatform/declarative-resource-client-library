@@ -589,7 +589,10 @@ func applyNodePoolHelper(c *Client, ctx context.Context, rawDesired *NodePool, o
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyNodePoolDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyNodePoolDiff(c *Client, ctx context.Context, desired *NodePool, rawDesired *NodePool, ops []nodePoolApiOperation, opts ...dcl.ApplyOption) (*NodePool, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetNodePool(ctx, desired.urlNormalized())

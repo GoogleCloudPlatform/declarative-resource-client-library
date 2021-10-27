@@ -730,7 +730,10 @@ func applyUptimeCheckConfigHelper(c *Client, ctx context.Context, rawDesired *Up
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyUptimeCheckConfigDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyUptimeCheckConfigDiff(c *Client, ctx context.Context, desired *UptimeCheckConfig, rawDesired *UptimeCheckConfig, ops []uptimeCheckConfigApiOperation, opts ...dcl.ApplyOption) (*UptimeCheckConfig, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetUptimeCheckConfig(ctx, desired.urlNormalized())

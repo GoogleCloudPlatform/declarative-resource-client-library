@@ -356,7 +356,10 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyVpnTunnelDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyVpnTunnelDiff(c *Client, ctx context.Context, desired *VpnTunnel, rawDesired *VpnTunnel, ops []vpnTunnelApiOperation, opts ...dcl.ApplyOption) (*VpnTunnel, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetVpnTunnel(ctx, desired.urlNormalized())

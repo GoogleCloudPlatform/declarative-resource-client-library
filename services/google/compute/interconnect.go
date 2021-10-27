@@ -632,7 +632,10 @@ func applyInterconnectHelper(c *Client, ctx context.Context, rawDesired *Interco
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyInterconnectDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyInterconnectDiff(c *Client, ctx context.Context, desired *Interconnect, rawDesired *Interconnect, ops []interconnectApiOperation, opts ...dcl.ApplyOption) (*Interconnect, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetInterconnect(ctx, desired.urlNormalized())

@@ -27,8 +27,6 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
 - name: random_int
   type: random_int
 - name: random_int

@@ -323,7 +323,10 @@ func applyHubHelper(c *Client, ctx context.Context, rawDesired *Hub, opts ...dcl
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyHubDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyHubDiff(c *Client, ctx context.Context, desired *Hub, rawDesired *Hub, ops []hubApiOperation, opts ...dcl.ApplyOption) (*Hub, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetHub(ctx, desired.urlNormalized())

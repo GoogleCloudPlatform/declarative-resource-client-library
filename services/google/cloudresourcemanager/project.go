@@ -317,7 +317,10 @@ func applyProjectHelper(c *Client, ctx context.Context, rawDesired *Project, opt
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyProjectDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyProjectDiff(c *Client, ctx context.Context, desired *Project, rawDesired *Project, ops []projectApiOperation, opts ...dcl.ApplyOption) (*Project, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetProject(ctx, desired.urlNormalized())

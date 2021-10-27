@@ -783,7 +783,10 @@ func applyBucketHelper(c *Client, ctx context.Context, rawDesired *Bucket, opts 
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyBucketDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyBucketDiff(c *Client, ctx context.Context, desired *Bucket, rawDesired *Bucket, ops []bucketApiOperation, opts ...dcl.ApplyOption) (*Bucket, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetBucket(ctx, desired.urlNormalized())

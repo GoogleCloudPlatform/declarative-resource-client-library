@@ -393,7 +393,10 @@ func applyServiceAccountHelper(c *Client, ctx context.Context, rawDesired *Servi
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyServiceAccountDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyServiceAccountDiff(c *Client, ctx context.Context, desired *ServiceAccount, rawDesired *ServiceAccount, ops []serviceAccountApiOperation, opts ...dcl.ApplyOption) (*ServiceAccount, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetServiceAccount(ctx, desired.urlNormalized())

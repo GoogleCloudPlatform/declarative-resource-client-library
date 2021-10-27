@@ -475,7 +475,10 @@ func applyAttestorHelper(c *Client, ctx context.Context, rawDesired *Attestor, o
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyAttestorDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyAttestorDiff(c *Client, ctx context.Context, desired *Attestor, rawDesired *Attestor, ops []attestorApiOperation, opts ...dcl.ApplyOption) (*Attestor, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetAttestor(ctx, desired.urlNormalized())

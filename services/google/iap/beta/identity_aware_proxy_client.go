@@ -292,7 +292,10 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyIdentityAwareProxyClientDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyIdentityAwareProxyClientDiff(c *Client, ctx context.Context, desired *IdentityAwareProxyClient, rawDesired *IdentityAwareProxyClient, ops []identityAwareProxyClientApiOperation, opts ...dcl.ApplyOption) (*IdentityAwareProxyClient, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetIdentityAwareProxyClient(ctx, desired.urlNormalized())

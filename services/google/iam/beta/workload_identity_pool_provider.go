@@ -435,7 +435,10 @@ func applyWorkloadIdentityPoolProviderHelper(c *Client, ctx context.Context, raw
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyWorkloadIdentityPoolProviderDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyWorkloadIdentityPoolProviderDiff(c *Client, ctx context.Context, desired *WorkloadIdentityPoolProvider, rawDesired *WorkloadIdentityPoolProvider, ops []workloadIdentityPoolProviderApiOperation, opts ...dcl.ApplyOption) (*WorkloadIdentityPoolProvider, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetWorkloadIdentityPoolProvider(ctx, desired.urlNormalized())

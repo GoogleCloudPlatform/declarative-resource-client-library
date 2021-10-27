@@ -520,7 +520,10 @@ func applyServiceAttachmentHelper(c *Client, ctx context.Context, rawDesired *Se
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyServiceAttachmentDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyServiceAttachmentDiff(c *Client, ctx context.Context, desired *ServiceAttachment, rawDesired *ServiceAttachment, ops []serviceAttachmentApiOperation, opts ...dcl.ApplyOption) (*ServiceAttachment, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetServiceAttachment(ctx, desired.urlNormalized())

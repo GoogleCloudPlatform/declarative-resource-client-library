@@ -362,7 +362,10 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyBackupDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyBackupDiff(c *Client, ctx context.Context, desired *Backup, rawDesired *Backup, ops []backupApiOperation, opts ...dcl.ApplyOption) (*Backup, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetBackup(ctx, desired.urlNormalized())

@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/privateca/beta/privateca_beta_go_proto"
@@ -97,7 +96,7 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyF
 	return nil
 }
 
-// ProtoToCertificateAuthorityConfig converts a CertificateAuthorityConfig resource from its proto representation.
+// ProtoToCertificateAuthorityConfig converts a CertificateAuthorityConfig object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfig(p *betapb.PrivatecaBetaCertificateAuthorityConfig) *beta.CertificateAuthorityConfig {
 	if p == nil {
 		return nil
@@ -110,7 +109,7 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfig(p *betapb.PrivatecaBetaCerti
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigSubjectConfig converts a CertificateAuthorityConfigSubjectConfig resource from its proto representation.
+// ProtoToCertificateAuthorityConfigSubjectConfig converts a CertificateAuthorityConfigSubjectConfig object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfig(p *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfig) *beta.CertificateAuthorityConfigSubjectConfig {
 	if p == nil {
 		return nil
@@ -122,25 +121,25 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfig(p *betapb.Priva
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigSubjectConfigSubject converts a CertificateAuthorityConfigSubjectConfigSubject resource from its proto representation.
+// ProtoToCertificateAuthorityConfigSubjectConfigSubject converts a CertificateAuthorityConfigSubjectConfigSubject object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfigSubject(p *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubject) *beta.CertificateAuthorityConfigSubjectConfigSubject {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigSubjectConfigSubject{
-		CommonName:         dcl.StringOrNil(p.CommonName),
-		CountryCode:        dcl.StringOrNil(p.CountryCode),
-		Organization:       dcl.StringOrNil(p.Organization),
-		OrganizationalUnit: dcl.StringOrNil(p.OrganizationalUnit),
-		Locality:           dcl.StringOrNil(p.Locality),
-		Province:           dcl.StringOrNil(p.Province),
-		StreetAddress:      dcl.StringOrNil(p.StreetAddress),
-		PostalCode:         dcl.StringOrNil(p.PostalCode),
+		CommonName:         dcl.StringOrNil(p.GetCommonName()),
+		CountryCode:        dcl.StringOrNil(p.GetCountryCode()),
+		Organization:       dcl.StringOrNil(p.GetOrganization()),
+		OrganizationalUnit: dcl.StringOrNil(p.GetOrganizationalUnit()),
+		Locality:           dcl.StringOrNil(p.GetLocality()),
+		Province:           dcl.StringOrNil(p.GetProvince()),
+		StreetAddress:      dcl.StringOrNil(p.GetStreetAddress()),
+		PostalCode:         dcl.StringOrNil(p.GetPostalCode()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigSubjectConfigSubjectAltName converts a CertificateAuthorityConfigSubjectConfigSubjectAltName resource from its proto representation.
+// ProtoToCertificateAuthorityConfigSubjectConfigSubjectAltName converts a CertificateAuthorityConfigSubjectConfigSubjectAltName object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName(p *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName) *beta.CertificateAuthorityConfigSubjectConfigSubjectAltName {
 	if p == nil {
 		return nil
@@ -164,20 +163,20 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName(p
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans resource from its proto representation.
+// ProtoToCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans(p *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans) *beta.CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans{
 		ObjectId: ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId(p.GetObjectId()),
-		Critical: dcl.Bool(p.Critical),
-		Value:    dcl.StringOrNil(p.Value),
+		Critical: dcl.Bool(p.GetCritical()),
+		Value:    dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId resource from its proto representation.
+// ProtoToCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId(p *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId) *beta.CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId {
 	if p == nil {
 		return nil
@@ -189,7 +188,7 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCu
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509Config converts a CertificateAuthorityConfigX509Config resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509Config converts a CertificateAuthorityConfigX509Config object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509Config(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509Config) *beta.CertificateAuthorityConfigX509Config {
 	if p == nil {
 		return nil
@@ -210,7 +209,7 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigX509Config(p *betapb.Privatec
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigKeyUsage converts a CertificateAuthorityConfigX509ConfigKeyUsage resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigKeyUsage converts a CertificateAuthorityConfigX509ConfigKeyUsage object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage) *beta.CertificateAuthorityConfigX509ConfigKeyUsage {
 	if p == nil {
 		return nil
@@ -225,42 +224,42 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage(p *betapb.
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage converts a CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage converts a CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) *beta.CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage{
-		DigitalSignature:  dcl.Bool(p.DigitalSignature),
-		ContentCommitment: dcl.Bool(p.ContentCommitment),
-		KeyEncipherment:   dcl.Bool(p.KeyEncipherment),
-		DataEncipherment:  dcl.Bool(p.DataEncipherment),
-		KeyAgreement:      dcl.Bool(p.KeyAgreement),
-		CertSign:          dcl.Bool(p.CertSign),
-		CrlSign:           dcl.Bool(p.CrlSign),
-		EncipherOnly:      dcl.Bool(p.EncipherOnly),
-		DecipherOnly:      dcl.Bool(p.DecipherOnly),
+		DigitalSignature:  dcl.Bool(p.GetDigitalSignature()),
+		ContentCommitment: dcl.Bool(p.GetContentCommitment()),
+		KeyEncipherment:   dcl.Bool(p.GetKeyEncipherment()),
+		DataEncipherment:  dcl.Bool(p.GetDataEncipherment()),
+		KeyAgreement:      dcl.Bool(p.GetKeyAgreement()),
+		CertSign:          dcl.Bool(p.GetCertSign()),
+		CrlSign:           dcl.Bool(p.GetCrlSign()),
+		EncipherOnly:      dcl.Bool(p.GetEncipherOnly()),
+		DecipherOnly:      dcl.Bool(p.GetDecipherOnly()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage converts a CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage converts a CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) *beta.CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage{
-		ServerAuth:      dcl.Bool(p.ServerAuth),
-		ClientAuth:      dcl.Bool(p.ClientAuth),
-		CodeSigning:     dcl.Bool(p.CodeSigning),
-		EmailProtection: dcl.Bool(p.EmailProtection),
-		TimeStamping:    dcl.Bool(p.TimeStamping),
-		OcspSigning:     dcl.Bool(p.OcspSigning),
+		ServerAuth:      dcl.Bool(p.GetServerAuth()),
+		ClientAuth:      dcl.Bool(p.GetClientAuth()),
+		CodeSigning:     dcl.Bool(p.GetCodeSigning()),
+		EmailProtection: dcl.Bool(p.GetEmailProtection()),
+		TimeStamping:    dcl.Bool(p.GetTimeStamping()),
+		OcspSigning:     dcl.Bool(p.GetOcspSigning()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages converts a CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages converts a CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) *beta.CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages {
 	if p == nil {
 		return nil
@@ -272,19 +271,19 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExte
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigCaOptions converts a CertificateAuthorityConfigX509ConfigCaOptions resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigCaOptions converts a CertificateAuthorityConfigX509ConfigCaOptions object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions) *beta.CertificateAuthorityConfigX509ConfigCaOptions {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigX509ConfigCaOptions{
-		IsCa:                dcl.Bool(p.IsCa),
-		MaxIssuerPathLength: dcl.Int64OrNil(p.MaxIssuerPathLength),
+		IsCa:                dcl.Bool(p.GetIsCa()),
+		MaxIssuerPathLength: dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigPolicyIds converts a CertificateAuthorityConfigX509ConfigPolicyIds resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigPolicyIds converts a CertificateAuthorityConfigX509ConfigPolicyIds object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds) *beta.CertificateAuthorityConfigX509ConfigPolicyIds {
 	if p == nil {
 		return nil
@@ -296,20 +295,20 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds(p *betapb
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigAdditionalExtensions converts a CertificateAuthorityConfigX509ConfigAdditionalExtensions resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigAdditionalExtensions converts a CertificateAuthorityConfigX509ConfigAdditionalExtensions object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions) *beta.CertificateAuthorityConfigX509ConfigAdditionalExtensions {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigX509ConfigAdditionalExtensions{
 		ObjectId: ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId(p.GetObjectId()),
-		Critical: dcl.Bool(p.Critical),
-		Value:    dcl.StringOrNil(p.Value),
+		Critical: dcl.Bool(p.GetCritical()),
+		Value:    dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId converts a CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId resource from its proto representation.
+// ProtoToCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId converts a CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId(p *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) *beta.CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId {
 	if p == nil {
 		return nil
@@ -321,43 +320,43 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtension
 	return obj
 }
 
-// ProtoToCertificateAuthorityConfigPublicKey converts a CertificateAuthorityConfigPublicKey resource from its proto representation.
+// ProtoToCertificateAuthorityConfigPublicKey converts a CertificateAuthorityConfigPublicKey object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityConfigPublicKey(p *betapb.PrivatecaBetaCertificateAuthorityConfigPublicKey) *beta.CertificateAuthorityConfigPublicKey {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigPublicKey{
-		Key:    dcl.StringOrNil(p.Key),
+		Key:    dcl.StringOrNil(p.GetKey()),
 		Format: ProtoToPrivatecaBetaCertificateAuthorityConfigPublicKeyFormatEnum(p.GetFormat()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityKeySpec converts a CertificateAuthorityKeySpec resource from its proto representation.
+// ProtoToCertificateAuthorityKeySpec converts a CertificateAuthorityKeySpec object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityKeySpec(p *betapb.PrivatecaBetaCertificateAuthorityKeySpec) *beta.CertificateAuthorityKeySpec {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityKeySpec{
-		CloudKmsKeyVersion: dcl.StringOrNil(p.CloudKmsKeyVersion),
+		CloudKmsKeyVersion: dcl.StringOrNil(p.GetCloudKmsKeyVersion()),
 		Algorithm:          ProtoToPrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnum(p.GetAlgorithm()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthoritySubordinateConfig converts a CertificateAuthoritySubordinateConfig resource from its proto representation.
+// ProtoToCertificateAuthoritySubordinateConfig converts a CertificateAuthoritySubordinateConfig object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthoritySubordinateConfig(p *betapb.PrivatecaBetaCertificateAuthoritySubordinateConfig) *beta.CertificateAuthoritySubordinateConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthoritySubordinateConfig{
-		CertificateAuthority: dcl.StringOrNil(p.CertificateAuthority),
+		CertificateAuthority: dcl.StringOrNil(p.GetCertificateAuthority()),
 		PemIssuerChain:       ProtoToPrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChain(p.GetPemIssuerChain()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthoritySubordinateConfigPemIssuerChain converts a CertificateAuthoritySubordinateConfigPemIssuerChain resource from its proto representation.
+// ProtoToCertificateAuthoritySubordinateConfigPemIssuerChain converts a CertificateAuthoritySubordinateConfigPemIssuerChain object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChain(p *betapb.PrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChain) *beta.CertificateAuthoritySubordinateConfigPemIssuerChain {
 	if p == nil {
 		return nil
@@ -369,7 +368,7 @@ func ProtoToPrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChain(p *
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptions converts a CertificateAuthorityCaCertificateDescriptions resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptions converts a CertificateAuthorityCaCertificateDescriptions object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptions(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptions) *beta.CertificateAuthorityCaCertificateDescriptions {
 	if p == nil {
 		return nil
@@ -391,7 +390,7 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptions(p *betapb
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescription converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescription resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescription converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescription object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescription(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescription) *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescription {
 	if p == nil {
 		return nil
@@ -399,33 +398,33 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDes
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescription{
 		Subject:         ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject(p.GetSubject()),
 		SubjectAltName:  ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName(p.GetSubjectAltName()),
-		HexSerialNumber: dcl.StringOrNil(p.HexSerialNumber),
-		Lifetime:        dcl.StringOrNil(p.Lifetime),
+		HexSerialNumber: dcl.StringOrNil(p.GetHexSerialNumber()),
+		Lifetime:        dcl.StringOrNil(p.GetLifetime()),
 		NotBeforeTime:   dcl.StringOrNil(p.GetNotBeforeTime()),
 		NotAfterTime:    dcl.StringOrNil(p.GetNotAfterTime()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject) *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject{
-		CommonName:         dcl.StringOrNil(p.CommonName),
-		CountryCode:        dcl.StringOrNil(p.CountryCode),
-		Organization:       dcl.StringOrNil(p.Organization),
-		OrganizationalUnit: dcl.StringOrNil(p.OrganizationalUnit),
-		Locality:           dcl.StringOrNil(p.Locality),
-		Province:           dcl.StringOrNil(p.Province),
-		StreetAddress:      dcl.StringOrNil(p.StreetAddress),
-		PostalCode:         dcl.StringOrNil(p.PostalCode),
+		CommonName:         dcl.StringOrNil(p.GetCommonName()),
+		CountryCode:        dcl.StringOrNil(p.GetCountryCode()),
+		Organization:       dcl.StringOrNil(p.GetOrganization()),
+		OrganizationalUnit: dcl.StringOrNil(p.GetOrganizationalUnit()),
+		Locality:           dcl.StringOrNil(p.GetLocality()),
+		Province:           dcl.StringOrNil(p.GetProvince()),
+		StreetAddress:      dcl.StringOrNil(p.GetStreetAddress()),
+		PostalCode:         dcl.StringOrNil(p.GetPostalCode()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName) *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName {
 	if p == nil {
 		return nil
@@ -449,20 +448,20 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDes
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans) *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans{
 		ObjectId: ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId(p.GetObjectId()),
-		Critical: dcl.Bool(p.Critical),
-		Value:    dcl.StringOrNil(p.Value),
+		Critical: dcl.Bool(p.GetCritical()),
+		Value:    dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId) *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId {
 	if p == nil {
 		return nil
@@ -474,7 +473,7 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDes
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509Description converts a CertificateAuthorityCaCertificateDescriptionsX509Description resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509Description converts a CertificateAuthorityCaCertificateDescriptionsX509Description object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Description(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Description) *beta.CertificateAuthorityCaCertificateDescriptionsX509Description {
 	if p == nil {
 		return nil
@@ -495,7 +494,7 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Descri
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage {
 	if p == nil {
 		return nil
@@ -510,42 +509,42 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Descri
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage{
-		DigitalSignature:  dcl.Bool(p.DigitalSignature),
-		ContentCommitment: dcl.Bool(p.ContentCommitment),
-		KeyEncipherment:   dcl.Bool(p.KeyEncipherment),
-		DataEncipherment:  dcl.Bool(p.DataEncipherment),
-		KeyAgreement:      dcl.Bool(p.KeyAgreement),
-		CertSign:          dcl.Bool(p.CertSign),
-		CrlSign:           dcl.Bool(p.CrlSign),
-		EncipherOnly:      dcl.Bool(p.EncipherOnly),
-		DecipherOnly:      dcl.Bool(p.DecipherOnly),
+		DigitalSignature:  dcl.Bool(p.GetDigitalSignature()),
+		ContentCommitment: dcl.Bool(p.GetContentCommitment()),
+		KeyEncipherment:   dcl.Bool(p.GetKeyEncipherment()),
+		DataEncipherment:  dcl.Bool(p.GetDataEncipherment()),
+		KeyAgreement:      dcl.Bool(p.GetKeyAgreement()),
+		CertSign:          dcl.Bool(p.GetCertSign()),
+		CrlSign:           dcl.Bool(p.GetCrlSign()),
+		EncipherOnly:      dcl.Bool(p.GetEncipherOnly()),
+		DecipherOnly:      dcl.Bool(p.GetDecipherOnly()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage{
-		ServerAuth:      dcl.Bool(p.ServerAuth),
-		ClientAuth:      dcl.Bool(p.ClientAuth),
-		CodeSigning:     dcl.Bool(p.CodeSigning),
-		EmailProtection: dcl.Bool(p.EmailProtection),
-		TimeStamping:    dcl.Bool(p.TimeStamping),
-		OcspSigning:     dcl.Bool(p.OcspSigning),
+		ServerAuth:      dcl.Bool(p.GetServerAuth()),
+		ClientAuth:      dcl.Bool(p.GetClientAuth()),
+		CodeSigning:     dcl.Bool(p.GetCodeSigning()),
+		EmailProtection: dcl.Bool(p.GetEmailProtection()),
+		TimeStamping:    dcl.Bool(p.GetTimeStamping()),
+		OcspSigning:     dcl.Bool(p.GetOcspSigning()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages {
 	if p == nil {
 		return nil
@@ -557,19 +556,19 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Descri
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions{
-		IsCa:                dcl.Bool(p.IsCa),
-		MaxIssuerPathLength: dcl.Int64OrNil(p.MaxIssuerPathLength),
+		IsCa:                dcl.Bool(p.GetIsCa()),
+		MaxIssuerPathLength: dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds {
 	if p == nil {
 		return nil
@@ -581,20 +580,20 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Descri
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions{
 		ObjectId: ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId(p.GetObjectId()),
-		Critical: dcl.Bool(p.Critical),
-		Value:    dcl.StringOrNil(p.Value),
+		Critical: dcl.Bool(p.GetCritical()),
+		Value:    dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId) *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId {
 	if p == nil {
 		return nil
@@ -606,58 +605,58 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Descri
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsPublicKey converts a CertificateAuthorityCaCertificateDescriptionsPublicKey resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsPublicKey converts a CertificateAuthorityCaCertificateDescriptionsPublicKey object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey) *beta.CertificateAuthorityCaCertificateDescriptionsPublicKey {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsPublicKey{
-		Key:    dcl.StringOrNil(p.Key),
+		Key:    dcl.StringOrNil(p.GetKey()),
 		Format: ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum(p.GetFormat()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectKeyId converts a CertificateAuthorityCaCertificateDescriptionsSubjectKeyId resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsSubjectKeyId converts a CertificateAuthorityCaCertificateDescriptionsSubjectKeyId object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId) *beta.CertificateAuthorityCaCertificateDescriptionsSubjectKeyId {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsSubjectKeyId{
-		KeyId: dcl.StringOrNil(p.KeyId),
+		KeyId: dcl.StringOrNil(p.GetKeyId()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId converts a CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId converts a CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId) *beta.CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId{
-		KeyId: dcl.StringOrNil(p.KeyId),
+		KeyId: dcl.StringOrNil(p.GetKeyId()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityCaCertificateDescriptionsCertFingerprint converts a CertificateAuthorityCaCertificateDescriptionsCertFingerprint resource from its proto representation.
+// ProtoToCertificateAuthorityCaCertificateDescriptionsCertFingerprint converts a CertificateAuthorityCaCertificateDescriptionsCertFingerprint object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprint(p *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprint) *beta.CertificateAuthorityCaCertificateDescriptionsCertFingerprint {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsCertFingerprint{
-		Sha256Hash: dcl.StringOrNil(p.Sha256Hash),
+		Sha256Hash: dcl.StringOrNil(p.GetSha256Hash()),
 	}
 	return obj
 }
 
-// ProtoToCertificateAuthorityAccessUrls converts a CertificateAuthorityAccessUrls resource from its proto representation.
+// ProtoToCertificateAuthorityAccessUrls converts a CertificateAuthorityAccessUrls object from its proto representation.
 func ProtoToPrivatecaBetaCertificateAuthorityAccessUrls(p *betapb.PrivatecaBetaCertificateAuthorityAccessUrls) *beta.CertificateAuthorityAccessUrls {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CertificateAuthorityAccessUrls{
-		CaCertificateAccessUrl: dcl.StringOrNil(p.CaCertificateAccessUrl),
+		CaCertificateAccessUrl: dcl.StringOrNil(p.GetCaCertificateAccessUrl()),
 	}
 	for _, r := range p.GetCrlAccessUrls() {
 		obj.CrlAccessUrls = append(obj.CrlAccessUrls, r)
@@ -668,23 +667,23 @@ func ProtoToPrivatecaBetaCertificateAuthorityAccessUrls(p *betapb.PrivatecaBetaC
 // ProtoToCertificateAuthority converts a CertificateAuthority resource from its proto representation.
 func ProtoToCertificateAuthority(p *betapb.PrivatecaBetaCertificateAuthority) *beta.CertificateAuthority {
 	obj := &beta.CertificateAuthority{
-		Name:              dcl.StringOrNil(p.Name),
+		Name:              dcl.StringOrNil(p.GetName()),
 		Type:              ProtoToPrivatecaBetaCertificateAuthorityTypeEnum(p.GetType()),
 		Config:            ProtoToPrivatecaBetaCertificateAuthorityConfig(p.GetConfig()),
-		Lifetime:          dcl.StringOrNil(p.Lifetime),
+		Lifetime:          dcl.StringOrNil(p.GetLifetime()),
 		KeySpec:           ProtoToPrivatecaBetaCertificateAuthorityKeySpec(p.GetKeySpec()),
 		SubordinateConfig: ProtoToPrivatecaBetaCertificateAuthoritySubordinateConfig(p.GetSubordinateConfig()),
 		Tier:              ProtoToPrivatecaBetaCertificateAuthorityTierEnum(p.GetTier()),
 		State:             ProtoToPrivatecaBetaCertificateAuthorityStateEnum(p.GetState()),
-		GcsBucket:         dcl.StringOrNil(p.GcsBucket),
+		GcsBucket:         dcl.StringOrNil(p.GetGcsBucket()),
 		AccessUrls:        ProtoToPrivatecaBetaCertificateAuthorityAccessUrls(p.GetAccessUrls()),
 		CreateTime:        dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:        dcl.StringOrNil(p.GetDeleteTime()),
 		ExpireTime:        dcl.StringOrNil(p.GetExpireTime()),
-		Project:           dcl.StringOrNil(p.Project),
-		Location:          dcl.StringOrNil(p.Location),
-		CaPool:            dcl.StringOrNil(p.CaPool),
+		Project:           dcl.StringOrNil(p.GetProject()),
+		Location:          dcl.StringOrNil(p.GetLocation()),
+		CaPool:            dcl.StringOrNil(p.GetCaPool()),
 	}
 	for _, r := range p.GetPemCaCertificates() {
 		obj.PemCaCertificates = append(obj.PemCaCertificates, r)
@@ -761,606 +760,646 @@ func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEn
 	return betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum(0)
 }
 
-// CertificateAuthorityConfigToProto converts a CertificateAuthorityConfig resource to its proto representation.
+// CertificateAuthorityConfigToProto converts a CertificateAuthorityConfig object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigToProto(o *beta.CertificateAuthorityConfig) *betapb.PrivatecaBetaCertificateAuthorityConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfig{
-		SubjectConfig: PrivatecaBetaCertificateAuthorityConfigSubjectConfigToProto(o.SubjectConfig),
-		X509Config:    PrivatecaBetaCertificateAuthorityConfigX509ConfigToProto(o.X509Config),
-		PublicKey:     PrivatecaBetaCertificateAuthorityConfigPublicKeyToProto(o.PublicKey),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfig{}
+	p.SetSubjectConfig(PrivatecaBetaCertificateAuthorityConfigSubjectConfigToProto(o.SubjectConfig))
+	p.SetX509Config(PrivatecaBetaCertificateAuthorityConfigX509ConfigToProto(o.X509Config))
+	p.SetPublicKey(PrivatecaBetaCertificateAuthorityConfigPublicKeyToProto(o.PublicKey))
 	return p
 }
 
-// CertificateAuthorityConfigSubjectConfigToProto converts a CertificateAuthorityConfigSubjectConfig resource to its proto representation.
+// CertificateAuthorityConfigSubjectConfigToProto converts a CertificateAuthorityConfigSubjectConfig object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigSubjectConfigToProto(o *beta.CertificateAuthorityConfigSubjectConfig) *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfig{
-		Subject:        PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectToProto(o.Subject),
-		SubjectAltName: PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameToProto(o.SubjectAltName),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfig{}
+	p.SetSubject(PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectToProto(o.Subject))
+	p.SetSubjectAltName(PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameToProto(o.SubjectAltName))
 	return p
 }
 
-// CertificateAuthorityConfigSubjectConfigSubjectToProto converts a CertificateAuthorityConfigSubjectConfigSubject resource to its proto representation.
+// CertificateAuthorityConfigSubjectConfigSubjectToProto converts a CertificateAuthorityConfigSubjectConfigSubject object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectToProto(o *beta.CertificateAuthorityConfigSubjectConfigSubject) *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubject {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubject{
-		CommonName:         dcl.ValueOrEmptyString(o.CommonName),
-		CountryCode:        dcl.ValueOrEmptyString(o.CountryCode),
-		Organization:       dcl.ValueOrEmptyString(o.Organization),
-		OrganizationalUnit: dcl.ValueOrEmptyString(o.OrganizationalUnit),
-		Locality:           dcl.ValueOrEmptyString(o.Locality),
-		Province:           dcl.ValueOrEmptyString(o.Province),
-		StreetAddress:      dcl.ValueOrEmptyString(o.StreetAddress),
-		PostalCode:         dcl.ValueOrEmptyString(o.PostalCode),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubject{}
+	p.SetCommonName(dcl.ValueOrEmptyString(o.CommonName))
+	p.SetCountryCode(dcl.ValueOrEmptyString(o.CountryCode))
+	p.SetOrganization(dcl.ValueOrEmptyString(o.Organization))
+	p.SetOrganizationalUnit(dcl.ValueOrEmptyString(o.OrganizationalUnit))
+	p.SetLocality(dcl.ValueOrEmptyString(o.Locality))
+	p.SetProvince(dcl.ValueOrEmptyString(o.Province))
+	p.SetStreetAddress(dcl.ValueOrEmptyString(o.StreetAddress))
+	p.SetPostalCode(dcl.ValueOrEmptyString(o.PostalCode))
 	return p
 }
 
-// CertificateAuthorityConfigSubjectConfigSubjectAltNameToProto converts a CertificateAuthorityConfigSubjectConfigSubjectAltName resource to its proto representation.
+// CertificateAuthorityConfigSubjectConfigSubjectAltNameToProto converts a CertificateAuthorityConfigSubjectConfigSubjectAltName object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameToProto(o *beta.CertificateAuthorityConfigSubjectConfigSubjectAltName) *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName{}
-	for _, r := range o.DnsNames {
-		p.DnsNames = append(p.DnsNames, r)
+	sDnsNames := make([]string, len(o.DnsNames))
+	for i, r := range o.DnsNames {
+		sDnsNames[i] = r
 	}
-	for _, r := range o.Uris {
-		p.Uris = append(p.Uris, r)
+	p.SetDnsNames(sDnsNames)
+	sUris := make([]string, len(o.Uris))
+	for i, r := range o.Uris {
+		sUris[i] = r
 	}
-	for _, r := range o.EmailAddresses {
-		p.EmailAddresses = append(p.EmailAddresses, r)
+	p.SetUris(sUris)
+	sEmailAddresses := make([]string, len(o.EmailAddresses))
+	for i, r := range o.EmailAddresses {
+		sEmailAddresses[i] = r
 	}
-	for _, r := range o.IPAddresses {
-		p.IpAddresses = append(p.IpAddresses, r)
+	p.SetEmailAddresses(sEmailAddresses)
+	sIPAddresses := make([]string, len(o.IPAddresses))
+	for i, r := range o.IPAddresses {
+		sIPAddresses[i] = r
 	}
-	for _, r := range o.CustomSans {
-		p.CustomSans = append(p.CustomSans, PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansToProto(&r))
+	p.SetIpAddresses(sIPAddresses)
+	sCustomSans := make([]*betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans, len(o.CustomSans))
+	for i, r := range o.CustomSans {
+		sCustomSans[i] = PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansToProto(&r)
 	}
+	p.SetCustomSans(sCustomSans)
 	return p
 }
 
-// CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansToProto converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans resource to its proto representation.
+// CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansToProto converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansToProto(o *beta.CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans) *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans{
-		ObjectId: PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectIdToProto(o.ObjectId),
-		Critical: dcl.ValueOrEmptyBool(o.Critical),
-		Value:    dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans{}
+	p.SetObjectId(PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectIdToProto(o.ObjectId))
+	p.SetCritical(dcl.ValueOrEmptyBool(o.Critical))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
-// CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectIdToProto converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId resource to its proto representation.
+// CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectIdToProto converts a CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectIdToProto(o *beta.CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId) *betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigToProto converts a CertificateAuthorityConfigX509Config resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigToProto converts a CertificateAuthorityConfigX509Config object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigToProto(o *beta.CertificateAuthorityConfigX509Config) *betapb.PrivatecaBetaCertificateAuthorityConfigX509Config {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509Config{
-		KeyUsage:  PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageToProto(o.KeyUsage),
-		CaOptions: PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptionsToProto(o.CaOptions),
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509Config{}
+	p.SetKeyUsage(PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageToProto(o.KeyUsage))
+	p.SetCaOptions(PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptionsToProto(o.CaOptions))
+	sPolicyIds := make([]*betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds, len(o.PolicyIds))
+	for i, r := range o.PolicyIds {
+		sPolicyIds[i] = PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIdsToProto(&r)
 	}
-	for _, r := range o.PolicyIds {
-		p.PolicyIds = append(p.PolicyIds, PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIdsToProto(&r))
+	p.SetPolicyIds(sPolicyIds)
+	sAiaOcspServers := make([]string, len(o.AiaOcspServers))
+	for i, r := range o.AiaOcspServers {
+		sAiaOcspServers[i] = r
 	}
-	for _, r := range o.AiaOcspServers {
-		p.AiaOcspServers = append(p.AiaOcspServers, r)
+	p.SetAiaOcspServers(sAiaOcspServers)
+	sAdditionalExtensions := make([]*betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions, len(o.AdditionalExtensions))
+	for i, r := range o.AdditionalExtensions {
+		sAdditionalExtensions[i] = PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsToProto(&r)
 	}
-	for _, r := range o.AdditionalExtensions {
-		p.AdditionalExtensions = append(p.AdditionalExtensions, PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsToProto(&r))
-	}
+	p.SetAdditionalExtensions(sAdditionalExtensions)
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigKeyUsageToProto converts a CertificateAuthorityConfigX509ConfigKeyUsage resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigKeyUsageToProto converts a CertificateAuthorityConfigX509ConfigKeyUsage object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageToProto(o *beta.CertificateAuthorityConfigX509ConfigKeyUsage) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage{
-		BaseKeyUsage:     PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsageToProto(o.BaseKeyUsage),
-		ExtendedKeyUsage: PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsageToProto(o.ExtendedKeyUsage),
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage{}
+	p.SetBaseKeyUsage(PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsageToProto(o.BaseKeyUsage))
+	p.SetExtendedKeyUsage(PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsageToProto(o.ExtendedKeyUsage))
+	sUnknownExtendedKeyUsages := make([]*betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages, len(o.UnknownExtendedKeyUsages))
+	for i, r := range o.UnknownExtendedKeyUsages {
+		sUnknownExtendedKeyUsages[i] = PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesToProto(&r)
 	}
-	for _, r := range o.UnknownExtendedKeyUsages {
-		p.UnknownExtendedKeyUsages = append(p.UnknownExtendedKeyUsages, PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesToProto(&r))
-	}
+	p.SetUnknownExtendedKeyUsages(sUnknownExtendedKeyUsages)
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsageToProto converts a CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsageToProto converts a CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsageToProto(o *beta.CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage{
-		DigitalSignature:  dcl.ValueOrEmptyBool(o.DigitalSignature),
-		ContentCommitment: dcl.ValueOrEmptyBool(o.ContentCommitment),
-		KeyEncipherment:   dcl.ValueOrEmptyBool(o.KeyEncipherment),
-		DataEncipherment:  dcl.ValueOrEmptyBool(o.DataEncipherment),
-		KeyAgreement:      dcl.ValueOrEmptyBool(o.KeyAgreement),
-		CertSign:          dcl.ValueOrEmptyBool(o.CertSign),
-		CrlSign:           dcl.ValueOrEmptyBool(o.CrlSign),
-		EncipherOnly:      dcl.ValueOrEmptyBool(o.EncipherOnly),
-		DecipherOnly:      dcl.ValueOrEmptyBool(o.DecipherOnly),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage{}
+	p.SetDigitalSignature(dcl.ValueOrEmptyBool(o.DigitalSignature))
+	p.SetContentCommitment(dcl.ValueOrEmptyBool(o.ContentCommitment))
+	p.SetKeyEncipherment(dcl.ValueOrEmptyBool(o.KeyEncipherment))
+	p.SetDataEncipherment(dcl.ValueOrEmptyBool(o.DataEncipherment))
+	p.SetKeyAgreement(dcl.ValueOrEmptyBool(o.KeyAgreement))
+	p.SetCertSign(dcl.ValueOrEmptyBool(o.CertSign))
+	p.SetCrlSign(dcl.ValueOrEmptyBool(o.CrlSign))
+	p.SetEncipherOnly(dcl.ValueOrEmptyBool(o.EncipherOnly))
+	p.SetDecipherOnly(dcl.ValueOrEmptyBool(o.DecipherOnly))
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsageToProto converts a CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsageToProto converts a CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsageToProto(o *beta.CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage{
-		ServerAuth:      dcl.ValueOrEmptyBool(o.ServerAuth),
-		ClientAuth:      dcl.ValueOrEmptyBool(o.ClientAuth),
-		CodeSigning:     dcl.ValueOrEmptyBool(o.CodeSigning),
-		EmailProtection: dcl.ValueOrEmptyBool(o.EmailProtection),
-		TimeStamping:    dcl.ValueOrEmptyBool(o.TimeStamping),
-		OcspSigning:     dcl.ValueOrEmptyBool(o.OcspSigning),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage{}
+	p.SetServerAuth(dcl.ValueOrEmptyBool(o.ServerAuth))
+	p.SetClientAuth(dcl.ValueOrEmptyBool(o.ClientAuth))
+	p.SetCodeSigning(dcl.ValueOrEmptyBool(o.CodeSigning))
+	p.SetEmailProtection(dcl.ValueOrEmptyBool(o.EmailProtection))
+	p.SetTimeStamping(dcl.ValueOrEmptyBool(o.TimeStamping))
+	p.SetOcspSigning(dcl.ValueOrEmptyBool(o.OcspSigning))
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesToProto converts a CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesToProto converts a CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesToProto(o *beta.CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigCaOptionsToProto converts a CertificateAuthorityConfigX509ConfigCaOptions resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigCaOptionsToProto converts a CertificateAuthorityConfigX509ConfigCaOptions object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptionsToProto(o *beta.CertificateAuthorityConfigX509ConfigCaOptions) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions{
-		IsCa:                dcl.ValueOrEmptyBool(o.IsCa),
-		MaxIssuerPathLength: dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions{}
+	p.SetIsCa(dcl.ValueOrEmptyBool(o.IsCa))
+	p.SetMaxIssuerPathLength(dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength))
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigPolicyIdsToProto converts a CertificateAuthorityConfigX509ConfigPolicyIds resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigPolicyIdsToProto converts a CertificateAuthorityConfigX509ConfigPolicyIds object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIdsToProto(o *beta.CertificateAuthorityConfigX509ConfigPolicyIds) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigAdditionalExtensionsToProto converts a CertificateAuthorityConfigX509ConfigAdditionalExtensions resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigAdditionalExtensionsToProto converts a CertificateAuthorityConfigX509ConfigAdditionalExtensions object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsToProto(o *beta.CertificateAuthorityConfigX509ConfigAdditionalExtensions) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions{
-		ObjectId: PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectIdToProto(o.ObjectId),
-		Critical: dcl.ValueOrEmptyBool(o.Critical),
-		Value:    dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions{}
+	p.SetObjectId(PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectIdToProto(o.ObjectId))
+	p.SetCritical(dcl.ValueOrEmptyBool(o.Critical))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
-// CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectIdToProto converts a CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId resource to its proto representation.
+// CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectIdToProto converts a CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectIdToProto(o *beta.CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) *betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityConfigPublicKeyToProto converts a CertificateAuthorityConfigPublicKey resource to its proto representation.
+// CertificateAuthorityConfigPublicKeyToProto converts a CertificateAuthorityConfigPublicKey object to its proto representation.
 func PrivatecaBetaCertificateAuthorityConfigPublicKeyToProto(o *beta.CertificateAuthorityConfigPublicKey) *betapb.PrivatecaBetaCertificateAuthorityConfigPublicKey {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityConfigPublicKey{
-		Key:    dcl.ValueOrEmptyString(o.Key),
-		Format: PrivatecaBetaCertificateAuthorityConfigPublicKeyFormatEnumToProto(o.Format),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityConfigPublicKey{}
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	p.SetFormat(PrivatecaBetaCertificateAuthorityConfigPublicKeyFormatEnumToProto(o.Format))
 	return p
 }
 
-// CertificateAuthorityKeySpecToProto converts a CertificateAuthorityKeySpec resource to its proto representation.
+// CertificateAuthorityKeySpecToProto converts a CertificateAuthorityKeySpec object to its proto representation.
 func PrivatecaBetaCertificateAuthorityKeySpecToProto(o *beta.CertificateAuthorityKeySpec) *betapb.PrivatecaBetaCertificateAuthorityKeySpec {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityKeySpec{
-		CloudKmsKeyVersion: dcl.ValueOrEmptyString(o.CloudKmsKeyVersion),
-		Algorithm:          PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumToProto(o.Algorithm),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityKeySpec{}
+	p.SetCloudKmsKeyVersion(dcl.ValueOrEmptyString(o.CloudKmsKeyVersion))
+	p.SetAlgorithm(PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumToProto(o.Algorithm))
 	return p
 }
 
-// CertificateAuthoritySubordinateConfigToProto converts a CertificateAuthoritySubordinateConfig resource to its proto representation.
+// CertificateAuthoritySubordinateConfigToProto converts a CertificateAuthoritySubordinateConfig object to its proto representation.
 func PrivatecaBetaCertificateAuthoritySubordinateConfigToProto(o *beta.CertificateAuthoritySubordinateConfig) *betapb.PrivatecaBetaCertificateAuthoritySubordinateConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthoritySubordinateConfig{
-		CertificateAuthority: dcl.ValueOrEmptyString(o.CertificateAuthority),
-		PemIssuerChain:       PrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChainToProto(o.PemIssuerChain),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthoritySubordinateConfig{}
+	p.SetCertificateAuthority(dcl.ValueOrEmptyString(o.CertificateAuthority))
+	p.SetPemIssuerChain(PrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChainToProto(o.PemIssuerChain))
 	return p
 }
 
-// CertificateAuthoritySubordinateConfigPemIssuerChainToProto converts a CertificateAuthoritySubordinateConfigPemIssuerChain resource to its proto representation.
+// CertificateAuthoritySubordinateConfigPemIssuerChainToProto converts a CertificateAuthoritySubordinateConfigPemIssuerChain object to its proto representation.
 func PrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChainToProto(o *beta.CertificateAuthoritySubordinateConfigPemIssuerChain) *betapb.PrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChain {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChain{}
-	for _, r := range o.PemCertificates {
-		p.PemCertificates = append(p.PemCertificates, r)
+	sPemCertificates := make([]string, len(o.PemCertificates))
+	for i, r := range o.PemCertificates {
+		sPemCertificates[i] = r
 	}
+	p.SetPemCertificates(sPemCertificates)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsToProto converts a CertificateAuthorityCaCertificateDescriptions resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsToProto converts a CertificateAuthorityCaCertificateDescriptions object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsToProto(o *beta.CertificateAuthorityCaCertificateDescriptions) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptions{
-		SubjectDescription: PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionToProto(o.SubjectDescription),
-		X509Description:    PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionToProto(o.X509Description),
-		PublicKey:          PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyToProto(o.PublicKey),
-		SubjectKeyId:       PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyIdToProto(o.SubjectKeyId),
-		AuthorityKeyId:     PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyIdToProto(o.AuthorityKeyId),
-		CertFingerprint:    PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprintToProto(o.CertFingerprint),
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptions{}
+	p.SetSubjectDescription(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionToProto(o.SubjectDescription))
+	p.SetX509Description(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionToProto(o.X509Description))
+	p.SetPublicKey(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyToProto(o.PublicKey))
+	p.SetSubjectKeyId(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyIdToProto(o.SubjectKeyId))
+	p.SetAuthorityKeyId(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyIdToProto(o.AuthorityKeyId))
+	p.SetCertFingerprint(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprintToProto(o.CertFingerprint))
+	sCrlDistributionPoints := make([]string, len(o.CrlDistributionPoints))
+	for i, r := range o.CrlDistributionPoints {
+		sCrlDistributionPoints[i] = r
 	}
-	for _, r := range o.CrlDistributionPoints {
-		p.CrlDistributionPoints = append(p.CrlDistributionPoints, r)
+	p.SetCrlDistributionPoints(sCrlDistributionPoints)
+	sAiaIssuingCertificateUrls := make([]string, len(o.AiaIssuingCertificateUrls))
+	for i, r := range o.AiaIssuingCertificateUrls {
+		sAiaIssuingCertificateUrls[i] = r
 	}
-	for _, r := range o.AiaIssuingCertificateUrls {
-		p.AiaIssuingCertificateUrls = append(p.AiaIssuingCertificateUrls, r)
-	}
+	p.SetAiaIssuingCertificateUrls(sAiaIssuingCertificateUrls)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescription resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescription object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescription) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescription {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescription{
-		Subject:         PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectToProto(o.Subject),
-		SubjectAltName:  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameToProto(o.SubjectAltName),
-		HexSerialNumber: dcl.ValueOrEmptyString(o.HexSerialNumber),
-		Lifetime:        dcl.ValueOrEmptyString(o.Lifetime),
-		NotBeforeTime:   dcl.ValueOrEmptyString(o.NotBeforeTime),
-		NotAfterTime:    dcl.ValueOrEmptyString(o.NotAfterTime),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescription{}
+	p.SetSubject(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectToProto(o.Subject))
+	p.SetSubjectAltName(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameToProto(o.SubjectAltName))
+	p.SetHexSerialNumber(dcl.ValueOrEmptyString(o.HexSerialNumber))
+	p.SetLifetime(dcl.ValueOrEmptyString(o.Lifetime))
+	p.SetNotBeforeTime(dcl.ValueOrEmptyString(o.NotBeforeTime))
+	p.SetNotAfterTime(dcl.ValueOrEmptyString(o.NotAfterTime))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject{
-		CommonName:         dcl.ValueOrEmptyString(o.CommonName),
-		CountryCode:        dcl.ValueOrEmptyString(o.CountryCode),
-		Organization:       dcl.ValueOrEmptyString(o.Organization),
-		OrganizationalUnit: dcl.ValueOrEmptyString(o.OrganizationalUnit),
-		Locality:           dcl.ValueOrEmptyString(o.Locality),
-		Province:           dcl.ValueOrEmptyString(o.Province),
-		StreetAddress:      dcl.ValueOrEmptyString(o.StreetAddress),
-		PostalCode:         dcl.ValueOrEmptyString(o.PostalCode),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject{}
+	p.SetCommonName(dcl.ValueOrEmptyString(o.CommonName))
+	p.SetCountryCode(dcl.ValueOrEmptyString(o.CountryCode))
+	p.SetOrganization(dcl.ValueOrEmptyString(o.Organization))
+	p.SetOrganizationalUnit(dcl.ValueOrEmptyString(o.OrganizationalUnit))
+	p.SetLocality(dcl.ValueOrEmptyString(o.Locality))
+	p.SetProvince(dcl.ValueOrEmptyString(o.Province))
+	p.SetStreetAddress(dcl.ValueOrEmptyString(o.StreetAddress))
+	p.SetPostalCode(dcl.ValueOrEmptyString(o.PostalCode))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName{}
-	for _, r := range o.DnsNames {
-		p.DnsNames = append(p.DnsNames, r)
+	sDnsNames := make([]string, len(o.DnsNames))
+	for i, r := range o.DnsNames {
+		sDnsNames[i] = r
 	}
-	for _, r := range o.Uris {
-		p.Uris = append(p.Uris, r)
+	p.SetDnsNames(sDnsNames)
+	sUris := make([]string, len(o.Uris))
+	for i, r := range o.Uris {
+		sUris[i] = r
 	}
-	for _, r := range o.EmailAddresses {
-		p.EmailAddresses = append(p.EmailAddresses, r)
+	p.SetUris(sUris)
+	sEmailAddresses := make([]string, len(o.EmailAddresses))
+	for i, r := range o.EmailAddresses {
+		sEmailAddresses[i] = r
 	}
-	for _, r := range o.IPAddresses {
-		p.IpAddresses = append(p.IpAddresses, r)
+	p.SetEmailAddresses(sEmailAddresses)
+	sIPAddresses := make([]string, len(o.IPAddresses))
+	for i, r := range o.IPAddresses {
+		sIPAddresses[i] = r
 	}
-	for _, r := range o.CustomSans {
-		p.CustomSans = append(p.CustomSans, PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansToProto(&r))
+	p.SetIpAddresses(sIPAddresses)
+	sCustomSans := make([]*betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans, len(o.CustomSans))
+	for i, r := range o.CustomSans {
+		sCustomSans[i] = PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansToProto(&r)
 	}
+	p.SetCustomSans(sCustomSans)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans{
-		ObjectId: PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectIdToProto(o.ObjectId),
-		Critical: dcl.ValueOrEmptyBool(o.Critical),
-		Value:    dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans{}
+	p.SetObjectId(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectIdToProto(o.ObjectId))
+	p.SetCritical(dcl.ValueOrEmptyBool(o.Critical))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectIdToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectIdToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectIdToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionToProto converts a CertificateAuthorityCaCertificateDescriptionsX509Description resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionToProto converts a CertificateAuthorityCaCertificateDescriptionsX509Description object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509Description) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Description {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Description{
-		KeyUsage:  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageToProto(o.KeyUsage),
-		CaOptions: PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptionsToProto(o.CaOptions),
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Description{}
+	p.SetKeyUsage(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageToProto(o.KeyUsage))
+	p.SetCaOptions(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptionsToProto(o.CaOptions))
+	sPolicyIds := make([]*betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds, len(o.PolicyIds))
+	for i, r := range o.PolicyIds {
+		sPolicyIds[i] = PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIdsToProto(&r)
 	}
-	for _, r := range o.PolicyIds {
-		p.PolicyIds = append(p.PolicyIds, PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIdsToProto(&r))
+	p.SetPolicyIds(sPolicyIds)
+	sAiaOcspServers := make([]string, len(o.AiaOcspServers))
+	for i, r := range o.AiaOcspServers {
+		sAiaOcspServers[i] = r
 	}
-	for _, r := range o.AiaOcspServers {
-		p.AiaOcspServers = append(p.AiaOcspServers, r)
+	p.SetAiaOcspServers(sAiaOcspServers)
+	sAdditionalExtensions := make([]*betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions, len(o.AdditionalExtensions))
+	for i, r := range o.AdditionalExtensions {
+		sAdditionalExtensions[i] = PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsToProto(&r)
 	}
-	for _, r := range o.AdditionalExtensions {
-		p.AdditionalExtensions = append(p.AdditionalExtensions, PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsToProto(&r))
-	}
+	p.SetAdditionalExtensions(sAdditionalExtensions)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage{
-		BaseKeyUsage:     PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsageToProto(o.BaseKeyUsage),
-		ExtendedKeyUsage: PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsageToProto(o.ExtendedKeyUsage),
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage{}
+	p.SetBaseKeyUsage(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsageToProto(o.BaseKeyUsage))
+	p.SetExtendedKeyUsage(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsageToProto(o.ExtendedKeyUsage))
+	sUnknownExtendedKeyUsages := make([]*betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages, len(o.UnknownExtendedKeyUsages))
+	for i, r := range o.UnknownExtendedKeyUsages {
+		sUnknownExtendedKeyUsages[i] = PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsagesToProto(&r)
 	}
-	for _, r := range o.UnknownExtendedKeyUsages {
-		p.UnknownExtendedKeyUsages = append(p.UnknownExtendedKeyUsages, PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsagesToProto(&r))
-	}
+	p.SetUnknownExtendedKeyUsages(sUnknownExtendedKeyUsages)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsageToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsageToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsageToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage{
-		DigitalSignature:  dcl.ValueOrEmptyBool(o.DigitalSignature),
-		ContentCommitment: dcl.ValueOrEmptyBool(o.ContentCommitment),
-		KeyEncipherment:   dcl.ValueOrEmptyBool(o.KeyEncipherment),
-		DataEncipherment:  dcl.ValueOrEmptyBool(o.DataEncipherment),
-		KeyAgreement:      dcl.ValueOrEmptyBool(o.KeyAgreement),
-		CertSign:          dcl.ValueOrEmptyBool(o.CertSign),
-		CrlSign:           dcl.ValueOrEmptyBool(o.CrlSign),
-		EncipherOnly:      dcl.ValueOrEmptyBool(o.EncipherOnly),
-		DecipherOnly:      dcl.ValueOrEmptyBool(o.DecipherOnly),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage{}
+	p.SetDigitalSignature(dcl.ValueOrEmptyBool(o.DigitalSignature))
+	p.SetContentCommitment(dcl.ValueOrEmptyBool(o.ContentCommitment))
+	p.SetKeyEncipherment(dcl.ValueOrEmptyBool(o.KeyEncipherment))
+	p.SetDataEncipherment(dcl.ValueOrEmptyBool(o.DataEncipherment))
+	p.SetKeyAgreement(dcl.ValueOrEmptyBool(o.KeyAgreement))
+	p.SetCertSign(dcl.ValueOrEmptyBool(o.CertSign))
+	p.SetCrlSign(dcl.ValueOrEmptyBool(o.CrlSign))
+	p.SetEncipherOnly(dcl.ValueOrEmptyBool(o.EncipherOnly))
+	p.SetDecipherOnly(dcl.ValueOrEmptyBool(o.DecipherOnly))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsageToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsageToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsageToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage{
-		ServerAuth:      dcl.ValueOrEmptyBool(o.ServerAuth),
-		ClientAuth:      dcl.ValueOrEmptyBool(o.ClientAuth),
-		CodeSigning:     dcl.ValueOrEmptyBool(o.CodeSigning),
-		EmailProtection: dcl.ValueOrEmptyBool(o.EmailProtection),
-		TimeStamping:    dcl.ValueOrEmptyBool(o.TimeStamping),
-		OcspSigning:     dcl.ValueOrEmptyBool(o.OcspSigning),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage{}
+	p.SetServerAuth(dcl.ValueOrEmptyBool(o.ServerAuth))
+	p.SetClientAuth(dcl.ValueOrEmptyBool(o.ClientAuth))
+	p.SetCodeSigning(dcl.ValueOrEmptyBool(o.CodeSigning))
+	p.SetEmailProtection(dcl.ValueOrEmptyBool(o.EmailProtection))
+	p.SetTimeStamping(dcl.ValueOrEmptyBool(o.TimeStamping))
+	p.SetOcspSigning(dcl.ValueOrEmptyBool(o.OcspSigning))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsagesToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsagesToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsagesToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptionsToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptionsToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptionsToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions{
-		IsCa:                dcl.ValueOrEmptyBool(o.IsCa),
-		MaxIssuerPathLength: dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions{}
+	p.SetIsCa(dcl.ValueOrEmptyBool(o.IsCa))
+	p.SetMaxIssuerPathLength(dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIdsToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIdsToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIdsToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions{
-		ObjectId: PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectIdToProto(o.ObjectId),
-		Critical: dcl.ValueOrEmptyBool(o.Critical),
-		Value:    dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions{}
+	p.SetObjectId(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectIdToProto(o.ObjectId))
+	p.SetCritical(dcl.ValueOrEmptyBool(o.Critical))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectIdToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectIdToProto converts a CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectIdToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsPublicKeyToProto converts a CertificateAuthorityCaCertificateDescriptionsPublicKey resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsPublicKeyToProto converts a CertificateAuthorityCaCertificateDescriptionsPublicKey object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsPublicKey) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey{
-		Key:    dcl.ValueOrEmptyString(o.Key),
-		Format: PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumToProto(o.Format),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey{}
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	p.SetFormat(PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumToProto(o.Format))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsSubjectKeyIdToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectKeyId resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsSubjectKeyIdToProto converts a CertificateAuthorityCaCertificateDescriptionsSubjectKeyId object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyIdToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsSubjectKeyId) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId{
-		KeyId: dcl.ValueOrEmptyString(o.KeyId),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId{}
+	p.SetKeyId(dcl.ValueOrEmptyString(o.KeyId))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsAuthorityKeyIdToProto converts a CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsAuthorityKeyIdToProto converts a CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyIdToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId{
-		KeyId: dcl.ValueOrEmptyString(o.KeyId),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId{}
+	p.SetKeyId(dcl.ValueOrEmptyString(o.KeyId))
 	return p
 }
 
-// CertificateAuthorityCaCertificateDescriptionsCertFingerprintToProto converts a CertificateAuthorityCaCertificateDescriptionsCertFingerprint resource to its proto representation.
+// CertificateAuthorityCaCertificateDescriptionsCertFingerprintToProto converts a CertificateAuthorityCaCertificateDescriptionsCertFingerprint object to its proto representation.
 func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprintToProto(o *beta.CertificateAuthorityCaCertificateDescriptionsCertFingerprint) *betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprint {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprint{
-		Sha256Hash: dcl.ValueOrEmptyString(o.Sha256Hash),
-	}
+	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprint{}
+	p.SetSha256Hash(dcl.ValueOrEmptyString(o.Sha256Hash))
 	return p
 }
 
-// CertificateAuthorityAccessUrlsToProto converts a CertificateAuthorityAccessUrls resource to its proto representation.
+// CertificateAuthorityAccessUrlsToProto converts a CertificateAuthorityAccessUrls object to its proto representation.
 func PrivatecaBetaCertificateAuthorityAccessUrlsToProto(o *beta.CertificateAuthorityAccessUrls) *betapb.PrivatecaBetaCertificateAuthorityAccessUrls {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.PrivatecaBetaCertificateAuthorityAccessUrls{
-		CaCertificateAccessUrl: dcl.ValueOrEmptyString(o.CaCertificateAccessUrl),
+	p := &betapb.PrivatecaBetaCertificateAuthorityAccessUrls{}
+	p.SetCaCertificateAccessUrl(dcl.ValueOrEmptyString(o.CaCertificateAccessUrl))
+	sCrlAccessUrls := make([]string, len(o.CrlAccessUrls))
+	for i, r := range o.CrlAccessUrls {
+		sCrlAccessUrls[i] = r
 	}
-	for _, r := range o.CrlAccessUrls {
-		p.CrlAccessUrls = append(p.CrlAccessUrls, r)
-	}
+	p.SetCrlAccessUrls(sCrlAccessUrls)
 	return p
 }
 
 // CertificateAuthorityToProto converts a CertificateAuthority resource to its proto representation.
 func CertificateAuthorityToProto(resource *beta.CertificateAuthority) *betapb.PrivatecaBetaCertificateAuthority {
-	p := &betapb.PrivatecaBetaCertificateAuthority{
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		Type:              PrivatecaBetaCertificateAuthorityTypeEnumToProto(resource.Type),
-		Config:            PrivatecaBetaCertificateAuthorityConfigToProto(resource.Config),
-		Lifetime:          dcl.ValueOrEmptyString(resource.Lifetime),
-		KeySpec:           PrivatecaBetaCertificateAuthorityKeySpecToProto(resource.KeySpec),
-		SubordinateConfig: PrivatecaBetaCertificateAuthoritySubordinateConfigToProto(resource.SubordinateConfig),
-		Tier:              PrivatecaBetaCertificateAuthorityTierEnumToProto(resource.Tier),
-		State:             PrivatecaBetaCertificateAuthorityStateEnumToProto(resource.State),
-		GcsBucket:         dcl.ValueOrEmptyString(resource.GcsBucket),
-		AccessUrls:        PrivatecaBetaCertificateAuthorityAccessUrlsToProto(resource.AccessUrls),
-		CreateTime:        dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:        dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:        dcl.ValueOrEmptyString(resource.DeleteTime),
-		ExpireTime:        dcl.ValueOrEmptyString(resource.ExpireTime),
-		Project:           dcl.ValueOrEmptyString(resource.Project),
-		Location:          dcl.ValueOrEmptyString(resource.Location),
-		CaPool:            dcl.ValueOrEmptyString(resource.CaPool),
+	p := &betapb.PrivatecaBetaCertificateAuthority{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetType(PrivatecaBetaCertificateAuthorityTypeEnumToProto(resource.Type))
+	p.SetConfig(PrivatecaBetaCertificateAuthorityConfigToProto(resource.Config))
+	p.SetLifetime(dcl.ValueOrEmptyString(resource.Lifetime))
+	p.SetKeySpec(PrivatecaBetaCertificateAuthorityKeySpecToProto(resource.KeySpec))
+	p.SetSubordinateConfig(PrivatecaBetaCertificateAuthoritySubordinateConfigToProto(resource.SubordinateConfig))
+	p.SetTier(PrivatecaBetaCertificateAuthorityTierEnumToProto(resource.Tier))
+	p.SetState(PrivatecaBetaCertificateAuthorityStateEnumToProto(resource.State))
+	p.SetGcsBucket(dcl.ValueOrEmptyString(resource.GcsBucket))
+	p.SetAccessUrls(PrivatecaBetaCertificateAuthorityAccessUrlsToProto(resource.AccessUrls))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetExpireTime(dcl.ValueOrEmptyString(resource.ExpireTime))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetCaPool(dcl.ValueOrEmptyString(resource.CaPool))
+	sPemCaCertificates := make([]string, len(resource.PemCaCertificates))
+	for i, r := range resource.PemCaCertificates {
+		sPemCaCertificates[i] = r
 	}
-	for _, r := range resource.PemCaCertificates {
-		p.PemCaCertificates = append(p.PemCaCertificates, r)
+	p.SetPemCaCertificates(sPemCaCertificates)
+	sCaCertificateDescriptions := make([]*betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptions, len(resource.CaCertificateDescriptions))
+	for i, r := range resource.CaCertificateDescriptions {
+		sCaCertificateDescriptions[i] = PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsToProto(&r)
 	}
-	for _, r := range resource.CaCertificateDescriptions {
-		p.CaCertificateDescriptions = append(p.CaCertificateDescriptions, PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsToProto(&r))
+	p.SetCaCertificateDescriptions(sCaCertificateDescriptions)
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyCertificateAuthority handles the gRPC request by passing it to the underlying CertificateAuthority Apply() method.
+// applyCertificateAuthority handles the gRPC request by passing it to the underlying CertificateAuthority Apply() method.
 func (s *CertificateAuthorityServer) applyCertificateAuthority(ctx context.Context, c *beta.Client, request *betapb.ApplyPrivatecaBetaCertificateAuthorityRequest) (*betapb.PrivatecaBetaCertificateAuthority, error) {
 	p := ProtoToCertificateAuthority(request.GetResource())
 	res, err := c.ApplyCertificateAuthority(ctx, p)
@@ -1371,9 +1410,9 @@ func (s *CertificateAuthorityServer) applyCertificateAuthority(ctx context.Conte
 	return r, nil
 }
 
-// ApplyCertificateAuthority handles the gRPC request by passing it to the underlying CertificateAuthority Apply() method.
+// applyPrivatecaBetaCertificateAuthority handles the gRPC request by passing it to the underlying CertificateAuthority Apply() method.
 func (s *CertificateAuthorityServer) ApplyPrivatecaBetaCertificateAuthority(ctx context.Context, request *betapb.ApplyPrivatecaBetaCertificateAuthorityRequest) (*betapb.PrivatecaBetaCertificateAuthority, error) {
-	cl, err := createConfigCertificateAuthority(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCertificateAuthority(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -1383,7 +1422,7 @@ func (s *CertificateAuthorityServer) ApplyPrivatecaBetaCertificateAuthority(ctx 
 // DeleteCertificateAuthority handles the gRPC request by passing it to the underlying CertificateAuthority Delete() method.
 func (s *CertificateAuthorityServer) DeletePrivatecaBetaCertificateAuthority(ctx context.Context, request *betapb.DeletePrivatecaBetaCertificateAuthorityRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigCertificateAuthority(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCertificateAuthority(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -1393,12 +1432,12 @@ func (s *CertificateAuthorityServer) DeletePrivatecaBetaCertificateAuthority(ctx
 
 // ListPrivatecaBetaCertificateAuthority handles the gRPC request by passing it to the underlying CertificateAuthorityList() method.
 func (s *CertificateAuthorityServer) ListPrivatecaBetaCertificateAuthority(ctx context.Context, request *betapb.ListPrivatecaBetaCertificateAuthorityRequest) (*betapb.ListPrivatecaBetaCertificateAuthorityResponse, error) {
-	cl, err := createConfigCertificateAuthority(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCertificateAuthority(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCertificateAuthority(ctx, request.Project, request.Location, request.CaPool)
+	resources, err := cl.ListCertificateAuthority(ctx, request.GetProject(), request.GetLocation(), request.GetCaPool())
 	if err != nil {
 		return nil, err
 	}
@@ -1407,7 +1446,9 @@ func (s *CertificateAuthorityServer) ListPrivatecaBetaCertificateAuthority(ctx c
 		rp := CertificateAuthorityToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListPrivatecaBetaCertificateAuthorityResponse{Items: protos}, nil
+	p := &betapb.ListPrivatecaBetaCertificateAuthorityResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCertificateAuthority(ctx context.Context, service_account_file string) (*beta.Client, error) {

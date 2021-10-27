@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 
 enum PrivatecaBetaCaPoolTierEnum {
   PrivatecaBetaCaPoolTierEnumNO_VALUE_DO_NOT_USE = 0;

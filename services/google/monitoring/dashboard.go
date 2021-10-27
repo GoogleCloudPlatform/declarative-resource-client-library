@@ -3627,7 +3627,10 @@ func applyDashboardHelper(c *Client, ctx context.Context, rawDesired *Dashboard,
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyDashboardDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyDashboardDiff(c *Client, ctx context.Context, desired *Dashboard, rawDesired *Dashboard, ops []dashboardApiOperation, opts ...dcl.ApplyOption) (*Dashboard, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetDashboard(ctx, desired.urlNormalized())

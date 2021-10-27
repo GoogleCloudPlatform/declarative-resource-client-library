@@ -597,7 +597,10 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyFeatureDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyFeatureDiff(c *Client, ctx context.Context, desired *Feature, rawDesired *Feature, ops []featureApiOperation, opts ...dcl.ApplyOption) (*Feature, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetFeature(ctx, desired.urlNormalized())

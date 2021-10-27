@@ -253,7 +253,10 @@ func applyKeyRingHelper(c *Client, ctx context.Context, rawDesired *KeyRing, opt
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyKeyRingDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyKeyRingDiff(c *Client, ctx context.Context, desired *KeyRing, rawDesired *KeyRing, ops []keyRingApiOperation, opts ...dcl.ApplyOption) (*KeyRing, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetKeyRing(ctx, desired.urlNormalized())

@@ -338,7 +338,10 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyTopicDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyTopicDiff(c *Client, ctx context.Context, desired *Topic, rawDesired *Topic, ops []topicApiOperation, opts ...dcl.ApplyOption) (*Topic, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetTopic(ctx, desired.urlNormalized())

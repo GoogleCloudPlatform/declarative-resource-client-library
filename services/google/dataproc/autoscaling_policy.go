@@ -507,7 +507,10 @@ func applyAutoscalingPolicyHelper(c *Client, ctx context.Context, rawDesired *Au
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyAutoscalingPolicyDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyAutoscalingPolicyDiff(c *Client, ctx context.Context, desired *AutoscalingPolicy, rawDesired *AutoscalingPolicy, ops []autoscalingPolicyApiOperation, opts ...dcl.ApplyOption) (*AutoscalingPolicy, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetAutoscalingPolicy(ctx, desired.urlNormalized())

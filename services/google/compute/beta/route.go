@@ -398,7 +398,10 @@ func applyRouteHelper(c *Client, ctx context.Context, rawDesired *Route, opts ..
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyRouteDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyRouteDiff(c *Client, ctx context.Context, desired *Route, rawDesired *Route, ops []routeApiOperation, opts ...dcl.ApplyOption) (*Route, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetRoute(ctx, desired.urlNormalized())

@@ -376,7 +376,10 @@ func applyNetworkHelper(c *Client, ctx context.Context, rawDesired *Network, opt
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyNetworkDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyNetworkDiff(c *Client, ctx context.Context, desired *Network, rawDesired *Network, ops []networkApiOperation, opts ...dcl.ApplyOption) (*Network, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetNetwork(ctx, desired.urlNormalized())

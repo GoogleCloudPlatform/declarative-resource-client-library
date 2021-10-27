@@ -611,7 +611,10 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyInstanceDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyInstanceDiff(c *Client, ctx context.Context, desired *Instance, rawDesired *Instance, ops []instanceApiOperation, opts ...dcl.ApplyOption) (*Instance, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetInstance(ctx, desired.urlNormalized())

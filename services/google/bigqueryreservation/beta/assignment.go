@@ -353,7 +353,10 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyAssignmentDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyAssignmentDiff(c *Client, ctx context.Context, desired *Assignment, rawDesired *Assignment, ops []assignmentApiOperation, opts ...dcl.ApplyOption) (*Assignment, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetAssignment(ctx, desired.urlNormalized())
