@@ -186,7 +186,5 @@ components:
                 was issued.
               x-kubernetes-immutable: true
               x-dcl-references:
-              - resource: Compute/Subnetwork
-                field: project
               - resource: Cloudresourcemanager/Project
                 field: name

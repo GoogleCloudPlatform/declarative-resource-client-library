@@ -43,6 +43,8 @@ variables:
   type: aws_security_group
 - name: aws_subnet
   type: aws_subnet
+- name: aws_subnet
+  type: aws_subnet
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
 - name: aws_volume_encryption_key
@@ -61,5 +63,7 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: test_service_account
+  type: test_service_account
 - name: test_service_account
   type: test_service_account

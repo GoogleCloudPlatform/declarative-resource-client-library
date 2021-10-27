@@ -40,10 +40,14 @@ variables:
   type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: cluster
   type: resource_name
 - name: pool
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: test_service_account
