@@ -40,6 +40,8 @@ variables:
   type: aws_vpc
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: cluster
   type: resource_name
 - name: pool

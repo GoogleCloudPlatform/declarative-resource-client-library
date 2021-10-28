@@ -39,8 +39,16 @@ variables:
   type: project
 - name: project
   type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
 - name: range
   type: resource_name
+- name: region
+  type: region
 - name: region
   type: region
 - name: region
