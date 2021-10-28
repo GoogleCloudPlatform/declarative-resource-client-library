@@ -28,6 +28,14 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
 - name: region
   type: region
 - name: region
@@ -38,7 +46,5 @@ variables:
   type: resource_name
 - name: service
   type: resource_name
-- name: zone
-  type: zone
 - name: zone
   type: zone

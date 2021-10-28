@@ -42,3 +42,5 @@ variables:
   type: project
 - name: project
   type: project
+- name: project
+  type: project

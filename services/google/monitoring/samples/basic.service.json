@@ -1,6 +1,5 @@
 {
   "name": "{{name}}",
   "displayName": "{{displayname}}",
-  "project": "{{project}}",
-  "custom": {}
+  "project": "{{project}}"
 }

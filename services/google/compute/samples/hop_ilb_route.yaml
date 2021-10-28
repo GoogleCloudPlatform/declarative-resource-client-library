@@ -43,6 +43,8 @@ variables:
   type: resource_name
 - name: region
   type: region
+- name: region
+  type: region
 - name: rule
   type: resource_name
 - name: service

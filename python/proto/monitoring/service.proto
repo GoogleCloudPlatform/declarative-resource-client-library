@@ -25,78 +25,13 @@ message MonitoringService {
   string name = 1;
   string display_name = 2;
   MonitoringServiceCustom custom = 3;
-  MonitoringServiceAppEngine app_engine = 4;
-  MonitoringServiceCloudEndpoints cloud_endpoints = 5;
-  MonitoringServiceClusterIstio cluster_istio = 6;
-  MonitoringServiceMeshIstio mesh_istio = 7;
-  MonitoringServiceIstioCanonicalService istio_canonical_service = 8;
-  MonitoringServiceCloudRun cloud_run = 9;
-  MonitoringServiceGkeNamespace gke_namespace = 10;
-  MonitoringServiceGkeWorkload gke_workload = 11;
-  MonitoringServiceGkeService gke_service = 12;
-  MonitoringServiceTelemetry telemetry = 13;
-  map<string, string> user_labels = 14;
-  bool deleted = 15;
-  string project = 16;
+  MonitoringServiceTelemetry telemetry = 4;
+  map<string, string> user_labels = 5;
+  bool deleted = 6;
+  string project = 7;
 }
 
 message MonitoringServiceCustom {
-}
-
-message MonitoringServiceAppEngine {
-  string module_id = 1;
-}
-
-message MonitoringServiceCloudEndpoints {
-  string service = 1;
-}
-
-message MonitoringServiceClusterIstio {
-  string location = 1;
-  string cluster_name = 2;
-  string service_namespace = 3;
-  string service_name = 4;
-}
-
-message MonitoringServiceMeshIstio {
-  string mesh_uid = 1;
-  string service_namespace = 2;
-  string service_name = 3;
-}
-
-message MonitoringServiceIstioCanonicalService {
-  string mesh_uid = 1;
-  string canonical_service_namespace = 2;
-  string canonical_service = 3;
-}
-
-message MonitoringServiceCloudRun {
-  string service_name = 1;
-  string location = 2;
-}
-
-message MonitoringServiceGkeNamespace {
-  string project_id = 1;
-  string location = 2;
-  string cluster_name = 3;
-  string namespace_name = 4;
-}
-
-message MonitoringServiceGkeWorkload {
-  string project_id = 1;
-  string location = 2;
-  string cluster_name = 3;
-  string namespace_name = 4;
-  string top_level_controller_type = 5;
-  string top_level_controller_name = 6;
-}
-
-message MonitoringServiceGkeService {
-  string project_id = 1;
-  string location = 2;
-  string cluster_name = 3;
-  string namespace_name = 4;
-  string service_name = 5;
 }
 
 message MonitoringServiceTelemetry {

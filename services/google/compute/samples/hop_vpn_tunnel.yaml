@@ -37,8 +37,6 @@ variables:
   type: resource_name
 - name: gateway
   type: resource_name
-- name: gateway
-  type: resource_name
 - name: name
   type: resource_name
 - name: project
@@ -53,6 +51,18 @@ variables:
   type: project
 - name: project
   type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: region
+  type: region
+- name: region
+  type: region
 - name: region
   type: region
 - name: region

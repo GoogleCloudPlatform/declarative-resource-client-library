@@ -25,78 +25,13 @@ message MonitoringBetaService {
   string name = 1;
   string display_name = 2;
   MonitoringBetaServiceCustom custom = 3;
-  MonitoringBetaServiceAppEngine app_engine = 4;
-  MonitoringBetaServiceCloudEndpoints cloud_endpoints = 5;
-  MonitoringBetaServiceClusterIstio cluster_istio = 6;
-  MonitoringBetaServiceMeshIstio mesh_istio = 7;
-  MonitoringBetaServiceIstioCanonicalService istio_canonical_service = 8;
-  MonitoringBetaServiceCloudRun cloud_run = 9;
-  MonitoringBetaServiceGkeNamespace gke_namespace = 10;
-  MonitoringBetaServiceGkeWorkload gke_workload = 11;
-  MonitoringBetaServiceGkeService gke_service = 12;
-  MonitoringBetaServiceTelemetry telemetry = 13;
-  map<string, string> user_labels = 14;
-  bool deleted = 15;
-  string project = 16;
+  MonitoringBetaServiceTelemetry telemetry = 4;
+  map<string, string> user_labels = 5;
+  bool deleted = 6;
+  string project = 7;
 }
 
 message MonitoringBetaServiceCustom {
-}
-
-message MonitoringBetaServiceAppEngine {
-  string module_id = 1;
-}
-
-message MonitoringBetaServiceCloudEndpoints {
-  string service = 1;
-}
-
-message MonitoringBetaServiceClusterIstio {
-  string location = 1;
-  string cluster_name = 2;
-  string service_namespace = 3;
-  string service_name = 4;
-}
-
-message MonitoringBetaServiceMeshIstio {
-  string mesh_uid = 1;
-  string service_namespace = 2;
-  string service_name = 3;
-}
-
-message MonitoringBetaServiceIstioCanonicalService {
-  string mesh_uid = 1;
-  string canonical_service_namespace = 2;
-  string canonical_service = 3;
-}
-
-message MonitoringBetaServiceCloudRun {
-  string service_name = 1;
-  string location = 2;
-}
-
-message MonitoringBetaServiceGkeNamespace {
-  string project_id = 1;
-  string location = 2;
-  string cluster_name = 3;
-  string namespace_name = 4;
-}
-
-message MonitoringBetaServiceGkeWorkload {
-  string project_id = 1;
-  string location = 2;
-  string cluster_name = 3;
-  string namespace_name = 4;
-  string top_level_controller_type = 5;
-  string top_level_controller_name = 6;
-}
-
-message MonitoringBetaServiceGkeService {
-  string project_id = 1;
-  string location = 2;
-  string cluster_name = 3;
-  string namespace_name = 4;
-  string service_name = 5;
 }
 
 message MonitoringBetaServiceTelemetry {
