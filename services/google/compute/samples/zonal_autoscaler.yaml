@@ -36,9 +36,15 @@ variables:
   type: project
 - name: project
   type: project
+- name: project
+  type: project
+- name: project
+  type: project
 - name: s_check
   type: resource_name
 - name: template1
   type: resource_name
+- name: zone
+  type: zone
 - name: zone
   type: zone

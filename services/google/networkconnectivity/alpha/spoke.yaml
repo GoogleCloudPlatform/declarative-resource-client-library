@@ -62,6 +62,7 @@ components:
       title: Spoke
       x-dcl-id: projects/{{project}}/locations/{{location}}/spokes/{{name}}
       x-dcl-parent-container: project
+      x-dcl-labels: labels
       type: object
       required:
       - name
