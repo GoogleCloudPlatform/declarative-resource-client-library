@@ -366,7 +366,6 @@ components:
           description: 'Output only. The fully qualified name of this Service, composed
             from CreateServiceRequest.parent and CreateServiceRequest.service_id.
             Format: projects/{project}/locations/{location}/services/{service_id}'
-          x-dcl-server-generated-parameter: true
         project:
           type: string
           x-dcl-go-name: Project

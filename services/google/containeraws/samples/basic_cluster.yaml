@@ -43,8 +43,6 @@ variables:
   type: aws_region
 - name: aws_region
   type: aws_region
-- name: aws_region
-  type: aws_region
 - name: aws_security_group
   type: aws_security_group
 - name: aws_subnet
@@ -55,12 +53,6 @@ variables:
   type: aws_volume_encryption_key
 - name: aws_vpc
   type: aws_vpc
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: cluster

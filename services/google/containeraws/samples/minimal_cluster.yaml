@@ -36,10 +36,10 @@ variables:
   type: aws_region
 - name: aws_subnet
   type: aws_subnet
+- name: aws_subnet
+  type: aws_subnet
 - name: aws_vpc
   type: aws_vpc
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: cluster

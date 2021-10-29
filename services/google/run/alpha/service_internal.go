@@ -530,13 +530,6 @@ func (op *createServiceOperation) do(ctx context.Context, r *Service, c *Client)
 	c.Config.Logger.InfoWithContextf(ctx, "Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["name"].(string)
-	if !ok {
-		return fmt.Errorf("expected name to be a string in %v, was %T", op.response, op.response["name"])
-	}
-	r.Name = &name
-
 	if _, err := c.GetService(ctx, r); err != nil {
 		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
@@ -579,12 +572,6 @@ func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Serv
 		fetchState = rawDesired
 	}
 
-	if fetchState.Name == nil {
-		// We cannot perform a get because of lack of information. We have to assume
-		// that this is being created for the first time.
-		desired, err := canonicalizeServiceDesiredState(rawDesired, nil)
-		return nil, desired, nil, err
-	}
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetService(ctx, fetchState)
 	if rawInitial == nil {
@@ -643,7 +630,7 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &Service{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -700,6 +687,9 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
@@ -3294,7 +3284,7 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4490,7 +4480,7 @@ func flattenService(c *Client, i interface{}) *Service {
 	}
 
 	res := &Service{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.Name = dcl.FlattenString(m["name"])
 	res.Description = dcl.FlattenString(m["description"])
 	res.Uid = dcl.FlattenString(m["uid"])
 	res.Generation = dcl.FlattenInteger(m["generation"])
