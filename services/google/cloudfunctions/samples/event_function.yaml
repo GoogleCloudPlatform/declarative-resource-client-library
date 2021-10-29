@@ -16,6 +16,7 @@ description: An example of an event cloudfunctions function
 type: function
 versions:
 - ga
+- beta
 resource: samples/event.function.json
 dependencies:
 - samples/basic.pubsub.topic.json
@@ -38,6 +39,14 @@ variables:
   type: resource_name
 - name: function_network
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
 - name: project
   type: project
 - name: region

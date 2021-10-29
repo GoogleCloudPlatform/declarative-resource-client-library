@@ -34,6 +34,8 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: project
+  type: project
 - name: s_check
   type: resource_name
 - name: template1

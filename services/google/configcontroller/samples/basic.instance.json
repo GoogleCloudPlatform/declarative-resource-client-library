@@ -7,15 +7,10 @@
   },
   "managementConfig": {
     "standardManagementConfig": {
-      "network": "{{ref:basic.compute.network.json:name}}",
+      "network": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}",
       "masterIpv4CidrBlock": "172.16.123.64/28",
       "clusterCidrBlock": "/20",
       "servicesCidrBlock": "/24"
-    }
-  },
-  "bundlesConfig": {
-    "configControllerConfig": {
-      "enabled": true
     }
   }
 }

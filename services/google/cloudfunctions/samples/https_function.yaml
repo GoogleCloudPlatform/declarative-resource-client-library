@@ -16,6 +16,7 @@ description: An example of an https cloudfunctions function.
 type: function
 versions:
 - ga
+- beta
 resource: samples/https.function.json
 variables:
 - name: function

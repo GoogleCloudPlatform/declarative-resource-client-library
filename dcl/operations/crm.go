@@ -43,7 +43,9 @@ type CRMOperation struct {
 
 // CRMOperationError is the GCP operation's Error body.
 type CRMOperationError struct {
-	Errors []*CRMOperationErrorError `json:"errors"`
+	Code    int                       `json:"code"`
+	Message string                    `json:"message"`
+	Errors  []*CRMOperationErrorError `json:"errors"`
 }
 
 // String formats the CRMOperationError as an error string.
@@ -54,6 +56,9 @@ func (e *CRMOperationError) String() string {
 	var b strings.Builder
 	for _, err := range e.Errors {
 		fmt.Fprintf(&b, "error code %q, message: %s\n", err.Code, err.Message)
+	}
+	if e.Code != 0 || e.Message != "" {
+		fmt.Fprintf(&b, "error code %d, message: %s\n", e.Code, e.Message)
 	}
 
 	return b.String()

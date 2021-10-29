@@ -71,6 +71,7 @@ components:
       - authorization
       - project
       - location
+      - fleet
       properties:
         annotations:
           type: object
@@ -128,6 +129,7 @@ components:
           required:
           - version
           - subnetIds
+          - configEncryption
           - iamInstanceProfile
           - databaseEncryption
           - awsServicesAuthentication
@@ -154,6 +156,22 @@ components:
                   x-dcl-go-name: RoleSessionName
                   description: Optional. An identifier for the assumed role session.
                     When unspecified, it defaults to `multicloud-service-agent`.
+                  x-kubernetes-immutable: true
+            configEncryption:
+              type: object
+              x-dcl-go-name: ConfigEncryption
+              x-dcl-go-type: ClusterControlPlaneConfigEncryption
+              description: Required. The ARN of the AWS KMS key used to encrypt cluster
+                configuration.
+              x-kubernetes-immutable: true
+              required:
+              - kmsKeyArn
+              properties:
+                kmsKeyArn:
+                  type: string
+                  x-dcl-go-name: KmsKeyArn
+                  description: Required. The ARN of the AWS KMS key used to encrypt
+                    cluster configuration.
                   x-kubernetes-immutable: true
             databaseEncryption:
               type: object
@@ -380,6 +398,22 @@ components:
             optimistic concurrency control. May be sent on update and delete requests
             to ensure the client has an up-to-date value before proceeding.
           x-kubernetes-immutable: true
+        fleet:
+          type: object
+          x-dcl-go-name: Fleet
+          x-dcl-go-type: ClusterFleet
+          x-kubernetes-immutable: true
+          required:
+          - project
+          properties:
+            project:
+              type: string
+              x-dcl-go-name: Project
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Cloudresourcemanager/Project
+                field: name
+                parent: true
         location:
           type: string
           x-dcl-go-name: Location

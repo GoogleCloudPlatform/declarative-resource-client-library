@@ -221,6 +221,7 @@ class NodePoolConfig(object):
         labels: dict = None,
         tags: dict = None,
         iam_instance_profile: str = None,
+        config_encryption: dict = None,
         ssh_config: dict = None,
         security_group_ids: list = None,
     ):
@@ -230,6 +231,7 @@ class NodePoolConfig(object):
         self.labels = labels
         self.tags = tags
         self.iam_instance_profile = iam_instance_profile
+        self.config_encryption = config_encryption
         self.ssh_config = ssh_config
         self.security_group_ids = security_group_ids
 
@@ -255,6 +257,12 @@ class NodePoolConfig(object):
             res.tags = Primitive.to_proto(resource.tags)
         if Primitive.to_proto(resource.iam_instance_profile):
             res.iam_instance_profile = Primitive.to_proto(resource.iam_instance_profile)
+        if NodePoolConfigConfigEncryption.to_proto(resource.config_encryption):
+            res.config_encryption.CopyFrom(
+                NodePoolConfigConfigEncryption.to_proto(resource.config_encryption)
+            )
+        else:
+            res.ClearField("config_encryption")
         if NodePoolConfigSshConfig.to_proto(resource.ssh_config):
             res.ssh_config.CopyFrom(
                 NodePoolConfigSshConfig.to_proto(resource.ssh_config)
@@ -279,6 +287,9 @@ class NodePoolConfig(object):
             labels=Primitive.from_proto(resource.labels),
             tags=Primitive.from_proto(resource.tags),
             iam_instance_profile=Primitive.from_proto(resource.iam_instance_profile),
+            config_encryption=NodePoolConfigConfigEncryption.from_proto(
+                resource.config_encryption
+            ),
             ssh_config=NodePoolConfigSshConfig.from_proto(resource.ssh_config),
             security_group_ids=Primitive.from_proto(resource.security_group_ids),
         )
@@ -396,6 +407,42 @@ class NodePoolConfigTaintsArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolConfigTaints.from_proto(i) for i in resources]
+
+
+class NodePoolConfigConfigEncryption(object):
+    def __init__(self, kms_key_arn: str = None):
+        self.kms_key_arn = kms_key_arn
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsAlphaNodePoolConfigConfigEncryption()
+        if Primitive.to_proto(resource.kms_key_arn):
+            res.kms_key_arn = Primitive.to_proto(resource.kms_key_arn)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolConfigConfigEncryption(
+            kms_key_arn=Primitive.from_proto(resource.kms_key_arn),
+        )
+
+
+class NodePoolConfigConfigEncryptionArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolConfigConfigEncryption.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolConfigConfigEncryption.from_proto(i) for i in resources]
 
 
 class NodePoolConfigSshConfig(object):

@@ -52,6 +52,7 @@ message ContainerazureAlphaCluster {
   ContainerazureAlphaClusterWorkloadIdentityConfig workload_identity_config = 17;
   string project = 18;
   string location = 19;
+  ContainerazureAlphaClusterFleet fleet = 20;
 }
 
 message ContainerazureAlphaClusterNetworking {
@@ -86,8 +87,7 @@ message ContainerazureAlphaClusterControlPlaneMainVolume {
 }
 
 message ContainerazureAlphaClusterControlPlaneDatabaseEncryption {
-  string resource_group_id = 1;
-  string key_id = 2;
+  string key_id = 1;
 }
 
 message ContainerazureAlphaClusterControlPlaneProxyConfig {
@@ -112,6 +112,10 @@ message ContainerazureAlphaClusterWorkloadIdentityConfig {
   string issuer_uri = 1;
   string workload_pool = 2;
   string identity_provider = 3;
+}
+
+message ContainerazureAlphaClusterFleet {
+  string project = 1;
 }
 
 message ApplyContainerazureAlphaClusterRequest {

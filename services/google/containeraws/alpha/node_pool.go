@@ -129,15 +129,16 @@ func (v NodePoolStateEnum) Validate() error {
 }
 
 type NodePoolConfig struct {
-	empty              bool                      `json:"-"`
-	InstanceType       *string                   `json:"instanceType"`
-	RootVolume         *NodePoolConfigRootVolume `json:"rootVolume"`
-	Taints             []NodePoolConfigTaints    `json:"taints"`
-	Labels             map[string]string         `json:"labels"`
-	Tags               map[string]string         `json:"tags"`
-	IamInstanceProfile *string                   `json:"iamInstanceProfile"`
-	SshConfig          *NodePoolConfigSshConfig  `json:"sshConfig"`
-	SecurityGroupIds   []string                  `json:"securityGroupIds"`
+	empty              bool                            `json:"-"`
+	InstanceType       *string                         `json:"instanceType"`
+	RootVolume         *NodePoolConfigRootVolume       `json:"rootVolume"`
+	Taints             []NodePoolConfigTaints          `json:"taints"`
+	Labels             map[string]string               `json:"labels"`
+	Tags               map[string]string               `json:"tags"`
+	IamInstanceProfile *string                         `json:"iamInstanceProfile"`
+	ConfigEncryption   *NodePoolConfigConfigEncryption `json:"configEncryption"`
+	SshConfig          *NodePoolConfigSshConfig        `json:"sshConfig"`
+	SecurityGroupIds   []string                        `json:"securityGroupIds"`
 }
 
 type jsonNodePoolConfig NodePoolConfig
@@ -166,6 +167,8 @@ func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
 		r.Tags = res.Tags
 
 		r.IamInstanceProfile = res.IamInstanceProfile
+
+		r.ConfigEncryption = res.ConfigEncryption
 
 		r.SshConfig = res.SshConfig
 
@@ -296,6 +299,52 @@ func (r *NodePoolConfigTaints) String() string {
 }
 
 func (r *NodePoolConfigTaints) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NodePoolConfigConfigEncryption struct {
+	empty     bool    `json:"-"`
+	KmsKeyArn *string `json:"kmsKeyArn"`
+}
+
+type jsonNodePoolConfigConfigEncryption NodePoolConfigConfigEncryption
+
+func (r *NodePoolConfigConfigEncryption) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigConfigEncryption
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigConfigEncryption
+	} else {
+
+		r.KmsKeyArn = res.KmsKeyArn
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NodePoolConfigConfigEncryption is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyNodePoolConfigConfigEncryption *NodePoolConfigConfigEncryption = &NodePoolConfigConfigEncryption{empty: true}
+
+func (r *NodePoolConfigConfigEncryption) Empty() bool {
+	return r.empty
+}
+
+func (r *NodePoolConfigConfigEncryption) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NodePoolConfigConfigEncryption) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

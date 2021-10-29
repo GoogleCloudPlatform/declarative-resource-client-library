@@ -68,26 +68,6 @@ components:
       - project
       - location
       properties:
-        bundlesConfig:
-          type: object
-          x-dcl-go-name: BundlesConfig
-          x-dcl-go-type: InstanceBundlesConfig
-          description: Configuration for the bundles that are enabled on the KrmApiHost.
-          x-kubernetes-immutable: true
-          properties:
-            configControllerConfig:
-              type: object
-              x-dcl-go-name: ConfigControllerConfig
-              x-dcl-go-type: InstanceBundlesConfigConfigControllerConfig
-              description: Configuration for the Config Controller bundle.
-              x-kubernetes-immutable: true
-              properties:
-                enabled:
-                  type: boolean
-                  x-dcl-go-name: Enabled
-                  description: Whether the Config Controller bundle is enabled on
-                    the KrmApiHost.
-                  x-kubernetes-immutable: true
         gkeResourceLink:
           type: string
           x-dcl-go-name: GkeResourceLink
@@ -180,7 +160,6 @@ components:
           x-dcl-go-name: Name
           description: 'The name of this KrmApiHost resource in the format: ''projects/{project_id}/locations/{location}/krmApiHosts/{krm_api_host_id}''.'
           x-kubernetes-immutable: true
-          x-dcl-server-generated-parameter: true
         project:
           type: string
           x-dcl-go-name: Project

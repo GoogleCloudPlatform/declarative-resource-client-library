@@ -89,6 +89,7 @@ func ProtoToContainerawsAlphaClusterControlPlane(p *alphapb.ContainerawsAlphaClu
 		Version:                   dcl.StringOrNil(p.GetVersion()),
 		InstanceType:              dcl.StringOrNil(p.GetInstanceType()),
 		SshConfig:                 ProtoToContainerawsAlphaClusterControlPlaneSshConfig(p.GetSshConfig()),
+		ConfigEncryption:          ProtoToContainerawsAlphaClusterControlPlaneConfigEncryption(p.GetConfigEncryption()),
 		IamInstanceProfile:        dcl.StringOrNil(p.GetIamInstanceProfile()),
 		RootVolume:                ProtoToContainerawsAlphaClusterControlPlaneRootVolume(p.GetRootVolume()),
 		MainVolume:                ProtoToContainerawsAlphaClusterControlPlaneMainVolume(p.GetMainVolume()),
@@ -112,6 +113,17 @@ func ProtoToContainerawsAlphaClusterControlPlaneSshConfig(p *alphapb.Containeraw
 	}
 	obj := &alpha.ClusterControlPlaneSshConfig{
 		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
+	}
+	return obj
+}
+
+// ProtoToClusterControlPlaneConfigEncryption converts a ClusterControlPlaneConfigEncryption object from its proto representation.
+func ProtoToContainerawsAlphaClusterControlPlaneConfigEncryption(p *alphapb.ContainerawsAlphaClusterControlPlaneConfigEncryption) *alpha.ClusterControlPlaneConfigEncryption {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterControlPlaneConfigEncryption{
+		KmsKeyArn: dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
 }
@@ -215,6 +227,17 @@ func ProtoToContainerawsAlphaClusterWorkloadIdentityConfig(p *alphapb.Containera
 	return obj
 }
 
+// ProtoToClusterFleet converts a ClusterFleet object from its proto representation.
+func ProtoToContainerawsAlphaClusterFleet(p *alphapb.ContainerawsAlphaClusterFleet) *alpha.ClusterFleet {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterFleet{
+		Project: dcl.StringOrNil(p.GetProject()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
@@ -234,6 +257,7 @@ func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 		WorkloadIdentityConfig: ProtoToContainerawsAlphaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
 		Project:                dcl.StringOrNil(p.GetProject()),
 		Location:               dcl.StringOrNil(p.GetLocation()),
+		Fleet:                  ProtoToContainerawsAlphaClusterFleet(p.GetFleet()),
 	}
 	return obj
 }
@@ -305,6 +329,7 @@ func ContainerawsAlphaClusterControlPlaneToProto(o *alpha.ClusterControlPlane) *
 	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
 	p.SetInstanceType(dcl.ValueOrEmptyString(o.InstanceType))
 	p.SetSshConfig(ContainerawsAlphaClusterControlPlaneSshConfigToProto(o.SshConfig))
+	p.SetConfigEncryption(ContainerawsAlphaClusterControlPlaneConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
 	p.SetRootVolume(ContainerawsAlphaClusterControlPlaneRootVolumeToProto(o.RootVolume))
 	p.SetMainVolume(ContainerawsAlphaClusterControlPlaneMainVolumeToProto(o.MainVolume))
@@ -336,6 +361,16 @@ func ContainerawsAlphaClusterControlPlaneSshConfigToProto(o *alpha.ClusterContro
 	}
 	p := &alphapb.ContainerawsAlphaClusterControlPlaneSshConfig{}
 	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
+	return p
+}
+
+// ClusterControlPlaneConfigEncryptionToProto converts a ClusterControlPlaneConfigEncryption object to its proto representation.
+func ContainerawsAlphaClusterControlPlaneConfigEncryptionToProto(o *alpha.ClusterControlPlaneConfigEncryption) *alphapb.ContainerawsAlphaClusterControlPlaneConfigEncryption {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneConfigEncryption{}
+	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }
 
@@ -433,6 +468,16 @@ func ContainerawsAlphaClusterWorkloadIdentityConfigToProto(o *alpha.ClusterWorkl
 	return p
 }
 
+// ClusterFleetToProto converts a ClusterFleet object to its proto representation.
+func ContainerawsAlphaClusterFleetToProto(o *alpha.ClusterFleet) *alphapb.ContainerawsAlphaClusterFleet {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterFleet{}
+	p.SetProject(dcl.ValueOrEmptyString(o.Project))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p := &alphapb.ContainerawsAlphaCluster{}
@@ -452,6 +497,7 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p.SetWorkloadIdentityConfig(ContainerawsAlphaClusterWorkloadIdentityConfigToProto(resource.WorkloadIdentityConfig))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetFleet(ContainerawsAlphaClusterFleetToProto(resource.Fleet))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

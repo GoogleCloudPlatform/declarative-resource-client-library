@@ -70,6 +70,8 @@ import (
 
 	compute_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/alpha_connector"
 
+	configcontroller_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/configcontroller/alpha_connector"
+
 	containeranalysis_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/connector"
 
 	containeranalysis_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/beta_connector"
@@ -129,8 +131,6 @@ import (
 	identitytoolkit_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/beta_connector"
 
 	identitytoolkit_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/alpha_connector"
-
-	configcontroller_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/configcontroller/alpha_connector"
 
 	logging_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/connector"
 
@@ -257,6 +257,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	compute_alpha_connector.RegisterServers(grpcServer)
 
+	configcontroller_alpha_connector.RegisterServers(grpcServer)
+
 	containeranalysis_connector.RegisterServers(grpcServer)
 
 	containeranalysis_beta_connector.RegisterServers(grpcServer)
@@ -316,8 +318,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	identitytoolkit_beta_connector.RegisterServers(grpcServer)
 
 	identitytoolkit_alpha_connector.RegisterServers(grpcServer)
-
-	configcontroller_alpha_connector.RegisterServers(grpcServer)
 
 	logging_connector.RegisterServers(grpcServer)
 

@@ -38,6 +38,7 @@ class Cluster(object):
         workload_identity_config: dict = None,
         project: str = None,
         location: str = None,
+        fleet: dict = None,
         service_account_file: str = "",
     ):
 
@@ -51,6 +52,7 @@ class Cluster(object):
         self.annotations = annotations
         self.project = project
         self.location = location
+        self.fleet = fleet
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -92,6 +94,10 @@ class Cluster(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if ClusterFleet.to_proto(self.fleet):
+            request.resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
+        else:
+            request.resource.ClearField("fleet")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyContainerawsAlphaCluster(request)
@@ -114,6 +120,7 @@ class Cluster(object):
         )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.fleet = ClusterFleet.from_proto(response.fleet)
 
     def delete(self):
         stub = cluster_pb2_grpc.ContainerawsAlphaClusterServiceStub(channel.Channel())
@@ -155,6 +162,10 @@ class Cluster(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if ClusterFleet.to_proto(self.fleet):
+            request.resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
+        else:
+            request.resource.ClearField("fleet")
         response = stub.DeleteContainerawsAlphaCluster(request)
 
     @classmethod
@@ -198,6 +209,10 @@ class Cluster(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
+        if ClusterFleet.to_proto(self.fleet):
+            resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
+        else:
+            resource.ClearField("fleet")
         return resource
 
 
@@ -274,6 +289,7 @@ class ClusterControlPlane(object):
         instance_type: str = None,
         ssh_config: dict = None,
         subnet_ids: list = None,
+        config_encryption: dict = None,
         security_group_ids: list = None,
         iam_instance_profile: str = None,
         root_volume: dict = None,
@@ -287,6 +303,7 @@ class ClusterControlPlane(object):
         self.instance_type = instance_type
         self.ssh_config = ssh_config
         self.subnet_ids = subnet_ids
+        self.config_encryption = config_encryption
         self.security_group_ids = security_group_ids
         self.iam_instance_profile = iam_instance_profile
         self.root_volume = root_volume
@@ -314,6 +331,12 @@ class ClusterControlPlane(object):
             res.ClearField("ssh_config")
         if Primitive.to_proto(resource.subnet_ids):
             res.subnet_ids.extend(Primitive.to_proto(resource.subnet_ids))
+        if ClusterControlPlaneConfigEncryption.to_proto(resource.config_encryption):
+            res.config_encryption.CopyFrom(
+                ClusterControlPlaneConfigEncryption.to_proto(resource.config_encryption)
+            )
+        else:
+            res.ClearField("config_encryption")
         if Primitive.to_proto(resource.security_group_ids):
             res.security_group_ids.extend(
                 Primitive.to_proto(resource.security_group_ids)
@@ -370,6 +393,9 @@ class ClusterControlPlane(object):
             instance_type=Primitive.from_proto(resource.instance_type),
             ssh_config=ClusterControlPlaneSshConfig.from_proto(resource.ssh_config),
             subnet_ids=Primitive.from_proto(resource.subnet_ids),
+            config_encryption=ClusterControlPlaneConfigEncryption.from_proto(
+                resource.config_encryption
+            ),
             security_group_ids=Primitive.from_proto(resource.security_group_ids),
             iam_instance_profile=Primitive.from_proto(resource.iam_instance_profile),
             root_volume=ClusterControlPlaneRootVolume.from_proto(resource.root_volume),
@@ -433,6 +459,42 @@ class ClusterControlPlaneSshConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ClusterControlPlaneSshConfig.from_proto(i) for i in resources]
+
+
+class ClusterControlPlaneConfigEncryption(object):
+    def __init__(self, kms_key_arn: str = None):
+        self.kms_key_arn = kms_key_arn
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsAlphaClusterControlPlaneConfigEncryption()
+        if Primitive.to_proto(resource.kms_key_arn):
+            res.kms_key_arn = Primitive.to_proto(resource.kms_key_arn)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterControlPlaneConfigEncryption(
+            kms_key_arn=Primitive.from_proto(resource.kms_key_arn),
+        )
+
+
+class ClusterControlPlaneConfigEncryptionArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterControlPlaneConfigEncryption.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterControlPlaneConfigEncryption.from_proto(i) for i in resources]
 
 
 class ClusterControlPlaneRootVolume(object):
@@ -797,6 +859,40 @@ class ClusterWorkloadIdentityConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ClusterWorkloadIdentityConfig.from_proto(i) for i in resources]
+
+
+class ClusterFleet(object):
+    def __init__(self, project: str = None):
+        self.project = project
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsAlphaClusterFleet()
+        if Primitive.to_proto(resource.project):
+            res.project = Primitive.to_proto(resource.project)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterFleet(project=Primitive.from_proto(resource.project),)
+
+
+class ClusterFleetArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterFleet.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterFleet.from_proto(i) for i in resources]
 
 
 class ClusterControlPlaneRootVolumeVolumeTypeEnum(object):

@@ -73,8 +73,9 @@ message ContainerawsAlphaNodePoolConfig {
   map<string, string> labels = 4;
   map<string, string> tags = 5;
   string iam_instance_profile = 6;
-  ContainerawsAlphaNodePoolConfigSshConfig ssh_config = 7;
-  repeated string security_group_ids = 8;
+  ContainerawsAlphaNodePoolConfigConfigEncryption config_encryption = 7;
+  ContainerawsAlphaNodePoolConfigSshConfig ssh_config = 8;
+  repeated string security_group_ids = 9;
 }
 
 message ContainerawsAlphaNodePoolConfigRootVolume {
@@ -88,6 +89,10 @@ message ContainerawsAlphaNodePoolConfigTaints {
   string key = 1;
   string value = 2;
   ContainerawsAlphaNodePoolConfigTaintsEffectEnum effect = 3;
+}
+
+message ContainerawsAlphaNodePoolConfigConfigEncryption {
+  string kms_key_arn = 1;
 }
 
 message ContainerawsAlphaNodePoolConfigSshConfig {

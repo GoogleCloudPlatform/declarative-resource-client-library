@@ -135,7 +135,24 @@ components:
           x-kubernetes-immutable: true
           required:
           - iamInstanceProfile
+          - configEncryption
           properties:
+            configEncryption:
+              type: object
+              x-dcl-go-name: ConfigEncryption
+              x-dcl-go-type: NodePoolConfigConfigEncryption
+              description: Required. The ARN of the AWS KMS key used to encrypt node
+                pool configuration.
+              x-kubernetes-immutable: true
+              required:
+              - kmsKeyArn
+              properties:
+                kmsKeyArn:
+                  type: string
+                  x-dcl-go-name: KmsKeyArn
+                  description: Required. The ARN of the AWS KMS key used to encrypt
+                    node pool configuration.
+                  x-kubernetes-immutable: true
             iamInstanceProfile:
               type: string
               x-dcl-go-name: IamInstanceProfile

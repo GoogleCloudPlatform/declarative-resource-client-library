@@ -31,6 +31,9 @@
       "volumeType": "GP3",
       "iops": 3000
     },
+    "configEncryption": {
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
+    },
     "databaseEncryption": {
       "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
     },
@@ -56,5 +59,8 @@
   },
   "annotations": {
     "label-two": "value-two"
+  },
+  "fleet": {
+    "project": "{{project_number}}"
   }
 }

@@ -49,6 +49,9 @@ func (r *Cluster) validate() error {
 	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "fleet"); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Networking) {
 		if err := r.Networking.validate(); err != nil {
 			return err
@@ -66,6 +69,11 @@ func (r *Cluster) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.WorkloadIdentityConfig) {
 		if err := r.WorkloadIdentityConfig.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Fleet) {
+		if err := r.Fleet.validate(); err != nil {
 			return err
 		}
 	}
@@ -93,6 +101,9 @@ func (r *ClusterControlPlane) validate() error {
 	if err := dcl.Required(r, "subnetIds"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "configEncryption"); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "iamInstanceProfile"); err != nil {
 		return err
 	}
@@ -104,6 +115,11 @@ func (r *ClusterControlPlane) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.SshConfig) {
 		if err := r.SshConfig.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.ConfigEncryption) {
+		if err := r.ConfigEncryption.validate(); err != nil {
 			return err
 		}
 	}
@@ -136,6 +152,12 @@ func (r *ClusterControlPlane) validate() error {
 }
 func (r *ClusterControlPlaneSshConfig) validate() error {
 	if err := dcl.Required(r, "ec2KeyPair"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ClusterControlPlaneConfigEncryption) validate() error {
+	if err := dcl.Required(r, "kmsKeyArn"); err != nil {
 		return err
 	}
 	return nil
@@ -180,6 +202,12 @@ func (r *ClusterAuthorizationAdminUsers) validate() error {
 	return nil
 }
 func (r *ClusterWorkloadIdentityConfig) validate() error {
+	return nil
+}
+func (r *ClusterFleet) validate() error {
+	if err := dcl.Required(r, "project"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *Cluster) basePath() string {
@@ -595,6 +623,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		rawDesired.ControlPlane = canonicalizeClusterControlPlane(rawDesired.ControlPlane, nil, opts...)
 		rawDesired.Authorization = canonicalizeClusterAuthorization(rawDesired.Authorization, nil, opts...)
 		rawDesired.WorkloadIdentityConfig = canonicalizeClusterWorkloadIdentityConfig(rawDesired.WorkloadIdentityConfig, nil, opts...)
+		rawDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -632,6 +661,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
+	canonicalDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, rawInitial.Fleet, opts...)
 
 	return canonicalDesired, nil
 }
@@ -741,6 +771,12 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsNotReturnedByServer(rawNew.Fleet) && dcl.IsNotReturnedByServer(rawDesired.Fleet) {
+		rawNew.Fleet = rawDesired.Fleet
+	} else {
+		rawNew.Fleet = canonicalizeNewClusterFleet(c, rawDesired.Fleet, rawNew.Fleet)
+	}
 
 	return rawNew, nil
 }
@@ -914,6 +950,7 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 	} else {
 		cDes.SubnetIds = des.SubnetIds
 	}
+	cDes.ConfigEncryption = canonicalizeClusterControlPlaneConfigEncryption(des.ConfigEncryption, initial.ConfigEncryption, opts...)
 	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) || dcl.IsZeroValue(des.SecurityGroupIds) {
 		cDes.SecurityGroupIds = initial.SecurityGroupIds
 	} else {
@@ -990,6 +1027,7 @@ func canonicalizeNewClusterControlPlane(c *Client, des, nw *ClusterControlPlane)
 	if dcl.StringArrayCanonicalize(des.SubnetIds, nw.SubnetIds) {
 		nw.SubnetIds = des.SubnetIds
 	}
+	nw.ConfigEncryption = canonicalizeNewClusterControlPlaneConfigEncryption(c, des.ConfigEncryption, nw.ConfigEncryption)
 	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, nw.SecurityGroupIds) {
 		nw.SecurityGroupIds = des.SecurityGroupIds
 	}
@@ -1158,6 +1196,121 @@ func canonicalizeNewClusterControlPlaneSshConfigSlice(c *Client, des, nw []Clust
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewClusterControlPlaneSshConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeClusterControlPlaneConfigEncryption(des, initial *ClusterControlPlaneConfigEncryption, opts ...dcl.ApplyOption) *ClusterControlPlaneConfigEncryption {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterControlPlaneConfigEncryption{}
+
+	if dcl.StringCanonicalize(des.KmsKeyArn, initial.KmsKeyArn) || dcl.IsZeroValue(des.KmsKeyArn) {
+		cDes.KmsKeyArn = initial.KmsKeyArn
+	} else {
+		cDes.KmsKeyArn = des.KmsKeyArn
+	}
+
+	return cDes
+}
+
+func canonicalizeClusterControlPlaneConfigEncryptionSlice(des, initial []ClusterControlPlaneConfigEncryption, opts ...dcl.ApplyOption) []ClusterControlPlaneConfigEncryption {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterControlPlaneConfigEncryption, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterControlPlaneConfigEncryption(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterControlPlaneConfigEncryption, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterControlPlaneConfigEncryption(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterControlPlaneConfigEncryption(c *Client, des, nw *ClusterControlPlaneConfigEncryption) *ClusterControlPlaneConfigEncryption {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterControlPlaneConfigEncryption while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
+		nw.KmsKeyArn = des.KmsKeyArn
+	}
+
+	return nw
+}
+
+func canonicalizeNewClusterControlPlaneConfigEncryptionSet(c *Client, des, nw []ClusterControlPlaneConfigEncryption) []ClusterControlPlaneConfigEncryption {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ClusterControlPlaneConfigEncryption
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareClusterControlPlaneConfigEncryptionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewClusterControlPlaneConfigEncryptionSlice(c *Client, des, nw []ClusterControlPlaneConfigEncryption) []ClusterControlPlaneConfigEncryption {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterControlPlaneConfigEncryption
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterControlPlaneConfigEncryption(c, &d, &n))
 	}
 
 	return items
@@ -2139,6 +2292,121 @@ func canonicalizeNewClusterWorkloadIdentityConfigSlice(c *Client, des, nw []Clus
 	return items
 }
 
+func canonicalizeClusterFleet(des, initial *ClusterFleet, opts ...dcl.ApplyOption) *ClusterFleet {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterFleet{}
+
+	if dcl.PartialSelfLinkToSelfLink(des.Project, initial.Project) || dcl.IsZeroValue(des.Project) {
+		cDes.Project = initial.Project
+	} else {
+		cDes.Project = des.Project
+	}
+
+	return cDes
+}
+
+func canonicalizeClusterFleetSlice(des, initial []ClusterFleet, opts ...dcl.ApplyOption) []ClusterFleet {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterFleet, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterFleet(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterFleet, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterFleet(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterFleet(c *Client, des, nw *ClusterFleet) *ClusterFleet {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterFleet while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.PartialSelfLinkToSelfLink(des.Project, nw.Project) {
+		nw.Project = des.Project
+	}
+
+	return nw
+}
+
+func canonicalizeNewClusterFleetSet(c *Client, des, nw []ClusterFleet) []ClusterFleet {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ClusterFleet
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareClusterFleetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewClusterFleetSlice(c *Client, des, nw []ClusterFleet) []ClusterFleet {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterFleet
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterFleet(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -2276,6 +2544,13 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Fleet, actual.Fleet, dcl.Info{ObjectFunction: compareClusterFleetNewStyle, EmptyObject: EmptyClusterFleet, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fleet")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareClusterNetworkingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2376,6 +2651,13 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ConfigEncryption, actual.ConfigEncryption, dcl.Info{ObjectFunction: compareClusterControlPlaneConfigEncryptionNewStyle, EmptyObject: EmptyClusterControlPlaneConfigEncryption, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigEncryption")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.SecurityGroupIds, actual.SecurityGroupIds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityGroupIds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2455,6 +2737,35 @@ func compareClusterControlPlaneSshConfigNewStyle(d, a interface{}, fn dcl.FieldN
 	}
 
 	if ds, err := dcl.Diff(desired.Ec2KeyPair, actual.Ec2KeyPair, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ec2KeyPair")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareClusterControlPlaneConfigEncryptionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterControlPlaneConfigEncryption)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterControlPlaneConfigEncryption)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterControlPlaneConfigEncryption or *ClusterControlPlaneConfigEncryption", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterControlPlaneConfigEncryption)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterControlPlaneConfigEncryption)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterControlPlaneConfigEncryption", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyArn, actual.KmsKeyArn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyArn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2765,6 +3076,35 @@ func compareClusterWorkloadIdentityConfigNewStyle(d, a interface{}, fn dcl.Field
 	return diffs, nil
 }
 
+func compareClusterFleetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterFleet)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterFleet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterFleet or *ClusterFleet", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterFleet)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterFleet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterFleet", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -2868,6 +3208,11 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["location"] = v
 	}
+	if v, err := expandClusterFleet(c, f.Fleet); err != nil {
+		return nil, fmt.Errorf("error expanding Fleet into fleet: %w", err)
+	} else if v != nil {
+		m["fleet"] = v
+	}
 
 	return m, nil
 }
@@ -2901,6 +3246,7 @@ func flattenCluster(c *Client, i interface{}) *Cluster {
 	res.WorkloadIdentityConfig = flattenClusterWorkloadIdentityConfig(c, m["workloadIdentityConfig"])
 	res.Project = dcl.FlattenString(m["project"])
 	res.Location = dcl.FlattenString(m["location"])
+	res.Fleet = flattenClusterFleet(c, m["fleet"])
 
 	return res
 }
@@ -3134,6 +3480,11 @@ func expandClusterControlPlane(c *Client, f *ClusterControlPlane) (map[string]in
 	if v := f.SubnetIds; v != nil {
 		m["subnetIds"] = v
 	}
+	if v, err := expandClusterControlPlaneConfigEncryption(c, f.ConfigEncryption); err != nil {
+		return nil, fmt.Errorf("error expanding ConfigEncryption into configEncryption: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["configEncryption"] = v
+	}
 	if v := f.SecurityGroupIds; v != nil {
 		m["securityGroupIds"] = v
 	}
@@ -3189,6 +3540,7 @@ func flattenClusterControlPlane(c *Client, i interface{}) *ClusterControlPlane {
 	r.InstanceType = dcl.FlattenString(m["instanceType"])
 	r.SshConfig = flattenClusterControlPlaneSshConfig(c, m["sshConfig"])
 	r.SubnetIds = dcl.FlattenStringSlice(m["subnetIds"])
+	r.ConfigEncryption = flattenClusterControlPlaneConfigEncryption(c, m["configEncryption"])
 	r.SecurityGroupIds = dcl.FlattenStringSlice(m["securityGroupIds"])
 	r.IamInstanceProfile = dcl.FlattenString(m["iamInstanceProfile"])
 	r.RootVolume = flattenClusterControlPlaneRootVolume(c, m["rootVolume"])
@@ -3311,6 +3663,120 @@ func flattenClusterControlPlaneSshConfig(c *Client, i interface{}) *ClusterContr
 		return EmptyClusterControlPlaneSshConfig
 	}
 	r.Ec2KeyPair = dcl.FlattenString(m["ec2KeyPair"])
+
+	return r
+}
+
+// expandClusterControlPlaneConfigEncryptionMap expands the contents of ClusterControlPlaneConfigEncryption into a JSON
+// request object.
+func expandClusterControlPlaneConfigEncryptionMap(c *Client, f map[string]ClusterControlPlaneConfigEncryption) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterControlPlaneConfigEncryption(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterControlPlaneConfigEncryptionSlice expands the contents of ClusterControlPlaneConfigEncryption into a JSON
+// request object.
+func expandClusterControlPlaneConfigEncryptionSlice(c *Client, f []ClusterControlPlaneConfigEncryption) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterControlPlaneConfigEncryption(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterControlPlaneConfigEncryptionMap flattens the contents of ClusterControlPlaneConfigEncryption from a JSON
+// response object.
+func flattenClusterControlPlaneConfigEncryptionMap(c *Client, i interface{}) map[string]ClusterControlPlaneConfigEncryption {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterControlPlaneConfigEncryption{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterControlPlaneConfigEncryption{}
+	}
+
+	items := make(map[string]ClusterControlPlaneConfigEncryption)
+	for k, item := range a {
+		items[k] = *flattenClusterControlPlaneConfigEncryption(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenClusterControlPlaneConfigEncryptionSlice flattens the contents of ClusterControlPlaneConfigEncryption from a JSON
+// response object.
+func flattenClusterControlPlaneConfigEncryptionSlice(c *Client, i interface{}) []ClusterControlPlaneConfigEncryption {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterControlPlaneConfigEncryption{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterControlPlaneConfigEncryption{}
+	}
+
+	items := make([]ClusterControlPlaneConfigEncryption, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterControlPlaneConfigEncryption(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandClusterControlPlaneConfigEncryption expands an instance of ClusterControlPlaneConfigEncryption into a JSON
+// request object.
+func expandClusterControlPlaneConfigEncryption(c *Client, f *ClusterControlPlaneConfigEncryption) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.KmsKeyArn; !dcl.IsEmptyValueIndirect(v) {
+		m["kmsKeyArn"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterControlPlaneConfigEncryption flattens an instance of ClusterControlPlaneConfigEncryption from a JSON
+// response object.
+func flattenClusterControlPlaneConfigEncryption(c *Client, i interface{}) *ClusterControlPlaneConfigEncryption {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterControlPlaneConfigEncryption{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterControlPlaneConfigEncryption
+	}
+	r.KmsKeyArn = dcl.FlattenString(m["kmsKeyArn"])
 
 	return r
 }
@@ -4269,6 +4735,122 @@ func flattenClusterWorkloadIdentityConfig(c *Client, i interface{}) *ClusterWork
 	return r
 }
 
+// expandClusterFleetMap expands the contents of ClusterFleet into a JSON
+// request object.
+func expandClusterFleetMap(c *Client, f map[string]ClusterFleet) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterFleet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterFleetSlice expands the contents of ClusterFleet into a JSON
+// request object.
+func expandClusterFleetSlice(c *Client, f []ClusterFleet) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterFleet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterFleetMap flattens the contents of ClusterFleet from a JSON
+// response object.
+func flattenClusterFleetMap(c *Client, i interface{}) map[string]ClusterFleet {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterFleet{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterFleet{}
+	}
+
+	items := make(map[string]ClusterFleet)
+	for k, item := range a {
+		items[k] = *flattenClusterFleet(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenClusterFleetSlice flattens the contents of ClusterFleet from a JSON
+// response object.
+func flattenClusterFleetSlice(c *Client, i interface{}) []ClusterFleet {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterFleet{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterFleet{}
+	}
+
+	items := make([]ClusterFleet, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterFleet(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandClusterFleet expands an instance of ClusterFleet into a JSON
+// request object.
+func expandClusterFleet(c *Client, f *ClusterFleet) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := dcl.DeriveField("projects/%s", f.Project, f.Project); err != nil {
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["project"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterFleet flattens an instance of ClusterFleet from a JSON
+// response object.
+func flattenClusterFleet(c *Client, i interface{}) *ClusterFleet {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterFleet{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterFleet
+	}
+	r.Project = dcl.FlattenString(m["project"])
+
+	return r
+}
+
 // flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap flattens the contents of ClusterControlPlaneRootVolumeVolumeTypeEnum from a JSON
 // response object.
 func flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap(c *Client, i interface{}) map[string]ClusterControlPlaneRootVolumeVolumeTypeEnum {
@@ -4558,6 +5140,17 @@ func extractClusterFields(r *Cluster) error {
 	if !dcl.IsNotReturnedByServer(vWorkloadIdentityConfig) {
 		r.WorkloadIdentityConfig = vWorkloadIdentityConfig
 	}
+	vFleet := r.Fleet
+	if vFleet == nil {
+		// note: explicitly not the empty object.
+		vFleet = &ClusterFleet{}
+	}
+	if err := extractClusterFleetFields(r, vFleet); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFleet) {
+		r.Fleet = vFleet
+	}
 	return nil
 }
 func extractClusterNetworkingFields(r *Cluster, o *ClusterNetworking) error {
@@ -4574,6 +5167,17 @@ func extractClusterControlPlaneFields(r *Cluster, o *ClusterControlPlane) error 
 	}
 	if !dcl.IsNotReturnedByServer(vSshConfig) {
 		o.SshConfig = vSshConfig
+	}
+	vConfigEncryption := o.ConfigEncryption
+	if vConfigEncryption == nil {
+		// note: explicitly not the empty object.
+		vConfigEncryption = &ClusterControlPlaneConfigEncryption{}
+	}
+	if err := extractClusterControlPlaneConfigEncryptionFields(r, vConfigEncryption); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigEncryption) {
+		o.ConfigEncryption = vConfigEncryption
 	}
 	vRootVolume := o.RootVolume
 	if vRootVolume == nil {
@@ -4635,6 +5239,9 @@ func extractClusterControlPlaneFields(r *Cluster, o *ClusterControlPlane) error 
 func extractClusterControlPlaneSshConfigFields(r *Cluster, o *ClusterControlPlaneSshConfig) error {
 	return nil
 }
+func extractClusterControlPlaneConfigEncryptionFields(r *Cluster, o *ClusterControlPlaneConfigEncryption) error {
+	return nil
+}
 func extractClusterControlPlaneRootVolumeFields(r *Cluster, o *ClusterControlPlaneRootVolume) error {
 	return nil
 }
@@ -4657,6 +5264,9 @@ func extractClusterAuthorizationAdminUsersFields(r *Cluster, o *ClusterAuthoriza
 	return nil
 }
 func extractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadIdentityConfig) error {
+	return nil
+}
+func extractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
 	return nil
 }
 
@@ -4705,6 +5315,17 @@ func postReadExtractClusterFields(r *Cluster) error {
 	if !dcl.IsNotReturnedByServer(vWorkloadIdentityConfig) {
 		r.WorkloadIdentityConfig = vWorkloadIdentityConfig
 	}
+	vFleet := r.Fleet
+	if vFleet == nil {
+		// note: explicitly not the empty object.
+		vFleet = &ClusterFleet{}
+	}
+	if err := postReadExtractClusterFleetFields(r, vFleet); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFleet) {
+		r.Fleet = vFleet
+	}
 	return nil
 }
 func postReadExtractClusterNetworkingFields(r *Cluster, o *ClusterNetworking) error {
@@ -4721,6 +5342,17 @@ func postReadExtractClusterControlPlaneFields(r *Cluster, o *ClusterControlPlane
 	}
 	if !dcl.IsNotReturnedByServer(vSshConfig) {
 		o.SshConfig = vSshConfig
+	}
+	vConfigEncryption := o.ConfigEncryption
+	if vConfigEncryption == nil {
+		// note: explicitly not the empty object.
+		vConfigEncryption = &ClusterControlPlaneConfigEncryption{}
+	}
+	if err := extractClusterControlPlaneConfigEncryptionFields(r, vConfigEncryption); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigEncryption) {
+		o.ConfigEncryption = vConfigEncryption
 	}
 	vRootVolume := o.RootVolume
 	if vRootVolume == nil {
@@ -4782,6 +5414,9 @@ func postReadExtractClusterControlPlaneFields(r *Cluster, o *ClusterControlPlane
 func postReadExtractClusterControlPlaneSshConfigFields(r *Cluster, o *ClusterControlPlaneSshConfig) error {
 	return nil
 }
+func postReadExtractClusterControlPlaneConfigEncryptionFields(r *Cluster, o *ClusterControlPlaneConfigEncryption) error {
+	return nil
+}
 func postReadExtractClusterControlPlaneRootVolumeFields(r *Cluster, o *ClusterControlPlaneRootVolume) error {
 	return nil
 }
@@ -4804,5 +5439,8 @@ func postReadExtractClusterAuthorizationAdminUsersFields(r *Cluster, o *ClusterA
 	return nil
 }
 func postReadExtractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadIdentityConfig) error {
+	return nil
+}
+func postReadExtractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
 	return nil
 }

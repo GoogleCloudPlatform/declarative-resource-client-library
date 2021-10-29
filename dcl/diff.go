@@ -31,6 +31,7 @@ type Info struct {
 	ObjectFunction func(desired, actual interface{}, fn FieldName) ([]*FieldDiff, error)
 
 	// CustomDiff is used to handle diffing a field when normal diff functions will not suffice.
+	// It should return false if there is any diff between 'desired' and 'actual'.
 	CustomDiff func(desired, actual interface{}) bool
 
 	// OperationSelector takes in the field's diff and returns the name of the operation (or Recreate) that should be triggered.

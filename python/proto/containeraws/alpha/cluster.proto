@@ -64,6 +64,7 @@ message ContainerawsAlphaCluster {
   ContainerawsAlphaClusterWorkloadIdentityConfig workload_identity_config = 15;
   string project = 16;
   string location = 17;
+  ContainerawsAlphaClusterFleet fleet = 18;
 }
 
 message ContainerawsAlphaClusterNetworking {
@@ -78,18 +79,23 @@ message ContainerawsAlphaClusterControlPlane {
   string instance_type = 2;
   ContainerawsAlphaClusterControlPlaneSshConfig ssh_config = 3;
   repeated string subnet_ids = 4;
-  repeated string security_group_ids = 5;
-  string iam_instance_profile = 6;
-  ContainerawsAlphaClusterControlPlaneRootVolume root_volume = 7;
-  ContainerawsAlphaClusterControlPlaneMainVolume main_volume = 8;
-  ContainerawsAlphaClusterControlPlaneDatabaseEncryption database_encryption = 9;
-  map<string, string> tags = 10;
-  ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication aws_services_authentication = 11;
-  ContainerawsAlphaClusterControlPlaneProxyConfig proxy_config = 12;
+  ContainerawsAlphaClusterControlPlaneConfigEncryption config_encryption = 5;
+  repeated string security_group_ids = 6;
+  string iam_instance_profile = 7;
+  ContainerawsAlphaClusterControlPlaneRootVolume root_volume = 8;
+  ContainerawsAlphaClusterControlPlaneMainVolume main_volume = 9;
+  ContainerawsAlphaClusterControlPlaneDatabaseEncryption database_encryption = 10;
+  map<string, string> tags = 11;
+  ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication aws_services_authentication = 12;
+  ContainerawsAlphaClusterControlPlaneProxyConfig proxy_config = 13;
 }
 
 message ContainerawsAlphaClusterControlPlaneSshConfig {
   string ec2_key_pair = 1;
+}
+
+message ContainerawsAlphaClusterControlPlaneConfigEncryption {
+  string kms_key_arn = 1;
 }
 
 message ContainerawsAlphaClusterControlPlaneRootVolume {
@@ -132,6 +138,10 @@ message ContainerawsAlphaClusterWorkloadIdentityConfig {
   string issuer_uri = 1;
   string workload_pool = 2;
   string identity_provider = 3;
+}
+
+message ContainerawsAlphaClusterFleet {
+  string project = 1;
 }
 
 message ApplyContainerawsAlphaClusterRequest {

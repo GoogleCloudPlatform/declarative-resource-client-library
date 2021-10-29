@@ -16,6 +16,9 @@
     "databaseEncryption": {
       "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
     },
+    "configEncryption": {
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
+    },
     "awsServicesAuthentication": {
       "roleArn": "arn:aws:iam::{{aws_account_id}}:role/{{byo_multicloud_prefix}}-1p-dev-oneplatform"
     }
@@ -26,5 +29,8 @@
         "username": "{{test_service_account}}"
       }
     ]
+  },
+  "fleet": {
+    "project": "{{project_number}}"
   }
 }

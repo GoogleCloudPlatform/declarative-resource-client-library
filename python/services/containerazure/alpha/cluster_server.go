@@ -113,8 +113,7 @@ func ProtoToContainerazureAlphaClusterControlPlaneDatabaseEncryption(p *alphapb.
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneDatabaseEncryption{
-		ResourceGroupId: dcl.StringOrNil(p.GetResourceGroupId()),
-		KeyId:           dcl.StringOrNil(p.GetKeyId()),
+		KeyId: dcl.StringOrNil(p.GetKeyId()),
 	}
 	return obj
 }
@@ -179,6 +178,17 @@ func ProtoToContainerazureAlphaClusterWorkloadIdentityConfig(p *alphapb.Containe
 	return obj
 }
 
+// ProtoToClusterFleet converts a ClusterFleet object from its proto representation.
+func ProtoToContainerazureAlphaClusterFleet(p *alphapb.ContainerazureAlphaClusterFleet) *alpha.ClusterFleet {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterFleet{
+		Project: dcl.StringOrNil(p.GetProject()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerazureAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
@@ -200,6 +210,7 @@ func ProtoToCluster(p *alphapb.ContainerazureAlphaCluster) *alpha.Cluster {
 		WorkloadIdentityConfig: ProtoToContainerazureAlphaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
 		Project:                dcl.StringOrNil(p.GetProject()),
 		Location:               dcl.StringOrNil(p.GetLocation()),
+		Fleet:                  ProtoToContainerazureAlphaClusterFleet(p.GetFleet()),
 	}
 	return obj
 }
@@ -298,7 +309,6 @@ func ContainerazureAlphaClusterControlPlaneDatabaseEncryptionToProto(o *alpha.Cl
 		return nil
 	}
 	p := &alphapb.ContainerazureAlphaClusterControlPlaneDatabaseEncryption{}
-	p.SetResourceGroupId(dcl.ValueOrEmptyString(o.ResourceGroupId))
 	p.SetKeyId(dcl.ValueOrEmptyString(o.KeyId))
 	return p
 }
@@ -361,6 +371,16 @@ func ContainerazureAlphaClusterWorkloadIdentityConfigToProto(o *alpha.ClusterWor
 	return p
 }
 
+// ClusterFleetToProto converts a ClusterFleet object to its proto representation.
+func ContainerazureAlphaClusterFleetToProto(o *alpha.ClusterFleet) *alphapb.ContainerazureAlphaClusterFleet {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerazureAlphaClusterFleet{}
+	p.SetProject(dcl.ValueOrEmptyString(o.Project))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerazureAlphaCluster {
 	p := &alphapb.ContainerazureAlphaCluster{}
@@ -382,6 +402,7 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerazureAlphaCluster
 	p.SetWorkloadIdentityConfig(ContainerazureAlphaClusterWorkloadIdentityConfigToProto(resource.WorkloadIdentityConfig))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetFleet(ContainerazureAlphaClusterFleetToProto(resource.Fleet))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

@@ -2,7 +2,7 @@
   "name": "{{cluster}}",
   "project": "{{project}}",
   "location": "us-west1",
-  "client": "projects/{{project}}/locations/us-west1/azureClients/testclient2",
+  "client": "projects/{{project}}/locations/us-west1/azureClients/{{ref:update.azure_client.json:name}}",
   "description": "An updated sample azure cluster",
   "azureRegion": "westus2",
   "networking": {
@@ -53,5 +53,8 @@
   },
   "annotations": {
     "annotation-one": "value-one"
+  },
+  "fleet": {
+    "project": "{{project_number}}"
   }
 }

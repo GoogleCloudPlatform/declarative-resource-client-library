@@ -42,6 +42,7 @@ type Cluster struct {
 	WorkloadIdentityConfig *ClusterWorkloadIdentityConfig `json:"workloadIdentityConfig"`
 	Project                *string                        `json:"project"`
 	Location               *string                        `json:"location"`
+	Fleet                  *ClusterFleet                  `json:"fleet"`
 }
 
 func (r *Cluster) String() string {
@@ -190,6 +191,7 @@ type ClusterControlPlane struct {
 	InstanceType              *string                                       `json:"instanceType"`
 	SshConfig                 *ClusterControlPlaneSshConfig                 `json:"sshConfig"`
 	SubnetIds                 []string                                      `json:"subnetIds"`
+	ConfigEncryption          *ClusterControlPlaneConfigEncryption          `json:"configEncryption"`
 	SecurityGroupIds          []string                                      `json:"securityGroupIds"`
 	IamInstanceProfile        *string                                       `json:"iamInstanceProfile"`
 	RootVolume                *ClusterControlPlaneRootVolume                `json:"rootVolume"`
@@ -222,6 +224,8 @@ func (r *ClusterControlPlane) UnmarshalJSON(data []byte) error {
 		r.SshConfig = res.SshConfig
 
 		r.SubnetIds = res.SubnetIds
+
+		r.ConfigEncryption = res.ConfigEncryption
 
 		r.SecurityGroupIds = res.SecurityGroupIds
 
@@ -303,6 +307,52 @@ func (r *ClusterControlPlaneSshConfig) String() string {
 }
 
 func (r *ClusterControlPlaneSshConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterControlPlaneConfigEncryption struct {
+	empty     bool    `json:"-"`
+	KmsKeyArn *string `json:"kmsKeyArn"`
+}
+
+type jsonClusterControlPlaneConfigEncryption ClusterControlPlaneConfigEncryption
+
+func (r *ClusterControlPlaneConfigEncryption) UnmarshalJSON(data []byte) error {
+	var res jsonClusterControlPlaneConfigEncryption
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterControlPlaneConfigEncryption
+	} else {
+
+		r.KmsKeyArn = res.KmsKeyArn
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterControlPlaneConfigEncryption is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyClusterControlPlaneConfigEncryption *ClusterControlPlaneConfigEncryption = &ClusterControlPlaneConfigEncryption{empty: true}
+
+func (r *ClusterControlPlaneConfigEncryption) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterControlPlaneConfigEncryption) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterControlPlaneConfigEncryption) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -707,6 +757,52 @@ func (r *ClusterWorkloadIdentityConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type ClusterFleet struct {
+	empty   bool    `json:"-"`
+	Project *string `json:"project"`
+}
+
+type jsonClusterFleet ClusterFleet
+
+func (r *ClusterFleet) UnmarshalJSON(data []byte) error {
+	var res jsonClusterFleet
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterFleet
+	} else {
+
+		r.Project = res.Project
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterFleet is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyClusterFleet *ClusterFleet = &ClusterFleet{empty: true}
+
+func (r *ClusterFleet) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterFleet) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterFleet) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Cluster) Describe() dcl.ServiceTypeVersion {
@@ -740,6 +836,7 @@ func (r *Cluster) ID() (string, error) {
 		"workloadIdentityConfig": dcl.ValueOrEmptyString(nr.WorkloadIdentityConfig),
 		"project":                dcl.ValueOrEmptyString(nr.Project),
 		"location":               dcl.ValueOrEmptyString(nr.Location),
+		"fleet":                  dcl.ValueOrEmptyString(nr.Fleet),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", params), nil
 }

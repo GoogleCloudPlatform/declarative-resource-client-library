@@ -13,6 +13,9 @@
     "maxPodsPerNode": 110
   },
   "config": {
-    "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-nodepool"
+    "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-nodepool",
+    "configEncryption": {
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
+    }
   }
 }

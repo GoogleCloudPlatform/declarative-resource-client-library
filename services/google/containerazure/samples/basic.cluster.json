@@ -2,7 +2,7 @@
   "name": "{{cluster}}",
   "project": "{{project}}",
   "location": "us-west1",
-  "client": "projects/{{project}}/locations/us-west1/azureClients/testclient1",
+  "client": "projects/{{project}}/locations/us-west1/azureClients/{{ref:basic.azure_client.json:name}}",
   "description": "A sample azure cluster",
   "azureRegion": "westus2",
   "networking": {
@@ -25,7 +25,6 @@
       "sizeGib": 8
     },
     "databaseEncryption": {
-      "resourceGroupId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-cluster",
       "keyId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-cluster/providers/Microsoft.KeyVault/vaults/{{byo_multicloud_prefix}}-dev-keyvault/keys/{{byo_multicloud_prefix}}-dev-key"
     },
     "tags": {
@@ -53,5 +52,8 @@
   },
   "annotations": {
     "annotation-one": "value-one"
+  },
+  "fleet": {
+    "project": "{{project_number}}"
   }
 }

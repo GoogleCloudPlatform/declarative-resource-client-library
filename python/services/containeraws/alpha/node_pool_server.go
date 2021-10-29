@@ -69,6 +69,7 @@ func ProtoToContainerawsAlphaNodePoolConfig(p *alphapb.ContainerawsAlphaNodePool
 		InstanceType:       dcl.StringOrNil(p.GetInstanceType()),
 		RootVolume:         ProtoToContainerawsAlphaNodePoolConfigRootVolume(p.GetRootVolume()),
 		IamInstanceProfile: dcl.StringOrNil(p.GetIamInstanceProfile()),
+		ConfigEncryption:   ProtoToContainerawsAlphaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:          ProtoToContainerawsAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
 	}
 	for _, r := range p.GetTaints() {
@@ -103,6 +104,17 @@ func ProtoToContainerawsAlphaNodePoolConfigTaints(p *alphapb.ContainerawsAlphaNo
 		Key:    dcl.StringOrNil(p.GetKey()),
 		Value:  dcl.StringOrNil(p.GetValue()),
 		Effect: ProtoToContainerawsAlphaNodePoolConfigTaintsEffectEnum(p.GetEffect()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigConfigEncryption converts a NodePoolConfigConfigEncryption object from its proto representation.
+func ProtoToContainerawsAlphaNodePoolConfigConfigEncryption(p *alphapb.ContainerawsAlphaNodePoolConfigConfigEncryption) *alpha.NodePoolConfigConfigEncryption {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.NodePoolConfigConfigEncryption{
+		KmsKeyArn: dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
 }
@@ -205,6 +217,7 @@ func ContainerawsAlphaNodePoolConfigToProto(o *alpha.NodePoolConfig) *alphapb.Co
 	p.SetInstanceType(dcl.ValueOrEmptyString(o.InstanceType))
 	p.SetRootVolume(ContainerawsAlphaNodePoolConfigRootVolumeToProto(o.RootVolume))
 	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
+	p.SetConfigEncryption(ContainerawsAlphaNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsAlphaNodePoolConfigSshConfigToProto(o.SshConfig))
 	sTaints := make([]*alphapb.ContainerawsAlphaNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
@@ -251,6 +264,16 @@ func ContainerawsAlphaNodePoolConfigTaintsToProto(o *alpha.NodePoolConfigTaints)
 	p.SetKey(dcl.ValueOrEmptyString(o.Key))
 	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	p.SetEffect(ContainerawsAlphaNodePoolConfigTaintsEffectEnumToProto(o.Effect))
+	return p
+}
+
+// NodePoolConfigConfigEncryptionToProto converts a NodePoolConfigConfigEncryption object to its proto representation.
+func ContainerawsAlphaNodePoolConfigConfigEncryptionToProto(o *alpha.NodePoolConfigConfigEncryption) *alphapb.ContainerawsAlphaNodePoolConfigConfigEncryption {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaNodePoolConfigConfigEncryption{}
+	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }
 

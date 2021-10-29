@@ -16,7 +16,7 @@ description: A basic Cloud Run Service using API v2
 type: service
 versions:
 - alpha
-resource: samples/v2.service.json
+resource: samples/basic.service.json
 updates:
 - resource: samples/update.service.json
   dependencies: []

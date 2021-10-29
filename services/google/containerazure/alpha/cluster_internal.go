@@ -55,6 +55,9 @@ func (r *Cluster) validate() error {
 	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "fleet"); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Networking) {
 		if err := r.Networking.validate(); err != nil {
 			return err
@@ -72,6 +75,11 @@ func (r *Cluster) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.WorkloadIdentityConfig) {
 		if err := r.WorkloadIdentityConfig.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Fleet) {
+		if err := r.Fleet.validate(); err != nil {
 			return err
 		}
 	}
@@ -139,9 +147,6 @@ func (r *ClusterControlPlaneMainVolume) validate() error {
 	return nil
 }
 func (r *ClusterControlPlaneDatabaseEncryption) validate() error {
-	if err := dcl.Required(r, "resourceGroupId"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "keyId"); err != nil {
 		return err
 	}
@@ -178,6 +183,12 @@ func (r *ClusterAuthorizationAdminUsers) validate() error {
 	return nil
 }
 func (r *ClusterWorkloadIdentityConfig) validate() error {
+	return nil
+}
+func (r *ClusterFleet) validate() error {
+	if err := dcl.Required(r, "project"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *Cluster) basePath() string {
@@ -593,6 +604,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		rawDesired.ControlPlane = canonicalizeClusterControlPlane(rawDesired.ControlPlane, nil, opts...)
 		rawDesired.Authorization = canonicalizeClusterAuthorization(rawDesired.Authorization, nil, opts...)
 		rawDesired.WorkloadIdentityConfig = canonicalizeClusterWorkloadIdentityConfig(rawDesired.WorkloadIdentityConfig, nil, opts...)
+		rawDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -640,6 +652,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
+	canonicalDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, rawInitial.Fleet, opts...)
 
 	return canonicalDesired, nil
 }
@@ -765,6 +778,12 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsNotReturnedByServer(rawNew.Fleet) && dcl.IsNotReturnedByServer(rawDesired.Fleet) {
+		rawNew.Fleet = rawDesired.Fleet
+	} else {
+		rawNew.Fleet = canonicalizeNewClusterFleet(c, rawDesired.Fleet, rawNew.Fleet)
+	}
 
 	return rawNew, nil
 }
@@ -1399,11 +1418,6 @@ func canonicalizeClusterControlPlaneDatabaseEncryption(des, initial *ClusterCont
 
 	cDes := &ClusterControlPlaneDatabaseEncryption{}
 
-	if dcl.StringCanonicalize(des.ResourceGroupId, initial.ResourceGroupId) || dcl.IsZeroValue(des.ResourceGroupId) {
-		cDes.ResourceGroupId = initial.ResourceGroupId
-	} else {
-		cDes.ResourceGroupId = des.ResourceGroupId
-	}
 	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
 		cDes.KeyId = initial.KeyId
 	} else {
@@ -1455,9 +1469,6 @@ func canonicalizeNewClusterControlPlaneDatabaseEncryption(c *Client, des, nw *Cl
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.ResourceGroupId, nw.ResourceGroupId) {
-		nw.ResourceGroupId = des.ResourceGroupId
-	}
 	if dcl.StringCanonicalize(des.KeyId, nw.KeyId) {
 		nw.KeyId = des.KeyId
 	}
@@ -2109,6 +2120,121 @@ func canonicalizeNewClusterWorkloadIdentityConfigSlice(c *Client, des, nw []Clus
 	return items
 }
 
+func canonicalizeClusterFleet(des, initial *ClusterFleet, opts ...dcl.ApplyOption) *ClusterFleet {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterFleet{}
+
+	if dcl.PartialSelfLinkToSelfLink(des.Project, initial.Project) || dcl.IsZeroValue(des.Project) {
+		cDes.Project = initial.Project
+	} else {
+		cDes.Project = des.Project
+	}
+
+	return cDes
+}
+
+func canonicalizeClusterFleetSlice(des, initial []ClusterFleet, opts ...dcl.ApplyOption) []ClusterFleet {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterFleet, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterFleet(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterFleet, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterFleet(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterFleet(c *Client, des, nw *ClusterFleet) *ClusterFleet {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterFleet while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.PartialSelfLinkToSelfLink(des.Project, nw.Project) {
+		nw.Project = des.Project
+	}
+
+	return nw
+}
+
+func canonicalizeNewClusterFleetSet(c *Client, des, nw []ClusterFleet) []ClusterFleet {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ClusterFleet
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareClusterFleetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewClusterFleetSlice(c *Client, des, nw []ClusterFleet) []ClusterFleet {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterFleet
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterFleet(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -2254,6 +2380,13 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Fleet, actual.Fleet, dcl.Info{ObjectFunction: compareClusterFleetNewStyle, EmptyObject: EmptyClusterFleet, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fleet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2504,13 +2637,6 @@ func compareClusterControlPlaneDatabaseEncryptionNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceGroupId, actual.ResourceGroupId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceGroupId")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.KeyId, actual.KeyId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2693,6 +2819,35 @@ func compareClusterWorkloadIdentityConfigNewStyle(d, a interface{}, fn dcl.Field
 	return diffs, nil
 }
 
+func compareClusterFleetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterFleet)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterFleet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterFleet or *ClusterFleet", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterFleet)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterFleet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterFleet", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -2804,6 +2959,11 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["location"] = v
 	}
+	if v, err := expandClusterFleet(c, f.Fleet); err != nil {
+		return nil, fmt.Errorf("error expanding Fleet into fleet: %w", err)
+	} else if v != nil {
+		m["fleet"] = v
+	}
 
 	return m, nil
 }
@@ -2839,6 +2999,7 @@ func flattenCluster(c *Client, i interface{}) *Cluster {
 	res.WorkloadIdentityConfig = flattenClusterWorkloadIdentityConfig(c, m["workloadIdentityConfig"])
 	res.Project = dcl.FlattenString(m["project"])
 	res.Location = dcl.FlattenString(m["location"])
+	res.Fleet = flattenClusterFleet(c, m["fleet"])
 
 	return res
 }
@@ -3558,9 +3719,6 @@ func expandClusterControlPlaneDatabaseEncryption(c *Client, f *ClusterControlPla
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ResourceGroupId; !dcl.IsEmptyValueIndirect(v) {
-		m["resourceGroupId"] = v
-	}
 	if v := f.KeyId; !dcl.IsEmptyValueIndirect(v) {
 		m["keyId"] = v
 	}
@@ -3581,7 +3739,6 @@ func flattenClusterControlPlaneDatabaseEncryption(c *Client, i interface{}) *Clu
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyClusterControlPlaneDatabaseEncryption
 	}
-	r.ResourceGroupId = dcl.FlattenString(m["resourceGroupId"])
 	r.KeyId = dcl.FlattenString(m["keyId"])
 
 	return r
@@ -4175,6 +4332,122 @@ func flattenClusterWorkloadIdentityConfig(c *Client, i interface{}) *ClusterWork
 	return r
 }
 
+// expandClusterFleetMap expands the contents of ClusterFleet into a JSON
+// request object.
+func expandClusterFleetMap(c *Client, f map[string]ClusterFleet) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterFleet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterFleetSlice expands the contents of ClusterFleet into a JSON
+// request object.
+func expandClusterFleetSlice(c *Client, f []ClusterFleet) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterFleet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterFleetMap flattens the contents of ClusterFleet from a JSON
+// response object.
+func flattenClusterFleetMap(c *Client, i interface{}) map[string]ClusterFleet {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterFleet{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterFleet{}
+	}
+
+	items := make(map[string]ClusterFleet)
+	for k, item := range a {
+		items[k] = *flattenClusterFleet(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenClusterFleetSlice flattens the contents of ClusterFleet from a JSON
+// response object.
+func flattenClusterFleetSlice(c *Client, i interface{}) []ClusterFleet {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterFleet{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterFleet{}
+	}
+
+	items := make([]ClusterFleet, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterFleet(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandClusterFleet expands an instance of ClusterFleet into a JSON
+// request object.
+func expandClusterFleet(c *Client, f *ClusterFleet) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := dcl.DeriveField("projects/%s", f.Project, f.Project); err != nil {
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["project"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterFleet flattens an instance of ClusterFleet from a JSON
+// response object.
+func flattenClusterFleet(c *Client, i interface{}) *ClusterFleet {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterFleet{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterFleet
+	}
+	r.Project = dcl.FlattenString(m["project"])
+
+	return r
+}
+
 // flattenClusterStateEnumMap flattens the contents of ClusterStateEnum from a JSON
 // response object.
 func flattenClusterStateEnumMap(c *Client, i interface{}) map[string]ClusterStateEnum {
@@ -4362,6 +4635,17 @@ func extractClusterFields(r *Cluster) error {
 	if !dcl.IsNotReturnedByServer(vWorkloadIdentityConfig) {
 		r.WorkloadIdentityConfig = vWorkloadIdentityConfig
 	}
+	vFleet := r.Fleet
+	if vFleet == nil {
+		// note: explicitly not the empty object.
+		vFleet = &ClusterFleet{}
+	}
+	if err := extractClusterFleetFields(r, vFleet); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFleet) {
+		r.Fleet = vFleet
+	}
 	return nil
 }
 func extractClusterNetworkingFields(r *Cluster, o *ClusterNetworking) error {
@@ -4452,6 +4736,9 @@ func extractClusterAuthorizationAdminUsersFields(r *Cluster, o *ClusterAuthoriza
 func extractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadIdentityConfig) error {
 	return nil
 }
+func extractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
+	return nil
+}
 
 func postReadExtractClusterFields(r *Cluster) error {
 	vNetworking := r.Networking
@@ -4497,6 +4784,17 @@ func postReadExtractClusterFields(r *Cluster) error {
 	}
 	if !dcl.IsNotReturnedByServer(vWorkloadIdentityConfig) {
 		r.WorkloadIdentityConfig = vWorkloadIdentityConfig
+	}
+	vFleet := r.Fleet
+	if vFleet == nil {
+		// note: explicitly not the empty object.
+		vFleet = &ClusterFleet{}
+	}
+	if err := postReadExtractClusterFleetFields(r, vFleet); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFleet) {
+		r.Fleet = vFleet
 	}
 	return nil
 }
@@ -4586,5 +4884,8 @@ func postReadExtractClusterAuthorizationAdminUsersFields(r *Cluster, o *ClusterA
 	return nil
 }
 func postReadExtractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadIdentityConfig) error {
+	return nil
+}
+func postReadExtractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
 	return nil
 }

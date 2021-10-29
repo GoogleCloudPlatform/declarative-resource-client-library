@@ -17,6 +17,7 @@ description: An example of an https cloudfunctions function with an iam binding 
 type: iam.binding
 versions:
 - ga
+- beta
 resource: samples/function.iam.binding.json
 dependencies:
 - samples/https.function.json
@@ -26,6 +27,8 @@ variables:
   type: resource_name
 - name: id
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: region

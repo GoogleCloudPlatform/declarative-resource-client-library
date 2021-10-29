@@ -73,6 +73,7 @@ components:
       - authorization
       - project
       - location
+      - fleet
       properties:
         annotations:
           type: object
@@ -152,7 +153,6 @@ components:
                 encryption.
               x-kubernetes-immutable: true
               required:
-              - resourceGroupId
               - keyId
               properties:
                 keyId:
@@ -162,12 +162,6 @@ components:
                     decrypt data. For example: `/subscriptions/<subscription-id>/resourceGroups/<resource-group-id>/providers/Microsoft.KeyVault/vaults/<key-vault-id>/keys/<key-name>`
                     Encryption will always take the latest version of the key and
                     hence specific version is not supported.'
-                  x-kubernetes-immutable: true
-                resourceGroupId:
-                  type: string
-                  x-dcl-go-name: ResourceGroupId
-                  description: 'Required. The ARM ID the of the Azure resource group
-                    containing the Azure Key Vault key. Example: `/subscriptions//resourceGroups/*`'
                   x-kubernetes-immutable: true
             mainVolume:
               type: object
@@ -326,6 +320,22 @@ components:
             optimistic concurrency control. May be sent on update and delete requests
             to ensure the client has an up-to-date value before proceeding.
           x-kubernetes-immutable: true
+        fleet:
+          type: object
+          x-dcl-go-name: Fleet
+          x-dcl-go-type: ClusterFleet
+          x-kubernetes-immutable: true
+          required:
+          - project
+          properties:
+            project:
+              type: string
+              x-dcl-go-name: Project
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Cloudresourcemanager/Project
+                field: name
+                parent: true
         location:
           type: string
           x-dcl-go-name: Location

@@ -76,8 +76,16 @@ func (r *NodePoolConfig) validate() error {
 	if err := dcl.Required(r, "iamInstanceProfile"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "configEncryption"); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.RootVolume) {
 		if err := r.RootVolume.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.ConfigEncryption) {
+		if err := r.ConfigEncryption.validate(); err != nil {
 			return err
 		}
 	}
@@ -99,6 +107,12 @@ func (r *NodePoolConfigTaints) validate() error {
 		return err
 	}
 	if err := dcl.Required(r, "effect"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *NodePoolConfigConfigEncryption) validate() error {
+	if err := dcl.Required(r, "kmsKeyArn"); err != nil {
 		return err
 	}
 	return nil
@@ -712,6 +726,7 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	} else {
 		cDes.IamInstanceProfile = des.IamInstanceProfile
 	}
+	cDes.ConfigEncryption = canonicalizeNodePoolConfigConfigEncryption(des.ConfigEncryption, initial.ConfigEncryption, opts...)
 	cDes.SshConfig = canonicalizeNodePoolConfigSshConfig(des.SshConfig, initial.SshConfig, opts...)
 	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) || dcl.IsZeroValue(des.SecurityGroupIds) {
 		cDes.SecurityGroupIds = initial.SecurityGroupIds
@@ -772,6 +787,7 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 	if dcl.StringCanonicalize(des.IamInstanceProfile, nw.IamInstanceProfile) {
 		nw.IamInstanceProfile = des.IamInstanceProfile
 	}
+	nw.ConfigEncryption = canonicalizeNewNodePoolConfigConfigEncryption(c, des.ConfigEncryption, nw.ConfigEncryption)
 	nw.SshConfig = canonicalizeNewNodePoolConfigSshConfig(c, des.SshConfig, nw.SshConfig)
 	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, nw.SecurityGroupIds) {
 		nw.SecurityGroupIds = des.SecurityGroupIds
@@ -1076,6 +1092,121 @@ func canonicalizeNewNodePoolConfigTaintsSlice(c *Client, des, nw []NodePoolConfi
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewNodePoolConfigTaints(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNodePoolConfigConfigEncryption(des, initial *NodePoolConfigConfigEncryption, opts ...dcl.ApplyOption) *NodePoolConfigConfigEncryption {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NodePoolConfigConfigEncryption{}
+
+	if dcl.StringCanonicalize(des.KmsKeyArn, initial.KmsKeyArn) || dcl.IsZeroValue(des.KmsKeyArn) {
+		cDes.KmsKeyArn = initial.KmsKeyArn
+	} else {
+		cDes.KmsKeyArn = des.KmsKeyArn
+	}
+
+	return cDes
+}
+
+func canonicalizeNodePoolConfigConfigEncryptionSlice(des, initial []NodePoolConfigConfigEncryption, opts ...dcl.ApplyOption) []NodePoolConfigConfigEncryption {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NodePoolConfigConfigEncryption, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNodePoolConfigConfigEncryption(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NodePoolConfigConfigEncryption, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNodePoolConfigConfigEncryption(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNodePoolConfigConfigEncryption(c *Client, des, nw *NodePoolConfigConfigEncryption) *NodePoolConfigConfigEncryption {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NodePoolConfigConfigEncryption while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
+		nw.KmsKeyArn = des.KmsKeyArn
+	}
+
+	return nw
+}
+
+func canonicalizeNewNodePoolConfigConfigEncryptionSet(c *Client, des, nw []NodePoolConfigConfigEncryption) []NodePoolConfigConfigEncryption {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NodePoolConfigConfigEncryption
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNodePoolConfigConfigEncryptionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNodePoolConfigConfigEncryptionSlice(c *Client, des, nw []NodePoolConfigConfigEncryption) []NodePoolConfigConfigEncryption {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NodePoolConfigConfigEncryption
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfigConfigEncryption(c, &d, &n))
 	}
 
 	return items
@@ -1617,6 +1748,13 @@ func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ConfigEncryption, actual.ConfigEncryption, dcl.Info{ObjectFunction: compareNodePoolConfigConfigEncryptionNewStyle, EmptyObject: EmptyNodePoolConfigConfigEncryption, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigEncryption")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.SshConfig, actual.SshConfig, dcl.Info{ObjectFunction: compareNodePoolConfigSshConfigNewStyle, EmptyObject: EmptyNodePoolConfigSshConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SshConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1718,6 +1856,35 @@ func compareNodePoolConfigTaintsNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 	}
 
 	if ds, err := dcl.Diff(desired.Effect, actual.Effect, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Effect")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNodePoolConfigConfigEncryptionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfigConfigEncryption)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfigConfigEncryption)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigConfigEncryption or *NodePoolConfigConfigEncryption", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfigConfigEncryption)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfigConfigEncryption)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigConfigEncryption", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyArn, actual.KmsKeyArn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyArn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2076,6 +2243,11 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig) (map[string]interface{},
 	if v := f.IamInstanceProfile; !dcl.IsEmptyValueIndirect(v) {
 		m["iamInstanceProfile"] = v
 	}
+	if v, err := expandNodePoolConfigConfigEncryption(c, f.ConfigEncryption); err != nil {
+		return nil, fmt.Errorf("error expanding ConfigEncryption into configEncryption: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["configEncryption"] = v
+	}
 	if v, err := expandNodePoolConfigSshConfig(c, f.SshConfig); err != nil {
 		return nil, fmt.Errorf("error expanding SshConfig into sshConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2107,6 +2279,7 @@ func flattenNodePoolConfig(c *Client, i interface{}) *NodePoolConfig {
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.Tags = dcl.FlattenKeyValuePairs(m["tags"])
 	r.IamInstanceProfile = dcl.FlattenString(m["iamInstanceProfile"])
+	r.ConfigEncryption = flattenNodePoolConfigConfigEncryption(c, m["configEncryption"])
 	r.SshConfig = flattenNodePoolConfigSshConfig(c, m["sshConfig"])
 	r.SecurityGroupIds = dcl.FlattenStringSlice(m["securityGroupIds"])
 
@@ -2357,6 +2530,120 @@ func flattenNodePoolConfigTaints(c *Client, i interface{}) *NodePoolConfigTaints
 	r.Key = dcl.FlattenString(m["key"])
 	r.Value = dcl.FlattenString(m["value"])
 	r.Effect = flattenNodePoolConfigTaintsEffectEnum(m["effect"])
+
+	return r
+}
+
+// expandNodePoolConfigConfigEncryptionMap expands the contents of NodePoolConfigConfigEncryption into a JSON
+// request object.
+func expandNodePoolConfigConfigEncryptionMap(c *Client, f map[string]NodePoolConfigConfigEncryption) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNodePoolConfigConfigEncryption(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNodePoolConfigConfigEncryptionSlice expands the contents of NodePoolConfigConfigEncryption into a JSON
+// request object.
+func expandNodePoolConfigConfigEncryptionSlice(c *Client, f []NodePoolConfigConfigEncryption) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNodePoolConfigConfigEncryption(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNodePoolConfigConfigEncryptionMap flattens the contents of NodePoolConfigConfigEncryption from a JSON
+// response object.
+func flattenNodePoolConfigConfigEncryptionMap(c *Client, i interface{}) map[string]NodePoolConfigConfigEncryption {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodePoolConfigConfigEncryption{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodePoolConfigConfigEncryption{}
+	}
+
+	items := make(map[string]NodePoolConfigConfigEncryption)
+	for k, item := range a {
+		items[k] = *flattenNodePoolConfigConfigEncryption(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenNodePoolConfigConfigEncryptionSlice flattens the contents of NodePoolConfigConfigEncryption from a JSON
+// response object.
+func flattenNodePoolConfigConfigEncryptionSlice(c *Client, i interface{}) []NodePoolConfigConfigEncryption {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NodePoolConfigConfigEncryption{}
+	}
+
+	if len(a) == 0 {
+		return []NodePoolConfigConfigEncryption{}
+	}
+
+	items := make([]NodePoolConfigConfigEncryption, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNodePoolConfigConfigEncryption(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandNodePoolConfigConfigEncryption expands an instance of NodePoolConfigConfigEncryption into a JSON
+// request object.
+func expandNodePoolConfigConfigEncryption(c *Client, f *NodePoolConfigConfigEncryption) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.KmsKeyArn; !dcl.IsEmptyValueIndirect(v) {
+		m["kmsKeyArn"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNodePoolConfigConfigEncryption flattens an instance of NodePoolConfigConfigEncryption from a JSON
+// response object.
+func flattenNodePoolConfigConfigEncryption(c *Client, i interface{}) *NodePoolConfigConfigEncryption {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NodePoolConfigConfigEncryption{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfigConfigEncryption
+	}
+	r.KmsKeyArn = dcl.FlattenString(m["kmsKeyArn"])
 
 	return r
 }
@@ -3007,6 +3294,17 @@ func extractNodePoolConfigFields(r *NodePool, o *NodePoolConfig) error {
 	if !dcl.IsNotReturnedByServer(vRootVolume) {
 		o.RootVolume = vRootVolume
 	}
+	vConfigEncryption := o.ConfigEncryption
+	if vConfigEncryption == nil {
+		// note: explicitly not the empty object.
+		vConfigEncryption = &NodePoolConfigConfigEncryption{}
+	}
+	if err := extractNodePoolConfigConfigEncryptionFields(r, vConfigEncryption); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigEncryption) {
+		o.ConfigEncryption = vConfigEncryption
+	}
 	vSshConfig := o.SshConfig
 	if vSshConfig == nil {
 		// note: explicitly not the empty object.
@@ -3024,6 +3322,9 @@ func extractNodePoolConfigRootVolumeFields(r *NodePool, o *NodePoolConfigRootVol
 	return nil
 }
 func extractNodePoolConfigTaintsFields(r *NodePool, o *NodePoolConfigTaints) error {
+	return nil
+}
+func extractNodePoolConfigConfigEncryptionFields(r *NodePool, o *NodePoolConfigConfigEncryption) error {
 	return nil
 }
 func extractNodePoolConfigSshConfigFields(r *NodePool, o *NodePoolConfigSshConfig) error {
@@ -3084,6 +3385,17 @@ func postReadExtractNodePoolConfigFields(r *NodePool, o *NodePoolConfig) error {
 	if !dcl.IsNotReturnedByServer(vRootVolume) {
 		o.RootVolume = vRootVolume
 	}
+	vConfigEncryption := o.ConfigEncryption
+	if vConfigEncryption == nil {
+		// note: explicitly not the empty object.
+		vConfigEncryption = &NodePoolConfigConfigEncryption{}
+	}
+	if err := extractNodePoolConfigConfigEncryptionFields(r, vConfigEncryption); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vConfigEncryption) {
+		o.ConfigEncryption = vConfigEncryption
+	}
 	vSshConfig := o.SshConfig
 	if vSshConfig == nil {
 		// note: explicitly not the empty object.
@@ -3101,6 +3413,9 @@ func postReadExtractNodePoolConfigRootVolumeFields(r *NodePool, o *NodePoolConfi
 	return nil
 }
 func postReadExtractNodePoolConfigTaintsFields(r *NodePool, o *NodePoolConfigTaints) error {
+	return nil
+}
+func postReadExtractNodePoolConfigConfigEncryptionFields(r *NodePool, o *NodePoolConfigConfigEncryption) error {
 	return nil
 }
 func postReadExtractNodePoolConfigSshConfigFields(r *NodePool, o *NodePoolConfigSshConfig) error {
