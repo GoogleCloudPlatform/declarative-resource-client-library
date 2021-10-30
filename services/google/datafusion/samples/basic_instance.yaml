@@ -40,5 +40,3 @@ variables:
   type: org_id
 - name: project
   type: project
-- name: project
-  type: project
