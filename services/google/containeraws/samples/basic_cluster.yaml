@@ -23,6 +23,14 @@ updates:
 variables:
 - name: aws_account_id
   type: aws_account_id
+- name: aws_account_id
+  type: aws_account_id
+- name: aws_account_id
+  type: aws_account_id
+- name: aws_account_id
+  type: aws_account_id
+- name: aws_account_id
+  type: aws_account_id
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
 - name: aws_database_encryption_key
@@ -61,6 +69,8 @@ variables:
   type: project
 - name: project_number
   type: project_number
+- name: test_service_account
+  type: test_service_account
 - name: test_service_account
   type: test_service_account
 - name: test_service_account
