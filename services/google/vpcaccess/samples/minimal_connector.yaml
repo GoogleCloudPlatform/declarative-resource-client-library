@@ -25,5 +25,7 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: project
+  type: project
 - name: vpcaccess_network
   type: resource_name
