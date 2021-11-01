@@ -46,3 +46,5 @@ variables:
   type: zone
 - name: zone
   type: zone
+- name: zone
+  type: zone

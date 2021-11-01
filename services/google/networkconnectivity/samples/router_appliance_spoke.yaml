@@ -43,8 +43,12 @@ variables:
   type: project
 - name: project
   type: project
-- name: region
-  type: region
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
 - name: region
   type: region
 - name: spoke

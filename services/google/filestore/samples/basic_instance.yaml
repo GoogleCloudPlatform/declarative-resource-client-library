@@ -28,7 +28,5 @@ variables:
   type: project
 - name: random_int
   type: random_int
-- name: random_int
-  type: random_int
 - name: zone
   type: zone

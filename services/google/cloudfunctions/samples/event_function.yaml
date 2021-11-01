@@ -57,5 +57,7 @@ variables:
   type: region
 - name: region
   type: region
+- name: region
+  type: region
 - name: topic
   type: resource_name

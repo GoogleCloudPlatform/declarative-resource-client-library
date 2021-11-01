@@ -27,6 +27,20 @@ variables:
   type: azure_application
 - name: azure_subscription
   type: azure_subscription
+- name: azure_subscription
+  type: azure_subscription
+- name: azure_subscription
+  type: azure_subscription
+- name: azure_subscription
+  type: azure_subscription
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: client
@@ -35,8 +49,6 @@ variables:
   type: resource_name
 - name: node_pool
   type: resource_name
-- name: project
-  type: project
 - name: project
   type: project
 - name: project
