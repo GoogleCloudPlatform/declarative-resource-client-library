@@ -186,7 +186,7 @@ func ProtoToRunAlphaServiceBinaryAuthorization(p *alphapb.RunAlphaServiceBinaryA
 		return nil
 	}
 	obj := &alpha.ServiceBinaryAuthorization{
-		Policy:                  dcl.StringOrNil(p.GetPolicy()),
+		UseDefault:              dcl.Bool(p.GetUseDefault()),
 		BreakglassJustification: dcl.StringOrNil(p.GetBreakglassJustification()),
 	}
 	return obj
@@ -627,7 +627,7 @@ func RunAlphaServiceBinaryAuthorizationToProto(o *alpha.ServiceBinaryAuthorizati
 		return nil
 	}
 	p := &alphapb.RunAlphaServiceBinaryAuthorization{}
-	p.SetPolicy(dcl.ValueOrEmptyString(o.Policy))
+	p.SetUseDefault(dcl.ValueOrEmptyBool(o.UseDefault))
 	p.SetBreakglassJustification(dcl.ValueOrEmptyString(o.BreakglassJustification))
 	return p
 }

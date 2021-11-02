@@ -876,10 +876,10 @@ func canonicalizeServiceBinaryAuthorization(des, initial *ServiceBinaryAuthoriza
 
 	cDes := &ServiceBinaryAuthorization{}
 
-	if dcl.StringCanonicalize(des.Policy, initial.Policy) || dcl.IsZeroValue(des.Policy) {
-		cDes.Policy = initial.Policy
+	if dcl.BoolCanonicalize(des.UseDefault, initial.UseDefault) || dcl.IsZeroValue(des.UseDefault) {
+		cDes.UseDefault = initial.UseDefault
 	} else {
-		cDes.Policy = des.Policy
+		cDes.UseDefault = des.UseDefault
 	}
 	if dcl.StringCanonicalize(des.BreakglassJustification, initial.BreakglassJustification) || dcl.IsZeroValue(des.BreakglassJustification) {
 		cDes.BreakglassJustification = initial.BreakglassJustification
@@ -932,8 +932,8 @@ func canonicalizeNewServiceBinaryAuthorization(c *Client, des, nw *ServiceBinary
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.Policy, nw.Policy) {
-		nw.Policy = des.Policy
+	if dcl.BoolCanonicalize(des.UseDefault, nw.UseDefault) {
+		nw.UseDefault = des.UseDefault
 	}
 	if dcl.StringCanonicalize(des.BreakglassJustification, nw.BreakglassJustification) {
 		nw.BreakglassJustification = des.BreakglassJustification
@@ -3502,7 +3502,7 @@ func compareServiceBinaryAuthorizationNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Policy, actual.Policy, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Policy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UseDefault, actual.UseDefault, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("UseDefault")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4601,8 +4601,8 @@ func expandServiceBinaryAuthorization(c *Client, f *ServiceBinaryAuthorization) 
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Policy; !dcl.IsEmptyValueIndirect(v) {
-		m["policy"] = v
+	if v := f.UseDefault; !dcl.IsEmptyValueIndirect(v) {
+		m["useDefault"] = v
 	}
 	if v := f.BreakglassJustification; !dcl.IsEmptyValueIndirect(v) {
 		m["breakglassJustification"] = v
@@ -4624,7 +4624,7 @@ func flattenServiceBinaryAuthorization(c *Client, i interface{}) *ServiceBinaryA
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceBinaryAuthorization
 	}
-	r.Policy = dcl.FlattenString(m["policy"])
+	r.UseDefault = dcl.FlattenBool(m["useDefault"])
 	r.BreakglassJustification = dcl.FlattenString(m["breakglassJustification"])
 
 	return r

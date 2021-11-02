@@ -100,6 +100,8 @@ components:
               x-dcl-go-type: InstanceManagementConfigStandardManagementConfig
               description: Configuration of the standard (GKE) cluster management
               x-kubernetes-immutable: true
+              required:
+              - masterIPv4CidrBlock
               properties:
                 clusterCidrBlock:
                   type: string
@@ -124,6 +126,7 @@ components:
                   description: Master Authorized Network. Allows access to the k8s
                     master from this block.
                   x-kubernetes-immutable: true
+                  x-dcl-server-default: true
                 masterIPv4CidrBlock:
                   type: string
                   x-dcl-go-name: MasterIPv4CidrBlock

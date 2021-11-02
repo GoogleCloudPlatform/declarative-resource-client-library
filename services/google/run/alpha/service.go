@@ -413,7 +413,7 @@ func (v ServiceTrafficStatusesTypeEnum) Validate() error {
 
 type ServiceBinaryAuthorization struct {
 	empty                   bool    `json:"-"`
-	Policy                  *string `json:"policy"`
+	UseDefault              *bool   `json:"useDefault"`
 	BreakglassJustification *string `json:"breakglassJustification"`
 }
 
@@ -432,7 +432,7 @@ func (r *ServiceBinaryAuthorization) UnmarshalJSON(data []byte) error {
 		*r = *EmptyServiceBinaryAuthorization
 	} else {
 
-		r.Policy = res.Policy
+		r.UseDefault = res.UseDefault
 
 		r.BreakglassJustification = res.BreakglassJustification
 

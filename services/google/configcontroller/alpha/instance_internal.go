@@ -66,6 +66,9 @@ func (r *InstanceManagementConfig) validate() error {
 	return nil
 }
 func (r *InstanceManagementConfigStandardManagementConfig) validate() error {
+	if err := dcl.Required(r, "masterIPv4CidrBlock"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *Instance) basePath() string {

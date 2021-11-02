@@ -11,26 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: window_based_good_total_ratio_instance
-description: window good total ratio slo instance
-type: service_level_objective
+name: minimal_instance
+description: A minimal example for an configcontroller instance
+type: instance
 versions:
-- ga
-resource: samples/window_good_total_ratio.service_level_objective.json
-dependencies:
-- samples/basic.service.json
-updates:
-- resource: samples/update_window_good_total_ratio.service_level_objective.json
-  dependencies:
-  - samples/basic.service.json
+- alpha
+resource: samples/minimal.instance.json
 variables:
-- name: displayname
-  type: resource_name
-- name: displayname
-  type: resource_name
-- name: name
-  type: resource_name
-- name: name
+- name: id
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region

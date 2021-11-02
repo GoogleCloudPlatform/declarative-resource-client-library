@@ -182,7 +182,7 @@ message RunAlphaService {
 }
 
 message RunAlphaServiceBinaryAuthorization {
-  string policy = 1;
+  bool use_default = 1;
   string breakglass_justification = 2;
 }
 

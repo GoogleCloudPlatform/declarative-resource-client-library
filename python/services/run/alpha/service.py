@@ -247,8 +247,8 @@ class Service(object):
 
 
 class ServiceBinaryAuthorization(object):
-    def __init__(self, policy: str = None, breakglass_justification: str = None):
-        self.policy = policy
+    def __init__(self, use_default: bool = None, breakglass_justification: str = None):
+        self.use_default = use_default
         self.breakglass_justification = breakglass_justification
 
     @classmethod
@@ -257,8 +257,8 @@ class ServiceBinaryAuthorization(object):
             return None
 
         res = service_pb2.RunAlphaServiceBinaryAuthorization()
-        if Primitive.to_proto(resource.policy):
-            res.policy = Primitive.to_proto(resource.policy)
+        if Primitive.to_proto(resource.use_default):
+            res.use_default = Primitive.to_proto(resource.use_default)
         if Primitive.to_proto(resource.breakglass_justification):
             res.breakglass_justification = Primitive.to_proto(
                 resource.breakglass_justification
@@ -271,7 +271,7 @@ class ServiceBinaryAuthorization(object):
             return None
 
         return ServiceBinaryAuthorization(
-            policy=Primitive.from_proto(resource.policy),
+            use_default=Primitive.from_proto(resource.use_default),
             breakglass_justification=Primitive.from_proto(
                 resource.breakglass_justification
             ),
