@@ -65,6 +65,7 @@ components:
       x-dcl-labels: labels
       type: object
       required:
+      - managementConfig
       - project
       - location
       properties:
@@ -93,6 +94,8 @@ components:
           x-dcl-go-type: InstanceManagementConfig
           description: Configuration of the cluster management
           x-kubernetes-immutable: true
+          required:
+          - standardManagementConfig
           properties:
             standardManagementConfig:
               type: object

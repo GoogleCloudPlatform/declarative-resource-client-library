@@ -44,8 +44,12 @@ variables:
   type: aws_subnet
 - name: aws_subnet
   type: aws_subnet
+- name: aws_subnet
+  type: aws_subnet
 - name: aws_vpc
   type: aws_vpc
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
@@ -54,8 +58,6 @@ variables:
   type: resource_name
 - name: pool
   type: resource_name
-- name: project
-  type: project
 - name: project
   type: project
 - name: project_number

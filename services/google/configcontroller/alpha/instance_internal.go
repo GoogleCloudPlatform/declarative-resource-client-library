@@ -28,6 +28,9 @@ import (
 
 func (r *Instance) validate() error {
 
+	if err := dcl.Required(r, "managementConfig"); err != nil {
+		return err
+	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
@@ -58,6 +61,9 @@ func (r *InstanceBundlesConfigConfigControllerConfig) validate() error {
 	return nil
 }
 func (r *InstanceManagementConfig) validate() error {
+	if err := dcl.Required(r, "standardManagementConfig"); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.StandardManagementConfig) {
 		if err := r.StandardManagementConfig.validate(); err != nil {
 			return err
