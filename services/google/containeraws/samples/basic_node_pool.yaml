@@ -74,8 +74,6 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
 - name: project_number
   type: project_number
 - name: test_service_account
