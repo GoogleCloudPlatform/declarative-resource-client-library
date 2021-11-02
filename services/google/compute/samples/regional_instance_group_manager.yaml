@@ -52,8 +52,6 @@ variables:
   type: region
 - name: region
   type: region
-- name: region
-  type: region
 - name: s_check
   type: resource_name
 - name: template1
