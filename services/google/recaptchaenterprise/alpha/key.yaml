@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 info:
-  title: Recaptchaenterprise/Key
-  description: The Recaptchaenterprise Key resource
+  title: RecaptchaEnterprise/Key
+  description: The RecaptchaEnterprise Key resource
   x-dcl-has-iam: false
 paths:
   get:
@@ -221,6 +221,7 @@ components:
               x-dcl-go-type: KeyWebSettingsIntegrationTypeEnum
               description: 'Required. Describes how this key is integrated with the
                 website. Possible values: SCORE, CHECKBOX, INVISIBLE'
+              x-kubernetes-immutable: true
               enum:
               - SCORE
               - CHECKBOX

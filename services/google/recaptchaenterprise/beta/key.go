@@ -330,7 +330,7 @@ func (r *KeyTestingOptions) HashCode() string {
 // can identify it.
 func (r *Key) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "recaptchaenterprise",
+		Service: "recaptcha_enterprise",
 		Type:    "Key",
 		Version: "beta",
 	}

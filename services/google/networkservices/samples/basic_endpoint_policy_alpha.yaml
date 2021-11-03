@@ -70,6 +70,12 @@ variables:
   type: project
 - name: project
   type: project
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project
 - name: selector
   type: resource_name
 - name: server1

@@ -53,8 +53,14 @@ variables:
   type: aws_subnet
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
+- name: aws_volume_encryption_key
+  type: aws_volume_encryption_key
 - name: aws_vpc
   type: aws_vpc
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: byo_multicloud_prefix

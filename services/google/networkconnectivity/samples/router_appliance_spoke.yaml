@@ -49,8 +49,6 @@ variables:
   type: project
 - name: project
   type: project
-- name: project
-  type: project
 - name: region
   type: region
 - name: region

@@ -1117,7 +1117,7 @@ func diffKey(c *Client, desired, actual *Key, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WebSettings, actual.WebSettings, dcl.Info{ObjectFunction: compareKeyWebSettingsNewStyle, EmptyObject: EmptyKeyWebSettings, OperationSelector: dcl.TriggersOperation("updateKeyUpdateKeyOperation")}, fn.AddNest("WebSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WebSettings, actual.WebSettings, dcl.Info{ObjectFunction: compareKeyWebSettingsNewStyle, EmptyObject: EmptyKeyWebSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
