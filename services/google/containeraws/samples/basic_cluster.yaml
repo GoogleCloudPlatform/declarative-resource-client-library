@@ -73,5 +73,3 @@ variables:
   type: test_service_account
 - name: test_service_account
   type: test_service_account
-- name: test_service_account
-  type: test_service_account

@@ -45,15 +45,9 @@ variables:
   type: project
 - name: project
   type: project
-- name: project
-  type: project
 - name: range
   type: resource_name
 - name: region
   type: region
-- name: region
-  type: region
-- name: zone
-  type: zone
 - name: zone
   type: zone
