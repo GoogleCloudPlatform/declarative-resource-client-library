@@ -59,6 +59,7 @@ paths:
 components:
   schemas:
     Exec:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: Validate
       x-dcl-go-type: OSPolicyAssignmentExec
@@ -106,6 +107,7 @@ components:
           description: An inline script. The size of the script is limited to 1024
             characters.
     File:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: Source
       x-dcl-go-type: OSPolicyAssignmentFile
@@ -164,6 +166,7 @@ components:
       title: OSPolicyAssignment
       x-dcl-id: projects/{{project}}/locations/{{location}}/osPolicyAssignments/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-iam: false
       type: object
       required:
       - osPolicies

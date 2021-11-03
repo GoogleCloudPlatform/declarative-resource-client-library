@@ -62,6 +62,7 @@ components:
       title: IdentityAwareProxyClient
       x-dcl-id: projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-iam: false
       type: object
       required:
       - project

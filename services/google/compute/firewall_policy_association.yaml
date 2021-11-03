@@ -55,6 +55,7 @@ components:
       x-dcl-id: locations/global/firewallPolicies/{{firewall_policy}}/associations/{{name}}
       x-dcl-locations:
       - global
+      x-dcl-has-iam: false
       type: object
       required:
       - name

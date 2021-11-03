@@ -66,6 +66,7 @@ components:
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-iam: false
       type: object
       required:
       - name
@@ -469,6 +470,7 @@ components:
             as a field in the request body.'
           x-kubernetes-immutable: true
     EncryptionKey:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: DiskEncryptionKey
       x-dcl-go-type: DiskEncryptionKey

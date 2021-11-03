@@ -59,6 +59,7 @@ paths:
 components:
   schemas:
     DefaultRouteAction:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: DefaultRouteAction
       x-dcl-go-type: UrlMapDefaultRouteAction
@@ -374,6 +375,7 @@ components:
 
                   The value must be between 0 and 1000
     HeaderAction:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: HeaderAction
       x-dcl-go-type: UrlMapHeaderAction
@@ -472,6 +474,7 @@ components:
       - region
       - global
       x-dcl-parent-container: project
+      x-dcl-has-iam: false
       type: object
       properties:
         defaultRouteAction:

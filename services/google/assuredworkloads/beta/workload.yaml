@@ -64,6 +64,7 @@ components:
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: organization
       x-dcl-labels: labels
+      x-dcl-has-iam: false
       type: object
       required:
       - displayName

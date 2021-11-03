@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/regions/{{location}}/clusters/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-iam: true
       type: object
       required:
       - project
@@ -246,6 +247,7 @@ components:
                 - UNHEALTHY
                 - STALE_STATUS
     ClusterConfig:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: Config
       x-dcl-go-type: ClusterClusterConfig
@@ -773,6 +775,7 @@ components:
           x-dcl-go-name: WorkerConfig
           x-kubernetes-immutable: true
     InstanceGroupConfig:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: MasterConfig
       x-dcl-go-type: ClusterInstanceGroupConfig

@@ -35,6 +35,7 @@ components:
       x-dcl-id: locations/global/metricsScopes/{{name}}
       x-dcl-locations:
       - global
+      x-dcl-has-iam: false
       type: object
       required:
       - name

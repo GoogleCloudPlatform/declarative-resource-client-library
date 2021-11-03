@@ -53,6 +53,7 @@ components:
     Role:
       title: Role
       x-dcl-id: '{{parent}}/roles/{{name}}'
+      x-dcl-has-iam: false
       type: object
       properties:
         deleted:

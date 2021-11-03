@@ -59,6 +59,7 @@ paths:
 components:
   schemas:
     FixedOrPercent:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: TargetSize
       x-dcl-go-type: InstanceGroupManagerFixedOrPercent
@@ -104,6 +105,7 @@ components:
       - zone
       - region
       x-dcl-parent-container: project
+      x-dcl-has-iam: false
       type: object
       required:
       - name

@@ -31,6 +31,7 @@ paths:
 components:
   schemas:
     AdmissionRule:
+      x-dcl-has-iam: false
       type: object
       x-dcl-go-name: DefaultAdmissionRule
       x-dcl-go-type: PolicyAdmissionRule
@@ -82,6 +83,7 @@ components:
       title: Policy
       x-dcl-id: projects/{{project}}/policy
       x-dcl-parent-container: project
+      x-dcl-has-iam: true
       type: object
       required:
       - defaultAdmissionRule
