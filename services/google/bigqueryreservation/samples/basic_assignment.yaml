@@ -22,9 +22,5 @@ dependencies:
 variables:
 - name: project
   type: project
-- name: project
-  type: project
-- name: project
-  type: project
 - name: reservation
   type: resource_name
