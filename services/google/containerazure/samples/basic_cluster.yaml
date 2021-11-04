@@ -36,18 +36,10 @@ variables:
   type: azure_proxy_config_secret_version
 - name: azure_subscription
   type: azure_subscription
-- name: azure_subscription
-  type: azure_subscription
-- name: azure_subscription
-  type: azure_subscription
-- name: azure_subscription
-  type: azure_subscription
-- name: azure_subscription
-  type: azure_subscription
-- name: azure_subscription
-  type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
+- name: client
+  type: resource_name
 - name: client
   type: resource_name
 - name: cluster
