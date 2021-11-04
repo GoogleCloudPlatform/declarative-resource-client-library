@@ -188,8 +188,10 @@ components:
         etag:
           type: string
           x-dcl-go-name: Etag
+          readOnly: true
           description: The etag for this GuestPolicy. If this is provided on update,
             it must match the server's etag.
+          x-kubernetes-immutable: true
         name:
           type: string
           x-dcl-go-name: Name

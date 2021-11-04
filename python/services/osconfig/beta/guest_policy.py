@@ -41,7 +41,6 @@ class GuestPolicy(object):
         self.packages = packages
         self.package_repositories = package_repositories
         self.recipes = recipes
-        self.etag = etag
         self.project = project
         self.service_account_file = service_account_file
 
@@ -74,9 +73,6 @@ class GuestPolicy(object):
             request.resource.recipes.extend(
                 GuestPolicyRecipesArray.to_proto(self.recipes)
             )
-        if Primitive.to_proto(self.etag):
-            request.resource.etag = Primitive.to_proto(self.etag)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -126,9 +122,6 @@ class GuestPolicy(object):
             request.resource.recipes.extend(
                 GuestPolicyRecipesArray.to_proto(self.recipes)
             )
-        if Primitive.to_proto(self.etag):
-            request.resource.etag = Primitive.to_proto(self.etag)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -165,8 +158,6 @@ class GuestPolicy(object):
             )
         if GuestPolicyRecipesArray.to_proto(self.recipes):
             resource.recipes.extend(GuestPolicyRecipesArray.to_proto(self.recipes))
-        if Primitive.to_proto(self.etag):
-            resource.etag = Primitive.to_proto(self.etag)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource

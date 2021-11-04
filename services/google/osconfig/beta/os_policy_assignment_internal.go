@@ -392,7 +392,7 @@ func (r *OSPolicyAssignmentRolloutDisruptionBudget) validate() error {
 }
 func (r *OSPolicyAssignment) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://osconfig.googleapis.com/v1beta/", params)
+	return dcl.Nprintf("https://osconfig.googleapis.com/v1", params)
 }
 
 func (r *OSPolicyAssignment) getURL(userBasePath string) (string, error) {

@@ -156,5 +156,7 @@ variables:
   type: region
 - name: region
   type: region
+- name: region
+  type: region
 - name: spoke
   type: resource_name

@@ -259,7 +259,7 @@ func (r *GuestPolicyRecipesUpdateStepsScriptRun) validate() error {
 }
 func (r *GuestPolicy) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://osconfig.googleapis.com/v1beta/", params)
+	return dcl.Nprintf("https://osconfig.googleapis.com/v1beta", params)
 }
 
 func (r *GuestPolicy) getURL(userBasePath string) (string, error) {
@@ -336,9 +336,6 @@ func newUpdateGuestPolicyUpdateGuestPolicyRequest(ctx context.Context, f *GuestP
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
 	} else if v != nil {
 		req["recipes"] = v
-	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		req["etag"] = v
 	}
 	b, err := c.getGuestPolicyRaw(ctx, f)
 	if err != nil {
@@ -669,11 +666,6 @@ func canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial *GuestPolicy, op
 	canonicalDesired.Packages = canonicalizeGuestPolicyPackagesSlice(rawDesired.Packages, rawInitial.Packages, opts...)
 	canonicalDesired.PackageRepositories = canonicalizeGuestPolicyPackageRepositoriesSlice(rawDesired.PackageRepositories, rawInitial.PackageRepositories, opts...)
 	canonicalDesired.Recipes = canonicalizeGuestPolicyRecipesSlice(rawDesired.Recipes, rawInitial.Recipes, opts...)
-	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
-		canonicalDesired.Etag = rawInitial.Etag
-	} else {
-		canonicalDesired.Etag = rawDesired.Etag
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -4570,7 +4562,7 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5994,9 +5986,6 @@ func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
 	} else {
 		m["recipes"] = v
-	}
-	if v := f.Etag; dcl.ValueShouldBeSent(v) {
-		m["etag"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)

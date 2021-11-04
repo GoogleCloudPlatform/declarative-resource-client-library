@@ -20,6 +20,6 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterOsconfigAlphaGuestPolicyServiceServer(s, &GuestPolicyServer{})
 	sdkgrpc.RegisterOsconfigAlphaOSPolicyAssignmentServiceServer(s, &OSPolicyAssignmentServer{})
+	sdkgrpc.RegisterOsconfigAlphaGuestPolicyServiceServer(s, &GuestPolicyServer{})
 }

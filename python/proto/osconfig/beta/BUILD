@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="osconfig/beta", resources=["guest_policy","os_policy_assignment"])
+proto_package(name="osconfig/beta", resources=["os_policy_assignment","guest_policy"])
