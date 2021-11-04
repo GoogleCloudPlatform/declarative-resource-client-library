@@ -32,7 +32,5 @@ variables:
   type: resource_name
 - name: region
   type: region
-- name: region
-  type: region
 - name: template_name
   type: resource_name
