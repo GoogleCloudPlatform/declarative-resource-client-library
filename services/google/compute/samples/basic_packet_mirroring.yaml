@@ -88,3 +88,7 @@ variables:
   type: resource_name
 - name: zone
   type: zone
+- name: zone
+  type: zone
+- name: zone
+  type: zone

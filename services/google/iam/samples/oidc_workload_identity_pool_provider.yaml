@@ -36,5 +36,7 @@ variables:
   type: resource_name
 - name: provider
   type: resource_name
+- name: provider
+  type: resource_name
 - name: region
   type: region
