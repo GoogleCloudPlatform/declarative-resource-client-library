@@ -74,6 +74,8 @@ variables:
   type: byo_multicloud_prefix
 - name: client
   type: resource_name
+- name: client
+  type: resource_name
 - name: cluster
   type: resource_name
 - name: project

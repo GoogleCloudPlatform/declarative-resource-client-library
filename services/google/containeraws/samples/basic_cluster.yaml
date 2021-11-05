@@ -61,19 +61,11 @@ variables:
   type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: cluster
   type: resource_name
 - name: project
   type: project
 - name: project_number
   type: project_number
-- name: test_service_account
-  type: test_service_account
-- name: test_service_account
-  type: test_service_account
 - name: test_service_account
   type: test_service_account

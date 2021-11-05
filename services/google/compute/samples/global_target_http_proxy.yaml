@@ -47,7 +47,5 @@ variables:
   type: project
 - name: project
   type: project
-- name: project
-  type: project
 - name: proxy
   type: resource_name
