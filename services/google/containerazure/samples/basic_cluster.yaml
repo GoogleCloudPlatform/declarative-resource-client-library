@@ -28,8 +28,6 @@ updates:
 variables:
 - name: azure_ad_tenant
   type: azure_ad_tenant
-- name: azure_ad_tenant
-  type: azure_ad_tenant
 - name: azure_application
   type: azure_application
 - name: azure_proxy_config_secret_version
@@ -74,16 +72,8 @@ variables:
   type: byo_multicloud_prefix
 - name: client
   type: resource_name
-- name: client
-  type: resource_name
 - name: cluster
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
-- name: project
-  type: project
 - name: project
   type: project
 - name: project_number
