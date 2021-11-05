@@ -12,16 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum ComputeSubnetworkPurposeEnum {
   ComputeSubnetworkPurposeEnumNO_VALUE_DO_NOT_USE = 0;
   ComputeSubnetworkPurposeEnumINTERNAL_HTTPS_LOAD_BALANCER = 1;
   ComputeSubnetworkPurposeEnumPRIVATE = 2;
+  ComputeSubnetworkPurposeEnumAGGREGATE = 3;
+  ComputeSubnetworkPurposeEnumPRIVATE_SERVICE_CONNECT = 4;
+  ComputeSubnetworkPurposeEnumCLOUD_EXTENSION = 5;
+  ComputeSubnetworkPurposeEnumPRIVATE_NAT = 6;
 }
 
 enum ComputeSubnetworkRoleEnum {

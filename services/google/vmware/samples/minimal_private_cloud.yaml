@@ -24,5 +24,7 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: project
+  type: project
 - name: zone
   type: zone

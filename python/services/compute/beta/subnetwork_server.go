@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/beta/compute_beta_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -73,26 +72,26 @@ func ProtoToComputeBetaSubnetworkLogConfigMetadataEnum(e betapb.ComputeBetaSubne
 	return nil
 }
 
-// ProtoToSubnetworkSecondaryIPRanges converts a SubnetworkSecondaryIPRanges resource from its proto representation.
+// ProtoToSubnetworkSecondaryIPRanges converts a SubnetworkSecondaryIPRanges object from its proto representation.
 func ProtoToComputeBetaSubnetworkSecondaryIPRanges(p *betapb.ComputeBetaSubnetworkSecondaryIPRanges) *beta.SubnetworkSecondaryIPRanges {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.SubnetworkSecondaryIPRanges{
-		RangeName:   dcl.StringOrNil(p.RangeName),
-		IPCidrRange: dcl.StringOrNil(p.IpCidrRange),
+		RangeName:   dcl.StringOrNil(p.GetRangeName()),
+		IPCidrRange: dcl.StringOrNil(p.GetIpCidrRange()),
 	}
 	return obj
 }
 
-// ProtoToSubnetworkLogConfig converts a SubnetworkLogConfig resource from its proto representation.
+// ProtoToSubnetworkLogConfig converts a SubnetworkLogConfig object from its proto representation.
 func ProtoToComputeBetaSubnetworkLogConfig(p *betapb.ComputeBetaSubnetworkLogConfig) *beta.SubnetworkLogConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.SubnetworkLogConfig{
 		AggregationInterval: ProtoToComputeBetaSubnetworkLogConfigAggregationIntervalEnum(p.GetAggregationInterval()),
-		FlowSampling:        dcl.Float64OrNil(p.FlowSampling),
+		FlowSampling:        dcl.Float64OrNil(p.GetFlowSampling()),
 		Metadata:            ProtoToComputeBetaSubnetworkLogConfigMetadataEnum(p.GetMetadata()),
 	}
 	return obj
@@ -102,20 +101,20 @@ func ProtoToComputeBetaSubnetworkLogConfig(p *betapb.ComputeBetaSubnetworkLogCon
 func ProtoToSubnetwork(p *betapb.ComputeBetaSubnetwork) *beta.Subnetwork {
 	obj := &beta.Subnetwork{
 		CreationTimestamp:     dcl.StringOrNil(p.GetCreationTimestamp()),
-		Description:           dcl.StringOrNil(p.Description),
-		GatewayAddress:        dcl.StringOrNil(p.GatewayAddress),
-		IPCidrRange:           dcl.StringOrNil(p.IpCidrRange),
-		Name:                  dcl.StringOrNil(p.Name),
-		Network:               dcl.StringOrNil(p.Network),
-		Fingerprint:           dcl.StringOrNil(p.Fingerprint),
+		Description:           dcl.StringOrNil(p.GetDescription()),
+		GatewayAddress:        dcl.StringOrNil(p.GetGatewayAddress()),
+		IPCidrRange:           dcl.StringOrNil(p.GetIpCidrRange()),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		Network:               dcl.StringOrNil(p.GetNetwork()),
+		Fingerprint:           dcl.StringOrNil(p.GetFingerprint()),
 		Purpose:               ProtoToComputeBetaSubnetworkPurposeEnum(p.GetPurpose()),
 		Role:                  ProtoToComputeBetaSubnetworkRoleEnum(p.GetRole()),
-		PrivateIPGoogleAccess: dcl.Bool(p.PrivateIpGoogleAccess),
-		Region:                dcl.StringOrNil(p.Region),
+		PrivateIPGoogleAccess: dcl.Bool(p.GetPrivateIpGoogleAccess()),
+		Region:                dcl.StringOrNil(p.GetRegion()),
 		LogConfig:             ProtoToComputeBetaSubnetworkLogConfig(p.GetLogConfig()),
-		Project:               dcl.StringOrNil(p.Project),
-		SelfLink:              dcl.StringOrNil(p.SelfLink),
-		EnableFlowLogs:        dcl.Bool(p.EnableFlowLogs),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		SelfLink:              dcl.StringOrNil(p.GetSelfLink()),
+		EnableFlowLogs:        dcl.Bool(p.GetEnableFlowLogs()),
 	}
 	for _, r := range p.GetSecondaryIpRanges() {
 		obj.SecondaryIPRanges = append(obj.SecondaryIPRanges, *ProtoToComputeBetaSubnetworkSecondaryIPRanges(r))
@@ -167,58 +166,57 @@ func ComputeBetaSubnetworkLogConfigMetadataEnumToProto(e *beta.SubnetworkLogConf
 	return betapb.ComputeBetaSubnetworkLogConfigMetadataEnum(0)
 }
 
-// SubnetworkSecondaryIPRangesToProto converts a SubnetworkSecondaryIPRanges resource to its proto representation.
+// SubnetworkSecondaryIPRangesToProto converts a SubnetworkSecondaryIPRanges object to its proto representation.
 func ComputeBetaSubnetworkSecondaryIPRangesToProto(o *beta.SubnetworkSecondaryIPRanges) *betapb.ComputeBetaSubnetworkSecondaryIPRanges {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaSubnetworkSecondaryIPRanges{
-		RangeName:   dcl.ValueOrEmptyString(o.RangeName),
-		IpCidrRange: dcl.ValueOrEmptyString(o.IPCidrRange),
-	}
+	p := &betapb.ComputeBetaSubnetworkSecondaryIPRanges{}
+	p.SetRangeName(dcl.ValueOrEmptyString(o.RangeName))
+	p.SetIpCidrRange(dcl.ValueOrEmptyString(o.IPCidrRange))
 	return p
 }
 
-// SubnetworkLogConfigToProto converts a SubnetworkLogConfig resource to its proto representation.
+// SubnetworkLogConfigToProto converts a SubnetworkLogConfig object to its proto representation.
 func ComputeBetaSubnetworkLogConfigToProto(o *beta.SubnetworkLogConfig) *betapb.ComputeBetaSubnetworkLogConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaSubnetworkLogConfig{
-		AggregationInterval: ComputeBetaSubnetworkLogConfigAggregationIntervalEnumToProto(o.AggregationInterval),
-		FlowSampling:        dcl.ValueOrEmptyDouble(o.FlowSampling),
-		Metadata:            ComputeBetaSubnetworkLogConfigMetadataEnumToProto(o.Metadata),
-	}
+	p := &betapb.ComputeBetaSubnetworkLogConfig{}
+	p.SetAggregationInterval(ComputeBetaSubnetworkLogConfigAggregationIntervalEnumToProto(o.AggregationInterval))
+	p.SetFlowSampling(dcl.ValueOrEmptyDouble(o.FlowSampling))
+	p.SetMetadata(ComputeBetaSubnetworkLogConfigMetadataEnumToProto(o.Metadata))
 	return p
 }
 
 // SubnetworkToProto converts a Subnetwork resource to its proto representation.
 func SubnetworkToProto(resource *beta.Subnetwork) *betapb.ComputeBetaSubnetwork {
-	p := &betapb.ComputeBetaSubnetwork{
-		CreationTimestamp:     dcl.ValueOrEmptyString(resource.CreationTimestamp),
-		Description:           dcl.ValueOrEmptyString(resource.Description),
-		GatewayAddress:        dcl.ValueOrEmptyString(resource.GatewayAddress),
-		IpCidrRange:           dcl.ValueOrEmptyString(resource.IPCidrRange),
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		Network:               dcl.ValueOrEmptyString(resource.Network),
-		Fingerprint:           dcl.ValueOrEmptyString(resource.Fingerprint),
-		Purpose:               ComputeBetaSubnetworkPurposeEnumToProto(resource.Purpose),
-		Role:                  ComputeBetaSubnetworkRoleEnumToProto(resource.Role),
-		PrivateIpGoogleAccess: dcl.ValueOrEmptyBool(resource.PrivateIPGoogleAccess),
-		Region:                dcl.ValueOrEmptyString(resource.Region),
-		LogConfig:             ComputeBetaSubnetworkLogConfigToProto(resource.LogConfig),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
-		EnableFlowLogs:        dcl.ValueOrEmptyBool(resource.EnableFlowLogs),
+	p := &betapb.ComputeBetaSubnetwork{}
+	p.SetCreationTimestamp(dcl.ValueOrEmptyString(resource.CreationTimestamp))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetGatewayAddress(dcl.ValueOrEmptyString(resource.GatewayAddress))
+	p.SetIpCidrRange(dcl.ValueOrEmptyString(resource.IPCidrRange))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetNetwork(dcl.ValueOrEmptyString(resource.Network))
+	p.SetFingerprint(dcl.ValueOrEmptyString(resource.Fingerprint))
+	p.SetPurpose(ComputeBetaSubnetworkPurposeEnumToProto(resource.Purpose))
+	p.SetRole(ComputeBetaSubnetworkRoleEnumToProto(resource.Role))
+	p.SetPrivateIpGoogleAccess(dcl.ValueOrEmptyBool(resource.PrivateIPGoogleAccess))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetLogConfig(ComputeBetaSubnetworkLogConfigToProto(resource.LogConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetEnableFlowLogs(dcl.ValueOrEmptyBool(resource.EnableFlowLogs))
+	sSecondaryIPRanges := make([]*betapb.ComputeBetaSubnetworkSecondaryIPRanges, len(resource.SecondaryIPRanges))
+	for i, r := range resource.SecondaryIPRanges {
+		sSecondaryIPRanges[i] = ComputeBetaSubnetworkSecondaryIPRangesToProto(&r)
 	}
-	for _, r := range resource.SecondaryIPRanges {
-		p.SecondaryIpRanges = append(p.SecondaryIpRanges, ComputeBetaSubnetworkSecondaryIPRangesToProto(&r))
-	}
+	p.SetSecondaryIpRanges(sSecondaryIPRanges)
 
 	return p
 }
 
-// ApplySubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
+// applySubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
 func (s *SubnetworkServer) applySubnetwork(ctx context.Context, c *beta.Client, request *betapb.ApplyComputeBetaSubnetworkRequest) (*betapb.ComputeBetaSubnetwork, error) {
 	p := ProtoToSubnetwork(request.GetResource())
 	res, err := c.ApplySubnetwork(ctx, p)
@@ -229,9 +227,9 @@ func (s *SubnetworkServer) applySubnetwork(ctx context.Context, c *beta.Client, 
 	return r, nil
 }
 
-// ApplySubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
+// applyComputeBetaSubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
 func (s *SubnetworkServer) ApplyComputeBetaSubnetwork(ctx context.Context, request *betapb.ApplyComputeBetaSubnetworkRequest) (*betapb.ComputeBetaSubnetwork, error) {
-	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSubnetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +239,7 @@ func (s *SubnetworkServer) ApplyComputeBetaSubnetwork(ctx context.Context, reque
 // DeleteSubnetwork handles the gRPC request by passing it to the underlying Subnetwork Delete() method.
 func (s *SubnetworkServer) DeleteComputeBetaSubnetwork(ctx context.Context, request *betapb.DeleteComputeBetaSubnetworkRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSubnetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -251,12 +249,12 @@ func (s *SubnetworkServer) DeleteComputeBetaSubnetwork(ctx context.Context, requ
 
 // ListComputeBetaSubnetwork handles the gRPC request by passing it to the underlying SubnetworkList() method.
 func (s *SubnetworkServer) ListComputeBetaSubnetwork(ctx context.Context, request *betapb.ListComputeBetaSubnetworkRequest) (*betapb.ListComputeBetaSubnetworkResponse, error) {
-	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSubnetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListSubnetwork(ctx, request.Project, request.Region)
+	resources, err := cl.ListSubnetwork(ctx, request.GetProject(), request.GetRegion())
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +263,9 @@ func (s *SubnetworkServer) ListComputeBetaSubnetwork(ctx context.Context, reques
 		rp := SubnetworkToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListComputeBetaSubnetworkResponse{Items: protos}, nil
+	p := &betapb.ListComputeBetaSubnetworkResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigSubnetwork(ctx context.Context, service_account_file string) (*beta.Client, error) {

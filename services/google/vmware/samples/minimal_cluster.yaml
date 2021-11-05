@@ -34,3 +34,5 @@ variables:
   type: project
 - name: zone
   type: zone
+- name: zone
+  type: zone

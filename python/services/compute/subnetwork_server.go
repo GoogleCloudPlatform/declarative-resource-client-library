@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -73,26 +72,26 @@ func ProtoToComputeSubnetworkLogConfigMetadataEnum(e computepb.ComputeSubnetwork
 	return nil
 }
 
-// ProtoToSubnetworkSecondaryIPRanges converts a SubnetworkSecondaryIPRanges resource from its proto representation.
+// ProtoToSubnetworkSecondaryIPRanges converts a SubnetworkSecondaryIPRanges object from its proto representation.
 func ProtoToComputeSubnetworkSecondaryIPRanges(p *computepb.ComputeSubnetworkSecondaryIPRanges) *compute.SubnetworkSecondaryIPRanges {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.SubnetworkSecondaryIPRanges{
-		RangeName:   dcl.StringOrNil(p.RangeName),
-		IPCidrRange: dcl.StringOrNil(p.IpCidrRange),
+		RangeName:   dcl.StringOrNil(p.GetRangeName()),
+		IPCidrRange: dcl.StringOrNil(p.GetIpCidrRange()),
 	}
 	return obj
 }
 
-// ProtoToSubnetworkLogConfig converts a SubnetworkLogConfig resource from its proto representation.
+// ProtoToSubnetworkLogConfig converts a SubnetworkLogConfig object from its proto representation.
 func ProtoToComputeSubnetworkLogConfig(p *computepb.ComputeSubnetworkLogConfig) *compute.SubnetworkLogConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.SubnetworkLogConfig{
 		AggregationInterval: ProtoToComputeSubnetworkLogConfigAggregationIntervalEnum(p.GetAggregationInterval()),
-		FlowSampling:        dcl.Float64OrNil(p.FlowSampling),
+		FlowSampling:        dcl.Float64OrNil(p.GetFlowSampling()),
 		Metadata:            ProtoToComputeSubnetworkLogConfigMetadataEnum(p.GetMetadata()),
 	}
 	return obj
@@ -102,20 +101,20 @@ func ProtoToComputeSubnetworkLogConfig(p *computepb.ComputeSubnetworkLogConfig) 
 func ProtoToSubnetwork(p *computepb.ComputeSubnetwork) *compute.Subnetwork {
 	obj := &compute.Subnetwork{
 		CreationTimestamp:     dcl.StringOrNil(p.GetCreationTimestamp()),
-		Description:           dcl.StringOrNil(p.Description),
-		GatewayAddress:        dcl.StringOrNil(p.GatewayAddress),
-		IPCidrRange:           dcl.StringOrNil(p.IpCidrRange),
-		Name:                  dcl.StringOrNil(p.Name),
-		Network:               dcl.StringOrNil(p.Network),
-		Fingerprint:           dcl.StringOrNil(p.Fingerprint),
+		Description:           dcl.StringOrNil(p.GetDescription()),
+		GatewayAddress:        dcl.StringOrNil(p.GetGatewayAddress()),
+		IPCidrRange:           dcl.StringOrNil(p.GetIpCidrRange()),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		Network:               dcl.StringOrNil(p.GetNetwork()),
+		Fingerprint:           dcl.StringOrNil(p.GetFingerprint()),
 		Purpose:               ProtoToComputeSubnetworkPurposeEnum(p.GetPurpose()),
 		Role:                  ProtoToComputeSubnetworkRoleEnum(p.GetRole()),
-		PrivateIPGoogleAccess: dcl.Bool(p.PrivateIpGoogleAccess),
-		Region:                dcl.StringOrNil(p.Region),
+		PrivateIPGoogleAccess: dcl.Bool(p.GetPrivateIpGoogleAccess()),
+		Region:                dcl.StringOrNil(p.GetRegion()),
 		LogConfig:             ProtoToComputeSubnetworkLogConfig(p.GetLogConfig()),
-		Project:               dcl.StringOrNil(p.Project),
-		SelfLink:              dcl.StringOrNil(p.SelfLink),
-		EnableFlowLogs:        dcl.Bool(p.EnableFlowLogs),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		SelfLink:              dcl.StringOrNil(p.GetSelfLink()),
+		EnableFlowLogs:        dcl.Bool(p.GetEnableFlowLogs()),
 	}
 	for _, r := range p.GetSecondaryIpRanges() {
 		obj.SecondaryIPRanges = append(obj.SecondaryIPRanges, *ProtoToComputeSubnetworkSecondaryIPRanges(r))
@@ -167,58 +166,57 @@ func ComputeSubnetworkLogConfigMetadataEnumToProto(e *compute.SubnetworkLogConfi
 	return computepb.ComputeSubnetworkLogConfigMetadataEnum(0)
 }
 
-// SubnetworkSecondaryIPRangesToProto converts a SubnetworkSecondaryIPRanges resource to its proto representation.
+// SubnetworkSecondaryIPRangesToProto converts a SubnetworkSecondaryIPRanges object to its proto representation.
 func ComputeSubnetworkSecondaryIPRangesToProto(o *compute.SubnetworkSecondaryIPRanges) *computepb.ComputeSubnetworkSecondaryIPRanges {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeSubnetworkSecondaryIPRanges{
-		RangeName:   dcl.ValueOrEmptyString(o.RangeName),
-		IpCidrRange: dcl.ValueOrEmptyString(o.IPCidrRange),
-	}
+	p := &computepb.ComputeSubnetworkSecondaryIPRanges{}
+	p.SetRangeName(dcl.ValueOrEmptyString(o.RangeName))
+	p.SetIpCidrRange(dcl.ValueOrEmptyString(o.IPCidrRange))
 	return p
 }
 
-// SubnetworkLogConfigToProto converts a SubnetworkLogConfig resource to its proto representation.
+// SubnetworkLogConfigToProto converts a SubnetworkLogConfig object to its proto representation.
 func ComputeSubnetworkLogConfigToProto(o *compute.SubnetworkLogConfig) *computepb.ComputeSubnetworkLogConfig {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeSubnetworkLogConfig{
-		AggregationInterval: ComputeSubnetworkLogConfigAggregationIntervalEnumToProto(o.AggregationInterval),
-		FlowSampling:        dcl.ValueOrEmptyDouble(o.FlowSampling),
-		Metadata:            ComputeSubnetworkLogConfigMetadataEnumToProto(o.Metadata),
-	}
+	p := &computepb.ComputeSubnetworkLogConfig{}
+	p.SetAggregationInterval(ComputeSubnetworkLogConfigAggregationIntervalEnumToProto(o.AggregationInterval))
+	p.SetFlowSampling(dcl.ValueOrEmptyDouble(o.FlowSampling))
+	p.SetMetadata(ComputeSubnetworkLogConfigMetadataEnumToProto(o.Metadata))
 	return p
 }
 
 // SubnetworkToProto converts a Subnetwork resource to its proto representation.
 func SubnetworkToProto(resource *compute.Subnetwork) *computepb.ComputeSubnetwork {
-	p := &computepb.ComputeSubnetwork{
-		CreationTimestamp:     dcl.ValueOrEmptyString(resource.CreationTimestamp),
-		Description:           dcl.ValueOrEmptyString(resource.Description),
-		GatewayAddress:        dcl.ValueOrEmptyString(resource.GatewayAddress),
-		IpCidrRange:           dcl.ValueOrEmptyString(resource.IPCidrRange),
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		Network:               dcl.ValueOrEmptyString(resource.Network),
-		Fingerprint:           dcl.ValueOrEmptyString(resource.Fingerprint),
-		Purpose:               ComputeSubnetworkPurposeEnumToProto(resource.Purpose),
-		Role:                  ComputeSubnetworkRoleEnumToProto(resource.Role),
-		PrivateIpGoogleAccess: dcl.ValueOrEmptyBool(resource.PrivateIPGoogleAccess),
-		Region:                dcl.ValueOrEmptyString(resource.Region),
-		LogConfig:             ComputeSubnetworkLogConfigToProto(resource.LogConfig),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
-		EnableFlowLogs:        dcl.ValueOrEmptyBool(resource.EnableFlowLogs),
+	p := &computepb.ComputeSubnetwork{}
+	p.SetCreationTimestamp(dcl.ValueOrEmptyString(resource.CreationTimestamp))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetGatewayAddress(dcl.ValueOrEmptyString(resource.GatewayAddress))
+	p.SetIpCidrRange(dcl.ValueOrEmptyString(resource.IPCidrRange))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetNetwork(dcl.ValueOrEmptyString(resource.Network))
+	p.SetFingerprint(dcl.ValueOrEmptyString(resource.Fingerprint))
+	p.SetPurpose(ComputeSubnetworkPurposeEnumToProto(resource.Purpose))
+	p.SetRole(ComputeSubnetworkRoleEnumToProto(resource.Role))
+	p.SetPrivateIpGoogleAccess(dcl.ValueOrEmptyBool(resource.PrivateIPGoogleAccess))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetLogConfig(ComputeSubnetworkLogConfigToProto(resource.LogConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetEnableFlowLogs(dcl.ValueOrEmptyBool(resource.EnableFlowLogs))
+	sSecondaryIPRanges := make([]*computepb.ComputeSubnetworkSecondaryIPRanges, len(resource.SecondaryIPRanges))
+	for i, r := range resource.SecondaryIPRanges {
+		sSecondaryIPRanges[i] = ComputeSubnetworkSecondaryIPRangesToProto(&r)
 	}
-	for _, r := range resource.SecondaryIPRanges {
-		p.SecondaryIpRanges = append(p.SecondaryIpRanges, ComputeSubnetworkSecondaryIPRangesToProto(&r))
-	}
+	p.SetSecondaryIpRanges(sSecondaryIPRanges)
 
 	return p
 }
 
-// ApplySubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
+// applySubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
 func (s *SubnetworkServer) applySubnetwork(ctx context.Context, c *compute.Client, request *computepb.ApplyComputeSubnetworkRequest) (*computepb.ComputeSubnetwork, error) {
 	p := ProtoToSubnetwork(request.GetResource())
 	res, err := c.ApplySubnetwork(ctx, p)
@@ -229,9 +227,9 @@ func (s *SubnetworkServer) applySubnetwork(ctx context.Context, c *compute.Clien
 	return r, nil
 }
 
-// ApplySubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
+// applyComputeSubnetwork handles the gRPC request by passing it to the underlying Subnetwork Apply() method.
 func (s *SubnetworkServer) ApplyComputeSubnetwork(ctx context.Context, request *computepb.ApplyComputeSubnetworkRequest) (*computepb.ComputeSubnetwork, error) {
-	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSubnetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +239,7 @@ func (s *SubnetworkServer) ApplyComputeSubnetwork(ctx context.Context, request *
 // DeleteSubnetwork handles the gRPC request by passing it to the underlying Subnetwork Delete() method.
 func (s *SubnetworkServer) DeleteComputeSubnetwork(ctx context.Context, request *computepb.DeleteComputeSubnetworkRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSubnetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -251,12 +249,12 @@ func (s *SubnetworkServer) DeleteComputeSubnetwork(ctx context.Context, request 
 
 // ListComputeSubnetwork handles the gRPC request by passing it to the underlying SubnetworkList() method.
 func (s *SubnetworkServer) ListComputeSubnetwork(ctx context.Context, request *computepb.ListComputeSubnetworkRequest) (*computepb.ListComputeSubnetworkResponse, error) {
-	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSubnetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListSubnetwork(ctx, request.Project, request.Region)
+	resources, err := cl.ListSubnetwork(ctx, request.GetProject(), request.GetRegion())
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +263,9 @@ func (s *SubnetworkServer) ListComputeSubnetwork(ctx context.Context, request *c
 		rp := SubnetworkToProto(r)
 		protos = append(protos, rp)
 	}
-	return &computepb.ListComputeSubnetworkResponse{Items: protos}, nil
+	p := &computepb.ListComputeSubnetworkResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigSubnetwork(ctx context.Context, service_account_file string) (*compute.Client, error) {

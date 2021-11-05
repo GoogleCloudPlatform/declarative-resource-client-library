@@ -70,6 +70,7 @@ components:
       - ipCidrRange
       - name
       - network
+      - region
       - project
       properties:
         creationTimestamp:
@@ -101,6 +102,7 @@ components:
           readOnly: true
           description: 'Fingerprint of this resource. This field is used internally
             during updates of this resource. '
+          x-kubernetes-immutable: true
         gatewayAddress:
           type: string
           x-dcl-go-name: GatewayAddress

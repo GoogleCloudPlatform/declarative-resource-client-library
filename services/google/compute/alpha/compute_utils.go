@@ -603,3 +603,59 @@ func flattenNetworkSelfLinkWithID(r map[string]interface{}, _ interface{}) *stri
 	selfLinkWithID := u.String()
 	return &selfLinkWithID
 }
+
+// Subnetwork's update operation has a custom method because a separate request must be performed for each field.
+func (op *updateSubnetworkUpdateOperation) do(ctx context.Context, r *Subnetwork, c *Client) error {
+	_, err := c.GetSubnetwork(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "update")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateSubnetworkUpdateRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	fingerprint := req["fingerprint"]
+	for field, value := range req {
+		if field == "fingerprint" {
+			continue
+		}
+		sr := map[string]interface{}{
+			field:         value,
+			"fingerprint": fingerprint,
+		}
+		c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", sr)
+		body, err := marshalUpdateSubnetworkUpdateRequest(c, sr)
+		if err != nil {
+			return err
+		}
+		resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+		if err != nil {
+			return err
+		}
+
+		var o operations.ComputeOperation
+		if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+			return err
+		}
+		err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
+
+		if err != nil {
+			return err
+		}
+		// Perform a get request to pick up the new fingerprint for the resource.
+		ur, err := c.GetSubnetwork(ctx, r)
+		if err != nil {
+			return err
+		}
+		fingerprint = ur.Fingerprint
+	}
+
+	return nil
+}
