@@ -32,6 +32,8 @@ variables:
   type: aws_database_encryption_key
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
 - name: aws_region
   type: aws_region
 - name: aws_region
@@ -40,6 +42,10 @@ variables:
   type: aws_region
 - name: aws_region
   type: aws_region
+- name: aws_subnet
+  type: aws_subnet
+- name: aws_subnet
+  type: aws_subnet
 - name: aws_subnet
   type: aws_subnet
 - name: aws_vpc
