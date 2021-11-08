@@ -49,9 +49,9 @@ variables:
   type: resource_name
 - name: org_id
   type: org_id
-- name: org_id
-  type: org_id
 - name: policy
   type: resource_name
+- name: test_service_account
+  type: test_service_account
 - name: test_service_account
   type: test_service_account

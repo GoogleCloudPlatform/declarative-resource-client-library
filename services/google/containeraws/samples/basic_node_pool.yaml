@@ -36,6 +36,10 @@ variables:
   type: aws_account_id
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
 - name: aws_region
   type: aws_region
 - name: aws_region
@@ -52,22 +56,18 @@ variables:
   type: aws_subnet
 - name: aws_subnet
   type: aws_subnet
-- name: aws_subnet
-  type: aws_subnet
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
 - name: aws_vpc
   type: aws_vpc
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: cluster
   type: resource_name
 - name: pool
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: project_number
