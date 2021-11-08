@@ -8,7 +8,7 @@
     "test1":"updatevalue1",
     "test2":"value2"
   },
-  "service":"apps/{{ref:basic.service.json:name}}",
+  "service":"{{ref:basic.service.json:name}}",
   "serviceLevelIndicator":{
     "windowsBased":{
       "windowPeriod": "120s",

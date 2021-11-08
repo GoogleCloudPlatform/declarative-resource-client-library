@@ -7,7 +7,7 @@
   "userLabels":{
     "test1":"value1"
   },
-  "service":"apps/{{ref:basic.service.json:name}}",
+  "service":"{{ref:basic.service.json:name}}",
   "serviceLevelIndicator":{
     "windowsBased":{
       "windowPeriod": "60s",

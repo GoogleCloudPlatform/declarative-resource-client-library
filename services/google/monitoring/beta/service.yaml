@@ -54,18 +54,13 @@ components:
       title: Service
       x-dcl-id: projects/{{project}}/services/{{name}}
       x-dcl-parent-container: project
+      x-dcl-labels: userLabels
       x-dcl-has-iam: false
       type: object
       required:
       - name
       - project
       properties:
-        deleted:
-          type: boolean
-          x-dcl-go-name: Deleted
-          description: Indicated whether the resource has been deleted. If this is
-            true, the Service will only appear in calls to ListServices that specify
-            show_deleted
         displayName:
           type: string
           x-dcl-go-name: DisplayName
@@ -74,6 +69,7 @@ components:
           type: string
           x-dcl-go-name: Name
           description: 'Resource name for this Service. The format is: projects/[PROJECT_ID_OR_NUMBER]/services/[SERVICE_ID]'
+          x-kubernetes-immutable: true
         project:
           type: string
           x-dcl-go-name: Project

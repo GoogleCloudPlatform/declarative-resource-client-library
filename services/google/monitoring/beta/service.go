@@ -30,7 +30,6 @@ type Service struct {
 	Custom      *ServiceCustom    `json:"custom"`
 	Telemetry   *ServiceTelemetry `json:"telemetry"`
 	UserLabels  map[string]string `json:"userLabels"`
-	Deleted     *bool             `json:"deleted"`
 	Project     *string           `json:"project"`
 }
 
@@ -148,7 +147,6 @@ func (r *Service) ID() (string, error) {
 		"custom":      dcl.ValueOrEmptyString(nr.Custom),
 		"telemetry":   dcl.ValueOrEmptyString(nr.Telemetry),
 		"userLabels":  dcl.ValueOrEmptyString(nr.UserLabels),
-		"deleted":     dcl.ValueOrEmptyString(nr.Deleted),
 		"project":     dcl.ValueOrEmptyString(nr.Project),
 	}
 	return dcl.Nprintf("projects/{{project}}/services/{{name}}", params), nil

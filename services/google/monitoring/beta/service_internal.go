@@ -104,11 +104,6 @@ type serviceApiOperation interface {
 func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v, err := dcl.DeriveField("projects/%s/services/%s", f.Name, f.Project, f.Name); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["name"] = v
-	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
@@ -124,9 +119,6 @@ func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Cl
 	}
 	if v := f.UserLabels; !dcl.IsEmptyValueIndirect(v) {
 		req["userLabels"] = v
-	}
-	if v := f.Deleted; !dcl.IsEmptyValueIndirect(v) {
-		req["deleted"] = v
 	}
 	return req, nil
 }
@@ -441,11 +433,6 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	} else {
 		canonicalDesired.UserLabels = rawDesired.UserLabels
 	}
-	if dcl.BoolCanonicalize(rawDesired.Deleted, rawInitial.Deleted) {
-		canonicalDesired.Deleted = rawInitial.Deleted
-	} else {
-		canonicalDesired.Deleted = rawDesired.Deleted
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -488,14 +475,6 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	if dcl.IsNotReturnedByServer(rawNew.UserLabels) && dcl.IsNotReturnedByServer(rawDesired.UserLabels) {
 		rawNew.UserLabels = rawDesired.UserLabels
 	} else {
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.Deleted) && dcl.IsNotReturnedByServer(rawDesired.Deleted) {
-		rawNew.Deleted = rawDesired.Deleted
-	} else {
-		if dcl.BoolCanonicalize(rawDesired.Deleted, rawNew.Deleted) {
-			rawNew.Deleted = rawDesired.Deleted
-		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -740,7 +719,7 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -769,13 +748,6 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	}
 
 	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Deleted, actual.Deleted, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Deleted")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -905,9 +877,6 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	if v := f.UserLabels; dcl.ValueShouldBeSent(v) {
 		m["userLabels"] = v
 	}
-	if v := f.Deleted; dcl.ValueShouldBeSent(v) {
-		m["deleted"] = v
-	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {
@@ -938,7 +907,6 @@ func flattenService(c *Client, i interface{}) *Service {
 	}
 	res.Telemetry = flattenServiceTelemetry(c, m["telemetry"])
 	res.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
-	res.Deleted = dcl.FlattenBool(m["deleted"])
 	res.Project = dcl.FlattenString(m["project"])
 
 	return res

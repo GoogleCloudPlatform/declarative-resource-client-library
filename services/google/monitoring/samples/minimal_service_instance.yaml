@@ -11,18 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: service_instance
-description: A basic monitoring service instance
+name: minimal_service_instance
+description: A monitoring service instance with minimal fields
 type: service
 versions:
 - ga
-resource: samples/basic.service.json
-updates:
-- resource: samples/update.service.json
-  dependencies: []
+resource: samples/minimal.service.json
 variables:
-- name: displayname
-  type: resource_name
 - name: name
   type: resource_name
 - name: project

@@ -4,7 +4,7 @@
   "goal": 0.8,
   "displayName": "{{displayname}}",
   "rollingPeriod": "172800s",
-  "service":"apps/{{ref:basic.service.json:name}}",
+  "service":"{{ref:basic.service.json:name}}",
   "serviceLevelIndicator":{
     "requestBased":{
       "distributionCut": {

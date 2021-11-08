@@ -3,7 +3,7 @@
   "project": "{{project}}",
   "goal": 0.9,
   "rollingPeriod": "86400s",
-  "service":"apps/{{ref:basic.service.json:name}}",
+  "service":"{{ref:basic.service.json:name}}",
   "serviceLevelIndicator":{
     "requestBased":{
       "distributionCut": {

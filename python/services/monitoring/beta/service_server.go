@@ -51,7 +51,6 @@ func ProtoToService(p *betapb.MonitoringBetaService) *beta.Service {
 		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
 		Custom:      ProtoToMonitoringBetaServiceCustom(p.GetCustom()),
 		Telemetry:   ProtoToMonitoringBetaServiceTelemetry(p.GetTelemetry()),
-		Deleted:     dcl.Bool(p.GetDeleted()),
 		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
@@ -83,7 +82,6 @@ func ServiceToProto(resource *beta.Service) *betapb.MonitoringBetaService {
 	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetCustom(MonitoringBetaServiceCustomToProto(resource.Custom))
 	p.SetTelemetry(MonitoringBetaServiceTelemetryToProto(resource.Telemetry))
-	p.SetDeleted(dcl.ValueOrEmptyBool(resource.Deleted))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	mUserLabels := make(map[string]string, len(resource.UserLabels))
 	for k, r := range resource.UserLabels {

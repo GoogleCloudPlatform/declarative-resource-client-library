@@ -26,7 +26,6 @@ class Service(object):
         custom: dict = None,
         telemetry: dict = None,
         user_labels: dict = None,
-        deleted: bool = None,
         project: str = None,
         service_account_file: str = "",
     ):
@@ -37,7 +36,6 @@ class Service(object):
         self.custom = custom
         self.telemetry = telemetry
         self.user_labels = user_labels
-        self.deleted = deleted
         self.project = project
         self.service_account_file = service_account_file
 
@@ -63,9 +61,6 @@ class Service(object):
         if Primitive.to_proto(self.user_labels):
             request.resource.user_labels = Primitive.to_proto(self.user_labels)
 
-        if Primitive.to_proto(self.deleted):
-            request.resource.deleted = Primitive.to_proto(self.deleted)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -77,7 +72,6 @@ class Service(object):
         self.custom = ServiceCustom.from_proto(response.custom)
         self.telemetry = ServiceTelemetry.from_proto(response.telemetry)
         self.user_labels = Primitive.from_proto(response.user_labels)
-        self.deleted = Primitive.from_proto(response.deleted)
         self.project = Primitive.from_proto(response.project)
 
     def delete(self):
@@ -102,9 +96,6 @@ class Service(object):
             request.resource.ClearField("telemetry")
         if Primitive.to_proto(self.user_labels):
             request.resource.user_labels = Primitive.to_proto(self.user_labels)
-
-        if Primitive.to_proto(self.deleted):
-            request.resource.deleted = Primitive.to_proto(self.deleted)
 
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
@@ -136,8 +127,6 @@ class Service(object):
             resource.ClearField("telemetry")
         if Primitive.to_proto(self.user_labels):
             resource.user_labels = Primitive.to_proto(self.user_labels)
-        if Primitive.to_proto(self.deleted):
-            resource.deleted = Primitive.to_proto(self.deleted)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource

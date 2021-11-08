@@ -7,7 +7,7 @@
   "userLabels":{
     "test1":"value2"
   },
-  "service":"apps/{{ref:basic.service.json:name}}",
+  "service":"{{ref:basic.service.json:name}}",
   "serviceLevelIndicator":{
     "requestBased":{
       "goodTotalRatio": {
