@@ -26,15 +26,7 @@ updates:
 variables:
 - name: displayname
   type: resource_name
-- name: displayname
-  type: resource_name
 - name: name
   type: resource_name
-- name: name
-  type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
 - name: project
   type: project
