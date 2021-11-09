@@ -32,14 +32,18 @@ enum CloudbuildBetaWorkerPoolStateEnum {
 
 message CloudbuildBetaWorkerPool {
   string name = 1;
-  string create_time = 2;
-  string update_time = 3;
-  string delete_time = 4;
-  CloudbuildBetaWorkerPoolStateEnum state = 5;
-  CloudbuildBetaWorkerPoolWorkerConfig worker_config = 6;
-  CloudbuildBetaWorkerPoolNetworkConfig network_config = 7;
-  string project = 8;
-  string location = 9;
+  string display_name = 2;
+  string uid = 3;
+  map<string, string> annotations = 4;
+  string create_time = 5;
+  string update_time = 6;
+  string delete_time = 7;
+  CloudbuildBetaWorkerPoolStateEnum state = 8;
+  string etag = 9;
+  CloudbuildBetaWorkerPoolWorkerConfig worker_config = 10;
+  CloudbuildBetaWorkerPoolNetworkConfig network_config = 11;
+  string project = 12;
+  string location = 13;
 }
 
 message CloudbuildBetaWorkerPoolWorkerConfig {

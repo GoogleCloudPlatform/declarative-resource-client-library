@@ -16,6 +16,7 @@ description: Example for workerpool instance
 type: worker_pool
 versions:
 - ga
+- beta
 resource: samples/basic.worker_pool.json
 dependencies:
 - samples/basic.compute.network.json

@@ -69,6 +69,13 @@ components:
       - project
       - location
       properties:
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Annotations
+          description: User specified annotations. See https://google.aip.dev/128#annotations
+            for more details such as format and size limitations.
         createTime:
           type: string
           format: date-time
@@ -84,6 +91,19 @@ components:
           readOnly: true
           description: Output only. Time at which the request to delete the `WorkerPool`
             was received.
+          x-kubernetes-immutable: true
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          description: A user-specified, human-readable name for the `WorkerPool`.
+            If provided, this value must be 1-63 characters.
+        etag:
+          type: string
+          x-dcl-go-name: Etag
+          readOnly: true
+          description: Output only. Checksum computed by the server. May be sent on
+            update and delete requests to ensure that the client has an up-to-date
+            value before proceeding.
           x-kubernetes-immutable: true
         location:
           type: string
@@ -141,6 +161,12 @@ components:
           - APPROVED
           - REJECTED
           - CANCELLED
+        uid:
+          type: string
+          x-dcl-go-name: Uid
+          readOnly: true
+          description: Output only. A unique identifier for the `WorkerPool`.
+          x-kubernetes-immutable: true
         updateTime:
           type: string
           format: date-time

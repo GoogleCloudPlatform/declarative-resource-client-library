@@ -26,10 +26,14 @@ import (
 
 type WorkerPool struct {
 	Name          *string                  `json:"name"`
+	DisplayName   *string                  `json:"displayName"`
+	Uid           *string                  `json:"uid"`
+	Annotations   map[string]string        `json:"annotations"`
 	CreateTime    *string                  `json:"createTime"`
 	UpdateTime    *string                  `json:"updateTime"`
 	DeleteTime    *string                  `json:"deleteTime"`
 	State         *WorkerPoolStateEnum     `json:"state"`
+	Etag          *string                  `json:"etag"`
 	WorkerConfig  *WorkerPoolWorkerConfig  `json:"workerConfig"`
 	NetworkConfig *WorkerPoolNetworkConfig `json:"networkConfig"`
 	Project       *string                  `json:"project"`
@@ -182,10 +186,14 @@ func (r *WorkerPool) ID() (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
 		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"displayName":   dcl.ValueOrEmptyString(nr.DisplayName),
+		"uid":           dcl.ValueOrEmptyString(nr.Uid),
+		"annotations":   dcl.ValueOrEmptyString(nr.Annotations),
 		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
 		"updateTime":    dcl.ValueOrEmptyString(nr.UpdateTime),
 		"deleteTime":    dcl.ValueOrEmptyString(nr.DeleteTime),
 		"state":         dcl.ValueOrEmptyString(nr.State),
+		"etag":          dcl.ValueOrEmptyString(nr.Etag),
 		"workerConfig":  dcl.ValueOrEmptyString(nr.WorkerConfig),
 		"networkConfig": dcl.ValueOrEmptyString(nr.NetworkConfig),
 		"project":       dcl.ValueOrEmptyString(nr.Project),

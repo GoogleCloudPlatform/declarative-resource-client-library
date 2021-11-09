@@ -64,10 +64,13 @@ func ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p *betapb.CloudbuildBetaWorker
 func ProtoToWorkerPool(p *betapb.CloudbuildBetaWorkerPool) *beta.WorkerPool {
 	obj := &beta.WorkerPool{
 		Name:          dcl.StringOrNil(p.GetName()),
+		DisplayName:   dcl.StringOrNil(p.GetDisplayName()),
+		Uid:           dcl.StringOrNil(p.GetUid()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
 		State:         ProtoToCloudbuildBetaWorkerPoolStateEnum(p.GetState()),
+		Etag:          dcl.StringOrNil(p.GetEtag()),
 		WorkerConfig:  ProtoToCloudbuildBetaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
 		NetworkConfig: ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
 		Project:       dcl.StringOrNil(p.GetProject()),
@@ -113,14 +116,22 @@ func CloudbuildBetaWorkerPoolNetworkConfigToProto(o *beta.WorkerPoolNetworkConfi
 func WorkerPoolToProto(resource *beta.WorkerPool) *betapb.CloudbuildBetaWorkerPool {
 	p := &betapb.CloudbuildBetaWorkerPool{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
 	p.SetState(CloudbuildBetaWorkerPoolStateEnumToProto(resource.State))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetWorkerConfig(CloudbuildBetaWorkerPoolWorkerConfigToProto(resource.WorkerConfig))
 	p.SetNetworkConfig(CloudbuildBetaWorkerPoolNetworkConfigToProto(resource.NetworkConfig))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mAnnotations := make(map[string]string, len(resource.Annotations))
+	for k, r := range resource.Annotations {
+		mAnnotations[k] = r
+	}
+	p.SetAnnotations(mAnnotations)
 
 	return p
 }

@@ -22,10 +22,14 @@ class WorkerPool(object):
     def __init__(
         self,
         name: str = None,
+        display_name: str = None,
+        uid: str = None,
+        annotations: dict = None,
         create_time: str = None,
         update_time: str = None,
         delete_time: str = None,
         state: str = None,
+        etag: str = None,
         worker_config: dict = None,
         network_config: dict = None,
         project: str = None,
@@ -35,6 +39,8 @@ class WorkerPool(object):
 
         channel.initialize()
         self.name = name
+        self.display_name = display_name
+        self.annotations = annotations
         self.worker_config = worker_config
         self.network_config = network_config
         self.project = project
@@ -48,6 +54,12 @@ class WorkerPool(object):
         request = worker_pool_pb2.ApplyCloudbuildAlphaWorkerPoolRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
 
         if WorkerPoolWorkerConfig.to_proto(self.worker_config):
             request.resource.worker_config.CopyFrom(
@@ -71,10 +83,14 @@ class WorkerPool(object):
 
         response = stub.ApplyCloudbuildAlphaWorkerPool(request)
         self.name = Primitive.from_proto(response.name)
+        self.display_name = Primitive.from_proto(response.display_name)
+        self.uid = Primitive.from_proto(response.uid)
+        self.annotations = Primitive.from_proto(response.annotations)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
         self.delete_time = Primitive.from_proto(response.delete_time)
         self.state = WorkerPoolStateEnum.from_proto(response.state)
+        self.etag = Primitive.from_proto(response.etag)
         self.worker_config = WorkerPoolWorkerConfig.from_proto(response.worker_config)
         self.network_config = WorkerPoolNetworkConfig.from_proto(
             response.network_config
@@ -90,6 +106,12 @@ class WorkerPool(object):
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
 
         if WorkerPoolWorkerConfig.to_proto(self.worker_config):
             request.resource.worker_config.CopyFrom(
@@ -128,6 +150,10 @@ class WorkerPool(object):
         resource = worker_pool_pb2.CloudbuildAlphaWorkerPool()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.annotations):
+            resource.annotations = Primitive.to_proto(self.annotations)
         if WorkerPoolWorkerConfig.to_proto(self.worker_config):
             resource.worker_config.CopyFrom(
                 WorkerPoolWorkerConfig.to_proto(self.worker_config)

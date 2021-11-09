@@ -64,10 +64,13 @@ func ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p *alphapb.CloudbuildAlphaWor
 func ProtoToWorkerPool(p *alphapb.CloudbuildAlphaWorkerPool) *alpha.WorkerPool {
 	obj := &alpha.WorkerPool{
 		Name:          dcl.StringOrNil(p.GetName()),
+		DisplayName:   dcl.StringOrNil(p.GetDisplayName()),
+		Uid:           dcl.StringOrNil(p.GetUid()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
 		State:         ProtoToCloudbuildAlphaWorkerPoolStateEnum(p.GetState()),
+		Etag:          dcl.StringOrNil(p.GetEtag()),
 		WorkerConfig:  ProtoToCloudbuildAlphaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
 		NetworkConfig: ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
 		Project:       dcl.StringOrNil(p.GetProject()),
@@ -113,14 +116,22 @@ func CloudbuildAlphaWorkerPoolNetworkConfigToProto(o *alpha.WorkerPoolNetworkCon
 func WorkerPoolToProto(resource *alpha.WorkerPool) *alphapb.CloudbuildAlphaWorkerPool {
 	p := &alphapb.CloudbuildAlphaWorkerPool{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
 	p.SetState(CloudbuildAlphaWorkerPoolStateEnumToProto(resource.State))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetWorkerConfig(CloudbuildAlphaWorkerPoolWorkerConfigToProto(resource.WorkerConfig))
 	p.SetNetworkConfig(CloudbuildAlphaWorkerPoolNetworkConfigToProto(resource.NetworkConfig))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mAnnotations := make(map[string]string, len(resource.Annotations))
+	for k, r := range resource.Annotations {
+		mAnnotations[k] = r
+	}
+	p.SetAnnotations(mAnnotations)
 
 	return p
 }

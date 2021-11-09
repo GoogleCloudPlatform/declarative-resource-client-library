@@ -122,6 +122,12 @@ type workerPoolApiOperation interface {
 func newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx context.Context, f *WorkerPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
+	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+		req["displayName"] = v
+	}
+	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+		req["annotations"] = v
+	}
 	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -510,6 +516,16 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
+	}
+	if dcl.IsZeroValue(rawDesired.Annotations) {
+		canonicalDesired.Annotations = rawInitial.Annotations
+	} else {
+		canonicalDesired.Annotations = rawDesired.Annotations
+	}
 	canonicalDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
 	canonicalDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -536,6 +552,27 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 		}
 	}
 
+	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
+		rawNew.DisplayName = rawDesired.DisplayName
+	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
+		rawNew.Uid = rawDesired.Uid
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
+			rawNew.Uid = rawDesired.Uid
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
+		rawNew.Annotations = rawDesired.Annotations
+	} else {
+	}
+
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
@@ -554,6 +591,14 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
+		rawNew.Etag = rawDesired.Etag
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
+			rawNew.Etag = rawDesired.Etag
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.WorkerConfig) && dcl.IsNotReturnedByServer(rawDesired.WorkerConfig) {
@@ -843,6 +888,27 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -865,6 +931,13 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 	}
 
 	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -979,6 +1052,9 @@ func compareWorkerPoolNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) 
 func (r *WorkerPool) urlNormalized() *WorkerPool {
 	normalized := dcl.Copy(*r).(WorkerPool)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
@@ -1037,6 +1113,12 @@ func expandWorkerPool(c *Client, f *WorkerPool) (map[string]interface{}, error) 
 	} else if v != nil {
 		m["name"] = v
 	}
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
+		m["displayName"] = v
+	}
+	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
+		m["annotations"] = v
+	}
 	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if v != nil {
@@ -1074,10 +1156,14 @@ func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
 
 	res := &WorkerPool{}
 	res.Name = dcl.FlattenString(m["name"])
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Uid = dcl.FlattenString(m["uid"])
+	res.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
 	res.State = flattenWorkerPoolStateEnum(m["state"])
+	res.Etag = dcl.FlattenString(m["etag"])
 	res.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"])
 	res.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"])
 	res.Project = dcl.FlattenString(m["project"])
