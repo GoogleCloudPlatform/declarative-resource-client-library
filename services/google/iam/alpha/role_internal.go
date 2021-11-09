@@ -886,7 +886,7 @@ func unmarshalMapRole(m map[string]interface{}, c *Client) (*Role, error) {
 // expandRole expands Role into a JSON request object.
 func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("%s/roles/%s", f.Name, f.Parent, f.Name); err != nil {
+	if v, err := dcl.DeriveField("%s/roles/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

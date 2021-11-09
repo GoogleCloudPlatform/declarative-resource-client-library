@@ -857,7 +857,7 @@ func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	if v := f.PeerGcpGateway; dcl.ValueShouldBeSent(v) {
 		m["peerGcpGateway"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/regions/%s/routers/%s", f.Router, f.Project, f.Region, f.Router); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/regions/%s/routers/%s", f.Router, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Region), dcl.SelfLinkToName(f.Router)); err != nil {
 		return nil, fmt.Errorf("error expanding Router into router: %w", err)
 	} else if v != nil {
 		m["router"] = v

@@ -264,7 +264,7 @@ type serviceApiOperation interface {
 func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/services/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -4416,7 +4416,7 @@ func unmarshalMapService(m map[string]interface{}, c *Client) (*Service, error) 
 // expandService expands Service into a JSON request object.
 func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/services/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

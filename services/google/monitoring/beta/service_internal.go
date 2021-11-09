@@ -856,7 +856,7 @@ func unmarshalMapService(m map[string]interface{}, c *Client) (*Service, error) 
 // expandService expands Service into a JSON request object.
 func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/services/%s", f.Name, f.Project, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

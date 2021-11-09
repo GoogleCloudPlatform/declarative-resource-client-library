@@ -7918,7 +7918,7 @@ func unmarshalMapCertificateAuthority(m map[string]interface{}, c *Client) (*Cer
 // expandCertificateAuthority expands CertificateAuthority into a JSON request object.
 func expandCertificateAuthority(c *Client, f *CertificateAuthority) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s/certificateAuthorities/%s", f.Name, f.Project, f.Location, f.CaPool, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s/certificateAuthorities/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.CaPool), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

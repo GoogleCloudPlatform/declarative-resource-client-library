@@ -994,7 +994,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := dcl.DeriveField("global/networks/%s", f.Network, f.Network); err != nil {
+	if v, err := dcl.DeriveField("global/networks/%s", f.Network, dcl.SelfLinkToName(f.Network)); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
 	} else if v != nil {
 		m["network"] = v
@@ -1012,7 +1012,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	if v := f.NextHopIP; dcl.ValueShouldBeSent(v) {
 		m["nextHopIp"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/global/gateways/%s", f.NextHopGateway, f.Project, f.NextHopGateway); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/global/gateways/%s", f.NextHopGateway, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.NextHopGateway)); err != nil {
 		return nil, fmt.Errorf("error expanding NextHopGateway into nextHopGateway: %w", err)
 	} else if v != nil {
 		m["nextHopGateway"] = v

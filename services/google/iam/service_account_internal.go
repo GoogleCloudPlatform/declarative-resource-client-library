@@ -1003,7 +1003,7 @@ func unmarshalMapServiceAccount(m map[string]interface{}, c *Client) (*ServiceAc
 // expandServiceAccount expands ServiceAccount into a JSON request object.
 func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/serviceAccounts/%s@%s.iam.gserviceaccounts.com", f.Name, f.Project, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/serviceAccounts/%s@%s.iam.gserviceaccounts.com", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

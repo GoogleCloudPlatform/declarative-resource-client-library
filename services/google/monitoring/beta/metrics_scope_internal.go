@@ -429,7 +429,7 @@ func unmarshalMapMetricsScope(m map[string]interface{}, c *Client) (*MetricsScop
 // expandMetricsScope expands MetricsScope into a JSON request object.
 func expandMetricsScope(c *Client, f *MetricsScope) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("locations/global/metricsScope/%s", f.Name, f.Name); err != nil {
+	if v, err := dcl.DeriveField("locations/global/metricsScope/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

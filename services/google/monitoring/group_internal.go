@@ -100,7 +100,7 @@ func newUpdateGroupUpdateRequest(ctx context.Context, f *Group, c *Client) (map[
 	if v := f.IsCluster; !dcl.IsEmptyValueIndirect(v) {
 		req["isCluster"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, f.Project, f.ParentName); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.ParentName)); err != nil {
 		return nil, fmt.Errorf("error expanding ParentName into parentName: %w", err)
 	} else if v != nil {
 		req["parentName"] = v
@@ -628,7 +628,7 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, f.Project, f.ParentName); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.ParentName)); err != nil {
 		return nil, fmt.Errorf("error expanding ParentName into parentName: %w", err)
 	} else {
 		m["parentName"] = v

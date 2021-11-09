@@ -1385,7 +1385,7 @@ func unmarshalMapEndpointPolicy(m map[string]interface{}, c *Client) (*EndpointP
 // expandEndpointPolicy expands EndpointPolicy into a JSON request object.
 func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/*/locations/global/endpointPolicies/%s", f.Name, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/*/locations/global/endpointPolicies/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

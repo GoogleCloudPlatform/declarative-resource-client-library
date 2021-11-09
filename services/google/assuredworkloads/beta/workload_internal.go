@@ -1202,7 +1202,7 @@ func unmarshalMapWorkload(m map[string]interface{}, c *Client) (*Workload, error
 // expandWorkload expands Workload into a JSON request object.
 func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("organizations/%s/locations/%s/workloads/%s", f.Name, f.Organization, f.Location, f.Name); err != nil {
+	if v, err := dcl.DeriveField("organizations/%s/locations/%s/workloads/%s", f.Name, dcl.SelfLinkToName(f.Organization), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

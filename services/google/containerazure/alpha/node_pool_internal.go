@@ -1635,7 +1635,7 @@ func unmarshalMapNodePool(m map[string]interface{}, c *Client) (*NodePool, error
 // expandNodePool expands NodePool into a JSON request object.
 func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/azureClusters/%s/azureNodePools/%s", f.Name, f.Project, f.Location, f.Cluster, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/azureClusters/%s/azureNodePools/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Cluster), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

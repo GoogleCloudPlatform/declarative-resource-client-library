@@ -2250,7 +2250,7 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	} else if v != nil {
 		m["endpoint"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/memberships/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/memberships/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

@@ -5002,7 +5002,7 @@ func unmarshalMapServiceLevelObjective(m map[string]interface{}, c *Client) (*Se
 // expandServiceLevelObjective expands ServiceLevelObjective into a JSON request object.
 func expandServiceLevelObjective(c *Client, f *ServiceLevelObjective) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/services/%s/serviceLevelObjectives/%s", f.Name, f.Project, f.Service, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/services/%s/serviceLevelObjectives/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Service), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

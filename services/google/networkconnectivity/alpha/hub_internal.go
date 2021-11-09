@@ -633,7 +633,7 @@ func unmarshalMapHub(m map[string]interface{}, c *Client) (*Hub, error) {
 // expandHub expands Hub into a JSON request object.
 func expandHub(c *Client, f *Hub) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/locations/global/hubs/%s", f.Name, f.Project, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/global/hubs/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

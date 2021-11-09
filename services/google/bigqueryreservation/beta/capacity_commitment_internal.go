@@ -999,7 +999,7 @@ func unmarshalMapCapacityCommitment(m map[string]interface{}, c *Client) (*Capac
 // expandCapacityCommitment expands CapacityCommitment into a JSON request object.
 func expandCapacityCommitment(c *Client, f *CapacityCommitment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/capacityCommitments/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/capacityCommitments/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

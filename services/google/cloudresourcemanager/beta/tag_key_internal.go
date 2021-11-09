@@ -622,7 +622,7 @@ func unmarshalMapTagKey(m map[string]interface{}, c *Client) (*TagKey, error) {
 // expandTagKey expands TagKey into a JSON request object.
 func expandTagKey(c *Client, f *TagKey) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("tagKeys/%s", f.Name, f.Name); err != nil {
+	if v, err := dcl.DeriveField("tagKeys/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

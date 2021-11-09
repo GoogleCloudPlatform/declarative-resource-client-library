@@ -432,7 +432,7 @@ func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 	if v := f.ApplicationTitle; dcl.ValueShouldBeSent(v) {
 		m["applicationTitle"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/brands/%s", f.Name, f.Project, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/brands/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

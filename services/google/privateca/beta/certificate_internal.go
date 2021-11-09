@@ -7080,7 +7080,7 @@ func unmarshalMapCertificate(m map[string]interface{}, c *Client) (*Certificate,
 // expandCertificate expands Certificate into a JSON request object.
 func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s/certificates/%s", f.Name, f.Project, f.Location, f.CaPool, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s/certificates/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.CaPool), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v
@@ -7096,7 +7096,7 @@ func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error
 	if v := f.Lifetime; dcl.ValueShouldBeSent(v) {
 		m["lifetime"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/certificateTemplates/%s", f.CertificateTemplate, f.Project, f.Location, f.CertificateTemplate); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/certificateTemplates/%s", f.CertificateTemplate, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.CertificateTemplate)); err != nil {
 		return nil, fmt.Errorf("error expanding CertificateTemplate into certificateTemplate: %w", err)
 	} else if v != nil {
 		m["certificateTemplate"] = v

@@ -1568,7 +1568,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v, err := dcl.DeriveField("global/networks/%s", f.Network, f.Network); err != nil {
+	if v, err := dcl.DeriveField("global/networks/%s", f.Network, dcl.SelfLinkToName(f.Network)); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
 	} else if v != nil {
 		m["network"] = v
@@ -1586,7 +1586,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.ServiceLabel; dcl.ValueShouldBeSent(v) {
 		m["serviceLabel"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/regions/%s/subnetworks/%s", f.Subnetwork, f.Project, f.Location, f.Subnetwork); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/regions/%s/subnetworks/%s", f.Subnetwork, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Subnetwork)); err != nil {
 		return nil, fmt.Errorf("error expanding Subnetwork into subnetwork: %w", err)
 	} else if v != nil {
 		m["subnetwork"] = v

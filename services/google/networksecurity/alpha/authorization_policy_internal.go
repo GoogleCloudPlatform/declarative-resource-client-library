@@ -1367,7 +1367,7 @@ func unmarshalMapAuthorizationPolicy(m map[string]interface{}, c *Client) (*Auth
 // expandAuthorizationPolicy expands AuthorizationPolicy into a JSON request object.
 func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/*/locations/%s/authorizationPolicies/%s", f.Name, f.Location, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/*/locations/%s/authorizationPolicies/%s", f.Name, dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

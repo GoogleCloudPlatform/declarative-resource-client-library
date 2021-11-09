@@ -4503,7 +4503,7 @@ func unmarshalMapNote(m map[string]interface{}, c *Client) (*Note, error) {
 // expandNote expands Note into a JSON request object.
 func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/notes/%s", f.Name, f.Project, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/notes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v
