@@ -29,9 +29,9 @@ class Spoke(object):
         labels: dict = None,
         description: str = None,
         hub: str = None,
-        linked_vpn_tunnels: list = None,
-        linked_interconnect_attachments: list = None,
-        linked_router_appliance_instances: list = None,
+        linked_vpn_tunnels: dict = None,
+        linked_interconnect_attachments: dict = None,
+        linked_router_appliance_instances: dict = None,
         unique_id: str = None,
         state: str = None,
         project: str = None,
@@ -68,22 +68,32 @@ class Spoke(object):
         if Primitive.to_proto(self.hub):
             request.resource.hub = Primitive.to_proto(self.hub)
 
-        if Primitive.to_proto(self.linked_vpn_tunnels):
-            request.resource.linked_vpn_tunnels.extend(
-                Primitive.to_proto(self.linked_vpn_tunnels)
+        if SpokeLinkedVpnTunnels.to_proto(self.linked_vpn_tunnels):
+            request.resource.linked_vpn_tunnels.CopyFrom(
+                SpokeLinkedVpnTunnels.to_proto(self.linked_vpn_tunnels)
             )
-        if Primitive.to_proto(self.linked_interconnect_attachments):
-            request.resource.linked_interconnect_attachments.extend(
-                Primitive.to_proto(self.linked_interconnect_attachments)
+        else:
+            request.resource.ClearField("linked_vpn_tunnels")
+        if SpokeLinkedInterconnectAttachments.to_proto(
+            self.linked_interconnect_attachments
+        ):
+            request.resource.linked_interconnect_attachments.CopyFrom(
+                SpokeLinkedInterconnectAttachments.to_proto(
+                    self.linked_interconnect_attachments
+                )
             )
-        if SpokeLinkedRouterApplianceInstancesArray.to_proto(
+        else:
+            request.resource.ClearField("linked_interconnect_attachments")
+        if SpokeLinkedRouterApplianceInstances.to_proto(
             self.linked_router_appliance_instances
         ):
-            request.resource.linked_router_appliance_instances.extend(
-                SpokeLinkedRouterApplianceInstancesArray.to_proto(
+            request.resource.linked_router_appliance_instances.CopyFrom(
+                SpokeLinkedRouterApplianceInstances.to_proto(
                     self.linked_router_appliance_instances
                 )
             )
+        else:
+            request.resource.ClearField("linked_router_appliance_instances")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -99,11 +109,13 @@ class Spoke(object):
         self.labels = Primitive.from_proto(response.labels)
         self.description = Primitive.from_proto(response.description)
         self.hub = Primitive.from_proto(response.hub)
-        self.linked_vpn_tunnels = Primitive.from_proto(response.linked_vpn_tunnels)
-        self.linked_interconnect_attachments = Primitive.from_proto(
+        self.linked_vpn_tunnels = SpokeLinkedVpnTunnels.from_proto(
+            response.linked_vpn_tunnels
+        )
+        self.linked_interconnect_attachments = SpokeLinkedInterconnectAttachments.from_proto(
             response.linked_interconnect_attachments
         )
-        self.linked_router_appliance_instances = SpokeLinkedRouterApplianceInstancesArray.from_proto(
+        self.linked_router_appliance_instances = SpokeLinkedRouterApplianceInstances.from_proto(
             response.linked_router_appliance_instances
         )
         self.unique_id = Primitive.from_proto(response.unique_id)
@@ -129,22 +141,32 @@ class Spoke(object):
         if Primitive.to_proto(self.hub):
             request.resource.hub = Primitive.to_proto(self.hub)
 
-        if Primitive.to_proto(self.linked_vpn_tunnels):
-            request.resource.linked_vpn_tunnels.extend(
-                Primitive.to_proto(self.linked_vpn_tunnels)
+        if SpokeLinkedVpnTunnels.to_proto(self.linked_vpn_tunnels):
+            request.resource.linked_vpn_tunnels.CopyFrom(
+                SpokeLinkedVpnTunnels.to_proto(self.linked_vpn_tunnels)
             )
-        if Primitive.to_proto(self.linked_interconnect_attachments):
-            request.resource.linked_interconnect_attachments.extend(
-                Primitive.to_proto(self.linked_interconnect_attachments)
+        else:
+            request.resource.ClearField("linked_vpn_tunnels")
+        if SpokeLinkedInterconnectAttachments.to_proto(
+            self.linked_interconnect_attachments
+        ):
+            request.resource.linked_interconnect_attachments.CopyFrom(
+                SpokeLinkedInterconnectAttachments.to_proto(
+                    self.linked_interconnect_attachments
+                )
             )
-        if SpokeLinkedRouterApplianceInstancesArray.to_proto(
+        else:
+            request.resource.ClearField("linked_interconnect_attachments")
+        if SpokeLinkedRouterApplianceInstances.to_proto(
             self.linked_router_appliance_instances
         ):
-            request.resource.linked_router_appliance_instances.extend(
-                SpokeLinkedRouterApplianceInstancesArray.to_proto(
+            request.resource.linked_router_appliance_instances.CopyFrom(
+                SpokeLinkedRouterApplianceInstances.to_proto(
                     self.linked_router_appliance_instances
                 )
             )
+        else:
+            request.resource.ClearField("linked_router_appliance_instances")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -176,22 +198,32 @@ class Spoke(object):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.hub):
             resource.hub = Primitive.to_proto(self.hub)
-        if Primitive.to_proto(self.linked_vpn_tunnels):
-            resource.linked_vpn_tunnels.extend(
-                Primitive.to_proto(self.linked_vpn_tunnels)
+        if SpokeLinkedVpnTunnels.to_proto(self.linked_vpn_tunnels):
+            resource.linked_vpn_tunnels.CopyFrom(
+                SpokeLinkedVpnTunnels.to_proto(self.linked_vpn_tunnels)
             )
-        if Primitive.to_proto(self.linked_interconnect_attachments):
-            resource.linked_interconnect_attachments.extend(
-                Primitive.to_proto(self.linked_interconnect_attachments)
+        else:
+            resource.ClearField("linked_vpn_tunnels")
+        if SpokeLinkedInterconnectAttachments.to_proto(
+            self.linked_interconnect_attachments
+        ):
+            resource.linked_interconnect_attachments.CopyFrom(
+                SpokeLinkedInterconnectAttachments.to_proto(
+                    self.linked_interconnect_attachments
+                )
             )
-        if SpokeLinkedRouterApplianceInstancesArray.to_proto(
+        else:
+            resource.ClearField("linked_interconnect_attachments")
+        if SpokeLinkedRouterApplianceInstances.to_proto(
             self.linked_router_appliance_instances
         ):
-            resource.linked_router_appliance_instances.extend(
-                SpokeLinkedRouterApplianceInstancesArray.to_proto(
+            resource.linked_router_appliance_instances.CopyFrom(
+                SpokeLinkedRouterApplianceInstances.to_proto(
                     self.linked_router_appliance_instances
                 )
             )
+        else:
+            resource.ClearField("linked_router_appliance_instances")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
@@ -199,10 +231,98 @@ class Spoke(object):
         return resource
 
 
+class SpokeLinkedVpnTunnels(object):
+    def __init__(self, uris: list = None, site_to_site_data_transfer: bool = None):
+        self.uris = uris
+        self.site_to_site_data_transfer = site_to_site_data_transfer
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = spoke_pb2.NetworkconnectivityAlphaSpokeLinkedVpnTunnels()
+        if Primitive.to_proto(resource.uris):
+            res.uris.extend(Primitive.to_proto(resource.uris))
+        if Primitive.to_proto(resource.site_to_site_data_transfer):
+            res.site_to_site_data_transfer = Primitive.to_proto(
+                resource.site_to_site_data_transfer
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return SpokeLinkedVpnTunnels(
+            uris=Primitive.from_proto(resource.uris),
+            site_to_site_data_transfer=Primitive.from_proto(
+                resource.site_to_site_data_transfer
+            ),
+        )
+
+
+class SpokeLinkedVpnTunnelsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [SpokeLinkedVpnTunnels.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [SpokeLinkedVpnTunnels.from_proto(i) for i in resources]
+
+
+class SpokeLinkedInterconnectAttachments(object):
+    def __init__(self, uris: list = None, site_to_site_data_transfer: bool = None):
+        self.uris = uris
+        self.site_to_site_data_transfer = site_to_site_data_transfer
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = spoke_pb2.NetworkconnectivityAlphaSpokeLinkedInterconnectAttachments()
+        if Primitive.to_proto(resource.uris):
+            res.uris.extend(Primitive.to_proto(resource.uris))
+        if Primitive.to_proto(resource.site_to_site_data_transfer):
+            res.site_to_site_data_transfer = Primitive.to_proto(
+                resource.site_to_site_data_transfer
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return SpokeLinkedInterconnectAttachments(
+            uris=Primitive.from_proto(resource.uris),
+            site_to_site_data_transfer=Primitive.from_proto(
+                resource.site_to_site_data_transfer
+            ),
+        )
+
+
+class SpokeLinkedInterconnectAttachmentsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [SpokeLinkedInterconnectAttachments.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [SpokeLinkedInterconnectAttachments.from_proto(i) for i in resources]
+
+
 class SpokeLinkedRouterApplianceInstances(object):
-    def __init__(self, virtual_machine: str = None, ip_address: str = None):
-        self.virtual_machine = virtual_machine
-        self.ip_address = ip_address
+    def __init__(self, instances: list = None, site_to_site_data_transfer: bool = None):
+        self.instances = instances
+        self.site_to_site_data_transfer = site_to_site_data_transfer
 
     @classmethod
     def to_proto(self, resource):
@@ -210,10 +330,18 @@ class SpokeLinkedRouterApplianceInstances(object):
             return None
 
         res = spoke_pb2.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances()
-        if Primitive.to_proto(resource.virtual_machine):
-            res.virtual_machine = Primitive.to_proto(resource.virtual_machine)
-        if Primitive.to_proto(resource.ip_address):
-            res.ip_address = Primitive.to_proto(resource.ip_address)
+        if SpokeLinkedRouterApplianceInstancesInstancesArray.to_proto(
+            resource.instances
+        ):
+            res.instances.extend(
+                SpokeLinkedRouterApplianceInstancesInstancesArray.to_proto(
+                    resource.instances
+                )
+            )
+        if Primitive.to_proto(resource.site_to_site_data_transfer):
+            res.site_to_site_data_transfer = Primitive.to_proto(
+                resource.site_to_site_data_transfer
+            )
         return res
 
     @classmethod
@@ -222,8 +350,12 @@ class SpokeLinkedRouterApplianceInstances(object):
             return None
 
         return SpokeLinkedRouterApplianceInstances(
-            virtual_machine=Primitive.from_proto(resource.virtual_machine),
-            ip_address=Primitive.from_proto(resource.ip_address),
+            instances=SpokeLinkedRouterApplianceInstancesInstancesArray.from_proto(
+                resource.instances
+            ),
+            site_to_site_data_transfer=Primitive.from_proto(
+                resource.site_to_site_data_transfer
+            ),
         )
 
 
@@ -237,6 +369,53 @@ class SpokeLinkedRouterApplianceInstancesArray(object):
     @classmethod
     def from_proto(self, resources):
         return [SpokeLinkedRouterApplianceInstances.from_proto(i) for i in resources]
+
+
+class SpokeLinkedRouterApplianceInstancesInstances(object):
+    def __init__(self, virtual_machine: str = None, ip_address: str = None):
+        self.virtual_machine = virtual_machine
+        self.ip_address = ip_address
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            spoke_pb2.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances()
+        )
+        if Primitive.to_proto(resource.virtual_machine):
+            res.virtual_machine = Primitive.to_proto(resource.virtual_machine)
+        if Primitive.to_proto(resource.ip_address):
+            res.ip_address = Primitive.to_proto(resource.ip_address)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return SpokeLinkedRouterApplianceInstancesInstances(
+            virtual_machine=Primitive.from_proto(resource.virtual_machine),
+            ip_address=Primitive.from_proto(resource.ip_address),
+        )
+
+
+class SpokeLinkedRouterApplianceInstancesInstancesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            SpokeLinkedRouterApplianceInstancesInstances.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            SpokeLinkedRouterApplianceInstancesInstances.from_proto(i)
+            for i in resources
+        ]
 
 
 class SpokeStateEnum(object):

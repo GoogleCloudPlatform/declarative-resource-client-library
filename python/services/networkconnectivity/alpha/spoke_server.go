@@ -36,12 +36,54 @@ func ProtoToNetworkconnectivityAlphaSpokeStateEnum(e alphapb.Networkconnectivity
 	return nil
 }
 
+// ProtoToSpokeLinkedVpnTunnels converts a SpokeLinkedVpnTunnels object from its proto representation.
+func ProtoToNetworkconnectivityAlphaSpokeLinkedVpnTunnels(p *alphapb.NetworkconnectivityAlphaSpokeLinkedVpnTunnels) *alpha.SpokeLinkedVpnTunnels {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.SpokeLinkedVpnTunnels{
+		SiteToSiteDataTransfer: dcl.Bool(p.GetSiteToSiteDataTransfer()),
+	}
+	for _, r := range p.GetUris() {
+		obj.Uris = append(obj.Uris, r)
+	}
+	return obj
+}
+
+// ProtoToSpokeLinkedInterconnectAttachments converts a SpokeLinkedInterconnectAttachments object from its proto representation.
+func ProtoToNetworkconnectivityAlphaSpokeLinkedInterconnectAttachments(p *alphapb.NetworkconnectivityAlphaSpokeLinkedInterconnectAttachments) *alpha.SpokeLinkedInterconnectAttachments {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.SpokeLinkedInterconnectAttachments{
+		SiteToSiteDataTransfer: dcl.Bool(p.GetSiteToSiteDataTransfer()),
+	}
+	for _, r := range p.GetUris() {
+		obj.Uris = append(obj.Uris, r)
+	}
+	return obj
+}
+
 // ProtoToSpokeLinkedRouterApplianceInstances converts a SpokeLinkedRouterApplianceInstances object from its proto representation.
 func ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances(p *alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances) *alpha.SpokeLinkedRouterApplianceInstances {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.SpokeLinkedRouterApplianceInstances{
+		SiteToSiteDataTransfer: dcl.Bool(p.GetSiteToSiteDataTransfer()),
+	}
+	for _, r := range p.GetInstances() {
+		obj.Instances = append(obj.Instances, *ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances(r))
+	}
+	return obj
+}
+
+// ProtoToSpokeLinkedRouterApplianceInstancesInstances converts a SpokeLinkedRouterApplianceInstancesInstances object from its proto representation.
+func ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances(p *alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances) *alpha.SpokeLinkedRouterApplianceInstancesInstances {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.SpokeLinkedRouterApplianceInstancesInstances{
 		VirtualMachine: dcl.StringOrNil(p.GetVirtualMachine()),
 		IPAddress:      dcl.StringOrNil(p.GetIpAddress()),
 	}
@@ -51,24 +93,18 @@ func ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances(p *alpha
 // ProtoToSpoke converts a Spoke resource from its proto representation.
 func ProtoToSpoke(p *alphapb.NetworkconnectivityAlphaSpoke) *alpha.Spoke {
 	obj := &alpha.Spoke{
-		Name:        dcl.StringOrNil(p.GetName()),
-		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
-		Description: dcl.StringOrNil(p.GetDescription()),
-		Hub:         dcl.StringOrNil(p.GetHub()),
-		UniqueId:    dcl.StringOrNil(p.GetUniqueId()),
-		State:       ProtoToNetworkconnectivityAlphaSpokeStateEnum(p.GetState()),
-		Project:     dcl.StringOrNil(p.GetProject()),
-		Location:    dcl.StringOrNil(p.GetLocation()),
-	}
-	for _, r := range p.GetLinkedVpnTunnels() {
-		obj.LinkedVpnTunnels = append(obj.LinkedVpnTunnels, r)
-	}
-	for _, r := range p.GetLinkedInterconnectAttachments() {
-		obj.LinkedInterconnectAttachments = append(obj.LinkedInterconnectAttachments, r)
-	}
-	for _, r := range p.GetLinkedRouterApplianceInstances() {
-		obj.LinkedRouterApplianceInstances = append(obj.LinkedRouterApplianceInstances, *ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances(r))
+		Name:                           dcl.StringOrNil(p.GetName()),
+		CreateTime:                     dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:                     dcl.StringOrNil(p.GetUpdateTime()),
+		Description:                    dcl.StringOrNil(p.GetDescription()),
+		Hub:                            dcl.StringOrNil(p.GetHub()),
+		LinkedVpnTunnels:               ProtoToNetworkconnectivityAlphaSpokeLinkedVpnTunnels(p.GetLinkedVpnTunnels()),
+		LinkedInterconnectAttachments:  ProtoToNetworkconnectivityAlphaSpokeLinkedInterconnectAttachments(p.GetLinkedInterconnectAttachments()),
+		LinkedRouterApplianceInstances: ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances(p.GetLinkedRouterApplianceInstances()),
+		UniqueId:                       dcl.StringOrNil(p.GetUniqueId()),
+		State:                          ProtoToNetworkconnectivityAlphaSpokeStateEnum(p.GetState()),
+		Project:                        dcl.StringOrNil(p.GetProject()),
+		Location:                       dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -84,12 +120,57 @@ func NetworkconnectivityAlphaSpokeStateEnumToProto(e *alpha.SpokeStateEnum) alph
 	return alphapb.NetworkconnectivityAlphaSpokeStateEnum(0)
 }
 
+// SpokeLinkedVpnTunnelsToProto converts a SpokeLinkedVpnTunnels object to its proto representation.
+func NetworkconnectivityAlphaSpokeLinkedVpnTunnelsToProto(o *alpha.SpokeLinkedVpnTunnels) *alphapb.NetworkconnectivityAlphaSpokeLinkedVpnTunnels {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.NetworkconnectivityAlphaSpokeLinkedVpnTunnels{}
+	p.SetSiteToSiteDataTransfer(dcl.ValueOrEmptyBool(o.SiteToSiteDataTransfer))
+	sUris := make([]string, len(o.Uris))
+	for i, r := range o.Uris {
+		sUris[i] = r
+	}
+	p.SetUris(sUris)
+	return p
+}
+
+// SpokeLinkedInterconnectAttachmentsToProto converts a SpokeLinkedInterconnectAttachments object to its proto representation.
+func NetworkconnectivityAlphaSpokeLinkedInterconnectAttachmentsToProto(o *alpha.SpokeLinkedInterconnectAttachments) *alphapb.NetworkconnectivityAlphaSpokeLinkedInterconnectAttachments {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.NetworkconnectivityAlphaSpokeLinkedInterconnectAttachments{}
+	p.SetSiteToSiteDataTransfer(dcl.ValueOrEmptyBool(o.SiteToSiteDataTransfer))
+	sUris := make([]string, len(o.Uris))
+	for i, r := range o.Uris {
+		sUris[i] = r
+	}
+	p.SetUris(sUris)
+	return p
+}
+
 // SpokeLinkedRouterApplianceInstancesToProto converts a SpokeLinkedRouterApplianceInstances object to its proto representation.
 func NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesToProto(o *alpha.SpokeLinkedRouterApplianceInstances) *alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances{}
+	p.SetSiteToSiteDataTransfer(dcl.ValueOrEmptyBool(o.SiteToSiteDataTransfer))
+	sInstances := make([]*alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances, len(o.Instances))
+	for i, r := range o.Instances {
+		sInstances[i] = NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstancesToProto(&r)
+	}
+	p.SetInstances(sInstances)
+	return p
+}
+
+// SpokeLinkedRouterApplianceInstancesInstancesToProto converts a SpokeLinkedRouterApplianceInstancesInstances object to its proto representation.
+func NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstancesToProto(o *alpha.SpokeLinkedRouterApplianceInstancesInstances) *alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances{}
 	p.SetVirtualMachine(dcl.ValueOrEmptyString(o.VirtualMachine))
 	p.SetIpAddress(dcl.ValueOrEmptyString(o.IPAddress))
 	return p
@@ -103,6 +184,9 @@ func SpokeToProto(resource *alpha.Spoke) *alphapb.NetworkconnectivityAlphaSpoke 
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetHub(dcl.ValueOrEmptyString(resource.Hub))
+	p.SetLinkedVpnTunnels(NetworkconnectivityAlphaSpokeLinkedVpnTunnelsToProto(resource.LinkedVpnTunnels))
+	p.SetLinkedInterconnectAttachments(NetworkconnectivityAlphaSpokeLinkedInterconnectAttachmentsToProto(resource.LinkedInterconnectAttachments))
+	p.SetLinkedRouterApplianceInstances(NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesToProto(resource.LinkedRouterApplianceInstances))
 	p.SetUniqueId(dcl.ValueOrEmptyString(resource.UniqueId))
 	p.SetState(NetworkconnectivityAlphaSpokeStateEnumToProto(resource.State))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
@@ -112,21 +196,6 @@ func SpokeToProto(resource *alpha.Spoke) *alphapb.NetworkconnectivityAlphaSpoke 
 		mLabels[k] = r
 	}
 	p.SetLabels(mLabels)
-	sLinkedVpnTunnels := make([]string, len(resource.LinkedVpnTunnels))
-	for i, r := range resource.LinkedVpnTunnels {
-		sLinkedVpnTunnels[i] = r
-	}
-	p.SetLinkedVpnTunnels(sLinkedVpnTunnels)
-	sLinkedInterconnectAttachments := make([]string, len(resource.LinkedInterconnectAttachments))
-	for i, r := range resource.LinkedInterconnectAttachments {
-		sLinkedInterconnectAttachments[i] = r
-	}
-	p.SetLinkedInterconnectAttachments(sLinkedInterconnectAttachments)
-	sLinkedRouterApplianceInstances := make([]*alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances, len(resource.LinkedRouterApplianceInstances))
-	for i, r := range resource.LinkedRouterApplianceInstances {
-		sLinkedRouterApplianceInstances[i] = NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesToProto(&r)
-	}
-	p.SetLinkedRouterApplianceInstances(sLinkedRouterApplianceInstances)
 
 	return p
 }

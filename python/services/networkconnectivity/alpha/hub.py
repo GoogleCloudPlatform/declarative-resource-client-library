@@ -31,6 +31,7 @@ class Hub(object):
         unique_id: str = None,
         state: str = None,
         project: str = None,
+        routing_vpcs: list = None,
         service_account_file: str = "",
     ):
 
@@ -67,6 +68,7 @@ class Hub(object):
         self.unique_id = Primitive.from_proto(response.unique_id)
         self.state = HubStateEnum.from_proto(response.state)
         self.project = Primitive.from_proto(response.project)
+        self.routing_vpcs = HubRoutingVpcsArray.from_proto(response.routing_vpcs)
 
     def delete(self):
         stub = hub_pb2_grpc.NetworkconnectivityAlphaHubServiceStub(channel.Channel())
@@ -106,6 +108,40 @@ class Hub(object):
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource
+
+
+class HubRoutingVpcs(object):
+    def __init__(self, uri: str = None):
+        self.uri = uri
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = hub_pb2.NetworkconnectivityAlphaHubRoutingVpcs()
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return HubRoutingVpcs(uri=Primitive.from_proto(resource.uri),)
+
+
+class HubRoutingVpcsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [HubRoutingVpcs.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [HubRoutingVpcs.from_proto(i) for i in resources]
 
 
 class HubStateEnum(object):

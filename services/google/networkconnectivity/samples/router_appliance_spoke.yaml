@@ -16,7 +16,7 @@ description: A basic test of a networkconnectivity spoke with an linked router a
   instance
 type: spoke
 versions:
-- alpha
+- ga
 resource: samples/router_appliance.spoke.json
 dependencies:
 - samples/basic.hub.json

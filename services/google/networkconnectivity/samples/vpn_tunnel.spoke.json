@@ -3,5 +3,7 @@
   "project": "{{project}}",
   "location": "{{region}}",
   "hub": "projects/{{project}}/locations/global/hubs/{{ref:basic.hub.json:name}}",
-  "linkedVpnTunnels": ["{{ref:gw1_if0.compute.vpn_tunnel.json:selfLink}}"]
+  "linkedVpnTunnels": {
+    "uris": ["{{ref:gw1_if0.compute.vpn_tunnel.json:selfLink}}"]
+  }
 }

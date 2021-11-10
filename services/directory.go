@@ -84,7 +84,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring"
 	monitoring_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha"
 	monitoring_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity"
 	networkconnectivity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/alpha"
+	networkconnectivity_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/beta"
 	networksecurity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha"
 	networkservices_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy"
@@ -267,6 +269,10 @@ func Services() *Directory {
 	d.AddResource("ga", "monitoring", "Service", monitoring.YAML_service)
 	d.AddResource("ga", "monitoring", dcl.TitleToSnakeCase("ServiceLevelObjective"), monitoring.YAML_service_level_objective)
 	d.AddResource("ga", "monitoring", "ServiceLevelObjective", monitoring.YAML_service_level_objective)
+	d.AddResource("ga", "networkconnectivity", dcl.TitleToSnakeCase("Hub"), networkconnectivity.YAML_hub)
+	d.AddResource("ga", "networkconnectivity", "Hub", networkconnectivity.YAML_hub)
+	d.AddResource("ga", "networkconnectivity", dcl.TitleToSnakeCase("Spoke"), networkconnectivity.YAML_spoke)
+	d.AddResource("ga", "networkconnectivity", "Spoke", networkconnectivity.YAML_spoke)
 	d.AddResource("ga", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy.YAML_policy)
 	d.AddResource("ga", "orgpolicy", "Policy", orgpolicy.YAML_policy)
 	d.AddResource("ga", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub.YAML_topic)
@@ -401,6 +407,10 @@ func Services() *Directory {
 	d.AddResource("beta", "monitoring", "MetricsScope", monitoring_beta.YAML_metrics_scope)
 	d.AddResource("beta", "monitoring", dcl.TitleToSnakeCase("MonitoredProject"), monitoring_beta.YAML_monitored_project)
 	d.AddResource("beta", "monitoring", "MonitoredProject", monitoring_beta.YAML_monitored_project)
+	d.AddResource("beta", "networkconnectivity", dcl.TitleToSnakeCase("Hub"), networkconnectivity_beta.YAML_hub)
+	d.AddResource("beta", "networkconnectivity", "Hub", networkconnectivity_beta.YAML_hub)
+	d.AddResource("beta", "networkconnectivity", dcl.TitleToSnakeCase("Spoke"), networkconnectivity_beta.YAML_spoke)
+	d.AddResource("beta", "networkconnectivity", "Spoke", networkconnectivity_beta.YAML_spoke)
 	d.AddResource("beta", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy_beta.YAML_policy)
 	d.AddResource("beta", "orgpolicy", "Policy", orgpolicy_beta.YAML_policy)
 	d.AddResource("beta", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig_beta.YAML_os_policy_assignment)

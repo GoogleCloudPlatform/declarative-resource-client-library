@@ -15,6 +15,8 @@ package alpha
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -31,6 +33,7 @@ type Hub struct {
 	UniqueId    *string           `json:"uniqueId"`
 	State       *HubStateEnum     `json:"state"`
 	Project     *string           `json:"project"`
+	RoutingVpcs []HubRoutingVpcs  `json:"routingVpcs"`
 }
 
 func (r *Hub) String() string {
@@ -64,6 +67,52 @@ func (v HubStateEnum) Validate() error {
 	}
 }
 
+type HubRoutingVpcs struct {
+	empty bool    `json:"-"`
+	Uri   *string `json:"uri"`
+}
+
+type jsonHubRoutingVpcs HubRoutingVpcs
+
+func (r *HubRoutingVpcs) UnmarshalJSON(data []byte) error {
+	var res jsonHubRoutingVpcs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyHubRoutingVpcs
+	} else {
+
+		r.Uri = res.Uri
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this HubRoutingVpcs is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyHubRoutingVpcs *HubRoutingVpcs = &HubRoutingVpcs{empty: true}
+
+func (r *HubRoutingVpcs) Empty() bool {
+	return r.empty
+}
+
+func (r *HubRoutingVpcs) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *HubRoutingVpcs) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Hub) Describe() dcl.ServiceTypeVersion {
@@ -88,6 +137,7 @@ func (r *Hub) ID() (string, error) {
 		"uniqueId":    dcl.ValueOrEmptyString(nr.UniqueId),
 		"state":       dcl.ValueOrEmptyString(nr.State),
 		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"routingVpcs": dcl.ValueOrEmptyString(nr.RoutingVpcs),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/global/hubs/{{name}}", params), nil
 }

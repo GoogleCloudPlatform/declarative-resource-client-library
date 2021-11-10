@@ -15,7 +15,7 @@ name: minimal_hub
 description: A minimal test of a networkconnectivity hub
 type: hub
 versions:
-- alpha
+- ga
 resource: samples/minimal.hub.json
 variables:
 - name: hub

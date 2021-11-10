@@ -15,7 +15,7 @@ name: vpn_tunnel_spoke
 description: A basic test of a networkconnectivity spoke with an linked vpn tunnel
 type: spoke
 versions:
-- alpha
+- ga
 resource: samples/vpn_tunnel.spoke.json
 dependencies:
 - samples/basic.hub.json

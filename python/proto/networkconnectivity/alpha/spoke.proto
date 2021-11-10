@@ -36,16 +36,31 @@ message NetworkconnectivityAlphaSpoke {
   map<string, string> labels = 4;
   string description = 5;
   string hub = 6;
-  repeated string linked_vpn_tunnels = 7;
-  repeated string linked_interconnect_attachments = 8;
-  repeated NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances linked_router_appliance_instances = 9;
+  NetworkconnectivityAlphaSpokeLinkedVpnTunnels linked_vpn_tunnels = 7;
+  NetworkconnectivityAlphaSpokeLinkedInterconnectAttachments linked_interconnect_attachments = 8;
+  NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances linked_router_appliance_instances = 9;
   string unique_id = 10;
   NetworkconnectivityAlphaSpokeStateEnum state = 11;
   string project = 12;
   string location = 13;
 }
 
+message NetworkconnectivityAlphaSpokeLinkedVpnTunnels {
+  repeated string uris = 1;
+  bool site_to_site_data_transfer = 2;
+}
+
+message NetworkconnectivityAlphaSpokeLinkedInterconnectAttachments {
+  repeated string uris = 1;
+  bool site_to_site_data_transfer = 2;
+}
+
 message NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances {
+  repeated NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances instances = 1;
+  bool site_to_site_data_transfer = 2;
+}
+
+message NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances {
   string virtual_machine = 1;
   string ip_address = 2;
 }

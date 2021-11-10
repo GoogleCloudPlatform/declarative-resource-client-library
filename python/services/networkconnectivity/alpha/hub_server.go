@@ -36,6 +36,17 @@ func ProtoToNetworkconnectivityAlphaHubStateEnum(e alphapb.NetworkconnectivityAl
 	return nil
 }
 
+// ProtoToHubRoutingVpcs converts a HubRoutingVpcs object from its proto representation.
+func ProtoToNetworkconnectivityAlphaHubRoutingVpcs(p *alphapb.NetworkconnectivityAlphaHubRoutingVpcs) *alpha.HubRoutingVpcs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.HubRoutingVpcs{
+		Uri: dcl.StringOrNil(p.GetUri()),
+	}
+	return obj
+}
+
 // ProtoToHub converts a Hub resource from its proto representation.
 func ProtoToHub(p *alphapb.NetworkconnectivityAlphaHub) *alpha.Hub {
 	obj := &alpha.Hub{
@@ -46,6 +57,9 @@ func ProtoToHub(p *alphapb.NetworkconnectivityAlphaHub) *alpha.Hub {
 		UniqueId:    dcl.StringOrNil(p.GetUniqueId()),
 		State:       ProtoToNetworkconnectivityAlphaHubStateEnum(p.GetState()),
 		Project:     dcl.StringOrNil(p.GetProject()),
+	}
+	for _, r := range p.GetRoutingVpcs() {
+		obj.RoutingVpcs = append(obj.RoutingVpcs, *ProtoToNetworkconnectivityAlphaHubRoutingVpcs(r))
 	}
 	return obj
 }
@@ -59,6 +73,16 @@ func NetworkconnectivityAlphaHubStateEnumToProto(e *alpha.HubStateEnum) alphapb.
 		return alphapb.NetworkconnectivityAlphaHubStateEnum(v)
 	}
 	return alphapb.NetworkconnectivityAlphaHubStateEnum(0)
+}
+
+// HubRoutingVpcsToProto converts a HubRoutingVpcs object to its proto representation.
+func NetworkconnectivityAlphaHubRoutingVpcsToProto(o *alpha.HubRoutingVpcs) *alphapb.NetworkconnectivityAlphaHubRoutingVpcs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.NetworkconnectivityAlphaHubRoutingVpcs{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	return p
 }
 
 // HubToProto converts a Hub resource to its proto representation.
@@ -76,6 +100,11 @@ func HubToProto(resource *alpha.Hub) *alphapb.NetworkconnectivityAlphaHub {
 		mLabels[k] = r
 	}
 	p.SetLabels(mLabels)
+	sRoutingVpcs := make([]*alphapb.NetworkconnectivityAlphaHubRoutingVpcs, len(resource.RoutingVpcs))
+	for i, r := range resource.RoutingVpcs {
+		sRoutingVpcs[i] = NetworkconnectivityAlphaHubRoutingVpcsToProto(&r)
+	}
+	p.SetRoutingVpcs(sRoutingVpcs)
 
 	return p
 }

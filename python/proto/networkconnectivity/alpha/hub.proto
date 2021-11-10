@@ -38,6 +38,11 @@ message NetworkconnectivityAlphaHub {
   string unique_id = 6;
   NetworkconnectivityAlphaHubStateEnum state = 7;
   string project = 8;
+  repeated NetworkconnectivityAlphaHubRoutingVpcs routing_vpcs = 9;
+}
+
+message NetworkconnectivityAlphaHubRoutingVpcs {
+  string uri = 1;
 }
 
 message ApplyNetworkconnectivityAlphaHubRequest {

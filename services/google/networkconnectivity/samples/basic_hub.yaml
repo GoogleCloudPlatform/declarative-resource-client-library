@@ -15,7 +15,7 @@ name: basic_hub
 description: A basic test of a networkconnectivity hub
 type: hub
 versions:
-- alpha
+- ga
 resource: samples/basic.hub.json
 updates:
 - resource: samples/update.hub.json

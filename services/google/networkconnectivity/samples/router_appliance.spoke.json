@@ -7,8 +7,10 @@
   },
   "description": "A sample spoke with a linked routher appliance instance",
   "hub": "projects/{{project}}/locations/global/hubs/{{ref:basic.hub.json:name}}",
-  "linkedRouterApplianceInstances": [{
-    "virtualMachine": "{{ref:router_appliance.compute.instance.json:selfLink}}",
-    "ipAddress": "10.0.0.2"
-  }]
+  "linkedRouterApplianceInstances": {
+    "instances": [{
+      "virtualMachine": "{{ref:router_appliance.compute.instance.json:selfLink}}",
+      "ipAddress": "10.0.0.2"
+    }]
+  }
 }

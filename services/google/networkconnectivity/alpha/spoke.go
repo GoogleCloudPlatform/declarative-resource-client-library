@@ -25,19 +25,19 @@ import (
 )
 
 type Spoke struct {
-	Name                           *string                               `json:"name"`
-	CreateTime                     *string                               `json:"createTime"`
-	UpdateTime                     *string                               `json:"updateTime"`
-	Labels                         map[string]string                     `json:"labels"`
-	Description                    *string                               `json:"description"`
-	Hub                            *string                               `json:"hub"`
-	LinkedVpnTunnels               []string                              `json:"linkedVpnTunnels"`
-	LinkedInterconnectAttachments  []string                              `json:"linkedInterconnectAttachments"`
-	LinkedRouterApplianceInstances []SpokeLinkedRouterApplianceInstances `json:"linkedRouterApplianceInstances"`
-	UniqueId                       *string                               `json:"uniqueId"`
-	State                          *SpokeStateEnum                       `json:"state"`
-	Project                        *string                               `json:"project"`
-	Location                       *string                               `json:"location"`
+	Name                           *string                              `json:"name"`
+	CreateTime                     *string                              `json:"createTime"`
+	UpdateTime                     *string                              `json:"updateTime"`
+	Labels                         map[string]string                    `json:"labels"`
+	Description                    *string                              `json:"description"`
+	Hub                            *string                              `json:"hub"`
+	LinkedVpnTunnels               *SpokeLinkedVpnTunnels               `json:"linkedVpnTunnels"`
+	LinkedInterconnectAttachments  *SpokeLinkedInterconnectAttachments  `json:"linkedInterconnectAttachments"`
+	LinkedRouterApplianceInstances *SpokeLinkedRouterApplianceInstances `json:"linkedRouterApplianceInstances"`
+	UniqueId                       *string                              `json:"uniqueId"`
+	State                          *SpokeStateEnum                      `json:"state"`
+	Project                        *string                              `json:"project"`
+	Location                       *string                              `json:"location"`
 }
 
 func (r *Spoke) String() string {
@@ -71,10 +71,108 @@ func (v SpokeStateEnum) Validate() error {
 	}
 }
 
+type SpokeLinkedVpnTunnels struct {
+	empty                  bool     `json:"-"`
+	Uris                   []string `json:"uris"`
+	SiteToSiteDataTransfer *bool    `json:"siteToSiteDataTransfer"`
+}
+
+type jsonSpokeLinkedVpnTunnels SpokeLinkedVpnTunnels
+
+func (r *SpokeLinkedVpnTunnels) UnmarshalJSON(data []byte) error {
+	var res jsonSpokeLinkedVpnTunnels
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySpokeLinkedVpnTunnels
+	} else {
+
+		r.Uris = res.Uris
+
+		r.SiteToSiteDataTransfer = res.SiteToSiteDataTransfer
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this SpokeLinkedVpnTunnels is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptySpokeLinkedVpnTunnels *SpokeLinkedVpnTunnels = &SpokeLinkedVpnTunnels{empty: true}
+
+func (r *SpokeLinkedVpnTunnels) Empty() bool {
+	return r.empty
+}
+
+func (r *SpokeLinkedVpnTunnels) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *SpokeLinkedVpnTunnels) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type SpokeLinkedInterconnectAttachments struct {
+	empty                  bool     `json:"-"`
+	Uris                   []string `json:"uris"`
+	SiteToSiteDataTransfer *bool    `json:"siteToSiteDataTransfer"`
+}
+
+type jsonSpokeLinkedInterconnectAttachments SpokeLinkedInterconnectAttachments
+
+func (r *SpokeLinkedInterconnectAttachments) UnmarshalJSON(data []byte) error {
+	var res jsonSpokeLinkedInterconnectAttachments
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySpokeLinkedInterconnectAttachments
+	} else {
+
+		r.Uris = res.Uris
+
+		r.SiteToSiteDataTransfer = res.SiteToSiteDataTransfer
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this SpokeLinkedInterconnectAttachments is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptySpokeLinkedInterconnectAttachments *SpokeLinkedInterconnectAttachments = &SpokeLinkedInterconnectAttachments{empty: true}
+
+func (r *SpokeLinkedInterconnectAttachments) Empty() bool {
+	return r.empty
+}
+
+func (r *SpokeLinkedInterconnectAttachments) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *SpokeLinkedInterconnectAttachments) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type SpokeLinkedRouterApplianceInstances struct {
-	empty          bool    `json:"-"`
-	VirtualMachine *string `json:"virtualMachine"`
-	IPAddress      *string `json:"ipAddress"`
+	empty                  bool                                           `json:"-"`
+	Instances              []SpokeLinkedRouterApplianceInstancesInstances `json:"instances"`
+	SiteToSiteDataTransfer *bool                                          `json:"siteToSiteDataTransfer"`
 }
 
 type jsonSpokeLinkedRouterApplianceInstances SpokeLinkedRouterApplianceInstances
@@ -92,9 +190,9 @@ func (r *SpokeLinkedRouterApplianceInstances) UnmarshalJSON(data []byte) error {
 		*r = *EmptySpokeLinkedRouterApplianceInstances
 	} else {
 
-		r.VirtualMachine = res.VirtualMachine
+		r.Instances = res.Instances
 
-		r.IPAddress = res.IPAddress
+		r.SiteToSiteDataTransfer = res.SiteToSiteDataTransfer
 
 	}
 	return nil
@@ -114,6 +212,55 @@ func (r *SpokeLinkedRouterApplianceInstances) String() string {
 }
 
 func (r *SpokeLinkedRouterApplianceInstances) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type SpokeLinkedRouterApplianceInstancesInstances struct {
+	empty          bool    `json:"-"`
+	VirtualMachine *string `json:"virtualMachine"`
+	IPAddress      *string `json:"ipAddress"`
+}
+
+type jsonSpokeLinkedRouterApplianceInstancesInstances SpokeLinkedRouterApplianceInstancesInstances
+
+func (r *SpokeLinkedRouterApplianceInstancesInstances) UnmarshalJSON(data []byte) error {
+	var res jsonSpokeLinkedRouterApplianceInstancesInstances
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySpokeLinkedRouterApplianceInstancesInstances
+	} else {
+
+		r.VirtualMachine = res.VirtualMachine
+
+		r.IPAddress = res.IPAddress
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this SpokeLinkedRouterApplianceInstancesInstances is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptySpokeLinkedRouterApplianceInstancesInstances *SpokeLinkedRouterApplianceInstancesInstances = &SpokeLinkedRouterApplianceInstancesInstances{empty: true}
+
+func (r *SpokeLinkedRouterApplianceInstancesInstances) Empty() bool {
+	return r.empty
+}
+
+func (r *SpokeLinkedRouterApplianceInstancesInstances) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *SpokeLinkedRouterApplianceInstancesInstances) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

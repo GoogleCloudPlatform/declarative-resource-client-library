@@ -36,9 +36,12 @@ func (r *Hub) validate() error {
 	}
 	return nil
 }
+func (r *HubRoutingVpcs) validate() error {
+	return nil
+}
 func (r *Hub) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://networkconnectivity.googleapis.com/v1alpha1/", params)
+	return dcl.Nprintf("https://networkconnectivity.googleapis.com/v1/", params)
 }
 
 func (r *Hub) getURL(userBasePath string) (string, error) {
@@ -494,7 +497,128 @@ func canonicalizeHubNewState(c *Client, rawNew, rawDesired *Hub) (*Hub, error) {
 
 	rawNew.Project = rawDesired.Project
 
+	if dcl.IsNotReturnedByServer(rawNew.RoutingVpcs) && dcl.IsNotReturnedByServer(rawDesired.RoutingVpcs) {
+		rawNew.RoutingVpcs = rawDesired.RoutingVpcs
+	} else {
+		rawNew.RoutingVpcs = canonicalizeNewHubRoutingVpcsSlice(c, rawDesired.RoutingVpcs, rawNew.RoutingVpcs)
+	}
+
 	return rawNew, nil
+}
+
+func canonicalizeHubRoutingVpcs(des, initial *HubRoutingVpcs, opts ...dcl.ApplyOption) *HubRoutingVpcs {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &HubRoutingVpcs{}
+
+	if dcl.NameToSelfLink(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+		cDes.Uri = initial.Uri
+	} else {
+		cDes.Uri = des.Uri
+	}
+
+	return cDes
+}
+
+func canonicalizeHubRoutingVpcsSlice(des, initial []HubRoutingVpcs, opts ...dcl.ApplyOption) []HubRoutingVpcs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]HubRoutingVpcs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeHubRoutingVpcs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]HubRoutingVpcs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeHubRoutingVpcs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewHubRoutingVpcs(c *Client, des, nw *HubRoutingVpcs) *HubRoutingVpcs {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for HubRoutingVpcs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.NameToSelfLink(des.Uri, nw.Uri) {
+		nw.Uri = des.Uri
+	}
+
+	return nw
+}
+
+func canonicalizeNewHubRoutingVpcsSet(c *Client, des, nw []HubRoutingVpcs) []HubRoutingVpcs {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []HubRoutingVpcs
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareHubRoutingVpcsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewHubRoutingVpcsSlice(c *Client, des, nw []HubRoutingVpcs) []HubRoutingVpcs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []HubRoutingVpcs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewHubRoutingVpcs(c, &d, &n))
+	}
+
+	return items
 }
 
 // The differ returns a list of diffs, along with a list of operations that should be taken
@@ -571,7 +695,42 @@ func diffHub(c *Client, desired, actual *Hub, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.RoutingVpcs, actual.RoutingVpcs, dcl.Info{OutputOnly: true, ObjectFunction: compareHubRoutingVpcsNewStyle, EmptyObject: EmptyHubRoutingVpcs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RoutingVpcs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
+}
+func compareHubRoutingVpcsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*HubRoutingVpcs)
+	if !ok {
+		desiredNotPointer, ok := d.(HubRoutingVpcs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HubRoutingVpcs or *HubRoutingVpcs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*HubRoutingVpcs)
+	if !ok {
+		actualNotPointer, ok := a.(HubRoutingVpcs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HubRoutingVpcs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateHubUpdateHubOperation")}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -673,8 +832,123 @@ func flattenHub(c *Client, i interface{}) *Hub {
 	res.UniqueId = dcl.FlattenString(m["uniqueId"])
 	res.State = flattenHubStateEnum(m["state"])
 	res.Project = dcl.FlattenString(m["project"])
+	res.RoutingVpcs = flattenHubRoutingVpcsSlice(c, m["routingVpcs"])
 
 	return res
+}
+
+// expandHubRoutingVpcsMap expands the contents of HubRoutingVpcs into a JSON
+// request object.
+func expandHubRoutingVpcsMap(c *Client, f map[string]HubRoutingVpcs) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandHubRoutingVpcs(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandHubRoutingVpcsSlice expands the contents of HubRoutingVpcs into a JSON
+// request object.
+func expandHubRoutingVpcsSlice(c *Client, f []HubRoutingVpcs) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandHubRoutingVpcs(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenHubRoutingVpcsMap flattens the contents of HubRoutingVpcs from a JSON
+// response object.
+func flattenHubRoutingVpcsMap(c *Client, i interface{}) map[string]HubRoutingVpcs {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HubRoutingVpcs{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HubRoutingVpcs{}
+	}
+
+	items := make(map[string]HubRoutingVpcs)
+	for k, item := range a {
+		items[k] = *flattenHubRoutingVpcs(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenHubRoutingVpcsSlice flattens the contents of HubRoutingVpcs from a JSON
+// response object.
+func flattenHubRoutingVpcsSlice(c *Client, i interface{}) []HubRoutingVpcs {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []HubRoutingVpcs{}
+	}
+
+	if len(a) == 0 {
+		return []HubRoutingVpcs{}
+	}
+
+	items := make([]HubRoutingVpcs, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenHubRoutingVpcs(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandHubRoutingVpcs expands an instance of HubRoutingVpcs into a JSON
+// request object.
+func expandHubRoutingVpcs(c *Client, f *HubRoutingVpcs) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Uri; !dcl.IsEmptyValueIndirect(v) {
+		m["uri"] = v
+	}
+
+	return m, nil
+}
+
+// flattenHubRoutingVpcs flattens an instance of HubRoutingVpcs from a JSON
+// response object.
+func flattenHubRoutingVpcs(c *Client, i interface{}) *HubRoutingVpcs {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &HubRoutingVpcs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyHubRoutingVpcs
+	}
+	r.Uri = dcl.FlattenString(m["uri"])
+
+	return r
 }
 
 // flattenHubStateEnumMap flattens the contents of HubStateEnum from a JSON
@@ -814,7 +1088,13 @@ func convertOpNameToHubApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, 
 func extractHubFields(r *Hub) error {
 	return nil
 }
+func extractHubRoutingVpcsFields(r *Hub, o *HubRoutingVpcs) error {
+	return nil
+}
 
 func postReadExtractHubFields(r *Hub) error {
+	return nil
+}
+func postReadExtractHubRoutingVpcsFields(r *Hub, o *HubRoutingVpcs) error {
 	return nil
 }
