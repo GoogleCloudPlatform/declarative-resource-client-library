@@ -43,8 +43,8 @@ class Budget(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = budget_pb2_grpc.BillingbudgetsBudgetServiceStub(channel.Channel())
-        request = budget_pb2.ApplyBillingbudgetsBudgetRequest()
+        stub = budget_pb2_grpc.BillingbudgetsAlphaBudgetServiceStub(channel.Channel())
+        request = budget_pb2.ApplyBillingbudgetsAlphaBudgetRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -76,7 +76,7 @@ class Budget(object):
 
         request.service_account_file = self.service_account_file
 
-        response = stub.ApplyBillingbudgetsBudget(request)
+        response = stub.ApplyBillingbudgetsAlphaBudget(request)
         self.name = Primitive.from_proto(response.name)
         self.display_name = Primitive.from_proto(response.display_name)
         self.budget_filter = BudgetBudgetFilter.from_proto(response.budget_filter)
@@ -91,8 +91,8 @@ class Budget(object):
         self.billing_account = Primitive.from_proto(response.billing_account)
 
     def delete(self):
-        stub = budget_pb2_grpc.BillingbudgetsBudgetServiceStub(channel.Channel())
-        request = budget_pb2.DeleteBillingbudgetsBudgetRequest()
+        stub = budget_pb2_grpc.BillingbudgetsAlphaBudgetServiceStub(channel.Channel())
+        request = budget_pb2.DeleteBillingbudgetsAlphaBudgetRequest()
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
@@ -123,19 +123,19 @@ class Budget(object):
         if Primitive.to_proto(self.billing_account):
             request.resource.billing_account = Primitive.to_proto(self.billing_account)
 
-        response = stub.DeleteBillingbudgetsBudget(request)
+        response = stub.DeleteBillingbudgetsAlphaBudget(request)
 
     @classmethod
     def list(self, billingAccount, service_account_file=""):
-        stub = budget_pb2_grpc.BillingbudgetsBudgetServiceStub(channel.Channel())
-        request = budget_pb2.ListBillingbudgetsBudgetRequest()
+        stub = budget_pb2_grpc.BillingbudgetsAlphaBudgetServiceStub(channel.Channel())
+        request = budget_pb2.ListBillingbudgetsAlphaBudgetRequest()
         request.service_account_file = service_account_file
         request.BillingAccount = billingAccount
 
-        return stub.ListBillingbudgetsBudget(request).items
+        return stub.ListBillingbudgetsAlphaBudget(request).items
 
     def to_proto(self):
-        resource = budget_pb2.BillingbudgetsBudget()
+        resource = budget_pb2.BillingbudgetsAlphaBudget()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.display_name):
@@ -191,7 +191,7 @@ class BudgetBudgetFilter(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetBudgetFilter()
+        res = budget_pb2.BillingbudgetsAlphaBudgetBudgetFilter()
         if Primitive.to_proto(resource.projects):
             res.projects.extend(Primitive.to_proto(resource.projects))
         if Primitive.to_proto(resource.credit_types):
@@ -264,7 +264,7 @@ class BudgetBudgetFilterLabels(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetBudgetFilterLabels()
+        res = budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterLabels()
         if Primitive.to_proto(resource.values):
             res.values.extend(Primitive.to_proto(resource.values))
         return res
@@ -299,7 +299,7 @@ class BudgetBudgetFilterCustomPeriod(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetBudgetFilterCustomPeriod()
+        res = budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterCustomPeriod()
         if BudgetBudgetFilterCustomPeriodStartDate.to_proto(resource.start_date):
             res.start_date.CopyFrom(
                 BudgetBudgetFilterCustomPeriodStartDate.to_proto(resource.start_date)
@@ -352,7 +352,7 @@ class BudgetBudgetFilterCustomPeriodStartDate(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetBudgetFilterCustomPeriodStartDate()
+        res = budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterCustomPeriodStartDate()
         if Primitive.to_proto(resource.year):
             res.year = Primitive.to_proto(resource.year)
         if Primitive.to_proto(resource.month):
@@ -398,7 +398,7 @@ class BudgetBudgetFilterCustomPeriodEndDate(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetBudgetFilterCustomPeriodEndDate()
+        res = budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterCustomPeriodEndDate()
         if Primitive.to_proto(resource.year):
             res.year = Primitive.to_proto(resource.year)
         if Primitive.to_proto(resource.month):
@@ -441,7 +441,7 @@ class BudgetAmount(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetAmount()
+        res = budget_pb2.BillingbudgetsAlphaBudgetAmount()
         if BudgetAmountSpecifiedAmount.to_proto(resource.specified_amount):
             res.specified_amount.CopyFrom(
                 BudgetAmountSpecifiedAmount.to_proto(resource.specified_amount)
@@ -494,7 +494,7 @@ class BudgetAmountSpecifiedAmount(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetAmountSpecifiedAmount()
+        res = budget_pb2.BillingbudgetsAlphaBudgetAmountSpecifiedAmount()
         if Primitive.to_proto(resource.currency_code):
             res.currency_code = Primitive.to_proto(resource.currency_code)
         if Primitive.to_proto(resource.units):
@@ -533,7 +533,7 @@ class BudgetAmountLastPeriodAmount(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetAmountLastPeriodAmount()
+        res = budget_pb2.BillingbudgetsAlphaBudgetAmountLastPeriodAmount()
         return res
 
     @classmethod
@@ -566,7 +566,7 @@ class BudgetThresholdRules(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetThresholdRules()
+        res = budget_pb2.BillingbudgetsAlphaBudgetThresholdRules()
         if Primitive.to_proto(resource.threshold_percent):
             res.threshold_percent = Primitive.to_proto(resource.threshold_percent)
         if BudgetThresholdRulesSpendBasisEnum.to_proto(resource.spend_basis):
@@ -618,7 +618,7 @@ class BudgetAllUpdatesRule(object):
         if not resource:
             return None
 
-        res = budget_pb2.BillingbudgetsBudgetAllUpdatesRule()
+        res = budget_pb2.BillingbudgetsAlphaBudgetAllUpdatesRule()
         if Primitive.to_proto(resource.pubsub_topic):
             res.pubsub_topic = Primitive.to_proto(resource.pubsub_topic)
         if Primitive.to_proto(resource.schema_version):
@@ -667,17 +667,19 @@ class BudgetBudgetFilterCreditTypesTreatmentEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return budget_pb2.BillingbudgetsBudgetBudgetFilterCreditTypesTreatmentEnum.Value(
-            "BillingbudgetsBudgetBudgetFilterCreditTypesTreatmentEnum%s" % resource
+        return budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterCreditTypesTreatmentEnum.Value(
+            "BillingbudgetsAlphaBudgetBudgetFilterCreditTypesTreatmentEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return budget_pb2.BillingbudgetsBudgetBudgetFilterCreditTypesTreatmentEnum.Name(
+        return budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterCreditTypesTreatmentEnum.Name(
             resource
-        )[len("BillingbudgetsBudgetBudgetFilterCreditTypesTreatmentEnum") :]
+        )[
+            len("BillingbudgetsAlphaBudgetBudgetFilterCreditTypesTreatmentEnum") :
+        ]
 
 
 class BudgetBudgetFilterCalendarPeriodEnum(object):
@@ -685,17 +687,17 @@ class BudgetBudgetFilterCalendarPeriodEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return budget_pb2.BillingbudgetsBudgetBudgetFilterCalendarPeriodEnum.Value(
-            "BillingbudgetsBudgetBudgetFilterCalendarPeriodEnum%s" % resource
+        return budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterCalendarPeriodEnum.Value(
+            "BillingbudgetsAlphaBudgetBudgetFilterCalendarPeriodEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return budget_pb2.BillingbudgetsBudgetBudgetFilterCalendarPeriodEnum.Name(
+        return budget_pb2.BillingbudgetsAlphaBudgetBudgetFilterCalendarPeriodEnum.Name(
             resource
-        )[len("BillingbudgetsBudgetBudgetFilterCalendarPeriodEnum") :]
+        )[len("BillingbudgetsAlphaBudgetBudgetFilterCalendarPeriodEnum") :]
 
 
 class BudgetThresholdRulesSpendBasisEnum(object):
@@ -703,17 +705,17 @@ class BudgetThresholdRulesSpendBasisEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return budget_pb2.BillingbudgetsBudgetThresholdRulesSpendBasisEnum.Value(
-            "BillingbudgetsBudgetThresholdRulesSpendBasisEnum%s" % resource
+        return budget_pb2.BillingbudgetsAlphaBudgetThresholdRulesSpendBasisEnum.Value(
+            "BillingbudgetsAlphaBudgetThresholdRulesSpendBasisEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return budget_pb2.BillingbudgetsBudgetThresholdRulesSpendBasisEnum.Name(
+        return budget_pb2.BillingbudgetsAlphaBudgetThresholdRulesSpendBasisEnum.Name(
             resource
-        )[len("BillingbudgetsBudgetThresholdRulesSpendBasisEnum") :]
+        )[len("BillingbudgetsAlphaBudgetThresholdRulesSpendBasisEnum") :]
 
 
 class Primitive(object):

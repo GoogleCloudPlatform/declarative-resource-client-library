@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	billingbudgetspb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/billingbudgets/billingbudgets_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -61,7 +60,7 @@ func ProtoToBillingbudgetsBudgetThresholdRulesSpendBasisEnum(e billingbudgetspb.
 	return nil
 }
 
-// ProtoToBudgetBudgetFilter converts a BudgetBudgetFilter resource from its proto representation.
+// ProtoToBudgetBudgetFilter converts a BudgetBudgetFilter object from its proto representation.
 func ProtoToBillingbudgetsBudgetBudgetFilter(p *billingbudgetspb.BillingbudgetsBudgetBudgetFilter) *billingbudgets.BudgetBudgetFilter {
 	if p == nil {
 		return nil
@@ -86,7 +85,7 @@ func ProtoToBillingbudgetsBudgetBudgetFilter(p *billingbudgetspb.BillingbudgetsB
 	return obj
 }
 
-// ProtoToBudgetBudgetFilterLabels converts a BudgetBudgetFilterLabels resource from its proto representation.
+// ProtoToBudgetBudgetFilterLabels converts a BudgetBudgetFilterLabels object from its proto representation.
 func ProtoToBillingbudgetsBudgetBudgetFilterLabels(p *billingbudgetspb.BillingbudgetsBudgetBudgetFilterLabels) *billingbudgets.BudgetBudgetFilterLabels {
 	if p == nil {
 		return nil
@@ -98,7 +97,7 @@ func ProtoToBillingbudgetsBudgetBudgetFilterLabels(p *billingbudgetspb.Billingbu
 	return obj
 }
 
-// ProtoToBudgetBudgetFilterCustomPeriod converts a BudgetBudgetFilterCustomPeriod resource from its proto representation.
+// ProtoToBudgetBudgetFilterCustomPeriod converts a BudgetBudgetFilterCustomPeriod object from its proto representation.
 func ProtoToBillingbudgetsBudgetBudgetFilterCustomPeriod(p *billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriod) *billingbudgets.BudgetBudgetFilterCustomPeriod {
 	if p == nil {
 		return nil
@@ -110,33 +109,33 @@ func ProtoToBillingbudgetsBudgetBudgetFilterCustomPeriod(p *billingbudgetspb.Bil
 	return obj
 }
 
-// ProtoToBudgetBudgetFilterCustomPeriodStartDate converts a BudgetBudgetFilterCustomPeriodStartDate resource from its proto representation.
+// ProtoToBudgetBudgetFilterCustomPeriodStartDate converts a BudgetBudgetFilterCustomPeriodStartDate object from its proto representation.
 func ProtoToBillingbudgetsBudgetBudgetFilterCustomPeriodStartDate(p *billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodStartDate) *billingbudgets.BudgetBudgetFilterCustomPeriodStartDate {
 	if p == nil {
 		return nil
 	}
 	obj := &billingbudgets.BudgetBudgetFilterCustomPeriodStartDate{
-		Year:  dcl.Int64OrNil(p.Year),
-		Month: dcl.Int64OrNil(p.Month),
-		Day:   dcl.Int64OrNil(p.Day),
+		Year:  dcl.Int64OrNil(p.GetYear()),
+		Month: dcl.Int64OrNil(p.GetMonth()),
+		Day:   dcl.Int64OrNil(p.GetDay()),
 	}
 	return obj
 }
 
-// ProtoToBudgetBudgetFilterCustomPeriodEndDate converts a BudgetBudgetFilterCustomPeriodEndDate resource from its proto representation.
+// ProtoToBudgetBudgetFilterCustomPeriodEndDate converts a BudgetBudgetFilterCustomPeriodEndDate object from its proto representation.
 func ProtoToBillingbudgetsBudgetBudgetFilterCustomPeriodEndDate(p *billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodEndDate) *billingbudgets.BudgetBudgetFilterCustomPeriodEndDate {
 	if p == nil {
 		return nil
 	}
 	obj := &billingbudgets.BudgetBudgetFilterCustomPeriodEndDate{
-		Year:  dcl.Int64OrNil(p.Year),
-		Month: dcl.Int64OrNil(p.Month),
-		Day:   dcl.Int64OrNil(p.Day),
+		Year:  dcl.Int64OrNil(p.GetYear()),
+		Month: dcl.Int64OrNil(p.GetMonth()),
+		Day:   dcl.Int64OrNil(p.GetDay()),
 	}
 	return obj
 }
 
-// ProtoToBudgetAmount converts a BudgetAmount resource from its proto representation.
+// ProtoToBudgetAmount converts a BudgetAmount object from its proto representation.
 func ProtoToBillingbudgetsBudgetAmount(p *billingbudgetspb.BillingbudgetsBudgetAmount) *billingbudgets.BudgetAmount {
 	if p == nil {
 		return nil
@@ -148,20 +147,20 @@ func ProtoToBillingbudgetsBudgetAmount(p *billingbudgetspb.BillingbudgetsBudgetA
 	return obj
 }
 
-// ProtoToBudgetAmountSpecifiedAmount converts a BudgetAmountSpecifiedAmount resource from its proto representation.
+// ProtoToBudgetAmountSpecifiedAmount converts a BudgetAmountSpecifiedAmount object from its proto representation.
 func ProtoToBillingbudgetsBudgetAmountSpecifiedAmount(p *billingbudgetspb.BillingbudgetsBudgetAmountSpecifiedAmount) *billingbudgets.BudgetAmountSpecifiedAmount {
 	if p == nil {
 		return nil
 	}
 	obj := &billingbudgets.BudgetAmountSpecifiedAmount{
-		CurrencyCode: dcl.StringOrNil(p.CurrencyCode),
-		Units:        dcl.Int64OrNil(p.Units),
-		Nanos:        dcl.Int64OrNil(p.Nanos),
+		CurrencyCode: dcl.StringOrNil(p.GetCurrencyCode()),
+		Units:        dcl.Int64OrNil(p.GetUnits()),
+		Nanos:        dcl.Int64OrNil(p.GetNanos()),
 	}
 	return obj
 }
 
-// ProtoToBudgetAmountLastPeriodAmount converts a BudgetAmountLastPeriodAmount resource from its proto representation.
+// ProtoToBudgetAmountLastPeriodAmount converts a BudgetAmountLastPeriodAmount object from its proto representation.
 func ProtoToBillingbudgetsBudgetAmountLastPeriodAmount(p *billingbudgetspb.BillingbudgetsBudgetAmountLastPeriodAmount) *billingbudgets.BudgetAmountLastPeriodAmount {
 	if p == nil {
 		return nil
@@ -170,27 +169,27 @@ func ProtoToBillingbudgetsBudgetAmountLastPeriodAmount(p *billingbudgetspb.Billi
 	return obj
 }
 
-// ProtoToBudgetThresholdRules converts a BudgetThresholdRules resource from its proto representation.
+// ProtoToBudgetThresholdRules converts a BudgetThresholdRules object from its proto representation.
 func ProtoToBillingbudgetsBudgetThresholdRules(p *billingbudgetspb.BillingbudgetsBudgetThresholdRules) *billingbudgets.BudgetThresholdRules {
 	if p == nil {
 		return nil
 	}
 	obj := &billingbudgets.BudgetThresholdRules{
-		ThresholdPercent: dcl.Float64OrNil(p.ThresholdPercent),
+		ThresholdPercent: dcl.Float64OrNil(p.GetThresholdPercent()),
 		SpendBasis:       ProtoToBillingbudgetsBudgetThresholdRulesSpendBasisEnum(p.GetSpendBasis()),
 	}
 	return obj
 }
 
-// ProtoToBudgetAllUpdatesRule converts a BudgetAllUpdatesRule resource from its proto representation.
+// ProtoToBudgetAllUpdatesRule converts a BudgetAllUpdatesRule object from its proto representation.
 func ProtoToBillingbudgetsBudgetAllUpdatesRule(p *billingbudgetspb.BillingbudgetsBudgetAllUpdatesRule) *billingbudgets.BudgetAllUpdatesRule {
 	if p == nil {
 		return nil
 	}
 	obj := &billingbudgets.BudgetAllUpdatesRule{
-		PubsubTopic:                 dcl.StringOrNil(p.PubsubTopic),
-		SchemaVersion:               dcl.StringOrNil(p.SchemaVersion),
-		DisableDefaultIamRecipients: dcl.Bool(p.DisableDefaultIamRecipients),
+		PubsubTopic:                 dcl.StringOrNil(p.GetPubsubTopic()),
+		SchemaVersion:               dcl.StringOrNil(p.GetSchemaVersion()),
+		DisableDefaultIamRecipients: dcl.Bool(p.GetDisableDefaultIamRecipients()),
 	}
 	for _, r := range p.GetMonitoringNotificationChannels() {
 		obj.MonitoringNotificationChannels = append(obj.MonitoringNotificationChannels, r)
@@ -201,13 +200,13 @@ func ProtoToBillingbudgetsBudgetAllUpdatesRule(p *billingbudgetspb.Billingbudget
 // ProtoToBudget converts a Budget resource from its proto representation.
 func ProtoToBudget(p *billingbudgetspb.BillingbudgetsBudget) *billingbudgets.Budget {
 	obj := &billingbudgets.Budget{
-		Name:           dcl.StringOrNil(p.Name),
-		DisplayName:    dcl.StringOrNil(p.DisplayName),
+		Name:           dcl.StringOrNil(p.GetName()),
+		DisplayName:    dcl.StringOrNil(p.GetDisplayName()),
 		BudgetFilter:   ProtoToBillingbudgetsBudgetBudgetFilter(p.GetBudgetFilter()),
 		Amount:         ProtoToBillingbudgetsBudgetAmount(p.GetAmount()),
-		Etag:           dcl.StringOrNil(p.Etag),
+		Etag:           dcl.StringOrNil(p.GetEtag()),
 		AllUpdatesRule: ProtoToBillingbudgetsBudgetAllUpdatesRule(p.GetAllUpdatesRule()),
-		BillingAccount: dcl.StringOrNil(p.BillingAccount),
+		BillingAccount: dcl.StringOrNil(p.GetBillingAccount()),
 	}
 	for _, r := range p.GetThresholdRules() {
 		obj.ThresholdRules = append(obj.ThresholdRules, *ProtoToBillingbudgetsBudgetThresholdRules(r))
@@ -248,111 +247,116 @@ func BillingbudgetsBudgetThresholdRulesSpendBasisEnumToProto(e *billingbudgets.B
 	return billingbudgetspb.BillingbudgetsBudgetThresholdRulesSpendBasisEnum(0)
 }
 
-// BudgetBudgetFilterToProto converts a BudgetBudgetFilter resource to its proto representation.
+// BudgetBudgetFilterToProto converts a BudgetBudgetFilter object to its proto representation.
 func BillingbudgetsBudgetBudgetFilterToProto(o *billingbudgets.BudgetBudgetFilter) *billingbudgetspb.BillingbudgetsBudgetBudgetFilter {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilter{
-		CreditTypesTreatment: BillingbudgetsBudgetBudgetFilterCreditTypesTreatmentEnumToProto(o.CreditTypesTreatment),
-		CalendarPeriod:       BillingbudgetsBudgetBudgetFilterCalendarPeriodEnumToProto(o.CalendarPeriod),
-		CustomPeriod:         BillingbudgetsBudgetBudgetFilterCustomPeriodToProto(o.CustomPeriod),
+	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilter{}
+	p.SetCreditTypesTreatment(BillingbudgetsBudgetBudgetFilterCreditTypesTreatmentEnumToProto(o.CreditTypesTreatment))
+	p.SetCalendarPeriod(BillingbudgetsBudgetBudgetFilterCalendarPeriodEnumToProto(o.CalendarPeriod))
+	p.SetCustomPeriod(BillingbudgetsBudgetBudgetFilterCustomPeriodToProto(o.CustomPeriod))
+	sProjects := make([]string, len(o.Projects))
+	for i, r := range o.Projects {
+		sProjects[i] = r
 	}
-	for _, r := range o.Projects {
-		p.Projects = append(p.Projects, r)
+	p.SetProjects(sProjects)
+	sCreditTypes := make([]string, len(o.CreditTypes))
+	for i, r := range o.CreditTypes {
+		sCreditTypes[i] = r
 	}
-	for _, r := range o.CreditTypes {
-		p.CreditTypes = append(p.CreditTypes, r)
+	p.SetCreditTypes(sCreditTypes)
+	sServices := make([]string, len(o.Services))
+	for i, r := range o.Services {
+		sServices[i] = r
 	}
-	for _, r := range o.Services {
-		p.Services = append(p.Services, r)
+	p.SetServices(sServices)
+	sSubaccounts := make([]string, len(o.Subaccounts))
+	for i, r := range o.Subaccounts {
+		sSubaccounts[i] = r
 	}
-	for _, r := range o.Subaccounts {
-		p.Subaccounts = append(p.Subaccounts, r)
-	}
-	p.Labels = make(map[string]*billingbudgetspb.BillingbudgetsBudgetBudgetFilterLabels)
+	p.SetSubaccounts(sSubaccounts)
+	mLabels := make(map[string]*billingbudgetspb.BillingbudgetsBudgetBudgetFilterLabels, len(o.Labels))
 	for k, r := range o.Labels {
-		p.Labels[k] = BillingbudgetsBudgetBudgetFilterLabelsToProto(&r)
+		mLabels[k] = BillingbudgetsBudgetBudgetFilterLabelsToProto(&r)
 	}
+	p.SetLabels(mLabels)
 	return p
 }
 
-// BudgetBudgetFilterLabelsToProto converts a BudgetBudgetFilterLabels resource to its proto representation.
+// BudgetBudgetFilterLabelsToProto converts a BudgetBudgetFilterLabels object to its proto representation.
 func BillingbudgetsBudgetBudgetFilterLabelsToProto(o *billingbudgets.BudgetBudgetFilterLabels) *billingbudgetspb.BillingbudgetsBudgetBudgetFilterLabels {
 	if o == nil {
 		return nil
 	}
 	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilterLabels{}
-	for _, r := range o.Values {
-		p.Values = append(p.Values, r)
+	sValues := make([]string, len(o.Values))
+	for i, r := range o.Values {
+		sValues[i] = r
 	}
+	p.SetValues(sValues)
 	return p
 }
 
-// BudgetBudgetFilterCustomPeriodToProto converts a BudgetBudgetFilterCustomPeriod resource to its proto representation.
+// BudgetBudgetFilterCustomPeriodToProto converts a BudgetBudgetFilterCustomPeriod object to its proto representation.
 func BillingbudgetsBudgetBudgetFilterCustomPeriodToProto(o *billingbudgets.BudgetBudgetFilterCustomPeriod) *billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriod {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriod{
-		StartDate: BillingbudgetsBudgetBudgetFilterCustomPeriodStartDateToProto(o.StartDate),
-		EndDate:   BillingbudgetsBudgetBudgetFilterCustomPeriodEndDateToProto(o.EndDate),
-	}
+	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriod{}
+	p.SetStartDate(BillingbudgetsBudgetBudgetFilterCustomPeriodStartDateToProto(o.StartDate))
+	p.SetEndDate(BillingbudgetsBudgetBudgetFilterCustomPeriodEndDateToProto(o.EndDate))
 	return p
 }
 
-// BudgetBudgetFilterCustomPeriodStartDateToProto converts a BudgetBudgetFilterCustomPeriodStartDate resource to its proto representation.
+// BudgetBudgetFilterCustomPeriodStartDateToProto converts a BudgetBudgetFilterCustomPeriodStartDate object to its proto representation.
 func BillingbudgetsBudgetBudgetFilterCustomPeriodStartDateToProto(o *billingbudgets.BudgetBudgetFilterCustomPeriodStartDate) *billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodStartDate {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodStartDate{
-		Year:  dcl.ValueOrEmptyInt64(o.Year),
-		Month: dcl.ValueOrEmptyInt64(o.Month),
-		Day:   dcl.ValueOrEmptyInt64(o.Day),
-	}
+	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodStartDate{}
+	p.SetYear(dcl.ValueOrEmptyInt64(o.Year))
+	p.SetMonth(dcl.ValueOrEmptyInt64(o.Month))
+	p.SetDay(dcl.ValueOrEmptyInt64(o.Day))
 	return p
 }
 
-// BudgetBudgetFilterCustomPeriodEndDateToProto converts a BudgetBudgetFilterCustomPeriodEndDate resource to its proto representation.
+// BudgetBudgetFilterCustomPeriodEndDateToProto converts a BudgetBudgetFilterCustomPeriodEndDate object to its proto representation.
 func BillingbudgetsBudgetBudgetFilterCustomPeriodEndDateToProto(o *billingbudgets.BudgetBudgetFilterCustomPeriodEndDate) *billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodEndDate {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodEndDate{
-		Year:  dcl.ValueOrEmptyInt64(o.Year),
-		Month: dcl.ValueOrEmptyInt64(o.Month),
-		Day:   dcl.ValueOrEmptyInt64(o.Day),
-	}
+	p := &billingbudgetspb.BillingbudgetsBudgetBudgetFilterCustomPeriodEndDate{}
+	p.SetYear(dcl.ValueOrEmptyInt64(o.Year))
+	p.SetMonth(dcl.ValueOrEmptyInt64(o.Month))
+	p.SetDay(dcl.ValueOrEmptyInt64(o.Day))
 	return p
 }
 
-// BudgetAmountToProto converts a BudgetAmount resource to its proto representation.
+// BudgetAmountToProto converts a BudgetAmount object to its proto representation.
 func BillingbudgetsBudgetAmountToProto(o *billingbudgets.BudgetAmount) *billingbudgetspb.BillingbudgetsBudgetAmount {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetAmount{
-		SpecifiedAmount:  BillingbudgetsBudgetAmountSpecifiedAmountToProto(o.SpecifiedAmount),
-		LastPeriodAmount: BillingbudgetsBudgetAmountLastPeriodAmountToProto(o.LastPeriodAmount),
-	}
+	p := &billingbudgetspb.BillingbudgetsBudgetAmount{}
+	p.SetSpecifiedAmount(BillingbudgetsBudgetAmountSpecifiedAmountToProto(o.SpecifiedAmount))
+	p.SetLastPeriodAmount(BillingbudgetsBudgetAmountLastPeriodAmountToProto(o.LastPeriodAmount))
 	return p
 }
 
-// BudgetAmountSpecifiedAmountToProto converts a BudgetAmountSpecifiedAmount resource to its proto representation.
+// BudgetAmountSpecifiedAmountToProto converts a BudgetAmountSpecifiedAmount object to its proto representation.
 func BillingbudgetsBudgetAmountSpecifiedAmountToProto(o *billingbudgets.BudgetAmountSpecifiedAmount) *billingbudgetspb.BillingbudgetsBudgetAmountSpecifiedAmount {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetAmountSpecifiedAmount{
-		CurrencyCode: dcl.ValueOrEmptyString(o.CurrencyCode),
-		Units:        dcl.ValueOrEmptyInt64(o.Units),
-		Nanos:        dcl.ValueOrEmptyInt64(o.Nanos),
-	}
+	p := &billingbudgetspb.BillingbudgetsBudgetAmountSpecifiedAmount{}
+	p.SetCurrencyCode(dcl.ValueOrEmptyString(o.CurrencyCode))
+	p.SetUnits(dcl.ValueOrEmptyInt64(o.Units))
+	p.SetNanos(dcl.ValueOrEmptyInt64(o.Nanos))
 	return p
 }
 
-// BudgetAmountLastPeriodAmountToProto converts a BudgetAmountLastPeriodAmount resource to its proto representation.
+// BudgetAmountLastPeriodAmountToProto converts a BudgetAmountLastPeriodAmount object to its proto representation.
 func BillingbudgetsBudgetAmountLastPeriodAmountToProto(o *billingbudgets.BudgetAmountLastPeriodAmount) *billingbudgetspb.BillingbudgetsBudgetAmountLastPeriodAmount {
 	if o == nil {
 		return nil
@@ -361,53 +365,54 @@ func BillingbudgetsBudgetAmountLastPeriodAmountToProto(o *billingbudgets.BudgetA
 	return p
 }
 
-// BudgetThresholdRulesToProto converts a BudgetThresholdRules resource to its proto representation.
+// BudgetThresholdRulesToProto converts a BudgetThresholdRules object to its proto representation.
 func BillingbudgetsBudgetThresholdRulesToProto(o *billingbudgets.BudgetThresholdRules) *billingbudgetspb.BillingbudgetsBudgetThresholdRules {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetThresholdRules{
-		ThresholdPercent: dcl.ValueOrEmptyDouble(o.ThresholdPercent),
-		SpendBasis:       BillingbudgetsBudgetThresholdRulesSpendBasisEnumToProto(o.SpendBasis),
-	}
+	p := &billingbudgetspb.BillingbudgetsBudgetThresholdRules{}
+	p.SetThresholdPercent(dcl.ValueOrEmptyDouble(o.ThresholdPercent))
+	p.SetSpendBasis(BillingbudgetsBudgetThresholdRulesSpendBasisEnumToProto(o.SpendBasis))
 	return p
 }
 
-// BudgetAllUpdatesRuleToProto converts a BudgetAllUpdatesRule resource to its proto representation.
+// BudgetAllUpdatesRuleToProto converts a BudgetAllUpdatesRule object to its proto representation.
 func BillingbudgetsBudgetAllUpdatesRuleToProto(o *billingbudgets.BudgetAllUpdatesRule) *billingbudgetspb.BillingbudgetsBudgetAllUpdatesRule {
 	if o == nil {
 		return nil
 	}
-	p := &billingbudgetspb.BillingbudgetsBudgetAllUpdatesRule{
-		PubsubTopic:                 dcl.ValueOrEmptyString(o.PubsubTopic),
-		SchemaVersion:               dcl.ValueOrEmptyString(o.SchemaVersion),
-		DisableDefaultIamRecipients: dcl.ValueOrEmptyBool(o.DisableDefaultIamRecipients),
+	p := &billingbudgetspb.BillingbudgetsBudgetAllUpdatesRule{}
+	p.SetPubsubTopic(dcl.ValueOrEmptyString(o.PubsubTopic))
+	p.SetSchemaVersion(dcl.ValueOrEmptyString(o.SchemaVersion))
+	p.SetDisableDefaultIamRecipients(dcl.ValueOrEmptyBool(o.DisableDefaultIamRecipients))
+	sMonitoringNotificationChannels := make([]string, len(o.MonitoringNotificationChannels))
+	for i, r := range o.MonitoringNotificationChannels {
+		sMonitoringNotificationChannels[i] = r
 	}
-	for _, r := range o.MonitoringNotificationChannels {
-		p.MonitoringNotificationChannels = append(p.MonitoringNotificationChannels, r)
-	}
+	p.SetMonitoringNotificationChannels(sMonitoringNotificationChannels)
 	return p
 }
 
 // BudgetToProto converts a Budget resource to its proto representation.
 func BudgetToProto(resource *billingbudgets.Budget) *billingbudgetspb.BillingbudgetsBudget {
-	p := &billingbudgetspb.BillingbudgetsBudget{
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		BudgetFilter:   BillingbudgetsBudgetBudgetFilterToProto(resource.BudgetFilter),
-		Amount:         BillingbudgetsBudgetAmountToProto(resource.Amount),
-		Etag:           dcl.ValueOrEmptyString(resource.Etag),
-		AllUpdatesRule: BillingbudgetsBudgetAllUpdatesRuleToProto(resource.AllUpdatesRule),
-		BillingAccount: dcl.ValueOrEmptyString(resource.BillingAccount),
+	p := &billingbudgetspb.BillingbudgetsBudget{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetBudgetFilter(BillingbudgetsBudgetBudgetFilterToProto(resource.BudgetFilter))
+	p.SetAmount(BillingbudgetsBudgetAmountToProto(resource.Amount))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetAllUpdatesRule(BillingbudgetsBudgetAllUpdatesRuleToProto(resource.AllUpdatesRule))
+	p.SetBillingAccount(dcl.ValueOrEmptyString(resource.BillingAccount))
+	sThresholdRules := make([]*billingbudgetspb.BillingbudgetsBudgetThresholdRules, len(resource.ThresholdRules))
+	for i, r := range resource.ThresholdRules {
+		sThresholdRules[i] = BillingbudgetsBudgetThresholdRulesToProto(&r)
 	}
-	for _, r := range resource.ThresholdRules {
-		p.ThresholdRules = append(p.ThresholdRules, BillingbudgetsBudgetThresholdRulesToProto(&r))
-	}
+	p.SetThresholdRules(sThresholdRules)
 
 	return p
 }
 
-// ApplyBudget handles the gRPC request by passing it to the underlying Budget Apply() method.
+// applyBudget handles the gRPC request by passing it to the underlying Budget Apply() method.
 func (s *BudgetServer) applyBudget(ctx context.Context, c *billingbudgets.Client, request *billingbudgetspb.ApplyBillingbudgetsBudgetRequest) (*billingbudgetspb.BillingbudgetsBudget, error) {
 	p := ProtoToBudget(request.GetResource())
 	res, err := c.ApplyBudget(ctx, p)
@@ -418,9 +423,9 @@ func (s *BudgetServer) applyBudget(ctx context.Context, c *billingbudgets.Client
 	return r, nil
 }
 
-// ApplyBudget handles the gRPC request by passing it to the underlying Budget Apply() method.
+// applyBillingbudgetsBudget handles the gRPC request by passing it to the underlying Budget Apply() method.
 func (s *BudgetServer) ApplyBillingbudgetsBudget(ctx context.Context, request *billingbudgetspb.ApplyBillingbudgetsBudgetRequest) (*billingbudgetspb.BillingbudgetsBudget, error) {
-	cl, err := createConfigBudget(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBudget(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -430,7 +435,7 @@ func (s *BudgetServer) ApplyBillingbudgetsBudget(ctx context.Context, request *b
 // DeleteBudget handles the gRPC request by passing it to the underlying Budget Delete() method.
 func (s *BudgetServer) DeleteBillingbudgetsBudget(ctx context.Context, request *billingbudgetspb.DeleteBillingbudgetsBudgetRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigBudget(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBudget(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -440,12 +445,12 @@ func (s *BudgetServer) DeleteBillingbudgetsBudget(ctx context.Context, request *
 
 // ListBillingbudgetsBudget handles the gRPC request by passing it to the underlying BudgetList() method.
 func (s *BudgetServer) ListBillingbudgetsBudget(ctx context.Context, request *billingbudgetspb.ListBillingbudgetsBudgetRequest) (*billingbudgetspb.ListBillingbudgetsBudgetResponse, error) {
-	cl, err := createConfigBudget(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBudget(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListBudget(ctx, request.BillingAccount)
+	resources, err := cl.ListBudget(ctx, request.GetBillingAccount())
 	if err != nil {
 		return nil, err
 	}
@@ -454,7 +459,9 @@ func (s *BudgetServer) ListBillingbudgetsBudget(ctx context.Context, request *bi
 		rp := BudgetToProto(r)
 		protos = append(protos, rp)
 	}
-	return &billingbudgetspb.ListBillingbudgetsBudgetResponse{Items: protos}, nil
+	p := &billingbudgetspb.ListBillingbudgetsBudgetResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigBudget(ctx context.Context, service_account_file string) (*billingbudgets.Client, error) {

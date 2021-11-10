@@ -22,6 +22,12 @@ import (
 
 	assuredworkloads_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/alpha_connector"
 
+	billingbudgets_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets/connector"
+
+	billingbudgets_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets/beta_connector"
+
+	billingbudgets_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets/alpha_connector"
+
 	bigqueryreservation_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/connector"
 
 	bigqueryreservation_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/beta_connector"
@@ -208,6 +214,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	assuredworkloads_beta_connector.RegisterServers(grpcServer)
 
 	assuredworkloads_alpha_connector.RegisterServers(grpcServer)
+
+	billingbudgets_connector.RegisterServers(grpcServer)
+
+	billingbudgets_beta_connector.RegisterServers(grpcServer)
+
+	billingbudgets_alpha_connector.RegisterServers(grpcServer)
 
 	bigqueryreservation_connector.RegisterServers(grpcServer)
 
