@@ -122,9 +122,6 @@ type serviceAttachmentApiOperation interface {
 func newUpdateServiceAttachmentPatchRequest(ctx context.Context, f *ServiceAttachment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		req["name"] = v
-	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
@@ -161,6 +158,8 @@ func newUpdateServiceAttachmentPatchRequest(ctx context.Context, f *ServiceAttac
 	} else {
 		req["fingerprint"] = rawFingerprint.(string)
 	}
+	req["name"] = fmt.Sprintf("%s", *f.Name)
+
 	return req, nil
 }
 
@@ -1018,7 +1017,7 @@ func diffServiceAttachment(c *Client, desired, actual *ServiceAttachment, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceAttachmentPatchOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

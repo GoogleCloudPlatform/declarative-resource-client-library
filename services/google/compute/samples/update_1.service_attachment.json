@@ -5,7 +5,7 @@
   "description": "An updated sample service attachment",
   "targetService": "{{ref:first_internal.forwarding_rule.json:selfLink}}",
   "connectionPreference": "ACCEPT_MANUAL",
-  "natSubnets": ["{{ref:first_private_service_connect.subnetwork.json:selfLink}}"],
+  "natSubnets": ["{{ref:second_private_service_connect.subnetwork.json:selfLink}}"],
   "enableProxyProtocol": false,
   "consumerRejectLists": ["{{ref:second.cloudresourcemanager.project.json:name}}"],
   "consumerAcceptLists": [

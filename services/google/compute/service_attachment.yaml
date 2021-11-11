@@ -172,12 +172,8 @@ components:
           type: string
           x-dcl-go-name: Fingerprint
           readOnly: true
-          description: Fingerprint of this resource. A hash of the contents stored
-            in this object. This field is used in optimistic locking. This field will
-            be ignored when inserting a `ServiceAttachment`. An up-to-date fingerprint
-            must be provided in order to patch/update the ServiceAttachment; otherwise,
-            the request will fail with error `412 conditionNotMet`. To see the latest
-            fingerprint, make a `get()` request to retrieve the ServiceAttachment.
+          description: Fingerprint of this resource. This field is used internally
+            during updates of this resource.
           x-kubernetes-immutable: true
         id:
           type: integer
@@ -201,6 +197,7 @@ components:
             expression `)?` which means the first character must be a lowercase letter,
             and all following characters must be a dash, lowercase letter, or digit,
             except the last character, which cannot be a dash.
+          x-kubernetes-immutable: true
         natSubnets:
           type: array
           x-dcl-go-name: NatSubnets
