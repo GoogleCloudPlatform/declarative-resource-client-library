@@ -17,59 +17,59 @@ import (
 	"context"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
-	monitoringpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/monitoring/monitoring_go_proto"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring"
+	alphapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/monitoring/alpha/monitoring_alpha_go_proto"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha"
 )
 
 // Server implements the gRPC interface for NotificationChannel.
 type NotificationChannelServer struct{}
 
 // ProtoToNotificationChannelVerificationStatusEnum converts a NotificationChannelVerificationStatusEnum enum from its proto representation.
-func ProtoToMonitoringNotificationChannelVerificationStatusEnum(e monitoringpb.MonitoringNotificationChannelVerificationStatusEnum) *monitoring.NotificationChannelVerificationStatusEnum {
+func ProtoToMonitoringAlphaNotificationChannelVerificationStatusEnum(e alphapb.MonitoringAlphaNotificationChannelVerificationStatusEnum) *alpha.NotificationChannelVerificationStatusEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := monitoringpb.MonitoringNotificationChannelVerificationStatusEnum_name[int32(e)]; ok {
-		e := monitoring.NotificationChannelVerificationStatusEnum(n[len("MonitoringNotificationChannelVerificationStatusEnum"):])
+	if n, ok := alphapb.MonitoringAlphaNotificationChannelVerificationStatusEnum_name[int32(e)]; ok {
+		e := alpha.NotificationChannelVerificationStatusEnum(n[len("MonitoringAlphaNotificationChannelVerificationStatusEnum"):])
 		return &e
 	}
 	return nil
 }
 
 // ProtoToNotificationChannel converts a NotificationChannel resource from its proto representation.
-func ProtoToNotificationChannel(p *monitoringpb.MonitoringNotificationChannel) *monitoring.NotificationChannel {
-	obj := &monitoring.NotificationChannel{
+func ProtoToNotificationChannel(p *alphapb.MonitoringAlphaNotificationChannel) *alpha.NotificationChannel {
+	obj := &alpha.NotificationChannel{
 		Description:        dcl.StringOrNil(p.GetDescription()),
 		DisplayName:        dcl.StringOrNil(p.GetDisplayName()),
 		Enabled:            dcl.Bool(p.GetEnabled()),
 		Name:               dcl.StringOrNil(p.GetName()),
 		Type:               dcl.StringOrNil(p.GetType()),
-		VerificationStatus: ProtoToMonitoringNotificationChannelVerificationStatusEnum(p.GetVerificationStatus()),
+		VerificationStatus: ProtoToMonitoringAlphaNotificationChannelVerificationStatusEnum(p.GetVerificationStatus()),
 		Project:            dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
 // NotificationChannelVerificationStatusEnumToProto converts a NotificationChannelVerificationStatusEnum enum to its proto representation.
-func MonitoringNotificationChannelVerificationStatusEnumToProto(e *monitoring.NotificationChannelVerificationStatusEnum) monitoringpb.MonitoringNotificationChannelVerificationStatusEnum {
+func MonitoringAlphaNotificationChannelVerificationStatusEnumToProto(e *alpha.NotificationChannelVerificationStatusEnum) alphapb.MonitoringAlphaNotificationChannelVerificationStatusEnum {
 	if e == nil {
-		return monitoringpb.MonitoringNotificationChannelVerificationStatusEnum(0)
+		return alphapb.MonitoringAlphaNotificationChannelVerificationStatusEnum(0)
 	}
-	if v, ok := monitoringpb.MonitoringNotificationChannelVerificationStatusEnum_value["NotificationChannelVerificationStatusEnum"+string(*e)]; ok {
-		return monitoringpb.MonitoringNotificationChannelVerificationStatusEnum(v)
+	if v, ok := alphapb.MonitoringAlphaNotificationChannelVerificationStatusEnum_value["NotificationChannelVerificationStatusEnum"+string(*e)]; ok {
+		return alphapb.MonitoringAlphaNotificationChannelVerificationStatusEnum(v)
 	}
-	return monitoringpb.MonitoringNotificationChannelVerificationStatusEnum(0)
+	return alphapb.MonitoringAlphaNotificationChannelVerificationStatusEnum(0)
 }
 
 // NotificationChannelToProto converts a NotificationChannel resource to its proto representation.
-func NotificationChannelToProto(resource *monitoring.NotificationChannel) *monitoringpb.MonitoringNotificationChannel {
-	p := &monitoringpb.MonitoringNotificationChannel{}
+func NotificationChannelToProto(resource *alpha.NotificationChannel) *alphapb.MonitoringAlphaNotificationChannel {
+	p := &alphapb.MonitoringAlphaNotificationChannel{}
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetEnabled(dcl.ValueOrEmptyBool(resource.Enabled))
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetType(dcl.ValueOrEmptyString(resource.Type))
-	p.SetVerificationStatus(MonitoringNotificationChannelVerificationStatusEnumToProto(resource.VerificationStatus))
+	p.SetVerificationStatus(MonitoringAlphaNotificationChannelVerificationStatusEnumToProto(resource.VerificationStatus))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
@@ -86,7 +86,7 @@ func NotificationChannelToProto(resource *monitoring.NotificationChannel) *monit
 }
 
 // applyNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannel Apply() method.
-func (s *NotificationChannelServer) applyNotificationChannel(ctx context.Context, c *monitoring.Client, request *monitoringpb.ApplyMonitoringNotificationChannelRequest) (*monitoringpb.MonitoringNotificationChannel, error) {
+func (s *NotificationChannelServer) applyNotificationChannel(ctx context.Context, c *alpha.Client, request *alphapb.ApplyMonitoringAlphaNotificationChannelRequest) (*alphapb.MonitoringAlphaNotificationChannel, error) {
 	p := ProtoToNotificationChannel(request.GetResource())
 	res, err := c.ApplyNotificationChannel(ctx, p)
 	if err != nil {
@@ -96,8 +96,8 @@ func (s *NotificationChannelServer) applyNotificationChannel(ctx context.Context
 	return r, nil
 }
 
-// applyMonitoringNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannel Apply() method.
-func (s *NotificationChannelServer) ApplyMonitoringNotificationChannel(ctx context.Context, request *monitoringpb.ApplyMonitoringNotificationChannelRequest) (*monitoringpb.MonitoringNotificationChannel, error) {
+// applyMonitoringAlphaNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannel Apply() method.
+func (s *NotificationChannelServer) ApplyMonitoringAlphaNotificationChannel(ctx context.Context, request *alphapb.ApplyMonitoringAlphaNotificationChannelRequest) (*alphapb.MonitoringAlphaNotificationChannel, error) {
 	cl, err := createConfigNotificationChannel(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
@@ -106,7 +106,7 @@ func (s *NotificationChannelServer) ApplyMonitoringNotificationChannel(ctx conte
 }
 
 // DeleteNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannel Delete() method.
-func (s *NotificationChannelServer) DeleteMonitoringNotificationChannel(ctx context.Context, request *monitoringpb.DeleteMonitoringNotificationChannelRequest) (*emptypb.Empty, error) {
+func (s *NotificationChannelServer) DeleteMonitoringAlphaNotificationChannel(ctx context.Context, request *alphapb.DeleteMonitoringAlphaNotificationChannelRequest) (*emptypb.Empty, error) {
 
 	cl, err := createConfigNotificationChannel(ctx, request.GetServiceAccountFile())
 	if err != nil {
@@ -116,8 +116,8 @@ func (s *NotificationChannelServer) DeleteMonitoringNotificationChannel(ctx cont
 
 }
 
-// ListMonitoringNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannelList() method.
-func (s *NotificationChannelServer) ListMonitoringNotificationChannel(ctx context.Context, request *monitoringpb.ListMonitoringNotificationChannelRequest) (*monitoringpb.ListMonitoringNotificationChannelResponse, error) {
+// ListMonitoringAlphaNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannelList() method.
+func (s *NotificationChannelServer) ListMonitoringAlphaNotificationChannel(ctx context.Context, request *alphapb.ListMonitoringAlphaNotificationChannelRequest) (*alphapb.ListMonitoringAlphaNotificationChannelResponse, error) {
 	cl, err := createConfigNotificationChannel(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
@@ -127,18 +127,18 @@ func (s *NotificationChannelServer) ListMonitoringNotificationChannel(ctx contex
 	if err != nil {
 		return nil, err
 	}
-	var protos []*monitoringpb.MonitoringNotificationChannel
+	var protos []*alphapb.MonitoringAlphaNotificationChannel
 	for _, r := range resources.Items {
 		rp := NotificationChannelToProto(r)
 		protos = append(protos, rp)
 	}
-	p := &monitoringpb.ListMonitoringNotificationChannelResponse{}
+	p := &alphapb.ListMonitoringAlphaNotificationChannelResponse{}
 	p.SetItems(protos)
 	return p, nil
 }
 
-func createConfigNotificationChannel(ctx context.Context, service_account_file string) (*monitoring.Client, error) {
+func createConfigNotificationChannel(ctx context.Context, service_account_file string) (*alpha.Client, error) {
 
 	conf := dcl.NewConfig(dcl.WithUserAgent("dcl-test"), dcl.WithCredentialsFile(service_account_file))
-	return monitoring.NewClient(conf), nil
+	return alpha.NewClient(conf), nil
 }

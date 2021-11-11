@@ -23,9 +23,9 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterMonitoringDashboardServiceServer(s, &DashboardServer{})
 	sdkgrpc.RegisterMonitoringGroupServiceServer(s, &GroupServer{})
 	sdkgrpc.RegisterMonitoringMetricDescriptorServiceServer(s, &MetricDescriptorServer{})
+	sdkgrpc.RegisterMonitoringNotificationChannelServiceServer(s, &NotificationChannelServer{})
 	sdkgrpc.RegisterMonitoringUptimeCheckConfigServiceServer(s, &UptimeCheckConfigServer{})
 	sdkgrpc.RegisterMonitoringServiceServiceServer(s, &ServiceServer{})
 	sdkgrpc.RegisterMonitoringServiceLevelObjectiveServiceServer(s, &ServiceLevelObjectiveServer{})
 	sdkgrpc.RegisterMonitoringAlertPolicyServiceServer(s, &AlertPolicyServer{})
-	sdkgrpc.RegisterMonitoringNotificationChannelServiceServer(s, &NotificationChannelServer{})
 }
