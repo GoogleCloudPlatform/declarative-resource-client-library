@@ -446,12 +446,13 @@ components:
                   x-kubernetes-immutable: true
                   properties:
                     isCa:
-                      type: OptionalBool
+                      type: boolean
                       x-dcl-go-name: IsCa
                       description: Optional. Refers to the "CA" X.509 extension, which
                         is a boolean value. When this value is missing, the extension
                         will be omitted from the CA certificate.
                       x-kubernetes-immutable: true
+                      x-dcl-optional-type: true
                     maxIssuerPathLength:
                       type: integer
                       format: int64

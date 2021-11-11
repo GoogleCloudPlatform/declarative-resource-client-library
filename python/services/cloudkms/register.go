@@ -22,4 +22,5 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterCloudkmsCryptoKeyServiceServer(s, &CryptoKeyServer{})
 	sdkgrpc.RegisterCloudkmsKeyRingServiceServer(s, &KeyRingServer{})
+	sdkgrpc.RegisterCloudkmsCryptoKeyVersionServiceServer(s, &CryptoKeyVersionServer{})
 }
