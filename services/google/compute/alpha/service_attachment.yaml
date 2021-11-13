@@ -13,8 +13,14 @@
 # limitations under the License.
 info:
   title: Compute/ServiceAttachment
-  description: The Compute ServiceAttachment resource
+  description: Represents a ServiceAttachment resource.
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: API documentation
+    url: https://cloud.google.com/compute/docs/reference/rest/beta/serviceAttachments
+  x-dcl-guides:
+  - text: Configuring Private Service Connect to access services
+    url: https://cloud.google.com/vpc/docs/configure-private-service-connect-services
 paths:
   get:
     description: The function used to get information about a ServiceAttachment
