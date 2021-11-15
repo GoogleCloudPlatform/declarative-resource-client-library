@@ -58,9 +58,6 @@ func (r *Key) validate() error {
 	return nil
 }
 func (r *KeyWebSettings) validate() error {
-	if err := dcl.Required(r, "allowAllDomains"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "integrationType"); err != nil {
 		return err
 	}

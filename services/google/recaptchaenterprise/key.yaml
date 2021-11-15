@@ -154,8 +154,8 @@ components:
               x-dcl-go-type: KeyTestingOptionsTestingChallengeEnum
               description: 'For challenge-based keys only (CHECKBOX, INVISIBLE), all
                 challenge requests for this site will return nocaptcha if NOCAPTCHA,
-                or an unsolvable challenge if CHALLENGE. Possible values: TESTING_CHALLENGE_UNSPECIFIED,
-                NOCAPTCHA, UNSOLVABLE_CHALLENGE'
+                or an unsolvable challenge if UNSOLVABLE_CHALLENGE. Possible values:
+                TESTING_CHALLENGE_UNSPECIFIED, NOCAPTCHA, UNSOLVABLE_CHALLENGE'
               x-kubernetes-immutable: true
               enum:
               - TESTING_CHALLENGE_UNSPECIFIED
@@ -177,7 +177,6 @@ components:
           - androidSettings
           - iosSettings
           required:
-          - allowAllDomains
           - integrationType
           properties:
             allowAllDomains:
@@ -187,8 +186,8 @@ components:
             allowAmpTraffic:
               type: boolean
               x-dcl-go-name: AllowAmpTraffic
-              description: Required. Whether this key can be used on AMP (Accelerated
-                Mobile Pages) websites. This can only be set for the SCORE integration
+              description: If set to true, the key can be used on AMP (Accelerated
+                Mobile Pages) websites. This is supported only for the SCORE integration
                 type.
             allowedDomains:
               type: array
