@@ -80,6 +80,9 @@ func (op *StandardGCPOperation) Wait(ctx context.Context, c *dcl.Config, basePat
 	if len(op.Response) != 0 {
 		op.response = op.Response
 	}
+	if op.Done {
+		return nil
+	}
 
 	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
