@@ -331,19 +331,24 @@ func (l *AuthorizationPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy) (*AuthorizationPolicyList, error) {
+func (c *Client) ListAuthorizationPolicy(ctx context.Context, project, location string) (*AuthorizationPolicyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAuthorizationPolicyWithMaxResults(ctx, r, AuthorizationPolicyMaxPage)
+	return c.ListAuthorizationPolicyWithMaxResults(ctx, project, location, AuthorizationPolicyMaxPage)
 
 }
 
-func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, r *AuthorizationPolicy, pageSize int32) (*AuthorizationPolicyList, error) {
+func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AuthorizationPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &AuthorizationPolicy{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listAuthorizationPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -390,6 +395,9 @@ func (c *Client) GetAuthorizationPolicy(ctx context.Context, r *AuthorizationPol
 	if err != nil {
 		return nil, err
 	}
+	if err := postReadExtractAuthorizationPolicyFields(result); err != nil {
+		return result, err
+	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
@@ -410,11 +418,7 @@ func (c *Client) DeleteAuthorizationPolicy(ctx context.Context, r *Authorization
 
 // DeleteAllAuthorizationPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, project, location string, filter func(*AuthorizationPolicy) bool) error {
-	r := &AuthorizationPolicy{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListAuthorizationPolicy(ctx, r)
+	listObj, err := c.ListAuthorizationPolicy(ctx, project, location)
 	if err != nil {
 		return err
 	}
@@ -437,6 +441,9 @@ func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, project, loca
 }
 
 func (c *Client) ApplyAuthorizationPolicy(ctx context.Context, rawDesired *AuthorizationPolicy, opts ...dcl.ApplyOption) (*AuthorizationPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *AuthorizationPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -458,9 +465,6 @@ func (c *Client) ApplyAuthorizationPolicy(ctx context.Context, rawDesired *Autho
 func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *AuthorizationPolicy, opts ...dcl.ApplyOption) (*AuthorizationPolicy, error) {
 	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyAuthorizationPolicy...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
-
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -528,7 +532,10 @@ func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
+	return applyAuthorizationPolicyDiff(c, ctx, desired, rawDesired, ops, opts...)
+}
 
+func applyAuthorizationPolicyDiff(c *Client, ctx context.Context, desired *AuthorizationPolicy, rawDesired *AuthorizationPolicy, ops []authorizationPolicyApiOperation, opts ...dcl.ApplyOption) (*AuthorizationPolicy, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetAuthorizationPolicy(ctx, desired.urlNormalized())
@@ -561,7 +568,7 @@ func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeAuthorizationPolicyNewState(c, rawNew, rawDesired)
 	if err != nil {
-		return nil, err
+		return rawNew, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
@@ -569,12 +576,22 @@ func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeAuthorizationPolicyDesiredState(rawDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
+
+	if err := postReadExtractAuthorizationPolicyFields(newState); err != nil {
+		return newState, err
+	}
+
+	// Need to ensure any transformations made here match acceptably in differ.
+	if err := postReadExtractAuthorizationPolicyFields(newDesired); err != nil {
+		return newState, err
+	}
+
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffAuthorizationPolicy(c, newDesired, newState)
 	if err != nil {
-		return nil, err
+		return newState, err
 	}
 
 	if len(newDiffs) == 0 {

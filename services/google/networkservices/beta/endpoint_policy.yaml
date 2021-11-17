@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: NetworkServices/EndpointPolicy
-  description: DCL Specification for the NetworkServices EndpointPolicy resource
+  description: The NetworkServices EndpointPolicy resource
   x-dcl-has-iam: false
 paths:
   get:
@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-iam: false
       type: object
       required:
       - name

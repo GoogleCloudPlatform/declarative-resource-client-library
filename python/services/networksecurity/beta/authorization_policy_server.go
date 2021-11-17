@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/networksecurity/beta/networksecurity_beta_go_proto"
@@ -37,7 +36,7 @@ func ProtoToNetworksecurityBetaAuthorizationPolicyActionEnum(e betapb.Networksec
 	return nil
 }
 
-// ProtoToAuthorizationPolicyRules converts a AuthorizationPolicyRules resource from its proto representation.
+// ProtoToAuthorizationPolicyRules converts a AuthorizationPolicyRules object from its proto representation.
 func ProtoToNetworksecurityBetaAuthorizationPolicyRules(p *betapb.NetworksecurityBetaAuthorizationPolicyRules) *beta.AuthorizationPolicyRules {
 	if p == nil {
 		return nil
@@ -52,7 +51,7 @@ func ProtoToNetworksecurityBetaAuthorizationPolicyRules(p *betapb.Networksecurit
 	return obj
 }
 
-// ProtoToAuthorizationPolicyRulesSources converts a AuthorizationPolicyRulesSources resource from its proto representation.
+// ProtoToAuthorizationPolicyRulesSources converts a AuthorizationPolicyRulesSources object from its proto representation.
 func ProtoToNetworksecurityBetaAuthorizationPolicyRulesSources(p *betapb.NetworksecurityBetaAuthorizationPolicyRulesSources) *beta.AuthorizationPolicyRulesSources {
 	if p == nil {
 		return nil
@@ -67,7 +66,7 @@ func ProtoToNetworksecurityBetaAuthorizationPolicyRulesSources(p *betapb.Network
 	return obj
 }
 
-// ProtoToAuthorizationPolicyRulesDestinations converts a AuthorizationPolicyRulesDestinations resource from its proto representation.
+// ProtoToAuthorizationPolicyRulesDestinations converts a AuthorizationPolicyRulesDestinations object from its proto representation.
 func ProtoToNetworksecurityBetaAuthorizationPolicyRulesDestinations(p *betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinations) *beta.AuthorizationPolicyRulesDestinations {
 	if p == nil {
 		return nil
@@ -87,14 +86,14 @@ func ProtoToNetworksecurityBetaAuthorizationPolicyRulesDestinations(p *betapb.Ne
 	return obj
 }
 
-// ProtoToAuthorizationPolicyRulesDestinationsHttpHeaderMatch converts a AuthorizationPolicyRulesDestinationsHttpHeaderMatch resource from its proto representation.
+// ProtoToAuthorizationPolicyRulesDestinationsHttpHeaderMatch converts a AuthorizationPolicyRulesDestinationsHttpHeaderMatch object from its proto representation.
 func ProtoToNetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch(p *betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch) *beta.AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.AuthorizationPolicyRulesDestinationsHttpHeaderMatch{
-		HeaderName: dcl.StringOrNil(p.HeaderName),
-		RegexMatch: dcl.StringOrNil(p.RegexMatch),
+		HeaderName: dcl.StringOrNil(p.GetHeaderName()),
+		RegexMatch: dcl.StringOrNil(p.GetRegexMatch()),
 	}
 	return obj
 }
@@ -102,13 +101,13 @@ func ProtoToNetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMat
 // ProtoToAuthorizationPolicy converts a AuthorizationPolicy resource from its proto representation.
 func ProtoToAuthorizationPolicy(p *betapb.NetworksecurityBetaAuthorizationPolicy) *beta.AuthorizationPolicy {
 	obj := &beta.AuthorizationPolicy{
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Description: dcl.StringOrNil(p.GetDescription()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 		Action:      ProtoToNetworksecurityBetaAuthorizationPolicyActionEnum(p.GetAction()),
-		Project:     dcl.StringOrNil(p.Project),
-		Location:    dcl.StringOrNil(p.Location),
+		Project:     dcl.StringOrNil(p.GetProject()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetRules() {
 		obj.Rules = append(obj.Rules, *ProtoToNetworksecurityBetaAuthorizationPolicyRules(r))
@@ -127,87 +126,105 @@ func NetworksecurityBetaAuthorizationPolicyActionEnumToProto(e *beta.Authorizati
 	return betapb.NetworksecurityBetaAuthorizationPolicyActionEnum(0)
 }
 
-// AuthorizationPolicyRulesToProto converts a AuthorizationPolicyRules resource to its proto representation.
+// AuthorizationPolicyRulesToProto converts a AuthorizationPolicyRules object to its proto representation.
 func NetworksecurityBetaAuthorizationPolicyRulesToProto(o *beta.AuthorizationPolicyRules) *betapb.NetworksecurityBetaAuthorizationPolicyRules {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.NetworksecurityBetaAuthorizationPolicyRules{}
-	for _, r := range o.Sources {
-		p.Sources = append(p.Sources, NetworksecurityBetaAuthorizationPolicyRulesSourcesToProto(&r))
+	sSources := make([]*betapb.NetworksecurityBetaAuthorizationPolicyRulesSources, len(o.Sources))
+	for i, r := range o.Sources {
+		sSources[i] = NetworksecurityBetaAuthorizationPolicyRulesSourcesToProto(&r)
 	}
-	for _, r := range o.Destinations {
-		p.Destinations = append(p.Destinations, NetworksecurityBetaAuthorizationPolicyRulesDestinationsToProto(&r))
+	p.SetSources(sSources)
+	sDestinations := make([]*betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinations, len(o.Destinations))
+	for i, r := range o.Destinations {
+		sDestinations[i] = NetworksecurityBetaAuthorizationPolicyRulesDestinationsToProto(&r)
 	}
+	p.SetDestinations(sDestinations)
 	return p
 }
 
-// AuthorizationPolicyRulesSourcesToProto converts a AuthorizationPolicyRulesSources resource to its proto representation.
+// AuthorizationPolicyRulesSourcesToProto converts a AuthorizationPolicyRulesSources object to its proto representation.
 func NetworksecurityBetaAuthorizationPolicyRulesSourcesToProto(o *beta.AuthorizationPolicyRulesSources) *betapb.NetworksecurityBetaAuthorizationPolicyRulesSources {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.NetworksecurityBetaAuthorizationPolicyRulesSources{}
-	for _, r := range o.Principals {
-		p.Principals = append(p.Principals, r)
+	sPrincipals := make([]string, len(o.Principals))
+	for i, r := range o.Principals {
+		sPrincipals[i] = r
 	}
-	for _, r := range o.IPBlocks {
-		p.IpBlocks = append(p.IpBlocks, r)
+	p.SetPrincipals(sPrincipals)
+	sIPBlocks := make([]string, len(o.IPBlocks))
+	for i, r := range o.IPBlocks {
+		sIPBlocks[i] = r
 	}
+	p.SetIpBlocks(sIPBlocks)
 	return p
 }
 
-// AuthorizationPolicyRulesDestinationsToProto converts a AuthorizationPolicyRulesDestinations resource to its proto representation.
+// AuthorizationPolicyRulesDestinationsToProto converts a AuthorizationPolicyRulesDestinations object to its proto representation.
 func NetworksecurityBetaAuthorizationPolicyRulesDestinationsToProto(o *beta.AuthorizationPolicyRulesDestinations) *betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinations {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinations{
-		HttpHeaderMatch: NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatchToProto(o.HttpHeaderMatch),
+	p := &betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinations{}
+	p.SetHttpHeaderMatch(NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatchToProto(o.HttpHeaderMatch))
+	sHosts := make([]string, len(o.Hosts))
+	for i, r := range o.Hosts {
+		sHosts[i] = r
 	}
-	for _, r := range o.Hosts {
-		p.Hosts = append(p.Hosts, r)
+	p.SetHosts(sHosts)
+	sPorts := make([]int64, len(o.Ports))
+	for i, r := range o.Ports {
+		sPorts[i] = r
 	}
-	for _, r := range o.Ports {
-		p.Ports = append(p.Ports, r)
+	p.SetPorts(sPorts)
+	sMethods := make([]string, len(o.Methods))
+	for i, r := range o.Methods {
+		sMethods[i] = r
 	}
-	for _, r := range o.Methods {
-		p.Methods = append(p.Methods, r)
-	}
+	p.SetMethods(sMethods)
 	return p
 }
 
-// AuthorizationPolicyRulesDestinationsHttpHeaderMatchToProto converts a AuthorizationPolicyRulesDestinationsHttpHeaderMatch resource to its proto representation.
+// AuthorizationPolicyRulesDestinationsHttpHeaderMatchToProto converts a AuthorizationPolicyRulesDestinationsHttpHeaderMatch object to its proto representation.
 func NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatchToProto(o *beta.AuthorizationPolicyRulesDestinationsHttpHeaderMatch) *betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch{
-		HeaderName: dcl.ValueOrEmptyString(o.HeaderName),
-		RegexMatch: dcl.ValueOrEmptyString(o.RegexMatch),
-	}
+	p := &betapb.NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
+	p.SetHeaderName(dcl.ValueOrEmptyString(o.HeaderName))
+	p.SetRegexMatch(dcl.ValueOrEmptyString(o.RegexMatch))
 	return p
 }
 
 // AuthorizationPolicyToProto converts a AuthorizationPolicy resource to its proto representation.
 func AuthorizationPolicyToProto(resource *beta.AuthorizationPolicy) *betapb.NetworksecurityBetaAuthorizationPolicy {
-	p := &betapb.NetworksecurityBetaAuthorizationPolicy{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:  dcl.ValueOrEmptyString(resource.UpdateTime),
-		Action:      NetworksecurityBetaAuthorizationPolicyActionEnumToProto(resource.Action),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-		Location:    dcl.ValueOrEmptyString(resource.Location),
+	p := &betapb.NetworksecurityBetaAuthorizationPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetAction(NetworksecurityBetaAuthorizationPolicyActionEnumToProto(resource.Action))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.Rules {
-		p.Rules = append(p.Rules, NetworksecurityBetaAuthorizationPolicyRulesToProto(&r))
+	p.SetLabels(mLabels)
+	sRules := make([]*betapb.NetworksecurityBetaAuthorizationPolicyRules, len(resource.Rules))
+	for i, r := range resource.Rules {
+		sRules[i] = NetworksecurityBetaAuthorizationPolicyRulesToProto(&r)
 	}
+	p.SetRules(sRules)
 
 	return p
 }
 
-// ApplyAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicy Apply() method.
+// applyAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicy Apply() method.
 func (s *AuthorizationPolicyServer) applyAuthorizationPolicy(ctx context.Context, c *beta.Client, request *betapb.ApplyNetworksecurityBetaAuthorizationPolicyRequest) (*betapb.NetworksecurityBetaAuthorizationPolicy, error) {
 	p := ProtoToAuthorizationPolicy(request.GetResource())
 	res, err := c.ApplyAuthorizationPolicy(ctx, p)
@@ -218,9 +235,9 @@ func (s *AuthorizationPolicyServer) applyAuthorizationPolicy(ctx context.Context
 	return r, nil
 }
 
-// ApplyAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicy Apply() method.
+// applyNetworksecurityBetaAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicy Apply() method.
 func (s *AuthorizationPolicyServer) ApplyNetworksecurityBetaAuthorizationPolicy(ctx context.Context, request *betapb.ApplyNetworksecurityBetaAuthorizationPolicyRequest) (*betapb.NetworksecurityBetaAuthorizationPolicy, error) {
-	cl, err := createConfigAuthorizationPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAuthorizationPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +247,7 @@ func (s *AuthorizationPolicyServer) ApplyNetworksecurityBetaAuthorizationPolicy(
 // DeleteAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicy Delete() method.
 func (s *AuthorizationPolicyServer) DeleteNetworksecurityBetaAuthorizationPolicy(ctx context.Context, request *betapb.DeleteNetworksecurityBetaAuthorizationPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigAuthorizationPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAuthorizationPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -240,12 +257,12 @@ func (s *AuthorizationPolicyServer) DeleteNetworksecurityBetaAuthorizationPolicy
 
 // ListNetworksecurityBetaAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicyList() method.
 func (s *AuthorizationPolicyServer) ListNetworksecurityBetaAuthorizationPolicy(ctx context.Context, request *betapb.ListNetworksecurityBetaAuthorizationPolicyRequest) (*betapb.ListNetworksecurityBetaAuthorizationPolicyResponse, error) {
-	cl, err := createConfigAuthorizationPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAuthorizationPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListAuthorizationPolicy(ctx, ProtoToAuthorizationPolicy(request.GetResource()))
+	resources, err := cl.ListAuthorizationPolicy(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +271,9 @@ func (s *AuthorizationPolicyServer) ListNetworksecurityBetaAuthorizationPolicy(c
 		rp := AuthorizationPolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListNetworksecurityBetaAuthorizationPolicyResponse{Items: protos}, nil
+	p := &betapb.ListNetworksecurityBetaAuthorizationPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigAuthorizationPolicy(ctx context.Context, service_account_file string) (*beta.Client, error) {

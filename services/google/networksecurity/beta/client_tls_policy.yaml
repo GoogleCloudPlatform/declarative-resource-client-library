@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: NetworkSecurity/ClientTlsPolicy
-  description: DCL Specification for the NetworkSecurity ClientTlsPolicy resource
+  description: The NetworkSecurity ClientTlsPolicy resource
   x-dcl-has-iam: true
 paths:
   get:
@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-iam: true
       type: object
       required:
       - name

@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/networksecurity/beta/networksecurity_beta_go_proto"
@@ -25,7 +24,7 @@ import (
 // Server implements the gRPC interface for ClientTlsPolicy.
 type ClientTlsPolicyServer struct{}
 
-// ProtoToClientTlsPolicyClientCertificate converts a ClientTlsPolicyClientCertificate resource from its proto representation.
+// ProtoToClientTlsPolicyClientCertificate converts a ClientTlsPolicyClientCertificate object from its proto representation.
 func ProtoToNetworksecurityBetaClientTlsPolicyClientCertificate(p *betapb.NetworksecurityBetaClientTlsPolicyClientCertificate) *beta.ClientTlsPolicyClientCertificate {
 	if p == nil {
 		return nil
@@ -37,29 +36,29 @@ func ProtoToNetworksecurityBetaClientTlsPolicyClientCertificate(p *betapb.Networ
 	return obj
 }
 
-// ProtoToClientTlsPolicyClientCertificateGrpcEndpoint converts a ClientTlsPolicyClientCertificateGrpcEndpoint resource from its proto representation.
+// ProtoToClientTlsPolicyClientCertificateGrpcEndpoint converts a ClientTlsPolicyClientCertificateGrpcEndpoint object from its proto representation.
 func ProtoToNetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpoint(p *betapb.NetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpoint) *beta.ClientTlsPolicyClientCertificateGrpcEndpoint {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClientTlsPolicyClientCertificateGrpcEndpoint{
-		TargetUri: dcl.StringOrNil(p.TargetUri),
+		TargetUri: dcl.StringOrNil(p.GetTargetUri()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyClientCertificateCertificateProviderInstance converts a ClientTlsPolicyClientCertificateCertificateProviderInstance resource from its proto representation.
+// ProtoToClientTlsPolicyClientCertificateCertificateProviderInstance converts a ClientTlsPolicyClientCertificateCertificateProviderInstance object from its proto representation.
 func ProtoToNetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstance(p *betapb.NetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstance) *beta.ClientTlsPolicyClientCertificateCertificateProviderInstance {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClientTlsPolicyClientCertificateCertificateProviderInstance{
-		PluginInstance: dcl.StringOrNil(p.PluginInstance),
+		PluginInstance: dcl.StringOrNil(p.GetPluginInstance()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyServerValidationCa converts a ClientTlsPolicyServerValidationCa resource from its proto representation.
+// ProtoToClientTlsPolicyServerValidationCa converts a ClientTlsPolicyServerValidationCa object from its proto representation.
 func ProtoToNetworksecurityBetaClientTlsPolicyServerValidationCa(p *betapb.NetworksecurityBetaClientTlsPolicyServerValidationCa) *beta.ClientTlsPolicyServerValidationCa {
 	if p == nil {
 		return nil
@@ -71,24 +70,24 @@ func ProtoToNetworksecurityBetaClientTlsPolicyServerValidationCa(p *betapb.Netwo
 	return obj
 }
 
-// ProtoToClientTlsPolicyServerValidationCaGrpcEndpoint converts a ClientTlsPolicyServerValidationCaGrpcEndpoint resource from its proto representation.
+// ProtoToClientTlsPolicyServerValidationCaGrpcEndpoint converts a ClientTlsPolicyServerValidationCaGrpcEndpoint object from its proto representation.
 func ProtoToNetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpoint(p *betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpoint) *beta.ClientTlsPolicyServerValidationCaGrpcEndpoint {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClientTlsPolicyServerValidationCaGrpcEndpoint{
-		TargetUri: dcl.StringOrNil(p.TargetUri),
+		TargetUri: dcl.StringOrNil(p.GetTargetUri()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyServerValidationCaCertificateProviderInstance converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance resource from its proto representation.
+// ProtoToClientTlsPolicyServerValidationCaCertificateProviderInstance converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance object from its proto representation.
 func ProtoToNetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstance(p *betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstance) *beta.ClientTlsPolicyServerValidationCaCertificateProviderInstance {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClientTlsPolicyServerValidationCaCertificateProviderInstance{
-		PluginInstance: dcl.StringOrNil(p.PluginInstance),
+		PluginInstance: dcl.StringOrNil(p.GetPluginInstance()),
 	}
 	return obj
 }
@@ -96,14 +95,14 @@ func ProtoToNetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProvi
 // ProtoToClientTlsPolicy converts a ClientTlsPolicy resource from its proto representation.
 func ProtoToClientTlsPolicy(p *betapb.NetworksecurityBetaClientTlsPolicy) *beta.ClientTlsPolicy {
 	obj := &beta.ClientTlsPolicy{
-		Name:              dcl.StringOrNil(p.Name),
-		Description:       dcl.StringOrNil(p.Description),
+		Name:              dcl.StringOrNil(p.GetName()),
+		Description:       dcl.StringOrNil(p.GetDescription()),
 		CreateTime:        dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
-		Sni:               dcl.StringOrNil(p.Sni),
+		Sni:               dcl.StringOrNil(p.GetSni()),
 		ClientCertificate: ProtoToNetworksecurityBetaClientTlsPolicyClientCertificate(p.GetClientCertificate()),
-		Project:           dcl.StringOrNil(p.Project),
-		Location:          dcl.StringOrNil(p.Location),
+		Project:           dcl.StringOrNil(p.GetProject()),
+		Location:          dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetServerValidationCa() {
 		obj.ServerValidationCa = append(obj.ServerValidationCa, *ProtoToNetworksecurityBetaClientTlsPolicyServerValidationCa(r))
@@ -111,94 +110,94 @@ func ProtoToClientTlsPolicy(p *betapb.NetworksecurityBetaClientTlsPolicy) *beta.
 	return obj
 }
 
-// ClientTlsPolicyClientCertificateToProto converts a ClientTlsPolicyClientCertificate resource to its proto representation.
+// ClientTlsPolicyClientCertificateToProto converts a ClientTlsPolicyClientCertificate object to its proto representation.
 func NetworksecurityBetaClientTlsPolicyClientCertificateToProto(o *beta.ClientTlsPolicyClientCertificate) *betapb.NetworksecurityBetaClientTlsPolicyClientCertificate {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaClientTlsPolicyClientCertificate{
-		GrpcEndpoint:                NetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpointToProto(o.GrpcEndpoint),
-		CertificateProviderInstance: NetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstanceToProto(o.CertificateProviderInstance),
-	}
+	p := &betapb.NetworksecurityBetaClientTlsPolicyClientCertificate{}
+	p.SetGrpcEndpoint(NetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpointToProto(o.GrpcEndpoint))
+	p.SetCertificateProviderInstance(NetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstanceToProto(o.CertificateProviderInstance))
 	return p
 }
 
-// ClientTlsPolicyClientCertificateGrpcEndpointToProto converts a ClientTlsPolicyClientCertificateGrpcEndpoint resource to its proto representation.
+// ClientTlsPolicyClientCertificateGrpcEndpointToProto converts a ClientTlsPolicyClientCertificateGrpcEndpoint object to its proto representation.
 func NetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpointToProto(o *beta.ClientTlsPolicyClientCertificateGrpcEndpoint) *betapb.NetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpoint {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpoint{
-		TargetUri: dcl.ValueOrEmptyString(o.TargetUri),
-	}
+	p := &betapb.NetworksecurityBetaClientTlsPolicyClientCertificateGrpcEndpoint{}
+	p.SetTargetUri(dcl.ValueOrEmptyString(o.TargetUri))
 	return p
 }
 
-// ClientTlsPolicyClientCertificateCertificateProviderInstanceToProto converts a ClientTlsPolicyClientCertificateCertificateProviderInstance resource to its proto representation.
+// ClientTlsPolicyClientCertificateCertificateProviderInstanceToProto converts a ClientTlsPolicyClientCertificateCertificateProviderInstance object to its proto representation.
 func NetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstanceToProto(o *beta.ClientTlsPolicyClientCertificateCertificateProviderInstance) *betapb.NetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstance {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstance{
-		PluginInstance: dcl.ValueOrEmptyString(o.PluginInstance),
-	}
+	p := &betapb.NetworksecurityBetaClientTlsPolicyClientCertificateCertificateProviderInstance{}
+	p.SetPluginInstance(dcl.ValueOrEmptyString(o.PluginInstance))
 	return p
 }
 
-// ClientTlsPolicyServerValidationCaToProto converts a ClientTlsPolicyServerValidationCa resource to its proto representation.
+// ClientTlsPolicyServerValidationCaToProto converts a ClientTlsPolicyServerValidationCa object to its proto representation.
 func NetworksecurityBetaClientTlsPolicyServerValidationCaToProto(o *beta.ClientTlsPolicyServerValidationCa) *betapb.NetworksecurityBetaClientTlsPolicyServerValidationCa {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaClientTlsPolicyServerValidationCa{
-		GrpcEndpoint:                NetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpointToProto(o.GrpcEndpoint),
-		CertificateProviderInstance: NetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto(o.CertificateProviderInstance),
-	}
+	p := &betapb.NetworksecurityBetaClientTlsPolicyServerValidationCa{}
+	p.SetGrpcEndpoint(NetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpointToProto(o.GrpcEndpoint))
+	p.SetCertificateProviderInstance(NetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto(o.CertificateProviderInstance))
 	return p
 }
 
-// ClientTlsPolicyServerValidationCaGrpcEndpointToProto converts a ClientTlsPolicyServerValidationCaGrpcEndpoint resource to its proto representation.
+// ClientTlsPolicyServerValidationCaGrpcEndpointToProto converts a ClientTlsPolicyServerValidationCaGrpcEndpoint object to its proto representation.
 func NetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpointToProto(o *beta.ClientTlsPolicyServerValidationCaGrpcEndpoint) *betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpoint {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpoint{
-		TargetUri: dcl.ValueOrEmptyString(o.TargetUri),
-	}
+	p := &betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaGrpcEndpoint{}
+	p.SetTargetUri(dcl.ValueOrEmptyString(o.TargetUri))
 	return p
 }
 
-// ClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance resource to its proto representation.
+// ClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance object to its proto representation.
 func NetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto(o *beta.ClientTlsPolicyServerValidationCaCertificateProviderInstance) *betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstance {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstance{
-		PluginInstance: dcl.ValueOrEmptyString(o.PluginInstance),
-	}
+	p := &betapb.NetworksecurityBetaClientTlsPolicyServerValidationCaCertificateProviderInstance{}
+	p.SetPluginInstance(dcl.ValueOrEmptyString(o.PluginInstance))
 	return p
 }
 
 // ClientTlsPolicyToProto converts a ClientTlsPolicy resource to its proto representation.
 func ClientTlsPolicyToProto(resource *beta.ClientTlsPolicy) *betapb.NetworksecurityBetaClientTlsPolicy {
-	p := &betapb.NetworksecurityBetaClientTlsPolicy{
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		Description:       dcl.ValueOrEmptyString(resource.Description),
-		CreateTime:        dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:        dcl.ValueOrEmptyString(resource.UpdateTime),
-		Sni:               dcl.ValueOrEmptyString(resource.Sni),
-		ClientCertificate: NetworksecurityBetaClientTlsPolicyClientCertificateToProto(resource.ClientCertificate),
-		Project:           dcl.ValueOrEmptyString(resource.Project),
-		Location:          dcl.ValueOrEmptyString(resource.Location),
+	p := &betapb.NetworksecurityBetaClientTlsPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetSni(dcl.ValueOrEmptyString(resource.Sni))
+	p.SetClientCertificate(NetworksecurityBetaClientTlsPolicyClientCertificateToProto(resource.ClientCertificate))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.ServerValidationCa {
-		p.ServerValidationCa = append(p.ServerValidationCa, NetworksecurityBetaClientTlsPolicyServerValidationCaToProto(&r))
+	p.SetLabels(mLabels)
+	sServerValidationCa := make([]*betapb.NetworksecurityBetaClientTlsPolicyServerValidationCa, len(resource.ServerValidationCa))
+	for i, r := range resource.ServerValidationCa {
+		sServerValidationCa[i] = NetworksecurityBetaClientTlsPolicyServerValidationCaToProto(&r)
 	}
+	p.SetServerValidationCa(sServerValidationCa)
 
 	return p
 }
 
-// ApplyClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
+// applyClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
 func (s *ClientTlsPolicyServer) applyClientTlsPolicy(ctx context.Context, c *beta.Client, request *betapb.ApplyNetworksecurityBetaClientTlsPolicyRequest) (*betapb.NetworksecurityBetaClientTlsPolicy, error) {
 	p := ProtoToClientTlsPolicy(request.GetResource())
 	res, err := c.ApplyClientTlsPolicy(ctx, p)
@@ -209,9 +208,9 @@ func (s *ClientTlsPolicyServer) applyClientTlsPolicy(ctx context.Context, c *bet
 	return r, nil
 }
 
-// ApplyClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
+// applyNetworksecurityBetaClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
 func (s *ClientTlsPolicyServer) ApplyNetworksecurityBetaClientTlsPolicy(ctx context.Context, request *betapb.ApplyNetworksecurityBetaClientTlsPolicyRequest) (*betapb.NetworksecurityBetaClientTlsPolicy, error) {
-	cl, err := createConfigClientTlsPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigClientTlsPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +220,7 @@ func (s *ClientTlsPolicyServer) ApplyNetworksecurityBetaClientTlsPolicy(ctx cont
 // DeleteClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Delete() method.
 func (s *ClientTlsPolicyServer) DeleteNetworksecurityBetaClientTlsPolicy(ctx context.Context, request *betapb.DeleteNetworksecurityBetaClientTlsPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigClientTlsPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigClientTlsPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -231,12 +230,12 @@ func (s *ClientTlsPolicyServer) DeleteNetworksecurityBetaClientTlsPolicy(ctx con
 
 // ListNetworksecurityBetaClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicyList() method.
 func (s *ClientTlsPolicyServer) ListNetworksecurityBetaClientTlsPolicy(ctx context.Context, request *betapb.ListNetworksecurityBetaClientTlsPolicyRequest) (*betapb.ListNetworksecurityBetaClientTlsPolicyResponse, error) {
-	cl, err := createConfigClientTlsPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigClientTlsPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListClientTlsPolicy(ctx, ProtoToClientTlsPolicy(request.GetResource()))
+	resources, err := cl.ListClientTlsPolicy(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -245,7 +244,9 @@ func (s *ClientTlsPolicyServer) ListNetworksecurityBetaClientTlsPolicy(ctx conte
 		rp := ClientTlsPolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListNetworksecurityBetaClientTlsPolicyResponse{Items: protos}, nil
+	p := &betapb.ListNetworksecurityBetaClientTlsPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigClientTlsPolicy(ctx context.Context, service_account_file string) (*beta.Client, error) {

@@ -13,7 +13,7 @@
 # limitations under the License.
 info:
   title: NetworkSecurity/AuthorizationPolicy
-  description: DCL Specification for the NetworkSecurity AuthorizationPolicy resource
+  description: The NetworkSecurity AuthorizationPolicy resource
   x-dcl-has-iam: true
 paths:
   get:
@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/authorizationPolicies/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-iam: true
       type: object
       required:
       - name

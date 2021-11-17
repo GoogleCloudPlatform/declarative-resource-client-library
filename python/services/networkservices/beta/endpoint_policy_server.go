@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/networkservices/beta/networkservices_beta_go_proto"
@@ -49,7 +48,7 @@ func ProtoToNetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcher
 	return nil
 }
 
-// ProtoToEndpointPolicyEndpointMatcher converts a EndpointPolicyEndpointMatcher resource from its proto representation.
+// ProtoToEndpointPolicyEndpointMatcher converts a EndpointPolicyEndpointMatcher object from its proto representation.
 func ProtoToNetworkservicesBetaEndpointPolicyEndpointMatcher(p *betapb.NetworkservicesBetaEndpointPolicyEndpointMatcher) *beta.EndpointPolicyEndpointMatcher {
 	if p == nil {
 		return nil
@@ -60,7 +59,7 @@ func ProtoToNetworkservicesBetaEndpointPolicyEndpointMatcher(p *betapb.Networkse
 	return obj
 }
 
-// ProtoToEndpointPolicyEndpointMatcherMetadataLabelMatcher converts a EndpointPolicyEndpointMatcherMetadataLabelMatcher resource from its proto representation.
+// ProtoToEndpointPolicyEndpointMatcherMetadataLabelMatcher converts a EndpointPolicyEndpointMatcherMetadataLabelMatcher object from its proto representation.
 func ProtoToNetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcher(p *betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcher) *beta.EndpointPolicyEndpointMatcherMetadataLabelMatcher {
 	if p == nil {
 		return nil
@@ -74,19 +73,19 @@ func ProtoToNetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcher
 	return obj
 }
 
-// ProtoToEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels converts a EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels resource from its proto representation.
+// ProtoToEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels converts a EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels object from its proto representation.
 func ProtoToNetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(p *betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) *beta.EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels{
-		LabelName:  dcl.StringOrNil(p.LabelName),
-		LabelValue: dcl.StringOrNil(p.LabelValue),
+		LabelName:  dcl.StringOrNil(p.GetLabelName()),
+		LabelValue: dcl.StringOrNil(p.GetLabelValue()),
 	}
 	return obj
 }
 
-// ProtoToEndpointPolicyTrafficPortSelector converts a EndpointPolicyTrafficPortSelector resource from its proto representation.
+// ProtoToEndpointPolicyTrafficPortSelector converts a EndpointPolicyTrafficPortSelector object from its proto representation.
 func ProtoToNetworkservicesBetaEndpointPolicyTrafficPortSelector(p *betapb.NetworkservicesBetaEndpointPolicyTrafficPortSelector) *beta.EndpointPolicyTrafficPortSelector {
 	if p == nil {
 		return nil
@@ -101,18 +100,18 @@ func ProtoToNetworkservicesBetaEndpointPolicyTrafficPortSelector(p *betapb.Netwo
 // ProtoToEndpointPolicy converts a EndpointPolicy resource from its proto representation.
 func ProtoToEndpointPolicy(p *betapb.NetworkservicesBetaEndpointPolicy) *beta.EndpointPolicy {
 	obj := &beta.EndpointPolicy{
-		Name:                dcl.StringOrNil(p.Name),
+		Name:                dcl.StringOrNil(p.GetName()),
 		CreateTime:          dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:          dcl.StringOrNil(p.GetUpdateTime()),
 		Type:                ProtoToNetworkservicesBetaEndpointPolicyTypeEnum(p.GetType()),
-		AuthorizationPolicy: dcl.StringOrNil(p.AuthorizationPolicy),
+		AuthorizationPolicy: dcl.StringOrNil(p.GetAuthorizationPolicy()),
 		EndpointMatcher:     ProtoToNetworkservicesBetaEndpointPolicyEndpointMatcher(p.GetEndpointMatcher()),
 		TrafficPortSelector: ProtoToNetworkservicesBetaEndpointPolicyTrafficPortSelector(p.GetTrafficPortSelector()),
-		Description:         dcl.StringOrNil(p.Description),
-		ServerTlsPolicy:     dcl.StringOrNil(p.ServerTlsPolicy),
-		ClientTlsPolicy:     dcl.StringOrNil(p.ClientTlsPolicy),
-		Project:             dcl.StringOrNil(p.Project),
-		Location:            dcl.StringOrNil(p.Location),
+		Description:         dcl.StringOrNil(p.GetDescription()),
+		ServerTlsPolicy:     dcl.StringOrNil(p.GetServerTlsPolicy()),
+		ClientTlsPolicy:     dcl.StringOrNil(p.GetClientTlsPolicy()),
+		Project:             dcl.StringOrNil(p.GetProject()),
+		Location:            dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -139,76 +138,81 @@ func NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadat
 	return betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(0)
 }
 
-// EndpointPolicyEndpointMatcherToProto converts a EndpointPolicyEndpointMatcher resource to its proto representation.
+// EndpointPolicyEndpointMatcherToProto converts a EndpointPolicyEndpointMatcher object to its proto representation.
 func NetworkservicesBetaEndpointPolicyEndpointMatcherToProto(o *beta.EndpointPolicyEndpointMatcher) *betapb.NetworkservicesBetaEndpointPolicyEndpointMatcher {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworkservicesBetaEndpointPolicyEndpointMatcher{
-		MetadataLabelMatcher: NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherToProto(o.MetadataLabelMatcher),
-	}
+	p := &betapb.NetworkservicesBetaEndpointPolicyEndpointMatcher{}
+	p.SetMetadataLabelMatcher(NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherToProto(o.MetadataLabelMatcher))
 	return p
 }
 
-// EndpointPolicyEndpointMatcherMetadataLabelMatcherToProto converts a EndpointPolicyEndpointMatcherMetadataLabelMatcher resource to its proto representation.
+// EndpointPolicyEndpointMatcherMetadataLabelMatcherToProto converts a EndpointPolicyEndpointMatcherMetadataLabelMatcher object to its proto representation.
 func NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherToProto(o *beta.EndpointPolicyEndpointMatcherMetadataLabelMatcher) *betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcher {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcher{
-		MetadataLabelMatchCriteria: NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumToProto(o.MetadataLabelMatchCriteria),
+	p := &betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcher{}
+	p.SetMetadataLabelMatchCriteria(NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumToProto(o.MetadataLabelMatchCriteria))
+	sMetadataLabels := make([]*betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, len(o.MetadataLabels))
+	for i, r := range o.MetadataLabels {
+		sMetadataLabels[i] = NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsToProto(&r)
 	}
-	for _, r := range o.MetadataLabels {
-		p.MetadataLabels = append(p.MetadataLabels, NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsToProto(&r))
-	}
+	p.SetMetadataLabels(sMetadataLabels)
 	return p
 }
 
-// EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsToProto converts a EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels resource to its proto representation.
+// EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsToProto converts a EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels object to its proto representation.
 func NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsToProto(o *beta.EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) *betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels{
-		LabelName:  dcl.ValueOrEmptyString(o.LabelName),
-		LabelValue: dcl.ValueOrEmptyString(o.LabelValue),
-	}
+	p := &betapb.NetworkservicesBetaEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels{}
+	p.SetLabelName(dcl.ValueOrEmptyString(o.LabelName))
+	p.SetLabelValue(dcl.ValueOrEmptyString(o.LabelValue))
 	return p
 }
 
-// EndpointPolicyTrafficPortSelectorToProto converts a EndpointPolicyTrafficPortSelector resource to its proto representation.
+// EndpointPolicyTrafficPortSelectorToProto converts a EndpointPolicyTrafficPortSelector object to its proto representation.
 func NetworkservicesBetaEndpointPolicyTrafficPortSelectorToProto(o *beta.EndpointPolicyTrafficPortSelector) *betapb.NetworkservicesBetaEndpointPolicyTrafficPortSelector {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.NetworkservicesBetaEndpointPolicyTrafficPortSelector{}
-	for _, r := range o.Ports {
-		p.Ports = append(p.Ports, r)
+	sPorts := make([]string, len(o.Ports))
+	for i, r := range o.Ports {
+		sPorts[i] = r
 	}
+	p.SetPorts(sPorts)
 	return p
 }
 
 // EndpointPolicyToProto converts a EndpointPolicy resource to its proto representation.
 func EndpointPolicyToProto(resource *beta.EndpointPolicy) *betapb.NetworkservicesBetaEndpointPolicy {
-	p := &betapb.NetworkservicesBetaEndpointPolicy{
-		Name:                dcl.ValueOrEmptyString(resource.Name),
-		CreateTime:          dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:          dcl.ValueOrEmptyString(resource.UpdateTime),
-		Type:                NetworkservicesBetaEndpointPolicyTypeEnumToProto(resource.Type),
-		AuthorizationPolicy: dcl.ValueOrEmptyString(resource.AuthorizationPolicy),
-		EndpointMatcher:     NetworkservicesBetaEndpointPolicyEndpointMatcherToProto(resource.EndpointMatcher),
-		TrafficPortSelector: NetworkservicesBetaEndpointPolicyTrafficPortSelectorToProto(resource.TrafficPortSelector),
-		Description:         dcl.ValueOrEmptyString(resource.Description),
-		ServerTlsPolicy:     dcl.ValueOrEmptyString(resource.ServerTlsPolicy),
-		ClientTlsPolicy:     dcl.ValueOrEmptyString(resource.ClientTlsPolicy),
-		Project:             dcl.ValueOrEmptyString(resource.Project),
-		Location:            dcl.ValueOrEmptyString(resource.Location),
+	p := &betapb.NetworkservicesBetaEndpointPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetType(NetworkservicesBetaEndpointPolicyTypeEnumToProto(resource.Type))
+	p.SetAuthorizationPolicy(dcl.ValueOrEmptyString(resource.AuthorizationPolicy))
+	p.SetEndpointMatcher(NetworkservicesBetaEndpointPolicyEndpointMatcherToProto(resource.EndpointMatcher))
+	p.SetTrafficPortSelector(NetworkservicesBetaEndpointPolicyTrafficPortSelectorToProto(resource.TrafficPortSelector))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetServerTlsPolicy(dcl.ValueOrEmptyString(resource.ServerTlsPolicy))
+	p.SetClientTlsPolicy(dcl.ValueOrEmptyString(resource.ClientTlsPolicy))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyEndpointPolicy handles the gRPC request by passing it to the underlying EndpointPolicy Apply() method.
+// applyEndpointPolicy handles the gRPC request by passing it to the underlying EndpointPolicy Apply() method.
 func (s *EndpointPolicyServer) applyEndpointPolicy(ctx context.Context, c *beta.Client, request *betapb.ApplyNetworkservicesBetaEndpointPolicyRequest) (*betapb.NetworkservicesBetaEndpointPolicy, error) {
 	p := ProtoToEndpointPolicy(request.GetResource())
 	res, err := c.ApplyEndpointPolicy(ctx, p)
@@ -219,9 +223,9 @@ func (s *EndpointPolicyServer) applyEndpointPolicy(ctx context.Context, c *beta.
 	return r, nil
 }
 
-// ApplyEndpointPolicy handles the gRPC request by passing it to the underlying EndpointPolicy Apply() method.
+// applyNetworkservicesBetaEndpointPolicy handles the gRPC request by passing it to the underlying EndpointPolicy Apply() method.
 func (s *EndpointPolicyServer) ApplyNetworkservicesBetaEndpointPolicy(ctx context.Context, request *betapb.ApplyNetworkservicesBetaEndpointPolicyRequest) (*betapb.NetworkservicesBetaEndpointPolicy, error) {
-	cl, err := createConfigEndpointPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEndpointPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +235,7 @@ func (s *EndpointPolicyServer) ApplyNetworkservicesBetaEndpointPolicy(ctx contex
 // DeleteEndpointPolicy handles the gRPC request by passing it to the underlying EndpointPolicy Delete() method.
 func (s *EndpointPolicyServer) DeleteNetworkservicesBetaEndpointPolicy(ctx context.Context, request *betapb.DeleteNetworkservicesBetaEndpointPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigEndpointPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEndpointPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -241,12 +245,12 @@ func (s *EndpointPolicyServer) DeleteNetworkservicesBetaEndpointPolicy(ctx conte
 
 // ListNetworkservicesBetaEndpointPolicy handles the gRPC request by passing it to the underlying EndpointPolicyList() method.
 func (s *EndpointPolicyServer) ListNetworkservicesBetaEndpointPolicy(ctx context.Context, request *betapb.ListNetworkservicesBetaEndpointPolicyRequest) (*betapb.ListNetworkservicesBetaEndpointPolicyResponse, error) {
-	cl, err := createConfigEndpointPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEndpointPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListEndpointPolicy(ctx, ProtoToEndpointPolicy(request.GetResource()))
+	resources, err := cl.ListEndpointPolicy(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +259,9 @@ func (s *EndpointPolicyServer) ListNetworkservicesBetaEndpointPolicy(ctx context
 		rp := EndpointPolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListNetworkservicesBetaEndpointPolicyResponse{Items: protos}, nil
+	p := &betapb.ListNetworkservicesBetaEndpointPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigEndpointPolicy(ctx context.Context, service_account_file string) (*beta.Client, error) {

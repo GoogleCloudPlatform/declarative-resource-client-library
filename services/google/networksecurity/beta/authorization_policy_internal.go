@@ -168,7 +168,7 @@ func newUpdateAuthorizationPolicyUpdateAuthorizationPolicyRequest(ctx context.Co
 	}
 	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["rules"] = v
 	}
 	return req, nil
@@ -704,13 +704,13 @@ func canonicalizeAuthorizationPolicyRulesSources(des, initial *AuthorizationPoli
 
 	cDes := &AuthorizationPolicyRulesSources{}
 
-	if dcl.IsZeroValue(des.Principals) {
-		des.Principals = initial.Principals
+	if dcl.StringArrayCanonicalize(des.Principals, initial.Principals) || dcl.IsZeroValue(des.Principals) {
+		cDes.Principals = initial.Principals
 	} else {
 		cDes.Principals = des.Principals
 	}
-	if dcl.IsZeroValue(des.IPBlocks) {
-		des.IPBlocks = initial.IPBlocks
+	if dcl.StringArrayCanonicalize(des.IPBlocks, initial.IPBlocks) || dcl.IsZeroValue(des.IPBlocks) {
+		cDes.IPBlocks = initial.IPBlocks
 	} else {
 		cDes.IPBlocks = des.IPBlocks
 	}
@@ -758,6 +758,13 @@ func canonicalizeNewAuthorizationPolicyRulesSources(c *Client, des, nw *Authoriz
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.Principals, nw.Principals) {
+		nw.Principals = des.Principals
+	}
+	if dcl.StringArrayCanonicalize(des.IPBlocks, nw.IPBlocks) {
+		nw.IPBlocks = des.IPBlocks
 	}
 
 	return nw
@@ -820,8 +827,8 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 
 	cDes := &AuthorizationPolicyRulesDestinations{}
 
-	if dcl.IsZeroValue(des.Hosts) {
-		des.Hosts = initial.Hosts
+	if dcl.StringArrayCanonicalize(des.Hosts, initial.Hosts) || dcl.IsZeroValue(des.Hosts) {
+		cDes.Hosts = initial.Hosts
 	} else {
 		cDes.Hosts = des.Hosts
 	}
@@ -830,8 +837,8 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 	} else {
 		cDes.Ports = des.Ports
 	}
-	if dcl.IsZeroValue(des.Methods) {
-		des.Methods = initial.Methods
+	if dcl.StringArrayCanonicalize(des.Methods, initial.Methods) || dcl.IsZeroValue(des.Methods) {
+		cDes.Methods = initial.Methods
 	} else {
 		cDes.Methods = des.Methods
 	}
@@ -882,6 +889,12 @@ func canonicalizeNewAuthorizationPolicyRulesDestinations(c *Client, des, nw *Aut
 		return nil
 	}
 
+	if dcl.StringArrayCanonicalize(des.Hosts, nw.Hosts) {
+		nw.Hosts = des.Hosts
+	}
+	if dcl.StringArrayCanonicalize(des.Methods, nw.Methods) {
+		nw.Methods = des.Methods
+	}
 	nw.HttpHeaderMatch = canonicalizeNewAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, des.HttpHeaderMatch, nw.HttpHeaderMatch)
 
 	return nw
@@ -1064,6 +1077,9 @@ func diffAuthorizationPolicy(c *Client, desired, actual *AuthorizationPolicy, op
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
+
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
 
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
@@ -1341,24 +1357,28 @@ func unmarshalAuthorizationPolicy(b []byte, c *Client) (*AuthorizationPolicy, er
 
 func unmarshalMapAuthorizationPolicy(m map[string]interface{}, c *Client) (*AuthorizationPolicy, error) {
 
-	return flattenAuthorizationPolicy(c, m), nil
+	flattened := flattenAuthorizationPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandAuthorizationPolicy expands AuthorizationPolicy into a JSON request object.
 func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/*/locations/%s/authorizationPolicies/%s", f.Name, f.Location, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/*/locations/%s/authorizationPolicies/%s", f.Name, dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.Action; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Action; dcl.ValueShouldBeSent(v) {
 		m["action"] = v
 	}
 	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
@@ -1496,12 +1516,12 @@ func expandAuthorizationPolicyRules(c *Client, f *AuthorizationPolicyRules) (map
 	m := make(map[string]interface{})
 	if v, err := expandAuthorizationPolicyRulesSourcesSlice(c, f.Sources); err != nil {
 		return nil, fmt.Errorf("error expanding Sources into sources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sources"] = v
 	}
 	if v, err := expandAuthorizationPolicyRulesDestinationsSlice(c, f.Destinations); err != nil {
 		return nil, fmt.Errorf("error expanding Destinations into destinations: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["destinations"] = v
 	}
 
@@ -2034,5 +2054,55 @@ func convertOpNameToAuthorizationPolicyApiOperation(opName string, fieldDiffs []
 }
 
 func extractAuthorizationPolicyFields(r *AuthorizationPolicy) error {
+	return nil
+}
+func extractAuthorizationPolicyRulesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRules) error {
+	return nil
+}
+func extractAuthorizationPolicyRulesSourcesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesSources) error {
+	return nil
+}
+func extractAuthorizationPolicyRulesDestinationsFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinations) error {
+	vHttpHeaderMatch := o.HttpHeaderMatch
+	if vHttpHeaderMatch == nil {
+		// note: explicitly not the empty object.
+		vHttpHeaderMatch = &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
+	}
+	if err := extractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r, vHttpHeaderMatch); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpHeaderMatch) {
+		o.HttpHeaderMatch = vHttpHeaderMatch
+	}
+	return nil
+}
+func extractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) error {
+	return nil
+}
+
+func postReadExtractAuthorizationPolicyFields(r *AuthorizationPolicy) error {
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRules) error {
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesSourcesFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesSources) error {
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesDestinationsFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinations) error {
+	vHttpHeaderMatch := o.HttpHeaderMatch
+	if vHttpHeaderMatch == nil {
+		// note: explicitly not the empty object.
+		vHttpHeaderMatch = &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
+	}
+	if err := extractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r, vHttpHeaderMatch); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vHttpHeaderMatch) {
+		o.HttpHeaderMatch = vHttpHeaderMatch
+	}
+	return nil
+}
+func postReadExtractAuthorizationPolicyRulesDestinationsHttpHeaderMatchFields(r *AuthorizationPolicy, o *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) error {
 	return nil
 }

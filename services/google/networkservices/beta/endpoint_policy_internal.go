@@ -980,8 +980,8 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 
 	cDes := &EndpointPolicyTrafficPortSelector{}
 
-	if dcl.IsZeroValue(des.Ports) {
-		des.Ports = initial.Ports
+	if dcl.StringArrayCanonicalize(des.Ports, initial.Ports) || dcl.IsZeroValue(des.Ports) {
+		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports
 	}
@@ -1029,6 +1029,10 @@ func canonicalizeNewEndpointPolicyTrafficPortSelector(c *Client, des, nw *Endpoi
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.Ports, nw.Ports) {
+		nw.Ports = des.Ports
 	}
 
 	return nw
@@ -1088,6 +1092,9 @@ func diffEndpointPolicy(c *Client, desired, actual *EndpointPolicy, opts ...dcl.
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
+
+	c.Config.Logger.Infof("Diff function called with desired state: %v", desired)
+	c.Config.Logger.Infof("Diff function called with actual state: %v", actual)
 
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
@@ -1368,24 +1375,28 @@ func unmarshalEndpointPolicy(b []byte, c *Client) (*EndpointPolicy, error) {
 
 func unmarshalMapEndpointPolicy(m map[string]interface{}, c *Client) (*EndpointPolicy, error) {
 
-	return flattenEndpointPolicy(c, m), nil
+	flattened := flattenEndpointPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandEndpointPolicy expands EndpointPolicy into a JSON request object.
 func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/*/locations/global/endpointPolicies/%s", f.Name, f.Name); err != nil {
+	if v, err := dcl.DeriveField("projects/*/locations/global/endpointPolicies/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Type; dcl.ValueShouldBeSent(v) {
 		m["type"] = v
 	}
-	if v := f.AuthorizationPolicy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AuthorizationPolicy; dcl.ValueShouldBeSent(v) {
 		m["authorizationPolicy"] = v
 	}
 	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher); err != nil {
@@ -1398,13 +1409,13 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	} else if v != nil {
 		m["trafficPortSelector"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.ServerTlsPolicy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServerTlsPolicy; dcl.ValueShouldBeSent(v) {
 		m["serverTlsPolicy"] = v
 	}
-	if v := f.ClientTlsPolicy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientTlsPolicy; dcl.ValueShouldBeSent(v) {
 		m["clientTlsPolicy"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
@@ -1660,7 +1671,7 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, f *Endpo
 	}
 	if v, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, f.MetadataLabels); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataLabels into metadataLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["metadataLabels"] = v
 	}
 
@@ -2112,5 +2123,99 @@ func convertOpNameToEndpointPolicyApiOperation(opName string, fieldDiffs []*dcl.
 }
 
 func extractEndpointPolicyFields(r *EndpointPolicy) error {
+	vEndpointMatcher := r.EndpointMatcher
+	if vEndpointMatcher == nil {
+		// note: explicitly not the empty object.
+		vEndpointMatcher = &EndpointPolicyEndpointMatcher{}
+	}
+	if err := extractEndpointPolicyEndpointMatcherFields(r, vEndpointMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpointMatcher) {
+		r.EndpointMatcher = vEndpointMatcher
+	}
+	vTrafficPortSelector := r.TrafficPortSelector
+	if vTrafficPortSelector == nil {
+		// note: explicitly not the empty object.
+		vTrafficPortSelector = &EndpointPolicyTrafficPortSelector{}
+	}
+	if err := extractEndpointPolicyTrafficPortSelectorFields(r, vTrafficPortSelector); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTrafficPortSelector) {
+		r.TrafficPortSelector = vTrafficPortSelector
+	}
+	return nil
+}
+func extractEndpointPolicyEndpointMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcher) error {
+	vMetadataLabelMatcher := o.MetadataLabelMatcher
+	if vMetadataLabelMatcher == nil {
+		// note: explicitly not the empty object.
+		vMetadataLabelMatcher = &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
+	}
+	if err := extractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r, vMetadataLabelMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetadataLabelMatcher) {
+		o.MetadataLabelMatcher = vMetadataLabelMatcher
+	}
+	return nil
+}
+func extractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcher) error {
+	return nil
+}
+func extractEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) error {
+	return nil
+}
+func extractEndpointPolicyTrafficPortSelectorFields(r *EndpointPolicy, o *EndpointPolicyTrafficPortSelector) error {
+	return nil
+}
+
+func postReadExtractEndpointPolicyFields(r *EndpointPolicy) error {
+	vEndpointMatcher := r.EndpointMatcher
+	if vEndpointMatcher == nil {
+		// note: explicitly not the empty object.
+		vEndpointMatcher = &EndpointPolicyEndpointMatcher{}
+	}
+	if err := postReadExtractEndpointPolicyEndpointMatcherFields(r, vEndpointMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vEndpointMatcher) {
+		r.EndpointMatcher = vEndpointMatcher
+	}
+	vTrafficPortSelector := r.TrafficPortSelector
+	if vTrafficPortSelector == nil {
+		// note: explicitly not the empty object.
+		vTrafficPortSelector = &EndpointPolicyTrafficPortSelector{}
+	}
+	if err := postReadExtractEndpointPolicyTrafficPortSelectorFields(r, vTrafficPortSelector); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTrafficPortSelector) {
+		r.TrafficPortSelector = vTrafficPortSelector
+	}
+	return nil
+}
+func postReadExtractEndpointPolicyEndpointMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcher) error {
+	vMetadataLabelMatcher := o.MetadataLabelMatcher
+	if vMetadataLabelMatcher == nil {
+		// note: explicitly not the empty object.
+		vMetadataLabelMatcher = &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
+	}
+	if err := extractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r, vMetadataLabelMatcher); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMetadataLabelMatcher) {
+		o.MetadataLabelMatcher = vMetadataLabelMatcher
+	}
+	return nil
+}
+func postReadExtractEndpointPolicyEndpointMatcherMetadataLabelMatcherFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcher) error {
+	return nil
+}
+func postReadExtractEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsFields(r *EndpointPolicy, o *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) error {
+	return nil
+}
+func postReadExtractEndpointPolicyTrafficPortSelectorFields(r *EndpointPolicy, o *EndpointPolicyTrafficPortSelector) error {
 	return nil
 }

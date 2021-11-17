@@ -91,7 +91,9 @@ import (
 	networkconnectivity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/alpha"
 	networkconnectivity_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/beta"
 	networksecurity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha"
+	networksecurity_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/beta"
 	networkservices_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
+	networkservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy"
 	orgpolicy_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy/alpha"
 	orgpolicy_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy/beta"
@@ -426,6 +428,14 @@ func Services() *Directory {
 	d.AddResource("beta", "networkconnectivity", "Hub", networkconnectivity_beta.YAML_hub)
 	d.AddResource("beta", "networkconnectivity", dcl.TitleToSnakeCase("Spoke"), networkconnectivity_beta.YAML_spoke)
 	d.AddResource("beta", "networkconnectivity", "Spoke", networkconnectivity_beta.YAML_spoke)
+	d.AddResource("beta", "networksecurity", dcl.TitleToSnakeCase("AuthorizationPolicy"), networksecurity_beta.YAML_authorization_policy)
+	d.AddResource("beta", "networksecurity", "AuthorizationPolicy", networksecurity_beta.YAML_authorization_policy)
+	d.AddResource("beta", "networksecurity", dcl.TitleToSnakeCase("ClientTlsPolicy"), networksecurity_beta.YAML_client_tls_policy)
+	d.AddResource("beta", "networksecurity", "ClientTlsPolicy", networksecurity_beta.YAML_client_tls_policy)
+	d.AddResource("beta", "networksecurity", dcl.TitleToSnakeCase("ServerTlsPolicy"), networksecurity_beta.YAML_server_tls_policy)
+	d.AddResource("beta", "networksecurity", "ServerTlsPolicy", networksecurity_beta.YAML_server_tls_policy)
+	d.AddResource("beta", "networkservices", dcl.TitleToSnakeCase("EndpointPolicy"), networkservices_beta.YAML_endpoint_policy)
+	d.AddResource("beta", "networkservices", "EndpointPolicy", networkservices_beta.YAML_endpoint_policy)
 	d.AddResource("beta", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy_beta.YAML_policy)
 	d.AddResource("beta", "orgpolicy", "Policy", orgpolicy_beta.YAML_policy)
 	d.AddResource("beta", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig_beta.YAML_os_policy_assignment)
