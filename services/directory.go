@@ -35,6 +35,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions"
 	cloudfunctions_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/alpha"
 	cloudfunctions_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudidentity"
+	cloudidentity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudidentity/alpha"
+	cloudidentity_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudidentity/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms"
 	cloudkms_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/alpha"
 	cloudkms_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/beta"
@@ -185,6 +188,10 @@ func Services() *Directory {
 	d.AddResource("ga", "cloudbuild", "WorkerPool", cloudbuild.YAML_worker_pool)
 	d.AddResource("ga", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions.YAML_function)
 	d.AddResource("ga", "cloudfunctions", "Function", cloudfunctions.YAML_function)
+	d.AddResource("ga", "cloudidentity", dcl.TitleToSnakeCase("Group"), cloudidentity.YAML_group)
+	d.AddResource("ga", "cloudidentity", "Group", cloudidentity.YAML_group)
+	d.AddResource("ga", "cloudidentity", dcl.TitleToSnakeCase("Membership"), cloudidentity.YAML_membership)
+	d.AddResource("ga", "cloudidentity", "Membership", cloudidentity.YAML_membership)
 	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms.YAML_crypto_key)
 	d.AddResource("ga", "cloudkms", "CryptoKey", cloudkms.YAML_crypto_key)
 	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms.YAML_key_ring)
@@ -311,6 +318,10 @@ func Services() *Directory {
 	d.AddResource("beta", "cloudbuild", "WorkerPool", cloudbuild_beta.YAML_worker_pool)
 	d.AddResource("beta", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions_beta.YAML_function)
 	d.AddResource("beta", "cloudfunctions", "Function", cloudfunctions_beta.YAML_function)
+	d.AddResource("beta", "cloudidentity", dcl.TitleToSnakeCase("Group"), cloudidentity_beta.YAML_group)
+	d.AddResource("beta", "cloudidentity", "Group", cloudidentity_beta.YAML_group)
+	d.AddResource("beta", "cloudidentity", dcl.TitleToSnakeCase("Membership"), cloudidentity_beta.YAML_membership)
+	d.AddResource("beta", "cloudidentity", "Membership", cloudidentity_beta.YAML_membership)
 	d.AddResource("beta", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms_beta.YAML_crypto_key)
 	d.AddResource("beta", "cloudkms", "CryptoKey", cloudkms_beta.YAML_crypto_key)
 	d.AddResource("beta", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms_beta.YAML_key_ring)
@@ -455,6 +466,10 @@ func Services() *Directory {
 	d.AddResource("alpha", "cloudbuild", "WorkerPool", cloudbuild_alpha.YAML_worker_pool)
 	d.AddResource("alpha", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions_alpha.YAML_function)
 	d.AddResource("alpha", "cloudfunctions", "Function", cloudfunctions_alpha.YAML_function)
+	d.AddResource("alpha", "cloudidentity", dcl.TitleToSnakeCase("Group"), cloudidentity_alpha.YAML_group)
+	d.AddResource("alpha", "cloudidentity", "Group", cloudidentity_alpha.YAML_group)
+	d.AddResource("alpha", "cloudidentity", dcl.TitleToSnakeCase("Membership"), cloudidentity_alpha.YAML_membership)
+	d.AddResource("alpha", "cloudidentity", "Membership", cloudidentity_alpha.YAML_membership)
 	d.AddResource("alpha", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms_alpha.YAML_crypto_key)
 	d.AddResource("alpha", "cloudkms", "CryptoKey", cloudkms_alpha.YAML_crypto_key)
 	d.AddResource("alpha", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms_alpha.YAML_key_ring)

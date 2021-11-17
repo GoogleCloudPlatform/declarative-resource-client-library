@@ -52,6 +52,12 @@ import (
 
 	cloudfunctions_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/alpha_connector"
 
+	cloudidentity_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudidentity/connector"
+
+	cloudidentity_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudidentity/beta_connector"
+
+	cloudidentity_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudidentity/alpha_connector"
+
 	cloudkms_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/connector"
 
 	cloudkms_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/beta_connector"
@@ -248,6 +254,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	cloudfunctions_beta_connector.RegisterServers(grpcServer)
 
 	cloudfunctions_alpha_connector.RegisterServers(grpcServer)
+
+	cloudidentity_connector.RegisterServers(grpcServer)
+
+	cloudidentity_beta_connector.RegisterServers(grpcServer)
+
+	cloudidentity_alpha_connector.RegisterServers(grpcServer)
 
 	cloudkms_connector.RegisterServers(grpcServer)
 
