@@ -25,19 +25,20 @@ import (
 )
 
 type WorkerPool struct {
-	Name          *string                  `json:"name"`
-	DisplayName   *string                  `json:"displayName"`
-	Uid           *string                  `json:"uid"`
-	Annotations   map[string]string        `json:"annotations"`
-	CreateTime    *string                  `json:"createTime"`
-	UpdateTime    *string                  `json:"updateTime"`
-	DeleteTime    *string                  `json:"deleteTime"`
-	State         *WorkerPoolStateEnum     `json:"state"`
-	Etag          *string                  `json:"etag"`
-	WorkerConfig  *WorkerPoolWorkerConfig  `json:"workerConfig"`
-	NetworkConfig *WorkerPoolNetworkConfig `json:"networkConfig"`
-	Project       *string                  `json:"project"`
-	Location      *string                  `json:"location"`
+	Name                *string                        `json:"name"`
+	DisplayName         *string                        `json:"displayName"`
+	Uid                 *string                        `json:"uid"`
+	Annotations         map[string]string              `json:"annotations"`
+	CreateTime          *string                        `json:"createTime"`
+	UpdateTime          *string                        `json:"updateTime"`
+	DeleteTime          *string                        `json:"deleteTime"`
+	State               *WorkerPoolStateEnum           `json:"state"`
+	PrivatePoolV1Config *WorkerPoolPrivatePoolV1Config `json:"privatePoolV1Config"`
+	Etag                *string                        `json:"etag"`
+	WorkerConfig        *WorkerPoolWorkerConfig        `json:"workerConfig"`
+	NetworkConfig       *WorkerPoolNetworkConfig       `json:"networkConfig"`
+	Project             *string                        `json:"project"`
+	Location            *string                        `json:"location"`
 }
 
 func (r *WorkerPool) String() string {
@@ -69,6 +70,180 @@ func (v WorkerPoolStateEnum) Validate() error {
 		Value: string(v),
 		Valid: []string{},
 	}
+}
+
+// The enum WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.
+type WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum string
+
+// WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumRef returns a *WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumRef(s string) *WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+	v := WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(s)
+	return &v
+}
+
+func (v WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"EGRESS_OPTION_UNSPECIFIED", "NO_PUBLIC_EGRESS", "PUBLIC_EGRESS"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+type WorkerPoolPrivatePoolV1Config struct {
+	empty         bool                                        `json:"-"`
+	WorkerConfig  *WorkerPoolPrivatePoolV1ConfigWorkerConfig  `json:"workerConfig"`
+	NetworkConfig *WorkerPoolPrivatePoolV1ConfigNetworkConfig `json:"networkConfig"`
+}
+
+type jsonWorkerPoolPrivatePoolV1Config WorkerPoolPrivatePoolV1Config
+
+func (r *WorkerPoolPrivatePoolV1Config) UnmarshalJSON(data []byte) error {
+	var res jsonWorkerPoolPrivatePoolV1Config
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkerPoolPrivatePoolV1Config
+	} else {
+
+		r.WorkerConfig = res.WorkerConfig
+
+		r.NetworkConfig = res.NetworkConfig
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkerPoolPrivatePoolV1Config is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyWorkerPoolPrivatePoolV1Config *WorkerPoolPrivatePoolV1Config = &WorkerPoolPrivatePoolV1Config{empty: true}
+
+func (r *WorkerPoolPrivatePoolV1Config) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkerPoolPrivatePoolV1Config) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkerPoolPrivatePoolV1Config) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type WorkerPoolPrivatePoolV1ConfigWorkerConfig struct {
+	empty       bool    `json:"-"`
+	MachineType *string `json:"machineType"`
+	DiskSizeGb  *int64  `json:"diskSizeGb"`
+}
+
+type jsonWorkerPoolPrivatePoolV1ConfigWorkerConfig WorkerPoolPrivatePoolV1ConfigWorkerConfig
+
+func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkerPoolPrivatePoolV1ConfigWorkerConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkerPoolPrivatePoolV1ConfigWorkerConfig
+	} else {
+
+		r.MachineType = res.MachineType
+
+		r.DiskSizeGb = res.DiskSizeGb
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkerPoolPrivatePoolV1ConfigWorkerConfig is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyWorkerPoolPrivatePoolV1ConfigWorkerConfig *WorkerPoolPrivatePoolV1ConfigWorkerConfig = &WorkerPoolPrivatePoolV1ConfigWorkerConfig{empty: true}
+
+func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type WorkerPoolPrivatePoolV1ConfigNetworkConfig struct {
+	empty         bool                                                        `json:"-"`
+	PeeredNetwork *string                                                     `json:"peeredNetwork"`
+	EgressOption  *WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum `json:"egressOption"`
+}
+
+type jsonWorkerPoolPrivatePoolV1ConfigNetworkConfig WorkerPoolPrivatePoolV1ConfigNetworkConfig
+
+func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkerPoolPrivatePoolV1ConfigNetworkConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkerPoolPrivatePoolV1ConfigNetworkConfig
+	} else {
+
+		r.PeeredNetwork = res.PeeredNetwork
+
+		r.EgressOption = res.EgressOption
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkerPoolPrivatePoolV1ConfigNetworkConfig is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyWorkerPoolPrivatePoolV1ConfigNetworkConfig *WorkerPoolPrivatePoolV1ConfigNetworkConfig = &WorkerPoolPrivatePoolV1ConfigNetworkConfig{empty: true}
+
+func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 type WorkerPoolWorkerConfig struct {
@@ -185,19 +360,20 @@ func (r *WorkerPool) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":          dcl.ValueOrEmptyString(nr.Name),
-		"displayName":   dcl.ValueOrEmptyString(nr.DisplayName),
-		"uid":           dcl.ValueOrEmptyString(nr.Uid),
-		"annotations":   dcl.ValueOrEmptyString(nr.Annotations),
-		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":    dcl.ValueOrEmptyString(nr.UpdateTime),
-		"deleteTime":    dcl.ValueOrEmptyString(nr.DeleteTime),
-		"state":         dcl.ValueOrEmptyString(nr.State),
-		"etag":          dcl.ValueOrEmptyString(nr.Etag),
-		"workerConfig":  dcl.ValueOrEmptyString(nr.WorkerConfig),
-		"networkConfig": dcl.ValueOrEmptyString(nr.NetworkConfig),
-		"project":       dcl.ValueOrEmptyString(nr.Project),
-		"location":      dcl.ValueOrEmptyString(nr.Location),
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"displayName":         dcl.ValueOrEmptyString(nr.DisplayName),
+		"uid":                 dcl.ValueOrEmptyString(nr.Uid),
+		"annotations":         dcl.ValueOrEmptyString(nr.Annotations),
+		"createTime":          dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":          dcl.ValueOrEmptyString(nr.UpdateTime),
+		"deleteTime":          dcl.ValueOrEmptyString(nr.DeleteTime),
+		"state":               dcl.ValueOrEmptyString(nr.State),
+		"privatePoolV1Config": dcl.ValueOrEmptyString(nr.PrivatePoolV1Config),
+		"etag":                dcl.ValueOrEmptyString(nr.Etag),
+		"workerConfig":        dcl.ValueOrEmptyString(nr.WorkerConfig),
+		"networkConfig":       dcl.ValueOrEmptyString(nr.NetworkConfig),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", params), nil
 }

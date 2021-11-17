@@ -131,11 +131,10 @@ func (v ClusterStateEnum) Validate() error {
 }
 
 type ClusterNetworking struct {
-	empty                        bool     `json:"-"`
-	VPCId                        *string  `json:"vpcId"`
-	PodAddressCidrBlocks         []string `json:"podAddressCidrBlocks"`
-	ServiceAddressCidrBlocks     []string `json:"serviceAddressCidrBlocks"`
-	ServiceLoadBalancerSubnetIds []string `json:"serviceLoadBalancerSubnetIds"`
+	empty                    bool     `json:"-"`
+	VPCId                    *string  `json:"vpcId"`
+	PodAddressCidrBlocks     []string `json:"podAddressCidrBlocks"`
+	ServiceAddressCidrBlocks []string `json:"serviceAddressCidrBlocks"`
 }
 
 type jsonClusterNetworking ClusterNetworking
@@ -158,8 +157,6 @@ func (r *ClusterNetworking) UnmarshalJSON(data []byte) error {
 		r.PodAddressCidrBlocks = res.PodAddressCidrBlocks
 
 		r.ServiceAddressCidrBlocks = res.ServiceAddressCidrBlocks
-
-		r.ServiceLoadBalancerSubnetIds = res.ServiceLoadBalancerSubnetIds
 
 	}
 	return nil

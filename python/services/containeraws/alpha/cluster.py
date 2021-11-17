@@ -222,12 +222,10 @@ class ClusterNetworking(object):
         vpc_id: str = None,
         pod_address_cidr_blocks: list = None,
         service_address_cidr_blocks: list = None,
-        service_load_balancer_subnet_ids: list = None,
     ):
         self.vpc_id = vpc_id
         self.pod_address_cidr_blocks = pod_address_cidr_blocks
         self.service_address_cidr_blocks = service_address_cidr_blocks
-        self.service_load_balancer_subnet_ids = service_load_balancer_subnet_ids
 
     @classmethod
     def to_proto(self, resource):
@@ -245,10 +243,6 @@ class ClusterNetworking(object):
             res.service_address_cidr_blocks.extend(
                 Primitive.to_proto(resource.service_address_cidr_blocks)
             )
-        if Primitive.to_proto(resource.service_load_balancer_subnet_ids):
-            res.service_load_balancer_subnet_ids.extend(
-                Primitive.to_proto(resource.service_load_balancer_subnet_ids)
-            )
         return res
 
     @classmethod
@@ -263,9 +257,6 @@ class ClusterNetworking(object):
             ),
             service_address_cidr_blocks=Primitive.from_proto(
                 resource.service_address_cidr_blocks
-            ),
-            service_load_balancer_subnet_ids=Primitive.from_proto(
-                resource.service_load_balancer_subnet_ids
             ),
         )
 

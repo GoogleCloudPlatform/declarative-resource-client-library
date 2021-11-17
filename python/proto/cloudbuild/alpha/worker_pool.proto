@@ -30,6 +30,13 @@ enum CloudbuildAlphaWorkerPoolStateEnum {
   CloudbuildAlphaWorkerPoolStateEnumCANCELLED = 5;
 }
 
+enum CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+  CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumNO_VALUE_DO_NOT_USE = 0;
+  CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumEGRESS_OPTION_UNSPECIFIED = 1;
+  CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumNO_PUBLIC_EGRESS = 2;
+  CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumPUBLIC_EGRESS = 3;
+}
+
 message CloudbuildAlphaWorkerPool {
   string name = 1;
   string display_name = 2;
@@ -39,11 +46,27 @@ message CloudbuildAlphaWorkerPool {
   string update_time = 6;
   string delete_time = 7;
   CloudbuildAlphaWorkerPoolStateEnum state = 8;
-  string etag = 9;
-  CloudbuildAlphaWorkerPoolWorkerConfig worker_config = 10;
-  CloudbuildAlphaWorkerPoolNetworkConfig network_config = 11;
-  string project = 12;
-  string location = 13;
+  CloudbuildAlphaWorkerPoolPrivatePoolV1Config private_pool_v1_config = 9;
+  string etag = 10;
+  CloudbuildAlphaWorkerPoolWorkerConfig worker_config = 11;
+  CloudbuildAlphaWorkerPoolNetworkConfig network_config = 12;
+  string project = 13;
+  string location = 14;
+}
+
+message CloudbuildAlphaWorkerPoolPrivatePoolV1Config {
+  CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigWorkerConfig worker_config = 1;
+  CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfig network_config = 2;
+}
+
+message CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigWorkerConfig {
+  string machine_type = 1;
+  int64 disk_size_gb = 2;
+}
+
+message CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfig {
+  string peered_network = 1;
+  CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum egress_option = 2;
 }
 
 message CloudbuildAlphaWorkerPoolWorkerConfig {

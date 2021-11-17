@@ -36,6 +36,54 @@ func ProtoToCloudbuildBetaWorkerPoolStateEnum(e betapb.CloudbuildBetaWorkerPoolS
 	return nil
 }
 
+// ProtoToWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum converts a WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum enum from its proto representation.
+func ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(e betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum) *beta.WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum_name[int32(e)]; ok {
+		e := beta.WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(n[len("CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkerPoolPrivatePoolV1Config converts a WorkerPoolPrivatePoolV1Config object from its proto representation.
+func ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1Config(p *betapb.CloudbuildBetaWorkerPoolPrivatePoolV1Config) *beta.WorkerPoolPrivatePoolV1Config {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.WorkerPoolPrivatePoolV1Config{
+		WorkerConfig:  ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfig(p.GetWorkerConfig()),
+		NetworkConfig: ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig(p.GetNetworkConfig()),
+	}
+	return obj
+}
+
+// ProtoToWorkerPoolPrivatePoolV1ConfigWorkerConfig converts a WorkerPoolPrivatePoolV1ConfigWorkerConfig object from its proto representation.
+func ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfig(p *betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfig) *beta.WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.WorkerPoolPrivatePoolV1ConfigWorkerConfig{
+		MachineType: dcl.StringOrNil(p.GetMachineType()),
+		DiskSizeGb:  dcl.Int64OrNil(p.GetDiskSizeGb()),
+	}
+	return obj
+}
+
+// ProtoToWorkerPoolPrivatePoolV1ConfigNetworkConfig converts a WorkerPoolPrivatePoolV1ConfigNetworkConfig object from its proto representation.
+func ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig(p *betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig) *beta.WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.WorkerPoolPrivatePoolV1ConfigNetworkConfig{
+		PeeredNetwork: dcl.StringOrNil(p.GetPeeredNetwork()),
+		EgressOption:  ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(p.GetEgressOption()),
+	}
+	return obj
+}
+
 // ProtoToWorkerPoolWorkerConfig converts a WorkerPoolWorkerConfig object from its proto representation.
 func ProtoToCloudbuildBetaWorkerPoolWorkerConfig(p *betapb.CloudbuildBetaWorkerPoolWorkerConfig) *beta.WorkerPoolWorkerConfig {
 	if p == nil {
@@ -63,18 +111,19 @@ func ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p *betapb.CloudbuildBetaWorker
 // ProtoToWorkerPool converts a WorkerPool resource from its proto representation.
 func ProtoToWorkerPool(p *betapb.CloudbuildBetaWorkerPool) *beta.WorkerPool {
 	obj := &beta.WorkerPool{
-		Name:          dcl.StringOrNil(p.GetName()),
-		DisplayName:   dcl.StringOrNil(p.GetDisplayName()),
-		Uid:           dcl.StringOrNil(p.GetUid()),
-		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
-		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
-		State:         ProtoToCloudbuildBetaWorkerPoolStateEnum(p.GetState()),
-		Etag:          dcl.StringOrNil(p.GetEtag()),
-		WorkerConfig:  ProtoToCloudbuildBetaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
-		NetworkConfig: ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
-		Project:       dcl.StringOrNil(p.GetProject()),
-		Location:      dcl.StringOrNil(p.GetLocation()),
+		Name:                dcl.StringOrNil(p.GetName()),
+		DisplayName:         dcl.StringOrNil(p.GetDisplayName()),
+		Uid:                 dcl.StringOrNil(p.GetUid()),
+		CreateTime:          dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:          dcl.StringOrNil(p.GetUpdateTime()),
+		DeleteTime:          dcl.StringOrNil(p.GetDeleteTime()),
+		State:               ProtoToCloudbuildBetaWorkerPoolStateEnum(p.GetState()),
+		PrivatePoolV1Config: ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1Config(p.GetPrivatePoolV1Config()),
+		Etag:                dcl.StringOrNil(p.GetEtag()),
+		WorkerConfig:        ProtoToCloudbuildBetaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
+		NetworkConfig:       ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
+		Project:             dcl.StringOrNil(p.GetProject()),
+		Location:            dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -88,6 +137,50 @@ func CloudbuildBetaWorkerPoolStateEnumToProto(e *beta.WorkerPoolStateEnum) betap
 		return betapb.CloudbuildBetaWorkerPoolStateEnum(v)
 	}
 	return betapb.CloudbuildBetaWorkerPoolStateEnum(0)
+}
+
+// WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumToProto converts a WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum enum to its proto representation.
+func CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumToProto(e *beta.WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum) betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+	if e == nil {
+		return betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(0)
+	}
+	if v, ok := betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum_value["WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum"+string(*e)]; ok {
+		return betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(v)
+	}
+	return betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(0)
+}
+
+// WorkerPoolPrivatePoolV1ConfigToProto converts a WorkerPoolPrivatePoolV1Config object to its proto representation.
+func CloudbuildBetaWorkerPoolPrivatePoolV1ConfigToProto(o *beta.WorkerPoolPrivatePoolV1Config) *betapb.CloudbuildBetaWorkerPoolPrivatePoolV1Config {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.CloudbuildBetaWorkerPoolPrivatePoolV1Config{}
+	p.SetWorkerConfig(CloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfigToProto(o.WorkerConfig))
+	p.SetNetworkConfig(CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigToProto(o.NetworkConfig))
+	return p
+}
+
+// WorkerPoolPrivatePoolV1ConfigWorkerConfigToProto converts a WorkerPoolPrivatePoolV1ConfigWorkerConfig object to its proto representation.
+func CloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfigToProto(o *beta.WorkerPoolPrivatePoolV1ConfigWorkerConfig) *betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
+	p.SetDiskSizeGb(dcl.ValueOrEmptyInt64(o.DiskSizeGb))
+	return p
+}
+
+// WorkerPoolPrivatePoolV1ConfigNetworkConfigToProto converts a WorkerPoolPrivatePoolV1ConfigNetworkConfig object to its proto representation.
+func CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigToProto(o *beta.WorkerPoolPrivatePoolV1ConfigNetworkConfig) *betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+	p.SetPeeredNetwork(dcl.ValueOrEmptyString(o.PeeredNetwork))
+	p.SetEgressOption(CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumToProto(o.EgressOption))
+	return p
 }
 
 // WorkerPoolWorkerConfigToProto converts a WorkerPoolWorkerConfig object to its proto representation.
@@ -122,6 +215,7 @@ func WorkerPoolToProto(resource *beta.WorkerPool) *betapb.CloudbuildBetaWorkerPo
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
 	p.SetState(CloudbuildBetaWorkerPoolStateEnumToProto(resource.State))
+	p.SetPrivatePoolV1Config(CloudbuildBetaWorkerPoolPrivatePoolV1ConfigToProto(resource.PrivatePoolV1Config))
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetWorkerConfig(CloudbuildBetaWorkerPoolWorkerConfigToProto(resource.WorkerConfig))
 	p.SetNetworkConfig(CloudbuildBetaWorkerPoolNetworkConfigToProto(resource.NetworkConfig))

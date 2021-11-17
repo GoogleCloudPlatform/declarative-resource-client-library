@@ -71,7 +71,6 @@ message ContainerawsAlphaClusterNetworking {
   string vpc_id = 1;
   repeated string pod_address_cidr_blocks = 2;
   repeated string service_address_cidr_blocks = 3;
-  repeated string service_load_balancer_subnet_ids = 4;
 }
 
 message ContainerawsAlphaClusterControlPlane {

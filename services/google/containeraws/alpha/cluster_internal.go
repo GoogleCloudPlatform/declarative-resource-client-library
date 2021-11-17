@@ -89,9 +89,6 @@ func (r *ClusterNetworking) validate() error {
 	if err := dcl.Required(r, "serviceAddressCidrBlocks"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "serviceLoadBalancerSubnetIds"); err != nil {
-		return err
-	}
 	return nil
 }
 func (r *ClusterControlPlane) validate() error {
@@ -810,11 +807,6 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 	} else {
 		cDes.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
 	}
-	if dcl.StringArrayCanonicalize(des.ServiceLoadBalancerSubnetIds, initial.ServiceLoadBalancerSubnetIds) || dcl.IsZeroValue(des.ServiceLoadBalancerSubnetIds) {
-		cDes.ServiceLoadBalancerSubnetIds = initial.ServiceLoadBalancerSubnetIds
-	} else {
-		cDes.ServiceLoadBalancerSubnetIds = des.ServiceLoadBalancerSubnetIds
-	}
 
 	return cDes
 }
@@ -869,9 +861,6 @@ func canonicalizeNewClusterNetworking(c *Client, des, nw *ClusterNetworking) *Cl
 	}
 	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, nw.ServiceAddressCidrBlocks) {
 		nw.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
-	}
-	if dcl.StringArrayCanonicalize(des.ServiceLoadBalancerSubnetIds, nw.ServiceLoadBalancerSubnetIds) {
-		nw.ServiceLoadBalancerSubnetIds = des.ServiceLoadBalancerSubnetIds
 	}
 
 	return nw
@@ -2593,13 +2582,6 @@ func compareClusterNetworkingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		}
 		diffs = append(diffs, ds...)
 	}
-
-	if ds, err := dcl.Diff(desired.ServiceLoadBalancerSubnetIds, actual.ServiceLoadBalancerSubnetIds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceLoadBalancerSubnetIds")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
 	return diffs, nil
 }
 
@@ -3349,9 +3331,6 @@ func expandClusterNetworking(c *Client, f *ClusterNetworking) (map[string]interf
 	if v := f.ServiceAddressCidrBlocks; v != nil {
 		m["serviceAddressCidrBlocks"] = v
 	}
-	if v := f.ServiceLoadBalancerSubnetIds; v != nil {
-		m["serviceLoadBalancerSubnetIds"] = v
-	}
 
 	return m, nil
 }
@@ -3372,7 +3351,6 @@ func flattenClusterNetworking(c *Client, i interface{}) *ClusterNetworking {
 	r.VPCId = dcl.FlattenString(m["vpcId"])
 	r.PodAddressCidrBlocks = dcl.FlattenStringSlice(m["podAddressCidrBlocks"])
 	r.ServiceAddressCidrBlocks = dcl.FlattenStringSlice(m["serviceAddressCidrBlocks"])
-	r.ServiceLoadBalancerSubnetIds = dcl.FlattenStringSlice(m["serviceLoadBalancerSubnetIds"])
 
 	return r
 }

@@ -29,6 +29,7 @@ class WorkerPool(object):
         update_time: str = None,
         delete_time: str = None,
         state: str = None,
+        private_pool_v1_config: dict = None,
         etag: str = None,
         worker_config: dict = None,
         network_config: dict = None,
@@ -41,6 +42,7 @@ class WorkerPool(object):
         self.name = name
         self.display_name = display_name
         self.annotations = annotations
+        self.private_pool_v1_config = private_pool_v1_config
         self.worker_config = worker_config
         self.network_config = network_config
         self.project = project
@@ -61,6 +63,12 @@ class WorkerPool(object):
         if Primitive.to_proto(self.annotations):
             request.resource.annotations = Primitive.to_proto(self.annotations)
 
+        if WorkerPoolPrivatePoolV1Config.to_proto(self.private_pool_v1_config):
+            request.resource.private_pool_v1_config.CopyFrom(
+                WorkerPoolPrivatePoolV1Config.to_proto(self.private_pool_v1_config)
+            )
+        else:
+            request.resource.ClearField("private_pool_v1_config")
         if WorkerPoolWorkerConfig.to_proto(self.worker_config):
             request.resource.worker_config.CopyFrom(
                 WorkerPoolWorkerConfig.to_proto(self.worker_config)
@@ -90,6 +98,9 @@ class WorkerPool(object):
         self.update_time = Primitive.from_proto(response.update_time)
         self.delete_time = Primitive.from_proto(response.delete_time)
         self.state = WorkerPoolStateEnum.from_proto(response.state)
+        self.private_pool_v1_config = WorkerPoolPrivatePoolV1Config.from_proto(
+            response.private_pool_v1_config
+        )
         self.etag = Primitive.from_proto(response.etag)
         self.worker_config = WorkerPoolWorkerConfig.from_proto(response.worker_config)
         self.network_config = WorkerPoolNetworkConfig.from_proto(
@@ -113,6 +124,12 @@ class WorkerPool(object):
         if Primitive.to_proto(self.annotations):
             request.resource.annotations = Primitive.to_proto(self.annotations)
 
+        if WorkerPoolPrivatePoolV1Config.to_proto(self.private_pool_v1_config):
+            request.resource.private_pool_v1_config.CopyFrom(
+                WorkerPoolPrivatePoolV1Config.to_proto(self.private_pool_v1_config)
+            )
+        else:
+            request.resource.ClearField("private_pool_v1_config")
         if WorkerPoolWorkerConfig.to_proto(self.worker_config):
             request.resource.worker_config.CopyFrom(
                 WorkerPoolWorkerConfig.to_proto(self.worker_config)
@@ -154,6 +171,12 @@ class WorkerPool(object):
             resource.display_name = Primitive.to_proto(self.display_name)
         if Primitive.to_proto(self.annotations):
             resource.annotations = Primitive.to_proto(self.annotations)
+        if WorkerPoolPrivatePoolV1Config.to_proto(self.private_pool_v1_config):
+            resource.private_pool_v1_config.CopyFrom(
+                WorkerPoolPrivatePoolV1Config.to_proto(self.private_pool_v1_config)
+            )
+        else:
+            resource.ClearField("private_pool_v1_config")
         if WorkerPoolWorkerConfig.to_proto(self.worker_config):
             resource.worker_config.CopyFrom(
                 WorkerPoolWorkerConfig.to_proto(self.worker_config)
@@ -171,6 +194,158 @@ class WorkerPool(object):
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
         return resource
+
+
+class WorkerPoolPrivatePoolV1Config(object):
+    def __init__(self, worker_config: dict = None, network_config: dict = None):
+        self.worker_config = worker_config
+        self.network_config = network_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = worker_pool_pb2.CloudbuildAlphaWorkerPoolPrivatePoolV1Config()
+        if WorkerPoolPrivatePoolV1ConfigWorkerConfig.to_proto(resource.worker_config):
+            res.worker_config.CopyFrom(
+                WorkerPoolPrivatePoolV1ConfigWorkerConfig.to_proto(
+                    resource.worker_config
+                )
+            )
+        else:
+            res.ClearField("worker_config")
+        if WorkerPoolPrivatePoolV1ConfigNetworkConfig.to_proto(resource.network_config):
+            res.network_config.CopyFrom(
+                WorkerPoolPrivatePoolV1ConfigNetworkConfig.to_proto(
+                    resource.network_config
+                )
+            )
+        else:
+            res.ClearField("network_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkerPoolPrivatePoolV1Config(
+            worker_config=WorkerPoolPrivatePoolV1ConfigWorkerConfig.from_proto(
+                resource.worker_config
+            ),
+            network_config=WorkerPoolPrivatePoolV1ConfigNetworkConfig.from_proto(
+                resource.network_config
+            ),
+        )
+
+
+class WorkerPoolPrivatePoolV1ConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [WorkerPoolPrivatePoolV1Config.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [WorkerPoolPrivatePoolV1Config.from_proto(i) for i in resources]
+
+
+class WorkerPoolPrivatePoolV1ConfigWorkerConfig(object):
+    def __init__(self, machine_type: str = None, disk_size_gb: int = None):
+        self.machine_type = machine_type
+        self.disk_size_gb = disk_size_gb
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = worker_pool_pb2.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigWorkerConfig()
+        if Primitive.to_proto(resource.machine_type):
+            res.machine_type = Primitive.to_proto(resource.machine_type)
+        if Primitive.to_proto(resource.disk_size_gb):
+            res.disk_size_gb = Primitive.to_proto(resource.disk_size_gb)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkerPoolPrivatePoolV1ConfigWorkerConfig(
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+        )
+
+
+class WorkerPoolPrivatePoolV1ConfigWorkerConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkerPoolPrivatePoolV1ConfigWorkerConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkerPoolPrivatePoolV1ConfigWorkerConfig.from_proto(i) for i in resources
+        ]
+
+
+class WorkerPoolPrivatePoolV1ConfigNetworkConfig(object):
+    def __init__(self, peered_network: str = None, egress_option: str = None):
+        self.peered_network = peered_network
+        self.egress_option = egress_option
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            worker_pool_pb2.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfig()
+        )
+        if Primitive.to_proto(resource.peered_network):
+            res.peered_network = Primitive.to_proto(resource.peered_network)
+        if WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.to_proto(
+            resource.egress_option
+        ):
+            res.egress_option = WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.to_proto(
+                resource.egress_option
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkerPoolPrivatePoolV1ConfigNetworkConfig(
+            peered_network=Primitive.from_proto(resource.peered_network),
+            egress_option=WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.from_proto(
+                resource.egress_option
+            ),
+        )
+
+
+class WorkerPoolPrivatePoolV1ConfigNetworkConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkerPoolPrivatePoolV1ConfigNetworkConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkerPoolPrivatePoolV1ConfigNetworkConfig.from_proto(i) for i in resources
+        ]
 
 
 class WorkerPoolWorkerConfig(object):
@@ -273,6 +448,29 @@ class WorkerPoolStateEnum(object):
             return resource
         return worker_pool_pb2.CloudbuildAlphaWorkerPoolStateEnum.Name(resource)[
             len("CloudbuildAlphaWorkerPoolStateEnum") :
+        ]
+
+
+class WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return worker_pool_pb2.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.Value(
+            "CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return worker_pool_pb2.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.Name(
+            resource
+        )[
+            len(
+                "CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum"
+            ) :
         ]
 
 

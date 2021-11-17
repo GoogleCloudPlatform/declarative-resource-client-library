@@ -74,9 +74,6 @@ func ProtoToContainerawsAlphaClusterNetworking(p *alphapb.ContainerawsAlphaClust
 	for _, r := range p.GetServiceAddressCidrBlocks() {
 		obj.ServiceAddressCidrBlocks = append(obj.ServiceAddressCidrBlocks, r)
 	}
-	for _, r := range p.GetServiceLoadBalancerSubnetIds() {
-		obj.ServiceLoadBalancerSubnetIds = append(obj.ServiceLoadBalancerSubnetIds, r)
-	}
 	return obj
 }
 
@@ -312,11 +309,6 @@ func ContainerawsAlphaClusterNetworkingToProto(o *alpha.ClusterNetworking) *alph
 		sServiceAddressCidrBlocks[i] = r
 	}
 	p.SetServiceAddressCidrBlocks(sServiceAddressCidrBlocks)
-	sServiceLoadBalancerSubnetIds := make([]string, len(o.ServiceLoadBalancerSubnetIds))
-	for i, r := range o.ServiceLoadBalancerSubnetIds {
-		sServiceLoadBalancerSubnetIds[i] = r
-	}
-	p.SetServiceLoadBalancerSubnetIds(sServiceLoadBalancerSubnetIds)
 	return p
 }
 

@@ -28,10 +28,10 @@ import (
 
 func (r *WorkerPool) validate() error {
 
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"NetworkConfig"}, r.NetworkConfig); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"NetworkConfig", "PrivatePoolV1Config"}, r.NetworkConfig, r.PrivatePoolV1Config); err != nil {
 		return err
 	}
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"WorkerConfig"}, r.WorkerConfig); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"WorkerConfig", "PrivatePoolV1Config"}, r.WorkerConfig, r.PrivatePoolV1Config); err != nil {
 		return err
 	}
 	if err := dcl.Required(r, "name"); err != nil {
@@ -43,6 +43,11 @@ func (r *WorkerPool) validate() error {
 	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
+	if !dcl.IsEmptyValueIndirect(r.PrivatePoolV1Config) {
+		if err := r.PrivatePoolV1Config.validate(); err != nil {
+			return err
+		}
+	}
 	if !dcl.IsEmptyValueIndirect(r.WorkerConfig) {
 		if err := r.WorkerConfig.validate(); err != nil {
 			return err
@@ -52,6 +57,28 @@ func (r *WorkerPool) validate() error {
 		if err := r.NetworkConfig.validate(); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+func (r *WorkerPoolPrivatePoolV1Config) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.WorkerConfig) {
+		if err := r.WorkerConfig.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.NetworkConfig) {
+		if err := r.NetworkConfig.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) validate() error {
+	return nil
+}
+func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) validate() error {
+	if err := dcl.Required(r, "peeredNetwork"); err != nil {
+		return err
 	}
 	return nil
 }
@@ -66,7 +93,7 @@ func (r *WorkerPoolNetworkConfig) validate() error {
 }
 func (r *WorkerPool) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://cloudbuild.googleapis.com/v1beta1/", params)
+	return dcl.Nprintf("https://cloudbuild.googleapis.com/v1/", params)
 }
 
 func (r *WorkerPool) getURL(userBasePath string) (string, error) {
@@ -127,6 +154,11 @@ func newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx context.Context, f *WorkerPo
 	}
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		req["annotations"] = v
+	}
+	if v, err := expandWorkerPoolPrivatePoolV1Config(c, f.PrivatePoolV1Config); err != nil {
+		return nil, fmt.Errorf("error expanding PrivatePoolV1Config into privatePoolV1Config: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["privatePoolV1Config"] = v
 	}
 	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
@@ -461,15 +493,29 @@ func canonicalizeWorkerPoolInitialState(rawInitial, rawDesired *WorkerPool) (*Wo
 
 	if !dcl.IsZeroValue(rawInitial.NetworkConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet() {
+		if dcl.AnySet(rawInitial.PrivatePoolV1Config) {
 			rawInitial.NetworkConfig = EmptyWorkerPoolNetworkConfig
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.PrivatePoolV1Config) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.NetworkConfig) {
+			rawInitial.PrivatePoolV1Config = EmptyWorkerPoolPrivatePoolV1Config
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.WorkerConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet() {
+		if dcl.AnySet(rawInitial.PrivatePoolV1Config) {
 			rawInitial.WorkerConfig = EmptyWorkerPoolWorkerConfig
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.PrivatePoolV1Config) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.WorkerConfig) {
+			rawInitial.PrivatePoolV1Config = EmptyWorkerPoolPrivatePoolV1Config
 		}
 	}
 
@@ -488,6 +534,7 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.PrivatePoolV1Config = canonicalizeWorkerPoolPrivatePoolV1Config(rawDesired.PrivatePoolV1Config, nil, opts...)
 		rawDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, nil, opts...)
 		rawDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, nil, opts...)
 
@@ -496,17 +543,33 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 
 	if rawDesired.NetworkConfig != nil || rawInitial.NetworkConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet() {
+		if dcl.AnySet(rawDesired.PrivatePoolV1Config) {
 			rawDesired.NetworkConfig = nil
 			rawInitial.NetworkConfig = nil
 		}
 	}
 
+	if rawDesired.PrivatePoolV1Config != nil || rawInitial.PrivatePoolV1Config != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.NetworkConfig) {
+			rawDesired.PrivatePoolV1Config = nil
+			rawInitial.PrivatePoolV1Config = nil
+		}
+	}
+
 	if rawDesired.WorkerConfig != nil || rawInitial.WorkerConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet() {
+		if dcl.AnySet(rawDesired.PrivatePoolV1Config) {
 			rawDesired.WorkerConfig = nil
 			rawInitial.WorkerConfig = nil
+		}
+	}
+
+	if rawDesired.PrivatePoolV1Config != nil || rawInitial.PrivatePoolV1Config != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.WorkerConfig) {
+			rawDesired.PrivatePoolV1Config = nil
+			rawInitial.PrivatePoolV1Config = nil
 		}
 	}
 
@@ -526,6 +589,7 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
 	}
+	canonicalDesired.PrivatePoolV1Config = canonicalizeWorkerPoolPrivatePoolV1Config(rawDesired.PrivatePoolV1Config, rawInitial.PrivatePoolV1Config, opts...)
 	canonicalDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
 	canonicalDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -593,6 +657,12 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 	} else {
 	}
 
+	if dcl.IsNotReturnedByServer(rawNew.PrivatePoolV1Config) && dcl.IsNotReturnedByServer(rawDesired.PrivatePoolV1Config) {
+		rawNew.PrivatePoolV1Config = rawDesired.PrivatePoolV1Config
+	} else {
+		rawNew.PrivatePoolV1Config = canonicalizeNewWorkerPoolPrivatePoolV1Config(c, rawDesired.PrivatePoolV1Config, rawNew.PrivatePoolV1Config)
+	}
+
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
@@ -618,6 +688,357 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
+}
+
+func canonicalizeWorkerPoolPrivatePoolV1Config(des, initial *WorkerPoolPrivatePoolV1Config, opts ...dcl.ApplyOption) *WorkerPoolPrivatePoolV1Config {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &WorkerPoolPrivatePoolV1Config{}
+
+	cDes.WorkerConfig = canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des.WorkerConfig, initial.WorkerConfig, opts...)
+	cDes.NetworkConfig = canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des.NetworkConfig, initial.NetworkConfig, opts...)
+
+	return cDes
+}
+
+func canonicalizeWorkerPoolPrivatePoolV1ConfigSlice(des, initial []WorkerPoolPrivatePoolV1Config, opts ...dcl.ApplyOption) []WorkerPoolPrivatePoolV1Config {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkerPoolPrivatePoolV1Config, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkerPoolPrivatePoolV1Config(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkerPoolPrivatePoolV1Config, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkerPoolPrivatePoolV1Config(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1Config(c *Client, des, nw *WorkerPoolPrivatePoolV1Config) *WorkerPoolPrivatePoolV1Config {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkerPoolPrivatePoolV1Config while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.WorkerConfig = canonicalizeNewWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, des.WorkerConfig, nw.WorkerConfig)
+	nw.NetworkConfig = canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, des.NetworkConfig, nw.NetworkConfig)
+
+	return nw
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigSet(c *Client, des, nw []WorkerPoolPrivatePoolV1Config) []WorkerPoolPrivatePoolV1Config {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []WorkerPoolPrivatePoolV1Config
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareWorkerPoolPrivatePoolV1ConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigSlice(c *Client, des, nw []WorkerPoolPrivatePoolV1Config) []WorkerPoolPrivatePoolV1Config {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []WorkerPoolPrivatePoolV1Config
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkerPoolPrivatePoolV1Config(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des, initial *WorkerPoolPrivatePoolV1ConfigWorkerConfig, opts ...dcl.ApplyOption) *WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
+	}
+	if dcl.IsZeroValue(des.DiskSizeGb) {
+		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
+	}
+
+	return cDes
+}
+
+func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(des, initial []WorkerPoolPrivatePoolV1ConfigWorkerConfig, opts ...dcl.ApplyOption) []WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkerPoolPrivatePoolV1ConfigWorkerConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkerPoolPrivatePoolV1ConfigWorkerConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, des, nw *WorkerPoolPrivatePoolV1ConfigWorkerConfig) *WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkerPoolPrivatePoolV1ConfigWorkerConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
+		nw.MachineType = des.MachineType
+	}
+
+	return nw
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigWorkerConfigSet(c *Client, des, nw []WorkerPoolPrivatePoolV1ConfigWorkerConfig) []WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []WorkerPoolPrivatePoolV1ConfigWorkerConfig
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareWorkerPoolPrivatePoolV1ConfigWorkerConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, des, nw []WorkerPoolPrivatePoolV1ConfigWorkerConfig) []WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []WorkerPoolPrivatePoolV1ConfigWorkerConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *WorkerPoolPrivatePoolV1ConfigNetworkConfig, opts ...dcl.ApplyOption) *WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+
+	if dcl.NameToSelfLink(des.PeeredNetwork, initial.PeeredNetwork) || dcl.IsZeroValue(des.PeeredNetwork) {
+		cDes.PeeredNetwork = initial.PeeredNetwork
+	} else {
+		cDes.PeeredNetwork = des.PeeredNetwork
+	}
+	if dcl.IsZeroValue(des.EgressOption) {
+		des.EgressOption = initial.EgressOption
+	} else {
+		cDes.EgressOption = des.EgressOption
+	}
+
+	return cDes
+}
+
+func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(des, initial []WorkerPoolPrivatePoolV1ConfigNetworkConfig, opts ...dcl.ApplyOption) []WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkerPoolPrivatePoolV1ConfigNetworkConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkerPoolPrivatePoolV1ConfigNetworkConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, des, nw *WorkerPoolPrivatePoolV1ConfigNetworkConfig) *WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkerPoolPrivatePoolV1ConfigNetworkConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.NameToSelfLink(des.PeeredNetwork, nw.PeeredNetwork) {
+		nw.PeeredNetwork = des.PeeredNetwork
+	}
+
+	return nw
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfigSet(c *Client, des, nw []WorkerPoolPrivatePoolV1ConfigNetworkConfig) []WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []WorkerPoolPrivatePoolV1ConfigNetworkConfig
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareWorkerPoolPrivatePoolV1ConfigNetworkConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, des, nw []WorkerPoolPrivatePoolV1ConfigNetworkConfig) []WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []WorkerPoolPrivatePoolV1ConfigNetworkConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, opts ...dcl.ApplyOption) *WorkerPoolWorkerConfig {
@@ -937,6 +1358,13 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.PrivatePoolV1Config, actual.PrivatePoolV1Config, dcl.Info{ObjectFunction: compareWorkerPoolPrivatePoolV1ConfigNewStyle, EmptyObject: EmptyWorkerPoolPrivatePoolV1Config, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivatePoolV1Config")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -974,6 +1402,114 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 
 	return newDiffs, nil
 }
+func compareWorkerPoolPrivatePoolV1ConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkerPoolPrivatePoolV1Config)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkerPoolPrivatePoolV1Config)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolPrivatePoolV1Config or *WorkerPoolPrivatePoolV1Config", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkerPoolPrivatePoolV1Config)
+	if !ok {
+		actualNotPointer, ok := a.(WorkerPoolPrivatePoolV1Config)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolPrivatePoolV1Config", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolPrivatePoolV1ConfigWorkerConfigNewStyle, EmptyObject: EmptyWorkerPoolPrivatePoolV1ConfigWorkerConfig, OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareWorkerPoolPrivatePoolV1ConfigNetworkConfigNewStyle, EmptyObject: EmptyWorkerPoolPrivatePoolV1ConfigNetworkConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareWorkerPoolPrivatePoolV1ConfigWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkerPoolPrivatePoolV1ConfigWorkerConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkerPoolPrivatePoolV1ConfigWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolPrivatePoolV1ConfigWorkerConfig or *WorkerPoolPrivatePoolV1ConfigWorkerConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkerPoolPrivatePoolV1ConfigWorkerConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkerPoolPrivatePoolV1ConfigWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolPrivatePoolV1ConfigWorkerConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareWorkerPoolPrivatePoolV1ConfigNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkerPoolPrivatePoolV1ConfigNetworkConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkerPoolPrivatePoolV1ConfigNetworkConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolPrivatePoolV1ConfigNetworkConfig or *WorkerPoolPrivatePoolV1ConfigNetworkConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkerPoolPrivatePoolV1ConfigNetworkConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkerPoolPrivatePoolV1ConfigNetworkConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolPrivatePoolV1ConfigNetworkConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PeeredNetwork, actual.PeeredNetwork, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeeredNetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EgressOption, actual.EgressOption, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("EgressOption")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkerPoolWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -1119,6 +1655,11 @@ func expandWorkerPool(c *Client, f *WorkerPool) (map[string]interface{}, error) 
 	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
 		m["annotations"] = v
 	}
+	if v, err := expandWorkerPoolPrivatePoolV1Config(c, f.PrivatePoolV1Config); err != nil {
+		return nil, fmt.Errorf("error expanding PrivatePoolV1Config into privatePoolV1Config: %w", err)
+	} else if v != nil {
+		m["privatePoolV1Config"] = v
+	}
 	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if v != nil {
@@ -1163,6 +1704,7 @@ func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
 	res.State = flattenWorkerPoolStateEnum(m["state"])
+	res.PrivatePoolV1Config = flattenWorkerPoolPrivatePoolV1Config(c, m["privatePoolV1Config"])
 	res.Etag = dcl.FlattenString(m["etag"])
 	res.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"])
 	res.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"])
@@ -1170,6 +1712,364 @@ func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
 	res.Location = dcl.FlattenString(m["location"])
 
 	return res
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigMap expands the contents of WorkerPoolPrivatePoolV1Config into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1Config) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkerPoolPrivatePoolV1Config(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigSlice expands the contents of WorkerPoolPrivatePoolV1Config into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1Config) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkerPoolPrivatePoolV1Config(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigMap flattens the contents of WorkerPoolPrivatePoolV1Config from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1Config {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkerPoolPrivatePoolV1Config{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkerPoolPrivatePoolV1Config{}
+	}
+
+	items := make(map[string]WorkerPoolPrivatePoolV1Config)
+	for k, item := range a {
+		items[k] = *flattenWorkerPoolPrivatePoolV1Config(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigSlice flattens the contents of WorkerPoolPrivatePoolV1Config from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1Config {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkerPoolPrivatePoolV1Config{}
+	}
+
+	if len(a) == 0 {
+		return []WorkerPoolPrivatePoolV1Config{}
+	}
+
+	items := make([]WorkerPoolPrivatePoolV1Config, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkerPoolPrivatePoolV1Config(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandWorkerPoolPrivatePoolV1Config expands an instance of WorkerPoolPrivatePoolV1Config into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1Config(c *Client, f *WorkerPoolPrivatePoolV1Config) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, f.WorkerConfig); err != nil {
+		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["workerConfig"] = v
+	}
+	if v, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, f.NetworkConfig); err != nil {
+		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["networkConfig"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkerPoolPrivatePoolV1Config flattens an instance of WorkerPoolPrivatePoolV1Config from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1Config(c *Client, i interface{}) *WorkerPoolPrivatePoolV1Config {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkerPoolPrivatePoolV1Config{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkerPoolPrivatePoolV1Config
+	}
+	r.WorkerConfig = flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, m["workerConfig"])
+	r.NetworkConfig = flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, m["networkConfig"])
+
+	return r
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigWorkerConfigMap expands the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice expands the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1ConfigWorkerConfig) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigMap flattens the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+	}
+
+	items := make(map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig)
+	for k, item := range a {
+		items[k] = *flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice flattens the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+	}
+
+	if len(a) == 0 {
+		return []WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+	}
+
+	items := make([]WorkerPoolPrivatePoolV1ConfigWorkerConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigWorkerConfig expands an instance of WorkerPoolPrivatePoolV1ConfigWorkerConfig into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, f *WorkerPoolPrivatePoolV1ConfigWorkerConfig) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.MachineType; !dcl.IsEmptyValueIndirect(v) {
+		m["machineType"] = v
+	}
+	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
+		m["diskSizeGb"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig flattens an instance of WorkerPoolPrivatePoolV1ConfigWorkerConfig from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, i interface{}) *WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkerPoolPrivatePoolV1ConfigWorkerConfig
+	}
+	r.MachineType = dcl.FlattenString(m["machineType"])
+	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
+
+	return r
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigNetworkConfigMap expands the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice expands the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1ConfigNetworkConfig) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigMap flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+	}
+
+	items := make(map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig)
+	for k, item := range a {
+		items[k] = *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+	}
+
+	if len(a) == 0 {
+		return []WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+	}
+
+	items := make([]WorkerPoolPrivatePoolV1ConfigNetworkConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandWorkerPoolPrivatePoolV1ConfigNetworkConfig expands an instance of WorkerPoolPrivatePoolV1ConfigNetworkConfig into a JSON
+// request object.
+func expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, f *WorkerPoolPrivatePoolV1ConfigNetworkConfig) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.PeeredNetwork; !dcl.IsEmptyValueIndirect(v) {
+		m["peeredNetwork"] = v
+	}
+	if v := f.EgressOption; !dcl.IsEmptyValueIndirect(v) {
+		m["egressOption"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig flattens an instance of WorkerPoolPrivatePoolV1ConfigNetworkConfig from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, i interface{}) *WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkerPoolPrivatePoolV1ConfigNetworkConfig
+	}
+	r.PeeredNetwork = dcl.FlattenString(m["peeredNetwork"])
+	r.EgressOption = flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(m["egressOption"])
+
+	return r
 }
 
 // expandWorkerPoolWorkerConfigMap expands the contents of WorkerPoolWorkerConfig into a JSON
@@ -1459,6 +2359,57 @@ func flattenWorkerPoolStateEnum(i interface{}) *WorkerPoolStateEnum {
 	return WorkerPoolStateEnumRef(s)
 }
 
+// flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumMap flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum{}
+	}
+
+	items := make(map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum)
+	for k, item := range a {
+		items[k] = *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumSlice flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum from a JSON
+// response object.
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum{}
+	}
+
+	if len(a) == 0 {
+		return []WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum{}
+	}
+
+	items := make([]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum asserts that an interface is a string, and returns a
+// pointer to a *WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum with the same value as that string.
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(i interface{}) *WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+	s, ok := i.(string)
+	if !ok {
+		return WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumRef("")
+	}
+
+	return WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumRef(s)
+}
+
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
@@ -1551,6 +2502,17 @@ func convertOpNameToWorkerPoolApiOperation(opName string, fieldDiffs []*dcl.Fiel
 }
 
 func extractWorkerPoolFields(r *WorkerPool) error {
+	vPrivatePoolV1Config := r.PrivatePoolV1Config
+	if vPrivatePoolV1Config == nil {
+		// note: explicitly not the empty object.
+		vPrivatePoolV1Config = &WorkerPoolPrivatePoolV1Config{}
+	}
+	if err := extractWorkerPoolPrivatePoolV1ConfigFields(r, vPrivatePoolV1Config); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPrivatePoolV1Config) {
+		r.PrivatePoolV1Config = vPrivatePoolV1Config
+	}
 	vWorkerConfig := r.WorkerConfig
 	if vWorkerConfig == nil {
 		// note: explicitly not the empty object.
@@ -1575,6 +2537,43 @@ func extractWorkerPoolFields(r *WorkerPool) error {
 	}
 	return nil
 }
+func extractWorkerPoolPrivatePoolV1ConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1Config) error {
+	if dcl.IsEmptyValueIndirect(o.WorkerConfig) {
+		o.WorkerConfig = betaWorkerConfigToGaWorkerConfig(r, r.WorkerConfig)
+	}
+	vWorkerConfig := o.WorkerConfig
+	if vWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkerConfig = &WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+	}
+	if err := extractWorkerPoolPrivatePoolV1ConfigWorkerConfigFields(r, vWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
+		o.WorkerConfig = vWorkerConfig
+	}
+	if dcl.IsEmptyValueIndirect(o.NetworkConfig) {
+		o.NetworkConfig = betaNetworkConfigToGaNetworkConfig(r, r.NetworkConfig)
+	}
+	vNetworkConfig := o.NetworkConfig
+	if vNetworkConfig == nil {
+		// note: explicitly not the empty object.
+		vNetworkConfig = &WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+	}
+	if err := extractWorkerPoolPrivatePoolV1ConfigNetworkConfigFields(r, vNetworkConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+		o.NetworkConfig = vNetworkConfig
+	}
+	return nil
+}
+func extractWorkerPoolPrivatePoolV1ConfigWorkerConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1ConfigWorkerConfig) error {
+	return nil
+}
+func extractWorkerPoolPrivatePoolV1ConfigNetworkConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1ConfigNetworkConfig) error {
+	return nil
+}
 func extractWorkerPoolWorkerConfigFields(r *WorkerPool, o *WorkerPoolWorkerConfig) error {
 	return nil
 }
@@ -1583,6 +2582,17 @@ func extractWorkerPoolNetworkConfigFields(r *WorkerPool, o *WorkerPoolNetworkCon
 }
 
 func postReadExtractWorkerPoolFields(r *WorkerPool) error {
+	vPrivatePoolV1Config := r.PrivatePoolV1Config
+	if vPrivatePoolV1Config == nil {
+		// note: explicitly not the empty object.
+		vPrivatePoolV1Config = &WorkerPoolPrivatePoolV1Config{}
+	}
+	if err := postReadExtractWorkerPoolPrivatePoolV1ConfigFields(r, vPrivatePoolV1Config); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vPrivatePoolV1Config) {
+		r.PrivatePoolV1Config = vPrivatePoolV1Config
+	}
 	vWorkerConfig := r.WorkerConfig
 	if vWorkerConfig == nil {
 		// note: explicitly not the empty object.
@@ -1605,6 +2615,43 @@ func postReadExtractWorkerPoolFields(r *WorkerPool) error {
 	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
 		r.NetworkConfig = vNetworkConfig
 	}
+	return nil
+}
+func postReadExtractWorkerPoolPrivatePoolV1ConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1Config) error {
+	if dcl.IsEmptyValueIndirect(r.WorkerConfig) {
+		r.WorkerConfig = gaWorkerConfigToBetaWorkerConfig(r, o.WorkerConfig)
+	}
+	vWorkerConfig := o.WorkerConfig
+	if vWorkerConfig == nil {
+		// note: explicitly not the empty object.
+		vWorkerConfig = &WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
+	}
+	if err := extractWorkerPoolPrivatePoolV1ConfigWorkerConfigFields(r, vWorkerConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
+		o.WorkerConfig = vWorkerConfig
+	}
+	if dcl.IsEmptyValueIndirect(r.NetworkConfig) {
+		r.NetworkConfig = gaNetworkConfigToBetaNetworkConfig(r, o.NetworkConfig)
+	}
+	vNetworkConfig := o.NetworkConfig
+	if vNetworkConfig == nil {
+		// note: explicitly not the empty object.
+		vNetworkConfig = &WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
+	}
+	if err := extractWorkerPoolPrivatePoolV1ConfigNetworkConfigFields(r, vNetworkConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+		o.NetworkConfig = vNetworkConfig
+	}
+	return nil
+}
+func postReadExtractWorkerPoolPrivatePoolV1ConfigWorkerConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1ConfigWorkerConfig) error {
+	return nil
+}
+func postReadExtractWorkerPoolPrivatePoolV1ConfigNetworkConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1ConfigNetworkConfig) error {
 	return nil
 }
 func postReadExtractWorkerPoolWorkerConfigFields(r *WorkerPool, o *WorkerPoolWorkerConfig) error {
