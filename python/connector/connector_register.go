@@ -176,9 +176,11 @@ import (
 
 	orgpolicy_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy/alpha_connector"
 
-	osconfig_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha_connector"
+	osconfig_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/connector"
 
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
+
+	osconfig_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha_connector"
 
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
 
@@ -383,9 +385,11 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	orgpolicy_alpha_connector.RegisterServers(grpcServer)
 
-	osconfig_alpha_connector.RegisterServers(grpcServer)
+	osconfig_connector.RegisterServers(grpcServer)
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
+
+	osconfig_alpha_connector.RegisterServers(grpcServer)
 
 	pubsub_connector.RegisterServers(grpcServer)
 

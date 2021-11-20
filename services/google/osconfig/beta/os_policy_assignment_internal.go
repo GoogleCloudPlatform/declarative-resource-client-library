@@ -28,6 +28,9 @@ import (
 
 func (r *OSPolicyAssignment) validate() error {
 
+	if err := dcl.Required(r, "name"); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "osPolicies"); err != nil {
 		return err
 	}
@@ -83,7 +86,7 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResources) validate() error {
 	if err := dcl.Required(r, "id"); err != nil {
 		return err
 	}
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Pkg", "Repository", "Exec", "File"}, r.Pkg, r.Repository, r.Exec, r.File); err != nil {
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"Pkg", "Repository", "Exec", "File"}, r.Pkg, r.Repository, r.Exec, r.File); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.Pkg) {
@@ -385,7 +388,7 @@ func (r *OSPolicyAssignmentRollout) validate() error {
 	return nil
 }
 func (r *OSPolicyAssignmentRolloutDisruptionBudget) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Fixed", "Percent"}, r.Fixed, r.Percent); err != nil {
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"Fixed", "Percent"}, r.Fixed, r.Percent); err != nil {
 		return err
 	}
 	return nil

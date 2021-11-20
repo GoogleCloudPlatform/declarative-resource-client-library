@@ -97,6 +97,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy"
 	orgpolicy_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy/alpha"
 	orgpolicy_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig"
 	osconfig_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha"
 	osconfig_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca"
@@ -286,6 +287,8 @@ func Services() *Directory {
 	d.AddResource("ga", "networkconnectivity", "Spoke", networkconnectivity.YAML_spoke)
 	d.AddResource("ga", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy.YAML_policy)
 	d.AddResource("ga", "orgpolicy", "Policy", orgpolicy.YAML_policy)
+	d.AddResource("ga", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig.YAML_os_policy_assignment)
+	d.AddResource("ga", "osconfig", "OSPolicyAssignment", osconfig.YAML_os_policy_assignment)
 	d.AddResource("ga", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub.YAML_topic)
 	d.AddResource("ga", "pubsub", "Topic", pubsub.YAML_topic)
 	d.AddResource("ga", "storage", dcl.TitleToSnakeCase("Bucket"), storage.YAML_bucket)
