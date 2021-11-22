@@ -22,4 +22,8 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterNetworkservicesAlphaEndpointPolicyServiceServer(s, &EndpointPolicyServer{})
 	sdkgrpc.RegisterNetworkservicesAlphaHttpFilterServiceServer(s, &HttpFilterServer{})
+	sdkgrpc.RegisterNetworkservicesAlphaGrpcRouteServiceServer(s, &GrpcRouteServer{})
+	sdkgrpc.RegisterNetworkservicesAlphaHttpRouteServiceServer(s, &HttpRouteServer{})
+	sdkgrpc.RegisterNetworkservicesAlphaMeshServiceServer(s, &MeshServer{})
+	sdkgrpc.RegisterNetworkservicesAlphaTcpRouteServiceServer(s, &TcpRouteServer{})
 }
