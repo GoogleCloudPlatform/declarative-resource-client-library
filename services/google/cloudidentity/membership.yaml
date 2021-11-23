@@ -116,6 +116,10 @@ components:
           x-dcl-go-name: Group
           description: The group for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudidentity/Group
+            field: name
+            parent: true
         name:
           type: string
           x-dcl-go-name: Name
