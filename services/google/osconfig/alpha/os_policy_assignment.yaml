@@ -13,8 +13,11 @@
 # limitations under the License.
 info:
   title: OSConfig/OSPolicyAssignment
-  description: The OSConfig OSPolicyAssignment resource
+  description: Represents an OSPolicyAssignment resource.
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: API documentation
+    url: https://cloud.google.com/compute/docs/osconfig/rest/v1/projects.locations.osPolicyAssignments
 paths:
   get:
     description: The function used to get information about a OSPolicyAssignment

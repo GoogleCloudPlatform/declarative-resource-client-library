@@ -16,6 +16,7 @@ description: A basic example of an OS config guest policy
 type: guest_policy
 versions:
 - beta
+- alpha
 resource: samples/basic.guest_policy.json
 dependencies:
 - samples/basic.compute.instance.json

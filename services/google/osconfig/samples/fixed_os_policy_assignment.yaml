@@ -16,6 +16,8 @@ description: An example of an osconfig os policy assignment with fixed rollout d
   budget
 type: os_policy_assignment
 versions:
+- ga
+- beta
 - alpha
 resource: samples/fixed.os_policy_assignment.json
 updates:

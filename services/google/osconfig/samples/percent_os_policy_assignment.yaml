@@ -16,6 +16,8 @@ description: An example of an osconfig os policy assignment with percent rollout
   budget
 type: os_policy_assignment
 versions:
+- ga
+- beta
 - alpha
 resource: samples/percent.os_policy_assignment.json
 updates:
