@@ -75,7 +75,7 @@ func (op *updateMembershipUpdateMembershipOperation) do(ctx context.Context, r *
 	for _, newRole := range r.Roles {
 		changed := false
 		for _, currentRole := range currentMembership.Roles {
-			if *currentRole.Name == *newRole.Name && !cmp.Equal(*currentRole.ExpiryDetail, *newRole.ExpiryDetail, cmpopts.IgnoreUnexported(MembershipRolesExpiryDetail{})) {
+			if *currentRole.Name == *newRole.Name && !cmp.Equal(currentRole.ExpiryDetail, newRole.ExpiryDetail, cmpopts.IgnoreUnexported(MembershipRolesExpiryDetail{})) {
 				changed = true
 			}
 		}

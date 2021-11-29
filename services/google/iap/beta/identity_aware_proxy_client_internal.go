@@ -606,7 +606,7 @@ func convertFieldDiffsToIdentityAwareProxyClientDiffs(config *dcl.Config, fds []
 				fieldDiffs = append(fieldDiffs, fd)
 				opNamesToFieldDiffs[ro] = fieldDiffs
 			} else {
-				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				config.Logger.Infof("%s required due to diff: %v", ro, fd)
 				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
 			}
 		}
