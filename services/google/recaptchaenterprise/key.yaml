@@ -157,6 +157,7 @@ components:
                 or an unsolvable challenge if UNSOLVABLE_CHALLENGE. Possible values:
                 TESTING_CHALLENGE_UNSPECIFIED, NOCAPTCHA, UNSOLVABLE_CHALLENGE'
               x-kubernetes-immutable: true
+              x-dcl-server-default: true
               enum:
               - TESTING_CHALLENGE_UNSPECIFIED
               - NOCAPTCHA
