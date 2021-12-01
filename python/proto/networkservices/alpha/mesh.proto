@@ -21,42 +21,49 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
-message NetworkservicesAlphaHttpFilter {
+enum NetworkservicesAlphaMeshTypeEnum {
+  NetworkservicesAlphaMeshTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  NetworkservicesAlphaMeshTypeEnumMATCH_TYPE_UNSPECIFIED = 1;
+  NetworkservicesAlphaMeshTypeEnumMATCH_ANY = 2;
+  NetworkservicesAlphaMeshTypeEnumMATCH_ALL = 3;
+}
+
+message NetworkservicesAlphaMesh {
   string name = 1;
   string create_time = 2;
   string update_time = 3;
   map<string, string> labels = 4;
-  string filter_name = 5;
-  string config_type_url = 6;
-  string config = 7;
-  string description = 8;
+  string description = 5;
+  NetworkservicesAlphaMeshTypeEnum type = 6;
+  string scope = 7;
+  int64 interception_port = 8;
   string project = 9;
   string location = 10;
 }
 
-message ApplyNetworkservicesAlphaHttpFilterRequest {
-  NetworkservicesAlphaHttpFilter resource = 1;
+message ApplyNetworkservicesAlphaMeshRequest {
+  NetworkservicesAlphaMesh resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
   string service_account_file = 3;
 }
 
-message DeleteNetworkservicesAlphaHttpFilterRequest {
+message DeleteNetworkservicesAlphaMeshRequest {
   string service_account_file = 1;
-  NetworkservicesAlphaHttpFilter resource = 2;
+  NetworkservicesAlphaMesh resource = 2;
 }
 
-message ListNetworkservicesAlphaHttpFilterRequest {
+message ListNetworkservicesAlphaMeshRequest {
   string service_account_file = 1;
   string Project = 2;
   string Location = 3;
 }
 
-message ListNetworkservicesAlphaHttpFilterResponse {
-  repeated NetworkservicesAlphaHttpFilter items = 1;
+message ListNetworkservicesAlphaMeshResponse {
+  repeated NetworkservicesAlphaMesh items = 1;
 }
 
-service NetworkservicesAlphaHttpFilterService {
-  rpc ApplyNetworkservicesAlphaHttpFilter(ApplyNetworkservicesAlphaHttpFilterRequest) returns (NetworkservicesAlphaHttpFilter);
-  rpc DeleteNetworkservicesAlphaHttpFilter(DeleteNetworkservicesAlphaHttpFilterRequest) returns (google.protobuf.Empty);
-  rpc ListNetworkservicesAlphaHttpFilter(ListNetworkservicesAlphaHttpFilterRequest) returns (ListNetworkservicesAlphaHttpFilterResponse);
+service NetworkservicesAlphaMeshService {
+  rpc ApplyNetworkservicesAlphaMesh(ApplyNetworkservicesAlphaMeshRequest) returns (NetworkservicesAlphaMesh);
+  rpc DeleteNetworkservicesAlphaMesh(DeleteNetworkservicesAlphaMeshRequest) returns (google.protobuf.Empty);
+  rpc ListNetworkservicesAlphaMesh(ListNetworkservicesAlphaMeshRequest) returns (ListNetworkservicesAlphaMeshResponse);
 }

@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	alphapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/networkservices/alpha/networkservices_alpha_go_proto"
@@ -28,37 +27,41 @@ type HttpFilterServer struct{}
 // ProtoToHttpFilter converts a HttpFilter resource from its proto representation.
 func ProtoToHttpFilter(p *alphapb.NetworkservicesAlphaHttpFilter) *alpha.HttpFilter {
 	obj := &alpha.HttpFilter{
-		Name:          dcl.StringOrNil(p.Name),
+		Name:          dcl.StringOrNil(p.GetName()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
-		FilterName:    dcl.StringOrNil(p.FilterName),
-		ConfigTypeUrl: dcl.StringOrNil(p.ConfigTypeUrl),
-		Config:        dcl.StringOrNil(p.Config),
-		Description:   dcl.StringOrNil(p.Description),
-		Project:       dcl.StringOrNil(p.Project),
-		Location:      dcl.StringOrNil(p.Location),
+		FilterName:    dcl.StringOrNil(p.GetFilterName()),
+		ConfigTypeUrl: dcl.StringOrNil(p.GetConfigTypeUrl()),
+		Config:        dcl.StringOrNil(p.GetConfig()),
+		Description:   dcl.StringOrNil(p.GetDescription()),
+		Project:       dcl.StringOrNil(p.GetProject()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
 
 // HttpFilterToProto converts a HttpFilter resource to its proto representation.
 func HttpFilterToProto(resource *alpha.HttpFilter) *alphapb.NetworkservicesAlphaHttpFilter {
-	p := &alphapb.NetworkservicesAlphaHttpFilter{
-		Name:          dcl.ValueOrEmptyString(resource.Name),
-		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:    dcl.ValueOrEmptyString(resource.UpdateTime),
-		FilterName:    dcl.ValueOrEmptyString(resource.FilterName),
-		ConfigTypeUrl: dcl.ValueOrEmptyString(resource.ConfigTypeUrl),
-		Config:        dcl.ValueOrEmptyString(resource.Config),
-		Description:   dcl.ValueOrEmptyString(resource.Description),
-		Project:       dcl.ValueOrEmptyString(resource.Project),
-		Location:      dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.NetworkservicesAlphaHttpFilter{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetFilterName(dcl.ValueOrEmptyString(resource.FilterName))
+	p.SetConfigTypeUrl(dcl.ValueOrEmptyString(resource.ConfigTypeUrl))
+	p.SetConfig(dcl.ValueOrEmptyString(resource.Config))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyHttpFilter handles the gRPC request by passing it to the underlying HttpFilter Apply() method.
+// applyHttpFilter handles the gRPC request by passing it to the underlying HttpFilter Apply() method.
 func (s *HttpFilterServer) applyHttpFilter(ctx context.Context, c *alpha.Client, request *alphapb.ApplyNetworkservicesAlphaHttpFilterRequest) (*alphapb.NetworkservicesAlphaHttpFilter, error) {
 	p := ProtoToHttpFilter(request.GetResource())
 	res, err := c.ApplyHttpFilter(ctx, p)
@@ -69,9 +72,9 @@ func (s *HttpFilterServer) applyHttpFilter(ctx context.Context, c *alpha.Client,
 	return r, nil
 }
 
-// ApplyHttpFilter handles the gRPC request by passing it to the underlying HttpFilter Apply() method.
+// applyNetworkservicesAlphaHttpFilter handles the gRPC request by passing it to the underlying HttpFilter Apply() method.
 func (s *HttpFilterServer) ApplyNetworkservicesAlphaHttpFilter(ctx context.Context, request *alphapb.ApplyNetworkservicesAlphaHttpFilterRequest) (*alphapb.NetworkservicesAlphaHttpFilter, error) {
-	cl, err := createConfigHttpFilter(ctx, request.ServiceAccountFile)
+	cl, err := createConfigHttpFilter(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +84,7 @@ func (s *HttpFilterServer) ApplyNetworkservicesAlphaHttpFilter(ctx context.Conte
 // DeleteHttpFilter handles the gRPC request by passing it to the underlying HttpFilter Delete() method.
 func (s *HttpFilterServer) DeleteNetworkservicesAlphaHttpFilter(ctx context.Context, request *alphapb.DeleteNetworkservicesAlphaHttpFilterRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigHttpFilter(ctx, request.ServiceAccountFile)
+	cl, err := createConfigHttpFilter(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -91,12 +94,12 @@ func (s *HttpFilterServer) DeleteNetworkservicesAlphaHttpFilter(ctx context.Cont
 
 // ListNetworkservicesAlphaHttpFilter handles the gRPC request by passing it to the underlying HttpFilterList() method.
 func (s *HttpFilterServer) ListNetworkservicesAlphaHttpFilter(ctx context.Context, request *alphapb.ListNetworkservicesAlphaHttpFilterRequest) (*alphapb.ListNetworkservicesAlphaHttpFilterResponse, error) {
-	cl, err := createConfigHttpFilter(ctx, request.ServiceAccountFile)
+	cl, err := createConfigHttpFilter(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListHttpFilter(ctx, request.Project, request.Location)
+	resources, err := cl.ListHttpFilter(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +108,9 @@ func (s *HttpFilterServer) ListNetworkservicesAlphaHttpFilter(ctx context.Contex
 		rp := HttpFilterToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListNetworkservicesAlphaHttpFilterResponse{Items: protos}, nil
+	p := &alphapb.ListNetworkservicesAlphaHttpFilterResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigHttpFilter(ctx context.Context, service_account_file string) (*alpha.Client, error) {

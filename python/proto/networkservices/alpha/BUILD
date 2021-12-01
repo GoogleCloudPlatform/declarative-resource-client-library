@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="networkservices/alpha", resources=["endpoint_policy"])
+proto_package(name="networkservices/alpha", resources=["endpoint_policy","http_filter","grpc_route","http_route","mesh","tcp_route"])
