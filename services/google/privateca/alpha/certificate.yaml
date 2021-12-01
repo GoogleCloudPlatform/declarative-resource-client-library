@@ -87,6 +87,7 @@ components:
           x-dcl-references:
           - resource: Privateca/CaPool
             field: name
+            parent: true
         certificateAuthority:
           type: string
           x-dcl-go-name: CertificateAuthority

@@ -88,6 +88,7 @@ components:
           x-dcl-references:
           - resource: Monitoring/MetricsScope
             field: name
+            parent: true
         name:
           type: string
           x-dcl-go-name: Name

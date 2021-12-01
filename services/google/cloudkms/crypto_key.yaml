@@ -85,6 +85,7 @@ components:
           x-dcl-references:
           - resource: Cloudkms/KeyRing
             field: name
+            parent: true
         labels:
           type: object
           additionalProperties:

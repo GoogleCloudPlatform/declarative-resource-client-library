@@ -165,6 +165,7 @@ components:
           x-dcl-references:
           - resource: Cloudresourcemanager/BillingAccount
             field: name
+            parent: true
         budgetFilter:
           type: object
           x-dcl-go-name: BudgetFilter

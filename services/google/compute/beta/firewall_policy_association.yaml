@@ -80,6 +80,7 @@ components:
           x-dcl-references:
           - resource: Compute/FirewallPolicy
             field: name
+            parent: true
         name:
           type: string
           x-dcl-go-name: Name

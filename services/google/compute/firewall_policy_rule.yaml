@@ -105,6 +105,7 @@ components:
           x-dcl-references:
           - resource: Compute/FirewallPolicy
             field: name
+            parent: true
         kind:
           type: string
           x-dcl-go-name: Kind

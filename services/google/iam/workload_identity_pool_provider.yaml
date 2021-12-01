@@ -246,3 +246,4 @@ components:
           x-dcl-references:
           - resource: Iam/WorkloadIdentityPool
             field: name
+            parent: true

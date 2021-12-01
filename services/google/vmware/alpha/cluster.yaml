@@ -142,6 +142,7 @@ components:
           x-dcl-references:
           - resource: Vmware/PrivateCloud
             field: name
+            parent: true
         project:
           type: string
           x-dcl-go-name: Project

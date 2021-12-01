@@ -592,6 +592,7 @@ components:
           x-dcl-references:
           - resource: Privateca/CaPool
             field: name
+            parent: true
         config:
           type: object
           x-dcl-go-name: Config
