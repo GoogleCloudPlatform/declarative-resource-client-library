@@ -42,13 +42,13 @@ func (r *AzureClient) String() string {
 func (r *AzureClient) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
 		Service: "container_azure",
-		Type:    "AzureClient",
+		Type:    "Client",
 		Version: "alpha",
 	}
 }
 
 func (r *AzureClient) ID() (string, error) {
-	if err := extractAzureClientFields(r); err != nil {
+	if err := extractClientFields(r); err != nil {
 		return "", err
 	}
 	nr := r.urlNormalized()
@@ -65,9 +65,9 @@ func (r *AzureClient) ID() (string, error) {
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/azureClients/{{name}}", params), nil
 }
 
-const AzureClientMaxPage = -1
+const ClientMaxPage = -1
 
-type AzureClientList struct {
+type ClientList struct {
 	Items []*AzureClient
 
 	nextToken string
@@ -77,18 +77,18 @@ type AzureClientList struct {
 	resource *AzureClient
 }
 
-func (l *AzureClientList) HasNext() bool {
+func (l *ClientList) HasNext() bool {
 	return l.nextToken != ""
 }
 
-func (l *AzureClientList) Next(ctx context.Context, c *Client) error {
+func (l *ClientList) Next(ctx context.Context, c *Client) error {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAzureClient(ctx, l.resource, l.nextToken, l.pageSize)
+	items, token, err := c.listClient(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -97,16 +97,16 @@ func (l *AzureClientList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAzureClient(ctx context.Context, project, location string) (*AzureClientList, error) {
+func (c *Client) ListClient(ctx context.Context, project, location string) (*ClientList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAzureClientWithMaxResults(ctx, project, location, AzureClientMaxPage)
+	return c.ListClientWithMaxResults(ctx, project, location, ClientMaxPage)
 
 }
 
-func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AzureClientList, error) {
+func (c *Client) ListClientWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ClientList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -115,11 +115,11 @@ func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, project, loc
 		Project:  &project,
 		Location: &location,
 	}
-	items, token, err := c.listAzureClient(ctx, r, "", pageSize)
+	items, token, err := c.listClient(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
-	return &AzureClientList{
+	return &ClientList{
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
@@ -127,7 +127,7 @@ func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, project, loc
 	}, nil
 }
 
-func (c *Client) GetAzureClient(ctx context.Context, r *AzureClient) (*AzureClient, error) {
+func (c *Client) GetClient(ctx context.Context, r *AzureClient) (*AzureClient, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -135,9 +135,9 @@ func (c *Client) GetAzureClient(ctx context.Context, r *AzureClient) (*AzureClie
 	// This is *purposefully* supressing errors.
 	// This function is used with url-normalized values + not URL normalized values.
 	// URL Normalized values will throw unintentional errors, since those values are not of the proper parent form.
-	extractAzureClientFields(r)
+	extractClientFields(r)
 
-	b, err := c.getAzureClientRaw(ctx, r)
+	b, err := c.getClientRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			return nil, &googleapi.Error{
@@ -147,7 +147,7 @@ func (c *Client) GetAzureClient(ctx context.Context, r *AzureClient) (*AzureClie
 		}
 		return nil, err
 	}
-	result, err := unmarshalAzureClient(b, c)
+	result, err := unmarshalClient(b, c)
 	if err != nil {
 		return nil, err
 	}
@@ -157,11 +157,11 @@ func (c *Client) GetAzureClient(ctx context.Context, r *AzureClient) (*AzureClie
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
-	result, err = canonicalizeAzureClientNewState(c, result, r)
+	result, err = canonicalizeClientNewState(c, result, r)
 	if err != nil {
 		return nil, err
 	}
-	if err := postReadExtractAzureClientFields(result); err != nil {
+	if err := postReadExtractClientFields(result); err != nil {
 		return result, err
 	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
@@ -169,27 +169,27 @@ func (c *Client) GetAzureClient(ctx context.Context, r *AzureClient) (*AzureClie
 	return result, nil
 }
 
-func (c *Client) DeleteAzureClient(ctx context.Context, r *AzureClient) error {
+func (c *Client) DeleteClient(ctx context.Context, r *AzureClient) error {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
-		return fmt.Errorf("AzureClient resource is nil")
+		return fmt.Errorf("Client resource is nil")
 	}
-	c.Config.Logger.InfoWithContext(ctx, "Deleting AzureClient...")
-	deleteOp := deleteAzureClientOperation{}
+	c.Config.Logger.InfoWithContext(ctx, "Deleting Client...")
+	deleteOp := deleteClientOperation{}
 	return deleteOp.do(ctx, r, c)
 }
 
-// DeleteAllAzureClient deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAzureClient(ctx context.Context, project, location string, filter func(*AzureClient) bool) error {
-	listObj, err := c.ListAzureClient(ctx, project, location)
+// DeleteAllClient deletes all resources that the filter functions returns true on.
+func (c *Client) DeleteAllClient(ctx context.Context, project, location string, filter func(*AzureClient) bool) error {
+	listObj, err := c.ListClient(ctx, project, location)
 	if err != nil {
 		return err
 	}
 
-	err = c.deleteAllAzureClient(ctx, filter, listObj.Items)
+	err = c.deleteAllClient(ctx, filter, listObj.Items)
 	if err != nil {
 		return err
 	}
@@ -198,7 +198,7 @@ func (c *Client) DeleteAllAzureClient(ctx context.Context, project, location str
 		if err != nil {
 			return nil
 		}
-		err = c.deleteAllAzureClient(ctx, filter, listObj.Items)
+		err = c.deleteAllClient(ctx, filter, listObj.Items)
 		if err != nil {
 			return err
 		}
@@ -206,14 +206,14 @@ func (c *Client) DeleteAllAzureClient(ctx context.Context, project, location str
 	return nil
 }
 
-func (c *Client) ApplyAzureClient(ctx context.Context, rawDesired *AzureClient, opts ...dcl.ApplyOption) (*AzureClient, error) {
+func (c *Client) ApplyClient(ctx context.Context, rawDesired *AzureClient, opts ...dcl.ApplyOption) (*AzureClient, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *AzureClient
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		newState, err := applyAzureClientHelper(c, ctx, rawDesired, opts...)
+		newState, err := applyClientHelper(c, ctx, rawDesired, opts...)
 		resultNewState = newState
 		if err != nil {
 			// If the error is 409, there is conflict in resource update.
@@ -228,8 +228,8 @@ func (c *Client) ApplyAzureClient(ctx context.Context, rawDesired *AzureClient, 
 	return resultNewState, err
 }
 
-func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureClient, opts ...dcl.ApplyOption) (*AzureClient, error) {
-	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyAzureClient...")
+func applyClientHelper(c *Client, ctx context.Context, rawDesired *AzureClient, opts ...dcl.ApplyOption) (*AzureClient, error) {
+	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyClient...")
 	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
 
 	// 1.1: Validation of user-specified fields in desired state.
@@ -237,16 +237,16 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 		return nil, err
 	}
 
-	if err := extractAzureClientFields(rawDesired); err != nil {
+	if err := extractClientFields(rawDesired); err != nil {
 		return nil, err
 	}
 
-	initial, desired, fieldDiffs, err := c.azureClientDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.clientDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	diffs, err := convertFieldDiffsToAzureClientDiffs(c.Config, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToClientDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -279,9 +279,9 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 	}
 
 	// 2.4 Imperative Request Planning
-	var ops []azureClientApiOperation
+	var ops []clientApiOperation
 	if create {
-		ops = append(ops, &createAzureClientOperation{})
+		ops = append(ops, &createClientOperation{})
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)
@@ -298,13 +298,13 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 		}
 		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
-	return applyAzureClientDiff(c, ctx, desired, rawDesired, ops, opts...)
+	return applyClientDiff(c, ctx, desired, rawDesired, ops, opts...)
 }
 
-func applyAzureClientDiff(c *Client, ctx context.Context, desired *AzureClient, rawDesired *AzureClient, ops []azureClientApiOperation, opts ...dcl.ApplyOption) (*AzureClient, error) {
+func applyClientDiff(c *Client, ctx context.Context, desired *AzureClient, rawDesired *AzureClient, ops []clientApiOperation, opts ...dcl.ApplyOption) (*AzureClient, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
-	rawNew, err := c.GetAzureClient(ctx, desired.urlNormalized())
+	rawNew, err := c.GetClient(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -312,17 +312,17 @@ func applyAzureClientDiff(c *Client, ctx context.Context, desired *AzureClient, 
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {
 		lastOp := ops[len(ops)-1]
-		if o, ok := lastOp.(*createAzureClientOperation); ok {
+		if o, ok := lastOp.(*createClientOperation); ok {
 			if r, hasR := o.FirstResponse(); hasR {
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapAzureClient(r, c)
+				fullResp, err := unmarshalMapClient(r, c)
 				if err != nil {
 					return nil, err
 				}
 
-				rawNew, err = canonicalizeAzureClientNewState(c, rawNew, fullResp)
+				rawNew, err = canonicalizeClientNewState(c, rawNew, fullResp)
 				if err != nil {
 					return nil, err
 				}
@@ -332,7 +332,7 @@ func applyAzureClientDiff(c *Client, ctx context.Context, desired *AzureClient, 
 
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
-	newState, err := canonicalizeAzureClientNewState(c, rawNew, rawDesired)
+	newState, err := canonicalizeClientNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return rawNew, err
 	}
@@ -340,22 +340,22 @@ func applyAzureClientDiff(c *Client, ctx context.Context, desired *AzureClient, 
 	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
-	newDesired, err := canonicalizeAzureClientDesiredState(rawDesired, newState)
+	newDesired, err := canonicalizeClientDesiredState(rawDesired, newState)
 	if err != nil {
 		return newState, err
 	}
 
-	if err := postReadExtractAzureClientFields(newState); err != nil {
+	if err := postReadExtractClientFields(newState); err != nil {
 		return newState, err
 	}
 
 	// Need to ensure any transformations made here match acceptably in differ.
-	if err := postReadExtractAzureClientFields(newDesired); err != nil {
+	if err := postReadExtractClientFields(newDesired); err != nil {
 		return newState, err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
-	newDiffs, err := diffAzureClient(c, newDesired, newState)
+	newDiffs, err := diffClient(c, newDesired, newState)
 	if err != nil {
 		return newState, err
 	}

@@ -14,6 +14,7 @@
 info:
   title: NetworkSecurity/ClientTlsPolicy
   description: The NetworkSecurity ClientTlsPolicy resource
+  x-dcl-struct-name: ClientTlsPolicy
   x-dcl-has-iam: true
 paths:
   get:

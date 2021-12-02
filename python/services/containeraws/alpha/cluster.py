@@ -853,8 +853,9 @@ class ClusterWorkloadIdentityConfigArray(object):
 
 
 class ClusterFleet(object):
-    def __init__(self, project: str = None):
+    def __init__(self, project: str = None, membership: str = None):
         self.project = project
+        self.membership = membership
 
     @classmethod
     def to_proto(self, resource):
@@ -864,6 +865,8 @@ class ClusterFleet(object):
         res = cluster_pb2.ContainerawsAlphaClusterFleet()
         if Primitive.to_proto(resource.project):
             res.project = Primitive.to_proto(resource.project)
+        if Primitive.to_proto(resource.membership):
+            res.membership = Primitive.to_proto(resource.membership)
         return res
 
     @classmethod
@@ -871,7 +874,10 @@ class ClusterFleet(object):
         if not resource:
             return None
 
-        return ClusterFleet(project=Primitive.from_proto(resource.project),)
+        return ClusterFleet(
+            project=Primitive.from_proto(resource.project),
+            membership=Primitive.from_proto(resource.membership),
+        )
 
 
 class ClusterFleetArray(object):

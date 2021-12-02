@@ -14,6 +14,7 @@
 info:
   title: Iam/Role
   description: The Iam Role resource
+  x-dcl-struct-name: Role
   x-dcl-has-iam: false
 paths:
   get:

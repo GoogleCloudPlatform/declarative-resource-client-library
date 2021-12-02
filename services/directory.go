@@ -54,8 +54,12 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis"
 	containeranalysis_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/alpha"
 	containeranalysis_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws"
 	containeraws_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws/alpha"
+	containeraws_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure"
 	containerazure_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/alpha"
+	containerazure_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/beta"
 	datafusion_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/alpha"
 	datafusion_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc"
@@ -234,6 +238,16 @@ func Services() *Directory {
 	d.AddResource("ga", "compute", "VpnTunnel", compute.YAML_vpn_tunnel)
 	d.AddResource("ga", "containeranalysis", dcl.TitleToSnakeCase("Note"), containeranalysis.YAML_note)
 	d.AddResource("ga", "containeranalysis", "Note", containeranalysis.YAML_note)
+	d.AddResource("ga", "containeraws", dcl.TitleToSnakeCase("Cluster"), containeraws.YAML_cluster)
+	d.AddResource("ga", "containeraws", "Cluster", containeraws.YAML_cluster)
+	d.AddResource("ga", "containeraws", dcl.TitleToSnakeCase("NodePool"), containeraws.YAML_node_pool)
+	d.AddResource("ga", "containeraws", "NodePool", containeraws.YAML_node_pool)
+	d.AddResource("ga", "containerazure", dcl.TitleToSnakeCase("AzureClient"), containerazure.YAML_azure_client)
+	d.AddResource("ga", "containerazure", "AzureClient", containerazure.YAML_azure_client)
+	d.AddResource("ga", "containerazure", dcl.TitleToSnakeCase("Cluster"), containerazure.YAML_cluster)
+	d.AddResource("ga", "containerazure", "Cluster", containerazure.YAML_cluster)
+	d.AddResource("ga", "containerazure", dcl.TitleToSnakeCase("NodePool"), containerazure.YAML_node_pool)
+	d.AddResource("ga", "containerazure", "NodePool", containerazure.YAML_node_pool)
 	d.AddResource("ga", "dataproc", dcl.TitleToSnakeCase("AutoscalingPolicy"), dataproc.YAML_autoscaling_policy)
 	d.AddResource("ga", "dataproc", "AutoscalingPolicy", dataproc.YAML_autoscaling_policy)
 	d.AddResource("ga", "dataproc", dcl.TitleToSnakeCase("Cluster"), dataproc.YAML_cluster)
@@ -366,6 +380,16 @@ func Services() *Directory {
 	d.AddResource("beta", "compute", "VpnTunnel", compute_beta.YAML_vpn_tunnel)
 	d.AddResource("beta", "containeranalysis", dcl.TitleToSnakeCase("Note"), containeranalysis_beta.YAML_note)
 	d.AddResource("beta", "containeranalysis", "Note", containeranalysis_beta.YAML_note)
+	d.AddResource("beta", "containeraws", dcl.TitleToSnakeCase("Cluster"), containeraws_beta.YAML_cluster)
+	d.AddResource("beta", "containeraws", "Cluster", containeraws_beta.YAML_cluster)
+	d.AddResource("beta", "containeraws", dcl.TitleToSnakeCase("NodePool"), containeraws_beta.YAML_node_pool)
+	d.AddResource("beta", "containeraws", "NodePool", containeraws_beta.YAML_node_pool)
+	d.AddResource("beta", "containerazure", dcl.TitleToSnakeCase("AzureClient"), containerazure_beta.YAML_azure_client)
+	d.AddResource("beta", "containerazure", "AzureClient", containerazure_beta.YAML_azure_client)
+	d.AddResource("beta", "containerazure", dcl.TitleToSnakeCase("Cluster"), containerazure_beta.YAML_cluster)
+	d.AddResource("beta", "containerazure", "Cluster", containerazure_beta.YAML_cluster)
+	d.AddResource("beta", "containerazure", dcl.TitleToSnakeCase("NodePool"), containerazure_beta.YAML_node_pool)
+	d.AddResource("beta", "containerazure", "NodePool", containerazure_beta.YAML_node_pool)
 	d.AddResource("beta", "datafusion", dcl.TitleToSnakeCase("Instance"), datafusion_beta.YAML_instance)
 	d.AddResource("beta", "datafusion", "Instance", datafusion_beta.YAML_instance)
 	d.AddResource("beta", "dataproc", dcl.TitleToSnakeCase("AutoscalingPolicy"), dataproc_beta.YAML_autoscaling_policy)

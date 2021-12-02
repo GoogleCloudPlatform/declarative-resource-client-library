@@ -113,8 +113,10 @@ func (r *NodePoolMaxPodsConstraint) validate() error {
 	return nil
 }
 func (r *NodePool) basePath() string {
-	params := map[string]interface{}{}
-	return dcl.Nprintf("https://autopush-gkemulticloud.sandbox.googleapis.com/v1", params)
+	params := map[string]interface{}{
+		"location": dcl.ValueOrEmptyString(r.Location),
+	}
+	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
 }
 
 func (r *NodePool) getURL(userBasePath string) (string, error) {

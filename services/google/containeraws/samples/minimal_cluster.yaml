@@ -15,7 +15,7 @@ name: minimal_cluster
 description: A minimal example of a containeraws aws cluster
 type: cluster
 versions:
-- alpha
+- ga
 resource: samples/minimal.cluster.json
 variables:
 - name: aws_account_id

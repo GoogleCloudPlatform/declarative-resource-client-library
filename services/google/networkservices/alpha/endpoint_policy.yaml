@@ -14,6 +14,7 @@
 info:
   title: NetworkServices/EndpointPolicy
   description: The NetworkServices EndpointPolicy resource
+  x-dcl-struct-name: EndpointPolicy
   x-dcl-has-iam: false
 paths:
   get:

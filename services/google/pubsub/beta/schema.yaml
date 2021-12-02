@@ -14,6 +14,7 @@
 info:
   title: Pubsub/Schema
   description: The Pubsub Schema resource
+  x-dcl-struct-name: Schema
   x-dcl-has-iam: false
 paths:
   get:

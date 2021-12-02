@@ -14,6 +14,7 @@
 info:
   title: IdentityToolkit/Tenant
   description: The IdentityToolkit Tenant resource
+  x-dcl-struct-name: Tenant
   x-dcl-has-iam: false
 paths:
   get:

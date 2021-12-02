@@ -14,6 +14,7 @@
 info:
   title: GkeHub/Membership
   description: The GkeHub Membership resource
+  x-dcl-struct-name: Membership
   x-dcl-has-iam: false
 paths:
   get:

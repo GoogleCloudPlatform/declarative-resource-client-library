@@ -14,6 +14,7 @@
 info:
   title: Logging/LogExclusion
   description: The Logging LogExclusion resource
+  x-dcl-struct-name: LogExclusion
   x-dcl-has-iam: false
 paths:
   get:

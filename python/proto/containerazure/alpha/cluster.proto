@@ -116,6 +116,7 @@ message ContainerazureAlphaClusterWorkloadIdentityConfig {
 
 message ContainerazureAlphaClusterFleet {
   string project = 1;
+  string membership = 2;
 }
 
 message ApplyContainerazureAlphaClusterRequest {

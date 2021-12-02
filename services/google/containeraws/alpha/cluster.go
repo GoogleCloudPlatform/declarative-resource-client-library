@@ -755,8 +755,9 @@ func (r *ClusterWorkloadIdentityConfig) HashCode() string {
 }
 
 type ClusterFleet struct {
-	empty   bool    `json:"-"`
-	Project *string `json:"project"`
+	empty      bool    `json:"-"`
+	Project    *string `json:"project"`
+	Membership *string `json:"membership"`
 }
 
 type jsonClusterFleet ClusterFleet
@@ -775,6 +776,8 @@ func (r *ClusterFleet) UnmarshalJSON(data []byte) error {
 	} else {
 
 		r.Project = res.Project
+
+		r.Membership = res.Membership
 
 	}
 	return nil

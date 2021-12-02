@@ -15,7 +15,7 @@ name: minimal_cluster
 description: A minimal example of a containerazure azure cluster
 type: cluster
 versions:
-- alpha
+- ga
 resource: samples/minimal.cluster.json
 dependencies:
 - samples/basic.azure_client.json

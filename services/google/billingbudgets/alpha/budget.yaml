@@ -14,6 +14,7 @@
 info:
   title: BillingBudgets/Budget
   description: The BillingBudgets Budget resource
+  x-dcl-struct-name: Budget
   x-dcl-has-iam: false
 paths:
   get:

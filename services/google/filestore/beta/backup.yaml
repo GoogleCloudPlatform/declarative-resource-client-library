@@ -14,6 +14,7 @@
 info:
   title: Filestore/Backup
   description: The Filestore Backup resource
+  x-dcl-struct-name: Backup
   x-dcl-has-iam: false
 paths:
   get:

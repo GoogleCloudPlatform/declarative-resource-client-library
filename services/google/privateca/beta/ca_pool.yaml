@@ -14,6 +14,7 @@
 info:
   title: Privateca/CaPool
   description: The Privateca CaPool resource
+  x-dcl-struct-name: CaPool
   x-dcl-has-iam: false
 paths:
   get:

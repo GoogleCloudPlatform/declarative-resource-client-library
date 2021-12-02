@@ -17,6 +17,7 @@ info:
     scope_, which is a term for a project used to group the metrics of multiple projects,
     potentially across multiple organizations.  This enables you to view these groups
     in the Monitoring page of the cloud console.
+  x-dcl-struct-name: MonitoredProject
   x-dcl-has-iam: false
   x-dcl-ref:
     text: REST API

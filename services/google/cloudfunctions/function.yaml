@@ -14,6 +14,7 @@
 info:
   title: CloudFunctions/Function
   description: The CloudFunctions Function resource
+  x-dcl-struct-name: Function
   x-dcl-has-iam: true
 paths:
   get:

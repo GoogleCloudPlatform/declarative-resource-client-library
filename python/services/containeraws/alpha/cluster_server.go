@@ -230,7 +230,8 @@ func ProtoToContainerawsAlphaClusterFleet(p *alphapb.ContainerawsAlphaClusterFle
 		return nil
 	}
 	obj := &alpha.ClusterFleet{
-		Project: dcl.StringOrNil(p.GetProject()),
+		Project:    dcl.StringOrNil(p.GetProject()),
+		Membership: dcl.StringOrNil(p.GetMembership()),
 	}
 	return obj
 }
@@ -467,6 +468,7 @@ func ContainerawsAlphaClusterFleetToProto(o *alpha.ClusterFleet) *alphapb.Contai
 	}
 	p := &alphapb.ContainerawsAlphaClusterFleet{}
 	p.SetProject(dcl.ValueOrEmptyString(o.Project))
+	p.SetMembership(dcl.ValueOrEmptyString(o.Membership))
 	return p
 }
 

@@ -14,6 +14,7 @@
 info:
   title: Compute/ForwardingRule
   description: The Compute ForwardingRule resource
+  x-dcl-struct-name: ForwardingRule
   x-dcl-has-iam: false
 paths:
   get:

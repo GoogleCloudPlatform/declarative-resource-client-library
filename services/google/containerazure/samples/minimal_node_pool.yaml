@@ -15,7 +15,7 @@ name: minimal_node_pool
 description: A minimal example of a containerazure azure node pool
 type: node_pool
 versions:
-- alpha
+- ga
 resource: samples/minimal.node_pool.json
 dependencies:
 - samples/minimal.cluster.json
@@ -33,7 +33,7 @@ variables:
   type: resource_name
 - name: cluster
   type: resource_name
-- name: node_pool
+- name: node-pool
   type: resource_name
 - name: project
   type: project

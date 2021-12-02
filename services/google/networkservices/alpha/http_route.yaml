@@ -14,6 +14,7 @@
 info:
   title: NetworkServices/HttpRoute
   description: The NetworkServices HttpRoute resource
+  x-dcl-struct-name: HttpRoute
   x-dcl-has-iam: false
 paths:
   get:

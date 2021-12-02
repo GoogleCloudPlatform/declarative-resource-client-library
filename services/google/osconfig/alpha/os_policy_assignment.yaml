@@ -14,6 +14,7 @@
 info:
   title: OSConfig/OSPolicyAssignment
   description: Represents an OSPolicyAssignment resource.
+  x-dcl-struct-name: OSPolicyAssignment
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API documentation

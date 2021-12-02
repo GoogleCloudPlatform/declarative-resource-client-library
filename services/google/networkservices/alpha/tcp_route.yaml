@@ -14,6 +14,7 @@
 info:
   title: NetworkServices/TcpRoute
   description: The NetworkServices TcpRoute resource
+  x-dcl-struct-name: TcpRoute
   x-dcl-has-iam: false
 paths:
   get:

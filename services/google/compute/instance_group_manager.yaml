@@ -14,6 +14,7 @@
 info:
   title: Compute/InstanceGroupManager
   description: The Compute InstanceGroupManager resource
+  x-dcl-struct-name: InstanceGroupManager
   x-dcl-has-iam: false
 paths:
   get:

@@ -14,6 +14,7 @@
 info:
   title: CloudBuild/WorkerPool
   description: The CloudBuild WorkerPool resource
+  x-dcl-struct-name: WorkerPool
   x-dcl-has-iam: false
 paths:
   get:

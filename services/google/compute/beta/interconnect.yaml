@@ -14,6 +14,7 @@
 info:
   title: Compute/Interconnect
   description: The Compute Interconnect resource
+  x-dcl-struct-name: Interconnect
   x-dcl-has-iam: false
 paths:
   get:

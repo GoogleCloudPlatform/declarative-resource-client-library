@@ -14,6 +14,7 @@
 info:
   title: Compute/InstanceTemplate
   description: The Compute InstanceTemplate resource
+  x-dcl-struct-name: InstanceTemplate
   x-dcl-has-iam: false
 paths:
   get:

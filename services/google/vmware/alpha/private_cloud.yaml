@@ -14,6 +14,7 @@
 info:
   title: Vmware/PrivateCloud
   description: The Vmware PrivateCloud resource
+  x-dcl-struct-name: PrivateCloud
   x-dcl-has-iam: true
 paths:
   get:

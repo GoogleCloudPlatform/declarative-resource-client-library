@@ -1,9 +1,9 @@
 {
-  "name": "{{node_pool}}",
+  "name": "{{node-pool}}",
   "project": "{{project}}",
   "location": "us-west1",
   "cluster": "{{ref:minimal.cluster.json:name}}",
-  "version": "1.21-next",
+  "version": "1.21.5-gke.2800",
   "config": {
     "rootVolume": {
       "sizeGib": 32

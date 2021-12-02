@@ -14,6 +14,7 @@
 info:
   title: Monitoring/MetricsScope
   description: The Monitoring MetricsScope resource
+  x-dcl-struct-name: MetricsScope
   x-dcl-has-iam: false
 paths:
   get:

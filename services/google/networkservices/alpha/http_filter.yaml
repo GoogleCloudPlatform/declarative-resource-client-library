@@ -14,6 +14,7 @@
 info:
   title: NetworkServices/HttpFilter
   description: The NetworkServices HttpFilter resource
+  x-dcl-struct-name: HttpFilter
   x-dcl-has-iam: false
 paths:
   get:

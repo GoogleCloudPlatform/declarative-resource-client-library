@@ -15,7 +15,7 @@ name: minimal_node_pool
 description: A minimal example of a containeraws aws node pool
 type: node_pool
 versions:
-- alpha
+- ga
 resource: samples/minimal.node_pool.json
 dependencies:
 - samples/minimal.cluster.json

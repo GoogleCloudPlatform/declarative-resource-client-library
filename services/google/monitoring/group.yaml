@@ -14,6 +14,7 @@
 info:
   title: Monitoring/Group
   description: The Monitoring Group resource
+  x-dcl-struct-name: Group
   x-dcl-has-iam: false
 paths:
   get:

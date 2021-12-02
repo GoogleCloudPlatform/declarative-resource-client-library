@@ -14,6 +14,7 @@
 info:
   title: Storage/DefaultObjectAccessControl
   description: The Storage DefaultObjectAccessControl resource
+  x-dcl-struct-name: DefaultObjectAccessControl
   x-dcl-has-iam: false
 paths:
   get:

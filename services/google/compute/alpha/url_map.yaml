@@ -14,6 +14,7 @@
 info:
   title: Compute/UrlMap
   description: The Compute UrlMap resource
+  x-dcl-struct-name: UrlMap
   x-dcl-has-iam: false
 paths:
   get:

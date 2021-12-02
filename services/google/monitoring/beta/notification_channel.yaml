@@ -14,6 +14,7 @@
 info:
   title: Monitoring/NotificationChannel
   description: The Monitoring NotificationChannel resource
+  x-dcl-struct-name: NotificationChannel
   x-dcl-has-iam: false
 paths:
   get:

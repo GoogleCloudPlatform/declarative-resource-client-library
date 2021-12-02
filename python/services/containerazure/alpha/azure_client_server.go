@@ -21,11 +21,11 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/alpha"
 )
 
-// Server implements the gRPC interface for AzureClient.
-type AzureClientServer struct{}
+// Server implements the gRPC interface for Client.
+type ClientServer struct{}
 
-// ProtoToAzureClient converts a AzureClient resource from its proto representation.
-func ProtoToAzureClient(p *alphapb.ContainerazureAlphaAzureClient) *alpha.AzureClient {
+// ProtoToClient converts a Client resource from its proto representation.
+func ProtoToClient(p *alphapb.ContainerazureAlphaClient) *alpha.AzureClient {
 	obj := &alpha.AzureClient{
 		Name:          dcl.StringOrNil(p.GetName()),
 		TenantId:      dcl.StringOrNil(p.GetTenantId()),
@@ -39,9 +39,9 @@ func ProtoToAzureClient(p *alphapb.ContainerazureAlphaAzureClient) *alpha.AzureC
 	return obj
 }
 
-// AzureClientToProto converts a AzureClient resource to its proto representation.
-func AzureClientToProto(resource *alpha.AzureClient) *alphapb.ContainerazureAlphaAzureClient {
-	p := &alphapb.ContainerazureAlphaAzureClient{}
+// ClientToProto converts a Client resource to its proto representation.
+func ClientToProto(resource *alpha.AzureClient) *alphapb.ContainerazureAlphaClient {
+	p := &alphapb.ContainerazureAlphaClient{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetTenantId(dcl.ValueOrEmptyString(resource.TenantId))
 	p.SetApplicationId(dcl.ValueOrEmptyString(resource.ApplicationId))
@@ -54,59 +54,59 @@ func AzureClientToProto(resource *alpha.AzureClient) *alphapb.ContainerazureAlph
 	return p
 }
 
-// applyAzureClient handles the gRPC request by passing it to the underlying AzureClient Apply() method.
-func (s *AzureClientServer) applyAzureClient(ctx context.Context, c *alpha.Client, request *alphapb.ApplyContainerazureAlphaAzureClientRequest) (*alphapb.ContainerazureAlphaAzureClient, error) {
-	p := ProtoToAzureClient(request.GetResource())
-	res, err := c.ApplyAzureClient(ctx, p)
+// applyClient handles the gRPC request by passing it to the underlying Client Apply() method.
+func (s *ClientServer) applyClient(ctx context.Context, c *alpha.Client, request *alphapb.ApplyContainerazureAlphaClientRequest) (*alphapb.ContainerazureAlphaClient, error) {
+	p := ProtoToClient(request.GetResource())
+	res, err := c.ApplyClient(ctx, p)
 	if err != nil {
 		return nil, err
 	}
-	r := AzureClientToProto(res)
+	r := ClientToProto(res)
 	return r, nil
 }
 
-// applyContainerazureAlphaAzureClient handles the gRPC request by passing it to the underlying AzureClient Apply() method.
-func (s *AzureClientServer) ApplyContainerazureAlphaAzureClient(ctx context.Context, request *alphapb.ApplyContainerazureAlphaAzureClientRequest) (*alphapb.ContainerazureAlphaAzureClient, error) {
-	cl, err := createConfigAzureClient(ctx, request.GetServiceAccountFile())
+// applyContainerazureAlphaClient handles the gRPC request by passing it to the underlying Client Apply() method.
+func (s *ClientServer) ApplyContainerazureAlphaClient(ctx context.Context, request *alphapb.ApplyContainerazureAlphaClientRequest) (*alphapb.ContainerazureAlphaClient, error) {
+	cl, err := createConfigClient(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
-	return s.applyAzureClient(ctx, cl, request)
+	return s.applyClient(ctx, cl, request)
 }
 
-// DeleteAzureClient handles the gRPC request by passing it to the underlying AzureClient Delete() method.
-func (s *AzureClientServer) DeleteContainerazureAlphaAzureClient(ctx context.Context, request *alphapb.DeleteContainerazureAlphaAzureClientRequest) (*emptypb.Empty, error) {
+// DeleteClient handles the gRPC request by passing it to the underlying Client Delete() method.
+func (s *ClientServer) DeleteContainerazureAlphaClient(ctx context.Context, request *alphapb.DeleteContainerazureAlphaClientRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigAzureClient(ctx, request.GetServiceAccountFile())
+	cl, err := createConfigClient(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
-	return &emptypb.Empty{}, cl.DeleteAzureClient(ctx, ProtoToAzureClient(request.GetResource()))
+	return &emptypb.Empty{}, cl.DeleteClient(ctx, ProtoToClient(request.GetResource()))
 
 }
 
-// ListContainerazureAlphaAzureClient handles the gRPC request by passing it to the underlying AzureClientList() method.
-func (s *AzureClientServer) ListContainerazureAlphaAzureClient(ctx context.Context, request *alphapb.ListContainerazureAlphaAzureClientRequest) (*alphapb.ListContainerazureAlphaAzureClientResponse, error) {
-	cl, err := createConfigAzureClient(ctx, request.GetServiceAccountFile())
+// ListContainerazureAlphaClient handles the gRPC request by passing it to the underlying ClientList() method.
+func (s *ClientServer) ListContainerazureAlphaClient(ctx context.Context, request *alphapb.ListContainerazureAlphaClientRequest) (*alphapb.ListContainerazureAlphaClientResponse, error) {
+	cl, err := createConfigClient(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListAzureClient(ctx, request.GetProject(), request.GetLocation())
+	resources, err := cl.ListClient(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
-	var protos []*alphapb.ContainerazureAlphaAzureClient
+	var protos []*alphapb.ContainerazureAlphaClient
 	for _, r := range resources.Items {
-		rp := AzureClientToProto(r)
+		rp := ClientToProto(r)
 		protos = append(protos, rp)
 	}
-	p := &alphapb.ListContainerazureAlphaAzureClientResponse{}
+	p := &alphapb.ListContainerazureAlphaClientResponse{}
 	p.SetItems(protos)
 	return p, nil
 }
 
-func createConfigAzureClient(ctx context.Context, service_account_file string) (*alpha.Client, error) {
+func createConfigClient(ctx context.Context, service_account_file string) (*alpha.Client, error) {
 
 	conf := dcl.NewConfig(dcl.WithUserAgent("dcl-test"), dcl.WithCredentialsFile(service_account_file))
 	return alpha.NewClient(conf), nil

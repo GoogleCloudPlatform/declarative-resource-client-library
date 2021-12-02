@@ -14,6 +14,7 @@
 info:
   title: Compute/VpnTunnel
   description: The Compute VpnTunnel resource
+  x-dcl-struct-name: VpnTunnel
   x-dcl-has-iam: false
 paths:
   get:

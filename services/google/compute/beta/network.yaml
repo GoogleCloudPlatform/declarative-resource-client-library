@@ -14,6 +14,7 @@
 info:
   title: Compute/Network
   description: The Compute Network resource
+  x-dcl-struct-name: Network
   x-dcl-has-iam: false
 paths:
   get:

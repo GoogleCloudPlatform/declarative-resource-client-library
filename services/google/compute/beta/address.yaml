@@ -14,6 +14,7 @@
 info:
   title: Compute/Address
   description: The Compute Address resource
+  x-dcl-struct-name: Address
   x-dcl-has-iam: false
 paths:
   get:

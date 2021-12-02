@@ -14,6 +14,7 @@
 info:
   title: Compute/Disk
   description: The Compute Disk resource
+  x-dcl-struct-name: Disk
   x-dcl-has-iam: false
 paths:
   get:

@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.container_azure import azure_client_pb2
-from google3.cloud.graphite.mmv2.services.google.container_azure import (
-    azure_client_pb2_grpc,
-)
+from google3.cloud.graphite.mmv2.services.google.container_azure import client_pb2
+from google3.cloud.graphite.mmv2.services.google.container_azure import client_pb2_grpc
 
 from typing import List
 
 
-class AzureClient(object):
+class Client(object):
     def __init__(
         self,
         name: str = None,
@@ -43,10 +41,8 @@ class AzureClient(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = azure_client_pb2_grpc.ContainerazureAlphaAzureClientServiceStub(
-            channel.Channel()
-        )
-        request = azure_client_pb2.ApplyContainerazureAlphaAzureClientRequest()
+        stub = client_pb2_grpc.ContainerazureAlphaClientServiceStub(channel.Channel())
+        request = client_pb2.ApplyContainerazureAlphaClientRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -64,7 +60,7 @@ class AzureClient(object):
 
         request.service_account_file = self.service_account_file
 
-        response = stub.ApplyContainerazureAlphaAzureClient(request)
+        response = stub.ApplyContainerazureAlphaClient(request)
         self.name = Primitive.from_proto(response.name)
         self.tenant_id = Primitive.from_proto(response.tenant_id)
         self.application_id = Primitive.from_proto(response.application_id)
@@ -75,10 +71,8 @@ class AzureClient(object):
         self.location = Primitive.from_proto(response.location)
 
     def delete(self):
-        stub = azure_client_pb2_grpc.ContainerazureAlphaAzureClientServiceStub(
-            channel.Channel()
-        )
-        request = azure_client_pb2.DeleteContainerazureAlphaAzureClientRequest()
+        stub = client_pb2_grpc.ContainerazureAlphaClientServiceStub(channel.Channel())
+        request = client_pb2.DeleteContainerazureAlphaClientRequest()
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
@@ -95,23 +89,21 @@ class AzureClient(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        response = stub.DeleteContainerazureAlphaAzureClient(request)
+        response = stub.DeleteContainerazureAlphaClient(request)
 
     @classmethod
     def list(self, project, location, service_account_file=""):
-        stub = azure_client_pb2_grpc.ContainerazureAlphaAzureClientServiceStub(
-            channel.Channel()
-        )
-        request = azure_client_pb2.ListContainerazureAlphaAzureClientRequest()
+        stub = client_pb2_grpc.ContainerazureAlphaClientServiceStub(channel.Channel())
+        request = client_pb2.ListContainerazureAlphaClientRequest()
         request.service_account_file = service_account_file
         request.Project = project
 
         request.Location = location
 
-        return stub.ListContainerazureAlphaAzureClient(request).items
+        return stub.ListContainerazureAlphaClient(request).items
 
     def to_proto(self):
-        resource = azure_client_pb2.ContainerazureAlphaAzureClient()
+        resource = client_pb2.ContainerazureAlphaClient()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.tenant_id):

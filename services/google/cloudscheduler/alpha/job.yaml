@@ -14,6 +14,7 @@
 info:
   title: CloudScheduler/Job
   description: The CloudScheduler Job resource
+  x-dcl-struct-name: Job
   x-dcl-has-iam: false
 paths:
   get:

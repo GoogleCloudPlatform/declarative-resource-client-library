@@ -14,6 +14,7 @@
 info:
   title: NetworkSecurity/AuthorizationPolicy
   description: The NetworkSecurity AuthorizationPolicy resource
+  x-dcl-struct-name: AuthorizationPolicy
   x-dcl-has-iam: true
 paths:
   get:

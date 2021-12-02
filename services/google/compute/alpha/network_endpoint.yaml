@@ -14,6 +14,7 @@
 info:
   title: Compute/NetworkEndpoint
   description: The Compute NetworkEndpoint resource
+  x-dcl-struct-name: NetworkEndpoint
   x-dcl-has-iam: false
 paths:
   get:

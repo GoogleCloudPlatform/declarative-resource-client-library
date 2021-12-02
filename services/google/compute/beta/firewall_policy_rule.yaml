@@ -14,6 +14,7 @@
 info:
   title: Compute/FirewallPolicyRule
   description: The Compute FirewallPolicyRule resource
+  x-dcl-struct-name: FirewallPolicyRule
   x-dcl-has-iam: false
 paths:
   get:

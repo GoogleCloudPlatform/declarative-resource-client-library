@@ -15,7 +15,7 @@ name: basic_azure_client
 description: A basic example of a containerazure azure client
 type: azure_client
 versions:
-- alpha
+- ga
 resource: samples/basic.azure_client.json
 variables:
 - name: azure_ad_tenant

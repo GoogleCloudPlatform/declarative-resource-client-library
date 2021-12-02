@@ -14,6 +14,7 @@
 info:
   title: CloudResourceManager/TagKey
   description: The CloudResourceManager TagKey resource
+  x-dcl-struct-name: TagKey
   x-dcl-has-iam: true
 paths:
   get:

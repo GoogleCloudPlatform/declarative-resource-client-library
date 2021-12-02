@@ -20,7 +20,7 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterContainerazureAlphaAzureClientServiceServer(s, &AzureClientServer{})
+	sdkgrpc.RegisterContainerazureAlphaClientServiceServer(s, &ClientServer{})
 	sdkgrpc.RegisterContainerazureAlphaClusterServiceServer(s, &ClusterServer{})
 	sdkgrpc.RegisterContainerazureAlphaNodePoolServiceServer(s, &NodePoolServer{})
 }

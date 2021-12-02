@@ -14,6 +14,7 @@
 info:
   title: AssuredWorkloads/Workload
   description: The AssuredWorkloads Workload resource
+  x-dcl-struct-name: Workload
   x-dcl-has-iam: false
 paths:
   get:

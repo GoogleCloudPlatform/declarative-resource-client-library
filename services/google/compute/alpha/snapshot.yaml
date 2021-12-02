@@ -14,6 +14,7 @@
 info:
   title: Compute/Snapshot
   description: The Compute Snapshot resource
+  x-dcl-struct-name: Snapshot
   x-dcl-has-iam: false
 paths:
   get:

@@ -46,8 +46,10 @@ func (r *AzureClient) validate() error {
 	return nil
 }
 func (r *AzureClient) basePath() string {
-	params := map[string]interface{}{}
-	return dcl.Nprintf("https://autopush-gkemulticloud.sandbox.googleapis.com/v1", params)
+	params := map[string]interface{}{
+		"location": dcl.ValueOrEmptyString(r.Location),
+	}
+	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
 }
 
 func (r *AzureClient) getURL(userBasePath string) (string, error) {
@@ -91,13 +93,13 @@ func (r *AzureClient) deleteURL(userBasePath string) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-// azureClientApiOperation represents a mutable operation in the underlying REST
+// clientApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
-type azureClientApiOperation interface {
+type clientApiOperation interface {
 	do(context.Context, *AzureClient, *Client) error
 }
 
-func (c *Client) listAzureClientRaw(ctx context.Context, r *AzureClient, pageToken string, pageSize int32) ([]byte, error) {
+func (c *Client) listClientRaw(ctx context.Context, r *AzureClient, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
@@ -108,7 +110,7 @@ func (c *Client) listAzureClientRaw(ctx context.Context, r *AzureClient, pageTok
 		m["pageToken"] = pageToken
 	}
 
-	if pageSize != AzureClientMaxPage {
+	if pageSize != ClientMaxPage {
 		m["pageSize"] = fmt.Sprintf("%v", pageSize)
 	}
 
@@ -124,25 +126,25 @@ func (c *Client) listAzureClientRaw(ctx context.Context, r *AzureClient, pageTok
 	return ioutil.ReadAll(resp.Response.Body)
 }
 
-type listAzureClientOperation struct {
+type listClientOperation struct {
 	AzureClients []map[string]interface{} `json:"azureClients"`
 	Token        string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAzureClient(ctx context.Context, r *AzureClient, pageToken string, pageSize int32) ([]*AzureClient, string, error) {
-	b, err := c.listAzureClientRaw(ctx, r, pageToken, pageSize)
+func (c *Client) listClient(ctx context.Context, r *AzureClient, pageToken string, pageSize int32) ([]*AzureClient, string, error) {
+	b, err := c.listClientRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
 
-	var m listAzureClientOperation
+	var m listClientOperation
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, "", err
 	}
 
 	var l []*AzureClient
 	for _, v := range m.AzureClients {
-		res, err := unmarshalMapAzureClient(v, c)
+		res, err := unmarshalMapClient(v, c)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -154,12 +156,12 @@ func (c *Client) listAzureClient(ctx context.Context, r *AzureClient, pageToken 
 	return l, m.Token, nil
 }
 
-func (c *Client) deleteAllAzureClient(ctx context.Context, f func(*AzureClient) bool, resources []*AzureClient) error {
+func (c *Client) deleteAllClient(ctx context.Context, f func(*AzureClient) bool, resources []*AzureClient) error {
 	var errors []string
 	for _, res := range resources {
 		if f(res) {
 			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
-			err := c.DeleteAzureClient(ctx, res)
+			err := c.DeleteClient(ctx, res)
 			if err != nil {
 				errors = append(errors, err.Error())
 			}
@@ -172,16 +174,16 @@ func (c *Client) deleteAllAzureClient(ctx context.Context, f func(*AzureClient) 
 	}
 }
 
-type deleteAzureClientOperation struct{}
+type deleteClientOperation struct{}
 
-func (op *deleteAzureClientOperation) do(ctx context.Context, r *AzureClient, c *Client) error {
-	r, err := c.GetAzureClient(ctx, r)
+func (op *deleteClientOperation) do(ctx context.Context, r *AzureClient, c *Client) error {
+	r, err := c.GetClient(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.InfoWithContextf(ctx, "AzureClient not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "Client not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.WarningWithContextf(ctx, "GetAzureClient checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetClient checking for existence. error: %v", err)
 		return err
 	}
 
@@ -210,7 +212,7 @@ func (op *deleteAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAzureClient(ctx, r)
+		_, err = c.GetClient(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -226,15 +228,15 @@ func (op *deleteAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createAzureClientOperation struct {
+type createClientOperation struct {
 	response map[string]interface{}
 }
 
-func (op *createAzureClientOperation) FirstResponse() (map[string]interface{}, bool) {
+func (op *createClientOperation) FirstResponse() (map[string]interface{}, bool) {
 	return op.response, len(op.response) > 0
 }
 
-func (op *createAzureClientOperation) do(ctx context.Context, r *AzureClient, c *Client) error {
+func (op *createClientOperation) do(ctx context.Context, r *AzureClient, c *Client) error {
 	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
@@ -261,7 +263,7 @@ func (op *createAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 	c.Config.Logger.InfoWithContextf(ctx, "Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAzureClient(ctx, r); err != nil {
+	if _, err := c.GetClient(ctx, r); err != nil {
 		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
@@ -269,7 +271,7 @@ func (op *createAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 	return nil
 }
 
-func (c *Client) getAzureClientRaw(ctx context.Context, r *AzureClient) ([]byte, error) {
+func (c *Client) getClientRaw(ctx context.Context, r *AzureClient) ([]byte, error) {
 
 	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
@@ -288,7 +290,7 @@ func (c *Client) getAzureClientRaw(ctx context.Context, r *AzureClient) ([]byte,
 	return b, nil
 }
 
-func (c *Client) azureClientDiffsForRawDesired(ctx context.Context, rawDesired *AzureClient, opts ...dcl.ApplyOption) (initial, desired *AzureClient, diffs []*dcl.FieldDiff, err error) {
+func (c *Client) clientDiffsForRawDesired(ctx context.Context, rawDesired *AzureClient, opts ...dcl.ApplyOption) (initial, desired *AzureClient, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *AzureClient
@@ -304,40 +306,40 @@ func (c *Client) azureClientDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAzureClient(ctx, fetchState)
+	rawInitial, err := c.GetClient(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a AzureClient resource already exists: %s", err)
-			return nil, nil, nil, fmt.Errorf("failed to retrieve AzureClient resource: %v", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Client resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Client resource: %v", err)
 		}
-		c.Config.Logger.InfoWithContext(ctx, "Found that AzureClient resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Client resource did not exist.")
 		// Perform canonicalization to pick up defaults.
-		desired, err = canonicalizeAzureClientDesiredState(rawDesired, rawInitial)
+		desired, err = canonicalizeClientDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for AzureClient: %v", rawInitial)
-	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for AzureClient: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Client: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Client: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
-	initial, err = canonicalizeAzureClientInitialState(rawInitial, rawDesired)
+	initial, err = canonicalizeClientInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for AzureClient: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Client: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
-	desired, err = canonicalizeAzureClientDesiredState(rawDesired, rawInitial, opts...)
+	desired, err = canonicalizeClientDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for AzureClient: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Client: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
-	diffs, err = diffAzureClient(c, desired, initial, opts...)
+	diffs, err = diffClient(c, desired, initial, opts...)
 	return initial, desired, diffs, err
 }
 
-func canonicalizeAzureClientInitialState(rawInitial, rawDesired *AzureClient) (*AzureClient, error) {
+func canonicalizeClientInitialState(rawInitial, rawDesired *AzureClient) (*AzureClient, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 	return rawInitial, nil
 }
@@ -349,7 +351,7 @@ func canonicalizeAzureClientInitialState(rawInitial, rawDesired *AzureClient) (*
 * GCP API response to a standard format that can be used for difference checking.
 * */
 
-func canonicalizeAzureClientDesiredState(rawDesired, rawInitial *AzureClient, opts ...dcl.ApplyOption) (*AzureClient, error) {
+func canonicalizeClientDesiredState(rawDesired, rawInitial *AzureClient, opts ...dcl.ApplyOption) (*AzureClient, error) {
 
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
@@ -387,7 +389,7 @@ func canonicalizeAzureClientDesiredState(rawDesired, rawInitial *AzureClient, op
 	return canonicalDesired, nil
 }
 
-func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient) (*AzureClient, error) {
+func canonicalizeClientNewState(c *Client, rawNew, rawDesired *AzureClient) (*AzureClient, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
@@ -448,7 +450,7 @@ func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient)
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffAzureClient(c *Client, desired, actual *AzureClient, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
+func diffClient(c *Client, desired, actual *AzureClient, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
@@ -480,7 +482,7 @@ func diffAzureClient(c *Client, desired, actual *AzureClient, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Certificate, actual.Certificate, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Certificate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Certificate, actual.Certificate, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PemCertificate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -537,38 +539,38 @@ func (r *AzureClient) updateURL(userBasePath, updateName string) (string, error)
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
-// marshal encodes the AzureClient resource into JSON for a Create request, and
+// marshal encodes the Client resource into JSON for a Create request, and
 // performs transformations from the resource schema to the API schema if
 // necessary.
 func (r *AzureClient) marshal(c *Client) ([]byte, error) {
-	m, err := expandAzureClient(c, r)
+	m, err := expandClient(c, r)
 	if err != nil {
-		return nil, fmt.Errorf("error marshalling AzureClient: %w", err)
+		return nil, fmt.Errorf("error marshalling Client: %w", err)
 	}
 
 	return json.Marshal(m)
 }
 
-// unmarshalAzureClient decodes JSON responses into the AzureClient resource schema.
-func unmarshalAzureClient(b []byte, c *Client) (*AzureClient, error) {
+// unmarshalClient decodes JSON responses into the Client resource schema.
+func unmarshalClient(b []byte, c *Client) (*AzureClient, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapAzureClient(m, c)
+	return unmarshalMapClient(m, c)
 }
 
-func unmarshalMapAzureClient(m map[string]interface{}, c *Client) (*AzureClient, error) {
+func unmarshalMapClient(m map[string]interface{}, c *Client) (*AzureClient, error) {
 
-	flattened := flattenAzureClient(c, m)
+	flattened := flattenClient(c, m)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
 	return flattened, nil
 }
 
-// expandAzureClient expands AzureClient into a JSON request object.
-func expandAzureClient(c *Client, f *AzureClient) (map[string]interface{}, error) {
+// expandClient expands Client into a JSON request object.
+func expandClient(c *Client, f *AzureClient) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/azureClients/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -595,9 +597,9 @@ func expandAzureClient(c *Client, f *AzureClient) (map[string]interface{}, error
 	return m, nil
 }
 
-// flattenAzureClient flattens AzureClient from a JSON request object into the
-// AzureClient type.
-func flattenAzureClient(c *Client, i interface{}) *AzureClient {
+// flattenClient flattens Client from a JSON request object into the
+// Client type.
+func flattenClient(c *Client, i interface{}) *AzureClient {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -610,7 +612,7 @@ func flattenAzureClient(c *Client, i interface{}) *AzureClient {
 	res.Name = dcl.FlattenString(m["name"])
 	res.TenantId = dcl.FlattenString(m["tenantId"])
 	res.ApplicationId = dcl.FlattenString(m["applicationId"])
-	res.Certificate = dcl.FlattenString(m["certificate"])
+	res.Certificate = dcl.FlattenString(m["pemCertificate"])
 	res.Uid = dcl.FlattenString(m["uid"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.Project = dcl.FlattenString(m["project"])
@@ -624,7 +626,7 @@ func flattenAzureClient(c *Client, i interface{}) *AzureClient {
 // identity).  This is useful in extracting the element from a List call.
 func (r *AzureClient) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalAzureClient(b, c)
+		cr, err := unmarshalClient(b, c)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
@@ -661,13 +663,13 @@ func (r *AzureClient) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-type azureClientDiff struct {
+type clientDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
-	UpdateOp         azureClientApiOperation
+	UpdateOp         clientApiOperation
 }
 
-func convertFieldDiffsToAzureClientDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]azureClientDiff, error) {
+func convertFieldDiffsToClientDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]clientDiff, error) {
 	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
 	// Map each operation name to the field diffs associated with it.
 	for _, fd := range fds {
@@ -681,14 +683,14 @@ func convertFieldDiffsToAzureClientDiffs(config *dcl.Config, fds []*dcl.FieldDif
 			}
 		}
 	}
-	var diffs []azureClientDiff
-	// For each operation name, create a azureClientDiff which contains the operation.
+	var diffs []clientDiff
+	// For each operation name, create a clientDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := azureClientDiff{}
+		diff := clientDiff{}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			apiOp, err := convertOpNameToAzureClientApiOperation(opName, fieldDiffs, opts...)
+			apiOp, err := convertOpNameToClientApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
@@ -699,7 +701,7 @@ func convertFieldDiffsToAzureClientDiffs(config *dcl.Config, fds []*dcl.FieldDif
 	return diffs, nil
 }
 
-func convertOpNameToAzureClientApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (azureClientApiOperation, error) {
+func convertOpNameToClientApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (clientApiOperation, error) {
 	switch opName {
 
 	default:
@@ -707,10 +709,10 @@ func convertOpNameToAzureClientApiOperation(opName string, fieldDiffs []*dcl.Fie
 	}
 }
 
-func extractAzureClientFields(r *AzureClient) error {
+func extractClientFields(r *AzureClient) error {
 	return nil
 }
 
-func postReadExtractAzureClientFields(r *AzureClient) error {
+func postReadExtractClientFields(r *AzureClient) error {
 	return nil
 }

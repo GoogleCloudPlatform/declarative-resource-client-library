@@ -15,7 +15,7 @@ name: basic_cluster
 description: A basic example of a containerazure azure cluster
 type: cluster
 versions:
-- alpha
+- ga
 resource: samples/basic.cluster.json
 dependencies:
 - samples/basic.azure_client.json

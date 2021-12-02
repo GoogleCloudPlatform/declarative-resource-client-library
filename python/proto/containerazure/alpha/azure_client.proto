@@ -21,7 +21,7 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
-message ContainerazureAlphaAzureClient {
+message ContainerazureAlphaClient {
   string name = 1;
   string tenant_id = 2;
   string application_id = 3;
@@ -32,29 +32,29 @@ message ContainerazureAlphaAzureClient {
   string location = 8;
 }
 
-message ApplyContainerazureAlphaAzureClientRequest {
-  ContainerazureAlphaAzureClient resource = 1;
+message ApplyContainerazureAlphaClientRequest {
+  ContainerazureAlphaClient resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
   string service_account_file = 3;
 }
 
-message DeleteContainerazureAlphaAzureClientRequest {
+message DeleteContainerazureAlphaClientRequest {
   string service_account_file = 1;
-  ContainerazureAlphaAzureClient resource = 2;
+  ContainerazureAlphaClient resource = 2;
 }
 
-message ListContainerazureAlphaAzureClientRequest {
+message ListContainerazureAlphaClientRequest {
   string service_account_file = 1;
   string Project = 2;
   string Location = 3;
 }
 
-message ListContainerazureAlphaAzureClientResponse {
-  repeated ContainerazureAlphaAzureClient items = 1;
+message ListContainerazureAlphaClientResponse {
+  repeated ContainerazureAlphaClient items = 1;
 }
 
-service ContainerazureAlphaAzureClientService {
-  rpc ApplyContainerazureAlphaAzureClient(ApplyContainerazureAlphaAzureClientRequest) returns (ContainerazureAlphaAzureClient);
-  rpc DeleteContainerazureAlphaAzureClient(DeleteContainerazureAlphaAzureClientRequest) returns (google.protobuf.Empty);
-  rpc ListContainerazureAlphaAzureClient(ListContainerazureAlphaAzureClientRequest) returns (ListContainerazureAlphaAzureClientResponse);
+service ContainerazureAlphaClientService {
+  rpc ApplyContainerazureAlphaClient(ApplyContainerazureAlphaClientRequest) returns (ContainerazureAlphaClient);
+  rpc DeleteContainerazureAlphaClient(DeleteContainerazureAlphaClientRequest) returns (google.protobuf.Empty);
+  rpc ListContainerazureAlphaClient(ListContainerazureAlphaClientRequest) returns (ListContainerazureAlphaClientResponse);
 }

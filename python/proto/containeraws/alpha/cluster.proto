@@ -141,6 +141,7 @@ message ContainerawsAlphaClusterWorkloadIdentityConfig {
 
 message ContainerawsAlphaClusterFleet {
   string project = 1;
+  string membership = 2;
 }
 
 message ApplyContainerawsAlphaClusterRequest {

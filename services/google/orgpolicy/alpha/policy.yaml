@@ -16,6 +16,7 @@ info:
   description: An organization policy gives you programmatic control over your organization's
     cloud resources.  Using Organization Policies, you will be able to configure constraints
     across your entire resource hierarchy.
+  x-dcl-struct-name: Policy
   x-dcl-has-iam: false
   x-dcl-ref:
     text: REST API

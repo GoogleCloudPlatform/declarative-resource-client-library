@@ -90,7 +90,15 @@ import (
 
 	containeranalysis_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/alpha_connector"
 
+	containeraws_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws/connector"
+
+	containeraws_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws/beta_connector"
+
 	containeraws_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws/alpha_connector"
+
+	containerazure_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/connector"
+
+	containerazure_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/beta_connector"
 
 	containerazure_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/alpha_connector"
 
@@ -297,7 +305,15 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	containeranalysis_alpha_connector.RegisterServers(grpcServer)
 
+	containeraws_connector.RegisterServers(grpcServer)
+
+	containeraws_beta_connector.RegisterServers(grpcServer)
+
 	containeraws_alpha_connector.RegisterServers(grpcServer)
+
+	containerazure_connector.RegisterServers(grpcServer)
+
+	containerazure_beta_connector.RegisterServers(grpcServer)
 
 	containerazure_alpha_connector.RegisterServers(grpcServer)
 

@@ -192,8 +192,10 @@ func (r *ClusterFleet) validate() error {
 	return nil
 }
 func (r *Cluster) basePath() string {
-	params := map[string]interface{}{}
-	return dcl.Nprintf("https://autopush-gkemulticloud.sandbox.googleapis.com/v1", params)
+	params := map[string]interface{}{
+		"location": dcl.ValueOrEmptyString(r.Location),
+	}
+	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
 }
 
 func (r *Cluster) getURL(userBasePath string) (string, error) {
@@ -2188,6 +2190,9 @@ func canonicalizeNewClusterFleet(c *Client, des, nw *ClusterFleet) *ClusterFleet
 	if dcl.PartialSelfLinkToSelfLink(des.Project, nw.Project) {
 		nw.Project = des.Project
 	}
+	if dcl.StringCanonicalize(des.Membership, nw.Membership) {
+		nw.Membership = des.Membership
+	}
 
 	return nw
 }
@@ -2840,6 +2845,13 @@ func compareClusterFleetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Membership")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4444,6 +4456,7 @@ func flattenClusterFleet(c *Client, i interface{}) *ClusterFleet {
 		return EmptyClusterFleet
 	}
 	r.Project = dcl.FlattenString(m["project"])
+	r.Membership = dcl.FlattenString(m["membership"])
 
 	return r
 }
