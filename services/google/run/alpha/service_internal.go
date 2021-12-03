@@ -4391,6 +4391,7 @@ func (r *Service) marshal(c *Client) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error marshalling Service: %w", err)
 	}
+	m = EncodeServiceCreateRequest(m)
 
 	return json.Marshal(m)
 }
