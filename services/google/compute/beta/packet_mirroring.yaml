@@ -13,9 +13,17 @@
 # limitations under the License.
 info:
   title: Compute/PacketMirroring
-  description: The Compute PacketMirroring resource
+  description: Packet Mirroring mirrors traffic to and from particular VM instances.
+    You can use the collected traffic to help you detect security threats and monitor
+    application performance.
   x-dcl-struct-name: PacketMirroring
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: API documentation
+    url: https://cloud.google.com/compute/docs/reference/rest/beta/packetMirrorings
+  x-dcl-guides:
+  - text: Using Packet Mirroring
+    url: https://cloud.google.com/vpc/docs/using-packet-mirroring
 paths:
   get:
     description: The function used to get information about a PacketMirroring
