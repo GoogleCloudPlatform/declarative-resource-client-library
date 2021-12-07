@@ -128,7 +128,6 @@ components:
             resource instance of the same type (SIDECAR or PROXYLESS_GRPC) with the
             same scope. Max length 64 characters. Scope should start with a letter
             and can only have letters, numbers, hyphens.
-          x-kubernetes-immutable: true
         type:
           type: string
           x-dcl-go-name: Type
