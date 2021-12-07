@@ -19,13 +19,13 @@ versions:
 - beta
 resource: samples/nics.instance.json
 dependencies:
-- samples/basic.subnetwork.json
-- samples/basic.network.json
+- samples/minimal.subnetwork.json
+- samples/legacy.network.json
 updates:
 - resource: samples/update_nics.instance.json
   dependencies:
-  - samples/basic.subnetwork.json
-  - samples/basic.network.json
+  - samples/minimal.subnetwork.json
+  - samples/legacy.network.json
 variables:
 - name: compute_network
   type: resource_name

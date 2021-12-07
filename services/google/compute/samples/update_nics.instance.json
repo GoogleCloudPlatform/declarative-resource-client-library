@@ -19,7 +19,7 @@
   ],
   "networkInterfaces": [
     {
-      "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}"
+      "subnetwork": "{{ref:minimal.subnetwork.json:selfLink}}"
     },
     {
       "network": "global/networks/default",

@@ -119,6 +119,7 @@ components:
           description: Indicates whether or not this packet mirroring takes effect.
             If set to FALSE, this packet mirroring policy will not be enforced on
             the network. The default is TRUE.
+          x-dcl-server-default: true
           enum:
           - "TRUE"
           - "FALSE"
@@ -296,6 +297,7 @@ components:
             the case of two rules that apply for a given Instance, the one with the
             lowest-numbered priority value wins. Default value is 1000. Valid range
             is 0 through 65535.
+          x-dcl-server-default: true
         project:
           type: string
           x-dcl-go-name: Project

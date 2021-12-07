@@ -16,6 +16,7 @@ description: A minimal example of a compute packet mirroring
 type: packet_mirroring
 versions:
 - ga
+- beta
 resource: samples/minimal.packet_mirroring.json
 dependencies:
 - samples/basic.instance.json
