@@ -97,8 +97,8 @@ components:
               type: string
               x-dcl-go-name: CanonicalUrl
               readOnly: true
-              description: Unique identifier for the forwarding rule; defined by the
-                server.
+              description: Output only. Unique identifier for the forwarding rule;
+                defined by the server.
             url:
               type: string
               x-dcl-go-name: Url
@@ -169,8 +169,8 @@ components:
           format: int64
           x-dcl-go-name: Id
           readOnly: true
-          description: The unique identifier for the resource. This identifier is
-            defined by the server.
+          description: Output only. The unique identifier for the resource. This identifier
+            is defined by the server.
           x-kubernetes-immutable: true
         location:
           type: string
@@ -203,8 +203,8 @@ components:
                     type: string
                     x-dcl-go-name: CanonicalUrl
                     readOnly: true
-                    description: Unique identifier for the instance; defined by the
-                      server.
+                    description: Output only. Unique identifier for the instance;
+                      defined by the server.
                     x-kubernetes-immutable: true
                   url:
                     type: string
@@ -231,8 +231,8 @@ components:
                     type: string
                     x-dcl-go-name: CanonicalUrl
                     readOnly: true
-                    description: Unique identifier for the subnetwork; defined by
-                      the server.
+                    description: Output only. Unique identifier for the subnetwork;
+                      defined by the server.
                     x-kubernetes-immutable: true
                   url:
                     type: string
@@ -278,7 +278,8 @@ components:
               type: string
               x-dcl-go-name: CanonicalUrl
               readOnly: true
-              description: Unique identifier for the network; defined by the server.
+              description: Output only. Unique identifier for the network; defined
+                by the server.
               x-kubernetes-immutable: true
             url:
               type: string
