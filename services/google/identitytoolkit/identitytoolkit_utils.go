@@ -16,6 +16,9 @@ package identitytoolkit
 
 import (
 	"errors"
+	"regexp"
+
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func fetchName(o map[string]interface{}) (*string, error) {
@@ -24,4 +27,32 @@ func fetchName(o map[string]interface{}) (*string, error) {
 		return nil, errors.New("unable to fetch name from output")
 	}
 	return &name, nil
+}
+
+// Returns a copy of the given map normalizing format of phone numbers in it.
+func normalizeNumbers(m map[string]string) map[string]string {
+	n := make(map[string]string, len(m))
+	re := regexp.MustCompile("[^0-9+]")
+	for phoneNumber, code := range m {
+		normalized := re.ReplaceAllString(phoneNumber, "")
+		n[normalized] = code
+	}
+	return n
+}
+
+// canonicalizeConfigTestPhoneNumbers compares two maps with phone number keys with the phone numbers
+// normalized.
+func canonicalizeConfigTestPhoneNumbers(m, n interface{}) bool {
+	if m == nil && n == nil {
+		return true
+	}
+	if m == nil || n == nil {
+		return false
+	}
+	mMap, _ := m.(map[string]string)
+	nMap, _ := n.(map[string]string)
+	mNormalized := normalizeNumbers(mMap)
+	nNormalized := normalizeNumbers(nMap)
+	ds, err := dcl.Diff(mNormalized, nNormalized, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, dcl.FieldName{})
+	return len(ds) == 0 && err == nil
 }

@@ -53,7 +53,7 @@ components:
   schemas:
     OAuthIdpConfig:
       title: OAuthIdpConfig
-      x-dcl-id: projects/{{project}}/oauthIdpConfigs/{{name}}
+      x-dcl-id: admin/v2/projects/{{project}}/oauthIdpConfigs/{{name}}
       x-dcl-parent-container: project
       x-dcl-has-iam: false
       type: object

@@ -61,7 +61,7 @@ components:
   schemas:
     TenantOAuthIdpConfig:
       title: TenantOAuthIdpConfig
-      x-dcl-id: projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}
+      x-dcl-id: admin/v2/projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}
       x-dcl-parent-container: project
       x-dcl-has-iam: false
       type: object

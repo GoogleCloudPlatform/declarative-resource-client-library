@@ -1,0 +1,12 @@
+{
+  "name": "{{project}}",
+  "signIn": {
+    "email": {
+      "enabled": false
+    }
+  },
+  "multiTenant": {
+    "allowTenants": true,
+    "defaultTenantLocation": "organizations/{{org_id}}"
+  }
+}

@@ -682,13 +682,6 @@ func (op *createCertificateAuthorityOperation) do(ctx context.Context, r *Certif
 	c.Config.Logger.InfoWithContextf(ctx, "Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["name"].(string)
-	if !ok {
-		return fmt.Errorf("expected name to be a string in %v, was %T", op.response, op.response["name"])
-	}
-	r.Name = &name
-
 	if _, err := c.GetCertificateAuthority(ctx, r); err != nil {
 		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
@@ -736,12 +729,6 @@ func (c *Client) certificateAuthorityDiffsForRawDesired(ctx context.Context, raw
 		fetchState = rawDesired
 	}
 
-	if fetchState.Name == nil {
-		// We cannot perform a get because of lack of information. We have to assume
-		// that this is being created for the first time.
-		desired, err := canonicalizeCertificateAuthorityDesiredState(rawDesired, nil)
-		return nil, desired, nil, err
-	}
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetCertificateAuthority(ctx, fetchState)
 	if rawInitial == nil {
@@ -801,7 +788,7 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 		return rawDesired, nil
 	}
 	canonicalDesired := &CertificateAuthority{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -852,6 +839,9 @@ func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *Cer
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
@@ -5952,7 +5942,7 @@ func diffCertificateAuthority(c *Client, desired, actual *CertificateAuthority, 
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7976,7 +7966,7 @@ func flattenCertificateAuthority(c *Client, i interface{}) *CertificateAuthority
 	}
 
 	res := &CertificateAuthority{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.Name = dcl.FlattenString(m["name"])
 	res.Type = flattenCertificateAuthorityTypeEnum(m["type"])
 	res.Config = flattenCertificateAuthorityConfig(c, m["config"])
 	res.Lifetime = dcl.FlattenString(m["lifetime"])

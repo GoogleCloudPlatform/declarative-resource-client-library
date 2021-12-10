@@ -116,7 +116,7 @@ func (r *OAuthIdpConfig) ID() (string, error) {
 		"responseType": dcl.ValueOrEmptyString(nr.ResponseType),
 		"project":      dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.Nprintf("projects/{{project}}/oauthIdpConfigs/{{name}}", params), nil
+	return dcl.Nprintf("admin/v2/projects/{{project}}/oauthIdpConfigs/{{name}}", params), nil
 }
 
 const OAuthIdpConfigMaxPage = -1

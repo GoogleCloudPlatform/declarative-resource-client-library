@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="identitytoolkit", resources=["oauth_idp_config","tenant","tenant_oauth_idp_config"])
+connector(name="identitytoolkit", resources=["config","oauth_idp_config","tenant","tenant_oauth_idp_config"])

@@ -42,7 +42,7 @@ func (r *TenantMfaConfig) validate() error {
 }
 func (r *Tenant) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://identitytoolkit.googleapis.com/v2/", params)
+	return dcl.Nprintf("https://identitytoolkit.googleapis.com/", params)
 }
 
 func (r *Tenant) getURL(userBasePath string) (string, error) {
@@ -51,7 +51,7 @@ func (r *Tenant) getURL(userBasePath string) (string, error) {
 		"project": dcl.ValueOrEmptyString(nr.Project),
 		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/tenants/{{name}}", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("v2/projects/{{project}}/tenants/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *Tenant) listURL(userBasePath string) (string, error) {
@@ -59,7 +59,7 @@ func (r *Tenant) listURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/tenants", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("v2/projects/{{project}}/tenants", nr.basePath(), userBasePath, params), nil
 
 }
 
@@ -68,7 +68,7 @@ func (r *Tenant) createURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/tenants", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("v2/projects/{{project}}/tenants", nr.basePath(), userBasePath, params), nil
 
 }
 
@@ -78,7 +78,7 @@ func (r *Tenant) deleteURL(userBasePath string) (string, error) {
 		"project": dcl.ValueOrEmptyString(nr.Project),
 		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/tenants/{{name}}", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("v2/projects/{{project}}/tenants/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // tenantApiOperation represents a mutable operation in the underlying REST
@@ -788,7 +788,7 @@ func (r *Tenant) updateURL(userBasePath, updateName string) (string, error) {
 			"project": dcl.ValueOrEmptyString(nr.Project),
 			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/tenants/{{name}}", nr.basePath(), userBasePath, fields), nil
+		return dcl.URL("v2/projects/{{project}}/tenants/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
 

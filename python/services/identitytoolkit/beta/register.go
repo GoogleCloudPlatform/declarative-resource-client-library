@@ -20,6 +20,7 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
+	sdkgrpc.RegisterIdentitytoolkitBetaConfigServiceServer(s, &ConfigServer{})
 	sdkgrpc.RegisterIdentitytoolkitBetaOAuthIdpConfigServiceServer(s, &OAuthIdpConfigServer{})
 	sdkgrpc.RegisterIdentitytoolkitBetaTenantServiceServer(s, &TenantServer{})
 	sdkgrpc.RegisterIdentitytoolkitBetaTenantOAuthIdpConfigServiceServer(s, &TenantOAuthIdpConfigServer{})

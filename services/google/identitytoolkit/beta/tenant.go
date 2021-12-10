@@ -169,7 +169,7 @@ func (r *Tenant) ID() (string, error) {
 		"testPhoneNumbers":      dcl.ValueOrEmptyString(nr.TestPhoneNumbers),
 		"project":               dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.Nprintf("projects/{{project}}/tenants/{{name}}", params), nil
+	return dcl.Nprintf("v2/projects/{{project}}/tenants/{{name}}", params), nil
 }
 
 const TenantMaxPage = -1

@@ -1667,9 +1667,6 @@ func applyClusterDiff(c *Client, ctx context.Context, desired *Cluster, rawDesir
 func (r *Cluster) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
 	u := r.getPolicyURL(basePath)
 	body := &bytes.Buffer{}
-	u, err := dcl.AddQueryParams(u, map[string]string{"optionsRequestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
-	if err != nil {
-		return "", "", nil, err
-	}
+	body.WriteString(fmt.Sprintf(`{"options":{"requestedPolicyVersion": %d}}`, r.IAMPolicyVersion()))
 	return u, "POST", body, nil
 }

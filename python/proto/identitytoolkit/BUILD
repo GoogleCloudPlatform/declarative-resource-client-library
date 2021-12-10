@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="identitytoolkit", resources=["oauth_idp_config","tenant","tenant_oauth_idp_config"])
+proto_package(name="identitytoolkit", resources=["config","oauth_idp_config","tenant","tenant_oauth_idp_config"])
