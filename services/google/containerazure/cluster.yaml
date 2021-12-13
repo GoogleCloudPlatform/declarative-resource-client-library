@@ -367,9 +367,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: The name of this resource. Cluster names are formatted as `projects/<project-number>/locations/<region>/azureClusters/<cluster-id>`.
-            See (https://cloud.google.com/apis/design/resource_names) for more details
-            on GCP resource names.
+          description: The name of this resource.
           x-kubernetes-immutable: true
         networking:
           type: object

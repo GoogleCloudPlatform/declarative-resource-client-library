@@ -347,9 +347,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: The name of this resource. Node pool names are formatted as
-            `projects/<project-number>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
-            For more details on Google Cloud resource names, see (https://cloud.google.com/apis/design/resource_names)
+          description: The name of this resource.
           x-kubernetes-immutable: true
         project:
           type: string
