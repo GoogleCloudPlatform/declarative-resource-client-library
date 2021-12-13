@@ -13,9 +13,15 @@
 # limitations under the License.
 info:
   title: ContainerAws/NodePool
-  description: The ContainerAws NodePool resource
+  description: An Anthos node pool running on AWS.
   x-dcl-struct-name: NodePool
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: API reference
+    url: https://cloud.google.com/anthos/clusters/docs/multi-cloud/reference/rest/v1/projects.locations.awsClusters.awsNodePools
+  x-dcl-guides:
+  - text: Multicloud overview
+    url: https://cloud.google.com/anthos/clusters/docs/multi-cloud
 paths:
   get:
     description: The function used to get information about a NodePool

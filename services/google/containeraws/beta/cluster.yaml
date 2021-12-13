@@ -13,9 +13,15 @@
 # limitations under the License.
 info:
   title: ContainerAws/Cluster
-  description: The ContainerAws Cluster resource
+  description: An Anthos cluster running on AWS.
   x-dcl-struct-name: Cluster
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: API reference
+    url: https://cloud.google.com/anthos/clusters/docs/multi-cloud/reference/rest/v1/projects.locations.awsClusters
+  x-dcl-guides:
+  - text: Multicloud overview
+    url: https://cloud.google.com/anthos/clusters/docs/multi-cloud
 paths:
   get:
     description: The function used to get information about a Cluster
@@ -414,6 +420,7 @@ components:
           type: object
           x-dcl-go-name: Fleet
           x-dcl-go-type: ClusterFleet
+          description: Fleet configuration.
           x-kubernetes-immutable: true
           required:
           - project
@@ -422,10 +429,14 @@ components:
               type: string
               x-dcl-go-name: Membership
               readOnly: true
+              description: The name of the managed Hub Membership resource associated
+                to this cluster. Membership names are formatted as projects/<project-number>/locations/global/membership/<cluster-id>.
               x-kubernetes-immutable: true
             project:
               type: string
               x-dcl-go-name: Project
+              description: The name of the Fleet host project where this cluster will
+                be registered.
               x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Cloudresourcemanager/Project

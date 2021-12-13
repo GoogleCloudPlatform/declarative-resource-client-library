@@ -2178,7 +2178,9 @@ func expandUptimeCheckConfigResourceGroup(c *Client, f *UptimeCheckConfigResourc
 	}
 
 	m := make(map[string]interface{})
-	if v := f.GroupId; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.GroupId); err != nil {
+		return nil, fmt.Errorf("error expanding GroupId into groupId: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["groupId"] = v
 	}
 	if v := f.ResourceType; !dcl.IsEmptyValueIndirect(v) {
