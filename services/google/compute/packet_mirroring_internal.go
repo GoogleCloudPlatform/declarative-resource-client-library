@@ -1233,7 +1233,7 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 		cDes.IPProtocols = des.IPProtocols
 	}
 	if dcl.IsZeroValue(des.Direction) {
-		des.Direction = initial.Direction
+		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
 	}

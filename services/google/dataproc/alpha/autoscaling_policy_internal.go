@@ -664,22 +664,22 @@ func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *Autosca
 		cDes.GracefulDecommissionTimeout = des.GracefulDecommissionTimeout
 	}
 	if dcl.IsZeroValue(des.ScaleUpFactor) {
-		des.ScaleUpFactor = initial.ScaleUpFactor
+		cDes.ScaleUpFactor = initial.ScaleUpFactor
 	} else {
 		cDes.ScaleUpFactor = des.ScaleUpFactor
 	}
 	if dcl.IsZeroValue(des.ScaleDownFactor) {
-		des.ScaleDownFactor = initial.ScaleDownFactor
+		cDes.ScaleDownFactor = initial.ScaleDownFactor
 	} else {
 		cDes.ScaleDownFactor = des.ScaleDownFactor
 	}
 	if dcl.IsZeroValue(des.ScaleUpMinWorkerFraction) {
-		des.ScaleUpMinWorkerFraction = initial.ScaleUpMinWorkerFraction
+		cDes.ScaleUpMinWorkerFraction = initial.ScaleUpMinWorkerFraction
 	} else {
 		cDes.ScaleUpMinWorkerFraction = des.ScaleUpMinWorkerFraction
 	}
 	if dcl.IsZeroValue(des.ScaleDownMinWorkerFraction) {
-		des.ScaleDownMinWorkerFraction = initial.ScaleDownMinWorkerFraction
+		cDes.ScaleDownMinWorkerFraction = initial.ScaleDownMinWorkerFraction
 	} else {
 		cDes.ScaleDownMinWorkerFraction = des.ScaleDownMinWorkerFraction
 	}
@@ -794,17 +794,17 @@ func canonicalizeAutoscalingPolicyWorkerConfig(des, initial *AutoscalingPolicyWo
 	cDes := &AutoscalingPolicyWorkerConfig{}
 
 	if dcl.IsZeroValue(des.MinInstances) {
-		des.MinInstances = initial.MinInstances
+		cDes.MinInstances = initial.MinInstances
 	} else {
 		cDes.MinInstances = des.MinInstances
 	}
 	if dcl.IsZeroValue(des.MaxInstances) {
-		des.MaxInstances = initial.MaxInstances
+		cDes.MaxInstances = initial.MaxInstances
 	} else {
 		cDes.MaxInstances = des.MaxInstances
 	}
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
@@ -915,17 +915,17 @@ func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *Autoscalin
 	cDes := &AutoscalingPolicySecondaryWorkerConfig{}
 
 	if dcl.IsZeroValue(des.MinInstances) {
-		des.MinInstances = initial.MinInstances
+		cDes.MinInstances = initial.MinInstances
 	} else {
 		cDes.MinInstances = des.MinInstances
 	}
 	if dcl.IsZeroValue(des.MaxInstances) {
-		des.MaxInstances = initial.MaxInstances
+		cDes.MaxInstances = initial.MaxInstances
 	} else {
 		cDes.MaxInstances = des.MaxInstances
 	}
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}

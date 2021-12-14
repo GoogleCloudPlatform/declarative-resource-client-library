@@ -821,7 +821,7 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des, initial *WorkerP
 		cDes.MachineType = des.MachineType
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
-		des.DiskSizeGb = initial.DiskSizeGb
+		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}
@@ -941,7 +941,7 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *Worker
 		cDes.PeeredNetwork = des.PeeredNetwork
 	}
 	if dcl.IsZeroValue(des.EgressOption) {
-		des.EgressOption = initial.EgressOption
+		cDes.EgressOption = initial.EgressOption
 	} else {
 		cDes.EgressOption = des.EgressOption
 	}
@@ -1061,7 +1061,7 @@ func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, op
 		cDes.MachineType = des.MachineType
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
-		des.DiskSizeGb = initial.DiskSizeGb
+		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}

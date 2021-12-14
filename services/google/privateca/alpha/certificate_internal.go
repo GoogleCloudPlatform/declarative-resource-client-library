@@ -2014,7 +2014,7 @@ func canonicalizeCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(des
 	cDes := &CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -2150,7 +2150,7 @@ func canonicalizeCertificateConfigX509ConfigCaOptions(des, initial *CertificateC
 		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
-		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
@@ -2265,7 +2265,7 @@ func canonicalizeCertificateConfigX509ConfigPolicyIds(des, initial *CertificateC
 	cDes := &CertificateConfigX509ConfigPolicyIds{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -2501,7 +2501,7 @@ func canonicalizeCertificateConfigX509ConfigAdditionalExtensionsObjectId(des, in
 	cDes := &CertificateConfigX509ConfigAdditionalExtensionsObjectId{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -2617,7 +2617,7 @@ func canonicalizeCertificateConfigPublicKey(des, initial *CertificateConfigPubli
 		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Format) {
-		des.Format = initial.Format
+		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
 	}
@@ -2732,12 +2732,12 @@ func canonicalizeCertificateRevocationDetails(des, initial *CertificateRevocatio
 	cDes := &CertificateRevocationDetails{}
 
 	if dcl.IsZeroValue(des.RevocationState) {
-		des.RevocationState = initial.RevocationState
+		cDes.RevocationState = initial.RevocationState
 	} else {
 		cDes.RevocationState = des.RevocationState
 	}
 	if dcl.IsZeroValue(des.RevocationTime) {
-		des.RevocationTime = initial.RevocationTime
+		cDes.RevocationTime = initial.RevocationTime
 	} else {
 		cDes.RevocationTime = des.RevocationTime
 	}
@@ -2995,12 +2995,12 @@ func canonicalizeCertificateCertificateDescriptionSubjectDescription(des, initia
 		cDes.Lifetime = des.Lifetime
 	}
 	if dcl.IsZeroValue(des.NotBeforeTime) {
-		des.NotBeforeTime = initial.NotBeforeTime
+		cDes.NotBeforeTime = initial.NotBeforeTime
 	} else {
 		cDes.NotBeforeTime = des.NotBeforeTime
 	}
 	if dcl.IsZeroValue(des.NotAfterTime) {
-		des.NotAfterTime = initial.NotAfterTime
+		cDes.NotAfterTime = initial.NotAfterTime
 	} else {
 		cDes.NotAfterTime = des.NotAfterTime
 	}
@@ -3557,7 +3557,7 @@ func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubjectAltNa
 	cDes := &CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -4238,7 +4238,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsageUnknown
 	cDes := &CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -4374,7 +4374,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionCaOptions(des, 
 		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
-		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
@@ -4489,7 +4489,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionPolicyIds(des, 
 	cDes := &CertificateCertificateDescriptionX509DescriptionPolicyIds{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -4725,7 +4725,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionAdditionalExten
 	cDes := &CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -4841,7 +4841,7 @@ func canonicalizeCertificateCertificateDescriptionPublicKey(des, initial *Certif
 		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Format) {
-		des.Format = initial.Format
+		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
 	}

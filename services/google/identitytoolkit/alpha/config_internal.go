@@ -1394,7 +1394,7 @@ func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSen
 	cDes := &ConfigNotificationSendEmail{}
 
 	if dcl.IsZeroValue(des.Method) {
-		des.Method = initial.Method
+		cDes.Method = initial.Method
 	} else {
 		cDes.Method = des.Method
 	}
@@ -1536,7 +1536,7 @@ func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificatio
 		cDes.Host = des.Host
 	}
 	if dcl.IsZeroValue(des.Port) {
-		des.Port = initial.Port
+		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
 	}
@@ -1551,7 +1551,7 @@ func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificatio
 		cDes.Password = des.Password
 	}
 	if dcl.IsZeroValue(des.SecurityMode) {
-		des.SecurityMode = initial.SecurityMode
+		cDes.SecurityMode = initial.SecurityMode
 	} else {
 		cDes.SecurityMode = des.SecurityMode
 	}
@@ -1693,7 +1693,7 @@ func canonicalizeConfigEmailTemplate(des, initial *ConfigEmailTemplate, opts ...
 		cDes.Body = des.Body
 	}
 	if dcl.IsZeroValue(des.BodyFormat) {
-		des.BodyFormat = initial.BodyFormat
+		cDes.BodyFormat = initial.BodyFormat
 	} else {
 		cDes.BodyFormat = des.BodyFormat
 	}
@@ -2283,12 +2283,12 @@ func canonicalizeConfigQuotaSignUpQuotaConfig(des, initial *ConfigQuotaSignUpQuo
 	cDes := &ConfigQuotaSignUpQuotaConfig{}
 
 	if dcl.IsZeroValue(des.Quota) {
-		des.Quota = initial.Quota
+		cDes.Quota = initial.Quota
 	} else {
 		cDes.Quota = des.Quota
 	}
 	if dcl.IsZeroValue(des.StartTime) {
-		des.StartTime = initial.StartTime
+		cDes.StartTime = initial.StartTime
 	} else {
 		cDes.StartTime = des.StartTime
 	}
@@ -2993,7 +2993,7 @@ func canonicalizeConfigMfa(des, initial *ConfigMfa, opts ...dcl.ApplyOption) *Co
 	cDes := &ConfigMfa{}
 
 	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
+		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
@@ -3104,7 +3104,7 @@ func canonicalizeConfigBlockingFunctions(des, initial *ConfigBlockingFunctions, 
 	cDes := &ConfigBlockingFunctions{}
 
 	if dcl.IsZeroValue(des.Triggers) {
-		des.Triggers = initial.Triggers
+		cDes.Triggers = initial.Triggers
 	} else {
 		cDes.Triggers = des.Triggers
 	}

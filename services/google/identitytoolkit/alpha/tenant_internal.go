@@ -550,12 +550,12 @@ func canonicalizeTenantMfaConfig(des, initial *TenantMfaConfig, opts ...dcl.Appl
 	cDes := &TenantMfaConfig{}
 
 	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
+		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
 	if dcl.IsZeroValue(des.EnabledProviders) {
-		des.EnabledProviders = initial.EnabledProviders
+		cDes.EnabledProviders = initial.EnabledProviders
 	} else {
 		cDes.EnabledProviders = des.EnabledProviders
 	}

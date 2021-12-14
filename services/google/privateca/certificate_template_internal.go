@@ -1233,7 +1233,7 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUs
 	cDes := &CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -1349,7 +1349,7 @@ func canonicalizeCertificateTemplatePredefinedValuesCaOptions(des, initial *Cert
 		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
-		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
@@ -1464,7 +1464,7 @@ func canonicalizeCertificateTemplatePredefinedValuesPolicyIds(des, initial *Cert
 	cDes := &CertificateTemplatePredefinedValuesPolicyIds{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -1700,7 +1700,7 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId
 	cDes := &CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -2075,7 +2075,7 @@ func canonicalizeCertificateTemplatePassthroughExtensions(des, initial *Certific
 	cDes := &CertificateTemplatePassthroughExtensions{}
 
 	if dcl.IsZeroValue(des.KnownExtensions) {
-		des.KnownExtensions = initial.KnownExtensions
+		cDes.KnownExtensions = initial.KnownExtensions
 	} else {
 		cDes.KnownExtensions = des.KnownExtensions
 	}
@@ -2189,7 +2189,7 @@ func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(de
 	cDes := &CertificateTemplatePassthroughExtensionsAdditionalExtensions{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}

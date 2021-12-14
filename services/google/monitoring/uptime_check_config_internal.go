@@ -705,7 +705,7 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 		cDes.Type = des.Type
 	}
 	if dcl.IsZeroValue(des.FilterLabels) {
-		des.FilterLabels = initial.FilterLabels
+		cDes.FilterLabels = initial.FilterLabels
 	} else {
 		cDes.FilterLabels = des.FilterLabels
 	}
@@ -825,7 +825,7 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 		cDes.GroupId = des.GroupId
 	}
 	if dcl.IsZeroValue(des.ResourceType) {
-		des.ResourceType = initial.ResourceType
+		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
 	}
@@ -948,7 +948,7 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 	cDes := &UptimeCheckConfigHttpCheck{}
 
 	if dcl.IsZeroValue(des.RequestMethod) {
-		des.RequestMethod = initial.RequestMethod
+		cDes.RequestMethod = initial.RequestMethod
 	} else {
 		cDes.RequestMethod = des.RequestMethod
 	}
@@ -963,7 +963,7 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 		cDes.Path = des.Path
 	}
 	if dcl.IsZeroValue(des.Port) {
-		des.Port = initial.Port
+		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
 	}
@@ -974,12 +974,12 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 		cDes.MaskHeaders = des.MaskHeaders
 	}
 	if dcl.IsZeroValue(des.Headers) {
-		des.Headers = initial.Headers
+		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
 	}
 	if dcl.IsZeroValue(des.ContentType) {
-		des.ContentType = initial.ContentType
+		cDes.ContentType = initial.ContentType
 	} else {
 		cDes.ContentType = des.ContentType
 	}
@@ -1247,7 +1247,7 @@ func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpChe
 	cDes := &UptimeCheckConfigTcpCheck{}
 
 	if dcl.IsZeroValue(des.Port) {
-		des.Port = initial.Port
+		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
 	}
@@ -1367,7 +1367,7 @@ func canonicalizeUptimeCheckConfigContentMatchers(des, initial *UptimeCheckConfi
 		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.Matcher) {
-		des.Matcher = initial.Matcher
+		cDes.Matcher = initial.Matcher
 	} else {
 		cDes.Matcher = des.Matcher
 	}

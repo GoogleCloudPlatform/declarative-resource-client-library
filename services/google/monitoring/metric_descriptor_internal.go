@@ -642,7 +642,7 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 	cDes := &MetricDescriptorMetadata{}
 
 	if dcl.IsZeroValue(des.LaunchStage) {
-		des.LaunchStage = initial.LaunchStage
+		cDes.LaunchStage = initial.LaunchStage
 	} else {
 		cDes.LaunchStage = des.LaunchStage
 	}

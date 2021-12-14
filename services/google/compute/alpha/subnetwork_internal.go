@@ -887,17 +887,17 @@ func canonicalizeSubnetworkLogConfig(des, initial *SubnetworkLogConfig, opts ...
 	cDes := &SubnetworkLogConfig{}
 
 	if dcl.IsZeroValue(des.AggregationInterval) {
-		des.AggregationInterval = initial.AggregationInterval
+		cDes.AggregationInterval = initial.AggregationInterval
 	} else {
 		cDes.AggregationInterval = des.AggregationInterval
 	}
 	if dcl.IsZeroValue(des.FlowSampling) {
-		des.FlowSampling = initial.FlowSampling
+		cDes.FlowSampling = initial.FlowSampling
 	} else {
 		cDes.FlowSampling = des.FlowSampling
 	}
 	if dcl.IsZeroValue(des.Metadata) {
-		des.Metadata = initial.Metadata
+		cDes.Metadata = initial.Metadata
 	} else {
 		cDes.Metadata = des.Metadata
 	}

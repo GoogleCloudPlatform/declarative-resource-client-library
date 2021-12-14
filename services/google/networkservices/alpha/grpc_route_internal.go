@@ -1002,7 +1002,7 @@ func canonicalizeGrpcRouteRulesMatchesMethod(des, initial *GrpcRouteRulesMatches
 	cDes := &GrpcRouteRulesMatchesMethod{}
 
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -1138,7 +1138,7 @@ func canonicalizeGrpcRouteRulesMatchesHeaders(des, initial *GrpcRouteRulesMatche
 	cDes := &GrpcRouteRulesMatchesHeaders{}
 
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -1420,7 +1420,7 @@ func canonicalizeGrpcRouteRulesActionDestinations(des, initial *GrpcRouteRulesAc
 		cDes.ServiceName = des.ServiceName
 	}
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
@@ -1691,7 +1691,7 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelay(des, initial *Grp
 		cDes.FixedDelay = des.FixedDelay
 	}
 	if dcl.IsZeroValue(des.Percentage) {
-		des.Percentage = initial.Percentage
+		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
 	}
@@ -1826,12 +1826,12 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbort(des, initial *Grp
 	cDes := &GrpcRouteRulesActionFaultInjectionPolicyAbort{}
 
 	if dcl.IsZeroValue(des.HttpStatus) {
-		des.HttpStatus = initial.HttpStatus
+		cDes.HttpStatus = initial.HttpStatus
 	} else {
 		cDes.HttpStatus = des.HttpStatus
 	}
 	if dcl.IsZeroValue(des.Percentage) {
-		des.Percentage = initial.Percentage
+		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
 	}
@@ -1942,12 +1942,12 @@ func canonicalizeGrpcRouteRulesActionRequestHeaderModifier(des, initial *GrpcRou
 	cDes := &GrpcRouteRulesActionRequestHeaderModifier{}
 
 	if dcl.IsZeroValue(des.Set) {
-		des.Set = initial.Set
+		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
 	if dcl.IsZeroValue(des.Add) {
-		des.Add = initial.Add
+		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
 	}
@@ -2067,12 +2067,12 @@ func canonicalizeGrpcRouteRulesActionResponseHeaderModifier(des, initial *GrpcRo
 	cDes := &GrpcRouteRulesActionResponseHeaderModifier{}
 
 	if dcl.IsZeroValue(des.Set) {
-		des.Set = initial.Set
+		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
 	if dcl.IsZeroValue(des.Add) {
-		des.Add = initial.Add
+		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
 	}
@@ -2320,7 +2320,7 @@ func canonicalizeGrpcRouteRulesActionRetryPolicy(des, initial *GrpcRouteRulesAct
 		cDes.RetryConditions = des.RetryConditions
 	}
 	if dcl.IsZeroValue(des.NumRetries) {
-		des.NumRetries = initial.NumRetries
+		cDes.NumRetries = initial.NumRetries
 	} else {
 		cDes.NumRetries = des.NumRetries
 	}
@@ -2577,7 +2577,7 @@ func canonicalizeGrpcRouteRulesActionRequestMirrorPolicyDestination(des, initial
 		cDes.ServiceName = des.ServiceName
 	}
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}

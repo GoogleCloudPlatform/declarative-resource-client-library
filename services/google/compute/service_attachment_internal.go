@@ -657,12 +657,12 @@ func canonicalizeServiceAttachmentConnectedEndpoints(des, initial *ServiceAttach
 	cDes := &ServiceAttachmentConnectedEndpoints{}
 
 	if dcl.IsZeroValue(des.Status) {
-		des.Status = initial.Status
+		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
 	}
 	if dcl.IsZeroValue(des.PscConnectionId) {
-		des.PscConnectionId = initial.PscConnectionId
+		cDes.PscConnectionId = initial.PscConnectionId
 	} else {
 		cDes.PscConnectionId = des.PscConnectionId
 	}
@@ -787,7 +787,7 @@ func canonicalizeServiceAttachmentConsumerAcceptLists(des, initial *ServiceAttac
 		cDes.ProjectIdOrNum = des.ProjectIdOrNum
 	}
 	if dcl.IsZeroValue(des.ConnectionLimit) {
-		des.ConnectionLimit = initial.ConnectionLimit
+		cDes.ConnectionLimit = initial.ConnectionLimit
 	} else {
 		cDes.ConnectionLimit = des.ConnectionLimit
 	}

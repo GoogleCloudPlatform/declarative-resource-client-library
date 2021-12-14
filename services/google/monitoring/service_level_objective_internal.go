@@ -1226,7 +1226,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(des, 
 		cDes.Threshold = des.Threshold
 	}
 	if dcl.IsZeroValue(des.Experience) {
-		des.Experience = initial.Experience
+		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
 	}
@@ -1450,7 +1450,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLate
 		cDes.Threshold = des.Threshold
 	}
 	if dcl.IsZeroValue(des.Experience) {
-		des.Experience = initial.Experience
+		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
 	}
@@ -1944,12 +1944,12 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistribut
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{}
 
 	if dcl.IsZeroValue(des.Min) {
-		des.Min = initial.Min
+		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
 	if dcl.IsZeroValue(des.Max) {
-		des.Max = initial.Max
+		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
 	}
@@ -2251,7 +2251,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 	cDes.Performance = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(des.Performance, initial.Performance, opts...)
 	cDes.BasicSliPerformance = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(des.BasicSliPerformance, initial.BasicSliPerformance, opts...)
 	if dcl.IsZeroValue(des.Threshold) {
-		des.Threshold = initial.Threshold
+		cDes.Threshold = initial.Threshold
 	} else {
 		cDes.Threshold = des.Threshold
 	}
@@ -2744,12 +2744,12 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{}
 
 	if dcl.IsZeroValue(des.Min) {
-		des.Min = initial.Min
+		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
 	if dcl.IsZeroValue(des.Max) {
-		des.Max = initial.Max
+		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
 	}
@@ -3148,7 +3148,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 		cDes.Threshold = des.Threshold
 	}
 	if dcl.IsZeroValue(des.Experience) {
-		des.Experience = initial.Experience
+		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
 	}
@@ -3372,7 +3372,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 		cDes.Threshold = des.Threshold
 	}
 	if dcl.IsZeroValue(des.Experience) {
-		des.Experience = initial.Experience
+		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
 	}
@@ -3604,12 +3604,12 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMea
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{}
 
 	if dcl.IsZeroValue(des.Min) {
-		des.Min = initial.Min
+		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
 	if dcl.IsZeroValue(des.Max) {
-		des.Max = initial.Max
+		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
 	}
@@ -3837,12 +3837,12 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSum
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{}
 
 	if dcl.IsZeroValue(des.Min) {
-		des.Min = initial.Min
+		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
 	if dcl.IsZeroValue(des.Max) {
-		des.Max = initial.Max
+		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
 	}

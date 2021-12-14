@@ -582,7 +582,7 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 	cDes := &PolicyAdmissionRule{}
 
 	if dcl.IsZeroValue(des.EvaluationMode) {
-		des.EvaluationMode = initial.EvaluationMode
+		cDes.EvaluationMode = initial.EvaluationMode
 	} else {
 		cDes.EvaluationMode = des.EvaluationMode
 	}
@@ -592,7 +592,7 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 		cDes.RequireAttestationsBy = des.RequireAttestationsBy
 	}
 	if dcl.IsZeroValue(des.EnforcementMode) {
-		des.EnforcementMode = initial.EnforcementMode
+		cDes.EnforcementMode = initial.EnforcementMode
 	} else {
 		cDes.EnforcementMode = des.EnforcementMode
 	}

@@ -744,7 +744,7 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 	cDes := &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
 
 	if dcl.IsZeroValue(des.MetadataLabelMatchCriteria) {
-		des.MetadataLabelMatchCriteria = initial.MetadataLabelMatchCriteria
+		cDes.MetadataLabelMatchCriteria = initial.MetadataLabelMatchCriteria
 	} else {
 		cDes.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
 	}

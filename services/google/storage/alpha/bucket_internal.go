@@ -600,7 +600,7 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 	cDes := &BucketCors{}
 
 	if dcl.IsZeroValue(des.MaxAgeSeconds) {
-		des.MaxAgeSeconds = initial.MaxAgeSeconds
+		cDes.MaxAgeSeconds = initial.MaxAgeSeconds
 	} else {
 		cDes.MaxAgeSeconds = des.MaxAgeSeconds
 	}
@@ -961,7 +961,7 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 		cDes.StorageClass = des.StorageClass
 	}
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -1076,17 +1076,17 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 	cDes := &BucketLifecycleRuleCondition{}
 
 	if dcl.IsZeroValue(des.Age) {
-		des.Age = initial.Age
+		cDes.Age = initial.Age
 	} else {
 		cDes.Age = des.Age
 	}
 	if dcl.IsZeroValue(des.CreatedBefore) {
-		des.CreatedBefore = initial.CreatedBefore
+		cDes.CreatedBefore = initial.CreatedBefore
 	} else {
 		cDes.CreatedBefore = des.CreatedBefore
 	}
 	if dcl.IsZeroValue(des.WithState) {
-		des.WithState = initial.WithState
+		cDes.WithState = initial.WithState
 	} else {
 		cDes.WithState = des.WithState
 	}
@@ -1096,7 +1096,7 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 		cDes.MatchesStorageClass = des.MatchesStorageClass
 	}
 	if dcl.IsZeroValue(des.NumNewerVersions) {
-		des.NumNewerVersions = initial.NumNewerVersions
+		cDes.NumNewerVersions = initial.NumNewerVersions
 	} else {
 		cDes.NumNewerVersions = des.NumNewerVersions
 	}

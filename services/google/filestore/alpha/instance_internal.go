@@ -549,7 +549,7 @@ func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dc
 		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.CapacityGb) {
-		des.CapacityGb = initial.CapacityGb
+		cDes.CapacityGb = initial.CapacityGb
 	} else {
 		cDes.CapacityGb = des.CapacityGb
 	}
@@ -679,22 +679,22 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 		cDes.IPRanges = des.IPRanges
 	}
 	if dcl.IsZeroValue(des.AccessMode) {
-		des.AccessMode = initial.AccessMode
+		cDes.AccessMode = initial.AccessMode
 	} else {
 		cDes.AccessMode = des.AccessMode
 	}
 	if dcl.IsZeroValue(des.SquashMode) {
-		des.SquashMode = initial.SquashMode
+		cDes.SquashMode = initial.SquashMode
 	} else {
 		cDes.SquashMode = des.SquashMode
 	}
 	if dcl.IsZeroValue(des.AnonUid) {
-		des.AnonUid = initial.AnonUid
+		cDes.AnonUid = initial.AnonUid
 	} else {
 		cDes.AnonUid = des.AnonUid
 	}
 	if dcl.IsZeroValue(des.AnonGid) {
-		des.AnonGid = initial.AnonGid
+		cDes.AnonGid = initial.AnonGid
 	} else {
 		cDes.AnonGid = des.AnonGid
 	}
@@ -814,7 +814,7 @@ func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.Ap
 		cDes.Network = des.Network
 	}
 	if dcl.IsZeroValue(des.Modes) {
-		des.Modes = initial.Modes
+		cDes.Modes = initial.Modes
 	} else {
 		cDes.Modes = des.Modes
 	}

@@ -564,12 +564,12 @@ func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.Ap
 	cDes := &CryptoKeyPrimary{}
 
 	if dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
+		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
@@ -1049,12 +1049,12 @@ func canonicalizeCryptoKeyVersionTemplate(des, initial *CryptoKeyVersionTemplate
 	cDes := &CryptoKeyVersionTemplate{}
 
 	if dcl.IsZeroValue(des.ProtectionLevel) {
-		des.ProtectionLevel = initial.ProtectionLevel
+		cDes.ProtectionLevel = initial.ProtectionLevel
 	} else {
 		cDes.ProtectionLevel = des.ProtectionLevel
 	}
 	if dcl.IsZeroValue(des.Algorithm) {
-		des.Algorithm = initial.Algorithm
+		cDes.Algorithm = initial.Algorithm
 	} else {
 		cDes.Algorithm = des.Algorithm
 	}

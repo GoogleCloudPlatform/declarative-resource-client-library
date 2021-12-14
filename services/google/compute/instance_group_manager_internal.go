@@ -973,7 +973,7 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 
 	cDes.Zones = canonicalizeInstanceGroupManagerDistributionPolicyZonesSlice(des.Zones, initial.Zones, opts...)
 	if dcl.IsZeroValue(des.TargetShape) {
-		des.TargetShape = initial.TargetShape
+		cDes.TargetShape = initial.TargetShape
 	} else {
 		cDes.TargetShape = des.TargetShape
 	}
@@ -1326,12 +1326,12 @@ func canonicalizeInstanceGroupManagerFixedOrPercent(des, initial *InstanceGroupM
 	cDes := &InstanceGroupManagerFixedOrPercent{}
 
 	if dcl.IsZeroValue(des.Fixed) {
-		des.Fixed = initial.Fixed
+		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
 	if dcl.IsZeroValue(des.Percent) {
-		des.Percent = initial.Percent
+		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}
@@ -2000,7 +2000,7 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 		cDes.HealthCheck = des.HealthCheck
 	}
 	if dcl.IsZeroValue(des.InitialDelaySec) {
-		des.InitialDelaySec = initial.InitialDelaySec
+		cDes.InitialDelaySec = initial.InitialDelaySec
 	} else {
 		cDes.InitialDelaySec = des.InitialDelaySec
 	}
@@ -2115,24 +2115,24 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 	cDes := &InstanceGroupManagerUpdatePolicy{}
 
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
 	if dcl.IsZeroValue(des.InstanceRedistributionType) {
-		des.InstanceRedistributionType = initial.InstanceRedistributionType
+		cDes.InstanceRedistributionType = initial.InstanceRedistributionType
 	} else {
 		cDes.InstanceRedistributionType = des.InstanceRedistributionType
 	}
 	if dcl.IsZeroValue(des.MinimalAction) {
-		des.MinimalAction = initial.MinimalAction
+		cDes.MinimalAction = initial.MinimalAction
 	} else {
 		cDes.MinimalAction = des.MinimalAction
 	}
 	cDes.MaxSurge = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxSurge, initial.MaxSurge, opts...)
 	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxUnavailable, initial.MaxUnavailable, opts...)
 	if dcl.IsZeroValue(des.ReplacementMethod) {
-		des.ReplacementMethod = initial.ReplacementMethod
+		cDes.ReplacementMethod = initial.ReplacementMethod
 	} else {
 		cDes.ReplacementMethod = des.ReplacementMethod
 	}
@@ -2251,7 +2251,7 @@ func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManag
 		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.Port) {
-		des.Port = initial.Port
+		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
 	}
@@ -2475,7 +2475,7 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *
 	cDes := &InstanceGroupManagerStatefulPolicyPreservedState{}
 
 	if dcl.IsZeroValue(des.Disks) {
-		des.Disks = initial.Disks
+		cDes.Disks = initial.Disks
 	} else {
 		cDes.Disks = des.Disks
 	}
@@ -2586,7 +2586,7 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, init
 	cDes := &InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
 
 	if dcl.IsZeroValue(des.AutoDelete) {
-		des.AutoDelete = initial.AutoDelete
+		cDes.AutoDelete = initial.AutoDelete
 	} else {
 		cDes.AutoDelete = des.AutoDelete
 	}

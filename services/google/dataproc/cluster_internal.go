@@ -875,7 +875,7 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 		cDes.InternalIPOnly = des.InternalIPOnly
 	}
 	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) {
-		des.PrivateIPv6GoogleAccess = initial.PrivateIPv6GoogleAccess
+		cDes.PrivateIPv6GoogleAccess = initial.PrivateIPv6GoogleAccess
 	} else {
 		cDes.PrivateIPv6GoogleAccess = des.PrivateIPv6GoogleAccess
 	}
@@ -895,7 +895,7 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 		cDes.Tags = des.Tags
 	}
 	if dcl.IsZeroValue(des.Metadata) {
-		des.Metadata = initial.Metadata
+		cDes.Metadata = initial.Metadata
 	} else {
 		cDes.Metadata = des.Metadata
 	}
@@ -1032,7 +1032,7 @@ func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(des, in
 	cDes := &ClusterClusterConfigGceClusterConfigReservationAffinity{}
 
 	if dcl.IsZeroValue(des.ConsumeReservationType) {
-		des.ConsumeReservationType = initial.ConsumeReservationType
+		cDes.ConsumeReservationType = initial.ConsumeReservationType
 	} else {
 		cDes.ConsumeReservationType = des.ConsumeReservationType
 	}
@@ -1275,7 +1275,7 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 	cDes := &ClusterInstanceGroupConfig{}
 
 	if dcl.IsZeroValue(des.NumInstances) {
-		des.NumInstances = initial.NumInstances
+		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
@@ -1291,7 +1291,7 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 	}
 	cDes.DiskConfig = canonicalizeClusterInstanceGroupConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
 	if dcl.IsZeroValue(des.Preemptibility) {
-		des.Preemptibility = initial.Preemptibility
+		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
@@ -1432,12 +1432,12 @@ func canonicalizeClusterInstanceGroupConfigDiskConfig(des, initial *ClusterInsta
 		cDes.BootDiskType = des.BootDiskType
 	}
 	if dcl.IsZeroValue(des.BootDiskSizeGb) {
-		des.BootDiskSizeGb = initial.BootDiskSizeGb
+		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
 	if dcl.IsZeroValue(des.NumLocalSsds) {
-		des.NumLocalSsds = initial.NumLocalSsds
+		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
 	}
@@ -1669,7 +1669,7 @@ func canonicalizeClusterInstanceGroupConfigAccelerators(des, initial *ClusterIns
 		cDes.AcceleratorType = des.AcceleratorType
 	}
 	if dcl.IsZeroValue(des.AcceleratorCount) {
-		des.AcceleratorCount = initial.AcceleratorCount
+		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
 	}
@@ -1789,12 +1789,12 @@ func canonicalizeClusterClusterConfigSoftwareConfig(des, initial *ClusterCluster
 		cDes.ImageVersion = des.ImageVersion
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
 	if dcl.IsZeroValue(des.OptionalComponents) {
-		des.OptionalComponents = initial.OptionalComponents
+		cDes.OptionalComponents = initial.OptionalComponents
 	} else {
 		cDes.OptionalComponents = des.OptionalComponents
 	}
@@ -2436,7 +2436,7 @@ func canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(des, initial *
 		cDes.KdcDbKey = des.KdcDbKey
 	}
 	if dcl.IsZeroValue(des.TgtLifetimeHours) {
-		des.TgtLifetimeHours = initial.TgtLifetimeHours
+		cDes.TgtLifetimeHours = initial.TgtLifetimeHours
 	} else {
 		cDes.TgtLifetimeHours = des.TgtLifetimeHours
 	}
@@ -2600,7 +2600,7 @@ func canonicalizeClusterClusterConfigLifecycleConfig(des, initial *ClusterCluste
 		cDes.IdleDeleteTtl = des.IdleDeleteTtl
 	}
 	if dcl.IsZeroValue(des.AutoDeleteTime) {
-		des.AutoDeleteTime = initial.AutoDeleteTime
+		cDes.AutoDeleteTime = initial.AutoDeleteTime
 	} else {
 		cDes.AutoDeleteTime = des.AutoDeleteTime
 	}
@@ -3056,12 +3056,12 @@ func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyO
 	cDes := &ClusterMetrics{}
 
 	if dcl.IsZeroValue(des.HdfsMetrics) {
-		des.HdfsMetrics = initial.HdfsMetrics
+		cDes.HdfsMetrics = initial.HdfsMetrics
 	} else {
 		cDes.HdfsMetrics = des.HdfsMetrics
 	}
 	if dcl.IsZeroValue(des.YarnMetrics) {
-		des.YarnMetrics = initial.YarnMetrics
+		cDes.YarnMetrics = initial.YarnMetrics
 	} else {
 		cDes.YarnMetrics = des.YarnMetrics
 	}

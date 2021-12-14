@@ -939,12 +939,12 @@ func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesRsa(des, initial *CaPoolIssu
 	cDes := &CaPoolIssuancePolicyAllowedKeyTypesRsa{}
 
 	if dcl.IsZeroValue(des.MinModulusSize) {
-		des.MinModulusSize = initial.MinModulusSize
+		cDes.MinModulusSize = initial.MinModulusSize
 	} else {
 		cDes.MinModulusSize = des.MinModulusSize
 	}
 	if dcl.IsZeroValue(des.MaxModulusSize) {
-		des.MaxModulusSize = initial.MaxModulusSize
+		cDes.MaxModulusSize = initial.MaxModulusSize
 	} else {
 		cDes.MaxModulusSize = des.MaxModulusSize
 	}
@@ -1055,7 +1055,7 @@ func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(des, initial *
 	cDes := &CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve{}
 
 	if dcl.IsZeroValue(des.SignatureAlgorithm) {
-		des.SignatureAlgorithm = initial.SignatureAlgorithm
+		cDes.SignatureAlgorithm = initial.SignatureAlgorithm
 	} else {
 		cDes.SignatureAlgorithm = des.SignatureAlgorithm
 	}
@@ -1859,7 +1859,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsa
 	cDes := &CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -1975,7 +1975,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesCaOptions(des, initial *CaPoo
 		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
-		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
@@ -2091,7 +2091,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesPolicyIds(des, initial *CaPoo
 	cDes := &CaPoolIssuancePolicyBaselineValuesPolicyIds{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -2327,7 +2327,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(
 	cDes := &CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}
@@ -2702,7 +2702,7 @@ func canonicalizeCaPoolIssuancePolicyPassthroughExtensions(des, initial *CaPoolI
 	cDes := &CaPoolIssuancePolicyPassthroughExtensions{}
 
 	if dcl.IsZeroValue(des.KnownExtensions) {
-		des.KnownExtensions = initial.KnownExtensions
+		cDes.KnownExtensions = initial.KnownExtensions
 	} else {
 		cDes.KnownExtensions = des.KnownExtensions
 	}
@@ -2816,7 +2816,7 @@ func canonicalizeCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(d
 	cDes := &CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions{}
 
 	if dcl.IsZeroValue(des.ObjectIdPath) {
-		des.ObjectIdPath = initial.ObjectIdPath
+		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
 	}

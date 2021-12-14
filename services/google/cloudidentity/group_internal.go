@@ -968,7 +968,7 @@ func canonicalizeGroupDynamicGroupMetadataQueries(des, initial *GroupDynamicGrou
 	cDes := &GroupDynamicGroupMetadataQueries{}
 
 	if dcl.IsZeroValue(des.ResourceType) {
-		des.ResourceType = initial.ResourceType
+		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
 	}
@@ -1088,12 +1088,12 @@ func canonicalizeGroupDynamicGroupMetadataStatus(des, initial *GroupDynamicGroup
 	cDes := &GroupDynamicGroupMetadataStatus{}
 
 	if dcl.IsZeroValue(des.Status) {
-		des.Status = initial.Status
+		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
 	}
 	if dcl.IsZeroValue(des.StatusTime) {
-		des.StatusTime = initial.StatusTime
+		cDes.StatusTime = initial.StatusTime
 	} else {
 		cDes.StatusTime = des.StatusTime
 	}

@@ -947,7 +947,7 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 	cDes := &FunctionHttpsTrigger{}
 
 	if dcl.IsZeroValue(des.SecurityLevel) {
-		des.SecurityLevel = initial.SecurityLevel
+		cDes.SecurityLevel = initial.SecurityLevel
 	} else {
 		cDes.SecurityLevel = des.SecurityLevel
 	}

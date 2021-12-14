@@ -589,12 +589,12 @@ func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.
 	cDes := &WorkloadResources{}
 
 	if dcl.IsZeroValue(des.ResourceId) {
-		des.ResourceId = initial.ResourceId
+		cDes.ResourceId = initial.ResourceId
 	} else {
 		cDes.ResourceId = des.ResourceId
 	}
 	if dcl.IsZeroValue(des.ResourceType) {
-		des.ResourceType = initial.ResourceType
+		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
 	}
@@ -705,7 +705,7 @@ func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...
 	cDes := &WorkloadKmsSettings{}
 
 	if dcl.IsZeroValue(des.NextRotationTime) {
-		des.NextRotationTime = initial.NextRotationTime
+		cDes.NextRotationTime = initial.NextRotationTime
 	} else {
 		cDes.NextRotationTime = des.NextRotationTime
 	}
@@ -830,7 +830,7 @@ func canonicalizeWorkloadResourceSettings(des, initial *WorkloadResourceSettings
 		cDes.ResourceId = des.ResourceId
 	}
 	if dcl.IsZeroValue(des.ResourceType) {
-		des.ResourceType = initial.ResourceType
+		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
 	}

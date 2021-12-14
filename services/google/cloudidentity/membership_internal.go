@@ -800,7 +800,7 @@ func canonicalizeMembershipRolesExpiryDetail(des, initial *MembershipRolesExpiry
 	cDes := &MembershipRolesExpiryDetail{}
 
 	if dcl.IsZeroValue(des.ExpireTime) {
-		des.ExpireTime = initial.ExpireTime
+		cDes.ExpireTime = initial.ExpireTime
 	} else {
 		cDes.ExpireTime = des.ExpireTime
 	}

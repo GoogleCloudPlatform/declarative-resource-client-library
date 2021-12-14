@@ -744,7 +744,7 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 		cDes.PublicKeyPem = des.PublicKeyPem
 	}
 	if dcl.IsZeroValue(des.SignatureAlgorithm) {
-		des.SignatureAlgorithm = initial.SignatureAlgorithm
+		cDes.SignatureAlgorithm = initial.SignatureAlgorithm
 	} else {
 		cDes.SignatureAlgorithm = des.SignatureAlgorithm
 	}

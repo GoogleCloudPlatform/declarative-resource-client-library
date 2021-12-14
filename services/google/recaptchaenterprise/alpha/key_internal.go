@@ -609,12 +609,12 @@ func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyO
 		cDes.AllowAmpTraffic = des.AllowAmpTraffic
 	}
 	if dcl.IsZeroValue(des.IntegrationType) {
-		des.IntegrationType = initial.IntegrationType
+		cDes.IntegrationType = initial.IntegrationType
 	} else {
 		cDes.IntegrationType = des.IntegrationType
 	}
 	if dcl.IsZeroValue(des.ChallengeSecurityPreference) {
-		des.ChallengeSecurityPreference = initial.ChallengeSecurityPreference
+		cDes.ChallengeSecurityPreference = initial.ChallengeSecurityPreference
 	} else {
 		cDes.ChallengeSecurityPreference = des.ChallengeSecurityPreference
 	}
@@ -981,12 +981,12 @@ func canonicalizeKeyTestingOptions(des, initial *KeyTestingOptions, opts ...dcl.
 	cDes := &KeyTestingOptions{}
 
 	if dcl.IsZeroValue(des.TestingScore) {
-		des.TestingScore = initial.TestingScore
+		cDes.TestingScore = initial.TestingScore
 	} else {
 		cDes.TestingScore = des.TestingScore
 	}
 	if dcl.IsZeroValue(des.TestingChallenge) {
-		des.TestingChallenge = initial.TestingChallenge
+		cDes.TestingChallenge = initial.TestingChallenge
 	} else {
 		cDes.TestingChallenge = des.TestingChallenge
 	}

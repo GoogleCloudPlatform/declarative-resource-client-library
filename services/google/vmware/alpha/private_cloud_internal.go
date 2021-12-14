@@ -855,7 +855,7 @@ func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagem
 		cDes.NodeTypeId = des.NodeTypeId
 	}
 	if dcl.IsZeroValue(des.NodeCount) {
-		des.NodeCount = initial.NodeCount
+		cDes.NodeCount = initial.NodeCount
 	} else {
 		cDes.NodeCount = des.NodeCount
 	}

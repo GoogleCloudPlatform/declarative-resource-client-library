@@ -675,7 +675,7 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 		cDes.Data = des.Data
 	}
 	if dcl.IsZeroValue(des.Attributes) {
-		des.Attributes = initial.Attributes
+		cDes.Attributes = initial.Attributes
 	} else {
 		cDes.Attributes = des.Attributes
 	}
@@ -793,7 +793,7 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 	cDes := &JobAppEngineHttpTarget{}
 
 	if dcl.IsZeroValue(des.HttpMethod) {
-		des.HttpMethod = initial.HttpMethod
+		cDes.HttpMethod = initial.HttpMethod
 	} else {
 		cDes.HttpMethod = des.HttpMethod
 	}
@@ -804,7 +804,7 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 		cDes.RelativeUri = des.RelativeUri
 	}
 	if dcl.IsZeroValue(des.Headers) {
-		des.Headers = initial.Headers
+		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
 	}
@@ -1067,12 +1067,12 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 		cDes.Uri = des.Uri
 	}
 	if dcl.IsZeroValue(des.HttpMethod) {
-		des.HttpMethod = initial.HttpMethod
+		cDes.HttpMethod = initial.HttpMethod
 	} else {
 		cDes.HttpMethod = des.HttpMethod
 	}
 	if dcl.IsZeroValue(des.Headers) {
-		des.Headers = initial.Headers
+		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
 	}
@@ -1445,7 +1445,7 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 	cDes := &JobStatus{}
 
 	if dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
+		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
 	}
@@ -1690,7 +1690,7 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 	cDes := &JobRetryConfig{}
 
 	if dcl.IsZeroValue(des.RetryCount) {
-		des.RetryCount = initial.RetryCount
+		cDes.RetryCount = initial.RetryCount
 	} else {
 		cDes.RetryCount = des.RetryCount
 	}
@@ -1710,7 +1710,7 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 		cDes.MaxBackoffDuration = des.MaxBackoffDuration
 	}
 	if dcl.IsZeroValue(des.MaxDoublings) {
-		des.MaxDoublings = initial.MaxDoublings
+		cDes.MaxDoublings = initial.MaxDoublings
 	} else {
 		cDes.MaxDoublings = des.MaxDoublings
 	}

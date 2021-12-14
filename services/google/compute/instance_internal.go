@@ -1444,18 +1444,18 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 	}
 	cDes.DiskEncryptionKey = canonicalizeInstanceDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
 	if dcl.IsZeroValue(des.Index) {
-		des.Index = initial.Index
+		cDes.Index = initial.Index
 	} else {
 		cDes.Index = des.Index
 	}
 	cDes.InitializeParams = canonicalizeInstanceDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
 	if dcl.IsZeroValue(des.Interface) {
-		des.Interface = initial.Interface
+		cDes.Interface = initial.Interface
 	} else {
 		cDes.Interface = des.Interface
 	}
 	if dcl.IsZeroValue(des.Mode) {
-		des.Mode = initial.Mode
+		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
 	}
@@ -1465,7 +1465,7 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 		cDes.Source = des.Source
 	}
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -1722,7 +1722,7 @@ func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitia
 		cDes.DiskName = des.DiskName
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
-		des.DiskSizeGb = initial.DiskSizeGb
+		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}
@@ -1973,7 +1973,7 @@ func canonicalizeInstanceGuestAccelerators(des, initial *InstanceGuestAccelerato
 	cDes := &InstanceGuestAccelerators{}
 
 	if dcl.IsZeroValue(des.AcceleratorCount) {
-		des.AcceleratorCount = initial.AcceleratorCount
+		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
 	}
@@ -2253,12 +2253,12 @@ func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNe
 		cDes.PublicPtrDomainName = des.PublicPtrDomainName
 	}
 	if dcl.IsZeroValue(des.NetworkTier) {
-		des.NetworkTier = initial.NetworkTier
+		cDes.NetworkTier = initial.NetworkTier
 	} else {
 		cDes.NetworkTier = des.NetworkTier
 	}
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -2408,12 +2408,12 @@ func canonicalizeInstanceNetworkInterfacesIPv6AccessConfigs(des, initial *Instan
 		cDes.PublicPtrDomainName = des.PublicPtrDomainName
 	}
 	if dcl.IsZeroValue(des.NetworkTier) {
-		des.NetworkTier = initial.NetworkTier
+		cDes.NetworkTier = initial.NetworkTier
 	} else {
 		cDes.NetworkTier = des.NetworkTier
 	}
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}

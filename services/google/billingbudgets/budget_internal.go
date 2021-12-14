@@ -577,7 +577,7 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 		cDes.CreditTypes = des.CreditTypes
 	}
 	if dcl.IsZeroValue(des.CreditTypesTreatment) {
-		des.CreditTypesTreatment = initial.CreditTypesTreatment
+		cDes.CreditTypesTreatment = initial.CreditTypesTreatment
 	} else {
 		cDes.CreditTypesTreatment = des.CreditTypesTreatment
 	}
@@ -592,12 +592,12 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 		cDes.Subaccounts = des.Subaccounts
 	}
 	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
 	if dcl.IsZeroValue(des.CalendarPeriod) {
-		des.CalendarPeriod = initial.CalendarPeriod
+		cDes.CalendarPeriod = initial.CalendarPeriod
 	} else {
 		cDes.CalendarPeriod = des.CalendarPeriod
 	}
@@ -949,17 +949,17 @@ func canonicalizeBudgetBudgetFilterCustomPeriodStartDate(des, initial *BudgetBud
 	cDes := &BudgetBudgetFilterCustomPeriodStartDate{}
 
 	if dcl.IsZeroValue(des.Year) {
-		des.Year = initial.Year
+		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
 	if dcl.IsZeroValue(des.Month) {
-		des.Month = initial.Month
+		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
 	if dcl.IsZeroValue(des.Day) {
-		des.Day = initial.Day
+		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
 	}
@@ -1070,17 +1070,17 @@ func canonicalizeBudgetBudgetFilterCustomPeriodEndDate(des, initial *BudgetBudge
 	cDes := &BudgetBudgetFilterCustomPeriodEndDate{}
 
 	if dcl.IsZeroValue(des.Year) {
-		des.Year = initial.Year
+		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
 	if dcl.IsZeroValue(des.Month) {
-		des.Month = initial.Month
+		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
 	if dcl.IsZeroValue(des.Day) {
-		des.Day = initial.Day
+		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
 	}
@@ -1327,12 +1327,12 @@ func canonicalizeBudgetAmountSpecifiedAmount(des, initial *BudgetAmountSpecified
 		cDes.CurrencyCode = des.CurrencyCode
 	}
 	if dcl.IsZeroValue(des.Units) {
-		des.Units = initial.Units
+		cDes.Units = initial.Units
 	} else {
 		cDes.Units = des.Units
 	}
 	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
+		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
 	}
@@ -1551,12 +1551,12 @@ func canonicalizeBudgetThresholdRules(des, initial *BudgetThresholdRules, opts .
 	cDes := &BudgetThresholdRules{}
 
 	if dcl.IsZeroValue(des.ThresholdPercent) {
-		des.ThresholdPercent = initial.ThresholdPercent
+		cDes.ThresholdPercent = initial.ThresholdPercent
 	} else {
 		cDes.ThresholdPercent = des.ThresholdPercent
 	}
 	if dcl.IsZeroValue(des.SpendBasis) {
-		des.SpendBasis = initial.SpendBasis
+		cDes.SpendBasis = initial.SpendBasis
 	} else {
 		cDes.SpendBasis = des.SpendBasis
 	}

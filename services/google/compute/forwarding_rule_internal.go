@@ -926,7 +926,7 @@ func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetada
 	cDes := &ForwardingRuleMetadataFilter{}
 
 	if dcl.IsZeroValue(des.FilterMatchCriteria) {
-		des.FilterMatchCriteria = initial.FilterMatchCriteria
+		cDes.FilterMatchCriteria = initial.FilterMatchCriteria
 	} else {
 		cDes.FilterMatchCriteria = des.FilterMatchCriteria
 	}

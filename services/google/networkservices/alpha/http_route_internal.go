@@ -1240,12 +1240,12 @@ func canonicalizeHttpRouteRulesMatchesHeadersRangeMatch(des, initial *HttpRouteR
 	cDes := &HttpRouteRulesMatchesHeadersRangeMatch{}
 
 	if dcl.IsZeroValue(des.Start) {
-		des.Start = initial.Start
+		cDes.Start = initial.Start
 	} else {
 		cDes.Start = des.Start
 	}
 	if dcl.IsZeroValue(des.End) {
-		des.End = initial.End
+		cDes.End = initial.End
 	} else {
 		cDes.End = des.End
 	}
@@ -1671,7 +1671,7 @@ func canonicalizeHttpRouteRulesActionDestinations(des, initial *HttpRouteRulesAc
 		cDes.ServiceName = des.ServiceName
 	}
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
@@ -1801,7 +1801,7 @@ func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesAction
 		cDes.PrefixRewrite = des.PrefixRewrite
 	}
 	if dcl.IsZeroValue(des.ResponseCode) {
-		des.ResponseCode = initial.ResponseCode
+		cDes.ResponseCode = initial.ResponseCode
 	} else {
 		cDes.ResponseCode = des.ResponseCode
 	}
@@ -1816,7 +1816,7 @@ func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesAction
 		cDes.StripQuery = des.StripQuery
 	}
 	if dcl.IsZeroValue(des.PortRedirect) {
-		des.PortRedirect = initial.PortRedirect
+		cDes.PortRedirect = initial.PortRedirect
 	} else {
 		cDes.PortRedirect = des.PortRedirect
 	}
@@ -2059,7 +2059,7 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelay(des, initial *Htt
 		cDes.FixedDelay = des.FixedDelay
 	}
 	if dcl.IsZeroValue(des.Percentage) {
-		des.Percentage = initial.Percentage
+		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
 	}
@@ -2174,12 +2174,12 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbort(des, initial *Htt
 	cDes := &HttpRouteRulesActionFaultInjectionPolicyAbort{}
 
 	if dcl.IsZeroValue(des.HttpStatus) {
-		des.HttpStatus = initial.HttpStatus
+		cDes.HttpStatus = initial.HttpStatus
 	} else {
 		cDes.HttpStatus = des.HttpStatus
 	}
 	if dcl.IsZeroValue(des.Percentage) {
-		des.Percentage = initial.Percentage
+		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
 	}
@@ -2290,12 +2290,12 @@ func canonicalizeHttpRouteRulesActionRequestHeaderModifier(des, initial *HttpRou
 	cDes := &HttpRouteRulesActionRequestHeaderModifier{}
 
 	if dcl.IsZeroValue(des.Set) {
-		des.Set = initial.Set
+		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
 	if dcl.IsZeroValue(des.Add) {
-		des.Add = initial.Add
+		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
 	}
@@ -2415,12 +2415,12 @@ func canonicalizeHttpRouteRulesActionResponseHeaderModifier(des, initial *HttpRo
 	cDes := &HttpRouteRulesActionResponseHeaderModifier{}
 
 	if dcl.IsZeroValue(des.Set) {
-		des.Set = initial.Set
+		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
 	if dcl.IsZeroValue(des.Add) {
-		des.Add = initial.Add
+		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
 	}
@@ -2668,7 +2668,7 @@ func canonicalizeHttpRouteRulesActionRetryPolicy(des, initial *HttpRouteRulesAct
 		cDes.RetryConditions = des.RetryConditions
 	}
 	if dcl.IsZeroValue(des.NumRetries) {
-		des.NumRetries = initial.NumRetries
+		cDes.NumRetries = initial.NumRetries
 	} else {
 		cDes.NumRetries = des.NumRetries
 	}
@@ -2905,7 +2905,7 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial
 		cDes.ServiceName = des.ServiceName
 	}
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}

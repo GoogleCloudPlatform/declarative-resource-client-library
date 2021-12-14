@@ -833,7 +833,7 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 		cDes.Hosts = des.Hosts
 	}
 	if dcl.IsZeroValue(des.Ports) {
-		des.Ports = initial.Ports
+		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports
 	}

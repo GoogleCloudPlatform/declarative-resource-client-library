@@ -969,7 +969,7 @@ func canonicalizeTcpRouteRulesActionDestinations(des, initial *TcpRouteRulesActi
 		cDes.ServiceName = des.ServiceName
 	}
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}

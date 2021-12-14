@@ -836,7 +836,7 @@ func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowT
 	}
 	cDes.Config = canonicalizeClusterClusterConfig(des.Config, initial.Config, opts...)
 	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
@@ -957,7 +957,7 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 		cDes.Zone = des.Zone
 	}
 	if dcl.IsZeroValue(des.ClusterLabels) {
-		des.ClusterLabels = initial.ClusterLabels
+		cDes.ClusterLabels = initial.ClusterLabels
 	} else {
 		cDes.ClusterLabels = des.ClusterLabels
 	}
@@ -1085,7 +1085,7 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 	cDes.SparkSqlJob = canonicalizeWorkflowTemplateJobsSparkSqlJob(des.SparkSqlJob, initial.SparkSqlJob, opts...)
 	cDes.PrestoJob = canonicalizeWorkflowTemplateJobsPrestoJob(des.PrestoJob, initial.PrestoJob, opts...)
 	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
@@ -1248,7 +1248,7 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -1380,7 +1380,7 @@ func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *Workfl
 	cDes := &WorkflowTemplateJobsHadoopJobLoggingConfig{}
 
 	if dcl.IsZeroValue(des.DriverLogLevels) {
-		des.DriverLogLevels = initial.DriverLogLevels
+		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
 	}
@@ -1521,7 +1521,7 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -1653,7 +1653,7 @@ func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *Workflo
 	cDes := &WorkflowTemplateJobsSparkJobLoggingConfig{}
 
 	if dcl.IsZeroValue(des.DriverLogLevels) {
-		des.DriverLogLevels = initial.DriverLogLevels
+		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
 	}
@@ -1794,7 +1794,7 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -1926,7 +1926,7 @@ func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *Workf
 	cDes := &WorkflowTemplateJobsPysparkJobLoggingConfig{}
 
 	if dcl.IsZeroValue(des.DriverLogLevels) {
-		des.DriverLogLevels = initial.DriverLogLevels
+		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
 	}
@@ -2048,12 +2048,12 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
-		des.ScriptVariables = initial.ScriptVariables
+		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -2306,12 +2306,12 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
-		des.ScriptVariables = initial.ScriptVariables
+		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -2555,7 +2555,7 @@ func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowT
 	cDes := &WorkflowTemplateJobsPigJobLoggingConfig{}
 
 	if dcl.IsZeroValue(des.DriverLogLevels) {
-		des.DriverLogLevels = initial.DriverLogLevels
+		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
 	}
@@ -2686,7 +2686,7 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -2812,7 +2812,7 @@ func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *Workfl
 	cDes := &WorkflowTemplateJobsSparkRJobLoggingConfig{}
 
 	if dcl.IsZeroValue(des.DriverLogLevels) {
-		des.DriverLogLevels = initial.DriverLogLevels
+		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
 	}
@@ -2929,12 +2929,12 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJ
 	}
 	cDes.QueryList = canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.IsZeroValue(des.ScriptVariables) {
-		des.ScriptVariables = initial.ScriptVariables
+		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -3175,7 +3175,7 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *Work
 	cDes := &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
 
 	if dcl.IsZeroValue(des.DriverLogLevels) {
-		des.DriverLogLevels = initial.DriverLogLevels
+		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
 	}
@@ -3307,7 +3307,7 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 		cDes.ClientTags = des.ClientTags
 	}
 	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -3549,7 +3549,7 @@ func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *Workfl
 	cDes := &WorkflowTemplateJobsPrestoJobLoggingConfig{}
 
 	if dcl.IsZeroValue(des.DriverLogLevels) {
-		des.DriverLogLevels = initial.DriverLogLevels
+		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
 	}
@@ -3660,12 +3660,12 @@ func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJo
 	cDes := &WorkflowTemplateJobsScheduling{}
 
 	if dcl.IsZeroValue(des.MaxFailuresPerHour) {
-		des.MaxFailuresPerHour = initial.MaxFailuresPerHour
+		cDes.MaxFailuresPerHour = initial.MaxFailuresPerHour
 	} else {
 		cDes.MaxFailuresPerHour = des.MaxFailuresPerHour
 	}
 	if dcl.IsZeroValue(des.MaxFailuresTotal) {
-		des.MaxFailuresTotal = initial.MaxFailuresTotal
+		cDes.MaxFailuresTotal = initial.MaxFailuresTotal
 	} else {
 		cDes.MaxFailuresTotal = des.MaxFailuresTotal
 	}

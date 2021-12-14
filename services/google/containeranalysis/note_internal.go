@@ -1021,12 +1021,12 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 	cDes := &NoteVulnerability{}
 
 	if dcl.IsZeroValue(des.CvssScore) {
-		des.CvssScore = initial.CvssScore
+		cDes.CvssScore = initial.CvssScore
 	} else {
 		cDes.CvssScore = des.CvssScore
 	}
 	if dcl.IsZeroValue(des.Severity) {
-		des.Severity = initial.Severity
+		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
 	}
@@ -1034,7 +1034,7 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 	cDes.CvssV3 = canonicalizeNoteVulnerabilityCvssV3(des.CvssV3, initial.CvssV3, opts...)
 	cDes.WindowsDetails = canonicalizeNoteVulnerabilityWindowsDetailsSlice(des.WindowsDetails, initial.WindowsDetails, opts...)
 	if dcl.IsZeroValue(des.SourceUpdateTime) {
-		des.SourceUpdateTime = initial.SourceUpdateTime
+		cDes.SourceUpdateTime = initial.SourceUpdateTime
 	} else {
 		cDes.SourceUpdateTime = des.SourceUpdateTime
 	}
@@ -1192,7 +1192,7 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 		cDes.IsObsolete = des.IsObsolete
 	}
 	if dcl.IsZeroValue(des.SourceUpdateTime) {
-		des.SourceUpdateTime = initial.SourceUpdateTime
+		cDes.SourceUpdateTime = initial.SourceUpdateTime
 	} else {
 		cDes.SourceUpdateTime = des.SourceUpdateTime
 	}
@@ -1331,7 +1331,7 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 	cDes := &NoteVulnerabilityDetailsAffectedVersionStart{}
 
 	if dcl.IsZeroValue(des.Epoch) {
-		des.Epoch = initial.Epoch
+		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
@@ -1346,7 +1346,7 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
-		des.Kind = initial.Kind
+		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
@@ -1472,7 +1472,7 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 	cDes := &NoteVulnerabilityDetailsAffectedVersionEnd{}
 
 	if dcl.IsZeroValue(des.Epoch) {
-		des.Epoch = initial.Epoch
+		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
@@ -1487,7 +1487,7 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
-		des.Kind = initial.Kind
+		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
@@ -1613,7 +1613,7 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 	cDes := &NoteVulnerabilityDetailsFixedVersion{}
 
 	if dcl.IsZeroValue(des.Epoch) {
-		des.Epoch = initial.Epoch
+		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
@@ -1628,7 +1628,7 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
-		des.Kind = initial.Kind
+		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
@@ -1754,57 +1754,57 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 	cDes := &NoteVulnerabilityCvssV3{}
 
 	if dcl.IsZeroValue(des.BaseScore) {
-		des.BaseScore = initial.BaseScore
+		cDes.BaseScore = initial.BaseScore
 	} else {
 		cDes.BaseScore = des.BaseScore
 	}
 	if dcl.IsZeroValue(des.ExploitabilityScore) {
-		des.ExploitabilityScore = initial.ExploitabilityScore
+		cDes.ExploitabilityScore = initial.ExploitabilityScore
 	} else {
 		cDes.ExploitabilityScore = des.ExploitabilityScore
 	}
 	if dcl.IsZeroValue(des.ImpactScore) {
-		des.ImpactScore = initial.ImpactScore
+		cDes.ImpactScore = initial.ImpactScore
 	} else {
 		cDes.ImpactScore = des.ImpactScore
 	}
 	if dcl.IsZeroValue(des.AttackVector) {
-		des.AttackVector = initial.AttackVector
+		cDes.AttackVector = initial.AttackVector
 	} else {
 		cDes.AttackVector = des.AttackVector
 	}
 	if dcl.IsZeroValue(des.AttackComplexity) {
-		des.AttackComplexity = initial.AttackComplexity
+		cDes.AttackComplexity = initial.AttackComplexity
 	} else {
 		cDes.AttackComplexity = des.AttackComplexity
 	}
 	if dcl.IsZeroValue(des.PrivilegesRequired) {
-		des.PrivilegesRequired = initial.PrivilegesRequired
+		cDes.PrivilegesRequired = initial.PrivilegesRequired
 	} else {
 		cDes.PrivilegesRequired = des.PrivilegesRequired
 	}
 	if dcl.IsZeroValue(des.UserInteraction) {
-		des.UserInteraction = initial.UserInteraction
+		cDes.UserInteraction = initial.UserInteraction
 	} else {
 		cDes.UserInteraction = des.UserInteraction
 	}
 	if dcl.IsZeroValue(des.Scope) {
-		des.Scope = initial.Scope
+		cDes.Scope = initial.Scope
 	} else {
 		cDes.Scope = des.Scope
 	}
 	if dcl.IsZeroValue(des.ConfidentialityImpact) {
-		des.ConfidentialityImpact = initial.ConfidentialityImpact
+		cDes.ConfidentialityImpact = initial.ConfidentialityImpact
 	} else {
 		cDes.ConfidentialityImpact = des.ConfidentialityImpact
 	}
 	if dcl.IsZeroValue(des.IntegrityImpact) {
-		des.IntegrityImpact = initial.IntegrityImpact
+		cDes.IntegrityImpact = initial.IntegrityImpact
 	} else {
 		cDes.IntegrityImpact = des.IntegrityImpact
 	}
 	if dcl.IsZeroValue(des.AvailabilityImpact) {
-		des.AvailabilityImpact = initial.AvailabilityImpact
+		cDes.AvailabilityImpact = initial.AvailabilityImpact
 	} else {
 		cDes.AvailabilityImpact = des.AvailabilityImpact
 	}
@@ -2651,7 +2651,7 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 		cDes.CpeUri = des.CpeUri
 	}
 	if dcl.IsZeroValue(des.Architecture) {
-		des.Architecture = initial.Architecture
+		cDes.Architecture = initial.Architecture
 	} else {
 		cDes.Architecture = des.Architecture
 	}
@@ -2792,7 +2792,7 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 	cDes := &NotePackageDistributionLatestVersion{}
 
 	if dcl.IsZeroValue(des.Epoch) {
-		des.Epoch = initial.Epoch
+		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
@@ -2807,7 +2807,7 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
-		des.Kind = initial.Kind
+		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
@@ -2933,7 +2933,7 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 	cDes := &NoteDiscovery{}
 
 	if dcl.IsZeroValue(des.AnalysisKind) {
-		des.AnalysisKind = initial.AnalysisKind
+		cDes.AnalysisKind = initial.AnalysisKind
 	} else {
 		cDes.AnalysisKind = des.AnalysisKind
 	}

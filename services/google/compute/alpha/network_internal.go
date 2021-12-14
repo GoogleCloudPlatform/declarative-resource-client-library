@@ -506,7 +506,7 @@ func canonicalizeNetworkRoutingConfig(des, initial *NetworkRoutingConfig, opts .
 	cDes := &NetworkRoutingConfig{}
 
 	if dcl.IsZeroValue(des.RoutingMode) {
-		des.RoutingMode = initial.RoutingMode
+		cDes.RoutingMode = initial.RoutingMode
 	} else {
 		cDes.RoutingMode = des.RoutingMode
 	}

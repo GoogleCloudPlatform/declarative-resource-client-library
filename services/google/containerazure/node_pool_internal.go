@@ -703,7 +703,7 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	}
 	cDes.RootVolume = canonicalizeNodePoolConfigRootVolume(des.RootVolume, initial.RootVolume, opts...)
 	if dcl.IsZeroValue(des.Tags) {
-		des.Tags = initial.Tags
+		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
 	}
@@ -821,7 +821,7 @@ func canonicalizeNodePoolConfigRootVolume(des, initial *NodePoolConfigRootVolume
 	cDes := &NodePoolConfigRootVolume{}
 
 	if dcl.IsZeroValue(des.SizeGib) {
-		des.SizeGib = initial.SizeGib
+		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
 	}
@@ -1047,12 +1047,12 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 	cDes := &NodePoolAutoscaling{}
 
 	if dcl.IsZeroValue(des.MinNodeCount) {
-		des.MinNodeCount = initial.MinNodeCount
+		cDes.MinNodeCount = initial.MinNodeCount
 	} else {
 		cDes.MinNodeCount = des.MinNodeCount
 	}
 	if dcl.IsZeroValue(des.MaxNodeCount) {
-		des.MaxNodeCount = initial.MaxNodeCount
+		cDes.MaxNodeCount = initial.MaxNodeCount
 	} else {
 		cDes.MaxNodeCount = des.MaxNodeCount
 	}
@@ -1163,7 +1163,7 @@ func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstrai
 	cDes := &NodePoolMaxPodsConstraint{}
 
 	if dcl.IsZeroValue(des.MaxPodsPerNode) {
-		des.MaxPodsPerNode = initial.MaxPodsPerNode
+		cDes.MaxPodsPerNode = initial.MaxPodsPerNode
 	} else {
 		cDes.MaxPodsPerNode = des.MaxPodsPerNode
 	}

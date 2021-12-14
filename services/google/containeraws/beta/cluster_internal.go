@@ -956,7 +956,7 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 	cDes.MainVolume = canonicalizeClusterControlPlaneMainVolume(des.MainVolume, initial.MainVolume, opts...)
 	cDes.DatabaseEncryption = canonicalizeClusterControlPlaneDatabaseEncryption(des.DatabaseEncryption, initial.DatabaseEncryption, opts...)
 	if dcl.IsZeroValue(des.Tags) {
-		des.Tags = initial.Tags
+		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
 	}
@@ -1322,17 +1322,17 @@ func canonicalizeClusterControlPlaneRootVolume(des, initial *ClusterControlPlane
 	cDes := &ClusterControlPlaneRootVolume{}
 
 	if dcl.IsZeroValue(des.SizeGib) {
-		des.SizeGib = initial.SizeGib
+		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
 	}
 	if dcl.IsZeroValue(des.VolumeType) {
-		des.VolumeType = initial.VolumeType
+		cDes.VolumeType = initial.VolumeType
 	} else {
 		cDes.VolumeType = des.VolumeType
 	}
 	if dcl.IsZeroValue(des.Iops) {
-		des.Iops = initial.Iops
+		cDes.Iops = initial.Iops
 	} else {
 		cDes.Iops = des.Iops
 	}
@@ -1452,17 +1452,17 @@ func canonicalizeClusterControlPlaneMainVolume(des, initial *ClusterControlPlane
 	cDes := &ClusterControlPlaneMainVolume{}
 
 	if dcl.IsZeroValue(des.SizeGib) {
-		des.SizeGib = initial.SizeGib
+		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
 	}
 	if dcl.IsZeroValue(des.VolumeType) {
-		des.VolumeType = initial.VolumeType
+		cDes.VolumeType = initial.VolumeType
 	} else {
 		cDes.VolumeType = des.VolumeType
 	}
 	if dcl.IsZeroValue(des.Iops) {
-		des.Iops = initial.Iops
+		cDes.Iops = initial.Iops
 	} else {
 		cDes.Iops = des.Iops
 	}

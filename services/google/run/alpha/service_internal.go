@@ -1005,19 +1005,19 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
 	if dcl.IsZeroValue(des.Annotations) {
-		des.Annotations = initial.Annotations
+		cDes.Annotations = initial.Annotations
 	} else {
 		cDes.Annotations = des.Annotations
 	}
 	cDes.Scaling = canonicalizeServiceTemplateScaling(des.Scaling, initial.Scaling, opts...)
 	cDes.VPCAccess = canonicalizeServiceTemplateVPCAccess(des.VPCAccess, initial.VPCAccess, opts...)
 	if dcl.IsZeroValue(des.ContainerConcurrency) {
-		des.ContainerConcurrency = initial.ContainerConcurrency
+		cDes.ContainerConcurrency = initial.ContainerConcurrency
 	} else {
 		cDes.ContainerConcurrency = des.ContainerConcurrency
 	}
@@ -1039,7 +1039,7 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 		cDes.Confidential = des.Confidential
 	}
 	if dcl.IsZeroValue(des.ExecutionEnvironment) {
-		des.ExecutionEnvironment = initial.ExecutionEnvironment
+		cDes.ExecutionEnvironment = initial.ExecutionEnvironment
 	} else {
 		cDes.ExecutionEnvironment = des.ExecutionEnvironment
 	}
@@ -1167,12 +1167,12 @@ func canonicalizeServiceTemplateScaling(des, initial *ServiceTemplateScaling, op
 	cDes := &ServiceTemplateScaling{}
 
 	if dcl.IsZeroValue(des.MinInstanceCount) {
-		des.MinInstanceCount = initial.MinInstanceCount
+		cDes.MinInstanceCount = initial.MinInstanceCount
 	} else {
 		cDes.MinInstanceCount = des.MinInstanceCount
 	}
 	if dcl.IsZeroValue(des.MaxInstanceCount) {
-		des.MaxInstanceCount = initial.MaxInstanceCount
+		cDes.MaxInstanceCount = initial.MaxInstanceCount
 	} else {
 		cDes.MaxInstanceCount = des.MaxInstanceCount
 	}
@@ -1288,7 +1288,7 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 		cDes.Connector = des.Connector
 	}
 	if dcl.IsZeroValue(des.Egress) {
-		des.Egress = initial.Egress
+		cDes.Egress = initial.Egress
 	} else {
 		cDes.Egress = des.Egress
 	}
@@ -1927,7 +1927,7 @@ func canonicalizeServiceTemplateContainersResources(des, initial *ServiceTemplat
 	cDes := &ServiceTemplateContainersResources{}
 
 	if dcl.IsZeroValue(des.Limits) {
-		des.Limits = initial.Limits
+		cDes.Limits = initial.Limits
 	} else {
 		cDes.Limits = des.Limits
 	}
@@ -2052,7 +2052,7 @@ func canonicalizeServiceTemplateContainersPorts(des, initial *ServiceTemplateCon
 		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.ContainerPort) {
-		des.ContainerPort = initial.ContainerPort
+		cDes.ContainerPort = initial.ContainerPort
 	} else {
 		cDes.ContainerPort = des.ContainerPort
 	}
@@ -2435,7 +2435,7 @@ func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolum
 	}
 	cDes.Items = canonicalizeServiceTemplateVolumesSecretItemsSlice(des.Items, initial.Items, opts...)
 	if dcl.IsZeroValue(des.DefaultMode) {
-		des.DefaultMode = initial.DefaultMode
+		cDes.DefaultMode = initial.DefaultMode
 	} else {
 		cDes.DefaultMode = des.DefaultMode
 	}
@@ -2561,7 +2561,7 @@ func canonicalizeServiceTemplateVolumesSecretItems(des, initial *ServiceTemplate
 		cDes.Version = des.Version
 	}
 	if dcl.IsZeroValue(des.Mode) {
-		des.Mode = initial.Mode
+		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
 	}
@@ -2794,7 +2794,7 @@ func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyO
 	cDes := &ServiceTraffic{}
 
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -2804,7 +2804,7 @@ func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyO
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Percent) {
-		des.Percent = initial.Percent
+		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}
@@ -2982,7 +2982,7 @@ func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglec
 		cDes.Type = des.Type
 	}
 	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
+		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
@@ -2992,37 +2992,37 @@ func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglec
 		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.LastTransitionTime) {
-		des.LastTransitionTime = initial.LastTransitionTime
+		cDes.LastTransitionTime = initial.LastTransitionTime
 	} else {
 		cDes.LastTransitionTime = des.LastTransitionTime
 	}
 	if dcl.IsZeroValue(des.Severity) {
-		des.Severity = initial.Severity
+		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
 	}
 	if dcl.IsZeroValue(des.Reason) {
-		des.Reason = initial.Reason
+		cDes.Reason = initial.Reason
 	} else {
 		cDes.Reason = des.Reason
 	}
 	if dcl.IsZeroValue(des.InternalReason) {
-		des.InternalReason = initial.InternalReason
+		cDes.InternalReason = initial.InternalReason
 	} else {
 		cDes.InternalReason = des.InternalReason
 	}
 	if dcl.IsZeroValue(des.DomainMappingReason) {
-		des.DomainMappingReason = initial.DomainMappingReason
+		cDes.DomainMappingReason = initial.DomainMappingReason
 	} else {
 		cDes.DomainMappingReason = des.DomainMappingReason
 	}
 	if dcl.IsZeroValue(des.RevisionReason) {
-		des.RevisionReason = initial.RevisionReason
+		cDes.RevisionReason = initial.RevisionReason
 	} else {
 		cDes.RevisionReason = des.RevisionReason
 	}
 	if dcl.IsZeroValue(des.JobReason) {
-		des.JobReason = initial.JobReason
+		cDes.JobReason = initial.JobReason
 	} else {
 		cDes.JobReason = des.JobReason
 	}
@@ -3140,7 +3140,7 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 	cDes := &ServiceTrafficStatuses{}
 
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -3150,7 +3150,7 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Percent) {
-		des.Percent = initial.Percent
+		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}

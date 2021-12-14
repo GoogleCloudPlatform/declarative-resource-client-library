@@ -972,7 +972,7 @@ func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOS
 		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.Mode) {
-		des.Mode = initial.Mode
+		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
 	}
@@ -1567,7 +1567,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(des, ini
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{}
 
 	if dcl.IsZeroValue(des.DesiredState) {
-		des.DesiredState = initial.DesiredState
+		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
 	}
@@ -2215,7 +2215,7 @@ func canonicalizeOSPolicyAssignmentFileGcs(des, initial *OSPolicyAssignmentFileG
 		cDes.Object = des.Object
 	}
 	if dcl.IsZeroValue(des.Generation) {
-		des.Generation = initial.Generation
+		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
 	}
@@ -3067,7 +3067,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{}
 
 	if dcl.IsZeroValue(des.ArchiveType) {
-		des.ArchiveType = initial.ArchiveType
+		cDes.ArchiveType = initial.ArchiveType
 	} else {
 		cDes.ArchiveType = des.ArchiveType
 	}
@@ -3754,7 +3754,7 @@ func canonicalizeOSPolicyAssignmentExec(des, initial *OSPolicyAssignmentExec, op
 		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.Interpreter) {
-		des.Interpreter = initial.Interpreter
+		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
@@ -3912,7 +3912,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des, in
 		cDes.Path = des.Path
 	}
 	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
+		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
@@ -4155,7 +4155,7 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(des, initial *O
 	cDes := &OSPolicyAssignmentInstanceFilterInclusionLabels{}
 
 	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
@@ -4266,7 +4266,7 @@ func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 	cDes := &OSPolicyAssignmentInstanceFilterExclusionLabels{}
 
 	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
@@ -4637,12 +4637,12 @@ func canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des, initial *OSPolic
 	cDes := &OSPolicyAssignmentRolloutDisruptionBudget{}
 
 	if dcl.IsZeroValue(des.Fixed) {
-		des.Fixed = initial.Fixed
+		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
 	if dcl.IsZeroValue(des.Percent) {
-		des.Percent = initial.Percent
+		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}

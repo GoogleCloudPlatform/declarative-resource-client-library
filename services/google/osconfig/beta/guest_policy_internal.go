@@ -890,7 +890,7 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 	cDes := &GuestPolicyAssignmentGroupLabels{}
 
 	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
@@ -1137,12 +1137,12 @@ func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...
 		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.DesiredState) {
-		des.DesiredState = initial.DesiredState
+		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
 	}
 	if dcl.IsZeroValue(des.Manager) {
-		des.Manager = initial.Manager
+		cDes.Manager = initial.Manager
 	} else {
 		cDes.Manager = des.Manager
 	}
@@ -1412,7 +1412,7 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 	cDes := &GuestPolicyPackageRepositoriesApt{}
 
 	if dcl.IsZeroValue(des.ArchiveType) {
-		des.ArchiveType = initial.ArchiveType
+		cDes.ArchiveType = initial.ArchiveType
 	} else {
 		cDes.ArchiveType = des.ArchiveType
 	}
@@ -1990,7 +1990,7 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 	cDes.InstallSteps = canonicalizeGuestPolicyRecipesInstallStepsSlice(des.InstallSteps, initial.InstallSteps, opts...)
 	cDes.UpdateSteps = canonicalizeGuestPolicyRecipesUpdateStepsSlice(des.UpdateSteps, initial.UpdateSteps, opts...)
 	if dcl.IsZeroValue(des.DesiredState) {
-		des.DesiredState = initial.DesiredState
+		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
 	}
@@ -2371,7 +2371,7 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 		cDes.Object = des.Object
 	}
 	if dcl.IsZeroValue(des.Generation) {
-		des.Generation = initial.Generation
+		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
 	}
@@ -2759,7 +2759,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 		cDes.Destination = des.Destination
 	}
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -2887,7 +2887,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 		cDes.Flags = des.Flags
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
-		des.AllowedExitCodes = initial.AllowedExitCodes
+		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
@@ -3250,7 +3250,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
-		des.AllowedExitCodes = initial.AllowedExitCodes
+		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
@@ -3376,12 +3376,12 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 		cDes.Script = des.Script
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
-		des.AllowedExitCodes = initial.AllowedExitCodes
+		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 	if dcl.IsZeroValue(des.Interpreter) {
-		des.Interpreter = initial.Interpreter
+		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
@@ -3766,7 +3766,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 		cDes.Destination = des.Destination
 	}
 	if dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
@@ -3894,7 +3894,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 		cDes.Flags = des.Flags
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
-		des.AllowedExitCodes = initial.AllowedExitCodes
+		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
@@ -4257,7 +4257,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
-		des.AllowedExitCodes = initial.AllowedExitCodes
+		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
@@ -4383,12 +4383,12 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 		cDes.Script = des.Script
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
-		des.AllowedExitCodes = initial.AllowedExitCodes
+		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 	if dcl.IsZeroValue(des.Interpreter) {
-		des.Interpreter = initial.Interpreter
+		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}

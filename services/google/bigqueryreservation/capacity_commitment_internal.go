@@ -541,7 +541,7 @@ func canonicalizeCapacityCommitmentFailureStatus(des, initial *CapacityCommitmen
 	cDes := &CapacityCommitmentFailureStatus{}
 
 	if dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
+		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
 	}

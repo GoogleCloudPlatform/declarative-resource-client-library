@@ -1230,7 +1230,7 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 		cDes.CpeUri = des.CpeUri
 	}
 	if dcl.IsZeroValue(des.Architecture) {
-		des.Architecture = initial.Architecture
+		cDes.Architecture = initial.Architecture
 	} else {
 		cDes.Architecture = des.Architecture
 	}
@@ -1371,7 +1371,7 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 	cDes := &NotePackageDistributionLatestVersion{}
 
 	if dcl.IsZeroValue(des.Epoch) {
-		des.Epoch = initial.Epoch
+		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
@@ -1386,7 +1386,7 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
-		des.Kind = initial.Kind
+		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
@@ -1512,7 +1512,7 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 	cDes := &NoteDiscovery{}
 
 	if dcl.IsZeroValue(des.AnalysisKind) {
-		des.AnalysisKind = initial.AnalysisKind
+		cDes.AnalysisKind = initial.AnalysisKind
 	} else {
 		cDes.AnalysisKind = des.AnalysisKind
 	}

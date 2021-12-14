@@ -952,12 +952,12 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 	cDes := &DashboardGridLayout{}
 
 	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
+		cDes.Columns = initial.Columns
 	} else {
 		cDes.Columns = des.Columns
 	}
 	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
+		cDes.Widgets = initial.Widgets
 	} else {
 		cDes.Widgets = des.Widgets
 	}
@@ -1068,7 +1068,7 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 	cDes := &DashboardMosaicLayout{}
 
 	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
+		cDes.Columns = initial.Columns
 	} else {
 		cDes.Columns = des.Columns
 	}
@@ -1182,22 +1182,22 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 	cDes := &DashboardMosaicLayoutTiles{}
 
 	if dcl.IsZeroValue(des.XPos) {
-		des.XPos = initial.XPos
+		cDes.XPos = initial.XPos
 	} else {
 		cDes.XPos = des.XPos
 	}
 	if dcl.IsZeroValue(des.YPos) {
-		des.YPos = initial.YPos
+		cDes.YPos = initial.YPos
 	} else {
 		cDes.YPos = des.YPos
 	}
 	if dcl.IsZeroValue(des.Width) {
-		des.Width = initial.Width
+		cDes.Width = initial.Width
 	} else {
 		cDes.Width = des.Width
 	}
 	if dcl.IsZeroValue(des.Height) {
-		des.Height = initial.Height
+		cDes.Height = initial.Height
 	} else {
 		cDes.Height = des.Height
 	}
@@ -1420,12 +1420,12 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 	cDes := &DashboardRowLayoutRows{}
 
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
 	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
+		cDes.Widgets = initial.Widgets
 	} else {
 		cDes.Widgets = des.Widgets
 	}
@@ -1645,7 +1645,7 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 	cDes := &DashboardColumnLayoutColumns{}
 
 	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
+		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
@@ -2048,7 +2048,7 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 
 	cDes.TimeSeriesQuery = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
 	if dcl.IsZeroValue(des.PlotType) {
-		des.PlotType = initial.PlotType
+		cDes.PlotType = initial.PlotType
 	} else {
 		cDes.PlotType = des.PlotType
 	}
@@ -2430,12 +2430,12 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -2563,12 +2563,12 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -2691,17 +2691,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
 	if dcl.IsZeroValue(des.RankingMethod) {
-		des.RankingMethod = initial.RankingMethod
+		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
-		des.NumTimeSeries = initial.NumTimeSeries
+		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
-		des.Direction = initial.Direction
+		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
 	}
@@ -3049,12 +3049,12 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -3299,12 +3299,12 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -3432,12 +3432,12 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -3560,17 +3560,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
 	if dcl.IsZeroValue(des.RankingMethod) {
-		des.RankingMethod = initial.RankingMethod
+		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
-		des.NumTimeSeries = initial.NumTimeSeries
+		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
-		des.Direction = initial.Direction
+		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
 	}
@@ -3686,17 +3686,17 @@ func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetX
 		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
 	if dcl.IsZeroValue(des.Color) {
-		des.Color = initial.Color
+		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
 	if dcl.IsZeroValue(des.Direction) {
-		des.Direction = initial.Direction
+		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
 	}
@@ -3816,7 +3816,7 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Scale) {
-		des.Scale = initial.Scale
+		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
 	}
@@ -3936,7 +3936,7 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Scale) {
-		des.Scale = initial.Scale
+		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
 	}
@@ -4051,7 +4051,7 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 	cDes := &DashboardWidgetXyChartChartOptions{}
 
 	if dcl.IsZeroValue(des.Mode) {
-		des.Mode = initial.Mode
+		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
 	}
@@ -4530,12 +4530,12 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -4663,12 +4663,12 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -4791,17 +4791,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
 	if dcl.IsZeroValue(des.RankingMethod) {
-		des.RankingMethod = initial.RankingMethod
+		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
-		des.NumTimeSeries = initial.NumTimeSeries
+		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
-		des.Direction = initial.Direction
+		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
 	}
@@ -5149,12 +5149,12 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -5399,12 +5399,12 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -5532,12 +5532,12 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
-		des.PerSeriesAligner = initial.PerSeriesAligner
+		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
-		des.CrossSeriesReducer = initial.CrossSeriesReducer
+		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
@@ -5660,17 +5660,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
 	if dcl.IsZeroValue(des.RankingMethod) {
-		des.RankingMethod = initial.RankingMethod
+		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
-		des.NumTimeSeries = initial.NumTimeSeries
+		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
-		des.Direction = initial.Direction
+		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
 	}
@@ -5781,12 +5781,12 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 	cDes := &DashboardWidgetScorecardGaugeView{}
 
 	if dcl.IsZeroValue(des.LowerBound) {
-		des.LowerBound = initial.LowerBound
+		cDes.LowerBound = initial.LowerBound
 	} else {
 		cDes.LowerBound = des.LowerBound
 	}
 	if dcl.IsZeroValue(des.UpperBound) {
-		des.UpperBound = initial.UpperBound
+		cDes.UpperBound = initial.UpperBound
 	} else {
 		cDes.UpperBound = des.UpperBound
 	}
@@ -5897,7 +5897,7 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 	cDes := &DashboardWidgetScorecardSparkChartView{}
 
 	if dcl.IsZeroValue(des.SparkChartType) {
-		des.SparkChartType = initial.SparkChartType
+		cDes.SparkChartType = initial.SparkChartType
 	} else {
 		cDes.SparkChartType = des.SparkChartType
 	}
@@ -6022,17 +6022,17 @@ func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidge
 		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
 	if dcl.IsZeroValue(des.Color) {
-		des.Color = initial.Color
+		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
 	if dcl.IsZeroValue(des.Direction) {
-		des.Direction = initial.Direction
+		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
 	}
@@ -6152,7 +6152,7 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.Format) {
-		des.Format = initial.Format
+		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
 	}
