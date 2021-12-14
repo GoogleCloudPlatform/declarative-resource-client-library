@@ -370,6 +370,13 @@ func (l *ForwardingRuleList) Next(ctx context.Context, c *Client) error {
 
 func (c *Client) ListForwardingRule(ctx context.Context, project, location string) (*ForwardingRuleList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -400,6 +407,13 @@ func (c *Client) ListForwardingRuleWithMaxResults(ctx context.Context, project, 
 
 func (c *Client) GetForwardingRule(ctx context.Context, r *ForwardingRule) (*ForwardingRule, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -442,6 +456,13 @@ func (c *Client) GetForwardingRule(ctx context.Context, r *ForwardingRule) (*For
 
 func (c *Client) DeleteForwardingRule(ctx context.Context, r *ForwardingRule) error {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -482,6 +503,13 @@ func (c *Client) ApplyForwardingRule(ctx context.Context, rawDesired *Forwarding
 	defer cancel()
 
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	var resultNewState *ForwardingRule
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyForwardingRuleHelper(c, ctx, rawDesired, opts...)
