@@ -13,9 +13,17 @@
 # limitations under the License.
 info:
   title: OSConfig/PatchDeployment
-  description: The OSConfig PatchDeployment resource
+  description: Patch deployments are configurations that individual patch jobs use
+    to complete a patch. These configurations include instance filter, package repository
+    settings, and a schedule.
   x-dcl-struct-name: PatchDeployment
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: API documentation
+    url: https://cloud.google.com/compute/docs/osconfig/rest
+  x-dcl-guides:
+  - text: Official Documentation
+    url: https://cloud.google.com/compute/docs/os-patch-management
 paths:
   get:
     description: The function used to get information about a PatchDeployment

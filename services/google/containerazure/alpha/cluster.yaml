@@ -352,8 +352,8 @@ components:
             project:
               type: string
               x-dcl-go-name: Project
-              description: The name of the Fleet host project where this cluster will
-                be registered.
+              description: The number of the Fleet host project where this cluster
+                will be registered.
               x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Cloudresourcemanager/Project
