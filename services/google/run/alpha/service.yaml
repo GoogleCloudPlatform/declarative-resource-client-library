@@ -519,12 +519,18 @@ components:
                                     Cloud Secret Manager. Format: {secret_name} if
                                     the secret is in the same project. projects/{project}/secrets/{secret_name}
                                     if the secret is in a different project.'
+                                  x-dcl-references:
+                                  - resource: Secretmanager/Secret
+                                    field: name
                                 version:
                                   type: string
                                   x-dcl-go-name: Version
                                   description: The Cloud Secret Manager secret version.
                                     Can be 'latest' for the latest value or an integer
                                     for a specific version.
+                                  x-dcl-references:
+                                  - resource: Secretmanager/SecretVersion
+                                    field: name
                   image:
                     type: string
                     x-dcl-go-name: Image
@@ -779,6 +785,9 @@ components:
                               description: The Cloud Secret Manager secret version.
                                 Can be 'latest' for the latest value or an integer
                                 for a specific version.
+                              x-dcl-references:
+                              - resource: Secretmanager/SecretVersion
+                                field: name
                       secret:
                         type: string
                         x-dcl-go-name: Secret
@@ -786,6 +795,9 @@ components:
                           Manager. Format: {secret} if the secret is in the same project.
                           projects/{project}/secrets/{secret} if the secret is in
                           a different project.'
+                        x-dcl-references:
+                        - resource: Secretmanager/Secret
+                          field: name
             vpcAccess:
               type: object
               x-dcl-go-name: VPCAccess
@@ -797,6 +809,9 @@ components:
                   type: string
                   x-dcl-go-name: Connector
                   description: 'VPC Access connector name. Format: projects/{project}/locations/{location}/connectors/{connector}'
+                  x-dcl-references:
+                  - resource: Vpcaccess/Connector
+                    field: name
                 egress:
                   type: string
                   x-dcl-go-name: Egress

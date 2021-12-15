@@ -21,48 +21,41 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
-enum LoggingLogBucketLifecycleStateEnum {
-  LoggingLogBucketLifecycleStateEnumNO_VALUE_DO_NOT_USE = 0;
-  LoggingLogBucketLifecycleStateEnumLIFECYCLE_STATE_UNSPECIFIED = 1;
-  LoggingLogBucketLifecycleStateEnumACTIVE = 2;
-  LoggingLogBucketLifecycleStateEnumDELETE_REQUESTED = 3;
-}
-
-message LoggingLogBucket {
+message LoggingBetaLogView {
   string name = 1;
   string description = 2;
   string create_time = 3;
   string update_time = 4;
-  int64 retention_days = 5;
-  bool locked = 6;
-  LoggingLogBucketLifecycleStateEnum lifecycle_state = 7;
-  string parent = 8;
-  string location = 9;
+  string filter = 5;
+  string parent = 6;
+  string location = 7;
+  string bucket = 8;
 }
 
-message ApplyLoggingLogBucketRequest {
-  LoggingLogBucket resource = 1;
+message ApplyLoggingBetaLogViewRequest {
+  LoggingBetaLogView resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
   string service_account_file = 3;
 }
 
-message DeleteLoggingLogBucketRequest {
+message DeleteLoggingBetaLogViewRequest {
   string service_account_file = 1;
-  LoggingLogBucket resource = 2;
+  LoggingBetaLogView resource = 2;
 }
 
-message ListLoggingLogBucketRequest {
+message ListLoggingBetaLogViewRequest {
   string service_account_file = 1;
   string Location = 2;
-  string Parent = 3;
+  string Bucket = 3;
+  string Parent = 4;
 }
 
-message ListLoggingLogBucketResponse {
-  repeated LoggingLogBucket items = 1;
+message ListLoggingBetaLogViewResponse {
+  repeated LoggingBetaLogView items = 1;
 }
 
-service LoggingLogBucketService {
-  rpc ApplyLoggingLogBucket(ApplyLoggingLogBucketRequest) returns (LoggingLogBucket);
-  rpc DeleteLoggingLogBucket(DeleteLoggingLogBucketRequest) returns (google.protobuf.Empty);
-  rpc ListLoggingLogBucket(ListLoggingLogBucketRequest) returns (ListLoggingLogBucketResponse);
+service LoggingBetaLogViewService {
+  rpc ApplyLoggingBetaLogView(ApplyLoggingBetaLogViewRequest) returns (LoggingBetaLogView);
+  rpc DeleteLoggingBetaLogView(DeleteLoggingBetaLogViewRequest) returns (google.protobuf.Empty);
+  rpc ListLoggingBetaLogView(ListLoggingBetaLogViewRequest) returns (ListLoggingBetaLogViewResponse);
 }

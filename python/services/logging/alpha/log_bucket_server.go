@@ -17,35 +17,35 @@ import (
 	"context"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
-	loggingpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/logging/logging_go_proto"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging"
+	alphapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/logging/alpha/logging_alpha_go_proto"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/alpha"
 )
 
 // Server implements the gRPC interface for LogBucket.
 type LogBucketServer struct{}
 
 // ProtoToLogBucketLifecycleStateEnum converts a LogBucketLifecycleStateEnum enum from its proto representation.
-func ProtoToLoggingLogBucketLifecycleStateEnum(e loggingpb.LoggingLogBucketLifecycleStateEnum) *logging.LogBucketLifecycleStateEnum {
+func ProtoToLoggingAlphaLogBucketLifecycleStateEnum(e alphapb.LoggingAlphaLogBucketLifecycleStateEnum) *alpha.LogBucketLifecycleStateEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := loggingpb.LoggingLogBucketLifecycleStateEnum_name[int32(e)]; ok {
-		e := logging.LogBucketLifecycleStateEnum(n[len("LoggingLogBucketLifecycleStateEnum"):])
+	if n, ok := alphapb.LoggingAlphaLogBucketLifecycleStateEnum_name[int32(e)]; ok {
+		e := alpha.LogBucketLifecycleStateEnum(n[len("LoggingAlphaLogBucketLifecycleStateEnum"):])
 		return &e
 	}
 	return nil
 }
 
 // ProtoToLogBucket converts a LogBucket resource from its proto representation.
-func ProtoToLogBucket(p *loggingpb.LoggingLogBucket) *logging.LogBucket {
-	obj := &logging.LogBucket{
+func ProtoToLogBucket(p *alphapb.LoggingAlphaLogBucket) *alpha.LogBucket {
+	obj := &alpha.LogBucket{
 		Name:           dcl.StringOrNil(p.GetName()),
 		Description:    dcl.StringOrNil(p.GetDescription()),
 		CreateTime:     dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:     dcl.StringOrNil(p.GetUpdateTime()),
 		RetentionDays:  dcl.Int64OrNil(p.GetRetentionDays()),
 		Locked:         dcl.Bool(p.GetLocked()),
-		LifecycleState: ProtoToLoggingLogBucketLifecycleStateEnum(p.GetLifecycleState()),
+		LifecycleState: ProtoToLoggingAlphaLogBucketLifecycleStateEnum(p.GetLifecycleState()),
 		Parent:         dcl.StringOrNil(p.GetParent()),
 		Location:       dcl.StringOrNil(p.GetLocation()),
 	}
@@ -53,26 +53,26 @@ func ProtoToLogBucket(p *loggingpb.LoggingLogBucket) *logging.LogBucket {
 }
 
 // LogBucketLifecycleStateEnumToProto converts a LogBucketLifecycleStateEnum enum to its proto representation.
-func LoggingLogBucketLifecycleStateEnumToProto(e *logging.LogBucketLifecycleStateEnum) loggingpb.LoggingLogBucketLifecycleStateEnum {
+func LoggingAlphaLogBucketLifecycleStateEnumToProto(e *alpha.LogBucketLifecycleStateEnum) alphapb.LoggingAlphaLogBucketLifecycleStateEnum {
 	if e == nil {
-		return loggingpb.LoggingLogBucketLifecycleStateEnum(0)
+		return alphapb.LoggingAlphaLogBucketLifecycleStateEnum(0)
 	}
-	if v, ok := loggingpb.LoggingLogBucketLifecycleStateEnum_value["LogBucketLifecycleStateEnum"+string(*e)]; ok {
-		return loggingpb.LoggingLogBucketLifecycleStateEnum(v)
+	if v, ok := alphapb.LoggingAlphaLogBucketLifecycleStateEnum_value["LogBucketLifecycleStateEnum"+string(*e)]; ok {
+		return alphapb.LoggingAlphaLogBucketLifecycleStateEnum(v)
 	}
-	return loggingpb.LoggingLogBucketLifecycleStateEnum(0)
+	return alphapb.LoggingAlphaLogBucketLifecycleStateEnum(0)
 }
 
 // LogBucketToProto converts a LogBucket resource to its proto representation.
-func LogBucketToProto(resource *logging.LogBucket) *loggingpb.LoggingLogBucket {
-	p := &loggingpb.LoggingLogBucket{}
+func LogBucketToProto(resource *alpha.LogBucket) *alphapb.LoggingAlphaLogBucket {
+	p := &alphapb.LoggingAlphaLogBucket{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetRetentionDays(dcl.ValueOrEmptyInt64(resource.RetentionDays))
 	p.SetLocked(dcl.ValueOrEmptyBool(resource.Locked))
-	p.SetLifecycleState(LoggingLogBucketLifecycleStateEnumToProto(resource.LifecycleState))
+	p.SetLifecycleState(LoggingAlphaLogBucketLifecycleStateEnumToProto(resource.LifecycleState))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
@@ -80,7 +80,7 @@ func LogBucketToProto(resource *logging.LogBucket) *loggingpb.LoggingLogBucket {
 }
 
 // applyLogBucket handles the gRPC request by passing it to the underlying LogBucket Apply() method.
-func (s *LogBucketServer) applyLogBucket(ctx context.Context, c *logging.Client, request *loggingpb.ApplyLoggingLogBucketRequest) (*loggingpb.LoggingLogBucket, error) {
+func (s *LogBucketServer) applyLogBucket(ctx context.Context, c *alpha.Client, request *alphapb.ApplyLoggingAlphaLogBucketRequest) (*alphapb.LoggingAlphaLogBucket, error) {
 	p := ProtoToLogBucket(request.GetResource())
 	res, err := c.ApplyLogBucket(ctx, p)
 	if err != nil {
@@ -90,8 +90,8 @@ func (s *LogBucketServer) applyLogBucket(ctx context.Context, c *logging.Client,
 	return r, nil
 }
 
-// applyLoggingLogBucket handles the gRPC request by passing it to the underlying LogBucket Apply() method.
-func (s *LogBucketServer) ApplyLoggingLogBucket(ctx context.Context, request *loggingpb.ApplyLoggingLogBucketRequest) (*loggingpb.LoggingLogBucket, error) {
+// applyLoggingAlphaLogBucket handles the gRPC request by passing it to the underlying LogBucket Apply() method.
+func (s *LogBucketServer) ApplyLoggingAlphaLogBucket(ctx context.Context, request *alphapb.ApplyLoggingAlphaLogBucketRequest) (*alphapb.LoggingAlphaLogBucket, error) {
 	cl, err := createConfigLogBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
@@ -100,7 +100,7 @@ func (s *LogBucketServer) ApplyLoggingLogBucket(ctx context.Context, request *lo
 }
 
 // DeleteLogBucket handles the gRPC request by passing it to the underlying LogBucket Delete() method.
-func (s *LogBucketServer) DeleteLoggingLogBucket(ctx context.Context, request *loggingpb.DeleteLoggingLogBucketRequest) (*emptypb.Empty, error) {
+func (s *LogBucketServer) DeleteLoggingAlphaLogBucket(ctx context.Context, request *alphapb.DeleteLoggingAlphaLogBucketRequest) (*emptypb.Empty, error) {
 
 	cl, err := createConfigLogBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
@@ -110,8 +110,8 @@ func (s *LogBucketServer) DeleteLoggingLogBucket(ctx context.Context, request *l
 
 }
 
-// ListLoggingLogBucket handles the gRPC request by passing it to the underlying LogBucketList() method.
-func (s *LogBucketServer) ListLoggingLogBucket(ctx context.Context, request *loggingpb.ListLoggingLogBucketRequest) (*loggingpb.ListLoggingLogBucketResponse, error) {
+// ListLoggingAlphaLogBucket handles the gRPC request by passing it to the underlying LogBucketList() method.
+func (s *LogBucketServer) ListLoggingAlphaLogBucket(ctx context.Context, request *alphapb.ListLoggingAlphaLogBucketRequest) (*alphapb.ListLoggingAlphaLogBucketResponse, error) {
 	cl, err := createConfigLogBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
@@ -121,18 +121,18 @@ func (s *LogBucketServer) ListLoggingLogBucket(ctx context.Context, request *log
 	if err != nil {
 		return nil, err
 	}
-	var protos []*loggingpb.LoggingLogBucket
+	var protos []*alphapb.LoggingAlphaLogBucket
 	for _, r := range resources.Items {
 		rp := LogBucketToProto(r)
 		protos = append(protos, rp)
 	}
-	p := &loggingpb.ListLoggingLogBucketResponse{}
+	p := &alphapb.ListLoggingAlphaLogBucketResponse{}
 	p.SetItems(protos)
 	return p, nil
 }
 
-func createConfigLogBucket(ctx context.Context, service_account_file string) (*logging.Client, error) {
+func createConfigLogBucket(ctx context.Context, service_account_file string) (*alpha.Client, error) {
 
 	conf := dcl.NewConfig(dcl.WithUserAgent("dcl-test"), dcl.WithCredentialsFile(service_account_file))
-	return logging.NewClient(conf), nil
+	return alpha.NewClient(conf), nil
 }

@@ -1,0 +1,6 @@
+{
+  "name": "{{view}}",
+  "parent": "organizations/{{org_id}}",
+  "location": "global",
+  "bucket": "{{ref:organization.log_bucket.json:name}}"
+}

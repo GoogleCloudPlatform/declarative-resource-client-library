@@ -1282,7 +1282,7 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 
 	cDes := &ServiceTemplateVPCAccess{}
 
-	if dcl.StringCanonicalize(des.Connector, initial.Connector) || dcl.IsZeroValue(des.Connector) {
+	if dcl.NameToSelfLink(des.Connector, initial.Connector) || dcl.IsZeroValue(des.Connector) {
 		cDes.Connector = initial.Connector
 	} else {
 		cDes.Connector = des.Connector
@@ -1338,7 +1338,7 @@ func canonicalizeNewServiceTemplateVPCAccess(c *Client, des, nw *ServiceTemplate
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.Connector, nw.Connector) {
+	if dcl.NameToSelfLink(des.Connector, nw.Connector) {
 		nw.Connector = des.Connector
 	}
 
@@ -1803,12 +1803,12 @@ func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRef(des, initia
 
 	cDes := &ServiceTemplateContainersEnvValueSourceSecretKeyRef{}
 
-	if dcl.StringCanonicalize(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
+	if dcl.NameToSelfLink(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.NameToSelfLink(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1859,10 +1859,10 @@ func canonicalizeNewServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Clien
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.Secret, nw.Secret) {
+	if dcl.NameToSelfLink(des.Secret, nw.Secret) {
 		nw.Secret = des.Secret
 	}
-	if dcl.StringCanonicalize(des.Version, nw.Version) {
+	if dcl.NameToSelfLink(des.Version, nw.Version) {
 		nw.Version = des.Version
 	}
 
@@ -2428,7 +2428,7 @@ func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolum
 
 	cDes := &ServiceTemplateVolumesSecret{}
 
-	if dcl.StringCanonicalize(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
+	if dcl.NameToSelfLink(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
@@ -2485,7 +2485,7 @@ func canonicalizeNewServiceTemplateVolumesSecret(c *Client, des, nw *ServiceTemp
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.Secret, nw.Secret) {
+	if dcl.NameToSelfLink(des.Secret, nw.Secret) {
 		nw.Secret = des.Secret
 	}
 	nw.Items = canonicalizeNewServiceTemplateVolumesSecretItemsSlice(c, des.Items, nw.Items)
@@ -2555,7 +2555,7 @@ func canonicalizeServiceTemplateVolumesSecretItems(des, initial *ServiceTemplate
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.NameToSelfLink(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -2614,7 +2614,7 @@ func canonicalizeNewServiceTemplateVolumesSecretItems(c *Client, des, nw *Servic
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Version, nw.Version) {
+	if dcl.NameToSelfLink(des.Version, nw.Version) {
 		nw.Version = des.Version
 	}
 
@@ -3680,7 +3680,7 @@ func compareServiceTemplateVPCAccessNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Connector, actual.Connector, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Connector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Connector, actual.Connector, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Connector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3866,14 +3866,14 @@ func compareServiceTemplateContainersEnvValueSourceSecretKeyRefNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4053,7 +4053,7 @@ func compareServiceTemplateVolumesSecretNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4103,7 +4103,7 @@ func compareServiceTemplateVolumesSecretItemsNewStyle(d, a interface{}, fn dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5512,10 +5512,14 @@ func expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Client, f *Ser
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Secret; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.Secret); err != nil {
+		return nil, fmt.Errorf("error expanding Secret into secret: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secret"] = v
 	}
-	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.Version); err != nil {
+		return nil, fmt.Errorf("error expanding Version into version: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["version"] = v
 	}
 
@@ -6237,7 +6241,9 @@ func expandServiceTemplateVolumesSecretItems(c *Client, f *ServiceTemplateVolume
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
-	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.Version); err != nil {
+		return nil, fmt.Errorf("error expanding Version into version: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["version"] = v
 	}
 	if v := f.Mode; !dcl.IsEmptyValueIndirect(v) {

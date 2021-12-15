@@ -21,48 +21,48 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
-enum LoggingLogBucketLifecycleStateEnum {
-  LoggingLogBucketLifecycleStateEnumNO_VALUE_DO_NOT_USE = 0;
-  LoggingLogBucketLifecycleStateEnumLIFECYCLE_STATE_UNSPECIFIED = 1;
-  LoggingLogBucketLifecycleStateEnumACTIVE = 2;
-  LoggingLogBucketLifecycleStateEnumDELETE_REQUESTED = 3;
+enum LoggingAlphaLogBucketLifecycleStateEnum {
+  LoggingAlphaLogBucketLifecycleStateEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingAlphaLogBucketLifecycleStateEnumLIFECYCLE_STATE_UNSPECIFIED = 1;
+  LoggingAlphaLogBucketLifecycleStateEnumACTIVE = 2;
+  LoggingAlphaLogBucketLifecycleStateEnumDELETE_REQUESTED = 3;
 }
 
-message LoggingLogBucket {
+message LoggingAlphaLogBucket {
   string name = 1;
   string description = 2;
   string create_time = 3;
   string update_time = 4;
   int64 retention_days = 5;
   bool locked = 6;
-  LoggingLogBucketLifecycleStateEnum lifecycle_state = 7;
+  LoggingAlphaLogBucketLifecycleStateEnum lifecycle_state = 7;
   string parent = 8;
   string location = 9;
 }
 
-message ApplyLoggingLogBucketRequest {
-  LoggingLogBucket resource = 1;
+message ApplyLoggingAlphaLogBucketRequest {
+  LoggingAlphaLogBucket resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
   string service_account_file = 3;
 }
 
-message DeleteLoggingLogBucketRequest {
+message DeleteLoggingAlphaLogBucketRequest {
   string service_account_file = 1;
-  LoggingLogBucket resource = 2;
+  LoggingAlphaLogBucket resource = 2;
 }
 
-message ListLoggingLogBucketRequest {
+message ListLoggingAlphaLogBucketRequest {
   string service_account_file = 1;
   string Location = 2;
   string Parent = 3;
 }
 
-message ListLoggingLogBucketResponse {
-  repeated LoggingLogBucket items = 1;
+message ListLoggingAlphaLogBucketResponse {
+  repeated LoggingAlphaLogBucket items = 1;
 }
 
-service LoggingLogBucketService {
-  rpc ApplyLoggingLogBucket(ApplyLoggingLogBucketRequest) returns (LoggingLogBucket);
-  rpc DeleteLoggingLogBucket(DeleteLoggingLogBucketRequest) returns (google.protobuf.Empty);
-  rpc ListLoggingLogBucket(ListLoggingLogBucketRequest) returns (ListLoggingLogBucketResponse);
+service LoggingAlphaLogBucketService {
+  rpc ApplyLoggingAlphaLogBucket(ApplyLoggingAlphaLogBucketRequest) returns (LoggingAlphaLogBucket);
+  rpc DeleteLoggingAlphaLogBucket(DeleteLoggingAlphaLogBucketRequest) returns (google.protobuf.Empty);
+  rpc ListLoggingAlphaLogBucket(ListLoggingAlphaLogBucketRequest) returns (ListLoggingAlphaLogBucketResponse);
 }
