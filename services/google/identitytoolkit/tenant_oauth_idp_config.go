@@ -118,7 +118,7 @@ func (r *TenantOAuthIdpConfig) ID() (string, error) {
 		"project":      dcl.ValueOrEmptyString(nr.Project),
 		"tenant":       dcl.ValueOrEmptyString(nr.Tenant),
 	}
-	return dcl.Nprintf("admin/v2/projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", params), nil
 }
 
 const TenantOAuthIdpConfigMaxPage = -1

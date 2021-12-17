@@ -226,7 +226,7 @@ func (r *ConfigBlockingFunctionsTriggers) validate() error {
 }
 func (r *Config) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://identitytoolkit.googleapis.com/", params)
+	return dcl.Nprintf("https://identitytoolkit.googleapis.com/admin/v2", params)
 }
 
 func (r *Config) getURL(userBasePath string) (string, error) {
@@ -234,7 +234,7 @@ func (r *Config) getURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
 		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("admin/v2/projects/{{name}}/config", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{name}}/config", nr.basePath(), userBasePath, params), nil
 }
 
 // configApiOperation represents a mutable operation in the underlying REST
@@ -3214,7 +3214,7 @@ func canonicalizeConfigBlockingFunctionsTriggers(des, initial *ConfigBlockingFun
 
 	cDes := &ConfigBlockingFunctionsTriggers{}
 
-	if dcl.StringCanonicalize(des.FunctionUri, initial.FunctionUri) || dcl.IsZeroValue(des.FunctionUri) {
+	if dcl.NameToSelfLink(des.FunctionUri, initial.FunctionUri) || dcl.IsZeroValue(des.FunctionUri) {
 		cDes.FunctionUri = initial.FunctionUri
 	} else {
 		cDes.FunctionUri = des.FunctionUri
@@ -3265,7 +3265,7 @@ func canonicalizeNewConfigBlockingFunctionsTriggers(c *Client, des, nw *ConfigBl
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.FunctionUri, nw.FunctionUri) {
+	if dcl.NameToSelfLink(des.FunctionUri, nw.FunctionUri) {
 		nw.FunctionUri = des.FunctionUri
 	}
 
@@ -4392,7 +4392,7 @@ func compareConfigBlockingFunctionsTriggersNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FunctionUri, actual.FunctionUri, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("FunctionUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FunctionUri, actual.FunctionUri, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("FunctionUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4423,7 +4423,7 @@ func (r *Config) updateURL(userBasePath, updateName string) (string, error) {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("admin/v2/projects/{{name}}/config", nr.basePath(), userBasePath, fields), nil
+		return dcl.URL("projects/{{name}}/config", nr.basePath(), userBasePath, fields), nil
 
 	}
 

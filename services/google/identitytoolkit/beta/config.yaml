@@ -33,7 +33,7 @@ components:
   schemas:
     Config:
       title: Config
-      x-dcl-id: admin/v2/projects/{{name}}/config
+      x-dcl-id: projects/{{name}}/config
       x-dcl-uses-state-hint: true
       x-dcl-has-iam: false
       type: object
@@ -65,6 +65,9 @@ components:
                     type: string
                     x-dcl-go-name: FunctionUri
                     description: HTTP URI trigger for the Cloud Function.
+                    x-dcl-references:
+                    - resource: Cloudfunctions/Function
+                      field: httpsTrigger.url
                   updateTime:
                     type: string
                     format: date-time

@@ -42,7 +42,7 @@ func (r *OAuthIdpConfigResponseType) validate() error {
 }
 func (r *OAuthIdpConfig) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://identitytoolkit.googleapis.com/", params)
+	return dcl.Nprintf("https://identitytoolkit.googleapis.com/admin/v2", params)
 }
 
 func (r *OAuthIdpConfig) getURL(userBasePath string) (string, error) {
@@ -51,7 +51,7 @@ func (r *OAuthIdpConfig) getURL(userBasePath string) (string, error) {
 		"project": dcl.ValueOrEmptyString(nr.Project),
 		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("admin/v2/projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *OAuthIdpConfig) listURL(userBasePath string) (string, error) {
@@ -59,7 +59,7 @@ func (r *OAuthIdpConfig) listURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("admin/v2/projects/{{project}}/oauthIdpConfigs", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs", nr.basePath(), userBasePath, params), nil
 
 }
 
@@ -69,7 +69,7 @@ func (r *OAuthIdpConfig) createURL(userBasePath string) (string, error) {
 		"project": dcl.ValueOrEmptyString(nr.Project),
 		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("admin/v2/projects/{{project}}/oauthIdpConfigs?oauthIdpConfigId={{name}}", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs?oauthIdpConfigId={{name}}", nr.basePath(), userBasePath, params), nil
 
 }
 
@@ -79,7 +79,7 @@ func (r *OAuthIdpConfig) deleteURL(userBasePath string) (string, error) {
 		"project": dcl.ValueOrEmptyString(nr.Project),
 		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("admin/v2/projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // oAuthIdpConfigApiOperation represents a mutable operation in the underlying REST
@@ -792,7 +792,7 @@ func (r *OAuthIdpConfig) updateURL(userBasePath, updateName string) (string, err
 			"project": dcl.ValueOrEmptyString(nr.Project),
 			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("admin/v2/projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
 

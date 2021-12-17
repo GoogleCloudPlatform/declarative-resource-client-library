@@ -1485,7 +1485,7 @@ func (r *Config) ID() (string, error) {
 		"mfa":               dcl.ValueOrEmptyString(nr.Mfa),
 		"blockingFunctions": dcl.ValueOrEmptyString(nr.BlockingFunctions),
 	}
-	return dcl.Nprintf("admin/v2/projects/{{name}}/config", params), nil
+	return dcl.Nprintf("projects/{{name}}/config", params), nil
 }
 
 const ConfigMaxPage = -1

@@ -53,7 +53,7 @@ components:
   schemas:
     Tenant:
       title: Tenant
-      x-dcl-id: v2/projects/{{project}}/tenants/{{name}}
+      x-dcl-id: projects/{{project}}/tenants/{{name}}
       x-dcl-parent-container: project
       x-dcl-has-iam: false
       type: object
