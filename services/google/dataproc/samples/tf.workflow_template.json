@@ -39,7 +39,7 @@
           "numInstances": 0
         },
         "softwareConfig": {
-          "imageVersion": "2.0.25-debian10",
+          "imageVersion": "2.0.27-debian10",
           "properties": {
             "dataproc:dataproc.allow.zero.workers": "true"
           },
