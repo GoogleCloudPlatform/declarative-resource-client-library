@@ -1665,15 +1665,15 @@ func canonicalizeHttpRouteRulesActionDestinations(des, initial *HttpRouteRulesAc
 
 	cDes := &HttpRouteRulesActionDestinations{}
 
-	if dcl.StringCanonicalize(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
-		cDes.ServiceName = initial.ServiceName
-	} else {
-		cDes.ServiceName = des.ServiceName
-	}
 	if dcl.IsZeroValue(des.Weight) {
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
+	}
+	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+		cDes.ServiceName = initial.ServiceName
+	} else {
+		cDes.ServiceName = des.ServiceName
 	}
 
 	return cDes
@@ -1721,7 +1721,7 @@ func canonicalizeNewHttpRouteRulesActionDestinations(c *Client, des, nw *HttpRou
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.ServiceName, nw.ServiceName) {
+	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
 		nw.ServiceName = des.ServiceName
 	}
 
@@ -2899,15 +2899,15 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial
 
 	cDes := &HttpRouteRulesActionRequestMirrorPolicyDestination{}
 
-	if dcl.StringCanonicalize(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
-		cDes.ServiceName = initial.ServiceName
-	} else {
-		cDes.ServiceName = des.ServiceName
-	}
 	if dcl.IsZeroValue(des.Weight) {
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
+	}
+	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+		cDes.ServiceName = initial.ServiceName
+	} else {
+		cDes.ServiceName = des.ServiceName
 	}
 
 	return cDes
@@ -2955,7 +2955,7 @@ func canonicalizeNewHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.ServiceName, nw.ServiceName) {
+	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
 		nw.ServiceName = des.ServiceName
 	}
 
@@ -3663,14 +3663,14 @@ func compareHttpRouteRulesActionDestinationsNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4072,14 +4072,14 @@ func compareHttpRouteRulesActionRequestMirrorPolicyDestinationNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateHttpRouteUpdateHttpRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5197,11 +5197,11 @@ func expandHttpRouteRulesActionDestinations(c *Client, f *HttpRouteRulesActionDe
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
-		m["serviceName"] = v
-	}
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
+	}
+	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceName"] = v
 	}
 
 	return m, nil
@@ -5220,8 +5220,8 @@ func flattenHttpRouteRulesActionDestinations(c *Client, i interface{}) *HttpRout
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyHttpRouteRulesActionDestinations
 	}
-	r.ServiceName = dcl.FlattenString(m["serviceName"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
+	r.ServiceName = dcl.FlattenString(m["serviceName"])
 
 	return r
 }
@@ -6411,11 +6411,11 @@ func expandHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, f *Http
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
-		m["serviceName"] = v
-	}
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
+	}
+	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceName"] = v
 	}
 
 	return m, nil
@@ -6434,8 +6434,8 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, i inte
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyHttpRouteRulesActionRequestMirrorPolicyDestination
 	}
-	r.ServiceName = dcl.FlattenString(m["serviceName"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
+	r.ServiceName = dcl.FlattenString(m["serviceName"])
 
 	return r
 }

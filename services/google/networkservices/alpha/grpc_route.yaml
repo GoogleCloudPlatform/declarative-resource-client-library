@@ -220,6 +220,10 @@ components:
                           description: Required. The URL of a destination service
                             to which to route traffic. Must refer to either a BackendService
                             or ServiceDirectoryService.
+                          x-dcl-references:
+                          - resource: Compute/BackendService
+                            field: name
+                            format: projects/{{project}}/locations/global/backendServices/{{name}}
                         weight:
                           type: integer
                           format: int64
@@ -346,6 +350,10 @@ components:
                             description: Required. The URL of a destination service
                               to which to route traffic. Must refer to either a BackendService
                               or ServiceDirectoryService.
+                            x-dcl-references:
+                            - resource: Compute/BackendService
+                              field: name
+                              format: projects/{{project}}/locations/global/backendServices/{{name}}
                           weight:
                             type: integer
                             format: int64

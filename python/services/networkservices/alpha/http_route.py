@@ -612,9 +612,9 @@ class HttpRouteRulesActionArray(object):
 
 
 class HttpRouteRulesActionDestinations(object):
-    def __init__(self, service_name: str = None, weight: int = None):
-        self.service_name = service_name
+    def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
+        self.service_name = service_name
 
     @classmethod
     def to_proto(self, resource):
@@ -622,10 +622,10 @@ class HttpRouteRulesActionDestinations(object):
             return None
 
         res = http_route_pb2.NetworkservicesAlphaHttpRouteRulesActionDestinations()
-        if Primitive.to_proto(resource.service_name):
-            res.service_name = Primitive.to_proto(resource.service_name)
         if Primitive.to_proto(resource.weight):
             res.weight = Primitive.to_proto(resource.weight)
+        if Primitive.to_proto(resource.service_name):
+            res.service_name = Primitive.to_proto(resource.service_name)
         return res
 
     @classmethod
@@ -634,8 +634,8 @@ class HttpRouteRulesActionDestinations(object):
             return None
 
         return HttpRouteRulesActionDestinations(
-            service_name=Primitive.from_proto(resource.service_name),
             weight=Primitive.from_proto(resource.weight),
+            service_name=Primitive.from_proto(resource.service_name),
         )
 
 
@@ -1116,9 +1116,9 @@ class HttpRouteRulesActionRequestMirrorPolicyArray(object):
 
 
 class HttpRouteRulesActionRequestMirrorPolicyDestination(object):
-    def __init__(self, service_name: str = None, weight: int = None):
-        self.service_name = service_name
+    def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
+        self.service_name = service_name
 
     @classmethod
     def to_proto(self, resource):
@@ -1128,10 +1128,10 @@ class HttpRouteRulesActionRequestMirrorPolicyDestination(object):
         res = (
             http_route_pb2.NetworkservicesAlphaHttpRouteRulesActionRequestMirrorPolicyDestination()
         )
-        if Primitive.to_proto(resource.service_name):
-            res.service_name = Primitive.to_proto(resource.service_name)
         if Primitive.to_proto(resource.weight):
             res.weight = Primitive.to_proto(resource.weight)
+        if Primitive.to_proto(resource.service_name):
+            res.service_name = Primitive.to_proto(resource.service_name)
         return res
 
     @classmethod
@@ -1140,8 +1140,8 @@ class HttpRouteRulesActionRequestMirrorPolicyDestination(object):
             return None
 
         return HttpRouteRulesActionRequestMirrorPolicyDestination(
-            service_name=Primitive.from_proto(resource.service_name),
             weight=Primitive.from_proto(resource.weight),
+            service_name=Primitive.from_proto(resource.service_name),
         )
 
 

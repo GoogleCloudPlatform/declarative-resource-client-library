@@ -70,8 +70,8 @@ func ProtoToNetworkservicesAlphaTcpRouteRulesActionDestinations(p *alphapb.Netwo
 		return nil
 	}
 	obj := &alpha.TcpRouteRulesActionDestinations{
-		ServiceName: dcl.StringOrNil(p.GetServiceName()),
 		Weight:      dcl.Int64OrNil(p.GetWeight()),
+		ServiceName: dcl.StringOrNil(p.GetServiceName()),
 	}
 	return obj
 }
@@ -148,8 +148,8 @@ func NetworkservicesAlphaTcpRouteRulesActionDestinationsToProto(o *alpha.TcpRout
 		return nil
 	}
 	p := &alphapb.NetworkservicesAlphaTcpRouteRulesActionDestinations{}
-	p.SetServiceName(dcl.ValueOrEmptyString(o.ServiceName))
 	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
+	p.SetServiceName(dcl.ValueOrEmptyString(o.ServiceName))
 	return p
 }
 

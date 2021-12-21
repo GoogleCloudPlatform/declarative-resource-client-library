@@ -143,8 +143,8 @@ func ProtoToNetworkservicesAlphaHttpRouteRulesActionDestinations(p *alphapb.Netw
 		return nil
 	}
 	obj := &alpha.HttpRouteRulesActionDestinations{
-		ServiceName: dcl.StringOrNil(p.GetServiceName()),
 		Weight:      dcl.Int64OrNil(p.GetWeight()),
+		ServiceName: dcl.StringOrNil(p.GetServiceName()),
 	}
 	return obj
 }
@@ -270,8 +270,8 @@ func ProtoToNetworkservicesAlphaHttpRouteRulesActionRequestMirrorPolicyDestinati
 		return nil
 	}
 	obj := &alpha.HttpRouteRulesActionRequestMirrorPolicyDestination{
-		ServiceName: dcl.StringOrNil(p.GetServiceName()),
 		Weight:      dcl.Int64OrNil(p.GetWeight()),
+		ServiceName: dcl.StringOrNil(p.GetServiceName()),
 	}
 	return obj
 }
@@ -452,8 +452,8 @@ func NetworkservicesAlphaHttpRouteRulesActionDestinationsToProto(o *alpha.HttpRo
 		return nil
 	}
 	p := &alphapb.NetworkservicesAlphaHttpRouteRulesActionDestinations{}
-	p.SetServiceName(dcl.ValueOrEmptyString(o.ServiceName))
 	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
+	p.SetServiceName(dcl.ValueOrEmptyString(o.ServiceName))
 	return p
 }
 
@@ -597,8 +597,8 @@ func NetworkservicesAlphaHttpRouteRulesActionRequestMirrorPolicyDestinationToPro
 		return nil
 	}
 	p := &alphapb.NetworkservicesAlphaHttpRouteRulesActionRequestMirrorPolicyDestination{}
-	p.SetServiceName(dcl.ValueOrEmptyString(o.ServiceName))
 	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
+	p.SetServiceName(dcl.ValueOrEmptyString(o.ServiceName))
 	return p
 }
 

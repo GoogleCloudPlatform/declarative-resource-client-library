@@ -963,15 +963,15 @@ func canonicalizeTcpRouteRulesActionDestinations(des, initial *TcpRouteRulesActi
 
 	cDes := &TcpRouteRulesActionDestinations{}
 
-	if dcl.StringCanonicalize(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
-		cDes.ServiceName = initial.ServiceName
-	} else {
-		cDes.ServiceName = des.ServiceName
-	}
 	if dcl.IsZeroValue(des.Weight) {
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
+	}
+	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+		cDes.ServiceName = initial.ServiceName
+	} else {
+		cDes.ServiceName = des.ServiceName
 	}
 
 	return cDes
@@ -1019,7 +1019,7 @@ func canonicalizeNewTcpRouteRulesActionDestinations(c *Client, des, nw *TcpRoute
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.ServiceName, nw.ServiceName) {
+	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
 		nw.ServiceName = des.ServiceName
 	}
 
@@ -1294,14 +1294,14 @@ func compareTcpRouteRulesActionDestinationsNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTcpRouteUpdateTcpRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTcpRouteUpdateTcpRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTcpRouteUpdateTcpRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTcpRouteUpdateTcpRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1879,11 +1879,11 @@ func expandTcpRouteRulesActionDestinations(c *Client, f *TcpRouteRulesActionDest
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
-		m["serviceName"] = v
-	}
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
+	}
+	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceName"] = v
 	}
 
 	return m, nil
@@ -1902,8 +1902,8 @@ func flattenTcpRouteRulesActionDestinations(c *Client, i interface{}) *TcpRouteR
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTcpRouteRulesActionDestinations
 	}
-	r.ServiceName = dcl.FlattenString(m["serviceName"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
+	r.ServiceName = dcl.FlattenString(m["serviceName"])
 
 	return r
 }

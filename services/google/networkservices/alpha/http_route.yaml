@@ -271,6 +271,10 @@ components:
                           x-dcl-go-name: ServiceName
                           description: The URL of a BackendService to route traffic
                             to.
+                          x-dcl-references:
+                          - resource: Compute/BackendService
+                            field: name
+                            format: projects/{{project}}/locations/global/backendServices/{{name}}
                         weight:
                           type: integer
                           format: int64
@@ -456,6 +460,10 @@ components:
                             x-dcl-go-name: ServiceName
                             description: The URL of a BackendService to route traffic
                               to.
+                            x-dcl-references:
+                            - resource: Compute/BackendService
+                              field: name
+                              format: projects/{{project}}/locations/global/backendServices/{{name}}
                           weight:
                             type: integer
                             format: int64

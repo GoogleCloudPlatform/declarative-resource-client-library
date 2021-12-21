@@ -191,8 +191,8 @@ func (r *TcpRouteRulesAction) HashCode() string {
 
 type TcpRouteRulesActionDestinations struct {
 	empty       bool    `json:"-"`
-	ServiceName *string `json:"serviceName"`
 	Weight      *int64  `json:"weight"`
+	ServiceName *string `json:"serviceName"`
 }
 
 type jsonTcpRouteRulesActionDestinations TcpRouteRulesActionDestinations
@@ -210,9 +210,9 @@ func (r *TcpRouteRulesActionDestinations) UnmarshalJSON(data []byte) error {
 		*r = *EmptyTcpRouteRulesActionDestinations
 	} else {
 
-		r.ServiceName = res.ServiceName
-
 		r.Weight = res.Weight
+
+		r.ServiceName = res.ServiceName
 
 	}
 	return nil

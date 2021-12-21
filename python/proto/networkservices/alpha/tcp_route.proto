@@ -51,8 +51,8 @@ message NetworkservicesAlphaTcpRouteRulesAction {
 }
 
 message NetworkservicesAlphaTcpRouteRulesActionDestinations {
-  string service_name = 1;
-  int64 weight = 2;
+  int64 weight = 1;
+  string service_name = 2;
 }
 
 message ApplyNetworkservicesAlphaTcpRouteRequest {

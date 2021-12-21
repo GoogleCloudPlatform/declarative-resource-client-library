@@ -429,8 +429,8 @@ func (r *HttpRouteRulesAction) HashCode() string {
 
 type HttpRouteRulesActionDestinations struct {
 	empty       bool    `json:"-"`
-	ServiceName *string `json:"serviceName"`
 	Weight      *int64  `json:"weight"`
+	ServiceName *string `json:"serviceName"`
 }
 
 type jsonHttpRouteRulesActionDestinations HttpRouteRulesActionDestinations
@@ -448,9 +448,9 @@ func (r *HttpRouteRulesActionDestinations) UnmarshalJSON(data []byte) error {
 		*r = *EmptyHttpRouteRulesActionDestinations
 	} else {
 
-		r.ServiceName = res.ServiceName
-
 		r.Weight = res.Weight
+
+		r.ServiceName = res.ServiceName
 
 	}
 	return nil
@@ -940,8 +940,8 @@ func (r *HttpRouteRulesActionRequestMirrorPolicy) HashCode() string {
 
 type HttpRouteRulesActionRequestMirrorPolicyDestination struct {
 	empty       bool    `json:"-"`
-	ServiceName *string `json:"serviceName"`
 	Weight      *int64  `json:"weight"`
+	ServiceName *string `json:"serviceName"`
 }
 
 type jsonHttpRouteRulesActionRequestMirrorPolicyDestination HttpRouteRulesActionRequestMirrorPolicyDestination
@@ -959,9 +959,9 @@ func (r *HttpRouteRulesActionRequestMirrorPolicyDestination) UnmarshalJSON(data 
 		*r = *EmptyHttpRouteRulesActionRequestMirrorPolicyDestination
 	} else {
 
-		r.ServiceName = res.ServiceName
-
 		r.Weight = res.Weight
+
+		r.ServiceName = res.ServiceName
 
 	}
 	return nil

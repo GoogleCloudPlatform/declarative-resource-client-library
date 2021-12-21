@@ -125,9 +125,6 @@ func (r *GrpcRouteRulesActionDestinations) validate() error {
 	if err := dcl.Required(r, "serviceName"); err != nil {
 		return err
 	}
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"ServiceName"}, r.ServiceName); err != nil {
-		return err
-	}
 	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Weight"}, r.Weight); err != nil {
 		return err
 	}
@@ -192,9 +189,6 @@ func (r *GrpcRouteRulesActionRequestMirrorPolicy) validate() error {
 }
 func (r *GrpcRouteRulesActionRequestMirrorPolicyDestination) validate() error {
 	if err := dcl.Required(r, "serviceName"); err != nil {
-		return err
-	}
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"ServiceName"}, r.ServiceName); err != nil {
 		return err
 	}
 	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Weight"}, r.Weight); err != nil {
@@ -1388,16 +1382,6 @@ func canonicalizeGrpcRouteRulesActionDestinations(des, initial *GrpcRouteRulesAc
 		return des
 	}
 
-	if des.ServiceName != nil || (initial != nil && initial.ServiceName != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.ServiceName = nil
-			if initial != nil {
-				initial.ServiceName = nil
-			}
-		}
-	}
-
 	if des.Weight != nil || (initial != nil && initial.Weight != nil) {
 		// Check if anything else is set.
 		if dcl.AnySet() {
@@ -1414,15 +1398,15 @@ func canonicalizeGrpcRouteRulesActionDestinations(des, initial *GrpcRouteRulesAc
 
 	cDes := &GrpcRouteRulesActionDestinations{}
 
-	if dcl.StringCanonicalize(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
-		cDes.ServiceName = initial.ServiceName
-	} else {
-		cDes.ServiceName = des.ServiceName
-	}
 	if dcl.IsZeroValue(des.Weight) {
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
+	}
+	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+		cDes.ServiceName = initial.ServiceName
+	} else {
+		cDes.ServiceName = des.ServiceName
 	}
 
 	return cDes
@@ -1470,7 +1454,7 @@ func canonicalizeNewGrpcRouteRulesActionDestinations(c *Client, des, nw *GrpcRou
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.ServiceName, nw.ServiceName) {
+	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
 		nw.ServiceName = des.ServiceName
 	}
 
@@ -2545,16 +2529,6 @@ func canonicalizeGrpcRouteRulesActionRequestMirrorPolicyDestination(des, initial
 		return des
 	}
 
-	if des.ServiceName != nil || (initial != nil && initial.ServiceName != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.ServiceName = nil
-			if initial != nil {
-				initial.ServiceName = nil
-			}
-		}
-	}
-
 	if des.Weight != nil || (initial != nil && initial.Weight != nil) {
 		// Check if anything else is set.
 		if dcl.AnySet() {
@@ -2571,15 +2545,15 @@ func canonicalizeGrpcRouteRulesActionRequestMirrorPolicyDestination(des, initial
 
 	cDes := &GrpcRouteRulesActionRequestMirrorPolicyDestination{}
 
-	if dcl.StringCanonicalize(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
-		cDes.ServiceName = initial.ServiceName
-	} else {
-		cDes.ServiceName = des.ServiceName
-	}
 	if dcl.IsZeroValue(des.Weight) {
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
+	}
+	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+		cDes.ServiceName = initial.ServiceName
+	} else {
+		cDes.ServiceName = des.ServiceName
 	}
 
 	return cDes
@@ -2627,7 +2601,7 @@ func canonicalizeNewGrpcRouteRulesActionRequestMirrorPolicyDestination(c *Client
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.ServiceName, nw.ServiceName) {
+	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
 		nw.ServiceName = des.ServiceName
 	}
 
@@ -3044,14 +3018,14 @@ func compareGrpcRouteRulesActionDestinationsNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3382,14 +3356,14 @@ func compareGrpcRouteRulesActionRequestMirrorPolicyDestinationNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateGrpcRouteUpdateGrpcRouteOperation")}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4257,11 +4231,11 @@ func expandGrpcRouteRulesActionDestinations(c *Client, f *GrpcRouteRulesActionDe
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
-		m["serviceName"] = v
-	}
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
+	}
+	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceName"] = v
 	}
 
 	return m, nil
@@ -4280,8 +4254,8 @@ func flattenGrpcRouteRulesActionDestinations(c *Client, i interface{}) *GrpcRout
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGrpcRouteRulesActionDestinations
 	}
-	r.ServiceName = dcl.FlattenString(m["serviceName"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
+	r.ServiceName = dcl.FlattenString(m["serviceName"])
 
 	return r
 }
@@ -5333,11 +5307,11 @@ func expandGrpcRouteRulesActionRequestMirrorPolicyDestination(c *Client, f *Grpc
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
-		m["serviceName"] = v
-	}
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
+	}
+	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceName"] = v
 	}
 
 	return m, nil
@@ -5356,8 +5330,8 @@ func flattenGrpcRouteRulesActionRequestMirrorPolicyDestination(c *Client, i inte
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGrpcRouteRulesActionRequestMirrorPolicyDestination
 	}
-	r.ServiceName = dcl.FlattenString(m["serviceName"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
+	r.ServiceName = dcl.FlattenString(m["serviceName"])
 
 	return r
 }

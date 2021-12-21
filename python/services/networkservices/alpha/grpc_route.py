@@ -481,9 +481,9 @@ class GrpcRouteRulesActionArray(object):
 
 
 class GrpcRouteRulesActionDestinations(object):
-    def __init__(self, service_name: str = None, weight: int = None):
-        self.service_name = service_name
+    def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
+        self.service_name = service_name
 
     @classmethod
     def to_proto(self, resource):
@@ -491,10 +491,10 @@ class GrpcRouteRulesActionDestinations(object):
             return None
 
         res = grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesActionDestinations()
-        if Primitive.to_proto(resource.service_name):
-            res.service_name = Primitive.to_proto(resource.service_name)
         if Primitive.to_proto(resource.weight):
             res.weight = Primitive.to_proto(resource.weight)
+        if Primitive.to_proto(resource.service_name):
+            res.service_name = Primitive.to_proto(resource.service_name)
         return res
 
     @classmethod
@@ -503,8 +503,8 @@ class GrpcRouteRulesActionDestinations(object):
             return None
 
         return GrpcRouteRulesActionDestinations(
-            service_name=Primitive.from_proto(resource.service_name),
             weight=Primitive.from_proto(resource.weight),
+            service_name=Primitive.from_proto(resource.service_name),
         )
 
 
@@ -910,9 +910,9 @@ class GrpcRouteRulesActionRequestMirrorPolicyArray(object):
 
 
 class GrpcRouteRulesActionRequestMirrorPolicyDestination(object):
-    def __init__(self, service_name: str = None, weight: int = None):
-        self.service_name = service_name
+    def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
+        self.service_name = service_name
 
     @classmethod
     def to_proto(self, resource):
@@ -922,10 +922,10 @@ class GrpcRouteRulesActionRequestMirrorPolicyDestination(object):
         res = (
             grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination()
         )
-        if Primitive.to_proto(resource.service_name):
-            res.service_name = Primitive.to_proto(resource.service_name)
         if Primitive.to_proto(resource.weight):
             res.weight = Primitive.to_proto(resource.weight)
+        if Primitive.to_proto(resource.service_name):
+            res.service_name = Primitive.to_proto(resource.service_name)
         return res
 
     @classmethod
@@ -934,8 +934,8 @@ class GrpcRouteRulesActionRequestMirrorPolicyDestination(object):
             return None
 
         return GrpcRouteRulesActionRequestMirrorPolicyDestination(
-            service_name=Primitive.from_proto(resource.service_name),
             weight=Primitive.from_proto(resource.weight),
+            service_name=Primitive.from_proto(resource.service_name),
         )
 
 
