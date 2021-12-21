@@ -588,6 +588,9 @@ components:
                       description: The HTTP request path value should exactly match
                         this value. Only one of full_path_match, prefix_match, or
                         regex_match should be used.
+                      x-dcl-conflicts:
+                      - prefixMatch
+                      - regexMatch
                     headers:
                       type: array
                       x-dcl-go-name: Headers
@@ -604,6 +607,12 @@ components:
                             x-dcl-go-name: ExactMatch
                             description: The value of the header should match exactly
                               the content of exact_match.
+                            x-dcl-conflicts:
+                            - regexMatch
+                            - prefixMatch
+                            - presentMatch
+                            - suffixMatch
+                            - rangeMatch
                           header:
                             type: string
                             x-dcl-go-name: Header
@@ -618,17 +627,35 @@ components:
                             x-dcl-go-name: PrefixMatch
                             description: The value of the header must start with the
                               contents of prefix_match.
+                            x-dcl-conflicts:
+                            - exactMatch
+                            - regexMatch
+                            - presentMatch
+                            - suffixMatch
+                            - rangeMatch
                           presentMatch:
                             type: boolean
                             x-dcl-go-name: PresentMatch
                             description: A header with header_name must exist. The
                               match takes place whether or not the header has a value.
+                            x-dcl-conflicts:
+                            - exactMatch
+                            - regexMatch
+                            - prefixMatch
+                            - suffixMatch
+                            - rangeMatch
                           rangeMatch:
                             type: object
                             x-dcl-go-name: RangeMatch
                             x-dcl-go-type: HttpRouteRulesMatchesHeadersRangeMatch
                             description: If specified, the rule will match if the
                               request header value is within the range.
+                            x-dcl-conflicts:
+                            - exactMatch
+                            - regexMatch
+                            - prefixMatch
+                            - presentMatch
+                            - suffixMatch
                             properties:
                               end:
                                 type: integer
@@ -646,11 +673,23 @@ components:
                             description: 'The value of the header must match the regular
                               expression specified in regex_match. For regular expression
                               grammar, please see: https://github.com/google/re2/wiki/Syntax'
+                            x-dcl-conflicts:
+                            - exactMatch
+                            - prefixMatch
+                            - presentMatch
+                            - suffixMatch
+                            - rangeMatch
                           suffixMatch:
                             type: string
                             x-dcl-go-name: SuffixMatch
                             description: The value of the header must end with the
                               contents of suffix_match.
+                            x-dcl-conflicts:
+                            - exactMatch
+                            - regexMatch
+                            - prefixMatch
+                            - presentMatch
+                            - rangeMatch
                     ignoreCase:
                       type: boolean
                       x-dcl-go-name: IgnoreCase
@@ -662,6 +701,9 @@ components:
                       description: The HTTP request path value must begin with specified
                         prefix_match. prefix_match must begin with a /. Only one of
                         full_path_match, prefix_match, or regex_match should be used.
+                      x-dcl-conflicts:
+                      - fullPathMatch
+                      - regexMatch
                     queryParameters:
                       type: array
                       x-dcl-go-name: QueryParameters
@@ -679,6 +721,9 @@ components:
                             description: The value of the query parameter must exactly
                               match the contents of exact_match. Only one of exact_match,
                               regex_match, or present_match must be set.
+                            x-dcl-conflicts:
+                            - regexMatch
+                            - presentMatch
                           presentMatch:
                             type: boolean
                             x-dcl-go-name: PresentMatch
@@ -687,6 +732,9 @@ components:
                               of whether the parameter has a value or not. Only one
                               of exact_match, regex_match, or present_match must be
                               set.
+                            x-dcl-conflicts:
+                            - exactMatch
+                            - regexMatch
                           queryParameter:
                             type: string
                             x-dcl-go-name: QueryParameter
@@ -699,6 +747,9 @@ components:
                               regular expression grammar, please see https://github.com/google/re2/wiki/Syntax
                               Only one of exact_match, regex_match, or present_match
                               must be set.
+                            x-dcl-conflicts:
+                            - exactMatch
+                            - presentMatch
                     regexMatch:
                       type: string
                       x-dcl-go-name: RegexMatch
@@ -708,6 +759,9 @@ components:
                         regular expression grammar, please see https://github.com/google/re2/wiki/Syntax
                         Only one of full_path_match, prefix_match, or regex_match
                         should be used.
+                      x-dcl-conflicts:
+                      - fullPathMatch
+                      - prefixMatch
         updateTime:
           type: string
           format: date-time

@@ -110,6 +110,8 @@ components:
           x-dcl-go-name: Script
           description: An inline script. The size of the script is limited to 1024
             characters.
+          x-dcl-conflicts:
+          - file
     File:
       x-dcl-has-iam: false
       type: object
@@ -128,6 +130,9 @@ components:
           x-dcl-go-name: Gcs
           x-dcl-go-type: OSPolicyAssignmentFileGcs
           description: A Cloud Storage object.
+          x-dcl-conflicts:
+          - remote
+          - localPath
           required:
           - bucket
           - object
@@ -149,11 +154,17 @@ components:
           type: string
           x-dcl-go-name: LocalPath
           description: A local path within the VM to use.
+          x-dcl-conflicts:
+          - remote
+          - gcs
         remote:
           type: object
           x-dcl-go-name: Remote
           x-dcl-go-type: OSPolicyAssignmentFileRemote
           description: A generic remote file.
+          x-dcl-conflicts:
+          - gcs
+          - localPath
           required:
           - uri
           properties:
@@ -406,6 +417,10 @@ components:
                             x-dcl-go-name: Exec
                             x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
                             description: Exec resource
+                            x-dcl-conflicts:
+                            - pkg
+                            - repository
+                            - file
                             required:
                             - validate
                             properties:
@@ -420,6 +435,10 @@ components:
                             x-dcl-go-name: File
                             x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile
                             description: File resource
+                            x-dcl-conflicts:
+                            - pkg
+                            - repository
+                            - exec
                             required:
                             - path
                             - state
@@ -429,6 +448,8 @@ components:
                                 x-dcl-go-name: Content
                                 description: A a file with this content. The size
                                   of the content is limited to 1024 characters.
+                                x-dcl-conflicts:
+                                - file
                               file:
                                 $ref: '#/components/schemas/File'
                                 x-dcl-go-name: File
@@ -479,6 +500,10 @@ components:
                             x-dcl-go-name: Pkg
                             x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg
                             description: Package resource
+                            x-dcl-conflicts:
+                            - repository
+                            - exec
+                            - file
                             required:
                             - desiredState
                             properties:
@@ -487,6 +512,13 @@ components:
                                 x-dcl-go-name: Apt
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt
                                 description: A package managed by Apt.
+                                x-dcl-conflicts:
+                                - deb
+                                - yum
+                                - zypper
+                                - rpm
+                                - googet
+                                - msi
                                 required:
                                 - name
                                 properties:
@@ -499,6 +531,13 @@ components:
                                 x-dcl-go-name: Deb
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
                                 description: A deb package file.
+                                x-dcl-conflicts:
+                                - apt
+                                - yum
+                                - zypper
+                                - rpm
+                                - googet
+                                - msi
                                 required:
                                 - source
                                 properties:
@@ -528,6 +567,13 @@ components:
                                 x-dcl-go-name: Googet
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget
                                 description: A package managed by GooGet.
+                                x-dcl-conflicts:
+                                - apt
+                                - deb
+                                - yum
+                                - zypper
+                                - rpm
+                                - msi
                                 required:
                                 - name
                                 properties:
@@ -540,6 +586,13 @@ components:
                                 x-dcl-go-name: Msi
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi
                                 description: An MSI package.
+                                x-dcl-conflicts:
+                                - apt
+                                - deb
+                                - yum
+                                - zypper
+                                - rpm
+                                - googet
                                 required:
                                 - source
                                 properties:
@@ -563,6 +616,13 @@ components:
                                 x-dcl-go-name: Rpm
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
                                 description: An rpm package file.
+                                x-dcl-conflicts:
+                                - apt
+                                - deb
+                                - yum
+                                - zypper
+                                - googet
+                                - msi
                                 required:
                                 - source
                                 properties:
@@ -582,6 +642,13 @@ components:
                                 x-dcl-go-name: Yum
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
                                 description: A package managed by YUM.
+                                x-dcl-conflicts:
+                                - apt
+                                - deb
+                                - zypper
+                                - rpm
+                                - googet
+                                - msi
                                 required:
                                 - name
                                 properties:
@@ -594,6 +661,13 @@ components:
                                 x-dcl-go-name: Zypper
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
                                 description: A package managed by Zypper.
+                                x-dcl-conflicts:
+                                - apt
+                                - deb
+                                - yum
+                                - rpm
+                                - googet
+                                - msi
                                 required:
                                 - name
                                 properties:
@@ -606,12 +680,20 @@ components:
                             x-dcl-go-name: Repository
                             x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository
                             description: Package repository resource
+                            x-dcl-conflicts:
+                            - pkg
+                            - exec
+                            - file
                             properties:
                               apt:
                                 type: object
                                 x-dcl-go-name: Apt
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt
                                 description: An Apt Repository.
+                                x-dcl-conflicts:
+                                - yum
+                                - zypper
+                                - goo
                                 required:
                                 - archiveType
                                 - uri
@@ -657,6 +739,10 @@ components:
                                 x-dcl-go-name: Goo
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo
                                 description: A Goo Repository.
+                                x-dcl-conflicts:
+                                - apt
+                                - yum
+                                - zypper
                                 required:
                                 - name
                                 - url
@@ -674,6 +760,10 @@ components:
                                 x-dcl-go-name: Yum
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum
                                 description: A Yum Repository.
+                                x-dcl-conflicts:
+                                - apt
+                                - zypper
+                                - goo
                                 required:
                                 - id
                                 - baseUrl
@@ -710,6 +800,10 @@ components:
                                 x-dcl-go-name: Zypper
                                 x-dcl-go-type: OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper
                                 description: A Zypper Repository.
+                                x-dcl-conflicts:
+                                - apt
+                                - yum
+                                - goo
                                 required:
                                 - id
                                 - baseUrl
@@ -797,12 +891,16 @@ components:
                   format: int64
                   x-dcl-go-name: Fixed
                   description: Specifies a fixed value.
+                  x-dcl-conflicts:
+                  - percent
                 percent:
                   type: integer
                   format: int64
                   x-dcl-go-name: Percent
                   description: Specifies the relative value defined as a percentage,
                     which will be multiplied by a reference value.
+                  x-dcl-conflicts:
+                  - fixed
             minWaitDuration:
               type: string
               x-dcl-go-name: MinWaitDuration

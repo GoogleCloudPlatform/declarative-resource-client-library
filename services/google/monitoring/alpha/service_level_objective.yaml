@@ -167,6 +167,9 @@ components:
               x-dcl-go-name: BasicSli
               x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorBasicSli
               description: Basic SLI on a well-known service type.
+              x-dcl-conflicts:
+              - requestBased
+              - windowsBased
               properties:
                 availability:
                   type: object
@@ -174,12 +177,20 @@ components:
                   x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability
                   description: Good service is defined to be the count of requests
                     made to this service that return successfully.
+                  x-dcl-conflicts:
+                  - latency
+                  - operationAvailability
+                  - operationLatency
                 latency:
                   type: object
                   x-dcl-go-name: Latency
                   x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency
                   description: Good service is defined to be the count of requests
                     made to this service that are fast enough with respect to `latency.threshold`.
+                  x-dcl-conflicts:
+                  - availability
+                  - operationAvailability
+                  - operationLatency
                   properties:
                     experience:
                       type: string
@@ -231,6 +242,10 @@ components:
                   x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability
                   description: Good service is defined to be the count of operations
                     performed by this service that return successfully
+                  x-dcl-conflicts:
+                  - availability
+                  - latency
+                  - operationLatency
                 operationLatency:
                   type: object
                   x-dcl-go-name: OperationLatency
@@ -238,6 +253,10 @@ components:
                   description: Good service is defined to be the count of operations
                     performed by this service that are fast enough with respect to
                     `operation_latency.threshold`.
+                  x-dcl-conflicts:
+                  - availability
+                  - latency
+                  - operationAvailability
                   properties:
                     experience:
                       type: string
@@ -274,6 +293,9 @@ components:
               x-dcl-go-name: RequestBased
               x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorRequestBased
               description: Request-based SLIs
+              x-dcl-conflicts:
+              - basicSli
+              - windowsBased
               properties:
                 distributionCut:
                   type: object
@@ -283,6 +305,8 @@ components:
                     a count of values aggregated in a `Distribution` that fall into
                     a good range. The `total_service` is the total count of all values
                     aggregated in the `Distribution`.'
+                  x-dcl-conflicts:
+                  - goodTotalRatio
                   properties:
                     distributionFilter:
                       type: string
@@ -314,6 +338,8 @@ components:
                   x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio
                   description: '`good_total_ratio` is used when the ratio of `good_service`
                     to `total_service` is computed from two `TimeSeries`.'
+                  x-dcl-conflicts:
+                  - distributionCut
                   properties:
                     badServiceFilter:
                       type: string
@@ -343,6 +369,9 @@ components:
               x-dcl-go-name: WindowsBased
               x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBased
               description: Windows-based SLIs
+              x-dcl-conflicts:
+              - basicSli
+              - requestBased
               properties:
                 goodBadMetricFilter:
                   type: string
@@ -350,17 +379,27 @@ components:
                   description: A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
                     specifying a `TimeSeries` with `ValueType = BOOL`. The window
                     is good if any `true` values appear in the window.
+                  x-dcl-conflicts:
+                  - goodTotalRatioThreshold
+                  - metricMeanInRange
+                  - metricSumInRange
                 goodTotalRatioThreshold:
                   type: object
                   x-dcl-go-name: GoodTotalRatioThreshold
                   x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold
                   description: A window is good if its `performance` is high enough.
+                  x-dcl-conflicts:
+                  - goodBadMetricFilter
+                  - metricMeanInRange
+                  - metricSumInRange
                   properties:
                     basicSliPerformance:
                       type: object
                       x-dcl-go-name: BasicSliPerformance
                       x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance
                       description: '`BasicSli` to evaluate to judge window quality.'
+                      x-dcl-conflicts:
+                      - performance
                       properties:
                         availability:
                           type: object
@@ -368,6 +407,10 @@ components:
                           x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability
                           description: Good service is defined to be the count of
                             requests made to this service that return successfully.
+                          x-dcl-conflicts:
+                          - latency
+                          - operationAvailability
+                          - operationLatency
                         latency:
                           type: object
                           x-dcl-go-name: Latency
@@ -375,6 +418,10 @@ components:
                           description: Good service is defined to be the count of
                             requests made to this service that are fast enough with
                             respect to `latency.threshold`.
+                          x-dcl-conflicts:
+                          - availability
+                          - operationAvailability
+                          - operationLatency
                           properties:
                             experience:
                               type: string
@@ -429,6 +476,10 @@ components:
                           x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability
                           description: Good service is defined to be the count of
                             operations performed by this service that return successfully
+                          x-dcl-conflicts:
+                          - availability
+                          - latency
+                          - operationLatency
                         operationLatency:
                           type: object
                           x-dcl-go-name: OperationLatency
@@ -436,6 +487,10 @@ components:
                           description: Good service is defined to be the count of
                             operations performed by this service that are fast enough
                             with respect to `operation_latency.threshold`.
+                          x-dcl-conflicts:
+                          - availability
+                          - latency
+                          - operationAvailability
                           properties:
                             experience:
                               type: string
@@ -474,6 +529,8 @@ components:
                       x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance
                       description: '`RequestBasedSli` to evaluate to judge window
                         quality.'
+                      x-dcl-conflicts:
+                      - basicSliPerformance
                       properties:
                         distributionCut:
                           type: object
@@ -483,6 +540,8 @@ components:
                             is a count of values aggregated in a `Distribution` that
                             fall into a good range. The `total_service` is the total
                             count of all values aggregated in the `Distribution`.'
+                          x-dcl-conflicts:
+                          - goodTotalRatio
                           properties:
                             distributionFilter:
                               type: string
@@ -515,6 +574,8 @@ components:
                           description: '`good_total_ratio` is used when the ratio
                             of `good_service` to `total_service` is computed from
                             two `TimeSeries`.'
+                          x-dcl-conflicts:
+                          - distributionCut
                           properties:
                             badServiceFilter:
                               type: string
@@ -553,6 +614,10 @@ components:
                   x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange
                   description: A window is good if the metric's value is in a good
                     range, averaged across returned streams.
+                  x-dcl-conflicts:
+                  - goodBadMetricFilter
+                  - goodTotalRatioThreshold
+                  - metricSumInRange
                   properties:
                     range:
                       type: object
@@ -582,6 +647,10 @@ components:
                   x-dcl-go-type: ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange
                   description: A window is good if the metric's value is in a good
                     range, summed across returned streams.
+                  x-dcl-conflicts:
+                  - goodBadMetricFilter
+                  - goodTotalRatioThreshold
+                  - metricMeanInRange
                   properties:
                     range:
                       type: object

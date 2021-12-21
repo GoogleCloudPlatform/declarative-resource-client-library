@@ -77,6 +77,11 @@ components:
           description: 'A reason for the domain mapping condition. Possible values:
             DOMAIN_MAPPING_REASON_UNDEFINED, ROUTE_NOT_READY, PERMISSION_DENIED, CERTIFICATE_ALREADY_EXISTS,
             MAPPING_ALREADY_EXISTS, CERTIFICATE_PENDING, CERTIFICATE_FAILED'
+          x-dcl-conflicts:
+          - reason
+          - internalReason
+          - revisionReason
+          - jobReason
           enum:
           - DOMAIN_MAPPING_REASON_UNDEFINED
           - ROUTE_NOT_READY
@@ -92,6 +97,11 @@ components:
           description: 'A reason for the internal condition. Possible values: INTERNAL_REASON_UNDEFINED,
             CONFLICTING_REVISION_NAME, REVISION_MISSING, CONFIGURATION_MISSING, ASSIGNING_TRAFFIC,
             UPDATING_INGRESS_TRAFFIC_ALLOWED, REVISION_ORG_POLICY_VIOLATION, ENABLING_GCFV2_URI_SUPPORT'
+          x-dcl-conflicts:
+          - reason
+          - domainMappingReason
+          - revisionReason
+          - jobReason
           enum:
           - INTERNAL_REASON_UNDEFINED
           - CONFLICTING_REVISION_NAME
@@ -107,6 +117,11 @@ components:
           x-dcl-go-type: ServiceGooglecloudrunopv2ConditionJobReasonEnum
           description: 'A reason for the job condition. Possible values: JOB_REASON_UNDEFINED,
             JOB_STATUS_SERVICE_POLLING_ERROR'
+          x-dcl-conflicts:
+          - reason
+          - internalReason
+          - domainMappingReason
+          - revisionReason
           enum:
           - JOB_REASON_UNDEFINED
           - JOB_STATUS_SERVICE_POLLING_ERROR
@@ -130,6 +145,11 @@ components:
             CONTAINER_IMAGE_UNAUTHORIZED, CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
             ENCRYPTION_KEY_PERMISSION_DENIED, ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED,
             WAITING_FOR_OPERATION, IMMEDIATE_RETRY, POSTPONED_RETRY'
+          x-dcl-conflicts:
+          - internalReason
+          - domainMappingReason
+          - revisionReason
+          - jobReason
           enum:
           - COMMON_REASON_UNDEFINED
           - UNKNOWN
@@ -155,6 +175,11 @@ components:
             PENDING, RESERVE, RETIRED, RETIRING, RECREATING, HEALTH_CHECK_CONTAINER_ERROR,
             CUSTOMIZED_PATH_RESPONSE_PENDING, MIN_INSTANCES_NOT_PROVISIONED, ACTIVE_REVISION_LIMIT_REACHED,
             NO_DEPLOYMENT'
+          x-dcl-conflicts:
+          - reason
+          - internalReason
+          - domainMappingReason
+          - jobReason
           enum:
           - REVISION_REASON_UNDEFINED
           - PENDING
@@ -497,11 +522,15 @@ components:
                             will never be expanded, regardless of whether the variable
                             exists or not. Defaults to "", and the maximum length
                             is 32768 bytes.'
+                          x-dcl-conflicts:
+                          - valueSource
                         valueSource:
                           type: object
                           x-dcl-go-name: ValueSource
                           x-dcl-go-type: ServiceTemplateContainersEnvValueSource
                           description: Source for the environment variable's value.
+                          x-dcl-conflicts:
+                          - value
                           properties:
                             secretKeyRef:
                               type: object
@@ -689,6 +718,8 @@ components:
                     description: For Cloud SQL volumes, contains the specific instances
                       that should be mounted. Visit https://cloud.google.com/sql/docs/mysql/connect-run
                       for more information on how to connect Cloud SQL and Cloud Run.
+                    x-dcl-conflicts:
+                    - secret
                     properties:
                       connections:
                         type: array
@@ -716,6 +747,8 @@ components:
                     x-dcl-go-type: ServiceTemplateVolumesSecret
                     description: 'Secret represents a secret that should populate
                       this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret'
+                    x-dcl-conflicts:
+                    - cloudSqlInstance
                     required:
                     - secret
                     properties:

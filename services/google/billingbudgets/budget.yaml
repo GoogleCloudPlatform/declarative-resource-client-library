@@ -125,6 +125,8 @@ components:
               description: Use the last period's actual spend as the budget for the
                 present period. LastPeriodAmount can only be set when the budget's
                 time period is a .
+              x-dcl-conflicts:
+              - specifiedAmount
             specifiedAmount:
               type: object
               x-dcl-go-name: SpecifiedAmount
@@ -134,6 +136,8 @@ components:
                 currency of the billing account. If specified when updating a budget,
                 it must match the currency_code of the existing budget. The `currency_code`
                 is provided on output.
+              x-dcl-conflicts:
+              - lastPeriodAmount
               properties:
                 currencyCode:
                   type: string
@@ -186,6 +190,8 @@ components:
                 from July 1 to September 30 when the current calendar month is July,
                 August, September, so on. Possible values: CALENDAR_PERIOD_UNSPECIFIED,
                 MONTH, QUARTER, YEAR'
+              x-dcl-conflicts:
+              - customPeriod
               x-dcl-server-default: true
               enum:
               - CALENDAR_PERIOD_UNSPECIFIED
@@ -222,6 +228,8 @@ components:
               description: Optional. Specifies to track usage from any start date
                 (required) to any end date (optional). This time period is static,
                 it does not recur.
+              x-dcl-conflicts:
+              - calendarPeriod
               required:
               - startDate
               properties:

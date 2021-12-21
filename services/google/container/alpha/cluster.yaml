@@ -866,6 +866,8 @@ components:
                   type: object
                   x-dcl-go-name: DailyMaintenanceWindow
                   x-dcl-go-type: ClusterMaintenancePolicyWindowDailyMaintenanceWindow
+                  x-dcl-conflicts:
+                  - recurringWindow
                   properties:
                     duration:
                       type: string
@@ -890,6 +892,8 @@ components:
                   type: object
                   x-dcl-go-name: RecurringWindow
                   x-dcl-go-type: ClusterMaintenancePolicyWindowRecurringWindow
+                  x-dcl-conflicts:
+                  - dailyMaintenanceWindow
                   properties:
                     recurrence:
                       type: string
@@ -2076,9 +2080,6 @@ components:
                   is sufficient for this number of instances. You must also have available
                   firewall and routes quota.
                 x-kubernetes-immutable: true
-                x-dcl-conflicts:
-                - nodePools
-                - nodeConfig
               instanceGroupUrls:
                 type: array
                 x-dcl-go-name: InstanceGroupUrls

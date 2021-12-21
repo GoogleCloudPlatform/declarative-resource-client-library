@@ -106,11 +106,19 @@ components:
                           x-dcl-go-name: Blank
                           x-dcl-go-type: DashboardWidgetBlank
                           description: A blank space.
+                          x-dcl-conflicts:
+                          - xyChart
+                          - scorecard
+                          - text
                         scorecard:
                           type: object
                           x-dcl-go-name: Scorecard
                           x-dcl-go-type: DashboardWidgetScorecard
                           description: A scorecard summarizing time series data.
+                          x-dcl-conflicts:
+                          - xyChart
+                          - text
+                          - blank
                           required:
                           - timeSeriesQuery
                           properties:
@@ -1129,6 +1137,10 @@ components:
                           x-dcl-go-type: DashboardWidgetText
                           description: A raw string or markdown displaying textual
                             content.
+                          x-dcl-conflicts:
+                          - xyChart
+                          - scorecard
+                          - blank
                           properties:
                             content:
                               type: string
@@ -1153,6 +1165,10 @@ components:
                           x-dcl-go-name: XyChart
                           x-dcl-go-type: DashboardWidgetXyChart
                           description: A chart of time series data.
+                          x-dcl-conflicts:
+                          - scorecard
+                          - text
+                          - blank
                           required:
                           - dataSets
                           properties:
@@ -2449,11 +2465,19 @@ components:
           x-dcl-go-name: Blank
           x-dcl-go-type: DashboardWidgetBlank
           description: A blank space.
+          x-dcl-conflicts:
+          - xyChart
+          - scorecard
+          - text
         scorecard:
           type: object
           x-dcl-go-name: Scorecard
           x-dcl-go-type: DashboardWidgetScorecard
           description: A scorecard summarizing time series data.
+          x-dcl-conflicts:
+          - xyChart
+          - text
+          - blank
           required:
           - timeSeriesQuery
           properties:
@@ -3336,6 +3360,10 @@ components:
           x-dcl-go-name: Text
           x-dcl-go-type: DashboardWidgetText
           description: A raw string or markdown displaying textual content.
+          x-dcl-conflicts:
+          - xyChart
+          - scorecard
+          - blank
           properties:
             content:
               type: string
@@ -3360,6 +3388,10 @@ components:
           x-dcl-go-name: XyChart
           x-dcl-go-type: DashboardWidgetXyChart
           description: A chart of time series data.
+          x-dcl-conflicts:
+          - scorecard
+          - text
+          - blank
           required:
           - dataSets
           properties:

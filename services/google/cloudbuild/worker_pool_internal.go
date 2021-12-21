@@ -493,7 +493,7 @@ func canonicalizeWorkerPoolInitialState(rawInitial, rawDesired *WorkerPool) (*Wo
 
 	if !dcl.IsZeroValue(rawInitial.NetworkConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.PrivatePoolV1Config) {
+		if dcl.AnySet() {
 			rawInitial.NetworkConfig = EmptyWorkerPoolNetworkConfig
 		}
 	}
@@ -507,7 +507,7 @@ func canonicalizeWorkerPoolInitialState(rawInitial, rawDesired *WorkerPool) (*Wo
 
 	if !dcl.IsZeroValue(rawInitial.WorkerConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.PrivatePoolV1Config) {
+		if dcl.AnySet() {
 			rawInitial.WorkerConfig = EmptyWorkerPoolWorkerConfig
 		}
 	}
@@ -543,7 +543,7 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 
 	if rawDesired.NetworkConfig != nil || rawInitial.NetworkConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.PrivatePoolV1Config) {
+		if dcl.AnySet() {
 			rawDesired.NetworkConfig = nil
 			rawInitial.NetworkConfig = nil
 		}
@@ -559,7 +559,7 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 
 	if rawDesired.WorkerConfig != nil || rawInitial.WorkerConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.PrivatePoolV1Config) {
+		if dcl.AnySet() {
 			rawDesired.WorkerConfig = nil
 			rawInitial.WorkerConfig = nil
 		}

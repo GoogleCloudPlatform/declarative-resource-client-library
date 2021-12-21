@@ -214,6 +214,10 @@ components:
                 x-dcl-go-name: Apt
                 x-dcl-go-type: GuestPolicyPackageRepositoriesApt
                 description: An Apt Repository.
+                x-dcl-conflicts:
+                - goo
+                - yum
+                - zypper
                 required:
                 - uri
                 - distribution
@@ -258,6 +262,10 @@ components:
                 x-dcl-go-name: Goo
                 x-dcl-go-type: GuestPolicyPackageRepositoriesGoo
                 description: A Goo Repository.
+                x-dcl-conflicts:
+                - apt
+                - yum
+                - zypper
                 required:
                 - name
                 - url
@@ -275,6 +283,10 @@ components:
                 x-dcl-go-name: Yum
                 x-dcl-go-type: GuestPolicyPackageRepositoriesYum
                 description: A Yum Repository.
+                x-dcl-conflicts:
+                - apt
+                - goo
+                - zypper
                 required:
                 - id
                 - baseUrl
@@ -308,6 +320,10 @@ components:
                 x-dcl-go-name: Zypper
                 x-dcl-go-type: GuestPolicyPackageRepositoriesZypper
                 description: A Zypper Repository.
+                x-dcl-conflicts:
+                - apt
+                - goo
+                - yum
                 required:
                 - id
                 - baseUrl
@@ -500,6 +516,8 @@ components:
                   it stops executing steps and does not attempt another installation.
                   Any steps taken (including partially completed steps) are not rolled
                   back.
+                x-dcl-conflicts:
+                - updateSteps
                 x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
@@ -714,6 +732,8 @@ components:
                   it stops executing steps and does not attempt another update for
                   this recipe. Any steps taken (including partially completed steps)
                   are not rolled back.
+                x-dcl-conflicts:
+                - installSteps
                 x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:

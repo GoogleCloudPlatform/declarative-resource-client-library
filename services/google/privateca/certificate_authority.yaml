@@ -1101,6 +1101,8 @@ components:
                 RSA_PSS_3072_SHA256, RSA_PSS_4096_SHA256, RSA_PKCS1_2048_SHA256, RSA_PKCS1_3072_SHA256,
                 RSA_PKCS1_4096_SHA256, EC_P256_SHA256, EC_P384_SHA384'
               x-kubernetes-immutable: true
+              x-dcl-conflicts:
+              - cloudKmsKeyVersion
               enum:
               - RSA_PSS_2048_SHA256
               - RSA_PSS_3072_SHA256
@@ -1118,6 +1120,8 @@ components:
                 This option enables full flexibility in the key's capabilities and
                 properties.
               x-kubernetes-immutable: true
+              x-dcl-conflicts:
+              - algorithm
               x-dcl-references:
               - resource: Cloudkms/CryptoKeyVersion
                 field: name
@@ -1201,6 +1205,8 @@ components:
                 This field is used for information and usability purposes only. The
                 resource name is in the format `projects/*/locations/*/caPools/*/certificateAuthorities/*`.
               x-kubernetes-immutable: true
+              x-dcl-conflicts:
+              - pemIssuerChain
               x-dcl-references:
               - resource: Privateca/CertificateAuthority
                 field: selfLink
@@ -1212,6 +1218,8 @@ components:
                 of this CertificateAuthority, but not pem certificate for this CA
                 itself.
               x-kubernetes-immutable: true
+              x-dcl-conflicts:
+              - certificateAuthority
               required:
               - pemCertificates
               properties:

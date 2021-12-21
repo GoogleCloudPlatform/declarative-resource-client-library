@@ -99,11 +99,15 @@ components:
               x-dcl-go-name: All
               description: Target all VM instances in the project. If true, no other
                 criteria is permitted.
+              x-dcl-conflicts:
+              - instanceNamePrefixes
             groupLabels:
               type: array
               x-dcl-go-name: GroupLabels
               description: Targets VM instances matching ANY of these GroupLabels.
                 This allows targeting of disparate groups of VM instances.
+              x-dcl-conflicts:
+              - all
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -123,6 +127,8 @@ components:
               description: Targets VMs whose name starts with one of these prefixes.
                 Similar to labels, this is another way to group VMs when targeting
                 configs, for example prefix="prod-".
+              x-dcl-conflicts:
+              - all
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -135,6 +141,8 @@ components:
                 specified by their URI in the form `zones/[ZONE]/instances/[INSTANCE_NAME]`,
                 `projects/[PROJECT_ID]/zones/[ZONE]/instances/[INSTANCE_NAME]`, or
                 `https://www.googleapis.com/compute/v1/projects/[PROJECT_ID]/zones/[ZONE]/instances/[INSTANCE_NAME]`
+              x-dcl-conflicts:
+              - all
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -148,6 +156,8 @@ components:
               x-dcl-go-name: Zones
               description: Targets VM instances in ANY of these zones. Leave empty
                 to target VM instances in any zone.
+              x-dcl-conflicts:
+              - all
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -202,6 +212,8 @@ components:
                   x-dcl-go-name: Excludes
                   description: List of packages to exclude from update. These packages
                     will be excluded
+                  x-dcl-conflicts:
+                  - exclusivePackages
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -214,6 +226,8 @@ components:
                     are the only packages that will be updated. If these packages
                     are not installed, they will be ignored. This field cannot be
                     specified with any other patch configuration fields.
+                  x-dcl-conflicts:
+                  - excludes
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -265,6 +279,8 @@ components:
                       x-dcl-go-name: GcsObject
                       x-dcl-go-type: PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject
                       description: A Cloud Storage object containing the executable.
+                      x-dcl-conflicts:
+                      - localPath
                       required:
                       - bucket
                       - object
@@ -303,6 +319,8 @@ components:
                       type: string
                       x-dcl-go-name: LocalPath
                       description: An absolute path to the executable on the VM.
+                      x-dcl-conflicts:
+                      - gcsObject
                 windowsExecStepConfig:
                   type: object
                   x-dcl-go-name: WindowsExecStepConfig
@@ -328,6 +346,8 @@ components:
                       x-dcl-go-name: GcsObject
                       x-dcl-go-type: PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject
                       description: A Cloud Storage object containing the executable.
+                      x-dcl-conflicts:
+                      - localPath
                       required:
                       - bucket
                       - object
@@ -366,6 +386,8 @@ components:
                       type: string
                       x-dcl-go-name: LocalPath
                       description: An absolute path to the executable on the VM.
+                      x-dcl-conflicts:
+                      - gcsObject
             preStep:
               type: object
               x-dcl-go-name: PreStep
@@ -395,6 +417,8 @@ components:
                       x-dcl-go-name: GcsObject
                       x-dcl-go-type: PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject
                       description: A Cloud Storage object containing the executable.
+                      x-dcl-conflicts:
+                      - localPath
                       required:
                       - bucket
                       - object
@@ -433,6 +457,8 @@ components:
                       type: string
                       x-dcl-go-name: LocalPath
                       description: An absolute path to the executable on the VM.
+                      x-dcl-conflicts:
+                      - gcsObject
                 windowsExecStepConfig:
                   type: object
                   x-dcl-go-name: WindowsExecStepConfig
@@ -458,6 +484,8 @@ components:
                       x-dcl-go-name: GcsObject
                       x-dcl-go-type: PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject
                       description: A Cloud Storage object containing the executable.
+                      x-dcl-conflicts:
+                      - localPath
                       required:
                       - bucket
                       - object
@@ -496,6 +524,8 @@ components:
                       type: string
                       x-dcl-go-name: LocalPath
                       description: An absolute path to the executable on the VM.
+                      x-dcl-conflicts:
+                      - gcsObject
             rebootConfig:
               type: string
               x-dcl-go-name: RebootConfig
@@ -532,6 +562,8 @@ components:
                   x-dcl-go-name: Classifications
                   description: Only apply updates of these windows update classifications.
                     If empty, all updates are applied.
+                  x-dcl-conflicts:
+                  - exclusivePatches
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -552,6 +584,8 @@ components:
                   type: array
                   x-dcl-go-name: Excludes
                   description: List of KBs to exclude from update.
+                  x-dcl-conflicts:
+                  - exclusivePatches
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -563,6 +597,8 @@ components:
                   description: An exclusive list of kbs to be updated. These are the
                     only patches that will be updated. This field must not be used
                     with other patch configurations.
+                  x-dcl-conflicts:
+                  - excludes
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -580,6 +616,8 @@ components:
                   x-dcl-go-name: Excludes
                   description: List of packages to exclude from update. These packages
                     are excluded by using the yum `--exclude` flag.
+                  x-dcl-conflicts:
+                  - exclusivePackages
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -592,6 +630,8 @@ components:
                     are the only packages that will be updated. If these packages
                     are not installed, they will be ignored. This field must not be
                     specified with any other patch configuration fields.
+                  x-dcl-conflicts:
+                  - excludes
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -618,6 +658,8 @@ components:
                   x-dcl-go-name: Categories
                   description: Install only patches with these categories. Common
                     categories include security, recommended, and feature.
+                  x-dcl-conflicts:
+                  - exclusivePatches
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -627,6 +669,8 @@ components:
                   type: array
                   x-dcl-go-name: Excludes
                   description: List of patches to exclude from update.
+                  x-dcl-conflicts:
+                  - exclusivePatches
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -639,6 +683,8 @@ components:
                     the only patches that will be installed using 'zypper patch patch:'
                     command. This field must not be used with any other patch configuration
                     fields.
+                  x-dcl-conflicts:
+                  - excludes
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -649,6 +695,8 @@ components:
                   x-dcl-go-name: Severities
                   description: Install only patches with these severities. Common
                     severities include critical, important, moderate, and low.
+                  x-dcl-conflicts:
+                  - exclusivePatches
                   x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
@@ -658,10 +706,14 @@ components:
                   type: boolean
                   x-dcl-go-name: WithOptional
                   description: Adds the `--with-optional` flag to `zypper patch`.
+                  x-dcl-conflicts:
+                  - exclusivePatches
                 withUpdate:
                   type: boolean
                   x-dcl-go-name: WithUpdate
                   description: Adds the `--with-update` flag, to `zypper patch`.
+                  x-dcl-conflicts:
+                  - exclusivePatches
         project:
           type: string
           x-dcl-go-name: Project
@@ -711,6 +763,8 @@ components:
               x-dcl-go-name: Monthly
               x-dcl-go-type: PatchDeploymentRecurringScheduleMonthly
               description: Required. Schedule with monthly executions.
+              x-dcl-conflicts:
+              - weekly
               properties:
                 monthDay:
                   type: integer
@@ -721,11 +775,15 @@ components:
                     without the target day will be skipped. For example, a schedule
                     to run "every month on the 31st" will not run in February, April,
                     June, etc.
+                  x-dcl-conflicts:
+                  - weekDayOfMonth
                 weekDayOfMonth:
                   type: object
                   x-dcl-go-name: WeekDayOfMonth
                   x-dcl-go-type: PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth
                   description: Required. Week day in a month.
+                  x-dcl-conflicts:
+                  - monthDay
                   required:
                   - weekOrdinal
                   - dayOfWeek
@@ -819,6 +877,8 @@ components:
               x-dcl-go-name: Weekly
               x-dcl-go-type: PatchDeploymentRecurringScheduleWeekly
               description: Required. Schedule with weekly executions.
+              x-dcl-conflicts:
+              - monthly
               required:
               - dayOfWeek
               properties:
@@ -875,12 +935,16 @@ components:
                   format: int64
                   x-dcl-go-name: Fixed
                   description: Specifies a fixed value.
+                  x-dcl-conflicts:
+                  - percent
                 percent:
                   type: integer
                   format: int64
                   x-dcl-go-name: Percent
                   description: Specifies the relative value defined as a percentage,
                     which will be multiplied by a reference value.
+                  x-dcl-conflicts:
+                  - fixed
             mode:
               type: string
               x-dcl-go-name: Mode

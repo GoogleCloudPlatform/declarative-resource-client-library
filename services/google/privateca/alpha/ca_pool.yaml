@@ -114,6 +114,8 @@ components:
                     x-dcl-go-name: EllipticCurve
                     x-dcl-go-type: CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve
                     description: Represents an allowed Elliptic Curve key type.
+                    x-dcl-conflicts:
+                    - rsa
                     properties:
                       signatureAlgorithm:
                         type: string
@@ -133,6 +135,8 @@ components:
                     x-dcl-go-name: Rsa
                     x-dcl-go-type: CaPoolIssuancePolicyAllowedKeyTypesRsa
                     description: Represents an allowed RSA key type.
+                    x-dcl-conflicts:
+                    - ellipticCurve
                     properties:
                       maxModulusSize:
                         type: integer

@@ -86,6 +86,9 @@ components:
               description: The certificate provider instance specification that will
                 be passed to the data plane, which will be used to load necessary
                 credential information.
+              x-dcl-conflicts:
+              - localFilepath
+              - grpcEndpoint
               required:
               - pluginInstance
               properties:
@@ -101,6 +104,9 @@ components:
               x-dcl-go-type: ClientTlsPolicyClientCertificateGrpcEndpoint
               description: gRPC specific configuration to access the gRPC server to
                 obtain the cert and private key.
+              x-dcl-conflicts:
+              - localFilepath
+              - certificateProviderInstance
               required:
               - targetUri
               properties:
@@ -115,6 +121,9 @@ components:
               x-dcl-go-type: ClientTlsPolicyClientCertificateLocalFilepath
               description: Obtain certificates and private key from a locally mounted
                 filesystem path.
+              x-dcl-conflicts:
+              - grpcEndpoint
+              - certificateProviderInstance
               required:
               - certificatePath
               - privateKeyPath
@@ -181,6 +190,9 @@ components:
                 x-dcl-go-name: CaCertPath
                 description: The path to the file holding the CA certificate to validate
                   the client or server certificate.
+                x-dcl-conflicts:
+                - grpcEndpoint
+                - certificateProviderInstance
               certificateProviderInstance:
                 type: object
                 x-dcl-go-name: CertificateProviderInstance
@@ -188,6 +200,9 @@ components:
                 description: The certificate provider instance specification that
                   will be passed to the data plane, which will be used to load necessary
                   credential information.
+                x-dcl-conflicts:
+                - caCertPath
+                - grpcEndpoint
                 required:
                 - pluginInstance
                 properties:
@@ -203,6 +218,9 @@ components:
                 x-dcl-go-type: ClientTlsPolicyServerValidationCaGrpcEndpoint
                 description: gRPC specific configuration to access the gRPC server
                   to obtain the CA certificate.
+                x-dcl-conflicts:
+                - caCertPath
+                - certificateProviderInstance
                 required:
                 - targetUri
                 properties:

@@ -86,6 +86,8 @@ components:
               description: The certificate provider instance specification that will
                 be passed to the data plane, which will be used to load necessary
                 credential information.
+              x-dcl-conflicts:
+              - grpcEndpoint
               required:
               - pluginInstance
               properties:
@@ -101,6 +103,8 @@ components:
               x-dcl-go-type: ClientTlsPolicyClientCertificateGrpcEndpoint
               description: gRPC specific configuration to access the gRPC server to
                 obtain the cert and private key.
+              x-dcl-conflicts:
+              - certificateProviderInstance
               required:
               - targetUri
               properties:
@@ -163,6 +167,8 @@ components:
                 description: The certificate provider instance specification that
                   will be passed to the data plane, which will be used to load necessary
                   credential information.
+                x-dcl-conflicts:
+                - grpcEndpoint
                 required:
                 - pluginInstance
                 properties:
@@ -178,6 +184,8 @@ components:
                 x-dcl-go-type: ClientTlsPolicyServerValidationCaGrpcEndpoint
                 description: gRPC specific configuration to access the gRPC server
                   to obtain the CA certificate.
+                x-dcl-conflicts:
+                - certificateProviderInstance
                 required:
                 - targetUri
                 properties:
