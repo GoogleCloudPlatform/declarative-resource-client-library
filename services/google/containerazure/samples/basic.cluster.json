@@ -12,7 +12,7 @@
   },
   "resourceGroupId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-cluster",
   "controlPlane": {
-    "version": "1.21.3-gke.2001",
+    "version": "1.21.5-gke.2800",
     "subnetId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-byo/providers/Microsoft.Network/virtualNetworks/{{byo_multicloud_prefix}}-dev-vnet/subnets/default",
     "vmSize": "Standard_DS2_v2",
     "sshConfig": {
