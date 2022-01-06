@@ -1549,6 +1549,8 @@ func unmarshalMapFunction(m map[string]interface{}, c *Client) (*Function, error
 // expandFunction expands Function into a JSON request object.
 func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	// Alias full resource as res to distinguish it from nested objects.
+	res := f
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/functions/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Region), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
@@ -1560,17 +1562,17 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	if v := f.SourceArchiveUrl; dcl.ValueShouldBeSent(v) {
 		m["sourceArchiveUrl"] = v
 	}
-	if v, err := expandFunctionSourceRepository(c, f.SourceRepository); err != nil {
+	if v, err := expandFunctionSourceRepository(c, f.SourceRepository, res); err != nil {
 		return nil, fmt.Errorf("error expanding SourceRepository into sourceRepository: %w", err)
 	} else if v != nil {
 		m["sourceRepository"] = v
 	}
-	if v, err := expandFunctionHttpsTrigger(c, f.HttpsTrigger); err != nil {
+	if v, err := expandFunctionHttpsTrigger(c, f.HttpsTrigger, res); err != nil {
 		return nil, fmt.Errorf("error expanding HttpsTrigger into httpsTrigger: %w", err)
 	} else if v != nil {
 		m["httpsTrigger"] = v
 	}
-	if v, err := expandFunctionEventTrigger(c, f.EventTrigger); err != nil {
+	if v, err := expandFunctionEventTrigger(c, f.EventTrigger, res); err != nil {
 		return nil, fmt.Errorf("error expanding EventTrigger into eventTrigger: %w", err)
 	} else if v != nil {
 		m["eventTrigger"] = v
@@ -1662,14 +1664,14 @@ func flattenFunction(c *Client, i interface{}) *Function {
 
 // expandFunctionSourceRepositoryMap expands the contents of FunctionSourceRepository into a JSON
 // request object.
-func expandFunctionSourceRepositoryMap(c *Client, f map[string]FunctionSourceRepository) (map[string]interface{}, error) {
+func expandFunctionSourceRepositoryMap(c *Client, f map[string]FunctionSourceRepository, res *Function) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFunctionSourceRepository(c, &item)
+		i, err := expandFunctionSourceRepository(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1683,14 +1685,14 @@ func expandFunctionSourceRepositoryMap(c *Client, f map[string]FunctionSourceRep
 
 // expandFunctionSourceRepositorySlice expands the contents of FunctionSourceRepository into a JSON
 // request object.
-func expandFunctionSourceRepositorySlice(c *Client, f []FunctionSourceRepository) ([]map[string]interface{}, error) {
+func expandFunctionSourceRepositorySlice(c *Client, f []FunctionSourceRepository, res *Function) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFunctionSourceRepository(c, &item)
+		i, err := expandFunctionSourceRepository(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1743,7 +1745,7 @@ func flattenFunctionSourceRepositorySlice(c *Client, i interface{}) []FunctionSo
 
 // expandFunctionSourceRepository expands an instance of FunctionSourceRepository into a JSON
 // request object.
-func expandFunctionSourceRepository(c *Client, f *FunctionSourceRepository) (map[string]interface{}, error) {
+func expandFunctionSourceRepository(c *Client, f *FunctionSourceRepository, res *Function) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1777,14 +1779,14 @@ func flattenFunctionSourceRepository(c *Client, i interface{}) *FunctionSourceRe
 
 // expandFunctionHttpsTriggerMap expands the contents of FunctionHttpsTrigger into a JSON
 // request object.
-func expandFunctionHttpsTriggerMap(c *Client, f map[string]FunctionHttpsTrigger) (map[string]interface{}, error) {
+func expandFunctionHttpsTriggerMap(c *Client, f map[string]FunctionHttpsTrigger, res *Function) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFunctionHttpsTrigger(c, &item)
+		i, err := expandFunctionHttpsTrigger(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1798,14 +1800,14 @@ func expandFunctionHttpsTriggerMap(c *Client, f map[string]FunctionHttpsTrigger)
 
 // expandFunctionHttpsTriggerSlice expands the contents of FunctionHttpsTrigger into a JSON
 // request object.
-func expandFunctionHttpsTriggerSlice(c *Client, f []FunctionHttpsTrigger) ([]map[string]interface{}, error) {
+func expandFunctionHttpsTriggerSlice(c *Client, f []FunctionHttpsTrigger, res *Function) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFunctionHttpsTrigger(c, &item)
+		i, err := expandFunctionHttpsTrigger(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1858,7 +1860,7 @@ func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}) []FunctionHttpsT
 
 // expandFunctionHttpsTrigger expands an instance of FunctionHttpsTrigger into a JSON
 // request object.
-func expandFunctionHttpsTrigger(c *Client, f *FunctionHttpsTrigger) (map[string]interface{}, error) {
+func expandFunctionHttpsTrigger(c *Client, f *FunctionHttpsTrigger, res *Function) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1892,14 +1894,14 @@ func flattenFunctionHttpsTrigger(c *Client, i interface{}) *FunctionHttpsTrigger
 
 // expandFunctionEventTriggerMap expands the contents of FunctionEventTrigger into a JSON
 // request object.
-func expandFunctionEventTriggerMap(c *Client, f map[string]FunctionEventTrigger) (map[string]interface{}, error) {
+func expandFunctionEventTriggerMap(c *Client, f map[string]FunctionEventTrigger, res *Function) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFunctionEventTrigger(c, &item)
+		i, err := expandFunctionEventTrigger(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1913,14 +1915,14 @@ func expandFunctionEventTriggerMap(c *Client, f map[string]FunctionEventTrigger)
 
 // expandFunctionEventTriggerSlice expands the contents of FunctionEventTrigger into a JSON
 // request object.
-func expandFunctionEventTriggerSlice(c *Client, f []FunctionEventTrigger) ([]map[string]interface{}, error) {
+func expandFunctionEventTriggerSlice(c *Client, f []FunctionEventTrigger, res *Function) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFunctionEventTrigger(c, &item)
+		i, err := expandFunctionEventTrigger(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1973,7 +1975,7 @@ func flattenFunctionEventTriggerSlice(c *Client, i interface{}) []FunctionEventT
 
 // expandFunctionEventTrigger expands an instance of FunctionEventTrigger into a JSON
 // request object.
-func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger) (map[string]interface{}, error) {
+func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger, res *Function) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1982,13 +1984,15 @@ func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger) (map[string]
 	if v := f.EventType; !dcl.IsEmptyValueIndirect(v) {
 		m["eventType"] = v
 	}
-	if v := f.Resource; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := ExpandFunctionEventResource(res); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resource"] = v
 	}
 	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
-	if v, err := ExpandFunctionEventRetry(f, f.FailurePolicy); err != nil {
+	if v, err := ExpandFunctionEventRetry(res); err != nil {
 		return nil, fmt.Errorf("error expanding FailurePolicy into failurePolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["failurePolicy"] = v

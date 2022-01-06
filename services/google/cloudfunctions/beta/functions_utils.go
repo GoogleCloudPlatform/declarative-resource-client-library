@@ -19,9 +19,24 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
+// ExpandFunctionEventResource handles the special case for StorageBucket
+// and makes sure resource field has format projects/{{project}}/buckets/{{name}}.
+// http://b/210923505
+func ExpandFunctionEventResource(f *Function) (*string, error) {
+	if f.EventTrigger == nil || f.EventTrigger.Resource == nil {
+		return nil, nil
+	}
+
+	if dcl.ValueOrEmptyString(f.EventTrigger.EventType) == "providers/cloud.storage/eventTypes/object.change" {
+		return dcl.DeriveField("projects/%s/buckets/%s", f.EventTrigger.Resource, f.Project, f.EventTrigger.Resource)
+	}
+
+	return f.EventTrigger.Resource, nil
+}
+
 // ExpandFunctionEventRetry inverts the FlattenFunctionEventRetry transformation.
-func ExpandFunctionEventRetry(f *FunctionEventTrigger, t *bool) (interface{}, error) {
-	if t == nil || !*t {
+func ExpandFunctionEventRetry(f *Function) (interface{}, error) {
+	if f.EventTrigger == nil || f.EventTrigger.FailurePolicy == nil || !*(f.EventTrigger.FailurePolicy) {
 		return nil, nil
 	}
 	return map[string]interface{}{
