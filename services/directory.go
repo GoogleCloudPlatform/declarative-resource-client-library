@@ -17,6 +17,9 @@ import (
 	"bytes"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys"
+	apikeys_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/alpha"
+	apikeys_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads"
 	assuredworkloads_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/alpha"
 	assuredworkloads_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/beta"
@@ -179,6 +182,8 @@ func (d *Directory) GetResource(version, service, resource string) *bytes.Buffer
 
 func Services() *Directory {
 	d := &Directory{}
+	d.AddResource("ga", "apikeys", dcl.TitleToSnakeCase("Key"), apikeys.YAML_key)
+	d.AddResource("ga", "apikeys", "Key", apikeys.YAML_key)
 	d.AddResource("ga", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads.YAML_workload)
 	d.AddResource("ga", "assuredworkloads", "Workload", assuredworkloads.YAML_workload)
 	d.AddResource("ga", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets.YAML_budget)
@@ -289,6 +294,8 @@ func Services() *Directory {
 	d.AddResource("ga", "logging", "LogBucket", logging.YAML_log_bucket)
 	d.AddResource("ga", "logging", dcl.TitleToSnakeCase("LogExclusion"), logging.YAML_log_exclusion)
 	d.AddResource("ga", "logging", "LogExclusion", logging.YAML_log_exclusion)
+	d.AddResource("ga", "logging", dcl.TitleToSnakeCase("LogMetric"), logging.YAML_log_metric)
+	d.AddResource("ga", "logging", "LogMetric", logging.YAML_log_metric)
 	d.AddResource("ga", "logging", dcl.TitleToSnakeCase("LogView"), logging.YAML_log_view)
 	d.AddResource("ga", "logging", "LogView", logging.YAML_log_view)
 	d.AddResource("ga", "monitoring", dcl.TitleToSnakeCase("Dashboard"), monitoring.YAML_dashboard)
@@ -331,6 +338,8 @@ func Services() *Directory {
 	d.AddResource("ga", "vpcaccess", "Connector", vpcaccess.YAML_connector)
 	d.AddResource("ga", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise.YAML_key)
 	d.AddResource("ga", "recaptchaenterprise", "Key", recaptchaenterprise.YAML_key)
+	d.AddResource("beta", "apikeys", dcl.TitleToSnakeCase("Key"), apikeys_beta.YAML_key)
+	d.AddResource("beta", "apikeys", "Key", apikeys_beta.YAML_key)
 	d.AddResource("beta", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets_beta.YAML_budget)
@@ -451,6 +460,8 @@ func Services() *Directory {
 	d.AddResource("beta", "logging", "LogBucket", logging_beta.YAML_log_bucket)
 	d.AddResource("beta", "logging", dcl.TitleToSnakeCase("LogExclusion"), logging_beta.YAML_log_exclusion)
 	d.AddResource("beta", "logging", "LogExclusion", logging_beta.YAML_log_exclusion)
+	d.AddResource("beta", "logging", dcl.TitleToSnakeCase("LogMetric"), logging_beta.YAML_log_metric)
+	d.AddResource("beta", "logging", "LogMetric", logging_beta.YAML_log_metric)
 	d.AddResource("beta", "logging", dcl.TitleToSnakeCase("LogView"), logging_beta.YAML_log_view)
 	d.AddResource("beta", "logging", "LogView", logging_beta.YAML_log_view)
 	d.AddResource("beta", "monitoring", dcl.TitleToSnakeCase("Dashboard"), monitoring_beta.YAML_dashboard)
@@ -505,6 +516,8 @@ func Services() *Directory {
 	d.AddResource("beta", "vpcaccess", "Connector", vpcaccess_beta.YAML_connector)
 	d.AddResource("beta", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise_beta.YAML_key)
 	d.AddResource("beta", "recaptchaenterprise", "Key", recaptchaenterprise_beta.YAML_key)
+	d.AddResource("alpha", "apikeys", dcl.TitleToSnakeCase("Key"), apikeys_alpha.YAML_key)
+	d.AddResource("alpha", "apikeys", "Key", apikeys_alpha.YAML_key)
 	d.AddResource("alpha", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "assuredworkloads", "Workload", assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets_alpha.YAML_budget)
@@ -627,6 +640,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "logging", "LogBucket", logging_alpha.YAML_log_bucket)
 	d.AddResource("alpha", "logging", dcl.TitleToSnakeCase("LogExclusion"), logging_alpha.YAML_log_exclusion)
 	d.AddResource("alpha", "logging", "LogExclusion", logging_alpha.YAML_log_exclusion)
+	d.AddResource("alpha", "logging", dcl.TitleToSnakeCase("LogMetric"), logging_alpha.YAML_log_metric)
+	d.AddResource("alpha", "logging", "LogMetric", logging_alpha.YAML_log_metric)
 	d.AddResource("alpha", "logging", dcl.TitleToSnakeCase("LogView"), logging_alpha.YAML_log_view)
 	d.AddResource("alpha", "logging", "LogView", logging_alpha.YAML_log_view)
 	d.AddResource("alpha", "monitoring", dcl.TitleToSnakeCase("Dashboard"), monitoring_alpha.YAML_dashboard)

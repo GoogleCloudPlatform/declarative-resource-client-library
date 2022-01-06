@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="logging", resources=["log_bucket","log_exclusion","log_view"])
+proto_package(name="logging", resources=["log_bucket","log_exclusion","log_metric","log_view"])

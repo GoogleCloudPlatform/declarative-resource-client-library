@@ -91,3 +91,55 @@ func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 	}
 	return nil
 }
+
+func equalsLogMetricMetricDescriptorLabelsValueType(m, n *LogMetricMetricDescriptorLabelsValueTypeEnum) bool {
+	if m == nil && n == nil {
+		return true
+	}
+	v := *LogMetricMetricDescriptorLabelsValueTypeEnumRef("STRING")
+	w := *LogMetricMetricDescriptorLabelsValueTypeEnumRef("")
+	if m == nil || *m == w {
+		// m is nil or blank, should compare equal to blank or "STRING"
+		return n == nil || *n == v || *n == w
+	}
+	if n == nil || *n == w {
+		// n is nil or blank, should compare equal to blank or "STRING"
+		return *m == v || *m == w
+	}
+	return *m == *n
+}
+
+func canonicalizeLogMetricMetricDescriptorLabelsValueType(m, n interface{}) bool {
+	if m == nil && n == nil {
+		return true
+	}
+	mVal, _ := m.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
+	nVal, _ := n.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
+	return equalsLogMetricMetricDescriptorLabelsValueType(mVal, nVal)
+}
+
+func equalsLogMetricMetricDescriptorValueType(m, n *LogMetricMetricDescriptorValueTypeEnum) bool {
+	if m == nil && n == nil {
+		return true
+	}
+	v := *LogMetricMetricDescriptorValueTypeEnumRef("STRING")
+	w := *LogMetricMetricDescriptorValueTypeEnumRef("")
+	if m == nil || *m == w {
+		// m is nil or blank, should compare equal to blank or "STRING"
+		return n == nil || *n == v || *n == w
+	}
+	if n == nil || *n == w {
+		// n is nil or blank, should compare equal to blank or "STRING"
+		return *m == v || *m == w
+	}
+	return *m == *n
+}
+
+func canonicalizeLogMetricMetricDescriptorValueType(m, n interface{}) bool {
+	if m == nil && n == nil {
+		return true
+	}
+	mVal, _ := m.(*LogMetricMetricDescriptorValueTypeEnum)
+	nVal, _ := n.(*LogMetricMetricDescriptorValueTypeEnum)
+	return equalsLogMetricMetricDescriptorValueType(mVal, nVal)
+}

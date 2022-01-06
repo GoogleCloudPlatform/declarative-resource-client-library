@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	loggingpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/logging/logging_go_proto"
@@ -73,19 +72,19 @@ func ProtoToLoggingLogMetricMetricDescriptorLaunchStageEnum(e loggingpb.LoggingL
 	return nil
 }
 
-// ProtoToLogMetricMetricDescriptor converts a LogMetricMetricDescriptor resource from its proto representation.
+// ProtoToLogMetricMetricDescriptor converts a LogMetricMetricDescriptor object from its proto representation.
 func ProtoToLoggingLogMetricMetricDescriptor(p *loggingpb.LoggingLogMetricMetricDescriptor) *logging.LogMetricMetricDescriptor {
 	if p == nil {
 		return nil
 	}
 	obj := &logging.LogMetricMetricDescriptor{
-		Name:        dcl.StringOrNil(p.Name),
-		Type:        dcl.StringOrNil(p.Type),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Type:        dcl.StringOrNil(p.GetType()),
 		MetricKind:  ProtoToLoggingLogMetricMetricDescriptorMetricKindEnum(p.GetMetricKind()),
 		ValueType:   ProtoToLoggingLogMetricMetricDescriptorValueTypeEnum(p.GetValueType()),
-		Unit:        dcl.StringOrNil(p.Unit),
-		Description: dcl.StringOrNil(p.Description),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
+		Unit:        dcl.StringOrNil(p.GetUnit()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
 		Metadata:    ProtoToLoggingLogMetricMetricDescriptorMetadata(p.GetMetadata()),
 		LaunchStage: ProtoToLoggingLogMetricMetricDescriptorLaunchStageEnum(p.GetLaunchStage()),
 	}
@@ -98,32 +97,32 @@ func ProtoToLoggingLogMetricMetricDescriptor(p *loggingpb.LoggingLogMetricMetric
 	return obj
 }
 
-// ProtoToLogMetricMetricDescriptorLabels converts a LogMetricMetricDescriptorLabels resource from its proto representation.
+// ProtoToLogMetricMetricDescriptorLabels converts a LogMetricMetricDescriptorLabels object from its proto representation.
 func ProtoToLoggingLogMetricMetricDescriptorLabels(p *loggingpb.LoggingLogMetricMetricDescriptorLabels) *logging.LogMetricMetricDescriptorLabels {
 	if p == nil {
 		return nil
 	}
 	obj := &logging.LogMetricMetricDescriptorLabels{
-		Key:         dcl.StringOrNil(p.Key),
+		Key:         dcl.StringOrNil(p.GetKey()),
 		ValueType:   ProtoToLoggingLogMetricMetricDescriptorLabelsValueTypeEnum(p.GetValueType()),
-		Description: dcl.StringOrNil(p.Description),
+		Description: dcl.StringOrNil(p.GetDescription()),
 	}
 	return obj
 }
 
-// ProtoToLogMetricMetricDescriptorMetadata converts a LogMetricMetricDescriptorMetadata resource from its proto representation.
+// ProtoToLogMetricMetricDescriptorMetadata converts a LogMetricMetricDescriptorMetadata object from its proto representation.
 func ProtoToLoggingLogMetricMetricDescriptorMetadata(p *loggingpb.LoggingLogMetricMetricDescriptorMetadata) *logging.LogMetricMetricDescriptorMetadata {
 	if p == nil {
 		return nil
 	}
 	obj := &logging.LogMetricMetricDescriptorMetadata{
-		SamplePeriod: dcl.StringOrNil(p.SamplePeriod),
-		IngestDelay:  dcl.StringOrNil(p.IngestDelay),
+		SamplePeriod: dcl.StringOrNil(p.GetSamplePeriod()),
+		IngestDelay:  dcl.StringOrNil(p.GetIngestDelay()),
 	}
 	return obj
 }
 
-// ProtoToLogMetricBucketOptions converts a LogMetricBucketOptions resource from its proto representation.
+// ProtoToLogMetricBucketOptions converts a LogMetricBucketOptions object from its proto representation.
 func ProtoToLoggingLogMetricBucketOptions(p *loggingpb.LoggingLogMetricBucketOptions) *logging.LogMetricBucketOptions {
 	if p == nil {
 		return nil
@@ -136,33 +135,33 @@ func ProtoToLoggingLogMetricBucketOptions(p *loggingpb.LoggingLogMetricBucketOpt
 	return obj
 }
 
-// ProtoToLogMetricBucketOptionsLinearBuckets converts a LogMetricBucketOptionsLinearBuckets resource from its proto representation.
+// ProtoToLogMetricBucketOptionsLinearBuckets converts a LogMetricBucketOptionsLinearBuckets object from its proto representation.
 func ProtoToLoggingLogMetricBucketOptionsLinearBuckets(p *loggingpb.LoggingLogMetricBucketOptionsLinearBuckets) *logging.LogMetricBucketOptionsLinearBuckets {
 	if p == nil {
 		return nil
 	}
 	obj := &logging.LogMetricBucketOptionsLinearBuckets{
-		NumFiniteBuckets: dcl.Int64OrNil(p.NumFiniteBuckets),
-		Width:            dcl.Float64OrNil(p.Width),
-		Offset:           dcl.Float64OrNil(p.Offset),
+		NumFiniteBuckets: dcl.Int64OrNil(p.GetNumFiniteBuckets()),
+		Width:            dcl.Float64OrNil(p.GetWidth()),
+		Offset:           dcl.Float64OrNil(p.GetOffset()),
 	}
 	return obj
 }
 
-// ProtoToLogMetricBucketOptionsExponentialBuckets converts a LogMetricBucketOptionsExponentialBuckets resource from its proto representation.
+// ProtoToLogMetricBucketOptionsExponentialBuckets converts a LogMetricBucketOptionsExponentialBuckets object from its proto representation.
 func ProtoToLoggingLogMetricBucketOptionsExponentialBuckets(p *loggingpb.LoggingLogMetricBucketOptionsExponentialBuckets) *logging.LogMetricBucketOptionsExponentialBuckets {
 	if p == nil {
 		return nil
 	}
 	obj := &logging.LogMetricBucketOptionsExponentialBuckets{
-		NumFiniteBuckets: dcl.Int64OrNil(p.NumFiniteBuckets),
-		GrowthFactor:     dcl.Float64OrNil(p.GrowthFactor),
-		Scale:            dcl.Float64OrNil(p.Scale),
+		NumFiniteBuckets: dcl.Int64OrNil(p.GetNumFiniteBuckets()),
+		GrowthFactor:     dcl.Float64OrNil(p.GetGrowthFactor()),
+		Scale:            dcl.Float64OrNil(p.GetScale()),
 	}
 	return obj
 }
 
-// ProtoToLogMetricBucketOptionsExplicitBuckets converts a LogMetricBucketOptionsExplicitBuckets resource from its proto representation.
+// ProtoToLogMetricBucketOptionsExplicitBuckets converts a LogMetricBucketOptionsExplicitBuckets object from its proto representation.
 func ProtoToLoggingLogMetricBucketOptionsExplicitBuckets(p *loggingpb.LoggingLogMetricBucketOptionsExplicitBuckets) *logging.LogMetricBucketOptionsExplicitBuckets {
 	if p == nil {
 		return nil
@@ -177,16 +176,16 @@ func ProtoToLoggingLogMetricBucketOptionsExplicitBuckets(p *loggingpb.LoggingLog
 // ProtoToLogMetric converts a LogMetric resource from its proto representation.
 func ProtoToLogMetric(p *loggingpb.LoggingLogMetric) *logging.LogMetric {
 	obj := &logging.LogMetric{
-		Name:             dcl.StringOrNil(p.Name),
-		Description:      dcl.StringOrNil(p.Description),
-		Filter:           dcl.StringOrNil(p.Filter),
-		Disabled:         dcl.Bool(p.Disabled),
+		Name:             dcl.StringOrNil(p.GetName()),
+		Description:      dcl.StringOrNil(p.GetDescription()),
+		Filter:           dcl.StringOrNil(p.GetFilter()),
+		Disabled:         dcl.Bool(p.GetDisabled()),
 		MetricDescriptor: ProtoToLoggingLogMetricMetricDescriptor(p.GetMetricDescriptor()),
-		ValueExtractor:   dcl.StringOrNil(p.ValueExtractor),
+		ValueExtractor:   dcl.StringOrNil(p.GetValueExtractor()),
 		BucketOptions:    ProtoToLoggingLogMetricBucketOptions(p.GetBucketOptions()),
 		CreateTime:       dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:       dcl.StringOrNil(p.GetUpdateTime()),
-		Project:          dcl.StringOrNil(p.Project),
+		Project:          dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
@@ -235,126 +234,130 @@ func LoggingLogMetricMetricDescriptorLaunchStageEnumToProto(e *logging.LogMetric
 	return loggingpb.LoggingLogMetricMetricDescriptorLaunchStageEnum(0)
 }
 
-// LogMetricMetricDescriptorToProto converts a LogMetricMetricDescriptor resource to its proto representation.
+// LogMetricMetricDescriptorToProto converts a LogMetricMetricDescriptor object to its proto representation.
 func LoggingLogMetricMetricDescriptorToProto(o *logging.LogMetricMetricDescriptor) *loggingpb.LoggingLogMetricMetricDescriptor {
 	if o == nil {
 		return nil
 	}
-	p := &loggingpb.LoggingLogMetricMetricDescriptor{
-		Name:        dcl.ValueOrEmptyString(o.Name),
-		Type:        dcl.ValueOrEmptyString(o.Type),
-		MetricKind:  LoggingLogMetricMetricDescriptorMetricKindEnumToProto(o.MetricKind),
-		ValueType:   LoggingLogMetricMetricDescriptorValueTypeEnumToProto(o.ValueType),
-		Unit:        dcl.ValueOrEmptyString(o.Unit),
-		Description: dcl.ValueOrEmptyString(o.Description),
-		DisplayName: dcl.ValueOrEmptyString(o.DisplayName),
-		Metadata:    LoggingLogMetricMetricDescriptorMetadataToProto(o.Metadata),
-		LaunchStage: LoggingLogMetricMetricDescriptorLaunchStageEnumToProto(o.LaunchStage),
+	p := &loggingpb.LoggingLogMetricMetricDescriptor{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetType(dcl.ValueOrEmptyString(o.Type))
+	p.SetMetricKind(LoggingLogMetricMetricDescriptorMetricKindEnumToProto(o.MetricKind))
+	p.SetValueType(LoggingLogMetricMetricDescriptorValueTypeEnumToProto(o.ValueType))
+	p.SetUnit(dcl.ValueOrEmptyString(o.Unit))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetDisplayName(dcl.ValueOrEmptyString(o.DisplayName))
+	p.SetMetadata(LoggingLogMetricMetricDescriptorMetadataToProto(o.Metadata))
+	p.SetLaunchStage(LoggingLogMetricMetricDescriptorLaunchStageEnumToProto(o.LaunchStage))
+	sLabels := make([]*loggingpb.LoggingLogMetricMetricDescriptorLabels, len(o.Labels))
+	for i, r := range o.Labels {
+		sLabels[i] = LoggingLogMetricMetricDescriptorLabelsToProto(&r)
 	}
-	for _, r := range o.Labels {
-		p.Labels = append(p.Labels, LoggingLogMetricMetricDescriptorLabelsToProto(&r))
+	p.SetLabels(sLabels)
+	sMonitoredResourceTypes := make([]string, len(o.MonitoredResourceTypes))
+	for i, r := range o.MonitoredResourceTypes {
+		sMonitoredResourceTypes[i] = r
 	}
-	for _, r := range o.MonitoredResourceTypes {
-		p.MonitoredResourceTypes = append(p.MonitoredResourceTypes, r)
-	}
+	p.SetMonitoredResourceTypes(sMonitoredResourceTypes)
 	return p
 }
 
-// LogMetricMetricDescriptorLabelsToProto converts a LogMetricMetricDescriptorLabels resource to its proto representation.
+// LogMetricMetricDescriptorLabelsToProto converts a LogMetricMetricDescriptorLabels object to its proto representation.
 func LoggingLogMetricMetricDescriptorLabelsToProto(o *logging.LogMetricMetricDescriptorLabels) *loggingpb.LoggingLogMetricMetricDescriptorLabels {
 	if o == nil {
 		return nil
 	}
-	p := &loggingpb.LoggingLogMetricMetricDescriptorLabels{
-		Key:         dcl.ValueOrEmptyString(o.Key),
-		ValueType:   LoggingLogMetricMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType),
-		Description: dcl.ValueOrEmptyString(o.Description),
-	}
+	p := &loggingpb.LoggingLogMetricMetricDescriptorLabels{}
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	p.SetValueType(LoggingLogMetricMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
 	return p
 }
 
-// LogMetricMetricDescriptorMetadataToProto converts a LogMetricMetricDescriptorMetadata resource to its proto representation.
+// LogMetricMetricDescriptorMetadataToProto converts a LogMetricMetricDescriptorMetadata object to its proto representation.
 func LoggingLogMetricMetricDescriptorMetadataToProto(o *logging.LogMetricMetricDescriptorMetadata) *loggingpb.LoggingLogMetricMetricDescriptorMetadata {
 	if o == nil {
 		return nil
 	}
-	p := &loggingpb.LoggingLogMetricMetricDescriptorMetadata{
-		SamplePeriod: dcl.ValueOrEmptyString(o.SamplePeriod),
-		IngestDelay:  dcl.ValueOrEmptyString(o.IngestDelay),
-	}
+	p := &loggingpb.LoggingLogMetricMetricDescriptorMetadata{}
+	p.SetSamplePeriod(dcl.ValueOrEmptyString(o.SamplePeriod))
+	p.SetIngestDelay(dcl.ValueOrEmptyString(o.IngestDelay))
 	return p
 }
 
-// LogMetricBucketOptionsToProto converts a LogMetricBucketOptions resource to its proto representation.
+// LogMetricBucketOptionsToProto converts a LogMetricBucketOptions object to its proto representation.
 func LoggingLogMetricBucketOptionsToProto(o *logging.LogMetricBucketOptions) *loggingpb.LoggingLogMetricBucketOptions {
 	if o == nil {
 		return nil
 	}
-	p := &loggingpb.LoggingLogMetricBucketOptions{
-		LinearBuckets:      LoggingLogMetricBucketOptionsLinearBucketsToProto(o.LinearBuckets),
-		ExponentialBuckets: LoggingLogMetricBucketOptionsExponentialBucketsToProto(o.ExponentialBuckets),
-		ExplicitBuckets:    LoggingLogMetricBucketOptionsExplicitBucketsToProto(o.ExplicitBuckets),
-	}
+	p := &loggingpb.LoggingLogMetricBucketOptions{}
+	p.SetLinearBuckets(LoggingLogMetricBucketOptionsLinearBucketsToProto(o.LinearBuckets))
+	p.SetExponentialBuckets(LoggingLogMetricBucketOptionsExponentialBucketsToProto(o.ExponentialBuckets))
+	p.SetExplicitBuckets(LoggingLogMetricBucketOptionsExplicitBucketsToProto(o.ExplicitBuckets))
 	return p
 }
 
-// LogMetricBucketOptionsLinearBucketsToProto converts a LogMetricBucketOptionsLinearBuckets resource to its proto representation.
+// LogMetricBucketOptionsLinearBucketsToProto converts a LogMetricBucketOptionsLinearBuckets object to its proto representation.
 func LoggingLogMetricBucketOptionsLinearBucketsToProto(o *logging.LogMetricBucketOptionsLinearBuckets) *loggingpb.LoggingLogMetricBucketOptionsLinearBuckets {
 	if o == nil {
 		return nil
 	}
-	p := &loggingpb.LoggingLogMetricBucketOptionsLinearBuckets{
-		NumFiniteBuckets: dcl.ValueOrEmptyInt64(o.NumFiniteBuckets),
-		Width:            dcl.ValueOrEmptyDouble(o.Width),
-		Offset:           dcl.ValueOrEmptyDouble(o.Offset),
-	}
+	p := &loggingpb.LoggingLogMetricBucketOptionsLinearBuckets{}
+	p.SetNumFiniteBuckets(dcl.ValueOrEmptyInt64(o.NumFiniteBuckets))
+	p.SetWidth(dcl.ValueOrEmptyDouble(o.Width))
+	p.SetOffset(dcl.ValueOrEmptyDouble(o.Offset))
 	return p
 }
 
-// LogMetricBucketOptionsExponentialBucketsToProto converts a LogMetricBucketOptionsExponentialBuckets resource to its proto representation.
+// LogMetricBucketOptionsExponentialBucketsToProto converts a LogMetricBucketOptionsExponentialBuckets object to its proto representation.
 func LoggingLogMetricBucketOptionsExponentialBucketsToProto(o *logging.LogMetricBucketOptionsExponentialBuckets) *loggingpb.LoggingLogMetricBucketOptionsExponentialBuckets {
 	if o == nil {
 		return nil
 	}
-	p := &loggingpb.LoggingLogMetricBucketOptionsExponentialBuckets{
-		NumFiniteBuckets: dcl.ValueOrEmptyInt64(o.NumFiniteBuckets),
-		GrowthFactor:     dcl.ValueOrEmptyDouble(o.GrowthFactor),
-		Scale:            dcl.ValueOrEmptyDouble(o.Scale),
-	}
+	p := &loggingpb.LoggingLogMetricBucketOptionsExponentialBuckets{}
+	p.SetNumFiniteBuckets(dcl.ValueOrEmptyInt64(o.NumFiniteBuckets))
+	p.SetGrowthFactor(dcl.ValueOrEmptyDouble(o.GrowthFactor))
+	p.SetScale(dcl.ValueOrEmptyDouble(o.Scale))
 	return p
 }
 
-// LogMetricBucketOptionsExplicitBucketsToProto converts a LogMetricBucketOptionsExplicitBuckets resource to its proto representation.
+// LogMetricBucketOptionsExplicitBucketsToProto converts a LogMetricBucketOptionsExplicitBuckets object to its proto representation.
 func LoggingLogMetricBucketOptionsExplicitBucketsToProto(o *logging.LogMetricBucketOptionsExplicitBuckets) *loggingpb.LoggingLogMetricBucketOptionsExplicitBuckets {
 	if o == nil {
 		return nil
 	}
 	p := &loggingpb.LoggingLogMetricBucketOptionsExplicitBuckets{}
-	for _, r := range o.Bounds {
-		p.Bounds = append(p.Bounds, r)
+	sBounds := make([]float64, len(o.Bounds))
+	for i, r := range o.Bounds {
+		sBounds[i] = r
 	}
+	p.SetBounds(sBounds)
 	return p
 }
 
 // LogMetricToProto converts a LogMetric resource to its proto representation.
 func LogMetricToProto(resource *logging.LogMetric) *loggingpb.LoggingLogMetric {
-	p := &loggingpb.LoggingLogMetric{
-		Name:             dcl.ValueOrEmptyString(resource.Name),
-		Description:      dcl.ValueOrEmptyString(resource.Description),
-		Filter:           dcl.ValueOrEmptyString(resource.Filter),
-		Disabled:         dcl.ValueOrEmptyBool(resource.Disabled),
-		MetricDescriptor: LoggingLogMetricMetricDescriptorToProto(resource.MetricDescriptor),
-		ValueExtractor:   dcl.ValueOrEmptyString(resource.ValueExtractor),
-		BucketOptions:    LoggingLogMetricBucketOptionsToProto(resource.BucketOptions),
-		CreateTime:       dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:       dcl.ValueOrEmptyString(resource.UpdateTime),
-		Project:          dcl.ValueOrEmptyString(resource.Project),
+	p := &loggingpb.LoggingLogMetric{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetFilter(dcl.ValueOrEmptyString(resource.Filter))
+	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
+	p.SetMetricDescriptor(LoggingLogMetricMetricDescriptorToProto(resource.MetricDescriptor))
+	p.SetValueExtractor(dcl.ValueOrEmptyString(resource.ValueExtractor))
+	p.SetBucketOptions(LoggingLogMetricBucketOptionsToProto(resource.BucketOptions))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mLabelExtractors := make(map[string]string, len(resource.LabelExtractors))
+	for k, r := range resource.LabelExtractors {
+		mLabelExtractors[k] = r
 	}
+	p.SetLabelExtractors(mLabelExtractors)
 
 	return p
 }
 
-// ApplyLogMetric handles the gRPC request by passing it to the underlying LogMetric Apply() method.
+// applyLogMetric handles the gRPC request by passing it to the underlying LogMetric Apply() method.
 func (s *LogMetricServer) applyLogMetric(ctx context.Context, c *logging.Client, request *loggingpb.ApplyLoggingLogMetricRequest) (*loggingpb.LoggingLogMetric, error) {
 	p := ProtoToLogMetric(request.GetResource())
 	res, err := c.ApplyLogMetric(ctx, p)
@@ -365,9 +368,9 @@ func (s *LogMetricServer) applyLogMetric(ctx context.Context, c *logging.Client,
 	return r, nil
 }
 
-// ApplyLogMetric handles the gRPC request by passing it to the underlying LogMetric Apply() method.
+// applyLoggingLogMetric handles the gRPC request by passing it to the underlying LogMetric Apply() method.
 func (s *LogMetricServer) ApplyLoggingLogMetric(ctx context.Context, request *loggingpb.ApplyLoggingLogMetricRequest) (*loggingpb.LoggingLogMetric, error) {
-	cl, err := createConfigLogMetric(ctx, request.ServiceAccountFile)
+	cl, err := createConfigLogMetric(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -377,7 +380,7 @@ func (s *LogMetricServer) ApplyLoggingLogMetric(ctx context.Context, request *lo
 // DeleteLogMetric handles the gRPC request by passing it to the underlying LogMetric Delete() method.
 func (s *LogMetricServer) DeleteLoggingLogMetric(ctx context.Context, request *loggingpb.DeleteLoggingLogMetricRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigLogMetric(ctx, request.ServiceAccountFile)
+	cl, err := createConfigLogMetric(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -387,12 +390,12 @@ func (s *LogMetricServer) DeleteLoggingLogMetric(ctx context.Context, request *l
 
 // ListLoggingLogMetric handles the gRPC request by passing it to the underlying LogMetricList() method.
 func (s *LogMetricServer) ListLoggingLogMetric(ctx context.Context, request *loggingpb.ListLoggingLogMetricRequest) (*loggingpb.ListLoggingLogMetricResponse, error) {
-	cl, err := createConfigLogMetric(ctx, request.ServiceAccountFile)
+	cl, err := createConfigLogMetric(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListLogMetric(ctx, request.Project)
+	resources, err := cl.ListLogMetric(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -401,7 +404,9 @@ func (s *LogMetricServer) ListLoggingLogMetric(ctx context.Context, request *log
 		rp := LogMetricToProto(r)
 		protos = append(protos, rp)
 	}
-	return &loggingpb.ListLoggingLogMetricResponse{Items: protos}, nil
+	p := &loggingpb.ListLoggingLogMetricResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigLogMetric(ctx context.Context, service_account_file string) (*logging.Client, error) {

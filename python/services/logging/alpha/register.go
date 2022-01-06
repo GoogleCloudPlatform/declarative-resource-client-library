@@ -22,6 +22,6 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterLoggingAlphaLogBucketServiceServer(s, &LogBucketServer{})
 	sdkgrpc.RegisterLoggingAlphaLogExclusionServiceServer(s, &LogExclusionServer{})
-	sdkgrpc.RegisterLoggingAlphaLogViewServiceServer(s, &LogViewServer{})
 	sdkgrpc.RegisterLoggingAlphaLogMetricServiceServer(s, &LogMetricServer{})
+	sdkgrpc.RegisterLoggingAlphaLogViewServiceServer(s, &LogViewServer{})
 }

@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	apikeyspb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/apikeys/apikeys_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -25,7 +24,7 @@ import (
 // Server implements the gRPC interface for Key.
 type KeyServer struct{}
 
-// ProtoToKeyRestrictions converts a KeyRestrictions resource from its proto representation.
+// ProtoToKeyRestrictions converts a KeyRestrictions object from its proto representation.
 func ProtoToApikeysKeyRestrictions(p *apikeyspb.ApikeysKeyRestrictions) *apikeys.KeyRestrictions {
 	if p == nil {
 		return nil
@@ -42,7 +41,7 @@ func ProtoToApikeysKeyRestrictions(p *apikeyspb.ApikeysKeyRestrictions) *apikeys
 	return obj
 }
 
-// ProtoToKeyRestrictionsBrowserKeyRestrictions converts a KeyRestrictionsBrowserKeyRestrictions resource from its proto representation.
+// ProtoToKeyRestrictionsBrowserKeyRestrictions converts a KeyRestrictionsBrowserKeyRestrictions object from its proto representation.
 func ProtoToApikeysKeyRestrictionsBrowserKeyRestrictions(p *apikeyspb.ApikeysKeyRestrictionsBrowserKeyRestrictions) *apikeys.KeyRestrictionsBrowserKeyRestrictions {
 	if p == nil {
 		return nil
@@ -54,7 +53,7 @@ func ProtoToApikeysKeyRestrictionsBrowserKeyRestrictions(p *apikeyspb.ApikeysKey
 	return obj
 }
 
-// ProtoToKeyRestrictionsServerKeyRestrictions converts a KeyRestrictionsServerKeyRestrictions resource from its proto representation.
+// ProtoToKeyRestrictionsServerKeyRestrictions converts a KeyRestrictionsServerKeyRestrictions object from its proto representation.
 func ProtoToApikeysKeyRestrictionsServerKeyRestrictions(p *apikeyspb.ApikeysKeyRestrictionsServerKeyRestrictions) *apikeys.KeyRestrictionsServerKeyRestrictions {
 	if p == nil {
 		return nil
@@ -66,7 +65,7 @@ func ProtoToApikeysKeyRestrictionsServerKeyRestrictions(p *apikeyspb.ApikeysKeyR
 	return obj
 }
 
-// ProtoToKeyRestrictionsAndroidKeyRestrictions converts a KeyRestrictionsAndroidKeyRestrictions resource from its proto representation.
+// ProtoToKeyRestrictionsAndroidKeyRestrictions converts a KeyRestrictionsAndroidKeyRestrictions object from its proto representation.
 func ProtoToApikeysKeyRestrictionsAndroidKeyRestrictions(p *apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictions) *apikeys.KeyRestrictionsAndroidKeyRestrictions {
 	if p == nil {
 		return nil
@@ -78,19 +77,19 @@ func ProtoToApikeysKeyRestrictionsAndroidKeyRestrictions(p *apikeyspb.ApikeysKey
 	return obj
 }
 
-// ProtoToKeyRestrictionsAndroidKeyRestrictionsAllowedApplications converts a KeyRestrictionsAndroidKeyRestrictionsAllowedApplications resource from its proto representation.
+// ProtoToKeyRestrictionsAndroidKeyRestrictionsAllowedApplications converts a KeyRestrictionsAndroidKeyRestrictionsAllowedApplications object from its proto representation.
 func ProtoToApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(p *apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplications) *apikeys.KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
 	if p == nil {
 		return nil
 	}
 	obj := &apikeys.KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{
-		Sha1Fingerprint: dcl.StringOrNil(p.Sha1Fingerprint),
-		PackageName:     dcl.StringOrNil(p.PackageName),
+		Sha1Fingerprint: dcl.StringOrNil(p.GetSha1Fingerprint()),
+		PackageName:     dcl.StringOrNil(p.GetPackageName()),
 	}
 	return obj
 }
 
-// ProtoToKeyRestrictionsIosKeyRestrictions converts a KeyRestrictionsIosKeyRestrictions resource from its proto representation.
+// ProtoToKeyRestrictionsIosKeyRestrictions converts a KeyRestrictionsIosKeyRestrictions object from its proto representation.
 func ProtoToApikeysKeyRestrictionsIosKeyRestrictions(p *apikeyspb.ApikeysKeyRestrictionsIosKeyRestrictions) *apikeys.KeyRestrictionsIosKeyRestrictions {
 	if p == nil {
 		return nil
@@ -102,13 +101,13 @@ func ProtoToApikeysKeyRestrictionsIosKeyRestrictions(p *apikeyspb.ApikeysKeyRest
 	return obj
 }
 
-// ProtoToKeyRestrictionsApiTargets converts a KeyRestrictionsApiTargets resource from its proto representation.
+// ProtoToKeyRestrictionsApiTargets converts a KeyRestrictionsApiTargets object from its proto representation.
 func ProtoToApikeysKeyRestrictionsApiTargets(p *apikeyspb.ApikeysKeyRestrictionsApiTargets) *apikeys.KeyRestrictionsApiTargets {
 	if p == nil {
 		return nil
 	}
 	obj := &apikeys.KeyRestrictionsApiTargets{
-		Service: dcl.StringOrNil(p.Service),
+		Service: dcl.StringOrNil(p.GetService()),
 	}
 	for _, r := range p.GetMethods() {
 		obj.Methods = append(obj.Methods, r)
@@ -119,130 +118,138 @@ func ProtoToApikeysKeyRestrictionsApiTargets(p *apikeyspb.ApikeysKeyRestrictions
 // ProtoToKey converts a Key resource from its proto representation.
 func ProtoToKey(p *apikeyspb.ApikeysKey) *apikeys.Key {
 	obj := &apikeys.Key{
-		Name:         dcl.StringOrNil(p.Name),
-		Uid:          dcl.StringOrNil(p.Uid),
-		DisplayName:  dcl.StringOrNil(p.DisplayName),
-		KeyString:    dcl.StringOrNil(p.KeyString),
+		Name:         dcl.StringOrNil(p.GetName()),
+		Uid:          dcl.StringOrNil(p.GetUid()),
+		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
+		KeyString:    dcl.StringOrNil(p.GetKeyString()),
 		CreateTime:   dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:   dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:   dcl.StringOrNil(p.GetDeleteTime()),
 		Restrictions: ProtoToApikeysKeyRestrictions(p.GetRestrictions()),
-		Etag:         dcl.StringOrNil(p.Etag),
-		Project:      dcl.StringOrNil(p.Project),
+		Etag:         dcl.StringOrNil(p.GetEtag()),
+		Project:      dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
-// KeyRestrictionsToProto converts a KeyRestrictions resource to its proto representation.
+// KeyRestrictionsToProto converts a KeyRestrictions object to its proto representation.
 func ApikeysKeyRestrictionsToProto(o *apikeys.KeyRestrictions) *apikeyspb.ApikeysKeyRestrictions {
 	if o == nil {
 		return nil
 	}
-	p := &apikeyspb.ApikeysKeyRestrictions{
-		BrowserKeyRestrictions: ApikeysKeyRestrictionsBrowserKeyRestrictionsToProto(o.BrowserKeyRestrictions),
-		ServerKeyRestrictions:  ApikeysKeyRestrictionsServerKeyRestrictionsToProto(o.ServerKeyRestrictions),
-		AndroidKeyRestrictions: ApikeysKeyRestrictionsAndroidKeyRestrictionsToProto(o.AndroidKeyRestrictions),
-		IosKeyRestrictions:     ApikeysKeyRestrictionsIosKeyRestrictionsToProto(o.IosKeyRestrictions),
+	p := &apikeyspb.ApikeysKeyRestrictions{}
+	p.SetBrowserKeyRestrictions(ApikeysKeyRestrictionsBrowserKeyRestrictionsToProto(o.BrowserKeyRestrictions))
+	p.SetServerKeyRestrictions(ApikeysKeyRestrictionsServerKeyRestrictionsToProto(o.ServerKeyRestrictions))
+	p.SetAndroidKeyRestrictions(ApikeysKeyRestrictionsAndroidKeyRestrictionsToProto(o.AndroidKeyRestrictions))
+	p.SetIosKeyRestrictions(ApikeysKeyRestrictionsIosKeyRestrictionsToProto(o.IosKeyRestrictions))
+	sApiTargets := make([]*apikeyspb.ApikeysKeyRestrictionsApiTargets, len(o.ApiTargets))
+	for i, r := range o.ApiTargets {
+		sApiTargets[i] = ApikeysKeyRestrictionsApiTargetsToProto(&r)
 	}
-	for _, r := range o.ApiTargets {
-		p.ApiTargets = append(p.ApiTargets, ApikeysKeyRestrictionsApiTargetsToProto(&r))
-	}
+	p.SetApiTargets(sApiTargets)
 	return p
 }
 
-// KeyRestrictionsBrowserKeyRestrictionsToProto converts a KeyRestrictionsBrowserKeyRestrictions resource to its proto representation.
+// KeyRestrictionsBrowserKeyRestrictionsToProto converts a KeyRestrictionsBrowserKeyRestrictions object to its proto representation.
 func ApikeysKeyRestrictionsBrowserKeyRestrictionsToProto(o *apikeys.KeyRestrictionsBrowserKeyRestrictions) *apikeyspb.ApikeysKeyRestrictionsBrowserKeyRestrictions {
 	if o == nil {
 		return nil
 	}
 	p := &apikeyspb.ApikeysKeyRestrictionsBrowserKeyRestrictions{}
-	for _, r := range o.AllowedReferrers {
-		p.AllowedReferrers = append(p.AllowedReferrers, r)
+	sAllowedReferrers := make([]string, len(o.AllowedReferrers))
+	for i, r := range o.AllowedReferrers {
+		sAllowedReferrers[i] = r
 	}
+	p.SetAllowedReferrers(sAllowedReferrers)
 	return p
 }
 
-// KeyRestrictionsServerKeyRestrictionsToProto converts a KeyRestrictionsServerKeyRestrictions resource to its proto representation.
+// KeyRestrictionsServerKeyRestrictionsToProto converts a KeyRestrictionsServerKeyRestrictions object to its proto representation.
 func ApikeysKeyRestrictionsServerKeyRestrictionsToProto(o *apikeys.KeyRestrictionsServerKeyRestrictions) *apikeyspb.ApikeysKeyRestrictionsServerKeyRestrictions {
 	if o == nil {
 		return nil
 	}
 	p := &apikeyspb.ApikeysKeyRestrictionsServerKeyRestrictions{}
-	for _, r := range o.AllowedIps {
-		p.AllowedIps = append(p.AllowedIps, r)
+	sAllowedIps := make([]string, len(o.AllowedIps))
+	for i, r := range o.AllowedIps {
+		sAllowedIps[i] = r
 	}
+	p.SetAllowedIps(sAllowedIps)
 	return p
 }
 
-// KeyRestrictionsAndroidKeyRestrictionsToProto converts a KeyRestrictionsAndroidKeyRestrictions resource to its proto representation.
+// KeyRestrictionsAndroidKeyRestrictionsToProto converts a KeyRestrictionsAndroidKeyRestrictions object to its proto representation.
 func ApikeysKeyRestrictionsAndroidKeyRestrictionsToProto(o *apikeys.KeyRestrictionsAndroidKeyRestrictions) *apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictions {
 	if o == nil {
 		return nil
 	}
 	p := &apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictions{}
-	for _, r := range o.AllowedApplications {
-		p.AllowedApplications = append(p.AllowedApplications, ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsToProto(&r))
+	sAllowedApplications := make([]*apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplications, len(o.AllowedApplications))
+	for i, r := range o.AllowedApplications {
+		sAllowedApplications[i] = ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsToProto(&r)
 	}
+	p.SetAllowedApplications(sAllowedApplications)
 	return p
 }
 
-// KeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsToProto converts a KeyRestrictionsAndroidKeyRestrictionsAllowedApplications resource to its proto representation.
+// KeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsToProto converts a KeyRestrictionsAndroidKeyRestrictionsAllowedApplications object to its proto representation.
 func ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsToProto(o *apikeys.KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) *apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
 	if o == nil {
 		return nil
 	}
-	p := &apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplications{
-		Sha1Fingerprint: dcl.ValueOrEmptyString(o.Sha1Fingerprint),
-		PackageName:     dcl.ValueOrEmptyString(o.PackageName),
-	}
+	p := &apikeyspb.ApikeysKeyRestrictionsAndroidKeyRestrictionsAllowedApplications{}
+	p.SetSha1Fingerprint(dcl.ValueOrEmptyString(o.Sha1Fingerprint))
+	p.SetPackageName(dcl.ValueOrEmptyString(o.PackageName))
 	return p
 }
 
-// KeyRestrictionsIosKeyRestrictionsToProto converts a KeyRestrictionsIosKeyRestrictions resource to its proto representation.
+// KeyRestrictionsIosKeyRestrictionsToProto converts a KeyRestrictionsIosKeyRestrictions object to its proto representation.
 func ApikeysKeyRestrictionsIosKeyRestrictionsToProto(o *apikeys.KeyRestrictionsIosKeyRestrictions) *apikeyspb.ApikeysKeyRestrictionsIosKeyRestrictions {
 	if o == nil {
 		return nil
 	}
 	p := &apikeyspb.ApikeysKeyRestrictionsIosKeyRestrictions{}
-	for _, r := range o.AllowedBundleIds {
-		p.AllowedBundleIds = append(p.AllowedBundleIds, r)
+	sAllowedBundleIds := make([]string, len(o.AllowedBundleIds))
+	for i, r := range o.AllowedBundleIds {
+		sAllowedBundleIds[i] = r
 	}
+	p.SetAllowedBundleIds(sAllowedBundleIds)
 	return p
 }
 
-// KeyRestrictionsApiTargetsToProto converts a KeyRestrictionsApiTargets resource to its proto representation.
+// KeyRestrictionsApiTargetsToProto converts a KeyRestrictionsApiTargets object to its proto representation.
 func ApikeysKeyRestrictionsApiTargetsToProto(o *apikeys.KeyRestrictionsApiTargets) *apikeyspb.ApikeysKeyRestrictionsApiTargets {
 	if o == nil {
 		return nil
 	}
-	p := &apikeyspb.ApikeysKeyRestrictionsApiTargets{
-		Service: dcl.ValueOrEmptyString(o.Service),
+	p := &apikeyspb.ApikeysKeyRestrictionsApiTargets{}
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	sMethods := make([]string, len(o.Methods))
+	for i, r := range o.Methods {
+		sMethods[i] = r
 	}
-	for _, r := range o.Methods {
-		p.Methods = append(p.Methods, r)
-	}
+	p.SetMethods(sMethods)
 	return p
 }
 
 // KeyToProto converts a Key resource to its proto representation.
 func KeyToProto(resource *apikeys.Key) *apikeyspb.ApikeysKey {
-	p := &apikeyspb.ApikeysKey{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		Uid:          dcl.ValueOrEmptyString(resource.Uid),
-		DisplayName:  dcl.ValueOrEmptyString(resource.DisplayName),
-		KeyString:    dcl.ValueOrEmptyString(resource.KeyString),
-		CreateTime:   dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:   dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:   dcl.ValueOrEmptyString(resource.DeleteTime),
-		Restrictions: ApikeysKeyRestrictionsToProto(resource.Restrictions),
-		Etag:         dcl.ValueOrEmptyString(resource.Etag),
-		Project:      dcl.ValueOrEmptyString(resource.Project),
-	}
+	p := &apikeyspb.ApikeysKey{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetKeyString(dcl.ValueOrEmptyString(resource.KeyString))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetRestrictions(ApikeysKeyRestrictionsToProto(resource.Restrictions))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p
 }
 
-// ApplyKey handles the gRPC request by passing it to the underlying Key Apply() method.
+// applyKey handles the gRPC request by passing it to the underlying Key Apply() method.
 func (s *KeyServer) applyKey(ctx context.Context, c *apikeys.Client, request *apikeyspb.ApplyApikeysKeyRequest) (*apikeyspb.ApikeysKey, error) {
 	p := ProtoToKey(request.GetResource())
 	res, err := c.ApplyKey(ctx, p)
@@ -253,9 +260,9 @@ func (s *KeyServer) applyKey(ctx context.Context, c *apikeys.Client, request *ap
 	return r, nil
 }
 
-// ApplyKey handles the gRPC request by passing it to the underlying Key Apply() method.
+// applyApikeysKey handles the gRPC request by passing it to the underlying Key Apply() method.
 func (s *KeyServer) ApplyApikeysKey(ctx context.Context, request *apikeyspb.ApplyApikeysKeyRequest) (*apikeyspb.ApikeysKey, error) {
-	cl, err := createConfigKey(ctx, request.ServiceAccountFile)
+	cl, err := createConfigKey(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +272,7 @@ func (s *KeyServer) ApplyApikeysKey(ctx context.Context, request *apikeyspb.Appl
 // DeleteKey handles the gRPC request by passing it to the underlying Key Delete() method.
 func (s *KeyServer) DeleteApikeysKey(ctx context.Context, request *apikeyspb.DeleteApikeysKeyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigKey(ctx, request.ServiceAccountFile)
+	cl, err := createConfigKey(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -275,12 +282,12 @@ func (s *KeyServer) DeleteApikeysKey(ctx context.Context, request *apikeyspb.Del
 
 // ListApikeysKey handles the gRPC request by passing it to the underlying KeyList() method.
 func (s *KeyServer) ListApikeysKey(ctx context.Context, request *apikeyspb.ListApikeysKeyRequest) (*apikeyspb.ListApikeysKeyResponse, error) {
-	cl, err := createConfigKey(ctx, request.ServiceAccountFile)
+	cl, err := createConfigKey(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListKey(ctx, request.Project)
+	resources, err := cl.ListKey(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -289,7 +296,9 @@ func (s *KeyServer) ListApikeysKey(ctx context.Context, request *apikeyspb.ListA
 		rp := KeyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &apikeyspb.ListApikeysKeyResponse{Items: protos}, nil
+	p := &apikeyspb.ListApikeysKeyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigKey(ctx context.Context, service_account_file string) (*apikeys.Client, error) {

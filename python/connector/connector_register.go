@@ -16,6 +16,12 @@ package connector
 import (
 	connectorpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/connector_go_proto"
 
+	apikeys_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/connector"
+
+	apikeys_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/beta_connector"
+
+	apikeys_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/alpha_connector"
+
 	assuredworkloads_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/connector"
 
 	assuredworkloads_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/beta_connector"
@@ -236,6 +242,12 @@ import (
 // InitializeServer prepares the server for future RPC requests. It must be called before
 // attempting to response to any requests.
 func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
+
+	apikeys_connector.RegisterServers(grpcServer)
+
+	apikeys_beta_connector.RegisterServers(grpcServer)
+
+	apikeys_alpha_connector.RegisterServers(grpcServer)
 
 	assuredworkloads_connector.RegisterServers(grpcServer)
 

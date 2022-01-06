@@ -22,6 +22,6 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterLoggingBetaLogBucketServiceServer(s, &LogBucketServer{})
 	sdkgrpc.RegisterLoggingBetaLogExclusionServiceServer(s, &LogExclusionServer{})
-	sdkgrpc.RegisterLoggingBetaLogViewServiceServer(s, &LogViewServer{})
 	sdkgrpc.RegisterLoggingBetaLogMetricServiceServer(s, &LogMetricServer{})
+	sdkgrpc.RegisterLoggingBetaLogViewServiceServer(s, &LogViewServer{})
 }

@@ -30,12 +30,6 @@ func (r *LogView) validate() error {
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
-	if err := dcl.RequiredParameter(r.Parent, "Parent"); err != nil {
-		return err
-	}
-	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Bucket, "Bucket"); err != nil {
 		return err
 	}
@@ -786,6 +780,16 @@ func convertOpNameToLogViewApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 }
 
 func extractLogViewFields(r *LogView) error {
+	vParent, err := dcl.ValueFromRegexOnField("Parent", r.Parent, r.Bucket, "((projects|folders|organizations|billingAccounts)/[a-z0-9A-Z-]*)/locations/.*")
+	if err != nil {
+		return err
+	}
+	r.Parent = vParent
+	vLocation, err := dcl.ValueFromRegexOnField("Location", r.Location, r.Bucket, "[a-zA-Z]*/[a-z0-9A-Z-]*/locations/([a-z0-9-]*)/buckets/.*")
+	if err != nil {
+		return err
+	}
+	r.Location = vLocation
 	return nil
 }
 

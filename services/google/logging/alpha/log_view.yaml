@@ -74,8 +74,6 @@ components:
       type: object
       required:
       - name
-      - parent
-      - location
       - bucket
       properties:
         bucket:
