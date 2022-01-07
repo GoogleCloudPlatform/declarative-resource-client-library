@@ -15,12 +15,12 @@ package server
 
 import (
 	"google.golang.org/grpc"
-	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/bigquery/bigquery_go_proto"
+	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/bigquery/alpha/bigquery_alpha_go_proto"
 )
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterBigqueryRoutineServiceServer(s, &RoutineServer{})
-	sdkgrpc.RegisterBigqueryDatasetServiceServer(s, &DatasetServer{})
-	sdkgrpc.RegisterBigqueryTableServiceServer(s, &TableServer{})
+	sdkgrpc.RegisterBigqueryAlphaRoutineServiceServer(s, &RoutineServer{})
+	sdkgrpc.RegisterBigqueryAlphaDatasetServiceServer(s, &DatasetServer{})
+	sdkgrpc.RegisterBigqueryAlphaTableServiceServer(s, &TableServer{})
 }

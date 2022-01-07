@@ -11,6 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "connector")
-connector(name="bigquery", resources=["routine"])
+name: javascript_routine
+description: An example of a javascript bigquery routine
+type: routine
+versions:
+- ga
+- beta
+resource: samples/javascript.routine.json
+dependencies:
+- samples/basic.dataset.json
+updates:
+- resource: samples/update_javascript.routine.json
+  dependencies:
+  - samples/basic.dataset.json
+variables:
+- name: _dataset
+  type: resource_name
+- name: _routine
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region

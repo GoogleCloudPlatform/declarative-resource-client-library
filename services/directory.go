@@ -23,6 +23,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads"
 	assuredworkloads_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/alpha"
 	assuredworkloads_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery"
+	bigquery_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/alpha"
+	bigquery_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation"
 	bigqueryreservation_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/alpha"
 	bigqueryreservation_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/beta"
@@ -188,6 +191,8 @@ func Services() *Directory {
 	d.AddResource("ga", "assuredworkloads", "Workload", assuredworkloads.YAML_workload)
 	d.AddResource("ga", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets.YAML_budget)
 	d.AddResource("ga", "billingbudgets", "Budget", billingbudgets.YAML_budget)
+	d.AddResource("ga", "bigquery", dcl.TitleToSnakeCase("Routine"), bigquery.YAML_routine)
+	d.AddResource("ga", "bigquery", "Routine", bigquery.YAML_routine)
 	d.AddResource("ga", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation.YAML_assignment)
 	d.AddResource("ga", "bigqueryreservation", "Assignment", bigqueryreservation.YAML_assignment)
 	d.AddResource("ga", "bigqueryreservation", dcl.TitleToSnakeCase("CapacityCommitment"), bigqueryreservation.YAML_capacity_commitment)
@@ -344,6 +349,8 @@ func Services() *Directory {
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets_beta.YAML_budget)
 	d.AddResource("beta", "billingbudgets", "Budget", billingbudgets_beta.YAML_budget)
+	d.AddResource("beta", "bigquery", dcl.TitleToSnakeCase("Routine"), bigquery_beta.YAML_routine)
+	d.AddResource("beta", "bigquery", "Routine", bigquery_beta.YAML_routine)
 	d.AddResource("beta", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_beta.YAML_assignment)
 	d.AddResource("beta", "bigqueryreservation", "Assignment", bigqueryreservation_beta.YAML_assignment)
 	d.AddResource("beta", "bigqueryreservation", dcl.TitleToSnakeCase("CapacityCommitment"), bigqueryreservation_beta.YAML_capacity_commitment)
@@ -522,6 +529,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "assuredworkloads", "Workload", assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets_alpha.YAML_budget)
 	d.AddResource("alpha", "billingbudgets", "Budget", billingbudgets_alpha.YAML_budget)
+	d.AddResource("alpha", "bigquery", dcl.TitleToSnakeCase("Routine"), bigquery_alpha.YAML_routine)
+	d.AddResource("alpha", "bigquery", "Routine", bigquery_alpha.YAML_routine)
 	d.AddResource("alpha", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_alpha.YAML_assignment)
 	d.AddResource("alpha", "bigqueryreservation", "Assignment", bigqueryreservation_alpha.YAML_assignment)
 	d.AddResource("alpha", "bigqueryreservation", dcl.TitleToSnakeCase("CapacityCommitment"), bigqueryreservation_alpha.YAML_capacity_commitment)

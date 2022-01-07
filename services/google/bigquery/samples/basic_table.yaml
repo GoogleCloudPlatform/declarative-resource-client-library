@@ -11,6 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "connector")
-connector(name="bigquery", resources=["routine"])
+name: basic_table
+description: A basic example of a bigquery table
+type: table
+versions:
+- ga
+- beta
+resource: samples/basic.table.json
+dependencies:
+- samples/minimal.table.json
+- samples/minimal.dataset.json
+variables:
+- name: _dataset
+  type: resource_name
+- name: _min_table
+  type: resource_name
+- name: _table
+  type: resource_name
+- name: project
+  type: project

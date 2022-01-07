@@ -34,6 +34,12 @@ import (
 
 	billingbudgets_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets/alpha_connector"
 
+	bigquery_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/connector"
+
+	bigquery_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/beta_connector"
+
+	bigquery_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/alpha_connector"
+
 	bigqueryreservation_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/connector"
 
 	bigqueryreservation_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/beta_connector"
@@ -260,6 +266,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	billingbudgets_beta_connector.RegisterServers(grpcServer)
 
 	billingbudgets_alpha_connector.RegisterServers(grpcServer)
+
+	bigquery_connector.RegisterServers(grpcServer)
+
+	bigquery_beta_connector.RegisterServers(grpcServer)
+
+	bigquery_alpha_connector.RegisterServers(grpcServer)
 
 	bigqueryreservation_connector.RegisterServers(grpcServer)
 

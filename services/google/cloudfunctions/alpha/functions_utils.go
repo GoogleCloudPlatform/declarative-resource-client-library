@@ -28,7 +28,7 @@ func ExpandFunctionEventResource(f *Function) (*string, error) {
 	}
 
 	if dcl.ValueOrEmptyString(f.EventTrigger.EventType) == "providers/cloud.storage/eventTypes/object.change" {
-		return dcl.DeriveField("projects/%s/buckets/%s", f.EventTrigger.Resource, f.Project, f.EventTrigger.Resource)
+		return dcl.DeriveField("projects/%s/buckets/%s", f.EventTrigger.Resource, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.EventTrigger.Resource))
 	}
 
 	return f.EventTrigger.Resource, nil
