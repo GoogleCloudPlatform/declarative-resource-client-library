@@ -222,8 +222,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: 'Immutable. The name of the spoke. Spoke names must be unique.
-            They use the following form: `projects/{project_number}/locations/{region}/spokes/{spoke_id}`'
+          description: Immutable. The name of the spoke. Spoke names must be unique.
           x-kubernetes-immutable: true
         project:
           type: string
