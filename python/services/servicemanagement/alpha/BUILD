@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="servicemanagement", resources=["managed_service"])
+connector(name="servicemanagement/alpha", resources=["managed_service"])

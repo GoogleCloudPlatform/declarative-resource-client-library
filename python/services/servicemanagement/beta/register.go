@@ -15,10 +15,10 @@ package server
 
 import (
 	"google.golang.org/grpc"
-	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/servicemanagement/servicemanagement_go_proto"
+	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/servicemanagement/beta/servicemanagement_beta_go_proto"
 )
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterServicemanagementManagedServiceServiceServer(s, &ManagedServiceServer{})
+	sdkgrpc.RegisterServicemanagementBetaManagedServiceServiceServer(s, &ManagedServiceServer{})
 }

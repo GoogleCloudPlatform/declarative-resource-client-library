@@ -122,6 +122,9 @@ import (
 	recaptchaenterprise_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/alpha"
 	recaptchaenterprise_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/beta"
 	run_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement"
+	servicemanagement_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/alpha"
+	servicemanagement_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	storage_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
 	storage_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta"
@@ -329,6 +332,8 @@ func Services() *Directory {
 	d.AddResource("ga", "osconfig", "PatchDeployment", osconfig.YAML_patch_deployment)
 	d.AddResource("ga", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub.YAML_topic)
 	d.AddResource("ga", "pubsub", "Topic", pubsub.YAML_topic)
+	d.AddResource("ga", "servicemanagement", dcl.TitleToSnakeCase("ManagedService"), servicemanagement.YAML_managed_service)
+	d.AddResource("ga", "servicemanagement", "ManagedService", servicemanagement.YAML_managed_service)
 	d.AddResource("ga", "storage", dcl.TitleToSnakeCase("Bucket"), storage.YAML_bucket)
 	d.AddResource("ga", "storage", "Bucket", storage.YAML_bucket)
 	d.AddResource("ga", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca.YAML_certificate_template)
@@ -509,6 +514,8 @@ func Services() *Directory {
 	d.AddResource("beta", "osconfig", "GuestPolicy", osconfig_beta.YAML_guest_policy)
 	d.AddResource("beta", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub_beta.YAML_topic)
 	d.AddResource("beta", "pubsub", "Topic", pubsub_beta.YAML_topic)
+	d.AddResource("beta", "servicemanagement", dcl.TitleToSnakeCase("ManagedService"), servicemanagement_beta.YAML_managed_service)
+	d.AddResource("beta", "servicemanagement", "ManagedService", servicemanagement_beta.YAML_managed_service)
 	d.AddResource("beta", "storage", dcl.TitleToSnakeCase("Bucket"), storage_beta.YAML_bucket)
 	d.AddResource("beta", "storage", "Bucket", storage_beta.YAML_bucket)
 	d.AddResource("beta", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_beta.YAML_certificate_template)
@@ -707,6 +714,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "pubsub", "Topic", pubsub_alpha.YAML_topic)
 	d.AddResource("alpha", "run", dcl.TitleToSnakeCase("Service"), run_alpha.YAML_service)
 	d.AddResource("alpha", "run", "Service", run_alpha.YAML_service)
+	d.AddResource("alpha", "servicemanagement", dcl.TitleToSnakeCase("ManagedService"), servicemanagement_alpha.YAML_managed_service)
+	d.AddResource("alpha", "servicemanagement", "ManagedService", servicemanagement_alpha.YAML_managed_service)
 	d.AddResource("alpha", "storage", dcl.TitleToSnakeCase("Bucket"), storage_alpha.YAML_bucket)
 	d.AddResource("alpha", "storage", "Bucket", storage_alpha.YAML_bucket)
 	d.AddResource("alpha", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_alpha.YAML_certificate_template)

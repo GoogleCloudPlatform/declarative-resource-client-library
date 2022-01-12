@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//:connector_rules.bzl", "connector")
-connector(name="servicemanagement", resources=["managed_service"])
+load("//:connector_rules.bzl", "proto_package")
+proto_package(name="servicemanagement/alpha", resources=["managed_service"])
