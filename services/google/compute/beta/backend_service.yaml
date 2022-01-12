@@ -781,6 +781,7 @@ components:
             HTTP(S), SSL Proxy, TCP Proxy and Network Load Balancing. Choose ` INTERNAL`
             for Internal TCP/UDP Load Balancing. Choose ` INTERNAL_MANAGED` for Internal
             HTTP(S) Load Balancing. ` INTERNAL_SELF_MANAGED` for Traffic Director.
+            Choose `EXTERNAL_MANAGED` for Global external HTTP(S) load balancers.
             A backend service created for one type of load balancer cannot be used
             with another. For more information, refer to (/load-balancing/docs/choosing-load-balancer/).
             Possible values: INVALID_LOAD_BALANCING_SCHEME, INTERNAL, INTERNAL_MANAGED,

@@ -46,6 +46,7 @@ enum ComputeForwardingRuleLoadBalancingSchemeEnum {
   ComputeForwardingRuleLoadBalancingSchemeEnumINTERNAL_MANAGED = 3;
   ComputeForwardingRuleLoadBalancingSchemeEnumINTERNAL_SELF_MANAGED = 4;
   ComputeForwardingRuleLoadBalancingSchemeEnumEXTERNAL = 5;
+  ComputeForwardingRuleLoadBalancingSchemeEnumEXTERNAL_MANAGED = 6;
 }
 
 enum ComputeForwardingRuleMetadataFilterFilterMatchCriteriaEnum {

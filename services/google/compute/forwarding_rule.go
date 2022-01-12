@@ -126,7 +126,7 @@ func (v ForwardingRuleLoadBalancingSchemeEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"INVALID", "INTERNAL", "INTERNAL_MANAGED", "INTERNAL_SELF_MANAGED", "EXTERNAL"} {
+	for _, s := range []string{"INVALID", "INTERNAL", "INTERNAL_MANAGED", "INTERNAL_SELF_MANAGED", "EXTERNAL", "EXTERNAL_MANAGED"} {
 		if string(v) == s {
 			return nil
 		}

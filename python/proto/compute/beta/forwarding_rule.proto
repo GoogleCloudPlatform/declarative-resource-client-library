@@ -46,6 +46,7 @@ enum ComputeBetaForwardingRuleLoadBalancingSchemeEnum {
   ComputeBetaForwardingRuleLoadBalancingSchemeEnumINTERNAL_MANAGED = 3;
   ComputeBetaForwardingRuleLoadBalancingSchemeEnumINTERNAL_SELF_MANAGED = 4;
   ComputeBetaForwardingRuleLoadBalancingSchemeEnumEXTERNAL = 5;
+  ComputeBetaForwardingRuleLoadBalancingSchemeEnumEXTERNAL_MANAGED = 6;
 }
 
 enum ComputeBetaForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
