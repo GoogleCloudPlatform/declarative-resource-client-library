@@ -24,18 +24,6 @@ import (
 // Server implements the gRPC interface for Mesh.
 type MeshServer struct{}
 
-// ProtoToMeshTypeEnum converts a MeshTypeEnum enum from its proto representation.
-func ProtoToNetworkservicesAlphaMeshTypeEnum(e alphapb.NetworkservicesAlphaMeshTypeEnum) *alpha.MeshTypeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.NetworkservicesAlphaMeshTypeEnum_name[int32(e)]; ok {
-		e := alpha.MeshTypeEnum(n[len("NetworkservicesAlphaMeshTypeEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToMesh converts a Mesh resource from its proto representation.
 func ProtoToMesh(p *alphapb.NetworkservicesAlphaMesh) *alpha.Mesh {
 	obj := &alpha.Mesh{
@@ -43,24 +31,11 @@ func ProtoToMesh(p *alphapb.NetworkservicesAlphaMesh) *alpha.Mesh {
 		CreateTime:       dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:       dcl.StringOrNil(p.GetUpdateTime()),
 		Description:      dcl.StringOrNil(p.GetDescription()),
-		Type:             ProtoToNetworkservicesAlphaMeshTypeEnum(p.GetType()),
-		Scope:            dcl.StringOrNil(p.GetScope()),
 		InterceptionPort: dcl.Int64OrNil(p.GetInterceptionPort()),
 		Project:          dcl.StringOrNil(p.GetProject()),
 		Location:         dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
-}
-
-// MeshTypeEnumToProto converts a MeshTypeEnum enum to its proto representation.
-func NetworkservicesAlphaMeshTypeEnumToProto(e *alpha.MeshTypeEnum) alphapb.NetworkservicesAlphaMeshTypeEnum {
-	if e == nil {
-		return alphapb.NetworkservicesAlphaMeshTypeEnum(0)
-	}
-	if v, ok := alphapb.NetworkservicesAlphaMeshTypeEnum_value["MeshTypeEnum"+string(*e)]; ok {
-		return alphapb.NetworkservicesAlphaMeshTypeEnum(v)
-	}
-	return alphapb.NetworkservicesAlphaMeshTypeEnum(0)
 }
 
 // MeshToProto converts a Mesh resource to its proto representation.
@@ -70,8 +45,6 @@ func MeshToProto(resource *alpha.Mesh) *alphapb.NetworkservicesAlphaMesh {
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
-	p.SetType(NetworkservicesAlphaMeshTypeEnumToProto(resource.Type))
-	p.SetScope(dcl.ValueOrEmptyString(resource.Scope))
 	p.SetInterceptionPort(dcl.ValueOrEmptyInt64(resource.InterceptionPort))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

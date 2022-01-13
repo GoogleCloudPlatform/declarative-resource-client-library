@@ -76,12 +76,8 @@ message NetworkservicesAlphaGrpcRouteRulesMatchesHeaders {
 message NetworkservicesAlphaGrpcRouteRulesAction {
   repeated NetworkservicesAlphaGrpcRouteRulesActionDestinations destinations = 1;
   NetworkservicesAlphaGrpcRouteRulesActionFaultInjectionPolicy fault_injection_policy = 2;
-  NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier request_header_modifier = 3;
-  NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier response_header_modifier = 4;
-  NetworkservicesAlphaGrpcRouteRulesActionUrlRewrite url_rewrite = 5;
-  string timeout = 6;
-  NetworkservicesAlphaGrpcRouteRulesActionRetryPolicy retry_policy = 7;
-  NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy request_mirror_policy = 8;
+  string timeout = 3;
+  NetworkservicesAlphaGrpcRouteRulesActionRetryPolicy retry_policy = 4;
 }
 
 message NetworkservicesAlphaGrpcRouteRulesActionDestinations {
@@ -104,36 +100,9 @@ message NetworkservicesAlphaGrpcRouteRulesActionFaultInjectionPolicyAbort {
   int64 percentage = 2;
 }
 
-message NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier {
-  map<string, string> set = 1;
-  map<string, string> add = 2;
-  repeated string remove = 3;
-}
-
-message NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier {
-  map<string, string> set = 1;
-  map<string, string> add = 2;
-  repeated string remove = 3;
-}
-
-message NetworkservicesAlphaGrpcRouteRulesActionUrlRewrite {
-  string path_prefix_rewrite = 1;
-  string host_rewrite = 2;
-}
-
 message NetworkservicesAlphaGrpcRouteRulesActionRetryPolicy {
   repeated string retry_conditions = 1;
   int64 num_retries = 2;
-  string per_try_timeout = 3;
-}
-
-message NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy {
-  NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination destination = 1;
-}
-
-message NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination {
-  int64 weight = 1;
-  string service_name = 2;
 }
 
 message ApplyNetworkservicesAlphaGrpcRouteRequest {

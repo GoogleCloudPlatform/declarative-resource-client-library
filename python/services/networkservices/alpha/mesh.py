@@ -26,8 +26,6 @@ class Mesh(object):
         update_time: str = None,
         labels: dict = None,
         description: str = None,
-        type: str = None,
-        scope: str = None,
         interception_port: int = None,
         project: str = None,
         location: str = None,
@@ -38,8 +36,6 @@ class Mesh(object):
         self.name = name
         self.labels = labels
         self.description = description
-        self.type = type
-        self.scope = scope
         self.interception_port = interception_port
         self.project = project
         self.location = location
@@ -56,12 +52,6 @@ class Mesh(object):
 
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
-
-        if MeshTypeEnum.to_proto(self.type):
-            request.resource.type = MeshTypeEnum.to_proto(self.type)
-
-        if Primitive.to_proto(self.scope):
-            request.resource.scope = Primitive.to_proto(self.scope)
 
         if Primitive.to_proto(self.interception_port):
             request.resource.interception_port = Primitive.to_proto(
@@ -82,8 +72,6 @@ class Mesh(object):
         self.update_time = Primitive.from_proto(response.update_time)
         self.labels = Primitive.from_proto(response.labels)
         self.description = Primitive.from_proto(response.description)
-        self.type = MeshTypeEnum.from_proto(response.type)
-        self.scope = Primitive.from_proto(response.scope)
         self.interception_port = Primitive.from_proto(response.interception_port)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
@@ -100,12 +88,6 @@ class Mesh(object):
 
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
-
-        if MeshTypeEnum.to_proto(self.type):
-            request.resource.type = MeshTypeEnum.to_proto(self.type)
-
-        if Primitive.to_proto(self.scope):
-            request.resource.scope = Primitive.to_proto(self.scope)
 
         if Primitive.to_proto(self.interception_port):
             request.resource.interception_port = Primitive.to_proto(
@@ -139,10 +121,6 @@ class Mesh(object):
             resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
-        if MeshTypeEnum.to_proto(self.type):
-            resource.type = MeshTypeEnum.to_proto(self.type)
-        if Primitive.to_proto(self.scope):
-            resource.scope = Primitive.to_proto(self.scope)
         if Primitive.to_proto(self.interception_port):
             resource.interception_port = Primitive.to_proto(self.interception_port)
         if Primitive.to_proto(self.project):
@@ -150,24 +128,6 @@ class Mesh(object):
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
         return resource
-
-
-class MeshTypeEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return mesh_pb2.NetworkservicesAlphaMeshTypeEnum.Value(
-            "NetworkservicesAlphaMeshTypeEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return mesh_pb2.NetworkservicesAlphaMeshTypeEnum.Name(resource)[
-            len("NetworkservicesAlphaMeshTypeEnum") :
-        ]
 
 
 class Primitive(object):

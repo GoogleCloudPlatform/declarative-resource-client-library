@@ -109,13 +109,9 @@ func ProtoToNetworkservicesAlphaGrpcRouteRulesAction(p *alphapb.NetworkservicesA
 		return nil
 	}
 	obj := &alpha.GrpcRouteRulesAction{
-		FaultInjectionPolicy:   ProtoToNetworkservicesAlphaGrpcRouteRulesActionFaultInjectionPolicy(p.GetFaultInjectionPolicy()),
-		RequestHeaderModifier:  ProtoToNetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier(p.GetRequestHeaderModifier()),
-		ResponseHeaderModifier: ProtoToNetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier(p.GetResponseHeaderModifier()),
-		UrlRewrite:             ProtoToNetworkservicesAlphaGrpcRouteRulesActionUrlRewrite(p.GetUrlRewrite()),
-		Timeout:                dcl.StringOrNil(p.GetTimeout()),
-		RetryPolicy:            ProtoToNetworkservicesAlphaGrpcRouteRulesActionRetryPolicy(p.GetRetryPolicy()),
-		RequestMirrorPolicy:    ProtoToNetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy(p.GetRequestMirrorPolicy()),
+		FaultInjectionPolicy: ProtoToNetworkservicesAlphaGrpcRouteRulesActionFaultInjectionPolicy(p.GetFaultInjectionPolicy()),
+		Timeout:              dcl.StringOrNil(p.GetTimeout()),
+		RetryPolicy:          ProtoToNetworkservicesAlphaGrpcRouteRulesActionRetryPolicy(p.GetRetryPolicy()),
 	}
 	for _, r := range p.GetDestinations() {
 		obj.Destinations = append(obj.Destinations, *ProtoToNetworkservicesAlphaGrpcRouteRulesActionDestinations(r))
@@ -171,76 +167,16 @@ func ProtoToNetworkservicesAlphaGrpcRouteRulesActionFaultInjectionPolicyAbort(p 
 	return obj
 }
 
-// ProtoToGrpcRouteRulesActionRequestHeaderModifier converts a GrpcRouteRulesActionRequestHeaderModifier object from its proto representation.
-func ProtoToNetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier(p *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier) *alpha.GrpcRouteRulesActionRequestHeaderModifier {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.GrpcRouteRulesActionRequestHeaderModifier{}
-	for _, r := range p.GetRemove() {
-		obj.Remove = append(obj.Remove, r)
-	}
-	return obj
-}
-
-// ProtoToGrpcRouteRulesActionResponseHeaderModifier converts a GrpcRouteRulesActionResponseHeaderModifier object from its proto representation.
-func ProtoToNetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier(p *alphapb.NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier) *alpha.GrpcRouteRulesActionResponseHeaderModifier {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.GrpcRouteRulesActionResponseHeaderModifier{}
-	for _, r := range p.GetRemove() {
-		obj.Remove = append(obj.Remove, r)
-	}
-	return obj
-}
-
-// ProtoToGrpcRouteRulesActionUrlRewrite converts a GrpcRouteRulesActionUrlRewrite object from its proto representation.
-func ProtoToNetworkservicesAlphaGrpcRouteRulesActionUrlRewrite(p *alphapb.NetworkservicesAlphaGrpcRouteRulesActionUrlRewrite) *alpha.GrpcRouteRulesActionUrlRewrite {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.GrpcRouteRulesActionUrlRewrite{
-		PathPrefixRewrite: dcl.StringOrNil(p.GetPathPrefixRewrite()),
-		HostRewrite:       dcl.StringOrNil(p.GetHostRewrite()),
-	}
-	return obj
-}
-
 // ProtoToGrpcRouteRulesActionRetryPolicy converts a GrpcRouteRulesActionRetryPolicy object from its proto representation.
 func ProtoToNetworkservicesAlphaGrpcRouteRulesActionRetryPolicy(p *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRetryPolicy) *alpha.GrpcRouteRulesActionRetryPolicy {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GrpcRouteRulesActionRetryPolicy{
-		NumRetries:    dcl.Int64OrNil(p.GetNumRetries()),
-		PerTryTimeout: dcl.StringOrNil(p.GetPerTryTimeout()),
+		NumRetries: dcl.Int64OrNil(p.GetNumRetries()),
 	}
 	for _, r := range p.GetRetryConditions() {
 		obj.RetryConditions = append(obj.RetryConditions, r)
-	}
-	return obj
-}
-
-// ProtoToGrpcRouteRulesActionRequestMirrorPolicy converts a GrpcRouteRulesActionRequestMirrorPolicy object from its proto representation.
-func ProtoToNetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy(p *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy) *alpha.GrpcRouteRulesActionRequestMirrorPolicy {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.GrpcRouteRulesActionRequestMirrorPolicy{
-		Destination: ProtoToNetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination(p.GetDestination()),
-	}
-	return obj
-}
-
-// ProtoToGrpcRouteRulesActionRequestMirrorPolicyDestination converts a GrpcRouteRulesActionRequestMirrorPolicyDestination object from its proto representation.
-func ProtoToNetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination(p *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination) *alpha.GrpcRouteRulesActionRequestMirrorPolicyDestination {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.GrpcRouteRulesActionRequestMirrorPolicyDestination{
-		Weight:      dcl.Int64OrNil(p.GetWeight()),
-		ServiceName: dcl.StringOrNil(p.GetServiceName()),
 	}
 	return obj
 }
@@ -357,12 +293,8 @@ func NetworkservicesAlphaGrpcRouteRulesActionToProto(o *alpha.GrpcRouteRulesActi
 	}
 	p := &alphapb.NetworkservicesAlphaGrpcRouteRulesAction{}
 	p.SetFaultInjectionPolicy(NetworkservicesAlphaGrpcRouteRulesActionFaultInjectionPolicyToProto(o.FaultInjectionPolicy))
-	p.SetRequestHeaderModifier(NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifierToProto(o.RequestHeaderModifier))
-	p.SetResponseHeaderModifier(NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifierToProto(o.ResponseHeaderModifier))
-	p.SetUrlRewrite(NetworkservicesAlphaGrpcRouteRulesActionUrlRewriteToProto(o.UrlRewrite))
 	p.SetTimeout(dcl.ValueOrEmptyString(o.Timeout))
 	p.SetRetryPolicy(NetworkservicesAlphaGrpcRouteRulesActionRetryPolicyToProto(o.RetryPolicy))
-	p.SetRequestMirrorPolicy(NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyToProto(o.RequestMirrorPolicy))
 	sDestinations := make([]*alphapb.NetworkservicesAlphaGrpcRouteRulesActionDestinations, len(o.Destinations))
 	for i, r := range o.Destinations {
 		sDestinations[i] = NetworkservicesAlphaGrpcRouteRulesActionDestinationsToProto(&r)
@@ -415,65 +347,6 @@ func NetworkservicesAlphaGrpcRouteRulesActionFaultInjectionPolicyAbortToProto(o 
 	return p
 }
 
-// GrpcRouteRulesActionRequestHeaderModifierToProto converts a GrpcRouteRulesActionRequestHeaderModifier object to its proto representation.
-func NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifierToProto(o *alpha.GrpcRouteRulesActionRequestHeaderModifier) *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier{}
-	mSet := make(map[string]string, len(o.Set))
-	for k, r := range o.Set {
-		mSet[k] = r
-	}
-	p.SetSet(mSet)
-	mAdd := make(map[string]string, len(o.Add))
-	for k, r := range o.Add {
-		mAdd[k] = r
-	}
-	p.SetAdd(mAdd)
-	sRemove := make([]string, len(o.Remove))
-	for i, r := range o.Remove {
-		sRemove[i] = r
-	}
-	p.SetRemove(sRemove)
-	return p
-}
-
-// GrpcRouteRulesActionResponseHeaderModifierToProto converts a GrpcRouteRulesActionResponseHeaderModifier object to its proto representation.
-func NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifierToProto(o *alpha.GrpcRouteRulesActionResponseHeaderModifier) *alphapb.NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier{}
-	mSet := make(map[string]string, len(o.Set))
-	for k, r := range o.Set {
-		mSet[k] = r
-	}
-	p.SetSet(mSet)
-	mAdd := make(map[string]string, len(o.Add))
-	for k, r := range o.Add {
-		mAdd[k] = r
-	}
-	p.SetAdd(mAdd)
-	sRemove := make([]string, len(o.Remove))
-	for i, r := range o.Remove {
-		sRemove[i] = r
-	}
-	p.SetRemove(sRemove)
-	return p
-}
-
-// GrpcRouteRulesActionUrlRewriteToProto converts a GrpcRouteRulesActionUrlRewrite object to its proto representation.
-func NetworkservicesAlphaGrpcRouteRulesActionUrlRewriteToProto(o *alpha.GrpcRouteRulesActionUrlRewrite) *alphapb.NetworkservicesAlphaGrpcRouteRulesActionUrlRewrite {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.NetworkservicesAlphaGrpcRouteRulesActionUrlRewrite{}
-	p.SetPathPrefixRewrite(dcl.ValueOrEmptyString(o.PathPrefixRewrite))
-	p.SetHostRewrite(dcl.ValueOrEmptyString(o.HostRewrite))
-	return p
-}
-
 // GrpcRouteRulesActionRetryPolicyToProto converts a GrpcRouteRulesActionRetryPolicy object to its proto representation.
 func NetworkservicesAlphaGrpcRouteRulesActionRetryPolicyToProto(o *alpha.GrpcRouteRulesActionRetryPolicy) *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRetryPolicy {
 	if o == nil {
@@ -481,33 +354,11 @@ func NetworkservicesAlphaGrpcRouteRulesActionRetryPolicyToProto(o *alpha.GrpcRou
 	}
 	p := &alphapb.NetworkservicesAlphaGrpcRouteRulesActionRetryPolicy{}
 	p.SetNumRetries(dcl.ValueOrEmptyInt64(o.NumRetries))
-	p.SetPerTryTimeout(dcl.ValueOrEmptyString(o.PerTryTimeout))
 	sRetryConditions := make([]string, len(o.RetryConditions))
 	for i, r := range o.RetryConditions {
 		sRetryConditions[i] = r
 	}
 	p.SetRetryConditions(sRetryConditions)
-	return p
-}
-
-// GrpcRouteRulesActionRequestMirrorPolicyToProto converts a GrpcRouteRulesActionRequestMirrorPolicy object to its proto representation.
-func NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyToProto(o *alpha.GrpcRouteRulesActionRequestMirrorPolicy) *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy{}
-	p.SetDestination(NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestinationToProto(o.Destination))
-	return p
-}
-
-// GrpcRouteRulesActionRequestMirrorPolicyDestinationToProto converts a GrpcRouteRulesActionRequestMirrorPolicyDestination object to its proto representation.
-func NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestinationToProto(o *alpha.GrpcRouteRulesActionRequestMirrorPolicyDestination) *alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination{}
-	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
-	p.SetServiceName(dcl.ValueOrEmptyString(o.ServiceName))
 	return p
 }
 

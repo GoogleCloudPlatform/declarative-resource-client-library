@@ -67,8 +67,6 @@ components:
       type: object
       required:
       - name
-      - type
-      - scope
       - project
       - location
       properties:
@@ -118,27 +116,6 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
-        scope:
-          type: string
-          x-dcl-go-name: Scope
-          description: Required. Immutable. Scope defines a logical configuration
-            boundary for mesh. The routes pointing to this particular mesh resource
-            defines the mesh configuration and the scope field name is used by mesh
-            clients to receive that configuration. There cannot be more than one Mesh
-            resource instance of the same type (SIDECAR or PROXYLESS_GRPC) with the
-            same scope. Max length 64 characters. Scope should start with a letter
-            and can only have letters, numbers, hyphens.
-        type:
-          type: string
-          x-dcl-go-name: Type
-          x-dcl-go-type: MeshTypeEnum
-          description: 'Required. Immutable. The type of the Mesh resource. Possible
-            values: MATCH_TYPE_UNSPECIFIED, MATCH_ANY, MATCH_ALL'
-          x-kubernetes-immutable: true
-          enum:
-          - MATCH_TYPE_UNSPECIFIED
-          - MATCH_ANY
-          - MATCH_ALL
         updateTime:
           type: string
           format: date-time

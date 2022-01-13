@@ -21,24 +21,15 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
-enum NetworkservicesAlphaMeshTypeEnum {
-  NetworkservicesAlphaMeshTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  NetworkservicesAlphaMeshTypeEnumMATCH_TYPE_UNSPECIFIED = 1;
-  NetworkservicesAlphaMeshTypeEnumMATCH_ANY = 2;
-  NetworkservicesAlphaMeshTypeEnumMATCH_ALL = 3;
-}
-
 message NetworkservicesAlphaMesh {
   string name = 1;
   string create_time = 2;
   string update_time = 3;
   map<string, string> labels = 4;
   string description = 5;
-  NetworkservicesAlphaMeshTypeEnum type = 6;
-  string scope = 7;
-  int64 interception_port = 8;
-  string project = 9;
-  string location = 10;
+  int64 interception_port = 6;
+  string project = 7;
+  string location = 8;
 }
 
 message ApplyNetworkservicesAlphaMeshRequest {

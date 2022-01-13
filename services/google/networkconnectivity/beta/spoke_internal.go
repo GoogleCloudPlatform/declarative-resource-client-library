@@ -64,16 +64,25 @@ func (r *SpokeLinkedVpnTunnels) validate() error {
 	if err := dcl.Required(r, "uris"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "siteToSiteDataTransfer"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *SpokeLinkedInterconnectAttachments) validate() error {
 	if err := dcl.Required(r, "uris"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "siteToSiteDataTransfer"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *SpokeLinkedRouterApplianceInstances) validate() error {
 	if err := dcl.Required(r, "instances"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "siteToSiteDataTransfer"); err != nil {
 		return err
 	}
 	return nil
@@ -646,10 +655,6 @@ func canonicalizeSpokeLinkedVpnTunnels(des, initial *SpokeLinkedVpnTunnels, opts
 		return des
 	}
 
-	if dcl.IsZeroValue(des.SiteToSiteDataTransfer) {
-		des.SiteToSiteDataTransfer = dcl.Bool(true)
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -712,10 +717,6 @@ func canonicalizeNewSpokeLinkedVpnTunnels(c *Client, des, nw *SpokeLinkedVpnTunn
 		return nil
 	}
 
-	if dcl.IsZeroValue(nw.SiteToSiteDataTransfer) {
-		nw.SiteToSiteDataTransfer = dcl.Bool(true)
-	}
-
 	if dcl.StringArrayCanonicalize(des.Uris, nw.Uris) {
 		nw.Uris = des.Uris
 	}
@@ -775,10 +776,6 @@ func canonicalizeSpokeLinkedInterconnectAttachments(des, initial *SpokeLinkedInt
 	}
 	if des.empty {
 		return des
-	}
-
-	if dcl.IsZeroValue(des.SiteToSiteDataTransfer) {
-		des.SiteToSiteDataTransfer = dcl.Bool(true)
 	}
 
 	if initial == nil {
@@ -843,10 +840,6 @@ func canonicalizeNewSpokeLinkedInterconnectAttachments(c *Client, des, nw *Spoke
 		return nil
 	}
 
-	if dcl.IsZeroValue(nw.SiteToSiteDataTransfer) {
-		nw.SiteToSiteDataTransfer = dcl.Bool(true)
-	}
-
 	if dcl.StringArrayCanonicalize(des.Uris, nw.Uris) {
 		nw.Uris = des.Uris
 	}
@@ -908,10 +901,6 @@ func canonicalizeSpokeLinkedRouterApplianceInstances(des, initial *SpokeLinkedRo
 		return des
 	}
 
-	if dcl.IsZeroValue(des.SiteToSiteDataTransfer) {
-		des.SiteToSiteDataTransfer = dcl.Bool(true)
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -968,10 +957,6 @@ func canonicalizeNewSpokeLinkedRouterApplianceInstances(c *Client, des, nw *Spok
 			return des
 		}
 		return nil
-	}
-
-	if dcl.IsZeroValue(nw.SiteToSiteDataTransfer) {
-		nw.SiteToSiteDataTransfer = dcl.Bool(true)
 	}
 
 	nw.Instances = canonicalizeNewSpokeLinkedRouterApplianceInstancesInstancesSlice(c, des.Instances, nw.Instances)
@@ -1651,10 +1636,6 @@ func flattenSpokeLinkedVpnTunnels(c *Client, i interface{}) *SpokeLinkedVpnTunne
 	}
 	r.Uris = dcl.FlattenStringSlice(m["uris"])
 	r.SiteToSiteDataTransfer = dcl.FlattenBool(m["siteToSiteDataTransfer"])
-	if dcl.IsEmptyValueIndirect(m["siteToSiteDataTransfer"]) {
-		c.Config.Logger.Info("Using default value for siteToSiteDataTransfer.")
-		r.SiteToSiteDataTransfer = dcl.Bool(true)
-	}
 
 	return r
 }
@@ -1773,10 +1754,6 @@ func flattenSpokeLinkedInterconnectAttachments(c *Client, i interface{}) *SpokeL
 	}
 	r.Uris = dcl.FlattenStringSlice(m["uris"])
 	r.SiteToSiteDataTransfer = dcl.FlattenBool(m["siteToSiteDataTransfer"])
-	if dcl.IsEmptyValueIndirect(m["siteToSiteDataTransfer"]) {
-		c.Config.Logger.Info("Using default value for siteToSiteDataTransfer.")
-		r.SiteToSiteDataTransfer = dcl.Bool(true)
-	}
 
 	return r
 }
@@ -1897,10 +1874,6 @@ func flattenSpokeLinkedRouterApplianceInstances(c *Client, i interface{}) *Spoke
 	}
 	r.Instances = flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c, m["instances"])
 	r.SiteToSiteDataTransfer = dcl.FlattenBool(m["siteToSiteDataTransfer"])
-	if dcl.IsEmptyValueIndirect(m["siteToSiteDataTransfer"]) {
-		c.Config.Logger.Info("Using default value for siteToSiteDataTransfer.")
-		r.SiteToSiteDataTransfer = dcl.Bool(true)
-	}
 
 	return r
 }

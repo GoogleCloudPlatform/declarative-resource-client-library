@@ -357,21 +357,13 @@ class GrpcRouteRulesAction(object):
         self,
         destinations: list = None,
         fault_injection_policy: dict = None,
-        request_header_modifier: dict = None,
-        response_header_modifier: dict = None,
-        url_rewrite: dict = None,
         timeout: str = None,
         retry_policy: dict = None,
-        request_mirror_policy: dict = None,
     ):
         self.destinations = destinations
         self.fault_injection_policy = fault_injection_policy
-        self.request_header_modifier = request_header_modifier
-        self.response_header_modifier = response_header_modifier
-        self.url_rewrite = url_rewrite
         self.timeout = timeout
         self.retry_policy = retry_policy
-        self.request_mirror_policy = request_mirror_policy
 
     @classmethod
     def to_proto(self, resource):
@@ -393,32 +385,6 @@ class GrpcRouteRulesAction(object):
             )
         else:
             res.ClearField("fault_injection_policy")
-        if GrpcRouteRulesActionRequestHeaderModifier.to_proto(
-            resource.request_header_modifier
-        ):
-            res.request_header_modifier.CopyFrom(
-                GrpcRouteRulesActionRequestHeaderModifier.to_proto(
-                    resource.request_header_modifier
-                )
-            )
-        else:
-            res.ClearField("request_header_modifier")
-        if GrpcRouteRulesActionResponseHeaderModifier.to_proto(
-            resource.response_header_modifier
-        ):
-            res.response_header_modifier.CopyFrom(
-                GrpcRouteRulesActionResponseHeaderModifier.to_proto(
-                    resource.response_header_modifier
-                )
-            )
-        else:
-            res.ClearField("response_header_modifier")
-        if GrpcRouteRulesActionUrlRewrite.to_proto(resource.url_rewrite):
-            res.url_rewrite.CopyFrom(
-                GrpcRouteRulesActionUrlRewrite.to_proto(resource.url_rewrite)
-            )
-        else:
-            res.ClearField("url_rewrite")
         if Primitive.to_proto(resource.timeout):
             res.timeout = Primitive.to_proto(resource.timeout)
         if GrpcRouteRulesActionRetryPolicy.to_proto(resource.retry_policy):
@@ -427,16 +393,6 @@ class GrpcRouteRulesAction(object):
             )
         else:
             res.ClearField("retry_policy")
-        if GrpcRouteRulesActionRequestMirrorPolicy.to_proto(
-            resource.request_mirror_policy
-        ):
-            res.request_mirror_policy.CopyFrom(
-                GrpcRouteRulesActionRequestMirrorPolicy.to_proto(
-                    resource.request_mirror_policy
-                )
-            )
-        else:
-            res.ClearField("request_mirror_policy")
         return res
 
     @classmethod
@@ -451,19 +407,9 @@ class GrpcRouteRulesAction(object):
             fault_injection_policy=GrpcRouteRulesActionFaultInjectionPolicy.from_proto(
                 resource.fault_injection_policy
             ),
-            request_header_modifier=GrpcRouteRulesActionRequestHeaderModifier.from_proto(
-                resource.request_header_modifier
-            ),
-            response_header_modifier=GrpcRouteRulesActionResponseHeaderModifier.from_proto(
-                resource.response_header_modifier
-            ),
-            url_rewrite=GrpcRouteRulesActionUrlRewrite.from_proto(resource.url_rewrite),
             timeout=Primitive.from_proto(resource.timeout),
             retry_policy=GrpcRouteRulesActionRetryPolicy.from_proto(
                 resource.retry_policy
-            ),
-            request_mirror_policy=GrpcRouteRulesActionRequestMirrorPolicy.from_proto(
-                resource.request_mirror_policy
             ),
         )
 
@@ -670,156 +616,10 @@ class GrpcRouteRulesActionFaultInjectionPolicyAbortArray(object):
         ]
 
 
-class GrpcRouteRulesActionRequestHeaderModifier(object):
-    def __init__(self, set: dict = None, add: dict = None, remove: list = None):
-        self.set = set
-        self.add = add
-        self.remove = remove
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesActionRequestHeaderModifier()
-        )
-        if Primitive.to_proto(resource.set):
-            res.set = Primitive.to_proto(resource.set)
-        if Primitive.to_proto(resource.add):
-            res.add = Primitive.to_proto(resource.add)
-        if Primitive.to_proto(resource.remove):
-            res.remove.extend(Primitive.to_proto(resource.remove))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return GrpcRouteRulesActionRequestHeaderModifier(
-            set=Primitive.from_proto(resource.set),
-            add=Primitive.from_proto(resource.add),
-            remove=Primitive.from_proto(resource.remove),
-        )
-
-
-class GrpcRouteRulesActionRequestHeaderModifierArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            GrpcRouteRulesActionRequestHeaderModifier.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            GrpcRouteRulesActionRequestHeaderModifier.from_proto(i) for i in resources
-        ]
-
-
-class GrpcRouteRulesActionResponseHeaderModifier(object):
-    def __init__(self, set: dict = None, add: dict = None, remove: list = None):
-        self.set = set
-        self.add = add
-        self.remove = remove
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesActionResponseHeaderModifier()
-        )
-        if Primitive.to_proto(resource.set):
-            res.set = Primitive.to_proto(resource.set)
-        if Primitive.to_proto(resource.add):
-            res.add = Primitive.to_proto(resource.add)
-        if Primitive.to_proto(resource.remove):
-            res.remove.extend(Primitive.to_proto(resource.remove))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return GrpcRouteRulesActionResponseHeaderModifier(
-            set=Primitive.from_proto(resource.set),
-            add=Primitive.from_proto(resource.add),
-            remove=Primitive.from_proto(resource.remove),
-        )
-
-
-class GrpcRouteRulesActionResponseHeaderModifierArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            GrpcRouteRulesActionResponseHeaderModifier.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            GrpcRouteRulesActionResponseHeaderModifier.from_proto(i) for i in resources
-        ]
-
-
-class GrpcRouteRulesActionUrlRewrite(object):
-    def __init__(self, path_prefix_rewrite: str = None, host_rewrite: str = None):
-        self.path_prefix_rewrite = path_prefix_rewrite
-        self.host_rewrite = host_rewrite
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesActionUrlRewrite()
-        if Primitive.to_proto(resource.path_prefix_rewrite):
-            res.path_prefix_rewrite = Primitive.to_proto(resource.path_prefix_rewrite)
-        if Primitive.to_proto(resource.host_rewrite):
-            res.host_rewrite = Primitive.to_proto(resource.host_rewrite)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return GrpcRouteRulesActionUrlRewrite(
-            path_prefix_rewrite=Primitive.from_proto(resource.path_prefix_rewrite),
-            host_rewrite=Primitive.from_proto(resource.host_rewrite),
-        )
-
-
-class GrpcRouteRulesActionUrlRewriteArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [GrpcRouteRulesActionUrlRewrite.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [GrpcRouteRulesActionUrlRewrite.from_proto(i) for i in resources]
-
-
 class GrpcRouteRulesActionRetryPolicy(object):
-    def __init__(
-        self,
-        retry_conditions: list = None,
-        num_retries: int = None,
-        per_try_timeout: str = None,
-    ):
+    def __init__(self, retry_conditions: list = None, num_retries: int = None):
         self.retry_conditions = retry_conditions
         self.num_retries = num_retries
-        self.per_try_timeout = per_try_timeout
 
     @classmethod
     def to_proto(self, resource):
@@ -831,8 +631,6 @@ class GrpcRouteRulesActionRetryPolicy(object):
             res.retry_conditions.extend(Primitive.to_proto(resource.retry_conditions))
         if Primitive.to_proto(resource.num_retries):
             res.num_retries = Primitive.to_proto(resource.num_retries)
-        if Primitive.to_proto(resource.per_try_timeout):
-            res.per_try_timeout = Primitive.to_proto(resource.per_try_timeout)
         return res
 
     @classmethod
@@ -843,7 +641,6 @@ class GrpcRouteRulesActionRetryPolicy(object):
         return GrpcRouteRulesActionRetryPolicy(
             retry_conditions=Primitive.from_proto(resource.retry_conditions),
             num_retries=Primitive.from_proto(resource.num_retries),
-            per_try_timeout=Primitive.from_proto(resource.per_try_timeout),
         )
 
 
@@ -857,104 +654,6 @@ class GrpcRouteRulesActionRetryPolicyArray(object):
     @classmethod
     def from_proto(self, resources):
         return [GrpcRouteRulesActionRetryPolicy.from_proto(i) for i in resources]
-
-
-class GrpcRouteRulesActionRequestMirrorPolicy(object):
-    def __init__(self, destination: dict = None):
-        self.destination = destination
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicy()
-        )
-        if GrpcRouteRulesActionRequestMirrorPolicyDestination.to_proto(
-            resource.destination
-        ):
-            res.destination.CopyFrom(
-                GrpcRouteRulesActionRequestMirrorPolicyDestination.to_proto(
-                    resource.destination
-                )
-            )
-        else:
-            res.ClearField("destination")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return GrpcRouteRulesActionRequestMirrorPolicy(
-            destination=GrpcRouteRulesActionRequestMirrorPolicyDestination.from_proto(
-                resource.destination
-            ),
-        )
-
-
-class GrpcRouteRulesActionRequestMirrorPolicyArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [GrpcRouteRulesActionRequestMirrorPolicy.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            GrpcRouteRulesActionRequestMirrorPolicy.from_proto(i) for i in resources
-        ]
-
-
-class GrpcRouteRulesActionRequestMirrorPolicyDestination(object):
-    def __init__(self, weight: int = None, service_name: str = None):
-        self.weight = weight
-        self.service_name = service_name
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesActionRequestMirrorPolicyDestination()
-        )
-        if Primitive.to_proto(resource.weight):
-            res.weight = Primitive.to_proto(resource.weight)
-        if Primitive.to_proto(resource.service_name):
-            res.service_name = Primitive.to_proto(resource.service_name)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return GrpcRouteRulesActionRequestMirrorPolicyDestination(
-            weight=Primitive.from_proto(resource.weight),
-            service_name=Primitive.from_proto(resource.service_name),
-        )
-
-
-class GrpcRouteRulesActionRequestMirrorPolicyDestinationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            GrpcRouteRulesActionRequestMirrorPolicyDestination.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            GrpcRouteRulesActionRequestMirrorPolicyDestination.from_proto(i)
-            for i in resources
-        ]
 
 
 class GrpcRouteRulesMatchesMethodTypeEnum(object):

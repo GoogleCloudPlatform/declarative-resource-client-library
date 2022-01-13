@@ -112,16 +112,15 @@ components:
           - linkedRouterApplianceInstances
           required:
           - uris
+          - siteToSiteDataTransfer
           properties:
             siteToSiteDataTransfer:
               type: boolean
               x-dcl-go-name: SiteToSiteDataTransfer
               description: A value that controls whether site-to-site data transfer
-                is enabled for these resources.This field is set to false by default,
-                but you must set it to true. Note that data transfer is available
+                is enabled for these resources. Note that data transfer is available
                 only in supported locations.
               x-kubernetes-immutable: true
-              default: true
             uris:
               type: array
               x-dcl-go-name: Uris
@@ -146,6 +145,7 @@ components:
           - linkedInterconnectAttachments
           required:
           - instances
+          - siteToSiteDataTransfer
           properties:
             instances:
               type: array
@@ -175,11 +175,9 @@ components:
               type: boolean
               x-dcl-go-name: SiteToSiteDataTransfer
               description: A value that controls whether site-to-site data transfer
-                is enabled for these resources.This field is set to false by default,
-                but you must set it to true. Note that data transfer is available
+                is enabled for these resources. Note that data transfer is available
                 only in supported locations.
               x-kubernetes-immutable: true
-              default: true
         linkedVpnTunnels:
           type: object
           x-dcl-go-name: LinkedVpnTunnels
@@ -191,16 +189,15 @@ components:
           - linkedRouterApplianceInstances
           required:
           - uris
+          - siteToSiteDataTransfer
           properties:
             siteToSiteDataTransfer:
               type: boolean
               x-dcl-go-name: SiteToSiteDataTransfer
               description: A value that controls whether site-to-site data transfer
-                is enabled for these resources.This field is set to false by default,
-                but you must set it to true. Note that data transfer is available
+                is enabled for these resources. Note that data transfer is available
                 only in supported locations.
               x-kubernetes-immutable: true
-              default: true
             uris:
               type: array
               x-dcl-go-name: Uris

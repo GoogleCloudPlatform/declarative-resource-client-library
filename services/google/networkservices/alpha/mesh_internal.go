@@ -31,12 +31,6 @@ func (r *Mesh) validate() error {
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "type"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "scope"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
@@ -113,9 +107,6 @@ func newUpdateMeshUpdateMeshRequest(ctx context.Context, f *Mesh, c *Client) (ma
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
-	}
-	if v := f.Scope; !dcl.IsEmptyValueIndirect(v) {
-		req["scope"] = v
 	}
 	if v := f.InterceptionPort; !dcl.IsEmptyValueIndirect(v) {
 		req["interceptionPort"] = v
@@ -464,16 +455,6 @@ func canonicalizeMeshDesiredState(rawDesired, rawInitial *Mesh, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Type) {
-		canonicalDesired.Type = rawInitial.Type
-	} else {
-		canonicalDesired.Type = rawDesired.Type
-	}
-	if dcl.StringCanonicalize(rawDesired.Scope, rawInitial.Scope) {
-		canonicalDesired.Scope = rawInitial.Scope
-	} else {
-		canonicalDesired.Scope = rawDesired.Scope
-	}
 	if dcl.IsZeroValue(rawDesired.InterceptionPort) {
 		canonicalDesired.InterceptionPort = rawInitial.InterceptionPort
 	} else {
@@ -523,19 +504,6 @@ func canonicalizeMeshNewState(c *Client, rawNew, rawDesired *Mesh) (*Mesh, error
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
-		}
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		rawNew.Type = rawDesired.Type
-	} else {
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.Scope) && dcl.IsNotReturnedByServer(rawDesired.Scope) {
-		rawNew.Scope = rawDesired.Scope
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Scope, rawNew.Scope) {
-			rawNew.Scope = rawDesired.Scope
 		}
 	}
 
@@ -604,20 +572,6 @@ func diffMesh(c *Client, desired, actual *Mesh, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMeshUpdateMeshOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.InterceptionPort, actual.InterceptionPort, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMeshUpdateMeshOperation")}, fn.AddNest("InterceptionPort")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -649,7 +603,6 @@ func (r *Mesh) urlNormalized() *Mesh {
 	normalized := dcl.Copy(*r).(Mesh)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Scope = dcl.SelfLinkToName(r.Scope)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
@@ -714,12 +667,6 @@ func expandMesh(c *Client, f *Mesh) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Type; dcl.ValueShouldBeSent(v) {
-		m["type"] = v
-	}
-	if v := f.Scope; dcl.ValueShouldBeSent(v) {
-		m["scope"] = v
-	}
 	if v := f.InterceptionPort; dcl.ValueShouldBeSent(v) {
 		m["interceptionPort"] = v
 	}
@@ -754,64 +701,11 @@ func flattenMesh(c *Client, i interface{}) *Mesh {
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	res.Description = dcl.FlattenString(m["description"])
-	res.Type = flattenMeshTypeEnum(m["type"])
-	res.Scope = dcl.FlattenString(m["scope"])
 	res.InterceptionPort = dcl.FlattenInteger(m["interceptionPort"])
 	res.Project = dcl.FlattenString(m["project"])
 	res.Location = dcl.FlattenString(m["location"])
 
 	return res
-}
-
-// flattenMeshTypeEnumMap flattens the contents of MeshTypeEnum from a JSON
-// response object.
-func flattenMeshTypeEnumMap(c *Client, i interface{}) map[string]MeshTypeEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]MeshTypeEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]MeshTypeEnum{}
-	}
-
-	items := make(map[string]MeshTypeEnum)
-	for k, item := range a {
-		items[k] = *flattenMeshTypeEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenMeshTypeEnumSlice flattens the contents of MeshTypeEnum from a JSON
-// response object.
-func flattenMeshTypeEnumSlice(c *Client, i interface{}) []MeshTypeEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []MeshTypeEnum{}
-	}
-
-	if len(a) == 0 {
-		return []MeshTypeEnum{}
-	}
-
-	items := make([]MeshTypeEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenMeshTypeEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenMeshTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *MeshTypeEnum with the same value as that string.
-func flattenMeshTypeEnum(i interface{}) *MeshTypeEnum {
-	s, ok := i.(string)
-	if !ok {
-		return MeshTypeEnumRef("")
-	}
-
-	return MeshTypeEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

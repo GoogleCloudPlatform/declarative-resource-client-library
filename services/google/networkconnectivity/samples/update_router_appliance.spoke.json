@@ -11,6 +11,7 @@
     "instances": [{
       "virtualMachine": "{{ref:router_appliance.compute.instance.json:selfLink}}",
       "ipAddress": "10.0.0.2"
-    }]
+    }],
+    "siteToSiteDataTransfer": true
   }
 }

@@ -303,15 +303,11 @@ func (r *GrpcRouteRulesMatchesHeaders) HashCode() string {
 }
 
 type GrpcRouteRulesAction struct {
-	empty                  bool                                        `json:"-"`
-	Destinations           []GrpcRouteRulesActionDestinations          `json:"destinations"`
-	FaultInjectionPolicy   *GrpcRouteRulesActionFaultInjectionPolicy   `json:"faultInjectionPolicy"`
-	RequestHeaderModifier  *GrpcRouteRulesActionRequestHeaderModifier  `json:"requestHeaderModifier"`
-	ResponseHeaderModifier *GrpcRouteRulesActionResponseHeaderModifier `json:"responseHeaderModifier"`
-	UrlRewrite             *GrpcRouteRulesActionUrlRewrite             `json:"urlRewrite"`
-	Timeout                *string                                     `json:"timeout"`
-	RetryPolicy            *GrpcRouteRulesActionRetryPolicy            `json:"retryPolicy"`
-	RequestMirrorPolicy    *GrpcRouteRulesActionRequestMirrorPolicy    `json:"requestMirrorPolicy"`
+	empty                bool                                      `json:"-"`
+	Destinations         []GrpcRouteRulesActionDestinations        `json:"destinations"`
+	FaultInjectionPolicy *GrpcRouteRulesActionFaultInjectionPolicy `json:"faultInjectionPolicy"`
+	Timeout              *string                                   `json:"timeout"`
+	RetryPolicy          *GrpcRouteRulesActionRetryPolicy          `json:"retryPolicy"`
 }
 
 type jsonGrpcRouteRulesAction GrpcRouteRulesAction
@@ -333,17 +329,9 @@ func (r *GrpcRouteRulesAction) UnmarshalJSON(data []byte) error {
 
 		r.FaultInjectionPolicy = res.FaultInjectionPolicy
 
-		r.RequestHeaderModifier = res.RequestHeaderModifier
-
-		r.ResponseHeaderModifier = res.ResponseHeaderModifier
-
-		r.UrlRewrite = res.UrlRewrite
-
 		r.Timeout = res.Timeout
 
 		r.RetryPolicy = res.RetryPolicy
-
-		r.RequestMirrorPolicy = res.RequestMirrorPolicy
 
 	}
 	return nil
@@ -565,164 +553,10 @@ func (r *GrpcRouteRulesActionFaultInjectionPolicyAbort) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type GrpcRouteRulesActionRequestHeaderModifier struct {
-	empty  bool              `json:"-"`
-	Set    map[string]string `json:"set"`
-	Add    map[string]string `json:"add"`
-	Remove []string          `json:"remove"`
-}
-
-type jsonGrpcRouteRulesActionRequestHeaderModifier GrpcRouteRulesActionRequestHeaderModifier
-
-func (r *GrpcRouteRulesActionRequestHeaderModifier) UnmarshalJSON(data []byte) error {
-	var res jsonGrpcRouteRulesActionRequestHeaderModifier
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyGrpcRouteRulesActionRequestHeaderModifier
-	} else {
-
-		r.Set = res.Set
-
-		r.Add = res.Add
-
-		r.Remove = res.Remove
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this GrpcRouteRulesActionRequestHeaderModifier is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyGrpcRouteRulesActionRequestHeaderModifier *GrpcRouteRulesActionRequestHeaderModifier = &GrpcRouteRulesActionRequestHeaderModifier{empty: true}
-
-func (r *GrpcRouteRulesActionRequestHeaderModifier) Empty() bool {
-	return r.empty
-}
-
-func (r *GrpcRouteRulesActionRequestHeaderModifier) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *GrpcRouteRulesActionRequestHeaderModifier) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type GrpcRouteRulesActionResponseHeaderModifier struct {
-	empty  bool              `json:"-"`
-	Set    map[string]string `json:"set"`
-	Add    map[string]string `json:"add"`
-	Remove []string          `json:"remove"`
-}
-
-type jsonGrpcRouteRulesActionResponseHeaderModifier GrpcRouteRulesActionResponseHeaderModifier
-
-func (r *GrpcRouteRulesActionResponseHeaderModifier) UnmarshalJSON(data []byte) error {
-	var res jsonGrpcRouteRulesActionResponseHeaderModifier
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyGrpcRouteRulesActionResponseHeaderModifier
-	} else {
-
-		r.Set = res.Set
-
-		r.Add = res.Add
-
-		r.Remove = res.Remove
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this GrpcRouteRulesActionResponseHeaderModifier is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyGrpcRouteRulesActionResponseHeaderModifier *GrpcRouteRulesActionResponseHeaderModifier = &GrpcRouteRulesActionResponseHeaderModifier{empty: true}
-
-func (r *GrpcRouteRulesActionResponseHeaderModifier) Empty() bool {
-	return r.empty
-}
-
-func (r *GrpcRouteRulesActionResponseHeaderModifier) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *GrpcRouteRulesActionResponseHeaderModifier) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type GrpcRouteRulesActionUrlRewrite struct {
-	empty             bool    `json:"-"`
-	PathPrefixRewrite *string `json:"pathPrefixRewrite"`
-	HostRewrite       *string `json:"hostRewrite"`
-}
-
-type jsonGrpcRouteRulesActionUrlRewrite GrpcRouteRulesActionUrlRewrite
-
-func (r *GrpcRouteRulesActionUrlRewrite) UnmarshalJSON(data []byte) error {
-	var res jsonGrpcRouteRulesActionUrlRewrite
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyGrpcRouteRulesActionUrlRewrite
-	} else {
-
-		r.PathPrefixRewrite = res.PathPrefixRewrite
-
-		r.HostRewrite = res.HostRewrite
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this GrpcRouteRulesActionUrlRewrite is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyGrpcRouteRulesActionUrlRewrite *GrpcRouteRulesActionUrlRewrite = &GrpcRouteRulesActionUrlRewrite{empty: true}
-
-func (r *GrpcRouteRulesActionUrlRewrite) Empty() bool {
-	return r.empty
-}
-
-func (r *GrpcRouteRulesActionUrlRewrite) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *GrpcRouteRulesActionUrlRewrite) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type GrpcRouteRulesActionRetryPolicy struct {
 	empty           bool     `json:"-"`
 	RetryConditions []string `json:"retryConditions"`
 	NumRetries      *int64   `json:"numRetries"`
-	PerTryTimeout   *string  `json:"perTryTimeout"`
 }
 
 type jsonGrpcRouteRulesActionRetryPolicy GrpcRouteRulesActionRetryPolicy
@@ -744,8 +578,6 @@ func (r *GrpcRouteRulesActionRetryPolicy) UnmarshalJSON(data []byte) error {
 
 		r.NumRetries = res.NumRetries
 
-		r.PerTryTimeout = res.PerTryTimeout
-
 	}
 	return nil
 }
@@ -764,101 +596,6 @@ func (r *GrpcRouteRulesActionRetryPolicy) String() string {
 }
 
 func (r *GrpcRouteRulesActionRetryPolicy) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type GrpcRouteRulesActionRequestMirrorPolicy struct {
-	empty       bool                                                `json:"-"`
-	Destination *GrpcRouteRulesActionRequestMirrorPolicyDestination `json:"destination"`
-}
-
-type jsonGrpcRouteRulesActionRequestMirrorPolicy GrpcRouteRulesActionRequestMirrorPolicy
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicy) UnmarshalJSON(data []byte) error {
-	var res jsonGrpcRouteRulesActionRequestMirrorPolicy
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyGrpcRouteRulesActionRequestMirrorPolicy
-	} else {
-
-		r.Destination = res.Destination
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this GrpcRouteRulesActionRequestMirrorPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyGrpcRouteRulesActionRequestMirrorPolicy *GrpcRouteRulesActionRequestMirrorPolicy = &GrpcRouteRulesActionRequestMirrorPolicy{empty: true}
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicy) Empty() bool {
-	return r.empty
-}
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicy) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicy) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type GrpcRouteRulesActionRequestMirrorPolicyDestination struct {
-	empty       bool    `json:"-"`
-	Weight      *int64  `json:"weight"`
-	ServiceName *string `json:"serviceName"`
-}
-
-type jsonGrpcRouteRulesActionRequestMirrorPolicyDestination GrpcRouteRulesActionRequestMirrorPolicyDestination
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicyDestination) UnmarshalJSON(data []byte) error {
-	var res jsonGrpcRouteRulesActionRequestMirrorPolicyDestination
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyGrpcRouteRulesActionRequestMirrorPolicyDestination
-	} else {
-
-		r.Weight = res.Weight
-
-		r.ServiceName = res.ServiceName
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this GrpcRouteRulesActionRequestMirrorPolicyDestination is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyGrpcRouteRulesActionRequestMirrorPolicyDestination *GrpcRouteRulesActionRequestMirrorPolicyDestination = &GrpcRouteRulesActionRequestMirrorPolicyDestination{empty: true}
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicyDestination) Empty() bool {
-	return r.empty
-}
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicyDestination) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *GrpcRouteRulesActionRequestMirrorPolicyDestination) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

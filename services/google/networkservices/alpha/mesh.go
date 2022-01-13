@@ -28,8 +28,6 @@ type Mesh struct {
 	UpdateTime       *string           `json:"updateTime"`
 	Labels           map[string]string `json:"labels"`
 	Description      *string           `json:"description"`
-	Type             *MeshTypeEnum     `json:"type"`
-	Scope            *string           `json:"scope"`
 	InterceptionPort *int64            `json:"interceptionPort"`
 	Project          *string           `json:"project"`
 	Location         *string           `json:"location"`
@@ -37,33 +35,6 @@ type Mesh struct {
 
 func (r *Mesh) String() string {
 	return dcl.SprintResource(r)
-}
-
-// The enum MeshTypeEnum.
-type MeshTypeEnum string
-
-// MeshTypeEnumRef returns a *MeshTypeEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func MeshTypeEnumRef(s string) *MeshTypeEnum {
-	v := MeshTypeEnum(s)
-	return &v
-}
-
-func (v MeshTypeEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"MATCH_TYPE_UNSPECIFIED", "MATCH_ANY", "MATCH_ALL"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "MeshTypeEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
 }
 
 // Describe returns a simple description of this resource to ensure that automated tools
@@ -87,8 +58,6 @@ func (r *Mesh) ID() (string, error) {
 		"updateTime":       dcl.ValueOrEmptyString(nr.UpdateTime),
 		"labels":           dcl.ValueOrEmptyString(nr.Labels),
 		"description":      dcl.ValueOrEmptyString(nr.Description),
-		"type":             dcl.ValueOrEmptyString(nr.Type),
-		"scope":            dcl.ValueOrEmptyString(nr.Scope),
 		"interceptionPort": dcl.ValueOrEmptyString(nr.InterceptionPort),
 		"project":          dcl.ValueOrEmptyString(nr.Project),
 		"location":         dcl.ValueOrEmptyString(nr.Location),
