@@ -60,13 +60,25 @@ func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepos
 	return nil
 }
 
-// ProtoToOSPolicyAssignmentExecInterpreterEnum converts a OSPolicyAssignmentExecInterpreterEnum enum from its proto representation.
-func ProtoToOsconfigBetaOSPolicyAssignmentExecInterpreterEnum(e betapb.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum) *beta.OSPolicyAssignmentExecInterpreterEnum {
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum enum from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(e betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := betapb.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum_name[int32(e)]; ok {
-		e := beta.OSPolicyAssignmentExecInterpreterEnum(n[len("OsconfigBetaOSPolicyAssignmentExecInterpreterEnum"):])
+	if n, ok := betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum_name[int32(e)]; ok {
+		e := beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(n[len("OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum enum from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(e betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum_name[int32(e)]; ok {
+		e := beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(n[len("OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum"):])
 		return &e
 	}
 	return nil
@@ -190,44 +202,44 @@ func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDe
 		return nil
 	}
 	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{
-		Source:   ProtoToOsconfigBetaOSPolicyAssignmentFile(p.GetSource()),
+		Source:   ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(p.GetSource()),
 		PullDeps: dcl.Bool(p.GetPullDeps()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentFile converts a OSPolicyAssignmentFile object from its proto representation.
-func ProtoToOsconfigBetaOSPolicyAssignmentFile(p *betapb.OsconfigBetaOSPolicyAssignmentFile) *beta.OSPolicyAssignmentFile {
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.OSPolicyAssignmentFile{
-		Remote:        ProtoToOsconfigBetaOSPolicyAssignmentFileRemote(p.GetRemote()),
-		Gcs:           ProtoToOsconfigBetaOSPolicyAssignmentFileGcs(p.GetGcs()),
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{
+		Remote:        ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(p.GetRemote()),
+		Gcs:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(p.GetGcs()),
 		LocalPath:     dcl.StringOrNil(p.GetLocalPath()),
 		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentFileRemote converts a OSPolicyAssignmentFileRemote object from its proto representation.
-func ProtoToOsconfigBetaOSPolicyAssignmentFileRemote(p *betapb.OsconfigBetaOSPolicyAssignmentFileRemote) *beta.OSPolicyAssignmentFileRemote {
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.OSPolicyAssignmentFileRemote{
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{
 		Uri:            dcl.StringOrNil(p.GetUri()),
 		Sha256Checksum: dcl.StringOrNil(p.GetSha256Checksum()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentFileGcs converts a OSPolicyAssignmentFileGcs object from its proto representation.
-func ProtoToOsconfigBetaOSPolicyAssignmentFileGcs(p *betapb.OsconfigBetaOSPolicyAssignmentFileGcs) *beta.OSPolicyAssignmentFileGcs {
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.OSPolicyAssignmentFileGcs{
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{
 		Bucket:     dcl.StringOrNil(p.GetBucket()),
 		Object:     dcl.StringOrNil(p.GetObject()),
 		Generation: dcl.Int64OrNil(p.GetGeneration()),
@@ -263,8 +275,47 @@ func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRp
 		return nil
 	}
 	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{
-		Source:   ProtoToOsconfigBetaOSPolicyAssignmentFile(p.GetSource()),
+		Source:   ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(p.GetSource()),
 		PullDeps: dcl.Bool(p.GetPullDeps()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource{
+		Remote:        ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(p.GetRemote()),
+		Gcs:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(p.GetGcs()),
+		LocalPath:     dcl.StringOrNil(p.GetLocalPath()),
+		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote{
+		Uri:            dcl.StringOrNil(p.GetUri()),
+		Sha256Checksum: dcl.StringOrNil(p.GetSha256Checksum()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs{
+		Bucket:     dcl.StringOrNil(p.GetBucket()),
+		Object:     dcl.StringOrNil(p.GetObject()),
+		Generation: dcl.Int64OrNil(p.GetGeneration()),
 	}
 	return obj
 }
@@ -286,10 +337,49 @@ func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMs
 		return nil
 	}
 	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{
-		Source: ProtoToOsconfigBetaOSPolicyAssignmentFile(p.GetSource()),
+		Source: ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(p.GetSource()),
 	}
 	for _, r := range p.GetProperties() {
 		obj.Properties = append(obj.Properties, r)
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource{
+		Remote:        ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(p.GetRemote()),
+		Gcs:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(p.GetGcs()),
+		LocalPath:     dcl.StringOrNil(p.GetLocalPath()),
+		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote{
+		Uri:            dcl.StringOrNil(p.GetUri()),
+		Sha256Checksum: dcl.StringOrNil(p.GetSha256Checksum()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs{
+		Bucket:     dcl.StringOrNil(p.GetBucket()),
+		Object:     dcl.StringOrNil(p.GetObject()),
+		Generation: dcl.Int64OrNil(p.GetGeneration()),
 	}
 	return obj
 }
@@ -375,25 +465,120 @@ func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(
 		return nil
 	}
 	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{
-		Validate: ProtoToOsconfigBetaOSPolicyAssignmentExec(p.GetValidate()),
-		Enforce:  ProtoToOsconfigBetaOSPolicyAssignmentExec(p.GetEnforce()),
+		Validate: ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(p.GetValidate()),
+		Enforce:  ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(p.GetEnforce()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentExec converts a OSPolicyAssignmentExec object from its proto representation.
-func ProtoToOsconfigBetaOSPolicyAssignmentExec(p *betapb.OsconfigBetaOSPolicyAssignmentExec) *beta.OSPolicyAssignmentExec {
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.OSPolicyAssignmentExec{
-		File:           ProtoToOsconfigBetaOSPolicyAssignmentFile(p.GetFile()),
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate{
+		File:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(p.GetFile()),
 		Script:         dcl.StringOrNil(p.GetScript()),
-		Interpreter:    ProtoToOsconfigBetaOSPolicyAssignmentExecInterpreterEnum(p.GetInterpreter()),
+		Interpreter:    ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(p.GetInterpreter()),
 		OutputFilePath: dcl.StringOrNil(p.GetOutputFilePath()),
 	}
 	for _, r := range p.GetArgs() {
 		obj.Args = append(obj.Args, r)
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile{
+		Remote:        ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(p.GetRemote()),
+		Gcs:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(p.GetGcs()),
+		LocalPath:     dcl.StringOrNil(p.GetLocalPath()),
+		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote{
+		Uri:            dcl.StringOrNil(p.GetUri()),
+		Sha256Checksum: dcl.StringOrNil(p.GetSha256Checksum()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs{
+		Bucket:     dcl.StringOrNil(p.GetBucket()),
+		Object:     dcl.StringOrNil(p.GetObject()),
+		Generation: dcl.Int64OrNil(p.GetGeneration()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce{
+		File:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(p.GetFile()),
+		Script:         dcl.StringOrNil(p.GetScript()),
+		Interpreter:    ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(p.GetInterpreter()),
+		OutputFilePath: dcl.StringOrNil(p.GetOutputFilePath()),
+	}
+	for _, r := range p.GetArgs() {
+		obj.Args = append(obj.Args, r)
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile{
+		Remote:        ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(p.GetRemote()),
+		Gcs:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(p.GetGcs()),
+		LocalPath:     dcl.StringOrNil(p.GetLocalPath()),
+		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote{
+		Uri:            dcl.StringOrNil(p.GetUri()),
+		Sha256Checksum: dcl.StringOrNil(p.GetSha256Checksum()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs{
+		Bucket:     dcl.StringOrNil(p.GetBucket()),
+		Object:     dcl.StringOrNil(p.GetObject()),
+		Generation: dcl.Int64OrNil(p.GetGeneration()),
 	}
 	return obj
 }
@@ -404,11 +589,50 @@ func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(
 		return nil
 	}
 	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{
-		File:        ProtoToOsconfigBetaOSPolicyAssignmentFile(p.GetFile()),
+		File:        ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(p.GetFile()),
 		Content:     dcl.StringOrNil(p.GetContent()),
 		Path:        dcl.StringOrNil(p.GetPath()),
 		State:       ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(p.GetState()),
 		Permissions: dcl.StringOrNil(p.GetPermissions()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile{
+		Remote:        ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(p.GetRemote()),
+		Gcs:           ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(p.GetGcs()),
+		LocalPath:     dcl.StringOrNil(p.GetLocalPath()),
+		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote{
+		Uri:            dcl.StringOrNil(p.GetUri()),
+		Sha256Checksum: dcl.StringOrNil(p.GetSha256Checksum()),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs object from its proto representation.
+func ProtoToOsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(p *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs) *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs{
+		Bucket:     dcl.StringOrNil(p.GetBucket()),
+		Object:     dcl.StringOrNil(p.GetObject()),
+		Generation: dcl.Int64OrNil(p.GetGeneration()),
 	}
 	return obj
 }
@@ -544,15 +768,26 @@ func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 	return betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum(0)
 }
 
-// OSPolicyAssignmentExecInterpreterEnumToProto converts a OSPolicyAssignmentExecInterpreterEnum enum to its proto representation.
-func OsconfigBetaOSPolicyAssignmentExecInterpreterEnumToProto(e *beta.OSPolicyAssignmentExecInterpreterEnum) betapb.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum {
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum enum to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumToProto(e *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum) betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
 	if e == nil {
-		return betapb.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum(0)
+		return betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(0)
 	}
-	if v, ok := betapb.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum_value["OSPolicyAssignmentExecInterpreterEnum"+string(*e)]; ok {
-		return betapb.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum(v)
+	if v, ok := betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum_value["OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum"+string(*e)]; ok {
+		return betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(v)
 	}
-	return betapb.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum(0)
+	return betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(0)
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum enum to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumToProto(e *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum) betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
+	if e == nil {
+		return betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(0)
+	}
+	if v, ok := betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum_value["OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum"+string(*e)]; ok {
+		return betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(v)
+	}
+	return betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(0)
 }
 
 // OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum enum to its proto representation.
@@ -672,41 +907,41 @@ func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebToProt
 		return nil
 	}
 	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
-	p.SetSource(OsconfigBetaOSPolicyAssignmentFileToProto(o.Source))
+	p.SetSource(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceToProto(o.Source))
 	p.SetPullDeps(dcl.ValueOrEmptyBool(o.PullDeps))
 	return p
 }
 
-// OSPolicyAssignmentFileToProto converts a OSPolicyAssignmentFile object to its proto representation.
-func OsconfigBetaOSPolicyAssignmentFileToProto(o *beta.OSPolicyAssignmentFile) *betapb.OsconfigBetaOSPolicyAssignmentFile {
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OsconfigBetaOSPolicyAssignmentFile{}
-	p.SetRemote(OsconfigBetaOSPolicyAssignmentFileRemoteToProto(o.Remote))
-	p.SetGcs(OsconfigBetaOSPolicyAssignmentFileGcsToProto(o.Gcs))
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{}
+	p.SetRemote(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsToProto(o.Gcs))
 	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
 	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
 	return p
 }
 
-// OSPolicyAssignmentFileRemoteToProto converts a OSPolicyAssignmentFileRemote object to its proto representation.
-func OsconfigBetaOSPolicyAssignmentFileRemoteToProto(o *beta.OSPolicyAssignmentFileRemote) *betapb.OsconfigBetaOSPolicyAssignmentFileRemote {
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OsconfigBetaOSPolicyAssignmentFileRemote{}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{}
 	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
 	p.SetSha256Checksum(dcl.ValueOrEmptyString(o.Sha256Checksum))
 	return p
 }
 
-// OSPolicyAssignmentFileGcsToProto converts a OSPolicyAssignmentFileGcs object to its proto representation.
-func OsconfigBetaOSPolicyAssignmentFileGcsToProto(o *beta.OSPolicyAssignmentFileGcs) *betapb.OsconfigBetaOSPolicyAssignmentFileGcs {
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OsconfigBetaOSPolicyAssignmentFileGcs{}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{}
 	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
 	p.SetObject(dcl.ValueOrEmptyString(o.Object))
 	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
@@ -739,8 +974,44 @@ func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmToProt
 		return nil
 	}
 	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
-	p.SetSource(OsconfigBetaOSPolicyAssignmentFileToProto(o.Source))
+	p.SetSource(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceToProto(o.Source))
 	p.SetPullDeps(dcl.ValueOrEmptyBool(o.PullDeps))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource{}
+	p.SetRemote(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsToProto(o.Gcs))
+	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
+	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetSha256Checksum(dcl.ValueOrEmptyString(o.Sha256Checksum))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs{}
+	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
+	p.SetObject(dcl.ValueOrEmptyString(o.Object))
+	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
 	return p
 }
 
@@ -760,12 +1031,48 @@ func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiToProt
 		return nil
 	}
 	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
-	p.SetSource(OsconfigBetaOSPolicyAssignmentFileToProto(o.Source))
+	p.SetSource(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceToProto(o.Source))
 	sProperties := make([]string, len(o.Properties))
 	for i, r := range o.Properties {
 		sProperties[i] = r
 	}
 	p.SetProperties(sProperties)
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource{}
+	p.SetRemote(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsToProto(o.Gcs))
+	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
+	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetSha256Checksum(dcl.ValueOrEmptyString(o.Sha256Checksum))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs{}
+	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
+	p.SetObject(dcl.ValueOrEmptyString(o.Object))
+	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
 	return p
 }
 
@@ -851,20 +1158,20 @@ func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecToProto(
 		return nil
 	}
 	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{}
-	p.SetValidate(OsconfigBetaOSPolicyAssignmentExecToProto(o.Validate))
-	p.SetEnforce(OsconfigBetaOSPolicyAssignmentExecToProto(o.Enforce))
+	p.SetValidate(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateToProto(o.Validate))
+	p.SetEnforce(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceToProto(o.Enforce))
 	return p
 }
 
-// OSPolicyAssignmentExecToProto converts a OSPolicyAssignmentExec object to its proto representation.
-func OsconfigBetaOSPolicyAssignmentExecToProto(o *beta.OSPolicyAssignmentExec) *betapb.OsconfigBetaOSPolicyAssignmentExec {
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OsconfigBetaOSPolicyAssignmentExec{}
-	p.SetFile(OsconfigBetaOSPolicyAssignmentFileToProto(o.File))
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate{}
+	p.SetFile(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileToProto(o.File))
 	p.SetScript(dcl.ValueOrEmptyString(o.Script))
-	p.SetInterpreter(OsconfigBetaOSPolicyAssignmentExecInterpreterEnumToProto(o.Interpreter))
+	p.SetInterpreter(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumToProto(o.Interpreter))
 	p.SetOutputFilePath(dcl.ValueOrEmptyString(o.OutputFilePath))
 	sArgs := make([]string, len(o.Args))
 	for i, r := range o.Args {
@@ -874,17 +1181,143 @@ func OsconfigBetaOSPolicyAssignmentExecToProto(o *beta.OSPolicyAssignmentExec) *
 	return p
 }
 
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile{}
+	p.SetRemote(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsToProto(o.Gcs))
+	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
+	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetSha256Checksum(dcl.ValueOrEmptyString(o.Sha256Checksum))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs{}
+	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
+	p.SetObject(dcl.ValueOrEmptyString(o.Object))
+	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce{}
+	p.SetFile(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileToProto(o.File))
+	p.SetScript(dcl.ValueOrEmptyString(o.Script))
+	p.SetInterpreter(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumToProto(o.Interpreter))
+	p.SetOutputFilePath(dcl.ValueOrEmptyString(o.OutputFilePath))
+	sArgs := make([]string, len(o.Args))
+	for i, r := range o.Args {
+		sArgs[i] = r
+	}
+	p.SetArgs(sArgs)
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile{}
+	p.SetRemote(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsToProto(o.Gcs))
+	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
+	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetSha256Checksum(dcl.ValueOrEmptyString(o.Sha256Checksum))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs{}
+	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
+	p.SetObject(dcl.ValueOrEmptyString(o.Object))
+	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
+	return p
+}
+
 // OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile object to its proto representation.
 func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
-	p.SetFile(OsconfigBetaOSPolicyAssignmentFileToProto(o.File))
+	p.SetFile(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileToProto(o.File))
 	p.SetContent(dcl.ValueOrEmptyString(o.Content))
 	p.SetPath(dcl.ValueOrEmptyString(o.Path))
 	p.SetState(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumToProto(o.State))
 	p.SetPermissions(dcl.ValueOrEmptyString(o.Permissions))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile{}
+	p.SetRemote(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsToProto(o.Gcs))
+	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
+	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetSha256Checksum(dcl.ValueOrEmptyString(o.Sha256Checksum))
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs object to its proto representation.
+func OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsToProto(o *beta.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs) *betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs{}
+	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
+	p.SetObject(dcl.ValueOrEmptyString(o.Object))
+	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
 	return p
 }
 

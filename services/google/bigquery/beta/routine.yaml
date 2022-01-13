@@ -73,6 +73,8 @@ components:
           $ref: '#/components/schemas/ArgumentsDataType'
           x-dcl-go-name: ArrayElementType
           x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - structType
         structType:
           type: object
           x-dcl-go-name: StructType

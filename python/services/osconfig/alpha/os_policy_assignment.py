@@ -692,8 +692,14 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(object):
         res = (
             os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb()
         )
-        if OSPolicyAssignmentFile.to_proto(resource.source):
-            res.source.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.source))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource.to_proto(
+            resource.source
+        ):
+            res.source.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource.to_proto(
+                    resource.source
+                )
+            )
         else:
             res.ClearField("source")
         if Primitive.to_proto(resource.pull_deps):
@@ -706,7 +712,9 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(
-            source=OSPolicyAssignmentFile.from_proto(resource.source),
+            source=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource.from_proto(
+                resource.source
+            ),
             pull_deps=Primitive.from_proto(resource.pull_deps),
         )
 
@@ -729,7 +737,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebArray(object):
         ]
 
 
-class OSPolicyAssignmentFile(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(object):
     def __init__(
         self,
         remote: dict = None,
@@ -747,13 +755,27 @@ class OSPolicyAssignmentFile(object):
         if not resource:
             return None
 
-        res = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentFile()
-        if OSPolicyAssignmentFileRemote.to_proto(resource.remote):
-            res.remote.CopyFrom(OSPolicyAssignmentFileRemote.to_proto(resource.remote))
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote.to_proto(
+            resource.remote
+        ):
+            res.remote.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote.to_proto(
+                    resource.remote
+                )
+            )
         else:
             res.ClearField("remote")
-        if OSPolicyAssignmentFileGcs.to_proto(resource.gcs):
-            res.gcs.CopyFrom(OSPolicyAssignmentFileGcs.to_proto(resource.gcs))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs.to_proto(
+            resource.gcs
+        ):
+            res.gcs.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs.to_proto(
+                    resource.gcs
+                )
+            )
         else:
             res.ClearField("gcs")
         if Primitive.to_proto(resource.local_path):
@@ -767,27 +789,39 @@ class OSPolicyAssignmentFile(object):
         if not resource:
             return None
 
-        return OSPolicyAssignmentFile(
-            remote=OSPolicyAssignmentFileRemote.from_proto(resource.remote),
-            gcs=OSPolicyAssignmentFileGcs.from_proto(resource.gcs),
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(
+            remote=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote.from_proto(
+                resource.remote
+            ),
+            gcs=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs.from_proto(
+                resource.gcs
+            ),
             local_path=Primitive.from_proto(resource.local_path),
             allow_insecure=Primitive.from_proto(resource.allow_insecure),
         )
 
 
-class OSPolicyAssignmentFileArray(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [OSPolicyAssignmentFile.to_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource.to_proto(i)
+            for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [OSPolicyAssignmentFile.from_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource.from_proto(
+                i
+            )
+            for i in resources
+        ]
 
 
-class OSPolicyAssignmentFileRemote(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(object):
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -797,7 +831,9 @@ class OSPolicyAssignmentFileRemote(object):
         if not resource:
             return None
 
-        res = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentFileRemote()
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote()
+        )
         if Primitive.to_proto(resource.uri):
             res.uri = Primitive.to_proto(resource.uri)
         if Primitive.to_proto(resource.sha256_checksum):
@@ -809,25 +845,37 @@ class OSPolicyAssignmentFileRemote(object):
         if not resource:
             return None
 
-        return OSPolicyAssignmentFileRemote(
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(
             uri=Primitive.from_proto(resource.uri),
             sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
         )
 
 
-class OSPolicyAssignmentFileRemoteArray(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteArray(
+    object
+):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [OSPolicyAssignmentFileRemote.to_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote.to_proto(
+                i
+            )
+            for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [OSPolicyAssignmentFileRemote.from_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote.from_proto(
+                i
+            )
+            for i in resources
+        ]
 
 
-class OSPolicyAssignmentFileGcs(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(object):
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -838,7 +886,9 @@ class OSPolicyAssignmentFileGcs(object):
         if not resource:
             return None
 
-        res = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentFileGcs()
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs()
+        )
         if Primitive.to_proto(resource.bucket):
             res.bucket = Primitive.to_proto(resource.bucket)
         if Primitive.to_proto(resource.object):
@@ -852,23 +902,33 @@ class OSPolicyAssignmentFileGcs(object):
         if not resource:
             return None
 
-        return OSPolicyAssignmentFileGcs(
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(
             bucket=Primitive.from_proto(resource.bucket),
             object=Primitive.from_proto(resource.object),
             generation=Primitive.from_proto(resource.generation),
         )
 
 
-class OSPolicyAssignmentFileGcsArray(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [OSPolicyAssignmentFileGcs.to_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs.to_proto(
+                i
+            )
+            for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [OSPolicyAssignmentFileGcs.from_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs.from_proto(
+                i
+            )
+            for i in resources
+        ]
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(object):
@@ -972,8 +1032,14 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(object):
         res = (
             os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm()
         )
-        if OSPolicyAssignmentFile.to_proto(resource.source):
-            res.source.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.source))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource.to_proto(
+            resource.source
+        ):
+            res.source.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource.to_proto(
+                    resource.source
+                )
+            )
         else:
             res.ClearField("source")
         if Primitive.to_proto(resource.pull_deps):
@@ -986,7 +1052,9 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(
-            source=OSPolicyAssignmentFile.from_proto(resource.source),
+            source=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource.from_proto(
+                resource.source
+            ),
             pull_deps=Primitive.from_proto(resource.pull_deps),
         )
 
@@ -1005,6 +1073,200 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmArray(object):
     def from_proto(self, resources):
         return [
             OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm.from_proto(i)
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(object):
+    def __init__(
+        self,
+        remote: dict = None,
+        gcs: dict = None,
+        local_path: str = None,
+        allow_insecure: bool = None,
+    ):
+        self.remote = remote
+        self.gcs = gcs
+        self.local_path = local_path
+        self.allow_insecure = allow_insecure
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote.to_proto(
+            resource.remote
+        ):
+            res.remote.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote.to_proto(
+                    resource.remote
+                )
+            )
+        else:
+            res.ClearField("remote")
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs.to_proto(
+            resource.gcs
+        ):
+            res.gcs.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs.to_proto(
+                    resource.gcs
+                )
+            )
+        else:
+            res.ClearField("gcs")
+        if Primitive.to_proto(resource.local_path):
+            res.local_path = Primitive.to_proto(resource.local_path)
+        if Primitive.to_proto(resource.allow_insecure):
+            res.allow_insecure = Primitive.to_proto(resource.allow_insecure)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(
+            remote=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote.from_proto(
+                resource.remote
+            ),
+            gcs=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs.from_proto(
+                resource.gcs
+            ),
+            local_path=Primitive.from_proto(resource.local_path),
+            allow_insecure=Primitive.from_proto(resource.allow_insecure),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(object):
+    def __init__(self, uri: str = None, sha256_checksum: str = None):
+        self.uri = uri
+        self.sha256_checksum = sha256_checksum
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote()
+        )
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        if Primitive.to_proto(resource.sha256_checksum):
+            res.sha256_checksum = Primitive.to_proto(resource.sha256_checksum)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(
+            uri=Primitive.from_proto(resource.uri),
+            sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(object):
+    def __init__(self, bucket: str = None, object: str = None, generation: int = None):
+        self.bucket = bucket
+        self.object = object
+        self.generation = generation
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs()
+        )
+        if Primitive.to_proto(resource.bucket):
+            res.bucket = Primitive.to_proto(resource.bucket)
+        if Primitive.to_proto(resource.object):
+            res.object = Primitive.to_proto(resource.object)
+        if Primitive.to_proto(resource.generation):
+            res.generation = Primitive.to_proto(resource.generation)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(
+            bucket=Primitive.from_proto(resource.bucket),
+            object=Primitive.from_proto(resource.object),
+            generation=Primitive.from_proto(resource.generation),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs.from_proto(
+                i
+            )
             for i in resources
         ]
 
@@ -1066,8 +1328,14 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(object):
         res = (
             os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi()
         )
-        if OSPolicyAssignmentFile.to_proto(resource.source):
-            res.source.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.source))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource.to_proto(
+            resource.source
+        ):
+            res.source.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource.to_proto(
+                    resource.source
+                )
+            )
         else:
             res.ClearField("source")
         if Primitive.to_proto(resource.properties):
@@ -1080,7 +1348,9 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(
-            source=OSPolicyAssignmentFile.from_proto(resource.source),
+            source=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource.from_proto(
+                resource.source
+            ),
             properties=Primitive.from_proto(resource.properties),
         )
 
@@ -1099,6 +1369,200 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiArray(object):
     def from_proto(self, resources):
         return [
             OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi.from_proto(i)
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(object):
+    def __init__(
+        self,
+        remote: dict = None,
+        gcs: dict = None,
+        local_path: str = None,
+        allow_insecure: bool = None,
+    ):
+        self.remote = remote
+        self.gcs = gcs
+        self.local_path = local_path
+        self.allow_insecure = allow_insecure
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote.to_proto(
+            resource.remote
+        ):
+            res.remote.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote.to_proto(
+                    resource.remote
+                )
+            )
+        else:
+            res.ClearField("remote")
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs.to_proto(
+            resource.gcs
+        ):
+            res.gcs.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs.to_proto(
+                    resource.gcs
+                )
+            )
+        else:
+            res.ClearField("gcs")
+        if Primitive.to_proto(resource.local_path):
+            res.local_path = Primitive.to_proto(resource.local_path)
+        if Primitive.to_proto(resource.allow_insecure):
+            res.allow_insecure = Primitive.to_proto(resource.allow_insecure)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(
+            remote=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote.from_proto(
+                resource.remote
+            ),
+            gcs=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs.from_proto(
+                resource.gcs
+            ),
+            local_path=Primitive.from_proto(resource.local_path),
+            allow_insecure=Primitive.from_proto(resource.allow_insecure),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(object):
+    def __init__(self, uri: str = None, sha256_checksum: str = None):
+        self.uri = uri
+        self.sha256_checksum = sha256_checksum
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote()
+        )
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        if Primitive.to_proto(resource.sha256_checksum):
+            res.sha256_checksum = Primitive.to_proto(resource.sha256_checksum)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(
+            uri=Primitive.from_proto(resource.uri),
+            sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(object):
+    def __init__(self, bucket: str = None, object: str = None, generation: int = None):
+        self.bucket = bucket
+        self.object = object
+        self.generation = generation
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs()
+        )
+        if Primitive.to_proto(resource.bucket):
+            res.bucket = Primitive.to_proto(resource.bucket)
+        if Primitive.to_proto(resource.object):
+            res.object = Primitive.to_proto(resource.object)
+        if Primitive.to_proto(resource.generation):
+            res.generation = Primitive.to_proto(resource.generation)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(
+            bucket=Primitive.from_proto(resource.bucket),
+            object=Primitive.from_proto(resource.object),
+            generation=Primitive.from_proto(resource.generation),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs.from_proto(
+                i
+            )
             for i in resources
         ]
 
@@ -1469,12 +1933,24 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(object):
         res = (
             os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec()
         )
-        if OSPolicyAssignmentExec.to_proto(resource.validate):
-            res.validate.CopyFrom(OSPolicyAssignmentExec.to_proto(resource.validate))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate.to_proto(
+            resource.validate
+        ):
+            res.validate.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate.to_proto(
+                    resource.validate
+                )
+            )
         else:
             res.ClearField("validate")
-        if OSPolicyAssignmentExec.to_proto(resource.enforce):
-            res.enforce.CopyFrom(OSPolicyAssignmentExec.to_proto(resource.enforce))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce.to_proto(
+            resource.enforce
+        ):
+            res.enforce.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce.to_proto(
+                    resource.enforce
+                )
+            )
         else:
             res.ClearField("enforce")
         return res
@@ -1485,8 +1961,12 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(
-            validate=OSPolicyAssignmentExec.from_proto(resource.validate),
-            enforce=OSPolicyAssignmentExec.from_proto(resource.enforce),
+            validate=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate.from_proto(
+                resource.validate
+            ),
+            enforce=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce.from_proto(
+                resource.enforce
+            ),
         )
 
 
@@ -1508,7 +1988,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecArray(object):
         ]
 
 
-class OSPolicyAssignmentExec(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(object):
     def __init__(
         self,
         file: dict = None,
@@ -1528,17 +2008,27 @@ class OSPolicyAssignmentExec(object):
         if not resource:
             return None
 
-        res = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentExec()
-        if OSPolicyAssignmentFile.to_proto(resource.file):
-            res.file.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.file))
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile.to_proto(
+            resource.file
+        ):
+            res.file.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile.to_proto(
+                    resource.file
+                )
+            )
         else:
             res.ClearField("file")
         if Primitive.to_proto(resource.script):
             res.script = Primitive.to_proto(resource.script)
         if Primitive.to_proto(resource.args):
             res.args.extend(Primitive.to_proto(resource.args))
-        if OSPolicyAssignmentExecInterpreterEnum.to_proto(resource.interpreter):
-            res.interpreter = OSPolicyAssignmentExecInterpreterEnum.to_proto(
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum.to_proto(
+            resource.interpreter
+        ):
+            res.interpreter = OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum.to_proto(
                 resource.interpreter
             )
         if Primitive.to_proto(resource.output_file_path):
@@ -1550,27 +2040,516 @@ class OSPolicyAssignmentExec(object):
         if not resource:
             return None
 
-        return OSPolicyAssignmentExec(
-            file=OSPolicyAssignmentFile.from_proto(resource.file),
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(
+            file=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile.from_proto(
+                resource.file
+            ),
             script=Primitive.from_proto(resource.script),
             args=Primitive.from_proto(resource.args),
-            interpreter=OSPolicyAssignmentExecInterpreterEnum.from_proto(
+            interpreter=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum.from_proto(
                 resource.interpreter
             ),
             output_file_path=Primitive.from_proto(resource.output_file_path),
         )
 
 
-class OSPolicyAssignmentExecArray(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [OSPolicyAssignmentExec.to_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate.to_proto(i)
+            for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [OSPolicyAssignmentExec.from_proto(i) for i in resources]
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(object):
+    def __init__(
+        self,
+        remote: dict = None,
+        gcs: dict = None,
+        local_path: str = None,
+        allow_insecure: bool = None,
+    ):
+        self.remote = remote
+        self.gcs = gcs
+        self.local_path = local_path
+        self.allow_insecure = allow_insecure
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote.to_proto(
+            resource.remote
+        ):
+            res.remote.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote.to_proto(
+                    resource.remote
+                )
+            )
+        else:
+            res.ClearField("remote")
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs.to_proto(
+            resource.gcs
+        ):
+            res.gcs.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs.to_proto(
+                    resource.gcs
+                )
+            )
+        else:
+            res.ClearField("gcs")
+        if Primitive.to_proto(resource.local_path):
+            res.local_path = Primitive.to_proto(resource.local_path)
+        if Primitive.to_proto(resource.allow_insecure):
+            res.allow_insecure = Primitive.to_proto(resource.allow_insecure)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(
+            remote=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote.from_proto(
+                resource.remote
+            ),
+            gcs=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs.from_proto(
+                resource.gcs
+            ),
+            local_path=Primitive.from_proto(resource.local_path),
+            allow_insecure=Primitive.from_proto(resource.allow_insecure),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(object):
+    def __init__(self, uri: str = None, sha256_checksum: str = None):
+        self.uri = uri
+        self.sha256_checksum = sha256_checksum
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote()
+        )
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        if Primitive.to_proto(resource.sha256_checksum):
+            res.sha256_checksum = Primitive.to_proto(resource.sha256_checksum)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(
+            uri=Primitive.from_proto(resource.uri),
+            sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(object):
+    def __init__(self, bucket: str = None, object: str = None, generation: int = None):
+        self.bucket = bucket
+        self.object = object
+        self.generation = generation
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs()
+        )
+        if Primitive.to_proto(resource.bucket):
+            res.bucket = Primitive.to_proto(resource.bucket)
+        if Primitive.to_proto(resource.object):
+            res.object = Primitive.to_proto(resource.object)
+        if Primitive.to_proto(resource.generation):
+            res.generation = Primitive.to_proto(resource.generation)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(
+            bucket=Primitive.from_proto(resource.bucket),
+            object=Primitive.from_proto(resource.object),
+            generation=Primitive.from_proto(resource.generation),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(object):
+    def __init__(
+        self,
+        file: dict = None,
+        script: str = None,
+        args: list = None,
+        interpreter: str = None,
+        output_file_path: str = None,
+    ):
+        self.file = file
+        self.script = script
+        self.args = args
+        self.interpreter = interpreter
+        self.output_file_path = output_file_path
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile.to_proto(
+            resource.file
+        ):
+            res.file.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile.to_proto(
+                    resource.file
+                )
+            )
+        else:
+            res.ClearField("file")
+        if Primitive.to_proto(resource.script):
+            res.script = Primitive.to_proto(resource.script)
+        if Primitive.to_proto(resource.args):
+            res.args.extend(Primitive.to_proto(resource.args))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum.to_proto(
+            resource.interpreter
+        ):
+            res.interpreter = OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum.to_proto(
+                resource.interpreter
+            )
+        if Primitive.to_proto(resource.output_file_path):
+            res.output_file_path = Primitive.to_proto(resource.output_file_path)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(
+            file=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile.from_proto(
+                resource.file
+            ),
+            script=Primitive.from_proto(resource.script),
+            args=Primitive.from_proto(resource.args),
+            interpreter=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum.from_proto(
+                resource.interpreter
+            ),
+            output_file_path=Primitive.from_proto(resource.output_file_path),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce.from_proto(i)
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(object):
+    def __init__(
+        self,
+        remote: dict = None,
+        gcs: dict = None,
+        local_path: str = None,
+        allow_insecure: bool = None,
+    ):
+        self.remote = remote
+        self.gcs = gcs
+        self.local_path = local_path
+        self.allow_insecure = allow_insecure
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote.to_proto(
+            resource.remote
+        ):
+            res.remote.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote.to_proto(
+                    resource.remote
+                )
+            )
+        else:
+            res.ClearField("remote")
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs.to_proto(
+            resource.gcs
+        ):
+            res.gcs.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs.to_proto(
+                    resource.gcs
+                )
+            )
+        else:
+            res.ClearField("gcs")
+        if Primitive.to_proto(resource.local_path):
+            res.local_path = Primitive.to_proto(resource.local_path)
+        if Primitive.to_proto(resource.allow_insecure):
+            res.allow_insecure = Primitive.to_proto(resource.allow_insecure)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(
+            remote=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote.from_proto(
+                resource.remote
+            ),
+            gcs=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs.from_proto(
+                resource.gcs
+            ),
+            local_path=Primitive.from_proto(resource.local_path),
+            allow_insecure=Primitive.from_proto(resource.allow_insecure),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(object):
+    def __init__(self, uri: str = None, sha256_checksum: str = None):
+        self.uri = uri
+        self.sha256_checksum = sha256_checksum
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote()
+        )
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        if Primitive.to_proto(resource.sha256_checksum):
+            res.sha256_checksum = Primitive.to_proto(resource.sha256_checksum)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(
+            uri=Primitive.from_proto(resource.uri),
+            sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(object):
+    def __init__(self, bucket: str = None, object: str = None, generation: int = None):
+        self.bucket = bucket
+        self.object = object
+        self.generation = generation
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs()
+        )
+        if Primitive.to_proto(resource.bucket):
+            res.bucket = Primitive.to_proto(resource.bucket)
+        if Primitive.to_proto(resource.object):
+            res.object = Primitive.to_proto(resource.object)
+        if Primitive.to_proto(resource.generation):
+            res.generation = Primitive.to_proto(resource.generation)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(
+            bucket=Primitive.from_proto(resource.bucket),
+            object=Primitive.from_proto(resource.object),
+            generation=Primitive.from_proto(resource.generation),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs.from_proto(
+                i
+            )
+            for i in resources
+        ]
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
@@ -1596,8 +2575,14 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
         res = (
             os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile()
         )
-        if OSPolicyAssignmentFile.to_proto(resource.file):
-            res.file.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.file))
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile.to_proto(
+            resource.file
+        ):
+            res.file.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile.to_proto(
+                    resource.file
+                )
+            )
         else:
             res.ClearField("file")
         if Primitive.to_proto(resource.content):
@@ -1620,7 +2605,9 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(
-            file=OSPolicyAssignmentFile.from_proto(resource.file),
+            file=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile.from_proto(
+                resource.file
+            ),
             content=Primitive.from_proto(resource.content),
             path=Primitive.from_proto(resource.path),
             state=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum.from_proto(
@@ -1644,6 +2631,192 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileArray(object):
     def from_proto(self, resources):
         return [
             OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile.from_proto(i)
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(object):
+    def __init__(
+        self,
+        remote: dict = None,
+        gcs: dict = None,
+        local_path: str = None,
+        allow_insecure: bool = None,
+    ):
+        self.remote = remote
+        self.gcs = gcs
+        self.local_path = local_path
+        self.allow_insecure = allow_insecure
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile()
+        )
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote.to_proto(
+            resource.remote
+        ):
+            res.remote.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote.to_proto(
+                    resource.remote
+                )
+            )
+        else:
+            res.ClearField("remote")
+        if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs.to_proto(
+            resource.gcs
+        ):
+            res.gcs.CopyFrom(
+                OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs.to_proto(
+                    resource.gcs
+                )
+            )
+        else:
+            res.ClearField("gcs")
+        if Primitive.to_proto(resource.local_path):
+            res.local_path = Primitive.to_proto(resource.local_path)
+        if Primitive.to_proto(resource.allow_insecure):
+            res.allow_insecure = Primitive.to_proto(resource.allow_insecure)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(
+            remote=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote.from_proto(
+                resource.remote
+            ),
+            gcs=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs.from_proto(
+                resource.gcs
+            ),
+            local_path=Primitive.from_proto(resource.local_path),
+            allow_insecure=Primitive.from_proto(resource.allow_insecure),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile.from_proto(i)
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(object):
+    def __init__(self, uri: str = None, sha256_checksum: str = None):
+        self.uri = uri
+        self.sha256_checksum = sha256_checksum
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote()
+        )
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        if Primitive.to_proto(resource.sha256_checksum):
+            res.sha256_checksum = Primitive.to_proto(resource.sha256_checksum)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(
+            uri=Primitive.from_proto(resource.uri),
+            sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(object):
+    def __init__(self, bucket: str = None, object: str = None, generation: int = None):
+        self.bucket = bucket
+        self.object = object
+        self.generation = generation
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs()
+        )
+        if Primitive.to_proto(resource.bucket):
+            res.bucket = Primitive.to_proto(resource.bucket)
+        if Primitive.to_proto(resource.object):
+            res.object = Primitive.to_proto(resource.object)
+        if Primitive.to_proto(resource.generation):
+            res.generation = Primitive.to_proto(resource.generation)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(
+            bucket=Primitive.from_proto(resource.bucket),
+            object=Primitive.from_proto(resource.object),
+            generation=Primitive.from_proto(resource.generation),
+        )
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs.from_proto(i)
             for i in resources
         ]
 
@@ -2024,23 +3197,53 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTyp
         ]
 
 
-class OSPolicyAssignmentExecInterpreterEnum(object):
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(
+    object
+):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum.Value(
-            "OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum%s" % resource
+        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum.Value(
+            "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum%s"
+            % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum.Name(
+        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum.Name(
             resource
         )[
-            len("OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum") :
+            len(
+                "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum"
+            ) :
+        ]
+
+
+class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum.Value(
+            "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum.Name(
+            resource
+        )[
+            len(
+                "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum"
+            ) :
         ]
 
 

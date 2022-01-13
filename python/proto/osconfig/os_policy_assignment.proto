@@ -42,12 +42,20 @@ enum OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArc
   OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumDEB_SRC = 3;
 }
 
-enum OsconfigOSPolicyAssignmentExecInterpreterEnum {
-  OsconfigOSPolicyAssignmentExecInterpreterEnumNO_VALUE_DO_NOT_USE = 0;
-  OsconfigOSPolicyAssignmentExecInterpreterEnumINTERPRETER_UNSPECIFIED = 1;
-  OsconfigOSPolicyAssignmentExecInterpreterEnumNONE = 2;
-  OsconfigOSPolicyAssignmentExecInterpreterEnumSHELL = 3;
-  OsconfigOSPolicyAssignmentExecInterpreterEnumPOWERSHELL = 4;
+enum OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumINTERPRETER_UNSPECIFIED = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumNONE = 2;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumSHELL = 3;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumPOWERSHELL = 4;
+}
+
+enum OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumINTERPRETER_UNSPECIFIED = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumNONE = 2;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumSHELL = 3;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumPOWERSHELL = 4;
 }
 
 enum OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
@@ -128,23 +136,23 @@ message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 }
 
 message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
-  OsconfigOSPolicyAssignmentFile source = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource source = 1;
   bool pull_deps = 2;
 }
 
-message OsconfigOSPolicyAssignmentFile {
-  OsconfigOSPolicyAssignmentFileRemote remote = 1;
-  OsconfigOSPolicyAssignmentFileGcs gcs = 2;
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote remote = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs gcs = 2;
   string local_path = 3;
   bool allow_insecure = 4;
 }
 
-message OsconfigOSPolicyAssignmentFileRemote {
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
   string uri = 1;
   string sha256_checksum = 2;
 }
 
-message OsconfigOSPolicyAssignmentFileGcs {
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
   string bucket = 1;
   string object = 2;
   int64 generation = 3;
@@ -159,8 +167,26 @@ message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
 }
 
 message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
-  OsconfigOSPolicyAssignmentFile source = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource source = 1;
   bool pull_deps = 2;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote remote = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs gcs = 2;
+  string local_path = 3;
+  bool allow_insecure = 4;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
+  string uri = 1;
+  string sha256_checksum = 2;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;
 }
 
 message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
@@ -168,8 +194,26 @@ message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
 }
 
 message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
-  OsconfigOSPolicyAssignmentFile source = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource source = 1;
   repeated string properties = 2;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote remote = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs gcs = 2;
+  string local_path = 3;
+  bool allow_insecure = 4;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
+  string uri = 1;
+  string sha256_checksum = 2;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;
 }
 
 message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
@@ -207,24 +251,86 @@ message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo
 }
 
 message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
-  OsconfigOSPolicyAssignmentExec validate = 1;
-  OsconfigOSPolicyAssignmentExec enforce = 2;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate validate = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce enforce = 2;
 }
 
-message OsconfigOSPolicyAssignmentExec {
-  OsconfigOSPolicyAssignmentFile file = 1;
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile file = 1;
   string script = 2;
   repeated string args = 3;
-  OsconfigOSPolicyAssignmentExecInterpreterEnum interpreter = 4;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum interpreter = 4;
   string output_file_path = 5;
 }
 
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote remote = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs gcs = 2;
+  string local_path = 3;
+  bool allow_insecure = 4;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
+  string uri = 1;
+  string sha256_checksum = 2;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile file = 1;
+  string script = 2;
+  repeated string args = 3;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum interpreter = 4;
+  string output_file_path = 5;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote remote = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs gcs = 2;
+  string local_path = 3;
+  bool allow_insecure = 4;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
+  string uri = 1;
+  string sha256_checksum = 2;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;
+}
+
 message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
-  OsconfigOSPolicyAssignmentFile file = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile file = 1;
   string content = 2;
   string path = 3;
   OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum state = 4;
   string permissions = 5;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote remote = 1;
+  OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs gcs = 2;
+  string local_path = 3;
+  bool allow_insecure = 4;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
+  string uri = 1;
+  string sha256_checksum = 2;
+}
+
+message OsconfigOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;
 }
 
 message OsconfigOSPolicyAssignmentInstanceFilter {
