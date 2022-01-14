@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC. All Rights Reserved.
+# Copyright 2022 Google LLC. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,11 +34,12 @@ class Organization(object):
         runtime_type: str = None,
         subscription_type: str = None,
         billing_type: str = None,
+        addons_config: dict = None,
         ca_certificate: str = None,
         runtime_database_encryption_key_name: str = None,
         project_id: str = None,
         state: str = None,
-        parent: str = None,
+        project: str = None,
         service_account_file: str = "",
     ):
 
@@ -50,8 +51,9 @@ class Organization(object):
         self.analytics_region = analytics_region
         self.authorized_network = authorized_network
         self.runtime_type = runtime_type
+        self.addons_config = addons_config
         self.runtime_database_encryption_key_name = runtime_database_encryption_key_name
-        self.parent = parent
+        self.project = project
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -66,12 +68,9 @@ class Organization(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if OrganizationProperties.to_proto(self.properties):
-            request.resource.properties.CopyFrom(
-                OrganizationProperties.to_proto(self.properties)
-            )
-        else:
-            request.resource.ClearField("properties")
+        if Primitive.to_proto(self.properties):
+            request.resource.properties = Primitive.to_proto(self.properties)
+
         if Primitive.to_proto(self.analytics_region):
             request.resource.analytics_region = Primitive.to_proto(
                 self.analytics_region
@@ -87,13 +86,19 @@ class Organization(object):
                 self.runtime_type
             )
 
+        if OrganizationAddonsConfig.to_proto(self.addons_config):
+            request.resource.addons_config.CopyFrom(
+                OrganizationAddonsConfig.to_proto(self.addons_config)
+            )
+        else:
+            request.resource.ClearField("addons_config")
         if Primitive.to_proto(self.runtime_database_encryption_key_name):
             request.resource.runtime_database_encryption_key_name = Primitive.to_proto(
                 self.runtime_database_encryption_key_name
             )
 
-        if Primitive.to_proto(self.parent):
-            request.resource.parent = Primitive.to_proto(self.parent)
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         request.service_account_file = self.service_account_file
 
@@ -105,7 +110,7 @@ class Organization(object):
         self.last_modified_at = Primitive.from_proto(response.last_modified_at)
         self.expires_at = Primitive.from_proto(response.expires_at)
         self.environments = Primitive.from_proto(response.environments)
-        self.properties = OrganizationProperties.from_proto(response.properties)
+        self.properties = Primitive.from_proto(response.properties)
         self.analytics_region = Primitive.from_proto(response.analytics_region)
         self.authorized_network = Primitive.from_proto(response.authorized_network)
         self.runtime_type = OrganizationRuntimeTypeEnum.from_proto(
@@ -117,13 +122,14 @@ class Organization(object):
         self.billing_type = OrganizationBillingTypeEnum.from_proto(
             response.billing_type
         )
+        self.addons_config = OrganizationAddonsConfig.from_proto(response.addons_config)
         self.ca_certificate = Primitive.from_proto(response.ca_certificate)
         self.runtime_database_encryption_key_name = Primitive.from_proto(
             response.runtime_database_encryption_key_name
         )
         self.project_id = Primitive.from_proto(response.project_id)
         self.state = OrganizationStateEnum.from_proto(response.state)
-        self.parent = Primitive.from_proto(response.parent)
+        self.project = Primitive.from_proto(response.project)
 
     def delete(self):
         stub = organization_pb2_grpc.ApigeeOrganizationServiceStub(channel.Channel())
@@ -138,12 +144,9 @@ class Organization(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if OrganizationProperties.to_proto(self.properties):
-            request.resource.properties.CopyFrom(
-                OrganizationProperties.to_proto(self.properties)
-            )
-        else:
-            request.resource.ClearField("properties")
+        if Primitive.to_proto(self.properties):
+            request.resource.properties = Primitive.to_proto(self.properties)
+
         if Primitive.to_proto(self.analytics_region):
             request.resource.analytics_region = Primitive.to_proto(
                 self.analytics_region
@@ -159,13 +162,19 @@ class Organization(object):
                 self.runtime_type
             )
 
+        if OrganizationAddonsConfig.to_proto(self.addons_config):
+            request.resource.addons_config.CopyFrom(
+                OrganizationAddonsConfig.to_proto(self.addons_config)
+            )
+        else:
+            request.resource.ClearField("addons_config")
         if Primitive.to_proto(self.runtime_database_encryption_key_name):
             request.resource.runtime_database_encryption_key_name = Primitive.to_proto(
                 self.runtime_database_encryption_key_name
             )
 
-        if Primitive.to_proto(self.parent):
-            request.resource.parent = Primitive.to_proto(self.parent)
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteApigeeOrganization(request)
 
@@ -174,7 +183,6 @@ class Organization(object):
         stub = organization_pb2_grpc.ApigeeOrganizationServiceStub(channel.Channel())
         request = organization_pb2.ListApigeeOrganizationRequest()
         request.service_account_file = service_account_file
-
         return stub.ListApigeeOrganization(request).items
 
     def to_proto(self):
@@ -185,12 +193,8 @@ class Organization(object):
             resource.display_name = Primitive.to_proto(self.display_name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
-        if OrganizationProperties.to_proto(self.properties):
-            resource.properties.CopyFrom(
-                OrganizationProperties.to_proto(self.properties)
-            )
-        else:
-            resource.ClearField("properties")
+        if Primitive.to_proto(self.properties):
+            resource.properties = Primitive.to_proto(self.properties)
         if Primitive.to_proto(self.analytics_region):
             resource.analytics_region = Primitive.to_proto(self.analytics_region)
         if Primitive.to_proto(self.authorized_network):
@@ -199,29 +203,54 @@ class Organization(object):
             resource.runtime_type = OrganizationRuntimeTypeEnum.to_proto(
                 self.runtime_type
             )
+        if OrganizationAddonsConfig.to_proto(self.addons_config):
+            resource.addons_config.CopyFrom(
+                OrganizationAddonsConfig.to_proto(self.addons_config)
+            )
+        else:
+            resource.ClearField("addons_config")
         if Primitive.to_proto(self.runtime_database_encryption_key_name):
             resource.runtime_database_encryption_key_name = Primitive.to_proto(
                 self.runtime_database_encryption_key_name
             )
-        if Primitive.to_proto(self.parent):
-            resource.parent = Primitive.to_proto(self.parent)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
         return resource
 
 
-class OrganizationProperties(object):
-    def __init__(self, property: list = None):
-        self.property = property
+class OrganizationAddonsConfig(object):
+    def __init__(
+        self, advanced_api_ops_config: dict = None, monetization_config: dict = None
+    ):
+        self.advanced_api_ops_config = advanced_api_ops_config
+        self.monetization_config = monetization_config
 
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return None
 
-        res = organization_pb2.ApigeeOrganizationProperties()
-        if OrganizationPropertiesPropertyArray.to_proto(resource.property):
-            res.property.extend(
-                OrganizationPropertiesPropertyArray.to_proto(resource.property)
+        res = organization_pb2.ApigeeOrganizationAddonsConfig()
+        if OrganizationAddonsConfigAdvancedApiOpsConfig.to_proto(
+            resource.advanced_api_ops_config
+        ):
+            res.advanced_api_ops_config.CopyFrom(
+                OrganizationAddonsConfigAdvancedApiOpsConfig.to_proto(
+                    resource.advanced_api_ops_config
+                )
             )
+        else:
+            res.ClearField("advanced_api_ops_config")
+        if OrganizationAddonsConfigMonetizationConfig.to_proto(
+            resource.monetization_config
+        ):
+            res.monetization_config.CopyFrom(
+                OrganizationAddonsConfigMonetizationConfig.to_proto(
+                    resource.monetization_config
+                )
+            )
+        else:
+            res.ClearField("monetization_config")
         return res
 
     @classmethod
@@ -229,38 +258,40 @@ class OrganizationProperties(object):
         if not resource:
             return None
 
-        return OrganizationProperties(
-            property=OrganizationPropertiesPropertyArray.from_proto(resource.property),
+        return OrganizationAddonsConfig(
+            advanced_api_ops_config=OrganizationAddonsConfigAdvancedApiOpsConfig.from_proto(
+                resource.advanced_api_ops_config
+            ),
+            monetization_config=OrganizationAddonsConfigMonetizationConfig.from_proto(
+                resource.monetization_config
+            ),
         )
 
 
-class OrganizationPropertiesArray(object):
+class OrganizationAddonsConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [OrganizationProperties.to_proto(i) for i in resources]
+        return [OrganizationAddonsConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [OrganizationProperties.from_proto(i) for i in resources]
+        return [OrganizationAddonsConfig.from_proto(i) for i in resources]
 
 
-class OrganizationPropertiesProperty(object):
-    def __init__(self, name: str = None, value: str = None):
-        self.name = name
-        self.value = value
+class OrganizationAddonsConfigAdvancedApiOpsConfig(object):
+    def __init__(self, enabled: bool = None):
+        self.enabled = enabled
 
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return None
 
-        res = organization_pb2.ApigeeOrganizationPropertiesProperty()
-        if Primitive.to_proto(resource.name):
-            res.name = Primitive.to_proto(resource.name)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
+        res = organization_pb2.ApigeeOrganizationAddonsConfigAdvancedApiOpsConfig()
+        if Primitive.to_proto(resource.enabled):
+            res.enabled = Primitive.to_proto(resource.enabled)
         return res
 
     @classmethod
@@ -268,22 +299,66 @@ class OrganizationPropertiesProperty(object):
         if not resource:
             return None
 
-        return OrganizationPropertiesProperty(
-            name=Primitive.from_proto(resource.name),
-            value=Primitive.from_proto(resource.value),
+        return OrganizationAddonsConfigAdvancedApiOpsConfig(
+            enabled=Primitive.from_proto(resource.enabled),
         )
 
 
-class OrganizationPropertiesPropertyArray(object):
+class OrganizationAddonsConfigAdvancedApiOpsConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [OrganizationPropertiesProperty.to_proto(i) for i in resources]
+        return [
+            OrganizationAddonsConfigAdvancedApiOpsConfig.to_proto(i) for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [OrganizationPropertiesProperty.from_proto(i) for i in resources]
+        return [
+            OrganizationAddonsConfigAdvancedApiOpsConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class OrganizationAddonsConfigMonetizationConfig(object):
+    def __init__(self, enabled: bool = None):
+        self.enabled = enabled
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = organization_pb2.ApigeeOrganizationAddonsConfigMonetizationConfig()
+        if Primitive.to_proto(resource.enabled):
+            res.enabled = Primitive.to_proto(resource.enabled)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return OrganizationAddonsConfigMonetizationConfig(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
+
+
+class OrganizationAddonsConfigMonetizationConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            OrganizationAddonsConfigMonetizationConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            OrganizationAddonsConfigMonetizationConfig.from_proto(i) for i in resources
+        ]
 
 
 class OrganizationRuntimeTypeEnum(object):

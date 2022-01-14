@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC. All Rights Reserved.
+# Copyright 2022 Google LLC. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ class Envgroup(object):
         created_at: int = None,
         last_modified_at: int = None,
         state: str = None,
-        organization: str = None,
+        apigee_organization: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
         self.name = name
         self.hostnames = hostnames
-        self.organization = organization
+        self.apigee_organization = apigee_organization
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -44,8 +44,10 @@ class Envgroup(object):
 
         if Primitive.to_proto(self.hostnames):
             request.resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.organization):
-            request.resource.organization = Primitive.to_proto(self.organization)
+        if Primitive.to_proto(self.apigee_organization):
+            request.resource.apigee_organization = Primitive.to_proto(
+                self.apigee_organization
+            )
 
         request.service_account_file = self.service_account_file
 
@@ -55,7 +57,7 @@ class Envgroup(object):
         self.created_at = Primitive.from_proto(response.created_at)
         self.last_modified_at = Primitive.from_proto(response.last_modified_at)
         self.state = EnvgroupStateEnum.from_proto(response.state)
-        self.organization = Primitive.from_proto(response.organization)
+        self.apigee_organization = Primitive.from_proto(response.apigee_organization)
 
     def delete(self):
         stub = envgroup_pb2_grpc.ApigeeEnvgroupServiceStub(channel.Channel())
@@ -66,17 +68,19 @@ class Envgroup(object):
 
         if Primitive.to_proto(self.hostnames):
             request.resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.organization):
-            request.resource.organization = Primitive.to_proto(self.organization)
+        if Primitive.to_proto(self.apigee_organization):
+            request.resource.apigee_organization = Primitive.to_proto(
+                self.apigee_organization
+            )
 
         response = stub.DeleteApigeeEnvgroup(request)
 
     @classmethod
-    def list(self, organization, service_account_file=""):
+    def list(self, apigeeOrganization, service_account_file=""):
         stub = envgroup_pb2_grpc.ApigeeEnvgroupServiceStub(channel.Channel())
         request = envgroup_pb2.ListApigeeEnvgroupRequest()
         request.service_account_file = service_account_file
-        request.Organization = organization
+        request.ApigeeOrganization = apigeeOrganization
 
         return stub.ListApigeeEnvgroup(request).items
 
@@ -86,8 +90,8 @@ class Envgroup(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.hostnames):
             resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.organization):
-            resource.organization = Primitive.to_proto(self.organization)
+        if Primitive.to_proto(self.apigee_organization):
+            resource.apigee_organization = Primitive.to_proto(self.apigee_organization)
         return resource
 
 

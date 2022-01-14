@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	apigeepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/apigee/apigee_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -73,26 +72,36 @@ func ProtoToApigeeOrganizationStateEnum(e apigeepb.ApigeeOrganizationStateEnum) 
 	return nil
 }
 
-// ProtoToOrganizationProperties converts a OrganizationProperties resource from its proto representation.
-func ProtoToApigeeOrganizationProperties(p *apigeepb.ApigeeOrganizationProperties) *apigee.OrganizationProperties {
+// ProtoToOrganizationAddonsConfig converts a OrganizationAddonsConfig object from its proto representation.
+func ProtoToApigeeOrganizationAddonsConfig(p *apigeepb.ApigeeOrganizationAddonsConfig) *apigee.OrganizationAddonsConfig {
 	if p == nil {
 		return nil
 	}
-	obj := &apigee.OrganizationProperties{}
-	for _, r := range p.GetProperty() {
-		obj.Property = append(obj.Property, *ProtoToApigeeOrganizationPropertiesProperty(r))
+	obj := &apigee.OrganizationAddonsConfig{
+		AdvancedApiOpsConfig: ProtoToApigeeOrganizationAddonsConfigAdvancedApiOpsConfig(p.GetAdvancedApiOpsConfig()),
+		MonetizationConfig:   ProtoToApigeeOrganizationAddonsConfigMonetizationConfig(p.GetMonetizationConfig()),
 	}
 	return obj
 }
 
-// ProtoToOrganizationPropertiesProperty converts a OrganizationPropertiesProperty resource from its proto representation.
-func ProtoToApigeeOrganizationPropertiesProperty(p *apigeepb.ApigeeOrganizationPropertiesProperty) *apigee.OrganizationPropertiesProperty {
+// ProtoToOrganizationAddonsConfigAdvancedApiOpsConfig converts a OrganizationAddonsConfigAdvancedApiOpsConfig object from its proto representation.
+func ProtoToApigeeOrganizationAddonsConfigAdvancedApiOpsConfig(p *apigeepb.ApigeeOrganizationAddonsConfigAdvancedApiOpsConfig) *apigee.OrganizationAddonsConfigAdvancedApiOpsConfig {
 	if p == nil {
 		return nil
 	}
-	obj := &apigee.OrganizationPropertiesProperty{
-		Name:  dcl.StringOrNil(p.Name),
-		Value: dcl.StringOrNil(p.Value),
+	obj := &apigee.OrganizationAddonsConfigAdvancedApiOpsConfig{
+		Enabled: dcl.Bool(p.GetEnabled()),
+	}
+	return obj
+}
+
+// ProtoToOrganizationAddonsConfigMonetizationConfig converts a OrganizationAddonsConfigMonetizationConfig object from its proto representation.
+func ProtoToApigeeOrganizationAddonsConfigMonetizationConfig(p *apigeepb.ApigeeOrganizationAddonsConfigMonetizationConfig) *apigee.OrganizationAddonsConfigMonetizationConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &apigee.OrganizationAddonsConfigMonetizationConfig{
+		Enabled: dcl.Bool(p.GetEnabled()),
 	}
 	return obj
 }
@@ -100,23 +109,23 @@ func ProtoToApigeeOrganizationPropertiesProperty(p *apigeepb.ApigeeOrganizationP
 // ProtoToOrganization converts a Organization resource from its proto representation.
 func ProtoToOrganization(p *apigeepb.ApigeeOrganization) *apigee.Organization {
 	obj := &apigee.Organization{
-		Name:                             dcl.StringOrNil(p.Name),
-		DisplayName:                      dcl.StringOrNil(p.DisplayName),
-		Description:                      dcl.StringOrNil(p.Description),
-		CreatedAt:                        dcl.Int64OrNil(p.CreatedAt),
-		LastModifiedAt:                   dcl.Int64OrNil(p.LastModifiedAt),
-		ExpiresAt:                        dcl.Int64OrNil(p.ExpiresAt),
-		Properties:                       ProtoToApigeeOrganizationProperties(p.GetProperties()),
-		AnalyticsRegion:                  dcl.StringOrNil(p.AnalyticsRegion),
-		AuthorizedNetwork:                dcl.StringOrNil(p.AuthorizedNetwork),
+		Name:                             dcl.StringOrNil(p.GetName()),
+		DisplayName:                      dcl.StringOrNil(p.GetDisplayName()),
+		Description:                      dcl.StringOrNil(p.GetDescription()),
+		CreatedAt:                        dcl.Int64OrNil(p.GetCreatedAt()),
+		LastModifiedAt:                   dcl.Int64OrNil(p.GetLastModifiedAt()),
+		ExpiresAt:                        dcl.Int64OrNil(p.GetExpiresAt()),
+		AnalyticsRegion:                  dcl.StringOrNil(p.GetAnalyticsRegion()),
+		AuthorizedNetwork:                dcl.StringOrNil(p.GetAuthorizedNetwork()),
 		RuntimeType:                      ProtoToApigeeOrganizationRuntimeTypeEnum(p.GetRuntimeType()),
 		SubscriptionType:                 ProtoToApigeeOrganizationSubscriptionTypeEnum(p.GetSubscriptionType()),
 		BillingType:                      ProtoToApigeeOrganizationBillingTypeEnum(p.GetBillingType()),
-		CaCertificate:                    dcl.StringOrNil(p.CaCertificate),
-		RuntimeDatabaseEncryptionKeyName: dcl.StringOrNil(p.RuntimeDatabaseEncryptionKeyName),
-		ProjectId:                        dcl.StringOrNil(p.ProjectId),
+		AddonsConfig:                     ProtoToApigeeOrganizationAddonsConfig(p.GetAddonsConfig()),
+		CaCertificate:                    dcl.StringOrNil(p.GetCaCertificate()),
+		RuntimeDatabaseEncryptionKeyName: dcl.StringOrNil(p.GetRuntimeDatabaseEncryptionKeyName()),
+		ProjectId:                        dcl.StringOrNil(p.GetProjectId()),
 		State:                            ProtoToApigeeOrganizationStateEnum(p.GetState()),
-		Parent:                           dcl.StringOrNil(p.Parent),
+		Project:                          dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetEnvironments() {
 		obj.Environments = append(obj.Environments, r)
@@ -168,59 +177,72 @@ func ApigeeOrganizationStateEnumToProto(e *apigee.OrganizationStateEnum) apigeep
 	return apigeepb.ApigeeOrganizationStateEnum(0)
 }
 
-// OrganizationPropertiesToProto converts a OrganizationProperties resource to its proto representation.
-func ApigeeOrganizationPropertiesToProto(o *apigee.OrganizationProperties) *apigeepb.ApigeeOrganizationProperties {
+// OrganizationAddonsConfigToProto converts a OrganizationAddonsConfig object to its proto representation.
+func ApigeeOrganizationAddonsConfigToProto(o *apigee.OrganizationAddonsConfig) *apigeepb.ApigeeOrganizationAddonsConfig {
 	if o == nil {
 		return nil
 	}
-	p := &apigeepb.ApigeeOrganizationProperties{}
-	for _, r := range o.Property {
-		p.Property = append(p.Property, ApigeeOrganizationPropertiesPropertyToProto(&r))
-	}
+	p := &apigeepb.ApigeeOrganizationAddonsConfig{}
+	p.SetAdvancedApiOpsConfig(ApigeeOrganizationAddonsConfigAdvancedApiOpsConfigToProto(o.AdvancedApiOpsConfig))
+	p.SetMonetizationConfig(ApigeeOrganizationAddonsConfigMonetizationConfigToProto(o.MonetizationConfig))
 	return p
 }
 
-// OrganizationPropertiesPropertyToProto converts a OrganizationPropertiesProperty resource to its proto representation.
-func ApigeeOrganizationPropertiesPropertyToProto(o *apigee.OrganizationPropertiesProperty) *apigeepb.ApigeeOrganizationPropertiesProperty {
+// OrganizationAddonsConfigAdvancedApiOpsConfigToProto converts a OrganizationAddonsConfigAdvancedApiOpsConfig object to its proto representation.
+func ApigeeOrganizationAddonsConfigAdvancedApiOpsConfigToProto(o *apigee.OrganizationAddonsConfigAdvancedApiOpsConfig) *apigeepb.ApigeeOrganizationAddonsConfigAdvancedApiOpsConfig {
 	if o == nil {
 		return nil
 	}
-	p := &apigeepb.ApigeeOrganizationPropertiesProperty{
-		Name:  dcl.ValueOrEmptyString(o.Name),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p := &apigeepb.ApigeeOrganizationAddonsConfigAdvancedApiOpsConfig{}
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
+	return p
+}
+
+// OrganizationAddonsConfigMonetizationConfigToProto converts a OrganizationAddonsConfigMonetizationConfig object to its proto representation.
+func ApigeeOrganizationAddonsConfigMonetizationConfigToProto(o *apigee.OrganizationAddonsConfigMonetizationConfig) *apigeepb.ApigeeOrganizationAddonsConfigMonetizationConfig {
+	if o == nil {
+		return nil
 	}
+	p := &apigeepb.ApigeeOrganizationAddonsConfigMonetizationConfig{}
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
 	return p
 }
 
 // OrganizationToProto converts a Organization resource to its proto representation.
 func OrganizationToProto(resource *apigee.Organization) *apigeepb.ApigeeOrganization {
-	p := &apigeepb.ApigeeOrganization{
-		Name:                             dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:                      dcl.ValueOrEmptyString(resource.DisplayName),
-		Description:                      dcl.ValueOrEmptyString(resource.Description),
-		CreatedAt:                        dcl.ValueOrEmptyInt64(resource.CreatedAt),
-		LastModifiedAt:                   dcl.ValueOrEmptyInt64(resource.LastModifiedAt),
-		ExpiresAt:                        dcl.ValueOrEmptyInt64(resource.ExpiresAt),
-		Properties:                       ApigeeOrganizationPropertiesToProto(resource.Properties),
-		AnalyticsRegion:                  dcl.ValueOrEmptyString(resource.AnalyticsRegion),
-		AuthorizedNetwork:                dcl.ValueOrEmptyString(resource.AuthorizedNetwork),
-		RuntimeType:                      ApigeeOrganizationRuntimeTypeEnumToProto(resource.RuntimeType),
-		SubscriptionType:                 ApigeeOrganizationSubscriptionTypeEnumToProto(resource.SubscriptionType),
-		BillingType:                      ApigeeOrganizationBillingTypeEnumToProto(resource.BillingType),
-		CaCertificate:                    dcl.ValueOrEmptyString(resource.CaCertificate),
-		RuntimeDatabaseEncryptionKeyName: dcl.ValueOrEmptyString(resource.RuntimeDatabaseEncryptionKeyName),
-		ProjectId:                        dcl.ValueOrEmptyString(resource.ProjectId),
-		State:                            ApigeeOrganizationStateEnumToProto(resource.State),
-		Parent:                           dcl.ValueOrEmptyString(resource.Parent),
+	p := &apigeepb.ApigeeOrganization{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetCreatedAt(dcl.ValueOrEmptyInt64(resource.CreatedAt))
+	p.SetLastModifiedAt(dcl.ValueOrEmptyInt64(resource.LastModifiedAt))
+	p.SetExpiresAt(dcl.ValueOrEmptyInt64(resource.ExpiresAt))
+	p.SetAnalyticsRegion(dcl.ValueOrEmptyString(resource.AnalyticsRegion))
+	p.SetAuthorizedNetwork(dcl.ValueOrEmptyString(resource.AuthorizedNetwork))
+	p.SetRuntimeType(ApigeeOrganizationRuntimeTypeEnumToProto(resource.RuntimeType))
+	p.SetSubscriptionType(ApigeeOrganizationSubscriptionTypeEnumToProto(resource.SubscriptionType))
+	p.SetBillingType(ApigeeOrganizationBillingTypeEnumToProto(resource.BillingType))
+	p.SetAddonsConfig(ApigeeOrganizationAddonsConfigToProto(resource.AddonsConfig))
+	p.SetCaCertificate(dcl.ValueOrEmptyString(resource.CaCertificate))
+	p.SetRuntimeDatabaseEncryptionKeyName(dcl.ValueOrEmptyString(resource.RuntimeDatabaseEncryptionKeyName))
+	p.SetProjectId(dcl.ValueOrEmptyString(resource.ProjectId))
+	p.SetState(ApigeeOrganizationStateEnumToProto(resource.State))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sEnvironments := make([]string, len(resource.Environments))
+	for i, r := range resource.Environments {
+		sEnvironments[i] = r
 	}
-	for _, r := range resource.Environments {
-		p.Environments = append(p.Environments, r)
+	p.SetEnvironments(sEnvironments)
+	mProperties := make(map[string]string, len(resource.Properties))
+	for k, r := range resource.Properties {
+		mProperties[k] = r
 	}
+	p.SetProperties(mProperties)
 
 	return p
 }
 
-// ApplyOrganization handles the gRPC request by passing it to the underlying Organization Apply() method.
+// applyOrganization handles the gRPC request by passing it to the underlying Organization Apply() method.
 func (s *OrganizationServer) applyOrganization(ctx context.Context, c *apigee.Client, request *apigeepb.ApplyApigeeOrganizationRequest) (*apigeepb.ApigeeOrganization, error) {
 	p := ProtoToOrganization(request.GetResource())
 	res, err := c.ApplyOrganization(ctx, p)
@@ -231,9 +253,9 @@ func (s *OrganizationServer) applyOrganization(ctx context.Context, c *apigee.Cl
 	return r, nil
 }
 
-// ApplyOrganization handles the gRPC request by passing it to the underlying Organization Apply() method.
+// applyApigeeOrganization handles the gRPC request by passing it to the underlying Organization Apply() method.
 func (s *OrganizationServer) ApplyApigeeOrganization(ctx context.Context, request *apigeepb.ApplyApigeeOrganizationRequest) (*apigeepb.ApigeeOrganization, error) {
-	cl, err := createConfigOrganization(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOrganization(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +265,7 @@ func (s *OrganizationServer) ApplyApigeeOrganization(ctx context.Context, reques
 // DeleteOrganization handles the gRPC request by passing it to the underlying Organization Delete() method.
 func (s *OrganizationServer) DeleteApigeeOrganization(ctx context.Context, request *apigeepb.DeleteApigeeOrganizationRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigOrganization(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOrganization(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -253,7 +275,7 @@ func (s *OrganizationServer) DeleteApigeeOrganization(ctx context.Context, reque
 
 // ListApigeeOrganization handles the gRPC request by passing it to the underlying OrganizationList() method.
 func (s *OrganizationServer) ListApigeeOrganization(ctx context.Context, request *apigeepb.ListApigeeOrganizationRequest) (*apigeepb.ListApigeeOrganizationResponse, error) {
-	cl, err := createConfigOrganization(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOrganization(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +289,9 @@ func (s *OrganizationServer) ListApigeeOrganization(ctx context.Context, request
 		rp := OrganizationToProto(r)
 		protos = append(protos, rp)
 	}
-	return &apigeepb.ListApigeeOrganizationResponse{Items: protos}, nil
+	p := &apigeepb.ListApigeeOrganizationResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigOrganization(ctx context.Context, service_account_file string) (*apigee.Client, error) {

@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC. All Rights Reserved.
+# Copyright 2022 Google LLC. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ class Environment(object):
         properties: dict = None,
         display_name: str = None,
         state: str = None,
-        organization: str = None,
+        apigee_organization: str = None,
         service_account_file: str = "",
     ):
 
@@ -37,7 +37,7 @@ class Environment(object):
         self.description = description
         self.properties = properties
         self.display_name = display_name
-        self.organization = organization
+        self.apigee_organization = apigee_organization
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -49,17 +49,16 @@ class Environment(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if EnvironmentProperties.to_proto(self.properties):
-            request.resource.properties.CopyFrom(
-                EnvironmentProperties.to_proto(self.properties)
-            )
-        else:
-            request.resource.ClearField("properties")
+        if Primitive.to_proto(self.properties):
+            request.resource.properties = Primitive.to_proto(self.properties)
+
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
-        if Primitive.to_proto(self.organization):
-            request.resource.organization = Primitive.to_proto(self.organization)
+        if Primitive.to_proto(self.apigee_organization):
+            request.resource.apigee_organization = Primitive.to_proto(
+                self.apigee_organization
+            )
 
         request.service_account_file = self.service_account_file
 
@@ -68,10 +67,10 @@ class Environment(object):
         self.description = Primitive.from_proto(response.description)
         self.created_at = Primitive.from_proto(response.created_at)
         self.last_modified_at = Primitive.from_proto(response.last_modified_at)
-        self.properties = EnvironmentProperties.from_proto(response.properties)
+        self.properties = Primitive.from_proto(response.properties)
         self.display_name = Primitive.from_proto(response.display_name)
         self.state = EnvironmentStateEnum.from_proto(response.state)
-        self.organization = Primitive.from_proto(response.organization)
+        self.apigee_organization = Primitive.from_proto(response.apigee_organization)
 
     def delete(self):
         stub = environment_pb2_grpc.ApigeeEnvironmentServiceStub(channel.Channel())
@@ -83,26 +82,25 @@ class Environment(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if EnvironmentProperties.to_proto(self.properties):
-            request.resource.properties.CopyFrom(
-                EnvironmentProperties.to_proto(self.properties)
-            )
-        else:
-            request.resource.ClearField("properties")
+        if Primitive.to_proto(self.properties):
+            request.resource.properties = Primitive.to_proto(self.properties)
+
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
-        if Primitive.to_proto(self.organization):
-            request.resource.organization = Primitive.to_proto(self.organization)
+        if Primitive.to_proto(self.apigee_organization):
+            request.resource.apigee_organization = Primitive.to_proto(
+                self.apigee_organization
+            )
 
         response = stub.DeleteApigeeEnvironment(request)
 
     @classmethod
-    def list(self, organization, service_account_file=""):
+    def list(self, apigeeOrganization, service_account_file=""):
         stub = environment_pb2_grpc.ApigeeEnvironmentServiceStub(channel.Channel())
         request = environment_pb2.ListApigeeEnvironmentRequest()
         request.service_account_file = service_account_file
-        request.Organization = organization
+        request.ApigeeOrganization = apigeeOrganization
 
         return stub.ListApigeeEnvironment(request).items
 
@@ -112,95 +110,13 @@ class Environment(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
-        if EnvironmentProperties.to_proto(self.properties):
-            resource.properties.CopyFrom(
-                EnvironmentProperties.to_proto(self.properties)
-            )
-        else:
-            resource.ClearField("properties")
+        if Primitive.to_proto(self.properties):
+            resource.properties = Primitive.to_proto(self.properties)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
-        if Primitive.to_proto(self.organization):
-            resource.organization = Primitive.to_proto(self.organization)
+        if Primitive.to_proto(self.apigee_organization):
+            resource.apigee_organization = Primitive.to_proto(self.apigee_organization)
         return resource
-
-
-class EnvironmentProperties(object):
-    def __init__(self, property: list = None):
-        self.property = property
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = environment_pb2.ApigeeEnvironmentProperties()
-        if EnvironmentPropertiesPropertyArray.to_proto(resource.property):
-            res.property.extend(
-                EnvironmentPropertiesPropertyArray.to_proto(resource.property)
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return EnvironmentProperties(
-            property=EnvironmentPropertiesPropertyArray.from_proto(resource.property),
-        )
-
-
-class EnvironmentPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [EnvironmentProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [EnvironmentProperties.from_proto(i) for i in resources]
-
-
-class EnvironmentPropertiesProperty(object):
-    def __init__(self, name: str = None, value: str = None):
-        self.name = name
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = environment_pb2.ApigeeEnvironmentPropertiesProperty()
-        if Primitive.to_proto(resource.name):
-            res.name = Primitive.to_proto(resource.name)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return EnvironmentPropertiesProperty(
-            name=Primitive.from_proto(resource.name),
-            value=Primitive.from_proto(resource.value),
-        )
-
-
-class EnvironmentPropertiesPropertyArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [EnvironmentPropertiesProperty.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [EnvironmentPropertiesProperty.from_proto(i) for i in resources]
 
 
 class EnvironmentStateEnum(object):

@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	apigeepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/apigee/apigee_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -40,11 +39,11 @@ func ProtoToApigeeEnvgroupStateEnum(e apigeepb.ApigeeEnvgroupStateEnum) *apigee.
 // ProtoToEnvgroup converts a Envgroup resource from its proto representation.
 func ProtoToEnvgroup(p *apigeepb.ApigeeEnvgroup) *apigee.Envgroup {
 	obj := &apigee.Envgroup{
-		Name:           dcl.StringOrNil(p.Name),
-		CreatedAt:      dcl.Int64OrNil(p.CreatedAt),
-		LastModifiedAt: dcl.Int64OrNil(p.LastModifiedAt),
-		State:          ProtoToApigeeEnvgroupStateEnum(p.GetState()),
-		Organization:   dcl.StringOrNil(p.Organization),
+		Name:               dcl.StringOrNil(p.GetName()),
+		CreatedAt:          dcl.Int64OrNil(p.GetCreatedAt()),
+		LastModifiedAt:     dcl.Int64OrNil(p.GetLastModifiedAt()),
+		State:              ProtoToApigeeEnvgroupStateEnum(p.GetState()),
+		ApigeeOrganization: dcl.StringOrNil(p.GetApigeeOrganization()),
 	}
 	for _, r := range p.GetHostnames() {
 		obj.Hostnames = append(obj.Hostnames, r)
@@ -65,21 +64,22 @@ func ApigeeEnvgroupStateEnumToProto(e *apigee.EnvgroupStateEnum) apigeepb.Apigee
 
 // EnvgroupToProto converts a Envgroup resource to its proto representation.
 func EnvgroupToProto(resource *apigee.Envgroup) *apigeepb.ApigeeEnvgroup {
-	p := &apigeepb.ApigeeEnvgroup{
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		CreatedAt:      dcl.ValueOrEmptyInt64(resource.CreatedAt),
-		LastModifiedAt: dcl.ValueOrEmptyInt64(resource.LastModifiedAt),
-		State:          ApigeeEnvgroupStateEnumToProto(resource.State),
-		Organization:   dcl.ValueOrEmptyString(resource.Organization),
+	p := &apigeepb.ApigeeEnvgroup{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreatedAt(dcl.ValueOrEmptyInt64(resource.CreatedAt))
+	p.SetLastModifiedAt(dcl.ValueOrEmptyInt64(resource.LastModifiedAt))
+	p.SetState(ApigeeEnvgroupStateEnumToProto(resource.State))
+	p.SetApigeeOrganization(dcl.ValueOrEmptyString(resource.ApigeeOrganization))
+	sHostnames := make([]string, len(resource.Hostnames))
+	for i, r := range resource.Hostnames {
+		sHostnames[i] = r
 	}
-	for _, r := range resource.Hostnames {
-		p.Hostnames = append(p.Hostnames, r)
-	}
+	p.SetHostnames(sHostnames)
 
 	return p
 }
 
-// ApplyEnvgroup handles the gRPC request by passing it to the underlying Envgroup Apply() method.
+// applyEnvgroup handles the gRPC request by passing it to the underlying Envgroup Apply() method.
 func (s *EnvgroupServer) applyEnvgroup(ctx context.Context, c *apigee.Client, request *apigeepb.ApplyApigeeEnvgroupRequest) (*apigeepb.ApigeeEnvgroup, error) {
 	p := ProtoToEnvgroup(request.GetResource())
 	res, err := c.ApplyEnvgroup(ctx, p)
@@ -90,9 +90,9 @@ func (s *EnvgroupServer) applyEnvgroup(ctx context.Context, c *apigee.Client, re
 	return r, nil
 }
 
-// ApplyEnvgroup handles the gRPC request by passing it to the underlying Envgroup Apply() method.
+// applyApigeeEnvgroup handles the gRPC request by passing it to the underlying Envgroup Apply() method.
 func (s *EnvgroupServer) ApplyApigeeEnvgroup(ctx context.Context, request *apigeepb.ApplyApigeeEnvgroupRequest) (*apigeepb.ApigeeEnvgroup, error) {
-	cl, err := createConfigEnvgroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEnvgroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (s *EnvgroupServer) ApplyApigeeEnvgroup(ctx context.Context, request *apige
 // DeleteEnvgroup handles the gRPC request by passing it to the underlying Envgroup Delete() method.
 func (s *EnvgroupServer) DeleteApigeeEnvgroup(ctx context.Context, request *apigeepb.DeleteApigeeEnvgroupRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigEnvgroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEnvgroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -112,12 +112,12 @@ func (s *EnvgroupServer) DeleteApigeeEnvgroup(ctx context.Context, request *apig
 
 // ListApigeeEnvgroup handles the gRPC request by passing it to the underlying EnvgroupList() method.
 func (s *EnvgroupServer) ListApigeeEnvgroup(ctx context.Context, request *apigeepb.ListApigeeEnvgroupRequest) (*apigeepb.ListApigeeEnvgroupResponse, error) {
-	cl, err := createConfigEnvgroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEnvgroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListEnvgroup(ctx, request.Organization)
+	resources, err := cl.ListEnvgroup(ctx, request.GetApigeeOrganization())
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +126,9 @@ func (s *EnvgroupServer) ListApigeeEnvgroup(ctx context.Context, request *apigee
 		rp := EnvgroupToProto(r)
 		protos = append(protos, rp)
 	}
-	return &apigeepb.ListApigeeEnvgroupResponse{Items: protos}, nil
+	p := &apigeepb.ListApigeeEnvgroupResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigEnvgroup(ctx context.Context, service_account_file string) (*apigee.Client, error) {

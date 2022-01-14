@@ -22,6 +22,12 @@ import (
 
 	apikeys_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/alpha_connector"
 
+	apigee_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/connector"
+
+	apigee_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/beta_connector"
+
+	apigee_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/alpha_connector"
+
 	assuredworkloads_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/connector"
 
 	assuredworkloads_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/beta_connector"
@@ -260,6 +266,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	apikeys_beta_connector.RegisterServers(grpcServer)
 
 	apikeys_alpha_connector.RegisterServers(grpcServer)
+
+	apigee_connector.RegisterServers(grpcServer)
+
+	apigee_beta_connector.RegisterServers(grpcServer)
+
+	apigee_alpha_connector.RegisterServers(grpcServer)
 
 	assuredworkloads_connector.RegisterServers(grpcServer)
 

@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 
 enum ApigeeEnvironmentStateEnum {
   ApigeeEnvironmentStateEnumNO_VALUE_DO_NOT_USE = 0;
@@ -31,19 +34,10 @@ message ApigeeEnvironment {
   string description = 2;
   int64 created_at = 3;
   int64 last_modified_at = 4;
-  ApigeeEnvironmentProperties properties = 5;
+  map<string, string> properties = 5;
   string display_name = 6;
   ApigeeEnvironmentStateEnum state = 7;
-  string organization = 8;
-}
-
-message ApigeeEnvironmentProperties {
-  repeated ApigeeEnvironmentPropertiesProperty property = 1;
-}
-
-message ApigeeEnvironmentPropertiesProperty {
-  string name = 1;
-  string value = 2;
+  string apigee_organization = 8;
 }
 
 message ApplyApigeeEnvironmentRequest {
@@ -59,7 +53,7 @@ message DeleteApigeeEnvironmentRequest {
 
 message ListApigeeEnvironmentRequest {
   string service_account_file = 1;
-  string Organization = 2;
+  string ApigeeOrganization = 2;
 }
 
 message ListApigeeEnvironmentResponse {

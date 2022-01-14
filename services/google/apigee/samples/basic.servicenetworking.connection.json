@@ -1,0 +1,5 @@
+{
+  "project": "{{ref:compute.serviceusage.service.json:project}}",
+  "reservedPeeringRanges": ["{{ref:internal.compute.address.json:name}}"],
+  "network": "projects/{{ref:compute.serviceusage.service.json:project}}/global/networks/{{ref:first.compute.network.json:name}}"
+}

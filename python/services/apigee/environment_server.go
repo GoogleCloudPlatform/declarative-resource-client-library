@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	apigeepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/apigee/apigee_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -37,41 +36,16 @@ func ProtoToApigeeEnvironmentStateEnum(e apigeepb.ApigeeEnvironmentStateEnum) *a
 	return nil
 }
 
-// ProtoToEnvironmentProperties converts a EnvironmentProperties resource from its proto representation.
-func ProtoToApigeeEnvironmentProperties(p *apigeepb.ApigeeEnvironmentProperties) *apigee.EnvironmentProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &apigee.EnvironmentProperties{}
-	for _, r := range p.GetProperty() {
-		obj.Property = append(obj.Property, *ProtoToApigeeEnvironmentPropertiesProperty(r))
-	}
-	return obj
-}
-
-// ProtoToEnvironmentPropertiesProperty converts a EnvironmentPropertiesProperty resource from its proto representation.
-func ProtoToApigeeEnvironmentPropertiesProperty(p *apigeepb.ApigeeEnvironmentPropertiesProperty) *apigee.EnvironmentPropertiesProperty {
-	if p == nil {
-		return nil
-	}
-	obj := &apigee.EnvironmentPropertiesProperty{
-		Name:  dcl.StringOrNil(p.Name),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToEnvironment converts a Environment resource from its proto representation.
 func ProtoToEnvironment(p *apigeepb.ApigeeEnvironment) *apigee.Environment {
 	obj := &apigee.Environment{
-		Name:           dcl.StringOrNil(p.Name),
-		Description:    dcl.StringOrNil(p.Description),
-		CreatedAt:      dcl.Int64OrNil(p.CreatedAt),
-		LastModifiedAt: dcl.Int64OrNil(p.LastModifiedAt),
-		Properties:     ProtoToApigeeEnvironmentProperties(p.GetProperties()),
-		DisplayName:    dcl.StringOrNil(p.DisplayName),
-		State:          ProtoToApigeeEnvironmentStateEnum(p.GetState()),
-		Organization:   dcl.StringOrNil(p.Organization),
+		Name:               dcl.StringOrNil(p.GetName()),
+		Description:        dcl.StringOrNil(p.GetDescription()),
+		CreatedAt:          dcl.Int64OrNil(p.GetCreatedAt()),
+		LastModifiedAt:     dcl.Int64OrNil(p.GetLastModifiedAt()),
+		DisplayName:        dcl.StringOrNil(p.GetDisplayName()),
+		State:              ProtoToApigeeEnvironmentStateEnum(p.GetState()),
+		ApigeeOrganization: dcl.StringOrNil(p.GetApigeeOrganization()),
 	}
 	return obj
 }
@@ -87,47 +61,26 @@ func ApigeeEnvironmentStateEnumToProto(e *apigee.EnvironmentStateEnum) apigeepb.
 	return apigeepb.ApigeeEnvironmentStateEnum(0)
 }
 
-// EnvironmentPropertiesToProto converts a EnvironmentProperties resource to its proto representation.
-func ApigeeEnvironmentPropertiesToProto(o *apigee.EnvironmentProperties) *apigeepb.ApigeeEnvironmentProperties {
-	if o == nil {
-		return nil
-	}
-	p := &apigeepb.ApigeeEnvironmentProperties{}
-	for _, r := range o.Property {
-		p.Property = append(p.Property, ApigeeEnvironmentPropertiesPropertyToProto(&r))
-	}
-	return p
-}
-
-// EnvironmentPropertiesPropertyToProto converts a EnvironmentPropertiesProperty resource to its proto representation.
-func ApigeeEnvironmentPropertiesPropertyToProto(o *apigee.EnvironmentPropertiesProperty) *apigeepb.ApigeeEnvironmentPropertiesProperty {
-	if o == nil {
-		return nil
-	}
-	p := &apigeepb.ApigeeEnvironmentPropertiesProperty{
-		Name:  dcl.ValueOrEmptyString(o.Name),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
 // EnvironmentToProto converts a Environment resource to its proto representation.
 func EnvironmentToProto(resource *apigee.Environment) *apigeepb.ApigeeEnvironment {
-	p := &apigeepb.ApigeeEnvironment{
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		Description:    dcl.ValueOrEmptyString(resource.Description),
-		CreatedAt:      dcl.ValueOrEmptyInt64(resource.CreatedAt),
-		LastModifiedAt: dcl.ValueOrEmptyInt64(resource.LastModifiedAt),
-		Properties:     ApigeeEnvironmentPropertiesToProto(resource.Properties),
-		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		State:          ApigeeEnvironmentStateEnumToProto(resource.State),
-		Organization:   dcl.ValueOrEmptyString(resource.Organization),
+	p := &apigeepb.ApigeeEnvironment{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetCreatedAt(dcl.ValueOrEmptyInt64(resource.CreatedAt))
+	p.SetLastModifiedAt(dcl.ValueOrEmptyInt64(resource.LastModifiedAt))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetState(ApigeeEnvironmentStateEnumToProto(resource.State))
+	p.SetApigeeOrganization(dcl.ValueOrEmptyString(resource.ApigeeOrganization))
+	mProperties := make(map[string]string, len(resource.Properties))
+	for k, r := range resource.Properties {
+		mProperties[k] = r
 	}
+	p.SetProperties(mProperties)
 
 	return p
 }
 
-// ApplyEnvironment handles the gRPC request by passing it to the underlying Environment Apply() method.
+// applyEnvironment handles the gRPC request by passing it to the underlying Environment Apply() method.
 func (s *EnvironmentServer) applyEnvironment(ctx context.Context, c *apigee.Client, request *apigeepb.ApplyApigeeEnvironmentRequest) (*apigeepb.ApigeeEnvironment, error) {
 	p := ProtoToEnvironment(request.GetResource())
 	res, err := c.ApplyEnvironment(ctx, p)
@@ -138,9 +91,9 @@ func (s *EnvironmentServer) applyEnvironment(ctx context.Context, c *apigee.Clie
 	return r, nil
 }
 
-// ApplyEnvironment handles the gRPC request by passing it to the underlying Environment Apply() method.
+// applyApigeeEnvironment handles the gRPC request by passing it to the underlying Environment Apply() method.
 func (s *EnvironmentServer) ApplyApigeeEnvironment(ctx context.Context, request *apigeepb.ApplyApigeeEnvironmentRequest) (*apigeepb.ApigeeEnvironment, error) {
-	cl, err := createConfigEnvironment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEnvironment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +103,7 @@ func (s *EnvironmentServer) ApplyApigeeEnvironment(ctx context.Context, request 
 // DeleteEnvironment handles the gRPC request by passing it to the underlying Environment Delete() method.
 func (s *EnvironmentServer) DeleteApigeeEnvironment(ctx context.Context, request *apigeepb.DeleteApigeeEnvironmentRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigEnvironment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEnvironment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -160,12 +113,12 @@ func (s *EnvironmentServer) DeleteApigeeEnvironment(ctx context.Context, request
 
 // ListApigeeEnvironment handles the gRPC request by passing it to the underlying EnvironmentList() method.
 func (s *EnvironmentServer) ListApigeeEnvironment(ctx context.Context, request *apigeepb.ListApigeeEnvironmentRequest) (*apigeepb.ListApigeeEnvironmentResponse, error) {
-	cl, err := createConfigEnvironment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigEnvironment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListEnvironment(ctx, request.Organization)
+	resources, err := cl.ListEnvironment(ctx, request.GetApigeeOrganization())
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +127,9 @@ func (s *EnvironmentServer) ListApigeeEnvironment(ctx context.Context, request *
 		rp := EnvironmentToProto(r)
 		protos = append(protos, rp)
 	}
-	return &apigeepb.ListApigeeEnvironmentResponse{Items: protos}, nil
+	p := &apigeepb.ListApigeeEnvironmentResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigEnvironment(ctx context.Context, service_account_file string) (*apigee.Client, error) {

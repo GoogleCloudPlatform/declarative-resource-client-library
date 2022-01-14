@@ -17,6 +17,9 @@ import (
 	"bytes"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee"
+	apigee_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/alpha"
+	apigee_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys"
 	apikeys_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/alpha"
 	apikeys_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/beta"
@@ -190,6 +193,16 @@ func Services() *Directory {
 	d := &Directory{}
 	d.AddResource("ga", "apikeys", dcl.TitleToSnakeCase("Key"), apikeys.YAML_key)
 	d.AddResource("ga", "apikeys", "Key", apikeys.YAML_key)
+	d.AddResource("ga", "apigee", dcl.TitleToSnakeCase("Attachment"), apigee.YAML_attachment)
+	d.AddResource("ga", "apigee", "Attachment", apigee.YAML_attachment)
+	d.AddResource("ga", "apigee", dcl.TitleToSnakeCase("Envgroup"), apigee.YAML_envgroup)
+	d.AddResource("ga", "apigee", "Envgroup", apigee.YAML_envgroup)
+	d.AddResource("ga", "apigee", dcl.TitleToSnakeCase("Environment"), apigee.YAML_environment)
+	d.AddResource("ga", "apigee", "Environment", apigee.YAML_environment)
+	d.AddResource("ga", "apigee", dcl.TitleToSnakeCase("Instance"), apigee.YAML_instance)
+	d.AddResource("ga", "apigee", "Instance", apigee.YAML_instance)
+	d.AddResource("ga", "apigee", dcl.TitleToSnakeCase("Organization"), apigee.YAML_organization)
+	d.AddResource("ga", "apigee", "Organization", apigee.YAML_organization)
 	d.AddResource("ga", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads.YAML_workload)
 	d.AddResource("ga", "assuredworkloads", "Workload", assuredworkloads.YAML_workload)
 	d.AddResource("ga", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets.YAML_budget)
@@ -350,6 +363,16 @@ func Services() *Directory {
 	d.AddResource("ga", "recaptchaenterprise", "Key", recaptchaenterprise.YAML_key)
 	d.AddResource("beta", "apikeys", dcl.TitleToSnakeCase("Key"), apikeys_beta.YAML_key)
 	d.AddResource("beta", "apikeys", "Key", apikeys_beta.YAML_key)
+	d.AddResource("beta", "apigee", dcl.TitleToSnakeCase("Attachment"), apigee_beta.YAML_attachment)
+	d.AddResource("beta", "apigee", "Attachment", apigee_beta.YAML_attachment)
+	d.AddResource("beta", "apigee", dcl.TitleToSnakeCase("Envgroup"), apigee_beta.YAML_envgroup)
+	d.AddResource("beta", "apigee", "Envgroup", apigee_beta.YAML_envgroup)
+	d.AddResource("beta", "apigee", dcl.TitleToSnakeCase("Environment"), apigee_beta.YAML_environment)
+	d.AddResource("beta", "apigee", "Environment", apigee_beta.YAML_environment)
+	d.AddResource("beta", "apigee", dcl.TitleToSnakeCase("Instance"), apigee_beta.YAML_instance)
+	d.AddResource("beta", "apigee", "Instance", apigee_beta.YAML_instance)
+	d.AddResource("beta", "apigee", dcl.TitleToSnakeCase("Organization"), apigee_beta.YAML_organization)
+	d.AddResource("beta", "apigee", "Organization", apigee_beta.YAML_organization)
 	d.AddResource("beta", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets_beta.YAML_budget)
@@ -532,6 +555,16 @@ func Services() *Directory {
 	d.AddResource("beta", "recaptchaenterprise", "Key", recaptchaenterprise_beta.YAML_key)
 	d.AddResource("alpha", "apikeys", dcl.TitleToSnakeCase("Key"), apikeys_alpha.YAML_key)
 	d.AddResource("alpha", "apikeys", "Key", apikeys_alpha.YAML_key)
+	d.AddResource("alpha", "apigee", dcl.TitleToSnakeCase("Attachment"), apigee_alpha.YAML_attachment)
+	d.AddResource("alpha", "apigee", "Attachment", apigee_alpha.YAML_attachment)
+	d.AddResource("alpha", "apigee", dcl.TitleToSnakeCase("Envgroup"), apigee_alpha.YAML_envgroup)
+	d.AddResource("alpha", "apigee", "Envgroup", apigee_alpha.YAML_envgroup)
+	d.AddResource("alpha", "apigee", dcl.TitleToSnakeCase("Environment"), apigee_alpha.YAML_environment)
+	d.AddResource("alpha", "apigee", "Environment", apigee_alpha.YAML_environment)
+	d.AddResource("alpha", "apigee", dcl.TitleToSnakeCase("Instance"), apigee_alpha.YAML_instance)
+	d.AddResource("alpha", "apigee", "Instance", apigee_alpha.YAML_instance)
+	d.AddResource("alpha", "apigee", dcl.TitleToSnakeCase("Organization"), apigee_alpha.YAML_organization)
+	d.AddResource("alpha", "apigee", "Organization", apigee_alpha.YAML_organization)
 	d.AddResource("alpha", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "assuredworkloads", "Workload", assuredworkloads_alpha.YAML_workload)
 	d.AddResource("alpha", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets_alpha.YAML_budget)

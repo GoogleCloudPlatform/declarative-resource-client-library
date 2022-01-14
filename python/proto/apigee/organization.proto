@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 
 enum ApigeeOrganizationRuntimeTypeEnum {
   ApigeeOrganizationRuntimeTypeEnumNO_VALUE_DO_NOT_USE = 0;
@@ -37,7 +40,6 @@ enum ApigeeOrganizationBillingTypeEnum {
   ApigeeOrganizationBillingTypeEnumBILLING_TYPE_UNSPECIFIED = 1;
   ApigeeOrganizationBillingTypeEnumSUBSCRIPTION = 2;
   ApigeeOrganizationBillingTypeEnumEVALUATION = 3;
-  ApigeeOrganizationBillingTypeEnumPAYG = 4;
 }
 
 enum ApigeeOrganizationStateEnum {
@@ -58,26 +60,31 @@ message ApigeeOrganization {
   int64 last_modified_at = 5;
   int64 expires_at = 6;
   repeated string environments = 7;
-  ApigeeOrganizationProperties properties = 8;
+  map<string, string> properties = 8;
   string analytics_region = 9;
   string authorized_network = 10;
   ApigeeOrganizationRuntimeTypeEnum runtime_type = 11;
   ApigeeOrganizationSubscriptionTypeEnum subscription_type = 12;
   ApigeeOrganizationBillingTypeEnum billing_type = 13;
-  string ca_certificate = 14;
-  string runtime_database_encryption_key_name = 15;
-  string project_id = 16;
-  ApigeeOrganizationStateEnum state = 17;
-  string parent = 18;
+  ApigeeOrganizationAddonsConfig addons_config = 14;
+  string ca_certificate = 15;
+  string runtime_database_encryption_key_name = 16;
+  string project_id = 17;
+  ApigeeOrganizationStateEnum state = 18;
+  string project = 19;
 }
 
-message ApigeeOrganizationProperties {
-  repeated ApigeeOrganizationPropertiesProperty property = 1;
+message ApigeeOrganizationAddonsConfig {
+  ApigeeOrganizationAddonsConfigAdvancedApiOpsConfig advanced_api_ops_config = 1;
+  ApigeeOrganizationAddonsConfigMonetizationConfig monetization_config = 2;
 }
 
-message ApigeeOrganizationPropertiesProperty {
-  string name = 1;
-  string value = 2;
+message ApigeeOrganizationAddonsConfigAdvancedApiOpsConfig {
+  bool enabled = 1;
+}
+
+message ApigeeOrganizationAddonsConfigMonetizationConfig {
+  bool enabled = 1;
 }
 
 message ApplyApigeeOrganizationRequest {

@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,5 +23,6 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterApigeeAttachmentServiceServer(s, &AttachmentServer{})
 	sdkgrpc.RegisterApigeeEnvgroupServiceServer(s, &EnvgroupServer{})
 	sdkgrpc.RegisterApigeeEnvironmentServiceServer(s, &EnvironmentServer{})
+	sdkgrpc.RegisterApigeeInstanceServiceServer(s, &InstanceServer{})
 	sdkgrpc.RegisterApigeeOrganizationServiceServer(s, &OrganizationServer{})
 }

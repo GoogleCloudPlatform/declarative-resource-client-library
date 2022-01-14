@@ -1,0 +1,23 @@
+{
+  "project": "projects/{{ref:apigee.serviceusage.service.json:project}}",
+  "displayName": "basic-organization",
+  "description": "A sample organization",
+  "properties": {
+    "features.mart.connect.enabled": "false",
+    "features.hybrid.enabled": "true"
+  },
+  "analyticsRegion": "{{region}}",
+  "authorizedNetwork": "projects/{{ref:apigee.serviceusage.service.json:project}}/global/networks/{{ref:first.compute.network.json:name}}",
+  "runtimeType": "CLOUD",
+  "addonsConfig": {
+    "advancedApiOpsConfig": {
+      "enabled": true
+    },
+    "integrationConfig": {
+      "enabled": false
+    },
+    "monetizationConfig": {
+      "enabled": false
+    }
+  }
+}

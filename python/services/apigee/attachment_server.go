@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	apigeepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/apigee/apigee_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
@@ -28,27 +27,26 @@ type AttachmentServer struct{}
 // ProtoToAttachment converts a Attachment resource from its proto representation.
 func ProtoToAttachment(p *apigeepb.ApigeeAttachment) *apigee.Attachment {
 	obj := &apigee.Attachment{
-		Name:        dcl.StringOrNil(p.Name),
-		Environment: dcl.StringOrNil(p.Environment),
-		CreatedAt:   dcl.Int64OrNil(p.CreatedAt),
-		Envgroup:    dcl.StringOrNil(p.Envgroup),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Environment: dcl.StringOrNil(p.GetEnvironment()),
+		CreatedAt:   dcl.Int64OrNil(p.GetCreatedAt()),
+		Envgroup:    dcl.StringOrNil(p.GetEnvgroup()),
 	}
 	return obj
 }
 
 // AttachmentToProto converts a Attachment resource to its proto representation.
 func AttachmentToProto(resource *apigee.Attachment) *apigeepb.ApigeeAttachment {
-	p := &apigeepb.ApigeeAttachment{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Environment: dcl.ValueOrEmptyString(resource.Environment),
-		CreatedAt:   dcl.ValueOrEmptyInt64(resource.CreatedAt),
-		Envgroup:    dcl.ValueOrEmptyString(resource.Envgroup),
-	}
+	p := &apigeepb.ApigeeAttachment{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetEnvironment(dcl.ValueOrEmptyString(resource.Environment))
+	p.SetCreatedAt(dcl.ValueOrEmptyInt64(resource.CreatedAt))
+	p.SetEnvgroup(dcl.ValueOrEmptyString(resource.Envgroup))
 
 	return p
 }
 
-// ApplyAttachment handles the gRPC request by passing it to the underlying Attachment Apply() method.
+// applyAttachment handles the gRPC request by passing it to the underlying Attachment Apply() method.
 func (s *AttachmentServer) applyAttachment(ctx context.Context, c *apigee.Client, request *apigeepb.ApplyApigeeAttachmentRequest) (*apigeepb.ApigeeAttachment, error) {
 	p := ProtoToAttachment(request.GetResource())
 	res, err := c.ApplyAttachment(ctx, p)
@@ -59,9 +57,9 @@ func (s *AttachmentServer) applyAttachment(ctx context.Context, c *apigee.Client
 	return r, nil
 }
 
-// ApplyAttachment handles the gRPC request by passing it to the underlying Attachment Apply() method.
+// applyApigeeAttachment handles the gRPC request by passing it to the underlying Attachment Apply() method.
 func (s *AttachmentServer) ApplyApigeeAttachment(ctx context.Context, request *apigeepb.ApplyApigeeAttachmentRequest) (*apigeepb.ApigeeAttachment, error) {
-	cl, err := createConfigAttachment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAttachment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +69,7 @@ func (s *AttachmentServer) ApplyApigeeAttachment(ctx context.Context, request *a
 // DeleteAttachment handles the gRPC request by passing it to the underlying Attachment Delete() method.
 func (s *AttachmentServer) DeleteApigeeAttachment(ctx context.Context, request *apigeepb.DeleteApigeeAttachmentRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigAttachment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAttachment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -81,12 +79,12 @@ func (s *AttachmentServer) DeleteApigeeAttachment(ctx context.Context, request *
 
 // ListApigeeAttachment handles the gRPC request by passing it to the underlying AttachmentList() method.
 func (s *AttachmentServer) ListApigeeAttachment(ctx context.Context, request *apigeepb.ListApigeeAttachmentRequest) (*apigeepb.ListApigeeAttachmentResponse, error) {
-	cl, err := createConfigAttachment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAttachment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListAttachment(ctx, request.Envgroup)
+	resources, err := cl.ListAttachment(ctx, request.GetEnvgroup())
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +93,9 @@ func (s *AttachmentServer) ListApigeeAttachment(ctx context.Context, request *ap
 		rp := AttachmentToProto(r)
 		protos = append(protos, rp)
 	}
-	return &apigeepb.ListApigeeAttachmentResponse{Items: protos}, nil
+	p := &apigeepb.ListApigeeAttachmentResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigAttachment(ctx context.Context, service_account_file string) (*apigee.Client, error) {
