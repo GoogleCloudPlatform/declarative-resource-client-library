@@ -1081,6 +1081,9 @@ components:
             you would simply specify `my-bucket`. If not specified, a managed bucket
             will be created.
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Storage/Bucket
+            field: name
         keySpec:
           type: object
           x-dcl-go-name: KeySpec

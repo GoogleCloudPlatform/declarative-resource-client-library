@@ -805,7 +805,7 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 		canonicalDesired.Lifetime = rawDesired.Lifetime
 	}
 	canonicalDesired.KeySpec = canonicalizeCertificateAuthorityKeySpec(rawDesired.KeySpec, rawInitial.KeySpec, opts...)
-	if dcl.StringCanonicalize(rawDesired.GcsBucket, rawInitial.GcsBucket) {
+	if dcl.NameToSelfLink(rawDesired.GcsBucket, rawInitial.GcsBucket) {
 		canonicalDesired.GcsBucket = rawInitial.GcsBucket
 	} else {
 		canonicalDesired.GcsBucket = rawDesired.GcsBucket
@@ -902,7 +902,7 @@ func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *Cer
 	if dcl.IsNotReturnedByServer(rawNew.GcsBucket) && dcl.IsNotReturnedByServer(rawDesired.GcsBucket) {
 		rawNew.GcsBucket = rawDesired.GcsBucket
 	} else {
-		if dcl.StringCanonicalize(rawDesired.GcsBucket, rawNew.GcsBucket) {
+		if dcl.NameToSelfLink(rawDesired.GcsBucket, rawNew.GcsBucket) {
 			rawNew.GcsBucket = rawDesired.GcsBucket
 		}
 	}
@@ -6012,7 +6012,7 @@ func diffCertificateAuthority(c *Client, desired, actual *CertificateAuthority, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GcsBucket, actual.GcsBucket, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcsBucket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GcsBucket, actual.GcsBucket, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcsBucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
