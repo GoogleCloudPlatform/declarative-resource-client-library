@@ -31,9 +31,6 @@ func (r *Trigger) validate() error {
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "matchingCriteria"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "destination"); err != nil {
 		return err
 	}
@@ -56,12 +53,9 @@ func (r *Trigger) validate() error {
 	return nil
 }
 func (r *TriggerMatchingCriteria) validate() error {
-	if err := dcl.Required(r, "attribute"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "value"); err != nil {
-		return err
-	}
+	return nil
+}
+func (r *TriggerEventFilters) validate() error {
 	return nil
 }
 func (r *TriggerDestination) validate() error {
@@ -157,7 +151,12 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["eventFilters"] = v
+	}
+	if v, err := expandTriggerEventFiltersSlice(c, f.EventFilters); err != nil {
+		return nil, fmt.Errorf("error expanding EventFilters into eventFilters: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["eventFilters"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
@@ -523,6 +522,7 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 		canonicalDesired.Name = rawDesired.Name
 	}
 	canonicalDesired.MatchingCriteria = canonicalizeTriggerMatchingCriteriaSlice(rawDesired.MatchingCriteria, rawInitial.MatchingCriteria, opts...)
+	canonicalDesired.EventFilters = canonicalizeTriggerEventFiltersSlice(rawDesired.EventFilters, rawInitial.EventFilters, opts...)
 	if dcl.NameToSelfLink(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
 		canonicalDesired.ServiceAccount = rawInitial.ServiceAccount
 	} else {
@@ -581,6 +581,12 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 		rawNew.MatchingCriteria = rawDesired.MatchingCriteria
 	} else {
 		rawNew.MatchingCriteria = canonicalizeNewTriggerMatchingCriteriaSet(c, rawDesired.MatchingCriteria, rawNew.MatchingCriteria)
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.EventFilters) && dcl.IsNotReturnedByServer(rawDesired.EventFilters) {
+		rawNew.EventFilters = rawDesired.EventFilters
+	} else {
+		rawNew.EventFilters = canonicalizeNewTriggerEventFiltersSet(c, rawDesired.EventFilters, rawNew.EventFilters)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServiceAccount) && dcl.IsNotReturnedByServer(rawDesired.ServiceAccount) {
@@ -741,6 +747,129 @@ func canonicalizeNewTriggerMatchingCriteriaSlice(c *Client, des, nw []TriggerMat
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewTriggerMatchingCriteria(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeTriggerEventFilters(des, initial *TriggerEventFilters, opts ...dcl.ApplyOption) *TriggerEventFilters {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &TriggerEventFilters{}
+
+	if dcl.StringCanonicalize(des.Attribute, initial.Attribute) || dcl.IsZeroValue(des.Attribute) {
+		cDes.Attribute = initial.Attribute
+	} else {
+		cDes.Attribute = des.Attribute
+	}
+	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
+	}
+
+	return cDes
+}
+
+func canonicalizeTriggerEventFiltersSlice(des, initial []TriggerEventFilters, opts ...dcl.ApplyOption) []TriggerEventFilters {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TriggerEventFilters, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTriggerEventFilters(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TriggerEventFilters, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTriggerEventFilters(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewTriggerEventFilters(c *Client, des, nw *TriggerEventFilters) *TriggerEventFilters {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for TriggerEventFilters while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Attribute, nw.Attribute) {
+		nw.Attribute = des.Attribute
+	}
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
+		nw.Value = des.Value
+	}
+
+	return nw
+}
+
+func canonicalizeNewTriggerEventFiltersSet(c *Client, des, nw []TriggerEventFilters) []TriggerEventFilters {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []TriggerEventFilters
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareTriggerEventFiltersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewTriggerEventFiltersSlice(c *Client, des, nw []TriggerEventFilters) []TriggerEventFilters {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []TriggerEventFilters
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerEventFilters(c, &d, &n))
 	}
 
 	return items
@@ -1274,6 +1403,13 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.EventFilters, actual.EventFilters, dcl.Info{Type: "Set", ObjectFunction: compareTriggerEventFiltersNewStyle, EmptyObject: EmptyTriggerEventFilters, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("EventFilters")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1341,6 +1477,42 @@ func compareTriggerMatchingCriteriaNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actualNotPointer, ok := a.(TriggerMatchingCriteria)
 		if !ok {
 			return nil, fmt.Errorf("obj %v is not a TriggerMatchingCriteria", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Attribute, actual.Attribute, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Attribute")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareTriggerEventFiltersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerEventFilters)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerEventFilters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerEventFilters or *TriggerEventFilters", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerEventFilters)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerEventFilters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerEventFilters", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -1574,7 +1746,12 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
-	} else {
+	} else if v != nil {
+		m["eventFilters"] = v
+	}
+	if v, err := expandTriggerEventFiltersSlice(c, f.EventFilters); err != nil {
+		return nil, fmt.Errorf("error expanding EventFilters into eventFilters: %w", err)
+	} else if v != nil {
 		m["eventFilters"] = v
 	}
 	if v := f.ServiceAccount; dcl.ValueShouldBeSent(v) {
@@ -1624,6 +1801,7 @@ func flattenTrigger(c *Client, i interface{}) *Trigger {
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["eventFilters"])
+	res.EventFilters = flattenTriggerEventFiltersSlice(c, m["eventFilters"])
 	res.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	res.Destination = flattenTriggerDestination(c, m["destination"])
 	res.Transport = flattenTriggerTransport(c, m["transport"])
@@ -1746,6 +1924,124 @@ func flattenTriggerMatchingCriteria(c *Client, i interface{}) *TriggerMatchingCr
 
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTriggerMatchingCriteria
+	}
+	r.Attribute = dcl.FlattenString(m["attribute"])
+	r.Value = dcl.FlattenString(m["value"])
+
+	return r
+}
+
+// expandTriggerEventFiltersMap expands the contents of TriggerEventFilters into a JSON
+// request object.
+func expandTriggerEventFiltersMap(c *Client, f map[string]TriggerEventFilters) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTriggerEventFilters(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTriggerEventFiltersSlice expands the contents of TriggerEventFilters into a JSON
+// request object.
+func expandTriggerEventFiltersSlice(c *Client, f []TriggerEventFilters) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTriggerEventFilters(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTriggerEventFiltersMap flattens the contents of TriggerEventFilters from a JSON
+// response object.
+func flattenTriggerEventFiltersMap(c *Client, i interface{}) map[string]TriggerEventFilters {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TriggerEventFilters{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TriggerEventFilters{}
+	}
+
+	items := make(map[string]TriggerEventFilters)
+	for k, item := range a {
+		items[k] = *flattenTriggerEventFilters(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenTriggerEventFiltersSlice flattens the contents of TriggerEventFilters from a JSON
+// response object.
+func flattenTriggerEventFiltersSlice(c *Client, i interface{}) []TriggerEventFilters {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TriggerEventFilters{}
+	}
+
+	if len(a) == 0 {
+		return []TriggerEventFilters{}
+	}
+
+	items := make([]TriggerEventFilters, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTriggerEventFilters(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandTriggerEventFilters expands an instance of TriggerEventFilters into a JSON
+// request object.
+func expandTriggerEventFilters(c *Client, f *TriggerEventFilters) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Attribute; !dcl.IsEmptyValueIndirect(v) {
+		m["attribute"] = v
+	}
+	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
+		m["value"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTriggerEventFilters flattens an instance of TriggerEventFilters from a JSON
+// response object.
+func flattenTriggerEventFilters(c *Client, i interface{}) *TriggerEventFilters {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TriggerEventFilters{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerEventFilters
 	}
 	r.Attribute = dcl.FlattenString(m["attribute"])
 	r.Value = dcl.FlattenString(m["value"])
@@ -2345,6 +2641,9 @@ func extractTriggerFields(r *Trigger) error {
 func extractTriggerMatchingCriteriaFields(r *Trigger, o *TriggerMatchingCriteria) error {
 	return nil
 }
+func extractTriggerEventFiltersFields(r *Trigger, o *TriggerEventFilters) error {
+	return nil
+}
 func extractTriggerDestinationFields(r *Trigger, o *TriggerDestination) error {
 	vCloudRunService := o.CloudRunService
 	if vCloudRunService == nil {
@@ -2406,6 +2705,9 @@ func postReadExtractTriggerFields(r *Trigger) error {
 	return nil
 }
 func postReadExtractTriggerMatchingCriteriaFields(r *Trigger, o *TriggerMatchingCriteria) error {
+	return nil
+}
+func postReadExtractTriggerEventFiltersFields(r *Trigger, o *TriggerEventFilters) error {
 	return nil
 }
 func postReadExtractTriggerDestinationFields(r *Trigger, o *TriggerDestination) error {

@@ -36,6 +36,18 @@ func ProtoToEventarcAlphaTriggerMatchingCriteria(p *alphapb.EventarcAlphaTrigger
 	return obj
 }
 
+// ProtoToTriggerEventFilters converts a TriggerEventFilters object from its proto representation.
+func ProtoToEventarcAlphaTriggerEventFilters(p *alphapb.EventarcAlphaTriggerEventFilters) *alpha.TriggerEventFilters {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.TriggerEventFilters{
+		Attribute: dcl.StringOrNil(p.GetAttribute()),
+		Value:     dcl.StringOrNil(p.GetValue()),
+	}
+	return obj
+}
+
 // ProtoToTriggerDestination converts a TriggerDestination object from its proto representation.
 func ProtoToEventarcAlphaTriggerDestination(p *alphapb.EventarcAlphaTriggerDestination) *alpha.TriggerDestination {
 	if p == nil {
@@ -101,6 +113,9 @@ func ProtoToTrigger(p *alphapb.EventarcAlphaTrigger) *alpha.Trigger {
 	for _, r := range p.GetMatchingCriteria() {
 		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcAlphaTriggerMatchingCriteria(r))
 	}
+	for _, r := range p.GetEventFilters() {
+		obj.EventFilters = append(obj.EventFilters, *ProtoToEventarcAlphaTriggerEventFilters(r))
+	}
 	return obj
 }
 
@@ -110,6 +125,17 @@ func EventarcAlphaTriggerMatchingCriteriaToProto(o *alpha.TriggerMatchingCriteri
 		return nil
 	}
 	p := &alphapb.EventarcAlphaTriggerMatchingCriteria{}
+	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
+	return p
+}
+
+// TriggerEventFiltersToProto converts a TriggerEventFilters object to its proto representation.
+func EventarcAlphaTriggerEventFiltersToProto(o *alpha.TriggerEventFilters) *alphapb.EventarcAlphaTriggerEventFilters {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.EventarcAlphaTriggerEventFilters{}
 	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
 	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
@@ -177,6 +203,11 @@ func TriggerToProto(resource *alpha.Trigger) *alphapb.EventarcAlphaTrigger {
 		sMatchingCriteria[i] = EventarcAlphaTriggerMatchingCriteriaToProto(&r)
 	}
 	p.SetMatchingCriteria(sMatchingCriteria)
+	sEventFilters := make([]*alphapb.EventarcAlphaTriggerEventFilters, len(resource.EventFilters))
+	for i, r := range resource.EventFilters {
+		sEventFilters[i] = EventarcAlphaTriggerEventFiltersToProto(&r)
+	}
+	p.SetEventFilters(sEventFilters)
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r
