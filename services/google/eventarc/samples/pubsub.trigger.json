@@ -11,7 +11,7 @@
   },
   "transport": {
     "pubsub": {
-     "topic": "projects/{{project}}/topics/{{ref:basic.pubsub.topic.json:name}}"
+     "topic": "{{ref:basic.pubsub.topic.json:name}}"
     }
   },
   "serviceAccount": "{{service_account}}",
