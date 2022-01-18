@@ -26,7 +26,6 @@ class Trigger(object):
         create_time: str = None,
         update_time: str = None,
         matching_criteria: list = None,
-        event_filters: list = None,
         service_account: str = None,
         destination: dict = None,
         transport: dict = None,
@@ -40,7 +39,6 @@ class Trigger(object):
         channel.initialize()
         self.name = name
         self.matching_criteria = matching_criteria
-        self.event_filters = event_filters
         self.service_account = service_account
         self.destination = destination
         self.transport = transport
@@ -58,10 +56,6 @@ class Trigger(object):
         if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
             request.resource.matching_criteria.extend(
                 TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
-            )
-        if TriggerEventFiltersArray.to_proto(self.event_filters):
-            request.resource.event_filters.extend(
-                TriggerEventFiltersArray.to_proto(self.event_filters)
             )
         if Primitive.to_proto(self.service_account):
             request.resource.service_account = Primitive.to_proto(self.service_account)
@@ -97,7 +91,6 @@ class Trigger(object):
         self.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
             response.matching_criteria
         )
-        self.event_filters = TriggerEventFiltersArray.from_proto(response.event_filters)
         self.service_account = Primitive.from_proto(response.service_account)
         self.destination = TriggerDestination.from_proto(response.destination)
         self.transport = TriggerTransport.from_proto(response.transport)
@@ -116,10 +109,6 @@ class Trigger(object):
         if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
             request.resource.matching_criteria.extend(
                 TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
-            )
-        if TriggerEventFiltersArray.to_proto(self.event_filters):
-            request.resource.event_filters.extend(
-                TriggerEventFiltersArray.to_proto(self.event_filters)
             )
         if Primitive.to_proto(self.service_account):
             request.resource.service_account = Primitive.to_proto(self.service_account)
@@ -165,10 +154,6 @@ class Trigger(object):
         if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
             resource.matching_criteria.extend(
                 TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
-            )
-        if TriggerEventFiltersArray.to_proto(self.event_filters):
-            resource.event_filters.extend(
-                TriggerEventFiltersArray.to_proto(self.event_filters)
             )
         if Primitive.to_proto(self.service_account):
             resource.service_account = Primitive.to_proto(self.service_account)
@@ -227,46 +212,6 @@ class TriggerMatchingCriteriaArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TriggerMatchingCriteria.from_proto(i) for i in resources]
-
-
-class TriggerEventFilters(object):
-    def __init__(self, attribute: str = None, value: str = None):
-        self.attribute = attribute
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = trigger_pb2.EventarcAlphaTriggerEventFilters()
-        if Primitive.to_proto(resource.attribute):
-            res.attribute = Primitive.to_proto(resource.attribute)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return TriggerEventFilters(
-            attribute=Primitive.from_proto(resource.attribute),
-            value=Primitive.from_proto(resource.value),
-        )
-
-
-class TriggerEventFiltersArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [TriggerEventFilters.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [TriggerEventFilters.from_proto(i) for i in resources]
 
 
 class TriggerDestination(object):

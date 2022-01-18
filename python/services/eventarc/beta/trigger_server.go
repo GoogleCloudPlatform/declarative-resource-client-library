@@ -36,18 +36,6 @@ func ProtoToEventarcBetaTriggerMatchingCriteria(p *betapb.EventarcBetaTriggerMat
 	return obj
 }
 
-// ProtoToTriggerEventFilters converts a TriggerEventFilters object from its proto representation.
-func ProtoToEventarcBetaTriggerEventFilters(p *betapb.EventarcBetaTriggerEventFilters) *beta.TriggerEventFilters {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.TriggerEventFilters{
-		Attribute: dcl.StringOrNil(p.GetAttribute()),
-		Value:     dcl.StringOrNil(p.GetValue()),
-	}
-	return obj
-}
-
 // ProtoToTriggerDestination converts a TriggerDestination object from its proto representation.
 func ProtoToEventarcBetaTriggerDestination(p *betapb.EventarcBetaTriggerDestination) *beta.TriggerDestination {
 	if p == nil {
@@ -113,9 +101,6 @@ func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 	for _, r := range p.GetMatchingCriteria() {
 		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcBetaTriggerMatchingCriteria(r))
 	}
-	for _, r := range p.GetEventFilters() {
-		obj.EventFilters = append(obj.EventFilters, *ProtoToEventarcBetaTriggerEventFilters(r))
-	}
 	return obj
 }
 
@@ -125,17 +110,6 @@ func EventarcBetaTriggerMatchingCriteriaToProto(o *beta.TriggerMatchingCriteria)
 		return nil
 	}
 	p := &betapb.EventarcBetaTriggerMatchingCriteria{}
-	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
-	p.SetValue(dcl.ValueOrEmptyString(o.Value))
-	return p
-}
-
-// TriggerEventFiltersToProto converts a TriggerEventFilters object to its proto representation.
-func EventarcBetaTriggerEventFiltersToProto(o *beta.TriggerEventFilters) *betapb.EventarcBetaTriggerEventFilters {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.EventarcBetaTriggerEventFilters{}
 	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
 	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
@@ -203,11 +177,6 @@ func TriggerToProto(resource *beta.Trigger) *betapb.EventarcBetaTrigger {
 		sMatchingCriteria[i] = EventarcBetaTriggerMatchingCriteriaToProto(&r)
 	}
 	p.SetMatchingCriteria(sMatchingCriteria)
-	sEventFilters := make([]*betapb.EventarcBetaTriggerEventFilters, len(resource.EventFilters))
-	for i, r := range resource.EventFilters {
-		sEventFilters[i] = EventarcBetaTriggerEventFiltersToProto(&r)
-	}
-	p.SetEventFilters(sEventFilters)
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r

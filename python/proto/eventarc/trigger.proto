@@ -27,22 +27,16 @@ message EventarcTrigger {
   string create_time = 3;
   string update_time = 4;
   repeated EventarcTriggerMatchingCriteria matching_criteria = 5;
-  repeated EventarcTriggerEventFilters event_filters = 6;
-  string service_account = 7;
-  EventarcTriggerDestination destination = 8;
-  EventarcTriggerTransport transport = 9;
-  map<string, string> labels = 10;
-  string etag = 11;
-  string project = 12;
-  string location = 13;
+  string service_account = 6;
+  EventarcTriggerDestination destination = 7;
+  EventarcTriggerTransport transport = 8;
+  map<string, string> labels = 9;
+  string etag = 10;
+  string project = 11;
+  string location = 12;
 }
 
 message EventarcTriggerMatchingCriteria {
-  string attribute = 1;
-  string value = 2;
-}
-
-message EventarcTriggerEventFilters {
   string attribute = 1;
   string value = 2;
 }

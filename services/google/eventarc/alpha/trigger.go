@@ -30,7 +30,6 @@ type Trigger struct {
 	CreateTime       *string                   `json:"createTime"`
 	UpdateTime       *string                   `json:"updateTime"`
 	MatchingCriteria []TriggerMatchingCriteria `json:"matchingCriteria"`
-	EventFilters     []TriggerEventFilters     `json:"eventFilters"`
 	ServiceAccount   *string                   `json:"serviceAccount"`
 	Destination      *TriggerDestination       `json:"destination"`
 	Transport        *TriggerTransport         `json:"transport"`
@@ -87,55 +86,6 @@ func (r *TriggerMatchingCriteria) String() string {
 }
 
 func (r *TriggerMatchingCriteria) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type TriggerEventFilters struct {
-	empty     bool    `json:"-"`
-	Attribute *string `json:"attribute"`
-	Value     *string `json:"value"`
-}
-
-type jsonTriggerEventFilters TriggerEventFilters
-
-func (r *TriggerEventFilters) UnmarshalJSON(data []byte) error {
-	var res jsonTriggerEventFilters
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyTriggerEventFilters
-	} else {
-
-		r.Attribute = res.Attribute
-
-		r.Value = res.Value
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this TriggerEventFilters is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyTriggerEventFilters *TriggerEventFilters = &TriggerEventFilters{empty: true}
-
-func (r *TriggerEventFilters) Empty() bool {
-	return r.empty
-}
-
-func (r *TriggerEventFilters) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *TriggerEventFilters) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -359,7 +309,6 @@ func (r *Trigger) ID() (string, error) {
 		"createTime":       dcl.ValueOrEmptyString(nr.CreateTime),
 		"updateTime":       dcl.ValueOrEmptyString(nr.UpdateTime),
 		"matchingCriteria": dcl.ValueOrEmptyString(nr.MatchingCriteria),
-		"eventFilters":     dcl.ValueOrEmptyString(nr.EventFilters),
 		"serviceAccount":   dcl.ValueOrEmptyString(nr.ServiceAccount),
 		"destination":      dcl.ValueOrEmptyString(nr.Destination),
 		"transport":        dcl.ValueOrEmptyString(nr.Transport),
