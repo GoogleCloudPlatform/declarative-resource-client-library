@@ -888,7 +888,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("%s/roles/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Title; dcl.ValueShouldBeSent(v) {
@@ -899,7 +899,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	}
 	if v, err := expandRoleLocalizedValues(c, f.LocalizedValues); err != nil {
 		return nil, fmt.Errorf("error expanding LocalizedValues into localizedValues: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["localizedValues"] = v
 	}
 	if v := f.LifecyclePhase; dcl.ValueShouldBeSent(v) {
@@ -911,7 +911,9 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	if v := f.GroupTitle; dcl.ValueShouldBeSent(v) {
 		m["groupTitle"] = v
 	}
-	m["includedPermissions"] = f.IncludedPermissions
+	if v := f.IncludedPermissions; v != nil {
+		m["includedPermissions"] = v
+	}
 	if v := f.Stage; dcl.ValueShouldBeSent(v) {
 		m["stage"] = v
 	}
@@ -921,10 +923,12 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	if v := f.Deleted; dcl.ValueShouldBeSent(v) {
 		m["deleted"] = v
 	}
-	m["includedRoles"] = f.IncludedRoles
+	if v := f.IncludedRoles; v != nil {
+		m["includedRoles"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
 

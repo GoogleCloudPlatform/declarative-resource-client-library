@@ -8404,7 +8404,7 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -8412,27 +8412,27 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	}
 	if v, err := expandDashboardGridLayout(c, f.GridLayout); err != nil {
 		return nil, fmt.Errorf("error expanding GridLayout into gridLayout: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gridLayout"] = v
 	}
 	if v, err := expandDashboardMosaicLayout(c, f.MosaicLayout); err != nil {
 		return nil, fmt.Errorf("error expanding MosaicLayout into mosaicLayout: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mosaicLayout"] = v
 	}
 	if v, err := expandDashboardRowLayout(c, f.RowLayout); err != nil {
 		return nil, fmt.Errorf("error expanding RowLayout into rowLayout: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rowLayout"] = v
 	}
 	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
 		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["columnLayout"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

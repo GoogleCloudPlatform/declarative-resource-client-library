@@ -858,7 +858,7 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -866,12 +866,12 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	}
 	if v, err := expandServiceCustom(c, f.Custom); err != nil {
 		return nil, fmt.Errorf("error expanding Custom into custom: %w", err)
-	} else {
+	} else if v != nil {
 		m["custom"] = v
 	}
 	if v, err := expandServiceTelemetry(c, f.Telemetry); err != nil {
 		return nil, fmt.Errorf("error expanding Telemetry into telemetry: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["telemetry"] = v
 	}
 	if v := f.UserLabels; dcl.ValueShouldBeSent(v) {
@@ -879,7 +879,7 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

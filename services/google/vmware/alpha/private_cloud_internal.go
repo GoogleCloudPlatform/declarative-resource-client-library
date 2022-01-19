@@ -1963,7 +1963,7 @@ func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, err
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/privateClouds/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -1971,12 +1971,12 @@ func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, err
 	}
 	if v, err := expandPrivateCloudNetworkConfig(c, f.NetworkConfig); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["networkConfig"] = v
 	}
 	if v, err := expandPrivateCloudManagementCluster(c, f.ManagementCluster); err != nil {
 		return nil, fmt.Errorf("error expanding ManagementCluster into managementCluster: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["managementCluster"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1984,12 +1984,12 @@ func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, err
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

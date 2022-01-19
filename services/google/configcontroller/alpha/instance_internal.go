@@ -1273,7 +1273,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceBundlesConfig(c, f.BundlesConfig); err != nil {
 		return nil, fmt.Errorf("error expanding BundlesConfig into bundlesConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["bundlesConfig"] = v
 	}
 	if v := f.UsePrivateEndpoint; dcl.ValueShouldBeSent(v) {
@@ -1281,17 +1281,17 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceManagementConfig(c, f.ManagementConfig); err != nil {
 		return nil, fmt.Errorf("error expanding ManagementConfig into managementConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["managementConfig"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

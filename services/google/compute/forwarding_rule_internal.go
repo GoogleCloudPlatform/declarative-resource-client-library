@@ -1529,12 +1529,12 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	}
 	if v, err := dcl.FalseToNil(f.AllPorts); err != nil {
 		return nil, fmt.Errorf("error expanding AllPorts into allPorts: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["allPorts"] = v
 	}
 	if v, err := dcl.FalseToNil(f.AllowGlobalAccess); err != nil {
 		return nil, fmt.Errorf("error expanding AllowGlobalAccess into allowGlobalAccess: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["allowGlobalAccess"] = v
 	}
 	if v := f.BackendService; dcl.ValueShouldBeSent(v) {
@@ -1554,7 +1554,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	}
 	if v, err := dcl.FalseToNil(f.IsMirroringCollector); err != nil {
 		return nil, fmt.Errorf("error expanding IsMirroringCollector into isMirroringCollector: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["isMirroringCollector"] = v
 	}
 	if v := f.LoadBalancingScheme; dcl.ValueShouldBeSent(v) {
@@ -1562,7 +1562,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	}
 	if v, err := expandForwardingRuleMetadataFilterSlice(c, f.MetadataFilter); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataFilter into metadataFilters: %w", err)
-	} else {
+	} else if v != nil {
 		m["metadataFilters"] = v
 	}
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
@@ -1570,7 +1570,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	}
 	if v, err := dcl.DeriveField("global/networks/%s", f.Network, dcl.SelfLinkToName(f.Network)); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
 	if v := f.NetworkTier; dcl.ValueShouldBeSent(v) {
@@ -1579,7 +1579,9 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.PortRange; dcl.ValueShouldBeSent(v) {
 		m["portRange"] = v
 	}
-	m["ports"] = f.Ports
+	if v := f.Ports; v != nil {
+		m["ports"] = v
+	}
 	if v := f.Region; dcl.ValueShouldBeSent(v) {
 		m["region"] = v
 	}
@@ -1588,7 +1590,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	}
 	if v, err := dcl.DeriveField("projects/%s/regions/%s/subnetworks/%s", f.Subnetwork, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Subnetwork)); err != nil {
 		return nil, fmt.Errorf("error expanding Subnetwork into subnetwork: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subnetwork"] = v
 	}
 	if v := f.Target; dcl.ValueShouldBeSent(v) {
@@ -1599,7 +1601,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

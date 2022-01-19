@@ -773,7 +773,7 @@ func expandGateway(c *Client, f *Gateway) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/global/gateways/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -785,8 +785,12 @@ func expandGateway(c *Client, f *Gateway) (map[string]interface{}, error) {
 	if v := f.Type; dcl.ValueShouldBeSent(v) {
 		m["type"] = v
 	}
-	m["addresses"] = f.Addresses
-	m["ports"] = f.Ports
+	if v := f.Addresses; v != nil {
+		m["addresses"] = v
+	}
+	if v := f.Ports; v != nil {
+		m["ports"] = v
+	}
 	if v := f.Scope; dcl.ValueShouldBeSent(v) {
 		m["scope"] = v
 	}
@@ -798,12 +802,12 @@ func expandGateway(c *Client, f *Gateway) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

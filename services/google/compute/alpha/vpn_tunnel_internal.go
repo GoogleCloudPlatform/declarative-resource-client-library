@@ -927,7 +927,9 @@ func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	if v := f.VpnGateway; dcl.ValueShouldBeSent(v) {
 		m["vpnGateway"] = v
 	}
-	m["vpnGatewayInterface"] = f.VpnGatewayInterface
+	if v := f.VpnGatewayInterface; v != nil {
+		m["vpnGatewayInterface"] = v
+	}
 	if v := f.PeerExternalGateway; dcl.ValueShouldBeSent(v) {
 		m["peerExternalGateway"] = v
 	}
@@ -939,7 +941,7 @@ func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s/regions/%s/routers/%s", f.Router, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Region), dcl.SelfLinkToName(f.Router)); err != nil {
 		return nil, fmt.Errorf("error expanding Router into router: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["router"] = v
 	}
 	if v := f.PeerIP; dcl.ValueShouldBeSent(v) {
@@ -951,11 +953,15 @@ func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	if v := f.IkeVersion; dcl.ValueShouldBeSent(v) {
 		m["ikeVersion"] = v
 	}
-	m["localTrafficSelector"] = f.LocalTrafficSelector
-	m["remoteTrafficSelector"] = f.RemoteTrafficSelector
+	if v := f.LocalTrafficSelector; v != nil {
+		m["localTrafficSelector"] = v
+	}
+	if v := f.RemoteTrafficSelector; v != nil {
+		m["remoteTrafficSelector"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

@@ -5969,27 +5969,27 @@ func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error
 	}
 	if v, err := expandGuestPolicyAssignment(c, f.Assignment); err != nil {
 		return nil, fmt.Errorf("error expanding Assignment into assignment: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["assignment"] = v
 	}
 	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages); err != nil {
 		return nil, fmt.Errorf("error expanding Packages into packages: %w", err)
-	} else {
+	} else if v != nil {
 		m["packages"] = v
 	}
 	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories); err != nil {
 		return nil, fmt.Errorf("error expanding PackageRepositories into packageRepositories: %w", err)
-	} else {
+	} else if v != nil {
 		m["packageRepositories"] = v
 	}
 	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes); err != nil {
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
-	} else {
+	} else if v != nil {
 		m["recipes"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

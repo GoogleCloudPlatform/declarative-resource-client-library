@@ -1452,7 +1452,7 @@ func expandSpoke(c *Client, f *Spoke) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/spokes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -1466,27 +1466,27 @@ func expandSpoke(c *Client, f *Spoke) (map[string]interface{}, error) {
 	}
 	if v, err := expandSpokeLinkedVpnTunnels(c, f.LinkedVpnTunnels); err != nil {
 		return nil, fmt.Errorf("error expanding LinkedVpnTunnels into linkedVpnTunnels: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linkedVpnTunnels"] = v
 	}
 	if v, err := expandSpokeLinkedInterconnectAttachments(c, f.LinkedInterconnectAttachments); err != nil {
 		return nil, fmt.Errorf("error expanding LinkedInterconnectAttachments into linkedInterconnectAttachments: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linkedInterconnectAttachments"] = v
 	}
 	if v, err := expandSpokeLinkedRouterApplianceInstances(c, f.LinkedRouterApplianceInstances); err != nil {
 		return nil, fmt.Errorf("error expanding LinkedRouterApplianceInstances into linkedRouterApplianceInstances: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linkedRouterApplianceInstances"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

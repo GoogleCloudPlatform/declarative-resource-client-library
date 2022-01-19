@@ -1306,17 +1306,17 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := expandPolicyName(f, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := expandPolicySpec(c, f.Spec); err != nil {
 		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["spec"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
 

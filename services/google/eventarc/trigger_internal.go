@@ -1573,12 +1573,12 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	res := f
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/triggers/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria, res); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
-	} else {
+	} else if v != nil {
 		m["eventFilters"] = v
 	}
 	if v := f.ServiceAccount; dcl.ValueShouldBeSent(v) {
@@ -1586,12 +1586,12 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	}
 	if v, err := expandTriggerDestination(c, f.Destination, res); err != nil {
 		return nil, fmt.Errorf("error expanding Destination into destination: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["destination"] = v
 	}
 	if v, err := expandTriggerTransport(c, f.Transport, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transport into transport: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transport"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -1599,12 +1599,12 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

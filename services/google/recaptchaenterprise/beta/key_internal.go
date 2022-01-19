@@ -1390,7 +1390,7 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/keys/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -1398,17 +1398,17 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 	}
 	if v, err := expandKeyWebSettings(c, f.WebSettings); err != nil {
 		return nil, fmt.Errorf("error expanding WebSettings into webSettings: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["webSettings"] = v
 	}
 	if v, err := expandKeyAndroidSettings(c, f.AndroidSettings); err != nil {
 		return nil, fmt.Errorf("error expanding AndroidSettings into androidSettings: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["androidSettings"] = v
 	}
 	if v, err := expandKeyIosSettings(c, f.IosSettings); err != nil {
 		return nil, fmt.Errorf("error expanding IosSettings into iosSettings: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["iosSettings"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -1416,12 +1416,12 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 	}
 	if v, err := expandKeyTestingOptions(c, f.TestingOptions); err != nil {
 		return nil, fmt.Errorf("error expanding TestingOptions into testingOptions: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["testingOptions"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

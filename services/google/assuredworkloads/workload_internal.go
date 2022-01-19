@@ -1206,7 +1206,7 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("organizations/%s/locations/%s/workloads/%s", f.Name, dcl.SelfLinkToName(f.Organization), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -1226,22 +1226,22 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	}
 	if v, err := expandWorkloadKmsSettings(c, f.KmsSettings); err != nil {
 		return nil, fmt.Errorf("error expanding KmsSettings into kmsSettings: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsSettings"] = v
 	}
 	if v, err := expandWorkloadResourceSettingsSlice(c, f.ResourceSettings); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceSettings into resourceSettings: %w", err)
-	} else {
+	} else if v != nil {
 		m["resourceSettings"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Organization into organization: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["organization"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

@@ -2056,7 +2056,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/awsClusters/%s/awsNodePools/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Cluster), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Version; dcl.ValueShouldBeSent(v) {
@@ -2064,12 +2064,12 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	}
 	if v, err := expandNodePoolConfig(c, f.Config); err != nil {
 		return nil, fmt.Errorf("error expanding Config into config: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
 	}
 	if v, err := expandNodePoolAutoscaling(c, f.Autoscaling); err != nil {
 		return nil, fmt.Errorf("error expanding Autoscaling into autoscaling: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["autoscaling"] = v
 	}
 	if v := f.SubnetId; dcl.ValueShouldBeSent(v) {
@@ -2080,22 +2080,22 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	}
 	if v, err := expandNodePoolMaxPodsConstraint(c, f.MaxPodsConstraint); err != nil {
 		return nil, fmt.Errorf("error expanding MaxPodsConstraint into maxPodsConstraint: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["maxPodsConstraint"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Cluster into cluster: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cluster"] = v
 	}
 

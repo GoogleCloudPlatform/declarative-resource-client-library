@@ -6004,7 +6004,7 @@ func expandPatchDeployment(c *Client, f *PatchDeployment) (map[string]interface{
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/patchDeployments/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -6012,12 +6012,12 @@ func expandPatchDeployment(c *Client, f *PatchDeployment) (map[string]interface{
 	}
 	if v, err := expandPatchDeploymentInstanceFilter(c, f.InstanceFilter); err != nil {
 		return nil, fmt.Errorf("error expanding InstanceFilter into instanceFilter: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["instanceFilter"] = v
 	}
 	if v, err := expandPatchDeploymentPatchConfig(c, f.PatchConfig); err != nil {
 		return nil, fmt.Errorf("error expanding PatchConfig into patchConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["patchConfig"] = v
 	}
 	if v := f.Duration; dcl.ValueShouldBeSent(v) {
@@ -6025,22 +6025,22 @@ func expandPatchDeployment(c *Client, f *PatchDeployment) (map[string]interface{
 	}
 	if v, err := expandPatchDeploymentOneTimeSchedule(c, f.OneTimeSchedule); err != nil {
 		return nil, fmt.Errorf("error expanding OneTimeSchedule into oneTimeSchedule: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["oneTimeSchedule"] = v
 	}
 	if v, err := expandPatchDeploymentRecurringSchedule(c, f.RecurringSchedule); err != nil {
 		return nil, fmt.Errorf("error expanding RecurringSchedule into recurringSchedule: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["recurringSchedule"] = v
 	}
 	if v, err := expandPatchDeploymentRollout(c, f.Rollout); err != nil {
 		return nil, fmt.Errorf("error expanding Rollout into rollout: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rollout"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

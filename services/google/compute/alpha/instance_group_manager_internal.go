@@ -3662,7 +3662,7 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerDistributionPolicy(c, f.DistributionPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding DistributionPolicy into distributionPolicy: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["distributionPolicy"] = v
 	}
 	if v := f.InstanceTemplate; dcl.ValueShouldBeSent(v) {
@@ -3670,10 +3670,12 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerVersionsSlice(c, f.Versions); err != nil {
 		return nil, fmt.Errorf("error expanding Versions into versions: %w", err)
-	} else {
+	} else if v != nil {
 		m["versions"] = v
 	}
-	m["targetPools"] = f.TargetPools
+	if v := f.TargetPools; v != nil {
+		m["targetPools"] = v
+	}
 	if v := f.BaseInstanceName; dcl.ValueShouldBeSent(v) {
 		m["baseInstanceName"] = v
 	}
@@ -3682,22 +3684,22 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding AutoHealingPolicies into autoHealingPolicies: %w", err)
-	} else {
+	} else if v != nil {
 		m["autoHealingPolicies"] = v
 	}
 	if v, err := expandInstanceGroupManagerUpdatePolicy(c, f.UpdatePolicy); err != nil {
 		return nil, fmt.Errorf("error expanding UpdatePolicy into updatePolicy: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["updatePolicy"] = v
 	}
 	if v, err := expandInstanceGroupManagerNamedPortsSlice(c, f.NamedPorts); err != nil {
 		return nil, fmt.Errorf("error expanding NamedPorts into namedPorts: %w", err)
-	} else {
+	} else if v != nil {
 		m["namedPorts"] = v
 	}
 	if v, err := expandInstanceGroupManagerStatefulPolicy(c, f.StatefulPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding StatefulPolicy into statefulPolicy: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["statefulPolicy"] = v
 	}
 	if v := f.ServiceAccount; dcl.ValueShouldBeSent(v) {
@@ -3708,12 +3710,12 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

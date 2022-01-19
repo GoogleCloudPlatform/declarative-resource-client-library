@@ -2508,7 +2508,7 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/notes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.ShortDescription; dcl.ValueShouldBeSent(v) {
@@ -2519,7 +2519,7 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	}
 	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl); err != nil {
 		return nil, fmt.Errorf("error expanding RelatedUrl into relatedUrl: %w", err)
-	} else {
+	} else if v != nil {
 		m["relatedUrl"] = v
 	}
 	if v := f.ExpirationTime; dcl.ValueShouldBeSent(v) {
@@ -2527,32 +2527,32 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	}
 	if v, err := expandNoteImage(c, f.Image); err != nil {
 		return nil, fmt.Errorf("error expanding Image into image: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["image"] = v
 	}
 	if v, err := expandNotePackage(c, f.Package); err != nil {
 		return nil, fmt.Errorf("error expanding Package into package: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["package"] = v
 	}
 	if v, err := expandNoteDiscovery(c, f.Discovery); err != nil {
 		return nil, fmt.Errorf("error expanding Discovery into discovery: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["discovery"] = v
 	}
 	if v, err := expandNoteDeployment(c, f.Deployment); err != nil {
 		return nil, fmt.Errorf("error expanding Deployment into deployment: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["deployment"] = v
 	}
 	if v, err := expandNoteAttestation(c, f.Attestation); err != nil {
 		return nil, fmt.Errorf("error expanding Attestation into attestation: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["attestation"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

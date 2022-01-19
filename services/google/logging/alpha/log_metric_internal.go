@@ -1999,7 +1999,7 @@ func expandLogMetric(c *Client, f *LogMetric) (map[string]interface{}, error) {
 	}
 	if v, err := expandLogMetricMetricDescriptor(c, f.MetricDescriptor); err != nil {
 		return nil, fmt.Errorf("error expanding MetricDescriptor into metricDescriptor: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metricDescriptor"] = v
 	}
 	if v := f.ValueExtractor; dcl.ValueShouldBeSent(v) {
@@ -2010,12 +2010,12 @@ func expandLogMetric(c *Client, f *LogMetric) (map[string]interface{}, error) {
 	}
 	if v, err := expandLogMetricBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["bucketOptions"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

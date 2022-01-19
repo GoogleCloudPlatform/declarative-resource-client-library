@@ -2328,7 +2328,7 @@ func expandBudget(c *Client, f *Budget) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("billingAccounts/%s/budgets/%s", f.Name, dcl.SelfLinkToName(f.BillingAccount), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -2336,27 +2336,27 @@ func expandBudget(c *Client, f *Budget) (map[string]interface{}, error) {
 	}
 	if v, err := expandBudgetBudgetFilter(c, f.BudgetFilter); err != nil {
 		return nil, fmt.Errorf("error expanding BudgetFilter into budgetFilter: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["budgetFilter"] = v
 	}
 	if v, err := expandBudgetAmount(c, f.Amount); err != nil {
 		return nil, fmt.Errorf("error expanding Amount into amount: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
 	if v, err := expandBudgetThresholdRulesSlice(c, f.ThresholdRules); err != nil {
 		return nil, fmt.Errorf("error expanding ThresholdRules into thresholdRules: %w", err)
-	} else {
+	} else if v != nil {
 		m["thresholdRules"] = v
 	}
 	if v, err := expandBudgetAllUpdatesRule(c, f.AllUpdatesRule); err != nil {
 		return nil, fmt.Errorf("error expanding AllUpdatesRule into allUpdatesRule: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["allUpdatesRule"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding BillingAccount into billingAccount: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["billingAccount"] = v
 	}
 

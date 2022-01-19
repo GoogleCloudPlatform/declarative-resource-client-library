@@ -1369,7 +1369,7 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/*/locations/%s/authorizationPolicies/%s", f.Name, dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1383,17 +1383,17 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 	}
 	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
-	} else {
+	} else if v != nil {
 		m["rules"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

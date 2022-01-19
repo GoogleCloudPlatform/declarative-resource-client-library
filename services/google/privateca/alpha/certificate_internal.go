@@ -7082,7 +7082,7 @@ func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s/certificates/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.CaPool), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.PemCsr; dcl.ValueShouldBeSent(v) {
@@ -7090,7 +7090,7 @@ func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error
 	}
 	if v, err := expandCertificateConfig(c, f.Config); err != nil {
 		return nil, fmt.Errorf("error expanding Config into config: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
 	}
 	if v := f.Lifetime; dcl.ValueShouldBeSent(v) {
@@ -7098,7 +7098,7 @@ func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error
 	}
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/certificateTemplates/%s", f.CertificateTemplate, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.CertificateTemplate)); err != nil {
 		return nil, fmt.Errorf("error expanding CertificateTemplate into certificateTemplate: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["certificateTemplate"] = v
 	}
 	if v := f.SubjectMode; dcl.ValueShouldBeSent(v) {
@@ -7109,22 +7109,22 @@ func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding CaPool into caPool: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["caPool"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding CertificateAuthority into certificateAuthority: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["certificateAuthority"] = v
 	}
 

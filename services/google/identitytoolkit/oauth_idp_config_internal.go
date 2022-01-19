@@ -857,12 +857,12 @@ func expandOAuthIdpConfig(c *Client, f *OAuthIdpConfig) (map[string]interface{},
 	}
 	if v, err := expandOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseType into responseType: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["responseType"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

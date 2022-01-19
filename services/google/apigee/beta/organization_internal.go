@@ -1279,7 +1279,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("organizations/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -1290,7 +1290,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	}
 	if v, err := dcl.ListOfKeyValuesFromMapInStruct(f.Properties, "property", "name", "value"); err != nil {
 		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v := f.AnalyticsRegion; dcl.ValueShouldBeSent(v) {
@@ -1304,7 +1304,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	}
 	if v, err := expandOrganizationAddonsConfig(c, f.AddonsConfig); err != nil {
 		return nil, fmt.Errorf("error expanding AddonsConfig into addonsConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["addonsConfig"] = v
 	}
 	if v := f.RuntimeDatabaseEncryptionKeyName; dcl.ValueShouldBeSent(v) {
@@ -1312,7 +1312,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

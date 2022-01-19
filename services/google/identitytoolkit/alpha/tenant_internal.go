@@ -830,7 +830,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/tenants/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -850,7 +850,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	}
 	if v, err := expandTenantMfaConfig(c, f.MfaConfig); err != nil {
 		return nil, fmt.Errorf("error expanding MfaConfig into mfaConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mfaConfig"] = v
 	}
 	if v := f.TestPhoneNumbers; dcl.ValueShouldBeSent(v) {
@@ -858,7 +858,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

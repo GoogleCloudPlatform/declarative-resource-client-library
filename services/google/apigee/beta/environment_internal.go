@@ -614,7 +614,7 @@ func expandEnvironment(c *Client, f *Environment) (map[string]interface{}, error
 	}
 	if v, err := dcl.ListOfKeyValuesFromMapInStruct(f.Properties, "property", "name", "value"); err != nil {
 		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -622,7 +622,7 @@ func expandEnvironment(c *Client, f *Environment) (map[string]interface{}, error
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding ApigeeOrganization into apigeeOrganization: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apigeeOrganization"] = v
 	}
 

@@ -437,7 +437,7 @@ func expandMetricsScope(c *Client, f *MetricsScope) (map[string]interface{}, err
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("locations/global/metricsScope/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 

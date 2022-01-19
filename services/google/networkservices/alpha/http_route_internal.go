@@ -4228,32 +4228,40 @@ func expandHttpRoute(c *Client, f *HttpRoute) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/global/httpRoutes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	m["hostnames"] = f.Hostnames
-	m["routers"] = f.Routers
-	m["meshes"] = f.Meshes
-	m["gateways"] = f.Gateways
+	if v := f.Hostnames; v != nil {
+		m["hostnames"] = v
+	}
+	if v := f.Routers; v != nil {
+		m["routers"] = v
+	}
+	if v := f.Meshes; v != nil {
+		m["meshes"] = v
+	}
+	if v := f.Gateways; v != nil {
+		m["gateways"] = v
+	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := expandHttpRouteRulesSlice(c, f.Rules); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
-	} else {
+	} else if v != nil {
 		m["rules"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

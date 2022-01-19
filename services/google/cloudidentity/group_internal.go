@@ -1548,15 +1548,17 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("groups/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, f.GroupKey); err != nil {
 		return nil, fmt.Errorf("error expanding GroupKey into groupKey: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["groupKey"] = v
 	}
-	m["additionalGroupKeys"] = f.AdditionalGroupKeys
+	if v := f.AdditionalGroupKeys; v != nil {
+		m["additionalGroupKeys"] = v
+	}
 	if v := f.Parent; dcl.ValueShouldBeSent(v) {
 		m["parent"] = v
 	}
@@ -1571,12 +1573,12 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	}
 	if v, err := expandGroupDynamicGroupMetadata(c, f.DynamicGroupMetadata); err != nil {
 		return nil, fmt.Errorf("error expanding DynamicGroupMetadata into dynamicGroupMetadata: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dynamicGroupMetadata"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding InitialGroupConfig into initialGroupConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["initialGroupConfig"] = v
 	}
 

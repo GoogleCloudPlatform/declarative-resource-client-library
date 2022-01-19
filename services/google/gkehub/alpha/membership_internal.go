@@ -2247,12 +2247,12 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	m := make(map[string]interface{})
 	if v, err := expandMembershipEndpoint(c, f.Endpoint); err != nil {
 		return nil, fmt.Errorf("error expanding Endpoint into endpoint: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["endpoint"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/memberships/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -2266,7 +2266,7 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	}
 	if v, err := expandMembershipAuthority(c, f.Authority); err != nil {
 		return nil, fmt.Errorf("error expanding Authority into authority: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["authority"] = v
 	}
 	if v := f.InfrastructureType; dcl.ValueShouldBeSent(v) {
@@ -2274,12 +2274,12 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

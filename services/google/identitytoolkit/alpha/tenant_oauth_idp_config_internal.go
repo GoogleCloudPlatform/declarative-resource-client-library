@@ -881,17 +881,17 @@ func expandTenantOAuthIdpConfig(c *Client, f *TenantOAuthIdpConfig) (map[string]
 	}
 	if v, err := expandTenantOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseType into responseType: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["responseType"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Tenant into tenant: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["tenant"] = v
 	}
 

@@ -1904,7 +1904,7 @@ func expandClientTlsPolicy(c *Client, f *ClientTlsPolicy) (map[string]interface{
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/clientTlsPolicies/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1918,22 +1918,22 @@ func expandClientTlsPolicy(c *Client, f *ClientTlsPolicy) (map[string]interface{
 	}
 	if v, err := expandClientTlsPolicyClientCertificate(c, f.ClientCertificate); err != nil {
 		return nil, fmt.Errorf("error expanding ClientCertificate into clientCertificate: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["clientCertificate"] = v
 	}
 	if v, err := expandClientTlsPolicyServerValidationCaSlice(c, f.ServerValidationCa); err != nil {
 		return nil, fmt.Errorf("error expanding ServerValidationCa into serverValidationCa: %w", err)
-	} else {
+	} else if v != nil {
 		m["serverValidationCa"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

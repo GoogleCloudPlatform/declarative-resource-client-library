@@ -781,10 +781,12 @@ func expandNetwork(c *Client, f *Network) (map[string]interface{}, error) {
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	m["autoCreateSubnetworks"] = f.AutoCreateSubnetworks
+	if v := f.AutoCreateSubnetworks; v != nil {
+		m["autoCreateSubnetworks"] = v
+	}
 	if v, err := expandNetworkRoutingConfig(c, f.RoutingConfig); err != nil {
 		return nil, fmt.Errorf("error expanding RoutingConfig into routingConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["routingConfig"] = v
 	}
 	if v := f.Mtu; dcl.ValueShouldBeSent(v) {
@@ -792,7 +794,7 @@ func expandNetwork(c *Client, f *Network) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

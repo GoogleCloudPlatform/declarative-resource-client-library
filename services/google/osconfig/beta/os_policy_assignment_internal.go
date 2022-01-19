@@ -9223,7 +9223,7 @@ func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]inte
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/osPolicyAssignments/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -9231,27 +9231,27 @@ func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]inte
 	}
 	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding OSPolicies into osPolicies: %w", err)
-	} else {
+	} else if v != nil {
 		m["osPolicies"] = v
 	}
 	if v, err := expandOSPolicyAssignmentInstanceFilter(c, f.InstanceFilter); err != nil {
 		return nil, fmt.Errorf("error expanding InstanceFilter into instanceFilter: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["instanceFilter"] = v
 	}
 	if v, err := expandOSPolicyAssignmentRollout(c, f.Rollout); err != nil {
 		return nil, fmt.Errorf("error expanding Rollout into rollout: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rollout"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

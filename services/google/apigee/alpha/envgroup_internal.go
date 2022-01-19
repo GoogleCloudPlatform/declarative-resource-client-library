@@ -598,10 +598,12 @@ func expandEnvgroup(c *Client, f *Envgroup) (map[string]interface{}, error) {
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	m["hostnames"] = f.Hostnames
+	if v := f.Hostnames; v != nil {
+		m["hostnames"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding ApigeeOrganization into apigeeOrganization: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apigeeOrganization"] = v
 	}
 

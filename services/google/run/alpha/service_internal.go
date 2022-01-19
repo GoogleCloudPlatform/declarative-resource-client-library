@@ -4419,7 +4419,7 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -4442,27 +4442,27 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	}
 	if v, err := expandServiceBinaryAuthorization(c, f.BinaryAuthorization); err != nil {
 		return nil, fmt.Errorf("error expanding BinaryAuthorization into binaryAuthorization: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["binaryAuthorization"] = v
 	}
 	if v, err := expandServiceTemplate(c, f.Template); err != nil {
 		return nil, fmt.Errorf("error expanding Template into template: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["template"] = v
 	}
 	if v, err := expandServiceTrafficSlice(c, f.Traffic); err != nil {
 		return nil, fmt.Errorf("error expanding Traffic into traffic: %w", err)
-	} else {
+	} else if v != nil {
 		m["traffic"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

@@ -448,12 +448,12 @@ func expandMonitoredProject(c *Client, f *MonitoredProject) (map[string]interfac
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("locations/global/metricsScopes/%s/projects/%s", f.Name, dcl.SelfLinkToName(f.MetricsScope), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding MetricsScope into metricsScope: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metricsScope"] = v
 	}
 

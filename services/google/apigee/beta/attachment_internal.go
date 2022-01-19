@@ -502,12 +502,12 @@ func expandAttachment(c *Client, f *Attachment) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.SelfLinkToNameExpander(f.Environment); err != nil {
 		return nil, fmt.Errorf("error expanding Environment into environment: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["environment"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Envgroup into envgroup: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["envgroup"] = v
 	}
 

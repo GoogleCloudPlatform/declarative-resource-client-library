@@ -1602,7 +1602,7 @@ func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/keyRings/%s/cryptoKeys/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.KeyRing), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Purpose; dcl.ValueShouldBeSent(v) {
@@ -1616,7 +1616,7 @@ func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 	}
 	if v, err := expandCryptoKeyVersionTemplate(c, f.VersionTemplate); err != nil {
 		return nil, fmt.Errorf("error expanding VersionTemplate into versionTemplate: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["versionTemplate"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -1630,17 +1630,17 @@ func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding KeyRing into keyRing: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["keyRing"] = v
 	}
 

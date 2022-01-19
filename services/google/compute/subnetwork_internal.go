@@ -1319,7 +1319,7 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 	}
 	if v, err := expandSubnetworkSecondaryIPRangesSlice(c, f.SecondaryIPRanges); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryIPRanges into secondaryIpRanges: %w", err)
-	} else {
+	} else if v != nil {
 		m["secondaryIpRanges"] = v
 	}
 	if v := f.PrivateIPGoogleAccess; dcl.ValueShouldBeSent(v) {
@@ -1327,17 +1327,17 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Region into region: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}
 	if v, err := expandSubnetworkLogConfig(c, f.LogConfig); err != nil {
 		return nil, fmt.Errorf("error expanding LogConfig into logConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["logConfig"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v := f.EnableFlowLogs; dcl.ValueShouldBeSent(v) {

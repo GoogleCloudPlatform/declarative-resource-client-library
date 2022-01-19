@@ -508,7 +508,7 @@ func expandIdentityAwareProxyClient(c *Client, f *IdentityAwareProxyClient) (map
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/brands/%s/identityAwareProxyClients/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Brand), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -516,12 +516,12 @@ func expandIdentityAwareProxyClient(c *Client, f *IdentityAwareProxyClient) (map
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Brand into brand: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["brand"] = v
 	}
 

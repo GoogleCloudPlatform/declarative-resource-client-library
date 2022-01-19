@@ -1001,7 +1001,7 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	}
 	if v, err := expandMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
 		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else {
+	} else if v != nil {
 		m["labels"] = v
 	}
 	if v := f.MetricKind; dcl.ValueShouldBeSent(v) {
@@ -1021,7 +1021,7 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	}
 	if v, err := expandMetricDescriptorMetadata(c, f.Metadata); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metadata"] = v
 	}
 	if v := f.LaunchStage; dcl.ValueShouldBeSent(v) {
@@ -1029,7 +1029,7 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

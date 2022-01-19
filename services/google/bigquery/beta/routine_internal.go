@@ -1558,15 +1558,17 @@ func expandRoutine(c *Client, f *Routine) (map[string]interface{}, error) {
 	}
 	if v, err := expandRoutineArgumentsSlice(c, f.Arguments); err != nil {
 		return nil, fmt.Errorf("error expanding Arguments into arguments: %w", err)
-	} else {
+	} else if v != nil {
 		m["arguments"] = v
 	}
 	if v, err := expandRoutineArgumentsDataType(c, f.ReturnType); err != nil {
 		return nil, fmt.Errorf("error expanding ReturnType into returnType: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["returnType"] = v
 	}
-	m["importedLibraries"] = f.ImportedLibraries
+	if v := f.ImportedLibraries; v != nil {
+		m["importedLibraries"] = v
+	}
 	if v := f.DefinitionBody; dcl.ValueShouldBeSent(v) {
 		m["definitionBody"] = v
 	}

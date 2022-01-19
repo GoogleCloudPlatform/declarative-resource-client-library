@@ -1345,13 +1345,15 @@ func expandInterconnectAttachment(c *Client, f *InterconnectAttachment) (map[str
 	if v := f.EdgeAvailabilityDomain; dcl.ValueShouldBeSent(v) {
 		m["edgeAvailabilityDomain"] = v
 	}
-	m["candidateSubnets"] = f.CandidateSubnets
+	if v := f.CandidateSubnets; v != nil {
+		m["candidateSubnets"] = v
+	}
 	if v := f.Bandwidth; dcl.ValueShouldBeSent(v) {
 		m["bandwidth"] = v
 	}
 	if v, err := expandInterconnectAttachmentPartnerMetadata(c, f.PartnerMetadata); err != nil {
 		return nil, fmt.Errorf("error expanding PartnerMetadata into partnerMetadata: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["partnerMetadata"] = v
 	}
 	if v := f.PartnerAsn; dcl.ValueShouldBeSent(v) {
@@ -1360,13 +1362,15 @@ func expandInterconnectAttachment(c *Client, f *InterconnectAttachment) (map[str
 	if v := f.Encryption; dcl.ValueShouldBeSent(v) {
 		m["encryption"] = v
 	}
-	m["ipsecInternalAddresses"] = f.IpsecInternalAddresses
+	if v := f.IpsecInternalAddresses; v != nil {
+		m["ipsecInternalAddresses"] = v
+	}
 	if v := f.DataplaneVersion; dcl.ValueShouldBeSent(v) {
 		m["dataplaneVersion"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

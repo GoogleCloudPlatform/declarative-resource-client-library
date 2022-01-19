@@ -2008,7 +2008,7 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v := f.Location; dcl.ValueShouldBeSent(v) {
@@ -2019,17 +2019,17 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	}
 	if v, err := expandBucketCorsSlice(c, f.Cors); err != nil {
 		return nil, fmt.Errorf("error expanding Cors into cors: %w", err)
-	} else {
+	} else if v != nil {
 		m["cors"] = v
 	}
 	if v, err := expandBucketLifecycle(c, f.Lifecycle); err != nil {
 		return nil, fmt.Errorf("error expanding Lifecycle into lifecycle: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["lifecycle"] = v
 	}
 	if v, err := expandBucketLogging(c, f.Logging); err != nil {
 		return nil, fmt.Errorf("error expanding Logging into logging: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["logging"] = v
 	}
 	if v := f.StorageClass; dcl.ValueShouldBeSent(v) {
@@ -2037,12 +2037,12 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	}
 	if v, err := expandBucketVersioning(c, f.Versioning); err != nil {
 		return nil, fmt.Errorf("error expanding Versioning into versioning: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["versioning"] = v
 	}
 	if v, err := expandBucketWebsite(c, f.Website); err != nil {
 		return nil, fmt.Errorf("error expanding Website into website: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["website"] = v
 	}
 

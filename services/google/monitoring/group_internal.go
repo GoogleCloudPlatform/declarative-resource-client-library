@@ -630,12 +630,12 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.ParentName)); err != nil {
 		return nil, fmt.Errorf("error expanding ParentName into parentName: %w", err)
-	} else {
+	} else if v != nil {
 		m["parentName"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

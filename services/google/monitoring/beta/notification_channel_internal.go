@@ -694,7 +694,7 @@ func expandNotificationChannel(c *Client, f *NotificationChannel) (map[string]in
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

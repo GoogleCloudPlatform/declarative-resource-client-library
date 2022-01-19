@@ -5004,7 +5004,7 @@ func expandServiceLevelObjective(c *Client, f *ServiceLevelObjective) (map[strin
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/services/%s/serviceLevelObjectives/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Service), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -5012,7 +5012,7 @@ func expandServiceLevelObjective(c *Client, f *ServiceLevelObjective) (map[strin
 	}
 	if v, err := expandServiceLevelObjectiveServiceLevelIndicator(c, f.ServiceLevelIndicator); err != nil {
 		return nil, fmt.Errorf("error expanding ServiceLevelIndicator into serviceLevelIndicator: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["serviceLevelIndicator"] = v
 	}
 	if v := f.Goal; dcl.ValueShouldBeSent(v) {
@@ -5029,12 +5029,12 @@ func expandServiceLevelObjective(c *Client, f *ServiceLevelObjective) (map[strin
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Service into service: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
 

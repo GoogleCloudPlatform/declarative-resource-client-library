@@ -1747,7 +1747,7 @@ func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{
 	}
 	if v, err := expandPacketMirroringNetwork(c, f.Network); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
 	if v := f.Priority; dcl.ValueShouldBeSent(v) {
@@ -1755,17 +1755,17 @@ func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{
 	}
 	if v, err := expandPacketMirroringCollectorIlb(c, f.CollectorIlb); err != nil {
 		return nil, fmt.Errorf("error expanding CollectorIlb into collectorIlb: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["collectorIlb"] = v
 	}
 	if v, err := expandPacketMirroringMirroredResources(c, f.MirroredResources); err != nil {
 		return nil, fmt.Errorf("error expanding MirroredResources into mirroredResources: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mirroredResources"] = v
 	}
 	if v, err := expandPacketMirroringFilter(c, f.Filter); err != nil {
 		return nil, fmt.Errorf("error expanding Filter into filter: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
 	if v := f.Enable; dcl.ValueShouldBeSent(v) {
@@ -1773,12 +1773,12 @@ func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

@@ -4308,7 +4308,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := expandClusterProject(f, f.Project); err != nil {
 		return nil, fmt.Errorf("error expanding Project into projectId: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["projectId"] = v
 	}
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
@@ -4316,7 +4316,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterClusterConfig(c, f.Config); err != nil {
 		return nil, fmt.Errorf("error expanding Config into config: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -4324,7 +4324,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

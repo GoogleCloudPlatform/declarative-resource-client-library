@@ -599,7 +599,7 @@ func expandProject(c *Client, f *Project) (map[string]interface{}, error) {
 	}
 	if v, err := expandProjectParent(f, f.Parent); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
 	if v := f.Name; dcl.ValueShouldBeSent(v) {

@@ -813,12 +813,12 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := dcl.SelfLinkToNameExpander(f.Network); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
 	if v := f.IPCidrRange; dcl.ValueShouldBeSent(v) {
@@ -832,7 +832,7 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	}
 	if v, err := expandConnectorSubnet(c, f.Subnet); err != nil {
 		return nil, fmt.Errorf("error expanding Subnet into subnet: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subnet"] = v
 	}
 	if v := f.MachineType; dcl.ValueShouldBeSent(v) {
@@ -846,12 +846,12 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

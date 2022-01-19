@@ -979,7 +979,7 @@ func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]inte
 	}
 	if v, err := expandFirewallPolicyRuleMatch(c, f.Match); err != nil {
 		return nil, fmt.Errorf("error expanding Match into match: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["match"] = v
 	}
 	if v := f.Action; dcl.ValueShouldBeSent(v) {
@@ -988,11 +988,15 @@ func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]inte
 	if v := f.Direction; dcl.ValueShouldBeSent(v) {
 		m["direction"] = v
 	}
-	m["targetResources"] = f.TargetResources
+	if v := f.TargetResources; v != nil {
+		m["targetResources"] = v
+	}
 	if v := f.EnableLogging; dcl.ValueShouldBeSent(v) {
 		m["enableLogging"] = v
 	}
-	m["targetServiceAccounts"] = f.TargetServiceAccounts
+	if v := f.TargetServiceAccounts; v != nil {
+		m["targetServiceAccounts"] = v
+	}
 	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}

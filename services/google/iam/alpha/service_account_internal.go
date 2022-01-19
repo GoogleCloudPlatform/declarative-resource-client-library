@@ -1005,7 +1005,7 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/serviceAccounts/%s@%s.iam.gserviceaccounts.com", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -1016,7 +1016,7 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 	}
 	if v, err := expandServiceAccountActasResources(c, f.ActasResources); err != nil {
 		return nil, fmt.Errorf("error expanding ActasResources into actasResources: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["actasResources"] = v
 	}
 

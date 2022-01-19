@@ -1088,7 +1088,7 @@ func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/attestors/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1096,12 +1096,12 @@ func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 	}
 	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote); err != nil {
 		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedGrafeasNote: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["userOwnedGrafeasNote"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

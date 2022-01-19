@@ -3010,22 +3010,22 @@ func expandCertificateTemplate(c *Client, f *CertificateTemplate) (map[string]in
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/certificateTemplates/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := expandCertificateTemplatePredefinedValues(c, f.PredefinedValues); err != nil {
 		return nil, fmt.Errorf("error expanding PredefinedValues into predefinedValues: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["predefinedValues"] = v
 	}
 	if v, err := expandCertificateTemplateIdentityConstraints(c, f.IdentityConstraints); err != nil {
 		return nil, fmt.Errorf("error expanding IdentityConstraints into identityConstraints: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["identityConstraints"] = v
 	}
 	if v, err := expandCertificateTemplatePassthroughExtensions(c, f.PassthroughExtensions); err != nil {
 		return nil, fmt.Errorf("error expanding PassthroughExtensions into passthroughExtensions: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["passthroughExtensions"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -3036,12 +3036,12 @@ func expandCertificateTemplate(c *Client, f *CertificateTemplate) (map[string]in
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

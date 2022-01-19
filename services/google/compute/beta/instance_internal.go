@@ -4041,12 +4041,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceDisksSlice(c, f.Disks); err != nil {
 		return nil, fmt.Errorf("error expanding Disks into disks: %w", err)
-	} else {
+	} else if v != nil {
 		m["disks"] = v
 	}
 	if v, err := expandInstanceGuestAcceleratorsSlice(c, f.GuestAccelerators); err != nil {
 		return nil, fmt.Errorf("error expanding GuestAccelerators into guestAccelerators: %w", err)
-	} else {
+	} else if v != nil {
 		m["guestAccelerators"] = v
 	}
 	if v := f.Hostname; dcl.ValueShouldBeSent(v) {
@@ -4057,7 +4057,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.ListOfKeyValuesFromMapInStruct(f.Metadata, "items", "key", "value"); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metadata"] = v
 	}
 	if v := f.MachineType; dcl.ValueShouldBeSent(v) {
@@ -4071,34 +4071,36 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceNetworkInterfacesSlice(c, f.NetworkInterfaces); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkInterfaces into networkInterfaces: %w", err)
-	} else {
+	} else if v != nil {
 		m["networkInterfaces"] = v
 	}
 	if v, err := expandInstanceScheduling(c, f.Scheduling); err != nil {
 		return nil, fmt.Errorf("error expanding Scheduling into scheduling: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["scheduling"] = v
 	}
 	if v, err := expandInstanceServiceAccountsSlice(c, f.ServiceAccounts); err != nil {
 		return nil, fmt.Errorf("error expanding ServiceAccounts into serviceAccounts: %w", err)
-	} else {
+	} else if v != nil {
 		m["serviceAccounts"] = v
 	}
 	if v, err := expandInstanceShieldedInstanceConfig(c, f.ShieldedInstanceConfig); err != nil {
 		return nil, fmt.Errorf("error expanding ShieldedInstanceConfig into shieldedInstanceConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["shieldedInstanceConfig"] = v
 	}
 	if v := f.Status; dcl.ValueShouldBeSent(v) {
 		m["status"] = v
 	}
-	m["tags"] = f.Tags
+	if v := f.Tags; v != nil {
+		m["tags"] = v
+	}
 	if v := f.Zone; dcl.ValueShouldBeSent(v) {
 		m["zone"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

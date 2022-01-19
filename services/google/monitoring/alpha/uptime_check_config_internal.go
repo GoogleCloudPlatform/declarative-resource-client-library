@@ -1901,22 +1901,22 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	}
 	if v, err := expandUptimeCheckConfigMonitoredResource(c, f.MonitoredResource); err != nil {
 		return nil, fmt.Errorf("error expanding MonitoredResource into monitoredResource: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["monitoredResource"] = v
 	}
 	if v, err := expandUptimeCheckConfigResourceGroup(c, f.ResourceGroup); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceGroup into resourceGroup: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resourceGroup"] = v
 	}
 	if v, err := expandUptimeCheckConfigHttpCheck(c, f.HttpCheck); err != nil {
 		return nil, fmt.Errorf("error expanding HttpCheck into httpCheck: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["httpCheck"] = v
 	}
 	if v, err := expandUptimeCheckConfigTcpCheck(c, f.TcpCheck); err != nil {
 		return nil, fmt.Errorf("error expanding TcpCheck into tcpCheck: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["tcpCheck"] = v
 	}
 	if v := f.Period; dcl.ValueShouldBeSent(v) {
@@ -1927,13 +1927,15 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	}
 	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers); err != nil {
 		return nil, fmt.Errorf("error expanding ContentMatchers into contentMatchers: %w", err)
-	} else {
+	} else if v != nil {
 		m["contentMatchers"] = v
 	}
-	m["selectedRegions"] = f.SelectedRegions
+	if v := f.SelectedRegions; v != nil {
+		m["selectedRegions"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

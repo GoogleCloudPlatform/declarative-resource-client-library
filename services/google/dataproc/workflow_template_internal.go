@@ -5671,7 +5671,7 @@ func expandWorkflowTemplate(c *Client, f *WorkflowTemplate) (map[string]interfac
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -5679,17 +5679,17 @@ func expandWorkflowTemplate(c *Client, f *WorkflowTemplate) (map[string]interfac
 	}
 	if v, err := expandWorkflowTemplatePlacement(c, f.Placement); err != nil {
 		return nil, fmt.Errorf("error expanding Placement into placement: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["placement"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsSlice(c, f.Jobs); err != nil {
 		return nil, fmt.Errorf("error expanding Jobs into jobs: %w", err)
-	} else {
+	} else if v != nil {
 		m["jobs"] = v
 	}
 	if v, err := expandWorkflowTemplateParametersSlice(c, f.Parameters); err != nil {
 		return nil, fmt.Errorf("error expanding Parameters into parameters: %w", err)
-	} else {
+	} else if v != nil {
 		m["parameters"] = v
 	}
 	if v := f.DagTimeout; dcl.ValueShouldBeSent(v) {
@@ -5697,12 +5697,12 @@ func expandWorkflowTemplate(c *Client, f *WorkflowTemplate) (map[string]interfac
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

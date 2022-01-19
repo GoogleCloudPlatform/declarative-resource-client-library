@@ -4465,48 +4465,50 @@ func expandConfig(c *Client, f *Config) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/config", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := expandConfigSignIn(c, f.SignIn); err != nil {
 		return nil, fmt.Errorf("error expanding SignIn into signIn: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["signIn"] = v
 	}
 	if v, err := expandConfigNotification(c, f.Notification); err != nil {
 		return nil, fmt.Errorf("error expanding Notification into notification: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["notification"] = v
 	}
 	if v, err := expandConfigQuota(c, f.Quota); err != nil {
 		return nil, fmt.Errorf("error expanding Quota into quota: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["quota"] = v
 	}
 	if v, err := expandConfigMonitoring(c, f.Monitoring); err != nil {
 		return nil, fmt.Errorf("error expanding Monitoring into monitoring: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["monitoring"] = v
 	}
 	if v, err := expandConfigMultiTenant(c, f.MultiTenant); err != nil {
 		return nil, fmt.Errorf("error expanding MultiTenant into multiTenant: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["multiTenant"] = v
 	}
-	m["authorizedDomains"] = f.AuthorizedDomains
+	if v := f.AuthorizedDomains; v != nil {
+		m["authorizedDomains"] = v
+	}
 	if v, err := expandConfigClient(c, f.Client); err != nil {
 		return nil, fmt.Errorf("error expanding Client into client: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["client"] = v
 	}
 	if v, err := expandConfigMfa(c, f.Mfa); err != nil {
 		return nil, fmt.Errorf("error expanding Mfa into mfa: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mfa"] = v
 	}
 	if v, err := expandConfigBlockingFunctions(c, f.BlockingFunctions); err != nil {
 		return nil, fmt.Errorf("error expanding BlockingFunctions into blockingFunctions: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blockingFunctions"] = v
 	}
 

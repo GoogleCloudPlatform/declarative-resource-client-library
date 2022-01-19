@@ -1101,7 +1101,7 @@ func expandWorkloadIdentityPoolProvider(c *Client, f *WorkloadIdentityPoolProvid
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/workloadIdentityPools/%s/providers/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.WorkloadIdentityPool), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -1121,27 +1121,27 @@ func expandWorkloadIdentityPoolProvider(c *Client, f *WorkloadIdentityPoolProvid
 	}
 	if v, err := expandWorkloadIdentityPoolProviderAws(c, f.Aws); err != nil {
 		return nil, fmt.Errorf("error expanding Aws into aws: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aws"] = v
 	}
 	if v, err := expandWorkloadIdentityPoolProviderOidc(c, f.Oidc); err != nil {
 		return nil, fmt.Errorf("error expanding Oidc into oidc: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["oidc"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding WorkloadIdentityPool into workloadIdentityPool: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["workloadIdentityPool"] = v
 	}
 

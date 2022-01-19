@@ -1315,28 +1315,30 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 	if v := f.ConnectionPreference; dcl.ValueShouldBeSent(v) {
 		m["connectionPreference"] = v
 	}
-	m["natSubnets"] = f.NatSubnets
+	if v := f.NatSubnets; v != nil {
+		m["natSubnets"] = v
+	}
 	if v := f.EnableProxyProtocol; dcl.ValueShouldBeSent(v) {
 		m["enableProxyProtocol"] = v
 	}
 	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
 		return nil, fmt.Errorf("error expanding ConsumerRejectLists into consumerRejectLists: %w", err)
-	} else {
+	} else if v != nil {
 		m["consumerRejectLists"] = v
 	}
 	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists); err != nil {
 		return nil, fmt.Errorf("error expanding ConsumerAcceptLists into consumerAcceptLists: %w", err)
-	} else {
+	} else if v != nil {
 		m["consumerAcceptLists"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

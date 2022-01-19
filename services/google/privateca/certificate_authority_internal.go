@@ -7910,7 +7910,7 @@ func expandCertificateAuthority(c *Client, f *CertificateAuthority) (map[string]
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s/certificateAuthorities/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.CaPool), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Type; dcl.ValueShouldBeSent(v) {
@@ -7918,7 +7918,7 @@ func expandCertificateAuthority(c *Client, f *CertificateAuthority) (map[string]
 	}
 	if v, err := expandCertificateAuthorityConfig(c, f.Config); err != nil {
 		return nil, fmt.Errorf("error expanding Config into config: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
 	}
 	if v := f.Lifetime; dcl.ValueShouldBeSent(v) {
@@ -7926,7 +7926,7 @@ func expandCertificateAuthority(c *Client, f *CertificateAuthority) (map[string]
 	}
 	if v, err := expandCertificateAuthorityKeySpec(c, f.KeySpec); err != nil {
 		return nil, fmt.Errorf("error expanding KeySpec into keySpec: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["keySpec"] = v
 	}
 	if v := f.GcsBucket; dcl.ValueShouldBeSent(v) {
@@ -7937,17 +7937,17 @@ func expandCertificateAuthority(c *Client, f *CertificateAuthority) (map[string]
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding CaPool into caPool: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["caPool"] = v
 	}
 

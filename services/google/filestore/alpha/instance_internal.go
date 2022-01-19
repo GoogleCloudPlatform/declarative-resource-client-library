@@ -1250,7 +1250,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1264,22 +1264,22 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
 		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
-	} else {
+	} else if v != nil {
 		m["fileShares"] = v
 	}
 	if v, err := expandInstanceNetworksSlice(c, f.Networks); err != nil {
 		return nil, fmt.Errorf("error expanding Networks into networks: %w", err)
-	} else {
+	} else if v != nil {
 		m["networks"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

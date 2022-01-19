@@ -1387,7 +1387,7 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/*/locations/global/endpointPolicies/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -1401,12 +1401,12 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	}
 	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher); err != nil {
 		return nil, fmt.Errorf("error expanding EndpointMatcher into endpointMatcher: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["endpointMatcher"] = v
 	}
 	if v, err := expandEndpointPolicyTrafficPortSelector(c, f.TrafficPortSelector); err != nil {
 		return nil, fmt.Errorf("error expanding TrafficPortSelector into trafficPortSelector: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["trafficPortSelector"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1420,12 +1420,12 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

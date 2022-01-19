@@ -1553,7 +1553,7 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	res := f
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/functions/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Region), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1564,17 +1564,17 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	}
 	if v, err := expandFunctionSourceRepository(c, f.SourceRepository, res); err != nil {
 		return nil, fmt.Errorf("error expanding SourceRepository into sourceRepository: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sourceRepository"] = v
 	}
 	if v, err := expandFunctionHttpsTrigger(c, f.HttpsTrigger, res); err != nil {
 		return nil, fmt.Errorf("error expanding HttpsTrigger into httpsTrigger: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["httpsTrigger"] = v
 	}
 	if v, err := expandFunctionEventTrigger(c, f.EventTrigger, res); err != nil {
 		return nil, fmt.Errorf("error expanding EventTrigger into eventTrigger: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["eventTrigger"] = v
 	}
 	if v := f.EntryPoint; dcl.ValueShouldBeSent(v) {
@@ -1612,12 +1612,12 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Region into region: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

@@ -750,7 +750,7 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.KmsKeyName; dcl.ValueShouldBeSent(v) {
@@ -761,12 +761,12 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	}
 	if v, err := expandTopicMessageStoragePolicy(c, f.MessageStoragePolicy); err != nil {
 		return nil, fmt.Errorf("error expanding MessageStoragePolicy into messageStoragePolicy: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["messageStoragePolicy"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

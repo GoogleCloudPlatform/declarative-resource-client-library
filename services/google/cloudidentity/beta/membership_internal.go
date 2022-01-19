@@ -1547,27 +1547,27 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("groups/%s/memberships/%s", f.Name, dcl.SelfLinkToName(f.Group), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v, err := expandMembershipPreferredMemberKey(c, f.PreferredMemberKey); err != nil {
 		return nil, fmt.Errorf("error expanding PreferredMemberKey into preferredMemberKey: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["preferredMemberKey"] = v
 	}
 	if v, err := expandMembershipRolesSlice(c, f.Roles); err != nil {
 		return nil, fmt.Errorf("error expanding Roles into roles: %w", err)
-	} else {
+	} else if v != nil {
 		m["roles"] = v
 	}
 	if v, err := expandMembershipMemberKey(c, f.MemberKey); err != nil {
 		return nil, fmt.Errorf("error expanding MemberKey into memberKey: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["memberKey"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Group into group: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["group"] = v
 	}
 

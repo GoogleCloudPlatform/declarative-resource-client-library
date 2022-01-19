@@ -1557,27 +1557,27 @@ func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interf
 	m := make(map[string]interface{})
 	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
 		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
-	} else {
+	} else if v != nil {
 		m["configmanagement"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Feature into feature: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["feature"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Membership into membership: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["membership"] = v
 	}
 

@@ -2928,7 +2928,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/azureClusters/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -2945,17 +2945,17 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterNetworking(c, f.Networking); err != nil {
 		return nil, fmt.Errorf("error expanding Networking into networking: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["networking"] = v
 	}
 	if v, err := expandClusterControlPlane(c, f.ControlPlane); err != nil {
 		return nil, fmt.Errorf("error expanding ControlPlane into controlPlane: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["controlPlane"] = v
 	}
 	if v, err := expandClusterAuthorization(c, f.Authorization); err != nil {
 		return nil, fmt.Errorf("error expanding Authorization into authorization: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["authorization"] = v
 	}
 	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
@@ -2963,17 +2963,17 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 	if v, err := expandClusterFleet(c, f.Fleet); err != nil {
 		return nil, fmt.Errorf("error expanding Fleet into fleet: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fleet"] = v
 	}
 

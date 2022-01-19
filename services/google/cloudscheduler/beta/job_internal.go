@@ -2435,7 +2435,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/jobs/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -2443,17 +2443,17 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	}
 	if v, err := expandJobPubsubTarget(c, f.PubsubTarget); err != nil {
 		return nil, fmt.Errorf("error expanding PubsubTarget into pubsubTarget: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pubsubTarget"] = v
 	}
 	if v, err := expandJobAppEngineHttpTarget(c, f.AppEngineHttpTarget); err != nil {
 		return nil, fmt.Errorf("error expanding AppEngineHttpTarget into appEngineHttpTarget: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["appEngineHttpTarget"] = v
 	}
 	if v, err := expandJobHttpTarget(c, f.HttpTarget); err != nil {
 		return nil, fmt.Errorf("error expanding HttpTarget into httpTarget: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["httpTarget"] = v
 	}
 	if v := f.Schedule; dcl.ValueShouldBeSent(v) {
@@ -2464,7 +2464,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	}
 	if v, err := expandJobRetryConfig(c, f.RetryConfig); err != nil {
 		return nil, fmt.Errorf("error expanding RetryConfig into retryConfig: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["retryConfig"] = v
 	}
 	if v := f.AttemptDeadline; dcl.ValueShouldBeSent(v) {
@@ -2472,12 +2472,12 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

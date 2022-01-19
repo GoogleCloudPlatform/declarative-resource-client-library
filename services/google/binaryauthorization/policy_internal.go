@@ -920,12 +920,12 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns); err != nil {
 		return nil, fmt.Errorf("error expanding AdmissionWhitelistPatterns into admissionWhitelistPatterns: %w", err)
-	} else {
+	} else if v != nil {
 		m["admissionWhitelistPatterns"] = v
 	}
 	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules); err != nil {
 		return nil, fmt.Errorf("error expanding ClusterAdmissionRules into clusterAdmissionRules: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["clusterAdmissionRules"] = v
 	}
 	if v := f.KubernetesNamespaceAdmissionRules; dcl.ValueShouldBeSent(v) {
@@ -939,7 +939,7 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	}
 	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule); err != nil {
 		return nil, fmt.Errorf("error expanding DefaultAdmissionRule into defaultAdmissionRule: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["defaultAdmissionRule"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -950,7 +950,7 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

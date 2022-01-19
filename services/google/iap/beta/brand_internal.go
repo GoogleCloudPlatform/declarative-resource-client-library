@@ -434,7 +434,7 @@ func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s/brands/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.SupportEmail; dcl.ValueShouldBeSent(v) {
@@ -442,7 +442,7 @@ func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 

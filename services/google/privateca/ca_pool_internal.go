@@ -3975,7 +3975,7 @@ func expandCaPool(c *Client, f *CaPool) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Tier; dcl.ValueShouldBeSent(v) {
@@ -3983,12 +3983,12 @@ func expandCaPool(c *Client, f *CaPool) (map[string]interface{}, error) {
 	}
 	if v, err := expandCaPoolIssuancePolicy(c, f.IssuancePolicy); err != nil {
 		return nil, fmt.Errorf("error expanding IssuancePolicy into issuancePolicy: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["issuancePolicy"] = v
 	}
 	if v, err := expandCaPoolPublishingOptions(c, f.PublishingOptions); err != nil {
 		return nil, fmt.Errorf("error expanding PublishingOptions into publishingOptions: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["publishingOptions"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -3996,12 +3996,12 @@ func expandCaPool(c *Client, f *CaPool) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 

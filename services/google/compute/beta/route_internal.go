@@ -996,10 +996,12 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("global/networks/%s", f.Network, dcl.SelfLinkToName(f.Network)); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
-	m["tags"] = f.Tag
+	if v := f.Tag; v != nil {
+		m["tags"] = v
+	}
 	if v := f.DestRange; dcl.ValueShouldBeSent(v) {
 		m["destRange"] = v
 	}
@@ -1014,7 +1016,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s/global/gateways/%s", f.NextHopGateway, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.NextHopGateway)); err != nil {
 		return nil, fmt.Errorf("error expanding NextHopGateway into nextHopGateway: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["nextHopGateway"] = v
 	}
 	if v := f.NextHopIlb; dcl.ValueShouldBeSent(v) {
@@ -1025,7 +1027,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 
