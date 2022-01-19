@@ -23,6 +23,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterMonitoringDashboardServiceServer(s, &DashboardServer{})
 	sdkgrpc.RegisterMonitoringGroupServiceServer(s, &GroupServer{})
 	sdkgrpc.RegisterMonitoringMetricDescriptorServiceServer(s, &MetricDescriptorServer{})
+	sdkgrpc.RegisterMonitoringMetricsScopeServiceServer(s, &MetricsScopeServer{})
 	sdkgrpc.RegisterMonitoringNotificationChannelServiceServer(s, &NotificationChannelServer{})
 	sdkgrpc.RegisterMonitoringUptimeCheckConfigServiceServer(s, &UptimeCheckConfigServer{})
 	sdkgrpc.RegisterMonitoringServiceServiceServer(s, &ServiceServer{})

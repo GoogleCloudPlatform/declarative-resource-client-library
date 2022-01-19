@@ -204,6 +204,12 @@ func canonicalizeMetricsScopeMonitoredProjects(des, initial *MetricsScopeMonitor
 
 	cDes := &MetricsScopeMonitoredProjects{}
 
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+
 	return cDes
 }
 
@@ -367,7 +373,7 @@ func compareMetricsScopeMonitoredProjectsNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -547,6 +553,9 @@ func expandMetricsScopeMonitoredProjects(c *Client, f *MetricsScopeMonitoredProj
 	}
 
 	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
 
 	return m, nil
 }
