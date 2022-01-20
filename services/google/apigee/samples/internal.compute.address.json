@@ -1,7 +1,7 @@
 {
   "name": "{{address}}",
-  "project": "{{ref:compute.serviceusage.service.json:project}}",
-  "network": "{{ref:first.compute.network.json:selfLink}}",
+  "project": "{{project}}",
+  "network": "default",
   "purpose": "VPC_PEERING",
   "addressType": "INTERNAL",
   "prefixLength": 20

@@ -392,7 +392,7 @@ func (c *Client) GetOrganization(ctx context.Context, r *Organization) (*Organiz
 
 func (c *Client) DeleteOrganization(ctx context.Context, r *Organization) error {
 	ctx = dcl.ContextWithRequestID(ctx)
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(4800*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -428,7 +428,7 @@ func (c *Client) DeleteAllOrganization(ctx context.Context, filter func(*Organiz
 }
 
 func (c *Client) ApplyOrganization(ctx context.Context, rawDesired *Organization, opts ...dcl.ApplyOption) (*Organization, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(4800*time.Second))
 	defer cancel()
 
 	ctx = dcl.ContextWithRequestID(ctx)

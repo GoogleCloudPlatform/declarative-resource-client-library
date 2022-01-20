@@ -1,6 +1,6 @@
 {
   "name": "{{instance}}",
-  "apigeeOrganization": "organizations/{{ref:basic.organization.json:name}}",
+  "apigeeOrganization": "organizations/{{project}}",
   "location": "{{region}}",
   "peeringCidrRange": "SLASH_22",
   "description": "A sample apigee instance",

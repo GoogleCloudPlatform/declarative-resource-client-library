@@ -17,32 +17,11 @@ type: environment
 versions:
 - ga
 resource: samples/basic.environment.json
-dependencies:
-- samples/basic.organization.json
-- samples/first.compute.network.json
-- samples/apigee.serviceusage.service.json
-- samples/compute.serviceusage.service.json
-- samples/basic.cloudbilling.project_billing_info.json
-- samples/basic.cloudresourcemanager.project.json
 updates:
 - resource: samples/update.environment.json
-  dependencies:
-  - samples/basic.organization.json
-  - samples/first.compute.network.json
-  - samples/apigee.serviceusage.service.json
-  - samples/compute.serviceusage.service.json
-  - samples/basic.cloudbilling.project_billing_info.json
-  - samples/basic.cloudresourcemanager.project.json
+  dependencies: []
 variables:
-- name: billing_account
-  type: billing_account
 - name: environment
   type: resource_name
-- name: id
-  type: resource_name
-- name: network1
-  type: resource_name
-- name: org_id
-  type: org_id
-- name: region
-  type: region
+- name: project
+  type: project

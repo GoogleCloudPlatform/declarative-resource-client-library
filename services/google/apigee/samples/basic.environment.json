@@ -1,6 +1,6 @@
 {
   "name": "{{environment}}",
-  "apigeeOrganization": "organizations/{{ref:basic.organization.json:name}}",
+  "apigeeOrganization": "organizations/{{project}}",
   "description": "A sample environment",
   "properties": {
     "key": "A sample value"

@@ -66,7 +66,7 @@ components:
           description: The apigee organization for the resource
           x-kubernetes-immutable: true
           x-dcl-references:
-          - resource: Apigee/ApigeeOrganization
+          - resource: Apigee/Organization
             field: name
             parent: true
         createdAt:
