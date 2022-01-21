@@ -601,7 +601,7 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 }
 
 func canonicalizePolicyAdmissionRuleSlice(des, initial []PolicyAdmissionRule, opts ...dcl.ApplyOption) []PolicyAdmissionRule {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1068,7 +1068,7 @@ func flattenPolicyAdmissionWhitelistPatternsSlice(c *Client, i interface{}) []Po
 // expandPolicyAdmissionWhitelistPatterns expands an instance of PolicyAdmissionWhitelistPatterns into a JSON
 // request object.
 func expandPolicyAdmissionWhitelistPatterns(c *Client, f *PolicyAdmissionWhitelistPatterns) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

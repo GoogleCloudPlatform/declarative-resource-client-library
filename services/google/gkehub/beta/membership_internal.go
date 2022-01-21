@@ -662,7 +662,7 @@ func canonicalizeMembershipEndpoint(des, initial *MembershipEndpoint, opts ...dc
 }
 
 func canonicalizeMembershipEndpointSlice(des, initial []MembershipEndpoint, opts ...dcl.ApplyOption) []MembershipEndpoint {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -777,7 +777,7 @@ func canonicalizeMembershipEndpointGkeCluster(des, initial *MembershipEndpointGk
 }
 
 func canonicalizeMembershipEndpointGkeClusterSlice(des, initial []MembershipEndpointGkeCluster, opts ...dcl.ApplyOption) []MembershipEndpointGkeCluster {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -886,7 +886,7 @@ func canonicalizeMembershipEndpointKubernetesMetadata(des, initial *MembershipEn
 }
 
 func canonicalizeMembershipEndpointKubernetesMetadataSlice(des, initial []MembershipEndpointKubernetesMetadata, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesMetadata {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1005,7 +1005,7 @@ func canonicalizeMembershipEndpointKubernetesResource(des, initial *MembershipEn
 }
 
 func canonicalizeMembershipEndpointKubernetesResourceSlice(des, initial []MembershipEndpointKubernetesResource, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResource {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1126,7 +1126,7 @@ func canonicalizeMembershipEndpointKubernetesResourceMembershipResources(des, in
 }
 
 func canonicalizeMembershipEndpointKubernetesResourceMembershipResourcesSlice(des, initial []MembershipEndpointKubernetesResourceMembershipResources, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResourceMembershipResources {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1249,7 +1249,7 @@ func canonicalizeMembershipEndpointKubernetesResourceConnectResources(des, initi
 }
 
 func canonicalizeMembershipEndpointKubernetesResourceConnectResourcesSlice(des, initial []MembershipEndpointKubernetesResourceConnectResources, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResourceConnectResources {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1372,7 +1372,7 @@ func canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des, initia
 }
 
 func canonicalizeMembershipEndpointKubernetesResourceResourceOptionsSlice(des, initial []MembershipEndpointKubernetesResourceResourceOptions, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResourceResourceOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1484,7 +1484,7 @@ func canonicalizeMembershipState(des, initial *MembershipState, opts ...dcl.Appl
 }
 
 func canonicalizeMembershipStateSlice(des, initial []MembershipState, opts ...dcl.ApplyOption) []MembershipState {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1595,7 +1595,7 @@ func canonicalizeMembershipAuthority(des, initial *MembershipAuthority, opts ...
 }
 
 func canonicalizeMembershipAuthoritySlice(des, initial []MembershipAuthority, opts ...dcl.ApplyOption) []MembershipAuthority {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

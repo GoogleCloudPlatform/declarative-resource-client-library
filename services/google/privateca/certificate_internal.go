@@ -917,7 +917,7 @@ func canonicalizeCertificateConfig(des, initial *CertificateConfig, opts ...dcl.
 }
 
 func canonicalizeCertificateConfigSlice(des, initial []CertificateConfig, opts ...dcl.ApplyOption) []CertificateConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1029,7 +1029,7 @@ func canonicalizeCertificateConfigSubjectConfig(des, initial *CertificateConfigS
 }
 
 func canonicalizeCertificateConfigSubjectConfigSlice(des, initial []CertificateConfigSubjectConfig, opts ...dcl.ApplyOption) []CertificateConfigSubjectConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1178,7 +1178,7 @@ func canonicalizeCertificateConfigSubjectConfigSubject(des, initial *Certificate
 }
 
 func canonicalizeCertificateConfigSubjectConfigSubjectSlice(des, initial []CertificateConfigSubjectConfigSubject, opts ...dcl.ApplyOption) []CertificateConfigSubjectConfigSubject {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1329,7 +1329,7 @@ func canonicalizeCertificateConfigSubjectConfigSubjectAltName(des, initial *Cert
 }
 
 func canonicalizeCertificateConfigSubjectConfigSubjectAltNameSlice(des, initial []CertificateConfigSubjectConfigSubjectAltName, opts ...dcl.ApplyOption) []CertificateConfigSubjectConfigSubjectAltName {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1457,7 +1457,7 @@ func canonicalizeCertificateConfigX509Config(des, initial *CertificateConfigX509
 }
 
 func canonicalizeCertificateConfigX509ConfigSlice(des, initial []CertificateConfigX509Config, opts ...dcl.ApplyOption) []CertificateConfigX509Config {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1574,7 +1574,7 @@ func canonicalizeCertificateConfigX509ConfigKeyUsage(des, initial *CertificateCo
 }
 
 func canonicalizeCertificateConfigX509ConfigKeyUsageSlice(des, initial []CertificateConfigX509ConfigKeyUsage, opts ...dcl.ApplyOption) []CertificateConfigX509ConfigKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1729,7 +1729,7 @@ func canonicalizeCertificateConfigX509ConfigKeyUsageBaseKeyUsage(des, initial *C
 }
 
 func canonicalizeCertificateConfigX509ConfigKeyUsageBaseKeyUsageSlice(des, initial []CertificateConfigX509ConfigKeyUsageBaseKeyUsage, opts ...dcl.ApplyOption) []CertificateConfigX509ConfigKeyUsageBaseKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1893,7 +1893,7 @@ func canonicalizeCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(des, initia
 }
 
 func canonicalizeCertificateConfigX509ConfigKeyUsageExtendedKeyUsageSlice(des, initial []CertificateConfigX509ConfigKeyUsageExtendedKeyUsage, opts ...dcl.ApplyOption) []CertificateConfigX509ConfigKeyUsageExtendedKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2159,7 +2159,7 @@ func canonicalizeCertificateConfigX509ConfigCaOptions(des, initial *CertificateC
 }
 
 func canonicalizeCertificateConfigX509ConfigCaOptionsSlice(des, initial []CertificateConfigX509ConfigCaOptions, opts ...dcl.ApplyOption) []CertificateConfigX509ConfigCaOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2510,7 +2510,7 @@ func canonicalizeCertificateConfigX509ConfigAdditionalExtensionsObjectId(des, in
 }
 
 func canonicalizeCertificateConfigX509ConfigAdditionalExtensionsObjectIdSlice(des, initial []CertificateConfigX509ConfigAdditionalExtensionsObjectId, opts ...dcl.ApplyOption) []CertificateConfigX509ConfigAdditionalExtensionsObjectId {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2626,7 +2626,7 @@ func canonicalizeCertificateConfigPublicKey(des, initial *CertificateConfigPubli
 }
 
 func canonicalizeCertificateConfigPublicKeySlice(des, initial []CertificateConfigPublicKey, opts ...dcl.ApplyOption) []CertificateConfigPublicKey {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2746,7 +2746,7 @@ func canonicalizeCertificateRevocationDetails(des, initial *CertificateRevocatio
 }
 
 func canonicalizeCertificateRevocationDetailsSlice(des, initial []CertificateRevocationDetails, opts ...dcl.ApplyOption) []CertificateRevocationDetails {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2868,7 +2868,7 @@ func canonicalizeCertificateCertificateDescription(des, initial *CertificateCert
 }
 
 func canonicalizeCertificateCertificateDescriptionSlice(des, initial []CertificateCertificateDescription, opts ...dcl.ApplyOption) []CertificateCertificateDescription {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3009,7 +3009,7 @@ func canonicalizeCertificateCertificateDescriptionSubjectDescription(des, initia
 }
 
 func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSlice(des, initial []CertificateCertificateDescriptionSubjectDescription, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionSubjectDescription {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3164,7 +3164,7 @@ func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubject(des,
 }
 
 func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubjectSlice(des, initial []CertificateCertificateDescriptionSubjectDescriptionSubject, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionSubjectDescriptionSubject {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3316,7 +3316,7 @@ func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubjectAltNa
 }
 
 func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameSlice(des, initial []CertificateCertificateDescriptionSubjectDescriptionSubjectAltName, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionSubjectDescriptionSubjectAltName {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3566,7 +3566,7 @@ func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubjectAltNa
 }
 
 func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectIdSlice(des, initial []CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3681,7 +3681,7 @@ func canonicalizeCertificateCertificateDescriptionX509Description(des, initial *
 }
 
 func canonicalizeCertificateCertificateDescriptionX509DescriptionSlice(des, initial []CertificateCertificateDescriptionX509Description, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionX509Description {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3798,7 +3798,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsage(des, i
 }
 
 func canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsageSlice(des, initial []CertificateCertificateDescriptionX509DescriptionKeyUsage, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionX509DescriptionKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3953,7 +3953,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKey
 }
 
 func canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageSlice(des, initial []CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4117,7 +4117,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsageExtende
 }
 
 func canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsageSlice(des, initial []CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4383,7 +4383,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionCaOptions(des, 
 }
 
 func canonicalizeCertificateCertificateDescriptionX509DescriptionCaOptionsSlice(des, initial []CertificateCertificateDescriptionX509DescriptionCaOptions, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionX509DescriptionCaOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4734,7 +4734,7 @@ func canonicalizeCertificateCertificateDescriptionX509DescriptionAdditionalExten
 }
 
 func canonicalizeCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectIdSlice(des, initial []CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4850,7 +4850,7 @@ func canonicalizeCertificateCertificateDescriptionPublicKey(des, initial *Certif
 }
 
 func canonicalizeCertificateCertificateDescriptionPublicKeySlice(des, initial []CertificateCertificateDescriptionPublicKey, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionPublicKey {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4965,7 +4965,7 @@ func canonicalizeCertificateCertificateDescriptionSubjectKeyId(des, initial *Cer
 }
 
 func canonicalizeCertificateCertificateDescriptionSubjectKeyIdSlice(des, initial []CertificateCertificateDescriptionSubjectKeyId, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionSubjectKeyId {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5080,7 +5080,7 @@ func canonicalizeCertificateCertificateDescriptionAuthorityKeyId(des, initial *C
 }
 
 func canonicalizeCertificateCertificateDescriptionAuthorityKeyIdSlice(des, initial []CertificateCertificateDescriptionAuthorityKeyId, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionAuthorityKeyId {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5195,7 +5195,7 @@ func canonicalizeCertificateCertificateDescriptionCertFingerprint(des, initial *
 }
 
 func canonicalizeCertificateCertificateDescriptionCertFingerprintSlice(des, initial []CertificateCertificateDescriptionCertFingerprint, opts ...dcl.ApplyOption) []CertificateCertificateDescriptionCertFingerprint {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -8313,7 +8313,7 @@ func flattenCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesSlice(c *
 // expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages expands an instance of CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
 func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -8545,7 +8545,7 @@ func flattenCertificateConfigX509ConfigPolicyIdsSlice(c *Client, i interface{}) 
 // expandCertificateConfigX509ConfigPolicyIds expands an instance of CertificateConfigX509ConfigPolicyIds into a JSON
 // request object.
 func expandCertificateConfigX509ConfigPolicyIds(c *Client, f *CertificateConfigX509ConfigPolicyIds) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -8659,7 +8659,7 @@ func flattenCertificateConfigX509ConfigAdditionalExtensionsSlice(c *Client, i in
 // expandCertificateConfigX509ConfigAdditionalExtensions expands an instance of CertificateConfigX509ConfigAdditionalExtensions into a JSON
 // request object.
 func expandCertificateConfigX509ConfigAdditionalExtensions(c *Client, f *CertificateConfigX509ConfigAdditionalExtensions) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -9699,7 +9699,7 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCus
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans expands an instance of CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans into a JSON
 // request object.
 func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -10483,7 +10483,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExten
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages expands an instance of CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
 func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -10715,7 +10715,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice(c *Cl
 // expandCertificateCertificateDescriptionX509DescriptionPolicyIds expands an instance of CertificateCertificateDescriptionX509DescriptionPolicyIds into a JSON
 // request object.
 func expandCertificateCertificateDescriptionX509DescriptionPolicyIds(c *Client, f *CertificateCertificateDescriptionX509DescriptionPolicyIds) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -10829,7 +10829,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionAdditionalExtensions
 // expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions expands an instance of CertificateCertificateDescriptionX509DescriptionAdditionalExtensions into a JSON
 // request object.
 func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions(c *Client, f *CertificateCertificateDescriptionX509DescriptionAdditionalExtensions) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

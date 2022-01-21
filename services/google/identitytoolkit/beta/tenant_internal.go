@@ -564,7 +564,7 @@ func canonicalizeTenantMfaConfig(des, initial *TenantMfaConfig, opts ...dcl.Appl
 }
 
 func canonicalizeTenantMfaConfigSlice(des, initial []TenantMfaConfig, opts ...dcl.ApplyOption) []TenantMfaConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

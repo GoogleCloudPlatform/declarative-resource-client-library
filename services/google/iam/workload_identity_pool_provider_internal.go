@@ -644,7 +644,7 @@ func canonicalizeWorkloadIdentityPoolProviderAws(des, initial *WorkloadIdentityP
 }
 
 func canonicalizeWorkloadIdentityPoolProviderAwsSlice(des, initial []WorkloadIdentityPoolProviderAws, opts ...dcl.ApplyOption) []WorkloadIdentityPoolProviderAws {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -765,7 +765,7 @@ func canonicalizeWorkloadIdentityPoolProviderOidc(des, initial *WorkloadIdentity
 }
 
 func canonicalizeWorkloadIdentityPoolProviderOidcSlice(des, initial []WorkloadIdentityPoolProviderOidc, opts ...dcl.ApplyOption) []WorkloadIdentityPoolProviderOidc {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

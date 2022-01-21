@@ -750,7 +750,7 @@ func canonicalizeInterconnectAttachmentPrivateInterconnectInfo(des, initial *Int
 }
 
 func canonicalizeInterconnectAttachmentPrivateInterconnectInfoSlice(des, initial []InterconnectAttachmentPrivateInterconnectInfo, opts ...dcl.ApplyOption) []InterconnectAttachmentPrivateInterconnectInfo {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -871,7 +871,7 @@ func canonicalizeInterconnectAttachmentPartnerMetadata(des, initial *Interconnec
 }
 
 func canonicalizeInterconnectAttachmentPartnerMetadataSlice(des, initial []InterconnectAttachmentPartnerMetadata, opts ...dcl.ApplyOption) []InterconnectAttachmentPartnerMetadata {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

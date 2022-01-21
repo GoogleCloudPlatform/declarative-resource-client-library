@@ -496,7 +496,7 @@ func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDry
 }
 
 func canonicalizeAttestorUserOwnedDrydockNoteSlice(des, initial []AttestorUserOwnedDrydockNote, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNote {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -753,7 +753,7 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 }
 
 func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(des, initial []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1334,7 +1334,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, i interface{}
 // expandAttestorUserOwnedDrydockNotePublicKeys expands an instance of AttestorUserOwnedDrydockNotePublicKeys into a JSON
 // request object.
 func expandAttestorUserOwnedDrydockNotePublicKeys(c *Client, f *AttestorUserOwnedDrydockNotePublicKeys) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

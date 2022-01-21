@@ -585,7 +585,7 @@ func canonicalizeKeyRestrictions(des, initial *KeyRestrictions, opts ...dcl.Appl
 }
 
 func canonicalizeKeyRestrictionsSlice(des, initial []KeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -702,7 +702,7 @@ func canonicalizeKeyRestrictionsBrowserKeyRestrictions(des, initial *KeyRestrict
 }
 
 func canonicalizeKeyRestrictionsBrowserKeyRestrictionsSlice(des, initial []KeyRestrictionsBrowserKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsBrowserKeyRestrictions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -817,7 +817,7 @@ func canonicalizeKeyRestrictionsServerKeyRestrictions(des, initial *KeyRestricti
 }
 
 func canonicalizeKeyRestrictionsServerKeyRestrictionsSlice(des, initial []KeyRestrictionsServerKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsServerKeyRestrictions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -928,7 +928,7 @@ func canonicalizeKeyRestrictionsAndroidKeyRestrictions(des, initial *KeyRestrict
 }
 
 func canonicalizeKeyRestrictionsAndroidKeyRestrictionsSlice(des, initial []KeyRestrictionsAndroidKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsAndroidKeyRestrictions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1164,7 +1164,7 @@ func canonicalizeKeyRestrictionsIosKeyRestrictions(des, initial *KeyRestrictions
 }
 
 func canonicalizeKeyRestrictionsIosKeyRestrictionsSlice(des, initial []KeyRestrictionsIosKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsIosKeyRestrictions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2390,7 +2390,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c *Cli
 // expandKeyRestrictionsAndroidKeyRestrictionsAllowedApplications expands an instance of KeyRestrictionsAndroidKeyRestrictionsAllowedApplications into a JSON
 // request object.
 func expandKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c *Client, f *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -2622,7 +2622,7 @@ func flattenKeyRestrictionsApiTargetsSlice(c *Client, i interface{}) []KeyRestri
 // expandKeyRestrictionsApiTargets expands an instance of KeyRestrictionsApiTargets into a JSON
 // request object.
 func expandKeyRestrictionsApiTargets(c *Client, f *KeyRestrictionsApiTargets) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

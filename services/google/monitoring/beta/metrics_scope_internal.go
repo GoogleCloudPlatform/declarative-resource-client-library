@@ -214,7 +214,7 @@ func canonicalizeMetricsScopeMonitoredProjects(des, initial *MetricsScopeMonitor
 }
 
 func canonicalizeMetricsScopeMonitoredProjectsSlice(des, initial []MetricsScopeMonitoredProjects, opts ...dcl.ApplyOption) []MetricsScopeMonitoredProjects {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

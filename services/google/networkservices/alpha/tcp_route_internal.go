@@ -857,7 +857,7 @@ func canonicalizeTcpRouteRulesAction(des, initial *TcpRouteRulesAction, opts ...
 }
 
 func canonicalizeTcpRouteRulesActionSlice(des, initial []TcpRouteRulesAction, opts ...dcl.ApplyOption) []TcpRouteRulesAction {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1520,7 +1520,7 @@ func flattenTcpRouteRulesSlice(c *Client, i interface{}) []TcpRouteRules {
 // expandTcpRouteRules expands an instance of TcpRouteRules into a JSON
 // request object.
 func expandTcpRouteRules(c *Client, f *TcpRouteRules) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -1642,7 +1642,7 @@ func flattenTcpRouteRulesMatchesSlice(c *Client, i interface{}) []TcpRouteRulesM
 // expandTcpRouteRulesMatches expands an instance of TcpRouteRulesMatches into a JSON
 // request object.
 func expandTcpRouteRulesMatches(c *Client, f *TcpRouteRulesMatches) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -1880,7 +1880,7 @@ func flattenTcpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Tcp
 // expandTcpRouteRulesActionDestinations expands an instance of TcpRouteRulesActionDestinations into a JSON
 // request object.
 func expandTcpRouteRulesActionDestinations(c *Client, f *TcpRouteRulesActionDestinations) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

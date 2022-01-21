@@ -111,6 +111,69 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	return u
 }
 
+func ClusterInstanceGroupConfigToUnstructured(r *dclService.ClusterInstanceGroupConfig) map[string]interface{} {
+	result := make(map[string]interface{})
+	var rAccelerators []interface{}
+	for _, rAcceleratorsVal := range r.Accelerators {
+		rAcceleratorsObject := make(map[string]interface{})
+		if rAcceleratorsVal.AcceleratorCount != nil {
+			rAcceleratorsObject["acceleratorCount"] = *rAcceleratorsVal.AcceleratorCount
+		}
+		if rAcceleratorsVal.AcceleratorType != nil {
+			rAcceleratorsObject["acceleratorType"] = *rAcceleratorsVal.AcceleratorType
+		}
+		rAccelerators = append(rAccelerators, rAcceleratorsObject)
+	}
+	result["accelerators"] = rAccelerators
+	if r.DiskConfig != nil && r.DiskConfig != dclService.EmptyClusterInstanceGroupConfigDiskConfig {
+		rDiskConfig := make(map[string]interface{})
+		if r.DiskConfig.BootDiskSizeGb != nil {
+			rDiskConfig["bootDiskSizeGb"] = *r.DiskConfig.BootDiskSizeGb
+		}
+		if r.DiskConfig.BootDiskType != nil {
+			rDiskConfig["bootDiskType"] = *r.DiskConfig.BootDiskType
+		}
+		if r.DiskConfig.NumLocalSsds != nil {
+			rDiskConfig["numLocalSsds"] = *r.DiskConfig.NumLocalSsds
+		}
+		result["diskConfig"] = rDiskConfig
+	}
+	if r.Image != nil {
+		result["image"] = *r.Image
+	}
+	var rInstanceNames []interface{}
+	for _, rInstanceNamesVal := range r.InstanceNames {
+		rInstanceNames = append(rInstanceNames, rInstanceNamesVal)
+	}
+	result["instanceNames"] = rInstanceNames
+	if r.IsPreemptible != nil {
+		result["isPreemptible"] = *r.IsPreemptible
+	}
+	if r.MachineType != nil {
+		result["machineType"] = *r.MachineType
+	}
+	if r.ManagedGroupConfig != nil && r.ManagedGroupConfig != dclService.EmptyClusterInstanceGroupConfigManagedGroupConfig {
+		rManagedGroupConfig := make(map[string]interface{})
+		if r.ManagedGroupConfig.InstanceGroupManagerName != nil {
+			rManagedGroupConfig["instanceGroupManagerName"] = *r.ManagedGroupConfig.InstanceGroupManagerName
+		}
+		if r.ManagedGroupConfig.InstanceTemplateName != nil {
+			rManagedGroupConfig["instanceTemplateName"] = *r.ManagedGroupConfig.InstanceTemplateName
+		}
+		result["managedGroupConfig"] = rManagedGroupConfig
+	}
+	if r.MinCpuPlatform != nil {
+		result["minCpuPlatform"] = *r.MinCpuPlatform
+	}
+	if r.NumInstances != nil {
+		result["numInstances"] = *r.NumInstances
+	}
+	if r.Preemptibility != nil {
+		result["preemptibility"] = string(*r.Preemptibility)
+	}
+	return result
+}
+
 func ClusterClusterConfigToUnstructured(r *dclService.ClusterClusterConfig) map[string]interface{} {
 	result := make(map[string]interface{})
 	if r.AutoscalingConfig != nil && r.AutoscalingConfig != dclService.EmptyClusterClusterConfigAutoscalingConfig {
@@ -337,69 +400,6 @@ func ClusterClusterConfigToUnstructured(r *dclService.ClusterClusterConfig) map[
 	}
 	if r.WorkerConfig != nil {
 		result["workerConfig"] = ClusterInstanceGroupConfigToUnstructured(r.WorkerConfig)
-	}
-	return result
-}
-
-func ClusterInstanceGroupConfigToUnstructured(r *dclService.ClusterInstanceGroupConfig) map[string]interface{} {
-	result := make(map[string]interface{})
-	var rAccelerators []interface{}
-	for _, rAcceleratorsVal := range r.Accelerators {
-		rAcceleratorsObject := make(map[string]interface{})
-		if rAcceleratorsVal.AcceleratorCount != nil {
-			rAcceleratorsObject["acceleratorCount"] = *rAcceleratorsVal.AcceleratorCount
-		}
-		if rAcceleratorsVal.AcceleratorType != nil {
-			rAcceleratorsObject["acceleratorType"] = *rAcceleratorsVal.AcceleratorType
-		}
-		rAccelerators = append(rAccelerators, rAcceleratorsObject)
-	}
-	result["accelerators"] = rAccelerators
-	if r.DiskConfig != nil && r.DiskConfig != dclService.EmptyClusterInstanceGroupConfigDiskConfig {
-		rDiskConfig := make(map[string]interface{})
-		if r.DiskConfig.BootDiskSizeGb != nil {
-			rDiskConfig["bootDiskSizeGb"] = *r.DiskConfig.BootDiskSizeGb
-		}
-		if r.DiskConfig.BootDiskType != nil {
-			rDiskConfig["bootDiskType"] = *r.DiskConfig.BootDiskType
-		}
-		if r.DiskConfig.NumLocalSsds != nil {
-			rDiskConfig["numLocalSsds"] = *r.DiskConfig.NumLocalSsds
-		}
-		result["diskConfig"] = rDiskConfig
-	}
-	if r.Image != nil {
-		result["image"] = *r.Image
-	}
-	var rInstanceNames []interface{}
-	for _, rInstanceNamesVal := range r.InstanceNames {
-		rInstanceNames = append(rInstanceNames, rInstanceNamesVal)
-	}
-	result["instanceNames"] = rInstanceNames
-	if r.IsPreemptible != nil {
-		result["isPreemptible"] = *r.IsPreemptible
-	}
-	if r.MachineType != nil {
-		result["machineType"] = *r.MachineType
-	}
-	if r.ManagedGroupConfig != nil && r.ManagedGroupConfig != dclService.EmptyClusterInstanceGroupConfigManagedGroupConfig {
-		rManagedGroupConfig := make(map[string]interface{})
-		if r.ManagedGroupConfig.InstanceGroupManagerName != nil {
-			rManagedGroupConfig["instanceGroupManagerName"] = *r.ManagedGroupConfig.InstanceGroupManagerName
-		}
-		if r.ManagedGroupConfig.InstanceTemplateName != nil {
-			rManagedGroupConfig["instanceTemplateName"] = *r.ManagedGroupConfig.InstanceTemplateName
-		}
-		result["managedGroupConfig"] = rManagedGroupConfig
-	}
-	if r.MinCpuPlatform != nil {
-		result["minCpuPlatform"] = *r.MinCpuPlatform
-	}
-	if r.NumInstances != nil {
-		result["numInstances"] = *r.NumInstances
-	}
-	if r.Preemptibility != nil {
-		result["preemptibility"] = string(*r.Preemptibility)
 	}
 	return result
 }

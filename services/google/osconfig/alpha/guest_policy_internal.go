@@ -776,7 +776,7 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 }
 
 func canonicalizeGuestPolicyAssignmentSlice(des, initial []GuestPolicyAssignment, opts ...dcl.ApplyOption) []GuestPolicyAssignment {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1441,7 +1441,7 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesAptSlice(des, initial []GuestPolicyPackageRepositoriesApt, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesApt {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1580,7 +1580,7 @@ func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPack
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesYumSlice(des, initial []GuestPolicyPackageRepositoriesYum, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesYum {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1719,7 +1719,7 @@ func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyP
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesZypperSlice(des, initial []GuestPolicyPackageRepositoriesZypper, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesZypper {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1848,7 +1848,7 @@ func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPack
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesGooSlice(des, initial []GuestPolicyPackageRepositoriesGoo, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesGoo {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2252,7 +2252,7 @@ func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyReci
 }
 
 func canonicalizeGuestPolicyRecipesArtifactsRemoteSlice(des, initial []GuestPolicyRecipesArtifactsRemote, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifactsRemote {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2380,7 +2380,7 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 }
 
 func canonicalizeGuestPolicyRecipesArtifactsGcsSlice(des, initial []GuestPolicyRecipesArtifactsGcs, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifactsGcs {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2634,7 +2634,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolic
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsFileCopySlice(des, initial []GuestPolicyRecipesInstallStepsFileCopy, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsFileCopy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2768,7 +2768,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtractionSlice(des, initial []GuestPolicyRecipesInstallStepsArchiveExtraction, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsArchiveExtraction {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2896,7 +2896,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsMsiInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsMsiInstallation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3014,7 +3014,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *Gu
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsDpkgInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsDpkgInstallation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3129,7 +3129,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *Gue
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsRpmInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsRpmInstallation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3259,7 +3259,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsFileExecSlice(des, initial []GuestPolicyRecipesInstallStepsFileExec, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsFileExec {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3390,7 +3390,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsScriptRunSlice(des, initial []GuestPolicyRecipesInstallStepsScriptRun, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsScriptRun {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3641,7 +3641,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicy
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsFileCopySlice(des, initial []GuestPolicyRecipesUpdateStepsFileCopy, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsFileCopy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3775,7 +3775,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(des, initial []GuestPolicyRecipesUpdateStepsArchiveExtraction, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsArchiveExtraction {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3903,7 +3903,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsMsiInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsMsiInstallation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4021,7 +4021,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *Gue
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsDpkgInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsDpkgInstallation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4136,7 +4136,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *Gues
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsRpmInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsRpmInstallation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4266,7 +4266,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsFileExecSlice(des, initial []GuestPolicyRecipesUpdateStepsFileExec, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsFileExec {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4397,7 +4397,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsScriptRunSlice(des, initial []GuestPolicyRecipesUpdateStepsScriptRun, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsScriptRun {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -6242,7 +6242,7 @@ func flattenGuestPolicyAssignmentGroupLabelsSlice(c *Client, i interface{}) []Gu
 // expandGuestPolicyAssignmentGroupLabels expands an instance of GuestPolicyAssignmentGroupLabels into a JSON
 // request object.
 func expandGuestPolicyAssignmentGroupLabels(c *Client, f *GuestPolicyAssignmentGroupLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -6356,7 +6356,7 @@ func flattenGuestPolicyAssignmentOSTypesSlice(c *Client, i interface{}) []GuestP
 // expandGuestPolicyAssignmentOSTypes expands an instance of GuestPolicyAssignmentOSTypes into a JSON
 // request object.
 func expandGuestPolicyAssignmentOSTypes(c *Client, f *GuestPolicyAssignmentOSTypes) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -6478,7 +6478,7 @@ func flattenGuestPolicyPackagesSlice(c *Client, i interface{}) []GuestPolicyPack
 // expandGuestPolicyPackages expands an instance of GuestPolicyPackages into a JSON
 // request object.
 func expandGuestPolicyPackages(c *Client, f *GuestPolicyPackages) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -6600,7 +6600,7 @@ func flattenGuestPolicyPackageRepositoriesSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyPackageRepositories expands an instance of GuestPolicyPackageRepositories into a JSON
 // request object.
 func expandGuestPolicyPackageRepositories(c *Client, f *GuestPolicyPackageRepositories) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -7234,7 +7234,7 @@ func flattenGuestPolicyRecipesSlice(c *Client, i interface{}) []GuestPolicyRecip
 // expandGuestPolicyRecipes expands an instance of GuestPolicyRecipes into a JSON
 // request object.
 func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -7374,7 +7374,7 @@ func flattenGuestPolicyRecipesArtifactsSlice(c *Client, i interface{}) []GuestPo
 // expandGuestPolicyRecipesArtifacts expands an instance of GuestPolicyRecipesArtifacts into a JSON
 // request object.
 func expandGuestPolicyRecipesArtifacts(c *Client, f *GuestPolicyRecipesArtifacts) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -7744,7 +7744,7 @@ func flattenGuestPolicyRecipesInstallStepsSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyRecipesInstallSteps expands an instance of GuestPolicyRecipesInstallSteps into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallSteps(c *Client, f *GuestPolicyRecipesInstallSteps) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -8742,7 +8742,7 @@ func flattenGuestPolicyRecipesUpdateStepsSlice(c *Client, i interface{}) []Guest
 // expandGuestPolicyRecipesUpdateSteps expands an instance of GuestPolicyRecipesUpdateSteps into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateSteps(c *Client, f *GuestPolicyRecipesUpdateSteps) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

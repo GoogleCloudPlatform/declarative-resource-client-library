@@ -966,7 +966,7 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 }
 
 func canonicalizeDashboardGridLayoutSlice(des, initial []DashboardGridLayout, opts ...dcl.ApplyOption) []DashboardGridLayout {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1078,7 +1078,7 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 }
 
 func canonicalizeDashboardMosaicLayoutSlice(des, initial []DashboardMosaicLayout, opts ...dcl.ApplyOption) []DashboardMosaicLayout {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1316,7 +1316,7 @@ func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dc
 }
 
 func canonicalizeDashboardRowLayoutSlice(des, initial []DashboardRowLayout, opts ...dcl.ApplyOption) []DashboardRowLayout {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1541,7 +1541,7 @@ func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts
 }
 
 func canonicalizeDashboardColumnLayoutSlice(des, initial []DashboardColumnLayout, opts ...dcl.ApplyOption) []DashboardColumnLayout {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1936,7 +1936,7 @@ func canonicalizeDashboardWidgetXyChart(des, initial *DashboardWidgetXyChart, op
 }
 
 func canonicalizeDashboardWidgetXyChartSlice(des, initial []DashboardWidgetXyChart, opts ...dcl.ApplyOption) []DashboardWidgetXyChart {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2193,7 +2193,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des, initial *Das
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQuery {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2316,7 +2316,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(d
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2449,7 +2449,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2582,7 +2582,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2710,7 +2710,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2820,7 +2820,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2937,7 +2937,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3068,7 +3068,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3187,7 +3187,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3318,7 +3318,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3451,7 +3451,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3579,7 +3579,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3825,7 +3825,7 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 }
 
 func canonicalizeDashboardWidgetXyChartXAxisSlice(des, initial []DashboardWidgetXyChartXAxis, opts ...dcl.ApplyOption) []DashboardWidgetXyChartXAxis {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3945,7 +3945,7 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 }
 
 func canonicalizeDashboardWidgetXyChartYAxisSlice(des, initial []DashboardWidgetXyChartYAxis, opts ...dcl.ApplyOption) []DashboardWidgetXyChartYAxis {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4060,7 +4060,7 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 }
 
 func canonicalizeDashboardWidgetXyChartChartOptionsSlice(des, initial []DashboardWidgetXyChartChartOptions, opts ...dcl.ApplyOption) []DashboardWidgetXyChartChartOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4170,7 +4170,7 @@ func canonicalizeDashboardWidgetScorecard(des, initial *DashboardWidgetScorecard
 }
 
 func canonicalizeDashboardWidgetScorecardSlice(des, initial []DashboardWidgetScorecard, opts ...dcl.ApplyOption) []DashboardWidgetScorecard {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4293,7 +4293,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des, initial *Dashboard
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQuerySlice(des, initial []DashboardWidgetScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQuery {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4416,7 +4416,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des, in
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4549,7 +4549,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4682,7 +4682,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4810,7 +4810,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4920,7 +4920,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(de
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5037,7 +5037,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5168,7 +5168,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5287,7 +5287,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5418,7 +5418,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5551,7 +5551,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5679,7 +5679,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5795,7 +5795,7 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 }
 
 func canonicalizeDashboardWidgetScorecardGaugeViewSlice(des, initial []DashboardWidgetScorecardGaugeView, opts ...dcl.ApplyOption) []DashboardWidgetScorecardGaugeView {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5911,7 +5911,7 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 }
 
 func canonicalizeDashboardWidgetScorecardSparkChartViewSlice(des, initial []DashboardWidgetScorecardSparkChartView, opts ...dcl.ApplyOption) []DashboardWidgetScorecardSparkChartView {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -6161,7 +6161,7 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 }
 
 func canonicalizeDashboardWidgetTextSlice(des, initial []DashboardWidgetText, opts ...dcl.ApplyOption) []DashboardWidgetText {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -6269,7 +6269,7 @@ func canonicalizeDashboardWidgetBlank(des, initial *DashboardWidgetBlank, opts .
 }
 
 func canonicalizeDashboardWidgetBlankSlice(des, initial []DashboardWidgetBlank, opts ...dcl.ApplyOption) []DashboardWidgetBlank {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -8785,7 +8785,7 @@ func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}) []Dashboar
 // expandDashboardMosaicLayoutTiles expands an instance of DashboardMosaicLayoutTiles into a JSON
 // request object.
 func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -9033,7 +9033,7 @@ func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}) []DashboardRow
 // expandDashboardRowLayoutRows expands an instance of DashboardRowLayoutRows into a JSON
 // request object.
 func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -9267,7 +9267,7 @@ func flattenDashboardColumnLayoutColumnsSlice(c *Client, i interface{}) []Dashbo
 // expandDashboardColumnLayoutColumns expands an instance of DashboardColumnLayoutColumns into a JSON
 // request object.
 func expandDashboardColumnLayoutColumns(c *Client, f *DashboardColumnLayoutColumns) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -9387,7 +9387,7 @@ func flattenDashboardWidgetSlice(c *Client, i interface{}) []DashboardWidget {
 // expandDashboardWidget expands an instance of DashboardWidget into a JSON
 // request object.
 func expandDashboardWidget(c *Client, f *DashboardWidget) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -9669,7 +9669,7 @@ func flattenDashboardWidgetXyChartDataSetsSlice(c *Client, i interface{}) []Dash
 // expandDashboardWidgetXyChartDataSets expands an instance of DashboardWidgetXyChartDataSets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSets(c *Client, f *DashboardWidgetXyChartDataSets) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -11307,7 +11307,7 @@ func flattenDashboardWidgetXyChartThresholdsSlice(c *Client, i interface{}) []Da
 // expandDashboardWidgetXyChartThresholds expands an instance of DashboardWidgetXyChartThresholds into a JSON
 // request object.
 func expandDashboardWidgetXyChartThresholds(c *Client, f *DashboardWidgetXyChartThresholds) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -13663,7 +13663,7 @@ func flattenDashboardWidgetScorecardThresholdsSlice(c *Client, i interface{}) []
 // expandDashboardWidgetScorecardThresholds expands an instance of DashboardWidgetScorecardThresholds into a JSON
 // request object.
 func expandDashboardWidgetScorecardThresholds(c *Client, f *DashboardWidgetScorecardThresholds) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

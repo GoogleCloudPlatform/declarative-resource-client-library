@@ -581,7 +581,7 @@ func canonicalizeRoleLocalizedValues(des, initial *RoleLocalizedValues, opts ...
 }
 
 func canonicalizeRoleLocalizedValuesSlice(des, initial []RoleLocalizedValues, opts ...dcl.ApplyOption) []RoleLocalizedValues {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

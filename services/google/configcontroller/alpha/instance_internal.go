@@ -498,7 +498,7 @@ func canonicalizeInstanceBundlesConfig(des, initial *InstanceBundlesConfig, opts
 }
 
 func canonicalizeInstanceBundlesConfigSlice(des, initial []InstanceBundlesConfig, opts ...dcl.ApplyOption) []InstanceBundlesConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -611,7 +611,7 @@ func canonicalizeInstanceBundlesConfigConfigControllerConfig(des, initial *Insta
 }
 
 func canonicalizeInstanceBundlesConfigConfigControllerConfigSlice(des, initial []InstanceBundlesConfigConfigControllerConfig, opts ...dcl.ApplyOption) []InstanceBundlesConfigConfigControllerConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -722,7 +722,7 @@ func canonicalizeInstanceManagementConfig(des, initial *InstanceManagementConfig
 }
 
 func canonicalizeInstanceManagementConfigSlice(des, initial []InstanceManagementConfig, opts ...dcl.ApplyOption) []InstanceManagementConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -865,7 +865,7 @@ func canonicalizeInstanceManagementConfigStandardManagementConfig(des, initial *
 }
 
 func canonicalizeInstanceManagementConfigStandardManagementConfigSlice(des, initial []InstanceManagementConfigStandardManagementConfig, opts ...dcl.ApplyOption) []InstanceManagementConfigStandardManagementConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

@@ -735,7 +735,7 @@ func canonicalizeInstanceNetworkConfig(des, initial *InstanceNetworkConfig, opts
 }
 
 func canonicalizeInstanceNetworkConfigSlice(des, initial []InstanceNetworkConfig, opts ...dcl.ApplyOption) []InstanceNetworkConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -847,7 +847,7 @@ func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion
 }
 
 func canonicalizeInstanceAvailableVersionSlice(des, initial []InstanceAvailableVersion, opts ...dcl.ApplyOption) []InstanceAvailableVersion {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

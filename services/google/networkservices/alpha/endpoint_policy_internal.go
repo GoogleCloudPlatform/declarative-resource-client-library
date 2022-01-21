@@ -640,7 +640,7 @@ func canonicalizeEndpointPolicyEndpointMatcher(des, initial *EndpointPolicyEndpo
 }
 
 func canonicalizeEndpointPolicyEndpointMatcherSlice(des, initial []EndpointPolicyEndpointMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcher {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -754,7 +754,7 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 }
 
 func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(des, initial []EndpointPolicyEndpointMatcherMetadataLabelMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcherMetadataLabelMatcher {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -990,7 +990,7 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 }
 
 func canonicalizeEndpointPolicyTrafficPortSelectorSlice(des, initial []EndpointPolicyTrafficPortSelector, opts ...dcl.ApplyOption) []EndpointPolicyTrafficPortSelector {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1781,7 +1781,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels expands an instance of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels into a JSON
 // request object.
 func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, f *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

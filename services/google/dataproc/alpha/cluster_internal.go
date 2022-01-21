@@ -764,7 +764,7 @@ func canonicalizeClusterClusterConfig(des, initial *ClusterClusterConfig, opts .
 }
 
 func canonicalizeClusterClusterConfigSlice(des, initial []ClusterClusterConfig, opts ...dcl.ApplyOption) []ClusterClusterConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -937,7 +937,7 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 }
 
 func canonicalizeClusterClusterConfigGceClusterConfigSlice(des, initial []ClusterClusterConfigGceClusterConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigGceClusterConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1082,7 +1082,7 @@ func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(des, in
 }
 
 func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinitySlice(des, initial []ClusterClusterConfigGceClusterConfigReservationAffinity, opts ...dcl.ApplyOption) []ClusterClusterConfigGceClusterConfigReservationAffinity {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1200,7 +1200,7 @@ func canonicalizeClusterClusterConfigGceClusterConfigNodeGroupAffinity(des, init
 }
 
 func canonicalizeClusterClusterConfigGceClusterConfigNodeGroupAffinitySlice(des, initial []ClusterClusterConfigGceClusterConfigNodeGroupAffinity, opts ...dcl.ApplyOption) []ClusterClusterConfigGceClusterConfigNodeGroupAffinity {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1337,7 +1337,7 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 }
 
 func canonicalizeClusterInstanceGroupConfigSlice(des, initial []ClusterInstanceGroupConfig, opts ...dcl.ApplyOption) []ClusterInstanceGroupConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1477,7 +1477,7 @@ func canonicalizeClusterInstanceGroupConfigDiskConfig(des, initial *ClusterInsta
 }
 
 func canonicalizeClusterInstanceGroupConfigDiskConfigSlice(des, initial []ClusterInstanceGroupConfigDiskConfig, opts ...dcl.ApplyOption) []ClusterInstanceGroupConfigDiskConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1586,7 +1586,7 @@ func canonicalizeClusterInstanceGroupConfigManagedGroupConfig(des, initial *Clus
 }
 
 func canonicalizeClusterInstanceGroupConfigManagedGroupConfigSlice(des, initial []ClusterInstanceGroupConfigManagedGroupConfig, opts ...dcl.ApplyOption) []ClusterInstanceGroupConfigManagedGroupConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1834,7 +1834,7 @@ func canonicalizeClusterClusterConfigSoftwareConfig(des, initial *ClusterCluster
 }
 
 func canonicalizeClusterClusterConfigSoftwareConfigSlice(des, initial []ClusterClusterConfigSoftwareConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigSoftwareConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2072,7 +2072,7 @@ func canonicalizeClusterClusterConfigEncryptionConfig(des, initial *ClusterClust
 }
 
 func canonicalizeClusterClusterConfigEncryptionConfigSlice(des, initial []ClusterClusterConfigEncryptionConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigEncryptionConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2187,7 +2187,7 @@ func canonicalizeClusterClusterConfigAutoscalingConfig(des, initial *ClusterClus
 }
 
 func canonicalizeClusterClusterConfigAutoscalingConfigSlice(des, initial []ClusterClusterConfigAutoscalingConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigAutoscalingConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2298,7 +2298,7 @@ func canonicalizeClusterClusterConfigSecurityConfig(des, initial *ClusterCluster
 }
 
 func canonicalizeClusterClusterConfigSecurityConfigSlice(des, initial []ClusterClusterConfigSecurityConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigSecurityConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2481,7 +2481,7 @@ func canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(des, initial *
 }
 
 func canonicalizeClusterClusterConfigSecurityConfigKerberosConfigSlice(des, initial []ClusterClusterConfigSecurityConfigKerberosConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigSecurityConfigKerberosConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2645,7 +2645,7 @@ func canonicalizeClusterClusterConfigLifecycleConfig(des, initial *ClusterCluste
 }
 
 func canonicalizeClusterClusterConfigLifecycleConfigSlice(des, initial []ClusterClusterConfigLifecycleConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigLifecycleConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2763,7 +2763,7 @@ func canonicalizeClusterClusterConfigEndpointConfig(des, initial *ClusterCluster
 }
 
 func canonicalizeClusterClusterConfigEndpointConfigSlice(des, initial []ClusterClusterConfigEndpointConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigEndpointConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2874,7 +2874,7 @@ func canonicalizeClusterClusterConfigGkeClusterConfig(des, initial *ClusterClust
 }
 
 func canonicalizeClusterClusterConfigGkeClusterConfigSlice(des, initial []ClusterClusterConfigGkeClusterConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigGkeClusterConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2992,7 +2992,7 @@ func canonicalizeClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarg
 }
 
 func canonicalizeClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(des, initial []ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, opts ...dcl.ApplyOption) []ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3110,7 +3110,7 @@ func canonicalizeClusterClusterConfigMetastoreConfig(des, initial *ClusterCluste
 }
 
 func canonicalizeClusterClusterConfigMetastoreConfigSlice(des, initial []ClusterClusterConfigMetastoreConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigMetastoreConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3219,7 +3219,7 @@ func canonicalizeClusterStatus(des, initial *ClusterStatus, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeClusterStatusSlice(des, initial []ClusterStatus, opts ...dcl.ApplyOption) []ClusterStatus {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3328,7 +3328,7 @@ func canonicalizeClusterStatusHistory(des, initial *ClusterStatusHistory, opts .
 }
 
 func canonicalizeClusterStatusHistorySlice(des, initial []ClusterStatusHistory, opts ...dcl.ApplyOption) []ClusterStatusHistory {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3448,7 +3448,7 @@ func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyO
 }
 
 func canonicalizeClusterMetricsSlice(des, initial []ClusterMetrics, opts ...dcl.ApplyOption) []ClusterMetrics {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5895,7 +5895,7 @@ func flattenClusterInstanceGroupConfigAcceleratorsSlice(c *Client, i interface{}
 // expandClusterInstanceGroupConfigAccelerators expands an instance of ClusterInstanceGroupConfigAccelerators into a JSON
 // request object.
 func expandClusterInstanceGroupConfigAccelerators(c *Client, f *ClusterInstanceGroupConfigAccelerators) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -6135,7 +6135,7 @@ func flattenClusterClusterConfigInitializationActionsSlice(c *Client, i interfac
 // expandClusterClusterConfigInitializationActions expands an instance of ClusterClusterConfigInitializationActions into a JSON
 // request object.
 func expandClusterClusterConfigInitializationActions(c *Client, f *ClusterClusterConfigInitializationActions) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

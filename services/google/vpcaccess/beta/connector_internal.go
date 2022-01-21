@@ -519,7 +519,7 @@ func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.Appl
 }
 
 func canonicalizeConnectorSubnetSlice(des, initial []ConnectorSubnet, opts ...dcl.ApplyOption) []ConnectorSubnet {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

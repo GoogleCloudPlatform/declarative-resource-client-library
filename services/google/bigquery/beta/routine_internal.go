@@ -850,7 +850,7 @@ func canonicalizeRoutineArgumentsDataType(des, initial *RoutineArgumentsDataType
 }
 
 func canonicalizeRoutineArgumentsDataTypeSlice(des, initial []RoutineArgumentsDataType, opts ...dcl.ApplyOption) []RoutineArgumentsDataType {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -960,7 +960,7 @@ func canonicalizeRoutineArgumentsDataTypeStructType(des, initial *RoutineArgumen
 }
 
 func canonicalizeRoutineArgumentsDataTypeStructTypeSlice(des, initial []RoutineArgumentsDataTypeStructType, opts ...dcl.ApplyOption) []RoutineArgumentsDataTypeStructType {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1700,7 +1700,7 @@ func flattenRoutineArgumentsSlice(c *Client, i interface{}) []RoutineArguments {
 // expandRoutineArguments expands an instance of RoutineArguments into a JSON
 // request object.
 func expandRoutineArguments(c *Client, f *RoutineArguments) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -2070,7 +2070,7 @@ func flattenRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, i interface
 // expandRoutineArgumentsDataTypeStructTypeFields expands an instance of RoutineArgumentsDataTypeStructTypeFields into a JSON
 // request object.
 func expandRoutineArgumentsDataTypeStructTypeFields(c *Client, f *RoutineArgumentsDataTypeStructTypeFields) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

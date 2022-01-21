@@ -471,7 +471,7 @@ func canonicalizePolicySpec(des, initial *PolicySpec, opts ...dcl.ApplyOption) *
 }
 
 func canonicalizePolicySpecSlice(des, initial []PolicySpec, opts ...dcl.ApplyOption) []PolicySpec {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -773,7 +773,7 @@ func canonicalizePolicySpecRulesValues(des, initial *PolicySpecRulesValues, opts
 }
 
 func canonicalizePolicySpecRulesValuesSlice(des, initial []PolicySpecRulesValues, opts ...dcl.ApplyOption) []PolicySpecRulesValues {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -906,7 +906,7 @@ func canonicalizePolicySpecRulesCondition(des, initial *PolicySpecRulesCondition
 }
 
 func canonicalizePolicySpecRulesConditionSlice(des, initial []PolicySpecRulesCondition, opts ...dcl.ApplyOption) []PolicySpecRulesCondition {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1552,7 +1552,7 @@ func flattenPolicySpecRulesSlice(c *Client, i interface{}) []PolicySpecRules {
 // expandPolicySpecRules expands an instance of PolicySpecRules into a JSON
 // request object.
 func expandPolicySpecRules(c *Client, f *PolicySpecRules) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

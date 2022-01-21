@@ -676,7 +676,7 @@ func canonicalizeServiceAttachmentConnectedEndpoints(des, initial *ServiceAttach
 }
 
 func canonicalizeServiceAttachmentConnectedEndpointsSlice(des, initial []ServiceAttachmentConnectedEndpoints, opts ...dcl.ApplyOption) []ServiceAttachmentConnectedEndpoints {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -905,7 +905,7 @@ func canonicalizeServiceAttachmentPscServiceAttachmentId(des, initial *ServiceAt
 }
 
 func canonicalizeServiceAttachmentPscServiceAttachmentIdSlice(des, initial []ServiceAttachmentPscServiceAttachmentId, opts ...dcl.ApplyOption) []ServiceAttachmentPscServiceAttachmentId {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1583,7 +1583,7 @@ func flattenServiceAttachmentConsumerAcceptListsSlice(c *Client, i interface{}) 
 // expandServiceAttachmentConsumerAcceptLists expands an instance of ServiceAttachmentConsumerAcceptLists into a JSON
 // request object.
 func expandServiceAttachmentConsumerAcceptLists(c *Client, f *ServiceAttachmentConsumerAcceptLists) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

@@ -684,7 +684,7 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 }
 
 func canonicalizeJobPubsubTargetSlice(des, initial []JobPubsubTarget, opts ...dcl.ApplyOption) []JobPubsubTarget {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -818,7 +818,7 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 }
 
 func canonicalizeJobAppEngineHttpTargetSlice(des, initial []JobAppEngineHttpTarget, opts ...dcl.ApplyOption) []JobAppEngineHttpTarget {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -947,7 +947,7 @@ func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngi
 }
 
 func canonicalizeJobAppEngineHttpTargetAppEngineRoutingSlice(des, initial []JobAppEngineHttpTargetAppEngineRouting, opts ...dcl.ApplyOption) []JobAppEngineHttpTargetAppEngineRouting {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1088,7 +1088,7 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeJobHttpTargetSlice(des, initial []JobHttpTarget, opts ...dcl.ApplyOption) []JobHttpTarget {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1213,7 +1213,7 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 }
 
 func canonicalizeJobHttpTargetOAuthTokenSlice(des, initial []JobHttpTargetOAuthToken, opts ...dcl.ApplyOption) []JobHttpTargetOAuthToken {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1336,7 +1336,7 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 }
 
 func canonicalizeJobHttpTargetOidcTokenSlice(des, initial []JobHttpTargetOidcToken, opts ...dcl.ApplyOption) []JobHttpTargetOidcToken {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1460,7 +1460,7 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 }
 
 func canonicalizeJobStatusSlice(des, initial []JobStatus, opts ...dcl.ApplyOption) []JobStatus {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1719,7 +1719,7 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 }
 
 func canonicalizeJobRetryConfigSlice(des, initial []JobRetryConfig, opts ...dcl.ApplyOption) []JobRetryConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3475,7 +3475,7 @@ func flattenJobStatusDetailsSlice(c *Client, i interface{}) []JobStatusDetails {
 // expandJobStatusDetails expands an instance of JobStatusDetails into a JSON
 // request object.
 func expandJobStatusDetails(c *Client, f *JobStatusDetails) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

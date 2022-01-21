@@ -523,7 +523,7 @@ func canonicalizeFeatureResourceState(des, initial *FeatureResourceState, opts .
 }
 
 func canonicalizeFeatureResourceStateSlice(des, initial []FeatureResourceState, opts ...dcl.ApplyOption) []FeatureResourceState {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -635,7 +635,7 @@ func canonicalizeFeatureSpec(des, initial *FeatureSpec, opts ...dcl.ApplyOption)
 }
 
 func canonicalizeFeatureSpecSlice(des, initial []FeatureSpec, opts ...dcl.ApplyOption) []FeatureSpec {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -749,7 +749,7 @@ func canonicalizeFeatureSpecMulticlusteringress(des, initial *FeatureSpecMulticl
 }
 
 func canonicalizeFeatureSpecMulticlusteringressSlice(des, initial []FeatureSpecMulticlusteringress, opts ...dcl.ApplyOption) []FeatureSpecMulticlusteringress {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -864,7 +864,7 @@ func canonicalizeFeatureSpecCloudauditlogging(des, initial *FeatureSpecCloudaudi
 }
 
 func canonicalizeFeatureSpecCloudauditloggingSlice(des, initial []FeatureSpecCloudauditlogging, opts ...dcl.ApplyOption) []FeatureSpecCloudauditlogging {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -973,7 +973,7 @@ func canonicalizeFeatureState(des, initial *FeatureState, opts ...dcl.ApplyOptio
 }
 
 func canonicalizeFeatureStateSlice(des, initial []FeatureState, opts ...dcl.ApplyOption) []FeatureState {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1081,7 +1081,7 @@ func canonicalizeFeatureStateState(des, initial *FeatureStateState, opts ...dcl.
 }
 
 func canonicalizeFeatureStateStateSlice(des, initial []FeatureStateState, opts ...dcl.ApplyOption) []FeatureStateState {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1193,7 +1193,7 @@ func canonicalizeFeatureStateServicemesh(des, initial *FeatureStateServicemesh, 
 }
 
 func canonicalizeFeatureStateServicemeshSlice(des, initial []FeatureStateServicemesh, opts ...dcl.ApplyOption) []FeatureStateServicemesh {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1300,7 +1300,7 @@ func canonicalizeFeatureStateServicemeshAnalysisMessages(des, initial *FeatureSt
 }
 
 func canonicalizeFeatureStateServicemeshAnalysisMessagesSlice(des, initial []FeatureStateServicemeshAnalysisMessages, opts ...dcl.ApplyOption) []FeatureStateServicemeshAnalysisMessages {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1413,7 +1413,7 @@ func canonicalizeFeatureStateServicemeshAnalysisMessagesMessageBase(des, initial
 }
 
 func canonicalizeFeatureStateServicemeshAnalysisMessagesMessageBaseSlice(des, initial []FeatureStateServicemeshAnalysisMessagesMessageBase, opts ...dcl.ApplyOption) []FeatureStateServicemeshAnalysisMessagesMessageBase {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1523,7 +1523,7 @@ func canonicalizeFeatureStateServicemeshAnalysisMessagesMessageBaseType(des, ini
 }
 
 func canonicalizeFeatureStateServicemeshAnalysisMessagesMessageBaseTypeSlice(des, initial []FeatureStateServicemeshAnalysisMessagesMessageBaseType, opts ...dcl.ApplyOption) []FeatureStateServicemeshAnalysisMessagesMessageBaseType {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

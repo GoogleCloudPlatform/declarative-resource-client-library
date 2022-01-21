@@ -714,7 +714,7 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 }
 
 func canonicalizeUptimeCheckConfigMonitoredResourceSlice(des, initial []UptimeCheckConfigMonitoredResource, opts ...dcl.ApplyOption) []UptimeCheckConfigMonitoredResource {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -834,7 +834,7 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 }
 
 func canonicalizeUptimeCheckConfigResourceGroupSlice(des, initial []UptimeCheckConfigResourceGroup, opts ...dcl.ApplyOption) []UptimeCheckConfigResourceGroup {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -998,7 +998,7 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 }
 
 func canonicalizeUptimeCheckConfigHttpCheckSlice(des, initial []UptimeCheckConfigHttpCheck, opts ...dcl.ApplyOption) []UptimeCheckConfigHttpCheck {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1140,7 +1140,7 @@ func canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des, initial *UptimeCheckCon
 }
 
 func canonicalizeUptimeCheckConfigHttpCheckAuthInfoSlice(des, initial []UptimeCheckConfigHttpCheckAuthInfo, opts ...dcl.ApplyOption) []UptimeCheckConfigHttpCheckAuthInfo {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1256,7 +1256,7 @@ func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpChe
 }
 
 func canonicalizeUptimeCheckConfigTcpCheckSlice(des, initial []UptimeCheckConfigTcpCheck, opts ...dcl.ApplyOption) []UptimeCheckConfigTcpCheck {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2687,7 +2687,7 @@ func flattenUptimeCheckConfigContentMatchersSlice(c *Client, i interface{}) []Up
 // expandUptimeCheckConfigContentMatchers expands an instance of UptimeCheckConfigContentMatchers into a JSON
 // request object.
 func expandUptimeCheckConfigContentMatchers(c *Client, f *UptimeCheckConfigContentMatchers) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

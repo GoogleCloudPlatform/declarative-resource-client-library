@@ -733,7 +733,7 @@ func canonicalizePrivateCloudNetworkConfig(des, initial *PrivateCloudNetworkConf
 }
 
 func canonicalizePrivateCloudNetworkConfigSlice(des, initial []PrivateCloudNetworkConfig, opts ...dcl.ApplyOption) []PrivateCloudNetworkConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -864,7 +864,7 @@ func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagem
 }
 
 func canonicalizePrivateCloudManagementClusterSlice(des, initial []PrivateCloudManagementCluster, opts ...dcl.ApplyOption) []PrivateCloudManagementCluster {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -976,7 +976,7 @@ func canonicalizePrivateCloudConditions(des, initial *PrivateCloudConditions, op
 }
 
 func canonicalizePrivateCloudConditionsSlice(des, initial []PrivateCloudConditions, opts ...dcl.ApplyOption) []PrivateCloudConditions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1109,7 +1109,7 @@ func canonicalizePrivateCloudHcx(des, initial *PrivateCloudHcx, opts ...dcl.Appl
 }
 
 func canonicalizePrivateCloudHcxSlice(des, initial []PrivateCloudHcx, opts ...dcl.ApplyOption) []PrivateCloudHcx {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1248,7 +1248,7 @@ func canonicalizePrivateCloudNsx(des, initial *PrivateCloudNsx, opts ...dcl.Appl
 }
 
 func canonicalizePrivateCloudNsxSlice(des, initial []PrivateCloudNsx, opts ...dcl.ApplyOption) []PrivateCloudNsx {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1387,7 +1387,7 @@ func canonicalizePrivateCloudVcenter(des, initial *PrivateCloudVcenter, opts ...
 }
 
 func canonicalizePrivateCloudVcenterSlice(des, initial []PrivateCloudVcenter, opts ...dcl.ApplyOption) []PrivateCloudVcenter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

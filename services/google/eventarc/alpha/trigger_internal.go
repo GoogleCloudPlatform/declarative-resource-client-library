@@ -773,7 +773,7 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 }
 
 func canonicalizeTriggerDestinationSlice(des, initial []TriggerDestination, opts ...dcl.ApplyOption) []TriggerDestination {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -899,7 +899,7 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 }
 
 func canonicalizeTriggerDestinationCloudRunServiceSlice(des, initial []TriggerDestinationCloudRunService, opts ...dcl.ApplyOption) []TriggerDestinationCloudRunService {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1016,7 +1016,7 @@ func canonicalizeTriggerTransport(des, initial *TriggerTransport, opts ...dcl.Ap
 }
 
 func canonicalizeTriggerTransportSlice(des, initial []TriggerTransport, opts ...dcl.ApplyOption) []TriggerTransport {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1129,7 +1129,7 @@ func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, op
 }
 
 func canonicalizeTriggerTransportPubsubSlice(des, initial []TriggerTransportPubsub, opts ...dcl.ApplyOption) []TriggerTransportPubsub {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1723,7 +1723,7 @@ func flattenTriggerMatchingCriteriaSlice(c *Client, i interface{}) []TriggerMatc
 // expandTriggerMatchingCriteria expands an instance of TriggerMatchingCriteria into a JSON
 // request object.
 func expandTriggerMatchingCriteria(c *Client, f *TriggerMatchingCriteria, res *Trigger) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

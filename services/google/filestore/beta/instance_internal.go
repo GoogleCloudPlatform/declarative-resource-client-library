@@ -1398,7 +1398,7 @@ func flattenInstanceFileSharesSlice(c *Client, i interface{}) []InstanceFileShar
 // expandInstanceFileShares expands an instance of InstanceFileShares into a JSON
 // request object.
 func expandInstanceFileShares(c *Client, f *InstanceFileShares) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -1526,7 +1526,7 @@ func flattenInstanceFileSharesNfsExportOptionsSlice(c *Client, i interface{}) []
 // expandInstanceFileSharesNfsExportOptions expands an instance of InstanceFileSharesNfsExportOptions into a JSON
 // request object.
 func expandInstanceFileSharesNfsExportOptions(c *Client, f *InstanceFileSharesNfsExportOptions) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -1656,7 +1656,7 @@ func flattenInstanceNetworksSlice(c *Client, i interface{}) []InstanceNetworks {
 // expandInstanceNetworks expands an instance of InstanceNetworks into a JSON
 // request object.
 func expandInstanceNetworks(c *Client, f *InstanceNetworks) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

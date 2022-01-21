@@ -572,7 +572,7 @@ func canonicalizeMembershipPreferredMemberKey(des, initial *MembershipPreferredM
 }
 
 func canonicalizeMembershipPreferredMemberKeySlice(des, initial []MembershipPreferredMemberKey, opts ...dcl.ApplyOption) []MembershipPreferredMemberKey {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -916,7 +916,7 @@ func canonicalizeMembershipRolesRestrictionEvaluations(des, initial *MembershipR
 }
 
 func canonicalizeMembershipRolesRestrictionEvaluationsSlice(des, initial []MembershipRolesRestrictionEvaluations, opts ...dcl.ApplyOption) []MembershipRolesRestrictionEvaluations {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1023,7 +1023,7 @@ func canonicalizeMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluatio
 }
 
 func canonicalizeMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice(des, initial []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation, opts ...dcl.ApplyOption) []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1158,7 +1158,7 @@ func canonicalizeMembershipDisplayName(des, initial *MembershipDisplayName, opts
 }
 
 func canonicalizeMembershipDisplayNameSlice(des, initial []MembershipDisplayName, opts ...dcl.ApplyOption) []MembershipDisplayName {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1855,7 +1855,7 @@ func flattenMembershipRolesSlice(c *Client, i interface{}) []MembershipRoles {
 // expandMembershipRoles expands an instance of MembershipRoles into a JSON
 // request object.
 func expandMembershipRoles(c *Client, f *MembershipRoles) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

@@ -585,7 +585,7 @@ func canonicalizeServiceAccountActasResources(des, initial *ServiceAccountActasR
 }
 
 func canonicalizeServiceAccountActasResourcesSlice(des, initial []ServiceAccountActasResources, opts ...dcl.ApplyOption) []ServiceAccountActasResources {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1248,7 +1248,7 @@ func flattenServiceAccountActasResourcesResourcesSlice(c *Client, i interface{})
 // expandServiceAccountActasResourcesResources expands an instance of ServiceAccountActasResourcesResources into a JSON
 // request object.
 func expandServiceAccountActasResourcesResources(c *Client, f *ServiceAccountActasResourcesResources) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

@@ -579,7 +579,7 @@ func canonicalizeConfigSignIn(des, initial *ConfigSignIn, opts ...dcl.ApplyOptio
 }
 
 func canonicalizeConfigSignInSlice(des, initial []ConfigSignIn, opts ...dcl.ApplyOption) []ConfigSignIn {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -703,7 +703,7 @@ func canonicalizeConfigSignInEmail(des, initial *ConfigSignInEmail, opts ...dcl.
 }
 
 func canonicalizeConfigSignInEmailSlice(des, initial []ConfigSignInEmail, opts ...dcl.ApplyOption) []ConfigSignInEmail {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -816,7 +816,7 @@ func canonicalizeConfigSignInEmailHashConfig(des, initial *ConfigSignInEmailHash
 }
 
 func canonicalizeConfigSignInEmailHashConfigSlice(des, initial []ConfigSignInEmailHashConfig, opts ...dcl.ApplyOption) []ConfigSignInEmailHashConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -939,7 +939,7 @@ func canonicalizeConfigSignInPhoneNumber(des, initial *ConfigSignInPhoneNumber, 
 }
 
 func canonicalizeConfigSignInPhoneNumberSlice(des, initial []ConfigSignInPhoneNumber, opts ...dcl.ApplyOption) []ConfigSignInPhoneNumber {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1057,7 +1057,7 @@ func canonicalizeConfigSignInAnonymous(des, initial *ConfigSignInAnonymous, opts
 }
 
 func canonicalizeConfigSignInAnonymousSlice(des, initial []ConfigSignInAnonymous, opts ...dcl.ApplyOption) []ConfigSignInAnonymous {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1166,7 +1166,7 @@ func canonicalizeConfigSignInHashConfig(des, initial *ConfigSignInHashConfig, op
 }
 
 func canonicalizeConfigSignInHashConfigSlice(des, initial []ConfigSignInHashConfig, opts ...dcl.ApplyOption) []ConfigSignInHashConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1286,7 +1286,7 @@ func canonicalizeConfigNotification(des, initial *ConfigNotification, opts ...dc
 }
 
 func canonicalizeConfigNotificationSlice(des, initial []ConfigNotification, opts ...dcl.ApplyOption) []ConfigNotification {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1414,7 +1414,7 @@ func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSen
 }
 
 func canonicalizeConfigNotificationSendEmailSlice(des, initial []ConfigNotificationSendEmail, opts ...dcl.ApplyOption) []ConfigNotificationSendEmail {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1560,7 +1560,7 @@ func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificatio
 }
 
 func canonicalizeConfigNotificationSendEmailSmtpSlice(des, initial []ConfigNotificationSendEmailSmtp, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailSmtp {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1707,7 +1707,7 @@ func canonicalizeConfigEmailTemplate(des, initial *ConfigEmailTemplate, opts ...
 }
 
 func canonicalizeConfigEmailTemplateSlice(des, initial []ConfigEmailTemplate, opts ...dcl.ApplyOption) []ConfigEmailTemplate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1837,7 +1837,7 @@ func canonicalizeConfigNotificationSendEmailDnsInfo(des, initial *ConfigNotifica
 }
 
 func canonicalizeConfigNotificationSendEmailDnsInfoSlice(des, initial []ConfigNotificationSendEmailDnsInfo, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailDnsInfo {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1958,7 +1958,7 @@ func canonicalizeConfigNotificationSendSms(des, initial *ConfigNotificationSendS
 }
 
 func canonicalizeConfigNotificationSendSmsSlice(des, initial []ConfigNotificationSendSms, opts ...dcl.ApplyOption) []ConfigNotificationSendSms {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2068,7 +2068,7 @@ func canonicalizeConfigNotificationSendSmsSmsTemplate(des, initial *ConfigNotifi
 }
 
 func canonicalizeConfigNotificationSendSmsSmsTemplateSlice(des, initial []ConfigNotificationSendSmsSmsTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendSmsSmsTemplate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2179,7 +2179,7 @@ func canonicalizeConfigQuota(des, initial *ConfigQuota, opts ...dcl.ApplyOption)
 }
 
 func canonicalizeConfigQuotaSlice(des, initial []ConfigQuota, opts ...dcl.ApplyOption) []ConfigQuota {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2302,7 +2302,7 @@ func canonicalizeConfigQuotaSignUpQuotaConfig(des, initial *ConfigQuotaSignUpQuo
 }
 
 func canonicalizeConfigQuotaSignUpQuotaConfigSlice(des, initial []ConfigQuotaSignUpQuotaConfig, opts ...dcl.ApplyOption) []ConfigQuotaSignUpQuotaConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2413,7 +2413,7 @@ func canonicalizeConfigMonitoring(des, initial *ConfigMonitoring, opts ...dcl.Ap
 }
 
 func canonicalizeConfigMonitoringSlice(des, initial []ConfigMonitoring, opts ...dcl.ApplyOption) []ConfigMonitoring {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2526,7 +2526,7 @@ func canonicalizeConfigMonitoringRequestLogging(des, initial *ConfigMonitoringRe
 }
 
 func canonicalizeConfigMonitoringRequestLoggingSlice(des, initial []ConfigMonitoringRequestLogging, opts ...dcl.ApplyOption) []ConfigMonitoringRequestLogging {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2646,7 +2646,7 @@ func canonicalizeConfigMultiTenant(des, initial *ConfigMultiTenant, opts ...dcl.
 }
 
 func canonicalizeConfigMultiTenantSlice(des, initial []ConfigMultiTenant, opts ...dcl.ApplyOption) []ConfigMultiTenant {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2760,7 +2760,7 @@ func canonicalizeConfigClient(des, initial *ConfigClient, opts ...dcl.ApplyOptio
 }
 
 func canonicalizeConfigClientSlice(des, initial []ConfigClient, opts ...dcl.ApplyOption) []ConfigClient {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2884,7 +2884,7 @@ func canonicalizeConfigClientPermissions(des, initial *ConfigClientPermissions, 
 }
 
 func canonicalizeConfigClientPermissionsSlice(des, initial []ConfigClientPermissions, opts ...dcl.ApplyOption) []ConfigClientPermissions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3002,7 +3002,7 @@ func canonicalizeConfigMfa(des, initial *ConfigMfa, opts ...dcl.ApplyOption) *Co
 }
 
 func canonicalizeConfigMfaSlice(des, initial []ConfigMfa, opts ...dcl.ApplyOption) []ConfigMfa {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3113,7 +3113,7 @@ func canonicalizeConfigBlockingFunctions(des, initial *ConfigBlockingFunctions, 
 }
 
 func canonicalizeConfigBlockingFunctionsSlice(des, initial []ConfigBlockingFunctions, opts ...dcl.ApplyOption) []ConfigBlockingFunctions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3224,7 +3224,7 @@ func canonicalizeConfigBlockingFunctionsTriggers(des, initial *ConfigBlockingFun
 }
 
 func canonicalizeConfigBlockingFunctionsTriggersSlice(des, initial []ConfigBlockingFunctionsTriggers, opts ...dcl.ApplyOption) []ConfigBlockingFunctionsTriggers {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

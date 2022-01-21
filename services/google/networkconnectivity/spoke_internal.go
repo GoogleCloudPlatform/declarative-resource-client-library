@@ -676,7 +676,7 @@ func canonicalizeSpokeLinkedVpnTunnels(des, initial *SpokeLinkedVpnTunnels, opts
 }
 
 func canonicalizeSpokeLinkedVpnTunnelsSlice(des, initial []SpokeLinkedVpnTunnels, opts ...dcl.ApplyOption) []SpokeLinkedVpnTunnels {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -799,7 +799,7 @@ func canonicalizeSpokeLinkedInterconnectAttachments(des, initial *SpokeLinkedInt
 }
 
 func canonicalizeSpokeLinkedInterconnectAttachmentsSlice(des, initial []SpokeLinkedInterconnectAttachments, opts ...dcl.ApplyOption) []SpokeLinkedInterconnectAttachments {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -918,7 +918,7 @@ func canonicalizeSpokeLinkedRouterApplianceInstances(des, initial *SpokeLinkedRo
 }
 
 func canonicalizeSpokeLinkedRouterApplianceInstancesSlice(des, initial []SpokeLinkedRouterApplianceInstances, opts ...dcl.ApplyOption) []SpokeLinkedRouterApplianceInstances {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1962,7 +1962,7 @@ func flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, i inter
 // expandSpokeLinkedRouterApplianceInstancesInstances expands an instance of SpokeLinkedRouterApplianceInstancesInstances into a JSON
 // request object.
 func expandSpokeLinkedRouterApplianceInstancesInstances(c *Client, f *SpokeLinkedRouterApplianceInstancesInstances) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

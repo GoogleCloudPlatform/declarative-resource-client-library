@@ -1254,7 +1254,7 @@ func canonicalizeHttpRouteRulesMatchesHeadersRangeMatch(des, initial *HttpRouteR
 }
 
 func canonicalizeHttpRouteRulesMatchesHeadersRangeMatchSlice(des, initial []HttpRouteRulesMatchesHeadersRangeMatch, opts ...dcl.ApplyOption) []HttpRouteRulesMatchesHeadersRangeMatch {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1548,7 +1548,7 @@ func canonicalizeHttpRouteRulesAction(des, initial *HttpRouteRulesAction, opts .
 }
 
 func canonicalizeHttpRouteRulesActionSlice(des, initial []HttpRouteRulesAction, opts ...dcl.ApplyOption) []HttpRouteRulesAction {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1825,7 +1825,7 @@ func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesAction
 }
 
 func canonicalizeHttpRouteRulesActionRedirectSlice(des, initial []HttpRouteRulesActionRedirect, opts ...dcl.ApplyOption) []HttpRouteRulesActionRedirect {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1949,7 +1949,7 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicy(des, initial *HttpRout
 }
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicySlice(des, initial []HttpRouteRulesActionFaultInjectionPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionFaultInjectionPolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2068,7 +2068,7 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelay(des, initial *Htt
 }
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelaySlice(des, initial []HttpRouteRulesActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) []HttpRouteRulesActionFaultInjectionPolicyDelay {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2188,7 +2188,7 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbort(des, initial *Htt
 }
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbortSlice(des, initial []HttpRouteRulesActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) []HttpRouteRulesActionFaultInjectionPolicyAbort {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2309,7 +2309,7 @@ func canonicalizeHttpRouteRulesActionRequestHeaderModifier(des, initial *HttpRou
 }
 
 func canonicalizeHttpRouteRulesActionRequestHeaderModifierSlice(des, initial []HttpRouteRulesActionRequestHeaderModifier, opts ...dcl.ApplyOption) []HttpRouteRulesActionRequestHeaderModifier {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2434,7 +2434,7 @@ func canonicalizeHttpRouteRulesActionResponseHeaderModifier(des, initial *HttpRo
 }
 
 func canonicalizeHttpRouteRulesActionResponseHeaderModifierSlice(des, initial []HttpRouteRulesActionResponseHeaderModifier, opts ...dcl.ApplyOption) []HttpRouteRulesActionResponseHeaderModifier {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2554,7 +2554,7 @@ func canonicalizeHttpRouteRulesActionUrlRewrite(des, initial *HttpRouteRulesActi
 }
 
 func canonicalizeHttpRouteRulesActionUrlRewriteSlice(des, initial []HttpRouteRulesActionUrlRewrite, opts ...dcl.ApplyOption) []HttpRouteRulesActionUrlRewrite {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2682,7 +2682,7 @@ func canonicalizeHttpRouteRulesActionRetryPolicy(des, initial *HttpRouteRulesAct
 }
 
 func canonicalizeHttpRouteRulesActionRetryPolicySlice(des, initial []HttpRouteRulesActionRetryPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionRetryPolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2796,7 +2796,7 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicy(des, initial *HttpRoute
 }
 
 func canonicalizeHttpRouteRulesActionRequestMirrorPolicySlice(des, initial []HttpRouteRulesActionRequestMirrorPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionRequestMirrorPolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2914,7 +2914,7 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial
 }
 
 func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(des, initial []HttpRouteRulesActionRequestMirrorPolicyDestination, opts ...dcl.ApplyOption) []HttpRouteRulesActionRequestMirrorPolicyDestination {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3064,7 +3064,7 @@ func canonicalizeHttpRouteRulesActionCorsPolicy(des, initial *HttpRouteRulesActi
 }
 
 func canonicalizeHttpRouteRulesActionCorsPolicySlice(des, initial []HttpRouteRulesActionCorsPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionCorsPolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4380,7 +4380,7 @@ func flattenHttpRouteRulesSlice(c *Client, i interface{}) []HttpRouteRules {
 // expandHttpRouteRules expands an instance of HttpRouteRules into a JSON
 // request object.
 func expandHttpRouteRules(c *Client, f *HttpRouteRules) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -4502,7 +4502,7 @@ func flattenHttpRouteRulesMatchesSlice(c *Client, i interface{}) []HttpRouteRule
 // expandHttpRouteRulesMatches expands an instance of HttpRouteRulesMatches into a JSON
 // request object.
 func expandHttpRouteRulesMatches(c *Client, f *HttpRouteRulesMatches) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -4640,7 +4640,7 @@ func flattenHttpRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []HttpRo
 // expandHttpRouteRulesMatchesHeaders expands an instance of HttpRouteRulesMatchesHeaders into a JSON
 // request object.
 func expandHttpRouteRulesMatchesHeaders(c *Client, f *HttpRouteRulesMatchesHeaders) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -4902,7 +4902,7 @@ func flattenHttpRouteRulesMatchesQueryParametersSlice(c *Client, i interface{}) 
 // expandHttpRouteRulesMatchesQueryParameters expands an instance of HttpRouteRulesMatchesQueryParameters into a JSON
 // request object.
 func expandHttpRouteRulesMatchesQueryParameters(c *Client, f *HttpRouteRulesMatchesQueryParameters) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5200,7 +5200,7 @@ func flattenHttpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Ht
 // expandHttpRouteRulesActionDestinations expands an instance of HttpRouteRulesActionDestinations into a JSON
 // request object.
 func expandHttpRouteRulesActionDestinations(c *Client, f *HttpRouteRulesActionDestinations) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

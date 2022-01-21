@@ -530,7 +530,7 @@ func canonicalizeHubRoutingVpcs(des, initial *HubRoutingVpcs, opts ...dcl.ApplyO
 }
 
 func canonicalizeHubRoutingVpcsSlice(des, initial []HubRoutingVpcs, opts ...dcl.ApplyOption) []HubRoutingVpcs {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

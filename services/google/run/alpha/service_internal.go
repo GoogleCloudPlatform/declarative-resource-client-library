@@ -891,7 +891,7 @@ func canonicalizeServiceBinaryAuthorization(des, initial *ServiceBinaryAuthoriza
 }
 
 func canonicalizeServiceBinaryAuthorizationSlice(des, initial []ServiceBinaryAuthorization, opts ...dcl.ApplyOption) []ServiceBinaryAuthorization {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1048,7 +1048,7 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 }
 
 func canonicalizeServiceTemplateSlice(des, initial []ServiceTemplate, opts ...dcl.ApplyOption) []ServiceTemplate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1181,7 +1181,7 @@ func canonicalizeServiceTemplateScaling(des, initial *ServiceTemplateScaling, op
 }
 
 func canonicalizeServiceTemplateScalingSlice(des, initial []ServiceTemplateScaling, opts ...dcl.ApplyOption) []ServiceTemplateScaling {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1297,7 +1297,7 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 }
 
 func canonicalizeServiceTemplateVPCAccessSlice(des, initial []ServiceTemplateVPCAccess, opts ...dcl.ApplyOption) []ServiceTemplateVPCAccess {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1700,7 +1700,7 @@ func canonicalizeServiceTemplateContainersEnvValueSource(des, initial *ServiceTe
 }
 
 func canonicalizeServiceTemplateContainersEnvValueSourceSlice(des, initial []ServiceTemplateContainersEnvValueSource, opts ...dcl.ApplyOption) []ServiceTemplateContainersEnvValueSource {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1818,7 +1818,7 @@ func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRef(des, initia
 }
 
 func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(des, initial []ServiceTemplateContainersEnvValueSourceSecretKeyRef, opts ...dcl.ApplyOption) []ServiceTemplateContainersEnvValueSourceSecretKeyRef {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1941,7 +1941,7 @@ func canonicalizeServiceTemplateContainersResources(des, initial *ServiceTemplat
 }
 
 func canonicalizeServiceTemplateContainersResourcesSlice(des, initial []ServiceTemplateContainersResources, opts ...dcl.ApplyOption) []ServiceTemplateContainersResources {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2444,7 +2444,7 @@ func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolum
 }
 
 func canonicalizeServiceTemplateVolumesSecretSlice(des, initial []ServiceTemplateVolumesSecret, opts ...dcl.ApplyOption) []ServiceTemplateVolumesSecret {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2688,7 +2688,7 @@ func canonicalizeServiceTemplateVolumesCloudSqlInstance(des, initial *ServiceTem
 }
 
 func canonicalizeServiceTemplateVolumesCloudSqlInstanceSlice(des, initial []ServiceTemplateVolumesCloudSqlInstance, opts ...dcl.ApplyOption) []ServiceTemplateVolumesCloudSqlInstance {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3031,7 +3031,7 @@ func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglec
 }
 
 func canonicalizeServiceGooglecloudrunopv2ConditionSlice(des, initial []ServiceGooglecloudrunopv2Condition, opts ...dcl.ApplyOption) []ServiceGooglecloudrunopv2Condition {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3169,7 +3169,7 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 }
 
 func canonicalizeServiceTrafficStatusesSlice(des, initial []ServiceTrafficStatuses, opts ...dcl.ApplyOption) []ServiceTrafficStatuses {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -5117,7 +5117,7 @@ func flattenServiceTemplateContainersSlice(c *Client, i interface{}) []ServiceTe
 // expandServiceTemplateContainers expands an instance of ServiceTemplateContainers into a JSON
 // request object.
 func expandServiceTemplateContainers(c *Client, f *ServiceTemplateContainers) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5267,7 +5267,7 @@ func flattenServiceTemplateContainersEnvSlice(c *Client, i interface{}) []Servic
 // expandServiceTemplateContainersEnv expands an instance of ServiceTemplateContainersEnv into a JSON
 // request object.
 func expandServiceTemplateContainersEnv(c *Client, f *ServiceTemplateContainersEnv) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5747,7 +5747,7 @@ func flattenServiceTemplateContainersPortsSlice(c *Client, i interface{}) []Serv
 // expandServiceTemplateContainersPorts expands an instance of ServiceTemplateContainersPorts into a JSON
 // request object.
 func expandServiceTemplateContainersPorts(c *Client, f *ServiceTemplateContainersPorts) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5865,7 +5865,7 @@ func flattenServiceTemplateContainersVolumeMountsSlice(c *Client, i interface{})
 // expandServiceTemplateContainersVolumeMounts expands an instance of ServiceTemplateContainersVolumeMounts into a JSON
 // request object.
 func expandServiceTemplateContainersVolumeMounts(c *Client, f *ServiceTemplateContainersVolumeMounts) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5983,7 +5983,7 @@ func flattenServiceTemplateVolumesSlice(c *Client, i interface{}) []ServiceTempl
 // expandServiceTemplateVolumes expands an instance of ServiceTemplateVolumes into a JSON
 // request object.
 func expandServiceTemplateVolumes(c *Client, f *ServiceTemplateVolumes) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -6233,7 +6233,7 @@ func flattenServiceTemplateVolumesSecretItemsSlice(c *Client, i interface{}) []S
 // expandServiceTemplateVolumesSecretItems expands an instance of ServiceTemplateVolumesSecretItems into a JSON
 // request object.
 func expandServiceTemplateVolumesSecretItems(c *Client, f *ServiceTemplateVolumesSecretItems) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -6471,7 +6471,7 @@ func flattenServiceTrafficSlice(c *Client, i interface{}) []ServiceTraffic {
 // expandServiceTraffic expands an instance of ServiceTraffic into a JSON
 // request object.
 func expandServiceTraffic(c *Client, f *ServiceTraffic) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

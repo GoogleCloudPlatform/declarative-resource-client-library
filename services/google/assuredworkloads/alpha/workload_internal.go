@@ -603,7 +603,7 @@ func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.
 }
 
 func canonicalizeWorkloadResourcesSlice(des, initial []WorkloadResources, opts ...dcl.ApplyOption) []WorkloadResources {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -719,7 +719,7 @@ func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...
 }
 
 func canonicalizeWorkloadKmsSettingsSlice(des, initial []WorkloadKmsSettings, opts ...dcl.ApplyOption) []WorkloadKmsSettings {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1596,7 +1596,7 @@ func flattenWorkloadResourceSettingsSlice(c *Client, i interface{}) []WorkloadRe
 // expandWorkloadResourceSettings expands an instance of WorkloadResourceSettings into a JSON
 // request object.
 func expandWorkloadResourceSettings(c *Client, f *WorkloadResourceSettings) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

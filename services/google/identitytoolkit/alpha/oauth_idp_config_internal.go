@@ -555,7 +555,7 @@ func canonicalizeOAuthIdpConfigResponseType(des, initial *OAuthIdpConfigResponse
 }
 
 func canonicalizeOAuthIdpConfigResponseTypeSlice(des, initial []OAuthIdpConfigResponseType, opts ...dcl.ApplyOption) []OAuthIdpConfigResponseType {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

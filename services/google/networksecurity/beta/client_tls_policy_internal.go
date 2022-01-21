@@ -665,7 +665,7 @@ func canonicalizeClientTlsPolicyClientCertificate(des, initial *ClientTlsPolicyC
 }
 
 func canonicalizeClientTlsPolicyClientCertificateSlice(des, initial []ClientTlsPolicyClientCertificate, opts ...dcl.ApplyOption) []ClientTlsPolicyClientCertificate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -779,7 +779,7 @@ func canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des, initial *Clie
 }
 
 func canonicalizeClientTlsPolicyClientCertificateGrpcEndpointSlice(des, initial []ClientTlsPolicyClientCertificateGrpcEndpoint, opts ...dcl.ApplyOption) []ClientTlsPolicyClientCertificateGrpcEndpoint {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -894,7 +894,7 @@ func canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des
 }
 
 func canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstanceSlice(des, initial []ClientTlsPolicyClientCertificateCertificateProviderInstance, opts ...dcl.ApplyOption) []ClientTlsPolicyClientCertificateCertificateProviderInstance {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1140,7 +1140,7 @@ func canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des, initial *Cli
 }
 
 func canonicalizeClientTlsPolicyServerValidationCaGrpcEndpointSlice(des, initial []ClientTlsPolicyServerValidationCaGrpcEndpoint, opts ...dcl.ApplyOption) []ClientTlsPolicyServerValidationCaGrpcEndpoint {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1255,7 +1255,7 @@ func canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(de
 }
 
 func canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstanceSlice(des, initial []ClientTlsPolicyServerValidationCaCertificateProviderInstance, opts ...dcl.ApplyOption) []ClientTlsPolicyServerValidationCaCertificateProviderInstance {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2183,7 +2183,7 @@ func flattenClientTlsPolicyServerValidationCaSlice(c *Client, i interface{}) []C
 // expandClientTlsPolicyServerValidationCa expands an instance of ClientTlsPolicyServerValidationCa into a JSON
 // request object.
 func expandClientTlsPolicyServerValidationCa(c *Client, f *ClientTlsPolicyServerValidationCa) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

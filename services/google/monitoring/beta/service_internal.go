@@ -610,7 +610,7 @@ func canonicalizeServiceTelemetry(des, initial *ServiceTelemetry, opts ...dcl.Ap
 }
 
 func canonicalizeServiceTelemetrySlice(des, initial []ServiceTelemetry, opts ...dcl.ApplyOption) []ServiceTelemetry {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

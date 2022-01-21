@@ -1025,7 +1025,7 @@ func canonicalizePatchDeploymentInstanceFilter(des, initial *PatchDeploymentInst
 }
 
 func canonicalizePatchDeploymentInstanceFilterSlice(des, initial []PatchDeploymentInstanceFilter, opts ...dcl.ApplyOption) []PatchDeploymentInstanceFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1269,7 +1269,7 @@ func canonicalizePatchDeploymentPatchConfig(des, initial *PatchDeploymentPatchCo
 }
 
 func canonicalizePatchDeploymentPatchConfigSlice(des, initial []PatchDeploymentPatchConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1419,7 +1419,7 @@ func canonicalizePatchDeploymentPatchConfigApt(des, initial *PatchDeploymentPatc
 }
 
 func canonicalizePatchDeploymentPatchConfigAptSlice(des, initial []PatchDeploymentPatchConfigApt, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigApt {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1572,7 +1572,7 @@ func canonicalizePatchDeploymentPatchConfigYum(des, initial *PatchDeploymentPatc
 }
 
 func canonicalizePatchDeploymentPatchConfigYumSlice(des, initial []PatchDeploymentPatchConfigYum, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigYum {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1689,7 +1689,7 @@ func canonicalizePatchDeploymentPatchConfigGoo(des, initial *PatchDeploymentPatc
 }
 
 func canonicalizePatchDeploymentPatchConfigGooSlice(des, initial []PatchDeploymentPatchConfigGoo, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigGoo {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1925,7 +1925,7 @@ func canonicalizePatchDeploymentPatchConfigZypper(des, initial *PatchDeploymentP
 }
 
 func canonicalizePatchDeploymentPatchConfigZypperSlice(des, initial []PatchDeploymentPatchConfigZypper, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigZypper {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2105,7 +2105,7 @@ func canonicalizePatchDeploymentPatchConfigWindowsUpdate(des, initial *PatchDepl
 }
 
 func canonicalizePatchDeploymentPatchConfigWindowsUpdateSlice(des, initial []PatchDeploymentPatchConfigWindowsUpdate, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigWindowsUpdate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2220,7 +2220,7 @@ func canonicalizePatchDeploymentPatchConfigPreStep(des, initial *PatchDeployment
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepSlice(des, initial []PatchDeploymentPatchConfigPreStep, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStep {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2365,7 +2365,7 @@ func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfig(des, initi
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2491,7 +2491,7 @@ func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(d
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2640,7 +2640,7 @@ func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfig(des, ini
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2766,7 +2766,7 @@ func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2881,7 +2881,7 @@ func canonicalizePatchDeploymentPatchConfigPostStep(des, initial *PatchDeploymen
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepSlice(des, initial []PatchDeploymentPatchConfigPostStep, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStep {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3026,7 +3026,7 @@ func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfig(des, init
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3152,7 +3152,7 @@ func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3301,7 +3301,7 @@ func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfig(des, in
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3427,7 +3427,7 @@ func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjec
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3545,7 +3545,7 @@ func canonicalizePatchDeploymentPatchConfigRetryStrategy(des, initial *PatchDepl
 }
 
 func canonicalizePatchDeploymentPatchConfigRetryStrategySlice(des, initial []PatchDeploymentPatchConfigRetryStrategy, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigRetryStrategy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3660,7 +3660,7 @@ func canonicalizePatchDeploymentOneTimeSchedule(des, initial *PatchDeploymentOne
 }
 
 func canonicalizePatchDeploymentOneTimeScheduleSlice(des, initial []PatchDeploymentOneTimeSchedule, opts ...dcl.ApplyOption) []PatchDeploymentOneTimeSchedule {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3825,7 +3825,7 @@ func canonicalizePatchDeploymentRecurringSchedule(des, initial *PatchDeploymentR
 }
 
 func canonicalizePatchDeploymentRecurringScheduleSlice(des, initial []PatchDeploymentRecurringSchedule, opts ...dcl.ApplyOption) []PatchDeploymentRecurringSchedule {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3946,7 +3946,7 @@ func canonicalizePatchDeploymentRecurringScheduleTimeZone(des, initial *PatchDep
 }
 
 func canonicalizePatchDeploymentRecurringScheduleTimeZoneSlice(des, initial []PatchDeploymentRecurringScheduleTimeZone, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleTimeZone {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4190,7 +4190,7 @@ func canonicalizePatchDeploymentRecurringScheduleWeekly(des, initial *PatchDeplo
 }
 
 func canonicalizePatchDeploymentRecurringScheduleWeeklySlice(des, initial []PatchDeploymentRecurringScheduleWeekly, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleWeekly {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4322,7 +4322,7 @@ func canonicalizePatchDeploymentRecurringScheduleMonthly(des, initial *PatchDepl
 }
 
 func canonicalizePatchDeploymentRecurringScheduleMonthlySlice(des, initial []PatchDeploymentRecurringScheduleMonthly, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleMonthly {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4440,7 +4440,7 @@ func canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(des, init
 }
 
 func canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(des, initial []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4552,7 +4552,7 @@ func canonicalizePatchDeploymentRollout(des, initial *PatchDeploymentRollout, op
 }
 
 func canonicalizePatchDeploymentRolloutSlice(des, initial []PatchDeploymentRollout, opts ...dcl.ApplyOption) []PatchDeploymentRollout {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4690,7 +4690,7 @@ func canonicalizePatchDeploymentRolloutDisruptionBudget(des, initial *PatchDeplo
 }
 
 func canonicalizePatchDeploymentRolloutDisruptionBudgetSlice(des, initial []PatchDeploymentRolloutDisruptionBudget, opts ...dcl.ApplyOption) []PatchDeploymentRolloutDisruptionBudget {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -6452,7 +6452,7 @@ func flattenPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, i interface
 // expandPatchDeploymentInstanceFilterGroupLabels expands an instance of PatchDeploymentInstanceFilterGroupLabels into a JSON
 // request object.
 func expandPatchDeploymentInstanceFilterGroupLabels(c *Client, f *PatchDeploymentInstanceFilterGroupLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

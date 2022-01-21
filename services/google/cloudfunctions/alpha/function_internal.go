@@ -838,7 +838,7 @@ func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository
 }
 
 func canonicalizeFunctionSourceRepositorySlice(des, initial []FunctionSourceRepository, opts ...dcl.ApplyOption) []FunctionSourceRepository {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -956,7 +956,7 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 }
 
 func canonicalizeFunctionHttpsTriggerSlice(des, initial []FunctionHttpsTrigger, opts ...dcl.ApplyOption) []FunctionHttpsTrigger {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1086,7 +1086,7 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 }
 
 func canonicalizeFunctionEventTriggerSlice(des, initial []FunctionEventTrigger, opts ...dcl.ApplyOption) []FunctionEventTrigger {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

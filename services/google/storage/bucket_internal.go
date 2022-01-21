@@ -741,7 +741,7 @@ func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.Appl
 }
 
 func canonicalizeBucketLifecycleSlice(des, initial []BucketLifecycle, opts ...dcl.ApplyOption) []BucketLifecycle {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -970,7 +970,7 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 }
 
 func canonicalizeBucketLifecycleRuleActionSlice(des, initial []BucketLifecycleRuleAction, opts ...dcl.ApplyOption) []BucketLifecycleRuleAction {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1105,7 +1105,7 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 }
 
 func canonicalizeBucketLifecycleRuleConditionSlice(des, initial []BucketLifecycleRuleCondition, opts ...dcl.ApplyOption) []BucketLifecycleRuleCondition {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1225,7 +1225,7 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeBucketLoggingSlice(des, initial []BucketLogging, opts ...dcl.ApplyOption) []BucketLogging {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1343,7 +1343,7 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 }
 
 func canonicalizeBucketVersioningSlice(des, initial []BucketVersioning, opts ...dcl.ApplyOption) []BucketVersioning {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1463,7 +1463,7 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeBucketWebsiteSlice(des, initial []BucketWebsite, opts ...dcl.ApplyOption) []BucketWebsite {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2158,7 +2158,7 @@ func flattenBucketCorsSlice(c *Client, i interface{}) []BucketCors {
 // expandBucketCors expands an instance of BucketCors into a JSON
 // request object.
 func expandBucketCors(c *Client, f *BucketCors) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -2400,7 +2400,7 @@ func flattenBucketLifecycleRuleSlice(c *Client, i interface{}) []BucketLifecycle
 // expandBucketLifecycleRule expands an instance of BucketLifecycleRule into a JSON
 // request object.
 func expandBucketLifecycleRule(c *Client, f *BucketLifecycleRule) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

@@ -661,7 +661,7 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 }
 
 func canonicalizeMetricDescriptorMetadataSlice(des, initial []MetricDescriptorMetadata, opts ...dcl.ApplyOption) []MetricDescriptorMetadata {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1148,7 +1148,7 @@ func flattenMetricDescriptorLabelsSlice(c *Client, i interface{}) []MetricDescri
 // expandMetricDescriptorLabels expands an instance of MetricDescriptorLabels into a JSON
 // request object.
 func expandMetricDescriptorLabels(c *Client, f *MetricDescriptorLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

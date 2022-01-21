@@ -427,7 +427,7 @@ func canonicalizeRulesetSource(des, initial *RulesetSource, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeRulesetSourceSlice(des, initial []RulesetSource, opts ...dcl.ApplyOption) []RulesetSource {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -671,7 +671,7 @@ func canonicalizeRulesetMetadata(des, initial *RulesetMetadata, opts ...dcl.Appl
 }
 
 func canonicalizeRulesetMetadataSlice(des, initial []RulesetMetadata, opts ...dcl.ApplyOption) []RulesetMetadata {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1216,7 +1216,7 @@ func flattenRulesetSourceFilesSlice(c *Client, i interface{}) []RulesetSourceFil
 // expandRulesetSourceFiles expands an instance of RulesetSourceFiles into a JSON
 // request object.
 func expandRulesetSourceFiles(c *Client, f *RulesetSourceFiles) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

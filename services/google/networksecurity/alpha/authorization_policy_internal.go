@@ -972,7 +972,7 @@ func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des, initia
 }
 
 func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(des, initial []AuthorizationPolicyRulesDestinationsHttpHeaderMatch, opts ...dcl.ApplyOption) []AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1509,7 +1509,7 @@ func flattenAuthorizationPolicyRulesSlice(c *Client, i interface{}) []Authorizat
 // expandAuthorizationPolicyRules expands an instance of AuthorizationPolicyRules into a JSON
 // request object.
 func expandAuthorizationPolicyRules(c *Client, f *AuthorizationPolicyRules) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -1631,7 +1631,7 @@ func flattenAuthorizationPolicyRulesSourcesSlice(c *Client, i interface{}) []Aut
 // expandAuthorizationPolicyRulesSources expands an instance of AuthorizationPolicyRulesSources into a JSON
 // request object.
 func expandAuthorizationPolicyRulesSources(c *Client, f *AuthorizationPolicyRulesSources) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -1749,7 +1749,7 @@ func flattenAuthorizationPolicyRulesDestinationsSlice(c *Client, i interface{}) 
 // expandAuthorizationPolicyRulesDestinations expands an instance of AuthorizationPolicyRulesDestinations into a JSON
 // request object.
 func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolicyRulesDestinations) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

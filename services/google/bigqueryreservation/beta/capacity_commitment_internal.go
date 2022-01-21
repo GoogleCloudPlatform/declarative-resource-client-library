@@ -556,7 +556,7 @@ func canonicalizeCapacityCommitmentFailureStatus(des, initial *CapacityCommitmen
 }
 
 func canonicalizeCapacityCommitmentFailureStatusSlice(des, initial []CapacityCommitmentFailureStatus, opts ...dcl.ApplyOption) []CapacityCommitmentFailureStatus {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1261,7 +1261,7 @@ func flattenCapacityCommitmentFailureStatusDetailsSlice(c *Client, i interface{}
 // expandCapacityCommitmentFailureStatusDetails expands an instance of CapacityCommitmentFailureStatusDetails into a JSON
 // request object.
 func expandCapacityCommitmentFailureStatusDetails(c *Client, f *CapacityCommitmentFailureStatusDetails) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

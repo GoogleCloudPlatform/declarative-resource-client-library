@@ -644,7 +644,7 @@ func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(des, initial *Gro
 }
 
 func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykeySlice(des, initial []GroupGoogleappscloudidentitygroupsvxentitykey, opts ...dcl.ApplyOption) []GroupGoogleappscloudidentitygroupsvxentitykey {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -756,7 +756,7 @@ func canonicalizeGroupDirectMemberCountPerType(des, initial *GroupDirectMemberCo
 }
 
 func canonicalizeGroupDirectMemberCountPerTypeSlice(des, initial []GroupDirectMemberCountPerType, opts ...dcl.ApplyOption) []GroupDirectMemberCountPerType {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -863,7 +863,7 @@ func canonicalizeGroupDynamicGroupMetadata(des, initial *GroupDynamicGroupMetada
 }
 
 func canonicalizeGroupDynamicGroupMetadataSlice(des, initial []GroupDynamicGroupMetadata, opts ...dcl.ApplyOption) []GroupDynamicGroupMetadata {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1102,7 +1102,7 @@ func canonicalizeGroupDynamicGroupMetadataStatus(des, initial *GroupDynamicGroup
 }
 
 func canonicalizeGroupDynamicGroupMetadataStatusSlice(des, initial []GroupDynamicGroupMetadataStatus, opts ...dcl.ApplyOption) []GroupDynamicGroupMetadataStatus {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2046,7 +2046,7 @@ func flattenGroupDynamicGroupMetadataQueriesSlice(c *Client, i interface{}) []Gr
 // expandGroupDynamicGroupMetadataQueries expands an instance of GroupDynamicGroupMetadataQueries into a JSON
 // request object.
 func expandGroupDynamicGroupMetadataQueries(c *Client, f *GroupDynamicGroupMetadataQueries) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

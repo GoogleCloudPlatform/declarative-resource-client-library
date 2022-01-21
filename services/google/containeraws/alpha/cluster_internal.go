@@ -814,7 +814,7 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 }
 
 func canonicalizeClusterNetworkingSlice(des, initial []ClusterNetworking, opts ...dcl.ApplyOption) []ClusterNetworking {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -967,7 +967,7 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 }
 
 func canonicalizeClusterControlPlaneSlice(des, initial []ClusterControlPlane, opts ...dcl.ApplyOption) []ClusterControlPlane {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1101,7 +1101,7 @@ func canonicalizeClusterControlPlaneSshConfig(des, initial *ClusterControlPlaneS
 }
 
 func canonicalizeClusterControlPlaneSshConfigSlice(des, initial []ClusterControlPlaneSshConfig, opts ...dcl.ApplyOption) []ClusterControlPlaneSshConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1216,7 +1216,7 @@ func canonicalizeClusterControlPlaneConfigEncryption(des, initial *ClusterContro
 }
 
 func canonicalizeClusterControlPlaneConfigEncryptionSlice(des, initial []ClusterControlPlaneConfigEncryption, opts ...dcl.ApplyOption) []ClusterControlPlaneConfigEncryption {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1346,7 +1346,7 @@ func canonicalizeClusterControlPlaneRootVolume(des, initial *ClusterControlPlane
 }
 
 func canonicalizeClusterControlPlaneRootVolumeSlice(des, initial []ClusterControlPlaneRootVolume, opts ...dcl.ApplyOption) []ClusterControlPlaneRootVolume {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1476,7 +1476,7 @@ func canonicalizeClusterControlPlaneMainVolume(des, initial *ClusterControlPlane
 }
 
 func canonicalizeClusterControlPlaneMainVolumeSlice(des, initial []ClusterControlPlaneMainVolume, opts ...dcl.ApplyOption) []ClusterControlPlaneMainVolume {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1591,7 +1591,7 @@ func canonicalizeClusterControlPlaneDatabaseEncryption(des, initial *ClusterCont
 }
 
 func canonicalizeClusterControlPlaneDatabaseEncryptionSlice(des, initial []ClusterControlPlaneDatabaseEncryption, opts ...dcl.ApplyOption) []ClusterControlPlaneDatabaseEncryption {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1711,7 +1711,7 @@ func canonicalizeClusterControlPlaneAwsServicesAuthentication(des, initial *Clus
 }
 
 func canonicalizeClusterControlPlaneAwsServicesAuthenticationSlice(des, initial []ClusterControlPlaneAwsServicesAuthentication, opts ...dcl.ApplyOption) []ClusterControlPlaneAwsServicesAuthentication {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1834,7 +1834,7 @@ func canonicalizeClusterControlPlaneProxyConfig(des, initial *ClusterControlPlan
 }
 
 func canonicalizeClusterControlPlaneProxyConfigSlice(des, initial []ClusterControlPlaneProxyConfig, opts ...dcl.ApplyOption) []ClusterControlPlaneProxyConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1948,7 +1948,7 @@ func canonicalizeClusterAuthorization(des, initial *ClusterAuthorization, opts .
 }
 
 func canonicalizeClusterAuthorizationSlice(des, initial []ClusterAuthorization, opts ...dcl.ApplyOption) []ClusterAuthorization {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2186,7 +2186,7 @@ func canonicalizeClusterWorkloadIdentityConfig(des, initial *ClusterWorkloadIden
 }
 
 func canonicalizeClusterWorkloadIdentityConfigSlice(des, initial []ClusterWorkloadIdentityConfig, opts ...dcl.ApplyOption) []ClusterWorkloadIdentityConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2307,7 +2307,7 @@ func canonicalizeClusterFleet(des, initial *ClusterFleet, opts ...dcl.ApplyOptio
 }
 
 func canonicalizeClusterFleetSlice(des, initial []ClusterFleet, opts ...dcl.ApplyOption) []ClusterFleet {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4573,7 +4573,7 @@ func flattenClusterAuthorizationAdminUsersSlice(c *Client, i interface{}) []Clus
 // expandClusterAuthorizationAdminUsers expands an instance of ClusterAuthorizationAdminUsers into a JSON
 // request object.
 func expandClusterAuthorizationAdminUsers(c *Client, f *ClusterAuthorizationAdminUsers) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

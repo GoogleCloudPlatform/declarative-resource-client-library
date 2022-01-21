@@ -570,7 +570,7 @@ func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpCo
 }
 
 func canonicalizeTenantOAuthIdpConfigResponseTypeSlice(des, initial []TenantOAuthIdpConfigResponseType, opts ...dcl.ApplyOption) []TenantOAuthIdpConfigResponseType {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

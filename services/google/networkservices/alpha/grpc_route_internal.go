@@ -974,7 +974,7 @@ func canonicalizeGrpcRouteRulesMatchesMethod(des, initial *GrpcRouteRulesMatches
 }
 
 func canonicalizeGrpcRouteRulesMatchesMethodSlice(des, initial []GrpcRouteRulesMatchesMethod, opts ...dcl.ApplyOption) []GrpcRouteRulesMatchesMethod {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1226,7 +1226,7 @@ func canonicalizeGrpcRouteRulesAction(des, initial *GrpcRouteRulesAction, opts .
 }
 
 func canonicalizeGrpcRouteRulesActionSlice(des, initial []GrpcRouteRulesAction, opts ...dcl.ApplyOption) []GrpcRouteRulesAction {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1491,7 +1491,7 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicy(des, initial *GrpcRout
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicySlice(des, initial []GrpcRouteRulesActionFaultInjectionPolicy, opts ...dcl.ApplyOption) []GrpcRouteRulesActionFaultInjectionPolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1630,7 +1630,7 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelay(des, initial *Grp
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(des, initial []GrpcRouteRulesActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) []GrpcRouteRulesActionFaultInjectionPolicyDelay {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1770,7 +1770,7 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbort(des, initial *Grp
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(des, initial []GrpcRouteRulesActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) []GrpcRouteRulesActionFaultInjectionPolicyAbort {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1886,7 +1886,7 @@ func canonicalizeGrpcRouteRulesActionRetryPolicy(des, initial *GrpcRouteRulesAct
 }
 
 func canonicalizeGrpcRouteRulesActionRetryPolicySlice(des, initial []GrpcRouteRulesActionRetryPolicy, opts ...dcl.ApplyOption) []GrpcRouteRulesActionRetryPolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2690,7 +2690,7 @@ func flattenGrpcRouteRulesSlice(c *Client, i interface{}) []GrpcRouteRules {
 // expandGrpcRouteRules expands an instance of GrpcRouteRules into a JSON
 // request object.
 func expandGrpcRouteRules(c *Client, f *GrpcRouteRules) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -2812,7 +2812,7 @@ func flattenGrpcRouteRulesMatchesSlice(c *Client, i interface{}) []GrpcRouteRule
 // expandGrpcRouteRulesMatches expands an instance of GrpcRouteRulesMatches into a JSON
 // request object.
 func expandGrpcRouteRulesMatches(c *Client, f *GrpcRouteRulesMatches) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -3060,7 +3060,7 @@ func flattenGrpcRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []GrpcRo
 // expandGrpcRouteRulesMatchesHeaders expands an instance of GrpcRouteRulesMatchesHeaders into a JSON
 // request object.
 func expandGrpcRouteRulesMatchesHeaders(c *Client, f *GrpcRouteRulesMatchesHeaders) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -3314,7 +3314,7 @@ func flattenGrpcRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Gr
 // expandGrpcRouteRulesActionDestinations expands an instance of GrpcRouteRulesActionDestinations into a JSON
 // request object.
 func expandGrpcRouteRulesActionDestinations(c *Client, f *GrpcRouteRulesActionDestinations) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

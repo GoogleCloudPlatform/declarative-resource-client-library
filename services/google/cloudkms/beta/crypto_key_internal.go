@@ -579,7 +579,7 @@ func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.Ap
 }
 
 func canonicalizeCryptoKeyPrimarySlice(des, initial []CryptoKeyPrimary, opts ...dcl.ApplyOption) []CryptoKeyPrimary {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -696,7 +696,7 @@ func canonicalizeCryptoKeyPrimaryAttestation(des, initial *CryptoKeyPrimaryAttes
 }
 
 func canonicalizeCryptoKeyPrimaryAttestationSlice(des, initial []CryptoKeyPrimaryAttestation, opts ...dcl.ApplyOption) []CryptoKeyPrimaryAttestation {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -822,7 +822,7 @@ func canonicalizeCryptoKeyPrimaryAttestationCertChains(des, initial *CryptoKeyPr
 }
 
 func canonicalizeCryptoKeyPrimaryAttestationCertChainsSlice(des, initial []CryptoKeyPrimaryAttestationCertChains, opts ...dcl.ApplyOption) []CryptoKeyPrimaryAttestationCertChains {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -943,7 +943,7 @@ func canonicalizeCryptoKeyPrimaryExternalProtectionLevelOptions(des, initial *Cr
 }
 
 func canonicalizeCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(des, initial []CryptoKeyPrimaryExternalProtectionLevelOptions, opts ...dcl.ApplyOption) []CryptoKeyPrimaryExternalProtectionLevelOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1063,7 +1063,7 @@ func canonicalizeCryptoKeyVersionTemplate(des, initial *CryptoKeyVersionTemplate
 }
 
 func canonicalizeCryptoKeyVersionTemplateSlice(des, initial []CryptoKeyVersionTemplate, opts ...dcl.ApplyOption) []CryptoKeyVersionTemplate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

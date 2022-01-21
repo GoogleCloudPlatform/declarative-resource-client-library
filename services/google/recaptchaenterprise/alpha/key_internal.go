@@ -623,7 +623,7 @@ func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyO
 }
 
 func canonicalizeKeyWebSettingsSlice(des, initial []KeyWebSettings, opts ...dcl.ApplyOption) []KeyWebSettings {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -749,7 +749,7 @@ func canonicalizeKeyAndroidSettings(des, initial *KeyAndroidSettings, opts ...dc
 }
 
 func canonicalizeKeyAndroidSettingsSlice(des, initial []KeyAndroidSettings, opts ...dcl.ApplyOption) []KeyAndroidSettings {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -872,7 +872,7 @@ func canonicalizeKeyIosSettings(des, initial *KeyIosSettings, opts ...dcl.ApplyO
 }
 
 func canonicalizeKeyIosSettingsSlice(des, initial []KeyIosSettings, opts ...dcl.ApplyOption) []KeyIosSettings {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -995,7 +995,7 @@ func canonicalizeKeyTestingOptions(des, initial *KeyTestingOptions, opts ...dcl.
 }
 
 func canonicalizeKeyTestingOptionsSlice(des, initial []KeyTestingOptions, opts ...dcl.ApplyOption) []KeyTestingOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

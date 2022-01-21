@@ -1605,7 +1605,7 @@ func canonicalizeInstanceDisksDiskEncryptionKey(des, initial *InstanceDisksDiskE
 }
 
 func canonicalizeInstanceDisksDiskEncryptionKeySlice(des, initial []InstanceDisksDiskEncryptionKey, opts ...dcl.ApplyOption) []InstanceDisksDiskEncryptionKey {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1742,7 +1742,7 @@ func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitia
 }
 
 func canonicalizeInstanceDisksInitializeParamsSlice(des, initial []InstanceDisksInitializeParams, opts ...dcl.ApplyOption) []InstanceDisksInitializeParams {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1864,7 +1864,7 @@ func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des, init
 }
 
 func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(des, initial []InstanceDisksInitializeParamsSourceImageEncryptionKey, opts ...dcl.ApplyOption) []InstanceDisksInitializeParamsSourceImageEncryptionKey {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2685,7 +2685,7 @@ func canonicalizeInstanceScheduling(des, initial *InstanceScheduling, opts ...dc
 }
 
 func canonicalizeInstanceSchedulingSlice(des, initial []InstanceScheduling, opts ...dcl.ApplyOption) []InstanceScheduling {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2939,7 +2939,7 @@ func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedIn
 }
 
 func canonicalizeInstanceShieldedInstanceConfigSlice(des, initial []InstanceShieldedInstanceConfig, opts ...dcl.ApplyOption) []InstanceShieldedInstanceConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4231,7 +4231,7 @@ func flattenInstanceDisksSlice(c *Client, i interface{}) []InstanceDisks {
 // expandInstanceDisks expands an instance of InstanceDisks into a JSON
 // request object.
 func expandInstanceDisks(c *Client, f *InstanceDisks) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -4751,7 +4751,7 @@ func flattenInstanceGuestAcceleratorsSlice(c *Client, i interface{}) []InstanceG
 // expandInstanceGuestAccelerators expands an instance of InstanceGuestAccelerators into a JSON
 // request object.
 func expandInstanceGuestAccelerators(c *Client, f *InstanceGuestAccelerators) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -4869,7 +4869,7 @@ func flattenInstanceNetworkInterfacesSlice(c *Client, i interface{}) []InstanceN
 // expandInstanceNetworkInterfaces expands an instance of InstanceNetworkInterfaces into a JSON
 // request object.
 func expandInstanceNetworkInterfaces(c *Client, f *InstanceNetworkInterfaces) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5010,7 +5010,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsSlice(c *Client, i interface{}
 // expandInstanceNetworkInterfacesAccessConfigs expands an instance of InstanceNetworkInterfacesAccessConfigs into a JSON
 // request object.
 func expandInstanceNetworkInterfacesAccessConfigs(c *Client, f *InstanceNetworkInterfacesAccessConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5146,7 +5146,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, i interfa
 // expandInstanceNetworkInterfacesIPv6AccessConfigs expands an instance of InstanceNetworkInterfacesIPv6AccessConfigs into a JSON
 // request object.
 func expandInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, f *InstanceNetworkInterfacesIPv6AccessConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5282,7 +5282,7 @@ func flattenInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, i interface{}
 // expandInstanceNetworkInterfacesAliasIPRanges expands an instance of InstanceNetworkInterfacesAliasIPRanges into a JSON
 // request object.
 func expandInstanceNetworkInterfacesAliasIPRanges(c *Client, f *InstanceNetworkInterfacesAliasIPRanges) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5522,7 +5522,7 @@ func flattenInstanceServiceAccountsSlice(c *Client, i interface{}) []InstanceSer
 // expandInstanceServiceAccounts expands an instance of InstanceServiceAccounts into a JSON
 // request object.
 func expandInstanceServiceAccounts(c *Client, f *InstanceServiceAccounts) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

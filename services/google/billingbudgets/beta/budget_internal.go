@@ -607,7 +607,7 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 }
 
 func canonicalizeBudgetBudgetFilterSlice(des, initial []BudgetBudgetFilter, opts ...dcl.ApplyOption) []BudgetBudgetFilter {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -732,7 +732,7 @@ func canonicalizeBudgetBudgetFilterLabels(des, initial *BudgetBudgetFilterLabels
 }
 
 func canonicalizeBudgetBudgetFilterLabelsSlice(des, initial []BudgetBudgetFilterLabels, opts ...dcl.ApplyOption) []BudgetBudgetFilterLabels {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -844,7 +844,7 @@ func canonicalizeBudgetBudgetFilterCustomPeriod(des, initial *BudgetBudgetFilter
 }
 
 func canonicalizeBudgetBudgetFilterCustomPeriodSlice(des, initial []BudgetBudgetFilterCustomPeriod, opts ...dcl.ApplyOption) []BudgetBudgetFilterCustomPeriod {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -968,7 +968,7 @@ func canonicalizeBudgetBudgetFilterCustomPeriodStartDate(des, initial *BudgetBud
 }
 
 func canonicalizeBudgetBudgetFilterCustomPeriodStartDateSlice(des, initial []BudgetBudgetFilterCustomPeriodStartDate, opts ...dcl.ApplyOption) []BudgetBudgetFilterCustomPeriodStartDate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1089,7 +1089,7 @@ func canonicalizeBudgetBudgetFilterCustomPeriodEndDate(des, initial *BudgetBudge
 }
 
 func canonicalizeBudgetBudgetFilterCustomPeriodEndDateSlice(des, initial []BudgetBudgetFilterCustomPeriodEndDate, opts ...dcl.ApplyOption) []BudgetBudgetFilterCustomPeriodEndDate {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1217,7 +1217,7 @@ func canonicalizeBudgetAmount(des, initial *BudgetAmount, opts ...dcl.ApplyOptio
 }
 
 func canonicalizeBudgetAmountSlice(des, initial []BudgetAmount, opts ...dcl.ApplyOption) []BudgetAmount {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1341,7 +1341,7 @@ func canonicalizeBudgetAmountSpecifiedAmount(des, initial *BudgetAmountSpecified
 }
 
 func canonicalizeBudgetAmountSpecifiedAmountSlice(des, initial []BudgetAmountSpecifiedAmount, opts ...dcl.ApplyOption) []BudgetAmountSpecifiedAmount {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1449,7 +1449,7 @@ func canonicalizeBudgetAmountLastPeriodAmount(des, initial *BudgetAmountLastPeri
 }
 
 func canonicalizeBudgetAmountLastPeriodAmountSlice(des, initial []BudgetAmountLastPeriodAmount, opts ...dcl.ApplyOption) []BudgetAmountLastPeriodAmount {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1691,7 +1691,7 @@ func canonicalizeBudgetAllUpdatesRule(des, initial *BudgetAllUpdatesRule, opts .
 }
 
 func canonicalizeBudgetAllUpdatesRuleSlice(des, initial []BudgetAllUpdatesRule, opts ...dcl.ApplyOption) []BudgetAllUpdatesRule {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -3451,7 +3451,7 @@ func flattenBudgetThresholdRulesSlice(c *Client, i interface{}) []BudgetThreshol
 // expandBudgetThresholdRules expands an instance of BudgetThresholdRules into a JSON
 // request object.
 func expandBudgetThresholdRules(c *Client, f *BudgetThresholdRules) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

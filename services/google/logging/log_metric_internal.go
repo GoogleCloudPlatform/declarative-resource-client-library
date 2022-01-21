@@ -630,7 +630,7 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 }
 
 func canonicalizeLogMetricMetricDescriptorSlice(des, initial []LogMetricMetricDescriptor, opts ...dcl.ApplyOption) []LogMetricMetricDescriptor {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -902,7 +902,7 @@ func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetric
 }
 
 func canonicalizeLogMetricMetricDescriptorMetadataSlice(des, initial []LogMetricMetricDescriptorMetadata, opts ...dcl.ApplyOption) []LogMetricMetricDescriptorMetadata {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1048,7 +1048,7 @@ func canonicalizeLogMetricBucketOptions(des, initial *LogMetricBucketOptions, op
 }
 
 func canonicalizeLogMetricBucketOptionsSlice(des, initial []LogMetricBucketOptions, opts ...dcl.ApplyOption) []LogMetricBucketOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1173,7 +1173,7 @@ func canonicalizeLogMetricBucketOptionsLinearBuckets(des, initial *LogMetricBuck
 }
 
 func canonicalizeLogMetricBucketOptionsLinearBucketsSlice(des, initial []LogMetricBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) []LogMetricBucketOptionsLinearBuckets {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1294,7 +1294,7 @@ func canonicalizeLogMetricBucketOptionsExponentialBuckets(des, initial *LogMetri
 }
 
 func canonicalizeLogMetricBucketOptionsExponentialBucketsSlice(des, initial []LogMetricBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) []LogMetricBucketOptionsExponentialBuckets {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1405,7 +1405,7 @@ func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBu
 }
 
 func canonicalizeLogMetricBucketOptionsExplicitBucketsSlice(des, initial []LogMetricBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) []LogMetricBucketOptionsExplicitBuckets {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2279,7 +2279,7 @@ func flattenLogMetricMetricDescriptorLabelsSlice(c *Client, i interface{}) []Log
 // expandLogMetricMetricDescriptorLabels expands an instance of LogMetricMetricDescriptorLabels into a JSON
 // request object.
 func expandLogMetricMetricDescriptorLabels(c *Client, f *LogMetricMetricDescriptorLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

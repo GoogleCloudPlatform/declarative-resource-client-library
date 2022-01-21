@@ -697,7 +697,7 @@ func canonicalizeCaPoolIssuancePolicy(des, initial *CaPoolIssuancePolicy, opts .
 }
 
 func canonicalizeCaPoolIssuancePolicySlice(des, initial []CaPoolIssuancePolicy, opts ...dcl.ApplyOption) []CaPoolIssuancePolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -953,7 +953,7 @@ func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesRsa(des, initial *CaPoolIssu
 }
 
 func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(des, initial []CaPoolIssuancePolicyAllowedKeyTypesRsa, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyAllowedKeyTypesRsa {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1064,7 +1064,7 @@ func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(des, initial *
 }
 
 func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(des, initial []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1180,7 +1180,7 @@ func canonicalizeCaPoolIssuancePolicyAllowedIssuanceModes(des, initial *CaPoolIs
 }
 
 func canonicalizeCaPoolIssuancePolicyAllowedIssuanceModesSlice(des, initial []CaPoolIssuancePolicyAllowedIssuanceModes, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyAllowedIssuanceModes {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1302,7 +1302,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValues(des, initial *CaPoolIssuance
 }
 
 func canonicalizeCaPoolIssuancePolicyBaselineValuesSlice(des, initial []CaPoolIssuancePolicyBaselineValues, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyBaselineValues {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1419,7 +1419,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsage(des, initial *CaPool
 }
 
 func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(des, initial []CaPoolIssuancePolicyBaselineValuesKeyUsage, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyBaselineValuesKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1574,7 +1574,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(des, ini
 }
 
 func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(des, initial []CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1738,7 +1738,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(des,
 }
 
 func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(des, initial []CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1984,7 +1984,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesCaOptions(des, initial *CaPoo
 }
 
 func canonicalizeCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(des, initial []CaPoolIssuancePolicyBaselineValuesCaOptions, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyBaselineValuesCaOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2336,7 +2336,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(
 }
 
 func canonicalizeCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(des, initial []CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2453,7 +2453,7 @@ func canonicalizeCaPoolIssuancePolicyIdentityConstraints(des, initial *CaPoolIss
 }
 
 func canonicalizeCaPoolIssuancePolicyIdentityConstraintsSlice(des, initial []CaPoolIssuancePolicyIdentityConstraints, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyIdentityConstraints {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2587,7 +2587,7 @@ func canonicalizeCaPoolIssuancePolicyIdentityConstraintsCelExpression(des, initi
 }
 
 func canonicalizeCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(des, initial []CaPoolIssuancePolicyIdentityConstraintsCelExpression, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyIdentityConstraintsCelExpression {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2712,7 +2712,7 @@ func canonicalizeCaPoolIssuancePolicyPassthroughExtensions(des, initial *CaPoolI
 }
 
 func canonicalizeCaPoolIssuancePolicyPassthroughExtensionsSlice(des, initial []CaPoolIssuancePolicyPassthroughExtensions, opts ...dcl.ApplyOption) []CaPoolIssuancePolicyPassthroughExtensions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -2941,7 +2941,7 @@ func canonicalizeCaPoolPublishingOptions(des, initial *CaPoolPublishingOptions, 
 }
 
 func canonicalizeCaPoolPublishingOptionsSlice(des, initial []CaPoolPublishingOptions, opts ...dcl.ApplyOption) []CaPoolPublishingOptions {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -4259,7 +4259,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, i interface{}) [
 // expandCaPoolIssuancePolicyAllowedKeyTypes expands an instance of CaPoolIssuancePolicyAllowedKeyTypes into a JSON
 // request object.
 func expandCaPoolIssuancePolicyAllowedKeyTypes(c *Client, f *CaPoolIssuancePolicyAllowedKeyTypes) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5277,7 +5277,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSl
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages expands an instance of CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
 func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5509,7 +5509,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, i interf
 // expandCaPoolIssuancePolicyBaselineValuesPolicyIds expands an instance of CaPoolIssuancePolicyBaselineValuesPolicyIds into a JSON
 // request object.
 func expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, f *CaPoolIssuancePolicyBaselineValuesPolicyIds) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -5623,7 +5623,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Clien
 // expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions expands an instance of CaPoolIssuancePolicyBaselineValuesAdditionalExtensions into a JSON
 // request object.
 func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, f *CaPoolIssuancePolicyBaselineValuesAdditionalExtensions) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -6231,7 +6231,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c
 // expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions expands an instance of CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions into a JSON
 // request object.
 func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Client, f *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

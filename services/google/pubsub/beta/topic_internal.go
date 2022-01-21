@@ -515,7 +515,7 @@ func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePoli
 }
 
 func canonicalizeTopicMessageStoragePolicySlice(des, initial []TopicMessageStoragePolicy, opts ...dcl.ApplyOption) []TopicMessageStoragePolicy {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 

@@ -631,7 +631,7 @@ func canonicalizeOrganizationAddonsConfig(des, initial *OrganizationAddonsConfig
 }
 
 func canonicalizeOrganizationAddonsConfigSlice(des, initial []OrganizationAddonsConfig, opts ...dcl.ApplyOption) []OrganizationAddonsConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -745,7 +745,7 @@ func canonicalizeOrganizationAddonsConfigAdvancedApiOpsConfig(des, initial *Orga
 }
 
 func canonicalizeOrganizationAddonsConfigAdvancedApiOpsConfigSlice(des, initial []OrganizationAddonsConfigAdvancedApiOpsConfig, opts ...dcl.ApplyOption) []OrganizationAddonsConfigAdvancedApiOpsConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -860,7 +860,7 @@ func canonicalizeOrganizationAddonsConfigMonetizationConfig(des, initial *Organi
 }
 
 func canonicalizeOrganizationAddonsConfigMonetizationConfigSlice(des, initial []OrganizationAddonsConfigMonetizationConfig, opts ...dcl.ApplyOption) []OrganizationAddonsConfigMonetizationConfig {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
