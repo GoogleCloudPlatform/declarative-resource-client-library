@@ -106,6 +106,7 @@ import (
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/networksecurity/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/networksecurity/beta"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/networkservices/alpha"
+	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/networkservices/beta"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/orgpolicy"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/orgpolicy/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/orgpolicy/beta"

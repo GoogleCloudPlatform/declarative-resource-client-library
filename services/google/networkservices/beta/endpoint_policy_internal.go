@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -640,7 +640,7 @@ func canonicalizeEndpointPolicyEndpointMatcher(des, initial *EndpointPolicyEndpo
 }
 
 func canonicalizeEndpointPolicyEndpointMatcherSlice(des, initial []EndpointPolicyEndpointMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcher {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -744,7 +744,7 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 	cDes := &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
 
 	if dcl.IsZeroValue(des.MetadataLabelMatchCriteria) {
-		des.MetadataLabelMatchCriteria = initial.MetadataLabelMatchCriteria
+		cDes.MetadataLabelMatchCriteria = initial.MetadataLabelMatchCriteria
 	} else {
 		cDes.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
 	}
@@ -754,7 +754,7 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 }
 
 func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(des, initial []EndpointPolicyEndpointMatcherMetadataLabelMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcherMetadataLabelMatcher {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -990,7 +990,7 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 }
 
 func canonicalizeEndpointPolicyTrafficPortSelectorSlice(des, initial []EndpointPolicyTrafficPortSelector, opts ...dcl.ApplyOption) []EndpointPolicyTrafficPortSelector {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -1387,7 +1387,7 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/*/locations/global/endpointPolicies/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
@@ -1401,12 +1401,12 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	}
 	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher); err != nil {
 		return nil, fmt.Errorf("error expanding EndpointMatcher into endpointMatcher: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["endpointMatcher"] = v
 	}
 	if v, err := expandEndpointPolicyTrafficPortSelector(c, f.TrafficPortSelector); err != nil {
 		return nil, fmt.Errorf("error expanding TrafficPortSelector into trafficPortSelector: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["trafficPortSelector"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
@@ -1420,12 +1420,12 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
 
@@ -1781,7 +1781,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels expands an instance of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels into a JSON
 // request object.
 func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, f *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -2088,7 +2088,7 @@ func convertFieldDiffsToEndpointPolicyDiffs(config *dcl.Config, fds []*dcl.Field
 				fieldDiffs = append(fieldDiffs, fd)
 				opNamesToFieldDiffs[ro] = fieldDiffs
 			} else {
-				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				config.Logger.Infof("%s required due to diff: %v", ro, fd)
 				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
 			}
 		}
