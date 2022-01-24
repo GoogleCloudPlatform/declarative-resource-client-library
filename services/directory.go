@@ -74,6 +74,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc"
 	dataproc_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/alpha"
 	dataproc_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp"
+	dlp_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/alpha"
+	dlp_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc"
 	eventarc_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/alpha"
 	eventarc_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta"
@@ -284,6 +287,10 @@ func Services() *Directory {
 	d.AddResource("ga", "dataproc", "Cluster", dataproc.YAML_cluster)
 	d.AddResource("ga", "dataproc", dcl.TitleToSnakeCase("WorkflowTemplate"), dataproc.YAML_workflow_template)
 	d.AddResource("ga", "dataproc", "WorkflowTemplate", dataproc.YAML_workflow_template)
+	d.AddResource("ga", "dlp", dcl.TitleToSnakeCase("DeidentifyTemplate"), dlp.YAML_deidentify_template)
+	d.AddResource("ga", "dlp", "DeidentifyTemplate", dlp.YAML_deidentify_template)
+	d.AddResource("ga", "dlp", dcl.TitleToSnakeCase("InspectTemplate"), dlp.YAML_inspect_template)
+	d.AddResource("ga", "dlp", "InspectTemplate", dlp.YAML_inspect_template)
 	d.AddResource("ga", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc.YAML_trigger)
 	d.AddResource("ga", "eventarc", "Trigger", eventarc.YAML_trigger)
 	d.AddResource("ga", "filestore", dcl.TitleToSnakeCase("Instance"), filestore.YAML_instance)
@@ -458,6 +465,10 @@ func Services() *Directory {
 	d.AddResource("beta", "dataproc", "Cluster", dataproc_beta.YAML_cluster)
 	d.AddResource("beta", "dataproc", dcl.TitleToSnakeCase("WorkflowTemplate"), dataproc_beta.YAML_workflow_template)
 	d.AddResource("beta", "dataproc", "WorkflowTemplate", dataproc_beta.YAML_workflow_template)
+	d.AddResource("beta", "dlp", dcl.TitleToSnakeCase("DeidentifyTemplate"), dlp_beta.YAML_deidentify_template)
+	d.AddResource("beta", "dlp", "DeidentifyTemplate", dlp_beta.YAML_deidentify_template)
+	d.AddResource("beta", "dlp", dcl.TitleToSnakeCase("InspectTemplate"), dlp_beta.YAML_inspect_template)
+	d.AddResource("beta", "dlp", "InspectTemplate", dlp_beta.YAML_inspect_template)
 	d.AddResource("beta", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc_beta.YAML_trigger)
 	d.AddResource("beta", "eventarc", "Trigger", eventarc_beta.YAML_trigger)
 	d.AddResource("beta", "filestore", dcl.TitleToSnakeCase("Instance"), filestore_beta.YAML_instance)
@@ -654,6 +665,10 @@ func Services() *Directory {
 	d.AddResource("alpha", "dataproc", "Cluster", dataproc_alpha.YAML_cluster)
 	d.AddResource("alpha", "dataproc", dcl.TitleToSnakeCase("WorkflowTemplate"), dataproc_alpha.YAML_workflow_template)
 	d.AddResource("alpha", "dataproc", "WorkflowTemplate", dataproc_alpha.YAML_workflow_template)
+	d.AddResource("alpha", "dlp", dcl.TitleToSnakeCase("DeidentifyTemplate"), dlp_alpha.YAML_deidentify_template)
+	d.AddResource("alpha", "dlp", "DeidentifyTemplate", dlp_alpha.YAML_deidentify_template)
+	d.AddResource("alpha", "dlp", dcl.TitleToSnakeCase("InspectTemplate"), dlp_alpha.YAML_inspect_template)
+	d.AddResource("alpha", "dlp", "InspectTemplate", dlp_alpha.YAML_inspect_template)
 	d.AddResource("alpha", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc_alpha.YAML_trigger)
 	d.AddResource("alpha", "eventarc", "Trigger", eventarc_alpha.YAML_trigger)
 	d.AddResource("alpha", "filestore", dcl.TitleToSnakeCase("Instance"), filestore_alpha.YAML_instance)

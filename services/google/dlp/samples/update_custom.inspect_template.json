@@ -1,0 +1,153 @@
+{
+  "parent": "projects/{{project}}",
+  "displayName": "updated-sample-template",
+  "description": "An updated sample dlp inspect template",
+  "inspectConfig": {
+    "infoTypes": [
+      {
+        "name": "PHONE_NUMBER"
+      }
+    ],
+    "minLikelihood": "UNLIKELY",
+    "limits": {
+      "maxFindingsPerItem": 5,
+      "maxFindingsPerRequest": 5,
+      "maxFindingsPerInfoType": [
+        {
+          "infoType": {
+            "name": "PHONE_NUMBER"
+          },
+          "maxFindings": 5
+        }
+      ]
+    },
+    "includeQuote": true,
+    "excludeInfoTypes": true,
+    "customInfoTypes": [
+      {
+        "infoType": {
+          "name": "AGE"
+        },
+        "likelihood": "UNLIKELY",
+        "detectionRules": [
+          {
+            "hotwordRule": {
+              "hotwordRegex": {
+                "pattern": "\\(?([0-9]{3})\\)?[- ]?([0-9]{3}-[0-9]{4})",
+                "groupIndexes": [1, 2]
+              },
+              "proximity": {
+                "windowBefore": 3,
+                "windowAfter": 4
+              },
+              "likelihoodAdjustment": {
+                "fixedLikelihood": "POSSIBLE"
+              }
+            }
+          },
+          {
+            "hotwordRule": {
+              "hotwordRegex": {
+                "pattern": "\\+?[0-9]*"
+              },
+              "likelihoodAdjustment": {
+                "relativeLikelihood": 2
+              }
+            }
+          }
+        ],
+        "dictionary": {
+          "wordList": {
+            "words": ["999"]
+          }
+        }
+      },
+      {
+        "infoType": {
+          "name": "SALARY"
+        },
+        "dictionary": {
+          "cloudStoragePath": {
+            "path": "gs://aaa-dont-delete-dcl-dlp-testing/dictionary-2"
+          }
+        }
+      },
+      {
+        "infoType": {
+          "name": "LOCATION"
+        },
+        "storedType": {
+          "name": "projects/{{project}}/locations/global/storedInfoTypes/test-stored-info-type-2"
+        }
+      },
+      {
+        "infoType": {
+          "name": "HEIGHT"
+        },
+        "regex": {
+          "pattern": "\\d{2}(-|/)\\d{2}(-|/)\\d{2,4}",
+          "groupIndexes": []
+        }
+      },
+      {
+        "infoType": {
+          "name": "PHONE_NUMBER"
+        },
+        "surrogateType": {}
+      }
+    ],
+    "contentOptions": ["CONTENT_IMAGE"],
+    "ruleSet": [
+      {
+        "infoTypes": [
+          {
+            "name": "PHONE_NUMBER"
+          }
+        ],
+        "rules": [
+          {
+            "exclusionRule": {
+              "matchingType": "MATCHING_TYPE_FULL_MATCH",
+              "dictionary": {
+                "wordList": {
+                  "words": ["999"]
+                }
+              }
+            }
+          },
+          {
+            "exclusionRule": {
+              "matchingType": "MATCHING_TYPE_FULL_MATCH",
+              "regex": {
+                "pattern": "([3-9])(\\d{1,2})",
+                "groupIndexes": [0, 2]
+              }
+            }
+          },
+          {
+            "exclusionRule": {
+              "matchingType": "MATCHING_TYPE_PARTIAL_MATCH",
+              "dictionary": {
+                "cloudStoragePath": {
+                  "path": "gs://aaa-dont-delete-dcl-dlp-testing/dictionary-2"
+                }
+              }
+            }
+          },
+          {
+            "exclusionRule": {
+              "matchingType": "MATCHING_TYPE_PARTIAL_MATCH",
+              "excludeInfoTypes": {
+                "infoTypes": [
+                  {
+                    "name": "AGE"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
