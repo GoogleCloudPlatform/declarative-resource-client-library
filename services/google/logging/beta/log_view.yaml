@@ -110,6 +110,7 @@ components:
           description: 'The location of the resource. The supported locations are:
             global, us-central1, us-east1, us-west1, asia-east1, europe-west1.'
           x-kubernetes-immutable: true
+          x-dcl-extract-if-empty: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -133,6 +134,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-extract-if-empty: true
         updateTime:
           type: string
           format: date-time

@@ -11,6 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="gkehub/alpha", resources=["feature","feature_membership","membership","fleet"])
+name: folder_log_bucket
+description: A minimal example of an folder-level logging bucket
+type: log_bucket
+versions:
+- ga
+resource: samples/folder.log_bucket.json
+dependencies:
+- samples/folder_logging_admin.iam.member.json
+- samples/folder.cloudresourcemanager.folder.json
+variables:
+- name: folder
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: test_service_account
+  type: test_service_account

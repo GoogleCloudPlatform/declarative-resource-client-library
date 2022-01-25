@@ -107,6 +107,7 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-extract-if-empty: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -122,6 +123,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-extract-if-empty: true
         reservation:
           type: string
           x-dcl-go-name: Reservation

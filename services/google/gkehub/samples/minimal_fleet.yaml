@@ -11,6 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="gkehub/alpha", resources=["feature","feature_membership","membership","fleet"])
+name: minimal_fleet
+description: A minimal example for a GKEHub Fleet
+type: fleet
+versions:
+- alpha
+resource: samples/minimal.fleet.json
+dependencies:
+- samples/gkehub.serviceusage.service.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.project.json
+variables:
+- name: billing_account
+  type: billing_account
+- name: fleet1
+  type: resource_name
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id

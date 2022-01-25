@@ -685,6 +685,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "gkehub", "FeatureMembership", gkehub_alpha.YAML_feature_membership)
 	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("Membership"), gkehub_alpha.YAML_membership)
 	d.AddResource("alpha", "gkehub", "Membership", gkehub_alpha.YAML_membership)
+	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("Fleet"), gkehub_alpha.YAML_fleet)
+	d.AddResource("alpha", "gkehub", "Fleet", gkehub_alpha.YAML_fleet)
 	d.AddResource("alpha", "iam", dcl.TitleToSnakeCase("Role"), iam_alpha.YAML_role)
 	d.AddResource("alpha", "iam", "Role", iam_alpha.YAML_role)
 	d.AddResource("alpha", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam_alpha.YAML_service_account)

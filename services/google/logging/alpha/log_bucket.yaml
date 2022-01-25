@@ -105,7 +105,6 @@ components:
           description: Whether the bucket has been locked. The retention period on
             a locked bucket may not be changed. Locked buckets may only be deleted
             if they are empty.
-          x-kubernetes-immutable: true
         name:
           type: string
           x-dcl-go-name: Name

@@ -22,7 +22,12 @@ dependencies:
 - samples/project.cloudbilling.project_billing_info.json
 - samples/project.cloudresourcemanager.project.json
 updates:
-- resource: samples/update_project.log_bucket.json
+- resource: samples/update_1_project.log_bucket.json
+  dependencies:
+  - samples/project_logging_admin.iam.member.json
+  - samples/project.cloudbilling.project_billing_info.json
+  - samples/project.cloudresourcemanager.project.json
+- resource: samples/update_2_project.log_bucket.json
   dependencies:
   - samples/project_logging_admin.iam.member.json
   - samples/project.cloudbilling.project_billing_info.json

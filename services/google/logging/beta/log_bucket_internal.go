@@ -101,6 +101,9 @@ func newUpdateLogBucketUpdateBucketRequest(ctx context.Context, f *LogBucket, c 
 	if v := f.RetentionDays; !dcl.IsEmptyValueIndirect(v) {
 		req["retentionDays"] = v
 	}
+	if v := f.Locked; !dcl.IsEmptyValueIndirect(v) {
+		req["locked"] = v
+	}
 	return req, nil
 }
 
@@ -243,6 +246,36 @@ type createLogBucketOperation struct {
 
 func (op *createLogBucketOperation) FirstResponse() (map[string]interface{}, bool) {
 	return op.response, len(op.response) > 0
+}
+
+func (op *createLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Client) error {
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
+	u, err := r.createURL(c.Config.BasePath)
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	o, err := dcl.ResponseBodyAsJSON(resp)
+	if err != nil {
+		return fmt.Errorf("error decoding response body into JSON: %w", err)
+	}
+	op.response = o
+
+	if _, err := c.GetLogBucket(ctx, r); err != nil {
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
+		return err
+	}
+
+	return nil
 }
 
 func (c *Client) getLogBucketRaw(ctx context.Context, r *LogBucket) ([]byte, error) {
@@ -474,7 +507,7 @@ func diffLogBucket(c *Client, desired, actual *LogBucket, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Locked, actual.Locked, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Locked")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Locked, actual.Locked, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogBucketUpdateBucketOperation")}, fn.AddNest("Locked")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
