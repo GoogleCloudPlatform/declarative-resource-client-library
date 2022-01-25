@@ -241,9 +241,6 @@ components:
                         type: string
                         x-dcl-go-name: Organization
                         description: The organization of the subject.
-                        x-dcl-references:
-                        - resource: Cloudresourcemanager/Organization
-                          field: name
                       organizationalUnit:
                         type: string
                         x-dcl-go-name: OrganizationalUnit
@@ -672,9 +669,6 @@ components:
                       x-dcl-go-name: Organization
                       description: The organization of the subject.
                       x-kubernetes-immutable: true
-                      x-dcl-references:
-                      - resource: Cloudresourcemanager/Organization
-                        field: name
                     organizationalUnit:
                       type: string
                       x-dcl-go-name: OrganizationalUnit
