@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="firebaserules/beta", resources=["ruleset"])
+connector(name="firebaserules/beta", resources=["ruleset","release"])

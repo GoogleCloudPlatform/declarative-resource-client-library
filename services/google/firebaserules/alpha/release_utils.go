@@ -11,15 +11,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package server
+// Package firebaserules provides Utilities for Firebase Rules custom overrides.
+package alpha
 
 import (
-	"google.golang.org/grpc"
-	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/firebaserules/firebaserules_go_proto"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-// RegisterServers registers each resource with the gRPC server.
-func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterFirebaserulesRulesetServiceServer(s, &RulesetServer{})
-	sdkgrpc.RegisterFirebaserulesReleaseServiceServer(s, &ReleaseServer{})
+// EncodeReleaseUpdateRequest encapsulates fields in a release {} block, as expected
+// by https://firebase.google.com/docs/reference/rules/rest/v1/projects.releases/patch
+func EncodeReleaseUpdateRequest(m map[string]interface{}) map[string]interface{} {
+	req := make(map[string]interface{})
+	dcl.PutMapEntry(req, []string{"release"}, m)
+	return req
 }

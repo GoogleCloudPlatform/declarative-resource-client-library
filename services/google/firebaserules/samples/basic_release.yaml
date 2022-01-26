@@ -11,6 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="firebaserules", resources=["ruleset","release"])
+name: basic_release
+description: Creates a basic Firebase Rules Release
+type: release
+versions:
+- ga
+resource: samples/basic.release.json
+dependencies:
+- samples/basic.ruleset.json
+- samples/minimal.ruleset.json
+updates:
+- resource: samples/update.release.json
+  dependencies:
+  - samples/basic.ruleset.json
+  - samples/minimal.ruleset.json
+variables:
+- name: project
+  type: project
+- name: release
+  type: resource_name
+- name: ruleset
+  type: resource_name
