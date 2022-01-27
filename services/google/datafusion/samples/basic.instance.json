@@ -3,10 +3,14 @@
   "project": "{{project}}",
   "location": "us-central1",
   "type": "BASIC",
+  "labels": {
+    "examplekey": "examplevalue"
+  },
   "privateInstance": true,
   "networkConfig": {
     "network": "{{ref:basic.compute.network.json:name}}",
     "ipAllocation": "10.89.48.0/22"
   },
-  "version": "6.3.0"
+  "version": "6.3.0",
+  "displayName": "basic-instance"
 }

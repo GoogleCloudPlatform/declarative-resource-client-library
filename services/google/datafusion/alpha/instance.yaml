@@ -142,6 +142,7 @@ components:
           type: string
           x-dcl-go-name: DisplayName
           description: Display name for an instance.
+          x-kubernetes-immutable: true
         enableStackdriverLogging:
           type: boolean
           x-dcl-go-name: EnableStackdriverLogging

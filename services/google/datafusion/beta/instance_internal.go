@@ -137,9 +137,6 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		req["version"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
-		req["displayName"] = v
-	}
 	if v := f.DataprocServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		req["dataprocServiceAccount"] = v
 	}
@@ -172,6 +169,11 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	}
 
 	u, err := r.updateURL(c.Config.BasePath, "UpdateInstance")
+	if err != nil {
+		return err
+	}
+	mask := op.UpdateMask()
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
 	}
@@ -1074,7 +1076,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
