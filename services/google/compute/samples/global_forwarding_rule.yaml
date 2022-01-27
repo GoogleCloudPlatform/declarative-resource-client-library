@@ -15,7 +15,7 @@ name: global_forwarding_rule
 description: An example of a global compute forwarding rule with EXTERNAL_MANAGED
 type: forwarding_rule
 versions:
-- beta
+- ga
 resource: samples/global.forwarding_rule.json
 dependencies:
 - samples/global.target_http_proxy.json
