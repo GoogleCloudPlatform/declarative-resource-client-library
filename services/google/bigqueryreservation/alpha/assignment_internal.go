@@ -49,10 +49,8 @@ func (r *Assignment) getURL(userBasePath string) (string, error) {
 		"project":     dcl.ValueOrEmptyString(nr.Project),
 		"location":    dcl.ValueOrEmptyString(nr.Location),
 		"reservation": dcl.ValueOrEmptyString(nr.Reservation),
-		"assignee":    dcl.ValueOrEmptyString(nr.Assignee),
-		"jobType":     dcl.ValueOrEmptyString(nr.JobType),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments?fetchId=%s%s", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *Assignment) listURL(userBasePath string) (string, error) {
@@ -698,40 +696,6 @@ func flattenAssignmentStateEnum(i interface{}) *AssignmentStateEnum {
 	}
 
 	return AssignmentStateEnumRef(s)
-}
-
-// This function returns a matcher that checks whether a serialized resource matches this resource
-// in its parameters (as defined by the fields in a Get, which definitionally define resource
-// identity).  This is useful in extracting the element from a List call.
-func (r *Assignment) matcher(c *Client) func([]byte) bool {
-	return func(b []byte) bool {
-		cr, err := unmarshalAssignment(b, c)
-		if err != nil {
-			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
-			return false
-		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
-		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
-
-		if nr.Assignee == nil && ncr.Assignee == nil {
-			c.Config.Logger.Info("Both Assignee fields null - considering equal.")
-		} else if nr.Assignee == nil || ncr.Assignee == nil {
-			c.Config.Logger.Info("Only one Assignee field is null - considering unequal.")
-			return false
-		} else if *nr.Assignee != *ncr.Assignee {
-			return false
-		}
-		if nr.JobType == nil && ncr.JobType == nil {
-			c.Config.Logger.Info("Both JobType fields null - considering equal.")
-		} else if nr.JobType == nil || ncr.JobType == nil {
-			c.Config.Logger.Info("Only one JobType field is null - considering unequal.")
-			return false
-		} else if *nr.JobType != *ncr.JobType {
-			return false
-		}
-		return true
-	}
 }
 
 type assignmentDiff struct {

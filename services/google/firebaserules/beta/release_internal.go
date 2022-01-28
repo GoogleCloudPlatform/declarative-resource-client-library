@@ -93,6 +93,8 @@ func newUpdateReleaseUpdateReleaseRequest(ctx context.Context, f *Release, c *Cl
 	if v := f.RulesetName; !dcl.IsEmptyValueIndirect(v) {
 		req["rulesetName"] = v
 	}
+	req["name"] = fmt.Sprintf("projects/%s/releases/%s", *f.Project, *f.Name)
+
 	return req, nil
 }
 

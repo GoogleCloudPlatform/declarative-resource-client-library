@@ -207,8 +207,6 @@ func (c *Client) GetAssignment(ctx context.Context, r *Assignment) (*Assignment,
 	result.Project = r.Project
 	result.Location = r.Location
 	result.Reservation = r.Reservation
-	result.Assignee = r.Assignee
-	result.JobType = r.JobType
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)

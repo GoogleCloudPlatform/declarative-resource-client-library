@@ -35,3 +35,48 @@ func (r *CapacityCommitment) waitForEndTime(ctx context.Context, _ *Client) erro
 	time.Sleep(time.Until(et))
 	return nil
 }
+
+// This resource has a custom matcher so that either name or assignee + job_type can be used depending on which is available.
+func (r *Assignment) matcher(c *Client) func([]byte) bool {
+	return func(b []byte) bool {
+		cr, err := unmarshalAssignment(b, c)
+		if err != nil {
+			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
+			return false
+		}
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
+		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
+
+		if dcl.IsEmptyValueIndirect(nr.Name) || dcl.IsEmptyValueIndirect(ncr.Name) {
+			// Name field not available for matching, use job type and assignee.
+			if nr.Assignee == nil && ncr.Assignee == nil {
+				c.Config.Logger.Info("Both Assignee fields null - considering equal.")
+			} else if nr.Assignee == nil || ncr.Assignee == nil {
+				c.Config.Logger.Info("Only one Assignee field is null - considering unequal.")
+				return false
+			} else if *nr.Assignee != *ncr.Assignee {
+				return false
+			}
+			if nr.JobType == nil && ncr.JobType == nil {
+				c.Config.Logger.Info("Both JobType fields null - considering equal.")
+			} else if nr.JobType == nil || ncr.JobType == nil {
+				c.Config.Logger.Info("Only one JobType field is null - considering unequal.")
+				return false
+			} else if *nr.JobType != *ncr.JobType {
+				return false
+			}
+		} else {
+			// Name field is available.
+			if nr.Name == nil && ncr.Name == nil {
+				c.Config.Logger.Info("Both Name fields null - considering equal.")
+			} else if nr.Name == nil || ncr.Name == nil {
+				c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+				return false
+			} else if *nr.Name != *ncr.Name {
+				return false
+			}
+		}
+		return true
+	}
+}
