@@ -1412,12 +1412,12 @@ func canonicalizeServiceTemplateContainers(des, initial *ServiceTemplateContaine
 	} else {
 		cDes.Image = des.Image
 	}
-	if dcl.StringArrayCanonicalize(des.Command, initial.Command) || dcl.IsZeroValue(des.Command) {
+	if dcl.StringArrayCanonicalize(des.Command, initial.Command) {
 		cDes.Command = initial.Command
 	} else {
 		cDes.Command = des.Command
 	}
-	if dcl.StringArrayCanonicalize(des.Args, initial.Args) || dcl.IsZeroValue(des.Args) {
+	if dcl.StringArrayCanonicalize(des.Args, initial.Args) {
 		cDes.Args = initial.Args
 	} else {
 		cDes.Args = des.Args
@@ -2678,7 +2678,7 @@ func canonicalizeServiceTemplateVolumesCloudSqlInstance(des, initial *ServiceTem
 
 	cDes := &ServiceTemplateVolumesCloudSqlInstance{}
 
-	if dcl.StringArrayCanonicalize(des.Connections, initial.Connections) || dcl.IsZeroValue(des.Connections) {
+	if dcl.StringArrayCanonicalize(des.Connections, initial.Connections) {
 		cDes.Connections = initial.Connections
 	} else {
 		cDes.Connections = des.Connections

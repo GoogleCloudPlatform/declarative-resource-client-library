@@ -566,12 +566,12 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 
 	cDes := &BudgetBudgetFilter{}
 
-	if dcl.StringArrayCanonicalize(des.Projects, initial.Projects) || dcl.IsZeroValue(des.Projects) {
+	if dcl.StringArrayCanonicalize(des.Projects, initial.Projects) {
 		cDes.Projects = initial.Projects
 	} else {
 		cDes.Projects = des.Projects
 	}
-	if dcl.StringArrayCanonicalize(des.CreditTypes, initial.CreditTypes) || dcl.IsZeroValue(des.CreditTypes) {
+	if dcl.StringArrayCanonicalize(des.CreditTypes, initial.CreditTypes) {
 		cDes.CreditTypes = initial.CreditTypes
 	} else {
 		cDes.CreditTypes = des.CreditTypes
@@ -581,12 +581,12 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 	} else {
 		cDes.CreditTypesTreatment = des.CreditTypesTreatment
 	}
-	if dcl.StringArrayCanonicalize(des.Services, initial.Services) || dcl.IsZeroValue(des.Services) {
+	if dcl.StringArrayCanonicalize(des.Services, initial.Services) {
 		cDes.Services = initial.Services
 	} else {
 		cDes.Services = des.Services
 	}
-	if dcl.StringArrayCanonicalize(des.Subaccounts, initial.Subaccounts) || dcl.IsZeroValue(des.Subaccounts) {
+	if dcl.StringArrayCanonicalize(des.Subaccounts, initial.Subaccounts) {
 		cDes.Subaccounts = initial.Subaccounts
 	} else {
 		cDes.Subaccounts = des.Subaccounts
@@ -722,7 +722,7 @@ func canonicalizeBudgetBudgetFilterLabels(des, initial *BudgetBudgetFilterLabels
 
 	cDes := &BudgetBudgetFilterLabels{}
 
-	if dcl.StringArrayCanonicalize(des.Values, initial.Values) || dcl.IsZeroValue(des.Values) {
+	if dcl.StringArrayCanonicalize(des.Values, initial.Values) {
 		cDes.Values = initial.Values
 	} else {
 		cDes.Values = des.Values
@@ -1676,7 +1676,7 @@ func canonicalizeBudgetAllUpdatesRule(des, initial *BudgetAllUpdatesRule, opts .
 	} else {
 		cDes.SchemaVersion = des.SchemaVersion
 	}
-	if dcl.StringArrayCanonicalize(des.MonitoringNotificationChannels, initial.MonitoringNotificationChannels) || dcl.IsZeroValue(des.MonitoringNotificationChannels) {
+	if dcl.StringArrayCanonicalize(des.MonitoringNotificationChannels, initial.MonitoringNotificationChannels) {
 		cDes.MonitoringNotificationChannels = initial.MonitoringNotificationChannels
 	} else {
 		cDes.MonitoringNotificationChannels = des.MonitoringNotificationChannels

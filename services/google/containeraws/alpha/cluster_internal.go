@@ -799,12 +799,12 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 	} else {
 		cDes.VPCId = des.VPCId
 	}
-	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, initial.PodAddressCidrBlocks) || dcl.IsZeroValue(des.PodAddressCidrBlocks) {
+	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, initial.PodAddressCidrBlocks) {
 		cDes.PodAddressCidrBlocks = initial.PodAddressCidrBlocks
 	} else {
 		cDes.PodAddressCidrBlocks = des.PodAddressCidrBlocks
 	}
-	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, initial.ServiceAddressCidrBlocks) || dcl.IsZeroValue(des.ServiceAddressCidrBlocks) {
+	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, initial.ServiceAddressCidrBlocks) {
 		cDes.ServiceAddressCidrBlocks = initial.ServiceAddressCidrBlocks
 	} else {
 		cDes.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
@@ -936,13 +936,13 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 		cDes.InstanceType = des.InstanceType
 	}
 	cDes.SshConfig = canonicalizeClusterControlPlaneSshConfig(des.SshConfig, initial.SshConfig, opts...)
-	if dcl.StringArrayCanonicalize(des.SubnetIds, initial.SubnetIds) || dcl.IsZeroValue(des.SubnetIds) {
+	if dcl.StringArrayCanonicalize(des.SubnetIds, initial.SubnetIds) {
 		cDes.SubnetIds = initial.SubnetIds
 	} else {
 		cDes.SubnetIds = des.SubnetIds
 	}
 	cDes.ConfigEncryption = canonicalizeClusterControlPlaneConfigEncryption(des.ConfigEncryption, initial.ConfigEncryption, opts...)
-	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) || dcl.IsZeroValue(des.SecurityGroupIds) {
+	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) {
 		cDes.SecurityGroupIds = initial.SecurityGroupIds
 	} else {
 		cDes.SecurityGroupIds = des.SecurityGroupIds

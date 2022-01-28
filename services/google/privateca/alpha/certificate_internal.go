@@ -1304,22 +1304,22 @@ func canonicalizeCertificateConfigSubjectConfigSubjectAltName(des, initial *Cert
 
 	cDes := &CertificateConfigSubjectConfigSubjectAltName{}
 
-	if dcl.StringArrayCanonicalize(des.DnsNames, initial.DnsNames) || dcl.IsZeroValue(des.DnsNames) {
+	if dcl.StringArrayCanonicalize(des.DnsNames, initial.DnsNames) {
 		cDes.DnsNames = initial.DnsNames
 	} else {
 		cDes.DnsNames = des.DnsNames
 	}
-	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) || dcl.IsZeroValue(des.Uris) {
+	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) {
 		cDes.Uris = initial.Uris
 	} else {
 		cDes.Uris = des.Uris
 	}
-	if dcl.StringArrayCanonicalize(des.EmailAddresses, initial.EmailAddresses) || dcl.IsZeroValue(des.EmailAddresses) {
+	if dcl.StringArrayCanonicalize(des.EmailAddresses, initial.EmailAddresses) {
 		cDes.EmailAddresses = initial.EmailAddresses
 	} else {
 		cDes.EmailAddresses = des.EmailAddresses
 	}
-	if dcl.StringArrayCanonicalize(des.IPAddresses, initial.IPAddresses) || dcl.IsZeroValue(des.IPAddresses) {
+	if dcl.StringArrayCanonicalize(des.IPAddresses, initial.IPAddresses) {
 		cDes.IPAddresses = initial.IPAddresses
 	} else {
 		cDes.IPAddresses = des.IPAddresses
@@ -1446,7 +1446,7 @@ func canonicalizeCertificateConfigX509Config(des, initial *CertificateConfigX509
 	cDes.KeyUsage = canonicalizeCertificateConfigX509ConfigKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
 	cDes.CaOptions = canonicalizeCertificateConfigX509ConfigCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	cDes.PolicyIds = canonicalizeCertificateConfigX509ConfigPolicyIdsSlice(des.PolicyIds, initial.PolicyIds, opts...)
-	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) || dcl.IsZeroValue(des.AiaOcspServers) {
+	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) {
 		cDes.AiaOcspServers = initial.AiaOcspServers
 	} else {
 		cDes.AiaOcspServers = des.AiaOcspServers
@@ -2852,12 +2852,12 @@ func canonicalizeCertificateCertificateDescription(des, initial *CertificateCert
 	cDes.PublicKey = canonicalizeCertificateCertificateDescriptionPublicKey(des.PublicKey, initial.PublicKey, opts...)
 	cDes.SubjectKeyId = canonicalizeCertificateCertificateDescriptionSubjectKeyId(des.SubjectKeyId, initial.SubjectKeyId, opts...)
 	cDes.AuthorityKeyId = canonicalizeCertificateCertificateDescriptionAuthorityKeyId(des.AuthorityKeyId, initial.AuthorityKeyId, opts...)
-	if dcl.StringArrayCanonicalize(des.CrlDistributionPoints, initial.CrlDistributionPoints) || dcl.IsZeroValue(des.CrlDistributionPoints) {
+	if dcl.StringArrayCanonicalize(des.CrlDistributionPoints, initial.CrlDistributionPoints) {
 		cDes.CrlDistributionPoints = initial.CrlDistributionPoints
 	} else {
 		cDes.CrlDistributionPoints = des.CrlDistributionPoints
 	}
-	if dcl.StringArrayCanonicalize(des.AiaIssuingCertificateUrls, initial.AiaIssuingCertificateUrls) || dcl.IsZeroValue(des.AiaIssuingCertificateUrls) {
+	if dcl.StringArrayCanonicalize(des.AiaIssuingCertificateUrls, initial.AiaIssuingCertificateUrls) {
 		cDes.AiaIssuingCertificateUrls = initial.AiaIssuingCertificateUrls
 	} else {
 		cDes.AiaIssuingCertificateUrls = des.AiaIssuingCertificateUrls
@@ -3290,22 +3290,22 @@ func canonicalizeCertificateCertificateDescriptionSubjectDescriptionSubjectAltNa
 
 	cDes := &CertificateCertificateDescriptionSubjectDescriptionSubjectAltName{}
 
-	if dcl.StringArrayCanonicalize(des.DnsNames, initial.DnsNames) || dcl.IsZeroValue(des.DnsNames) {
+	if dcl.StringArrayCanonicalize(des.DnsNames, initial.DnsNames) {
 		cDes.DnsNames = initial.DnsNames
 	} else {
 		cDes.DnsNames = des.DnsNames
 	}
-	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) || dcl.IsZeroValue(des.Uris) {
+	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) {
 		cDes.Uris = initial.Uris
 	} else {
 		cDes.Uris = des.Uris
 	}
-	if dcl.StringArrayCanonicalize(des.EmailAddresses, initial.EmailAddresses) || dcl.IsZeroValue(des.EmailAddresses) {
+	if dcl.StringArrayCanonicalize(des.EmailAddresses, initial.EmailAddresses) {
 		cDes.EmailAddresses = initial.EmailAddresses
 	} else {
 		cDes.EmailAddresses = des.EmailAddresses
 	}
-	if dcl.StringArrayCanonicalize(des.IPAddresses, initial.IPAddresses) || dcl.IsZeroValue(des.IPAddresses) {
+	if dcl.StringArrayCanonicalize(des.IPAddresses, initial.IPAddresses) {
 		cDes.IPAddresses = initial.IPAddresses
 	} else {
 		cDes.IPAddresses = des.IPAddresses
@@ -3670,7 +3670,7 @@ func canonicalizeCertificateCertificateDescriptionX509Description(des, initial *
 	cDes.KeyUsage = canonicalizeCertificateCertificateDescriptionX509DescriptionKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
 	cDes.CaOptions = canonicalizeCertificateCertificateDescriptionX509DescriptionCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	cDes.PolicyIds = canonicalizeCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice(des.PolicyIds, initial.PolicyIds, opts...)
-	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) || dcl.IsZeroValue(des.AiaOcspServers) {
+	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) {
 		cDes.AiaOcspServers = initial.AiaOcspServers
 	} else {
 		cDes.AiaOcspServers = des.AiaOcspServers

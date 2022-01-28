@@ -980,7 +980,7 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 
 	cDes := &EndpointPolicyTrafficPortSelector{}
 
-	if dcl.StringArrayCanonicalize(des.Ports, initial.Ports) || dcl.IsZeroValue(des.Ports) {
+	if dcl.StringArrayCanonicalize(des.Ports, initial.Ports) {
 		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports

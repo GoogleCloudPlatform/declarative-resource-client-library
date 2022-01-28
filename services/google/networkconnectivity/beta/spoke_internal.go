@@ -661,7 +661,7 @@ func canonicalizeSpokeLinkedVpnTunnels(des, initial *SpokeLinkedVpnTunnels, opts
 
 	cDes := &SpokeLinkedVpnTunnels{}
 
-	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) || dcl.IsZeroValue(des.Uris) {
+	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) {
 		cDes.Uris = initial.Uris
 	} else {
 		cDes.Uris = des.Uris
@@ -784,7 +784,7 @@ func canonicalizeSpokeLinkedInterconnectAttachments(des, initial *SpokeLinkedInt
 
 	cDes := &SpokeLinkedInterconnectAttachments{}
 
-	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) || dcl.IsZeroValue(des.Uris) {
+	if dcl.StringArrayCanonicalize(des.Uris, initial.Uris) {
 		cDes.Uris = initial.Uris
 	} else {
 		cDes.Uris = des.Uris

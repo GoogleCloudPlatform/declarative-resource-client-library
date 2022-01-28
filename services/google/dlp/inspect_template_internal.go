@@ -1725,7 +1725,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(d
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList{}
 
-	if dcl.StringArrayCanonicalize(des.Words, initial.Words) || dcl.IsZeroValue(des.Words) {
+	if dcl.StringArrayCanonicalize(des.Words, initial.Words) {
 		cDes.Words = initial.Words
 	} else {
 		cDes.Words = des.Words
@@ -4009,7 +4009,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList{}
 
-	if dcl.StringArrayCanonicalize(des.Words, initial.Words) || dcl.IsZeroValue(des.Words) {
+	if dcl.StringArrayCanonicalize(des.Words, initial.Words) {
 		cDes.Words = initial.Words
 	} else {
 		cDes.Words = des.Words

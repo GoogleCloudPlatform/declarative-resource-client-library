@@ -854,7 +854,7 @@ func canonicalizeFeatureSpecCloudauditlogging(des, initial *FeatureSpecCloudaudi
 
 	cDes := &FeatureSpecCloudauditlogging{}
 
-	if dcl.StringArrayCanonicalize(des.AllowlistedServiceAccounts, initial.AllowlistedServiceAccounts) || dcl.IsZeroValue(des.AllowlistedServiceAccounts) {
+	if dcl.StringArrayCanonicalize(des.AllowlistedServiceAccounts, initial.AllowlistedServiceAccounts) {
 		cDes.AllowlistedServiceAccounts = initial.AllowlistedServiceAccounts
 	} else {
 		cDes.AllowlistedServiceAccounts = des.AllowlistedServiceAccounts

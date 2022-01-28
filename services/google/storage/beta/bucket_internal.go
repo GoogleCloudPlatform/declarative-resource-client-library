@@ -604,17 +604,17 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 	} else {
 		cDes.MaxAgeSeconds = des.MaxAgeSeconds
 	}
-	if dcl.StringArrayCanonicalize(des.Method, initial.Method) || dcl.IsZeroValue(des.Method) {
+	if dcl.StringArrayCanonicalize(des.Method, initial.Method) {
 		cDes.Method = initial.Method
 	} else {
 		cDes.Method = des.Method
 	}
-	if dcl.StringArrayCanonicalize(des.Origin, initial.Origin) || dcl.IsZeroValue(des.Origin) {
+	if dcl.StringArrayCanonicalize(des.Origin, initial.Origin) {
 		cDes.Origin = initial.Origin
 	} else {
 		cDes.Origin = des.Origin
 	}
-	if dcl.StringArrayCanonicalize(des.ResponseHeader, initial.ResponseHeader) || dcl.IsZeroValue(des.ResponseHeader) {
+	if dcl.StringArrayCanonicalize(des.ResponseHeader, initial.ResponseHeader) {
 		cDes.ResponseHeader = initial.ResponseHeader
 	} else {
 		cDes.ResponseHeader = des.ResponseHeader
@@ -1090,7 +1090,7 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 	} else {
 		cDes.WithState = des.WithState
 	}
-	if dcl.StringArrayCanonicalize(des.MatchesStorageClass, initial.MatchesStorageClass) || dcl.IsZeroValue(des.MatchesStorageClass) {
+	if dcl.StringArrayCanonicalize(des.MatchesStorageClass, initial.MatchesStorageClass) {
 		cDes.MatchesStorageClass = initial.MatchesStorageClass
 	} else {
 		cDes.MatchesStorageClass = des.MatchesStorageClass

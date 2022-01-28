@@ -2801,7 +2801,7 @@ func canonicalizeInstanceServiceAccounts(des, initial *InstanceServiceAccounts, 
 	} else {
 		cDes.Email = des.Email
 	}
-	if dcl.StringArrayCanonicalize(des.Scopes, initial.Scopes) || dcl.IsZeroValue(des.Scopes) {
+	if dcl.StringArrayCanonicalize(des.Scopes, initial.Scopes) {
 		cDes.Scopes = initial.Scopes
 	} else {
 		cDes.Scopes = des.Scopes

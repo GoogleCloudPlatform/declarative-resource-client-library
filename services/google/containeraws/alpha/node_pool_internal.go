@@ -730,7 +730,7 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	}
 	cDes.ConfigEncryption = canonicalizeNodePoolConfigConfigEncryption(des.ConfigEncryption, initial.ConfigEncryption, opts...)
 	cDes.SshConfig = canonicalizeNodePoolConfigSshConfig(des.SshConfig, initial.SshConfig, opts...)
-	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) || dcl.IsZeroValue(des.SecurityGroupIds) {
+	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) {
 		cDes.SecurityGroupIds = initial.SecurityGroupIds
 	} else {
 		cDes.SecurityGroupIds = des.SecurityGroupIds

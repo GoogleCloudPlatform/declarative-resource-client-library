@@ -1871,7 +1871,7 @@ func canonicalizeGrpcRouteRulesActionRetryPolicy(des, initial *GrpcRouteRulesAct
 
 	cDes := &GrpcRouteRulesActionRetryPolicy{}
 
-	if dcl.StringArrayCanonicalize(des.RetryConditions, initial.RetryConditions) || dcl.IsZeroValue(des.RetryConditions) {
+	if dcl.StringArrayCanonicalize(des.RetryConditions, initial.RetryConditions) {
 		cDes.RetryConditions = initial.RetryConditions
 	} else {
 		cDes.RetryConditions = des.RetryConditions

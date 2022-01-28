@@ -869,7 +869,7 @@ func canonicalizePacketMirroringMirroredResources(des, initial *PacketMirroringM
 
 	cDes.Subnetworks = canonicalizePacketMirroringMirroredResourcesSubnetworksSlice(des.Subnetworks, initial.Subnetworks, opts...)
 	cDes.Instances = canonicalizePacketMirroringMirroredResourcesInstancesSlice(des.Instances, initial.Instances, opts...)
-	if dcl.StringArrayCanonicalize(des.Tags, initial.Tags) || dcl.IsZeroValue(des.Tags) {
+	if dcl.StringArrayCanonicalize(des.Tags, initial.Tags) {
 		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
@@ -1222,12 +1222,12 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 
 	cDes := &PacketMirroringFilter{}
 
-	if dcl.StringArrayCanonicalize(des.CidrRanges, initial.CidrRanges) || dcl.IsZeroValue(des.CidrRanges) {
+	if dcl.StringArrayCanonicalize(des.CidrRanges, initial.CidrRanges) {
 		cDes.CidrRanges = initial.CidrRanges
 	} else {
 		cDes.CidrRanges = des.CidrRanges
 	}
-	if dcl.StringArrayCanonicalize(des.IPProtocols, initial.IPProtocols) || dcl.IsZeroValue(des.IPProtocols) {
+	if dcl.StringArrayCanonicalize(des.IPProtocols, initial.IPProtocols) {
 		cDes.IPProtocols = initial.IPProtocols
 	} else {
 		cDes.IPProtocols = des.IPProtocols

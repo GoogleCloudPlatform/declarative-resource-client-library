@@ -661,7 +661,7 @@ func canonicalizeRulesetMetadata(des, initial *RulesetMetadata, opts ...dcl.Appl
 
 	cDes := &RulesetMetadata{}
 
-	if dcl.StringArrayCanonicalize(des.Services, initial.Services) || dcl.IsZeroValue(des.Services) {
+	if dcl.StringArrayCanonicalize(des.Services, initial.Services) {
 		cDes.Services = initial.Services
 	} else {
 		cDes.Services = des.Services

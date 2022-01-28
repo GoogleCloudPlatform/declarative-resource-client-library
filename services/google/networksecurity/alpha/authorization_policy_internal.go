@@ -704,12 +704,12 @@ func canonicalizeAuthorizationPolicyRulesSources(des, initial *AuthorizationPoli
 
 	cDes := &AuthorizationPolicyRulesSources{}
 
-	if dcl.StringArrayCanonicalize(des.Principals, initial.Principals) || dcl.IsZeroValue(des.Principals) {
+	if dcl.StringArrayCanonicalize(des.Principals, initial.Principals) {
 		cDes.Principals = initial.Principals
 	} else {
 		cDes.Principals = des.Principals
 	}
-	if dcl.StringArrayCanonicalize(des.IPBlocks, initial.IPBlocks) || dcl.IsZeroValue(des.IPBlocks) {
+	if dcl.StringArrayCanonicalize(des.IPBlocks, initial.IPBlocks) {
 		cDes.IPBlocks = initial.IPBlocks
 	} else {
 		cDes.IPBlocks = des.IPBlocks
@@ -827,7 +827,7 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 
 	cDes := &AuthorizationPolicyRulesDestinations{}
 
-	if dcl.StringArrayCanonicalize(des.Hosts, initial.Hosts) || dcl.IsZeroValue(des.Hosts) {
+	if dcl.StringArrayCanonicalize(des.Hosts, initial.Hosts) {
 		cDes.Hosts = initial.Hosts
 	} else {
 		cDes.Hosts = des.Hosts
@@ -837,7 +837,7 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 	} else {
 		cDes.Ports = des.Ports
 	}
-	if dcl.StringArrayCanonicalize(des.Methods, initial.Methods) || dcl.IsZeroValue(des.Methods) {
+	if dcl.StringArrayCanonicalize(des.Methods, initial.Methods) {
 		cDes.Methods = initial.Methods
 	} else {
 		cDes.Methods = des.Methods

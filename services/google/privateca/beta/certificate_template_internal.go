@@ -665,7 +665,7 @@ func canonicalizeCertificateTemplatePredefinedValues(des, initial *CertificateTe
 	cDes.KeyUsage = canonicalizeCertificateTemplatePredefinedValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
 	cDes.CaOptions = canonicalizeCertificateTemplatePredefinedValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	cDes.PolicyIds = canonicalizeCertificateTemplatePredefinedValuesPolicyIdsSlice(des.PolicyIds, initial.PolicyIds, opts...)
-	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) || dcl.IsZeroValue(des.AiaOcspServers) {
+	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) {
 		cDes.AiaOcspServers = initial.AiaOcspServers
 	} else {
 		cDes.AiaOcspServers = des.AiaOcspServers

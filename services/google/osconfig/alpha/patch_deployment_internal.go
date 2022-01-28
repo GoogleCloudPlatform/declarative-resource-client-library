@@ -1005,17 +1005,17 @@ func canonicalizePatchDeploymentInstanceFilter(des, initial *PatchDeploymentInst
 		cDes.All = des.All
 	}
 	cDes.GroupLabels = canonicalizePatchDeploymentInstanceFilterGroupLabelsSlice(des.GroupLabels, initial.GroupLabels, opts...)
-	if dcl.StringArrayCanonicalize(des.Zones, initial.Zones) || dcl.IsZeroValue(des.Zones) {
+	if dcl.StringArrayCanonicalize(des.Zones, initial.Zones) {
 		cDes.Zones = initial.Zones
 	} else {
 		cDes.Zones = des.Zones
 	}
-	if dcl.StringArrayCanonicalize(des.Instances, initial.Instances) || dcl.IsZeroValue(des.Instances) {
+	if dcl.StringArrayCanonicalize(des.Instances, initial.Instances) {
 		cDes.Instances = initial.Instances
 	} else {
 		cDes.Instances = des.Instances
 	}
-	if dcl.StringArrayCanonicalize(des.InstanceNamePrefixes, initial.InstanceNamePrefixes) || dcl.IsZeroValue(des.InstanceNamePrefixes) {
+	if dcl.StringArrayCanonicalize(des.InstanceNamePrefixes, initial.InstanceNamePrefixes) {
 		cDes.InstanceNamePrefixes = initial.InstanceNamePrefixes
 	} else {
 		cDes.InstanceNamePrefixes = des.InstanceNamePrefixes
@@ -1404,12 +1404,12 @@ func canonicalizePatchDeploymentPatchConfigApt(des, initial *PatchDeploymentPatc
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) || dcl.IsZeroValue(des.Excludes) {
+	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) {
 		cDes.Excludes = initial.Excludes
 	} else {
 		cDes.Excludes = des.Excludes
 	}
-	if dcl.StringArrayCanonicalize(des.ExclusivePackages, initial.ExclusivePackages) || dcl.IsZeroValue(des.ExclusivePackages) {
+	if dcl.StringArrayCanonicalize(des.ExclusivePackages, initial.ExclusivePackages) {
 		cDes.ExclusivePackages = initial.ExclusivePackages
 	} else {
 		cDes.ExclusivePackages = des.ExclusivePackages
@@ -1557,12 +1557,12 @@ func canonicalizePatchDeploymentPatchConfigYum(des, initial *PatchDeploymentPatc
 	} else {
 		cDes.Minimal = des.Minimal
 	}
-	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) || dcl.IsZeroValue(des.Excludes) {
+	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) {
 		cDes.Excludes = initial.Excludes
 	} else {
 		cDes.Excludes = des.Excludes
 	}
-	if dcl.StringArrayCanonicalize(des.ExclusivePackages, initial.ExclusivePackages) || dcl.IsZeroValue(des.ExclusivePackages) {
+	if dcl.StringArrayCanonicalize(des.ExclusivePackages, initial.ExclusivePackages) {
 		cDes.ExclusivePackages = initial.ExclusivePackages
 	} else {
 		cDes.ExclusivePackages = des.ExclusivePackages
@@ -1900,22 +1900,22 @@ func canonicalizePatchDeploymentPatchConfigZypper(des, initial *PatchDeploymentP
 	} else {
 		cDes.WithUpdate = des.WithUpdate
 	}
-	if dcl.StringArrayCanonicalize(des.Categories, initial.Categories) || dcl.IsZeroValue(des.Categories) {
+	if dcl.StringArrayCanonicalize(des.Categories, initial.Categories) {
 		cDes.Categories = initial.Categories
 	} else {
 		cDes.Categories = des.Categories
 	}
-	if dcl.StringArrayCanonicalize(des.Severities, initial.Severities) || dcl.IsZeroValue(des.Severities) {
+	if dcl.StringArrayCanonicalize(des.Severities, initial.Severities) {
 		cDes.Severities = initial.Severities
 	} else {
 		cDes.Severities = des.Severities
 	}
-	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) || dcl.IsZeroValue(des.Excludes) {
+	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) {
 		cDes.Excludes = initial.Excludes
 	} else {
 		cDes.Excludes = des.Excludes
 	}
-	if dcl.StringArrayCanonicalize(des.ExclusivePatches, initial.ExclusivePatches) || dcl.IsZeroValue(des.ExclusivePatches) {
+	if dcl.StringArrayCanonicalize(des.ExclusivePatches, initial.ExclusivePatches) {
 		cDes.ExclusivePatches = initial.ExclusivePatches
 	} else {
 		cDes.ExclusivePatches = des.ExclusivePatches
@@ -2090,12 +2090,12 @@ func canonicalizePatchDeploymentPatchConfigWindowsUpdate(des, initial *PatchDepl
 	} else {
 		cDes.Classifications = des.Classifications
 	}
-	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) || dcl.IsZeroValue(des.Excludes) {
+	if dcl.StringArrayCanonicalize(des.Excludes, initial.Excludes) {
 		cDes.Excludes = initial.Excludes
 	} else {
 		cDes.Excludes = des.Excludes
 	}
-	if dcl.StringArrayCanonicalize(des.ExclusivePatches, initial.ExclusivePatches) || dcl.IsZeroValue(des.ExclusivePatches) {
+	if dcl.StringArrayCanonicalize(des.ExclusivePatches, initial.ExclusivePatches) {
 		cDes.ExclusivePatches = initial.ExclusivePatches
 	} else {
 		cDes.ExclusivePatches = des.ExclusivePatches

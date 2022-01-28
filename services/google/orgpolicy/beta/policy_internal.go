@@ -758,12 +758,12 @@ func canonicalizePolicySpecRulesValues(des, initial *PolicySpecRulesValues, opts
 
 	cDes := &PolicySpecRulesValues{}
 
-	if dcl.StringArrayCanonicalize(des.AllowedValues, initial.AllowedValues) || dcl.IsZeroValue(des.AllowedValues) {
+	if dcl.StringArrayCanonicalize(des.AllowedValues, initial.AllowedValues) {
 		cDes.AllowedValues = initial.AllowedValues
 	} else {
 		cDes.AllowedValues = des.AllowedValues
 	}
-	if dcl.StringArrayCanonicalize(des.DeniedValues, initial.DeniedValues) || dcl.IsZeroValue(des.DeniedValues) {
+	if dcl.StringArrayCanonicalize(des.DeniedValues, initial.DeniedValues) {
 		cDes.DeniedValues = initial.DeniedValues
 	} else {
 		cDes.DeniedValues = des.DeniedValues

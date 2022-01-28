@@ -634,7 +634,7 @@ func canonicalizeWorkloadIdentityPoolProviderAws(des, initial *WorkloadIdentityP
 	} else {
 		cDes.AccountId = des.AccountId
 	}
-	if dcl.StringArrayCanonicalize(des.StsUri, initial.StsUri) || dcl.IsZeroValue(des.StsUri) {
+	if dcl.StringArrayCanonicalize(des.StsUri, initial.StsUri) {
 		cDes.StsUri = initial.StsUri
 	} else {
 		cDes.StsUri = des.StsUri
@@ -755,7 +755,7 @@ func canonicalizeWorkloadIdentityPoolProviderOidc(des, initial *WorkloadIdentity
 	} else {
 		cDes.IssuerUri = des.IssuerUri
 	}
-	if dcl.StringArrayCanonicalize(des.AllowedAudiences, initial.AllowedAudiences) || dcl.IsZeroValue(des.AllowedAudiences) {
+	if dcl.StringArrayCanonicalize(des.AllowedAudiences, initial.AllowedAudiences) {
 		cDes.AllowedAudiences = initial.AllowedAudiences
 	} else {
 		cDes.AllowedAudiences = des.AllowedAudiences

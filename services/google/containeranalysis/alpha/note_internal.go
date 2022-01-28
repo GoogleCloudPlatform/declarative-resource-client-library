@@ -986,7 +986,7 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 	} else {
 		cDes.V1Name = des.V1Name
 	}
-	if dcl.StringArrayCanonicalize(des.V2Blob, initial.V2Blob) || dcl.IsZeroValue(des.V2Blob) {
+	if dcl.StringArrayCanonicalize(des.V2Blob, initial.V2Blob) {
 		cDes.V2Blob = initial.V2Blob
 	} else {
 		cDes.V2Blob = des.V2Blob
@@ -1622,7 +1622,7 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 
 	cDes := &NoteDeployment{}
 
-	if dcl.StringArrayCanonicalize(des.ResourceUri, initial.ResourceUri) || dcl.IsZeroValue(des.ResourceUri) {
+	if dcl.StringArrayCanonicalize(des.ResourceUri, initial.ResourceUri) {
 		cDes.ResourceUri = initial.ResourceUri
 	} else {
 		cDes.ResourceUri = des.ResourceUri

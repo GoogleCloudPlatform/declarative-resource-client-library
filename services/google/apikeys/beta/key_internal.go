@@ -692,7 +692,7 @@ func canonicalizeKeyRestrictionsBrowserKeyRestrictions(des, initial *KeyRestrict
 
 	cDes := &KeyRestrictionsBrowserKeyRestrictions{}
 
-	if dcl.StringArrayCanonicalize(des.AllowedReferrers, initial.AllowedReferrers) || dcl.IsZeroValue(des.AllowedReferrers) {
+	if dcl.StringArrayCanonicalize(des.AllowedReferrers, initial.AllowedReferrers) {
 		cDes.AllowedReferrers = initial.AllowedReferrers
 	} else {
 		cDes.AllowedReferrers = des.AllowedReferrers
@@ -807,7 +807,7 @@ func canonicalizeKeyRestrictionsServerKeyRestrictions(des, initial *KeyRestricti
 
 	cDes := &KeyRestrictionsServerKeyRestrictions{}
 
-	if dcl.StringArrayCanonicalize(des.AllowedIps, initial.AllowedIps) || dcl.IsZeroValue(des.AllowedIps) {
+	if dcl.StringArrayCanonicalize(des.AllowedIps, initial.AllowedIps) {
 		cDes.AllowedIps = initial.AllowedIps
 	} else {
 		cDes.AllowedIps = des.AllowedIps
@@ -1154,7 +1154,7 @@ func canonicalizeKeyRestrictionsIosKeyRestrictions(des, initial *KeyRestrictions
 
 	cDes := &KeyRestrictionsIosKeyRestrictions{}
 
-	if dcl.StringArrayCanonicalize(des.AllowedBundleIds, initial.AllowedBundleIds) || dcl.IsZeroValue(des.AllowedBundleIds) {
+	if dcl.StringArrayCanonicalize(des.AllowedBundleIds, initial.AllowedBundleIds) {
 		cDes.AllowedBundleIds = initial.AllowedBundleIds
 	} else {
 		cDes.AllowedBundleIds = des.AllowedBundleIds
@@ -1274,7 +1274,7 @@ func canonicalizeKeyRestrictionsApiTargets(des, initial *KeyRestrictionsApiTarge
 	} else {
 		cDes.Service = des.Service
 	}
-	if dcl.StringArrayCanonicalize(des.Methods, initial.Methods) || dcl.IsZeroValue(des.Methods) {
+	if dcl.StringArrayCanonicalize(des.Methods, initial.Methods) {
 		cDes.Methods = initial.Methods
 	} else {
 		cDes.Methods = des.Methods

@@ -2299,7 +2299,7 @@ func canonicalizeHttpRouteRulesActionRequestHeaderModifier(des, initial *HttpRou
 	} else {
 		cDes.Add = des.Add
 	}
-	if dcl.StringArrayCanonicalize(des.Remove, initial.Remove) || dcl.IsZeroValue(des.Remove) {
+	if dcl.StringArrayCanonicalize(des.Remove, initial.Remove) {
 		cDes.Remove = initial.Remove
 	} else {
 		cDes.Remove = des.Remove
@@ -2424,7 +2424,7 @@ func canonicalizeHttpRouteRulesActionResponseHeaderModifier(des, initial *HttpRo
 	} else {
 		cDes.Add = des.Add
 	}
-	if dcl.StringArrayCanonicalize(des.Remove, initial.Remove) || dcl.IsZeroValue(des.Remove) {
+	if dcl.StringArrayCanonicalize(des.Remove, initial.Remove) {
 		cDes.Remove = initial.Remove
 	} else {
 		cDes.Remove = des.Remove
@@ -2662,7 +2662,7 @@ func canonicalizeHttpRouteRulesActionRetryPolicy(des, initial *HttpRouteRulesAct
 
 	cDes := &HttpRouteRulesActionRetryPolicy{}
 
-	if dcl.StringArrayCanonicalize(des.RetryConditions, initial.RetryConditions) || dcl.IsZeroValue(des.RetryConditions) {
+	if dcl.StringArrayCanonicalize(des.RetryConditions, initial.RetryConditions) {
 		cDes.RetryConditions = initial.RetryConditions
 	} else {
 		cDes.RetryConditions = des.RetryConditions
@@ -3019,27 +3019,27 @@ func canonicalizeHttpRouteRulesActionCorsPolicy(des, initial *HttpRouteRulesActi
 
 	cDes := &HttpRouteRulesActionCorsPolicy{}
 
-	if dcl.StringArrayCanonicalize(des.AllowOrigins, initial.AllowOrigins) || dcl.IsZeroValue(des.AllowOrigins) {
+	if dcl.StringArrayCanonicalize(des.AllowOrigins, initial.AllowOrigins) {
 		cDes.AllowOrigins = initial.AllowOrigins
 	} else {
 		cDes.AllowOrigins = des.AllowOrigins
 	}
-	if dcl.StringArrayCanonicalize(des.AllowOriginRegexes, initial.AllowOriginRegexes) || dcl.IsZeroValue(des.AllowOriginRegexes) {
+	if dcl.StringArrayCanonicalize(des.AllowOriginRegexes, initial.AllowOriginRegexes) {
 		cDes.AllowOriginRegexes = initial.AllowOriginRegexes
 	} else {
 		cDes.AllowOriginRegexes = des.AllowOriginRegexes
 	}
-	if dcl.StringArrayCanonicalize(des.AllowMethods, initial.AllowMethods) || dcl.IsZeroValue(des.AllowMethods) {
+	if dcl.StringArrayCanonicalize(des.AllowMethods, initial.AllowMethods) {
 		cDes.AllowMethods = initial.AllowMethods
 	} else {
 		cDes.AllowMethods = des.AllowMethods
 	}
-	if dcl.StringArrayCanonicalize(des.AllowHeaders, initial.AllowHeaders) || dcl.IsZeroValue(des.AllowHeaders) {
+	if dcl.StringArrayCanonicalize(des.AllowHeaders, initial.AllowHeaders) {
 		cDes.AllowHeaders = initial.AllowHeaders
 	} else {
 		cDes.AllowHeaders = des.AllowHeaders
 	}
-	if dcl.StringArrayCanonicalize(des.ExposeHeaders, initial.ExposeHeaders) || dcl.IsZeroValue(des.ExposeHeaders) {
+	if dcl.StringArrayCanonicalize(des.ExposeHeaders, initial.ExposeHeaders) {
 		cDes.ExposeHeaders = initial.ExposeHeaders
 	} else {
 		cDes.ExposeHeaders = des.ExposeHeaders

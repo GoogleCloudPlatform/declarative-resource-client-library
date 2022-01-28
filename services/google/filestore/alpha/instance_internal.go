@@ -673,7 +673,7 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 
 	cDes := &InstanceFileSharesNfsExportOptions{}
 
-	if dcl.StringArrayCanonicalize(des.IPRanges, initial.IPRanges) || dcl.IsZeroValue(des.IPRanges) {
+	if dcl.StringArrayCanonicalize(des.IPRanges, initial.IPRanges) {
 		cDes.IPRanges = initial.IPRanges
 	} else {
 		cDes.IPRanges = des.IPRanges

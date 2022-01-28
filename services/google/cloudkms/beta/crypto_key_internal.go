@@ -802,17 +802,17 @@ func canonicalizeCryptoKeyPrimaryAttestationCertChains(des, initial *CryptoKeyPr
 
 	cDes := &CryptoKeyPrimaryAttestationCertChains{}
 
-	if dcl.StringArrayCanonicalize(des.CaviumCerts, initial.CaviumCerts) || dcl.IsZeroValue(des.CaviumCerts) {
+	if dcl.StringArrayCanonicalize(des.CaviumCerts, initial.CaviumCerts) {
 		cDes.CaviumCerts = initial.CaviumCerts
 	} else {
 		cDes.CaviumCerts = des.CaviumCerts
 	}
-	if dcl.StringArrayCanonicalize(des.GoogleCardCerts, initial.GoogleCardCerts) || dcl.IsZeroValue(des.GoogleCardCerts) {
+	if dcl.StringArrayCanonicalize(des.GoogleCardCerts, initial.GoogleCardCerts) {
 		cDes.GoogleCardCerts = initial.GoogleCardCerts
 	} else {
 		cDes.GoogleCardCerts = des.GoogleCardCerts
 	}
-	if dcl.StringArrayCanonicalize(des.GooglePartitionCerts, initial.GooglePartitionCerts) || dcl.IsZeroValue(des.GooglePartitionCerts) {
+	if dcl.StringArrayCanonicalize(des.GooglePartitionCerts, initial.GooglePartitionCerts) {
 		cDes.GooglePartitionCerts = initial.GooglePartitionCerts
 	} else {
 		cDes.GooglePartitionCerts = des.GooglePartitionCerts

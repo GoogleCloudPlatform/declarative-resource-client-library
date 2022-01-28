@@ -495,12 +495,12 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 
 	cDes := &FirewallPolicyRuleMatch{}
 
-	if dcl.StringArrayCanonicalize(des.SrcIPRanges, initial.SrcIPRanges) || dcl.IsZeroValue(des.SrcIPRanges) {
+	if dcl.StringArrayCanonicalize(des.SrcIPRanges, initial.SrcIPRanges) {
 		cDes.SrcIPRanges = initial.SrcIPRanges
 	} else {
 		cDes.SrcIPRanges = des.SrcIPRanges
 	}
-	if dcl.StringArrayCanonicalize(des.DestIPRanges, initial.DestIPRanges) || dcl.IsZeroValue(des.DestIPRanges) {
+	if dcl.StringArrayCanonicalize(des.DestIPRanges, initial.DestIPRanges) {
 		cDes.DestIPRanges = initial.DestIPRanges
 	} else {
 		cDes.DestIPRanges = des.DestIPRanges
@@ -625,7 +625,7 @@ func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPoli
 	} else {
 		cDes.IPProtocol = des.IPProtocol
 	}
-	if dcl.StringArrayCanonicalize(des.Ports, initial.Ports) || dcl.IsZeroValue(des.Ports) {
+	if dcl.StringArrayCanonicalize(des.Ports, initial.Ports) {
 		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports

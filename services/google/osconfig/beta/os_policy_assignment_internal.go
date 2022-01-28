@@ -3372,7 +3372,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des, 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
 
 	cDes.Source = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(des.Source, initial.Source, opts...)
-	if dcl.StringArrayCanonicalize(des.Properties, initial.Properties) || dcl.IsZeroValue(des.Properties) {
+	if dcl.StringArrayCanonicalize(des.Properties, initial.Properties) {
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -4066,7 +4066,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 	} else {
 		cDes.Distribution = des.Distribution
 	}
-	if dcl.StringArrayCanonicalize(des.Components, initial.Components) || dcl.IsZeroValue(des.Components) {
+	if dcl.StringArrayCanonicalize(des.Components, initial.Components) {
 		cDes.Components = initial.Components
 	} else {
 		cDes.Components = des.Components
@@ -4210,7 +4210,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYu
 	} else {
 		cDes.BaseUrl = des.BaseUrl
 	}
-	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) || dcl.IsZeroValue(des.GpgKeys) {
+	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) {
 		cDes.GpgKeys = initial.GpgKeys
 	} else {
 		cDes.GpgKeys = des.GpgKeys
@@ -4349,7 +4349,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZy
 	} else {
 		cDes.BaseUrl = des.BaseUrl
 	}
-	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) || dcl.IsZeroValue(des.GpgKeys) {
+	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) {
 		cDes.GpgKeys = initial.GpgKeys
 	} else {
 		cDes.GpgKeys = des.GpgKeys
@@ -4733,7 +4733,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 	} else {
 		cDes.Script = des.Script
 	}
-	if dcl.StringArrayCanonicalize(des.Args, initial.Args) || dcl.IsZeroValue(des.Args) {
+	if dcl.StringArrayCanonicalize(des.Args, initial.Args) {
 		cDes.Args = initial.Args
 	} else {
 		cDes.Args = des.Args
@@ -5299,7 +5299,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(
 	} else {
 		cDes.Script = des.Script
 	}
-	if dcl.StringArrayCanonicalize(des.Args, initial.Args) || dcl.IsZeroValue(des.Args) {
+	if dcl.StringArrayCanonicalize(des.Args, initial.Args) {
 		cDes.Args = initial.Args
 	} else {
 		cDes.Args = des.Args

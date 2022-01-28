@@ -598,7 +598,7 @@ func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyO
 	} else {
 		cDes.AllowAllDomains = des.AllowAllDomains
 	}
-	if dcl.StringArrayCanonicalize(des.AllowedDomains, initial.AllowedDomains) || dcl.IsZeroValue(des.AllowedDomains) {
+	if dcl.StringArrayCanonicalize(des.AllowedDomains, initial.AllowedDomains) {
 		cDes.AllowedDomains = initial.AllowedDomains
 	} else {
 		cDes.AllowedDomains = des.AllowedDomains
@@ -739,7 +739,7 @@ func canonicalizeKeyAndroidSettings(des, initial *KeyAndroidSettings, opts ...dc
 	} else {
 		cDes.AllowAllPackageNames = des.AllowAllPackageNames
 	}
-	if dcl.StringArrayCanonicalize(des.AllowedPackageNames, initial.AllowedPackageNames) || dcl.IsZeroValue(des.AllowedPackageNames) {
+	if dcl.StringArrayCanonicalize(des.AllowedPackageNames, initial.AllowedPackageNames) {
 		cDes.AllowedPackageNames = initial.AllowedPackageNames
 	} else {
 		cDes.AllowedPackageNames = des.AllowedPackageNames
@@ -862,7 +862,7 @@ func canonicalizeKeyIosSettings(des, initial *KeyIosSettings, opts ...dcl.ApplyO
 	} else {
 		cDes.AllowAllBundleIds = des.AllowAllBundleIds
 	}
-	if dcl.StringArrayCanonicalize(des.AllowedBundleIds, initial.AllowedBundleIds) || dcl.IsZeroValue(des.AllowedBundleIds) {
+	if dcl.StringArrayCanonicalize(des.AllowedBundleIds, initial.AllowedBundleIds) {
 		cDes.AllowedBundleIds = initial.AllowedBundleIds
 	} else {
 		cDes.AllowedBundleIds = des.AllowedBundleIds

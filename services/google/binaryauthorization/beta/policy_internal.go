@@ -586,7 +586,7 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 	} else {
 		cDes.EvaluationMode = des.EvaluationMode
 	}
-	if dcl.StringArrayCanonicalize(des.RequireAttestationsBy, initial.RequireAttestationsBy) || dcl.IsZeroValue(des.RequireAttestationsBy) {
+	if dcl.StringArrayCanonicalize(des.RequireAttestationsBy, initial.RequireAttestationsBy) {
 		cDes.RequireAttestationsBy = initial.RequireAttestationsBy
 	} else {
 		cDes.RequireAttestationsBy = des.RequireAttestationsBy

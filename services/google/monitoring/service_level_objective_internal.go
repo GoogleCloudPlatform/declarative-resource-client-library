@@ -977,17 +977,17 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSli(des, initial
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorBasicSli{}
 
-	if dcl.StringArrayCanonicalize(des.Method, initial.Method) || dcl.IsZeroValue(des.Method) {
+	if dcl.StringArrayCanonicalize(des.Method, initial.Method) {
 		cDes.Method = initial.Method
 	} else {
 		cDes.Method = des.Method
 	}
-	if dcl.StringArrayCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+	if dcl.StringArrayCanonicalize(des.Location, initial.Location) {
 		cDes.Location = initial.Location
 	} else {
 		cDes.Location = des.Location
 	}
-	if dcl.StringArrayCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringArrayCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -2899,17 +2899,17 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance{}
 
-	if dcl.StringArrayCanonicalize(des.Method, initial.Method) || dcl.IsZeroValue(des.Method) {
+	if dcl.StringArrayCanonicalize(des.Method, initial.Method) {
 		cDes.Method = initial.Method
 	} else {
 		cDes.Method = des.Method
 	}
-	if dcl.StringArrayCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+	if dcl.StringArrayCanonicalize(des.Location, initial.Location) {
 		cDes.Location = initial.Location
 	} else {
 		cDes.Location = des.Location
 	}
-	if dcl.StringArrayCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringArrayCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version

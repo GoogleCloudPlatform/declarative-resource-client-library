@@ -505,7 +505,7 @@ func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePoli
 
 	cDes := &TopicMessageStoragePolicy{}
 
-	if dcl.StringArrayCanonicalize(des.AllowedPersistenceRegions, initial.AllowedPersistenceRegions) || dcl.IsZeroValue(des.AllowedPersistenceRegions) {
+	if dcl.StringArrayCanonicalize(des.AllowedPersistenceRegions, initial.AllowedPersistenceRegions) {
 		cDes.AllowedPersistenceRegions = initial.AllowedPersistenceRegions
 	} else {
 		cDes.AllowedPersistenceRegions = des.AllowedPersistenceRegions

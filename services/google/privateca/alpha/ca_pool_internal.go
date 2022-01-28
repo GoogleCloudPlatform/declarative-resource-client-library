@@ -1291,7 +1291,7 @@ func canonicalizeCaPoolIssuancePolicyBaselineValues(des, initial *CaPoolIssuance
 	cDes.KeyUsage = canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
 	cDes.CaOptions = canonicalizeCaPoolIssuancePolicyBaselineValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	cDes.PolicyIds = canonicalizeCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(des.PolicyIds, initial.PolicyIds, opts...)
-	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) || dcl.IsZeroValue(des.AiaOcspServers) {
+	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) {
 		cDes.AiaOcspServers = initial.AiaOcspServers
 	} else {
 		cDes.AiaOcspServers = des.AiaOcspServers

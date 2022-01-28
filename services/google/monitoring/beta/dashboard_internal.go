@@ -2439,7 +2439,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -2572,7 +2572,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -3058,7 +3058,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -3308,7 +3308,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -3441,7 +3441,7 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -4539,7 +4539,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -4672,7 +4672,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -5158,7 +5158,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -5408,7 +5408,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields
@@ -5541,7 +5541,7 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
-	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) || dcl.IsZeroValue(des.GroupByFields) {
+	if dcl.StringArrayCanonicalize(des.GroupByFields, initial.GroupByFields) {
 		cDes.GroupByFields = initial.GroupByFields
 	} else {
 		cDes.GroupByFields = des.GroupByFields

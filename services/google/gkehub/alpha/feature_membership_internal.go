@@ -751,7 +751,7 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 	} else {
 		cDes.Enabled = des.Enabled
 	}
-	if dcl.StringArrayCanonicalize(des.ExemptableNamespaces, initial.ExemptableNamespaces) || dcl.IsZeroValue(des.ExemptableNamespaces) {
+	if dcl.StringArrayCanonicalize(des.ExemptableNamespaces, initial.ExemptableNamespaces) {
 		cDes.ExemptableNamespaces = initial.ExemptableNamespaces
 	} else {
 		cDes.ExemptableNamespaces = des.ExemptableNamespaces

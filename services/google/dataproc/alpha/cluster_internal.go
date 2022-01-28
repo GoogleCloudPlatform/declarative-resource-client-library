@@ -915,12 +915,12 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.StringArrayCanonicalize(des.ServiceAccountScopes, initial.ServiceAccountScopes) || dcl.IsZeroValue(des.ServiceAccountScopes) {
+	if dcl.StringArrayCanonicalize(des.ServiceAccountScopes, initial.ServiceAccountScopes) {
 		cDes.ServiceAccountScopes = initial.ServiceAccountScopes
 	} else {
 		cDes.ServiceAccountScopes = des.ServiceAccountScopes
 	}
-	if dcl.StringArrayCanonicalize(des.Tags, initial.Tags) || dcl.IsZeroValue(des.Tags) {
+	if dcl.StringArrayCanonicalize(des.Tags, initial.Tags) {
 		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
@@ -1072,7 +1072,7 @@ func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(des, in
 	} else {
 		cDes.Key = des.Key
 	}
-	if dcl.StringArrayCanonicalize(des.Values, initial.Values) || dcl.IsZeroValue(des.Values) {
+	if dcl.StringArrayCanonicalize(des.Values, initial.Values) {
 		cDes.Values = initial.Values
 	} else {
 		cDes.Values = des.Values

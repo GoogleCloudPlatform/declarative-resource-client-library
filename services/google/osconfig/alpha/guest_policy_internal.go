@@ -755,17 +755,17 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 	cDes := &GuestPolicyAssignment{}
 
 	cDes.GroupLabels = canonicalizeGuestPolicyAssignmentGroupLabelsSlice(des.GroupLabels, initial.GroupLabels, opts...)
-	if dcl.StringArrayCanonicalize(des.Zones, initial.Zones) || dcl.IsZeroValue(des.Zones) {
+	if dcl.StringArrayCanonicalize(des.Zones, initial.Zones) {
 		cDes.Zones = initial.Zones
 	} else {
 		cDes.Zones = des.Zones
 	}
-	if dcl.StringArrayCanonicalize(des.Instances, initial.Instances) || dcl.IsZeroValue(des.Instances) {
+	if dcl.StringArrayCanonicalize(des.Instances, initial.Instances) {
 		cDes.Instances = initial.Instances
 	} else {
 		cDes.Instances = des.Instances
 	}
-	if dcl.StringArrayCanonicalize(des.InstanceNamePrefixes, initial.InstanceNamePrefixes) || dcl.IsZeroValue(des.InstanceNamePrefixes) {
+	if dcl.StringArrayCanonicalize(des.InstanceNamePrefixes, initial.InstanceNamePrefixes) {
 		cDes.InstanceNamePrefixes = initial.InstanceNamePrefixes
 	} else {
 		cDes.InstanceNamePrefixes = des.InstanceNamePrefixes
@@ -1426,7 +1426,7 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 	} else {
 		cDes.Distribution = des.Distribution
 	}
-	if dcl.StringArrayCanonicalize(des.Components, initial.Components) || dcl.IsZeroValue(des.Components) {
+	if dcl.StringArrayCanonicalize(des.Components, initial.Components) {
 		cDes.Components = initial.Components
 	} else {
 		cDes.Components = des.Components
@@ -1570,7 +1570,7 @@ func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPack
 	} else {
 		cDes.BaseUrl = des.BaseUrl
 	}
-	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) || dcl.IsZeroValue(des.GpgKeys) {
+	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) {
 		cDes.GpgKeys = initial.GpgKeys
 	} else {
 		cDes.GpgKeys = des.GpgKeys
@@ -1709,7 +1709,7 @@ func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyP
 	} else {
 		cDes.BaseUrl = des.BaseUrl
 	}
-	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) || dcl.IsZeroValue(des.GpgKeys) {
+	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) {
 		cDes.GpgKeys = initial.GpgKeys
 	} else {
 		cDes.GpgKeys = des.GpgKeys
@@ -2881,7 +2881,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringArrayCanonicalize(des.Flags, initial.Flags) || dcl.IsZeroValue(des.Flags) {
+	if dcl.StringArrayCanonicalize(des.Flags, initial.Flags) {
 		cDes.Flags = initial.Flags
 	} else {
 		cDes.Flags = des.Flags
@@ -3244,7 +3244,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.StringArrayCanonicalize(des.Args, initial.Args) || dcl.IsZeroValue(des.Args) {
+	if dcl.StringArrayCanonicalize(des.Args, initial.Args) {
 		cDes.Args = initial.Args
 	} else {
 		cDes.Args = des.Args
@@ -3888,7 +3888,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringArrayCanonicalize(des.Flags, initial.Flags) || dcl.IsZeroValue(des.Flags) {
+	if dcl.StringArrayCanonicalize(des.Flags, initial.Flags) {
 		cDes.Flags = initial.Flags
 	} else {
 		cDes.Flags = des.Flags
@@ -4251,7 +4251,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.StringArrayCanonicalize(des.Args, initial.Args) || dcl.IsZeroValue(des.Args) {
+	if dcl.StringArrayCanonicalize(des.Args, initial.Args) {
 		cDes.Args = initial.Args
 	} else {
 		cDes.Args = des.Args

@@ -809,12 +809,12 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 	} else {
 		cDes.VirtualNetworkId = des.VirtualNetworkId
 	}
-	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, initial.PodAddressCidrBlocks) || dcl.IsZeroValue(des.PodAddressCidrBlocks) {
+	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, initial.PodAddressCidrBlocks) {
 		cDes.PodAddressCidrBlocks = initial.PodAddressCidrBlocks
 	} else {
 		cDes.PodAddressCidrBlocks = des.PodAddressCidrBlocks
 	}
-	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, initial.ServiceAddressCidrBlocks) || dcl.IsZeroValue(des.ServiceAddressCidrBlocks) {
+	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, initial.ServiceAddressCidrBlocks) {
 		cDes.ServiceAddressCidrBlocks = initial.ServiceAddressCidrBlocks
 	} else {
 		cDes.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
