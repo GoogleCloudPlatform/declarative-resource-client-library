@@ -26,9 +26,6 @@ import (
 
 func (r *Ruleset) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "source"); err != nil {
 		return err
 	}
