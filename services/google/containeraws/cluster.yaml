@@ -438,6 +438,10 @@ components:
               description: The number of the Fleet host project where this cluster
                 will be registered.
               x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Cloudresourcemanager/Project
+                field: name
+                parent: true
         location:
           type: string
           x-dcl-go-name: Location
