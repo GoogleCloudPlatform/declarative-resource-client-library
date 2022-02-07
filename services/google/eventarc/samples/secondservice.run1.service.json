@@ -6,7 +6,7 @@
   "metadata": {
     "name": "{{secondname}}"
   },
-  "location": "{{region}}",
+  "location": "us-west1",
   "spec": {
     "template": {
       "spec": {

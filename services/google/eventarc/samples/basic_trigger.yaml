@@ -15,7 +15,7 @@ name: basic_trigger
 description: A basic example for an Eventarc Trigger
 type: trigger
 versions:
-- beta
+- ga
 resource: samples/basic.trigger.json
 dependencies:
 - samples/basicservice.run1.service.json

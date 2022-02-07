@@ -65,6 +65,9 @@ func (r *TriggerMatchingCriteria) validate() error {
 	return nil
 }
 func (r *TriggerDestination) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"CloudRunService", "CloudFunction"}, r.CloudRunService, r.CloudFunction); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.CloudRunService) {
 		if err := r.CloudRunService.validate(); err != nil {
 			return err
@@ -152,11 +155,6 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	// Alias full resource as res to distinguish it from nested objects.
 	res := f
 
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/triggers/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["name"] = v
-	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria, res); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
 	} else if v != nil {
@@ -756,6 +754,26 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 		return des
 	}
 
+	if des.CloudRunService != nil || (initial != nil && initial.CloudRunService != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CloudFunction) {
+			des.CloudRunService = nil
+			if initial != nil {
+				initial.CloudRunService = nil
+			}
+		}
+	}
+
+	if des.CloudFunction != nil || (initial != nil && initial.CloudFunction != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CloudRunService) {
+			des.CloudFunction = nil
+			if initial != nil {
+				initial.CloudFunction = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}
@@ -763,7 +781,7 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 	cDes := &TriggerDestination{}
 
 	cDes.CloudRunService = canonicalizeTriggerDestinationCloudRunService(des.CloudRunService, initial.CloudRunService, opts...)
-	if dcl.NameToSelfLink(des.CloudFunction, initial.CloudFunction) || dcl.IsZeroValue(des.CloudFunction) {
+	if dcl.PartialSelfLinkToSelfLink(des.CloudFunction, initial.CloudFunction) || dcl.IsZeroValue(des.CloudFunction) {
 		cDes.CloudFunction = initial.CloudFunction
 	} else {
 		cDes.CloudFunction = des.CloudFunction
@@ -815,7 +833,7 @@ func canonicalizeNewTriggerDestination(c *Client, des, nw *TriggerDestination) *
 	}
 
 	nw.CloudRunService = canonicalizeNewTriggerDestinationCloudRunService(c, des.CloudRunService, nw.CloudRunService)
-	if dcl.NameToSelfLink(des.CloudFunction, nw.CloudFunction) {
+	if dcl.PartialSelfLinkToSelfLink(des.CloudFunction, nw.CloudFunction) {
 		nw.CloudFunction = des.CloudFunction
 	}
 
@@ -1241,7 +1259,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1851,7 +1869,9 @@ func expandTriggerDestination(c *Client, f *TriggerDestination, res *Trigger) (m
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cloudRun"] = v
 	}
-	if v := f.CloudFunction; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/functions/%s", f.CloudFunction, dcl.SelfLinkToName(res.Project), dcl.SelfLinkToName(res.Location), dcl.SelfLinkToName(f.CloudFunction)); err != nil {
+		return nil, fmt.Errorf("error expanding CloudFunction into cloudFunction: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cloudFunction"] = v
 	}
 
@@ -1966,7 +1986,9 @@ func expandTriggerDestinationCloudRunService(c *Client, f *TriggerDestinationClo
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.Service); err != nil {
+		return nil, fmt.Errorf("error expanding Service into service: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {

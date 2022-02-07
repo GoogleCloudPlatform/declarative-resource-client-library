@@ -5,16 +5,16 @@
   "labels": {},
   "destination": {
     "cloudRunService": {
-      "service": "{{ref:basicservice.run1.service.json:name}}",
-      "region": "{{region}}"
+      "service": "projects/{{project}}/locations/{{region}}/services/{{ref:basicservice.run1.service.json:name}}",
+      "region": "{{region}}",
+      "path": "/route"
     }
   },
   "transport": {
     "pubsub": {
-     "topic": "{{ref:basic.pubsub.topic.json:name}}"
+     "topic": "projects/{{project}}/topics/{{ref:basic.pubsub.topic.json:name}}"
     }
   },
-  "serviceAccount": "{{service_account}}",
   "matchingCriteria": [
     {
       "attribute": "type",
