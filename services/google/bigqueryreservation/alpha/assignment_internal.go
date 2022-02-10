@@ -317,6 +317,11 @@ func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Assignment: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Assignment: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractAssignmentFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeAssignmentInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -357,7 +362,8 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 		return rawDesired, nil
 	}
 	canonicalDesired := &Assignment{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -367,7 +373,8 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 	} else {
 		canonicalDesired.Assignee = rawDesired.Assignee
 	}
-	if dcl.IsZeroValue(rawDesired.JobType) {
+	if dcl.IsZeroValue(rawDesired.JobType) || (dcl.IsEmptyValueIndirect(rawDesired.JobType) && dcl.IsEmptyValueIndirect(rawInitial.JobType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.JobType = rawInitial.JobType
 	} else {
 		canonicalDesired.JobType = rawDesired.JobType
@@ -641,7 +648,7 @@ func flattenAssignmentJobTypeEnumSlice(c *Client, i interface{}) []AssignmentJob
 func flattenAssignmentJobTypeEnum(i interface{}) *AssignmentJobTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return AssignmentJobTypeEnumRef("")
+		return nil
 	}
 
 	return AssignmentJobTypeEnumRef(s)
@@ -692,7 +699,7 @@ func flattenAssignmentStateEnumSlice(c *Client, i interface{}) []AssignmentState
 func flattenAssignmentStateEnum(i interface{}) *AssignmentStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return AssignmentStateEnumRef("")
+		return nil
 	}
 
 	return AssignmentStateEnumRef(s)

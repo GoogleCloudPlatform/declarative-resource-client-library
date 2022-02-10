@@ -283,6 +283,11 @@ func (c *Client) monitoredProjectDiffsForRawDesired(ctx context.Context, rawDesi
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for MonitoredProject: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for MonitoredProject: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractMonitoredProjectFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeMonitoredProjectInitialState(rawInitial, rawDesired)
 	if err != nil {

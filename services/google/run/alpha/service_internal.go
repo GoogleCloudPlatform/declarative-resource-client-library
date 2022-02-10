@@ -587,6 +587,11 @@ func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Serv
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Service: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Service: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractServiceFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeServiceInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -640,7 +645,8 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) {
+	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -655,12 +661,14 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	} else {
 		canonicalDesired.ClientVersion = rawDesired.ClientVersion
 	}
-	if dcl.IsZeroValue(rawDesired.Ingress) {
+	if dcl.IsZeroValue(rawDesired.Ingress) || (dcl.IsEmptyValueIndirect(rawDesired.Ingress) && dcl.IsEmptyValueIndirect(rawInitial.Ingress)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Ingress = rawInitial.Ingress
 	} else {
 		canonicalDesired.Ingress = rawDesired.Ingress
 	}
-	if dcl.IsZeroValue(rawDesired.LaunchStage) {
+	if dcl.IsZeroValue(rawDesired.LaunchStage) || (dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.LaunchStage = rawInitial.LaunchStage
 	} else {
 		canonicalDesired.LaunchStage = rawDesired.LaunchStage
@@ -1004,19 +1012,22 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
-	if dcl.IsZeroValue(des.Annotations) {
+	if dcl.IsZeroValue(des.Annotations) || (dcl.IsEmptyValueIndirect(des.Annotations) && dcl.IsEmptyValueIndirect(initial.Annotations)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Annotations = initial.Annotations
 	} else {
 		cDes.Annotations = des.Annotations
 	}
 	cDes.Scaling = canonicalizeServiceTemplateScaling(des.Scaling, initial.Scaling, opts...)
 	cDes.VPCAccess = canonicalizeServiceTemplateVPCAccess(des.VPCAccess, initial.VPCAccess, opts...)
-	if dcl.IsZeroValue(des.ContainerConcurrency) {
+	if dcl.IsZeroValue(des.ContainerConcurrency) || (dcl.IsEmptyValueIndirect(des.ContainerConcurrency) && dcl.IsEmptyValueIndirect(initial.ContainerConcurrency)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ContainerConcurrency = initial.ContainerConcurrency
 	} else {
 		cDes.ContainerConcurrency = des.ContainerConcurrency
@@ -1038,7 +1049,8 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 	} else {
 		cDes.Confidential = des.Confidential
 	}
-	if dcl.IsZeroValue(des.ExecutionEnvironment) {
+	if dcl.IsZeroValue(des.ExecutionEnvironment) || (dcl.IsEmptyValueIndirect(des.ExecutionEnvironment) && dcl.IsEmptyValueIndirect(initial.ExecutionEnvironment)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ExecutionEnvironment = initial.ExecutionEnvironment
 	} else {
 		cDes.ExecutionEnvironment = des.ExecutionEnvironment
@@ -1166,12 +1178,14 @@ func canonicalizeServiceTemplateScaling(des, initial *ServiceTemplateScaling, op
 
 	cDes := &ServiceTemplateScaling{}
 
-	if dcl.IsZeroValue(des.MinInstanceCount) {
+	if dcl.IsZeroValue(des.MinInstanceCount) || (dcl.IsEmptyValueIndirect(des.MinInstanceCount) && dcl.IsEmptyValueIndirect(initial.MinInstanceCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinInstanceCount = initial.MinInstanceCount
 	} else {
 		cDes.MinInstanceCount = des.MinInstanceCount
 	}
-	if dcl.IsZeroValue(des.MaxInstanceCount) {
+	if dcl.IsZeroValue(des.MaxInstanceCount) || (dcl.IsEmptyValueIndirect(des.MaxInstanceCount) && dcl.IsEmptyValueIndirect(initial.MaxInstanceCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxInstanceCount = initial.MaxInstanceCount
 	} else {
 		cDes.MaxInstanceCount = des.MaxInstanceCount
@@ -1287,7 +1301,8 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 	} else {
 		cDes.Connector = des.Connector
 	}
-	if dcl.IsZeroValue(des.Egress) {
+	if dcl.IsZeroValue(des.Egress) || (dcl.IsEmptyValueIndirect(des.Egress) && dcl.IsEmptyValueIndirect(initial.Egress)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Egress = initial.Egress
 	} else {
 		cDes.Egress = des.Egress
@@ -1926,7 +1941,8 @@ func canonicalizeServiceTemplateContainersResources(des, initial *ServiceTemplat
 
 	cDes := &ServiceTemplateContainersResources{}
 
-	if dcl.IsZeroValue(des.Limits) {
+	if dcl.IsZeroValue(des.Limits) || (dcl.IsEmptyValueIndirect(des.Limits) && dcl.IsEmptyValueIndirect(initial.Limits)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Limits = initial.Limits
 	} else {
 		cDes.Limits = des.Limits
@@ -2051,7 +2067,8 @@ func canonicalizeServiceTemplateContainersPorts(des, initial *ServiceTemplateCon
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.ContainerPort) {
+	if dcl.IsZeroValue(des.ContainerPort) || (dcl.IsEmptyValueIndirect(des.ContainerPort) && dcl.IsEmptyValueIndirect(initial.ContainerPort)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ContainerPort = initial.ContainerPort
 	} else {
 		cDes.ContainerPort = des.ContainerPort
@@ -2434,7 +2451,8 @@ func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolum
 		cDes.Secret = des.Secret
 	}
 	cDes.Items = canonicalizeServiceTemplateVolumesSecretItemsSlice(des.Items, initial.Items, opts...)
-	if dcl.IsZeroValue(des.DefaultMode) {
+	if dcl.IsZeroValue(des.DefaultMode) || (dcl.IsEmptyValueIndirect(des.DefaultMode) && dcl.IsEmptyValueIndirect(initial.DefaultMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DefaultMode = initial.DefaultMode
 	} else {
 		cDes.DefaultMode = des.DefaultMode
@@ -2560,7 +2578,8 @@ func canonicalizeServiceTemplateVolumesSecretItems(des, initial *ServiceTemplate
 	} else {
 		cDes.Version = des.Version
 	}
-	if dcl.IsZeroValue(des.Mode) {
+	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -2793,7 +2812,8 @@ func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyO
 
 	cDes := &ServiceTraffic{}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -2803,7 +2823,8 @@ func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyO
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Percent) {
+	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -2981,7 +3002,8 @@ func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglec
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.State) {
+	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
@@ -2991,37 +3013,44 @@ func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglec
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.LastTransitionTime) {
+	if dcl.IsZeroValue(des.LastTransitionTime) || (dcl.IsEmptyValueIndirect(des.LastTransitionTime) && dcl.IsEmptyValueIndirect(initial.LastTransitionTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LastTransitionTime = initial.LastTransitionTime
 	} else {
 		cDes.LastTransitionTime = des.LastTransitionTime
 	}
-	if dcl.IsZeroValue(des.Severity) {
+	if dcl.IsZeroValue(des.Severity) || (dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
 	}
-	if dcl.IsZeroValue(des.Reason) {
+	if dcl.IsZeroValue(des.Reason) || (dcl.IsEmptyValueIndirect(des.Reason) && dcl.IsEmptyValueIndirect(initial.Reason)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Reason = initial.Reason
 	} else {
 		cDes.Reason = des.Reason
 	}
-	if dcl.IsZeroValue(des.InternalReason) {
+	if dcl.IsZeroValue(des.InternalReason) || (dcl.IsEmptyValueIndirect(des.InternalReason) && dcl.IsEmptyValueIndirect(initial.InternalReason)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.InternalReason = initial.InternalReason
 	} else {
 		cDes.InternalReason = des.InternalReason
 	}
-	if dcl.IsZeroValue(des.DomainMappingReason) {
+	if dcl.IsZeroValue(des.DomainMappingReason) || (dcl.IsEmptyValueIndirect(des.DomainMappingReason) && dcl.IsEmptyValueIndirect(initial.DomainMappingReason)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DomainMappingReason = initial.DomainMappingReason
 	} else {
 		cDes.DomainMappingReason = des.DomainMappingReason
 	}
-	if dcl.IsZeroValue(des.RevisionReason) {
+	if dcl.IsZeroValue(des.RevisionReason) || (dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RevisionReason = initial.RevisionReason
 	} else {
 		cDes.RevisionReason = des.RevisionReason
 	}
-	if dcl.IsZeroValue(des.JobReason) {
+	if dcl.IsZeroValue(des.JobReason) || (dcl.IsEmptyValueIndirect(des.JobReason) && dcl.IsEmptyValueIndirect(initial.JobReason)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.JobReason = initial.JobReason
 	} else {
 		cDes.JobReason = des.JobReason
@@ -3139,7 +3168,8 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 
 	cDes := &ServiceTrafficStatuses{}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -3149,7 +3179,8 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Percent) {
+	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -6838,7 +6869,7 @@ func flattenServiceIngressEnumSlice(c *Client, i interface{}) []ServiceIngressEn
 func flattenServiceIngressEnum(i interface{}) *ServiceIngressEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceIngressEnumRef("")
+		return nil
 	}
 
 	return ServiceIngressEnumRef(s)
@@ -6889,7 +6920,7 @@ func flattenServiceLaunchStageEnumSlice(c *Client, i interface{}) []ServiceLaunc
 func flattenServiceLaunchStageEnum(i interface{}) *ServiceLaunchStageEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceLaunchStageEnumRef("")
+		return nil
 	}
 
 	return ServiceLaunchStageEnumRef(s)
@@ -6940,7 +6971,7 @@ func flattenServiceTemplateVPCAccessEgressEnumSlice(c *Client, i interface{}) []
 func flattenServiceTemplateVPCAccessEgressEnum(i interface{}) *ServiceTemplateVPCAccessEgressEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceTemplateVPCAccessEgressEnumRef("")
+		return nil
 	}
 
 	return ServiceTemplateVPCAccessEgressEnumRef(s)
@@ -6991,7 +7022,7 @@ func flattenServiceTemplateExecutionEnvironmentEnumSlice(c *Client, i interface{
 func flattenServiceTemplateExecutionEnvironmentEnum(i interface{}) *ServiceTemplateExecutionEnvironmentEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceTemplateExecutionEnvironmentEnumRef("")
+		return nil
 	}
 
 	return ServiceTemplateExecutionEnvironmentEnumRef(s)
@@ -7042,7 +7073,7 @@ func flattenServiceTrafficTypeEnumSlice(c *Client, i interface{}) []ServiceTraff
 func flattenServiceTrafficTypeEnum(i interface{}) *ServiceTrafficTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceTrafficTypeEnumRef("")
+		return nil
 	}
 
 	return ServiceTrafficTypeEnumRef(s)
@@ -7093,7 +7124,7 @@ func flattenServiceGooglecloudrunopv2ConditionStateEnumSlice(c *Client, i interf
 func flattenServiceGooglecloudrunopv2ConditionStateEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceGooglecloudrunopv2ConditionStateEnumRef("")
+		return nil
 	}
 
 	return ServiceGooglecloudrunopv2ConditionStateEnumRef(s)
@@ -7144,7 +7175,7 @@ func flattenServiceGooglecloudrunopv2ConditionSeverityEnumSlice(c *Client, i int
 func flattenServiceGooglecloudrunopv2ConditionSeverityEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionSeverityEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceGooglecloudrunopv2ConditionSeverityEnumRef("")
+		return nil
 	}
 
 	return ServiceGooglecloudrunopv2ConditionSeverityEnumRef(s)
@@ -7195,7 +7226,7 @@ func flattenServiceGooglecloudrunopv2ConditionReasonEnumSlice(c *Client, i inter
 func flattenServiceGooglecloudrunopv2ConditionReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionReasonEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceGooglecloudrunopv2ConditionReasonEnumRef("")
+		return nil
 	}
 
 	return ServiceGooglecloudrunopv2ConditionReasonEnumRef(s)
@@ -7246,7 +7277,7 @@ func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumSlice(c *Client,
 func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceGooglecloudrunopv2ConditionInternalReasonEnumRef("")
+		return nil
 	}
 
 	return ServiceGooglecloudrunopv2ConditionInternalReasonEnumRef(s)
@@ -7297,7 +7328,7 @@ func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumSlice(c *Cl
 func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumRef("")
+		return nil
 	}
 
 	return ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumRef(s)
@@ -7348,7 +7379,7 @@ func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumSlice(c *Client,
 func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceGooglecloudrunopv2ConditionRevisionReasonEnumRef("")
+		return nil
 	}
 
 	return ServiceGooglecloudrunopv2ConditionRevisionReasonEnumRef(s)
@@ -7399,7 +7430,7 @@ func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumSlice(c *Client, i in
 func flattenServiceGooglecloudrunopv2ConditionJobReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionJobReasonEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceGooglecloudrunopv2ConditionJobReasonEnumRef("")
+		return nil
 	}
 
 	return ServiceGooglecloudrunopv2ConditionJobReasonEnumRef(s)
@@ -7450,7 +7481,7 @@ func flattenServiceTrafficStatusesTypeEnumSlice(c *Client, i interface{}) []Serv
 func flattenServiceTrafficStatusesTypeEnum(i interface{}) *ServiceTrafficStatusesTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceTrafficStatusesTypeEnumRef("")
+		return nil
 	}
 
 	return ServiceTrafficStatusesTypeEnumRef(s)

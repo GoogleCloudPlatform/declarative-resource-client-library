@@ -428,6 +428,11 @@ func (c *Client) interconnectAttachmentDiffsForRawDesired(ctx context.Context, r
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for InterconnectAttachment: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for InterconnectAttachment: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractInterconnectAttachmentFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeInterconnectAttachmentInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -490,12 +495,19 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.Router = rawDesired.Router
 	}
-	if dcl.IsZeroValue(rawDesired.Mtu) {
+	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
+	}
+	if dcl.IsZeroValue(rawDesired.Mtu) || (dcl.IsEmptyValueIndirect(rawDesired.Mtu) && dcl.IsEmptyValueIndirect(rawInitial.Mtu)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Mtu = rawInitial.Mtu
 	} else {
 		canonicalDesired.Mtu = rawDesired.Mtu
 	}
-	if dcl.IsZeroValue(rawDesired.Type) {
+	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
@@ -510,12 +522,14 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.AdminEnabled = rawDesired.AdminEnabled
 	}
-	if dcl.IsZeroValue(rawDesired.VlanTag8021q) {
+	if dcl.IsZeroValue(rawDesired.VlanTag8021q) || (dcl.IsEmptyValueIndirect(rawDesired.VlanTag8021q) && dcl.IsEmptyValueIndirect(rawInitial.VlanTag8021q)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.VlanTag8021q = rawInitial.VlanTag8021q
 	} else {
 		canonicalDesired.VlanTag8021q = rawDesired.VlanTag8021q
 	}
-	if dcl.IsZeroValue(rawDesired.EdgeAvailabilityDomain) {
+	if dcl.IsZeroValue(rawDesired.EdgeAvailabilityDomain) || (dcl.IsEmptyValueIndirect(rawDesired.EdgeAvailabilityDomain) && dcl.IsEmptyValueIndirect(rawInitial.EdgeAvailabilityDomain)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.EdgeAvailabilityDomain = rawInitial.EdgeAvailabilityDomain
 	} else {
 		canonicalDesired.EdgeAvailabilityDomain = rawDesired.EdgeAvailabilityDomain
@@ -525,18 +539,21 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.CandidateSubnets = rawDesired.CandidateSubnets
 	}
-	if dcl.IsZeroValue(rawDesired.Bandwidth) {
+	if dcl.IsZeroValue(rawDesired.Bandwidth) || (dcl.IsEmptyValueIndirect(rawDesired.Bandwidth) && dcl.IsEmptyValueIndirect(rawInitial.Bandwidth)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Bandwidth = rawInitial.Bandwidth
 	} else {
 		canonicalDesired.Bandwidth = rawDesired.Bandwidth
 	}
 	canonicalDesired.PartnerMetadata = canonicalizeInterconnectAttachmentPartnerMetadata(rawDesired.PartnerMetadata, rawInitial.PartnerMetadata, opts...)
-	if dcl.IsZeroValue(rawDesired.PartnerAsn) {
+	if dcl.IsZeroValue(rawDesired.PartnerAsn) || (dcl.IsEmptyValueIndirect(rawDesired.PartnerAsn) && dcl.IsEmptyValueIndirect(rawInitial.PartnerAsn)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.PartnerAsn = rawInitial.PartnerAsn
 	} else {
 		canonicalDesired.PartnerAsn = rawDesired.PartnerAsn
 	}
-	if dcl.IsZeroValue(rawDesired.Encryption) {
+	if dcl.IsZeroValue(rawDesired.Encryption) || (dcl.IsEmptyValueIndirect(rawDesired.Encryption) && dcl.IsEmptyValueIndirect(rawInitial.Encryption)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Encryption = rawInitial.Encryption
 	} else {
 		canonicalDesired.Encryption = rawDesired.Encryption
@@ -546,12 +563,14 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.IpsecInternalAddresses = rawDesired.IpsecInternalAddresses
 	}
-	if dcl.IsZeroValue(rawDesired.DataplaneVersion) {
+	if dcl.IsZeroValue(rawDesired.DataplaneVersion) || (dcl.IsEmptyValueIndirect(rawDesired.DataplaneVersion) && dcl.IsEmptyValueIndirect(rawInitial.DataplaneVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.DataplaneVersion = rawInitial.DataplaneVersion
 	} else {
 		canonicalDesired.DataplaneVersion = rawDesired.DataplaneVersion
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -1057,7 +1076,7 @@ func diffInterconnectAttachment(c *Client, desired, actual *InterconnectAttachme
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1370,6 +1389,9 @@ func expandInterconnectAttachment(c *Client, f *InterconnectAttachment) (map[str
 	}
 	if v := f.Router; dcl.ValueShouldBeSent(v) {
 		m["router"] = v
+	}
+	if v := f.Region; dcl.ValueShouldBeSent(v) {
+		m["region"] = v
 	}
 	if v := f.Mtu; dcl.ValueShouldBeSent(v) {
 		m["mtu"] = v
@@ -1750,7 +1772,7 @@ func flattenInterconnectAttachmentOperationalStatusEnumSlice(c *Client, i interf
 func flattenInterconnectAttachmentOperationalStatusEnum(i interface{}) *InterconnectAttachmentOperationalStatusEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InterconnectAttachmentOperationalStatusEnumRef("")
+		return nil
 	}
 
 	return InterconnectAttachmentOperationalStatusEnumRef(s)
@@ -1801,7 +1823,7 @@ func flattenInterconnectAttachmentTypeEnumSlice(c *Client, i interface{}) []Inte
 func flattenInterconnectAttachmentTypeEnum(i interface{}) *InterconnectAttachmentTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InterconnectAttachmentTypeEnumRef("")
+		return nil
 	}
 
 	return InterconnectAttachmentTypeEnumRef(s)
@@ -1852,7 +1874,7 @@ func flattenInterconnectAttachmentEdgeAvailabilityDomainEnumSlice(c *Client, i i
 func flattenInterconnectAttachmentEdgeAvailabilityDomainEnum(i interface{}) *InterconnectAttachmentEdgeAvailabilityDomainEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InterconnectAttachmentEdgeAvailabilityDomainEnumRef("")
+		return nil
 	}
 
 	return InterconnectAttachmentEdgeAvailabilityDomainEnumRef(s)
@@ -1903,7 +1925,7 @@ func flattenInterconnectAttachmentBandwidthEnumSlice(c *Client, i interface{}) [
 func flattenInterconnectAttachmentBandwidthEnum(i interface{}) *InterconnectAttachmentBandwidthEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InterconnectAttachmentBandwidthEnumRef("")
+		return nil
 	}
 
 	return InterconnectAttachmentBandwidthEnumRef(s)
@@ -1954,7 +1976,7 @@ func flattenInterconnectAttachmentStateEnumSlice(c *Client, i interface{}) []Int
 func flattenInterconnectAttachmentStateEnum(i interface{}) *InterconnectAttachmentStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InterconnectAttachmentStateEnumRef("")
+		return nil
 	}
 
 	return InterconnectAttachmentStateEnumRef(s)
@@ -2005,7 +2027,7 @@ func flattenInterconnectAttachmentEncryptionEnumSlice(c *Client, i interface{}) 
 func flattenInterconnectAttachmentEncryptionEnum(i interface{}) *InterconnectAttachmentEncryptionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InterconnectAttachmentEncryptionEnumRef("")
+		return nil
 	}
 
 	return InterconnectAttachmentEncryptionEnumRef(s)

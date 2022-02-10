@@ -401,6 +401,11 @@ func (c *Client) capacityCommitmentDiffsForRawDesired(ctx context.Context, rawDe
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for CapacityCommitment: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for CapacityCommitment: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractCapacityCommitmentFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeCapacityCommitmentInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -442,22 +447,26 @@ func canonicalizeCapacityCommitmentDesiredState(rawDesired, rawInitial *Capacity
 		return rawDesired, nil
 	}
 	canonicalDesired := &CapacityCommitment{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.SlotCount) {
+	if dcl.IsZeroValue(rawDesired.SlotCount) || (dcl.IsEmptyValueIndirect(rawDesired.SlotCount) && dcl.IsEmptyValueIndirect(rawInitial.SlotCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.SlotCount = rawInitial.SlotCount
 	} else {
 		canonicalDesired.SlotCount = rawDesired.SlotCount
 	}
-	if dcl.IsZeroValue(rawDesired.Plan) {
+	if dcl.IsZeroValue(rawDesired.Plan) || (dcl.IsEmptyValueIndirect(rawDesired.Plan) && dcl.IsEmptyValueIndirect(rawInitial.Plan)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Plan = rawInitial.Plan
 	} else {
 		canonicalDesired.Plan = rawDesired.Plan
 	}
-	if dcl.IsZeroValue(rawDesired.RenewalPlan) {
+	if dcl.IsZeroValue(rawDesired.RenewalPlan) || (dcl.IsEmptyValueIndirect(rawDesired.RenewalPlan) && dcl.IsEmptyValueIndirect(rawInitial.RenewalPlan)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.RenewalPlan = rawInitial.RenewalPlan
 	} else {
 		canonicalDesired.RenewalPlan = rawDesired.RenewalPlan
@@ -540,7 +549,8 @@ func canonicalizeCapacityCommitmentFailureStatus(des, initial *CapacityCommitmen
 
 	cDes := &CapacityCommitmentFailureStatus{}
 
-	if dcl.IsZeroValue(des.Code) {
+	if dcl.IsZeroValue(des.Code) || (dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
@@ -1340,7 +1350,7 @@ func flattenCapacityCommitmentPlanEnumSlice(c *Client, i interface{}) []Capacity
 func flattenCapacityCommitmentPlanEnum(i interface{}) *CapacityCommitmentPlanEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CapacityCommitmentPlanEnumRef("")
+		return nil
 	}
 
 	return CapacityCommitmentPlanEnumRef(s)
@@ -1391,7 +1401,7 @@ func flattenCapacityCommitmentStateEnumSlice(c *Client, i interface{}) []Capacit
 func flattenCapacityCommitmentStateEnum(i interface{}) *CapacityCommitmentStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CapacityCommitmentStateEnumRef("")
+		return nil
 	}
 
 	return CapacityCommitmentStateEnumRef(s)
@@ -1442,7 +1452,7 @@ func flattenCapacityCommitmentRenewalPlanEnumSlice(c *Client, i interface{}) []C
 func flattenCapacityCommitmentRenewalPlanEnum(i interface{}) *CapacityCommitmentRenewalPlanEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CapacityCommitmentRenewalPlanEnumRef("")
+		return nil
 	}
 
 	return CapacityCommitmentRenewalPlanEnumRef(s)

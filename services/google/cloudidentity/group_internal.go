@@ -446,6 +446,11 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Group: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Group: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractGroupFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeGroupInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -489,13 +494,15 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 		return rawDesired, nil
 	}
 	canonicalDesired := &Group{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
 	canonicalDesired.GroupKey = canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(rawDesired.GroupKey, rawInitial.GroupKey, opts...)
-	if dcl.IsZeroValue(rawDesired.AdditionalGroupKeys) {
+	if dcl.IsZeroValue(rawDesired.AdditionalGroupKeys) || (dcl.IsEmptyValueIndirect(rawDesired.AdditionalGroupKeys) && dcl.IsEmptyValueIndirect(rawInitial.AdditionalGroupKeys)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.AdditionalGroupKeys = rawInitial.AdditionalGroupKeys
 	} else {
 		canonicalDesired.AdditionalGroupKeys = rawDesired.AdditionalGroupKeys
@@ -515,13 +522,15 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
 	canonicalDesired.DynamicGroupMetadata = canonicalizeGroupDynamicGroupMetadata(rawDesired.DynamicGroupMetadata, rawInitial.DynamicGroupMetadata, opts...)
-	if dcl.IsZeroValue(rawDesired.InitialGroupConfig) {
+	if dcl.IsZeroValue(rawDesired.InitialGroupConfig) || (dcl.IsEmptyValueIndirect(rawDesired.InitialGroupConfig) && dcl.IsEmptyValueIndirect(rawInitial.InitialGroupConfig)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.InitialGroupConfig = rawInitial.InitialGroupConfig
 	} else {
 		canonicalDesired.InitialGroupConfig = rawDesired.InitialGroupConfig
@@ -967,7 +976,8 @@ func canonicalizeGroupDynamicGroupMetadataQueries(des, initial *GroupDynamicGrou
 
 	cDes := &GroupDynamicGroupMetadataQueries{}
 
-	if dcl.IsZeroValue(des.ResourceType) {
+	if dcl.IsZeroValue(des.ResourceType) || (dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
@@ -1087,12 +1097,14 @@ func canonicalizeGroupDynamicGroupMetadataStatus(des, initial *GroupDynamicGroup
 
 	cDes := &GroupDynamicGroupMetadataStatus{}
 
-	if dcl.IsZeroValue(des.Status) {
+	if dcl.IsZeroValue(des.Status) || (dcl.IsEmptyValueIndirect(des.Status) && dcl.IsEmptyValueIndirect(initial.Status)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
 	}
-	if dcl.IsZeroValue(des.StatusTime) {
+	if dcl.IsZeroValue(des.StatusTime) || (dcl.IsEmptyValueIndirect(des.StatusTime) && dcl.IsEmptyValueIndirect(initial.StatusTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.StatusTime = initial.StatusTime
 	} else {
 		cDes.StatusTime = des.StatusTime
@@ -2243,7 +2255,7 @@ func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumSlice(c *Client, i i
 func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnum(i interface{}) *GroupDynamicGroupMetadataQueriesResourceTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GroupDynamicGroupMetadataQueriesResourceTypeEnumRef("")
+		return nil
 	}
 
 	return GroupDynamicGroupMetadataQueriesResourceTypeEnumRef(s)
@@ -2294,7 +2306,7 @@ func flattenGroupDynamicGroupMetadataStatusStatusEnumSlice(c *Client, i interfac
 func flattenGroupDynamicGroupMetadataStatusStatusEnum(i interface{}) *GroupDynamicGroupMetadataStatusStatusEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GroupDynamicGroupMetadataStatusStatusEnumRef("")
+		return nil
 	}
 
 	return GroupDynamicGroupMetadataStatusStatusEnumRef(s)
@@ -2345,7 +2357,7 @@ func flattenGroupInitialGroupConfigEnumSlice(c *Client, i interface{}) []GroupIn
 func flattenGroupInitialGroupConfigEnum(i interface{}) *GroupInitialGroupConfigEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GroupInitialGroupConfigEnumRef("")
+		return nil
 	}
 
 	return GroupInitialGroupConfigEnumRef(s)

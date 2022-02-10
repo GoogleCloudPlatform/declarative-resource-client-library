@@ -574,6 +574,11 @@ func (c *Client) workflowTemplateDiffsForRawDesired(ctx context.Context, rawDesi
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for WorkflowTemplate: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for WorkflowTemplate: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractWorkflowTemplateFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeWorkflowTemplateInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -620,7 +625,8 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -835,7 +841,8 @@ func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowT
 		cDes.ClusterName = des.ClusterName
 	}
 	cDes.Config = canonicalizeClusterClusterConfig(des.Config, initial.Config, opts...)
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -956,7 +963,8 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 	} else {
 		cDes.Zone = des.Zone
 	}
-	if dcl.IsZeroValue(des.ClusterLabels) {
+	if dcl.IsZeroValue(des.ClusterLabels) || (dcl.IsEmptyValueIndirect(des.ClusterLabels) && dcl.IsEmptyValueIndirect(initial.ClusterLabels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ClusterLabels = initial.ClusterLabels
 	} else {
 		cDes.ClusterLabels = des.ClusterLabels
@@ -1084,7 +1092,8 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 	cDes.SparkRJob = canonicalizeWorkflowTemplateJobsSparkRJob(des.SparkRJob, initial.SparkRJob, opts...)
 	cDes.SparkSqlJob = canonicalizeWorkflowTemplateJobsSparkSqlJob(des.SparkSqlJob, initial.SparkSqlJob, opts...)
 	cDes.PrestoJob = canonicalizeWorkflowTemplateJobsPrestoJob(des.PrestoJob, initial.PrestoJob, opts...)
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -1247,7 +1256,8 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -1379,7 +1389,8 @@ func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *Workfl
 
 	cDes := &WorkflowTemplateJobsHadoopJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) {
+	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -1520,7 +1531,8 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -1652,7 +1664,8 @@ func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *Workflo
 
 	cDes := &WorkflowTemplateJobsSparkJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) {
+	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -1793,7 +1806,8 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -1925,7 +1939,8 @@ func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *Workf
 
 	cDes := &WorkflowTemplateJobsPysparkJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) {
+	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -2047,12 +2062,14 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 	} else {
 		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.IsZeroValue(des.ScriptVariables) {
+	if dcl.IsZeroValue(des.ScriptVariables) || (dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -2305,12 +2322,14 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 	} else {
 		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.IsZeroValue(des.ScriptVariables) {
+	if dcl.IsZeroValue(des.ScriptVariables) || (dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -2554,7 +2573,8 @@ func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowT
 
 	cDes := &WorkflowTemplateJobsPigJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) {
+	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -2685,7 +2705,8 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -2811,7 +2832,8 @@ func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *Workfl
 
 	cDes := &WorkflowTemplateJobsSparkRJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) {
+	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -2928,12 +2950,14 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJ
 		cDes.QueryFileUri = des.QueryFileUri
 	}
 	cDes.QueryList = canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ScriptVariables) {
+	if dcl.IsZeroValue(des.ScriptVariables) || (dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -3174,7 +3198,8 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *Work
 
 	cDes := &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) {
+	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -3306,7 +3331,8 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 	} else {
 		cDes.ClientTags = des.ClientTags
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -3548,7 +3574,8 @@ func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *Workfl
 
 	cDes := &WorkflowTemplateJobsPrestoJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) {
+	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -3659,12 +3686,14 @@ func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJo
 
 	cDes := &WorkflowTemplateJobsScheduling{}
 
-	if dcl.IsZeroValue(des.MaxFailuresPerHour) {
+	if dcl.IsZeroValue(des.MaxFailuresPerHour) || (dcl.IsEmptyValueIndirect(des.MaxFailuresPerHour) && dcl.IsEmptyValueIndirect(initial.MaxFailuresPerHour)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxFailuresPerHour = initial.MaxFailuresPerHour
 	} else {
 		cDes.MaxFailuresPerHour = des.MaxFailuresPerHour
 	}
-	if dcl.IsZeroValue(des.MaxFailuresTotal) {
+	if dcl.IsZeroValue(des.MaxFailuresTotal) || (dcl.IsEmptyValueIndirect(des.MaxFailuresTotal) && dcl.IsEmptyValueIndirect(initial.MaxFailuresTotal)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxFailuresTotal = initial.MaxFailuresTotal
 	} else {
 		cDes.MaxFailuresTotal = des.MaxFailuresTotal

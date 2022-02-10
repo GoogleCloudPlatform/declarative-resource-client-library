@@ -341,6 +341,11 @@ func (c *Client) environmentDiffsForRawDesired(ctx context.Context, rawDesired *
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Environment: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Environment: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractEnvironmentFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeEnvironmentInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -391,7 +396,8 @@ func canonicalizeEnvironmentDesiredState(rawDesired, rawInitial *Environment, op
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Properties) {
+	if dcl.IsZeroValue(rawDesired.Properties) || (dcl.IsEmptyValueIndirect(rawDesired.Properties) && dcl.IsEmptyValueIndirect(rawInitial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Properties = rawInitial.Properties
 	} else {
 		canonicalDesired.Properties = rawDesired.Properties
@@ -698,7 +704,7 @@ func flattenEnvironmentStateEnumSlice(c *Client, i interface{}) []EnvironmentSta
 func flattenEnvironmentStateEnum(i interface{}) *EnvironmentStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return EnvironmentStateEnumRef("")
+		return nil
 	}
 
 	return EnvironmentStateEnumRef(s)

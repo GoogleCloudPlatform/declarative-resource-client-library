@@ -370,6 +370,11 @@ func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Serv
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Service: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Service: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractServiceFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeServiceInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -428,7 +433,8 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	}
 	canonicalDesired.Custom = canonicalizeServiceCustom(rawDesired.Custom, rawInitial.Custom, opts...)
 	canonicalDesired.Telemetry = canonicalizeServiceTelemetry(rawDesired.Telemetry, rawInitial.Telemetry, opts...)
-	if dcl.IsZeroValue(rawDesired.UserLabels) {
+	if dcl.IsZeroValue(rawDesired.UserLabels) || (dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.UserLabels = rawInitial.UserLabels
 	} else {
 		canonicalDesired.UserLabels = rawDesired.UserLabels

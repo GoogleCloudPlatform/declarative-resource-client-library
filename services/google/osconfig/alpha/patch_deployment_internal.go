@@ -723,6 +723,11 @@ func (c *Client) patchDeploymentDiffsForRawDesired(ctx context.Context, rawDesir
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for PatchDeployment: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for PatchDeployment: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractPatchDeploymentFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizePatchDeploymentInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -1140,7 +1145,8 @@ func canonicalizePatchDeploymentInstanceFilterGroupLabels(des, initial *PatchDep
 
 	cDes := &PatchDeploymentInstanceFilterGroupLabels{}
 
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -1251,7 +1257,8 @@ func canonicalizePatchDeploymentPatchConfig(des, initial *PatchDeploymentPatchCo
 
 	cDes := &PatchDeploymentPatchConfig{}
 
-	if dcl.IsZeroValue(des.RebootConfig) {
+	if dcl.IsZeroValue(des.RebootConfig) || (dcl.IsEmptyValueIndirect(des.RebootConfig) && dcl.IsEmptyValueIndirect(initial.RebootConfig)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RebootConfig = initial.RebootConfig
 	} else {
 		cDes.RebootConfig = des.RebootConfig
@@ -1399,7 +1406,8 @@ func canonicalizePatchDeploymentPatchConfigApt(des, initial *PatchDeploymentPatc
 
 	cDes := &PatchDeploymentPatchConfigApt{}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -2085,7 +2093,8 @@ func canonicalizePatchDeploymentPatchConfigWindowsUpdate(des, initial *PatchDepl
 
 	cDes := &PatchDeploymentPatchConfigWindowsUpdate{}
 
-	if dcl.IsZeroValue(des.Classifications) {
+	if dcl.IsZeroValue(des.Classifications) || (dcl.IsEmptyValueIndirect(des.Classifications) && dcl.IsEmptyValueIndirect(initial.Classifications)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Classifications = initial.Classifications
 	} else {
 		cDes.Classifications = des.Classifications
@@ -2350,12 +2359,14 @@ func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfig(des, initi
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) {
+	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -2481,7 +2492,8 @@ func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(d
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) {
+	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -2625,12 +2637,14 @@ func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfig(des, ini
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) {
+	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -2756,7 +2770,8 @@ func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) {
+	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -3011,12 +3026,14 @@ func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfig(des, init
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) {
+	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -3142,7 +3159,8 @@ func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) {
+	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -3286,12 +3304,14 @@ func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfig(des, in
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) {
+	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -3417,7 +3437,8 @@ func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjec
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) {
+	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -3650,7 +3671,8 @@ func canonicalizePatchDeploymentOneTimeSchedule(des, initial *PatchDeploymentOne
 
 	cDes := &PatchDeploymentOneTimeSchedule{}
 
-	if dcl.IsZeroValue(des.ExecuteTime) {
+	if dcl.IsZeroValue(des.ExecuteTime) || (dcl.IsEmptyValueIndirect(des.ExecuteTime) && dcl.IsEmptyValueIndirect(initial.ExecuteTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ExecuteTime = initial.ExecuteTime
 	} else {
 		cDes.ExecuteTime = des.ExecuteTime
@@ -3802,18 +3824,21 @@ func canonicalizePatchDeploymentRecurringSchedule(des, initial *PatchDeploymentR
 	cDes := &PatchDeploymentRecurringSchedule{}
 
 	cDes.TimeZone = canonicalizePatchDeploymentRecurringScheduleTimeZone(des.TimeZone, initial.TimeZone, opts...)
-	if dcl.IsZeroValue(des.StartTime) {
+	if dcl.IsZeroValue(des.StartTime) || (dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.StartTime = initial.StartTime
 	} else {
 		cDes.StartTime = des.StartTime
 	}
-	if dcl.IsZeroValue(des.EndTime) {
+	if dcl.IsZeroValue(des.EndTime) || (dcl.IsEmptyValueIndirect(des.EndTime) && dcl.IsEmptyValueIndirect(initial.EndTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.EndTime = initial.EndTime
 	} else {
 		cDes.EndTime = des.EndTime
 	}
 	cDes.TimeOfDay = canonicalizePatchDeploymentRecurringScheduleTimeOfDay(des.TimeOfDay, initial.TimeOfDay, opts...)
-	if dcl.IsZeroValue(des.Frequency) {
+	if dcl.IsZeroValue(des.Frequency) || (dcl.IsEmptyValueIndirect(des.Frequency) && dcl.IsEmptyValueIndirect(initial.Frequency)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Frequency = initial.Frequency
 	} else {
 		cDes.Frequency = des.Frequency
@@ -4054,22 +4079,26 @@ func canonicalizePatchDeploymentRecurringScheduleTimeOfDay(des, initial *PatchDe
 
 	cDes := &PatchDeploymentRecurringScheduleTimeOfDay{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -4180,7 +4209,8 @@ func canonicalizePatchDeploymentRecurringScheduleWeekly(des, initial *PatchDeplo
 
 	cDes := &PatchDeploymentRecurringScheduleWeekly{}
 
-	if dcl.IsZeroValue(des.DayOfWeek) {
+	if dcl.IsZeroValue(des.DayOfWeek) || (dcl.IsEmptyValueIndirect(des.DayOfWeek) && dcl.IsEmptyValueIndirect(initial.DayOfWeek)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeek = initial.DayOfWeek
 	} else {
 		cDes.DayOfWeek = des.DayOfWeek
@@ -4312,7 +4342,8 @@ func canonicalizePatchDeploymentRecurringScheduleMonthly(des, initial *PatchDepl
 	cDes := &PatchDeploymentRecurringScheduleMonthly{}
 
 	cDes.WeekDayOfMonth = canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(des.WeekDayOfMonth, initial.WeekDayOfMonth, opts...)
-	if dcl.IsZeroValue(des.MonthDay) {
+	if dcl.IsZeroValue(des.MonthDay) || (dcl.IsEmptyValueIndirect(des.MonthDay) && dcl.IsEmptyValueIndirect(initial.MonthDay)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MonthDay = initial.MonthDay
 	} else {
 		cDes.MonthDay = des.MonthDay
@@ -4425,12 +4456,14 @@ func canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(des, init
 
 	cDes := &PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth{}
 
-	if dcl.IsZeroValue(des.WeekOrdinal) {
+	if dcl.IsZeroValue(des.WeekOrdinal) || (dcl.IsEmptyValueIndirect(des.WeekOrdinal) && dcl.IsEmptyValueIndirect(initial.WeekOrdinal)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.WeekOrdinal = initial.WeekOrdinal
 	} else {
 		cDes.WeekOrdinal = des.WeekOrdinal
 	}
-	if dcl.IsZeroValue(des.DayOfWeek) {
+	if dcl.IsZeroValue(des.DayOfWeek) || (dcl.IsEmptyValueIndirect(des.DayOfWeek) && dcl.IsEmptyValueIndirect(initial.DayOfWeek)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeek = initial.DayOfWeek
 	} else {
 		cDes.DayOfWeek = des.DayOfWeek
@@ -4541,7 +4574,8 @@ func canonicalizePatchDeploymentRollout(des, initial *PatchDeploymentRollout, op
 
 	cDes := &PatchDeploymentRollout{}
 
-	if dcl.IsZeroValue(des.Mode) {
+	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -4675,12 +4709,14 @@ func canonicalizePatchDeploymentRolloutDisruptionBudget(des, initial *PatchDeplo
 
 	cDes := &PatchDeploymentRolloutDisruptionBudget{}
 
-	if dcl.IsZeroValue(des.Fixed) {
+	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) {
+	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -9757,7 +9793,7 @@ func flattenPatchDeploymentPatchConfigRebootConfigEnumSlice(c *Client, i interfa
 func flattenPatchDeploymentPatchConfigRebootConfigEnum(i interface{}) *PatchDeploymentPatchConfigRebootConfigEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentPatchConfigRebootConfigEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentPatchConfigRebootConfigEnumRef(s)
@@ -9808,7 +9844,7 @@ func flattenPatchDeploymentPatchConfigAptTypeEnumSlice(c *Client, i interface{})
 func flattenPatchDeploymentPatchConfigAptTypeEnum(i interface{}) *PatchDeploymentPatchConfigAptTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentPatchConfigAptTypeEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentPatchConfigAptTypeEnumRef(s)
@@ -9859,7 +9895,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumSlice(c *C
 func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnum(i interface{}) *PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentPatchConfigWindowsUpdateClassificationsEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentPatchConfigWindowsUpdateClassificationsEnumRef(s)
@@ -9910,7 +9946,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumS
 func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum(i interface{}) *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumRef(s)
@@ -9961,7 +9997,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnu
 func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum(i interface{}) *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumRef(s)
@@ -10012,7 +10048,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum
 func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum(i interface{}) *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumRef(s)
@@ -10063,7 +10099,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEn
 func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum(i interface{}) *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumRef(s)
@@ -10114,7 +10150,7 @@ func flattenPatchDeploymentRecurringScheduleFrequencyEnumSlice(c *Client, i inte
 func flattenPatchDeploymentRecurringScheduleFrequencyEnum(i interface{}) *PatchDeploymentRecurringScheduleFrequencyEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentRecurringScheduleFrequencyEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentRecurringScheduleFrequencyEnumRef(s)
@@ -10165,7 +10201,7 @@ func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumSlice(c *Client, 
 func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum(i interface{}) *PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumRef(s)
@@ -10216,7 +10252,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumSl
 func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum(i interface{}) *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumRef(s)
@@ -10267,7 +10303,7 @@ func flattenPatchDeploymentRolloutModeEnumSlice(c *Client, i interface{}) []Patc
 func flattenPatchDeploymentRolloutModeEnum(i interface{}) *PatchDeploymentRolloutModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PatchDeploymentRolloutModeEnumRef("")
+		return nil
 	}
 
 	return PatchDeploymentRolloutModeEnumRef(s)

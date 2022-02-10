@@ -398,6 +398,11 @@ func (c *Client) keyDiffsForRawDesired(ctx context.Context, rawDesired *Key, opt
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Key: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Key: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractKeyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeKeyInitialState(rawInitial, rawDesired)
 	if err != nil {

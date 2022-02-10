@@ -300,6 +300,11 @@ func (c *Client) firewallPolicyRuleDiffsForRawDesired(ctx context.Context, rawDe
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for FirewallPolicyRule: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for FirewallPolicyRule: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractFirewallPolicyRuleFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeFirewallPolicyRuleInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -346,7 +351,8 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Priority) {
+	if dcl.IsZeroValue(rawDesired.Priority) || (dcl.IsEmptyValueIndirect(rawDesired.Priority) && dcl.IsEmptyValueIndirect(rawInitial.Priority)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Priority = rawInitial.Priority
 	} else {
 		canonicalDesired.Priority = rawDesired.Priority
@@ -357,7 +363,8 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.Action = rawDesired.Action
 	}
-	if dcl.IsZeroValue(rawDesired.Direction) {
+	if dcl.IsZeroValue(rawDesired.Direction) || (dcl.IsEmptyValueIndirect(rawDesired.Direction) && dcl.IsEmptyValueIndirect(rawInitial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Direction = rawInitial.Direction
 	} else {
 		canonicalDesired.Direction = rawDesired.Direction
@@ -1322,7 +1329,7 @@ func flattenFirewallPolicyRuleDirectionEnumSlice(c *Client, i interface{}) []Fir
 func flattenFirewallPolicyRuleDirectionEnum(i interface{}) *FirewallPolicyRuleDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return FirewallPolicyRuleDirectionEnumRef("")
+		return nil
 	}
 
 	return FirewallPolicyRuleDirectionEnumRef(s)

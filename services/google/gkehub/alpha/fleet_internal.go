@@ -294,6 +294,11 @@ func (c *Client) fleetDiffsForRawDesired(ctx context.Context, rawDesired *Fleet,
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Fleet: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Fleet: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractFleetFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeFleetInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -334,7 +339,8 @@ func canonicalizeFleetDesiredState(rawDesired, rawInitial *Fleet, opts ...dcl.Ap
 		return rawDesired, nil
 	}
 	canonicalDesired := &Fleet{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name

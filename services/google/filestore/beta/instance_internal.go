@@ -386,6 +386,11 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Instance: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractInstanceFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeInstanceInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -436,12 +441,14 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Tier) {
+	if dcl.IsZeroValue(rawDesired.Tier) || (dcl.IsEmptyValueIndirect(rawDesired.Tier) && dcl.IsEmptyValueIndirect(rawInitial.Tier)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Tier = rawInitial.Tier
 	} else {
 		canonicalDesired.Tier = rawDesired.Tier
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -548,7 +555,8 @@ func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dc
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.CapacityGb) {
+	if dcl.IsZeroValue(des.CapacityGb) || (dcl.IsEmptyValueIndirect(des.CapacityGb) && dcl.IsEmptyValueIndirect(initial.CapacityGb)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CapacityGb = initial.CapacityGb
 	} else {
 		cDes.CapacityGb = des.CapacityGb
@@ -678,22 +686,26 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 	} else {
 		cDes.IPRanges = des.IPRanges
 	}
-	if dcl.IsZeroValue(des.AccessMode) {
+	if dcl.IsZeroValue(des.AccessMode) || (dcl.IsEmptyValueIndirect(des.AccessMode) && dcl.IsEmptyValueIndirect(initial.AccessMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AccessMode = initial.AccessMode
 	} else {
 		cDes.AccessMode = des.AccessMode
 	}
-	if dcl.IsZeroValue(des.SquashMode) {
+	if dcl.IsZeroValue(des.SquashMode) || (dcl.IsEmptyValueIndirect(des.SquashMode) && dcl.IsEmptyValueIndirect(initial.SquashMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SquashMode = initial.SquashMode
 	} else {
 		cDes.SquashMode = des.SquashMode
 	}
-	if dcl.IsZeroValue(des.AnonUid) {
+	if dcl.IsZeroValue(des.AnonUid) || (dcl.IsEmptyValueIndirect(des.AnonUid) && dcl.IsEmptyValueIndirect(initial.AnonUid)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AnonUid = initial.AnonUid
 	} else {
 		cDes.AnonUid = des.AnonUid
 	}
-	if dcl.IsZeroValue(des.AnonGid) {
+	if dcl.IsZeroValue(des.AnonGid) || (dcl.IsEmptyValueIndirect(des.AnonGid) && dcl.IsEmptyValueIndirect(initial.AnonGid)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AnonGid = initial.AnonGid
 	} else {
 		cDes.AnonGid = des.AnonGid
@@ -813,7 +825,8 @@ func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.Ap
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.IsZeroValue(des.Modes) {
+	if dcl.IsZeroValue(des.Modes) || (dcl.IsEmptyValueIndirect(des.Modes) && dcl.IsEmptyValueIndirect(initial.Modes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Modes = initial.Modes
 	} else {
 		cDes.Modes = des.Modes
@@ -1742,7 +1755,7 @@ func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum
 func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceStateEnumRef("")
+		return nil
 	}
 
 	return InstanceStateEnumRef(s)
@@ -1793,7 +1806,7 @@ func flattenInstanceTierEnumSlice(c *Client, i interface{}) []InstanceTierEnum {
 func flattenInstanceTierEnum(i interface{}) *InstanceTierEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceTierEnumRef("")
+		return nil
 	}
 
 	return InstanceTierEnumRef(s)
@@ -1844,7 +1857,7 @@ func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice(c *Client, i i
 func flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(i interface{}) *InstanceFileSharesNfsExportOptionsAccessModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceFileSharesNfsExportOptionsAccessModeEnumRef("")
+		return nil
 	}
 
 	return InstanceFileSharesNfsExportOptionsAccessModeEnumRef(s)
@@ -1895,7 +1908,7 @@ func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice(c *Client, i i
 func flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(i interface{}) *InstanceFileSharesNfsExportOptionsSquashModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceFileSharesNfsExportOptionsSquashModeEnumRef("")
+		return nil
 	}
 
 	return InstanceFileSharesNfsExportOptionsSquashModeEnumRef(s)
@@ -1946,7 +1959,7 @@ func flattenInstanceNetworksModesEnumSlice(c *Client, i interface{}) []InstanceN
 func flattenInstanceNetworksModesEnum(i interface{}) *InstanceNetworksModesEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceNetworksModesEnumRef("")
+		return nil
 	}
 
 	return InstanceNetworksModesEnumRef(s)

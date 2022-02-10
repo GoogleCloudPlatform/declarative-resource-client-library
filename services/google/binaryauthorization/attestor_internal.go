@@ -376,6 +376,11 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Attestor: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Attestor: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractAttestorFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeAttestorInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -743,7 +748,8 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 	} else {
 		cDes.PublicKeyPem = des.PublicKeyPem
 	}
-	if dcl.IsZeroValue(des.SignatureAlgorithm) {
+	if dcl.IsZeroValue(des.SignatureAlgorithm) || (dcl.IsEmptyValueIndirect(des.SignatureAlgorithm) && dcl.IsEmptyValueIndirect(initial.SignatureAlgorithm)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SignatureAlgorithm = initial.SignatureAlgorithm
 	} else {
 		cDes.SignatureAlgorithm = des.SignatureAlgorithm
@@ -1541,7 +1547,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorith
 func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(i interface{}) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef("")
+		return nil
 	}
 
 	return AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef(s)

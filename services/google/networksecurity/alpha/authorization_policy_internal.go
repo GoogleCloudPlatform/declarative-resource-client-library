@@ -453,6 +453,11 @@ func (c *Client) authorizationPolicyDiffsForRawDesired(ctx context.Context, rawD
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for AuthorizationPolicy: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for AuthorizationPolicy: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractAuthorizationPolicyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeAuthorizationPolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -503,12 +508,14 @@ func canonicalizeAuthorizationPolicyDesiredState(rawDesired, rawInitial *Authori
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Action) {
+	if dcl.IsZeroValue(rawDesired.Action) || (dcl.IsEmptyValueIndirect(rawDesired.Action) && dcl.IsEmptyValueIndirect(rawInitial.Action)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Action = rawInitial.Action
 	} else {
 		canonicalDesired.Action = rawDesired.Action
@@ -832,7 +839,8 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 	} else {
 		cDes.Hosts = des.Hosts
 	}
-	if dcl.IsZeroValue(des.Ports) {
+	if dcl.IsZeroValue(des.Ports) || (dcl.IsEmptyValueIndirect(des.Ports) && dcl.IsEmptyValueIndirect(initial.Ports)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports
@@ -1956,7 +1964,7 @@ func flattenAuthorizationPolicyActionEnumSlice(c *Client, i interface{}) []Autho
 func flattenAuthorizationPolicyActionEnum(i interface{}) *AuthorizationPolicyActionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return AuthorizationPolicyActionEnumRef("")
+		return nil
 	}
 
 	return AuthorizationPolicyActionEnumRef(s)

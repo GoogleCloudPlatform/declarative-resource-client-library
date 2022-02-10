@@ -510,6 +510,11 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for NodePool: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for NodePool: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractNodePoolFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeNodePoolInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -570,7 +575,8 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 	} else {
 		canonicalDesired.SubnetId = rawDesired.SubnetId
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) {
+	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -713,12 +719,14 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	}
 	cDes.RootVolume = canonicalizeNodePoolConfigRootVolume(des.RootVolume, initial.RootVolume, opts...)
 	cDes.Taints = canonicalizeNodePoolConfigTaintsSlice(des.Taints, initial.Taints, opts...)
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
-	if dcl.IsZeroValue(des.Tags) {
+	if dcl.IsZeroValue(des.Tags) || (dcl.IsEmptyValueIndirect(des.Tags) && dcl.IsEmptyValueIndirect(initial.Tags)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
@@ -855,17 +863,20 @@ func canonicalizeNodePoolConfigRootVolume(des, initial *NodePoolConfigRootVolume
 
 	cDes := &NodePoolConfigRootVolume{}
 
-	if dcl.IsZeroValue(des.SizeGib) {
+	if dcl.IsZeroValue(des.SizeGib) || (dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
 	}
-	if dcl.IsZeroValue(des.VolumeType) {
+	if dcl.IsZeroValue(des.VolumeType) || (dcl.IsEmptyValueIndirect(des.VolumeType) && dcl.IsEmptyValueIndirect(initial.VolumeType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.VolumeType = initial.VolumeType
 	} else {
 		cDes.VolumeType = des.VolumeType
 	}
-	if dcl.IsZeroValue(des.Iops) {
+	if dcl.IsZeroValue(des.Iops) || (dcl.IsEmptyValueIndirect(des.Iops) && dcl.IsEmptyValueIndirect(initial.Iops)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Iops = initial.Iops
 	} else {
 		cDes.Iops = des.Iops
@@ -995,7 +1006,8 @@ func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts .
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Effect) {
+	if dcl.IsZeroValue(des.Effect) || (dcl.IsEmptyValueIndirect(des.Effect) && dcl.IsEmptyValueIndirect(initial.Effect)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Effect = initial.Effect
 	} else {
 		cDes.Effect = des.Effect
@@ -1343,12 +1355,14 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 
 	cDes := &NodePoolAutoscaling{}
 
-	if dcl.IsZeroValue(des.MinNodeCount) {
+	if dcl.IsZeroValue(des.MinNodeCount) || (dcl.IsEmptyValueIndirect(des.MinNodeCount) && dcl.IsEmptyValueIndirect(initial.MinNodeCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinNodeCount = initial.MinNodeCount
 	} else {
 		cDes.MinNodeCount = des.MinNodeCount
 	}
-	if dcl.IsZeroValue(des.MaxNodeCount) {
+	if dcl.IsZeroValue(des.MaxNodeCount) || (dcl.IsEmptyValueIndirect(des.MaxNodeCount) && dcl.IsEmptyValueIndirect(initial.MaxNodeCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxNodeCount = initial.MaxNodeCount
 	} else {
 		cDes.MaxNodeCount = des.MaxNodeCount
@@ -1459,7 +1473,8 @@ func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstrai
 
 	cDes := &NodePoolMaxPodsConstraint{}
 
-	if dcl.IsZeroValue(des.MaxPodsPerNode) {
+	if dcl.IsZeroValue(des.MaxPodsPerNode) || (dcl.IsEmptyValueIndirect(des.MaxPodsPerNode) && dcl.IsEmptyValueIndirect(initial.MaxPodsPerNode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxPodsPerNode = initial.MaxPodsPerNode
 	} else {
 		cDes.MaxPodsPerNode = des.MaxPodsPerNode
@@ -3041,7 +3056,7 @@ func flattenNodePoolConfigRootVolumeVolumeTypeEnumSlice(c *Client, i interface{}
 func flattenNodePoolConfigRootVolumeVolumeTypeEnum(i interface{}) *NodePoolConfigRootVolumeVolumeTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NodePoolConfigRootVolumeVolumeTypeEnumRef("")
+		return nil
 	}
 
 	return NodePoolConfigRootVolumeVolumeTypeEnumRef(s)
@@ -3092,7 +3107,7 @@ func flattenNodePoolConfigTaintsEffectEnumSlice(c *Client, i interface{}) []Node
 func flattenNodePoolConfigTaintsEffectEnum(i interface{}) *NodePoolConfigTaintsEffectEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NodePoolConfigTaintsEffectEnumRef("")
+		return nil
 	}
 
 	return NodePoolConfigTaintsEffectEnumRef(s)
@@ -3143,7 +3158,7 @@ func flattenNodePoolStateEnumSlice(c *Client, i interface{}) []NodePoolStateEnum
 func flattenNodePoolStateEnum(i interface{}) *NodePoolStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NodePoolStateEnumRef("")
+		return nil
 	}
 
 	return NodePoolStateEnumRef(s)

@@ -368,6 +368,11 @@ func (c *Client) reservationDiffsForRawDesired(ctx context.Context, rawDesired *
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Reservation: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Reservation: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractReservationFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeReservationInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -413,7 +418,8 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.SlotCapacity) {
+	if dcl.IsZeroValue(rawDesired.SlotCapacity) || (dcl.IsEmptyValueIndirect(rawDesired.SlotCapacity) && dcl.IsEmptyValueIndirect(rawInitial.SlotCapacity)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.SlotCapacity = rawInitial.SlotCapacity
 	} else {
 		canonicalDesired.SlotCapacity = rawDesired.SlotCapacity
@@ -423,7 +429,8 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	} else {
 		canonicalDesired.IgnoreIdleSlots = rawDesired.IgnoreIdleSlots
 	}
-	if dcl.IsZeroValue(rawDesired.MaxConcurrency) {
+	if dcl.IsZeroValue(rawDesired.MaxConcurrency) || (dcl.IsEmptyValueIndirect(rawDesired.MaxConcurrency) && dcl.IsEmptyValueIndirect(rawInitial.MaxConcurrency)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MaxConcurrency = rawInitial.MaxConcurrency
 	} else {
 		canonicalDesired.MaxConcurrency = rawDesired.MaxConcurrency

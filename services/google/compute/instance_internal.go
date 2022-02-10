@@ -1130,6 +1130,11 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Instance: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractInstanceFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeInstanceInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -1194,12 +1199,14 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Hostname = rawDesired.Hostname
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Metadata) {
+	if dcl.IsZeroValue(rawDesired.Metadata) || (dcl.IsEmptyValueIndirect(rawDesired.Metadata) && dcl.IsEmptyValueIndirect(rawInitial.Metadata)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Metadata = rawInitial.Metadata
 	} else {
 		canonicalDesired.Metadata = rawDesired.Metadata
@@ -1223,7 +1230,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	canonicalDesired.Scheduling = canonicalizeInstanceScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
 	canonicalDesired.ServiceAccounts = canonicalizeInstanceServiceAccountsSlice(rawDesired.ServiceAccounts, rawInitial.ServiceAccounts, opts...)
 	canonicalDesired.ShieldedInstanceConfig = canonicalizeInstanceShieldedInstanceConfig(rawDesired.ShieldedInstanceConfig, rawInitial.ShieldedInstanceConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.Status) {
+	if dcl.IsZeroValue(rawDesired.Status) || (dcl.IsEmptyValueIndirect(rawDesired.Status) && dcl.IsEmptyValueIndirect(rawInitial.Status)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Status = rawInitial.Status
 	} else {
 		canonicalDesired.Status = rawDesired.Status
@@ -1443,18 +1451,21 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 		cDes.DeviceName = des.DeviceName
 	}
 	cDes.DiskEncryptionKey = canonicalizeInstanceDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
-	if dcl.IsZeroValue(des.Index) {
+	if dcl.IsZeroValue(des.Index) || (dcl.IsEmptyValueIndirect(des.Index) && dcl.IsEmptyValueIndirect(initial.Index)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Index = initial.Index
 	} else {
 		cDes.Index = des.Index
 	}
 	cDes.InitializeParams = canonicalizeInstanceDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
-	if dcl.IsZeroValue(des.Interface) {
+	if dcl.IsZeroValue(des.Interface) || (dcl.IsEmptyValueIndirect(des.Interface) && dcl.IsEmptyValueIndirect(initial.Interface)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interface = initial.Interface
 	} else {
 		cDes.Interface = des.Interface
 	}
-	if dcl.IsZeroValue(des.Mode) {
+	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -1464,7 +1475,8 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 	} else {
 		cDes.Source = des.Source
 	}
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -1721,7 +1733,8 @@ func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitia
 	} else {
 		cDes.DiskName = des.DiskName
 	}
-	if dcl.IsZeroValue(des.DiskSizeGb) {
+	if dcl.IsZeroValue(des.DiskSizeGb) || (dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
@@ -1972,7 +1985,8 @@ func canonicalizeInstanceGuestAccelerators(des, initial *InstanceGuestAccelerato
 
 	cDes := &InstanceGuestAccelerators{}
 
-	if dcl.IsZeroValue(des.AcceleratorCount) {
+	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -2252,12 +2266,14 @@ func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNe
 	} else {
 		cDes.PublicPtrDomainName = des.PublicPtrDomainName
 	}
-	if dcl.IsZeroValue(des.NetworkTier) {
+	if dcl.IsZeroValue(des.NetworkTier) || (dcl.IsEmptyValueIndirect(des.NetworkTier) && dcl.IsEmptyValueIndirect(initial.NetworkTier)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NetworkTier = initial.NetworkTier
 	} else {
 		cDes.NetworkTier = des.NetworkTier
 	}
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -2407,12 +2423,14 @@ func canonicalizeInstanceNetworkInterfacesIPv6AccessConfigs(des, initial *Instan
 	} else {
 		cDes.PublicPtrDomainName = des.PublicPtrDomainName
 	}
-	if dcl.IsZeroValue(des.NetworkTier) {
+	if dcl.IsZeroValue(des.NetworkTier) || (dcl.IsEmptyValueIndirect(des.NetworkTier) && dcl.IsEmptyValueIndirect(initial.NetworkTier)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NetworkTier = initial.NetworkTier
 	} else {
 		cDes.NetworkTier = des.NetworkTier
 	}
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -5723,7 +5741,7 @@ func flattenInstanceDisksInterfaceEnumSlice(c *Client, i interface{}) []Instance
 func flattenInstanceDisksInterfaceEnum(i interface{}) *InstanceDisksInterfaceEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceDisksInterfaceEnumRef("")
+		return nil
 	}
 
 	return InstanceDisksInterfaceEnumRef(s)
@@ -5774,7 +5792,7 @@ func flattenInstanceDisksModeEnumSlice(c *Client, i interface{}) []InstanceDisks
 func flattenInstanceDisksModeEnum(i interface{}) *InstanceDisksModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceDisksModeEnumRef("")
+		return nil
 	}
 
 	return InstanceDisksModeEnumRef(s)
@@ -5825,7 +5843,7 @@ func flattenInstanceDisksTypeEnumSlice(c *Client, i interface{}) []InstanceDisks
 func flattenInstanceDisksTypeEnum(i interface{}) *InstanceDisksTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceDisksTypeEnumRef("")
+		return nil
 	}
 
 	return InstanceDisksTypeEnumRef(s)
@@ -5876,7 +5894,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumSlice(c *Client
 func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnum(i interface{}) *InstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceNetworkInterfacesAccessConfigsNetworkTierEnumRef("")
+		return nil
 	}
 
 	return InstanceNetworkInterfacesAccessConfigsNetworkTierEnumRef(s)
@@ -5927,7 +5945,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumSlice(c *Client, i int
 func flattenInstanceNetworkInterfacesAccessConfigsTypeEnum(i interface{}) *InstanceNetworkInterfacesAccessConfigsTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceNetworkInterfacesAccessConfigsTypeEnumRef("")
+		return nil
 	}
 
 	return InstanceNetworkInterfacesAccessConfigsTypeEnumRef(s)
@@ -5978,7 +5996,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumSlice(c *Cl
 func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(i interface{}) *InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumRef("")
+		return nil
 	}
 
 	return InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumRef(s)
@@ -6029,7 +6047,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumSlice(c *Client, i
 func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(i interface{}) *InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceNetworkInterfacesIPv6AccessConfigsTypeEnumRef("")
+		return nil
 	}
 
 	return InstanceNetworkInterfacesIPv6AccessConfigsTypeEnumRef(s)
@@ -6080,7 +6098,7 @@ func flattenInstanceStatusEnumSlice(c *Client, i interface{}) []InstanceStatusEn
 func flattenInstanceStatusEnum(i interface{}) *InstanceStatusEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceStatusEnumRef("")
+		return nil
 	}
 
 	return InstanceStatusEnumRef(s)

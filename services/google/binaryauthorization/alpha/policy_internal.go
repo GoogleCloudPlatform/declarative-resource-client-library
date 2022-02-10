@@ -240,6 +240,11 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Policy: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Policy: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractPolicyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizePolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -344,17 +349,20 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 
 	canonicalDesired := &Policy{}
 	canonicalDesired.AdmissionWhitelistPatterns = canonicalizePolicyAdmissionWhitelistPatternsSlice(rawDesired.AdmissionWhitelistPatterns, rawInitial.AdmissionWhitelistPatterns, opts...)
-	if dcl.IsZeroValue(rawDesired.ClusterAdmissionRules) {
+	if dcl.IsZeroValue(rawDesired.ClusterAdmissionRules) || (dcl.IsEmptyValueIndirect(rawDesired.ClusterAdmissionRules) && dcl.IsEmptyValueIndirect(rawInitial.ClusterAdmissionRules)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ClusterAdmissionRules = rawInitial.ClusterAdmissionRules
 	} else {
 		canonicalDesired.ClusterAdmissionRules = rawDesired.ClusterAdmissionRules
 	}
-	if dcl.IsZeroValue(rawDesired.KubernetesNamespaceAdmissionRules) {
+	if dcl.IsZeroValue(rawDesired.KubernetesNamespaceAdmissionRules) || (dcl.IsEmptyValueIndirect(rawDesired.KubernetesNamespaceAdmissionRules) && dcl.IsEmptyValueIndirect(rawInitial.KubernetesNamespaceAdmissionRules)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.KubernetesNamespaceAdmissionRules = rawInitial.KubernetesNamespaceAdmissionRules
 	} else {
 		canonicalDesired.KubernetesNamespaceAdmissionRules = rawDesired.KubernetesNamespaceAdmissionRules
 	}
-	if dcl.IsZeroValue(rawDesired.KubernetesServiceAccountAdmissionRules) {
+	if dcl.IsZeroValue(rawDesired.KubernetesServiceAccountAdmissionRules) || (dcl.IsEmptyValueIndirect(rawDesired.KubernetesServiceAccountAdmissionRules) && dcl.IsEmptyValueIndirect(rawInitial.KubernetesServiceAccountAdmissionRules)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.KubernetesServiceAccountAdmissionRules = rawInitial.KubernetesServiceAccountAdmissionRules
 	} else {
 		canonicalDesired.KubernetesServiceAccountAdmissionRules = rawDesired.KubernetesServiceAccountAdmissionRules
@@ -370,7 +378,8 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.GlobalPolicyEvaluationMode) {
+	if dcl.IsZeroValue(rawDesired.GlobalPolicyEvaluationMode) || (dcl.IsEmptyValueIndirect(rawDesired.GlobalPolicyEvaluationMode) && dcl.IsEmptyValueIndirect(rawInitial.GlobalPolicyEvaluationMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.GlobalPolicyEvaluationMode = rawInitial.GlobalPolicyEvaluationMode
 	} else {
 		canonicalDesired.GlobalPolicyEvaluationMode = rawDesired.GlobalPolicyEvaluationMode
@@ -581,7 +590,8 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 
 	cDes := &PolicyAdmissionRule{}
 
-	if dcl.IsZeroValue(des.EvaluationMode) {
+	if dcl.IsZeroValue(des.EvaluationMode) || (dcl.IsEmptyValueIndirect(des.EvaluationMode) && dcl.IsEmptyValueIndirect(initial.EvaluationMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.EvaluationMode = initial.EvaluationMode
 	} else {
 		cDes.EvaluationMode = des.EvaluationMode
@@ -591,7 +601,8 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 	} else {
 		cDes.RequireAttestationsBy = des.RequireAttestationsBy
 	}
-	if dcl.IsZeroValue(des.EnforcementMode) {
+	if dcl.IsZeroValue(des.EnforcementMode) || (dcl.IsEmptyValueIndirect(des.EnforcementMode) && dcl.IsEmptyValueIndirect(initial.EnforcementMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.EnforcementMode = initial.EnforcementMode
 	} else {
 		cDes.EnforcementMode = des.EnforcementMode
@@ -1265,7 +1276,7 @@ func flattenPolicyAdmissionRuleEvaluationModeEnumSlice(c *Client, i interface{})
 func flattenPolicyAdmissionRuleEvaluationModeEnum(i interface{}) *PolicyAdmissionRuleEvaluationModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PolicyAdmissionRuleEvaluationModeEnumRef("")
+		return nil
 	}
 
 	return PolicyAdmissionRuleEvaluationModeEnumRef(s)
@@ -1316,7 +1327,7 @@ func flattenPolicyAdmissionRuleEnforcementModeEnumSlice(c *Client, i interface{}
 func flattenPolicyAdmissionRuleEnforcementModeEnum(i interface{}) *PolicyAdmissionRuleEnforcementModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PolicyAdmissionRuleEnforcementModeEnumRef("")
+		return nil
 	}
 
 	return PolicyAdmissionRuleEnforcementModeEnumRef(s)
@@ -1367,7 +1378,7 @@ func flattenPolicyGlobalPolicyEvaluationModeEnumSlice(c *Client, i interface{}) 
 func flattenPolicyGlobalPolicyEvaluationModeEnum(i interface{}) *PolicyGlobalPolicyEvaluationModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PolicyGlobalPolicyEvaluationModeEnumRef("")
+		return nil
 	}
 
 	return PolicyGlobalPolicyEvaluationModeEnumRef(s)

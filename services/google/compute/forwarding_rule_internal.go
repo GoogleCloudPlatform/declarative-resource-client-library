@@ -571,6 +571,11 @@ func (c *Client) forwardingRuleDiffsForRawDesired(ctx context.Context, rawDesire
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for ForwardingRule: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for ForwardingRule: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractForwardingRuleFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeForwardingRuleInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -611,7 +616,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 		return rawDesired, nil
 	}
 	canonicalDesired := &ForwardingRule{}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -641,12 +647,14 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.IPAddress = rawDesired.IPAddress
 	}
-	if dcl.IsZeroValue(rawDesired.IPProtocol) {
+	if dcl.IsZeroValue(rawDesired.IPProtocol) || (dcl.IsEmptyValueIndirect(rawDesired.IPProtocol) && dcl.IsEmptyValueIndirect(rawInitial.IPProtocol)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.IPProtocol = rawInitial.IPProtocol
 	} else {
 		canonicalDesired.IPProtocol = rawDesired.IPProtocol
 	}
-	if dcl.IsZeroValue(rawDesired.IPVersion) {
+	if dcl.IsZeroValue(rawDesired.IPVersion) || (dcl.IsEmptyValueIndirect(rawDesired.IPVersion) && dcl.IsEmptyValueIndirect(rawInitial.IPVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.IPVersion = rawInitial.IPVersion
 	} else {
 		canonicalDesired.IPVersion = rawDesired.IPVersion
@@ -656,7 +664,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.IsMirroringCollector = rawDesired.IsMirroringCollector
 	}
-	if dcl.IsZeroValue(rawDesired.LoadBalancingScheme) {
+	if dcl.IsZeroValue(rawDesired.LoadBalancingScheme) || (dcl.IsEmptyValueIndirect(rawDesired.LoadBalancingScheme) && dcl.IsEmptyValueIndirect(rawInitial.LoadBalancingScheme)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.LoadBalancingScheme = rawInitial.LoadBalancingScheme
 	} else {
 		canonicalDesired.LoadBalancingScheme = rawDesired.LoadBalancingScheme
@@ -672,7 +681,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Network = rawDesired.Network
 	}
-	if dcl.IsZeroValue(rawDesired.NetworkTier) {
+	if dcl.IsZeroValue(rawDesired.NetworkTier) || (dcl.IsEmptyValueIndirect(rawDesired.NetworkTier) && dcl.IsEmptyValueIndirect(rawInitial.NetworkTier)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.NetworkTier = rawInitial.NetworkTier
 	} else {
 		canonicalDesired.NetworkTier = rawDesired.NetworkTier
@@ -925,7 +935,8 @@ func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetada
 
 	cDes := &ForwardingRuleMetadataFilter{}
 
-	if dcl.IsZeroValue(des.FilterMatchCriteria) {
+	if dcl.IsZeroValue(des.FilterMatchCriteria) || (dcl.IsEmptyValueIndirect(des.FilterMatchCriteria) && dcl.IsEmptyValueIndirect(initial.FilterMatchCriteria)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FilterMatchCriteria = initial.FilterMatchCriteria
 	} else {
 		cDes.FilterMatchCriteria = des.FilterMatchCriteria
@@ -1933,7 +1944,7 @@ func flattenForwardingRuleIPProtocolEnumSlice(c *Client, i interface{}) []Forwar
 func flattenForwardingRuleIPProtocolEnum(i interface{}) *ForwardingRuleIPProtocolEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ForwardingRuleIPProtocolEnumRef("")
+		return nil
 	}
 
 	return ForwardingRuleIPProtocolEnumRef(s)
@@ -1984,7 +1995,7 @@ func flattenForwardingRuleIPVersionEnumSlice(c *Client, i interface{}) []Forward
 func flattenForwardingRuleIPVersionEnum(i interface{}) *ForwardingRuleIPVersionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ForwardingRuleIPVersionEnumRef("")
+		return nil
 	}
 
 	return ForwardingRuleIPVersionEnumRef(s)
@@ -2035,7 +2046,7 @@ func flattenForwardingRuleLoadBalancingSchemeEnumSlice(c *Client, i interface{})
 func flattenForwardingRuleLoadBalancingSchemeEnum(i interface{}) *ForwardingRuleLoadBalancingSchemeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ForwardingRuleLoadBalancingSchemeEnumRef("")
+		return nil
 	}
 
 	return ForwardingRuleLoadBalancingSchemeEnumRef(s)
@@ -2086,7 +2097,7 @@ func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice(c *Client, 
 func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(i interface{}) *ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ForwardingRuleMetadataFilterFilterMatchCriteriaEnumRef("")
+		return nil
 	}
 
 	return ForwardingRuleMetadataFilterFilterMatchCriteriaEnumRef(s)
@@ -2137,7 +2148,7 @@ func flattenForwardingRuleNetworkTierEnumSlice(c *Client, i interface{}) []Forwa
 func flattenForwardingRuleNetworkTierEnum(i interface{}) *ForwardingRuleNetworkTierEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ForwardingRuleNetworkTierEnumRef("")
+		return nil
 	}
 
 	return ForwardingRuleNetworkTierEnumRef(s)

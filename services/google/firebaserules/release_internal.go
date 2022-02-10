@@ -338,6 +338,11 @@ func (c *Client) releaseDiffsForRawDesired(ctx context.Context, rawDesired *Rele
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Release: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Release: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractReleaseFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeReleaseInitialState(rawInitial, rawDesired)
 	if err != nil {

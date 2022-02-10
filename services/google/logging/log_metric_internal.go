@@ -427,6 +427,11 @@ func (c *Client) logMetricDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for LogMetric: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for LogMetric: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractLogMetricFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeLogMetricInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -495,7 +500,8 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 	} else {
 		canonicalDesired.ValueExtractor = rawDesired.ValueExtractor
 	}
-	if dcl.IsZeroValue(rawDesired.LabelExtractors) {
+	if dcl.IsZeroValue(rawDesired.LabelExtractors) || (dcl.IsEmptyValueIndirect(rawDesired.LabelExtractors) && dcl.IsEmptyValueIndirect(rawInitial.LabelExtractors)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.LabelExtractors = rawInitial.LabelExtractors
 	} else {
 		canonicalDesired.LabelExtractors = rawDesired.LabelExtractors
@@ -599,7 +605,8 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 	cDes := &LogMetricMetricDescriptor{}
 
 	cDes.Labels = canonicalizeLogMetricMetricDescriptorLabelsSlice(des.Labels, initial.Labels, opts...)
-	if dcl.IsZeroValue(des.MetricKind) {
+	if dcl.IsZeroValue(des.MetricKind) || (dcl.IsEmptyValueIndirect(des.MetricKind) && dcl.IsEmptyValueIndirect(initial.MetricKind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MetricKind = initial.MetricKind
 	} else {
 		cDes.MetricKind = des.MetricKind
@@ -620,7 +627,8 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 		cDes.DisplayName = des.DisplayName
 	}
 	cDes.Metadata = canonicalizeLogMetricMetricDescriptorMetadata(des.Metadata, initial.Metadata, opts...)
-	if dcl.IsZeroValue(des.LaunchStage) {
+	if dcl.IsZeroValue(des.LaunchStage) || (dcl.IsEmptyValueIndirect(des.LaunchStage) && dcl.IsEmptyValueIndirect(initial.LaunchStage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LaunchStage = initial.LaunchStage
 	} else {
 		cDes.LaunchStage = des.LaunchStage
@@ -1153,17 +1161,20 @@ func canonicalizeLogMetricBucketOptionsLinearBuckets(des, initial *LogMetricBuck
 
 	cDes := &LogMetricBucketOptionsLinearBuckets{}
 
-	if dcl.IsZeroValue(des.NumFiniteBuckets) {
+	if dcl.IsZeroValue(des.NumFiniteBuckets) || (dcl.IsEmptyValueIndirect(des.NumFiniteBuckets) && dcl.IsEmptyValueIndirect(initial.NumFiniteBuckets)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumFiniteBuckets = initial.NumFiniteBuckets
 	} else {
 		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
-	if dcl.IsZeroValue(des.Width) {
+	if dcl.IsZeroValue(des.Width) || (dcl.IsEmptyValueIndirect(des.Width) && dcl.IsEmptyValueIndirect(initial.Width)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Width = initial.Width
 	} else {
 		cDes.Width = des.Width
 	}
-	if dcl.IsZeroValue(des.Offset) {
+	if dcl.IsZeroValue(des.Offset) || (dcl.IsEmptyValueIndirect(des.Offset) && dcl.IsEmptyValueIndirect(initial.Offset)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Offset = initial.Offset
 	} else {
 		cDes.Offset = des.Offset
@@ -1274,17 +1285,20 @@ func canonicalizeLogMetricBucketOptionsExponentialBuckets(des, initial *LogMetri
 
 	cDes := &LogMetricBucketOptionsExponentialBuckets{}
 
-	if dcl.IsZeroValue(des.NumFiniteBuckets) {
+	if dcl.IsZeroValue(des.NumFiniteBuckets) || (dcl.IsEmptyValueIndirect(des.NumFiniteBuckets) && dcl.IsEmptyValueIndirect(initial.NumFiniteBuckets)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumFiniteBuckets = initial.NumFiniteBuckets
 	} else {
 		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
-	if dcl.IsZeroValue(des.GrowthFactor) {
+	if dcl.IsZeroValue(des.GrowthFactor) || (dcl.IsEmptyValueIndirect(des.GrowthFactor) && dcl.IsEmptyValueIndirect(initial.GrowthFactor)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GrowthFactor = initial.GrowthFactor
 	} else {
 		cDes.GrowthFactor = des.GrowthFactor
 	}
-	if dcl.IsZeroValue(des.Scale) {
+	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -1395,7 +1409,8 @@ func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBu
 
 	cDes := &LogMetricBucketOptionsExplicitBuckets{}
 
-	if dcl.IsZeroValue(des.Bounds) {
+	if dcl.IsZeroValue(des.Bounds) || (dcl.IsEmptyValueIndirect(des.Bounds) && dcl.IsEmptyValueIndirect(initial.Bounds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Bounds = initial.Bounds
 	} else {
 		cDes.Bounds = des.Bounds
@@ -2966,7 +2981,7 @@ func flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i inter
 func flattenLogMetricMetricDescriptorLabelsValueTypeEnum(i interface{}) *LogMetricMetricDescriptorLabelsValueTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return LogMetricMetricDescriptorLabelsValueTypeEnumRef("")
+		return nil
 	}
 
 	return LogMetricMetricDescriptorLabelsValueTypeEnumRef(s)
@@ -3017,7 +3032,7 @@ func flattenLogMetricMetricDescriptorMetricKindEnumSlice(c *Client, i interface{
 func flattenLogMetricMetricDescriptorMetricKindEnum(i interface{}) *LogMetricMetricDescriptorMetricKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return LogMetricMetricDescriptorMetricKindEnumRef("")
+		return nil
 	}
 
 	return LogMetricMetricDescriptorMetricKindEnumRef(s)
@@ -3068,7 +3083,7 @@ func flattenLogMetricMetricDescriptorValueTypeEnumSlice(c *Client, i interface{}
 func flattenLogMetricMetricDescriptorValueTypeEnum(i interface{}) *LogMetricMetricDescriptorValueTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return LogMetricMetricDescriptorValueTypeEnumRef("")
+		return nil
 	}
 
 	return LogMetricMetricDescriptorValueTypeEnumRef(s)
@@ -3119,7 +3134,7 @@ func flattenLogMetricMetricDescriptorLaunchStageEnumSlice(c *Client, i interface
 func flattenLogMetricMetricDescriptorLaunchStageEnum(i interface{}) *LogMetricMetricDescriptorLaunchStageEnum {
 	s, ok := i.(string)
 	if !ok {
-		return LogMetricMetricDescriptorLaunchStageEnumRef("")
+		return nil
 	}
 
 	return LogMetricMetricDescriptorLaunchStageEnumRef(s)

@@ -376,6 +376,11 @@ func (c *Client) folderDiffsForRawDesired(ctx context.Context, rawDesired *Folde
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Folder: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Folder: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractFolderFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeFolderInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -416,7 +421,8 @@ func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Folder{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -693,7 +699,7 @@ func flattenFolderStateEnumSlice(c *Client, i interface{}) []FolderStateEnum {
 func flattenFolderStateEnum(i interface{}) *FolderStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return FolderStateEnumRef("")
+		return nil
 	}
 
 	return FolderStateEnumRef(s)

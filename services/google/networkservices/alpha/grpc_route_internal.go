@@ -525,6 +525,11 @@ func (c *Client) grpcRouteDiffsForRawDesired(ctx context.Context, rawDesired *Gr
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for GrpcRoute: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for GrpcRoute: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractGrpcRouteFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeGrpcRouteInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -570,7 +575,8 @@ func canonicalizeGrpcRouteDesiredState(rawDesired, rawInitial *GrpcRoute, opts .
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -949,7 +955,8 @@ func canonicalizeGrpcRouteRulesMatchesMethod(des, initial *GrpcRouteRulesMatches
 
 	cDes := &GrpcRouteRulesMatchesMethod{}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -1085,7 +1092,8 @@ func canonicalizeGrpcRouteRulesMatchesHeaders(des, initial *GrpcRouteRulesMatche
 
 	cDes := &GrpcRouteRulesMatchesHeaders{}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -1344,7 +1352,8 @@ func canonicalizeGrpcRouteRulesActionDestinations(des, initial *GrpcRouteRulesAc
 
 	cDes := &GrpcRouteRulesActionDestinations{}
 
-	if dcl.IsZeroValue(des.Weight) {
+	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -1620,7 +1629,8 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelay(des, initial *Grp
 	} else {
 		cDes.FixedDelay = des.FixedDelay
 	}
-	if dcl.IsZeroValue(des.Percentage) {
+	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
@@ -1755,12 +1765,14 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbort(des, initial *Grp
 
 	cDes := &GrpcRouteRulesActionFaultInjectionPolicyAbort{}
 
-	if dcl.IsZeroValue(des.HttpStatus) {
+	if dcl.IsZeroValue(des.HttpStatus) || (dcl.IsEmptyValueIndirect(des.HttpStatus) && dcl.IsEmptyValueIndirect(initial.HttpStatus)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.HttpStatus = initial.HttpStatus
 	} else {
 		cDes.HttpStatus = des.HttpStatus
 	}
-	if dcl.IsZeroValue(des.Percentage) {
+	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
@@ -1876,7 +1888,8 @@ func canonicalizeGrpcRouteRulesActionRetryPolicy(des, initial *GrpcRouteRulesAct
 	} else {
 		cDes.RetryConditions = des.RetryConditions
 	}
-	if dcl.IsZeroValue(des.NumRetries) {
+	if dcl.IsZeroValue(des.NumRetries) || (dcl.IsEmptyValueIndirect(des.NumRetries) && dcl.IsEmptyValueIndirect(initial.NumRetries)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumRetries = initial.NumRetries
 	} else {
 		cDes.NumRetries = des.NumRetries
@@ -3869,7 +3882,7 @@ func flattenGrpcRouteRulesMatchesMethodTypeEnumSlice(c *Client, i interface{}) [
 func flattenGrpcRouteRulesMatchesMethodTypeEnum(i interface{}) *GrpcRouteRulesMatchesMethodTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GrpcRouteRulesMatchesMethodTypeEnumRef("")
+		return nil
 	}
 
 	return GrpcRouteRulesMatchesMethodTypeEnumRef(s)
@@ -3920,7 +3933,7 @@ func flattenGrpcRouteRulesMatchesHeadersTypeEnumSlice(c *Client, i interface{}) 
 func flattenGrpcRouteRulesMatchesHeadersTypeEnum(i interface{}) *GrpcRouteRulesMatchesHeadersTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GrpcRouteRulesMatchesHeadersTypeEnumRef("")
+		return nil
 	}
 
 	return GrpcRouteRulesMatchesHeadersTypeEnumRef(s)

@@ -582,6 +582,11 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Cluster: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractClusterFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeClusterInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -645,7 +650,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	}
 	canonicalDesired.ControlPlane = canonicalizeClusterControlPlane(rawDesired.ControlPlane, rawInitial.ControlPlane, opts...)
 	canonicalDesired.Authorization = canonicalizeClusterAuthorization(rawDesired.Authorization, rawInitial.Authorization, opts...)
-	if dcl.IsZeroValue(rawDesired.Annotations) {
+	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -955,7 +961,8 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 	cDes.RootVolume = canonicalizeClusterControlPlaneRootVolume(des.RootVolume, initial.RootVolume, opts...)
 	cDes.MainVolume = canonicalizeClusterControlPlaneMainVolume(des.MainVolume, initial.MainVolume, opts...)
 	cDes.DatabaseEncryption = canonicalizeClusterControlPlaneDatabaseEncryption(des.DatabaseEncryption, initial.DatabaseEncryption, opts...)
-	if dcl.IsZeroValue(des.Tags) {
+	if dcl.IsZeroValue(des.Tags) || (dcl.IsEmptyValueIndirect(des.Tags) && dcl.IsEmptyValueIndirect(initial.Tags)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
@@ -1321,17 +1328,20 @@ func canonicalizeClusterControlPlaneRootVolume(des, initial *ClusterControlPlane
 
 	cDes := &ClusterControlPlaneRootVolume{}
 
-	if dcl.IsZeroValue(des.SizeGib) {
+	if dcl.IsZeroValue(des.SizeGib) || (dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
 	}
-	if dcl.IsZeroValue(des.VolumeType) {
+	if dcl.IsZeroValue(des.VolumeType) || (dcl.IsEmptyValueIndirect(des.VolumeType) && dcl.IsEmptyValueIndirect(initial.VolumeType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.VolumeType = initial.VolumeType
 	} else {
 		cDes.VolumeType = des.VolumeType
 	}
-	if dcl.IsZeroValue(des.Iops) {
+	if dcl.IsZeroValue(des.Iops) || (dcl.IsEmptyValueIndirect(des.Iops) && dcl.IsEmptyValueIndirect(initial.Iops)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Iops = initial.Iops
 	} else {
 		cDes.Iops = des.Iops
@@ -1451,17 +1461,20 @@ func canonicalizeClusterControlPlaneMainVolume(des, initial *ClusterControlPlane
 
 	cDes := &ClusterControlPlaneMainVolume{}
 
-	if dcl.IsZeroValue(des.SizeGib) {
+	if dcl.IsZeroValue(des.SizeGib) || (dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
 	}
-	if dcl.IsZeroValue(des.VolumeType) {
+	if dcl.IsZeroValue(des.VolumeType) || (dcl.IsEmptyValueIndirect(des.VolumeType) && dcl.IsEmptyValueIndirect(initial.VolumeType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.VolumeType = initial.VolumeType
 	} else {
 		cDes.VolumeType = des.VolumeType
 	}
-	if dcl.IsZeroValue(des.Iops) {
+	if dcl.IsZeroValue(des.Iops) || (dcl.IsEmptyValueIndirect(des.Iops) && dcl.IsEmptyValueIndirect(initial.Iops)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Iops = initial.Iops
 	} else {
 		cDes.Iops = des.Iops
@@ -4887,7 +4900,7 @@ func flattenClusterControlPlaneRootVolumeVolumeTypeEnumSlice(c *Client, i interf
 func flattenClusterControlPlaneRootVolumeVolumeTypeEnum(i interface{}) *ClusterControlPlaneRootVolumeVolumeTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterControlPlaneRootVolumeVolumeTypeEnumRef("")
+		return nil
 	}
 
 	return ClusterControlPlaneRootVolumeVolumeTypeEnumRef(s)
@@ -4938,7 +4951,7 @@ func flattenClusterControlPlaneMainVolumeVolumeTypeEnumSlice(c *Client, i interf
 func flattenClusterControlPlaneMainVolumeVolumeTypeEnum(i interface{}) *ClusterControlPlaneMainVolumeVolumeTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterControlPlaneMainVolumeVolumeTypeEnumRef("")
+		return nil
 	}
 
 	return ClusterControlPlaneMainVolumeVolumeTypeEnumRef(s)
@@ -4989,7 +5002,7 @@ func flattenClusterStateEnumSlice(c *Client, i interface{}) []ClusterStateEnum {
 func flattenClusterStateEnum(i interface{}) *ClusterStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterStateEnumRef("")
+		return nil
 	}
 
 	return ClusterStateEnumRef(s)

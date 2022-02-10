@@ -386,6 +386,11 @@ func (c *Client) tenantDiffsForRawDesired(ctx context.Context, rawDesired *Tenan
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Tenant: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Tenant: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractTenantFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeTenantInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -427,7 +432,8 @@ func canonicalizeTenantDesiredState(rawDesired, rawInitial *Tenant, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Tenant{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -458,7 +464,8 @@ func canonicalizeTenantDesiredState(rawDesired, rawInitial *Tenant, opts ...dcl.
 		canonicalDesired.EnableAnonymousUser = rawDesired.EnableAnonymousUser
 	}
 	canonicalDesired.MfaConfig = canonicalizeTenantMfaConfig(rawDesired.MfaConfig, rawInitial.MfaConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.TestPhoneNumbers) {
+	if dcl.IsZeroValue(rawDesired.TestPhoneNumbers) || (dcl.IsEmptyValueIndirect(rawDesired.TestPhoneNumbers) && dcl.IsEmptyValueIndirect(rawInitial.TestPhoneNumbers)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.TestPhoneNumbers = rawInitial.TestPhoneNumbers
 	} else {
 		canonicalDesired.TestPhoneNumbers = rawDesired.TestPhoneNumbers
@@ -549,12 +556,14 @@ func canonicalizeTenantMfaConfig(des, initial *TenantMfaConfig, opts ...dcl.Appl
 
 	cDes := &TenantMfaConfig{}
 
-	if dcl.IsZeroValue(des.State) {
+	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
-	if dcl.IsZeroValue(des.EnabledProviders) {
+	if dcl.IsZeroValue(des.EnabledProviders) || (dcl.IsEmptyValueIndirect(des.EnabledProviders) && dcl.IsEmptyValueIndirect(initial.EnabledProviders)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.EnabledProviders = initial.EnabledProviders
 	} else {
 		cDes.EnabledProviders = des.EnabledProviders
@@ -1053,7 +1062,7 @@ func flattenTenantMfaConfigStateEnumSlice(c *Client, i interface{}) []TenantMfaC
 func flattenTenantMfaConfigStateEnum(i interface{}) *TenantMfaConfigStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return TenantMfaConfigStateEnumRef("")
+		return nil
 	}
 
 	return TenantMfaConfigStateEnumRef(s)
@@ -1104,7 +1113,7 @@ func flattenTenantMfaConfigEnabledProvidersEnumSlice(c *Client, i interface{}) [
 func flattenTenantMfaConfigEnabledProvidersEnum(i interface{}) *TenantMfaConfigEnabledProvidersEnum {
 	s, ok := i.(string)
 	if !ok {
-		return TenantMfaConfigEnabledProvidersEnumRef("")
+		return nil
 	}
 
 	return TenantMfaConfigEnabledProvidersEnumRef(s)

@@ -429,6 +429,11 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for ServiceAccount: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for ServiceAccount: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractServiceAccountFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeServiceAccountInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -474,6 +479,11 @@ func canonicalizeServiceAccountDesiredState(rawDesired, rawInitial *ServiceAccou
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
+	}
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		canonicalDesired.DisplayName = rawInitial.DisplayName
@@ -814,7 +824,7 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1007,6 +1017,9 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
+	}
+	if v := f.Project; dcl.ValueShouldBeSent(v) {
+		m["projectId"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v

@@ -348,6 +348,11 @@ func (c *Client) roleDiffsForRawDesired(ctx context.Context, rawDesired *Role, o
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Role: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Role: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractRoleFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeRoleInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -425,7 +430,8 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 	} else {
 		canonicalDesired.IncludedPermissions = rawDesired.IncludedPermissions
 	}
-	if dcl.IsZeroValue(rawDesired.Stage) {
+	if dcl.IsZeroValue(rawDesired.Stage) || (dcl.IsEmptyValueIndirect(rawDesired.Stage) && dcl.IsEmptyValueIndirect(rawInitial.Stage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Stage = rawInitial.Stage
 	} else {
 		canonicalDesired.Stage = rawDesired.Stage
@@ -1127,7 +1133,7 @@ func flattenRoleStageEnumSlice(c *Client, i interface{}) []RoleStageEnum {
 func flattenRoleStageEnum(i interface{}) *RoleStageEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RoleStageEnumRef("")
+		return nil
 	}
 
 	return RoleStageEnumRef(s)

@@ -283,6 +283,11 @@ func (c *Client) managedServiceDiffsForRawDesired(ctx context.Context, rawDesire
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for ManagedService: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for ManagedService: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractManagedServiceFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeManagedServiceInitialState(rawInitial, rawDesired)
 	if err != nil {

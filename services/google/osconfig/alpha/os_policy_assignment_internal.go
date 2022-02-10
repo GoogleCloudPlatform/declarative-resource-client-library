@@ -946,6 +946,11 @@ func (c *Client) oSPolicyAssignmentDiffsForRawDesired(ctx context.Context, rawDe
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for OSPolicyAssignment: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for OSPolicyAssignment: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractOSPolicyAssignmentFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeOSPolicyAssignmentInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -1140,7 +1145,8 @@ func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOS
 	} else {
 		cDes.Description = des.Description
 	}
-	if dcl.IsZeroValue(des.Mode) {
+	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -1735,7 +1741,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(des, ini
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{}
 
-	if dcl.IsZeroValue(des.DesiredState) {
+	if dcl.IsZeroValue(des.DesiredState) || (dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
@@ -2383,7 +2390,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -3138,7 +3146,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -3778,7 +3787,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -4051,7 +4061,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{}
 
-	if dcl.IsZeroValue(des.ArchiveType) {
+	if dcl.IsZeroValue(des.ArchiveType) || (dcl.IsEmptyValueIndirect(des.ArchiveType) && dcl.IsEmptyValueIndirect(initial.ArchiveType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ArchiveType = initial.ArchiveType
 	} else {
 		cDes.ArchiveType = des.ArchiveType
@@ -4738,7 +4749,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -5155,7 +5167,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -5304,7 +5317,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -5721,7 +5735,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceF
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -5870,7 +5885,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des, in
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.IsZeroValue(des.State) {
+	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
@@ -6282,7 +6298,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -6521,7 +6538,8 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(des, initial *O
 
 	cDes := &OSPolicyAssignmentInstanceFilterInclusionLabels{}
 
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -6632,7 +6650,8 @@ func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 
 	cDes := &OSPolicyAssignmentInstanceFilterExclusionLabels{}
 
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -7003,12 +7022,14 @@ func canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des, initial *OSPolic
 
 	cDes := &OSPolicyAssignmentRolloutDisruptionBudget{}
 
-	if dcl.IsZeroValue(des.Fixed) {
+	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) {
+	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -14901,7 +14922,7 @@ func flattenOSPolicyAssignmentOSPoliciesModeEnumSlice(c *Client, i interface{}) 
 func flattenOSPolicyAssignmentOSPoliciesModeEnum(i interface{}) *OSPolicyAssignmentOSPoliciesModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentOSPoliciesModeEnumRef("")
+		return nil
 	}
 
 	return OSPolicyAssignmentOSPoliciesModeEnumRef(s)
@@ -14952,7 +14973,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEn
 func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum(i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef("")
+		return nil
 	}
 
 	return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef(s)
@@ -15003,7 +15024,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArch
 func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum(i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef("")
+		return nil
 	}
 
 	return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef(s)
@@ -15054,7 +15075,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInter
 func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumRef("")
+		return nil
 	}
 
 	return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumRef(s)
@@ -15105,7 +15126,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterp
 func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumRef("")
+		return nil
 	}
 
 	return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumRef(s)
@@ -15156,7 +15177,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumSlic
 func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumRef("")
+		return nil
 	}
 
 	return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumRef(s)
@@ -15207,7 +15228,7 @@ func flattenOSPolicyAssignmentRolloutStateEnumSlice(c *Client, i interface{}) []
 func flattenOSPolicyAssignmentRolloutStateEnum(i interface{}) *OSPolicyAssignmentRolloutStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentRolloutStateEnumRef("")
+		return nil
 	}
 
 	return OSPolicyAssignmentRolloutStateEnumRef(s)

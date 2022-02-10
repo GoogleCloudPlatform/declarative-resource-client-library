@@ -318,6 +318,11 @@ func (c *Client) routeDiffsForRawDesired(ctx context.Context, rawDesired *Route,
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Route: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Route: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractRouteFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeRouteInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -464,7 +469,8 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 	} else {
 		canonicalDesired.DestRange = rawDesired.DestRange
 	}
-	if dcl.IsZeroValue(rawDesired.Priority) {
+	if dcl.IsZeroValue(rawDesired.Priority) || (dcl.IsEmptyValueIndirect(rawDesired.Priority) && dcl.IsEmptyValueIndirect(rawInitial.Priority)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Priority = rawInitial.Priority
 	} else {
 		canonicalDesired.Priority = rawDesired.Priority
@@ -1229,7 +1235,7 @@ func flattenRouteWarningCodeEnumSlice(c *Client, i interface{}) []RouteWarningCo
 func flattenRouteWarningCodeEnum(i interface{}) *RouteWarningCodeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RouteWarningCodeEnumRef("")
+		return nil
 	}
 
 	return RouteWarningCodeEnumRef(s)

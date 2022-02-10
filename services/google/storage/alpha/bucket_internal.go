@@ -454,6 +454,11 @@ func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucke
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Bucket: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Bucket: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractBucketFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeBucketInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -516,7 +521,8 @@ func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.
 	canonicalDesired.Cors = canonicalizeBucketCorsSlice(rawDesired.Cors, rawInitial.Cors, opts...)
 	canonicalDesired.Lifecycle = canonicalizeBucketLifecycle(rawDesired.Lifecycle, rawInitial.Lifecycle, opts...)
 	canonicalDesired.Logging = canonicalizeBucketLogging(rawDesired.Logging, rawInitial.Logging, opts...)
-	if dcl.IsZeroValue(rawDesired.StorageClass) {
+	if dcl.IsZeroValue(rawDesired.StorageClass) || (dcl.IsEmptyValueIndirect(rawDesired.StorageClass) && dcl.IsEmptyValueIndirect(rawInitial.StorageClass)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.StorageClass = rawInitial.StorageClass
 	} else {
 		canonicalDesired.StorageClass = rawDesired.StorageClass
@@ -599,7 +605,8 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 
 	cDes := &BucketCors{}
 
-	if dcl.IsZeroValue(des.MaxAgeSeconds) {
+	if dcl.IsZeroValue(des.MaxAgeSeconds) || (dcl.IsEmptyValueIndirect(des.MaxAgeSeconds) && dcl.IsEmptyValueIndirect(initial.MaxAgeSeconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxAgeSeconds = initial.MaxAgeSeconds
 	} else {
 		cDes.MaxAgeSeconds = des.MaxAgeSeconds
@@ -960,7 +967,8 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 	} else {
 		cDes.StorageClass = des.StorageClass
 	}
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -1075,17 +1083,20 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 
 	cDes := &BucketLifecycleRuleCondition{}
 
-	if dcl.IsZeroValue(des.Age) {
+	if dcl.IsZeroValue(des.Age) || (dcl.IsEmptyValueIndirect(des.Age) && dcl.IsEmptyValueIndirect(initial.Age)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Age = initial.Age
 	} else {
 		cDes.Age = des.Age
 	}
-	if dcl.IsZeroValue(des.CreatedBefore) {
+	if dcl.IsZeroValue(des.CreatedBefore) || (dcl.IsEmptyValueIndirect(des.CreatedBefore) && dcl.IsEmptyValueIndirect(initial.CreatedBefore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CreatedBefore = initial.CreatedBefore
 	} else {
 		cDes.CreatedBefore = des.CreatedBefore
 	}
-	if dcl.IsZeroValue(des.WithState) {
+	if dcl.IsZeroValue(des.WithState) || (dcl.IsEmptyValueIndirect(des.WithState) && dcl.IsEmptyValueIndirect(initial.WithState)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.WithState = initial.WithState
 	} else {
 		cDes.WithState = des.WithState
@@ -1095,7 +1106,8 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 	} else {
 		cDes.MatchesStorageClass = des.MatchesStorageClass
 	}
-	if dcl.IsZeroValue(des.NumNewerVersions) {
+	if dcl.IsZeroValue(des.NumNewerVersions) || (dcl.IsEmptyValueIndirect(des.NumNewerVersions) && dcl.IsEmptyValueIndirect(initial.NumNewerVersions)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumNewerVersions = initial.NumNewerVersions
 	} else {
 		cDes.NumNewerVersions = des.NumNewerVersions
@@ -3083,7 +3095,7 @@ func flattenBucketLifecycleRuleActionTypeEnumSlice(c *Client, i interface{}) []B
 func flattenBucketLifecycleRuleActionTypeEnum(i interface{}) *BucketLifecycleRuleActionTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BucketLifecycleRuleActionTypeEnumRef("")
+		return nil
 	}
 
 	return BucketLifecycleRuleActionTypeEnumRef(s)
@@ -3134,7 +3146,7 @@ func flattenBucketLifecycleRuleConditionWithStateEnumSlice(c *Client, i interfac
 func flattenBucketLifecycleRuleConditionWithStateEnum(i interface{}) *BucketLifecycleRuleConditionWithStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BucketLifecycleRuleConditionWithStateEnumRef("")
+		return nil
 	}
 
 	return BucketLifecycleRuleConditionWithStateEnumRef(s)
@@ -3185,7 +3197,7 @@ func flattenBucketStorageClassEnumSlice(c *Client, i interface{}) []BucketStorag
 func flattenBucketStorageClassEnum(i interface{}) *BucketStorageClassEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BucketStorageClassEnumRef("")
+		return nil
 	}
 
 	return BucketStorageClassEnumRef(s)

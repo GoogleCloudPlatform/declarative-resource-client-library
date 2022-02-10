@@ -468,6 +468,11 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Membership: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Membership: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractMembershipFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeMembershipInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -517,7 +522,8 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -533,7 +539,8 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 		canonicalDesired.ExternalId = rawDesired.ExternalId
 	}
 	canonicalDesired.Authority = canonicalizeMembershipAuthority(rawDesired.Authority, rawInitial.Authority, opts...)
-	if dcl.IsZeroValue(rawDesired.InfrastructureType) {
+	if dcl.IsZeroValue(rawDesired.InfrastructureType) || (dcl.IsEmptyValueIndirect(rawDesired.InfrastructureType) && dcl.IsEmptyValueIndirect(rawInitial.InfrastructureType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.InfrastructureType = rawInitial.InfrastructureType
 	} else {
 		canonicalDesired.InfrastructureType = rawDesired.InfrastructureType
@@ -3420,7 +3427,7 @@ func flattenMembershipStateCodeEnumSlice(c *Client, i interface{}) []MembershipS
 func flattenMembershipStateCodeEnum(i interface{}) *MembershipStateCodeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MembershipStateCodeEnumRef("")
+		return nil
 	}
 
 	return MembershipStateCodeEnumRef(s)
@@ -3471,7 +3478,7 @@ func flattenMembershipInfrastructureTypeEnumSlice(c *Client, i interface{}) []Me
 func flattenMembershipInfrastructureTypeEnum(i interface{}) *MembershipInfrastructureTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MembershipInfrastructureTypeEnumRef("")
+		return nil
 	}
 
 	return MembershipInfrastructureTypeEnumRef(s)

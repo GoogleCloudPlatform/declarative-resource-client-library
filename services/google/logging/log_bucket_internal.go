@@ -327,6 +327,11 @@ func (c *Client) logBucketDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for LogBucket: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for LogBucket: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractLogBucketFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeLogBucketInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -377,7 +382,8 @@ func canonicalizeLogBucketDesiredState(rawDesired, rawInitial *LogBucket, opts .
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.RetentionDays) {
+	if dcl.IsZeroValue(rawDesired.RetentionDays) || (dcl.IsEmptyValueIndirect(rawDesired.RetentionDays) && dcl.IsEmptyValueIndirect(rawInitial.RetentionDays)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.RetentionDays = rawInitial.RetentionDays
 	} else {
 		canonicalDesired.RetentionDays = rawDesired.RetentionDays
@@ -696,7 +702,7 @@ func flattenLogBucketLifecycleStateEnumSlice(c *Client, i interface{}) []LogBuck
 func flattenLogBucketLifecycleStateEnum(i interface{}) *LogBucketLifecycleStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return LogBucketLifecycleStateEnumRef("")
+		return nil
 	}
 
 	return LogBucketLifecycleStateEnumRef(s)

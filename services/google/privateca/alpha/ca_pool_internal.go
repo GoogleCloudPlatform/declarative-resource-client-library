@@ -556,6 +556,11 @@ func (c *Client) caPoolDiffsForRawDesired(ctx context.Context, rawDesired *CaPoo
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for CaPool: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for CaPool: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractCaPoolFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeCaPoolInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -603,14 +608,16 @@ func canonicalizeCaPoolDesiredState(rawDesired, rawInitial *CaPool, opts ...dcl.
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Tier) {
+	if dcl.IsZeroValue(rawDesired.Tier) || (dcl.IsEmptyValueIndirect(rawDesired.Tier) && dcl.IsEmptyValueIndirect(rawInitial.Tier)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Tier = rawInitial.Tier
 	} else {
 		canonicalDesired.Tier = rawDesired.Tier
 	}
 	canonicalDesired.IssuancePolicy = canonicalizeCaPoolIssuancePolicy(rawDesired.IssuancePolicy, rawInitial.IssuancePolicy, opts...)
 	canonicalDesired.PublishingOptions = canonicalizeCaPoolPublishingOptions(rawDesired.PublishingOptions, rawInitial.PublishingOptions, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -938,12 +945,14 @@ func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesRsa(des, initial *CaPoolIssu
 
 	cDes := &CaPoolIssuancePolicyAllowedKeyTypesRsa{}
 
-	if dcl.IsZeroValue(des.MinModulusSize) {
+	if dcl.IsZeroValue(des.MinModulusSize) || (dcl.IsEmptyValueIndirect(des.MinModulusSize) && dcl.IsEmptyValueIndirect(initial.MinModulusSize)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinModulusSize = initial.MinModulusSize
 	} else {
 		cDes.MinModulusSize = des.MinModulusSize
 	}
-	if dcl.IsZeroValue(des.MaxModulusSize) {
+	if dcl.IsZeroValue(des.MaxModulusSize) || (dcl.IsEmptyValueIndirect(des.MaxModulusSize) && dcl.IsEmptyValueIndirect(initial.MaxModulusSize)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxModulusSize = initial.MaxModulusSize
 	} else {
 		cDes.MaxModulusSize = des.MaxModulusSize
@@ -1054,7 +1063,8 @@ func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(des, initial *
 
 	cDes := &CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve{}
 
-	if dcl.IsZeroValue(des.SignatureAlgorithm) {
+	if dcl.IsZeroValue(des.SignatureAlgorithm) || (dcl.IsEmptyValueIndirect(des.SignatureAlgorithm) && dcl.IsEmptyValueIndirect(initial.SignatureAlgorithm)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SignatureAlgorithm = initial.SignatureAlgorithm
 	} else {
 		cDes.SignatureAlgorithm = des.SignatureAlgorithm
@@ -1858,7 +1868,8 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsa
 
 	cDes := &CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -1974,7 +1985,8 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesCaOptions(des, initial *CaPoo
 	} else {
 		cDes.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
+	if dcl.IsZeroValue(des.MaxIssuerPathLength) || (dcl.IsEmptyValueIndirect(des.MaxIssuerPathLength) && dcl.IsEmptyValueIndirect(initial.MaxIssuerPathLength)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
@@ -2090,7 +2102,8 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesPolicyIds(des, initial *CaPoo
 
 	cDes := &CaPoolIssuancePolicyBaselineValuesPolicyIds{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2326,7 +2339,8 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(
 
 	cDes := &CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2701,7 +2715,8 @@ func canonicalizeCaPoolIssuancePolicyPassthroughExtensions(des, initial *CaPoolI
 
 	cDes := &CaPoolIssuancePolicyPassthroughExtensions{}
 
-	if dcl.IsZeroValue(des.KnownExtensions) {
+	if dcl.IsZeroValue(des.KnownExtensions) || (dcl.IsEmptyValueIndirect(des.KnownExtensions) && dcl.IsEmptyValueIndirect(initial.KnownExtensions)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.KnownExtensions = initial.KnownExtensions
 	} else {
 		cDes.KnownExtensions = des.KnownExtensions
@@ -2815,7 +2830,8 @@ func canonicalizeCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(d
 
 	cDes := &CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -6424,7 +6440,7 @@ func flattenCaPoolTierEnumSlice(c *Client, i interface{}) []CaPoolTierEnum {
 func flattenCaPoolTierEnum(i interface{}) *CaPoolTierEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CaPoolTierEnumRef("")
+		return nil
 	}
 
 	return CaPoolTierEnumRef(s)
@@ -6475,7 +6491,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEn
 func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum(i interface{}) *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumRef("")
+		return nil
 	}
 
 	return CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumRef(s)
@@ -6526,7 +6542,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumSlice(c 
 func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum(i interface{}) *CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumRef("")
+		return nil
 	}
 
 	return CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumRef(s)

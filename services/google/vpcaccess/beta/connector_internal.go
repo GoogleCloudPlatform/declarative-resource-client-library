@@ -320,6 +320,11 @@ func (c *Client) connectorDiffsForRawDesired(ctx context.Context, rawDesired *Co
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Connector: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Connector: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractConnectorFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeConnectorInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -376,12 +381,14 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	} else {
 		canonicalDesired.IPCidrRange = rawDesired.IPCidrRange
 	}
-	if dcl.IsZeroValue(rawDesired.MinThroughput) {
+	if dcl.IsZeroValue(rawDesired.MinThroughput) || (dcl.IsEmptyValueIndirect(rawDesired.MinThroughput) && dcl.IsEmptyValueIndirect(rawInitial.MinThroughput)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MinThroughput = rawInitial.MinThroughput
 	} else {
 		canonicalDesired.MinThroughput = rawDesired.MinThroughput
 	}
-	if dcl.IsZeroValue(rawDesired.MaxThroughput) {
+	if dcl.IsZeroValue(rawDesired.MaxThroughput) || (dcl.IsEmptyValueIndirect(rawDesired.MaxThroughput) && dcl.IsEmptyValueIndirect(rawInitial.MaxThroughput)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MaxThroughput = rawInitial.MaxThroughput
 	} else {
 		canonicalDesired.MaxThroughput = rawDesired.MaxThroughput
@@ -392,12 +399,14 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	} else {
 		canonicalDesired.MachineType = rawDesired.MachineType
 	}
-	if dcl.IsZeroValue(rawDesired.MinInstances) {
+	if dcl.IsZeroValue(rawDesired.MinInstances) || (dcl.IsEmptyValueIndirect(rawDesired.MinInstances) && dcl.IsEmptyValueIndirect(rawInitial.MinInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MinInstances = rawInitial.MinInstances
 	} else {
 		canonicalDesired.MinInstances = rawDesired.MinInstances
 	}
-	if dcl.IsZeroValue(rawDesired.MaxInstances) {
+	if dcl.IsZeroValue(rawDesired.MaxInstances) || (dcl.IsEmptyValueIndirect(rawDesired.MaxInstances) && dcl.IsEmptyValueIndirect(rawInitial.MaxInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MaxInstances = rawInitial.MaxInstances
 	} else {
 		canonicalDesired.MaxInstances = rawDesired.MaxInstances
@@ -1054,7 +1063,7 @@ func flattenConnectorStateEnumSlice(c *Client, i interface{}) []ConnectorStateEn
 func flattenConnectorStateEnum(i interface{}) *ConnectorStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConnectorStateEnumRef("")
+		return nil
 	}
 
 	return ConnectorStateEnumRef(s)

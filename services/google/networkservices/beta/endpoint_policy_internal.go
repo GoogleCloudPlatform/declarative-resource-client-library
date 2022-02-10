@@ -446,6 +446,11 @@ func (c *Client) endpointPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for EndpointPolicy: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for EndpointPolicy: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractEndpointPolicyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeEndpointPolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -493,12 +498,14 @@ func canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial *EndpointPoli
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Type) {
+	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
@@ -743,7 +750,8 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 
 	cDes := &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
 
-	if dcl.IsZeroValue(des.MetadataLabelMatchCriteria) {
+	if dcl.IsZeroValue(des.MetadataLabelMatchCriteria) || (dcl.IsEmptyValueIndirect(des.MetadataLabelMatchCriteria) && dcl.IsEmptyValueIndirect(initial.MetadataLabelMatchCriteria)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MetadataLabelMatchCriteria = initial.MetadataLabelMatchCriteria
 	} else {
 		cDes.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
@@ -1974,7 +1982,7 @@ func flattenEndpointPolicyTypeEnumSlice(c *Client, i interface{}) []EndpointPoli
 func flattenEndpointPolicyTypeEnum(i interface{}) *EndpointPolicyTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return EndpointPolicyTypeEnumRef("")
+		return nil
 	}
 
 	return EndpointPolicyTypeEnumRef(s)
@@ -2025,7 +2033,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchC
 func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(i interface{}) *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
 	s, ok := i.(string)
 	if !ok {
-		return EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumRef("")
+		return nil
 	}
 
 	return EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumRef(s)

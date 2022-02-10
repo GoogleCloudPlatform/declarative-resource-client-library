@@ -35,6 +35,7 @@ class ServiceAccount(object):
 
         channel.initialize()
         self.name = name
+        self.project = project
         self.display_name = display_name
         self.description = description
         self.actas_resources = actas_resources
@@ -47,6 +48,9 @@ class ServiceAccount(object):
         request = service_account_pb2.ApplyIamBetaServiceAccountRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
@@ -84,6 +88,9 @@ class ServiceAccount(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
@@ -113,6 +120,8 @@ class ServiceAccount(object):
         resource = service_account_pb2.IamBetaServiceAccount()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
         if Primitive.to_proto(self.description):

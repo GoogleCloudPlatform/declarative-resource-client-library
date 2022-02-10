@@ -161,9 +161,6 @@ components:
               x-dcl-go-type: CertificateCertificateDescriptionPublicKey
               description: The public key that corresponds to an issued certificate.
               x-kubernetes-immutable: true
-              required:
-              - key
-              - format
               properties:
                 format:
                   type: string
@@ -386,9 +383,6 @@ components:
                   items:
                     type: object
                     x-dcl-go-type: CertificateCertificateDescriptionX509DescriptionAdditionalExtensions
-                    required:
-                    - objectId
-                    - value
                     properties:
                       critical:
                         type: boolean
@@ -404,8 +398,6 @@ components:
                         x-dcl-go-type: CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId
                         description: Required. The OID for this X.509 extension.
                         x-kubernetes-immutable: true
-                        required:
-                        - objectIdPath
                         properties:
                           objectIdPath:
                             type: array
@@ -583,8 +575,6 @@ components:
                       items:
                         type: object
                         x-dcl-go-type: CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages
-                        required:
-                        - objectIdPath
                         properties:
                           objectIdPath:
                             type: array
@@ -609,8 +599,6 @@ components:
                   items:
                     type: object
                     x-dcl-go-type: CertificateCertificateDescriptionX509DescriptionPolicyIds
-                    required:
-                    - objectIdPath
                     properties:
                       objectIdPath:
                         type: array

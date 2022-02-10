@@ -537,6 +537,11 @@ func (c *Client) privateCloudDiffsForRawDesired(ctx context.Context, rawDesired 
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for PrivateCloud: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for PrivateCloud: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractPrivateCloudFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizePrivateCloudInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -587,7 +592,8 @@ func canonicalizePrivateCloudDesiredState(rawDesired, rawInitial *PrivateCloud, 
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -854,7 +860,8 @@ func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagem
 	} else {
 		cDes.NodeTypeId = des.NodeTypeId
 	}
-	if dcl.IsZeroValue(des.NodeCount) {
+	if dcl.IsZeroValue(des.NodeCount) || (dcl.IsEmptyValueIndirect(des.NodeCount) && dcl.IsEmptyValueIndirect(initial.NodeCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NodeCount = initial.NodeCount
 	} else {
 		cDes.NodeCount = des.NodeCount
@@ -2804,7 +2811,7 @@ func flattenPrivateCloudStateEnumSlice(c *Client, i interface{}) []PrivateCloudS
 func flattenPrivateCloudStateEnum(i interface{}) *PrivateCloudStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PrivateCloudStateEnumRef("")
+		return nil
 	}
 
 	return PrivateCloudStateEnumRef(s)

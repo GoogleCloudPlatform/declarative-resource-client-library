@@ -340,6 +340,11 @@ func (c *Client) tagKeyDiffsForRawDesired(ctx context.Context, rawDesired *TagKe
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for TagKey: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for TagKey: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractTagKeyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeTagKeyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -380,7 +385,8 @@ func canonicalizeTagKeyDesiredState(rawDesired, rawInitial *TagKey, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &TagKey{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -400,12 +406,14 @@ func canonicalizeTagKeyDesiredState(rawDesired, rawInitial *TagKey, opts ...dcl.
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Purpose) {
+	if dcl.IsZeroValue(rawDesired.Purpose) || (dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Purpose = rawInitial.Purpose
 	} else {
 		canonicalDesired.Purpose = rawDesired.Purpose
 	}
-	if dcl.IsZeroValue(rawDesired.PurposeData) {
+	if dcl.IsZeroValue(rawDesired.PurposeData) || (dcl.IsEmptyValueIndirect(rawDesired.PurposeData) && dcl.IsEmptyValueIndirect(rawInitial.PurposeData)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.PurposeData = rawInitial.PurposeData
 	} else {
 		canonicalDesired.PurposeData = rawDesired.PurposeData
@@ -717,7 +725,7 @@ func flattenTagKeyPurposeEnumSlice(c *Client, i interface{}) []TagKeyPurposeEnum
 func flattenTagKeyPurposeEnum(i interface{}) *TagKeyPurposeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return TagKeyPurposeEnumRef("")
+		return nil
 	}
 
 	return TagKeyPurposeEnumRef(s)

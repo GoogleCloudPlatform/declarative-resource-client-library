@@ -363,6 +363,11 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Project: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Project: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractProjectFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeProjectInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -403,7 +408,8 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &Project{}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -676,7 +682,7 @@ func flattenProjectLifecycleStateEnumSlice(c *Client, i interface{}) []ProjectLi
 func flattenProjectLifecycleStateEnum(i interface{}) *ProjectLifecycleStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ProjectLifecycleStateEnumRef("")
+		return nil
 	}
 
 	return ProjectLifecycleStateEnumRef(s)

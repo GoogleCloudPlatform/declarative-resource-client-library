@@ -222,7 +222,9 @@ components:
             version:
               type: string
               x-dcl-go-name: Version
-              description: Version of ACM installed.
+              description: Optional. Version of ACM to install. Defaults to the latest
+                version.
+              x-dcl-server-default: true
         feature:
           type: string
           x-dcl-go-name: Feature

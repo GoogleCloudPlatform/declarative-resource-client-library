@@ -380,6 +380,11 @@ func (c *Client) cryptoKeyDiffsForRawDesired(ctx context.Context, rawDesired *Cr
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for CryptoKey: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for CryptoKey: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractCryptoKeyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeCryptoKeyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -422,17 +427,20 @@ func canonicalizeCryptoKeyDesiredState(rawDesired, rawInitial *CryptoKey, opts .
 		return rawDesired, nil
 	}
 	canonicalDesired := &CryptoKey{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Purpose) {
+	if dcl.IsZeroValue(rawDesired.Purpose) || (dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Purpose = rawInitial.Purpose
 	} else {
 		canonicalDesired.Purpose = rawDesired.Purpose
 	}
-	if dcl.IsZeroValue(rawDesired.NextRotationTime) {
+	if dcl.IsZeroValue(rawDesired.NextRotationTime) || (dcl.IsEmptyValueIndirect(rawDesired.NextRotationTime) && dcl.IsEmptyValueIndirect(rawInitial.NextRotationTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.NextRotationTime = rawInitial.NextRotationTime
 	} else {
 		canonicalDesired.NextRotationTime = rawDesired.NextRotationTime
@@ -443,7 +451,8 @@ func canonicalizeCryptoKeyDesiredState(rawDesired, rawInitial *CryptoKey, opts .
 		canonicalDesired.RotationPeriod = rawDesired.RotationPeriod
 	}
 	canonicalDesired.VersionTemplate = canonicalizeCryptoKeyVersionTemplate(rawDesired.VersionTemplate, rawInitial.VersionTemplate, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -563,12 +572,14 @@ func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.Ap
 
 	cDes := &CryptoKeyPrimary{}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.State) {
+	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
@@ -1048,12 +1059,14 @@ func canonicalizeCryptoKeyVersionTemplate(des, initial *CryptoKeyVersionTemplate
 
 	cDes := &CryptoKeyVersionTemplate{}
 
-	if dcl.IsZeroValue(des.ProtectionLevel) {
+	if dcl.IsZeroValue(des.ProtectionLevel) || (dcl.IsEmptyValueIndirect(des.ProtectionLevel) && dcl.IsEmptyValueIndirect(initial.ProtectionLevel)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ProtectionLevel = initial.ProtectionLevel
 	} else {
 		cDes.ProtectionLevel = des.ProtectionLevel
 	}
-	if dcl.IsZeroValue(des.Algorithm) {
+	if dcl.IsZeroValue(des.Algorithm) || (dcl.IsEmptyValueIndirect(des.Algorithm) && dcl.IsEmptyValueIndirect(initial.Algorithm)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Algorithm = initial.Algorithm
 	} else {
 		cDes.Algorithm = des.Algorithm
@@ -2323,7 +2336,7 @@ func flattenCryptoKeyPrimaryStateEnumSlice(c *Client, i interface{}) []CryptoKey
 func flattenCryptoKeyPrimaryStateEnum(i interface{}) *CryptoKeyPrimaryStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CryptoKeyPrimaryStateEnumRef("")
+		return nil
 	}
 
 	return CryptoKeyPrimaryStateEnumRef(s)
@@ -2374,7 +2387,7 @@ func flattenCryptoKeyPrimaryProtectionLevelEnumSlice(c *Client, i interface{}) [
 func flattenCryptoKeyPrimaryProtectionLevelEnum(i interface{}) *CryptoKeyPrimaryProtectionLevelEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CryptoKeyPrimaryProtectionLevelEnumRef("")
+		return nil
 	}
 
 	return CryptoKeyPrimaryProtectionLevelEnumRef(s)
@@ -2425,7 +2438,7 @@ func flattenCryptoKeyPrimaryAlgorithmEnumSlice(c *Client, i interface{}) []Crypt
 func flattenCryptoKeyPrimaryAlgorithmEnum(i interface{}) *CryptoKeyPrimaryAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CryptoKeyPrimaryAlgorithmEnumRef("")
+		return nil
 	}
 
 	return CryptoKeyPrimaryAlgorithmEnumRef(s)
@@ -2476,7 +2489,7 @@ func flattenCryptoKeyPrimaryAttestationFormatEnumSlice(c *Client, i interface{})
 func flattenCryptoKeyPrimaryAttestationFormatEnum(i interface{}) *CryptoKeyPrimaryAttestationFormatEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CryptoKeyPrimaryAttestationFormatEnumRef("")
+		return nil
 	}
 
 	return CryptoKeyPrimaryAttestationFormatEnumRef(s)
@@ -2527,7 +2540,7 @@ func flattenCryptoKeyPurposeEnumSlice(c *Client, i interface{}) []CryptoKeyPurpo
 func flattenCryptoKeyPurposeEnum(i interface{}) *CryptoKeyPurposeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CryptoKeyPurposeEnumRef("")
+		return nil
 	}
 
 	return CryptoKeyPurposeEnumRef(s)
@@ -2578,7 +2591,7 @@ func flattenCryptoKeyVersionTemplateProtectionLevelEnumSlice(c *Client, i interf
 func flattenCryptoKeyVersionTemplateProtectionLevelEnum(i interface{}) *CryptoKeyVersionTemplateProtectionLevelEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CryptoKeyVersionTemplateProtectionLevelEnumRef("")
+		return nil
 	}
 
 	return CryptoKeyVersionTemplateProtectionLevelEnumRef(s)
@@ -2629,7 +2642,7 @@ func flattenCryptoKeyVersionTemplateAlgorithmEnumSlice(c *Client, i interface{})
 func flattenCryptoKeyVersionTemplateAlgorithmEnum(i interface{}) *CryptoKeyVersionTemplateAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CryptoKeyVersionTemplateAlgorithmEnumRef("")
+		return nil
 	}
 
 	return CryptoKeyVersionTemplateAlgorithmEnumRef(s)

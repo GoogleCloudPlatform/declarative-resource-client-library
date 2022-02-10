@@ -414,6 +414,11 @@ func (c *Client) budgetDiffsForRawDesired(ctx context.Context, rawDesired *Budge
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Budget: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Budget: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractBudgetFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeBudgetInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -457,7 +462,8 @@ func canonicalizeBudgetDesiredState(rawDesired, rawInitial *Budget, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Budget{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -576,7 +582,8 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 	} else {
 		cDes.CreditTypes = des.CreditTypes
 	}
-	if dcl.IsZeroValue(des.CreditTypesTreatment) {
+	if dcl.IsZeroValue(des.CreditTypesTreatment) || (dcl.IsEmptyValueIndirect(des.CreditTypesTreatment) && dcl.IsEmptyValueIndirect(initial.CreditTypesTreatment)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CreditTypesTreatment = initial.CreditTypesTreatment
 	} else {
 		cDes.CreditTypesTreatment = des.CreditTypesTreatment
@@ -591,12 +598,14 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 	} else {
 		cDes.Subaccounts = des.Subaccounts
 	}
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
-	if dcl.IsZeroValue(des.CalendarPeriod) {
+	if dcl.IsZeroValue(des.CalendarPeriod) || (dcl.IsEmptyValueIndirect(des.CalendarPeriod) && dcl.IsEmptyValueIndirect(initial.CalendarPeriod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CalendarPeriod = initial.CalendarPeriod
 	} else {
 		cDes.CalendarPeriod = des.CalendarPeriod
@@ -948,17 +957,20 @@ func canonicalizeBudgetBudgetFilterCustomPeriodStartDate(des, initial *BudgetBud
 
 	cDes := &BudgetBudgetFilterCustomPeriodStartDate{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -1069,17 +1081,20 @@ func canonicalizeBudgetBudgetFilterCustomPeriodEndDate(des, initial *BudgetBudge
 
 	cDes := &BudgetBudgetFilterCustomPeriodEndDate{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -1326,12 +1341,14 @@ func canonicalizeBudgetAmountSpecifiedAmount(des, initial *BudgetAmountSpecified
 	} else {
 		cDes.CurrencyCode = des.CurrencyCode
 	}
-	if dcl.IsZeroValue(des.Units) {
+	if dcl.IsZeroValue(des.Units) || (dcl.IsEmptyValueIndirect(des.Units) && dcl.IsEmptyValueIndirect(initial.Units)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Units = initial.Units
 	} else {
 		cDes.Units = des.Units
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -1550,12 +1567,14 @@ func canonicalizeBudgetThresholdRules(des, initial *BudgetThresholdRules, opts .
 
 	cDes := &BudgetThresholdRules{}
 
-	if dcl.IsZeroValue(des.ThresholdPercent) {
+	if dcl.IsZeroValue(des.ThresholdPercent) || (dcl.IsEmptyValueIndirect(des.ThresholdPercent) && dcl.IsEmptyValueIndirect(initial.ThresholdPercent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ThresholdPercent = initial.ThresholdPercent
 	} else {
 		cDes.ThresholdPercent = des.ThresholdPercent
 	}
-	if dcl.IsZeroValue(des.SpendBasis) {
+	if dcl.IsZeroValue(des.SpendBasis) || (dcl.IsEmptyValueIndirect(des.SpendBasis) && dcl.IsEmptyValueIndirect(initial.SpendBasis)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SpendBasis = initial.SpendBasis
 	} else {
 		cDes.SpendBasis = des.SpendBasis
@@ -3656,7 +3675,7 @@ func flattenBudgetBudgetFilterCreditTypesTreatmentEnumSlice(c *Client, i interfa
 func flattenBudgetBudgetFilterCreditTypesTreatmentEnum(i interface{}) *BudgetBudgetFilterCreditTypesTreatmentEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BudgetBudgetFilterCreditTypesTreatmentEnumRef("")
+		return nil
 	}
 
 	return BudgetBudgetFilterCreditTypesTreatmentEnumRef(s)
@@ -3707,7 +3726,7 @@ func flattenBudgetBudgetFilterCalendarPeriodEnumSlice(c *Client, i interface{}) 
 func flattenBudgetBudgetFilterCalendarPeriodEnum(i interface{}) *BudgetBudgetFilterCalendarPeriodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BudgetBudgetFilterCalendarPeriodEnumRef("")
+		return nil
 	}
 
 	return BudgetBudgetFilterCalendarPeriodEnumRef(s)
@@ -3758,7 +3777,7 @@ func flattenBudgetThresholdRulesSpendBasisEnumSlice(c *Client, i interface{}) []
 func flattenBudgetThresholdRulesSpendBasisEnum(i interface{}) *BudgetThresholdRulesSpendBasisEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BudgetThresholdRulesSpendBasisEnumRef("")
+		return nil
 	}
 
 	return BudgetThresholdRulesSpendBasisEnumRef(s)

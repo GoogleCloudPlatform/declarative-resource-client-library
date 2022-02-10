@@ -2139,6 +2139,11 @@ func (c *Client) deidentifyTemplateDiffsForRawDesired(ctx context.Context, rawDe
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for DeidentifyTemplate: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for DeidentifyTemplate: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractDeidentifyTemplateFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeDeidentifyTemplateInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -2180,7 +2185,8 @@ func canonicalizeDeidentifyTemplateDesiredState(rawDesired, rawInitial *Deidenti
 		return rawDesired, nil
 	}
 	canonicalDesired := &DeidentifyTemplate{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -3167,12 +3173,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -3187,14 +3195,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -3314,22 +3324,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -3440,17 +3454,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -3670,7 +3687,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.MaskingCharacter = des.MaskingCharacter
 	}
-	if dcl.IsZeroValue(des.NumberToMask) {
+	if dcl.IsZeroValue(des.NumberToMask) || (dcl.IsEmptyValueIndirect(des.NumberToMask) && dcl.IsEmptyValueIndirect(initial.NumberToMask)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumberToMask = initial.NumberToMask
 	} else {
 		cDes.NumberToMask = des.NumberToMask
@@ -3820,7 +3838,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.CharactersToSkip = des.CharactersToSkip
 	}
-	if dcl.IsZeroValue(des.CommonCharactersToIgnore) {
+	if dcl.IsZeroValue(des.CommonCharactersToIgnore) || (dcl.IsEmptyValueIndirect(des.CommonCharactersToIgnore) && dcl.IsEmptyValueIndirect(initial.CommonCharactersToIgnore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CommonCharactersToIgnore = initial.CommonCharactersToIgnore
 	} else {
 		cDes.CommonCharactersToIgnore = des.CommonCharactersToIgnore
@@ -3967,7 +3986,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes.CryptoKey = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(des.CryptoKey, initial.CryptoKey, opts...)
 	cDes.Context = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(des.Context, initial.Context, opts...)
-	if dcl.IsZeroValue(des.CommonAlphabet) {
+	if dcl.IsZeroValue(des.CommonAlphabet) || (dcl.IsEmptyValueIndirect(des.CommonAlphabet) && dcl.IsEmptyValueIndirect(initial.CommonAlphabet)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CommonAlphabet = initial.CommonAlphabet
 	} else {
 		cDes.CommonAlphabet = des.CommonAlphabet
@@ -3977,7 +3997,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.CustomAlphabet = des.CustomAlphabet
 	}
-	if dcl.IsZeroValue(des.Radix) {
+	if dcl.IsZeroValue(des.Radix) || (dcl.IsEmptyValueIndirect(des.Radix) && dcl.IsEmptyValueIndirect(initial.Radix)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Radix = initial.Radix
 	} else {
 		cDes.Radix = des.Radix
@@ -4824,7 +4845,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes.LowerBound = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(des.LowerBound, initial.LowerBound, opts...)
 	cDes.UpperBound = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(des.UpperBound, initial.UpperBound, opts...)
-	if dcl.IsZeroValue(des.BucketSize) {
+	if dcl.IsZeroValue(des.BucketSize) || (dcl.IsEmptyValueIndirect(des.BucketSize) && dcl.IsEmptyValueIndirect(initial.BucketSize)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.BucketSize = initial.BucketSize
 	} else {
 		cDes.BucketSize = des.BucketSize
@@ -5018,12 +5040,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -5038,14 +5062,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -5165,22 +5191,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -5291,17 +5321,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -5492,12 +5525,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -5512,14 +5547,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -5639,22 +5676,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -5765,17 +5806,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -6188,12 +6232,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -6208,14 +6254,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -6335,22 +6383,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -6461,17 +6513,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -6662,12 +6717,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -6682,14 +6739,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -6809,22 +6868,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -6935,17 +6998,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -7136,12 +7202,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -7156,14 +7224,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -7283,22 +7353,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -7409,17 +7483,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -7634,7 +7711,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig{}
 
-	if dcl.IsZeroValue(des.PartToExtract) {
+	if dcl.IsZeroValue(des.PartToExtract) || (dcl.IsEmptyValueIndirect(des.PartToExtract) && dcl.IsEmptyValueIndirect(initial.PartToExtract)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PartToExtract = initial.PartToExtract
 	} else {
 		cDes.PartToExtract = des.PartToExtract
@@ -8360,12 +8438,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 
 	cDes := &DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig{}
 
-	if dcl.IsZeroValue(des.UpperBoundDays) {
+	if dcl.IsZeroValue(des.UpperBoundDays) || (dcl.IsEmptyValueIndirect(des.UpperBoundDays) && dcl.IsEmptyValueIndirect(initial.UpperBoundDays)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.UpperBoundDays = initial.UpperBoundDays
 	} else {
 		cDes.UpperBoundDays = des.UpperBoundDays
 	}
-	if dcl.IsZeroValue(des.LowerBoundDays) {
+	if dcl.IsZeroValue(des.LowerBoundDays) || (dcl.IsEmptyValueIndirect(des.LowerBoundDays) && dcl.IsEmptyValueIndirect(initial.LowerBoundDays)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LowerBoundDays = initial.LowerBoundDays
 	} else {
 		cDes.LowerBoundDays = des.LowerBoundDays
@@ -10411,7 +10491,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions{}
 
-	if dcl.IsZeroValue(des.LogicalOperator) {
+	if dcl.IsZeroValue(des.LogicalOperator) || (dcl.IsEmptyValueIndirect(des.LogicalOperator) && dcl.IsEmptyValueIndirect(initial.LogicalOperator)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LogicalOperator = initial.LogicalOperator
 	} else {
 		cDes.LogicalOperator = des.LogicalOperator
@@ -10635,7 +10716,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions{}
 
 	cDes.Field = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(des.Field, initial.Field, opts...)
-	if dcl.IsZeroValue(des.Operator) {
+	if dcl.IsZeroValue(des.Operator) || (dcl.IsEmptyValueIndirect(des.Operator) && dcl.IsEmptyValueIndirect(initial.Operator)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Operator = initial.Operator
 	} else {
 		cDes.Operator = des.Operator
@@ -10945,12 +11027,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -10965,14 +11049,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -11092,22 +11178,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -11218,17 +11308,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -11767,12 +11860,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -11787,14 +11882,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -11914,22 +12011,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -12040,17 +12141,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -12270,7 +12374,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.MaskingCharacter = des.MaskingCharacter
 	}
-	if dcl.IsZeroValue(des.NumberToMask) {
+	if dcl.IsZeroValue(des.NumberToMask) || (dcl.IsEmptyValueIndirect(des.NumberToMask) && dcl.IsEmptyValueIndirect(initial.NumberToMask)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumberToMask = initial.NumberToMask
 	} else {
 		cDes.NumberToMask = des.NumberToMask
@@ -12420,7 +12525,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.CharactersToSkip = des.CharactersToSkip
 	}
-	if dcl.IsZeroValue(des.CommonCharactersToIgnore) {
+	if dcl.IsZeroValue(des.CommonCharactersToIgnore) || (dcl.IsEmptyValueIndirect(des.CommonCharactersToIgnore) && dcl.IsEmptyValueIndirect(initial.CommonCharactersToIgnore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CommonCharactersToIgnore = initial.CommonCharactersToIgnore
 	} else {
 		cDes.CommonCharactersToIgnore = des.CommonCharactersToIgnore
@@ -12567,7 +12673,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes.CryptoKey = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(des.CryptoKey, initial.CryptoKey, opts...)
 	cDes.Context = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(des.Context, initial.Context, opts...)
-	if dcl.IsZeroValue(des.CommonAlphabet) {
+	if dcl.IsZeroValue(des.CommonAlphabet) || (dcl.IsEmptyValueIndirect(des.CommonAlphabet) && dcl.IsEmptyValueIndirect(initial.CommonAlphabet)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CommonAlphabet = initial.CommonAlphabet
 	} else {
 		cDes.CommonAlphabet = des.CommonAlphabet
@@ -12577,7 +12684,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.CustomAlphabet = des.CustomAlphabet
 	}
-	if dcl.IsZeroValue(des.Radix) {
+	if dcl.IsZeroValue(des.Radix) || (dcl.IsEmptyValueIndirect(des.Radix) && dcl.IsEmptyValueIndirect(initial.Radix)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Radix = initial.Radix
 	} else {
 		cDes.Radix = des.Radix
@@ -13424,7 +13532,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes.LowerBound = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(des.LowerBound, initial.LowerBound, opts...)
 	cDes.UpperBound = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(des.UpperBound, initial.UpperBound, opts...)
-	if dcl.IsZeroValue(des.BucketSize) {
+	if dcl.IsZeroValue(des.BucketSize) || (dcl.IsEmptyValueIndirect(des.BucketSize) && dcl.IsEmptyValueIndirect(initial.BucketSize)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.BucketSize = initial.BucketSize
 	} else {
 		cDes.BucketSize = des.BucketSize
@@ -13618,12 +13727,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -13638,14 +13749,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -13765,22 +13878,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -13891,17 +14008,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -14092,12 +14212,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -14112,14 +14234,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -14239,22 +14363,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -14365,17 +14493,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -14788,12 +14919,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -14808,14 +14941,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -14935,22 +15070,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -15061,17 +15200,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -15262,12 +15404,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -15282,14 +15426,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -15409,22 +15555,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -15535,17 +15685,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -15736,12 +15889,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -15756,14 +15911,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -15883,22 +16040,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -16009,17 +16170,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -16234,7 +16398,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig{}
 
-	if dcl.IsZeroValue(des.PartToExtract) {
+	if dcl.IsZeroValue(des.PartToExtract) || (dcl.IsEmptyValueIndirect(des.PartToExtract) && dcl.IsEmptyValueIndirect(initial.PartToExtract)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PartToExtract = initial.PartToExtract
 	} else {
 		cDes.PartToExtract = des.PartToExtract
@@ -16960,12 +17125,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig{}
 
-	if dcl.IsZeroValue(des.UpperBoundDays) {
+	if dcl.IsZeroValue(des.UpperBoundDays) || (dcl.IsEmptyValueIndirect(des.UpperBoundDays) && dcl.IsEmptyValueIndirect(initial.UpperBoundDays)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.UpperBoundDays = initial.UpperBoundDays
 	} else {
 		cDes.UpperBoundDays = des.UpperBoundDays
 	}
-	if dcl.IsZeroValue(des.LowerBoundDays) {
+	if dcl.IsZeroValue(des.LowerBoundDays) || (dcl.IsEmptyValueIndirect(des.LowerBoundDays) && dcl.IsEmptyValueIndirect(initial.LowerBoundDays)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LowerBoundDays = initial.LowerBoundDays
 	} else {
 		cDes.LowerBoundDays = des.LowerBoundDays
@@ -19294,12 +19461,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -19314,14 +19483,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -19441,22 +19612,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -19567,17 +19742,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -19797,7 +19975,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.MaskingCharacter = des.MaskingCharacter
 	}
-	if dcl.IsZeroValue(des.NumberToMask) {
+	if dcl.IsZeroValue(des.NumberToMask) || (dcl.IsEmptyValueIndirect(des.NumberToMask) && dcl.IsEmptyValueIndirect(initial.NumberToMask)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumberToMask = initial.NumberToMask
 	} else {
 		cDes.NumberToMask = des.NumberToMask
@@ -19947,7 +20126,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.CharactersToSkip = des.CharactersToSkip
 	}
-	if dcl.IsZeroValue(des.CommonCharactersToIgnore) {
+	if dcl.IsZeroValue(des.CommonCharactersToIgnore) || (dcl.IsEmptyValueIndirect(des.CommonCharactersToIgnore) && dcl.IsEmptyValueIndirect(initial.CommonCharactersToIgnore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CommonCharactersToIgnore = initial.CommonCharactersToIgnore
 	} else {
 		cDes.CommonCharactersToIgnore = des.CommonCharactersToIgnore
@@ -20094,7 +20274,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes.CryptoKey = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(des.CryptoKey, initial.CryptoKey, opts...)
 	cDes.Context = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(des.Context, initial.Context, opts...)
-	if dcl.IsZeroValue(des.CommonAlphabet) {
+	if dcl.IsZeroValue(des.CommonAlphabet) || (dcl.IsEmptyValueIndirect(des.CommonAlphabet) && dcl.IsEmptyValueIndirect(initial.CommonAlphabet)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CommonAlphabet = initial.CommonAlphabet
 	} else {
 		cDes.CommonAlphabet = des.CommonAlphabet
@@ -20104,7 +20285,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.CustomAlphabet = des.CustomAlphabet
 	}
-	if dcl.IsZeroValue(des.Radix) {
+	if dcl.IsZeroValue(des.Radix) || (dcl.IsEmptyValueIndirect(des.Radix) && dcl.IsEmptyValueIndirect(initial.Radix)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Radix = initial.Radix
 	} else {
 		cDes.Radix = des.Radix
@@ -20951,7 +21133,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes.LowerBound = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(des.LowerBound, initial.LowerBound, opts...)
 	cDes.UpperBound = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(des.UpperBound, initial.UpperBound, opts...)
-	if dcl.IsZeroValue(des.BucketSize) {
+	if dcl.IsZeroValue(des.BucketSize) || (dcl.IsEmptyValueIndirect(des.BucketSize) && dcl.IsEmptyValueIndirect(initial.BucketSize)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.BucketSize = initial.BucketSize
 	} else {
 		cDes.BucketSize = des.BucketSize
@@ -21145,12 +21328,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -21165,14 +21350,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -21292,22 +21479,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -21418,17 +21609,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -21619,12 +21813,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -21639,14 +21835,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -21766,22 +21964,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -21892,17 +22094,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -22315,12 +22520,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -22335,14 +22542,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -22462,22 +22671,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -22588,17 +22801,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -22789,12 +23005,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -22809,14 +23027,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -22936,22 +23156,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -23062,17 +23286,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -23263,12 +23490,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -23283,14 +23512,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -23410,22 +23641,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -23536,17 +23771,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -23761,7 +23999,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig{}
 
-	if dcl.IsZeroValue(des.PartToExtract) {
+	if dcl.IsZeroValue(des.PartToExtract) || (dcl.IsEmptyValueIndirect(des.PartToExtract) && dcl.IsEmptyValueIndirect(initial.PartToExtract)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PartToExtract = initial.PartToExtract
 	} else {
 		cDes.PartToExtract = des.PartToExtract
@@ -24487,12 +24726,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTra
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig{}
 
-	if dcl.IsZeroValue(des.UpperBoundDays) {
+	if dcl.IsZeroValue(des.UpperBoundDays) || (dcl.IsEmptyValueIndirect(des.UpperBoundDays) && dcl.IsEmptyValueIndirect(initial.UpperBoundDays)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.UpperBoundDays = initial.UpperBoundDays
 	} else {
 		cDes.UpperBoundDays = des.UpperBoundDays
 	}
-	if dcl.IsZeroValue(des.LowerBoundDays) {
+	if dcl.IsZeroValue(des.LowerBoundDays) || (dcl.IsEmptyValueIndirect(des.LowerBoundDays) && dcl.IsEmptyValueIndirect(initial.LowerBoundDays)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LowerBoundDays = initial.LowerBoundDays
 	} else {
 		cDes.LowerBoundDays = des.LowerBoundDays
@@ -26286,7 +26527,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSu
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions{}
 
-	if dcl.IsZeroValue(des.LogicalOperator) {
+	if dcl.IsZeroValue(des.LogicalOperator) || (dcl.IsEmptyValueIndirect(des.LogicalOperator) && dcl.IsEmptyValueIndirect(initial.LogicalOperator)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LogicalOperator = initial.LogicalOperator
 	} else {
 		cDes.LogicalOperator = des.LogicalOperator
@@ -26510,7 +26752,8 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSu
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions{}
 
 	cDes.Field = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(des.Field, initial.Field, opts...)
-	if dcl.IsZeroValue(des.Operator) {
+	if dcl.IsZeroValue(des.Operator) || (dcl.IsEmptyValueIndirect(des.Operator) && dcl.IsEmptyValueIndirect(initial.Operator)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Operator = initial.Operator
 	} else {
 		cDes.Operator = des.Operator
@@ -26820,12 +27063,14 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSu
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue{}
 
-	if dcl.IsZeroValue(des.IntegerValue) {
+	if dcl.IsZeroValue(des.IntegerValue) || (dcl.IsEmptyValueIndirect(des.IntegerValue) && dcl.IsEmptyValueIndirect(initial.IntegerValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegerValue = initial.IntegerValue
 	} else {
 		cDes.IntegerValue = des.IntegerValue
 	}
-	if dcl.IsZeroValue(des.FloatValue) {
+	if dcl.IsZeroValue(des.FloatValue) || (dcl.IsEmptyValueIndirect(des.FloatValue) && dcl.IsEmptyValueIndirect(initial.FloatValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FloatValue = initial.FloatValue
 	} else {
 		cDes.FloatValue = des.FloatValue
@@ -26840,14 +27085,16 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSu
 	} else {
 		cDes.BooleanValue = des.BooleanValue
 	}
-	if dcl.IsZeroValue(des.TimestampValue) {
+	if dcl.IsZeroValue(des.TimestampValue) || (dcl.IsEmptyValueIndirect(des.TimestampValue) && dcl.IsEmptyValueIndirect(initial.TimestampValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TimestampValue = initial.TimestampValue
 	} else {
 		cDes.TimestampValue = des.TimestampValue
 	}
 	cDes.TimeValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(des.TimeValue, initial.TimeValue, opts...)
 	cDes.DateValue = canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(des.DateValue, initial.DateValue, opts...)
-	if dcl.IsZeroValue(des.DayOfWeekValue) {
+	if dcl.IsZeroValue(des.DayOfWeekValue) || (dcl.IsEmptyValueIndirect(des.DayOfWeekValue) && dcl.IsEmptyValueIndirect(initial.DayOfWeekValue)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DayOfWeekValue = initial.DayOfWeekValue
 	} else {
 		cDes.DayOfWeekValue = des.DayOfWeekValue
@@ -26967,22 +27214,26 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSu
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue{}
 
-	if dcl.IsZeroValue(des.Hours) {
+	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) {
+	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) {
+	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) {
+	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -27093,17 +27344,20 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSu
 
 	cDes := &DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue{}
 
-	if dcl.IsZeroValue(des.Year) {
+	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) {
+	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) {
+	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -59082,7 +59336,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnumRef(s)
@@ -59133,7 +59387,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnumRef(s)
@@ -59184,7 +59438,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnumRef(s)
@@ -59235,7 +59489,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnumRef(s)
@@ -59286,7 +59540,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnumRef(s)
@@ -59337,7 +59591,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnumRef(s)
@@ -59388,7 +59642,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnumRef(s)
@@ -59439,7 +59693,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnumRef(s)
@@ -59490,7 +59744,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnumRef(s)
@@ -59541,7 +59795,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsLogicalOperatorEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsLogicalOperatorEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsLogicalOperatorEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsLogicalOperatorEnumRef(s)
@@ -59592,7 +59846,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsOperatorEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsOperatorEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsOperatorEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsOperatorEnumRef(s)
@@ -59643,7 +59897,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnumRef(s)
@@ -59694,7 +59948,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnumRef(s)
@@ -59745,7 +59999,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnumRef(s)
@@ -59796,7 +60050,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnumRef(s)
@@ -59847,7 +60101,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnumRef(s)
@@ -59898,7 +60152,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnumRef(s)
@@ -59949,7 +60203,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnumRef(s)
@@ -60000,7 +60254,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnumRef(s)
@@ -60051,7 +60305,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnumRef(s)
@@ -60102,7 +60356,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnumRef(s)
@@ -60153,7 +60407,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnumRef(s)
@@ -60204,7 +60458,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreCommonCharactersToIgnoreEnumRef(s)
@@ -60255,7 +60509,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCommonAlphabetEnumRef(s)
@@ -60306,7 +60560,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDayOfWeekValueEnumRef(s)
@@ -60357,7 +60611,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDayOfWeekValueEnumRef(s)
@@ -60408,7 +60662,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDayOfWeekValueEnumRef(s)
@@ -60459,7 +60713,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDayOfWeekValueEnumRef(s)
@@ -60510,7 +60764,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDayOfWeekValueEnumRef(s)
@@ -60561,7 +60815,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigPartToExtractEnumRef(s)
@@ -60612,7 +60866,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsLogicalOperatorEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsLogicalOperatorEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsLogicalOperatorEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsLogicalOperatorEnumRef(s)
@@ -60663,7 +60917,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsOperatorEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsOperatorEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsOperatorEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsOperatorEnumRef(s)
@@ -60714,7 +60968,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnum(i interface{}) *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnumRef("")
+		return nil
 	}
 
 	return DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDayOfWeekValueEnumRef(s)

@@ -469,6 +469,11 @@ func (c *Client) workerPoolDiffsForRawDesired(ctx context.Context, rawDesired *W
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for WorkerPool: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for WorkerPool: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractWorkerPoolFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeWorkerPoolInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -584,7 +589,8 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) {
+	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -820,7 +826,8 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des, initial *WorkerP
 	} else {
 		cDes.MachineType = des.MachineType
 	}
-	if dcl.IsZeroValue(des.DiskSizeGb) {
+	if dcl.IsZeroValue(des.DiskSizeGb) || (dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
@@ -940,7 +947,8 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *Worker
 	} else {
 		cDes.PeeredNetwork = des.PeeredNetwork
 	}
-	if dcl.IsZeroValue(des.EgressOption) {
+	if dcl.IsZeroValue(des.EgressOption) || (dcl.IsEmptyValueIndirect(des.EgressOption) && dcl.IsEmptyValueIndirect(initial.EgressOption)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.EgressOption = initial.EgressOption
 	} else {
 		cDes.EgressOption = des.EgressOption
@@ -1060,7 +1068,8 @@ func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, op
 	} else {
 		cDes.MachineType = des.MachineType
 	}
-	if dcl.IsZeroValue(des.DiskSizeGb) {
+	if dcl.IsZeroValue(des.DiskSizeGb) || (dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
@@ -2353,7 +2362,7 @@ func flattenWorkerPoolStateEnumSlice(c *Client, i interface{}) []WorkerPoolState
 func flattenWorkerPoolStateEnum(i interface{}) *WorkerPoolStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return WorkerPoolStateEnumRef("")
+		return nil
 	}
 
 	return WorkerPoolStateEnumRef(s)
@@ -2404,7 +2413,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumSlice(c *C
 func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(i interface{}) *WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumRef("")
+		return nil
 	}
 
 	return WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumRef(s)
@@ -2502,6 +2511,9 @@ func convertOpNameToWorkerPoolApiOperation(opName string, fieldDiffs []*dcl.Fiel
 }
 
 func extractWorkerPoolFields(r *WorkerPool) error {
+	if dcl.IsEmptyValueIndirect(r.PrivatePoolV1Config) {
+		r.PrivatePoolV1Config = betaToGaPrivatePool(r, r.PrivatePoolV1Config)
+	}
 	vPrivatePoolV1Config := r.PrivatePoolV1Config
 	if vPrivatePoolV1Config == nil {
 		// note: explicitly not the empty object.
@@ -2538,9 +2550,6 @@ func extractWorkerPoolFields(r *WorkerPool) error {
 	return nil
 }
 func extractWorkerPoolPrivatePoolV1ConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1Config) error {
-	if dcl.IsEmptyValueIndirect(o.WorkerConfig) {
-		o.WorkerConfig = betaWorkerConfigToGaWorkerConfig(r, r.WorkerConfig)
-	}
 	vWorkerConfig := o.WorkerConfig
 	if vWorkerConfig == nil {
 		// note: explicitly not the empty object.
@@ -2551,9 +2560,6 @@ func extractWorkerPoolPrivatePoolV1ConfigFields(r *WorkerPool, o *WorkerPoolPriv
 	}
 	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
 		o.WorkerConfig = vWorkerConfig
-	}
-	if dcl.IsEmptyValueIndirect(o.NetworkConfig) {
-		o.NetworkConfig = betaNetworkConfigToGaNetworkConfig(r, r.NetworkConfig)
 	}
 	vNetworkConfig := o.NetworkConfig
 	if vNetworkConfig == nil {
@@ -2582,6 +2588,8 @@ func extractWorkerPoolNetworkConfigFields(r *WorkerPool, o *WorkerPoolNetworkCon
 }
 
 func postReadExtractWorkerPoolFields(r *WorkerPool) error {
+
+	r.PrivatePoolV1Config = gaToBetaPrivatePool(r, r.PrivatePoolV1Config)
 	vPrivatePoolV1Config := r.PrivatePoolV1Config
 	if vPrivatePoolV1Config == nil {
 		// note: explicitly not the empty object.
@@ -2618,9 +2626,6 @@ func postReadExtractWorkerPoolFields(r *WorkerPool) error {
 	return nil
 }
 func postReadExtractWorkerPoolPrivatePoolV1ConfigFields(r *WorkerPool, o *WorkerPoolPrivatePoolV1Config) error {
-	if dcl.IsEmptyValueIndirect(r.WorkerConfig) {
-		r.WorkerConfig = gaWorkerConfigToBetaWorkerConfig(r, o.WorkerConfig)
-	}
 	vWorkerConfig := o.WorkerConfig
 	if vWorkerConfig == nil {
 		// note: explicitly not the empty object.
@@ -2631,9 +2636,6 @@ func postReadExtractWorkerPoolPrivatePoolV1ConfigFields(r *WorkerPool, o *Worker
 	}
 	if !dcl.IsNotReturnedByServer(vWorkerConfig) {
 		o.WorkerConfig = vWorkerConfig
-	}
-	if dcl.IsEmptyValueIndirect(r.NetworkConfig) {
-		r.NetworkConfig = gaNetworkConfigToBetaNetworkConfig(r, o.NetworkConfig)
 	}
 	vNetworkConfig := o.NetworkConfig
 	if vNetworkConfig == nil {

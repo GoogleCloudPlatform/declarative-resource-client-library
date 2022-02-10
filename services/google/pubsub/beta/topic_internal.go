@@ -397,6 +397,11 @@ func (c *Client) topicDiffsForRawDesired(ctx context.Context, rawDesired *Topic,
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Topic: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Topic: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractTopicFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeTopicInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -448,7 +453,8 @@ func canonicalizeTopicDesiredState(rawDesired, rawInitial *Topic, opts ...dcl.Ap
 	} else {
 		canonicalDesired.KmsKeyName = rawDesired.KmsKeyName
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels

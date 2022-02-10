@@ -567,6 +567,11 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Cluster: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractClusterFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeClusterInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -621,7 +626,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		canonicalDesired.Name = rawDesired.Name
 	}
 	canonicalDesired.Config = canonicalizeClusterClusterConfig(rawDesired.Config, rawInitial.Config, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -874,7 +880,8 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 	} else {
 		cDes.InternalIPOnly = des.InternalIPOnly
 	}
-	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) {
+	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) || (dcl.IsEmptyValueIndirect(des.PrivateIPv6GoogleAccess) && dcl.IsEmptyValueIndirect(initial.PrivateIPv6GoogleAccess)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PrivateIPv6GoogleAccess = initial.PrivateIPv6GoogleAccess
 	} else {
 		cDes.PrivateIPv6GoogleAccess = des.PrivateIPv6GoogleAccess
@@ -894,7 +901,8 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 	} else {
 		cDes.Tags = des.Tags
 	}
-	if dcl.IsZeroValue(des.Metadata) {
+	if dcl.IsZeroValue(des.Metadata) || (dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Metadata = initial.Metadata
 	} else {
 		cDes.Metadata = des.Metadata
@@ -1031,7 +1039,8 @@ func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(des, in
 
 	cDes := &ClusterClusterConfigGceClusterConfigReservationAffinity{}
 
-	if dcl.IsZeroValue(des.ConsumeReservationType) {
+	if dcl.IsZeroValue(des.ConsumeReservationType) || (dcl.IsEmptyValueIndirect(des.ConsumeReservationType) && dcl.IsEmptyValueIndirect(initial.ConsumeReservationType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ConsumeReservationType = initial.ConsumeReservationType
 	} else {
 		cDes.ConsumeReservationType = des.ConsumeReservationType
@@ -1274,7 +1283,8 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 
 	cDes := &ClusterInstanceGroupConfig{}
 
-	if dcl.IsZeroValue(des.NumInstances) {
+	if dcl.IsZeroValue(des.NumInstances) || (dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
@@ -1290,7 +1300,8 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 		cDes.MachineType = des.MachineType
 	}
 	cDes.DiskConfig = canonicalizeClusterInstanceGroupConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.Preemptibility) {
+	if dcl.IsZeroValue(des.Preemptibility) || (dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
@@ -1431,12 +1442,14 @@ func canonicalizeClusterInstanceGroupConfigDiskConfig(des, initial *ClusterInsta
 	} else {
 		cDes.BootDiskType = des.BootDiskType
 	}
-	if dcl.IsZeroValue(des.BootDiskSizeGb) {
+	if dcl.IsZeroValue(des.BootDiskSizeGb) || (dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
-	if dcl.IsZeroValue(des.NumLocalSsds) {
+	if dcl.IsZeroValue(des.NumLocalSsds) || (dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
@@ -1668,7 +1681,8 @@ func canonicalizeClusterInstanceGroupConfigAccelerators(des, initial *ClusterIns
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(des.AcceleratorCount) {
+	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -1788,12 +1802,14 @@ func canonicalizeClusterClusterConfigSoftwareConfig(des, initial *ClusterCluster
 	} else {
 		cDes.ImageVersion = des.ImageVersion
 	}
-	if dcl.IsZeroValue(des.Properties) {
+	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
-	if dcl.IsZeroValue(des.OptionalComponents) {
+	if dcl.IsZeroValue(des.OptionalComponents) || (dcl.IsEmptyValueIndirect(des.OptionalComponents) && dcl.IsEmptyValueIndirect(initial.OptionalComponents)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.OptionalComponents = initial.OptionalComponents
 	} else {
 		cDes.OptionalComponents = des.OptionalComponents
@@ -2435,7 +2451,8 @@ func canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(des, initial *
 	} else {
 		cDes.KdcDbKey = des.KdcDbKey
 	}
-	if dcl.IsZeroValue(des.TgtLifetimeHours) {
+	if dcl.IsZeroValue(des.TgtLifetimeHours) || (dcl.IsEmptyValueIndirect(des.TgtLifetimeHours) && dcl.IsEmptyValueIndirect(initial.TgtLifetimeHours)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TgtLifetimeHours = initial.TgtLifetimeHours
 	} else {
 		cDes.TgtLifetimeHours = des.TgtLifetimeHours
@@ -2599,7 +2616,8 @@ func canonicalizeClusterClusterConfigLifecycleConfig(des, initial *ClusterCluste
 	} else {
 		cDes.IdleDeleteTtl = des.IdleDeleteTtl
 	}
-	if dcl.IsZeroValue(des.AutoDeleteTime) {
+	if dcl.IsZeroValue(des.AutoDeleteTime) || (dcl.IsEmptyValueIndirect(des.AutoDeleteTime) && dcl.IsEmptyValueIndirect(initial.AutoDeleteTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AutoDeleteTime = initial.AutoDeleteTime
 	} else {
 		cDes.AutoDeleteTime = des.AutoDeleteTime
@@ -3055,12 +3073,14 @@ func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyO
 
 	cDes := &ClusterMetrics{}
 
-	if dcl.IsZeroValue(des.HdfsMetrics) {
+	if dcl.IsZeroValue(des.HdfsMetrics) || (dcl.IsEmptyValueIndirect(des.HdfsMetrics) && dcl.IsEmptyValueIndirect(initial.HdfsMetrics)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.HdfsMetrics = initial.HdfsMetrics
 	} else {
 		cDes.HdfsMetrics = des.HdfsMetrics
 	}
-	if dcl.IsZeroValue(des.YarnMetrics) {
+	if dcl.IsZeroValue(des.YarnMetrics) || (dcl.IsEmptyValueIndirect(des.YarnMetrics) && dcl.IsEmptyValueIndirect(initial.YarnMetrics)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.YarnMetrics = initial.YarnMetrics
 	} else {
 		cDes.YarnMetrics = des.YarnMetrics
@@ -6814,7 +6834,7 @@ func flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice
 func flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(i interface{}) *ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef("")
+		return nil
 	}
 
 	return ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s)
@@ -6865,7 +6885,7 @@ func flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReserv
 func flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(i interface{}) *ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef("")
+		return nil
 	}
 
 	return ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s)
@@ -6916,7 +6936,7 @@ func flattenClusterInstanceGroupConfigPreemptibilityEnumSlice(c *Client, i inter
 func flattenClusterInstanceGroupConfigPreemptibilityEnum(i interface{}) *ClusterInstanceGroupConfigPreemptibilityEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterInstanceGroupConfigPreemptibilityEnumRef("")
+		return nil
 	}
 
 	return ClusterInstanceGroupConfigPreemptibilityEnumRef(s)
@@ -6967,7 +6987,7 @@ func flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c *Cli
 func flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnum(i interface{}) *ClusterClusterConfigSoftwareConfigOptionalComponentsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterClusterConfigSoftwareConfigOptionalComponentsEnumRef("")
+		return nil
 	}
 
 	return ClusterClusterConfigSoftwareConfigOptionalComponentsEnumRef(s)
@@ -7018,7 +7038,7 @@ func flattenClusterStatusStateEnumSlice(c *Client, i interface{}) []ClusterStatu
 func flattenClusterStatusStateEnum(i interface{}) *ClusterStatusStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterStatusStateEnumRef("")
+		return nil
 	}
 
 	return ClusterStatusStateEnumRef(s)
@@ -7069,7 +7089,7 @@ func flattenClusterStatusSubstateEnumSlice(c *Client, i interface{}) []ClusterSt
 func flattenClusterStatusSubstateEnum(i interface{}) *ClusterStatusSubstateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterStatusSubstateEnumRef("")
+		return nil
 	}
 
 	return ClusterStatusSubstateEnumRef(s)
@@ -7120,7 +7140,7 @@ func flattenClusterStatusHistoryStateEnumSlice(c *Client, i interface{}) []Clust
 func flattenClusterStatusHistoryStateEnum(i interface{}) *ClusterStatusHistoryStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterStatusHistoryStateEnumRef("")
+		return nil
 	}
 
 	return ClusterStatusHistoryStateEnumRef(s)
@@ -7171,7 +7191,7 @@ func flattenClusterStatusHistorySubstateEnumSlice(c *Client, i interface{}) []Cl
 func flattenClusterStatusHistorySubstateEnum(i interface{}) *ClusterStatusHistorySubstateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterStatusHistorySubstateEnumRef("")
+		return nil
 	}
 
 	return ClusterStatusHistorySubstateEnumRef(s)

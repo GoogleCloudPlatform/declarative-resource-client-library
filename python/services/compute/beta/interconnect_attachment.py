@@ -62,6 +62,7 @@ class InterconnectAttachment(object):
         self.name = name
         self.interconnect = interconnect
         self.router = router
+        self.region = region
         self.mtu = mtu
         self.type = type
         self.pairing_key = pairing_key
@@ -98,6 +99,9 @@ class InterconnectAttachment(object):
 
         if Primitive.to_proto(self.router):
             request.resource.router = Primitive.to_proto(self.router)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
 
         if Primitive.to_proto(self.mtu):
             request.resource.mtu = Primitive.to_proto(self.mtu)
@@ -235,6 +239,9 @@ class InterconnectAttachment(object):
         if Primitive.to_proto(self.router):
             request.resource.router = Primitive.to_proto(self.router)
 
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
         if Primitive.to_proto(self.mtu):
             request.resource.mtu = Primitive.to_proto(self.mtu)
 
@@ -327,6 +334,8 @@ class InterconnectAttachment(object):
             resource.interconnect = Primitive.to_proto(self.interconnect)
         if Primitive.to_proto(self.router):
             resource.router = Primitive.to_proto(self.router)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
         if Primitive.to_proto(self.mtu):
             resource.mtu = Primitive.to_proto(self.mtu)
         if InterconnectAttachmentTypeEnum.to_proto(self.type):

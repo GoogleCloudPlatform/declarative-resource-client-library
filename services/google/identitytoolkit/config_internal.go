@@ -408,6 +408,11 @@ func (c *Client) configDiffsForRawDesired(ctx context.Context, rawDesired *Confi
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Config: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Config: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractConfigFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeConfigInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -1393,7 +1398,8 @@ func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSen
 
 	cDes := &ConfigNotificationSendEmail{}
 
-	if dcl.IsZeroValue(des.Method) {
+	if dcl.IsZeroValue(des.Method) || (dcl.IsEmptyValueIndirect(des.Method) && dcl.IsEmptyValueIndirect(initial.Method)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Method = initial.Method
 	} else {
 		cDes.Method = des.Method
@@ -1535,7 +1541,8 @@ func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificatio
 	} else {
 		cDes.Host = des.Host
 	}
-	if dcl.IsZeroValue(des.Port) {
+	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
@@ -1550,7 +1557,8 @@ func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificatio
 	} else {
 		cDes.Password = des.Password
 	}
-	if dcl.IsZeroValue(des.SecurityMode) {
+	if dcl.IsZeroValue(des.SecurityMode) || (dcl.IsEmptyValueIndirect(des.SecurityMode) && dcl.IsEmptyValueIndirect(initial.SecurityMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SecurityMode = initial.SecurityMode
 	} else {
 		cDes.SecurityMode = des.SecurityMode
@@ -1692,7 +1700,8 @@ func canonicalizeConfigEmailTemplate(des, initial *ConfigEmailTemplate, opts ...
 	} else {
 		cDes.Body = des.Body
 	}
-	if dcl.IsZeroValue(des.BodyFormat) {
+	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.BodyFormat = initial.BodyFormat
 	} else {
 		cDes.BodyFormat = des.BodyFormat
@@ -2282,12 +2291,14 @@ func canonicalizeConfigQuotaSignUpQuotaConfig(des, initial *ConfigQuotaSignUpQuo
 
 	cDes := &ConfigQuotaSignUpQuotaConfig{}
 
-	if dcl.IsZeroValue(des.Quota) {
+	if dcl.IsZeroValue(des.Quota) || (dcl.IsEmptyValueIndirect(des.Quota) && dcl.IsEmptyValueIndirect(initial.Quota)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Quota = initial.Quota
 	} else {
 		cDes.Quota = des.Quota
 	}
-	if dcl.IsZeroValue(des.StartTime) {
+	if dcl.IsZeroValue(des.StartTime) || (dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.StartTime = initial.StartTime
 	} else {
 		cDes.StartTime = des.StartTime
@@ -2992,7 +3003,8 @@ func canonicalizeConfigMfa(des, initial *ConfigMfa, opts ...dcl.ApplyOption) *Co
 
 	cDes := &ConfigMfa{}
 
-	if dcl.IsZeroValue(des.State) {
+	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
@@ -3103,7 +3115,8 @@ func canonicalizeConfigBlockingFunctions(des, initial *ConfigBlockingFunctions, 
 
 	cDes := &ConfigBlockingFunctions{}
 
-	if dcl.IsZeroValue(des.Triggers) {
+	if dcl.IsZeroValue(des.Triggers) || (dcl.IsEmptyValueIndirect(des.Triggers) && dcl.IsEmptyValueIndirect(initial.Triggers)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Triggers = initial.Triggers
 	} else {
 		cDes.Triggers = des.Triggers
@@ -7361,7 +7374,7 @@ func flattenConfigSignInEmailHashConfigAlgorithmEnumSlice(c *Client, i interface
 func flattenConfigSignInEmailHashConfigAlgorithmEnum(i interface{}) *ConfigSignInEmailHashConfigAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigSignInEmailHashConfigAlgorithmEnumRef("")
+		return nil
 	}
 
 	return ConfigSignInEmailHashConfigAlgorithmEnumRef(s)
@@ -7412,7 +7425,7 @@ func flattenConfigSignInHashConfigAlgorithmEnumSlice(c *Client, i interface{}) [
 func flattenConfigSignInHashConfigAlgorithmEnum(i interface{}) *ConfigSignInHashConfigAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigSignInHashConfigAlgorithmEnumRef("")
+		return nil
 	}
 
 	return ConfigSignInHashConfigAlgorithmEnumRef(s)
@@ -7463,7 +7476,7 @@ func flattenConfigNotificationSendEmailMethodEnumSlice(c *Client, i interface{})
 func flattenConfigNotificationSendEmailMethodEnum(i interface{}) *ConfigNotificationSendEmailMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigNotificationSendEmailMethodEnumRef("")
+		return nil
 	}
 
 	return ConfigNotificationSendEmailMethodEnumRef(s)
@@ -7514,7 +7527,7 @@ func flattenConfigNotificationSendEmailSmtpSecurityModeEnumSlice(c *Client, i in
 func flattenConfigNotificationSendEmailSmtpSecurityModeEnum(i interface{}) *ConfigNotificationSendEmailSmtpSecurityModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigNotificationSendEmailSmtpSecurityModeEnumRef("")
+		return nil
 	}
 
 	return ConfigNotificationSendEmailSmtpSecurityModeEnumRef(s)
@@ -7565,7 +7578,7 @@ func flattenConfigEmailTemplateBodyFormatEnumSlice(c *Client, i interface{}) []C
 func flattenConfigEmailTemplateBodyFormatEnum(i interface{}) *ConfigEmailTemplateBodyFormatEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigEmailTemplateBodyFormatEnumRef("")
+		return nil
 	}
 
 	return ConfigEmailTemplateBodyFormatEnumRef(s)
@@ -7616,7 +7629,7 @@ func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumSlice(c *Clie
 func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(i interface{}) *ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigNotificationSendEmailDnsInfoCustomDomainStateEnumRef("")
+		return nil
 	}
 
 	return ConfigNotificationSendEmailDnsInfoCustomDomainStateEnumRef(s)
@@ -7667,7 +7680,7 @@ func flattenConfigSubtypeEnumSlice(c *Client, i interface{}) []ConfigSubtypeEnum
 func flattenConfigSubtypeEnum(i interface{}) *ConfigSubtypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigSubtypeEnumRef("")
+		return nil
 	}
 
 	return ConfigSubtypeEnumRef(s)
@@ -7718,7 +7731,7 @@ func flattenConfigMfaStateEnumSlice(c *Client, i interface{}) []ConfigMfaStateEn
 func flattenConfigMfaStateEnum(i interface{}) *ConfigMfaStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ConfigMfaStateEnumRef("")
+		return nil
 	}
 
 	return ConfigMfaStateEnumRef(s)

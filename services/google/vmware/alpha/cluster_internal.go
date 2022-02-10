@@ -409,6 +409,11 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Cluster: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractClusterFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeClusterInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -454,7 +459,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -464,7 +470,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.NodeTypeId = rawDesired.NodeTypeId
 	}
-	if dcl.IsZeroValue(rawDesired.NodeCount) {
+	if dcl.IsZeroValue(rawDesired.NodeCount) || (dcl.IsEmptyValueIndirect(rawDesired.NodeCount) && dcl.IsEmptyValueIndirect(rawInitial.NodeCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.NodeCount = rawInitial.NodeCount
 	} else {
 		canonicalDesired.NodeCount = rawDesired.NodeCount
@@ -813,7 +820,7 @@ func flattenClusterStateEnumSlice(c *Client, i interface{}) []ClusterStateEnum {
 func flattenClusterStateEnum(i interface{}) *ClusterStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ClusterStateEnumRef("")
+		return nil
 	}
 
 	return ClusterStateEnumRef(s)

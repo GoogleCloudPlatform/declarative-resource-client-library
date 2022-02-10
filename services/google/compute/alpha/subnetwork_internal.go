@@ -532,6 +532,11 @@ func (c *Client) subnetworkDiffsForRawDesired(ctx context.Context, rawDesired *S
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Subnetwork: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Subnetwork: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractSubnetworkFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeSubnetworkInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -593,12 +598,14 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 	} else {
 		canonicalDesired.Network = rawDesired.Network
 	}
-	if dcl.IsZeroValue(rawDesired.Purpose) {
+	if dcl.IsZeroValue(rawDesired.Purpose) || (dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Purpose = rawInitial.Purpose
 	} else {
 		canonicalDesired.Purpose = rawDesired.Purpose
 	}
-	if dcl.IsZeroValue(rawDesired.Role) {
+	if dcl.IsZeroValue(rawDesired.Role) || (dcl.IsEmptyValueIndirect(rawDesired.Role) && dcl.IsEmptyValueIndirect(rawInitial.Role)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Role = rawInitial.Role
 	} else {
 		canonicalDesired.Role = rawDesired.Role
@@ -886,17 +893,20 @@ func canonicalizeSubnetworkLogConfig(des, initial *SubnetworkLogConfig, opts ...
 
 	cDes := &SubnetworkLogConfig{}
 
-	if dcl.IsZeroValue(des.AggregationInterval) {
+	if dcl.IsZeroValue(des.AggregationInterval) || (dcl.IsEmptyValueIndirect(des.AggregationInterval) && dcl.IsEmptyValueIndirect(initial.AggregationInterval)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AggregationInterval = initial.AggregationInterval
 	} else {
 		cDes.AggregationInterval = des.AggregationInterval
 	}
-	if dcl.IsZeroValue(des.FlowSampling) {
+	if dcl.IsZeroValue(des.FlowSampling) || (dcl.IsEmptyValueIndirect(des.FlowSampling) && dcl.IsEmptyValueIndirect(initial.FlowSampling)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FlowSampling = initial.FlowSampling
 	} else {
 		cDes.FlowSampling = des.FlowSampling
 	}
-	if dcl.IsZeroValue(des.Metadata) {
+	if dcl.IsZeroValue(des.Metadata) || (dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Metadata = initial.Metadata
 	} else {
 		cDes.Metadata = des.Metadata
@@ -1676,7 +1686,7 @@ func flattenSubnetworkPurposeEnumSlice(c *Client, i interface{}) []SubnetworkPur
 func flattenSubnetworkPurposeEnum(i interface{}) *SubnetworkPurposeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return SubnetworkPurposeEnumRef("")
+		return nil
 	}
 
 	return SubnetworkPurposeEnumRef(s)
@@ -1727,7 +1737,7 @@ func flattenSubnetworkRoleEnumSlice(c *Client, i interface{}) []SubnetworkRoleEn
 func flattenSubnetworkRoleEnum(i interface{}) *SubnetworkRoleEnum {
 	s, ok := i.(string)
 	if !ok {
-		return SubnetworkRoleEnumRef("")
+		return nil
 	}
 
 	return SubnetworkRoleEnumRef(s)
@@ -1778,7 +1788,7 @@ func flattenSubnetworkLogConfigAggregationIntervalEnumSlice(c *Client, i interfa
 func flattenSubnetworkLogConfigAggregationIntervalEnum(i interface{}) *SubnetworkLogConfigAggregationIntervalEnum {
 	s, ok := i.(string)
 	if !ok {
-		return SubnetworkLogConfigAggregationIntervalEnumRef("")
+		return nil
 	}
 
 	return SubnetworkLogConfigAggregationIntervalEnumRef(s)
@@ -1829,7 +1839,7 @@ func flattenSubnetworkLogConfigMetadataEnumSlice(c *Client, i interface{}) []Sub
 func flattenSubnetworkLogConfigMetadataEnum(i interface{}) *SubnetworkLogConfigMetadataEnum {
 	s, ok := i.(string)
 	if !ok {
-		return SubnetworkLogConfigMetadataEnumRef("")
+		return nil
 	}
 
 	return SubnetworkLogConfigMetadataEnumRef(s)

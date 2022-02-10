@@ -462,6 +462,11 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for UptimeCheckConfig: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for UptimeCheckConfig: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractUptimeCheckConfigFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeUptimeCheckConfigInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -572,7 +577,8 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 	}
 
 	canonicalDesired := &UptimeCheckConfig{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -704,7 +710,8 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.FilterLabels) {
+	if dcl.IsZeroValue(des.FilterLabels) || (dcl.IsEmptyValueIndirect(des.FilterLabels) && dcl.IsEmptyValueIndirect(initial.FilterLabels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FilterLabels = initial.FilterLabels
 	} else {
 		cDes.FilterLabels = des.FilterLabels
@@ -824,7 +831,8 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 	} else {
 		cDes.GroupId = des.GroupId
 	}
-	if dcl.IsZeroValue(des.ResourceType) {
+	if dcl.IsZeroValue(des.ResourceType) || (dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
@@ -947,7 +955,8 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 
 	cDes := &UptimeCheckConfigHttpCheck{}
 
-	if dcl.IsZeroValue(des.RequestMethod) {
+	if dcl.IsZeroValue(des.RequestMethod) || (dcl.IsEmptyValueIndirect(des.RequestMethod) && dcl.IsEmptyValueIndirect(initial.RequestMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RequestMethod = initial.RequestMethod
 	} else {
 		cDes.RequestMethod = des.RequestMethod
@@ -962,7 +971,8 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.IsZeroValue(des.Port) {
+	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
@@ -973,12 +983,14 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 	} else {
 		cDes.MaskHeaders = des.MaskHeaders
 	}
-	if dcl.IsZeroValue(des.Headers) {
+	if dcl.IsZeroValue(des.Headers) || (dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
 	}
-	if dcl.IsZeroValue(des.ContentType) {
+	if dcl.IsZeroValue(des.ContentType) || (dcl.IsEmptyValueIndirect(des.ContentType) && dcl.IsEmptyValueIndirect(initial.ContentType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ContentType = initial.ContentType
 	} else {
 		cDes.ContentType = des.ContentType
@@ -1246,7 +1258,8 @@ func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpChe
 
 	cDes := &UptimeCheckConfigTcpCheck{}
 
-	if dcl.IsZeroValue(des.Port) {
+	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
@@ -1366,7 +1379,8 @@ func canonicalizeUptimeCheckConfigContentMatchers(des, initial *UptimeCheckConfi
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.IsZeroValue(des.Matcher) {
+	if dcl.IsZeroValue(des.Matcher) || (dcl.IsEmptyValueIndirect(des.Matcher) && dcl.IsEmptyValueIndirect(initial.Matcher)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Matcher = initial.Matcher
 	} else {
 		cDes.Matcher = des.Matcher
@@ -2770,7 +2784,7 @@ func flattenUptimeCheckConfigResourceGroupResourceTypeEnumSlice(c *Client, i int
 func flattenUptimeCheckConfigResourceGroupResourceTypeEnum(i interface{}) *UptimeCheckConfigResourceGroupResourceTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return UptimeCheckConfigResourceGroupResourceTypeEnumRef("")
+		return nil
 	}
 
 	return UptimeCheckConfigResourceGroupResourceTypeEnumRef(s)
@@ -2821,7 +2835,7 @@ func flattenUptimeCheckConfigHttpCheckRequestMethodEnumSlice(c *Client, i interf
 func flattenUptimeCheckConfigHttpCheckRequestMethodEnum(i interface{}) *UptimeCheckConfigHttpCheckRequestMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return UptimeCheckConfigHttpCheckRequestMethodEnumRef("")
+		return nil
 	}
 
 	return UptimeCheckConfigHttpCheckRequestMethodEnumRef(s)
@@ -2872,7 +2886,7 @@ func flattenUptimeCheckConfigHttpCheckContentTypeEnumSlice(c *Client, i interfac
 func flattenUptimeCheckConfigHttpCheckContentTypeEnum(i interface{}) *UptimeCheckConfigHttpCheckContentTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return UptimeCheckConfigHttpCheckContentTypeEnumRef("")
+		return nil
 	}
 
 	return UptimeCheckConfigHttpCheckContentTypeEnumRef(s)
@@ -2923,7 +2937,7 @@ func flattenUptimeCheckConfigContentMatchersMatcherEnumSlice(c *Client, i interf
 func flattenUptimeCheckConfigContentMatchersMatcherEnum(i interface{}) *UptimeCheckConfigContentMatchersMatcherEnum {
 	s, ok := i.(string)
 	if !ok {
-		return UptimeCheckConfigContentMatchersMatcherEnumRef("")
+		return nil
 	}
 
 	return UptimeCheckConfigContentMatchersMatcherEnumRef(s)

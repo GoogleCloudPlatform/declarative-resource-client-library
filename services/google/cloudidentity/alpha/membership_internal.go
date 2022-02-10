@@ -414,6 +414,11 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Membership: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Membership: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractMembershipFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeMembershipInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -458,7 +463,8 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 	}
 
 	canonicalDesired := &Membership{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -776,7 +782,8 @@ func canonicalizeMembershipRolesExpiryDetail(des, initial *MembershipRolesExpiry
 
 	cDes := &MembershipRolesExpiryDetail{}
 
-	if dcl.IsZeroValue(des.ExpireTime) {
+	if dcl.IsZeroValue(des.ExpireTime) || (dcl.IsEmptyValueIndirect(des.ExpireTime) && dcl.IsEmptyValueIndirect(initial.ExpireTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ExpireTime = initial.ExpireTime
 	} else {
 		cDes.ExpireTime = des.ExpireTime
@@ -2346,7 +2353,7 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStat
 func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum(i interface{}) *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumRef("")
+		return nil
 	}
 
 	return MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumRef(s)
@@ -2397,7 +2404,7 @@ func flattenMembershipTypeEnumSlice(c *Client, i interface{}) []MembershipTypeEn
 func flattenMembershipTypeEnum(i interface{}) *MembershipTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MembershipTypeEnumRef("")
+		return nil
 	}
 
 	return MembershipTypeEnumRef(s)

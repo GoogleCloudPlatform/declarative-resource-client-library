@@ -224,6 +224,11 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Brand: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Brand: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractBrandFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeBrandInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -269,7 +274,8 @@ func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.Ap
 	} else {
 		canonicalDesired.ApplicationTitle = rawDesired.ApplicationTitle
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name

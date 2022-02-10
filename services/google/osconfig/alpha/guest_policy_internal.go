@@ -611,6 +611,11 @@ func (c *Client) guestPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for GuestPolicy: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for GuestPolicy: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractGuestPolicyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeGuestPolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -889,7 +894,8 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 
 	cDes := &GuestPolicyAssignmentGroupLabels{}
 
-	if dcl.IsZeroValue(des.Labels) {
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -1136,12 +1142,14 @@ func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.DesiredState) {
+	if dcl.IsZeroValue(des.DesiredState) || (dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
 	}
-	if dcl.IsZeroValue(des.Manager) {
+	if dcl.IsZeroValue(des.Manager) || (dcl.IsEmptyValueIndirect(des.Manager) && dcl.IsEmptyValueIndirect(initial.Manager)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Manager = initial.Manager
 	} else {
 		cDes.Manager = des.Manager
@@ -1411,7 +1419,8 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 
 	cDes := &GuestPolicyPackageRepositoriesApt{}
 
-	if dcl.IsZeroValue(des.ArchiveType) {
+	if dcl.IsZeroValue(des.ArchiveType) || (dcl.IsEmptyValueIndirect(des.ArchiveType) && dcl.IsEmptyValueIndirect(initial.ArchiveType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ArchiveType = initial.ArchiveType
 	} else {
 		cDes.ArchiveType = des.ArchiveType
@@ -1989,7 +1998,8 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 	cDes.Artifacts = canonicalizeGuestPolicyRecipesArtifactsSlice(des.Artifacts, initial.Artifacts, opts...)
 	cDes.InstallSteps = canonicalizeGuestPolicyRecipesInstallStepsSlice(des.InstallSteps, initial.InstallSteps, opts...)
 	cDes.UpdateSteps = canonicalizeGuestPolicyRecipesUpdateStepsSlice(des.UpdateSteps, initial.UpdateSteps, opts...)
-	if dcl.IsZeroValue(des.DesiredState) {
+	if dcl.IsZeroValue(des.DesiredState) || (dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
@@ -2370,7 +2380,8 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -2758,7 +2769,8 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 	} else {
 		cDes.Destination = des.Destination
 	}
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -2886,7 +2898,8 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 	} else {
 		cDes.Flags = des.Flags
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) {
+	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -3249,7 +3262,8 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) {
+	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -3375,12 +3389,14 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 	} else {
 		cDes.Script = des.Script
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) {
+	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -3765,7 +3781,8 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 	} else {
 		cDes.Destination = des.Destination
 	}
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -3893,7 +3910,8 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 	} else {
 		cDes.Flags = des.Flags
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) {
+	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -4256,7 +4274,8 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) {
+	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -4382,12 +4401,14 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 	} else {
 		cDes.Script = des.Script
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) {
+	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) {
+	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -9701,7 +9722,7 @@ func flattenGuestPolicyPackagesDesiredStateEnumSlice(c *Client, i interface{}) [
 func flattenGuestPolicyPackagesDesiredStateEnum(i interface{}) *GuestPolicyPackagesDesiredStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyPackagesDesiredStateEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyPackagesDesiredStateEnumRef(s)
@@ -9752,7 +9773,7 @@ func flattenGuestPolicyPackagesManagerEnumSlice(c *Client, i interface{}) []Gues
 func flattenGuestPolicyPackagesManagerEnum(i interface{}) *GuestPolicyPackagesManagerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyPackagesManagerEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyPackagesManagerEnumRef(s)
@@ -9803,7 +9824,7 @@ func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice(c *Client, i i
 func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnum(i interface{}) *GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyPackageRepositoriesAptArchiveTypeEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyPackageRepositoriesAptArchiveTypeEnumRef(s)
@@ -9854,7 +9875,7 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumSlice(c *Clie
 func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(i interface{}) *GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumRef(s)
@@ -9905,7 +9926,7 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice(c *Clien
 func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(i interface{}) *GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyRecipesInstallStepsScriptRunInterpreterEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyRecipesInstallStepsScriptRunInterpreterEnumRef(s)
@@ -9956,7 +9977,7 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumSlice(c *Clien
 func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(i interface{}) *GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumRef(s)
@@ -10007,7 +10028,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice(c *Client
 func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(i interface{}) *GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumRef(s)
@@ -10058,7 +10079,7 @@ func flattenGuestPolicyRecipesDesiredStateEnumSlice(c *Client, i interface{}) []
 func flattenGuestPolicyRecipesDesiredStateEnum(i interface{}) *GuestPolicyRecipesDesiredStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GuestPolicyRecipesDesiredStateEnumRef("")
+		return nil
 	}
 
 	return GuestPolicyRecipesDesiredStateEnumRef(s)

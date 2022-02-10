@@ -112,6 +112,11 @@ func (c *Client) metricsScopeDiffsForRawDesired(ctx context.Context, rawDesired 
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for MetricsScope: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for MetricsScope: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractMetricsScopeFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeMetricsScopeInitialState(rawInitial, rawDesired)
 	if err != nil {

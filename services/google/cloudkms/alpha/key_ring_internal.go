@@ -238,6 +238,11 @@ func (c *Client) keyRingDiffsForRawDesired(ctx context.Context, rawDesired *KeyR
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for KeyRing: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for KeyRing: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractKeyRingFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeKeyRingInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -278,7 +283,8 @@ func canonicalizeKeyRingDesiredState(rawDesired, rawInitial *KeyRing, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &KeyRing{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name

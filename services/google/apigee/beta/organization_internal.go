@@ -397,6 +397,11 @@ func (c *Client) organizationDiffsForRawDesired(ctx context.Context, rawDesired 
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Organization: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Organization: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractOrganizationFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeOrganizationInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -438,7 +443,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 		return rawDesired, nil
 	}
 	canonicalDesired := &Organization{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -453,7 +459,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Properties) {
+	if dcl.IsZeroValue(rawDesired.Properties) || (dcl.IsEmptyValueIndirect(rawDesired.Properties) && dcl.IsEmptyValueIndirect(rawInitial.Properties)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Properties = rawInitial.Properties
 	} else {
 		canonicalDesired.Properties = rawDesired.Properties
@@ -468,7 +475,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	} else {
 		canonicalDesired.AuthorizedNetwork = rawDesired.AuthorizedNetwork
 	}
-	if dcl.IsZeroValue(rawDesired.RuntimeType) {
+	if dcl.IsZeroValue(rawDesired.RuntimeType) || (dcl.IsEmptyValueIndirect(rawDesired.RuntimeType) && dcl.IsEmptyValueIndirect(rawInitial.RuntimeType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.RuntimeType = rawInitial.RuntimeType
 	} else {
 		canonicalDesired.RuntimeType = rawDesired.RuntimeType
@@ -1749,7 +1757,7 @@ func flattenOrganizationRuntimeTypeEnumSlice(c *Client, i interface{}) []Organiz
 func flattenOrganizationRuntimeTypeEnum(i interface{}) *OrganizationRuntimeTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OrganizationRuntimeTypeEnumRef("")
+		return nil
 	}
 
 	return OrganizationRuntimeTypeEnumRef(s)
@@ -1800,7 +1808,7 @@ func flattenOrganizationSubscriptionTypeEnumSlice(c *Client, i interface{}) []Or
 func flattenOrganizationSubscriptionTypeEnum(i interface{}) *OrganizationSubscriptionTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OrganizationSubscriptionTypeEnumRef("")
+		return nil
 	}
 
 	return OrganizationSubscriptionTypeEnumRef(s)
@@ -1851,7 +1859,7 @@ func flattenOrganizationBillingTypeEnumSlice(c *Client, i interface{}) []Organiz
 func flattenOrganizationBillingTypeEnum(i interface{}) *OrganizationBillingTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OrganizationBillingTypeEnumRef("")
+		return nil
 	}
 
 	return OrganizationBillingTypeEnumRef(s)
@@ -1902,7 +1910,7 @@ func flattenOrganizationStateEnumSlice(c *Client, i interface{}) []OrganizationS
 func flattenOrganizationStateEnum(i interface{}) *OrganizationStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OrganizationStateEnumRef("")
+		return nil
 	}
 
 	return OrganizationStateEnumRef(s)

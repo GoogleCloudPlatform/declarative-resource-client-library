@@ -744,6 +744,11 @@ func (c *Client) certificateAuthorityDiffsForRawDesired(ctx context.Context, raw
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for CertificateAuthority: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for CertificateAuthority: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractCertificateAuthorityFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeCertificateAuthorityInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -793,7 +798,8 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Type) {
+	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
@@ -810,7 +816,8 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 	} else {
 		canonicalDesired.GcsBucket = rawDesired.GcsBucket
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -1621,7 +1628,8 @@ func canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans
 
 	cDes := &CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2297,7 +2305,8 @@ func canonicalizeCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyU
 
 	cDes := &CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2413,7 +2422,8 @@ func canonicalizeCertificateAuthorityConfigX509ConfigCaOptions(des, initial *Cer
 	} else {
 		cDes.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
+	if dcl.IsZeroValue(des.MaxIssuerPathLength) || (dcl.IsEmptyValueIndirect(des.MaxIssuerPathLength) && dcl.IsEmptyValueIndirect(initial.MaxIssuerPathLength)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
@@ -2528,7 +2538,8 @@ func canonicalizeCertificateAuthorityConfigX509ConfigPolicyIds(des, initial *Cer
 
 	cDes := &CertificateAuthorityConfigX509ConfigPolicyIds{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2764,7 +2775,8 @@ func canonicalizeCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectI
 
 	cDes := &CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2880,7 +2892,8 @@ func canonicalizeCertificateAuthorityConfigPublicKey(des, initial *CertificateAu
 	} else {
 		cDes.Key = des.Key
 	}
-	if dcl.IsZeroValue(des.Format) {
+	if dcl.IsZeroValue(des.Format) || (dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
@@ -3020,7 +3033,8 @@ func canonicalizeCertificateAuthorityKeySpec(des, initial *CertificateAuthorityK
 	} else {
 		cDes.CloudKmsKeyVersion = des.CloudKmsKeyVersion
 	}
-	if dcl.IsZeroValue(des.Algorithm) {
+	if dcl.IsZeroValue(des.Algorithm) || (dcl.IsEmptyValueIndirect(des.Algorithm) && dcl.IsEmptyValueIndirect(initial.Algorithm)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Algorithm = initial.Algorithm
 	} else {
 		cDes.Algorithm = des.Algorithm
@@ -3534,12 +3548,14 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription
 	} else {
 		cDes.Lifetime = des.Lifetime
 	}
-	if dcl.IsZeroValue(des.NotBeforeTime) {
+	if dcl.IsZeroValue(des.NotBeforeTime) || (dcl.IsEmptyValueIndirect(des.NotBeforeTime) && dcl.IsEmptyValueIndirect(initial.NotBeforeTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NotBeforeTime = initial.NotBeforeTime
 	} else {
 		cDes.NotBeforeTime = des.NotBeforeTime
 	}
-	if dcl.IsZeroValue(des.NotAfterTime) {
+	if dcl.IsZeroValue(des.NotAfterTime) || (dcl.IsEmptyValueIndirect(des.NotAfterTime) && dcl.IsEmptyValueIndirect(initial.NotAfterTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NotAfterTime = initial.NotAfterTime
 	} else {
 		cDes.NotAfterTime = des.NotAfterTime
@@ -4096,7 +4112,8 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription
 
 	cDes := &CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -4772,7 +4789,8 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsX509DescriptionKey
 
 	cDes := &CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -4888,7 +4906,8 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaO
 	} else {
 		cDes.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
+	if dcl.IsZeroValue(des.MaxIssuerPathLength) || (dcl.IsEmptyValueIndirect(des.MaxIssuerPathLength) && dcl.IsEmptyValueIndirect(initial.MaxIssuerPathLength)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
@@ -5003,7 +5022,8 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsX509DescriptionPol
 
 	cDes := &CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -5239,7 +5259,8 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdd
 
 	cDes := &CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -5355,7 +5376,8 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsPublicKey(des, ini
 	} else {
 		cDes.Key = des.Key
 	}
-	if dcl.IsZeroValue(des.Format) {
+	if dcl.IsZeroValue(des.Format) || (dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
@@ -12898,7 +12920,7 @@ func flattenCertificateAuthorityTypeEnumSlice(c *Client, i interface{}) []Certif
 func flattenCertificateAuthorityTypeEnum(i interface{}) *CertificateAuthorityTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CertificateAuthorityTypeEnumRef("")
+		return nil
 	}
 
 	return CertificateAuthorityTypeEnumRef(s)
@@ -12949,7 +12971,7 @@ func flattenCertificateAuthorityConfigPublicKeyFormatEnumSlice(c *Client, i inte
 func flattenCertificateAuthorityConfigPublicKeyFormatEnum(i interface{}) *CertificateAuthorityConfigPublicKeyFormatEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CertificateAuthorityConfigPublicKeyFormatEnumRef("")
+		return nil
 	}
 
 	return CertificateAuthorityConfigPublicKeyFormatEnumRef(s)
@@ -13000,7 +13022,7 @@ func flattenCertificateAuthorityKeySpecAlgorithmEnumSlice(c *Client, i interface
 func flattenCertificateAuthorityKeySpecAlgorithmEnum(i interface{}) *CertificateAuthorityKeySpecAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CertificateAuthorityKeySpecAlgorithmEnumRef("")
+		return nil
 	}
 
 	return CertificateAuthorityKeySpecAlgorithmEnumRef(s)
@@ -13051,7 +13073,7 @@ func flattenCertificateAuthorityTierEnumSlice(c *Client, i interface{}) []Certif
 func flattenCertificateAuthorityTierEnum(i interface{}) *CertificateAuthorityTierEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CertificateAuthorityTierEnumRef("")
+		return nil
 	}
 
 	return CertificateAuthorityTierEnumRef(s)
@@ -13102,7 +13124,7 @@ func flattenCertificateAuthorityStateEnumSlice(c *Client, i interface{}) []Certi
 func flattenCertificateAuthorityStateEnum(i interface{}) *CertificateAuthorityStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CertificateAuthorityStateEnumRef("")
+		return nil
 	}
 
 	return CertificateAuthorityStateEnumRef(s)
@@ -13153,7 +13175,7 @@ func flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumSlic
 func flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum(i interface{}) *CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumRef("")
+		return nil
 	}
 
 	return CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumRef(s)

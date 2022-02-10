@@ -713,6 +713,11 @@ func (c *Client) instanceGroupManagerDiffsForRawDesired(ctx context.Context, raw
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for InstanceGroupManager: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for InstanceGroupManager: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractInstanceGroupManagerFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeInstanceGroupManagerInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -785,7 +790,8 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 	} else {
 		canonicalDesired.BaseInstanceName = rawDesired.BaseInstanceName
 	}
-	if dcl.IsZeroValue(rawDesired.TargetSize) {
+	if dcl.IsZeroValue(rawDesired.TargetSize) || (dcl.IsEmptyValueIndirect(rawDesired.TargetSize) && dcl.IsEmptyValueIndirect(rawInitial.TargetSize)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.TargetSize = rawInitial.TargetSize
 	} else {
 		canonicalDesired.TargetSize = rawDesired.TargetSize
@@ -799,7 +805,8 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 	} else {
 		canonicalDesired.ServiceAccount = rawDesired.ServiceAccount
 	}
-	if dcl.IsZeroValue(rawDesired.FailoverAction) {
+	if dcl.IsZeroValue(rawDesired.FailoverAction) || (dcl.IsEmptyValueIndirect(rawDesired.FailoverAction) && dcl.IsEmptyValueIndirect(rawInitial.FailoverAction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.FailoverAction = rawInitial.FailoverAction
 	} else {
 		canonicalDesired.FailoverAction = rawDesired.FailoverAction
@@ -1001,7 +1008,8 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 	cDes := &InstanceGroupManagerDistributionPolicy{}
 
 	cDes.Zones = canonicalizeInstanceGroupManagerDistributionPolicyZonesSlice(des.Zones, initial.Zones, opts...)
-	if dcl.IsZeroValue(des.TargetShape) {
+	if dcl.IsZeroValue(des.TargetShape) || (dcl.IsEmptyValueIndirect(des.TargetShape) && dcl.IsEmptyValueIndirect(initial.TargetShape)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TargetShape = initial.TargetShape
 	} else {
 		cDes.TargetShape = des.TargetShape
@@ -1354,12 +1362,14 @@ func canonicalizeInstanceGroupManagerFixedOrPercent(des, initial *InstanceGroupM
 
 	cDes := &InstanceGroupManagerFixedOrPercent{}
 
-	if dcl.IsZeroValue(des.Fixed) {
+	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) {
+	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -2031,7 +2041,8 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 	} else {
 		cDes.HealthCheck = des.HealthCheck
 	}
-	if dcl.IsZeroValue(des.InitialDelaySec) {
+	if dcl.IsZeroValue(des.InitialDelaySec) || (dcl.IsEmptyValueIndirect(des.InitialDelaySec) && dcl.IsEmptyValueIndirect(initial.InitialDelaySec)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.InitialDelaySec = initial.InitialDelaySec
 	} else {
 		cDes.InitialDelaySec = des.InitialDelaySec
@@ -2146,34 +2157,40 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 
 	cDes := &InstanceGroupManagerUpdatePolicy{}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.InstanceRedistributionType) {
+	if dcl.IsZeroValue(des.InstanceRedistributionType) || (dcl.IsEmptyValueIndirect(des.InstanceRedistributionType) && dcl.IsEmptyValueIndirect(initial.InstanceRedistributionType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.InstanceRedistributionType = initial.InstanceRedistributionType
 	} else {
 		cDes.InstanceRedistributionType = des.InstanceRedistributionType
 	}
-	if dcl.IsZeroValue(des.MinimalAction) {
+	if dcl.IsZeroValue(des.MinimalAction) || (dcl.IsEmptyValueIndirect(des.MinimalAction) && dcl.IsEmptyValueIndirect(initial.MinimalAction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinimalAction = initial.MinimalAction
 	} else {
 		cDes.MinimalAction = des.MinimalAction
 	}
 	cDes.MaxSurge = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxSurge, initial.MaxSurge, opts...)
 	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxUnavailable, initial.MaxUnavailable, opts...)
-	if dcl.IsZeroValue(des.ReplacementMethod) {
+	if dcl.IsZeroValue(des.ReplacementMethod) || (dcl.IsEmptyValueIndirect(des.ReplacementMethod) && dcl.IsEmptyValueIndirect(initial.ReplacementMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ReplacementMethod = initial.ReplacementMethod
 	} else {
 		cDes.ReplacementMethod = des.ReplacementMethod
 	}
-	if dcl.IsZeroValue(des.MostDisruptiveAllowedAction) {
+	if dcl.IsZeroValue(des.MostDisruptiveAllowedAction) || (dcl.IsEmptyValueIndirect(des.MostDisruptiveAllowedAction) && dcl.IsEmptyValueIndirect(initial.MostDisruptiveAllowedAction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MostDisruptiveAllowedAction = initial.MostDisruptiveAllowedAction
 	} else {
 		cDes.MostDisruptiveAllowedAction = des.MostDisruptiveAllowedAction
 	}
-	if dcl.IsZeroValue(des.MinReadySec) {
+	if dcl.IsZeroValue(des.MinReadySec) || (dcl.IsEmptyValueIndirect(des.MinReadySec) && dcl.IsEmptyValueIndirect(initial.MinReadySec)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinReadySec = initial.MinReadySec
 	} else {
 		cDes.MinReadySec = des.MinReadySec
@@ -2292,7 +2309,8 @@ func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManag
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.Port) {
+	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
@@ -2516,7 +2534,8 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *
 
 	cDes := &InstanceGroupManagerStatefulPolicyPreservedState{}
 
-	if dcl.IsZeroValue(des.Disks) {
+	if dcl.IsZeroValue(des.Disks) || (dcl.IsEmptyValueIndirect(des.Disks) && dcl.IsEmptyValueIndirect(initial.Disks)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Disks = initial.Disks
 	} else {
 		cDes.Disks = des.Disks
@@ -2627,7 +2646,8 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, init
 
 	cDes := &InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
 
-	if dcl.IsZeroValue(des.AutoDelete) {
+	if dcl.IsZeroValue(des.AutoDelete) || (dcl.IsEmptyValueIndirect(des.AutoDelete) && dcl.IsEmptyValueIndirect(initial.AutoDelete)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AutoDelete = initial.AutoDelete
 	} else {
 		cDes.AutoDelete = des.AutoDelete
@@ -5584,7 +5604,7 @@ func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumSlice(c *Client
 func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum(i interface{}) *InstanceGroupManagerDistributionPolicyTargetShapeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerDistributionPolicyTargetShapeEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerDistributionPolicyTargetShapeEnumRef(s)
@@ -5635,7 +5655,7 @@ func flattenInstanceGroupManagerUpdatePolicyTypeEnumSlice(c *Client, i interface
 func flattenInstanceGroupManagerUpdatePolicyTypeEnum(i interface{}) *InstanceGroupManagerUpdatePolicyTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerUpdatePolicyTypeEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerUpdatePolicyTypeEnumRef(s)
@@ -5686,7 +5706,7 @@ func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumSlice(
 func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(i interface{}) *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumRef(s)
@@ -5737,7 +5757,7 @@ func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumSlice(c *Client, i 
 func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(i interface{}) *InstanceGroupManagerUpdatePolicyMinimalActionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerUpdatePolicyMinimalActionEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerUpdatePolicyMinimalActionEnumRef(s)
@@ -5788,7 +5808,7 @@ func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumSlice(c *Client
 func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(i interface{}) *InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef(s)
@@ -5839,7 +5859,7 @@ func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumSlice
 func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(i interface{}) *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef(s)
@@ -5890,7 +5910,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumS
 func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(i interface{}) *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef(s)
@@ -5941,7 +5961,7 @@ func flattenInstanceGroupManagerFailoverActionEnumSlice(c *Client, i interface{}
 func flattenInstanceGroupManagerFailoverActionEnum(i interface{}) *InstanceGroupManagerFailoverActionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceGroupManagerFailoverActionEnumRef("")
+		return nil
 	}
 
 	return InstanceGroupManagerFailoverActionEnumRef(s)

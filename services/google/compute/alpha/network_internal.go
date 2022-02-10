@@ -350,6 +350,11 @@ func (c *Client) networkDiffsForRawDesired(ctx context.Context, rawDesired *Netw
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Network: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Network: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractNetworkFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeNetworkInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -411,7 +416,8 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 		canonicalDesired.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
 	}
 	canonicalDesired.RoutingConfig = canonicalizeNetworkRoutingConfig(rawDesired.RoutingConfig, rawInitial.RoutingConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.Mtu) {
+	if dcl.IsZeroValue(rawDesired.Mtu) || (dcl.IsEmptyValueIndirect(rawDesired.Mtu) && dcl.IsEmptyValueIndirect(rawInitial.Mtu)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Mtu = rawInitial.Mtu
 	} else {
 		canonicalDesired.Mtu = rawDesired.Mtu
@@ -505,7 +511,8 @@ func canonicalizeNetworkRoutingConfig(des, initial *NetworkRoutingConfig, opts .
 
 	cDes := &NetworkRoutingConfig{}
 
-	if dcl.IsZeroValue(des.RoutingMode) {
+	if dcl.IsZeroValue(des.RoutingMode) || (dcl.IsEmptyValueIndirect(des.RoutingMode) && dcl.IsEmptyValueIndirect(initial.RoutingMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RoutingMode = initial.RoutingMode
 	} else {
 		cDes.RoutingMode = des.RoutingMode
@@ -989,7 +996,7 @@ func flattenNetworkRoutingConfigRoutingModeEnumSlice(c *Client, i interface{}) [
 func flattenNetworkRoutingConfigRoutingModeEnum(i interface{}) *NetworkRoutingConfigRoutingModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NetworkRoutingConfigRoutingModeEnumRef("")
+		return nil
 	}
 
 	return NetworkRoutingConfigRoutingModeEnumRef(s)

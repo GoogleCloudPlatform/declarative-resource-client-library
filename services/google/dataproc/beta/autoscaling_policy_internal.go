@@ -427,6 +427,11 @@ func (c *Client) autoscalingPolicyDiffsForRawDesired(ctx context.Context, rawDes
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for AutoscalingPolicy: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for AutoscalingPolicy: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractAutoscalingPolicyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeAutoscalingPolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -663,22 +668,26 @@ func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *Autosca
 	} else {
 		cDes.GracefulDecommissionTimeout = des.GracefulDecommissionTimeout
 	}
-	if dcl.IsZeroValue(des.ScaleUpFactor) {
+	if dcl.IsZeroValue(des.ScaleUpFactor) || (dcl.IsEmptyValueIndirect(des.ScaleUpFactor) && dcl.IsEmptyValueIndirect(initial.ScaleUpFactor)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ScaleUpFactor = initial.ScaleUpFactor
 	} else {
 		cDes.ScaleUpFactor = des.ScaleUpFactor
 	}
-	if dcl.IsZeroValue(des.ScaleDownFactor) {
+	if dcl.IsZeroValue(des.ScaleDownFactor) || (dcl.IsEmptyValueIndirect(des.ScaleDownFactor) && dcl.IsEmptyValueIndirect(initial.ScaleDownFactor)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ScaleDownFactor = initial.ScaleDownFactor
 	} else {
 		cDes.ScaleDownFactor = des.ScaleDownFactor
 	}
-	if dcl.IsZeroValue(des.ScaleUpMinWorkerFraction) {
+	if dcl.IsZeroValue(des.ScaleUpMinWorkerFraction) || (dcl.IsEmptyValueIndirect(des.ScaleUpMinWorkerFraction) && dcl.IsEmptyValueIndirect(initial.ScaleUpMinWorkerFraction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ScaleUpMinWorkerFraction = initial.ScaleUpMinWorkerFraction
 	} else {
 		cDes.ScaleUpMinWorkerFraction = des.ScaleUpMinWorkerFraction
 	}
-	if dcl.IsZeroValue(des.ScaleDownMinWorkerFraction) {
+	if dcl.IsZeroValue(des.ScaleDownMinWorkerFraction) || (dcl.IsEmptyValueIndirect(des.ScaleDownMinWorkerFraction) && dcl.IsEmptyValueIndirect(initial.ScaleDownMinWorkerFraction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ScaleDownMinWorkerFraction = initial.ScaleDownMinWorkerFraction
 	} else {
 		cDes.ScaleDownMinWorkerFraction = des.ScaleDownMinWorkerFraction
@@ -793,17 +802,20 @@ func canonicalizeAutoscalingPolicyWorkerConfig(des, initial *AutoscalingPolicyWo
 
 	cDes := &AutoscalingPolicyWorkerConfig{}
 
-	if dcl.IsZeroValue(des.MinInstances) {
+	if dcl.IsZeroValue(des.MinInstances) || (dcl.IsEmptyValueIndirect(des.MinInstances) && dcl.IsEmptyValueIndirect(initial.MinInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinInstances = initial.MinInstances
 	} else {
 		cDes.MinInstances = des.MinInstances
 	}
-	if dcl.IsZeroValue(des.MaxInstances) {
+	if dcl.IsZeroValue(des.MaxInstances) || (dcl.IsEmptyValueIndirect(des.MaxInstances) && dcl.IsEmptyValueIndirect(initial.MaxInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxInstances = initial.MaxInstances
 	} else {
 		cDes.MaxInstances = des.MaxInstances
 	}
-	if dcl.IsZeroValue(des.Weight) {
+	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -914,17 +926,20 @@ func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *Autoscalin
 
 	cDes := &AutoscalingPolicySecondaryWorkerConfig{}
 
-	if dcl.IsZeroValue(des.MinInstances) {
+	if dcl.IsZeroValue(des.MinInstances) || (dcl.IsEmptyValueIndirect(des.MinInstances) && dcl.IsEmptyValueIndirect(initial.MinInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinInstances = initial.MinInstances
 	} else {
 		cDes.MinInstances = des.MinInstances
 	}
-	if dcl.IsZeroValue(des.MaxInstances) {
+	if dcl.IsZeroValue(des.MaxInstances) || (dcl.IsEmptyValueIndirect(des.MaxInstances) && dcl.IsEmptyValueIndirect(initial.MaxInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxInstances = initial.MaxInstances
 	} else {
 		cDes.MaxInstances = des.MaxInstances
 	}
-	if dcl.IsZeroValue(des.Weight) {
+	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight

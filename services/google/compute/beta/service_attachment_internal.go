@@ -442,6 +442,11 @@ func (c *Client) serviceAttachmentDiffsForRawDesired(ctx context.Context, rawDes
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for ServiceAttachment: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for ServiceAttachment: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractServiceAttachmentFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeServiceAttachmentInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -498,7 +503,8 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 	} else {
 		canonicalDesired.TargetService = rawDesired.TargetService
 	}
-	if dcl.IsZeroValue(rawDesired.ConnectionPreference) {
+	if dcl.IsZeroValue(rawDesired.ConnectionPreference) || (dcl.IsEmptyValueIndirect(rawDesired.ConnectionPreference) && dcl.IsEmptyValueIndirect(rawInitial.ConnectionPreference)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ConnectionPreference = rawInitial.ConnectionPreference
 	} else {
 		canonicalDesired.ConnectionPreference = rawDesired.ConnectionPreference
@@ -656,12 +662,14 @@ func canonicalizeServiceAttachmentConnectedEndpoints(des, initial *ServiceAttach
 
 	cDes := &ServiceAttachmentConnectedEndpoints{}
 
-	if dcl.IsZeroValue(des.Status) {
+	if dcl.IsZeroValue(des.Status) || (dcl.IsEmptyValueIndirect(des.Status) && dcl.IsEmptyValueIndirect(initial.Status)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
 	}
-	if dcl.IsZeroValue(des.PscConnectionId) {
+	if dcl.IsZeroValue(des.PscConnectionId) || (dcl.IsEmptyValueIndirect(des.PscConnectionId) && dcl.IsEmptyValueIndirect(initial.PscConnectionId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PscConnectionId = initial.PscConnectionId
 	} else {
 		cDes.PscConnectionId = des.PscConnectionId
@@ -786,7 +794,8 @@ func canonicalizeServiceAttachmentConsumerAcceptLists(des, initial *ServiceAttac
 	} else {
 		cDes.ProjectIdOrNum = des.ProjectIdOrNum
 	}
-	if dcl.IsZeroValue(des.ConnectionLimit) {
+	if dcl.IsZeroValue(des.ConnectionLimit) || (dcl.IsEmptyValueIndirect(des.ConnectionLimit) && dcl.IsEmptyValueIndirect(initial.ConnectionLimit)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ConnectionLimit = initial.ConnectionLimit
 	} else {
 		cDes.ConnectionLimit = des.ConnectionLimit
@@ -1776,7 +1785,7 @@ func flattenServiceAttachmentConnectionPreferenceEnumSlice(c *Client, i interfac
 func flattenServiceAttachmentConnectionPreferenceEnum(i interface{}) *ServiceAttachmentConnectionPreferenceEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceAttachmentConnectionPreferenceEnumRef("")
+		return nil
 	}
 
 	return ServiceAttachmentConnectionPreferenceEnumRef(s)
@@ -1827,7 +1836,7 @@ func flattenServiceAttachmentConnectedEndpointsStatusEnumSlice(c *Client, i inte
 func flattenServiceAttachmentConnectedEndpointsStatusEnum(i interface{}) *ServiceAttachmentConnectedEndpointsStatusEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceAttachmentConnectedEndpointsStatusEnumRef("")
+		return nil
 	}
 
 	return ServiceAttachmentConnectedEndpointsStatusEnumRef(s)

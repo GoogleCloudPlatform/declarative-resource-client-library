@@ -515,6 +515,11 @@ func (c *Client) certificateTemplateDiffsForRawDesired(ctx context.Context, rawD
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for CertificateTemplate: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for CertificateTemplate: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractCertificateTemplateFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeCertificateTemplateInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -571,7 +576,8 @@ func canonicalizeCertificateTemplateDesiredState(rawDesired, rawInitial *Certifi
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -1232,7 +1238,8 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUs
 
 	cDes := &CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -1348,7 +1355,8 @@ func canonicalizeCertificateTemplatePredefinedValuesCaOptions(des, initial *Cert
 	} else {
 		cDes.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
+	if dcl.IsZeroValue(des.MaxIssuerPathLength) || (dcl.IsEmptyValueIndirect(des.MaxIssuerPathLength) && dcl.IsEmptyValueIndirect(initial.MaxIssuerPathLength)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
@@ -1463,7 +1471,8 @@ func canonicalizeCertificateTemplatePredefinedValuesPolicyIds(des, initial *Cert
 
 	cDes := &CertificateTemplatePredefinedValuesPolicyIds{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -1699,7 +1708,8 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId
 
 	cDes := &CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2074,7 +2084,8 @@ func canonicalizeCertificateTemplatePassthroughExtensions(des, initial *Certific
 
 	cDes := &CertificateTemplatePassthroughExtensions{}
 
-	if dcl.IsZeroValue(des.KnownExtensions) {
+	if dcl.IsZeroValue(des.KnownExtensions) || (dcl.IsEmptyValueIndirect(des.KnownExtensions) && dcl.IsEmptyValueIndirect(initial.KnownExtensions)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.KnownExtensions = initial.KnownExtensions
 	} else {
 		cDes.KnownExtensions = des.KnownExtensions
@@ -2188,7 +2199,8 @@ func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(de
 
 	cDes := &CertificateTemplatePassthroughExtensionsAdditionalExtensions{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) {
+	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -4733,7 +4745,7 @@ func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumSlice(c *
 func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnum(i interface{}) *CertificateTemplatePassthroughExtensionsKnownExtensionsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CertificateTemplatePassthroughExtensionsKnownExtensionsEnumRef("")
+		return nil
 	}
 
 	return CertificateTemplatePassthroughExtensionsKnownExtensionsEnumRef(s)

@@ -381,6 +381,11 @@ func (c *Client) vpnTunnelDiffsForRawDesired(ctx context.Context, rawDesired *Vp
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for VpnTunnel: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for VpnTunnel: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractVpnTunnelFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeVpnTunnelInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -425,7 +430,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 		return rawDesired, nil
 	}
 	canonicalDesired := &VpnTunnel{}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -455,7 +461,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	} else {
 		canonicalDesired.VpnGateway = rawDesired.VpnGateway
 	}
-	if dcl.IsZeroValue(rawDesired.VpnGatewayInterface) {
+	if dcl.IsZeroValue(rawDesired.VpnGatewayInterface) || (dcl.IsEmptyValueIndirect(rawDesired.VpnGatewayInterface) && dcl.IsEmptyValueIndirect(rawInitial.VpnGatewayInterface)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.VpnGatewayInterface = rawInitial.VpnGatewayInterface
 	} else {
 		canonicalDesired.VpnGatewayInterface = rawDesired.VpnGatewayInterface
@@ -465,7 +472,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	} else {
 		canonicalDesired.PeerExternalGateway = rawDesired.PeerExternalGateway
 	}
-	if dcl.IsZeroValue(rawDesired.PeerExternalGatewayInterface) {
+	if dcl.IsZeroValue(rawDesired.PeerExternalGatewayInterface) || (dcl.IsEmptyValueIndirect(rawDesired.PeerExternalGatewayInterface) && dcl.IsEmptyValueIndirect(rawInitial.PeerExternalGatewayInterface)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.PeerExternalGatewayInterface = rawInitial.PeerExternalGatewayInterface
 	} else {
 		canonicalDesired.PeerExternalGatewayInterface = rawDesired.PeerExternalGatewayInterface
@@ -490,7 +498,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	} else {
 		canonicalDesired.SharedSecret = rawDesired.SharedSecret
 	}
-	if dcl.IsZeroValue(rawDesired.IkeVersion) {
+	if dcl.IsZeroValue(rawDesired.IkeVersion) || (dcl.IsEmptyValueIndirect(rawDesired.IkeVersion) && dcl.IsEmptyValueIndirect(rawInitial.IkeVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.IkeVersion = rawInitial.IkeVersion
 	} else {
 		canonicalDesired.IkeVersion = rawDesired.IkeVersion
@@ -1055,7 +1064,7 @@ func flattenVpnTunnelStatusEnumSlice(c *Client, i interface{}) []VpnTunnelStatus
 func flattenVpnTunnelStatusEnum(i interface{}) *VpnTunnelStatusEnum {
 	s, ok := i.(string)
 	if !ok {
-		return VpnTunnelStatusEnumRef("")
+		return nil
 	}
 
 	return VpnTunnelStatusEnumRef(s)

@@ -396,6 +396,11 @@ func (c *Client) backupDiffsForRawDesired(ctx context.Context, rawDesired *Backu
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Backup: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Backup: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractBackupFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeBackupInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -446,7 +451,8 @@ func canonicalizeBackupDesiredState(rawDesired, rawInitial *Backup, opts ...dcl.
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -824,7 +830,7 @@ func flattenBackupStateEnumSlice(c *Client, i interface{}) []BackupStateEnum {
 func flattenBackupStateEnum(i interface{}) *BackupStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BackupStateEnumRef("")
+		return nil
 	}
 
 	return BackupStateEnumRef(s)
@@ -875,7 +881,7 @@ func flattenBackupSourceInstanceTierEnumSlice(c *Client, i interface{}) []Backup
 func flattenBackupSourceInstanceTierEnum(i interface{}) *BackupSourceInstanceTierEnum {
 	s, ok := i.(string)
 	if !ok {
-		return BackupSourceInstanceTierEnumRef("")
+		return nil
 	}
 
 	return BackupSourceInstanceTierEnumRef(s)

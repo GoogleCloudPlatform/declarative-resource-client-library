@@ -313,6 +313,11 @@ func (c *Client) rulesetDiffsForRawDesired(ctx context.Context, rawDesired *Rule
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Ruleset: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Ruleset: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractRulesetFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeRulesetInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -355,7 +360,8 @@ func canonicalizeRulesetDesiredState(rawDesired, rawInitial *Ruleset, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &Ruleset{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -414,7 +420,8 @@ func canonicalizeRulesetSource(des, initial *RulesetSource, opts ...dcl.ApplyOpt
 	cDes := &RulesetSource{}
 
 	cDes.Files = canonicalizeRulesetSourceFilesSlice(des.Files, initial.Files, opts...)
-	if dcl.IsZeroValue(des.Language) {
+	if dcl.IsZeroValue(des.Language) || (dcl.IsEmptyValueIndirect(des.Language) && dcl.IsEmptyValueIndirect(initial.Language)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Language = initial.Language
 	} else {
 		cDes.Language = des.Language
@@ -1410,7 +1417,7 @@ func flattenRulesetSourceLanguageEnumSlice(c *Client, i interface{}) []RulesetSo
 func flattenRulesetSourceLanguageEnum(i interface{}) *RulesetSourceLanguageEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RulesetSourceLanguageEnumRef("")
+		return nil
 	}
 
 	return RulesetSourceLanguageEnumRef(s)

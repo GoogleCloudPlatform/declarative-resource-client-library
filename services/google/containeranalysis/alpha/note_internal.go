@@ -488,6 +488,11 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Note: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Note: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractNoteFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeNoteInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -626,7 +631,8 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		canonicalDesired.LongDescription = rawDesired.LongDescription
 	}
 	canonicalDesired.RelatedUrl = canonicalizeNoteRelatedUrlSlice(rawDesired.RelatedUrl, rawInitial.RelatedUrl, opts...)
-	if dcl.IsZeroValue(rawDesired.ExpirationTime) {
+	if dcl.IsZeroValue(rawDesired.ExpirationTime) || (dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) && dcl.IsEmptyValueIndirect(rawInitial.ExpirationTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ExpirationTime = rawInitial.ExpirationTime
 	} else {
 		canonicalDesired.ExpirationTime = rawDesired.ExpirationTime
@@ -1229,7 +1235,8 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 	} else {
 		cDes.CpeUri = des.CpeUri
 	}
-	if dcl.IsZeroValue(des.Architecture) {
+	if dcl.IsZeroValue(des.Architecture) || (dcl.IsEmptyValueIndirect(des.Architecture) && dcl.IsEmptyValueIndirect(initial.Architecture)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Architecture = initial.Architecture
 	} else {
 		cDes.Architecture = des.Architecture
@@ -1370,7 +1377,8 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 
 	cDes := &NotePackageDistributionLatestVersion{}
 
-	if dcl.IsZeroValue(des.Epoch) {
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
@@ -1385,7 +1393,8 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) {
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
@@ -1511,7 +1520,8 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 
 	cDes := &NoteDiscovery{}
 
-	if dcl.IsZeroValue(des.AnalysisKind) {
+	if dcl.IsZeroValue(des.AnalysisKind) || (dcl.IsEmptyValueIndirect(des.AnalysisKind) && dcl.IsEmptyValueIndirect(initial.AnalysisKind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AnalysisKind = initial.AnalysisKind
 	} else {
 		cDes.AnalysisKind = des.AnalysisKind
@@ -3834,7 +3844,7 @@ func flattenNotePackageDistributionArchitectureEnumSlice(c *Client, i interface{
 func flattenNotePackageDistributionArchitectureEnum(i interface{}) *NotePackageDistributionArchitectureEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NotePackageDistributionArchitectureEnumRef("")
+		return nil
 	}
 
 	return NotePackageDistributionArchitectureEnumRef(s)
@@ -3885,7 +3895,7 @@ func flattenNotePackageDistributionLatestVersionKindEnumSlice(c *Client, i inter
 func flattenNotePackageDistributionLatestVersionKindEnum(i interface{}) *NotePackageDistributionLatestVersionKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NotePackageDistributionLatestVersionKindEnumRef("")
+		return nil
 	}
 
 	return NotePackageDistributionLatestVersionKindEnumRef(s)
@@ -3936,7 +3946,7 @@ func flattenNoteDiscoveryAnalysisKindEnumSlice(c *Client, i interface{}) []NoteD
 func flattenNoteDiscoveryAnalysisKindEnum(i interface{}) *NoteDiscoveryAnalysisKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteDiscoveryAnalysisKindEnumRef("")
+		return nil
 	}
 
 	return NoteDiscoveryAnalysisKindEnumRef(s)

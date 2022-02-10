@@ -590,6 +590,11 @@ func (c *Client) serviceLevelObjectiveDiffsForRawDesired(ctx context.Context, ra
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for ServiceLevelObjective: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for ServiceLevelObjective: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractServiceLevelObjectiveFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeServiceLevelObjectiveInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -674,7 +679,8 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	canonicalDesired.ServiceLevelIndicator = canonicalizeServiceLevelObjectiveServiceLevelIndicator(rawDesired.ServiceLevelIndicator, rawInitial.ServiceLevelIndicator, opts...)
-	if dcl.IsZeroValue(rawDesired.Goal) {
+	if dcl.IsZeroValue(rawDesired.Goal) || (dcl.IsEmptyValueIndirect(rawDesired.Goal) && dcl.IsEmptyValueIndirect(rawInitial.Goal)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Goal = rawInitial.Goal
 	} else {
 		canonicalDesired.Goal = rawDesired.Goal
@@ -684,12 +690,14 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 	} else {
 		canonicalDesired.RollingPeriod = rawDesired.RollingPeriod
 	}
-	if dcl.IsZeroValue(rawDesired.CalendarPeriod) {
+	if dcl.IsZeroValue(rawDesired.CalendarPeriod) || (dcl.IsEmptyValueIndirect(rawDesired.CalendarPeriod) && dcl.IsEmptyValueIndirect(rawInitial.CalendarPeriod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.CalendarPeriod = rawInitial.CalendarPeriod
 	} else {
 		canonicalDesired.CalendarPeriod = rawDesired.CalendarPeriod
 	}
-	if dcl.IsZeroValue(rawDesired.UserLabels) {
+	if dcl.IsZeroValue(rawDesired.UserLabels) || (dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.UserLabels = rawInitial.UserLabels
 	} else {
 		canonicalDesired.UserLabels = rawDesired.UserLabels
@@ -1225,7 +1233,8 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(des, 
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) {
+	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -1449,7 +1458,8 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLate
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) {
+	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -1943,12 +1953,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistribut
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{}
 
-	if dcl.IsZeroValue(des.Min) {
+	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) {
+	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -2250,7 +2262,8 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes.Performance = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(des.Performance, initial.Performance, opts...)
 	cDes.BasicSliPerformance = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(des.BasicSliPerformance, initial.BasicSliPerformance, opts...)
-	if dcl.IsZeroValue(des.Threshold) {
+	if dcl.IsZeroValue(des.Threshold) || (dcl.IsEmptyValueIndirect(des.Threshold) && dcl.IsEmptyValueIndirect(initial.Threshold)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Threshold = initial.Threshold
 	} else {
 		cDes.Threshold = des.Threshold
@@ -2743,12 +2756,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{}
 
-	if dcl.IsZeroValue(des.Min) {
+	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) {
+	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -3147,7 +3162,8 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) {
+	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -3371,7 +3387,8 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) {
+	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -3603,12 +3620,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMea
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{}
 
-	if dcl.IsZeroValue(des.Min) {
+	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) {
+	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -3836,12 +3855,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSum
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{}
 
-	if dcl.IsZeroValue(des.Min) {
+	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) {
+	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -8148,7 +8169,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceE
 func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum(i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumRef("")
+		return nil
 	}
 
 	return ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumRef(s)
@@ -8199,7 +8220,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyEx
 func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum(i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumRef("")
+		return nil
 	}
 
 	return ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumRef(s)
@@ -8250,7 +8271,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum(i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumRef("")
+		return nil
 	}
 
 	return ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumRef(s)
@@ -8301,7 +8322,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum(i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumRef("")
+		return nil
 	}
 
 	return ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumRef(s)
@@ -8352,7 +8373,7 @@ func flattenServiceLevelObjectiveCalendarPeriodEnumSlice(c *Client, i interface{
 func flattenServiceLevelObjectiveCalendarPeriodEnum(i interface{}) *ServiceLevelObjectiveCalendarPeriodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ServiceLevelObjectiveCalendarPeriodEnumRef("")
+		return nil
 	}
 
 	return ServiceLevelObjectiveCalendarPeriodEnumRef(s)

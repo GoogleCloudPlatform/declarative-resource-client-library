@@ -455,6 +455,11 @@ func (c *Client) packetMirroringDiffsForRawDesired(ctx context.Context, rawDesir
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for PacketMirroring: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for PacketMirroring: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractPacketMirroringFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizePacketMirroringInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -510,7 +515,8 @@ func canonicalizePacketMirroringDesiredState(rawDesired, rawInitial *PacketMirro
 		canonicalDesired.Description = rawDesired.Description
 	}
 	canonicalDesired.Network = canonicalizePacketMirroringNetwork(rawDesired.Network, rawInitial.Network, opts...)
-	if dcl.IsZeroValue(rawDesired.Priority) {
+	if dcl.IsZeroValue(rawDesired.Priority) || (dcl.IsEmptyValueIndirect(rawDesired.Priority) && dcl.IsEmptyValueIndirect(rawInitial.Priority)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Priority = rawInitial.Priority
 	} else {
 		canonicalDesired.Priority = rawDesired.Priority
@@ -518,7 +524,8 @@ func canonicalizePacketMirroringDesiredState(rawDesired, rawInitial *PacketMirro
 	canonicalDesired.CollectorIlb = canonicalizePacketMirroringCollectorIlb(rawDesired.CollectorIlb, rawInitial.CollectorIlb, opts...)
 	canonicalDesired.MirroredResources = canonicalizePacketMirroringMirroredResources(rawDesired.MirroredResources, rawInitial.MirroredResources, opts...)
 	canonicalDesired.Filter = canonicalizePacketMirroringFilter(rawDesired.Filter, rawInitial.Filter, opts...)
-	if dcl.IsZeroValue(rawDesired.Enable) {
+	if dcl.IsZeroValue(rawDesired.Enable) || (dcl.IsEmptyValueIndirect(rawDesired.Enable) && dcl.IsEmptyValueIndirect(rawInitial.Enable)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Enable = rawInitial.Enable
 	} else {
 		canonicalDesired.Enable = rawDesired.Enable
@@ -1232,7 +1239,8 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 	} else {
 		cDes.IPProtocols = des.IPProtocols
 	}
-	if dcl.IsZeroValue(des.Direction) {
+	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -2567,7 +2575,7 @@ func flattenPacketMirroringFilterDirectionEnumSlice(c *Client, i interface{}) []
 func flattenPacketMirroringFilterDirectionEnum(i interface{}) *PacketMirroringFilterDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PacketMirroringFilterDirectionEnumRef("")
+		return nil
 	}
 
 	return PacketMirroringFilterDirectionEnumRef(s)
@@ -2618,7 +2626,7 @@ func flattenPacketMirroringEnableEnumSlice(c *Client, i interface{}) []PacketMir
 func flattenPacketMirroringEnableEnum(i interface{}) *PacketMirroringEnableEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PacketMirroringEnableEnumRef("")
+		return nil
 	}
 
 	return PacketMirroringEnableEnumRef(s)

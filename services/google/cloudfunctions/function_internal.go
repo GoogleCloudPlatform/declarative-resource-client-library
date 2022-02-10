@@ -483,6 +483,11 @@ func (c *Client) functionDiffsForRawDesired(ctx context.Context, rawDesired *Fun
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Function: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Function: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractFunctionFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeFunctionInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -621,7 +626,8 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	} else {
 		canonicalDesired.Timeout = rawDesired.Timeout
 	}
-	if dcl.IsZeroValue(rawDesired.AvailableMemoryMb) {
+	if dcl.IsZeroValue(rawDesired.AvailableMemoryMb) || (dcl.IsEmptyValueIndirect(rawDesired.AvailableMemoryMb) && dcl.IsEmptyValueIndirect(rawInitial.AvailableMemoryMb)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.AvailableMemoryMb = rawInitial.AvailableMemoryMb
 	} else {
 		canonicalDesired.AvailableMemoryMb = rawDesired.AvailableMemoryMb
@@ -631,17 +637,20 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	} else {
 		canonicalDesired.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.EnvironmentVariables) {
+	if dcl.IsZeroValue(rawDesired.EnvironmentVariables) || (dcl.IsEmptyValueIndirect(rawDesired.EnvironmentVariables) && dcl.IsEmptyValueIndirect(rawInitial.EnvironmentVariables)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.EnvironmentVariables = rawInitial.EnvironmentVariables
 	} else {
 		canonicalDesired.EnvironmentVariables = rawDesired.EnvironmentVariables
 	}
-	if dcl.IsZeroValue(rawDesired.MaxInstances) {
+	if dcl.IsZeroValue(rawDesired.MaxInstances) || (dcl.IsEmptyValueIndirect(rawDesired.MaxInstances) && dcl.IsEmptyValueIndirect(rawInitial.MaxInstances)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MaxInstances = rawInitial.MaxInstances
 	} else {
 		canonicalDesired.MaxInstances = rawDesired.MaxInstances
@@ -651,12 +660,14 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	} else {
 		canonicalDesired.VPCConnector = rawDesired.VPCConnector
 	}
-	if dcl.IsZeroValue(rawDesired.VPCConnectorEgressSettings) {
+	if dcl.IsZeroValue(rawDesired.VPCConnectorEgressSettings) || (dcl.IsEmptyValueIndirect(rawDesired.VPCConnectorEgressSettings) && dcl.IsEmptyValueIndirect(rawInitial.VPCConnectorEgressSettings)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.VPCConnectorEgressSettings = rawInitial.VPCConnectorEgressSettings
 	} else {
 		canonicalDesired.VPCConnectorEgressSettings = rawDesired.VPCConnectorEgressSettings
 	}
-	if dcl.IsZeroValue(rawDesired.IngressSettings) {
+	if dcl.IsZeroValue(rawDesired.IngressSettings) || (dcl.IsEmptyValueIndirect(rawDesired.IngressSettings) && dcl.IsEmptyValueIndirect(rawInitial.IngressSettings)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.IngressSettings = rawInitial.IngressSettings
 	} else {
 		canonicalDesired.IngressSettings = rawDesired.IngressSettings
@@ -946,7 +957,8 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 
 	cDes := &FunctionHttpsTrigger{}
 
-	if dcl.IsZeroValue(des.SecurityLevel) {
+	if dcl.IsZeroValue(des.SecurityLevel) || (dcl.IsEmptyValueIndirect(des.SecurityLevel) && dcl.IsEmptyValueIndirect(initial.SecurityLevel)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SecurityLevel = initial.SecurityLevel
 	} else {
 		cDes.SecurityLevel = des.SecurityLevel
@@ -2067,7 +2079,7 @@ func flattenFunctionHttpsTriggerSecurityLevelEnumSlice(c *Client, i interface{})
 func flattenFunctionHttpsTriggerSecurityLevelEnum(i interface{}) *FunctionHttpsTriggerSecurityLevelEnum {
 	s, ok := i.(string)
 	if !ok {
-		return FunctionHttpsTriggerSecurityLevelEnumRef("")
+		return nil
 	}
 
 	return FunctionHttpsTriggerSecurityLevelEnumRef(s)
@@ -2118,7 +2130,7 @@ func flattenFunctionStatusEnumSlice(c *Client, i interface{}) []FunctionStatusEn
 func flattenFunctionStatusEnum(i interface{}) *FunctionStatusEnum {
 	s, ok := i.(string)
 	if !ok {
-		return FunctionStatusEnumRef("")
+		return nil
 	}
 
 	return FunctionStatusEnumRef(s)
@@ -2169,7 +2181,7 @@ func flattenFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, i interface{}
 func flattenFunctionVPCConnectorEgressSettingsEnum(i interface{}) *FunctionVPCConnectorEgressSettingsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return FunctionVPCConnectorEgressSettingsEnumRef("")
+		return nil
 	}
 
 	return FunctionVPCConnectorEgressSettingsEnumRef(s)
@@ -2220,7 +2232,7 @@ func flattenFunctionIngressSettingsEnumSlice(c *Client, i interface{}) []Functio
 func flattenFunctionIngressSettingsEnum(i interface{}) *FunctionIngressSettingsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return FunctionIngressSettingsEnumRef("")
+		return nil
 	}
 
 	return FunctionIngressSettingsEnumRef(s)

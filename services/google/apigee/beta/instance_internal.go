@@ -306,6 +306,11 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Instance: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractInstanceFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeInstanceInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -356,7 +361,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-	if dcl.IsZeroValue(rawDesired.PeeringCidrRange) {
+	if dcl.IsZeroValue(rawDesired.PeeringCidrRange) || (dcl.IsEmptyValueIndirect(rawDesired.PeeringCidrRange) && dcl.IsEmptyValueIndirect(rawInitial.PeeringCidrRange)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.PeeringCidrRange = rawInitial.PeeringCidrRange
 	} else {
 		canonicalDesired.PeeringCidrRange = rawDesired.PeeringCidrRange
@@ -726,7 +732,7 @@ func flattenInstancePeeringCidrRangeEnumSlice(c *Client, i interface{}) []Instan
 func flattenInstancePeeringCidrRangeEnum(i interface{}) *InstancePeeringCidrRangeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstancePeeringCidrRangeEnumRef("")
+		return nil
 	}
 
 	return InstancePeeringCidrRangeEnumRef(s)
@@ -777,7 +783,7 @@ func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum
 func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InstanceStateEnumRef("")
+		return nil
 	}
 
 	return InstanceStateEnumRef(s)

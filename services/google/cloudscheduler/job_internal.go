@@ -463,6 +463,11 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Job: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Job: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractJobFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeJobInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -674,7 +679,8 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 	} else {
 		cDes.Data = des.Data
 	}
-	if dcl.IsZeroValue(des.Attributes) {
+	if dcl.IsZeroValue(des.Attributes) || (dcl.IsEmptyValueIndirect(des.Attributes) && dcl.IsEmptyValueIndirect(initial.Attributes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Attributes = initial.Attributes
 	} else {
 		cDes.Attributes = des.Attributes
@@ -792,7 +798,8 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 
 	cDes := &JobAppEngineHttpTarget{}
 
-	if dcl.IsZeroValue(des.HttpMethod) {
+	if dcl.IsZeroValue(des.HttpMethod) || (dcl.IsEmptyValueIndirect(des.HttpMethod) && dcl.IsEmptyValueIndirect(initial.HttpMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.HttpMethod = initial.HttpMethod
 	} else {
 		cDes.HttpMethod = des.HttpMethod
@@ -803,7 +810,8 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 	} else {
 		cDes.RelativeUri = des.RelativeUri
 	}
-	if dcl.IsZeroValue(des.Headers) {
+	if dcl.IsZeroValue(des.Headers) || (dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
@@ -1066,12 +1074,14 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.IsZeroValue(des.HttpMethod) {
+	if dcl.IsZeroValue(des.HttpMethod) || (dcl.IsEmptyValueIndirect(des.HttpMethod) && dcl.IsEmptyValueIndirect(initial.HttpMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.HttpMethod = initial.HttpMethod
 	} else {
 		cDes.HttpMethod = des.HttpMethod
 	}
-	if dcl.IsZeroValue(des.Headers) {
+	if dcl.IsZeroValue(des.Headers) || (dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
@@ -1444,7 +1454,8 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 
 	cDes := &JobStatus{}
 
-	if dcl.IsZeroValue(des.Code) {
+	if dcl.IsZeroValue(des.Code) || (dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
@@ -1689,7 +1700,8 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 
 	cDes := &JobRetryConfig{}
 
-	if dcl.IsZeroValue(des.RetryCount) {
+	if dcl.IsZeroValue(des.RetryCount) || (dcl.IsEmptyValueIndirect(des.RetryCount) && dcl.IsEmptyValueIndirect(initial.RetryCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RetryCount = initial.RetryCount
 	} else {
 		cDes.RetryCount = des.RetryCount
@@ -1709,7 +1721,8 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 	} else {
 		cDes.MaxBackoffDuration = des.MaxBackoffDuration
 	}
-	if dcl.IsZeroValue(des.MaxDoublings) {
+	if dcl.IsZeroValue(des.MaxDoublings) || (dcl.IsEmptyValueIndirect(des.MaxDoublings) && dcl.IsEmptyValueIndirect(initial.MaxDoublings)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxDoublings = initial.MaxDoublings
 	} else {
 		cDes.MaxDoublings = des.MaxDoublings
@@ -3684,7 +3697,7 @@ func flattenJobAppEngineHttpTargetHttpMethodEnumSlice(c *Client, i interface{}) 
 func flattenJobAppEngineHttpTargetHttpMethodEnum(i interface{}) *JobAppEngineHttpTargetHttpMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return JobAppEngineHttpTargetHttpMethodEnumRef("")
+		return nil
 	}
 
 	return JobAppEngineHttpTargetHttpMethodEnumRef(s)
@@ -3735,7 +3748,7 @@ func flattenJobHttpTargetHttpMethodEnumSlice(c *Client, i interface{}) []JobHttp
 func flattenJobHttpTargetHttpMethodEnum(i interface{}) *JobHttpTargetHttpMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return JobHttpTargetHttpMethodEnumRef("")
+		return nil
 	}
 
 	return JobHttpTargetHttpMethodEnumRef(s)
@@ -3786,7 +3799,7 @@ func flattenJobStateEnumSlice(c *Client, i interface{}) []JobStateEnum {
 func flattenJobStateEnum(i interface{}) *JobStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return JobStateEnumRef("")
+		return nil
 	}
 
 	return JobStateEnumRef(s)

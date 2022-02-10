@@ -574,6 +574,11 @@ func (c *Client) inspectTemplateDiffsForRawDesired(ctx context.Context, rawDesir
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for InspectTemplate: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for InspectTemplate: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractInspectTemplateFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeInspectTemplateInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -615,7 +620,8 @@ func canonicalizeInspectTemplateDesiredState(rawDesired, rawInitial *InspectTemp
 		return rawDesired, nil
 	}
 	canonicalDesired := &InspectTemplate{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -707,7 +713,8 @@ func canonicalizeInspectTemplateInspectConfig(des, initial *InspectTemplateInspe
 	cDes := &InspectTemplateInspectConfig{}
 
 	cDes.InfoTypes = canonicalizeInspectTemplateInspectConfigInfoTypesSlice(des.InfoTypes, initial.InfoTypes, opts...)
-	if dcl.IsZeroValue(des.MinLikelihood) {
+	if dcl.IsZeroValue(des.MinLikelihood) || (dcl.IsEmptyValueIndirect(des.MinLikelihood) && dcl.IsEmptyValueIndirect(initial.MinLikelihood)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MinLikelihood = initial.MinLikelihood
 	} else {
 		cDes.MinLikelihood = des.MinLikelihood
@@ -724,7 +731,8 @@ func canonicalizeInspectTemplateInspectConfig(des, initial *InspectTemplateInspe
 		cDes.ExcludeInfoTypes = des.ExcludeInfoTypes
 	}
 	cDes.CustomInfoTypes = canonicalizeInspectTemplateInspectConfigCustomInfoTypesSlice(des.CustomInfoTypes, initial.CustomInfoTypes, opts...)
-	if dcl.IsZeroValue(des.ContentOptions) {
+	if dcl.IsZeroValue(des.ContentOptions) || (dcl.IsEmptyValueIndirect(des.ContentOptions) && dcl.IsEmptyValueIndirect(initial.ContentOptions)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ContentOptions = initial.ContentOptions
 	} else {
 		cDes.ContentOptions = des.ContentOptions
@@ -962,12 +970,14 @@ func canonicalizeInspectTemplateInspectConfigLimits(des, initial *InspectTemplat
 
 	cDes := &InspectTemplateInspectConfigLimits{}
 
-	if dcl.IsZeroValue(des.MaxFindingsPerItem) {
+	if dcl.IsZeroValue(des.MaxFindingsPerItem) || (dcl.IsEmptyValueIndirect(des.MaxFindingsPerItem) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerItem)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxFindingsPerItem = initial.MaxFindingsPerItem
 	} else {
 		cDes.MaxFindingsPerItem = des.MaxFindingsPerItem
 	}
-	if dcl.IsZeroValue(des.MaxFindingsPerRequest) {
+	if dcl.IsZeroValue(des.MaxFindingsPerRequest) || (dcl.IsEmptyValueIndirect(des.MaxFindingsPerRequest) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerRequest)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxFindingsPerRequest = initial.MaxFindingsPerRequest
 	} else {
 		cDes.MaxFindingsPerRequest = des.MaxFindingsPerRequest
@@ -1082,7 +1092,8 @@ func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(des, i
 	cDes := &InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType{}
 
 	cDes.InfoType = canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(des.InfoType, initial.InfoType, opts...)
-	if dcl.IsZeroValue(des.MaxFindings) {
+	if dcl.IsZeroValue(des.MaxFindings) || (dcl.IsEmptyValueIndirect(des.MaxFindings) && dcl.IsEmptyValueIndirect(initial.MaxFindings)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxFindings = initial.MaxFindings
 	} else {
 		cDes.MaxFindings = des.MaxFindings
@@ -1351,7 +1362,8 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypes(des, initial *Inspe
 	cDes := &InspectTemplateInspectConfigCustomInfoTypes{}
 
 	cDes.InfoType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesInfoType(des.InfoType, initial.InfoType, opts...)
-	if dcl.IsZeroValue(des.Likelihood) {
+	if dcl.IsZeroValue(des.Likelihood) || (dcl.IsEmptyValueIndirect(des.Likelihood) && dcl.IsEmptyValueIndirect(initial.Likelihood)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Likelihood = initial.Likelihood
 	} else {
 		cDes.Likelihood = des.Likelihood
@@ -1361,7 +1373,8 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypes(des, initial *Inspe
 	cDes.SurrogateType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesSurrogateType(des.SurrogateType, initial.SurrogateType, opts...)
 	cDes.StoredType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesStoredType(des.StoredType, initial.StoredType, opts...)
 	cDes.DetectionRules = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(des.DetectionRules, initial.DetectionRules, opts...)
-	if dcl.IsZeroValue(des.ExclusionType) {
+	if dcl.IsZeroValue(des.ExclusionType) || (dcl.IsEmptyValueIndirect(des.ExclusionType) && dcl.IsEmptyValueIndirect(initial.ExclusionType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ExclusionType = initial.ExclusionType
 	} else {
 		cDes.ExclusionType = des.ExclusionType
@@ -1960,7 +1973,8 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesRegex(des, initial *
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) {
+	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -2521,7 +2535,8 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwor
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) {
+	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -2636,12 +2651,14 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwor
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
 
-	if dcl.IsZeroValue(des.WindowBefore) {
+	if dcl.IsZeroValue(des.WindowBefore) || (dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.WindowBefore = initial.WindowBefore
 	} else {
 		cDes.WindowBefore = des.WindowBefore
 	}
-	if dcl.IsZeroValue(des.WindowAfter) {
+	if dcl.IsZeroValue(des.WindowAfter) || (dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.WindowAfter = initial.WindowAfter
 	} else {
 		cDes.WindowAfter = des.WindowAfter
@@ -2772,12 +2789,14 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwor
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
 
-	if dcl.IsZeroValue(des.FixedLikelihood) {
+	if dcl.IsZeroValue(des.FixedLikelihood) || (dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FixedLikelihood = initial.FixedLikelihood
 	} else {
 		cDes.FixedLikelihood = des.FixedLikelihood
 	}
-	if dcl.IsZeroValue(des.RelativeLikelihood) {
+	if dcl.IsZeroValue(des.RelativeLikelihood) || (dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RelativeLikelihood = initial.RelativeLikelihood
 	} else {
 		cDes.RelativeLikelihood = des.RelativeLikelihood
@@ -3363,7 +3382,8 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) {
+	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -3478,12 +3498,14 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(de
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity{}
 
-	if dcl.IsZeroValue(des.WindowBefore) {
+	if dcl.IsZeroValue(des.WindowBefore) || (dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.WindowBefore = initial.WindowBefore
 	} else {
 		cDes.WindowBefore = des.WindowBefore
 	}
-	if dcl.IsZeroValue(des.WindowAfter) {
+	if dcl.IsZeroValue(des.WindowAfter) || (dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.WindowAfter = initial.WindowAfter
 	} else {
 		cDes.WindowAfter = des.WindowAfter
@@ -3614,12 +3636,14 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAd
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment{}
 
-	if dcl.IsZeroValue(des.FixedLikelihood) {
+	if dcl.IsZeroValue(des.FixedLikelihood) || (dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FixedLikelihood = initial.FixedLikelihood
 	} else {
 		cDes.FixedLikelihood = des.FixedLikelihood
 	}
-	if dcl.IsZeroValue(des.RelativeLikelihood) {
+	if dcl.IsZeroValue(des.RelativeLikelihood) || (dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RelativeLikelihood = initial.RelativeLikelihood
 	} else {
 		cDes.RelativeLikelihood = des.RelativeLikelihood
@@ -3763,7 +3787,8 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRule(des, init
 	cDes.Dictionary = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(des.Dictionary, initial.Dictionary, opts...)
 	cDes.Regex = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(des.Regex, initial.Regex, opts...)
 	cDes.ExcludeInfoTypes = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(des.ExcludeInfoTypes, initial.ExcludeInfoTypes, opts...)
-	if dcl.IsZeroValue(des.MatchingType) {
+	if dcl.IsZeroValue(des.MatchingType) || (dcl.IsEmptyValueIndirect(des.MatchingType) && dcl.IsEmptyValueIndirect(initial.MatchingType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MatchingType = initial.MatchingType
 	} else {
 		cDes.MatchingType = des.MatchingType
@@ -4244,7 +4269,8 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(des,
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) {
+	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -9815,7 +9841,7 @@ func flattenInspectTemplateInspectConfigMinLikelihoodEnumSlice(c *Client, i inte
 func flattenInspectTemplateInspectConfigMinLikelihoodEnum(i interface{}) *InspectTemplateInspectConfigMinLikelihoodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InspectTemplateInspectConfigMinLikelihoodEnumRef("")
+		return nil
 	}
 
 	return InspectTemplateInspectConfigMinLikelihoodEnumRef(s)
@@ -9866,7 +9892,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumSlice(c *Cl
 func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(i interface{}) *InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumRef("")
+		return nil
 	}
 
 	return InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumRef(s)
@@ -9917,7 +9943,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef("")
+		return nil
 	}
 
 	return InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef(s)
@@ -9968,7 +9994,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumSlice(c 
 func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum(i interface{}) *InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumRef("")
+		return nil
 	}
 
 	return InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumRef(s)
@@ -10019,7 +10045,7 @@ func flattenInspectTemplateInspectConfigContentOptionsEnumSlice(c *Client, i int
 func flattenInspectTemplateInspectConfigContentOptionsEnum(i interface{}) *InspectTemplateInspectConfigContentOptionsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InspectTemplateInspectConfigContentOptionsEnumRef("")
+		return nil
 	}
 
 	return InspectTemplateInspectConfigContentOptionsEnumRef(s)
@@ -10070,7 +10096,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(i interface{}) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef("")
+		return nil
 	}
 
 	return InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef(s)
@@ -10121,7 +10147,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnu
 func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum(i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumRef("")
+		return nil
 	}
 
 	return InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumRef(s)

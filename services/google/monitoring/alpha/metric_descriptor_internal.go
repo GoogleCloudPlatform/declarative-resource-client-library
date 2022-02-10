@@ -331,6 +331,11 @@ func (c *Client) metricDescriptorDiffsForRawDesired(ctx context.Context, rawDesi
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for MetricDescriptor: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for MetricDescriptor: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractMetricDescriptorFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeMetricDescriptorInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -378,7 +383,8 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 		canonicalDesired.Type = rawDesired.Type
 	}
 	canonicalDesired.Labels = canonicalizeMetricDescriptorLabelsSlice(rawDesired.Labels, rawInitial.Labels, opts...)
-	if dcl.IsZeroValue(rawDesired.MetricKind) {
+	if dcl.IsZeroValue(rawDesired.MetricKind) || (dcl.IsEmptyValueIndirect(rawDesired.MetricKind) && dcl.IsEmptyValueIndirect(rawInitial.MetricKind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MetricKind = rawInitial.MetricKind
 	} else {
 		canonicalDesired.MetricKind = rawDesired.MetricKind
@@ -404,7 +410,8 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	canonicalDesired.Metadata = canonicalizeMetricDescriptorMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
-	if dcl.IsZeroValue(rawDesired.LaunchStage) {
+	if dcl.IsZeroValue(rawDesired.LaunchStage) || (dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.LaunchStage = rawInitial.LaunchStage
 	} else {
 		canonicalDesired.LaunchStage = rawDesired.LaunchStage
@@ -641,7 +648,8 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 
 	cDes := &MetricDescriptorMetadata{}
 
-	if dcl.IsZeroValue(des.LaunchStage) {
+	if dcl.IsZeroValue(des.LaunchStage) || (dcl.IsEmptyValueIndirect(des.LaunchStage) && dcl.IsEmptyValueIndirect(initial.LaunchStage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LaunchStage = initial.LaunchStage
 	} else {
 		cDes.LaunchStage = des.LaunchStage
@@ -1353,7 +1361,7 @@ func flattenMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) [
 func flattenMetricDescriptorLabelsValueTypeEnum(i interface{}) *MetricDescriptorLabelsValueTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MetricDescriptorLabelsValueTypeEnumRef("")
+		return nil
 	}
 
 	return MetricDescriptorLabelsValueTypeEnumRef(s)
@@ -1404,7 +1412,7 @@ func flattenMetricDescriptorMetricKindEnumSlice(c *Client, i interface{}) []Metr
 func flattenMetricDescriptorMetricKindEnum(i interface{}) *MetricDescriptorMetricKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MetricDescriptorMetricKindEnumRef("")
+		return nil
 	}
 
 	return MetricDescriptorMetricKindEnumRef(s)
@@ -1455,7 +1463,7 @@ func flattenMetricDescriptorValueTypeEnumSlice(c *Client, i interface{}) []Metri
 func flattenMetricDescriptorValueTypeEnum(i interface{}) *MetricDescriptorValueTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MetricDescriptorValueTypeEnumRef("")
+		return nil
 	}
 
 	return MetricDescriptorValueTypeEnumRef(s)
@@ -1506,7 +1514,7 @@ func flattenMetricDescriptorMetadataLaunchStageEnumSlice(c *Client, i interface{
 func flattenMetricDescriptorMetadataLaunchStageEnum(i interface{}) *MetricDescriptorMetadataLaunchStageEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MetricDescriptorMetadataLaunchStageEnumRef("")
+		return nil
 	}
 
 	return MetricDescriptorMetadataLaunchStageEnumRef(s)
@@ -1557,7 +1565,7 @@ func flattenMetricDescriptorLaunchStageEnumSlice(c *Client, i interface{}) []Met
 func flattenMetricDescriptorLaunchStageEnum(i interface{}) *MetricDescriptorLaunchStageEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MetricDescriptorLaunchStageEnumRef("")
+		return nil
 	}
 
 	return MetricDescriptorLaunchStageEnumRef(s)

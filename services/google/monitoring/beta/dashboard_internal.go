@@ -759,6 +759,11 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Dashboard: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Dashboard: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractDashboardFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeDashboardInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -951,12 +956,14 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 
 	cDes := &DashboardGridLayout{}
 
-	if dcl.IsZeroValue(des.Columns) {
+	if dcl.IsZeroValue(des.Columns) || (dcl.IsEmptyValueIndirect(des.Columns) && dcl.IsEmptyValueIndirect(initial.Columns)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Columns = initial.Columns
 	} else {
 		cDes.Columns = des.Columns
 	}
-	if dcl.IsZeroValue(des.Widgets) {
+	if dcl.IsZeroValue(des.Widgets) || (dcl.IsEmptyValueIndirect(des.Widgets) && dcl.IsEmptyValueIndirect(initial.Widgets)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Widgets = initial.Widgets
 	} else {
 		cDes.Widgets = des.Widgets
@@ -1067,7 +1074,8 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 
 	cDes := &DashboardMosaicLayout{}
 
-	if dcl.IsZeroValue(des.Columns) {
+	if dcl.IsZeroValue(des.Columns) || (dcl.IsEmptyValueIndirect(des.Columns) && dcl.IsEmptyValueIndirect(initial.Columns)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Columns = initial.Columns
 	} else {
 		cDes.Columns = des.Columns
@@ -1181,22 +1189,26 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 
 	cDes := &DashboardMosaicLayoutTiles{}
 
-	if dcl.IsZeroValue(des.XPos) {
+	if dcl.IsZeroValue(des.XPos) || (dcl.IsEmptyValueIndirect(des.XPos) && dcl.IsEmptyValueIndirect(initial.XPos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.XPos = initial.XPos
 	} else {
 		cDes.XPos = des.XPos
 	}
-	if dcl.IsZeroValue(des.YPos) {
+	if dcl.IsZeroValue(des.YPos) || (dcl.IsEmptyValueIndirect(des.YPos) && dcl.IsEmptyValueIndirect(initial.YPos)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.YPos = initial.YPos
 	} else {
 		cDes.YPos = des.YPos
 	}
-	if dcl.IsZeroValue(des.Width) {
+	if dcl.IsZeroValue(des.Width) || (dcl.IsEmptyValueIndirect(des.Width) && dcl.IsEmptyValueIndirect(initial.Width)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Width = initial.Width
 	} else {
 		cDes.Width = des.Width
 	}
-	if dcl.IsZeroValue(des.Height) {
+	if dcl.IsZeroValue(des.Height) || (dcl.IsEmptyValueIndirect(des.Height) && dcl.IsEmptyValueIndirect(initial.Height)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Height = initial.Height
 	} else {
 		cDes.Height = des.Height
@@ -1419,12 +1431,14 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 
 	cDes := &DashboardRowLayoutRows{}
 
-	if dcl.IsZeroValue(des.Weight) {
+	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.IsZeroValue(des.Widgets) {
+	if dcl.IsZeroValue(des.Widgets) || (dcl.IsEmptyValueIndirect(des.Widgets) && dcl.IsEmptyValueIndirect(initial.Widgets)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Widgets = initial.Widgets
 	} else {
 		cDes.Widgets = des.Widgets
@@ -1644,7 +1658,8 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 
 	cDes := &DashboardColumnLayoutColumns{}
 
-	if dcl.IsZeroValue(des.Weight) {
+	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -2047,7 +2062,8 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 	cDes := &DashboardWidgetXyChartDataSets{}
 
 	cDes.TimeSeriesQuery = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
-	if dcl.IsZeroValue(des.PlotType) {
+	if dcl.IsZeroValue(des.PlotType) || (dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PlotType = initial.PlotType
 	} else {
 		cDes.PlotType = des.PlotType
@@ -2429,12 +2445,14 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -2562,12 +2580,14 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -2690,17 +2710,20 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 
 	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) {
+	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) {
+	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) {
+	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -3048,12 +3071,14 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -3298,12 +3323,14 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -3431,12 +3458,14 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -3559,17 +3588,20 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 
 	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) {
+	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) {
+	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) {
+	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -3685,17 +3717,20 @@ func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetX
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) {
+	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) {
+	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) {
+	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -3815,7 +3850,8 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) {
+	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -3935,7 +3971,8 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) {
+	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -4050,7 +4087,8 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 
 	cDes := &DashboardWidgetXyChartChartOptions{}
 
-	if dcl.IsZeroValue(des.Mode) {
+	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -4529,12 +4567,14 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -4662,12 +4702,14 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -4790,17 +4832,20 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 
 	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) {
+	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) {
+	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) {
+	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -5148,12 +5193,14 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -5398,12 +5445,14 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -5531,12 +5580,14 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) {
+	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) {
+	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -5659,17 +5710,20 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 
 	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) {
+	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) {
+	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) {
+	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -5780,12 +5834,14 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 
 	cDes := &DashboardWidgetScorecardGaugeView{}
 
-	if dcl.IsZeroValue(des.LowerBound) {
+	if dcl.IsZeroValue(des.LowerBound) || (dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.LowerBound = initial.LowerBound
 	} else {
 		cDes.LowerBound = des.LowerBound
 	}
-	if dcl.IsZeroValue(des.UpperBound) {
+	if dcl.IsZeroValue(des.UpperBound) || (dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.UpperBound = initial.UpperBound
 	} else {
 		cDes.UpperBound = des.UpperBound
@@ -5896,7 +5952,8 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 
 	cDes := &DashboardWidgetScorecardSparkChartView{}
 
-	if dcl.IsZeroValue(des.SparkChartType) {
+	if dcl.IsZeroValue(des.SparkChartType) || (dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SparkChartType = initial.SparkChartType
 	} else {
 		cDes.SparkChartType = des.SparkChartType
@@ -6021,17 +6078,20 @@ func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidge
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) {
+	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) {
+	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) {
+	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -6151,7 +6211,8 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.IsZeroValue(des.Format) {
+	if dcl.IsZeroValue(des.Format) || (dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
@@ -13978,7 +14039,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s)
@@ -14029,7 +14090,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s)
@@ -14080,7 +14141,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s)
@@ -14131,7 +14192,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s)
@@ -14182,7 +14243,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s)
@@ -14233,7 +14294,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s)
@@ -14284,7 +14345,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s)
@@ -14335,7 +14396,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s)
@@ -14386,7 +14447,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s)
@@ -14437,7 +14498,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s)
@@ -14488,7 +14549,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s)
@@ -14539,7 +14600,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s)
@@ -14590,7 +14651,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s)
@@ -14641,7 +14702,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s)
@@ -14692,7 +14753,7 @@ func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumSlice(c *Client, i interfa
 func flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(i interface{}) *DashboardWidgetXyChartDataSetsPlotTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartDataSetsPlotTypeEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartDataSetsPlotTypeEnumRef(s)
@@ -14743,7 +14804,7 @@ func flattenDashboardWidgetXyChartThresholdsColorEnumSlice(c *Client, i interfac
 func flattenDashboardWidgetXyChartThresholdsColorEnum(i interface{}) *DashboardWidgetXyChartThresholdsColorEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartThresholdsColorEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartThresholdsColorEnumRef(s)
@@ -14794,7 +14855,7 @@ func flattenDashboardWidgetXyChartThresholdsDirectionEnumSlice(c *Client, i inte
 func flattenDashboardWidgetXyChartThresholdsDirectionEnum(i interface{}) *DashboardWidgetXyChartThresholdsDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartThresholdsDirectionEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartThresholdsDirectionEnumRef(s)
@@ -14845,7 +14906,7 @@ func flattenDashboardWidgetXyChartXAxisScaleEnumSlice(c *Client, i interface{}) 
 func flattenDashboardWidgetXyChartXAxisScaleEnum(i interface{}) *DashboardWidgetXyChartXAxisScaleEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartXAxisScaleEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartXAxisScaleEnumRef(s)
@@ -14896,7 +14957,7 @@ func flattenDashboardWidgetXyChartYAxisScaleEnumSlice(c *Client, i interface{}) 
 func flattenDashboardWidgetXyChartYAxisScaleEnum(i interface{}) *DashboardWidgetXyChartYAxisScaleEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartYAxisScaleEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartYAxisScaleEnumRef(s)
@@ -14947,7 +15008,7 @@ func flattenDashboardWidgetXyChartChartOptionsModeEnumSlice(c *Client, i interfa
 func flattenDashboardWidgetXyChartChartOptionsModeEnum(i interface{}) *DashboardWidgetXyChartChartOptionsModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetXyChartChartOptionsModeEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetXyChartChartOptionsModeEnumRef(s)
@@ -14998,7 +15059,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPe
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s)
@@ -15049,7 +15110,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCr
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s)
@@ -15100,7 +15161,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s)
@@ -15151,7 +15212,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s)
@@ -15202,7 +15263,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s)
@@ -15253,7 +15314,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s)
@@ -15304,7 +15365,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s)
@@ -15355,7 +15416,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s)
@@ -15406,7 +15467,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s)
@@ -15457,7 +15518,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s)
@@ -15508,7 +15569,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s)
@@ -15559,7 +15620,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s)
@@ -15610,7 +15671,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s)
@@ -15661,7 +15722,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s)
@@ -15712,7 +15773,7 @@ func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice(c *Cli
 func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(i interface{}) *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardSparkChartViewSparkChartTypeEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardSparkChartViewSparkChartTypeEnumRef(s)
@@ -15763,7 +15824,7 @@ func flattenDashboardWidgetScorecardThresholdsColorEnumSlice(c *Client, i interf
 func flattenDashboardWidgetScorecardThresholdsColorEnum(i interface{}) *DashboardWidgetScorecardThresholdsColorEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardThresholdsColorEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardThresholdsColorEnumRef(s)
@@ -15814,7 +15875,7 @@ func flattenDashboardWidgetScorecardThresholdsDirectionEnumSlice(c *Client, i in
 func flattenDashboardWidgetScorecardThresholdsDirectionEnum(i interface{}) *DashboardWidgetScorecardThresholdsDirectionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetScorecardThresholdsDirectionEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetScorecardThresholdsDirectionEnumRef(s)
@@ -15865,7 +15926,7 @@ func flattenDashboardWidgetTextFormatEnumSlice(c *Client, i interface{}) []Dashb
 func flattenDashboardWidgetTextFormatEnum(i interface{}) *DashboardWidgetTextFormatEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DashboardWidgetTextFormatEnumRef("")
+		return nil
 	}
 
 	return DashboardWidgetTextFormatEnumRef(s)

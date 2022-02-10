@@ -548,6 +548,11 @@ func (c *Client) httpRouteDiffsForRawDesired(ctx context.Context, rawDesired *Ht
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for HttpRoute: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for HttpRoute: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractHttpRouteFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeHttpRouteInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -618,7 +623,8 @@ func canonicalizeHttpRouteDesiredState(rawDesired, rawInitial *HttpRoute, opts .
 	} else {
 		canonicalDesired.Gateways = rawDesired.Gateways
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -1239,12 +1245,14 @@ func canonicalizeHttpRouteRulesMatchesHeadersRangeMatch(des, initial *HttpRouteR
 
 	cDes := &HttpRouteRulesMatchesHeadersRangeMatch{}
 
-	if dcl.IsZeroValue(des.Start) {
+	if dcl.IsZeroValue(des.Start) || (dcl.IsEmptyValueIndirect(des.Start) && dcl.IsEmptyValueIndirect(initial.Start)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Start = initial.Start
 	} else {
 		cDes.Start = des.Start
 	}
-	if dcl.IsZeroValue(des.End) {
+	if dcl.IsZeroValue(des.End) || (dcl.IsEmptyValueIndirect(des.End) && dcl.IsEmptyValueIndirect(initial.End)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.End = initial.End
 	} else {
 		cDes.End = des.End
@@ -1665,7 +1673,8 @@ func canonicalizeHttpRouteRulesActionDestinations(des, initial *HttpRouteRulesAc
 
 	cDes := &HttpRouteRulesActionDestinations{}
 
-	if dcl.IsZeroValue(des.Weight) {
+	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -1800,7 +1809,8 @@ func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesAction
 	} else {
 		cDes.PrefixRewrite = des.PrefixRewrite
 	}
-	if dcl.IsZeroValue(des.ResponseCode) {
+	if dcl.IsZeroValue(des.ResponseCode) || (dcl.IsEmptyValueIndirect(des.ResponseCode) && dcl.IsEmptyValueIndirect(initial.ResponseCode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ResponseCode = initial.ResponseCode
 	} else {
 		cDes.ResponseCode = des.ResponseCode
@@ -1815,7 +1825,8 @@ func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesAction
 	} else {
 		cDes.StripQuery = des.StripQuery
 	}
-	if dcl.IsZeroValue(des.PortRedirect) {
+	if dcl.IsZeroValue(des.PortRedirect) || (dcl.IsEmptyValueIndirect(des.PortRedirect) && dcl.IsEmptyValueIndirect(initial.PortRedirect)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PortRedirect = initial.PortRedirect
 	} else {
 		cDes.PortRedirect = des.PortRedirect
@@ -2058,7 +2069,8 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelay(des, initial *Htt
 	} else {
 		cDes.FixedDelay = des.FixedDelay
 	}
-	if dcl.IsZeroValue(des.Percentage) {
+	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
@@ -2173,12 +2185,14 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbort(des, initial *Htt
 
 	cDes := &HttpRouteRulesActionFaultInjectionPolicyAbort{}
 
-	if dcl.IsZeroValue(des.HttpStatus) {
+	if dcl.IsZeroValue(des.HttpStatus) || (dcl.IsEmptyValueIndirect(des.HttpStatus) && dcl.IsEmptyValueIndirect(initial.HttpStatus)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.HttpStatus = initial.HttpStatus
 	} else {
 		cDes.HttpStatus = des.HttpStatus
 	}
-	if dcl.IsZeroValue(des.Percentage) {
+	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
@@ -2289,12 +2303,14 @@ func canonicalizeHttpRouteRulesActionRequestHeaderModifier(des, initial *HttpRou
 
 	cDes := &HttpRouteRulesActionRequestHeaderModifier{}
 
-	if dcl.IsZeroValue(des.Set) {
+	if dcl.IsZeroValue(des.Set) || (dcl.IsEmptyValueIndirect(des.Set) && dcl.IsEmptyValueIndirect(initial.Set)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
-	if dcl.IsZeroValue(des.Add) {
+	if dcl.IsZeroValue(des.Add) || (dcl.IsEmptyValueIndirect(des.Add) && dcl.IsEmptyValueIndirect(initial.Add)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
@@ -2414,12 +2430,14 @@ func canonicalizeHttpRouteRulesActionResponseHeaderModifier(des, initial *HttpRo
 
 	cDes := &HttpRouteRulesActionResponseHeaderModifier{}
 
-	if dcl.IsZeroValue(des.Set) {
+	if dcl.IsZeroValue(des.Set) || (dcl.IsEmptyValueIndirect(des.Set) && dcl.IsEmptyValueIndirect(initial.Set)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
-	if dcl.IsZeroValue(des.Add) {
+	if dcl.IsZeroValue(des.Add) || (dcl.IsEmptyValueIndirect(des.Add) && dcl.IsEmptyValueIndirect(initial.Add)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
@@ -2667,7 +2685,8 @@ func canonicalizeHttpRouteRulesActionRetryPolicy(des, initial *HttpRouteRulesAct
 	} else {
 		cDes.RetryConditions = des.RetryConditions
 	}
-	if dcl.IsZeroValue(des.NumRetries) {
+	if dcl.IsZeroValue(des.NumRetries) || (dcl.IsEmptyValueIndirect(des.NumRetries) && dcl.IsEmptyValueIndirect(initial.NumRetries)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NumRetries = initial.NumRetries
 	} else {
 		cDes.NumRetries = des.NumRetries
@@ -2899,7 +2918,8 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial
 
 	cDes := &HttpRouteRulesActionRequestMirrorPolicyDestination{}
 
-	if dcl.IsZeroValue(des.Weight) {
+	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -6635,7 +6655,7 @@ func flattenHttpRouteRulesActionRedirectResponseCodeEnumSlice(c *Client, i inter
 func flattenHttpRouteRulesActionRedirectResponseCodeEnum(i interface{}) *HttpRouteRulesActionRedirectResponseCodeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return HttpRouteRulesActionRedirectResponseCodeEnumRef("")
+		return nil
 	}
 
 	return HttpRouteRulesActionRedirectResponseCodeEnumRef(s)

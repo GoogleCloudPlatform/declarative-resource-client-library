@@ -406,6 +406,11 @@ func (c *Client) keyDiffsForRawDesired(ctx context.Context, rawDesired *Key, opt
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Key: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Key: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractKeyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeKeyInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -497,7 +502,8 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 	}
 
 	canonicalDesired := &Key{}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -510,7 +516,8 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 	canonicalDesired.WebSettings = canonicalizeKeyWebSettings(rawDesired.WebSettings, rawInitial.WebSettings, opts...)
 	canonicalDesired.AndroidSettings = canonicalizeKeyAndroidSettings(rawDesired.AndroidSettings, rawInitial.AndroidSettings, opts...)
 	canonicalDesired.IosSettings = canonicalizeKeyIosSettings(rawDesired.IosSettings, rawInitial.IosSettings, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -608,12 +615,14 @@ func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyO
 	} else {
 		cDes.AllowAmpTraffic = des.AllowAmpTraffic
 	}
-	if dcl.IsZeroValue(des.IntegrationType) {
+	if dcl.IsZeroValue(des.IntegrationType) || (dcl.IsEmptyValueIndirect(des.IntegrationType) && dcl.IsEmptyValueIndirect(initial.IntegrationType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegrationType = initial.IntegrationType
 	} else {
 		cDes.IntegrationType = des.IntegrationType
 	}
-	if dcl.IsZeroValue(des.ChallengeSecurityPreference) {
+	if dcl.IsZeroValue(des.ChallengeSecurityPreference) || (dcl.IsEmptyValueIndirect(des.ChallengeSecurityPreference) && dcl.IsEmptyValueIndirect(initial.ChallengeSecurityPreference)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ChallengeSecurityPreference = initial.ChallengeSecurityPreference
 	} else {
 		cDes.ChallengeSecurityPreference = des.ChallengeSecurityPreference
@@ -980,12 +989,14 @@ func canonicalizeKeyTestingOptions(des, initial *KeyTestingOptions, opts ...dcl.
 
 	cDes := &KeyTestingOptions{}
 
-	if dcl.IsZeroValue(des.TestingScore) {
+	if dcl.IsZeroValue(des.TestingScore) || (dcl.IsEmptyValueIndirect(des.TestingScore) && dcl.IsEmptyValueIndirect(initial.TestingScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TestingScore = initial.TestingScore
 	} else {
 		cDes.TestingScore = des.TestingScore
 	}
-	if dcl.IsZeroValue(des.TestingChallenge) {
+	if dcl.IsZeroValue(des.TestingChallenge) || (dcl.IsEmptyValueIndirect(des.TestingChallenge) && dcl.IsEmptyValueIndirect(initial.TestingChallenge)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TestingChallenge = initial.TestingChallenge
 	} else {
 		cDes.TestingChallenge = des.TestingChallenge
@@ -1982,7 +1993,7 @@ func flattenKeyWebSettingsIntegrationTypeEnumSlice(c *Client, i interface{}) []K
 func flattenKeyWebSettingsIntegrationTypeEnum(i interface{}) *KeyWebSettingsIntegrationTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return KeyWebSettingsIntegrationTypeEnumRef("")
+		return nil
 	}
 
 	return KeyWebSettingsIntegrationTypeEnumRef(s)
@@ -2033,7 +2044,7 @@ func flattenKeyWebSettingsChallengeSecurityPreferenceEnumSlice(c *Client, i inte
 func flattenKeyWebSettingsChallengeSecurityPreferenceEnum(i interface{}) *KeyWebSettingsChallengeSecurityPreferenceEnum {
 	s, ok := i.(string)
 	if !ok {
-		return KeyWebSettingsChallengeSecurityPreferenceEnumRef("")
+		return nil
 	}
 
 	return KeyWebSettingsChallengeSecurityPreferenceEnumRef(s)
@@ -2084,7 +2095,7 @@ func flattenKeyTestingOptionsTestingChallengeEnumSlice(c *Client, i interface{})
 func flattenKeyTestingOptionsTestingChallengeEnum(i interface{}) *KeyTestingOptionsTestingChallengeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return KeyTestingOptionsTestingChallengeEnumRef("")
+		return nil
 	}
 
 	return KeyTestingOptionsTestingChallengeEnumRef(s)

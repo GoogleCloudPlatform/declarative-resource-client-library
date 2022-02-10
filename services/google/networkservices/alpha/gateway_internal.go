@@ -415,6 +415,11 @@ func (c *Client) gatewayDiffsForRawDesired(ctx context.Context, rawDesired *Gate
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Gateway: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Gateway: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractGatewayFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeGatewayInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -460,7 +465,8 @@ func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
+	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -470,7 +476,8 @@ func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dc
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Type) {
+	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
@@ -480,7 +487,8 @@ func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dc
 	} else {
 		canonicalDesired.Addresses = rawDesired.Addresses
 	}
-	if dcl.IsZeroValue(rawDesired.Ports) {
+	if dcl.IsZeroValue(rawDesired.Ports) || (dcl.IsEmptyValueIndirect(rawDesired.Ports) && dcl.IsEmptyValueIndirect(rawInitial.Ports)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Ports = rawInitial.Ports
 	} else {
 		canonicalDesired.Ports = rawDesired.Ports
@@ -888,7 +896,7 @@ func flattenGatewayTypeEnumSlice(c *Client, i interface{}) []GatewayTypeEnum {
 func flattenGatewayTypeEnum(i interface{}) *GatewayTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return GatewayTypeEnumRef("")
+		return nil
 	}
 
 	return GatewayTypeEnumRef(s)

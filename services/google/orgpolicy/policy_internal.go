@@ -364,6 +364,11 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Policy: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Policy: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractPolicyFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizePolicyInitialState(rawInitial, rawDesired)
 	if err != nil {

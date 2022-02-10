@@ -474,6 +474,11 @@ func (c *Client) routineDiffsForRawDesired(ctx context.Context, rawDesired *Rout
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Routine: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Routine: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractRoutineFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeRoutineInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -530,12 +535,14 @@ func canonicalizeRoutineDesiredState(rawDesired, rawInitial *Routine, opts ...dc
 	} else {
 		canonicalDesired.Dataset = rawDesired.Dataset
 	}
-	if dcl.IsZeroValue(rawDesired.RoutineType) {
+	if dcl.IsZeroValue(rawDesired.RoutineType) || (dcl.IsEmptyValueIndirect(rawDesired.RoutineType) && dcl.IsEmptyValueIndirect(rawInitial.RoutineType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.RoutineType = rawInitial.RoutineType
 	} else {
 		canonicalDesired.RoutineType = rawDesired.RoutineType
 	}
-	if dcl.IsZeroValue(rawDesired.Language) {
+	if dcl.IsZeroValue(rawDesired.Language) || (dcl.IsEmptyValueIndirect(rawDesired.Language) && dcl.IsEmptyValueIndirect(rawInitial.Language)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Language = rawInitial.Language
 	} else {
 		canonicalDesired.Language = rawDesired.Language
@@ -557,7 +564,8 @@ func canonicalizeRoutineDesiredState(rawDesired, rawInitial *Routine, opts ...dc
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.DeterminismLevel) {
+	if dcl.IsZeroValue(rawDesired.DeterminismLevel) || (dcl.IsEmptyValueIndirect(rawDesired.DeterminismLevel) && dcl.IsEmptyValueIndirect(rawInitial.DeterminismLevel)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.DeterminismLevel = rawInitial.DeterminismLevel
 	} else {
 		canonicalDesired.DeterminismLevel = rawDesired.DeterminismLevel
@@ -696,12 +704,14 @@ func canonicalizeRoutineArguments(des, initial *RoutineArguments, opts ...dcl.Ap
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.ArgumentKind) {
+	if dcl.IsZeroValue(des.ArgumentKind) || (dcl.IsEmptyValueIndirect(des.ArgumentKind) && dcl.IsEmptyValueIndirect(initial.ArgumentKind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ArgumentKind = initial.ArgumentKind
 	} else {
 		cDes.ArgumentKind = des.ArgumentKind
 	}
-	if dcl.IsZeroValue(des.Mode) {
+	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -838,7 +848,8 @@ func canonicalizeRoutineArgumentsDataType(des, initial *RoutineArgumentsDataType
 
 	cDes := &RoutineArgumentsDataType{}
 
-	if dcl.IsZeroValue(des.TypeKind) {
+	if dcl.IsZeroValue(des.TypeKind) || (dcl.IsEmptyValueIndirect(des.TypeKind) && dcl.IsEmptyValueIndirect(initial.TypeKind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TypeKind = initial.TypeKind
 	} else {
 		cDes.TypeKind = des.TypeKind
@@ -2151,7 +2162,7 @@ func flattenRoutineRoutineTypeEnumSlice(c *Client, i interface{}) []RoutineRouti
 func flattenRoutineRoutineTypeEnum(i interface{}) *RoutineRoutineTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RoutineRoutineTypeEnumRef("")
+		return nil
 	}
 
 	return RoutineRoutineTypeEnumRef(s)
@@ -2202,7 +2213,7 @@ func flattenRoutineLanguageEnumSlice(c *Client, i interface{}) []RoutineLanguage
 func flattenRoutineLanguageEnum(i interface{}) *RoutineLanguageEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RoutineLanguageEnumRef("")
+		return nil
 	}
 
 	return RoutineLanguageEnumRef(s)
@@ -2253,7 +2264,7 @@ func flattenRoutineArgumentsArgumentKindEnumSlice(c *Client, i interface{}) []Ro
 func flattenRoutineArgumentsArgumentKindEnum(i interface{}) *RoutineArgumentsArgumentKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RoutineArgumentsArgumentKindEnumRef("")
+		return nil
 	}
 
 	return RoutineArgumentsArgumentKindEnumRef(s)
@@ -2304,7 +2315,7 @@ func flattenRoutineArgumentsModeEnumSlice(c *Client, i interface{}) []RoutineArg
 func flattenRoutineArgumentsModeEnum(i interface{}) *RoutineArgumentsModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RoutineArgumentsModeEnumRef("")
+		return nil
 	}
 
 	return RoutineArgumentsModeEnumRef(s)
@@ -2355,7 +2366,7 @@ func flattenRoutineArgumentsDataTypeTypeKindEnumSlice(c *Client, i interface{}) 
 func flattenRoutineArgumentsDataTypeTypeKindEnum(i interface{}) *RoutineArgumentsDataTypeTypeKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RoutineArgumentsDataTypeTypeKindEnumRef("")
+		return nil
 	}
 
 	return RoutineArgumentsDataTypeTypeKindEnumRef(s)
@@ -2406,7 +2417,7 @@ func flattenRoutineDeterminismLevelEnumSlice(c *Client, i interface{}) []Routine
 func flattenRoutineDeterminismLevelEnum(i interface{}) *RoutineDeterminismLevelEnum {
 	s, ok := i.(string)
 	if !ok {
-		return RoutineDeterminismLevelEnumRef("")
+		return nil
 	}
 
 	return RoutineDeterminismLevelEnumRef(s)

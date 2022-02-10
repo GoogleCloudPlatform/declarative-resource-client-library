@@ -417,6 +417,11 @@ func (c *Client) workloadIdentityPoolProviderDiffsForRawDesired(ctx context.Cont
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for WorkloadIdentityPoolProvider: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for WorkloadIdentityPoolProvider: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractWorkloadIdentityPoolProviderFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeWorkloadIdentityPoolProviderInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -511,7 +516,8 @@ func canonicalizeWorkloadIdentityPoolProviderDesiredState(rawDesired, rawInitial
 	} else {
 		canonicalDesired.Disabled = rawDesired.Disabled
 	}
-	if dcl.IsZeroValue(rawDesired.AttributeMapping) {
+	if dcl.IsZeroValue(rawDesired.AttributeMapping) || (dcl.IsEmptyValueIndirect(rawDesired.AttributeMapping) && dcl.IsEmptyValueIndirect(rawInitial.AttributeMapping)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.AttributeMapping = rawInitial.AttributeMapping
 	} else {
 		canonicalDesired.AttributeMapping = rawDesired.AttributeMapping
@@ -1457,7 +1463,7 @@ func flattenWorkloadIdentityPoolProviderStateEnumSlice(c *Client, i interface{})
 func flattenWorkloadIdentityPoolProviderStateEnum(i interface{}) *WorkloadIdentityPoolProviderStateEnum {
 	s, ok := i.(string)
 	if !ok {
-		return WorkloadIdentityPoolProviderStateEnumRef("")
+		return nil
 	}
 
 	return WorkloadIdentityPoolProviderStateEnumRef(s)

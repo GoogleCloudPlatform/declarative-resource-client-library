@@ -596,6 +596,11 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Note: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Note: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractNoteFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeNoteInitialState(rawInitial, rawDesired)
 	if err != nil {
@@ -766,7 +771,8 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		canonicalDesired.LongDescription = rawDesired.LongDescription
 	}
 	canonicalDesired.RelatedUrl = canonicalizeNoteRelatedUrlSlice(rawDesired.RelatedUrl, rawInitial.RelatedUrl, opts...)
-	if dcl.IsZeroValue(rawDesired.ExpirationTime) {
+	if dcl.IsZeroValue(rawDesired.ExpirationTime) || (dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) && dcl.IsEmptyValueIndirect(rawInitial.ExpirationTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ExpirationTime = rawInitial.ExpirationTime
 	} else {
 		canonicalDesired.ExpirationTime = rawDesired.ExpirationTime
@@ -1031,12 +1037,14 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 
 	cDes := &NoteVulnerability{}
 
-	if dcl.IsZeroValue(des.CvssScore) {
+	if dcl.IsZeroValue(des.CvssScore) || (dcl.IsEmptyValueIndirect(des.CvssScore) && dcl.IsEmptyValueIndirect(initial.CvssScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CvssScore = initial.CvssScore
 	} else {
 		cDes.CvssScore = des.CvssScore
 	}
-	if dcl.IsZeroValue(des.Severity) {
+	if dcl.IsZeroValue(des.Severity) || (dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
@@ -1044,7 +1052,8 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 	cDes.Details = canonicalizeNoteVulnerabilityDetailsSlice(des.Details, initial.Details, opts...)
 	cDes.CvssV3 = canonicalizeNoteVulnerabilityCvssV3(des.CvssV3, initial.CvssV3, opts...)
 	cDes.WindowsDetails = canonicalizeNoteVulnerabilityWindowsDetailsSlice(des.WindowsDetails, initial.WindowsDetails, opts...)
-	if dcl.IsZeroValue(des.SourceUpdateTime) {
+	if dcl.IsZeroValue(des.SourceUpdateTime) || (dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SourceUpdateTime = initial.SourceUpdateTime
 	} else {
 		cDes.SourceUpdateTime = des.SourceUpdateTime
@@ -1202,7 +1211,8 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 	} else {
 		cDes.IsObsolete = des.IsObsolete
 	}
-	if dcl.IsZeroValue(des.SourceUpdateTime) {
+	if dcl.IsZeroValue(des.SourceUpdateTime) || (dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SourceUpdateTime = initial.SourceUpdateTime
 	} else {
 		cDes.SourceUpdateTime = des.SourceUpdateTime
@@ -1341,7 +1351,8 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 
 	cDes := &NoteVulnerabilityDetailsAffectedVersionStart{}
 
-	if dcl.IsZeroValue(des.Epoch) {
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
@@ -1356,7 +1367,8 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) {
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
@@ -1482,7 +1494,8 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 
 	cDes := &NoteVulnerabilityDetailsAffectedVersionEnd{}
 
-	if dcl.IsZeroValue(des.Epoch) {
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
@@ -1497,7 +1510,8 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) {
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
@@ -1623,7 +1637,8 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 
 	cDes := &NoteVulnerabilityDetailsFixedVersion{}
 
-	if dcl.IsZeroValue(des.Epoch) {
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
@@ -1638,7 +1653,8 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) {
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
@@ -1764,57 +1780,68 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 
 	cDes := &NoteVulnerabilityCvssV3{}
 
-	if dcl.IsZeroValue(des.BaseScore) {
+	if dcl.IsZeroValue(des.BaseScore) || (dcl.IsEmptyValueIndirect(des.BaseScore) && dcl.IsEmptyValueIndirect(initial.BaseScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.BaseScore = initial.BaseScore
 	} else {
 		cDes.BaseScore = des.BaseScore
 	}
-	if dcl.IsZeroValue(des.ExploitabilityScore) {
+	if dcl.IsZeroValue(des.ExploitabilityScore) || (dcl.IsEmptyValueIndirect(des.ExploitabilityScore) && dcl.IsEmptyValueIndirect(initial.ExploitabilityScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ExploitabilityScore = initial.ExploitabilityScore
 	} else {
 		cDes.ExploitabilityScore = des.ExploitabilityScore
 	}
-	if dcl.IsZeroValue(des.ImpactScore) {
+	if dcl.IsZeroValue(des.ImpactScore) || (dcl.IsEmptyValueIndirect(des.ImpactScore) && dcl.IsEmptyValueIndirect(initial.ImpactScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ImpactScore = initial.ImpactScore
 	} else {
 		cDes.ImpactScore = des.ImpactScore
 	}
-	if dcl.IsZeroValue(des.AttackVector) {
+	if dcl.IsZeroValue(des.AttackVector) || (dcl.IsEmptyValueIndirect(des.AttackVector) && dcl.IsEmptyValueIndirect(initial.AttackVector)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AttackVector = initial.AttackVector
 	} else {
 		cDes.AttackVector = des.AttackVector
 	}
-	if dcl.IsZeroValue(des.AttackComplexity) {
+	if dcl.IsZeroValue(des.AttackComplexity) || (dcl.IsEmptyValueIndirect(des.AttackComplexity) && dcl.IsEmptyValueIndirect(initial.AttackComplexity)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AttackComplexity = initial.AttackComplexity
 	} else {
 		cDes.AttackComplexity = des.AttackComplexity
 	}
-	if dcl.IsZeroValue(des.PrivilegesRequired) {
+	if dcl.IsZeroValue(des.PrivilegesRequired) || (dcl.IsEmptyValueIndirect(des.PrivilegesRequired) && dcl.IsEmptyValueIndirect(initial.PrivilegesRequired)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PrivilegesRequired = initial.PrivilegesRequired
 	} else {
 		cDes.PrivilegesRequired = des.PrivilegesRequired
 	}
-	if dcl.IsZeroValue(des.UserInteraction) {
+	if dcl.IsZeroValue(des.UserInteraction) || (dcl.IsEmptyValueIndirect(des.UserInteraction) && dcl.IsEmptyValueIndirect(initial.UserInteraction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.UserInteraction = initial.UserInteraction
 	} else {
 		cDes.UserInteraction = des.UserInteraction
 	}
-	if dcl.IsZeroValue(des.Scope) {
+	if dcl.IsZeroValue(des.Scope) || (dcl.IsEmptyValueIndirect(des.Scope) && dcl.IsEmptyValueIndirect(initial.Scope)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Scope = initial.Scope
 	} else {
 		cDes.Scope = des.Scope
 	}
-	if dcl.IsZeroValue(des.ConfidentialityImpact) {
+	if dcl.IsZeroValue(des.ConfidentialityImpact) || (dcl.IsEmptyValueIndirect(des.ConfidentialityImpact) && dcl.IsEmptyValueIndirect(initial.ConfidentialityImpact)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ConfidentialityImpact = initial.ConfidentialityImpact
 	} else {
 		cDes.ConfidentialityImpact = des.ConfidentialityImpact
 	}
-	if dcl.IsZeroValue(des.IntegrityImpact) {
+	if dcl.IsZeroValue(des.IntegrityImpact) || (dcl.IsEmptyValueIndirect(des.IntegrityImpact) && dcl.IsEmptyValueIndirect(initial.IntegrityImpact)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.IntegrityImpact = initial.IntegrityImpact
 	} else {
 		cDes.IntegrityImpact = des.IntegrityImpact
 	}
-	if dcl.IsZeroValue(des.AvailabilityImpact) {
+	if dcl.IsZeroValue(des.AvailabilityImpact) || (dcl.IsEmptyValueIndirect(des.AvailabilityImpact) && dcl.IsEmptyValueIndirect(initial.AvailabilityImpact)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AvailabilityImpact = initial.AvailabilityImpact
 	} else {
 		cDes.AvailabilityImpact = des.AvailabilityImpact
@@ -2313,7 +2340,8 @@ func canonicalizeNoteBuildSignature(des, initial *NoteBuildSignature, opts ...dc
 	} else {
 		cDes.KeyId = des.KeyId
 	}
-	if dcl.IsZeroValue(des.KeyType) {
+	if dcl.IsZeroValue(des.KeyType) || (dcl.IsEmptyValueIndirect(des.KeyType) && dcl.IsEmptyValueIndirect(initial.KeyType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.KeyType = initial.KeyType
 	} else {
 		cDes.KeyType = des.KeyType
@@ -2799,7 +2827,8 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 	} else {
 		cDes.CpeUri = des.CpeUri
 	}
-	if dcl.IsZeroValue(des.Architecture) {
+	if dcl.IsZeroValue(des.Architecture) || (dcl.IsEmptyValueIndirect(des.Architecture) && dcl.IsEmptyValueIndirect(initial.Architecture)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Architecture = initial.Architecture
 	} else {
 		cDes.Architecture = des.Architecture
@@ -2940,7 +2969,8 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 
 	cDes := &NotePackageDistributionLatestVersion{}
 
-	if dcl.IsZeroValue(des.Epoch) {
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
@@ -2955,7 +2985,8 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) {
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
@@ -3081,7 +3112,8 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 
 	cDes := &NoteDiscovery{}
 
-	if dcl.IsZeroValue(des.AnalysisKind) {
+	if dcl.IsZeroValue(des.AnalysisKind) || (dcl.IsEmptyValueIndirect(des.AnalysisKind) && dcl.IsEmptyValueIndirect(initial.AnalysisKind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AnalysisKind = initial.AnalysisKind
 	} else {
 		cDes.AnalysisKind = des.AnalysisKind
@@ -7393,7 +7425,7 @@ func flattenNoteVulnerabilitySeverityEnumSlice(c *Client, i interface{}) []NoteV
 func flattenNoteVulnerabilitySeverityEnum(i interface{}) *NoteVulnerabilitySeverityEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilitySeverityEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilitySeverityEnumRef(s)
@@ -7444,7 +7476,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice(c *Client,
 func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(i interface{}) *NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef(s)
@@ -7495,7 +7527,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice(c *Client, i
 func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(i interface{}) *NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef(s)
@@ -7546,7 +7578,7 @@ func flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice(c *Client, i inter
 func flattenNoteVulnerabilityDetailsFixedVersionKindEnum(i interface{}) *NoteVulnerabilityDetailsFixedVersionKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityDetailsFixedVersionKindEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityDetailsFixedVersionKindEnumRef(s)
@@ -7597,7 +7629,7 @@ func flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice(c *Client, i interface{
 func flattenNoteVulnerabilityCvssV3AttackVectorEnum(i interface{}) *NoteVulnerabilityCvssV3AttackVectorEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3AttackVectorEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3AttackVectorEnumRef(s)
@@ -7648,7 +7680,7 @@ func flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice(c *Client, i interf
 func flattenNoteVulnerabilityCvssV3AttackComplexityEnum(i interface{}) *NoteVulnerabilityCvssV3AttackComplexityEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3AttackComplexityEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3AttackComplexityEnumRef(s)
@@ -7699,7 +7731,7 @@ func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice(c *Client, i inte
 func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(i interface{}) *NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef(s)
@@ -7750,7 +7782,7 @@ func flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice(c *Client, i interfa
 func flattenNoteVulnerabilityCvssV3UserInteractionEnum(i interface{}) *NoteVulnerabilityCvssV3UserInteractionEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3UserInteractionEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3UserInteractionEnumRef(s)
@@ -7801,7 +7833,7 @@ func flattenNoteVulnerabilityCvssV3ScopeEnumSlice(c *Client, i interface{}) []No
 func flattenNoteVulnerabilityCvssV3ScopeEnum(i interface{}) *NoteVulnerabilityCvssV3ScopeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3ScopeEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3ScopeEnumRef(s)
@@ -7852,7 +7884,7 @@ func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice(c *Client, i i
 func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(i interface{}) *NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef(s)
@@ -7903,7 +7935,7 @@ func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice(c *Client, i interfa
 func flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(i interface{}) *NoteVulnerabilityCvssV3IntegrityImpactEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3IntegrityImpactEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3IntegrityImpactEnumRef(s)
@@ -7954,7 +7986,7 @@ func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice(c *Client, i inte
 func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(i interface{}) *NoteVulnerabilityCvssV3AvailabilityImpactEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteVulnerabilityCvssV3AvailabilityImpactEnumRef("")
+		return nil
 	}
 
 	return NoteVulnerabilityCvssV3AvailabilityImpactEnumRef(s)
@@ -8005,7 +8037,7 @@ func flattenNoteBuildSignatureKeyTypeEnumSlice(c *Client, i interface{}) []NoteB
 func flattenNoteBuildSignatureKeyTypeEnum(i interface{}) *NoteBuildSignatureKeyTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteBuildSignatureKeyTypeEnumRef("")
+		return nil
 	}
 
 	return NoteBuildSignatureKeyTypeEnumRef(s)
@@ -8056,7 +8088,7 @@ func flattenNotePackageDistributionArchitectureEnumSlice(c *Client, i interface{
 func flattenNotePackageDistributionArchitectureEnum(i interface{}) *NotePackageDistributionArchitectureEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NotePackageDistributionArchitectureEnumRef("")
+		return nil
 	}
 
 	return NotePackageDistributionArchitectureEnumRef(s)
@@ -8107,7 +8139,7 @@ func flattenNotePackageDistributionLatestVersionKindEnumSlice(c *Client, i inter
 func flattenNotePackageDistributionLatestVersionKindEnum(i interface{}) *NotePackageDistributionLatestVersionKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NotePackageDistributionLatestVersionKindEnumRef("")
+		return nil
 	}
 
 	return NotePackageDistributionLatestVersionKindEnumRef(s)
@@ -8158,7 +8190,7 @@ func flattenNoteDiscoveryAnalysisKindEnumSlice(c *Client, i interface{}) []NoteD
 func flattenNoteDiscoveryAnalysisKindEnum(i interface{}) *NoteDiscoveryAnalysisKindEnum {
 	s, ok := i.(string)
 	if !ok {
-		return NoteDiscoveryAnalysisKindEnumRef("")
+		return nil
 	}
 
 	return NoteDiscoveryAnalysisKindEnumRef(s)

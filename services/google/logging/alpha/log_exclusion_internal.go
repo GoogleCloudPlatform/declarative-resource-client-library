@@ -359,6 +359,11 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for LogExclusion: %v", rawInitial)
 	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for LogExclusion: %v", rawDesired)
 
+	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
+	if err := extractLogExclusionFields(rawInitial); err != nil {
+		return nil, nil, nil, err
+	}
+
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeLogExclusionInitialState(rawInitial, rawDesired)
 	if err != nil {
