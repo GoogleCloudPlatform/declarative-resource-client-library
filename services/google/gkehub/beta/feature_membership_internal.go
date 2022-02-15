@@ -150,7 +150,7 @@ func newUpdateFeatureMembershipUpdateFeatureMembershipRequest(ctx context.Contex
 
 	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
 		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["configmanagement"] = v
 	}
 	return req, nil
@@ -354,7 +354,7 @@ func canonicalizeFeatureMembershipConfigmanagement(des, initial *FeatureMembersh
 }
 
 func canonicalizeFeatureMembershipConfigmanagementSlice(des, initial []FeatureMembershipConfigmanagement, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagement {
-	if des == nil {
+	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
@@ -474,7 +474,7 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 }
 
 func canonicalizeFeatureMembershipConfigmanagementConfigSyncSlice(des, initial []FeatureMembershipConfigmanagementConfigSync, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementConfigSync {
-	if dcl.IsEmptyValueIndirect(des) {
+	if des == nil {
 		return initial
 	}
 
@@ -1562,7 +1562,7 @@ func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interf
 	m := make(map[string]interface{})
 	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
 		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
-	} else if v != nil {
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["configmanagement"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
@@ -1694,14 +1694,14 @@ func flattenFeatureMembershipConfigmanagementSlice(c *Client, i interface{}) []F
 // expandFeatureMembershipConfigmanagement expands an instance of FeatureMembershipConfigmanagement into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConfigmanagement) (map[string]interface{}, error) {
-	if f == nil {
+	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
 	if v, err := expandFeatureMembershipConfigmanagementConfigSync(c, f.ConfigSync); err != nil {
 		return nil, fmt.Errorf("error expanding ConfigSync into configSync: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["configSync"] = v
 	}
 	if v, err := expandFeatureMembershipConfigmanagementPolicyController(c, f.PolicyController); err != nil {
@@ -1832,7 +1832,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, i interf
 // expandFeatureMembershipConfigmanagementConfigSync expands an instance of FeatureMembershipConfigmanagementConfigSync into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMembershipConfigmanagementConfigSync) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 

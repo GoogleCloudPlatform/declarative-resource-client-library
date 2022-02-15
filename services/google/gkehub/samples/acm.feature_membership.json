@@ -33,6 +33,6 @@
       "enablePodTreeLabels": true,
       "enableHierarchicalResourceQuota": true
     },
-    "version": "1.7.1"
+    "version": "1.9.1"
   }
 }

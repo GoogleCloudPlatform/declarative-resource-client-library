@@ -86,7 +86,6 @@ components:
           x-dcl-go-name: Configmanagement
           x-dcl-go-type: FeatureMembershipConfigmanagement
           description: Config Management-specific spec.
-          x-dcl-send-empty: true
           properties:
             binauthz:
               type: object
@@ -103,6 +102,7 @@ components:
               x-dcl-go-name: ConfigSync
               x-dcl-go-type: FeatureMembershipConfigmanagementConfigSync
               description: Config Sync configuration for the cluster.
+              x-dcl-send-empty: true
               properties:
                 git:
                   type: object
