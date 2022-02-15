@@ -111,8 +111,8 @@ func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this NodePoolConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyNodePoolConfig *NodePoolConfig = &NodePoolConfig{empty: true}
 
 func (r *NodePoolConfig) Empty() bool {
@@ -157,8 +157,8 @@ func (r *NodePoolConfigRootVolume) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this NodePoolConfigRootVolume is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyNodePoolConfigRootVolume *NodePoolConfigRootVolume = &NodePoolConfigRootVolume{empty: true}
 
 func (r *NodePoolConfigRootVolume) Empty() bool {
@@ -203,8 +203,8 @@ func (r *NodePoolConfigSshConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this NodePoolConfigSshConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyNodePoolConfigSshConfig *NodePoolConfigSshConfig = &NodePoolConfigSshConfig{empty: true}
 
 func (r *NodePoolConfigSshConfig) Empty() bool {
@@ -252,8 +252,8 @@ func (r *NodePoolAutoscaling) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this NodePoolAutoscaling is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyNodePoolAutoscaling *NodePoolAutoscaling = &NodePoolAutoscaling{empty: true}
 
 func (r *NodePoolAutoscaling) Empty() bool {
@@ -298,8 +298,8 @@ func (r *NodePoolMaxPodsConstraint) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this NodePoolMaxPodsConstraint is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyNodePoolMaxPodsConstraint *NodePoolMaxPodsConstraint = &NodePoolMaxPodsConstraint{empty: true}
 
 func (r *NodePoolMaxPodsConstraint) Empty() bool {

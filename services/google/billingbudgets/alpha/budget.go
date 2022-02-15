@@ -168,8 +168,8 @@ func (r *BudgetBudgetFilter) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetBudgetFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetBudgetFilter *BudgetBudgetFilter = &BudgetBudgetFilter{empty: true}
 
 func (r *BudgetBudgetFilter) Empty() bool {
@@ -214,8 +214,8 @@ func (r *BudgetBudgetFilterLabels) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetBudgetFilterLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetBudgetFilterLabels *BudgetBudgetFilterLabels = &BudgetBudgetFilterLabels{empty: true}
 
 func (r *BudgetBudgetFilterLabels) Empty() bool {
@@ -263,8 +263,8 @@ func (r *BudgetBudgetFilterCustomPeriod) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetBudgetFilterCustomPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetBudgetFilterCustomPeriod *BudgetBudgetFilterCustomPeriod = &BudgetBudgetFilterCustomPeriod{empty: true}
 
 func (r *BudgetBudgetFilterCustomPeriod) Empty() bool {
@@ -315,8 +315,8 @@ func (r *BudgetBudgetFilterCustomPeriodStartDate) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this BudgetBudgetFilterCustomPeriodStartDate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetBudgetFilterCustomPeriodStartDate *BudgetBudgetFilterCustomPeriodStartDate = &BudgetBudgetFilterCustomPeriodStartDate{empty: true}
 
 func (r *BudgetBudgetFilterCustomPeriodStartDate) Empty() bool {
@@ -367,8 +367,8 @@ func (r *BudgetBudgetFilterCustomPeriodEndDate) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this BudgetBudgetFilterCustomPeriodEndDate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetBudgetFilterCustomPeriodEndDate *BudgetBudgetFilterCustomPeriodEndDate = &BudgetBudgetFilterCustomPeriodEndDate{empty: true}
 
 func (r *BudgetBudgetFilterCustomPeriodEndDate) Empty() bool {
@@ -416,8 +416,8 @@ func (r *BudgetAmount) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetAmount is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetAmount *BudgetAmount = &BudgetAmount{empty: true}
 
 func (r *BudgetAmount) Empty() bool {
@@ -468,8 +468,8 @@ func (r *BudgetAmountSpecifiedAmount) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetAmountSpecifiedAmount is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetAmountSpecifiedAmount *BudgetAmountSpecifiedAmount = &BudgetAmountSpecifiedAmount{empty: true}
 
 func (r *BudgetAmountSpecifiedAmount) Empty() bool {
@@ -511,8 +511,8 @@ func (r *BudgetAmountLastPeriodAmount) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetAmountLastPeriodAmount is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetAmountLastPeriodAmount *BudgetAmountLastPeriodAmount = &BudgetAmountLastPeriodAmount{empty: true}
 
 func (r *BudgetAmountLastPeriodAmount) Empty() bool {
@@ -560,8 +560,8 @@ func (r *BudgetThresholdRules) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetThresholdRules is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetThresholdRules *BudgetThresholdRules = &BudgetThresholdRules{empty: true}
 
 func (r *BudgetThresholdRules) Empty() bool {
@@ -615,8 +615,8 @@ func (r *BudgetAllUpdatesRule) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BudgetAllUpdatesRule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBudgetAllUpdatesRule *BudgetAllUpdatesRule = &BudgetAllUpdatesRule{empty: true}
 
 func (r *BudgetAllUpdatesRule) Empty() bool {

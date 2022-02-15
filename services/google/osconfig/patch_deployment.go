@@ -379,8 +379,8 @@ func (r *PatchDeploymentInstanceFilter) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentInstanceFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentInstanceFilter *PatchDeploymentInstanceFilter = &PatchDeploymentInstanceFilter{empty: true}
 
 func (r *PatchDeploymentInstanceFilter) Empty() bool {
@@ -425,8 +425,8 @@ func (r *PatchDeploymentInstanceFilterGroupLabels) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this PatchDeploymentInstanceFilterGroupLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentInstanceFilterGroupLabels *PatchDeploymentInstanceFilterGroupLabels = &PatchDeploymentInstanceFilterGroupLabels{empty: true}
 
 func (r *PatchDeploymentInstanceFilterGroupLabels) Empty() bool {
@@ -492,8 +492,8 @@ func (r *PatchDeploymentPatchConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfig *PatchDeploymentPatchConfig = &PatchDeploymentPatchConfig{empty: true}
 
 func (r *PatchDeploymentPatchConfig) Empty() bool {
@@ -544,8 +544,8 @@ func (r *PatchDeploymentPatchConfigApt) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigApt is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigApt *PatchDeploymentPatchConfigApt = &PatchDeploymentPatchConfigApt{empty: true}
 
 func (r *PatchDeploymentPatchConfigApt) Empty() bool {
@@ -599,8 +599,8 @@ func (r *PatchDeploymentPatchConfigYum) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigYum is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigYum *PatchDeploymentPatchConfigYum = &PatchDeploymentPatchConfigYum{empty: true}
 
 func (r *PatchDeploymentPatchConfigYum) Empty() bool {
@@ -642,8 +642,8 @@ func (r *PatchDeploymentPatchConfigGoo) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigGoo is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigGoo *PatchDeploymentPatchConfigGoo = &PatchDeploymentPatchConfigGoo{empty: true}
 
 func (r *PatchDeploymentPatchConfigGoo) Empty() bool {
@@ -703,8 +703,8 @@ func (r *PatchDeploymentPatchConfigZypper) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigZypper is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigZypper *PatchDeploymentPatchConfigZypper = &PatchDeploymentPatchConfigZypper{empty: true}
 
 func (r *PatchDeploymentPatchConfigZypper) Empty() bool {
@@ -755,8 +755,8 @@ func (r *PatchDeploymentPatchConfigWindowsUpdate) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigWindowsUpdate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigWindowsUpdate *PatchDeploymentPatchConfigWindowsUpdate = &PatchDeploymentPatchConfigWindowsUpdate{empty: true}
 
 func (r *PatchDeploymentPatchConfigWindowsUpdate) Empty() bool {
@@ -804,8 +804,8 @@ func (r *PatchDeploymentPatchConfigPreStep) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPreStep is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPreStep *PatchDeploymentPatchConfigPreStep = &PatchDeploymentPatchConfigPreStep{empty: true}
 
 func (r *PatchDeploymentPatchConfigPreStep) Empty() bool {
@@ -859,8 +859,8 @@ func (r *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig) UnmarshalJSON(dat
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPreStepLinuxExecStepConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPreStepLinuxExecStepConfig *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig = &PatchDeploymentPatchConfigPreStepLinuxExecStepConfig{empty: true}
 
 func (r *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig) Empty() bool {
@@ -911,8 +911,8 @@ func (r *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject) Unmarsha
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject = &PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject{empty: true}
 
 func (r *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject) Empty() bool {
@@ -966,8 +966,8 @@ func (r *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig) UnmarshalJSON(d
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPreStepWindowsExecStepConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPreStepWindowsExecStepConfig *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig = &PatchDeploymentPatchConfigPreStepWindowsExecStepConfig{empty: true}
 
 func (r *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig) Empty() bool {
@@ -1018,8 +1018,8 @@ func (r *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject) Unmars
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject = &PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject{empty: true}
 
 func (r *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject) Empty() bool {
@@ -1067,8 +1067,8 @@ func (r *PatchDeploymentPatchConfigPostStep) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPostStep is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPostStep *PatchDeploymentPatchConfigPostStep = &PatchDeploymentPatchConfigPostStep{empty: true}
 
 func (r *PatchDeploymentPatchConfigPostStep) Empty() bool {
@@ -1122,8 +1122,8 @@ func (r *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig) UnmarshalJSON(da
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPostStepLinuxExecStepConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPostStepLinuxExecStepConfig *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig = &PatchDeploymentPatchConfigPostStepLinuxExecStepConfig{empty: true}
 
 func (r *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig) Empty() bool {
@@ -1174,8 +1174,8 @@ func (r *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject) Unmarsh
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject = &PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject{empty: true}
 
 func (r *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject) Empty() bool {
@@ -1229,8 +1229,8 @@ func (r *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig) UnmarshalJSON(
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPostStepWindowsExecStepConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPostStepWindowsExecStepConfig *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig = &PatchDeploymentPatchConfigPostStepWindowsExecStepConfig{empty: true}
 
 func (r *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig) Empty() bool {
@@ -1281,8 +1281,8 @@ func (r *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject) Unmar
 }
 
 // This object is used to assert a desired state where this PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject = &PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject{empty: true}
 
 func (r *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject) Empty() bool {
@@ -1327,8 +1327,8 @@ func (r *PatchDeploymentOneTimeSchedule) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentOneTimeSchedule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentOneTimeSchedule *PatchDeploymentOneTimeSchedule = &PatchDeploymentOneTimeSchedule{empty: true}
 
 func (r *PatchDeploymentOneTimeSchedule) Empty() bool {
@@ -1397,8 +1397,8 @@ func (r *PatchDeploymentRecurringSchedule) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRecurringSchedule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRecurringSchedule *PatchDeploymentRecurringSchedule = &PatchDeploymentRecurringSchedule{empty: true}
 
 func (r *PatchDeploymentRecurringSchedule) Empty() bool {
@@ -1446,8 +1446,8 @@ func (r *PatchDeploymentRecurringScheduleTimeZone) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRecurringScheduleTimeZone is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRecurringScheduleTimeZone *PatchDeploymentRecurringScheduleTimeZone = &PatchDeploymentRecurringScheduleTimeZone{empty: true}
 
 func (r *PatchDeploymentRecurringScheduleTimeZone) Empty() bool {
@@ -1501,8 +1501,8 @@ func (r *PatchDeploymentRecurringScheduleTimeOfDay) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRecurringScheduleTimeOfDay is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRecurringScheduleTimeOfDay *PatchDeploymentRecurringScheduleTimeOfDay = &PatchDeploymentRecurringScheduleTimeOfDay{empty: true}
 
 func (r *PatchDeploymentRecurringScheduleTimeOfDay) Empty() bool {
@@ -1547,8 +1547,8 @@ func (r *PatchDeploymentRecurringScheduleWeekly) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRecurringScheduleWeekly is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRecurringScheduleWeekly *PatchDeploymentRecurringScheduleWeekly = &PatchDeploymentRecurringScheduleWeekly{empty: true}
 
 func (r *PatchDeploymentRecurringScheduleWeekly) Empty() bool {
@@ -1596,8 +1596,8 @@ func (r *PatchDeploymentRecurringScheduleMonthly) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRecurringScheduleMonthly is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRecurringScheduleMonthly *PatchDeploymentRecurringScheduleMonthly = &PatchDeploymentRecurringScheduleMonthly{empty: true}
 
 func (r *PatchDeploymentRecurringScheduleMonthly) Empty() bool {
@@ -1645,8 +1645,8 @@ func (r *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth) UnmarshalJSON(da
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth = &PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth{empty: true}
 
 func (r *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth) Empty() bool {
@@ -1694,8 +1694,8 @@ func (r *PatchDeploymentRollout) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRollout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRollout *PatchDeploymentRollout = &PatchDeploymentRollout{empty: true}
 
 func (r *PatchDeploymentRollout) Empty() bool {
@@ -1743,8 +1743,8 @@ func (r *PatchDeploymentRolloutDisruptionBudget) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this PatchDeploymentRolloutDisruptionBudget is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPatchDeploymentRolloutDisruptionBudget *PatchDeploymentRolloutDisruptionBudget = &PatchDeploymentRolloutDisruptionBudget{empty: true}
 
 func (r *PatchDeploymentRolloutDisruptionBudget) Empty() bool {

@@ -128,8 +128,8 @@ func (r *PacketMirroringNetwork) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PacketMirroringNetwork is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPacketMirroringNetwork *PacketMirroringNetwork = &PacketMirroringNetwork{empty: true}
 
 func (r *PacketMirroringNetwork) Empty() bool {
@@ -177,8 +177,8 @@ func (r *PacketMirroringCollectorIlb) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PacketMirroringCollectorIlb is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPacketMirroringCollectorIlb *PacketMirroringCollectorIlb = &PacketMirroringCollectorIlb{empty: true}
 
 func (r *PacketMirroringCollectorIlb) Empty() bool {
@@ -229,8 +229,8 @@ func (r *PacketMirroringMirroredResources) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PacketMirroringMirroredResources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPacketMirroringMirroredResources *PacketMirroringMirroredResources = &PacketMirroringMirroredResources{empty: true}
 
 func (r *PacketMirroringMirroredResources) Empty() bool {
@@ -278,8 +278,8 @@ func (r *PacketMirroringMirroredResourcesSubnetworks) UnmarshalJSON(data []byte)
 }
 
 // This object is used to assert a desired state where this PacketMirroringMirroredResourcesSubnetworks is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPacketMirroringMirroredResourcesSubnetworks *PacketMirroringMirroredResourcesSubnetworks = &PacketMirroringMirroredResourcesSubnetworks{empty: true}
 
 func (r *PacketMirroringMirroredResourcesSubnetworks) Empty() bool {
@@ -327,8 +327,8 @@ func (r *PacketMirroringMirroredResourcesInstances) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this PacketMirroringMirroredResourcesInstances is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPacketMirroringMirroredResourcesInstances *PacketMirroringMirroredResourcesInstances = &PacketMirroringMirroredResourcesInstances{empty: true}
 
 func (r *PacketMirroringMirroredResourcesInstances) Empty() bool {
@@ -379,8 +379,8 @@ func (r *PacketMirroringFilter) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PacketMirroringFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPacketMirroringFilter *PacketMirroringFilter = &PacketMirroringFilter{empty: true}
 
 func (r *PacketMirroringFilter) Empty() bool {

@@ -94,8 +94,8 @@ func (r *NetworkRoutingConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this NetworkRoutingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyNetworkRoutingConfig *NetworkRoutingConfig = &NetworkRoutingConfig{empty: true}
 
 func (r *NetworkRoutingConfig) Empty() bool {

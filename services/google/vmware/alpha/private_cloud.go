@@ -108,8 +108,8 @@ func (r *PrivateCloudNetworkConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PrivateCloudNetworkConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPrivateCloudNetworkConfig *PrivateCloudNetworkConfig = &PrivateCloudNetworkConfig{empty: true}
 
 func (r *PrivateCloudNetworkConfig) Empty() bool {
@@ -160,8 +160,8 @@ func (r *PrivateCloudManagementCluster) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PrivateCloudManagementCluster is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPrivateCloudManagementCluster *PrivateCloudManagementCluster = &PrivateCloudManagementCluster{empty: true}
 
 func (r *PrivateCloudManagementCluster) Empty() bool {
@@ -209,8 +209,8 @@ func (r *PrivateCloudConditions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PrivateCloudConditions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPrivateCloudConditions *PrivateCloudConditions = &PrivateCloudConditions{empty: true}
 
 func (r *PrivateCloudConditions) Empty() bool {
@@ -264,8 +264,8 @@ func (r *PrivateCloudHcx) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PrivateCloudHcx is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPrivateCloudHcx *PrivateCloudHcx = &PrivateCloudHcx{empty: true}
 
 func (r *PrivateCloudHcx) Empty() bool {
@@ -319,8 +319,8 @@ func (r *PrivateCloudNsx) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PrivateCloudNsx is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPrivateCloudNsx *PrivateCloudNsx = &PrivateCloudNsx{empty: true}
 
 func (r *PrivateCloudNsx) Empty() bool {
@@ -374,8 +374,8 @@ func (r *PrivateCloudVcenter) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PrivateCloudVcenter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPrivateCloudVcenter *PrivateCloudVcenter = &PrivateCloudVcenter{empty: true}
 
 func (r *PrivateCloudVcenter) Empty() bool {

@@ -185,8 +185,8 @@ func (r *SubnetworkSecondaryIPRanges) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this SubnetworkSecondaryIPRanges is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptySubnetworkSecondaryIPRanges *SubnetworkSecondaryIPRanges = &SubnetworkSecondaryIPRanges{empty: true}
 
 func (r *SubnetworkSecondaryIPRanges) Empty() bool {
@@ -237,8 +237,8 @@ func (r *SubnetworkLogConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this SubnetworkLogConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptySubnetworkLogConfig *SubnetworkLogConfig = &SubnetworkLogConfig{empty: true}
 
 func (r *SubnetworkLogConfig) Empty() bool {

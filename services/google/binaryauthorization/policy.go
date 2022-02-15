@@ -151,8 +151,8 @@ func (r *PolicyAdmissionWhitelistPatterns) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PolicyAdmissionWhitelistPatterns is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPolicyAdmissionWhitelistPatterns *PolicyAdmissionWhitelistPatterns = &PolicyAdmissionWhitelistPatterns{empty: true}
 
 func (r *PolicyAdmissionWhitelistPatterns) Empty() bool {
@@ -203,8 +203,8 @@ func (r *PolicyAdmissionRule) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PolicyAdmissionRule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPolicyAdmissionRule *PolicyAdmissionRule = &PolicyAdmissionRule{empty: true}
 
 func (r *PolicyAdmissionRule) Empty() bool {
@@ -356,6 +356,11 @@ func applyPolicyHelper(c *Client, ctx context.Context, rawDesired *Policy, opts 
 		return nil, dcl.ApplyInfeasibleError{Message: "No initial state found for singleton resource."}
 	} else {
 		for _, d := range diffs {
+			if d.UpdateOp == nil {
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) no update method found for field", d),
+				}
+			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
 			}

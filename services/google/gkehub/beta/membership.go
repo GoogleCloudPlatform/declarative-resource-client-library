@@ -133,8 +133,8 @@ func (r *MembershipEndpoint) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipEndpoint is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipEndpoint *MembershipEndpoint = &MembershipEndpoint{empty: true}
 
 func (r *MembershipEndpoint) Empty() bool {
@@ -179,8 +179,8 @@ func (r *MembershipEndpointGkeCluster) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipEndpointGkeCluster is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipEndpointGkeCluster *MembershipEndpointGkeCluster = &MembershipEndpointGkeCluster{empty: true}
 
 func (r *MembershipEndpointGkeCluster) Empty() bool {
@@ -240,8 +240,8 @@ func (r *MembershipEndpointKubernetesMetadata) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this MembershipEndpointKubernetesMetadata is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesMetadata *MembershipEndpointKubernetesMetadata = &MembershipEndpointKubernetesMetadata{empty: true}
 
 func (r *MembershipEndpointKubernetesMetadata) Empty() bool {
@@ -295,8 +295,8 @@ func (r *MembershipEndpointKubernetesResource) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResource is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResource *MembershipEndpointKubernetesResource = &MembershipEndpointKubernetesResource{empty: true}
 
 func (r *MembershipEndpointKubernetesResource) Empty() bool {
@@ -344,8 +344,8 @@ func (r *MembershipEndpointKubernetesResourceMembershipResources) UnmarshalJSON(
 }
 
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResourceMembershipResources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResourceMembershipResources *MembershipEndpointKubernetesResourceMembershipResources = &MembershipEndpointKubernetesResourceMembershipResources{empty: true}
 
 func (r *MembershipEndpointKubernetesResourceMembershipResources) Empty() bool {
@@ -393,8 +393,8 @@ func (r *MembershipEndpointKubernetesResourceConnectResources) UnmarshalJSON(dat
 }
 
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResourceConnectResources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResourceConnectResources *MembershipEndpointKubernetesResourceConnectResources = &MembershipEndpointKubernetesResourceConnectResources{empty: true}
 
 func (r *MembershipEndpointKubernetesResourceConnectResources) Empty() bool {
@@ -442,8 +442,8 @@ func (r *MembershipEndpointKubernetesResourceResourceOptions) UnmarshalJSON(data
 }
 
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResourceResourceOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResourceResourceOptions *MembershipEndpointKubernetesResourceResourceOptions = &MembershipEndpointKubernetesResourceResourceOptions{empty: true}
 
 func (r *MembershipEndpointKubernetesResourceResourceOptions) Empty() bool {
@@ -488,8 +488,8 @@ func (r *MembershipState) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipState *MembershipState = &MembershipState{empty: true}
 
 func (r *MembershipState) Empty() bool {
@@ -540,8 +540,8 @@ func (r *MembershipAuthority) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipAuthority is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipAuthority *MembershipAuthority = &MembershipAuthority{empty: true}
 
 func (r *MembershipAuthority) Empty() bool {

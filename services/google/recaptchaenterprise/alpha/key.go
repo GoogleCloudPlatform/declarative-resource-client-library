@@ -160,8 +160,8 @@ func (r *KeyWebSettings) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this KeyWebSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyWebSettings *KeyWebSettings = &KeyWebSettings{empty: true}
 
 func (r *KeyWebSettings) Empty() bool {
@@ -209,8 +209,8 @@ func (r *KeyAndroidSettings) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this KeyAndroidSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyAndroidSettings *KeyAndroidSettings = &KeyAndroidSettings{empty: true}
 
 func (r *KeyAndroidSettings) Empty() bool {
@@ -258,8 +258,8 @@ func (r *KeyIosSettings) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this KeyIosSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyIosSettings *KeyIosSettings = &KeyIosSettings{empty: true}
 
 func (r *KeyIosSettings) Empty() bool {
@@ -307,8 +307,8 @@ func (r *KeyTestingOptions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this KeyTestingOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyTestingOptions *KeyTestingOptions = &KeyTestingOptions{empty: true}
 
 func (r *KeyTestingOptions) Empty() bool {

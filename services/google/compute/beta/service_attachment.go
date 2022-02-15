@@ -134,8 +134,8 @@ func (r *ServiceAttachmentConnectedEndpoints) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceAttachmentConnectedEndpoints is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceAttachmentConnectedEndpoints *ServiceAttachmentConnectedEndpoints = &ServiceAttachmentConnectedEndpoints{empty: true}
 
 func (r *ServiceAttachmentConnectedEndpoints) Empty() bool {
@@ -183,8 +183,8 @@ func (r *ServiceAttachmentConsumerAcceptLists) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this ServiceAttachmentConsumerAcceptLists is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceAttachmentConsumerAcceptLists *ServiceAttachmentConsumerAcceptLists = &ServiceAttachmentConsumerAcceptLists{empty: true}
 
 func (r *ServiceAttachmentConsumerAcceptLists) Empty() bool {
@@ -232,8 +232,8 @@ func (r *ServiceAttachmentPscServiceAttachmentId) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this ServiceAttachmentPscServiceAttachmentId is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceAttachmentPscServiceAttachmentId *ServiceAttachmentPscServiceAttachmentId = &ServiceAttachmentPscServiceAttachmentId{empty: true}
 
 func (r *ServiceAttachmentPscServiceAttachmentId) Empty() bool {

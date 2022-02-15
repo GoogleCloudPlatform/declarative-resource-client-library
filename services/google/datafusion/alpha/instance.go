@@ -140,8 +140,8 @@ func (r *InstanceNetworkConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceNetworkConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceNetworkConfig *InstanceNetworkConfig = &InstanceNetworkConfig{empty: true}
 
 func (r *InstanceNetworkConfig) Empty() bool {
@@ -192,8 +192,8 @@ func (r *InstanceAvailableVersion) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceAvailableVersion is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceAvailableVersion *InstanceAvailableVersion = &InstanceAvailableVersion{empty: true}
 
 func (r *InstanceAvailableVersion) Empty() bool {

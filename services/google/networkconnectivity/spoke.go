@@ -101,8 +101,8 @@ func (r *SpokeLinkedVpnTunnels) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this SpokeLinkedVpnTunnels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptySpokeLinkedVpnTunnels *SpokeLinkedVpnTunnels = &SpokeLinkedVpnTunnels{empty: true}
 
 func (r *SpokeLinkedVpnTunnels) Empty() bool {
@@ -150,8 +150,8 @@ func (r *SpokeLinkedInterconnectAttachments) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this SpokeLinkedInterconnectAttachments is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptySpokeLinkedInterconnectAttachments *SpokeLinkedInterconnectAttachments = &SpokeLinkedInterconnectAttachments{empty: true}
 
 func (r *SpokeLinkedInterconnectAttachments) Empty() bool {
@@ -199,8 +199,8 @@ func (r *SpokeLinkedRouterApplianceInstances) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this SpokeLinkedRouterApplianceInstances is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptySpokeLinkedRouterApplianceInstances *SpokeLinkedRouterApplianceInstances = &SpokeLinkedRouterApplianceInstances{empty: true}
 
 func (r *SpokeLinkedRouterApplianceInstances) Empty() bool {
@@ -248,8 +248,8 @@ func (r *SpokeLinkedRouterApplianceInstancesInstances) UnmarshalJSON(data []byte
 }
 
 // This object is used to assert a desired state where this SpokeLinkedRouterApplianceInstancesInstances is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptySpokeLinkedRouterApplianceInstancesInstances *SpokeLinkedRouterApplianceInstancesInstances = &SpokeLinkedRouterApplianceInstancesInstances{empty: true}
 
 func (r *SpokeLinkedRouterApplianceInstancesInstances) Empty() bool {

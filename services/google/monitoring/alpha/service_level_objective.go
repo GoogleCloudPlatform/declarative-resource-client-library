@@ -211,8 +211,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicator) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicator is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicator *ServiceLevelObjectiveServiceLevelIndicator = &ServiceLevelObjectiveServiceLevelIndicator{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicator) Empty() bool {
@@ -275,8 +275,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSli) UnmarshalJSON(data 
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorBasicSli is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSli *ServiceLevelObjectiveServiceLevelIndicatorBasicSli = &ServiceLevelObjectiveServiceLevelIndicatorBasicSli{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSli) Empty() bool {
@@ -318,8 +318,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) Unmarsh
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) Empty() bool {
@@ -367,8 +367,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) UnmarshalJSO
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) Empty() bool {
@@ -410,8 +410,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability) Empty() bool {
@@ -459,8 +459,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) Unm
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency = &ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) Empty() bool {
@@ -508,8 +508,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBased) UnmarshalJSON(d
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorRequestBased is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBased *ServiceLevelObjectiveServiceLevelIndicatorRequestBased = &ServiceLevelObjectiveServiceLevelIndicatorRequestBased{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBased) Empty() bool {
@@ -560,8 +560,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) U
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) Empty() bool {
@@ -609,8 +609,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) 
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) Empty() bool {
@@ -658,8 +658,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRa
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange = &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange) Empty() bool {
@@ -716,8 +716,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) UnmarshalJSON(d
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBased is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBased *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBased{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) Empty() bool {
@@ -768,8 +768,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold) Empty() bool {
@@ -817,8 +817,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance) Empty() bool {
@@ -869,8 +869,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio) Empty() bool {
@@ -918,8 +918,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut) Empty() bool {
@@ -967,8 +967,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange) Empty() bool {
@@ -1031,8 +1031,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance) Empty() bool {
@@ -1074,8 +1074,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability) Empty() bool {
@@ -1123,8 +1123,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency) Empty() bool {
@@ -1166,8 +1166,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability) Empty() bool {
@@ -1215,8 +1215,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency) Empty() bool {
@@ -1264,8 +1264,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange) Empty() bool {
@@ -1313,8 +1313,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange) Empty() bool {
@@ -1362,8 +1362,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange)
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange) Empty() bool {
@@ -1411,8 +1411,8 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeR
 }
 
 // This object is used to assert a desired state where this ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange = &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{empty: true}
 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange) Empty() bool {

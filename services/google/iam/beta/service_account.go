@@ -68,8 +68,8 @@ func (r *ServiceAccountActasResources) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceAccountActasResources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceAccountActasResources *ServiceAccountActasResources = &ServiceAccountActasResources{empty: true}
 
 func (r *ServiceAccountActasResources) Empty() bool {
@@ -114,8 +114,8 @@ func (r *ServiceAccountActasResourcesResources) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this ServiceAccountActasResourcesResources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceAccountActasResourcesResources *ServiceAccountActasResourcesResources = &ServiceAccountActasResourcesResources{empty: true}
 
 func (r *ServiceAccountActasResourcesResources) Empty() bool {

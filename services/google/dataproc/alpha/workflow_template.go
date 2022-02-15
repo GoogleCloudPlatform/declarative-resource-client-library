@@ -72,8 +72,8 @@ func (r *WorkflowTemplatePlacement) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplatePlacement is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplatePlacement *WorkflowTemplatePlacement = &WorkflowTemplatePlacement{empty: true}
 
 func (r *WorkflowTemplatePlacement) Empty() bool {
@@ -124,8 +124,8 @@ func (r *WorkflowTemplatePlacementManagedCluster) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this WorkflowTemplatePlacementManagedCluster is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplatePlacementManagedCluster *WorkflowTemplatePlacementManagedCluster = &WorkflowTemplatePlacementManagedCluster{empty: true}
 
 func (r *WorkflowTemplatePlacementManagedCluster) Empty() bool {
@@ -173,8 +173,8 @@ func (r *WorkflowTemplatePlacementClusterSelector) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this WorkflowTemplatePlacementClusterSelector is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplatePlacementClusterSelector *WorkflowTemplatePlacementClusterSelector = &WorkflowTemplatePlacementClusterSelector{empty: true}
 
 func (r *WorkflowTemplatePlacementClusterSelector) Empty() bool {
@@ -252,8 +252,8 @@ func (r *WorkflowTemplateJobs) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobs *WorkflowTemplateJobs = &WorkflowTemplateJobs{empty: true}
 
 func (r *WorkflowTemplateJobs) Empty() bool {
@@ -319,8 +319,8 @@ func (r *WorkflowTemplateJobsHadoopJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHadoopJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHadoopJob *WorkflowTemplateJobsHadoopJob = &WorkflowTemplateJobsHadoopJob{empty: true}
 
 func (r *WorkflowTemplateJobsHadoopJob) Empty() bool {
@@ -365,8 +365,8 @@ func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHadoopJobLoggingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHadoopJobLoggingConfig *WorkflowTemplateJobsHadoopJobLoggingConfig = &WorkflowTemplateJobsHadoopJobLoggingConfig{empty: true}
 
 func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) Empty() bool {
@@ -432,8 +432,8 @@ func (r *WorkflowTemplateJobsSparkJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkJob *WorkflowTemplateJobsSparkJob = &WorkflowTemplateJobsSparkJob{empty: true}
 
 func (r *WorkflowTemplateJobsSparkJob) Empty() bool {
@@ -478,8 +478,8 @@ func (r *WorkflowTemplateJobsSparkJobLoggingConfig) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkJobLoggingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkJobLoggingConfig *WorkflowTemplateJobsSparkJobLoggingConfig = &WorkflowTemplateJobsSparkJobLoggingConfig{empty: true}
 
 func (r *WorkflowTemplateJobsSparkJobLoggingConfig) Empty() bool {
@@ -545,8 +545,8 @@ func (r *WorkflowTemplateJobsPysparkJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPysparkJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPysparkJob *WorkflowTemplateJobsPysparkJob = &WorkflowTemplateJobsPysparkJob{empty: true}
 
 func (r *WorkflowTemplateJobsPysparkJob) Empty() bool {
@@ -591,8 +591,8 @@ func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) UnmarshalJSON(data []byte)
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPysparkJobLoggingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPysparkJobLoggingConfig *WorkflowTemplateJobsPysparkJobLoggingConfig = &WorkflowTemplateJobsPysparkJobLoggingConfig{empty: true}
 
 func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) Empty() bool {
@@ -652,8 +652,8 @@ func (r *WorkflowTemplateJobsHiveJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHiveJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHiveJob *WorkflowTemplateJobsHiveJob = &WorkflowTemplateJobsHiveJob{empty: true}
 
 func (r *WorkflowTemplateJobsHiveJob) Empty() bool {
@@ -698,8 +698,8 @@ func (r *WorkflowTemplateJobsHiveJobQueryList) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHiveJobQueryList is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHiveJobQueryList *WorkflowTemplateJobsHiveJobQueryList = &WorkflowTemplateJobsHiveJobQueryList{empty: true}
 
 func (r *WorkflowTemplateJobsHiveJobQueryList) Empty() bool {
@@ -762,8 +762,8 @@ func (r *WorkflowTemplateJobsPigJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPigJob *WorkflowTemplateJobsPigJob = &WorkflowTemplateJobsPigJob{empty: true}
 
 func (r *WorkflowTemplateJobsPigJob) Empty() bool {
@@ -808,8 +808,8 @@ func (r *WorkflowTemplateJobsPigJobQueryList) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJobQueryList is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPigJobQueryList *WorkflowTemplateJobsPigJobQueryList = &WorkflowTemplateJobsPigJobQueryList{empty: true}
 
 func (r *WorkflowTemplateJobsPigJobQueryList) Empty() bool {
@@ -854,8 +854,8 @@ func (r *WorkflowTemplateJobsPigJobLoggingConfig) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJobLoggingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPigJobLoggingConfig *WorkflowTemplateJobsPigJobLoggingConfig = &WorkflowTemplateJobsPigJobLoggingConfig{empty: true}
 
 func (r *WorkflowTemplateJobsPigJobLoggingConfig) Empty() bool {
@@ -915,8 +915,8 @@ func (r *WorkflowTemplateJobsSparkRJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkRJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkRJob *WorkflowTemplateJobsSparkRJob = &WorkflowTemplateJobsSparkRJob{empty: true}
 
 func (r *WorkflowTemplateJobsSparkRJob) Empty() bool {
@@ -961,8 +961,8 @@ func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkRJobLoggingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkRJobLoggingConfig *WorkflowTemplateJobsSparkRJobLoggingConfig = &WorkflowTemplateJobsSparkRJobLoggingConfig{empty: true}
 
 func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) Empty() bool {
@@ -1022,8 +1022,8 @@ func (r *WorkflowTemplateJobsSparkSqlJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkSqlJob *WorkflowTemplateJobsSparkSqlJob = &WorkflowTemplateJobsSparkSqlJob{empty: true}
 
 func (r *WorkflowTemplateJobsSparkSqlJob) Empty() bool {
@@ -1068,8 +1068,8 @@ func (r *WorkflowTemplateJobsSparkSqlJobQueryList) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobQueryList is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkSqlJobQueryList *WorkflowTemplateJobsSparkSqlJobQueryList = &WorkflowTemplateJobsSparkSqlJobQueryList{empty: true}
 
 func (r *WorkflowTemplateJobsSparkSqlJobQueryList) Empty() bool {
@@ -1114,8 +1114,8 @@ func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) UnmarshalJSON(data []byte
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobLoggingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfig *WorkflowTemplateJobsSparkSqlJobLoggingConfig = &WorkflowTemplateJobsSparkSqlJobLoggingConfig{empty: true}
 
 func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) Empty() bool {
@@ -1178,8 +1178,8 @@ func (r *WorkflowTemplateJobsPrestoJob) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJob is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPrestoJob *WorkflowTemplateJobsPrestoJob = &WorkflowTemplateJobsPrestoJob{empty: true}
 
 func (r *WorkflowTemplateJobsPrestoJob) Empty() bool {
@@ -1224,8 +1224,8 @@ func (r *WorkflowTemplateJobsPrestoJobQueryList) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJobQueryList is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPrestoJobQueryList *WorkflowTemplateJobsPrestoJobQueryList = &WorkflowTemplateJobsPrestoJobQueryList{empty: true}
 
 func (r *WorkflowTemplateJobsPrestoJobQueryList) Empty() bool {
@@ -1270,8 +1270,8 @@ func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJobLoggingConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPrestoJobLoggingConfig *WorkflowTemplateJobsPrestoJobLoggingConfig = &WorkflowTemplateJobsPrestoJobLoggingConfig{empty: true}
 
 func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) Empty() bool {
@@ -1319,8 +1319,8 @@ func (r *WorkflowTemplateJobsScheduling) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsScheduling is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsScheduling *WorkflowTemplateJobsScheduling = &WorkflowTemplateJobsScheduling{empty: true}
 
 func (r *WorkflowTemplateJobsScheduling) Empty() bool {
@@ -1374,8 +1374,8 @@ func (r *WorkflowTemplateParameters) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateParameters is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParameters *WorkflowTemplateParameters = &WorkflowTemplateParameters{empty: true}
 
 func (r *WorkflowTemplateParameters) Empty() bool {
@@ -1423,8 +1423,8 @@ func (r *WorkflowTemplateParametersValidation) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateParametersValidation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParametersValidation *WorkflowTemplateParametersValidation = &WorkflowTemplateParametersValidation{empty: true}
 
 func (r *WorkflowTemplateParametersValidation) Empty() bool {
@@ -1469,8 +1469,8 @@ func (r *WorkflowTemplateParametersValidationRegex) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateParametersValidationRegex is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParametersValidationRegex *WorkflowTemplateParametersValidationRegex = &WorkflowTemplateParametersValidationRegex{empty: true}
 
 func (r *WorkflowTemplateParametersValidationRegex) Empty() bool {
@@ -1515,8 +1515,8 @@ func (r *WorkflowTemplateParametersValidationValues) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateParametersValidationValues is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParametersValidationValues *WorkflowTemplateParametersValidationValues = &WorkflowTemplateParametersValidationValues{empty: true}
 
 func (r *WorkflowTemplateParametersValidationValues) Empty() bool {

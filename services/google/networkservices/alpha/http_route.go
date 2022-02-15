@@ -100,8 +100,8 @@ func (r *HttpRouteRules) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRules is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRules *HttpRouteRules = &HttpRouteRules{empty: true}
 
 func (r *HttpRouteRules) Empty() bool {
@@ -161,8 +161,8 @@ func (r *HttpRouteRulesMatches) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesMatches is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesMatches *HttpRouteRulesMatches = &HttpRouteRulesMatches{empty: true}
 
 func (r *HttpRouteRulesMatches) Empty() bool {
@@ -228,8 +228,8 @@ func (r *HttpRouteRulesMatchesHeaders) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesMatchesHeaders is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesMatchesHeaders *HttpRouteRulesMatchesHeaders = &HttpRouteRulesMatchesHeaders{empty: true}
 
 func (r *HttpRouteRulesMatchesHeaders) Empty() bool {
@@ -277,8 +277,8 @@ func (r *HttpRouteRulesMatchesHeadersRangeMatch) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesMatchesHeadersRangeMatch is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesMatchesHeadersRangeMatch *HttpRouteRulesMatchesHeadersRangeMatch = &HttpRouteRulesMatchesHeadersRangeMatch{empty: true}
 
 func (r *HttpRouteRulesMatchesHeadersRangeMatch) Empty() bool {
@@ -332,8 +332,8 @@ func (r *HttpRouteRulesMatchesQueryParameters) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesMatchesQueryParameters is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesMatchesQueryParameters *HttpRouteRulesMatchesQueryParameters = &HttpRouteRulesMatchesQueryParameters{empty: true}
 
 func (r *HttpRouteRulesMatchesQueryParameters) Empty() bool {
@@ -408,8 +408,8 @@ func (r *HttpRouteRulesAction) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesAction is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesAction *HttpRouteRulesAction = &HttpRouteRulesAction{empty: true}
 
 func (r *HttpRouteRulesAction) Empty() bool {
@@ -457,8 +457,8 @@ func (r *HttpRouteRulesActionDestinations) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionDestinations is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionDestinations *HttpRouteRulesActionDestinations = &HttpRouteRulesActionDestinations{empty: true}
 
 func (r *HttpRouteRulesActionDestinations) Empty() bool {
@@ -521,8 +521,8 @@ func (r *HttpRouteRulesActionRedirect) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionRedirect is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionRedirect *HttpRouteRulesActionRedirect = &HttpRouteRulesActionRedirect{empty: true}
 
 func (r *HttpRouteRulesActionRedirect) Empty() bool {
@@ -570,8 +570,8 @@ func (r *HttpRouteRulesActionFaultInjectionPolicy) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionFaultInjectionPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionFaultInjectionPolicy *HttpRouteRulesActionFaultInjectionPolicy = &HttpRouteRulesActionFaultInjectionPolicy{empty: true}
 
 func (r *HttpRouteRulesActionFaultInjectionPolicy) Empty() bool {
@@ -619,8 +619,8 @@ func (r *HttpRouteRulesActionFaultInjectionPolicyDelay) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionFaultInjectionPolicyDelay is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionFaultInjectionPolicyDelay *HttpRouteRulesActionFaultInjectionPolicyDelay = &HttpRouteRulesActionFaultInjectionPolicyDelay{empty: true}
 
 func (r *HttpRouteRulesActionFaultInjectionPolicyDelay) Empty() bool {
@@ -668,8 +668,8 @@ func (r *HttpRouteRulesActionFaultInjectionPolicyAbort) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionFaultInjectionPolicyAbort is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionFaultInjectionPolicyAbort *HttpRouteRulesActionFaultInjectionPolicyAbort = &HttpRouteRulesActionFaultInjectionPolicyAbort{empty: true}
 
 func (r *HttpRouteRulesActionFaultInjectionPolicyAbort) Empty() bool {
@@ -720,8 +720,8 @@ func (r *HttpRouteRulesActionRequestHeaderModifier) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionRequestHeaderModifier is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionRequestHeaderModifier *HttpRouteRulesActionRequestHeaderModifier = &HttpRouteRulesActionRequestHeaderModifier{empty: true}
 
 func (r *HttpRouteRulesActionRequestHeaderModifier) Empty() bool {
@@ -772,8 +772,8 @@ func (r *HttpRouteRulesActionResponseHeaderModifier) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionResponseHeaderModifier is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionResponseHeaderModifier *HttpRouteRulesActionResponseHeaderModifier = &HttpRouteRulesActionResponseHeaderModifier{empty: true}
 
 func (r *HttpRouteRulesActionResponseHeaderModifier) Empty() bool {
@@ -821,8 +821,8 @@ func (r *HttpRouteRulesActionUrlRewrite) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionUrlRewrite is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionUrlRewrite *HttpRouteRulesActionUrlRewrite = &HttpRouteRulesActionUrlRewrite{empty: true}
 
 func (r *HttpRouteRulesActionUrlRewrite) Empty() bool {
@@ -873,8 +873,8 @@ func (r *HttpRouteRulesActionRetryPolicy) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionRetryPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionRetryPolicy *HttpRouteRulesActionRetryPolicy = &HttpRouteRulesActionRetryPolicy{empty: true}
 
 func (r *HttpRouteRulesActionRetryPolicy) Empty() bool {
@@ -919,8 +919,8 @@ func (r *HttpRouteRulesActionRequestMirrorPolicy) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionRequestMirrorPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionRequestMirrorPolicy *HttpRouteRulesActionRequestMirrorPolicy = &HttpRouteRulesActionRequestMirrorPolicy{empty: true}
 
 func (r *HttpRouteRulesActionRequestMirrorPolicy) Empty() bool {
@@ -968,8 +968,8 @@ func (r *HttpRouteRulesActionRequestMirrorPolicyDestination) UnmarshalJSON(data 
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionRequestMirrorPolicyDestination is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionRequestMirrorPolicyDestination *HttpRouteRulesActionRequestMirrorPolicyDestination = &HttpRouteRulesActionRequestMirrorPolicyDestination{empty: true}
 
 func (r *HttpRouteRulesActionRequestMirrorPolicyDestination) Empty() bool {
@@ -1035,8 +1035,8 @@ func (r *HttpRouteRulesActionCorsPolicy) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this HttpRouteRulesActionCorsPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyHttpRouteRulesActionCorsPolicy *HttpRouteRulesActionCorsPolicy = &HttpRouteRulesActionCorsPolicy{empty: true}
 
 func (r *HttpRouteRulesActionCorsPolicy) Empty() bool {

@@ -93,8 +93,8 @@ func (r *RulesetSource) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this RulesetSource is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyRulesetSource *RulesetSource = &RulesetSource{empty: true}
 
 func (r *RulesetSource) Empty() bool {
@@ -145,8 +145,8 @@ func (r *RulesetSourceFiles) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this RulesetSourceFiles is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyRulesetSourceFiles *RulesetSourceFiles = &RulesetSourceFiles{empty: true}
 
 func (r *RulesetSourceFiles) Empty() bool {
@@ -191,8 +191,8 @@ func (r *RulesetMetadata) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this RulesetMetadata is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyRulesetMetadata *RulesetMetadata = &RulesetMetadata{empty: true}
 
 func (r *RulesetMetadata) Empty() bool {

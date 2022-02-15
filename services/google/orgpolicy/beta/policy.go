@@ -73,8 +73,8 @@ func (r *PolicySpec) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PolicySpec is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPolicySpec *PolicySpec = &PolicySpec{empty: true}
 
 func (r *PolicySpec) Empty() bool {
@@ -131,8 +131,8 @@ func (r *PolicySpecRules) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PolicySpecRules is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPolicySpecRules *PolicySpecRules = &PolicySpecRules{empty: true}
 
 func (r *PolicySpecRules) Empty() bool {
@@ -180,8 +180,8 @@ func (r *PolicySpecRulesValues) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PolicySpecRulesValues is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPolicySpecRulesValues *PolicySpecRulesValues = &PolicySpecRulesValues{empty: true}
 
 func (r *PolicySpecRulesValues) Empty() bool {
@@ -235,8 +235,8 @@ func (r *PolicySpecRulesCondition) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this PolicySpecRulesCondition is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyPolicySpecRulesCondition *PolicySpecRulesCondition = &PolicySpecRulesCondition{empty: true}
 
 func (r *PolicySpecRulesCondition) Empty() bool {

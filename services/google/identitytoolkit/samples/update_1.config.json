@@ -31,8 +31,8 @@
         "senderLocalPart": "new-noreply",
         "subject": "Reset the password for %APP_NAME%",
         "senderDisplayName": "DCL",
-        "body": "\u003cp\u003eHello,\u003c/p\u003e\n\u003cp\u003eFollow this link to reset your %APP_NAME% password for your %EMAIL% account.\u003c/p\u003e\n\u003cp\u003e\u003ca href='%LINK%'\u003e%LINK%\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eIf you didn’t ask to reset your password, you can ignore this email.\u003c/p\u003e\n\u003cp\u003eThanks,\u003c/p\u003e\n\u003cp\u003eYour %APP_NAME% team\u003c/p\u003e",
-        "bodyFormat": "PLAIN_TEXT",
+        "body": "Sample message body",
+        "bodyFormat": "HTML",
         "replyTo": "new-noreply"
       },
       "verifyEmailTemplate": {

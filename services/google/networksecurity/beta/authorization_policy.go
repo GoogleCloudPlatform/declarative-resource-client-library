@@ -98,8 +98,8 @@ func (r *AuthorizationPolicyRules) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this AuthorizationPolicyRules is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRules *AuthorizationPolicyRules = &AuthorizationPolicyRules{empty: true}
 
 func (r *AuthorizationPolicyRules) Empty() bool {
@@ -147,8 +147,8 @@ func (r *AuthorizationPolicyRulesSources) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this AuthorizationPolicyRulesSources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRulesSources *AuthorizationPolicyRulesSources = &AuthorizationPolicyRulesSources{empty: true}
 
 func (r *AuthorizationPolicyRulesSources) Empty() bool {
@@ -202,8 +202,8 @@ func (r *AuthorizationPolicyRulesDestinations) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this AuthorizationPolicyRulesDestinations is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRulesDestinations *AuthorizationPolicyRulesDestinations = &AuthorizationPolicyRulesDestinations{empty: true}
 
 func (r *AuthorizationPolicyRulesDestinations) Empty() bool {
@@ -251,8 +251,8 @@ func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) UnmarshalJSON(data
 }
 
 // This object is used to assert a desired state where this AuthorizationPolicyRulesDestinationsHttpHeaderMatch is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRulesDestinationsHttpHeaderMatch *AuthorizationPolicyRulesDestinationsHttpHeaderMatch = &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{empty: true}
 
 func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) Empty() bool {

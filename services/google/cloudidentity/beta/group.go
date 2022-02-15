@@ -155,8 +155,8 @@ func (r *GroupGoogleappscloudidentitygroupsvxentitykey) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this GroupGoogleappscloudidentitygroupsvxentitykey is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGroupGoogleappscloudidentitygroupsvxentitykey *GroupGoogleappscloudidentitygroupsvxentitykey = &GroupGoogleappscloudidentitygroupsvxentitykey{empty: true}
 
 func (r *GroupGoogleappscloudidentitygroupsvxentitykey) Empty() bool {
@@ -204,8 +204,8 @@ func (r *GroupDynamicGroupMetadata) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GroupDynamicGroupMetadata is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGroupDynamicGroupMetadata *GroupDynamicGroupMetadata = &GroupDynamicGroupMetadata{empty: true}
 
 func (r *GroupDynamicGroupMetadata) Empty() bool {
@@ -253,8 +253,8 @@ func (r *GroupDynamicGroupMetadataQueries) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GroupDynamicGroupMetadataQueries is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGroupDynamicGroupMetadataQueries *GroupDynamicGroupMetadataQueries = &GroupDynamicGroupMetadataQueries{empty: true}
 
 func (r *GroupDynamicGroupMetadataQueries) Empty() bool {
@@ -302,8 +302,8 @@ func (r *GroupDynamicGroupMetadataStatus) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GroupDynamicGroupMetadataStatus is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGroupDynamicGroupMetadataStatus *GroupDynamicGroupMetadataStatus = &GroupDynamicGroupMetadataStatus{empty: true}
 
 func (r *GroupDynamicGroupMetadataStatus) Empty() bool {
@@ -354,8 +354,8 @@ func (r *GroupPosixGroups) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GroupPosixGroups is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGroupPosixGroups *GroupPosixGroups = &GroupPosixGroups{empty: true}
 
 func (r *GroupPosixGroups) Empty() bool {

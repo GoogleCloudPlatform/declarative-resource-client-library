@@ -246,8 +246,8 @@ func (r *InstanceGroupManagerDistributionPolicy) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerDistributionPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerDistributionPolicy *InstanceGroupManagerDistributionPolicy = &InstanceGroupManagerDistributionPolicy{empty: true}
 
 func (r *InstanceGroupManagerDistributionPolicy) Empty() bool {
@@ -292,8 +292,8 @@ func (r *InstanceGroupManagerDistributionPolicyZones) UnmarshalJSON(data []byte)
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerDistributionPolicyZones is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerDistributionPolicyZones *InstanceGroupManagerDistributionPolicyZones = &InstanceGroupManagerDistributionPolicyZones{empty: true}
 
 func (r *InstanceGroupManagerDistributionPolicyZones) Empty() bool {
@@ -344,8 +344,8 @@ func (r *InstanceGroupManagerVersions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerVersions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerVersions *InstanceGroupManagerVersions = &InstanceGroupManagerVersions{empty: true}
 
 func (r *InstanceGroupManagerVersions) Empty() bool {
@@ -396,8 +396,8 @@ func (r *InstanceGroupManagerFixedOrPercent) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerFixedOrPercent is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerFixedOrPercent *InstanceGroupManagerFixedOrPercent = &InstanceGroupManagerFixedOrPercent{empty: true}
 
 func (r *InstanceGroupManagerFixedOrPercent) Empty() bool {
@@ -466,8 +466,8 @@ func (r *InstanceGroupManagerCurrentActions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerCurrentActions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerCurrentActions *InstanceGroupManagerCurrentActions = &InstanceGroupManagerCurrentActions{empty: true}
 
 func (r *InstanceGroupManagerCurrentActions) Empty() bool {
@@ -521,8 +521,8 @@ func (r *InstanceGroupManagerStatus) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatus is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatus *InstanceGroupManagerStatus = &InstanceGroupManagerStatus{empty: true}
 
 func (r *InstanceGroupManagerStatus) Empty() bool {
@@ -567,8 +567,8 @@ func (r *InstanceGroupManagerStatusVersionTarget) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatusVersionTarget is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatusVersionTarget *InstanceGroupManagerStatusVersionTarget = &InstanceGroupManagerStatusVersionTarget{empty: true}
 
 func (r *InstanceGroupManagerStatusVersionTarget) Empty() bool {
@@ -616,8 +616,8 @@ func (r *InstanceGroupManagerStatusStateful) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatusStateful is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatusStateful *InstanceGroupManagerStatusStateful = &InstanceGroupManagerStatusStateful{empty: true}
 
 func (r *InstanceGroupManagerStatusStateful) Empty() bool {
@@ -662,8 +662,8 @@ func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) UnmarshalJSON(dat
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatusStatefulPerInstanceConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatusStatefulPerInstanceConfigs *InstanceGroupManagerStatusStatefulPerInstanceConfigs = &InstanceGroupManagerStatusStatefulPerInstanceConfigs{empty: true}
 
 func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) Empty() bool {
@@ -711,8 +711,8 @@ func (r *InstanceGroupManagerAutoHealingPolicies) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerAutoHealingPolicies is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerAutoHealingPolicies *InstanceGroupManagerAutoHealingPolicies = &InstanceGroupManagerAutoHealingPolicies{empty: true}
 
 func (r *InstanceGroupManagerAutoHealingPolicies) Empty() bool {
@@ -772,8 +772,8 @@ func (r *InstanceGroupManagerUpdatePolicy) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerUpdatePolicy *InstanceGroupManagerUpdatePolicy = &InstanceGroupManagerUpdatePolicy{empty: true}
 
 func (r *InstanceGroupManagerUpdatePolicy) Empty() bool {
@@ -821,8 +821,8 @@ func (r *InstanceGroupManagerNamedPorts) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerNamedPorts is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerNamedPorts *InstanceGroupManagerNamedPorts = &InstanceGroupManagerNamedPorts{empty: true}
 
 func (r *InstanceGroupManagerNamedPorts) Empty() bool {
@@ -867,8 +867,8 @@ func (r *InstanceGroupManagerStatefulPolicy) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatefulPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatefulPolicy *InstanceGroupManagerStatefulPolicy = &InstanceGroupManagerStatefulPolicy{empty: true}
 
 func (r *InstanceGroupManagerStatefulPolicy) Empty() bool {
@@ -913,8 +913,8 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedState) UnmarshalJSON(data []
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatefulPolicyPreservedState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatefulPolicyPreservedState *InstanceGroupManagerStatefulPolicyPreservedState = &InstanceGroupManagerStatefulPolicyPreservedState{empty: true}
 
 func (r *InstanceGroupManagerStatefulPolicyPreservedState) Empty() bool {
@@ -959,8 +959,8 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) UnmarshalJSON(da
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatefulPolicyPreservedStateDisks is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks *InstanceGroupManagerStatefulPolicyPreservedStateDisks = &InstanceGroupManagerStatefulPolicyPreservedStateDisks{empty: true}
 
 func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) Empty() bool {

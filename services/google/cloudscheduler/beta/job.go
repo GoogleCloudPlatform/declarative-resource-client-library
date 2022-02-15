@@ -161,8 +161,8 @@ func (r *JobPubsubTarget) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobPubsubTarget is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobPubsubTarget *JobPubsubTarget = &JobPubsubTarget{empty: true}
 
 func (r *JobPubsubTarget) Empty() bool {
@@ -219,8 +219,8 @@ func (r *JobAppEngineHttpTarget) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobAppEngineHttpTarget is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobAppEngineHttpTarget *JobAppEngineHttpTarget = &JobAppEngineHttpTarget{empty: true}
 
 func (r *JobAppEngineHttpTarget) Empty() bool {
@@ -274,8 +274,8 @@ func (r *JobAppEngineHttpTargetAppEngineRouting) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this JobAppEngineHttpTargetAppEngineRouting is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobAppEngineHttpTargetAppEngineRouting *JobAppEngineHttpTargetAppEngineRouting = &JobAppEngineHttpTargetAppEngineRouting{empty: true}
 
 func (r *JobAppEngineHttpTargetAppEngineRouting) Empty() bool {
@@ -335,8 +335,8 @@ func (r *JobHttpTarget) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobHttpTarget is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobHttpTarget *JobHttpTarget = &JobHttpTarget{empty: true}
 
 func (r *JobHttpTarget) Empty() bool {
@@ -384,8 +384,8 @@ func (r *JobHttpTargetOAuthToken) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobHttpTargetOAuthToken is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobHttpTargetOAuthToken *JobHttpTargetOAuthToken = &JobHttpTargetOAuthToken{empty: true}
 
 func (r *JobHttpTargetOAuthToken) Empty() bool {
@@ -433,8 +433,8 @@ func (r *JobHttpTargetOidcToken) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobHttpTargetOidcToken is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobHttpTargetOidcToken *JobHttpTargetOidcToken = &JobHttpTargetOidcToken{empty: true}
 
 func (r *JobHttpTargetOidcToken) Empty() bool {
@@ -485,8 +485,8 @@ func (r *JobStatus) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobStatus is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobStatus *JobStatus = &JobStatus{empty: true}
 
 func (r *JobStatus) Empty() bool {
@@ -534,8 +534,8 @@ func (r *JobStatusDetails) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobStatusDetails is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobStatusDetails *JobStatusDetails = &JobStatusDetails{empty: true}
 
 func (r *JobStatusDetails) Empty() bool {
@@ -592,8 +592,8 @@ func (r *JobRetryConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this JobRetryConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyJobRetryConfig *JobRetryConfig = &JobRetryConfig{empty: true}
 
 func (r *JobRetryConfig) Empty() bool {

@@ -100,8 +100,8 @@ func (r *WorkloadIdentityPoolProviderAws) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkloadIdentityPoolProviderAws is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkloadIdentityPoolProviderAws *WorkloadIdentityPoolProviderAws = &WorkloadIdentityPoolProviderAws{empty: true}
 
 func (r *WorkloadIdentityPoolProviderAws) Empty() bool {
@@ -149,8 +149,8 @@ func (r *WorkloadIdentityPoolProviderOidc) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkloadIdentityPoolProviderOidc is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkloadIdentityPoolProviderOidc *WorkloadIdentityPoolProviderOidc = &WorkloadIdentityPoolProviderOidc{empty: true}
 
 func (r *WorkloadIdentityPoolProviderOidc) Empty() bool {

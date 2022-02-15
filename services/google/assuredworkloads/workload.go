@@ -154,8 +154,8 @@ func (r *WorkloadResources) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkloadResources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkloadResources *WorkloadResources = &WorkloadResources{empty: true}
 
 func (r *WorkloadResources) Empty() bool {
@@ -203,8 +203,8 @@ func (r *WorkloadKmsSettings) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkloadKmsSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkloadKmsSettings *WorkloadKmsSettings = &WorkloadKmsSettings{empty: true}
 
 func (r *WorkloadKmsSettings) Empty() bool {
@@ -252,8 +252,8 @@ func (r *WorkloadResourceSettings) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkloadResourceSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkloadResourceSettings *WorkloadResourceSettings = &WorkloadResourceSettings{empty: true}
 
 func (r *WorkloadResourceSettings) Empty() bool {

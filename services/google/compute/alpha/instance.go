@@ -326,8 +326,8 @@ func (r *InstanceDisks) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceDisks is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceDisks *InstanceDisks = &InstanceDisks{empty: true}
 
 func (r *InstanceDisks) Empty() bool {
@@ -378,8 +378,8 @@ func (r *InstanceDisksDiskEncryptionKey) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceDisksDiskEncryptionKey is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceDisksDiskEncryptionKey *InstanceDisksDiskEncryptionKey = &InstanceDisksDiskEncryptionKey{empty: true}
 
 func (r *InstanceDisksDiskEncryptionKey) Empty() bool {
@@ -436,8 +436,8 @@ func (r *InstanceDisksInitializeParams) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceDisksInitializeParams is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceDisksInitializeParams *InstanceDisksInitializeParams = &InstanceDisksInitializeParams{empty: true}
 
 func (r *InstanceDisksInitializeParams) Empty() bool {
@@ -485,8 +485,8 @@ func (r *InstanceDisksInitializeParamsSourceImageEncryptionKey) UnmarshalJSON(da
 }
 
 // This object is used to assert a desired state where this InstanceDisksInitializeParamsSourceImageEncryptionKey is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceDisksInitializeParamsSourceImageEncryptionKey *InstanceDisksInitializeParamsSourceImageEncryptionKey = &InstanceDisksInitializeParamsSourceImageEncryptionKey{empty: true}
 
 func (r *InstanceDisksInitializeParamsSourceImageEncryptionKey) Empty() bool {
@@ -534,8 +534,8 @@ func (r *InstanceGuestAccelerators) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceGuestAccelerators is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceGuestAccelerators *InstanceGuestAccelerators = &InstanceGuestAccelerators{empty: true}
 
 func (r *InstanceGuestAccelerators) Empty() bool {
@@ -598,8 +598,8 @@ func (r *InstanceNetworkInterfaces) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceNetworkInterfaces is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceNetworkInterfaces *InstanceNetworkInterfaces = &InstanceNetworkInterfaces{empty: true}
 
 func (r *InstanceNetworkInterfaces) Empty() bool {
@@ -665,8 +665,8 @@ func (r *InstanceNetworkInterfacesAccessConfigs) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this InstanceNetworkInterfacesAccessConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceNetworkInterfacesAccessConfigs *InstanceNetworkInterfacesAccessConfigs = &InstanceNetworkInterfacesAccessConfigs{empty: true}
 
 func (r *InstanceNetworkInterfacesAccessConfigs) Empty() bool {
@@ -732,8 +732,8 @@ func (r *InstanceNetworkInterfacesIPv6AccessConfigs) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this InstanceNetworkInterfacesIPv6AccessConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceNetworkInterfacesIPv6AccessConfigs *InstanceNetworkInterfacesIPv6AccessConfigs = &InstanceNetworkInterfacesIPv6AccessConfigs{empty: true}
 
 func (r *InstanceNetworkInterfacesIPv6AccessConfigs) Empty() bool {
@@ -781,8 +781,8 @@ func (r *InstanceNetworkInterfacesAliasIPRanges) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this InstanceNetworkInterfacesAliasIPRanges is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceNetworkInterfacesAliasIPRanges *InstanceNetworkInterfacesAliasIPRanges = &InstanceNetworkInterfacesAliasIPRanges{empty: true}
 
 func (r *InstanceNetworkInterfacesAliasIPRanges) Empty() bool {
@@ -833,8 +833,8 @@ func (r *InstanceScheduling) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceScheduling is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceScheduling *InstanceScheduling = &InstanceScheduling{empty: true}
 
 func (r *InstanceScheduling) Empty() bool {
@@ -882,8 +882,8 @@ func (r *InstanceServiceAccounts) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceServiceAccounts is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceServiceAccounts *InstanceServiceAccounts = &InstanceServiceAccounts{empty: true}
 
 func (r *InstanceServiceAccounts) Empty() bool {
@@ -934,8 +934,8 @@ func (r *InstanceShieldedInstanceConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceShieldedInstanceConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceShieldedInstanceConfig *InstanceShieldedInstanceConfig = &InstanceShieldedInstanceConfig{empty: true}
 
 func (r *InstanceShieldedInstanceConfig) Empty() bool {

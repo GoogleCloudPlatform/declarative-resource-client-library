@@ -65,8 +65,8 @@ func (r *MetricsScopeMonitoredProjects) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MetricsScopeMonitoredProjects is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMetricsScopeMonitoredProjects *MetricsScopeMonitoredProjects = &MetricsScopeMonitoredProjects{empty: true}
 
 func (r *MetricsScopeMonitoredProjects) Empty() bool {
@@ -211,6 +211,11 @@ func applyMetricsScopeHelper(c *Client, ctx context.Context, rawDesired *Metrics
 		return nil, dcl.ApplyInfeasibleError{Message: "No initial state found for singleton resource."}
 	} else {
 		for _, d := range diffs {
+			if d.UpdateOp == nil {
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) no update method found for field", d),
+				}
+			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
 			}

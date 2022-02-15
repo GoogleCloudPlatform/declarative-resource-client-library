@@ -94,8 +94,8 @@ func (r *InstanceBundlesConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceBundlesConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceBundlesConfig *InstanceBundlesConfig = &InstanceBundlesConfig{empty: true}
 
 func (r *InstanceBundlesConfig) Empty() bool {
@@ -140,8 +140,8 @@ func (r *InstanceBundlesConfigConfigControllerConfig) UnmarshalJSON(data []byte)
 }
 
 // This object is used to assert a desired state where this InstanceBundlesConfigConfigControllerConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceBundlesConfigConfigControllerConfig *InstanceBundlesConfigConfigControllerConfig = &InstanceBundlesConfigConfigControllerConfig{empty: true}
 
 func (r *InstanceBundlesConfigConfigControllerConfig) Empty() bool {
@@ -186,8 +186,8 @@ func (r *InstanceManagementConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceManagementConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceManagementConfig *InstanceManagementConfig = &InstanceManagementConfig{empty: true}
 
 func (r *InstanceManagementConfig) Empty() bool {
@@ -250,8 +250,8 @@ func (r *InstanceManagementConfigStandardManagementConfig) UnmarshalJSON(data []
 }
 
 // This object is used to assert a desired state where this InstanceManagementConfigStandardManagementConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceManagementConfigStandardManagementConfig *InstanceManagementConfigStandardManagementConfig = &InstanceManagementConfigStandardManagementConfig{empty: true}
 
 func (r *InstanceManagementConfigStandardManagementConfig) Empty() bool {

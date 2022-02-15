@@ -297,8 +297,8 @@ func (r *ConfigSignIn) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigSignIn is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigSignIn *ConfigSignIn = &ConfigSignIn{empty: true}
 
 func (r *ConfigSignIn) Empty() bool {
@@ -349,8 +349,8 @@ func (r *ConfigSignInEmail) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigSignInEmail is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigSignInEmail *ConfigSignInEmail = &ConfigSignInEmail{empty: true}
 
 func (r *ConfigSignInEmail) Empty() bool {
@@ -407,8 +407,8 @@ func (r *ConfigSignInEmailHashConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigSignInEmailHashConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigSignInEmailHashConfig *ConfigSignInEmailHashConfig = &ConfigSignInEmailHashConfig{empty: true}
 
 func (r *ConfigSignInEmailHashConfig) Empty() bool {
@@ -456,8 +456,8 @@ func (r *ConfigSignInPhoneNumber) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigSignInPhoneNumber is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigSignInPhoneNumber *ConfigSignInPhoneNumber = &ConfigSignInPhoneNumber{empty: true}
 
 func (r *ConfigSignInPhoneNumber) Empty() bool {
@@ -502,8 +502,8 @@ func (r *ConfigSignInAnonymous) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigSignInAnonymous is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigSignInAnonymous *ConfigSignInAnonymous = &ConfigSignInAnonymous{empty: true}
 
 func (r *ConfigSignInAnonymous) Empty() bool {
@@ -560,8 +560,8 @@ func (r *ConfigSignInHashConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigSignInHashConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigSignInHashConfig *ConfigSignInHashConfig = &ConfigSignInHashConfig{empty: true}
 
 func (r *ConfigSignInHashConfig) Empty() bool {
@@ -612,8 +612,8 @@ func (r *ConfigNotification) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigNotification is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigNotification *ConfigNotification = &ConfigNotification{empty: true}
 
 func (r *ConfigNotification) Empty() bool {
@@ -679,8 +679,8 @@ func (r *ConfigNotificationSendEmail) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigNotificationSendEmail is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigNotificationSendEmail *ConfigNotificationSendEmail = &ConfigNotificationSendEmail{empty: true}
 
 func (r *ConfigNotificationSendEmail) Empty() bool {
@@ -740,8 +740,8 @@ func (r *ConfigNotificationSendEmailSmtp) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigNotificationSendEmailSmtp is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigNotificationSendEmailSmtp *ConfigNotificationSendEmailSmtp = &ConfigNotificationSendEmailSmtp{empty: true}
 
 func (r *ConfigNotificationSendEmailSmtp) Empty() bool {
@@ -804,8 +804,8 @@ func (r *ConfigEmailTemplate) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigEmailTemplate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigEmailTemplate *ConfigEmailTemplate = &ConfigEmailTemplate{empty: true}
 
 func (r *ConfigEmailTemplate) Empty() bool {
@@ -862,8 +862,8 @@ func (r *ConfigNotificationSendEmailDnsInfo) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigNotificationSendEmailDnsInfo is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigNotificationSendEmailDnsInfo *ConfigNotificationSendEmailDnsInfo = &ConfigNotificationSendEmailDnsInfo{empty: true}
 
 func (r *ConfigNotificationSendEmailDnsInfo) Empty() bool {
@@ -911,8 +911,8 @@ func (r *ConfigNotificationSendSms) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigNotificationSendSms is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigNotificationSendSms *ConfigNotificationSendSms = &ConfigNotificationSendSms{empty: true}
 
 func (r *ConfigNotificationSendSms) Empty() bool {
@@ -957,8 +957,8 @@ func (r *ConfigNotificationSendSmsSmsTemplate) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this ConfigNotificationSendSmsSmsTemplate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigNotificationSendSmsSmsTemplate *ConfigNotificationSendSmsSmsTemplate = &ConfigNotificationSendSmsSmsTemplate{empty: true}
 
 func (r *ConfigNotificationSendSmsSmsTemplate) Empty() bool {
@@ -1003,8 +1003,8 @@ func (r *ConfigQuota) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigQuota is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigQuota *ConfigQuota = &ConfigQuota{empty: true}
 
 func (r *ConfigQuota) Empty() bool {
@@ -1055,8 +1055,8 @@ func (r *ConfigQuotaSignUpQuotaConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigQuotaSignUpQuotaConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigQuotaSignUpQuotaConfig *ConfigQuotaSignUpQuotaConfig = &ConfigQuotaSignUpQuotaConfig{empty: true}
 
 func (r *ConfigQuotaSignUpQuotaConfig) Empty() bool {
@@ -1101,8 +1101,8 @@ func (r *ConfigMonitoring) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigMonitoring is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigMonitoring *ConfigMonitoring = &ConfigMonitoring{empty: true}
 
 func (r *ConfigMonitoring) Empty() bool {
@@ -1147,8 +1147,8 @@ func (r *ConfigMonitoringRequestLogging) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigMonitoringRequestLogging is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigMonitoringRequestLogging *ConfigMonitoringRequestLogging = &ConfigMonitoringRequestLogging{empty: true}
 
 func (r *ConfigMonitoringRequestLogging) Empty() bool {
@@ -1196,8 +1196,8 @@ func (r *ConfigMultiTenant) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigMultiTenant is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigMultiTenant *ConfigMultiTenant = &ConfigMultiTenant{empty: true}
 
 func (r *ConfigMultiTenant) Empty() bool {
@@ -1248,8 +1248,8 @@ func (r *ConfigClient) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigClient is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigClient *ConfigClient = &ConfigClient{empty: true}
 
 func (r *ConfigClient) Empty() bool {
@@ -1297,8 +1297,8 @@ func (r *ConfigClientPermissions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigClientPermissions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigClientPermissions *ConfigClientPermissions = &ConfigClientPermissions{empty: true}
 
 func (r *ConfigClientPermissions) Empty() bool {
@@ -1343,8 +1343,8 @@ func (r *ConfigMfa) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigMfa is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigMfa *ConfigMfa = &ConfigMfa{empty: true}
 
 func (r *ConfigMfa) Empty() bool {
@@ -1389,8 +1389,8 @@ func (r *ConfigBlockingFunctions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigBlockingFunctions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigBlockingFunctions *ConfigBlockingFunctions = &ConfigBlockingFunctions{empty: true}
 
 func (r *ConfigBlockingFunctions) Empty() bool {
@@ -1438,8 +1438,8 @@ func (r *ConfigBlockingFunctionsTriggers) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ConfigBlockingFunctionsTriggers is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyConfigBlockingFunctionsTriggers *ConfigBlockingFunctionsTriggers = &ConfigBlockingFunctionsTriggers{empty: true}
 
 func (r *ConfigBlockingFunctionsTriggers) Empty() bool {
@@ -1591,6 +1591,11 @@ func applyConfigHelper(c *Client, ctx context.Context, rawDesired *Config, opts 
 		return nil, dcl.ApplyInfeasibleError{Message: "No initial state found for singleton resource."}
 	} else {
 		for _, d := range diffs {
+			if d.UpdateOp == nil {
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) no update method found for field", d),
+				}
+			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
 			}

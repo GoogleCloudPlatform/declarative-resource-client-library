@@ -214,8 +214,8 @@ func (r *InstanceFileShares) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceFileShares is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceFileShares *InstanceFileShares = &InstanceFileShares{empty: true}
 
 func (r *InstanceFileShares) Empty() bool {
@@ -272,8 +272,8 @@ func (r *InstanceFileSharesNfsExportOptions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceFileSharesNfsExportOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceFileSharesNfsExportOptions *InstanceFileSharesNfsExportOptions = &InstanceFileSharesNfsExportOptions{empty: true}
 
 func (r *InstanceFileSharesNfsExportOptions) Empty() bool {
@@ -327,8 +327,8 @@ func (r *InstanceNetworks) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InstanceNetworks is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInstanceNetworks *InstanceNetworks = &InstanceNetworks{empty: true}
 
 func (r *InstanceNetworks) Empty() bool {

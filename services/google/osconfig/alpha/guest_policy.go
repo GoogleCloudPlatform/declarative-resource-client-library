@@ -296,8 +296,8 @@ func (r *GuestPolicyAssignment) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyAssignment is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyAssignment *GuestPolicyAssignment = &GuestPolicyAssignment{empty: true}
 
 func (r *GuestPolicyAssignment) Empty() bool {
@@ -342,8 +342,8 @@ func (r *GuestPolicyAssignmentGroupLabels) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyAssignmentGroupLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyAssignmentGroupLabels *GuestPolicyAssignmentGroupLabels = &GuestPolicyAssignmentGroupLabels{empty: true}
 
 func (r *GuestPolicyAssignmentGroupLabels) Empty() bool {
@@ -394,8 +394,8 @@ func (r *GuestPolicyAssignmentOSTypes) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyAssignmentOSTypes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyAssignmentOSTypes *GuestPolicyAssignmentOSTypes = &GuestPolicyAssignmentOSTypes{empty: true}
 
 func (r *GuestPolicyAssignmentOSTypes) Empty() bool {
@@ -446,8 +446,8 @@ func (r *GuestPolicyPackages) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackages is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackages *GuestPolicyPackages = &GuestPolicyPackages{empty: true}
 
 func (r *GuestPolicyPackages) Empty() bool {
@@ -501,8 +501,8 @@ func (r *GuestPolicyPackageRepositories) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositories is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositories *GuestPolicyPackageRepositories = &GuestPolicyPackageRepositories{empty: true}
 
 func (r *GuestPolicyPackageRepositories) Empty() bool {
@@ -559,8 +559,8 @@ func (r *GuestPolicyPackageRepositoriesApt) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesApt is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesApt *GuestPolicyPackageRepositoriesApt = &GuestPolicyPackageRepositoriesApt{empty: true}
 
 func (r *GuestPolicyPackageRepositoriesApt) Empty() bool {
@@ -614,8 +614,8 @@ func (r *GuestPolicyPackageRepositoriesYum) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesYum is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesYum *GuestPolicyPackageRepositoriesYum = &GuestPolicyPackageRepositoriesYum{empty: true}
 
 func (r *GuestPolicyPackageRepositoriesYum) Empty() bool {
@@ -669,8 +669,8 @@ func (r *GuestPolicyPackageRepositoriesZypper) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesZypper is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesZypper *GuestPolicyPackageRepositoriesZypper = &GuestPolicyPackageRepositoriesZypper{empty: true}
 
 func (r *GuestPolicyPackageRepositoriesZypper) Empty() bool {
@@ -718,8 +718,8 @@ func (r *GuestPolicyPackageRepositoriesGoo) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesGoo is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesGoo *GuestPolicyPackageRepositoriesGoo = &GuestPolicyPackageRepositoriesGoo{empty: true}
 
 func (r *GuestPolicyPackageRepositoriesGoo) Empty() bool {
@@ -779,8 +779,8 @@ func (r *GuestPolicyRecipes) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipes *GuestPolicyRecipes = &GuestPolicyRecipes{empty: true}
 
 func (r *GuestPolicyRecipes) Empty() bool {
@@ -834,8 +834,8 @@ func (r *GuestPolicyRecipesArtifacts) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesArtifacts is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesArtifacts *GuestPolicyRecipesArtifacts = &GuestPolicyRecipesArtifacts{empty: true}
 
 func (r *GuestPolicyRecipesArtifacts) Empty() bool {
@@ -883,8 +883,8 @@ func (r *GuestPolicyRecipesArtifactsRemote) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesArtifactsRemote is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesArtifactsRemote *GuestPolicyRecipesArtifactsRemote = &GuestPolicyRecipesArtifactsRemote{empty: true}
 
 func (r *GuestPolicyRecipesArtifactsRemote) Empty() bool {
@@ -935,8 +935,8 @@ func (r *GuestPolicyRecipesArtifactsGcs) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesArtifactsGcs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesArtifactsGcs *GuestPolicyRecipesArtifactsGcs = &GuestPolicyRecipesArtifactsGcs{empty: true}
 
 func (r *GuestPolicyRecipesArtifactsGcs) Empty() bool {
@@ -999,8 +999,8 @@ func (r *GuestPolicyRecipesInstallSteps) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallSteps is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallSteps *GuestPolicyRecipesInstallSteps = &GuestPolicyRecipesInstallSteps{empty: true}
 
 func (r *GuestPolicyRecipesInstallSteps) Empty() bool {
@@ -1054,8 +1054,8 @@ func (r *GuestPolicyRecipesInstallStepsFileCopy) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsFileCopy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsFileCopy *GuestPolicyRecipesInstallStepsFileCopy = &GuestPolicyRecipesInstallStepsFileCopy{empty: true}
 
 func (r *GuestPolicyRecipesInstallStepsFileCopy) Empty() bool {
@@ -1106,8 +1106,8 @@ func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) UnmarshalJSON(data []b
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsArchiveExtraction is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsArchiveExtraction *GuestPolicyRecipesInstallStepsArchiveExtraction = &GuestPolicyRecipesInstallStepsArchiveExtraction{empty: true}
 
 func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) Empty() bool {
@@ -1158,8 +1158,8 @@ func (r *GuestPolicyRecipesInstallStepsMsiInstallation) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsMsiInstallation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsMsiInstallation *GuestPolicyRecipesInstallStepsMsiInstallation = &GuestPolicyRecipesInstallStepsMsiInstallation{empty: true}
 
 func (r *GuestPolicyRecipesInstallStepsMsiInstallation) Empty() bool {
@@ -1204,8 +1204,8 @@ func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) UnmarshalJSON(data []by
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsDpkgInstallation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsDpkgInstallation *GuestPolicyRecipesInstallStepsDpkgInstallation = &GuestPolicyRecipesInstallStepsDpkgInstallation{empty: true}
 
 func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) Empty() bool {
@@ -1250,8 +1250,8 @@ func (r *GuestPolicyRecipesInstallStepsRpmInstallation) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsRpmInstallation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsRpmInstallation *GuestPolicyRecipesInstallStepsRpmInstallation = &GuestPolicyRecipesInstallStepsRpmInstallation{empty: true}
 
 func (r *GuestPolicyRecipesInstallStepsRpmInstallation) Empty() bool {
@@ -1305,8 +1305,8 @@ func (r *GuestPolicyRecipesInstallStepsFileExec) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsFileExec is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsFileExec *GuestPolicyRecipesInstallStepsFileExec = &GuestPolicyRecipesInstallStepsFileExec{empty: true}
 
 func (r *GuestPolicyRecipesInstallStepsFileExec) Empty() bool {
@@ -1357,8 +1357,8 @@ func (r *GuestPolicyRecipesInstallStepsScriptRun) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsScriptRun is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsScriptRun *GuestPolicyRecipesInstallStepsScriptRun = &GuestPolicyRecipesInstallStepsScriptRun{empty: true}
 
 func (r *GuestPolicyRecipesInstallStepsScriptRun) Empty() bool {
@@ -1421,8 +1421,8 @@ func (r *GuestPolicyRecipesUpdateSteps) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateSteps is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateSteps *GuestPolicyRecipesUpdateSteps = &GuestPolicyRecipesUpdateSteps{empty: true}
 
 func (r *GuestPolicyRecipesUpdateSteps) Empty() bool {
@@ -1476,8 +1476,8 @@ func (r *GuestPolicyRecipesUpdateStepsFileCopy) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsFileCopy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsFileCopy *GuestPolicyRecipesUpdateStepsFileCopy = &GuestPolicyRecipesUpdateStepsFileCopy{empty: true}
 
 func (r *GuestPolicyRecipesUpdateStepsFileCopy) Empty() bool {
@@ -1528,8 +1528,8 @@ func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) UnmarshalJSON(data []by
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsArchiveExtraction is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsArchiveExtraction *GuestPolicyRecipesUpdateStepsArchiveExtraction = &GuestPolicyRecipesUpdateStepsArchiveExtraction{empty: true}
 
 func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) Empty() bool {
@@ -1580,8 +1580,8 @@ func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) UnmarshalJSON(data []byte
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsMsiInstallation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsMsiInstallation *GuestPolicyRecipesUpdateStepsMsiInstallation = &GuestPolicyRecipesUpdateStepsMsiInstallation{empty: true}
 
 func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) Empty() bool {
@@ -1626,8 +1626,8 @@ func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsDpkgInstallation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsDpkgInstallation *GuestPolicyRecipesUpdateStepsDpkgInstallation = &GuestPolicyRecipesUpdateStepsDpkgInstallation{empty: true}
 
 func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) Empty() bool {
@@ -1672,8 +1672,8 @@ func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) UnmarshalJSON(data []byte
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsRpmInstallation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsRpmInstallation *GuestPolicyRecipesUpdateStepsRpmInstallation = &GuestPolicyRecipesUpdateStepsRpmInstallation{empty: true}
 
 func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) Empty() bool {
@@ -1727,8 +1727,8 @@ func (r *GuestPolicyRecipesUpdateStepsFileExec) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsFileExec is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsFileExec *GuestPolicyRecipesUpdateStepsFileExec = &GuestPolicyRecipesUpdateStepsFileExec{empty: true}
 
 func (r *GuestPolicyRecipesUpdateStepsFileExec) Empty() bool {
@@ -1779,8 +1779,8 @@ func (r *GuestPolicyRecipesUpdateStepsScriptRun) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsScriptRun is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsScriptRun *GuestPolicyRecipesUpdateStepsScriptRun = &GuestPolicyRecipesUpdateStepsScriptRun{empty: true}
 
 func (r *GuestPolicyRecipesUpdateStepsScriptRun) Empty() bool {

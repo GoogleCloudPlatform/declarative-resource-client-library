@@ -73,8 +73,8 @@ func (r *TenantOAuthIdpConfigResponseType) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TenantOAuthIdpConfigResponseType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTenantOAuthIdpConfigResponseType *TenantOAuthIdpConfigResponseType = &TenantOAuthIdpConfigResponseType{empty: true}
 
 func (r *TenantOAuthIdpConfigResponseType) Empty() bool {

@@ -244,8 +244,8 @@ func (r *RoutineArguments) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this RoutineArguments is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyRoutineArguments *RoutineArguments = &RoutineArguments{empty: true}
 
 func (r *RoutineArguments) Empty() bool {
@@ -296,8 +296,8 @@ func (r *RoutineArgumentsDataType) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this RoutineArgumentsDataType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyRoutineArgumentsDataType *RoutineArgumentsDataType = &RoutineArgumentsDataType{empty: true}
 
 func (r *RoutineArgumentsDataType) Empty() bool {
@@ -342,8 +342,8 @@ func (r *RoutineArgumentsDataTypeStructType) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this RoutineArgumentsDataTypeStructType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyRoutineArgumentsDataTypeStructType *RoutineArgumentsDataTypeStructType = &RoutineArgumentsDataTypeStructType{empty: true}
 
 func (r *RoutineArgumentsDataTypeStructType) Empty() bool {
@@ -391,8 +391,8 @@ func (r *RoutineArgumentsDataTypeStructTypeFields) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this RoutineArgumentsDataTypeStructTypeFields is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyRoutineArgumentsDataTypeStructTypeFields *RoutineArgumentsDataTypeStructTypeFields = &RoutineArgumentsDataTypeStructTypeFields{empty: true}
 
 func (r *RoutineArgumentsDataTypeStructTypeFields) Empty() bool {

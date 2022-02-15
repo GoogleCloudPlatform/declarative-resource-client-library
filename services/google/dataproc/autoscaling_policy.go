@@ -67,8 +67,8 @@ func (r *AutoscalingPolicyBasicAlgorithm) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this AutoscalingPolicyBasicAlgorithm is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicyBasicAlgorithm *AutoscalingPolicyBasicAlgorithm = &AutoscalingPolicyBasicAlgorithm{empty: true}
 
 func (r *AutoscalingPolicyBasicAlgorithm) Empty() bool {
@@ -125,8 +125,8 @@ func (r *AutoscalingPolicyBasicAlgorithmYarnConfig) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this AutoscalingPolicyBasicAlgorithmYarnConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicyBasicAlgorithmYarnConfig *AutoscalingPolicyBasicAlgorithmYarnConfig = &AutoscalingPolicyBasicAlgorithmYarnConfig{empty: true}
 
 func (r *AutoscalingPolicyBasicAlgorithmYarnConfig) Empty() bool {
@@ -177,8 +177,8 @@ func (r *AutoscalingPolicyWorkerConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this AutoscalingPolicyWorkerConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicyWorkerConfig *AutoscalingPolicyWorkerConfig = &AutoscalingPolicyWorkerConfig{empty: true}
 
 func (r *AutoscalingPolicyWorkerConfig) Empty() bool {
@@ -229,8 +229,8 @@ func (r *AutoscalingPolicySecondaryWorkerConfig) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this AutoscalingPolicySecondaryWorkerConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicySecondaryWorkerConfig *AutoscalingPolicySecondaryWorkerConfig = &AutoscalingPolicySecondaryWorkerConfig{empty: true}
 
 func (r *AutoscalingPolicySecondaryWorkerConfig) Empty() bool {

@@ -299,8 +299,8 @@ func (r *CryptoKeyPrimary) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this CryptoKeyPrimary is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyCryptoKeyPrimary *CryptoKeyPrimary = &CryptoKeyPrimary{empty: true}
 
 func (r *CryptoKeyPrimary) Empty() bool {
@@ -351,8 +351,8 @@ func (r *CryptoKeyPrimaryAttestation) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this CryptoKeyPrimaryAttestation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyCryptoKeyPrimaryAttestation *CryptoKeyPrimaryAttestation = &CryptoKeyPrimaryAttestation{empty: true}
 
 func (r *CryptoKeyPrimaryAttestation) Empty() bool {
@@ -403,8 +403,8 @@ func (r *CryptoKeyPrimaryAttestationCertChains) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this CryptoKeyPrimaryAttestationCertChains is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyCryptoKeyPrimaryAttestationCertChains *CryptoKeyPrimaryAttestationCertChains = &CryptoKeyPrimaryAttestationCertChains{empty: true}
 
 func (r *CryptoKeyPrimaryAttestationCertChains) Empty() bool {
@@ -449,8 +449,8 @@ func (r *CryptoKeyPrimaryExternalProtectionLevelOptions) UnmarshalJSON(data []by
 }
 
 // This object is used to assert a desired state where this CryptoKeyPrimaryExternalProtectionLevelOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyCryptoKeyPrimaryExternalProtectionLevelOptions *CryptoKeyPrimaryExternalProtectionLevelOptions = &CryptoKeyPrimaryExternalProtectionLevelOptions{empty: true}
 
 func (r *CryptoKeyPrimaryExternalProtectionLevelOptions) Empty() bool {
@@ -498,8 +498,8 @@ func (r *CryptoKeyVersionTemplate) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this CryptoKeyVersionTemplate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyCryptoKeyVersionTemplate *CryptoKeyVersionTemplate = &CryptoKeyVersionTemplate{empty: true}
 
 func (r *CryptoKeyVersionTemplate) Empty() bool {

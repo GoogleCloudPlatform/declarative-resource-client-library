@@ -192,8 +192,8 @@ func (r *FunctionSourceRepository) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FunctionSourceRepository is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFunctionSourceRepository *FunctionSourceRepository = &FunctionSourceRepository{empty: true}
 
 func (r *FunctionSourceRepository) Empty() bool {
@@ -241,8 +241,8 @@ func (r *FunctionHttpsTrigger) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FunctionHttpsTrigger is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFunctionHttpsTrigger *FunctionHttpsTrigger = &FunctionHttpsTrigger{empty: true}
 
 func (r *FunctionHttpsTrigger) Empty() bool {
@@ -296,8 +296,8 @@ func (r *FunctionEventTrigger) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FunctionEventTrigger is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFunctionEventTrigger *FunctionEventTrigger = &FunctionEventTrigger{empty: true}
 
 func (r *FunctionEventTrigger) Empty() bool {

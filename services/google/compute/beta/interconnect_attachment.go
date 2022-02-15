@@ -249,8 +249,8 @@ func (r *InterconnectAttachmentPrivateInterconnectInfo) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this InterconnectAttachmentPrivateInterconnectInfo is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInterconnectAttachmentPrivateInterconnectInfo *InterconnectAttachmentPrivateInterconnectInfo = &InterconnectAttachmentPrivateInterconnectInfo{empty: true}
 
 func (r *InterconnectAttachmentPrivateInterconnectInfo) Empty() bool {
@@ -301,8 +301,8 @@ func (r *InterconnectAttachmentPartnerMetadata) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this InterconnectAttachmentPartnerMetadata is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInterconnectAttachmentPartnerMetadata *InterconnectAttachmentPartnerMetadata = &InterconnectAttachmentPartnerMetadata{empty: true}
 
 func (r *InterconnectAttachmentPartnerMetadata) Empty() bool {

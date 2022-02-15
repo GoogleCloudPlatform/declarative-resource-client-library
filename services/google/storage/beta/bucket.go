@@ -158,8 +158,8 @@ func (r *BucketCors) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketCors is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketCors *BucketCors = &BucketCors{empty: true}
 
 func (r *BucketCors) Empty() bool {
@@ -204,8 +204,8 @@ func (r *BucketLifecycle) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketLifecycle is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketLifecycle *BucketLifecycle = &BucketLifecycle{empty: true}
 
 func (r *BucketLifecycle) Empty() bool {
@@ -253,8 +253,8 @@ func (r *BucketLifecycleRule) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketLifecycleRule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketLifecycleRule *BucketLifecycleRule = &BucketLifecycleRule{empty: true}
 
 func (r *BucketLifecycleRule) Empty() bool {
@@ -302,8 +302,8 @@ func (r *BucketLifecycleRuleAction) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketLifecycleRuleAction is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketLifecycleRuleAction *BucketLifecycleRuleAction = &BucketLifecycleRuleAction{empty: true}
 
 func (r *BucketLifecycleRuleAction) Empty() bool {
@@ -360,8 +360,8 @@ func (r *BucketLifecycleRuleCondition) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketLifecycleRuleCondition is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketLifecycleRuleCondition *BucketLifecycleRuleCondition = &BucketLifecycleRuleCondition{empty: true}
 
 func (r *BucketLifecycleRuleCondition) Empty() bool {
@@ -409,8 +409,8 @@ func (r *BucketLogging) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketLogging is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketLogging *BucketLogging = &BucketLogging{empty: true}
 
 func (r *BucketLogging) Empty() bool {
@@ -455,8 +455,8 @@ func (r *BucketVersioning) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketVersioning is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketVersioning *BucketVersioning = &BucketVersioning{empty: true}
 
 func (r *BucketVersioning) Empty() bool {
@@ -504,8 +504,8 @@ func (r *BucketWebsite) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this BucketWebsite is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyBucketWebsite *BucketWebsite = &BucketWebsite{empty: true}
 
 func (r *BucketWebsite) Empty() bool {

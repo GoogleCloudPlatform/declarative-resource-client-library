@@ -222,8 +222,8 @@ func (r *ForwardingRuleMetadataFilter) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ForwardingRuleMetadataFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyForwardingRuleMetadataFilter *ForwardingRuleMetadataFilter = &ForwardingRuleMetadataFilter{empty: true}
 
 func (r *ForwardingRuleMetadataFilter) Empty() bool {
@@ -271,8 +271,8 @@ func (r *ForwardingRuleMetadataFilterFilterLabel) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this ForwardingRuleMetadataFilterFilterLabel is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyForwardingRuleMetadataFilterFilterLabel *ForwardingRuleMetadataFilterFilterLabel = &ForwardingRuleMetadataFilterFilterLabel{empty: true}
 
 func (r *ForwardingRuleMetadataFilterFilterLabel) Empty() bool {

@@ -125,8 +125,8 @@ func (r *FeatureResourceState) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FeatureResourceState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureResourceState *FeatureResourceState = &FeatureResourceState{empty: true}
 
 func (r *FeatureResourceState) Empty() bool {
@@ -171,8 +171,8 @@ func (r *FeatureSpec) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FeatureSpec is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureSpec *FeatureSpec = &FeatureSpec{empty: true}
 
 func (r *FeatureSpec) Empty() bool {
@@ -217,8 +217,8 @@ func (r *FeatureSpecMulticlusteringress) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FeatureSpecMulticlusteringress is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureSpecMulticlusteringress *FeatureSpecMulticlusteringress = &FeatureSpecMulticlusteringress{empty: true}
 
 func (r *FeatureSpecMulticlusteringress) Empty() bool {
@@ -263,8 +263,8 @@ func (r *FeatureState) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FeatureState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureState *FeatureState = &FeatureState{empty: true}
 
 func (r *FeatureState) Empty() bool {
@@ -315,8 +315,8 @@ func (r *FeatureStateState) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FeatureStateState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureStateState *FeatureStateState = &FeatureStateState{empty: true}
 
 func (r *FeatureStateState) Empty() bool {

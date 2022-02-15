@@ -1095,8 +1095,8 @@ func (r *DashboardGridLayout) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardGridLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardGridLayout *DashboardGridLayout = &DashboardGridLayout{empty: true}
 
 func (r *DashboardGridLayout) Empty() bool {
@@ -1144,8 +1144,8 @@ func (r *DashboardMosaicLayout) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardMosaicLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardMosaicLayout *DashboardMosaicLayout = &DashboardMosaicLayout{empty: true}
 
 func (r *DashboardMosaicLayout) Empty() bool {
@@ -1202,8 +1202,8 @@ func (r *DashboardMosaicLayoutTiles) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardMosaicLayoutTiles is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardMosaicLayoutTiles *DashboardMosaicLayoutTiles = &DashboardMosaicLayoutTiles{empty: true}
 
 func (r *DashboardMosaicLayoutTiles) Empty() bool {
@@ -1248,8 +1248,8 @@ func (r *DashboardRowLayout) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardRowLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardRowLayout *DashboardRowLayout = &DashboardRowLayout{empty: true}
 
 func (r *DashboardRowLayout) Empty() bool {
@@ -1297,8 +1297,8 @@ func (r *DashboardRowLayoutRows) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardRowLayoutRows is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardRowLayoutRows *DashboardRowLayoutRows = &DashboardRowLayoutRows{empty: true}
 
 func (r *DashboardRowLayoutRows) Empty() bool {
@@ -1343,8 +1343,8 @@ func (r *DashboardColumnLayout) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardColumnLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardColumnLayout *DashboardColumnLayout = &DashboardColumnLayout{empty: true}
 
 func (r *DashboardColumnLayout) Empty() bool {
@@ -1392,8 +1392,8 @@ func (r *DashboardColumnLayoutColumns) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardColumnLayoutColumns is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardColumnLayoutColumns *DashboardColumnLayoutColumns = &DashboardColumnLayoutColumns{empty: true}
 
 func (r *DashboardColumnLayoutColumns) Empty() bool {
@@ -1450,8 +1450,8 @@ func (r *DashboardWidget) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidget is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidget *DashboardWidget = &DashboardWidget{empty: true}
 
 func (r *DashboardWidget) Empty() bool {
@@ -1511,8 +1511,8 @@ func (r *DashboardWidgetXyChart) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChart is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChart *DashboardWidgetXyChart = &DashboardWidgetXyChart{empty: true}
 
 func (r *DashboardWidgetXyChart) Empty() bool {
@@ -1566,8 +1566,8 @@ func (r *DashboardWidgetXyChartDataSets) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSets is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSets *DashboardWidgetXyChartDataSets = &DashboardWidgetXyChartDataSets{empty: true}
 
 func (r *DashboardWidgetXyChartDataSets) Empty() bool {
@@ -1621,8 +1621,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQuery is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQuery *DashboardWidgetXyChartDataSetsTimeSeriesQuery = &DashboardWidgetXyChartDataSetsTimeSeriesQuery{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) Empty() bool {
@@ -1676,8 +1676,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Unmarsha
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Empty() bool {
@@ -1731,8 +1731,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
@@ -1786,8 +1786,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
@@ -1838,8 +1838,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSe
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
@@ -1893,8 +1893,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Unm
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
@@ -1942,8 +1942,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
@@ -1997,8 +1997,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
@@ -2046,8 +2046,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
@@ -2101,8 +2101,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
@@ -2156,8 +2156,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
@@ -2208,8 +2208,8 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickT
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
@@ -2263,8 +2263,8 @@ func (r *DashboardWidgetXyChartThresholds) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartThresholds is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartThresholds *DashboardWidgetXyChartThresholds = &DashboardWidgetXyChartThresholds{empty: true}
 
 func (r *DashboardWidgetXyChartThresholds) Empty() bool {
@@ -2312,8 +2312,8 @@ func (r *DashboardWidgetXyChartXAxis) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartXAxis is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartXAxis *DashboardWidgetXyChartXAxis = &DashboardWidgetXyChartXAxis{empty: true}
 
 func (r *DashboardWidgetXyChartXAxis) Empty() bool {
@@ -2361,8 +2361,8 @@ func (r *DashboardWidgetXyChartYAxis) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartYAxis is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartYAxis *DashboardWidgetXyChartYAxis = &DashboardWidgetXyChartYAxis{empty: true}
 
 func (r *DashboardWidgetXyChartYAxis) Empty() bool {
@@ -2407,8 +2407,8 @@ func (r *DashboardWidgetXyChartChartOptions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartChartOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartChartOptions *DashboardWidgetXyChartChartOptions = &DashboardWidgetXyChartChartOptions{empty: true}
 
 func (r *DashboardWidgetXyChartChartOptions) Empty() bool {
@@ -2462,8 +2462,8 @@ func (r *DashboardWidgetScorecard) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecard is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecard *DashboardWidgetScorecard = &DashboardWidgetScorecard{empty: true}
 
 func (r *DashboardWidgetScorecard) Empty() bool {
@@ -2517,8 +2517,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQuery is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQuery *DashboardWidgetScorecardTimeSeriesQuery = &DashboardWidgetScorecardTimeSeriesQuery{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQuery) Empty() bool {
@@ -2572,8 +2572,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) Empty() bool {
@@ -2627,8 +2627,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Unm
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
@@ -2682,8 +2682,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
@@ -2734,8 +2734,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFi
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
@@ -2789,8 +2789,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Unmarshal
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
@@ -2838,8 +2838,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) 
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
@@ -2893,8 +2893,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
@@ -2942,8 +2942,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
@@ -2997,8 +2997,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
@@ -3052,8 +3052,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
@@ -3104,8 +3104,8 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSer
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
@@ -3153,8 +3153,8 @@ func (r *DashboardWidgetScorecardGaugeView) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardGaugeView is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardGaugeView *DashboardWidgetScorecardGaugeView = &DashboardWidgetScorecardGaugeView{empty: true}
 
 func (r *DashboardWidgetScorecardGaugeView) Empty() bool {
@@ -3202,8 +3202,8 @@ func (r *DashboardWidgetScorecardSparkChartView) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSparkChartView is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSparkChartView *DashboardWidgetScorecardSparkChartView = &DashboardWidgetScorecardSparkChartView{empty: true}
 
 func (r *DashboardWidgetScorecardSparkChartView) Empty() bool {
@@ -3257,8 +3257,8 @@ func (r *DashboardWidgetScorecardThresholds) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardThresholds is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardThresholds *DashboardWidgetScorecardThresholds = &DashboardWidgetScorecardThresholds{empty: true}
 
 func (r *DashboardWidgetScorecardThresholds) Empty() bool {
@@ -3306,8 +3306,8 @@ func (r *DashboardWidgetText) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetText is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetText *DashboardWidgetText = &DashboardWidgetText{empty: true}
 
 func (r *DashboardWidgetText) Empty() bool {
@@ -3349,8 +3349,8 @@ func (r *DashboardWidgetBlank) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this DashboardWidgetBlank is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyDashboardWidgetBlank *DashboardWidgetBlank = &DashboardWidgetBlank{empty: true}
 
 func (r *DashboardWidgetBlank) Empty() bool {

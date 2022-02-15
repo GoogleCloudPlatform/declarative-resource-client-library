@@ -151,8 +151,8 @@ func (r *MembershipPreferredMemberKey) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipPreferredMemberKey is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipPreferredMemberKey *MembershipPreferredMemberKey = &MembershipPreferredMemberKey{empty: true}
 
 func (r *MembershipPreferredMemberKey) Empty() bool {
@@ -203,8 +203,8 @@ func (r *MembershipRoles) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipRoles is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipRoles *MembershipRoles = &MembershipRoles{empty: true}
 
 func (r *MembershipRoles) Empty() bool {
@@ -249,8 +249,8 @@ func (r *MembershipRolesExpiryDetail) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipRolesExpiryDetail is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipRolesExpiryDetail *MembershipRolesExpiryDetail = &MembershipRolesExpiryDetail{empty: true}
 
 func (r *MembershipRolesExpiryDetail) Empty() bool {
@@ -295,8 +295,8 @@ func (r *MembershipRolesRestrictionEvaluations) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this MembershipRolesRestrictionEvaluations is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipRolesRestrictionEvaluations *MembershipRolesRestrictionEvaluations = &MembershipRolesRestrictionEvaluations{empty: true}
 
 func (r *MembershipRolesRestrictionEvaluations) Empty() bool {
@@ -341,8 +341,8 @@ func (r *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) Unmar
 }
 
 // This object is used to assert a desired state where this MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation = &MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation{empty: true}
 
 func (r *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) Empty() bool {
@@ -393,8 +393,8 @@ func (r *MembershipDisplayName) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MembershipDisplayName is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMembershipDisplayName *MembershipDisplayName = &MembershipDisplayName{empty: true}
 
 func (r *MembershipDisplayName) Empty() bool {

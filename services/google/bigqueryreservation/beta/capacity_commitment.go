@@ -155,8 +155,8 @@ func (r *CapacityCommitmentFailureStatus) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this CapacityCommitmentFailureStatus is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyCapacityCommitmentFailureStatus *CapacityCommitmentFailureStatus = &CapacityCommitmentFailureStatus{empty: true}
 
 func (r *CapacityCommitmentFailureStatus) Empty() bool {
@@ -204,8 +204,8 @@ func (r *CapacityCommitmentFailureStatusDetails) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this CapacityCommitmentFailureStatusDetails is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyCapacityCommitmentFailureStatusDetails *CapacityCommitmentFailureStatusDetails = &CapacityCommitmentFailureStatusDetails{empty: true}
 
 func (r *CapacityCommitmentFailureStatusDetails) Empty() bool {

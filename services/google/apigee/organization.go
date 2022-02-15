@@ -188,8 +188,8 @@ func (r *OrganizationAddonsConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this OrganizationAddonsConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyOrganizationAddonsConfig *OrganizationAddonsConfig = &OrganizationAddonsConfig{empty: true}
 
 func (r *OrganizationAddonsConfig) Empty() bool {
@@ -234,8 +234,8 @@ func (r *OrganizationAddonsConfigAdvancedApiOpsConfig) UnmarshalJSON(data []byte
 }
 
 // This object is used to assert a desired state where this OrganizationAddonsConfigAdvancedApiOpsConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyOrganizationAddonsConfigAdvancedApiOpsConfig *OrganizationAddonsConfigAdvancedApiOpsConfig = &OrganizationAddonsConfigAdvancedApiOpsConfig{empty: true}
 
 func (r *OrganizationAddonsConfigAdvancedApiOpsConfig) Empty() bool {
@@ -280,8 +280,8 @@ func (r *OrganizationAddonsConfigMonetizationConfig) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this OrganizationAddonsConfigMonetizationConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyOrganizationAddonsConfigMonetizationConfig *OrganizationAddonsConfigMonetizationConfig = &OrganizationAddonsConfigMonetizationConfig{empty: true}
 
 func (r *OrganizationAddonsConfigMonetizationConfig) Empty() bool {

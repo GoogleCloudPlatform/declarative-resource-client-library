@@ -207,8 +207,8 @@ func (r *LogMetricMetricDescriptor) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this LogMetricMetricDescriptor is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyLogMetricMetricDescriptor *LogMetricMetricDescriptor = &LogMetricMetricDescriptor{empty: true}
 
 func (r *LogMetricMetricDescriptor) Empty() bool {
@@ -259,8 +259,8 @@ func (r *LogMetricMetricDescriptorLabels) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this LogMetricMetricDescriptorLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyLogMetricMetricDescriptorLabels *LogMetricMetricDescriptorLabels = &LogMetricMetricDescriptorLabels{empty: true}
 
 func (r *LogMetricMetricDescriptorLabels) Empty() bool {
@@ -308,8 +308,8 @@ func (r *LogMetricMetricDescriptorMetadata) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this LogMetricMetricDescriptorMetadata is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyLogMetricMetricDescriptorMetadata *LogMetricMetricDescriptorMetadata = &LogMetricMetricDescriptorMetadata{empty: true}
 
 func (r *LogMetricMetricDescriptorMetadata) Empty() bool {
@@ -360,8 +360,8 @@ func (r *LogMetricBucketOptions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this LogMetricBucketOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptions *LogMetricBucketOptions = &LogMetricBucketOptions{empty: true}
 
 func (r *LogMetricBucketOptions) Empty() bool {
@@ -412,8 +412,8 @@ func (r *LogMetricBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this LogMetricBucketOptionsLinearBuckets is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptionsLinearBuckets *LogMetricBucketOptionsLinearBuckets = &LogMetricBucketOptionsLinearBuckets{empty: true}
 
 func (r *LogMetricBucketOptionsLinearBuckets) Empty() bool {
@@ -464,8 +464,8 @@ func (r *LogMetricBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this LogMetricBucketOptionsExponentialBuckets is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptionsExponentialBuckets *LogMetricBucketOptionsExponentialBuckets = &LogMetricBucketOptionsExponentialBuckets{empty: true}
 
 func (r *LogMetricBucketOptionsExponentialBuckets) Empty() bool {
@@ -510,8 +510,8 @@ func (r *LogMetricBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this LogMetricBucketOptionsExplicitBuckets is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptionsExplicitBuckets *LogMetricBucketOptionsExplicitBuckets = &LogMetricBucketOptionsExplicitBuckets{empty: true}
 
 func (r *LogMetricBucketOptionsExplicitBuckets) Empty() bool {

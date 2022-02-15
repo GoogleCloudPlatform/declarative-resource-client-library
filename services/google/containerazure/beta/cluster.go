@@ -111,8 +111,8 @@ func (r *ClusterNetworking) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterNetworking is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterNetworking *ClusterNetworking = &ClusterNetworking{empty: true}
 
 func (r *ClusterNetworking) Empty() bool {
@@ -184,8 +184,8 @@ func (r *ClusterControlPlane) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterControlPlane is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterControlPlane *ClusterControlPlane = &ClusterControlPlane{empty: true}
 
 func (r *ClusterControlPlane) Empty() bool {
@@ -230,8 +230,8 @@ func (r *ClusterControlPlaneSshConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterControlPlaneSshConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterControlPlaneSshConfig *ClusterControlPlaneSshConfig = &ClusterControlPlaneSshConfig{empty: true}
 
 func (r *ClusterControlPlaneSshConfig) Empty() bool {
@@ -276,8 +276,8 @@ func (r *ClusterControlPlaneRootVolume) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterControlPlaneRootVolume is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterControlPlaneRootVolume *ClusterControlPlaneRootVolume = &ClusterControlPlaneRootVolume{empty: true}
 
 func (r *ClusterControlPlaneRootVolume) Empty() bool {
@@ -322,8 +322,8 @@ func (r *ClusterControlPlaneMainVolume) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterControlPlaneMainVolume is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterControlPlaneMainVolume *ClusterControlPlaneMainVolume = &ClusterControlPlaneMainVolume{empty: true}
 
 func (r *ClusterControlPlaneMainVolume) Empty() bool {
@@ -368,8 +368,8 @@ func (r *ClusterControlPlaneDatabaseEncryption) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this ClusterControlPlaneDatabaseEncryption is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterControlPlaneDatabaseEncryption *ClusterControlPlaneDatabaseEncryption = &ClusterControlPlaneDatabaseEncryption{empty: true}
 
 func (r *ClusterControlPlaneDatabaseEncryption) Empty() bool {
@@ -417,8 +417,8 @@ func (r *ClusterControlPlaneProxyConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterControlPlaneProxyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterControlPlaneProxyConfig *ClusterControlPlaneProxyConfig = &ClusterControlPlaneProxyConfig{empty: true}
 
 func (r *ClusterControlPlaneProxyConfig) Empty() bool {
@@ -466,8 +466,8 @@ func (r *ClusterControlPlaneReplicaPlacements) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this ClusterControlPlaneReplicaPlacements is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterControlPlaneReplicaPlacements *ClusterControlPlaneReplicaPlacements = &ClusterControlPlaneReplicaPlacements{empty: true}
 
 func (r *ClusterControlPlaneReplicaPlacements) Empty() bool {
@@ -512,8 +512,8 @@ func (r *ClusterAuthorization) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterAuthorization is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterAuthorization *ClusterAuthorization = &ClusterAuthorization{empty: true}
 
 func (r *ClusterAuthorization) Empty() bool {
@@ -558,8 +558,8 @@ func (r *ClusterAuthorizationAdminUsers) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterAuthorizationAdminUsers is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterAuthorizationAdminUsers *ClusterAuthorizationAdminUsers = &ClusterAuthorizationAdminUsers{empty: true}
 
 func (r *ClusterAuthorizationAdminUsers) Empty() bool {
@@ -610,8 +610,8 @@ func (r *ClusterWorkloadIdentityConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterWorkloadIdentityConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterWorkloadIdentityConfig *ClusterWorkloadIdentityConfig = &ClusterWorkloadIdentityConfig{empty: true}
 
 func (r *ClusterWorkloadIdentityConfig) Empty() bool {
@@ -659,8 +659,8 @@ func (r *ClusterFleet) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ClusterFleet is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyClusterFleet *ClusterFleet = &ClusterFleet{empty: true}
 
 func (r *ClusterFleet) Empty() bool {

@@ -129,8 +129,8 @@ func (r *WorkerPoolPrivatePoolV1Config) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkerPoolPrivatePoolV1Config is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkerPoolPrivatePoolV1Config *WorkerPoolPrivatePoolV1Config = &WorkerPoolPrivatePoolV1Config{empty: true}
 
 func (r *WorkerPoolPrivatePoolV1Config) Empty() bool {
@@ -178,8 +178,8 @@ func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this WorkerPoolPrivatePoolV1ConfigWorkerConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkerPoolPrivatePoolV1ConfigWorkerConfig *WorkerPoolPrivatePoolV1ConfigWorkerConfig = &WorkerPoolPrivatePoolV1ConfigWorkerConfig{empty: true}
 
 func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) Empty() bool {
@@ -227,8 +227,8 @@ func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) UnmarshalJSON(data []byte) 
 }
 
 // This object is used to assert a desired state where this WorkerPoolPrivatePoolV1ConfigNetworkConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkerPoolPrivatePoolV1ConfigNetworkConfig *WorkerPoolPrivatePoolV1ConfigNetworkConfig = &WorkerPoolPrivatePoolV1ConfigNetworkConfig{empty: true}
 
 func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) Empty() bool {
@@ -279,8 +279,8 @@ func (r *WorkerPoolWorkerConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkerPoolWorkerConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkerPoolWorkerConfig *WorkerPoolWorkerConfig = &WorkerPoolWorkerConfig{empty: true}
 
 func (r *WorkerPoolWorkerConfig) Empty() bool {
@@ -325,8 +325,8 @@ func (r *WorkerPoolNetworkConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this WorkerPoolNetworkConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyWorkerPoolNetworkConfig *WorkerPoolNetworkConfig = &WorkerPoolNetworkConfig{empty: true}
 
 func (r *WorkerPoolNetworkConfig) Empty() bool {

@@ -79,8 +79,8 @@ func (r *KeyRestrictions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this KeyRestrictions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyRestrictions *KeyRestrictions = &KeyRestrictions{empty: true}
 
 func (r *KeyRestrictions) Empty() bool {
@@ -125,8 +125,8 @@ func (r *KeyRestrictionsBrowserKeyRestrictions) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsBrowserKeyRestrictions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsBrowserKeyRestrictions *KeyRestrictionsBrowserKeyRestrictions = &KeyRestrictionsBrowserKeyRestrictions{empty: true}
 
 func (r *KeyRestrictionsBrowserKeyRestrictions) Empty() bool {
@@ -171,8 +171,8 @@ func (r *KeyRestrictionsServerKeyRestrictions) UnmarshalJSON(data []byte) error 
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsServerKeyRestrictions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsServerKeyRestrictions *KeyRestrictionsServerKeyRestrictions = &KeyRestrictionsServerKeyRestrictions{empty: true}
 
 func (r *KeyRestrictionsServerKeyRestrictions) Empty() bool {
@@ -217,8 +217,8 @@ func (r *KeyRestrictionsAndroidKeyRestrictions) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsAndroidKeyRestrictions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsAndroidKeyRestrictions *KeyRestrictionsAndroidKeyRestrictions = &KeyRestrictionsAndroidKeyRestrictions{empty: true}
 
 func (r *KeyRestrictionsAndroidKeyRestrictions) Empty() bool {
@@ -266,8 +266,8 @@ func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) UnmarshalJSON
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsAndroidKeyRestrictionsAllowedApplications is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsAndroidKeyRestrictionsAllowedApplications *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications = &KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{empty: true}
 
 func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) Empty() bool {
@@ -312,8 +312,8 @@ func (r *KeyRestrictionsIosKeyRestrictions) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsIosKeyRestrictions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsIosKeyRestrictions *KeyRestrictionsIosKeyRestrictions = &KeyRestrictionsIosKeyRestrictions{empty: true}
 
 func (r *KeyRestrictionsIosKeyRestrictions) Empty() bool {
@@ -361,8 +361,8 @@ func (r *KeyRestrictionsApiTargets) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsApiTargets is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsApiTargets *KeyRestrictionsApiTargets = &KeyRestrictionsApiTargets{empty: true}
 
 func (r *KeyRestrictionsApiTargets) Empty() bool {

@@ -211,8 +211,8 @@ func (r *MetricDescriptorLabels) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MetricDescriptorLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMetricDescriptorLabels *MetricDescriptorLabels = &MetricDescriptorLabels{empty: true}
 
 func (r *MetricDescriptorLabels) Empty() bool {
@@ -263,8 +263,8 @@ func (r *MetricDescriptorMetadata) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this MetricDescriptorMetadata is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyMetricDescriptorMetadata *MetricDescriptorMetadata = &MetricDescriptorMetadata{empty: true}
 
 func (r *MetricDescriptorMetadata) Empty() bool {

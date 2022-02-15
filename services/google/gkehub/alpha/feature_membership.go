@@ -74,8 +74,8 @@ func (r *FeatureMembershipConfigmanagement) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagement is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagement *FeatureMembershipConfigmanagement = &FeatureMembershipConfigmanagement{empty: true}
 
 func (r *FeatureMembershipConfigmanagement) Empty() bool {
@@ -123,8 +123,8 @@ func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte)
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSync is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementConfigSync *FeatureMembershipConfigmanagementConfigSync = &FeatureMembershipConfigmanagementConfigSync{empty: true}
 
 func (r *FeatureMembershipConfigmanagementConfigSync) Empty() bool {
@@ -190,8 +190,8 @@ func (r *FeatureMembershipConfigmanagementConfigSyncGit) UnmarshalJSON(data []by
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSyncGit is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementConfigSyncGit *FeatureMembershipConfigmanagementConfigSyncGit = &FeatureMembershipConfigmanagementConfigSyncGit{empty: true}
 
 func (r *FeatureMembershipConfigmanagementConfigSyncGit) Empty() bool {
@@ -251,8 +251,8 @@ func (r *FeatureMembershipConfigmanagementPolicyController) UnmarshalJSON(data [
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementPolicyController is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementPolicyController *FeatureMembershipConfigmanagementPolicyController = &FeatureMembershipConfigmanagementPolicyController{empty: true}
 
 func (r *FeatureMembershipConfigmanagementPolicyController) Empty() bool {
@@ -297,8 +297,8 @@ func (r *FeatureMembershipConfigmanagementBinauthz) UnmarshalJSON(data []byte) e
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementBinauthz is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementBinauthz *FeatureMembershipConfigmanagementBinauthz = &FeatureMembershipConfigmanagementBinauthz{empty: true}
 
 func (r *FeatureMembershipConfigmanagementBinauthz) Empty() bool {
@@ -349,8 +349,8 @@ func (r *FeatureMembershipConfigmanagementHierarchyController) UnmarshalJSON(dat
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementHierarchyController is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementHierarchyController *FeatureMembershipConfigmanagementHierarchyController = &FeatureMembershipConfigmanagementHierarchyController{empty: true}
 
 func (r *FeatureMembershipConfigmanagementHierarchyController) Empty() bool {

@@ -75,8 +75,8 @@ func (r *ServerTlsPolicyServerCertificate) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyServerCertificate *ServerTlsPolicyServerCertificate = &ServerTlsPolicyServerCertificate{empty: true}
 
 func (r *ServerTlsPolicyServerCertificate) Empty() bool {
@@ -124,8 +124,8 @@ func (r *ServerTlsPolicyServerCertificateLocalFilepath) UnmarshalJSON(data []byt
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificateLocalFilepath is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyServerCertificateLocalFilepath *ServerTlsPolicyServerCertificateLocalFilepath = &ServerTlsPolicyServerCertificateLocalFilepath{empty: true}
 
 func (r *ServerTlsPolicyServerCertificateLocalFilepath) Empty() bool {
@@ -170,8 +170,8 @@ func (r *ServerTlsPolicyServerCertificateGrpcEndpoint) UnmarshalJSON(data []byte
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificateGrpcEndpoint is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyServerCertificateGrpcEndpoint *ServerTlsPolicyServerCertificateGrpcEndpoint = &ServerTlsPolicyServerCertificateGrpcEndpoint{empty: true}
 
 func (r *ServerTlsPolicyServerCertificateGrpcEndpoint) Empty() bool {
@@ -216,8 +216,8 @@ func (r *ServerTlsPolicyServerCertificateCertificateProviderInstance) UnmarshalJ
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificateCertificateProviderInstance is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyServerCertificateCertificateProviderInstance *ServerTlsPolicyServerCertificateCertificateProviderInstance = &ServerTlsPolicyServerCertificateCertificateProviderInstance{empty: true}
 
 func (r *ServerTlsPolicyServerCertificateCertificateProviderInstance) Empty() bool {
@@ -262,8 +262,8 @@ func (r *ServerTlsPolicyMtlsPolicy) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyMtlsPolicy *ServerTlsPolicyMtlsPolicy = &ServerTlsPolicyMtlsPolicy{empty: true}
 
 func (r *ServerTlsPolicyMtlsPolicy) Empty() bool {
@@ -314,8 +314,8 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) UnmarshalJSON(data []byte)
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicyClientValidationCa is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyMtlsPolicyClientValidationCa *ServerTlsPolicyMtlsPolicyClientValidationCa = &ServerTlsPolicyMtlsPolicyClientValidationCa{empty: true}
 
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) Empty() bool {
@@ -360,8 +360,8 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) UnmarshalJSON(
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint = &ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint{empty: true}
 
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) Empty() bool {
@@ -406,8 +406,8 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance)
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance = &ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance{empty: true}
 
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) Empty() bool {

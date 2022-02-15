@@ -96,8 +96,8 @@ func (r *AttestorUserOwnedDrydockNote) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this AttestorUserOwnedDrydockNote is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAttestorUserOwnedDrydockNote *AttestorUserOwnedDrydockNote = &AttestorUserOwnedDrydockNote{empty: true}
 
 func (r *AttestorUserOwnedDrydockNote) Empty() bool {
@@ -151,8 +151,8 @@ func (r *AttestorUserOwnedDrydockNotePublicKeys) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this AttestorUserOwnedDrydockNotePublicKeys is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAttestorUserOwnedDrydockNotePublicKeys *AttestorUserOwnedDrydockNotePublicKeys = &AttestorUserOwnedDrydockNotePublicKeys{empty: true}
 
 func (r *AttestorUserOwnedDrydockNotePublicKeys) Empty() bool {
@@ -200,8 +200,8 @@ func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) UnmarshalJSON(data
 }
 
 // This object is used to assert a desired state where this AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey = &AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{empty: true}
 
 func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) Empty() bool {

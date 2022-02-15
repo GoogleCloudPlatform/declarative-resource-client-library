@@ -561,14 +561,12 @@ components:
           type: string
           x-dcl-go-name: Body
           description: Email body
-          x-kubernetes-immutable: true
         bodyFormat:
           type: string
           x-dcl-go-name: BodyFormat
           x-dcl-go-type: ConfigEmailTemplateBodyFormatEnum
           description: 'Email body format Possible values: BODY_FORMAT_UNSPECIFIED,
             PLAIN_TEXT, HTML'
-          x-kubernetes-immutable: true
           enum:
           - BODY_FORMAT_UNSPECIFIED
           - PLAIN_TEXT

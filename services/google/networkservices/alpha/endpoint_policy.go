@@ -125,8 +125,8 @@ func (r *EndpointPolicyEndpointMatcher) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this EndpointPolicyEndpointMatcher is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyEndpointPolicyEndpointMatcher *EndpointPolicyEndpointMatcher = &EndpointPolicyEndpointMatcher{empty: true}
 
 func (r *EndpointPolicyEndpointMatcher) Empty() bool {
@@ -174,8 +174,8 @@ func (r *EndpointPolicyEndpointMatcherMetadataLabelMatcher) UnmarshalJSON(data [
 }
 
 // This object is used to assert a desired state where this EndpointPolicyEndpointMatcherMetadataLabelMatcher is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyEndpointPolicyEndpointMatcherMetadataLabelMatcher *EndpointPolicyEndpointMatcherMetadataLabelMatcher = &EndpointPolicyEndpointMatcherMetadataLabelMatcher{empty: true}
 
 func (r *EndpointPolicyEndpointMatcherMetadataLabelMatcher) Empty() bool {
@@ -223,8 +223,8 @@ func (r *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) Unmars
 }
 
 // This object is used to assert a desired state where this EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels = &EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels{empty: true}
 
 func (r *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) Empty() bool {
@@ -269,8 +269,8 @@ func (r *EndpointPolicyTrafficPortSelector) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this EndpointPolicyTrafficPortSelector is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyEndpointPolicyTrafficPortSelector *EndpointPolicyTrafficPortSelector = &EndpointPolicyTrafficPortSelector{empty: true}
 
 func (r *EndpointPolicyTrafficPortSelector) Empty() bool {

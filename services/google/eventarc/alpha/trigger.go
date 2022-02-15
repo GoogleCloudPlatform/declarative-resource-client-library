@@ -73,8 +73,8 @@ func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TriggerMatchingCriteria is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTriggerMatchingCriteria *TriggerMatchingCriteria = &TriggerMatchingCriteria{empty: true}
 
 func (r *TriggerMatchingCriteria) Empty() bool {
@@ -122,8 +122,8 @@ func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TriggerDestination is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTriggerDestination *TriggerDestination = &TriggerDestination{empty: true}
 
 func (r *TriggerDestination) Empty() bool {
@@ -174,8 +174,8 @@ func (r *TriggerDestinationCloudRunService) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TriggerDestinationCloudRunService is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTriggerDestinationCloudRunService *TriggerDestinationCloudRunService = &TriggerDestinationCloudRunService{empty: true}
 
 func (r *TriggerDestinationCloudRunService) Empty() bool {
@@ -220,8 +220,8 @@ func (r *TriggerTransport) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TriggerTransport is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTriggerTransport *TriggerTransport = &TriggerTransport{empty: true}
 
 func (r *TriggerTransport) Empty() bool {
@@ -269,8 +269,8 @@ func (r *TriggerTransportPubsub) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TriggerTransportPubsub is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTriggerTransportPubsub *TriggerTransportPubsub = &TriggerTransportPubsub{empty: true}
 
 func (r *TriggerTransportPubsub) Empty() bool {

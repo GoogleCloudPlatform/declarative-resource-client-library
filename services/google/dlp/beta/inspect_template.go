@@ -276,8 +276,8 @@ func (r *InspectTemplateInspectConfig) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfig *InspectTemplateInspectConfig = &InspectTemplateInspectConfig{empty: true}
 
 func (r *InspectTemplateInspectConfig) Empty() bool {
@@ -322,8 +322,8 @@ func (r *InspectTemplateInspectConfigInfoTypes) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigInfoTypes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigInfoTypes *InspectTemplateInspectConfigInfoTypes = &InspectTemplateInspectConfigInfoTypes{empty: true}
 
 func (r *InspectTemplateInspectConfigInfoTypes) Empty() bool {
@@ -374,8 +374,8 @@ func (r *InspectTemplateInspectConfigLimits) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigLimits is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigLimits *InspectTemplateInspectConfigLimits = &InspectTemplateInspectConfigLimits{empty: true}
 
 func (r *InspectTemplateInspectConfigLimits) Empty() bool {
@@ -423,8 +423,8 @@ func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType) UnmarshalJSON
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType = &InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType{empty: true}
 
 func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType) Empty() bool {
@@ -469,8 +469,8 @@ func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) Unmar
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType = &InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType{empty: true}
 
 func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) Empty() bool {
@@ -536,8 +536,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypes) UnmarshalJSON(data []byte)
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypes *InspectTemplateInspectConfigCustomInfoTypes = &InspectTemplateInspectConfigCustomInfoTypes{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypes) Empty() bool {
@@ -582,8 +582,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesInfoType) UnmarshalJSON(data
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesInfoType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesInfoType *InspectTemplateInspectConfigCustomInfoTypesInfoType = &InspectTemplateInspectConfigCustomInfoTypesInfoType{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesInfoType) Empty() bool {
@@ -631,8 +631,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDictionary) UnmarshalJSON(da
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDictionary is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDictionary *InspectTemplateInspectConfigCustomInfoTypesDictionary = &InspectTemplateInspectConfigCustomInfoTypesDictionary{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDictionary) Empty() bool {
@@ -677,8 +677,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList) Unmarsha
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList = &InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList) Empty() bool {
@@ -723,8 +723,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath) 
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath = &InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath) Empty() bool {
@@ -772,8 +772,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesRegex) UnmarshalJSON(data []
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesRegex is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesRegex *InspectTemplateInspectConfigCustomInfoTypesRegex = &InspectTemplateInspectConfigCustomInfoTypesRegex{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesRegex) Empty() bool {
@@ -815,8 +815,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesSurrogateType) UnmarshalJSON
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesSurrogateType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesSurrogateType *InspectTemplateInspectConfigCustomInfoTypesSurrogateType = &InspectTemplateInspectConfigCustomInfoTypesSurrogateType{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesSurrogateType) Empty() bool {
@@ -864,8 +864,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesStoredType) UnmarshalJSON(da
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesStoredType is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesStoredType *InspectTemplateInspectConfigCustomInfoTypesStoredType = &InspectTemplateInspectConfigCustomInfoTypesStoredType{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesStoredType) Empty() bool {
@@ -910,8 +910,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) UnmarshalJSO
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRules is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRules *InspectTemplateInspectConfigCustomInfoTypesDetectionRules = &InspectTemplateInspectConfigCustomInfoTypesDetectionRules{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) Empty() bool {
@@ -962,8 +962,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) U
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) Empty() bool {
@@ -1011,8 +1011,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHot
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) Empty() bool {
@@ -1060,8 +1060,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRulePro
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) Empty() bool {
@@ -1109,8 +1109,8 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLik
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{empty: true}
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) Empty() bool {
@@ -1158,8 +1158,8 @@ func (r *InspectTemplateInspectConfigRuleSet) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSet is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSet *InspectTemplateInspectConfigRuleSet = &InspectTemplateInspectConfigRuleSet{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSet) Empty() bool {
@@ -1204,8 +1204,8 @@ func (r *InspectTemplateInspectConfigRuleSetInfoTypes) UnmarshalJSON(data []byte
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetInfoTypes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetInfoTypes *InspectTemplateInspectConfigRuleSetInfoTypes = &InspectTemplateInspectConfigRuleSetInfoTypes{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetInfoTypes) Empty() bool {
@@ -1253,8 +1253,8 @@ func (r *InspectTemplateInspectConfigRuleSetRules) UnmarshalJSON(data []byte) er
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRules is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRules *InspectTemplateInspectConfigRuleSetRules = &InspectTemplateInspectConfigRuleSetRules{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRules) Empty() bool {
@@ -1305,8 +1305,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRule) UnmarshalJSON(data
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesHotwordRule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesHotwordRule *InspectTemplateInspectConfigRuleSetRulesHotwordRule = &InspectTemplateInspectConfigRuleSetRulesHotwordRule{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRule) Empty() bool {
@@ -1354,8 +1354,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex) Unmars
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex = &InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex) Empty() bool {
@@ -1403,8 +1403,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity) Unmarshal
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity = &InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity) Empty() bool {
@@ -1452,8 +1452,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment = &InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment) Empty() bool {
@@ -1507,8 +1507,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRule) UnmarshalJSON(da
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesExclusionRule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRule *InspectTemplateInspectConfigRuleSetRulesExclusionRule = &InspectTemplateInspectConfigRuleSetRulesExclusionRule{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRule) Empty() bool {
@@ -1556,8 +1556,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary) Unmars
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary = &InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary) Empty() bool {
@@ -1602,8 +1602,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList = &InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList) Empty() bool {
@@ -1648,8 +1648,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudSto
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath = &InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath) Empty() bool {
@@ -1697,8 +1697,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex) UnmarshalJS
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex = &InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex) Empty() bool {
@@ -1743,8 +1743,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) 
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes = &InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) Empty() bool {
@@ -1789,8 +1789,8 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesIn
 }
 
 // This object is used to assert a desired state where this InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes = &InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes{empty: true}
 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes) Empty() bool {

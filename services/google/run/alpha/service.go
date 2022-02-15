@@ -441,8 +441,8 @@ func (r *ServiceBinaryAuthorization) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceBinaryAuthorization is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceBinaryAuthorization *ServiceBinaryAuthorization = &ServiceBinaryAuthorization{empty: true}
 
 func (r *ServiceBinaryAuthorization) Empty() bool {
@@ -520,8 +520,8 @@ func (r *ServiceTemplate) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplate is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplate *ServiceTemplate = &ServiceTemplate{empty: true}
 
 func (r *ServiceTemplate) Empty() bool {
@@ -569,8 +569,8 @@ func (r *ServiceTemplateScaling) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateScaling is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateScaling *ServiceTemplateScaling = &ServiceTemplateScaling{empty: true}
 
 func (r *ServiceTemplateScaling) Empty() bool {
@@ -618,8 +618,8 @@ func (r *ServiceTemplateVPCAccess) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateVPCAccess is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateVPCAccess *ServiceTemplateVPCAccess = &ServiceTemplateVPCAccess{empty: true}
 
 func (r *ServiceTemplateVPCAccess) Empty() bool {
@@ -685,8 +685,8 @@ func (r *ServiceTemplateContainers) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateContainers is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateContainers *ServiceTemplateContainers = &ServiceTemplateContainers{empty: true}
 
 func (r *ServiceTemplateContainers) Empty() bool {
@@ -737,8 +737,8 @@ func (r *ServiceTemplateContainersEnv) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateContainersEnv is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateContainersEnv *ServiceTemplateContainersEnv = &ServiceTemplateContainersEnv{empty: true}
 
 func (r *ServiceTemplateContainersEnv) Empty() bool {
@@ -783,8 +783,8 @@ func (r *ServiceTemplateContainersEnvValueSource) UnmarshalJSON(data []byte) err
 }
 
 // This object is used to assert a desired state where this ServiceTemplateContainersEnvValueSource is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateContainersEnvValueSource *ServiceTemplateContainersEnvValueSource = &ServiceTemplateContainersEnvValueSource{empty: true}
 
 func (r *ServiceTemplateContainersEnvValueSource) Empty() bool {
@@ -832,8 +832,8 @@ func (r *ServiceTemplateContainersEnvValueSourceSecretKeyRef) UnmarshalJSON(data
 }
 
 // This object is used to assert a desired state where this ServiceTemplateContainersEnvValueSourceSecretKeyRef is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateContainersEnvValueSourceSecretKeyRef *ServiceTemplateContainersEnvValueSourceSecretKeyRef = &ServiceTemplateContainersEnvValueSourceSecretKeyRef{empty: true}
 
 func (r *ServiceTemplateContainersEnvValueSourceSecretKeyRef) Empty() bool {
@@ -881,8 +881,8 @@ func (r *ServiceTemplateContainersResources) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateContainersResources is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateContainersResources *ServiceTemplateContainersResources = &ServiceTemplateContainersResources{empty: true}
 
 func (r *ServiceTemplateContainersResources) Empty() bool {
@@ -930,8 +930,8 @@ func (r *ServiceTemplateContainersPorts) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateContainersPorts is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateContainersPorts *ServiceTemplateContainersPorts = &ServiceTemplateContainersPorts{empty: true}
 
 func (r *ServiceTemplateContainersPorts) Empty() bool {
@@ -979,8 +979,8 @@ func (r *ServiceTemplateContainersVolumeMounts) UnmarshalJSON(data []byte) error
 }
 
 // This object is used to assert a desired state where this ServiceTemplateContainersVolumeMounts is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateContainersVolumeMounts *ServiceTemplateContainersVolumeMounts = &ServiceTemplateContainersVolumeMounts{empty: true}
 
 func (r *ServiceTemplateContainersVolumeMounts) Empty() bool {
@@ -1031,8 +1031,8 @@ func (r *ServiceTemplateVolumes) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateVolumes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateVolumes *ServiceTemplateVolumes = &ServiceTemplateVolumes{empty: true}
 
 func (r *ServiceTemplateVolumes) Empty() bool {
@@ -1083,8 +1083,8 @@ func (r *ServiceTemplateVolumesSecret) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateVolumesSecret is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateVolumesSecret *ServiceTemplateVolumesSecret = &ServiceTemplateVolumesSecret{empty: true}
 
 func (r *ServiceTemplateVolumesSecret) Empty() bool {
@@ -1135,8 +1135,8 @@ func (r *ServiceTemplateVolumesSecretItems) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTemplateVolumesSecretItems is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateVolumesSecretItems *ServiceTemplateVolumesSecretItems = &ServiceTemplateVolumesSecretItems{empty: true}
 
 func (r *ServiceTemplateVolumesSecretItems) Empty() bool {
@@ -1181,8 +1181,8 @@ func (r *ServiceTemplateVolumesCloudSqlInstance) UnmarshalJSON(data []byte) erro
 }
 
 // This object is used to assert a desired state where this ServiceTemplateVolumesCloudSqlInstance is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTemplateVolumesCloudSqlInstance *ServiceTemplateVolumesCloudSqlInstance = &ServiceTemplateVolumesCloudSqlInstance{empty: true}
 
 func (r *ServiceTemplateVolumesCloudSqlInstance) Empty() bool {
@@ -1236,8 +1236,8 @@ func (r *ServiceTraffic) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTraffic is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTraffic *ServiceTraffic = &ServiceTraffic{empty: true}
 
 func (r *ServiceTraffic) Empty() bool {
@@ -1309,8 +1309,8 @@ func (r *ServiceGooglecloudrunopv2Condition) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceGooglecloudrunopv2Condition is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceGooglecloudrunopv2Condition *ServiceGooglecloudrunopv2Condition = &ServiceGooglecloudrunopv2Condition{empty: true}
 
 func (r *ServiceGooglecloudrunopv2Condition) Empty() bool {
@@ -1367,8 +1367,8 @@ func (r *ServiceTrafficStatuses) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this ServiceTrafficStatuses is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyServiceTrafficStatuses *ServiceTrafficStatuses = &ServiceTrafficStatuses{empty: true}
 
 func (r *ServiceTrafficStatuses) Empty() bool {

@@ -72,8 +72,8 @@ func (r *TcpRouteRules) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TcpRouteRules is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTcpRouteRules *TcpRouteRules = &TcpRouteRules{empty: true}
 
 func (r *TcpRouteRules) Empty() bool {
@@ -121,8 +121,8 @@ func (r *TcpRouteRulesMatches) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TcpRouteRulesMatches is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTcpRouteRulesMatches *TcpRouteRulesMatches = &TcpRouteRulesMatches{empty: true}
 
 func (r *TcpRouteRulesMatches) Empty() bool {
@@ -170,8 +170,8 @@ func (r *TcpRouteRulesAction) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TcpRouteRulesAction is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTcpRouteRulesAction *TcpRouteRulesAction = &TcpRouteRulesAction{empty: true}
 
 func (r *TcpRouteRulesAction) Empty() bool {
@@ -219,8 +219,8 @@ func (r *TcpRouteRulesActionDestinations) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this TcpRouteRulesActionDestinations is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyTcpRouteRulesActionDestinations *TcpRouteRulesActionDestinations = &TcpRouteRulesActionDestinations{empty: true}
 
 func (r *TcpRouteRulesActionDestinations) Empty() bool {

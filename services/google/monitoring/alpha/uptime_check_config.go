@@ -180,8 +180,8 @@ func (r *UptimeCheckConfigMonitoredResource) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigMonitoredResource is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyUptimeCheckConfigMonitoredResource *UptimeCheckConfigMonitoredResource = &UptimeCheckConfigMonitoredResource{empty: true}
 
 func (r *UptimeCheckConfigMonitoredResource) Empty() bool {
@@ -229,8 +229,8 @@ func (r *UptimeCheckConfigResourceGroup) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigResourceGroup is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyUptimeCheckConfigResourceGroup *UptimeCheckConfigResourceGroup = &UptimeCheckConfigResourceGroup{empty: true}
 
 func (r *UptimeCheckConfigResourceGroup) Empty() bool {
@@ -302,8 +302,8 @@ func (r *UptimeCheckConfigHttpCheck) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigHttpCheck is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyUptimeCheckConfigHttpCheck *UptimeCheckConfigHttpCheck = &UptimeCheckConfigHttpCheck{empty: true}
 
 func (r *UptimeCheckConfigHttpCheck) Empty() bool {
@@ -351,8 +351,8 @@ func (r *UptimeCheckConfigHttpCheckAuthInfo) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigHttpCheckAuthInfo is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyUptimeCheckConfigHttpCheckAuthInfo *UptimeCheckConfigHttpCheckAuthInfo = &UptimeCheckConfigHttpCheckAuthInfo{empty: true}
 
 func (r *UptimeCheckConfigHttpCheckAuthInfo) Empty() bool {
@@ -397,8 +397,8 @@ func (r *UptimeCheckConfigTcpCheck) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigTcpCheck is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyUptimeCheckConfigTcpCheck *UptimeCheckConfigTcpCheck = &UptimeCheckConfigTcpCheck{empty: true}
 
 func (r *UptimeCheckConfigTcpCheck) Empty() bool {
@@ -446,8 +446,8 @@ func (r *UptimeCheckConfigContentMatchers) UnmarshalJSON(data []byte) error {
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigContentMatchers is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
 var EmptyUptimeCheckConfigContentMatchers *UptimeCheckConfigContentMatchers = &UptimeCheckConfigContentMatchers{empty: true}
 
 func (r *UptimeCheckConfigContentMatchers) Empty() bool {
