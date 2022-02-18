@@ -548,139 +548,6 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 	return r, nil
 }
 
-func UnstructuredToClusterInstanceGroupConfig(obj map[string]interface{}) (*dclService.ClusterInstanceGroupConfig, error) {
-	r := &dclService.ClusterInstanceGroupConfig{}
-	if _, ok := obj["accelerators"]; ok {
-		if s, ok := obj["accelerators"].([]interface{}); ok {
-			for _, o := range s {
-				if objval, ok := o.(map[string]interface{}); ok {
-					var rAccelerators dclService.ClusterInstanceGroupConfigAccelerators
-					if _, ok := objval["acceleratorCount"]; ok {
-						if i, ok := objval["acceleratorCount"].(int64); ok {
-							rAccelerators.AcceleratorCount = dcl.Int64(i)
-						} else {
-							return nil, fmt.Errorf("rAccelerators.AcceleratorCount: expected int64")
-						}
-					}
-					if _, ok := objval["acceleratorType"]; ok {
-						if s, ok := objval["acceleratorType"].(string); ok {
-							rAccelerators.AcceleratorType = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rAccelerators.AcceleratorType: expected string")
-						}
-					}
-					r.Accelerators = append(r.Accelerators, rAccelerators)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.Accelerators: expected []interface{}")
-		}
-	}
-	if _, ok := obj["diskConfig"]; ok {
-		if rDiskConfig, ok := obj["diskConfig"].(map[string]interface{}); ok {
-			r.DiskConfig = &dclService.ClusterInstanceGroupConfigDiskConfig{}
-			if _, ok := rDiskConfig["bootDiskSizeGb"]; ok {
-				if i, ok := rDiskConfig["bootDiskSizeGb"].(int64); ok {
-					r.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
-				} else {
-					return nil, fmt.Errorf("r.DiskConfig.BootDiskSizeGb: expected int64")
-				}
-			}
-			if _, ok := rDiskConfig["bootDiskType"]; ok {
-				if s, ok := rDiskConfig["bootDiskType"].(string); ok {
-					r.DiskConfig.BootDiskType = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.DiskConfig.BootDiskType: expected string")
-				}
-			}
-			if _, ok := rDiskConfig["numLocalSsds"]; ok {
-				if i, ok := rDiskConfig["numLocalSsds"].(int64); ok {
-					r.DiskConfig.NumLocalSsds = dcl.Int64(i)
-				} else {
-					return nil, fmt.Errorf("r.DiskConfig.NumLocalSsds: expected int64")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.DiskConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["image"]; ok {
-		if s, ok := obj["image"].(string); ok {
-			r.Image = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Image: expected string")
-		}
-	}
-	if _, ok := obj["instanceNames"]; ok {
-		if s, ok := obj["instanceNames"].([]interface{}); ok {
-			for _, ss := range s {
-				if strval, ok := ss.(string); ok {
-					r.InstanceNames = append(r.InstanceNames, strval)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.InstanceNames: expected []interface{}")
-		}
-	}
-	if _, ok := obj["isPreemptible"]; ok {
-		if b, ok := obj["isPreemptible"].(bool); ok {
-			r.IsPreemptible = dcl.Bool(b)
-		} else {
-			return nil, fmt.Errorf("r.IsPreemptible: expected bool")
-		}
-	}
-	if _, ok := obj["machineType"]; ok {
-		if s, ok := obj["machineType"].(string); ok {
-			r.MachineType = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.MachineType: expected string")
-		}
-	}
-	if _, ok := obj["managedGroupConfig"]; ok {
-		if rManagedGroupConfig, ok := obj["managedGroupConfig"].(map[string]interface{}); ok {
-			r.ManagedGroupConfig = &dclService.ClusterInstanceGroupConfigManagedGroupConfig{}
-			if _, ok := rManagedGroupConfig["instanceGroupManagerName"]; ok {
-				if s, ok := rManagedGroupConfig["instanceGroupManagerName"].(string); ok {
-					r.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.ManagedGroupConfig.InstanceGroupManagerName: expected string")
-				}
-			}
-			if _, ok := rManagedGroupConfig["instanceTemplateName"]; ok {
-				if s, ok := rManagedGroupConfig["instanceTemplateName"].(string); ok {
-					r.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.ManagedGroupConfig.InstanceTemplateName: expected string")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.ManagedGroupConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["minCpuPlatform"]; ok {
-		if s, ok := obj["minCpuPlatform"].(string); ok {
-			r.MinCpuPlatform = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.MinCpuPlatform: expected string")
-		}
-	}
-	if _, ok := obj["numInstances"]; ok {
-		if i, ok := obj["numInstances"].(int64); ok {
-			r.NumInstances = dcl.Int64(i)
-		} else {
-			return nil, fmt.Errorf("r.NumInstances: expected int64")
-		}
-	}
-	if _, ok := obj["preemptibility"]; ok {
-		if s, ok := obj["preemptibility"].(string); ok {
-			r.Preemptibility = dclService.ClusterInstanceGroupConfigPreemptibilityEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.Preemptibility: expected string")
-		}
-	}
-	return r, nil
-}
-
 func UnstructuredToClusterClusterConfig(obj map[string]interface{}) (*dclService.ClusterClusterConfig, error) {
 	r := &dclService.ClusterClusterConfig{}
 	if _, ok := obj["autoscalingConfig"]; ok {
@@ -1136,6 +1003,139 @@ func UnstructuredToClusterClusterConfig(obj map[string]interface{}) (*dclService
 	return r, nil
 }
 
+func UnstructuredToClusterInstanceGroupConfig(obj map[string]interface{}) (*dclService.ClusterInstanceGroupConfig, error) {
+	r := &dclService.ClusterInstanceGroupConfig{}
+	if _, ok := obj["accelerators"]; ok {
+		if s, ok := obj["accelerators"].([]interface{}); ok {
+			for _, o := range s {
+				if objval, ok := o.(map[string]interface{}); ok {
+					var rAccelerators dclService.ClusterInstanceGroupConfigAccelerators
+					if _, ok := objval["acceleratorCount"]; ok {
+						if i, ok := objval["acceleratorCount"].(int64); ok {
+							rAccelerators.AcceleratorCount = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("rAccelerators.AcceleratorCount: expected int64")
+						}
+					}
+					if _, ok := objval["acceleratorType"]; ok {
+						if s, ok := objval["acceleratorType"].(string); ok {
+							rAccelerators.AcceleratorType = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rAccelerators.AcceleratorType: expected string")
+						}
+					}
+					r.Accelerators = append(r.Accelerators, rAccelerators)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.Accelerators: expected []interface{}")
+		}
+	}
+	if _, ok := obj["diskConfig"]; ok {
+		if rDiskConfig, ok := obj["diskConfig"].(map[string]interface{}); ok {
+			r.DiskConfig = &dclService.ClusterInstanceGroupConfigDiskConfig{}
+			if _, ok := rDiskConfig["bootDiskSizeGb"]; ok {
+				if i, ok := rDiskConfig["bootDiskSizeGb"].(int64); ok {
+					r.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
+				} else {
+					return nil, fmt.Errorf("r.DiskConfig.BootDiskSizeGb: expected int64")
+				}
+			}
+			if _, ok := rDiskConfig["bootDiskType"]; ok {
+				if s, ok := rDiskConfig["bootDiskType"].(string); ok {
+					r.DiskConfig.BootDiskType = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.DiskConfig.BootDiskType: expected string")
+				}
+			}
+			if _, ok := rDiskConfig["numLocalSsds"]; ok {
+				if i, ok := rDiskConfig["numLocalSsds"].(int64); ok {
+					r.DiskConfig.NumLocalSsds = dcl.Int64(i)
+				} else {
+					return nil, fmt.Errorf("r.DiskConfig.NumLocalSsds: expected int64")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.DiskConfig: expected map[string]interface{}")
+		}
+	}
+	if _, ok := obj["image"]; ok {
+		if s, ok := obj["image"].(string); ok {
+			r.Image = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Image: expected string")
+		}
+	}
+	if _, ok := obj["instanceNames"]; ok {
+		if s, ok := obj["instanceNames"].([]interface{}); ok {
+			for _, ss := range s {
+				if strval, ok := ss.(string); ok {
+					r.InstanceNames = append(r.InstanceNames, strval)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.InstanceNames: expected []interface{}")
+		}
+	}
+	if _, ok := obj["isPreemptible"]; ok {
+		if b, ok := obj["isPreemptible"].(bool); ok {
+			r.IsPreemptible = dcl.Bool(b)
+		} else {
+			return nil, fmt.Errorf("r.IsPreemptible: expected bool")
+		}
+	}
+	if _, ok := obj["machineType"]; ok {
+		if s, ok := obj["machineType"].(string); ok {
+			r.MachineType = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.MachineType: expected string")
+		}
+	}
+	if _, ok := obj["managedGroupConfig"]; ok {
+		if rManagedGroupConfig, ok := obj["managedGroupConfig"].(map[string]interface{}); ok {
+			r.ManagedGroupConfig = &dclService.ClusterInstanceGroupConfigManagedGroupConfig{}
+			if _, ok := rManagedGroupConfig["instanceGroupManagerName"]; ok {
+				if s, ok := rManagedGroupConfig["instanceGroupManagerName"].(string); ok {
+					r.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.ManagedGroupConfig.InstanceGroupManagerName: expected string")
+				}
+			}
+			if _, ok := rManagedGroupConfig["instanceTemplateName"]; ok {
+				if s, ok := rManagedGroupConfig["instanceTemplateName"].(string); ok {
+					r.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.ManagedGroupConfig.InstanceTemplateName: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.ManagedGroupConfig: expected map[string]interface{}")
+		}
+	}
+	if _, ok := obj["minCpuPlatform"]; ok {
+		if s, ok := obj["minCpuPlatform"].(string); ok {
+			r.MinCpuPlatform = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.MinCpuPlatform: expected string")
+		}
+	}
+	if _, ok := obj["numInstances"]; ok {
+		if i, ok := obj["numInstances"].(int64); ok {
+			r.NumInstances = dcl.Int64(i)
+		} else {
+			return nil, fmt.Errorf("r.NumInstances: expected int64")
+		}
+	}
+	if _, ok := obj["preemptibility"]; ok {
+		if s, ok := obj["preemptibility"].(string); ok {
+			r.Preemptibility = dclService.ClusterInstanceGroupConfigPreemptibilityEnumRef(s)
+		} else {
+			return nil, fmt.Errorf("r.Preemptibility: expected string")
+		}
+	}
+	return r, nil
+}
+
 func GetCluster(ctx context.Context, config *dcl.Config, u *unstructured.Resource) (*unstructured.Resource, error) {
 	c := dclService.NewClient(config)
 	r, err := UnstructuredToCluster(u)
@@ -1268,6 +1268,45 @@ func GetPolicyCluster(ctx context.Context, config *dcl.Config, u *unstructured.R
 		return nil, err
 	}
 	return iamUnstruct.PolicyToUnstructured(policy), nil
+}
+
+func SetPolicyMemberCluster(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToCluster(u)
+	if err != nil {
+		return nil, err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return nil, err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	policy, err := iamClient.SetMember(ctx, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(policy), nil
+}
+
+func GetPolicyMemberCluster(ctx context.Context, config *dcl.Config, u *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	r, err := UnstructuredToCluster(u)
+	if err != nil {
+		return nil, err
+	}
+	iamClient := iam.NewClient(config)
+	policyMember, err := iamClient.GetMember(ctx, r, role, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.MemberToUnstructured(policyMember), nil
+}
+
+func (r *Cluster) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyMemberCluster(ctx, config, resource, member)
+}
+
+func (r *Cluster) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	return GetPolicyMemberCluster(ctx, config, resource, role, member)
 }
 
 func (r *Cluster) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {

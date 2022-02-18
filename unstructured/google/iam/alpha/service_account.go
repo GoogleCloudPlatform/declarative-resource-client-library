@@ -295,6 +295,45 @@ func GetPolicyServiceAccount(ctx context.Context, config *dcl.Config, u *unstruc
 	return iamUnstruct.PolicyToUnstructured(policy), nil
 }
 
+func SetPolicyMemberServiceAccount(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToServiceAccount(u)
+	if err != nil {
+		return nil, err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return nil, err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	policy, err := iamClient.SetMember(ctx, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(policy), nil
+}
+
+func GetPolicyMemberServiceAccount(ctx context.Context, config *dcl.Config, u *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	r, err := UnstructuredToServiceAccount(u)
+	if err != nil {
+		return nil, err
+	}
+	iamClient := iam.NewClient(config)
+	policyMember, err := iamClient.GetMember(ctx, r, role, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.MemberToUnstructured(policyMember), nil
+}
+
+func (r *ServiceAccount) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyMemberServiceAccount(ctx, config, resource, member)
+}
+
+func (r *ServiceAccount) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	return GetPolicyMemberServiceAccount(ctx, config, resource, role, member)
+}
+
 func (r *ServiceAccount) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyServiceAccount(ctx, config, resource, policy)
 }

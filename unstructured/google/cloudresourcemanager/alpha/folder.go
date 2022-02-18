@@ -256,6 +256,45 @@ func GetPolicyFolder(ctx context.Context, config *dcl.Config, u *unstructured.Re
 	return iamUnstruct.PolicyToUnstructured(policy), nil
 }
 
+func SetPolicyMemberFolder(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToFolder(u)
+	if err != nil {
+		return nil, err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return nil, err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	policy, err := iamClient.SetMember(ctx, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(policy), nil
+}
+
+func GetPolicyMemberFolder(ctx context.Context, config *dcl.Config, u *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	r, err := UnstructuredToFolder(u)
+	if err != nil {
+		return nil, err
+	}
+	iamClient := iam.NewClient(config)
+	policyMember, err := iamClient.GetMember(ctx, r, role, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.MemberToUnstructured(policyMember), nil
+}
+
+func (r *Folder) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyMemberFolder(ctx, config, resource, member)
+}
+
+func (r *Folder) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	return GetPolicyMemberFolder(ctx, config, resource, role, member)
+}
+
 func (r *Folder) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyFolder(ctx, config, resource, policy)
 }

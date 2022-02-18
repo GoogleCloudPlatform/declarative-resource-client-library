@@ -431,6 +431,45 @@ func GetPolicyAuthorizationPolicy(ctx context.Context, config *dcl.Config, u *un
 	return iamUnstruct.PolicyToUnstructured(policy), nil
 }
 
+func SetPolicyMemberAuthorizationPolicy(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToAuthorizationPolicy(u)
+	if err != nil {
+		return nil, err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return nil, err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	policy, err := iamClient.SetMember(ctx, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(policy), nil
+}
+
+func GetPolicyMemberAuthorizationPolicy(ctx context.Context, config *dcl.Config, u *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	r, err := UnstructuredToAuthorizationPolicy(u)
+	if err != nil {
+		return nil, err
+	}
+	iamClient := iam.NewClient(config)
+	policyMember, err := iamClient.GetMember(ctx, r, role, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.MemberToUnstructured(policyMember), nil
+}
+
+func (r *AuthorizationPolicy) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyMemberAuthorizationPolicy(ctx, config, resource, member)
+}
+
+func (r *AuthorizationPolicy) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	return GetPolicyMemberAuthorizationPolicy(ctx, config, resource, role, member)
+}
+
 func (r *AuthorizationPolicy) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyAuthorizationPolicy(ctx, config, resource, policy)
 }
