@@ -28,7 +28,7 @@ import (
 type Cluster struct {
 	Project       *string                `json:"project"`
 	Name          *string                `json:"name"`
-	Config        *ClusterClusterConfig  `json:"config"`
+	Config        *ClusterConfig         `json:"config"`
 	Labels        map[string]string      `json:"labels"`
 	Status        *ClusterStatus         `json:"status"`
 	StatusHistory []ClusterStatusHistory `json:"statusHistory"`
@@ -41,17 +41,17 @@ func (r *Cluster) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.
-type ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum string
+// The enum ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.
+type ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum string
 
-// ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef returns a *ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum with the value of string s
+// ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef returns a *ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s string) *ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
-	v := ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(s)
+func ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s string) *ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+	v := ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(s)
 	return &v
 }
 
-func (v ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum) Validate() error {
+func (v ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -62,23 +62,23 @@ func (v ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum) Validat
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum",
+		Enum:  "ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.
-type ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum string
+// The enum ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.
+type ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum string
 
-// ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef returns a *ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum with the value of string s
+// ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef returns a *ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s string) *ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
-	v := ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(s)
+func ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s string) *ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+	v := ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(s)
 	return &v
 }
 
-func (v ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum) Validate() error {
+func (v ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -89,23 +89,23 @@ func (v ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservatio
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum",
+		Enum:  "ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ClusterInstanceGroupConfigPreemptibilityEnum.
-type ClusterInstanceGroupConfigPreemptibilityEnum string
+// The enum ClusterConfigMasterConfigPreemptibilityEnum.
+type ClusterConfigMasterConfigPreemptibilityEnum string
 
-// ClusterInstanceGroupConfigPreemptibilityEnumRef returns a *ClusterInstanceGroupConfigPreemptibilityEnum with the value of string s
+// ClusterConfigMasterConfigPreemptibilityEnumRef returns a *ClusterConfigMasterConfigPreemptibilityEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ClusterInstanceGroupConfigPreemptibilityEnumRef(s string) *ClusterInstanceGroupConfigPreemptibilityEnum {
-	v := ClusterInstanceGroupConfigPreemptibilityEnum(s)
+func ClusterConfigMasterConfigPreemptibilityEnumRef(s string) *ClusterConfigMasterConfigPreemptibilityEnum {
+	v := ClusterConfigMasterConfigPreemptibilityEnum(s)
 	return &v
 }
 
-func (v ClusterInstanceGroupConfigPreemptibilityEnum) Validate() error {
+func (v ClusterConfigMasterConfigPreemptibilityEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -116,23 +116,77 @@ func (v ClusterInstanceGroupConfigPreemptibilityEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ClusterInstanceGroupConfigPreemptibilityEnum",
+		Enum:  "ClusterConfigMasterConfigPreemptibilityEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ClusterClusterConfigSoftwareConfigOptionalComponentsEnum.
-type ClusterClusterConfigSoftwareConfigOptionalComponentsEnum string
+// The enum ClusterConfigWorkerConfigPreemptibilityEnum.
+type ClusterConfigWorkerConfigPreemptibilityEnum string
 
-// ClusterClusterConfigSoftwareConfigOptionalComponentsEnumRef returns a *ClusterClusterConfigSoftwareConfigOptionalComponentsEnum with the value of string s
+// ClusterConfigWorkerConfigPreemptibilityEnumRef returns a *ClusterConfigWorkerConfigPreemptibilityEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ClusterClusterConfigSoftwareConfigOptionalComponentsEnumRef(s string) *ClusterClusterConfigSoftwareConfigOptionalComponentsEnum {
-	v := ClusterClusterConfigSoftwareConfigOptionalComponentsEnum(s)
+func ClusterConfigWorkerConfigPreemptibilityEnumRef(s string) *ClusterConfigWorkerConfigPreemptibilityEnum {
+	v := ClusterConfigWorkerConfigPreemptibilityEnum(s)
 	return &v
 }
 
-func (v ClusterClusterConfigSoftwareConfigOptionalComponentsEnum) Validate() error {
+func (v ClusterConfigWorkerConfigPreemptibilityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"PREEMPTIBILITY_UNSPECIFIED", "NON_PREEMPTIBLE", "PREEMPTIBLE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ClusterConfigWorkerConfigPreemptibilityEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.
+type ClusterConfigSecondaryWorkerConfigPreemptibilityEnum string
+
+// ClusterConfigSecondaryWorkerConfigPreemptibilityEnumRef returns a *ClusterConfigSecondaryWorkerConfigPreemptibilityEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ClusterConfigSecondaryWorkerConfigPreemptibilityEnumRef(s string) *ClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+	v := ClusterConfigSecondaryWorkerConfigPreemptibilityEnum(s)
+	return &v
+}
+
+func (v ClusterConfigSecondaryWorkerConfigPreemptibilityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"PREEMPTIBILITY_UNSPECIFIED", "NON_PREEMPTIBLE", "PREEMPTIBLE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ClusterConfigSecondaryWorkerConfigPreemptibilityEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ClusterConfigSoftwareConfigOptionalComponentsEnum.
+type ClusterConfigSoftwareConfigOptionalComponentsEnum string
+
+// ClusterConfigSoftwareConfigOptionalComponentsEnumRef returns a *ClusterConfigSoftwareConfigOptionalComponentsEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ClusterConfigSoftwareConfigOptionalComponentsEnumRef(s string) *ClusterConfigSoftwareConfigOptionalComponentsEnum {
+	v := ClusterConfigSoftwareConfigOptionalComponentsEnum(s)
+	return &v
+}
+
+func (v ClusterConfigSoftwareConfigOptionalComponentsEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -143,7 +197,7 @@ func (v ClusterClusterConfigSoftwareConfigOptionalComponentsEnum) Validate() err
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ClusterClusterConfigSoftwareConfigOptionalComponentsEnum",
+		Enum:  "ClusterConfigSoftwareConfigOptionalComponentsEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -257,27 +311,27 @@ func (v ClusterStatusHistorySubstateEnum) Validate() error {
 	}
 }
 
-type ClusterClusterConfig struct {
-	empty                 bool                                        `json:"-"`
-	StagingBucket         *string                                     `json:"stagingBucket"`
-	TempBucket            *string                                     `json:"tempBucket"`
-	GceClusterConfig      *ClusterClusterConfigGceClusterConfig       `json:"gceClusterConfig"`
-	MasterConfig          *ClusterInstanceGroupConfig                 `json:"masterConfig"`
-	WorkerConfig          *ClusterInstanceGroupConfig                 `json:"workerConfig"`
-	SecondaryWorkerConfig *ClusterInstanceGroupConfig                 `json:"secondaryWorkerConfig"`
-	SoftwareConfig        *ClusterClusterConfigSoftwareConfig         `json:"softwareConfig"`
-	InitializationActions []ClusterClusterConfigInitializationActions `json:"initializationActions"`
-	EncryptionConfig      *ClusterClusterConfigEncryptionConfig       `json:"encryptionConfig"`
-	AutoscalingConfig     *ClusterClusterConfigAutoscalingConfig      `json:"autoscalingConfig"`
-	SecurityConfig        *ClusterClusterConfigSecurityConfig         `json:"securityConfig"`
-	LifecycleConfig       *ClusterClusterConfigLifecycleConfig        `json:"lifecycleConfig"`
-	EndpointConfig        *ClusterClusterConfigEndpointConfig         `json:"endpointConfig"`
+type ClusterConfig struct {
+	empty                 bool                                 `json:"-"`
+	StagingBucket         *string                              `json:"stagingBucket"`
+	TempBucket            *string                              `json:"tempBucket"`
+	GceClusterConfig      *ClusterConfigGceClusterConfig       `json:"gceClusterConfig"`
+	MasterConfig          *ClusterConfigMasterConfig           `json:"masterConfig"`
+	WorkerConfig          *ClusterConfigWorkerConfig           `json:"workerConfig"`
+	SecondaryWorkerConfig *ClusterConfigSecondaryWorkerConfig  `json:"secondaryWorkerConfig"`
+	SoftwareConfig        *ClusterConfigSoftwareConfig         `json:"softwareConfig"`
+	InitializationActions []ClusterConfigInitializationActions `json:"initializationActions"`
+	EncryptionConfig      *ClusterConfigEncryptionConfig       `json:"encryptionConfig"`
+	AutoscalingConfig     *ClusterConfigAutoscalingConfig      `json:"autoscalingConfig"`
+	SecurityConfig        *ClusterConfigSecurityConfig         `json:"securityConfig"`
+	LifecycleConfig       *ClusterConfigLifecycleConfig        `json:"lifecycleConfig"`
+	EndpointConfig        *ClusterConfigEndpointConfig         `json:"endpointConfig"`
 }
 
-type jsonClusterClusterConfig ClusterClusterConfig
+type jsonClusterConfig ClusterConfig
 
-func (r *ClusterClusterConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfig
+func (r *ClusterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -286,7 +340,7 @@ func (r *ClusterClusterConfig) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfig
+		*r = *EmptyClusterConfig
 	} else {
 
 		r.StagingBucket = res.StagingBucket
@@ -319,45 +373,45 @@ func (r *ClusterClusterConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfig is
+// This object is used to assert a desired state where this ClusterConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfig *ClusterClusterConfig = &ClusterClusterConfig{empty: true}
+var EmptyClusterConfig *ClusterConfig = &ClusterConfig{empty: true}
 
-func (r *ClusterClusterConfig) Empty() bool {
+func (r *ClusterConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfig) String() string {
+func (r *ClusterConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfig) HashCode() string {
+func (r *ClusterConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigGceClusterConfig struct {
-	empty                   bool                                                             `json:"-"`
-	Zone                    *string                                                          `json:"zone"`
-	Network                 *string                                                          `json:"network"`
-	Subnetwork              *string                                                          `json:"subnetwork"`
-	InternalIPOnly          *bool                                                            `json:"internalIPOnly"`
-	PrivateIPv6GoogleAccess *ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum `json:"privateIPv6GoogleAccess"`
-	ServiceAccount          *string                                                          `json:"serviceAccount"`
-	ServiceAccountScopes    []string                                                         `json:"serviceAccountScopes"`
-	Tags                    []string                                                         `json:"tags"`
-	Metadata                map[string]string                                                `json:"metadata"`
-	ReservationAffinity     *ClusterClusterConfigGceClusterConfigReservationAffinity         `json:"reservationAffinity"`
-	NodeGroupAffinity       *ClusterClusterConfigGceClusterConfigNodeGroupAffinity           `json:"nodeGroupAffinity"`
+type ClusterConfigGceClusterConfig struct {
+	empty                   bool                                                      `json:"-"`
+	Zone                    *string                                                   `json:"zone"`
+	Network                 *string                                                   `json:"network"`
+	Subnetwork              *string                                                   `json:"subnetwork"`
+	InternalIPOnly          *bool                                                     `json:"internalIPOnly"`
+	PrivateIPv6GoogleAccess *ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum `json:"privateIPv6GoogleAccess"`
+	ServiceAccount          *string                                                   `json:"serviceAccount"`
+	ServiceAccountScopes    []string                                                  `json:"serviceAccountScopes"`
+	Tags                    []string                                                  `json:"tags"`
+	Metadata                map[string]string                                         `json:"metadata"`
+	ReservationAffinity     *ClusterConfigGceClusterConfigReservationAffinity         `json:"reservationAffinity"`
+	NodeGroupAffinity       *ClusterConfigGceClusterConfigNodeGroupAffinity           `json:"nodeGroupAffinity"`
 }
 
-type jsonClusterClusterConfigGceClusterConfig ClusterClusterConfigGceClusterConfig
+type jsonClusterConfigGceClusterConfig ClusterConfigGceClusterConfig
 
-func (r *ClusterClusterConfigGceClusterConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigGceClusterConfig
+func (r *ClusterConfigGceClusterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigGceClusterConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -366,7 +420,7 @@ func (r *ClusterClusterConfigGceClusterConfig) UnmarshalJSON(data []byte) error 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigGceClusterConfig
+		*r = *EmptyClusterConfigGceClusterConfig
 	} else {
 
 		r.Zone = res.Zone
@@ -395,37 +449,37 @@ func (r *ClusterClusterConfigGceClusterConfig) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigGceClusterConfig is
+// This object is used to assert a desired state where this ClusterConfigGceClusterConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigGceClusterConfig *ClusterClusterConfigGceClusterConfig = &ClusterClusterConfigGceClusterConfig{empty: true}
+var EmptyClusterConfigGceClusterConfig *ClusterConfigGceClusterConfig = &ClusterConfigGceClusterConfig{empty: true}
 
-func (r *ClusterClusterConfigGceClusterConfig) Empty() bool {
+func (r *ClusterConfigGceClusterConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigGceClusterConfig) String() string {
+func (r *ClusterConfigGceClusterConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigGceClusterConfig) HashCode() string {
+func (r *ClusterConfigGceClusterConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigGceClusterConfigReservationAffinity struct {
-	empty                  bool                                                                               `json:"-"`
-	ConsumeReservationType *ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum `json:"consumeReservationType"`
-	Key                    *string                                                                            `json:"key"`
-	Values                 []string                                                                           `json:"values"`
+type ClusterConfigGceClusterConfigReservationAffinity struct {
+	empty                  bool                                                                        `json:"-"`
+	ConsumeReservationType *ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum `json:"consumeReservationType"`
+	Key                    *string                                                                     `json:"key"`
+	Values                 []string                                                                    `json:"values"`
 }
 
-type jsonClusterClusterConfigGceClusterConfigReservationAffinity ClusterClusterConfigGceClusterConfigReservationAffinity
+type jsonClusterConfigGceClusterConfigReservationAffinity ClusterConfigGceClusterConfigReservationAffinity
 
-func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigGceClusterConfigReservationAffinity
+func (r *ClusterConfigGceClusterConfigReservationAffinity) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigGceClusterConfigReservationAffinity
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -434,7 +488,7 @@ func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) UnmarshalJSON(
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigGceClusterConfigReservationAffinity
+		*r = *EmptyClusterConfigGceClusterConfigReservationAffinity
 	} else {
 
 		r.ConsumeReservationType = res.ConsumeReservationType
@@ -447,35 +501,35 @@ func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) UnmarshalJSON(
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigGceClusterConfigReservationAffinity is
+// This object is used to assert a desired state where this ClusterConfigGceClusterConfigReservationAffinity is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigGceClusterConfigReservationAffinity *ClusterClusterConfigGceClusterConfigReservationAffinity = &ClusterClusterConfigGceClusterConfigReservationAffinity{empty: true}
+var EmptyClusterConfigGceClusterConfigReservationAffinity *ClusterConfigGceClusterConfigReservationAffinity = &ClusterConfigGceClusterConfigReservationAffinity{empty: true}
 
-func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) Empty() bool {
+func (r *ClusterConfigGceClusterConfigReservationAffinity) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) String() string {
+func (r *ClusterConfigGceClusterConfigReservationAffinity) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) HashCode() string {
+func (r *ClusterConfigGceClusterConfigReservationAffinity) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigGceClusterConfigNodeGroupAffinity struct {
+type ClusterConfigGceClusterConfigNodeGroupAffinity struct {
 	empty     bool    `json:"-"`
 	NodeGroup *string `json:"nodeGroup"`
 }
 
-type jsonClusterClusterConfigGceClusterConfigNodeGroupAffinity ClusterClusterConfigGceClusterConfigNodeGroupAffinity
+type jsonClusterConfigGceClusterConfigNodeGroupAffinity ClusterConfigGceClusterConfigNodeGroupAffinity
 
-func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigGceClusterConfigNodeGroupAffinity
+func (r *ClusterConfigGceClusterConfigNodeGroupAffinity) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigGceClusterConfigNodeGroupAffinity
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -484,7 +538,7 @@ func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) UnmarshalJSON(da
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigGceClusterConfigNodeGroupAffinity
+		*r = *EmptyClusterConfigGceClusterConfigNodeGroupAffinity
 	} else {
 
 		r.NodeGroup = res.NodeGroup
@@ -493,44 +547,44 @@ func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) UnmarshalJSON(da
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigGceClusterConfigNodeGroupAffinity is
+// This object is used to assert a desired state where this ClusterConfigGceClusterConfigNodeGroupAffinity is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigGceClusterConfigNodeGroupAffinity *ClusterClusterConfigGceClusterConfigNodeGroupAffinity = &ClusterClusterConfigGceClusterConfigNodeGroupAffinity{empty: true}
+var EmptyClusterConfigGceClusterConfigNodeGroupAffinity *ClusterConfigGceClusterConfigNodeGroupAffinity = &ClusterConfigGceClusterConfigNodeGroupAffinity{empty: true}
 
-func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) Empty() bool {
+func (r *ClusterConfigGceClusterConfigNodeGroupAffinity) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) String() string {
+func (r *ClusterConfigGceClusterConfigNodeGroupAffinity) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) HashCode() string {
+func (r *ClusterConfigGceClusterConfigNodeGroupAffinity) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterInstanceGroupConfig struct {
-	empty              bool                                          `json:"-"`
-	NumInstances       *int64                                        `json:"numInstances"`
-	InstanceNames      []string                                      `json:"instanceNames"`
-	Image              *string                                       `json:"image"`
-	MachineType        *string                                       `json:"machineType"`
-	DiskConfig         *ClusterInstanceGroupConfigDiskConfig         `json:"diskConfig"`
-	IsPreemptible      *bool                                         `json:"isPreemptible"`
-	Preemptibility     *ClusterInstanceGroupConfigPreemptibilityEnum `json:"preemptibility"`
-	ManagedGroupConfig *ClusterInstanceGroupConfigManagedGroupConfig `json:"managedGroupConfig"`
-	Accelerators       []ClusterInstanceGroupConfigAccelerators      `json:"accelerators"`
-	MinCpuPlatform     *string                                       `json:"minCpuPlatform"`
+type ClusterConfigMasterConfig struct {
+	empty              bool                                         `json:"-"`
+	NumInstances       *int64                                       `json:"numInstances"`
+	InstanceNames      []string                                     `json:"instanceNames"`
+	Image              *string                                      `json:"image"`
+	MachineType        *string                                      `json:"machineType"`
+	DiskConfig         *ClusterConfigMasterConfigDiskConfig         `json:"diskConfig"`
+	IsPreemptible      *bool                                        `json:"isPreemptible"`
+	Preemptibility     *ClusterConfigMasterConfigPreemptibilityEnum `json:"preemptibility"`
+	ManagedGroupConfig *ClusterConfigMasterConfigManagedGroupConfig `json:"managedGroupConfig"`
+	Accelerators       []ClusterConfigMasterConfigAccelerators      `json:"accelerators"`
+	MinCpuPlatform     *string                                      `json:"minCpuPlatform"`
 }
 
-type jsonClusterInstanceGroupConfig ClusterInstanceGroupConfig
+type jsonClusterConfigMasterConfig ClusterConfigMasterConfig
 
-func (r *ClusterInstanceGroupConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterInstanceGroupConfig
+func (r *ClusterConfigMasterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigMasterConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -539,7 +593,7 @@ func (r *ClusterInstanceGroupConfig) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterInstanceGroupConfig
+		*r = *EmptyClusterConfigMasterConfig
 	} else {
 
 		r.NumInstances = res.NumInstances
@@ -566,37 +620,37 @@ func (r *ClusterInstanceGroupConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterInstanceGroupConfig is
+// This object is used to assert a desired state where this ClusterConfigMasterConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterInstanceGroupConfig *ClusterInstanceGroupConfig = &ClusterInstanceGroupConfig{empty: true}
+var EmptyClusterConfigMasterConfig *ClusterConfigMasterConfig = &ClusterConfigMasterConfig{empty: true}
 
-func (r *ClusterInstanceGroupConfig) Empty() bool {
+func (r *ClusterConfigMasterConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterInstanceGroupConfig) String() string {
+func (r *ClusterConfigMasterConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterInstanceGroupConfig) HashCode() string {
+func (r *ClusterConfigMasterConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterInstanceGroupConfigDiskConfig struct {
+type ClusterConfigMasterConfigDiskConfig struct {
 	empty          bool    `json:"-"`
 	BootDiskType   *string `json:"bootDiskType"`
 	BootDiskSizeGb *int64  `json:"bootDiskSizeGb"`
 	NumLocalSsds   *int64  `json:"numLocalSsds"`
 }
 
-type jsonClusterInstanceGroupConfigDiskConfig ClusterInstanceGroupConfigDiskConfig
+type jsonClusterConfigMasterConfigDiskConfig ClusterConfigMasterConfigDiskConfig
 
-func (r *ClusterInstanceGroupConfigDiskConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterInstanceGroupConfigDiskConfig
+func (r *ClusterConfigMasterConfigDiskConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigMasterConfigDiskConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -605,7 +659,7 @@ func (r *ClusterInstanceGroupConfigDiskConfig) UnmarshalJSON(data []byte) error 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterInstanceGroupConfigDiskConfig
+		*r = *EmptyClusterConfigMasterConfigDiskConfig
 	} else {
 
 		r.BootDiskType = res.BootDiskType
@@ -618,36 +672,36 @@ func (r *ClusterInstanceGroupConfigDiskConfig) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterInstanceGroupConfigDiskConfig is
+// This object is used to assert a desired state where this ClusterConfigMasterConfigDiskConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterInstanceGroupConfigDiskConfig *ClusterInstanceGroupConfigDiskConfig = &ClusterInstanceGroupConfigDiskConfig{empty: true}
+var EmptyClusterConfigMasterConfigDiskConfig *ClusterConfigMasterConfigDiskConfig = &ClusterConfigMasterConfigDiskConfig{empty: true}
 
-func (r *ClusterInstanceGroupConfigDiskConfig) Empty() bool {
+func (r *ClusterConfigMasterConfigDiskConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterInstanceGroupConfigDiskConfig) String() string {
+func (r *ClusterConfigMasterConfigDiskConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterInstanceGroupConfigDiskConfig) HashCode() string {
+func (r *ClusterConfigMasterConfigDiskConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterInstanceGroupConfigManagedGroupConfig struct {
+type ClusterConfigMasterConfigManagedGroupConfig struct {
 	empty                    bool    `json:"-"`
 	InstanceTemplateName     *string `json:"instanceTemplateName"`
 	InstanceGroupManagerName *string `json:"instanceGroupManagerName"`
 }
 
-type jsonClusterInstanceGroupConfigManagedGroupConfig ClusterInstanceGroupConfigManagedGroupConfig
+type jsonClusterConfigMasterConfigManagedGroupConfig ClusterConfigMasterConfigManagedGroupConfig
 
-func (r *ClusterInstanceGroupConfigManagedGroupConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterInstanceGroupConfigManagedGroupConfig
+func (r *ClusterConfigMasterConfigManagedGroupConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigMasterConfigManagedGroupConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -656,7 +710,7 @@ func (r *ClusterInstanceGroupConfigManagedGroupConfig) UnmarshalJSON(data []byte
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterInstanceGroupConfigManagedGroupConfig
+		*r = *EmptyClusterConfigMasterConfigManagedGroupConfig
 	} else {
 
 		r.InstanceTemplateName = res.InstanceTemplateName
@@ -667,36 +721,36 @@ func (r *ClusterInstanceGroupConfigManagedGroupConfig) UnmarshalJSON(data []byte
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterInstanceGroupConfigManagedGroupConfig is
+// This object is used to assert a desired state where this ClusterConfigMasterConfigManagedGroupConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterInstanceGroupConfigManagedGroupConfig *ClusterInstanceGroupConfigManagedGroupConfig = &ClusterInstanceGroupConfigManagedGroupConfig{empty: true}
+var EmptyClusterConfigMasterConfigManagedGroupConfig *ClusterConfigMasterConfigManagedGroupConfig = &ClusterConfigMasterConfigManagedGroupConfig{empty: true}
 
-func (r *ClusterInstanceGroupConfigManagedGroupConfig) Empty() bool {
+func (r *ClusterConfigMasterConfigManagedGroupConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterInstanceGroupConfigManagedGroupConfig) String() string {
+func (r *ClusterConfigMasterConfigManagedGroupConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterInstanceGroupConfigManagedGroupConfig) HashCode() string {
+func (r *ClusterConfigMasterConfigManagedGroupConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterInstanceGroupConfigAccelerators struct {
+type ClusterConfigMasterConfigAccelerators struct {
 	empty            bool    `json:"-"`
 	AcceleratorType  *string `json:"acceleratorType"`
 	AcceleratorCount *int64  `json:"acceleratorCount"`
 }
 
-type jsonClusterInstanceGroupConfigAccelerators ClusterInstanceGroupConfigAccelerators
+type jsonClusterConfigMasterConfigAccelerators ClusterConfigMasterConfigAccelerators
 
-func (r *ClusterInstanceGroupConfigAccelerators) UnmarshalJSON(data []byte) error {
-	var res jsonClusterInstanceGroupConfigAccelerators
+func (r *ClusterConfigMasterConfigAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigMasterConfigAccelerators
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -705,7 +759,7 @@ func (r *ClusterInstanceGroupConfigAccelerators) UnmarshalJSON(data []byte) erro
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterInstanceGroupConfigAccelerators
+		*r = *EmptyClusterConfigMasterConfigAccelerators
 	} else {
 
 		r.AcceleratorType = res.AcceleratorType
@@ -716,37 +770,44 @@ func (r *ClusterInstanceGroupConfigAccelerators) UnmarshalJSON(data []byte) erro
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterInstanceGroupConfigAccelerators is
+// This object is used to assert a desired state where this ClusterConfigMasterConfigAccelerators is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterInstanceGroupConfigAccelerators *ClusterInstanceGroupConfigAccelerators = &ClusterInstanceGroupConfigAccelerators{empty: true}
+var EmptyClusterConfigMasterConfigAccelerators *ClusterConfigMasterConfigAccelerators = &ClusterConfigMasterConfigAccelerators{empty: true}
 
-func (r *ClusterInstanceGroupConfigAccelerators) Empty() bool {
+func (r *ClusterConfigMasterConfigAccelerators) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterInstanceGroupConfigAccelerators) String() string {
+func (r *ClusterConfigMasterConfigAccelerators) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterInstanceGroupConfigAccelerators) HashCode() string {
+func (r *ClusterConfigMasterConfigAccelerators) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigSoftwareConfig struct {
-	empty              bool                                                       `json:"-"`
-	ImageVersion       *string                                                    `json:"imageVersion"`
-	Properties         map[string]string                                          `json:"properties"`
-	OptionalComponents []ClusterClusterConfigSoftwareConfigOptionalComponentsEnum `json:"optionalComponents"`
+type ClusterConfigWorkerConfig struct {
+	empty              bool                                         `json:"-"`
+	NumInstances       *int64                                       `json:"numInstances"`
+	InstanceNames      []string                                     `json:"instanceNames"`
+	Image              *string                                      `json:"image"`
+	MachineType        *string                                      `json:"machineType"`
+	DiskConfig         *ClusterConfigWorkerConfigDiskConfig         `json:"diskConfig"`
+	IsPreemptible      *bool                                        `json:"isPreemptible"`
+	Preemptibility     *ClusterConfigWorkerConfigPreemptibilityEnum `json:"preemptibility"`
+	ManagedGroupConfig *ClusterConfigWorkerConfigManagedGroupConfig `json:"managedGroupConfig"`
+	Accelerators       []ClusterConfigWorkerConfigAccelerators      `json:"accelerators"`
+	MinCpuPlatform     *string                                      `json:"minCpuPlatform"`
 }
 
-type jsonClusterClusterConfigSoftwareConfig ClusterClusterConfigSoftwareConfig
+type jsonClusterConfigWorkerConfig ClusterConfigWorkerConfig
 
-func (r *ClusterClusterConfigSoftwareConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigSoftwareConfig
+func (r *ClusterConfigWorkerConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigWorkerConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -755,7 +816,446 @@ func (r *ClusterClusterConfigSoftwareConfig) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigSoftwareConfig
+		*r = *EmptyClusterConfigWorkerConfig
+	} else {
+
+		r.NumInstances = res.NumInstances
+
+		r.InstanceNames = res.InstanceNames
+
+		r.Image = res.Image
+
+		r.MachineType = res.MachineType
+
+		r.DiskConfig = res.DiskConfig
+
+		r.IsPreemptible = res.IsPreemptible
+
+		r.Preemptibility = res.Preemptibility
+
+		r.ManagedGroupConfig = res.ManagedGroupConfig
+
+		r.Accelerators = res.Accelerators
+
+		r.MinCpuPlatform = res.MinCpuPlatform
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigWorkerConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigWorkerConfig *ClusterConfigWorkerConfig = &ClusterConfigWorkerConfig{empty: true}
+
+func (r *ClusterConfigWorkerConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigWorkerConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigWorkerConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigWorkerConfigDiskConfig struct {
+	empty          bool    `json:"-"`
+	BootDiskType   *string `json:"bootDiskType"`
+	BootDiskSizeGb *int64  `json:"bootDiskSizeGb"`
+	NumLocalSsds   *int64  `json:"numLocalSsds"`
+}
+
+type jsonClusterConfigWorkerConfigDiskConfig ClusterConfigWorkerConfigDiskConfig
+
+func (r *ClusterConfigWorkerConfigDiskConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigWorkerConfigDiskConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigWorkerConfigDiskConfig
+	} else {
+
+		r.BootDiskType = res.BootDiskType
+
+		r.BootDiskSizeGb = res.BootDiskSizeGb
+
+		r.NumLocalSsds = res.NumLocalSsds
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigWorkerConfigDiskConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigWorkerConfigDiskConfig *ClusterConfigWorkerConfigDiskConfig = &ClusterConfigWorkerConfigDiskConfig{empty: true}
+
+func (r *ClusterConfigWorkerConfigDiskConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigWorkerConfigDiskConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigWorkerConfigDiskConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigWorkerConfigManagedGroupConfig struct {
+	empty                    bool    `json:"-"`
+	InstanceTemplateName     *string `json:"instanceTemplateName"`
+	InstanceGroupManagerName *string `json:"instanceGroupManagerName"`
+}
+
+type jsonClusterConfigWorkerConfigManagedGroupConfig ClusterConfigWorkerConfigManagedGroupConfig
+
+func (r *ClusterConfigWorkerConfigManagedGroupConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigWorkerConfigManagedGroupConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigWorkerConfigManagedGroupConfig
+	} else {
+
+		r.InstanceTemplateName = res.InstanceTemplateName
+
+		r.InstanceGroupManagerName = res.InstanceGroupManagerName
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigWorkerConfigManagedGroupConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigWorkerConfigManagedGroupConfig *ClusterConfigWorkerConfigManagedGroupConfig = &ClusterConfigWorkerConfigManagedGroupConfig{empty: true}
+
+func (r *ClusterConfigWorkerConfigManagedGroupConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigWorkerConfigManagedGroupConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigWorkerConfigManagedGroupConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigWorkerConfigAccelerators struct {
+	empty            bool    `json:"-"`
+	AcceleratorType  *string `json:"acceleratorType"`
+	AcceleratorCount *int64  `json:"acceleratorCount"`
+}
+
+type jsonClusterConfigWorkerConfigAccelerators ClusterConfigWorkerConfigAccelerators
+
+func (r *ClusterConfigWorkerConfigAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigWorkerConfigAccelerators
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigWorkerConfigAccelerators
+	} else {
+
+		r.AcceleratorType = res.AcceleratorType
+
+		r.AcceleratorCount = res.AcceleratorCount
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigWorkerConfigAccelerators is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigWorkerConfigAccelerators *ClusterConfigWorkerConfigAccelerators = &ClusterConfigWorkerConfigAccelerators{empty: true}
+
+func (r *ClusterConfigWorkerConfigAccelerators) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigWorkerConfigAccelerators) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigWorkerConfigAccelerators) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigSecondaryWorkerConfig struct {
+	empty              bool                                                  `json:"-"`
+	NumInstances       *int64                                                `json:"numInstances"`
+	InstanceNames      []string                                              `json:"instanceNames"`
+	Image              *string                                               `json:"image"`
+	MachineType        *string                                               `json:"machineType"`
+	DiskConfig         *ClusterConfigSecondaryWorkerConfigDiskConfig         `json:"diskConfig"`
+	IsPreemptible      *bool                                                 `json:"isPreemptible"`
+	Preemptibility     *ClusterConfigSecondaryWorkerConfigPreemptibilityEnum `json:"preemptibility"`
+	ManagedGroupConfig *ClusterConfigSecondaryWorkerConfigManagedGroupConfig `json:"managedGroupConfig"`
+	Accelerators       []ClusterConfigSecondaryWorkerConfigAccelerators      `json:"accelerators"`
+	MinCpuPlatform     *string                                               `json:"minCpuPlatform"`
+}
+
+type jsonClusterConfigSecondaryWorkerConfig ClusterConfigSecondaryWorkerConfig
+
+func (r *ClusterConfigSecondaryWorkerConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigSecondaryWorkerConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigSecondaryWorkerConfig
+	} else {
+
+		r.NumInstances = res.NumInstances
+
+		r.InstanceNames = res.InstanceNames
+
+		r.Image = res.Image
+
+		r.MachineType = res.MachineType
+
+		r.DiskConfig = res.DiskConfig
+
+		r.IsPreemptible = res.IsPreemptible
+
+		r.Preemptibility = res.Preemptibility
+
+		r.ManagedGroupConfig = res.ManagedGroupConfig
+
+		r.Accelerators = res.Accelerators
+
+		r.MinCpuPlatform = res.MinCpuPlatform
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigSecondaryWorkerConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigSecondaryWorkerConfig *ClusterConfigSecondaryWorkerConfig = &ClusterConfigSecondaryWorkerConfig{empty: true}
+
+func (r *ClusterConfigSecondaryWorkerConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigSecondaryWorkerConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigSecondaryWorkerConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigSecondaryWorkerConfigDiskConfig struct {
+	empty          bool    `json:"-"`
+	BootDiskType   *string `json:"bootDiskType"`
+	BootDiskSizeGb *int64  `json:"bootDiskSizeGb"`
+	NumLocalSsds   *int64  `json:"numLocalSsds"`
+}
+
+type jsonClusterConfigSecondaryWorkerConfigDiskConfig ClusterConfigSecondaryWorkerConfigDiskConfig
+
+func (r *ClusterConfigSecondaryWorkerConfigDiskConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigSecondaryWorkerConfigDiskConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigSecondaryWorkerConfigDiskConfig
+	} else {
+
+		r.BootDiskType = res.BootDiskType
+
+		r.BootDiskSizeGb = res.BootDiskSizeGb
+
+		r.NumLocalSsds = res.NumLocalSsds
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigSecondaryWorkerConfigDiskConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigSecondaryWorkerConfigDiskConfig *ClusterConfigSecondaryWorkerConfigDiskConfig = &ClusterConfigSecondaryWorkerConfigDiskConfig{empty: true}
+
+func (r *ClusterConfigSecondaryWorkerConfigDiskConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigSecondaryWorkerConfigDiskConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigSecondaryWorkerConfigDiskConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigSecondaryWorkerConfigManagedGroupConfig struct {
+	empty                    bool    `json:"-"`
+	InstanceTemplateName     *string `json:"instanceTemplateName"`
+	InstanceGroupManagerName *string `json:"instanceGroupManagerName"`
+}
+
+type jsonClusterConfigSecondaryWorkerConfigManagedGroupConfig ClusterConfigSecondaryWorkerConfigManagedGroupConfig
+
+func (r *ClusterConfigSecondaryWorkerConfigManagedGroupConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigSecondaryWorkerConfigManagedGroupConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigSecondaryWorkerConfigManagedGroupConfig
+	} else {
+
+		r.InstanceTemplateName = res.InstanceTemplateName
+
+		r.InstanceGroupManagerName = res.InstanceGroupManagerName
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigSecondaryWorkerConfigManagedGroupConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigSecondaryWorkerConfigManagedGroupConfig *ClusterConfigSecondaryWorkerConfigManagedGroupConfig = &ClusterConfigSecondaryWorkerConfigManagedGroupConfig{empty: true}
+
+func (r *ClusterConfigSecondaryWorkerConfigManagedGroupConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigSecondaryWorkerConfigManagedGroupConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigSecondaryWorkerConfigManagedGroupConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigSecondaryWorkerConfigAccelerators struct {
+	empty            bool    `json:"-"`
+	AcceleratorType  *string `json:"acceleratorType"`
+	AcceleratorCount *int64  `json:"acceleratorCount"`
+}
+
+type jsonClusterConfigSecondaryWorkerConfigAccelerators ClusterConfigSecondaryWorkerConfigAccelerators
+
+func (r *ClusterConfigSecondaryWorkerConfigAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigSecondaryWorkerConfigAccelerators
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigSecondaryWorkerConfigAccelerators
+	} else {
+
+		r.AcceleratorType = res.AcceleratorType
+
+		r.AcceleratorCount = res.AcceleratorCount
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterConfigSecondaryWorkerConfigAccelerators is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterConfigSecondaryWorkerConfigAccelerators *ClusterConfigSecondaryWorkerConfigAccelerators = &ClusterConfigSecondaryWorkerConfigAccelerators{empty: true}
+
+func (r *ClusterConfigSecondaryWorkerConfigAccelerators) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterConfigSecondaryWorkerConfigAccelerators) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterConfigSecondaryWorkerConfigAccelerators) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterConfigSoftwareConfig struct {
+	empty              bool                                                `json:"-"`
+	ImageVersion       *string                                             `json:"imageVersion"`
+	Properties         map[string]string                                   `json:"properties"`
+	OptionalComponents []ClusterConfigSoftwareConfigOptionalComponentsEnum `json:"optionalComponents"`
+}
+
+type jsonClusterConfigSoftwareConfig ClusterConfigSoftwareConfig
+
+func (r *ClusterConfigSoftwareConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigSoftwareConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterConfigSoftwareConfig
 	} else {
 
 		r.ImageVersion = res.ImageVersion
@@ -768,36 +1268,36 @@ func (r *ClusterClusterConfigSoftwareConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigSoftwareConfig is
+// This object is used to assert a desired state where this ClusterConfigSoftwareConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigSoftwareConfig *ClusterClusterConfigSoftwareConfig = &ClusterClusterConfigSoftwareConfig{empty: true}
+var EmptyClusterConfigSoftwareConfig *ClusterConfigSoftwareConfig = &ClusterConfigSoftwareConfig{empty: true}
 
-func (r *ClusterClusterConfigSoftwareConfig) Empty() bool {
+func (r *ClusterConfigSoftwareConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigSoftwareConfig) String() string {
+func (r *ClusterConfigSoftwareConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigSoftwareConfig) HashCode() string {
+func (r *ClusterConfigSoftwareConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigInitializationActions struct {
+type ClusterConfigInitializationActions struct {
 	empty            bool    `json:"-"`
 	ExecutableFile   *string `json:"executableFile"`
 	ExecutionTimeout *string `json:"executionTimeout"`
 }
 
-type jsonClusterClusterConfigInitializationActions ClusterClusterConfigInitializationActions
+type jsonClusterConfigInitializationActions ClusterConfigInitializationActions
 
-func (r *ClusterClusterConfigInitializationActions) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigInitializationActions
+func (r *ClusterConfigInitializationActions) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigInitializationActions
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -806,7 +1306,7 @@ func (r *ClusterClusterConfigInitializationActions) UnmarshalJSON(data []byte) e
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigInitializationActions
+		*r = *EmptyClusterConfigInitializationActions
 	} else {
 
 		r.ExecutableFile = res.ExecutableFile
@@ -817,35 +1317,35 @@ func (r *ClusterClusterConfigInitializationActions) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigInitializationActions is
+// This object is used to assert a desired state where this ClusterConfigInitializationActions is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigInitializationActions *ClusterClusterConfigInitializationActions = &ClusterClusterConfigInitializationActions{empty: true}
+var EmptyClusterConfigInitializationActions *ClusterConfigInitializationActions = &ClusterConfigInitializationActions{empty: true}
 
-func (r *ClusterClusterConfigInitializationActions) Empty() bool {
+func (r *ClusterConfigInitializationActions) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigInitializationActions) String() string {
+func (r *ClusterConfigInitializationActions) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigInitializationActions) HashCode() string {
+func (r *ClusterConfigInitializationActions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigEncryptionConfig struct {
+type ClusterConfigEncryptionConfig struct {
 	empty           bool    `json:"-"`
 	GcePdKmsKeyName *string `json:"gcePdKmsKeyName"`
 }
 
-type jsonClusterClusterConfigEncryptionConfig ClusterClusterConfigEncryptionConfig
+type jsonClusterConfigEncryptionConfig ClusterConfigEncryptionConfig
 
-func (r *ClusterClusterConfigEncryptionConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigEncryptionConfig
+func (r *ClusterConfigEncryptionConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigEncryptionConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -854,7 +1354,7 @@ func (r *ClusterClusterConfigEncryptionConfig) UnmarshalJSON(data []byte) error 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigEncryptionConfig
+		*r = *EmptyClusterConfigEncryptionConfig
 	} else {
 
 		r.GcePdKmsKeyName = res.GcePdKmsKeyName
@@ -863,35 +1363,35 @@ func (r *ClusterClusterConfigEncryptionConfig) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigEncryptionConfig is
+// This object is used to assert a desired state where this ClusterConfigEncryptionConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigEncryptionConfig *ClusterClusterConfigEncryptionConfig = &ClusterClusterConfigEncryptionConfig{empty: true}
+var EmptyClusterConfigEncryptionConfig *ClusterConfigEncryptionConfig = &ClusterConfigEncryptionConfig{empty: true}
 
-func (r *ClusterClusterConfigEncryptionConfig) Empty() bool {
+func (r *ClusterConfigEncryptionConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigEncryptionConfig) String() string {
+func (r *ClusterConfigEncryptionConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigEncryptionConfig) HashCode() string {
+func (r *ClusterConfigEncryptionConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigAutoscalingConfig struct {
+type ClusterConfigAutoscalingConfig struct {
 	empty  bool    `json:"-"`
 	Policy *string `json:"policy"`
 }
 
-type jsonClusterClusterConfigAutoscalingConfig ClusterClusterConfigAutoscalingConfig
+type jsonClusterConfigAutoscalingConfig ClusterConfigAutoscalingConfig
 
-func (r *ClusterClusterConfigAutoscalingConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigAutoscalingConfig
+func (r *ClusterConfigAutoscalingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigAutoscalingConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -900,7 +1400,7 @@ func (r *ClusterClusterConfigAutoscalingConfig) UnmarshalJSON(data []byte) error
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigAutoscalingConfig
+		*r = *EmptyClusterConfigAutoscalingConfig
 	} else {
 
 		r.Policy = res.Policy
@@ -909,35 +1409,35 @@ func (r *ClusterClusterConfigAutoscalingConfig) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigAutoscalingConfig is
+// This object is used to assert a desired state where this ClusterConfigAutoscalingConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigAutoscalingConfig *ClusterClusterConfigAutoscalingConfig = &ClusterClusterConfigAutoscalingConfig{empty: true}
+var EmptyClusterConfigAutoscalingConfig *ClusterConfigAutoscalingConfig = &ClusterConfigAutoscalingConfig{empty: true}
 
-func (r *ClusterClusterConfigAutoscalingConfig) Empty() bool {
+func (r *ClusterConfigAutoscalingConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigAutoscalingConfig) String() string {
+func (r *ClusterConfigAutoscalingConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigAutoscalingConfig) HashCode() string {
+func (r *ClusterConfigAutoscalingConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigSecurityConfig struct {
-	empty          bool                                              `json:"-"`
-	KerberosConfig *ClusterClusterConfigSecurityConfigKerberosConfig `json:"kerberosConfig"`
+type ClusterConfigSecurityConfig struct {
+	empty          bool                                       `json:"-"`
+	KerberosConfig *ClusterConfigSecurityConfigKerberosConfig `json:"kerberosConfig"`
 }
 
-type jsonClusterClusterConfigSecurityConfig ClusterClusterConfigSecurityConfig
+type jsonClusterConfigSecurityConfig ClusterConfigSecurityConfig
 
-func (r *ClusterClusterConfigSecurityConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigSecurityConfig
+func (r *ClusterConfigSecurityConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigSecurityConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -946,7 +1446,7 @@ func (r *ClusterClusterConfigSecurityConfig) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigSecurityConfig
+		*r = *EmptyClusterConfigSecurityConfig
 	} else {
 
 		r.KerberosConfig = res.KerberosConfig
@@ -955,27 +1455,27 @@ func (r *ClusterClusterConfigSecurityConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigSecurityConfig is
+// This object is used to assert a desired state where this ClusterConfigSecurityConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigSecurityConfig *ClusterClusterConfigSecurityConfig = &ClusterClusterConfigSecurityConfig{empty: true}
+var EmptyClusterConfigSecurityConfig *ClusterConfigSecurityConfig = &ClusterConfigSecurityConfig{empty: true}
 
-func (r *ClusterClusterConfigSecurityConfig) Empty() bool {
+func (r *ClusterConfigSecurityConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigSecurityConfig) String() string {
+func (r *ClusterConfigSecurityConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigSecurityConfig) HashCode() string {
+func (r *ClusterConfigSecurityConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigSecurityConfigKerberosConfig struct {
+type ClusterConfigSecurityConfigKerberosConfig struct {
 	empty                         bool    `json:"-"`
 	EnableKerberos                *bool   `json:"enableKerberos"`
 	RootPrincipalPassword         *string `json:"rootPrincipalPassword"`
@@ -994,10 +1494,10 @@ type ClusterClusterConfigSecurityConfigKerberosConfig struct {
 	Realm                         *string `json:"realm"`
 }
 
-type jsonClusterClusterConfigSecurityConfigKerberosConfig ClusterClusterConfigSecurityConfigKerberosConfig
+type jsonClusterConfigSecurityConfigKerberosConfig ClusterConfigSecurityConfigKerberosConfig
 
-func (r *ClusterClusterConfigSecurityConfigKerberosConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigSecurityConfigKerberosConfig
+func (r *ClusterConfigSecurityConfigKerberosConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigSecurityConfigKerberosConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1006,7 +1506,7 @@ func (r *ClusterClusterConfigSecurityConfigKerberosConfig) UnmarshalJSON(data []
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigSecurityConfigKerberosConfig
+		*r = *EmptyClusterConfigSecurityConfigKerberosConfig
 	} else {
 
 		r.EnableKerberos = res.EnableKerberos
@@ -1043,27 +1543,27 @@ func (r *ClusterClusterConfigSecurityConfigKerberosConfig) UnmarshalJSON(data []
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigSecurityConfigKerberosConfig is
+// This object is used to assert a desired state where this ClusterConfigSecurityConfigKerberosConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigSecurityConfigKerberosConfig *ClusterClusterConfigSecurityConfigKerberosConfig = &ClusterClusterConfigSecurityConfigKerberosConfig{empty: true}
+var EmptyClusterConfigSecurityConfigKerberosConfig *ClusterConfigSecurityConfigKerberosConfig = &ClusterConfigSecurityConfigKerberosConfig{empty: true}
 
-func (r *ClusterClusterConfigSecurityConfigKerberosConfig) Empty() bool {
+func (r *ClusterConfigSecurityConfigKerberosConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigSecurityConfigKerberosConfig) String() string {
+func (r *ClusterConfigSecurityConfigKerberosConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigSecurityConfigKerberosConfig) HashCode() string {
+func (r *ClusterConfigSecurityConfigKerberosConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigLifecycleConfig struct {
+type ClusterConfigLifecycleConfig struct {
 	empty          bool    `json:"-"`
 	IdleDeleteTtl  *string `json:"idleDeleteTtl"`
 	AutoDeleteTime *string `json:"autoDeleteTime"`
@@ -1071,10 +1571,10 @@ type ClusterClusterConfigLifecycleConfig struct {
 	IdleStartTime  *string `json:"idleStartTime"`
 }
 
-type jsonClusterClusterConfigLifecycleConfig ClusterClusterConfigLifecycleConfig
+type jsonClusterConfigLifecycleConfig ClusterConfigLifecycleConfig
 
-func (r *ClusterClusterConfigLifecycleConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigLifecycleConfig
+func (r *ClusterConfigLifecycleConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigLifecycleConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1083,7 +1583,7 @@ func (r *ClusterClusterConfigLifecycleConfig) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigLifecycleConfig
+		*r = *EmptyClusterConfigLifecycleConfig
 	} else {
 
 		r.IdleDeleteTtl = res.IdleDeleteTtl
@@ -1098,36 +1598,36 @@ func (r *ClusterClusterConfigLifecycleConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigLifecycleConfig is
+// This object is used to assert a desired state where this ClusterConfigLifecycleConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigLifecycleConfig *ClusterClusterConfigLifecycleConfig = &ClusterClusterConfigLifecycleConfig{empty: true}
+var EmptyClusterConfigLifecycleConfig *ClusterConfigLifecycleConfig = &ClusterConfigLifecycleConfig{empty: true}
 
-func (r *ClusterClusterConfigLifecycleConfig) Empty() bool {
+func (r *ClusterConfigLifecycleConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigLifecycleConfig) String() string {
+func (r *ClusterConfigLifecycleConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigLifecycleConfig) HashCode() string {
+func (r *ClusterConfigLifecycleConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigEndpointConfig struct {
+type ClusterConfigEndpointConfig struct {
 	empty                bool              `json:"-"`
 	HttpPorts            map[string]string `json:"httpPorts"`
 	EnableHttpPortAccess *bool             `json:"enableHttpPortAccess"`
 }
 
-type jsonClusterClusterConfigEndpointConfig ClusterClusterConfigEndpointConfig
+type jsonClusterConfigEndpointConfig ClusterConfigEndpointConfig
 
-func (r *ClusterClusterConfigEndpointConfig) UnmarshalJSON(data []byte) error {
-	var res jsonClusterClusterConfigEndpointConfig
+func (r *ClusterConfigEndpointConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterConfigEndpointConfig
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1136,7 +1636,7 @@ func (r *ClusterClusterConfigEndpointConfig) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyClusterClusterConfigEndpointConfig
+		*r = *EmptyClusterConfigEndpointConfig
 	} else {
 
 		r.HttpPorts = res.HttpPorts
@@ -1147,20 +1647,20 @@ func (r *ClusterClusterConfigEndpointConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ClusterClusterConfigEndpointConfig is
+// This object is used to assert a desired state where this ClusterConfigEndpointConfig is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigEndpointConfig *ClusterClusterConfigEndpointConfig = &ClusterClusterConfigEndpointConfig{empty: true}
+var EmptyClusterConfigEndpointConfig *ClusterConfigEndpointConfig = &ClusterConfigEndpointConfig{empty: true}
 
-func (r *ClusterClusterConfigEndpointConfig) Empty() bool {
+func (r *ClusterConfigEndpointConfig) Empty() bool {
 	return r.empty
 }
 
-func (r *ClusterClusterConfigEndpointConfig) String() string {
+func (r *ClusterConfigEndpointConfig) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ClusterClusterConfigEndpointConfig) HashCode() string {
+func (r *ClusterConfigEndpointConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

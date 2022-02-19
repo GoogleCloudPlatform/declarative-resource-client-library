@@ -104,6 +104,8 @@ type capacityCommitmentApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateCapacityCommitmentUpdateCapacityCommitmentRequest(ctx context.Context, f *CapacityCommitment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Plan; !dcl.IsEmptyValueIndirect(v) {
 		req["plan"] = v
@@ -1009,6 +1011,8 @@ func unmarshalMapCapacityCommitment(m map[string]interface{}, c *Client) (*Capac
 // expandCapacityCommitment expands CapacityCommitment into a JSON request object.
 func expandCapacityCommitment(c *Client, f *CapacityCommitment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/capacityCommitments/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1065,14 +1069,14 @@ func flattenCapacityCommitment(c *Client, i interface{}) *CapacityCommitment {
 
 // expandCapacityCommitmentFailureStatusMap expands the contents of CapacityCommitmentFailureStatus into a JSON
 // request object.
-func expandCapacityCommitmentFailureStatusMap(c *Client, f map[string]CapacityCommitmentFailureStatus) (map[string]interface{}, error) {
+func expandCapacityCommitmentFailureStatusMap(c *Client, f map[string]CapacityCommitmentFailureStatus, res *CapacityCommitment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCapacityCommitmentFailureStatus(c, &item)
+		i, err := expandCapacityCommitmentFailureStatus(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1086,14 +1090,14 @@ func expandCapacityCommitmentFailureStatusMap(c *Client, f map[string]CapacityCo
 
 // expandCapacityCommitmentFailureStatusSlice expands the contents of CapacityCommitmentFailureStatus into a JSON
 // request object.
-func expandCapacityCommitmentFailureStatusSlice(c *Client, f []CapacityCommitmentFailureStatus) ([]map[string]interface{}, error) {
+func expandCapacityCommitmentFailureStatusSlice(c *Client, f []CapacityCommitmentFailureStatus, res *CapacityCommitment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCapacityCommitmentFailureStatus(c, &item)
+		i, err := expandCapacityCommitmentFailureStatus(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1146,7 +1150,7 @@ func flattenCapacityCommitmentFailureStatusSlice(c *Client, i interface{}) []Cap
 
 // expandCapacityCommitmentFailureStatus expands an instance of CapacityCommitmentFailureStatus into a JSON
 // request object.
-func expandCapacityCommitmentFailureStatus(c *Client, f *CapacityCommitmentFailureStatus) (map[string]interface{}, error) {
+func expandCapacityCommitmentFailureStatus(c *Client, f *CapacityCommitmentFailureStatus, res *CapacityCommitment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1158,7 +1162,7 @@ func expandCapacityCommitmentFailureStatus(c *Client, f *CapacityCommitmentFailu
 	if v := f.Message; !dcl.IsEmptyValueIndirect(v) {
 		m["message"] = v
 	}
-	if v, err := expandCapacityCommitmentFailureStatusDetailsSlice(c, f.Details); err != nil {
+	if v, err := expandCapacityCommitmentFailureStatusDetailsSlice(c, f.Details, res); err != nil {
 		return nil, fmt.Errorf("error expanding Details into details: %w", err)
 	} else if v != nil {
 		m["details"] = v
@@ -1189,14 +1193,14 @@ func flattenCapacityCommitmentFailureStatus(c *Client, i interface{}) *CapacityC
 
 // expandCapacityCommitmentFailureStatusDetailsMap expands the contents of CapacityCommitmentFailureStatusDetails into a JSON
 // request object.
-func expandCapacityCommitmentFailureStatusDetailsMap(c *Client, f map[string]CapacityCommitmentFailureStatusDetails) (map[string]interface{}, error) {
+func expandCapacityCommitmentFailureStatusDetailsMap(c *Client, f map[string]CapacityCommitmentFailureStatusDetails, res *CapacityCommitment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCapacityCommitmentFailureStatusDetails(c, &item)
+		i, err := expandCapacityCommitmentFailureStatusDetails(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1210,14 +1214,14 @@ func expandCapacityCommitmentFailureStatusDetailsMap(c *Client, f map[string]Cap
 
 // expandCapacityCommitmentFailureStatusDetailsSlice expands the contents of CapacityCommitmentFailureStatusDetails into a JSON
 // request object.
-func expandCapacityCommitmentFailureStatusDetailsSlice(c *Client, f []CapacityCommitmentFailureStatusDetails) ([]map[string]interface{}, error) {
+func expandCapacityCommitmentFailureStatusDetailsSlice(c *Client, f []CapacityCommitmentFailureStatusDetails, res *CapacityCommitment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCapacityCommitmentFailureStatusDetails(c, &item)
+		i, err := expandCapacityCommitmentFailureStatusDetails(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1270,7 +1274,7 @@ func flattenCapacityCommitmentFailureStatusDetailsSlice(c *Client, i interface{}
 
 // expandCapacityCommitmentFailureStatusDetails expands an instance of CapacityCommitmentFailureStatusDetails into a JSON
 // request object.
-func expandCapacityCommitmentFailureStatusDetails(c *Client, f *CapacityCommitmentFailureStatusDetails) (map[string]interface{}, error) {
+func expandCapacityCommitmentFailureStatusDetails(c *Client, f *CapacityCommitmentFailureStatusDetails, res *CapacityCommitment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

@@ -204,18 +204,20 @@ type certificateTemplateApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateCertificateTemplateUpdateCertificateTemplateRequest(ctx context.Context, f *CertificateTemplate, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandCertificateTemplatePredefinedValues(c, f.PredefinedValues); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValues(c, f.PredefinedValues, res); err != nil {
 		return nil, fmt.Errorf("error expanding PredefinedValues into predefinedValues: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["predefinedValues"] = v
 	}
-	if v, err := expandCertificateTemplateIdentityConstraints(c, f.IdentityConstraints); err != nil {
+	if v, err := expandCertificateTemplateIdentityConstraints(c, f.IdentityConstraints, res); err != nil {
 		return nil, fmt.Errorf("error expanding IdentityConstraints into identityConstraints: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["identityConstraints"] = v
 	}
-	if v, err := expandCertificateTemplatePassthroughExtensions(c, f.PassthroughExtensions); err != nil {
+	if v, err := expandCertificateTemplatePassthroughExtensions(c, f.PassthroughExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding PassthroughExtensions into passthroughExtensions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["passthroughExtensions"] = v
@@ -3020,22 +3022,24 @@ func unmarshalMapCertificateTemplate(m map[string]interface{}, c *Client) (*Cert
 // expandCertificateTemplate expands CertificateTemplate into a JSON request object.
 func expandCertificateTemplate(c *Client, f *CertificateTemplate) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/certificateTemplates/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandCertificateTemplatePredefinedValues(c, f.PredefinedValues); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValues(c, f.PredefinedValues, res); err != nil {
 		return nil, fmt.Errorf("error expanding PredefinedValues into predefinedValues: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["predefinedValues"] = v
 	}
-	if v, err := expandCertificateTemplateIdentityConstraints(c, f.IdentityConstraints); err != nil {
+	if v, err := expandCertificateTemplateIdentityConstraints(c, f.IdentityConstraints, res); err != nil {
 		return nil, fmt.Errorf("error expanding IdentityConstraints into identityConstraints: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["identityConstraints"] = v
 	}
-	if v, err := expandCertificateTemplatePassthroughExtensions(c, f.PassthroughExtensions); err != nil {
+	if v, err := expandCertificateTemplatePassthroughExtensions(c, f.PassthroughExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding PassthroughExtensions into passthroughExtensions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["passthroughExtensions"] = v
@@ -3088,14 +3092,14 @@ func flattenCertificateTemplate(c *Client, i interface{}) *CertificateTemplate {
 
 // expandCertificateTemplatePredefinedValuesMap expands the contents of CertificateTemplatePredefinedValues into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesMap(c *Client, f map[string]CertificateTemplatePredefinedValues) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesMap(c *Client, f map[string]CertificateTemplatePredefinedValues, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValues(c, &item)
+		i, err := expandCertificateTemplatePredefinedValues(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3109,14 +3113,14 @@ func expandCertificateTemplatePredefinedValuesMap(c *Client, f map[string]Certif
 
 // expandCertificateTemplatePredefinedValuesSlice expands the contents of CertificateTemplatePredefinedValues into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesSlice(c *Client, f []CertificateTemplatePredefinedValues) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesSlice(c *Client, f []CertificateTemplatePredefinedValues, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValues(c, &item)
+		i, err := expandCertificateTemplatePredefinedValues(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3169,23 +3173,23 @@ func flattenCertificateTemplatePredefinedValuesSlice(c *Client, i interface{}) [
 
 // expandCertificateTemplatePredefinedValues expands an instance of CertificateTemplatePredefinedValues into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValues(c *Client, f *CertificateTemplatePredefinedValues) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValues(c *Client, f *CertificateTemplatePredefinedValues, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateTemplatePredefinedValuesKeyUsage(c, f.KeyUsage); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesKeyUsage(c, f.KeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding KeyUsage into keyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["keyUsage"] = v
 	}
-	if v, err := expandCertificateTemplatePredefinedValuesCaOptions(c, f.CaOptions); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesCaOptions(c, f.CaOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding CaOptions into caOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["caOptions"] = v
 	}
-	if v, err := expandCertificateTemplatePredefinedValuesPolicyIdsSlice(c, f.PolicyIds); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesPolicyIdsSlice(c, f.PolicyIds, res); err != nil {
 		return nil, fmt.Errorf("error expanding PolicyIds into policyIds: %w", err)
 	} else if v != nil {
 		m["policyIds"] = v
@@ -3193,7 +3197,7 @@ func expandCertificateTemplatePredefinedValues(c *Client, f *CertificateTemplate
 	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
-	if v, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
 	} else if v != nil {
 		m["additionalExtensions"] = v
@@ -3226,14 +3230,14 @@ func flattenCertificateTemplatePredefinedValues(c *Client, i interface{}) *Certi
 
 // expandCertificateTemplatePredefinedValuesKeyUsageMap expands the contents of CertificateTemplatePredefinedValuesKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsage) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsage, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsage(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3247,14 +3251,14 @@ func expandCertificateTemplatePredefinedValuesKeyUsageMap(c *Client, f map[strin
 
 // expandCertificateTemplatePredefinedValuesKeyUsageSlice expands the contents of CertificateTemplatePredefinedValuesKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsage, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsage(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3307,23 +3311,23 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, i interf
 
 // expandCertificateTemplatePredefinedValuesKeyUsage expands an instance of CertificateTemplatePredefinedValuesKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsage(c *Client, f *CertificateTemplatePredefinedValuesKeyUsage) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsage(c *Client, f *CertificateTemplatePredefinedValuesKeyUsage, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, f.BaseKeyUsage); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, f.BaseKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding BaseKeyUsage into baseKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["baseKeyUsage"] = v
 	}
-	if v, err := expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExtendedKeyUsage into extendedKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["extendedKeyUsage"] = v
 	}
-	if v, err := expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages, res); err != nil {
 		return nil, fmt.Errorf("error expanding UnknownExtendedKeyUsages into unknownExtendedKeyUsages: %w", err)
 	} else if v != nil {
 		m["unknownExtendedKeyUsages"] = v
@@ -3354,14 +3358,14 @@ func flattenCertificateTemplatePredefinedValuesKeyUsage(c *Client, i interface{}
 
 // expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap expands the contents of CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3375,14 +3379,14 @@ func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap(c *Client,
 
 // expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice expands the contents of CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3435,7 +3439,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(c *Clie
 
 // expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage expands an instance of CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c *Client, f *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c *Client, f *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3500,14 +3504,14 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c *Client, i
 
 // expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap expands the contents of CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3521,14 +3525,14 @@ func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap(c *Cli
 
 // expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice expands the contents of CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3581,7 +3585,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(c *
 
 // expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage expands an instance of CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c *Client, f *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c *Client, f *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3634,14 +3638,14 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c *Clien
 
 // expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesMap expands the contents of CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3655,14 +3659,14 @@ func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesMa
 
 // expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice expands the contents of CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3715,7 +3719,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesS
 
 // expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages expands an instance of CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -3748,14 +3752,14 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(
 
 // expandCertificateTemplatePredefinedValuesCaOptionsMap expands the contents of CertificateTemplatePredefinedValuesCaOptions into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesCaOptionsMap(c *Client, f map[string]CertificateTemplatePredefinedValuesCaOptions) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesCaOptionsMap(c *Client, f map[string]CertificateTemplatePredefinedValuesCaOptions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesCaOptions(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3769,14 +3773,14 @@ func expandCertificateTemplatePredefinedValuesCaOptionsMap(c *Client, f map[stri
 
 // expandCertificateTemplatePredefinedValuesCaOptionsSlice expands the contents of CertificateTemplatePredefinedValuesCaOptions into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client, f []CertificateTemplatePredefinedValuesCaOptions) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client, f []CertificateTemplatePredefinedValuesCaOptions, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesCaOptions(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3829,7 +3833,7 @@ func flattenCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client, i inter
 
 // expandCertificateTemplatePredefinedValuesCaOptions expands an instance of CertificateTemplatePredefinedValuesCaOptions into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesCaOptions(c *Client, f *CertificateTemplatePredefinedValuesCaOptions) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesCaOptions(c *Client, f *CertificateTemplatePredefinedValuesCaOptions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3866,14 +3870,14 @@ func flattenCertificateTemplatePredefinedValuesCaOptions(c *Client, i interface{
 
 // expandCertificateTemplatePredefinedValuesPolicyIdsMap expands the contents of CertificateTemplatePredefinedValuesPolicyIds into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesPolicyIdsMap(c *Client, f map[string]CertificateTemplatePredefinedValuesPolicyIds) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesPolicyIdsMap(c *Client, f map[string]CertificateTemplatePredefinedValuesPolicyIds, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesPolicyIds(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3887,14 +3891,14 @@ func expandCertificateTemplatePredefinedValuesPolicyIdsMap(c *Client, f map[stri
 
 // expandCertificateTemplatePredefinedValuesPolicyIdsSlice expands the contents of CertificateTemplatePredefinedValuesPolicyIds into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client, f []CertificateTemplatePredefinedValuesPolicyIds) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client, f []CertificateTemplatePredefinedValuesPolicyIds, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesPolicyIds(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3947,7 +3951,7 @@ func flattenCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client, i inter
 
 // expandCertificateTemplatePredefinedValuesPolicyIds expands an instance of CertificateTemplatePredefinedValuesPolicyIds into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesPolicyIds(c *Client, f *CertificateTemplatePredefinedValuesPolicyIds) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesPolicyIds(c *Client, f *CertificateTemplatePredefinedValuesPolicyIds, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -3980,14 +3984,14 @@ func flattenCertificateTemplatePredefinedValuesPolicyIds(c *Client, i interface{
 
 // expandCertificateTemplatePredefinedValuesAdditionalExtensionsMap expands the contents of CertificateTemplatePredefinedValuesAdditionalExtensions into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesAdditionalExtensionsMap(c *Client, f map[string]CertificateTemplatePredefinedValuesAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesAdditionalExtensionsMap(c *Client, f map[string]CertificateTemplatePredefinedValuesAdditionalExtensions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensions(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4001,14 +4005,14 @@ func expandCertificateTemplatePredefinedValuesAdditionalExtensionsMap(c *Client,
 
 // expandCertificateTemplatePredefinedValuesAdditionalExtensionsSlice expands the contents of CertificateTemplatePredefinedValuesAdditionalExtensions into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c *Client, f []CertificateTemplatePredefinedValuesAdditionalExtensions) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c *Client, f []CertificateTemplatePredefinedValuesAdditionalExtensions, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensions(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4061,13 +4065,13 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c *Clie
 
 // expandCertificateTemplatePredefinedValuesAdditionalExtensions expands an instance of CertificateTemplatePredefinedValuesAdditionalExtensions into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, f *CertificateTemplatePredefinedValuesAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, f *CertificateTemplatePredefinedValuesAdditionalExtensions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, f.ObjectId); err != nil {
+	if v, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, f.ObjectId, res); err != nil {
 		return nil, fmt.Errorf("error expanding ObjectId into objectId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["objectId"] = v
@@ -4104,14 +4108,14 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, i
 
 // expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap expands the contents of CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap(c *Client, f map[string]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap(c *Client, f map[string]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4125,14 +4129,14 @@ func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap(c 
 
 // expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice expands the contents of CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice(c *Client, f []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice(c *Client, f []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4185,7 +4189,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice
 
 // expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId expands an instance of CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c *Client, f *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c *Client, f *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4218,14 +4222,14 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c *C
 
 // expandCertificateTemplateIdentityConstraintsMap expands the contents of CertificateTemplateIdentityConstraints into a JSON
 // request object.
-func expandCertificateTemplateIdentityConstraintsMap(c *Client, f map[string]CertificateTemplateIdentityConstraints) (map[string]interface{}, error) {
+func expandCertificateTemplateIdentityConstraintsMap(c *Client, f map[string]CertificateTemplateIdentityConstraints, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplateIdentityConstraints(c, &item)
+		i, err := expandCertificateTemplateIdentityConstraints(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4239,14 +4243,14 @@ func expandCertificateTemplateIdentityConstraintsMap(c *Client, f map[string]Cer
 
 // expandCertificateTemplateIdentityConstraintsSlice expands the contents of CertificateTemplateIdentityConstraints into a JSON
 // request object.
-func expandCertificateTemplateIdentityConstraintsSlice(c *Client, f []CertificateTemplateIdentityConstraints) ([]map[string]interface{}, error) {
+func expandCertificateTemplateIdentityConstraintsSlice(c *Client, f []CertificateTemplateIdentityConstraints, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplateIdentityConstraints(c, &item)
+		i, err := expandCertificateTemplateIdentityConstraints(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4299,13 +4303,13 @@ func flattenCertificateTemplateIdentityConstraintsSlice(c *Client, i interface{}
 
 // expandCertificateTemplateIdentityConstraints expands an instance of CertificateTemplateIdentityConstraints into a JSON
 // request object.
-func expandCertificateTemplateIdentityConstraints(c *Client, f *CertificateTemplateIdentityConstraints) (map[string]interface{}, error) {
+func expandCertificateTemplateIdentityConstraints(c *Client, f *CertificateTemplateIdentityConstraints, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateTemplateIdentityConstraintsCelExpression(c, f.CelExpression); err != nil {
+	if v, err := expandCertificateTemplateIdentityConstraintsCelExpression(c, f.CelExpression, res); err != nil {
 		return nil, fmt.Errorf("error expanding CelExpression into celExpression: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["celExpression"] = v
@@ -4342,14 +4346,14 @@ func flattenCertificateTemplateIdentityConstraints(c *Client, i interface{}) *Ce
 
 // expandCertificateTemplateIdentityConstraintsCelExpressionMap expands the contents of CertificateTemplateIdentityConstraintsCelExpression into a JSON
 // request object.
-func expandCertificateTemplateIdentityConstraintsCelExpressionMap(c *Client, f map[string]CertificateTemplateIdentityConstraintsCelExpression) (map[string]interface{}, error) {
+func expandCertificateTemplateIdentityConstraintsCelExpressionMap(c *Client, f map[string]CertificateTemplateIdentityConstraintsCelExpression, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplateIdentityConstraintsCelExpression(c, &item)
+		i, err := expandCertificateTemplateIdentityConstraintsCelExpression(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4363,14 +4367,14 @@ func expandCertificateTemplateIdentityConstraintsCelExpressionMap(c *Client, f m
 
 // expandCertificateTemplateIdentityConstraintsCelExpressionSlice expands the contents of CertificateTemplateIdentityConstraintsCelExpression into a JSON
 // request object.
-func expandCertificateTemplateIdentityConstraintsCelExpressionSlice(c *Client, f []CertificateTemplateIdentityConstraintsCelExpression) ([]map[string]interface{}, error) {
+func expandCertificateTemplateIdentityConstraintsCelExpressionSlice(c *Client, f []CertificateTemplateIdentityConstraintsCelExpression, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplateIdentityConstraintsCelExpression(c, &item)
+		i, err := expandCertificateTemplateIdentityConstraintsCelExpression(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4423,7 +4427,7 @@ func flattenCertificateTemplateIdentityConstraintsCelExpressionSlice(c *Client, 
 
 // expandCertificateTemplateIdentityConstraintsCelExpression expands an instance of CertificateTemplateIdentityConstraintsCelExpression into a JSON
 // request object.
-func expandCertificateTemplateIdentityConstraintsCelExpression(c *Client, f *CertificateTemplateIdentityConstraintsCelExpression) (map[string]interface{}, error) {
+func expandCertificateTemplateIdentityConstraintsCelExpression(c *Client, f *CertificateTemplateIdentityConstraintsCelExpression, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4468,14 +4472,14 @@ func flattenCertificateTemplateIdentityConstraintsCelExpression(c *Client, i int
 
 // expandCertificateTemplatePassthroughExtensionsMap expands the contents of CertificateTemplatePassthroughExtensions into a JSON
 // request object.
-func expandCertificateTemplatePassthroughExtensionsMap(c *Client, f map[string]CertificateTemplatePassthroughExtensions) (map[string]interface{}, error) {
+func expandCertificateTemplatePassthroughExtensionsMap(c *Client, f map[string]CertificateTemplatePassthroughExtensions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePassthroughExtensions(c, &item)
+		i, err := expandCertificateTemplatePassthroughExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4489,14 +4493,14 @@ func expandCertificateTemplatePassthroughExtensionsMap(c *Client, f map[string]C
 
 // expandCertificateTemplatePassthroughExtensionsSlice expands the contents of CertificateTemplatePassthroughExtensions into a JSON
 // request object.
-func expandCertificateTemplatePassthroughExtensionsSlice(c *Client, f []CertificateTemplatePassthroughExtensions) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePassthroughExtensionsSlice(c *Client, f []CertificateTemplatePassthroughExtensions, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePassthroughExtensions(c, &item)
+		i, err := expandCertificateTemplatePassthroughExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4549,7 +4553,7 @@ func flattenCertificateTemplatePassthroughExtensionsSlice(c *Client, i interface
 
 // expandCertificateTemplatePassthroughExtensions expands an instance of CertificateTemplatePassthroughExtensions into a JSON
 // request object.
-func expandCertificateTemplatePassthroughExtensions(c *Client, f *CertificateTemplatePassthroughExtensions) (map[string]interface{}, error) {
+func expandCertificateTemplatePassthroughExtensions(c *Client, f *CertificateTemplatePassthroughExtensions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4558,7 +4562,7 @@ func expandCertificateTemplatePassthroughExtensions(c *Client, f *CertificateTem
 	if v := f.KnownExtensions; v != nil {
 		m["knownExtensions"] = v
 	}
-	if v, err := expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
+	if v, err := expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c, f.AdditionalExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
 	} else if v != nil {
 		m["additionalExtensions"] = v
@@ -4588,14 +4592,14 @@ func flattenCertificateTemplatePassthroughExtensions(c *Client, i interface{}) *
 
 // expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap expands the contents of CertificateTemplatePassthroughExtensionsAdditionalExtensions into a JSON
 // request object.
-func expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap(c *Client, f map[string]CertificateTemplatePassthroughExtensionsAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap(c *Client, f map[string]CertificateTemplatePassthroughExtensionsAdditionalExtensions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, &item)
+		i, err := expandCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4609,14 +4613,14 @@ func expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap(c *Cl
 
 // expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice expands the contents of CertificateTemplatePassthroughExtensionsAdditionalExtensions into a JSON
 // request object.
-func expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c *Client, f []CertificateTemplatePassthroughExtensionsAdditionalExtensions) ([]map[string]interface{}, error) {
+func expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c *Client, f []CertificateTemplatePassthroughExtensionsAdditionalExtensions, res *CertificateTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, &item)
+		i, err := expandCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4669,7 +4673,7 @@ func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c 
 
 // expandCertificateTemplatePassthroughExtensionsAdditionalExtensions expands an instance of CertificateTemplatePassthroughExtensionsAdditionalExtensions into a JSON
 // request object.
-func expandCertificateTemplatePassthroughExtensionsAdditionalExtensions(c *Client, f *CertificateTemplatePassthroughExtensionsAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateTemplatePassthroughExtensionsAdditionalExtensions(c *Client, f *CertificateTemplatePassthroughExtensionsAdditionalExtensions, res *CertificateTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

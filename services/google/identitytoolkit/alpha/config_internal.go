@@ -248,28 +248,30 @@ type configApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateConfigUpdateProjectConfigRequest(ctx context.Context, f *Config, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandConfigSignIn(c, f.SignIn); err != nil {
+	if v, err := expandConfigSignIn(c, f.SignIn, res); err != nil {
 		return nil, fmt.Errorf("error expanding SignIn into signIn: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["signIn"] = v
 	}
-	if v, err := expandConfigNotification(c, f.Notification); err != nil {
+	if v, err := expandConfigNotification(c, f.Notification, res); err != nil {
 		return nil, fmt.Errorf("error expanding Notification into notification: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["notification"] = v
 	}
-	if v, err := expandConfigQuota(c, f.Quota); err != nil {
+	if v, err := expandConfigQuota(c, f.Quota, res); err != nil {
 		return nil, fmt.Errorf("error expanding Quota into quota: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["quota"] = v
 	}
-	if v, err := expandConfigMonitoring(c, f.Monitoring); err != nil {
+	if v, err := expandConfigMonitoring(c, f.Monitoring, res); err != nil {
 		return nil, fmt.Errorf("error expanding Monitoring into monitoring: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["monitoring"] = v
 	}
-	if v, err := expandConfigMultiTenant(c, f.MultiTenant); err != nil {
+	if v, err := expandConfigMultiTenant(c, f.MultiTenant, res); err != nil {
 		return nil, fmt.Errorf("error expanding MultiTenant into multiTenant: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["multiTenant"] = v
@@ -277,17 +279,17 @@ func newUpdateConfigUpdateProjectConfigRequest(ctx context.Context, f *Config, c
 	if v := f.AuthorizedDomains; v != nil {
 		req["authorizedDomains"] = v
 	}
-	if v, err := expandConfigClient(c, f.Client); err != nil {
+	if v, err := expandConfigClient(c, f.Client, res); err != nil {
 		return nil, fmt.Errorf("error expanding Client into client: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["client"] = v
 	}
-	if v, err := expandConfigMfa(c, f.Mfa); err != nil {
+	if v, err := expandConfigMfa(c, f.Mfa, res); err != nil {
 		return nil, fmt.Errorf("error expanding Mfa into mfa: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["mfa"] = v
 	}
-	if v, err := expandConfigBlockingFunctions(c, f.BlockingFunctions); err != nil {
+	if v, err := expandConfigBlockingFunctions(c, f.BlockingFunctions, res); err != nil {
 		return nil, fmt.Errorf("error expanding BlockingFunctions into blockingFunctions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["blockingFunctions"] = v
@@ -4476,32 +4478,34 @@ func unmarshalMapConfig(m map[string]interface{}, c *Client) (*Config, error) {
 // expandConfig expands Config into a JSON request object.
 func expandConfig(c *Client, f *Config) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/config", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandConfigSignIn(c, f.SignIn); err != nil {
+	if v, err := expandConfigSignIn(c, f.SignIn, res); err != nil {
 		return nil, fmt.Errorf("error expanding SignIn into signIn: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["signIn"] = v
 	}
-	if v, err := expandConfigNotification(c, f.Notification); err != nil {
+	if v, err := expandConfigNotification(c, f.Notification, res); err != nil {
 		return nil, fmt.Errorf("error expanding Notification into notification: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["notification"] = v
 	}
-	if v, err := expandConfigQuota(c, f.Quota); err != nil {
+	if v, err := expandConfigQuota(c, f.Quota, res); err != nil {
 		return nil, fmt.Errorf("error expanding Quota into quota: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["quota"] = v
 	}
-	if v, err := expandConfigMonitoring(c, f.Monitoring); err != nil {
+	if v, err := expandConfigMonitoring(c, f.Monitoring, res); err != nil {
 		return nil, fmt.Errorf("error expanding Monitoring into monitoring: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["monitoring"] = v
 	}
-	if v, err := expandConfigMultiTenant(c, f.MultiTenant); err != nil {
+	if v, err := expandConfigMultiTenant(c, f.MultiTenant, res); err != nil {
 		return nil, fmt.Errorf("error expanding MultiTenant into multiTenant: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["multiTenant"] = v
@@ -4509,17 +4513,17 @@ func expandConfig(c *Client, f *Config) (map[string]interface{}, error) {
 	if v := f.AuthorizedDomains; v != nil {
 		m["authorizedDomains"] = v
 	}
-	if v, err := expandConfigClient(c, f.Client); err != nil {
+	if v, err := expandConfigClient(c, f.Client, res); err != nil {
 		return nil, fmt.Errorf("error expanding Client into client: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["client"] = v
 	}
-	if v, err := expandConfigMfa(c, f.Mfa); err != nil {
+	if v, err := expandConfigMfa(c, f.Mfa, res); err != nil {
 		return nil, fmt.Errorf("error expanding Mfa into mfa: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mfa"] = v
 	}
-	if v, err := expandConfigBlockingFunctions(c, f.BlockingFunctions); err != nil {
+	if v, err := expandConfigBlockingFunctions(c, f.BlockingFunctions, res); err != nil {
 		return nil, fmt.Errorf("error expanding BlockingFunctions into blockingFunctions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blockingFunctions"] = v
@@ -4557,14 +4561,14 @@ func flattenConfig(c *Client, i interface{}) *Config {
 
 // expandConfigSignInMap expands the contents of ConfigSignIn into a JSON
 // request object.
-func expandConfigSignInMap(c *Client, f map[string]ConfigSignIn) (map[string]interface{}, error) {
+func expandConfigSignInMap(c *Client, f map[string]ConfigSignIn, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigSignIn(c, &item)
+		i, err := expandConfigSignIn(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4578,14 +4582,14 @@ func expandConfigSignInMap(c *Client, f map[string]ConfigSignIn) (map[string]int
 
 // expandConfigSignInSlice expands the contents of ConfigSignIn into a JSON
 // request object.
-func expandConfigSignInSlice(c *Client, f []ConfigSignIn) ([]map[string]interface{}, error) {
+func expandConfigSignInSlice(c *Client, f []ConfigSignIn, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigSignIn(c, &item)
+		i, err := expandConfigSignIn(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4638,23 +4642,23 @@ func flattenConfigSignInSlice(c *Client, i interface{}) []ConfigSignIn {
 
 // expandConfigSignIn expands an instance of ConfigSignIn into a JSON
 // request object.
-func expandConfigSignIn(c *Client, f *ConfigSignIn) (map[string]interface{}, error) {
+func expandConfigSignIn(c *Client, f *ConfigSignIn, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandConfigSignInEmail(c, f.Email); err != nil {
+	if v, err := expandConfigSignInEmail(c, f.Email, res); err != nil {
 		return nil, fmt.Errorf("error expanding Email into email: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["email"] = v
 	}
-	if v, err := expandConfigSignInPhoneNumber(c, f.PhoneNumber); err != nil {
+	if v, err := expandConfigSignInPhoneNumber(c, f.PhoneNumber, res); err != nil {
 		return nil, fmt.Errorf("error expanding PhoneNumber into phoneNumber: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["phoneNumber"] = v
 	}
-	if v, err := expandConfigSignInAnonymous(c, f.Anonymous); err != nil {
+	if v, err := expandConfigSignInAnonymous(c, f.Anonymous, res); err != nil {
 		return nil, fmt.Errorf("error expanding Anonymous into anonymous: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["anonymous"] = v
@@ -4690,14 +4694,14 @@ func flattenConfigSignIn(c *Client, i interface{}) *ConfigSignIn {
 
 // expandConfigSignInEmailMap expands the contents of ConfigSignInEmail into a JSON
 // request object.
-func expandConfigSignInEmailMap(c *Client, f map[string]ConfigSignInEmail) (map[string]interface{}, error) {
+func expandConfigSignInEmailMap(c *Client, f map[string]ConfigSignInEmail, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigSignInEmail(c, &item)
+		i, err := expandConfigSignInEmail(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4711,14 +4715,14 @@ func expandConfigSignInEmailMap(c *Client, f map[string]ConfigSignInEmail) (map[
 
 // expandConfigSignInEmailSlice expands the contents of ConfigSignInEmail into a JSON
 // request object.
-func expandConfigSignInEmailSlice(c *Client, f []ConfigSignInEmail) ([]map[string]interface{}, error) {
+func expandConfigSignInEmailSlice(c *Client, f []ConfigSignInEmail, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigSignInEmail(c, &item)
+		i, err := expandConfigSignInEmail(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4771,7 +4775,7 @@ func flattenConfigSignInEmailSlice(c *Client, i interface{}) []ConfigSignInEmail
 
 // expandConfigSignInEmail expands an instance of ConfigSignInEmail into a JSON
 // request object.
-func expandConfigSignInEmail(c *Client, f *ConfigSignInEmail) (map[string]interface{}, error) {
+func expandConfigSignInEmail(c *Client, f *ConfigSignInEmail, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4809,14 +4813,14 @@ func flattenConfigSignInEmail(c *Client, i interface{}) *ConfigSignInEmail {
 
 // expandConfigSignInEmailHashConfigMap expands the contents of ConfigSignInEmailHashConfig into a JSON
 // request object.
-func expandConfigSignInEmailHashConfigMap(c *Client, f map[string]ConfigSignInEmailHashConfig) (map[string]interface{}, error) {
+func expandConfigSignInEmailHashConfigMap(c *Client, f map[string]ConfigSignInEmailHashConfig, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigSignInEmailHashConfig(c, &item)
+		i, err := expandConfigSignInEmailHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4830,14 +4834,14 @@ func expandConfigSignInEmailHashConfigMap(c *Client, f map[string]ConfigSignInEm
 
 // expandConfigSignInEmailHashConfigSlice expands the contents of ConfigSignInEmailHashConfig into a JSON
 // request object.
-func expandConfigSignInEmailHashConfigSlice(c *Client, f []ConfigSignInEmailHashConfig) ([]map[string]interface{}, error) {
+func expandConfigSignInEmailHashConfigSlice(c *Client, f []ConfigSignInEmailHashConfig, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigSignInEmailHashConfig(c, &item)
+		i, err := expandConfigSignInEmailHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4890,7 +4894,7 @@ func flattenConfigSignInEmailHashConfigSlice(c *Client, i interface{}) []ConfigS
 
 // expandConfigSignInEmailHashConfig expands an instance of ConfigSignInEmailHashConfig into a JSON
 // request object.
-func expandConfigSignInEmailHashConfig(c *Client, f *ConfigSignInEmailHashConfig) (map[string]interface{}, error) {
+func expandConfigSignInEmailHashConfig(c *Client, f *ConfigSignInEmailHashConfig, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4924,14 +4928,14 @@ func flattenConfigSignInEmailHashConfig(c *Client, i interface{}) *ConfigSignInE
 
 // expandConfigSignInPhoneNumberMap expands the contents of ConfigSignInPhoneNumber into a JSON
 // request object.
-func expandConfigSignInPhoneNumberMap(c *Client, f map[string]ConfigSignInPhoneNumber) (map[string]interface{}, error) {
+func expandConfigSignInPhoneNumberMap(c *Client, f map[string]ConfigSignInPhoneNumber, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigSignInPhoneNumber(c, &item)
+		i, err := expandConfigSignInPhoneNumber(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4945,14 +4949,14 @@ func expandConfigSignInPhoneNumberMap(c *Client, f map[string]ConfigSignInPhoneN
 
 // expandConfigSignInPhoneNumberSlice expands the contents of ConfigSignInPhoneNumber into a JSON
 // request object.
-func expandConfigSignInPhoneNumberSlice(c *Client, f []ConfigSignInPhoneNumber) ([]map[string]interface{}, error) {
+func expandConfigSignInPhoneNumberSlice(c *Client, f []ConfigSignInPhoneNumber, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigSignInPhoneNumber(c, &item)
+		i, err := expandConfigSignInPhoneNumber(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5005,7 +5009,7 @@ func flattenConfigSignInPhoneNumberSlice(c *Client, i interface{}) []ConfigSignI
 
 // expandConfigSignInPhoneNumber expands an instance of ConfigSignInPhoneNumber into a JSON
 // request object.
-func expandConfigSignInPhoneNumber(c *Client, f *ConfigSignInPhoneNumber) (map[string]interface{}, error) {
+func expandConfigSignInPhoneNumber(c *Client, f *ConfigSignInPhoneNumber, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5042,14 +5046,14 @@ func flattenConfigSignInPhoneNumber(c *Client, i interface{}) *ConfigSignInPhone
 
 // expandConfigSignInAnonymousMap expands the contents of ConfigSignInAnonymous into a JSON
 // request object.
-func expandConfigSignInAnonymousMap(c *Client, f map[string]ConfigSignInAnonymous) (map[string]interface{}, error) {
+func expandConfigSignInAnonymousMap(c *Client, f map[string]ConfigSignInAnonymous, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigSignInAnonymous(c, &item)
+		i, err := expandConfigSignInAnonymous(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5063,14 +5067,14 @@ func expandConfigSignInAnonymousMap(c *Client, f map[string]ConfigSignInAnonymou
 
 // expandConfigSignInAnonymousSlice expands the contents of ConfigSignInAnonymous into a JSON
 // request object.
-func expandConfigSignInAnonymousSlice(c *Client, f []ConfigSignInAnonymous) ([]map[string]interface{}, error) {
+func expandConfigSignInAnonymousSlice(c *Client, f []ConfigSignInAnonymous, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigSignInAnonymous(c, &item)
+		i, err := expandConfigSignInAnonymous(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5123,7 +5127,7 @@ func flattenConfigSignInAnonymousSlice(c *Client, i interface{}) []ConfigSignInA
 
 // expandConfigSignInAnonymous expands an instance of ConfigSignInAnonymous into a JSON
 // request object.
-func expandConfigSignInAnonymous(c *Client, f *ConfigSignInAnonymous) (map[string]interface{}, error) {
+func expandConfigSignInAnonymous(c *Client, f *ConfigSignInAnonymous, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5156,14 +5160,14 @@ func flattenConfigSignInAnonymous(c *Client, i interface{}) *ConfigSignInAnonymo
 
 // expandConfigSignInHashConfigMap expands the contents of ConfigSignInHashConfig into a JSON
 // request object.
-func expandConfigSignInHashConfigMap(c *Client, f map[string]ConfigSignInHashConfig) (map[string]interface{}, error) {
+func expandConfigSignInHashConfigMap(c *Client, f map[string]ConfigSignInHashConfig, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigSignInHashConfig(c, &item)
+		i, err := expandConfigSignInHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5177,14 +5181,14 @@ func expandConfigSignInHashConfigMap(c *Client, f map[string]ConfigSignInHashCon
 
 // expandConfigSignInHashConfigSlice expands the contents of ConfigSignInHashConfig into a JSON
 // request object.
-func expandConfigSignInHashConfigSlice(c *Client, f []ConfigSignInHashConfig) ([]map[string]interface{}, error) {
+func expandConfigSignInHashConfigSlice(c *Client, f []ConfigSignInHashConfig, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigSignInHashConfig(c, &item)
+		i, err := expandConfigSignInHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5237,7 +5241,7 @@ func flattenConfigSignInHashConfigSlice(c *Client, i interface{}) []ConfigSignIn
 
 // expandConfigSignInHashConfig expands an instance of ConfigSignInHashConfig into a JSON
 // request object.
-func expandConfigSignInHashConfig(c *Client, f *ConfigSignInHashConfig) (map[string]interface{}, error) {
+func expandConfigSignInHashConfig(c *Client, f *ConfigSignInHashConfig, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5271,14 +5275,14 @@ func flattenConfigSignInHashConfig(c *Client, i interface{}) *ConfigSignInHashCo
 
 // expandConfigNotificationMap expands the contents of ConfigNotification into a JSON
 // request object.
-func expandConfigNotificationMap(c *Client, f map[string]ConfigNotification) (map[string]interface{}, error) {
+func expandConfigNotificationMap(c *Client, f map[string]ConfigNotification, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigNotification(c, &item)
+		i, err := expandConfigNotification(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5292,14 +5296,14 @@ func expandConfigNotificationMap(c *Client, f map[string]ConfigNotification) (ma
 
 // expandConfigNotificationSlice expands the contents of ConfigNotification into a JSON
 // request object.
-func expandConfigNotificationSlice(c *Client, f []ConfigNotification) ([]map[string]interface{}, error) {
+func expandConfigNotificationSlice(c *Client, f []ConfigNotification, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigNotification(c, &item)
+		i, err := expandConfigNotification(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5352,18 +5356,18 @@ func flattenConfigNotificationSlice(c *Client, i interface{}) []ConfigNotificati
 
 // expandConfigNotification expands an instance of ConfigNotification into a JSON
 // request object.
-func expandConfigNotification(c *Client, f *ConfigNotification) (map[string]interface{}, error) {
+func expandConfigNotification(c *Client, f *ConfigNotification, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandConfigNotificationSendEmail(c, f.SendEmail); err != nil {
+	if v, err := expandConfigNotificationSendEmail(c, f.SendEmail, res); err != nil {
 		return nil, fmt.Errorf("error expanding SendEmail into sendEmail: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sendEmail"] = v
 	}
-	if v, err := expandConfigNotificationSendSms(c, f.SendSms); err != nil {
+	if v, err := expandConfigNotificationSendSms(c, f.SendSms, res); err != nil {
 		return nil, fmt.Errorf("error expanding SendSms into sendSms: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sendSms"] = v
@@ -5397,14 +5401,14 @@ func flattenConfigNotification(c *Client, i interface{}) *ConfigNotification {
 
 // expandConfigNotificationSendEmailMap expands the contents of ConfigNotificationSendEmail into a JSON
 // request object.
-func expandConfigNotificationSendEmailMap(c *Client, f map[string]ConfigNotificationSendEmail) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmailMap(c *Client, f map[string]ConfigNotificationSendEmail, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigNotificationSendEmail(c, &item)
+		i, err := expandConfigNotificationSendEmail(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5418,14 +5422,14 @@ func expandConfigNotificationSendEmailMap(c *Client, f map[string]ConfigNotifica
 
 // expandConfigNotificationSendEmailSlice expands the contents of ConfigNotificationSendEmail into a JSON
 // request object.
-func expandConfigNotificationSendEmailSlice(c *Client, f []ConfigNotificationSendEmail) ([]map[string]interface{}, error) {
+func expandConfigNotificationSendEmailSlice(c *Client, f []ConfigNotificationSendEmail, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigNotificationSendEmail(c, &item)
+		i, err := expandConfigNotificationSendEmail(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5478,7 +5482,7 @@ func flattenConfigNotificationSendEmailSlice(c *Client, i interface{}) []ConfigN
 
 // expandConfigNotificationSendEmail expands an instance of ConfigNotificationSendEmail into a JSON
 // request object.
-func expandConfigNotificationSendEmail(c *Client, f *ConfigNotificationSendEmail) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmail(c *Client, f *ConfigNotificationSendEmail, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5487,22 +5491,22 @@ func expandConfigNotificationSendEmail(c *Client, f *ConfigNotificationSendEmail
 	if v := f.Method; !dcl.IsEmptyValueIndirect(v) {
 		m["method"] = v
 	}
-	if v, err := expandConfigNotificationSendEmailSmtp(c, f.Smtp); err != nil {
+	if v, err := expandConfigNotificationSendEmailSmtp(c, f.Smtp, res); err != nil {
 		return nil, fmt.Errorf("error expanding Smtp into smtp: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["smtp"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.ResetPasswordTemplate); err != nil {
+	if v, err := expandConfigEmailTemplate(c, f.ResetPasswordTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResetPasswordTemplate into resetPasswordTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resetPasswordTemplate"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.VerifyEmailTemplate); err != nil {
+	if v, err := expandConfigEmailTemplate(c, f.VerifyEmailTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding VerifyEmailTemplate into verifyEmailTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["verifyEmailTemplate"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.ChangeEmailTemplate); err != nil {
+	if v, err := expandConfigEmailTemplate(c, f.ChangeEmailTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding ChangeEmailTemplate into changeEmailTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["changeEmailTemplate"] = v
@@ -5510,12 +5514,12 @@ func expandConfigNotificationSendEmail(c *Client, f *ConfigNotificationSendEmail
 	if v := f.CallbackUri; !dcl.IsEmptyValueIndirect(v) {
 		m["callbackUri"] = v
 	}
-	if v, err := expandConfigNotificationSendEmailDnsInfo(c, f.DnsInfo); err != nil {
+	if v, err := expandConfigNotificationSendEmailDnsInfo(c, f.DnsInfo, res); err != nil {
 		return nil, fmt.Errorf("error expanding DnsInfo into dnsInfo: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dnsInfo"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.RevertSecondFactorAdditionTemplate); err != nil {
+	if v, err := expandConfigEmailTemplate(c, f.RevertSecondFactorAdditionTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding RevertSecondFactorAdditionTemplate into revertSecondFactorAdditionTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["revertSecondFactorAdditionTemplate"] = v
@@ -5551,14 +5555,14 @@ func flattenConfigNotificationSendEmail(c *Client, i interface{}) *ConfigNotific
 
 // expandConfigNotificationSendEmailSmtpMap expands the contents of ConfigNotificationSendEmailSmtp into a JSON
 // request object.
-func expandConfigNotificationSendEmailSmtpMap(c *Client, f map[string]ConfigNotificationSendEmailSmtp) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmailSmtpMap(c *Client, f map[string]ConfigNotificationSendEmailSmtp, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigNotificationSendEmailSmtp(c, &item)
+		i, err := expandConfigNotificationSendEmailSmtp(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5572,14 +5576,14 @@ func expandConfigNotificationSendEmailSmtpMap(c *Client, f map[string]ConfigNoti
 
 // expandConfigNotificationSendEmailSmtpSlice expands the contents of ConfigNotificationSendEmailSmtp into a JSON
 // request object.
-func expandConfigNotificationSendEmailSmtpSlice(c *Client, f []ConfigNotificationSendEmailSmtp) ([]map[string]interface{}, error) {
+func expandConfigNotificationSendEmailSmtpSlice(c *Client, f []ConfigNotificationSendEmailSmtp, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigNotificationSendEmailSmtp(c, &item)
+		i, err := expandConfigNotificationSendEmailSmtp(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5632,7 +5636,7 @@ func flattenConfigNotificationSendEmailSmtpSlice(c *Client, i interface{}) []Con
 
 // expandConfigNotificationSendEmailSmtp expands an instance of ConfigNotificationSendEmailSmtp into a JSON
 // request object.
-func expandConfigNotificationSendEmailSmtp(c *Client, f *ConfigNotificationSendEmailSmtp) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmailSmtp(c *Client, f *ConfigNotificationSendEmailSmtp, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5685,14 +5689,14 @@ func flattenConfigNotificationSendEmailSmtp(c *Client, i interface{}) *ConfigNot
 
 // expandConfigEmailTemplateMap expands the contents of ConfigEmailTemplate into a JSON
 // request object.
-func expandConfigEmailTemplateMap(c *Client, f map[string]ConfigEmailTemplate) (map[string]interface{}, error) {
+func expandConfigEmailTemplateMap(c *Client, f map[string]ConfigEmailTemplate, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigEmailTemplate(c, &item)
+		i, err := expandConfigEmailTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5706,14 +5710,14 @@ func expandConfigEmailTemplateMap(c *Client, f map[string]ConfigEmailTemplate) (
 
 // expandConfigEmailTemplateSlice expands the contents of ConfigEmailTemplate into a JSON
 // request object.
-func expandConfigEmailTemplateSlice(c *Client, f []ConfigEmailTemplate) ([]map[string]interface{}, error) {
+func expandConfigEmailTemplateSlice(c *Client, f []ConfigEmailTemplate, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigEmailTemplate(c, &item)
+		i, err := expandConfigEmailTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5766,7 +5770,7 @@ func flattenConfigEmailTemplateSlice(c *Client, i interface{}) []ConfigEmailTemp
 
 // expandConfigEmailTemplate expands an instance of ConfigEmailTemplate into a JSON
 // request object.
-func expandConfigEmailTemplate(c *Client, f *ConfigEmailTemplate) (map[string]interface{}, error) {
+func expandConfigEmailTemplate(c *Client, f *ConfigEmailTemplate, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5820,14 +5824,14 @@ func flattenConfigEmailTemplate(c *Client, i interface{}) *ConfigEmailTemplate {
 
 // expandConfigNotificationSendEmailDnsInfoMap expands the contents of ConfigNotificationSendEmailDnsInfo into a JSON
 // request object.
-func expandConfigNotificationSendEmailDnsInfoMap(c *Client, f map[string]ConfigNotificationSendEmailDnsInfo) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmailDnsInfoMap(c *Client, f map[string]ConfigNotificationSendEmailDnsInfo, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigNotificationSendEmailDnsInfo(c, &item)
+		i, err := expandConfigNotificationSendEmailDnsInfo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5841,14 +5845,14 @@ func expandConfigNotificationSendEmailDnsInfoMap(c *Client, f map[string]ConfigN
 
 // expandConfigNotificationSendEmailDnsInfoSlice expands the contents of ConfigNotificationSendEmailDnsInfo into a JSON
 // request object.
-func expandConfigNotificationSendEmailDnsInfoSlice(c *Client, f []ConfigNotificationSendEmailDnsInfo) ([]map[string]interface{}, error) {
+func expandConfigNotificationSendEmailDnsInfoSlice(c *Client, f []ConfigNotificationSendEmailDnsInfo, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigNotificationSendEmailDnsInfo(c, &item)
+		i, err := expandConfigNotificationSendEmailDnsInfo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5901,7 +5905,7 @@ func flattenConfigNotificationSendEmailDnsInfoSlice(c *Client, i interface{}) []
 
 // expandConfigNotificationSendEmailDnsInfo expands an instance of ConfigNotificationSendEmailDnsInfo into a JSON
 // request object.
-func expandConfigNotificationSendEmailDnsInfo(c *Client, f *ConfigNotificationSendEmailDnsInfo) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmailDnsInfo(c *Client, f *ConfigNotificationSendEmailDnsInfo, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5938,14 +5942,14 @@ func flattenConfigNotificationSendEmailDnsInfo(c *Client, i interface{}) *Config
 
 // expandConfigNotificationSendSmsMap expands the contents of ConfigNotificationSendSms into a JSON
 // request object.
-func expandConfigNotificationSendSmsMap(c *Client, f map[string]ConfigNotificationSendSms) (map[string]interface{}, error) {
+func expandConfigNotificationSendSmsMap(c *Client, f map[string]ConfigNotificationSendSms, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigNotificationSendSms(c, &item)
+		i, err := expandConfigNotificationSendSms(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5959,14 +5963,14 @@ func expandConfigNotificationSendSmsMap(c *Client, f map[string]ConfigNotificati
 
 // expandConfigNotificationSendSmsSlice expands the contents of ConfigNotificationSendSms into a JSON
 // request object.
-func expandConfigNotificationSendSmsSlice(c *Client, f []ConfigNotificationSendSms) ([]map[string]interface{}, error) {
+func expandConfigNotificationSendSmsSlice(c *Client, f []ConfigNotificationSendSms, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigNotificationSendSms(c, &item)
+		i, err := expandConfigNotificationSendSms(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6019,7 +6023,7 @@ func flattenConfigNotificationSendSmsSlice(c *Client, i interface{}) []ConfigNot
 
 // expandConfigNotificationSendSms expands an instance of ConfigNotificationSendSms into a JSON
 // request object.
-func expandConfigNotificationSendSms(c *Client, f *ConfigNotificationSendSms) (map[string]interface{}, error) {
+func expandConfigNotificationSendSms(c *Client, f *ConfigNotificationSendSms, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6053,14 +6057,14 @@ func flattenConfigNotificationSendSms(c *Client, i interface{}) *ConfigNotificat
 
 // expandConfigNotificationSendSmsSmsTemplateMap expands the contents of ConfigNotificationSendSmsSmsTemplate into a JSON
 // request object.
-func expandConfigNotificationSendSmsSmsTemplateMap(c *Client, f map[string]ConfigNotificationSendSmsSmsTemplate) (map[string]interface{}, error) {
+func expandConfigNotificationSendSmsSmsTemplateMap(c *Client, f map[string]ConfigNotificationSendSmsSmsTemplate, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigNotificationSendSmsSmsTemplate(c, &item)
+		i, err := expandConfigNotificationSendSmsSmsTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6074,14 +6078,14 @@ func expandConfigNotificationSendSmsSmsTemplateMap(c *Client, f map[string]Confi
 
 // expandConfigNotificationSendSmsSmsTemplateSlice expands the contents of ConfigNotificationSendSmsSmsTemplate into a JSON
 // request object.
-func expandConfigNotificationSendSmsSmsTemplateSlice(c *Client, f []ConfigNotificationSendSmsSmsTemplate) ([]map[string]interface{}, error) {
+func expandConfigNotificationSendSmsSmsTemplateSlice(c *Client, f []ConfigNotificationSendSmsSmsTemplate, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigNotificationSendSmsSmsTemplate(c, &item)
+		i, err := expandConfigNotificationSendSmsSmsTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6134,7 +6138,7 @@ func flattenConfigNotificationSendSmsSmsTemplateSlice(c *Client, i interface{}) 
 
 // expandConfigNotificationSendSmsSmsTemplate expands an instance of ConfigNotificationSendSmsSmsTemplate into a JSON
 // request object.
-func expandConfigNotificationSendSmsSmsTemplate(c *Client, f *ConfigNotificationSendSmsSmsTemplate) (map[string]interface{}, error) {
+func expandConfigNotificationSendSmsSmsTemplate(c *Client, f *ConfigNotificationSendSmsSmsTemplate, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6164,14 +6168,14 @@ func flattenConfigNotificationSendSmsSmsTemplate(c *Client, i interface{}) *Conf
 
 // expandConfigQuotaMap expands the contents of ConfigQuota into a JSON
 // request object.
-func expandConfigQuotaMap(c *Client, f map[string]ConfigQuota) (map[string]interface{}, error) {
+func expandConfigQuotaMap(c *Client, f map[string]ConfigQuota, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigQuota(c, &item)
+		i, err := expandConfigQuota(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6185,14 +6189,14 @@ func expandConfigQuotaMap(c *Client, f map[string]ConfigQuota) (map[string]inter
 
 // expandConfigQuotaSlice expands the contents of ConfigQuota into a JSON
 // request object.
-func expandConfigQuotaSlice(c *Client, f []ConfigQuota) ([]map[string]interface{}, error) {
+func expandConfigQuotaSlice(c *Client, f []ConfigQuota, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigQuota(c, &item)
+		i, err := expandConfigQuota(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6245,13 +6249,13 @@ func flattenConfigQuotaSlice(c *Client, i interface{}) []ConfigQuota {
 
 // expandConfigQuota expands an instance of ConfigQuota into a JSON
 // request object.
-func expandConfigQuota(c *Client, f *ConfigQuota) (map[string]interface{}, error) {
+func expandConfigQuota(c *Client, f *ConfigQuota, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandConfigQuotaSignUpQuotaConfig(c, f.SignUpQuotaConfig); err != nil {
+	if v, err := expandConfigQuotaSignUpQuotaConfig(c, f.SignUpQuotaConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding SignUpQuotaConfig into signUpQuotaConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["signUpQuotaConfig"] = v
@@ -6280,14 +6284,14 @@ func flattenConfigQuota(c *Client, i interface{}) *ConfigQuota {
 
 // expandConfigQuotaSignUpQuotaConfigMap expands the contents of ConfigQuotaSignUpQuotaConfig into a JSON
 // request object.
-func expandConfigQuotaSignUpQuotaConfigMap(c *Client, f map[string]ConfigQuotaSignUpQuotaConfig) (map[string]interface{}, error) {
+func expandConfigQuotaSignUpQuotaConfigMap(c *Client, f map[string]ConfigQuotaSignUpQuotaConfig, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigQuotaSignUpQuotaConfig(c, &item)
+		i, err := expandConfigQuotaSignUpQuotaConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6301,14 +6305,14 @@ func expandConfigQuotaSignUpQuotaConfigMap(c *Client, f map[string]ConfigQuotaSi
 
 // expandConfigQuotaSignUpQuotaConfigSlice expands the contents of ConfigQuotaSignUpQuotaConfig into a JSON
 // request object.
-func expandConfigQuotaSignUpQuotaConfigSlice(c *Client, f []ConfigQuotaSignUpQuotaConfig) ([]map[string]interface{}, error) {
+func expandConfigQuotaSignUpQuotaConfigSlice(c *Client, f []ConfigQuotaSignUpQuotaConfig, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigQuotaSignUpQuotaConfig(c, &item)
+		i, err := expandConfigQuotaSignUpQuotaConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6361,7 +6365,7 @@ func flattenConfigQuotaSignUpQuotaConfigSlice(c *Client, i interface{}) []Config
 
 // expandConfigQuotaSignUpQuotaConfig expands an instance of ConfigQuotaSignUpQuotaConfig into a JSON
 // request object.
-func expandConfigQuotaSignUpQuotaConfig(c *Client, f *ConfigQuotaSignUpQuotaConfig) (map[string]interface{}, error) {
+func expandConfigQuotaSignUpQuotaConfig(c *Client, f *ConfigQuotaSignUpQuotaConfig, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6402,14 +6406,14 @@ func flattenConfigQuotaSignUpQuotaConfig(c *Client, i interface{}) *ConfigQuotaS
 
 // expandConfigMonitoringMap expands the contents of ConfigMonitoring into a JSON
 // request object.
-func expandConfigMonitoringMap(c *Client, f map[string]ConfigMonitoring) (map[string]interface{}, error) {
+func expandConfigMonitoringMap(c *Client, f map[string]ConfigMonitoring, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigMonitoring(c, &item)
+		i, err := expandConfigMonitoring(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6423,14 +6427,14 @@ func expandConfigMonitoringMap(c *Client, f map[string]ConfigMonitoring) (map[st
 
 // expandConfigMonitoringSlice expands the contents of ConfigMonitoring into a JSON
 // request object.
-func expandConfigMonitoringSlice(c *Client, f []ConfigMonitoring) ([]map[string]interface{}, error) {
+func expandConfigMonitoringSlice(c *Client, f []ConfigMonitoring, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigMonitoring(c, &item)
+		i, err := expandConfigMonitoring(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6483,13 +6487,13 @@ func flattenConfigMonitoringSlice(c *Client, i interface{}) []ConfigMonitoring {
 
 // expandConfigMonitoring expands an instance of ConfigMonitoring into a JSON
 // request object.
-func expandConfigMonitoring(c *Client, f *ConfigMonitoring) (map[string]interface{}, error) {
+func expandConfigMonitoring(c *Client, f *ConfigMonitoring, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandConfigMonitoringRequestLogging(c, f.RequestLogging); err != nil {
+	if v, err := expandConfigMonitoringRequestLogging(c, f.RequestLogging, res); err != nil {
 		return nil, fmt.Errorf("error expanding RequestLogging into requestLogging: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["requestLogging"] = v
@@ -6518,14 +6522,14 @@ func flattenConfigMonitoring(c *Client, i interface{}) *ConfigMonitoring {
 
 // expandConfigMonitoringRequestLoggingMap expands the contents of ConfigMonitoringRequestLogging into a JSON
 // request object.
-func expandConfigMonitoringRequestLoggingMap(c *Client, f map[string]ConfigMonitoringRequestLogging) (map[string]interface{}, error) {
+func expandConfigMonitoringRequestLoggingMap(c *Client, f map[string]ConfigMonitoringRequestLogging, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigMonitoringRequestLogging(c, &item)
+		i, err := expandConfigMonitoringRequestLogging(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6539,14 +6543,14 @@ func expandConfigMonitoringRequestLoggingMap(c *Client, f map[string]ConfigMonit
 
 // expandConfigMonitoringRequestLoggingSlice expands the contents of ConfigMonitoringRequestLogging into a JSON
 // request object.
-func expandConfigMonitoringRequestLoggingSlice(c *Client, f []ConfigMonitoringRequestLogging) ([]map[string]interface{}, error) {
+func expandConfigMonitoringRequestLoggingSlice(c *Client, f []ConfigMonitoringRequestLogging, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigMonitoringRequestLogging(c, &item)
+		i, err := expandConfigMonitoringRequestLogging(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6599,7 +6603,7 @@ func flattenConfigMonitoringRequestLoggingSlice(c *Client, i interface{}) []Conf
 
 // expandConfigMonitoringRequestLogging expands an instance of ConfigMonitoringRequestLogging into a JSON
 // request object.
-func expandConfigMonitoringRequestLogging(c *Client, f *ConfigMonitoringRequestLogging) (map[string]interface{}, error) {
+func expandConfigMonitoringRequestLogging(c *Client, f *ConfigMonitoringRequestLogging, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6632,14 +6636,14 @@ func flattenConfigMonitoringRequestLogging(c *Client, i interface{}) *ConfigMoni
 
 // expandConfigMultiTenantMap expands the contents of ConfigMultiTenant into a JSON
 // request object.
-func expandConfigMultiTenantMap(c *Client, f map[string]ConfigMultiTenant) (map[string]interface{}, error) {
+func expandConfigMultiTenantMap(c *Client, f map[string]ConfigMultiTenant, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigMultiTenant(c, &item)
+		i, err := expandConfigMultiTenant(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6653,14 +6657,14 @@ func expandConfigMultiTenantMap(c *Client, f map[string]ConfigMultiTenant) (map[
 
 // expandConfigMultiTenantSlice expands the contents of ConfigMultiTenant into a JSON
 // request object.
-func expandConfigMultiTenantSlice(c *Client, f []ConfigMultiTenant) ([]map[string]interface{}, error) {
+func expandConfigMultiTenantSlice(c *Client, f []ConfigMultiTenant, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigMultiTenant(c, &item)
+		i, err := expandConfigMultiTenant(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6713,7 +6717,7 @@ func flattenConfigMultiTenantSlice(c *Client, i interface{}) []ConfigMultiTenant
 
 // expandConfigMultiTenant expands an instance of ConfigMultiTenant into a JSON
 // request object.
-func expandConfigMultiTenant(c *Client, f *ConfigMultiTenant) (map[string]interface{}, error) {
+func expandConfigMultiTenant(c *Client, f *ConfigMultiTenant, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6750,14 +6754,14 @@ func flattenConfigMultiTenant(c *Client, i interface{}) *ConfigMultiTenant {
 
 // expandConfigClientMap expands the contents of ConfigClient into a JSON
 // request object.
-func expandConfigClientMap(c *Client, f map[string]ConfigClient) (map[string]interface{}, error) {
+func expandConfigClientMap(c *Client, f map[string]ConfigClient, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigClient(c, &item)
+		i, err := expandConfigClient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6771,14 +6775,14 @@ func expandConfigClientMap(c *Client, f map[string]ConfigClient) (map[string]int
 
 // expandConfigClientSlice expands the contents of ConfigClient into a JSON
 // request object.
-func expandConfigClientSlice(c *Client, f []ConfigClient) ([]map[string]interface{}, error) {
+func expandConfigClientSlice(c *Client, f []ConfigClient, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigClient(c, &item)
+		i, err := expandConfigClient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6831,13 +6835,13 @@ func flattenConfigClientSlice(c *Client, i interface{}) []ConfigClient {
 
 // expandConfigClient expands an instance of ConfigClient into a JSON
 // request object.
-func expandConfigClient(c *Client, f *ConfigClient) (map[string]interface{}, error) {
+func expandConfigClient(c *Client, f *ConfigClient, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandConfigClientPermissions(c, f.Permissions); err != nil {
+	if v, err := expandConfigClientPermissions(c, f.Permissions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Permissions into permissions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["permissions"] = v
@@ -6868,14 +6872,14 @@ func flattenConfigClient(c *Client, i interface{}) *ConfigClient {
 
 // expandConfigClientPermissionsMap expands the contents of ConfigClientPermissions into a JSON
 // request object.
-func expandConfigClientPermissionsMap(c *Client, f map[string]ConfigClientPermissions) (map[string]interface{}, error) {
+func expandConfigClientPermissionsMap(c *Client, f map[string]ConfigClientPermissions, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigClientPermissions(c, &item)
+		i, err := expandConfigClientPermissions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6889,14 +6893,14 @@ func expandConfigClientPermissionsMap(c *Client, f map[string]ConfigClientPermis
 
 // expandConfigClientPermissionsSlice expands the contents of ConfigClientPermissions into a JSON
 // request object.
-func expandConfigClientPermissionsSlice(c *Client, f []ConfigClientPermissions) ([]map[string]interface{}, error) {
+func expandConfigClientPermissionsSlice(c *Client, f []ConfigClientPermissions, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigClientPermissions(c, &item)
+		i, err := expandConfigClientPermissions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6949,7 +6953,7 @@ func flattenConfigClientPermissionsSlice(c *Client, i interface{}) []ConfigClien
 
 // expandConfigClientPermissions expands an instance of ConfigClientPermissions into a JSON
 // request object.
-func expandConfigClientPermissions(c *Client, f *ConfigClientPermissions) (map[string]interface{}, error) {
+func expandConfigClientPermissions(c *Client, f *ConfigClientPermissions, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6986,14 +6990,14 @@ func flattenConfigClientPermissions(c *Client, i interface{}) *ConfigClientPermi
 
 // expandConfigMfaMap expands the contents of ConfigMfa into a JSON
 // request object.
-func expandConfigMfaMap(c *Client, f map[string]ConfigMfa) (map[string]interface{}, error) {
+func expandConfigMfaMap(c *Client, f map[string]ConfigMfa, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigMfa(c, &item)
+		i, err := expandConfigMfa(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7007,14 +7011,14 @@ func expandConfigMfaMap(c *Client, f map[string]ConfigMfa) (map[string]interface
 
 // expandConfigMfaSlice expands the contents of ConfigMfa into a JSON
 // request object.
-func expandConfigMfaSlice(c *Client, f []ConfigMfa) ([]map[string]interface{}, error) {
+func expandConfigMfaSlice(c *Client, f []ConfigMfa, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigMfa(c, &item)
+		i, err := expandConfigMfa(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7067,7 +7071,7 @@ func flattenConfigMfaSlice(c *Client, i interface{}) []ConfigMfa {
 
 // expandConfigMfa expands an instance of ConfigMfa into a JSON
 // request object.
-func expandConfigMfa(c *Client, f *ConfigMfa) (map[string]interface{}, error) {
+func expandConfigMfa(c *Client, f *ConfigMfa, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7100,14 +7104,14 @@ func flattenConfigMfa(c *Client, i interface{}) *ConfigMfa {
 
 // expandConfigBlockingFunctionsMap expands the contents of ConfigBlockingFunctions into a JSON
 // request object.
-func expandConfigBlockingFunctionsMap(c *Client, f map[string]ConfigBlockingFunctions) (map[string]interface{}, error) {
+func expandConfigBlockingFunctionsMap(c *Client, f map[string]ConfigBlockingFunctions, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigBlockingFunctions(c, &item)
+		i, err := expandConfigBlockingFunctions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7121,14 +7125,14 @@ func expandConfigBlockingFunctionsMap(c *Client, f map[string]ConfigBlockingFunc
 
 // expandConfigBlockingFunctionsSlice expands the contents of ConfigBlockingFunctions into a JSON
 // request object.
-func expandConfigBlockingFunctionsSlice(c *Client, f []ConfigBlockingFunctions) ([]map[string]interface{}, error) {
+func expandConfigBlockingFunctionsSlice(c *Client, f []ConfigBlockingFunctions, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigBlockingFunctions(c, &item)
+		i, err := expandConfigBlockingFunctions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7181,13 +7185,13 @@ func flattenConfigBlockingFunctionsSlice(c *Client, i interface{}) []ConfigBlock
 
 // expandConfigBlockingFunctions expands an instance of ConfigBlockingFunctions into a JSON
 // request object.
-func expandConfigBlockingFunctions(c *Client, f *ConfigBlockingFunctions) (map[string]interface{}, error) {
+func expandConfigBlockingFunctions(c *Client, f *ConfigBlockingFunctions, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandConfigBlockingFunctionsTriggersMap(c, f.Triggers); err != nil {
+	if v, err := expandConfigBlockingFunctionsTriggersMap(c, f.Triggers, res); err != nil {
 		return nil, fmt.Errorf("error expanding Triggers into triggers: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["triggers"] = v
@@ -7216,14 +7220,14 @@ func flattenConfigBlockingFunctions(c *Client, i interface{}) *ConfigBlockingFun
 
 // expandConfigBlockingFunctionsTriggersMap expands the contents of ConfigBlockingFunctionsTriggers into a JSON
 // request object.
-func expandConfigBlockingFunctionsTriggersMap(c *Client, f map[string]ConfigBlockingFunctionsTriggers) (map[string]interface{}, error) {
+func expandConfigBlockingFunctionsTriggersMap(c *Client, f map[string]ConfigBlockingFunctionsTriggers, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigBlockingFunctionsTriggers(c, &item)
+		i, err := expandConfigBlockingFunctionsTriggers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7237,14 +7241,14 @@ func expandConfigBlockingFunctionsTriggersMap(c *Client, f map[string]ConfigBloc
 
 // expandConfigBlockingFunctionsTriggersSlice expands the contents of ConfigBlockingFunctionsTriggers into a JSON
 // request object.
-func expandConfigBlockingFunctionsTriggersSlice(c *Client, f []ConfigBlockingFunctionsTriggers) ([]map[string]interface{}, error) {
+func expandConfigBlockingFunctionsTriggersSlice(c *Client, f []ConfigBlockingFunctionsTriggers, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigBlockingFunctionsTriggers(c, &item)
+		i, err := expandConfigBlockingFunctionsTriggers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7297,7 +7301,7 @@ func flattenConfigBlockingFunctionsTriggersSlice(c *Client, i interface{}) []Con
 
 // expandConfigBlockingFunctionsTriggers expands an instance of ConfigBlockingFunctionsTriggers into a JSON
 // request object.
-func expandConfigBlockingFunctionsTriggers(c *Client, f *ConfigBlockingFunctionsTriggers) (map[string]interface{}, error) {
+func expandConfigBlockingFunctionsTriggers(c *Client, f *ConfigBlockingFunctionsTriggers, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

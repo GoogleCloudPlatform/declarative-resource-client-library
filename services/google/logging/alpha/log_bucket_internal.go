@@ -94,6 +94,8 @@ type logBucketApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateLogBucketUpdateBucketRequest(ctx context.Context, f *LogBucket, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -604,6 +606,8 @@ func unmarshalMapLogBucket(m map[string]interface{}, c *Client) (*LogBucket, err
 // expandLogBucket expands LogBucket into a JSON request object.
 func expandLogBucket(c *Client, f *LogBucket) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("%s/locations/%s/buckets/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

@@ -127,7 +127,7 @@ func (op *updateFolderMoveFolderOperation) do(ctx context.Context, r *Folder, c 
 
 // expandProjectParent expands an instance of ProjectParent into a JSON
 // request object.
-func expandProjectParent(f *Project, fval *string) (map[string]interface{}, error) {
+func expandProjectParent(_ *Client, fval *string, _ *Project) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(fval) {
 		return nil, nil
 	}

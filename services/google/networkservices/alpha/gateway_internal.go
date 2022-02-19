@@ -102,6 +102,8 @@ type gatewayApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateGatewayUpdateGatewayRequest(ctx context.Context, f *Gateway, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("projects/%s/locations/global/gateways/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -779,6 +781,8 @@ func unmarshalMapGateway(m map[string]interface{}, c *Client) (*Gateway, error) 
 // expandGateway expands Gateway into a JSON request object.
 func expandGateway(c *Client, f *Gateway) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/global/gateways/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

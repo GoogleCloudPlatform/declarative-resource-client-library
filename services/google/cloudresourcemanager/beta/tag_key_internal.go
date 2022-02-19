@@ -76,6 +76,8 @@ type tagKeyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateTagKeyUpdateTagKeyRequest(ctx context.Context, f *TagKey, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -630,6 +632,8 @@ func unmarshalMapTagKey(m map[string]interface{}, c *Client) (*TagKey, error) {
 // expandTagKey expands TagKey into a JSON request object.
 func expandTagKey(c *Client, f *TagKey) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("tagKeys/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

@@ -37,8 +37,390 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.ClusterUuid != nil {
 		u.Object["clusterUuid"] = *r.ClusterUuid
 	}
-	if r.Config != nil {
-		u.Object["config"] = ClusterClusterConfigToUnstructured(r.Config)
+	if r.Config != nil && r.Config != dclService.EmptyClusterConfig {
+		rConfig := make(map[string]interface{})
+		if r.Config.AutoscalingConfig != nil && r.Config.AutoscalingConfig != dclService.EmptyClusterConfigAutoscalingConfig {
+			rConfigAutoscalingConfig := make(map[string]interface{})
+			if r.Config.AutoscalingConfig.Policy != nil {
+				rConfigAutoscalingConfig["policy"] = *r.Config.AutoscalingConfig.Policy
+			}
+			rConfig["autoscalingConfig"] = rConfigAutoscalingConfig
+		}
+		if r.Config.EncryptionConfig != nil && r.Config.EncryptionConfig != dclService.EmptyClusterConfigEncryptionConfig {
+			rConfigEncryptionConfig := make(map[string]interface{})
+			if r.Config.EncryptionConfig.GcePdKmsKeyName != nil {
+				rConfigEncryptionConfig["gcePdKmsKeyName"] = *r.Config.EncryptionConfig.GcePdKmsKeyName
+			}
+			rConfig["encryptionConfig"] = rConfigEncryptionConfig
+		}
+		if r.Config.EndpointConfig != nil && r.Config.EndpointConfig != dclService.EmptyClusterConfigEndpointConfig {
+			rConfigEndpointConfig := make(map[string]interface{})
+			if r.Config.EndpointConfig.EnableHttpPortAccess != nil {
+				rConfigEndpointConfig["enableHttpPortAccess"] = *r.Config.EndpointConfig.EnableHttpPortAccess
+			}
+			if r.Config.EndpointConfig.HttpPorts != nil {
+				rConfigEndpointConfigHttpPorts := make(map[string]interface{})
+				for k, v := range r.Config.EndpointConfig.HttpPorts {
+					rConfigEndpointConfigHttpPorts[k] = v
+				}
+				rConfigEndpointConfig["httpPorts"] = rConfigEndpointConfigHttpPorts
+			}
+			rConfig["endpointConfig"] = rConfigEndpointConfig
+		}
+		if r.Config.GceClusterConfig != nil && r.Config.GceClusterConfig != dclService.EmptyClusterConfigGceClusterConfig {
+			rConfigGceClusterConfig := make(map[string]interface{})
+			if r.Config.GceClusterConfig.InternalIPOnly != nil {
+				rConfigGceClusterConfig["internalIPOnly"] = *r.Config.GceClusterConfig.InternalIPOnly
+			}
+			if r.Config.GceClusterConfig.Metadata != nil {
+				rConfigGceClusterConfigMetadata := make(map[string]interface{})
+				for k, v := range r.Config.GceClusterConfig.Metadata {
+					rConfigGceClusterConfigMetadata[k] = v
+				}
+				rConfigGceClusterConfig["metadata"] = rConfigGceClusterConfigMetadata
+			}
+			if r.Config.GceClusterConfig.Network != nil {
+				rConfigGceClusterConfig["network"] = *r.Config.GceClusterConfig.Network
+			}
+			if r.Config.GceClusterConfig.NodeGroupAffinity != nil && r.Config.GceClusterConfig.NodeGroupAffinity != dclService.EmptyClusterConfigGceClusterConfigNodeGroupAffinity {
+				rConfigGceClusterConfigNodeGroupAffinity := make(map[string]interface{})
+				if r.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup != nil {
+					rConfigGceClusterConfigNodeGroupAffinity["nodeGroup"] = *r.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup
+				}
+				rConfigGceClusterConfig["nodeGroupAffinity"] = rConfigGceClusterConfigNodeGroupAffinity
+			}
+			if r.Config.GceClusterConfig.PrivateIPv6GoogleAccess != nil {
+				rConfigGceClusterConfig["privateIPv6GoogleAccess"] = string(*r.Config.GceClusterConfig.PrivateIPv6GoogleAccess)
+			}
+			if r.Config.GceClusterConfig.ReservationAffinity != nil && r.Config.GceClusterConfig.ReservationAffinity != dclService.EmptyClusterConfigGceClusterConfigReservationAffinity {
+				rConfigGceClusterConfigReservationAffinity := make(map[string]interface{})
+				if r.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType != nil {
+					rConfigGceClusterConfigReservationAffinity["consumeReservationType"] = string(*r.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType)
+				}
+				if r.Config.GceClusterConfig.ReservationAffinity.Key != nil {
+					rConfigGceClusterConfigReservationAffinity["key"] = *r.Config.GceClusterConfig.ReservationAffinity.Key
+				}
+				var rConfigGceClusterConfigReservationAffinityValues []interface{}
+				for _, rConfigGceClusterConfigReservationAffinityValuesVal := range r.Config.GceClusterConfig.ReservationAffinity.Values {
+					rConfigGceClusterConfigReservationAffinityValues = append(rConfigGceClusterConfigReservationAffinityValues, rConfigGceClusterConfigReservationAffinityValuesVal)
+				}
+				rConfigGceClusterConfigReservationAffinity["values"] = rConfigGceClusterConfigReservationAffinityValues
+				rConfigGceClusterConfig["reservationAffinity"] = rConfigGceClusterConfigReservationAffinity
+			}
+			if r.Config.GceClusterConfig.ServiceAccount != nil {
+				rConfigGceClusterConfig["serviceAccount"] = *r.Config.GceClusterConfig.ServiceAccount
+			}
+			var rConfigGceClusterConfigServiceAccountScopes []interface{}
+			for _, rConfigGceClusterConfigServiceAccountScopesVal := range r.Config.GceClusterConfig.ServiceAccountScopes {
+				rConfigGceClusterConfigServiceAccountScopes = append(rConfigGceClusterConfigServiceAccountScopes, rConfigGceClusterConfigServiceAccountScopesVal)
+			}
+			rConfigGceClusterConfig["serviceAccountScopes"] = rConfigGceClusterConfigServiceAccountScopes
+			if r.Config.GceClusterConfig.Subnetwork != nil {
+				rConfigGceClusterConfig["subnetwork"] = *r.Config.GceClusterConfig.Subnetwork
+			}
+			var rConfigGceClusterConfigTags []interface{}
+			for _, rConfigGceClusterConfigTagsVal := range r.Config.GceClusterConfig.Tags {
+				rConfigGceClusterConfigTags = append(rConfigGceClusterConfigTags, rConfigGceClusterConfigTagsVal)
+			}
+			rConfigGceClusterConfig["tags"] = rConfigGceClusterConfigTags
+			if r.Config.GceClusterConfig.Zone != nil {
+				rConfigGceClusterConfig["zone"] = *r.Config.GceClusterConfig.Zone
+			}
+			rConfig["gceClusterConfig"] = rConfigGceClusterConfig
+		}
+		var rConfigInitializationActions []interface{}
+		for _, rConfigInitializationActionsVal := range r.Config.InitializationActions {
+			rConfigInitializationActionsObject := make(map[string]interface{})
+			if rConfigInitializationActionsVal.ExecutableFile != nil {
+				rConfigInitializationActionsObject["executableFile"] = *rConfigInitializationActionsVal.ExecutableFile
+			}
+			if rConfigInitializationActionsVal.ExecutionTimeout != nil {
+				rConfigInitializationActionsObject["executionTimeout"] = *rConfigInitializationActionsVal.ExecutionTimeout
+			}
+			rConfigInitializationActions = append(rConfigInitializationActions, rConfigInitializationActionsObject)
+		}
+		rConfig["initializationActions"] = rConfigInitializationActions
+		if r.Config.LifecycleConfig != nil && r.Config.LifecycleConfig != dclService.EmptyClusterConfigLifecycleConfig {
+			rConfigLifecycleConfig := make(map[string]interface{})
+			if r.Config.LifecycleConfig.AutoDeleteTime != nil {
+				rConfigLifecycleConfig["autoDeleteTime"] = *r.Config.LifecycleConfig.AutoDeleteTime
+			}
+			if r.Config.LifecycleConfig.AutoDeleteTtl != nil {
+				rConfigLifecycleConfig["autoDeleteTtl"] = *r.Config.LifecycleConfig.AutoDeleteTtl
+			}
+			if r.Config.LifecycleConfig.IdleDeleteTtl != nil {
+				rConfigLifecycleConfig["idleDeleteTtl"] = *r.Config.LifecycleConfig.IdleDeleteTtl
+			}
+			if r.Config.LifecycleConfig.IdleStartTime != nil {
+				rConfigLifecycleConfig["idleStartTime"] = *r.Config.LifecycleConfig.IdleStartTime
+			}
+			rConfig["lifecycleConfig"] = rConfigLifecycleConfig
+		}
+		if r.Config.MasterConfig != nil && r.Config.MasterConfig != dclService.EmptyClusterConfigMasterConfig {
+			rConfigMasterConfig := make(map[string]interface{})
+			var rConfigMasterConfigAccelerators []interface{}
+			for _, rConfigMasterConfigAcceleratorsVal := range r.Config.MasterConfig.Accelerators {
+				rConfigMasterConfigAcceleratorsObject := make(map[string]interface{})
+				if rConfigMasterConfigAcceleratorsVal.AcceleratorCount != nil {
+					rConfigMasterConfigAcceleratorsObject["acceleratorCount"] = *rConfigMasterConfigAcceleratorsVal.AcceleratorCount
+				}
+				if rConfigMasterConfigAcceleratorsVal.AcceleratorType != nil {
+					rConfigMasterConfigAcceleratorsObject["acceleratorType"] = *rConfigMasterConfigAcceleratorsVal.AcceleratorType
+				}
+				rConfigMasterConfigAccelerators = append(rConfigMasterConfigAccelerators, rConfigMasterConfigAcceleratorsObject)
+			}
+			rConfigMasterConfig["accelerators"] = rConfigMasterConfigAccelerators
+			if r.Config.MasterConfig.DiskConfig != nil && r.Config.MasterConfig.DiskConfig != dclService.EmptyClusterConfigMasterConfigDiskConfig {
+				rConfigMasterConfigDiskConfig := make(map[string]interface{})
+				if r.Config.MasterConfig.DiskConfig.BootDiskSizeGb != nil {
+					rConfigMasterConfigDiskConfig["bootDiskSizeGb"] = *r.Config.MasterConfig.DiskConfig.BootDiskSizeGb
+				}
+				if r.Config.MasterConfig.DiskConfig.BootDiskType != nil {
+					rConfigMasterConfigDiskConfig["bootDiskType"] = *r.Config.MasterConfig.DiskConfig.BootDiskType
+				}
+				if r.Config.MasterConfig.DiskConfig.NumLocalSsds != nil {
+					rConfigMasterConfigDiskConfig["numLocalSsds"] = *r.Config.MasterConfig.DiskConfig.NumLocalSsds
+				}
+				rConfigMasterConfig["diskConfig"] = rConfigMasterConfigDiskConfig
+			}
+			if r.Config.MasterConfig.Image != nil {
+				rConfigMasterConfig["image"] = *r.Config.MasterConfig.Image
+			}
+			var rConfigMasterConfigInstanceNames []interface{}
+			for _, rConfigMasterConfigInstanceNamesVal := range r.Config.MasterConfig.InstanceNames {
+				rConfigMasterConfigInstanceNames = append(rConfigMasterConfigInstanceNames, rConfigMasterConfigInstanceNamesVal)
+			}
+			rConfigMasterConfig["instanceNames"] = rConfigMasterConfigInstanceNames
+			if r.Config.MasterConfig.IsPreemptible != nil {
+				rConfigMasterConfig["isPreemptible"] = *r.Config.MasterConfig.IsPreemptible
+			}
+			if r.Config.MasterConfig.MachineType != nil {
+				rConfigMasterConfig["machineType"] = *r.Config.MasterConfig.MachineType
+			}
+			if r.Config.MasterConfig.ManagedGroupConfig != nil && r.Config.MasterConfig.ManagedGroupConfig != dclService.EmptyClusterConfigMasterConfigManagedGroupConfig {
+				rConfigMasterConfigManagedGroupConfig := make(map[string]interface{})
+				if r.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName != nil {
+					rConfigMasterConfigManagedGroupConfig["instanceGroupManagerName"] = *r.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName
+				}
+				if r.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName != nil {
+					rConfigMasterConfigManagedGroupConfig["instanceTemplateName"] = *r.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName
+				}
+				rConfigMasterConfig["managedGroupConfig"] = rConfigMasterConfigManagedGroupConfig
+			}
+			if r.Config.MasterConfig.MinCpuPlatform != nil {
+				rConfigMasterConfig["minCpuPlatform"] = *r.Config.MasterConfig.MinCpuPlatform
+			}
+			if r.Config.MasterConfig.NumInstances != nil {
+				rConfigMasterConfig["numInstances"] = *r.Config.MasterConfig.NumInstances
+			}
+			if r.Config.MasterConfig.Preemptibility != nil {
+				rConfigMasterConfig["preemptibility"] = string(*r.Config.MasterConfig.Preemptibility)
+			}
+			rConfig["masterConfig"] = rConfigMasterConfig
+		}
+		if r.Config.SecondaryWorkerConfig != nil && r.Config.SecondaryWorkerConfig != dclService.EmptyClusterConfigSecondaryWorkerConfig {
+			rConfigSecondaryWorkerConfig := make(map[string]interface{})
+			var rConfigSecondaryWorkerConfigAccelerators []interface{}
+			for _, rConfigSecondaryWorkerConfigAcceleratorsVal := range r.Config.SecondaryWorkerConfig.Accelerators {
+				rConfigSecondaryWorkerConfigAcceleratorsObject := make(map[string]interface{})
+				if rConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorCount != nil {
+					rConfigSecondaryWorkerConfigAcceleratorsObject["acceleratorCount"] = *rConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorCount
+				}
+				if rConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorType != nil {
+					rConfigSecondaryWorkerConfigAcceleratorsObject["acceleratorType"] = *rConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorType
+				}
+				rConfigSecondaryWorkerConfigAccelerators = append(rConfigSecondaryWorkerConfigAccelerators, rConfigSecondaryWorkerConfigAcceleratorsObject)
+			}
+			rConfigSecondaryWorkerConfig["accelerators"] = rConfigSecondaryWorkerConfigAccelerators
+			if r.Config.SecondaryWorkerConfig.DiskConfig != nil && r.Config.SecondaryWorkerConfig.DiskConfig != dclService.EmptyClusterConfigSecondaryWorkerConfigDiskConfig {
+				rConfigSecondaryWorkerConfigDiskConfig := make(map[string]interface{})
+				if r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb != nil {
+					rConfigSecondaryWorkerConfigDiskConfig["bootDiskSizeGb"] = *r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb
+				}
+				if r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType != nil {
+					rConfigSecondaryWorkerConfigDiskConfig["bootDiskType"] = *r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType
+				}
+				if r.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds != nil {
+					rConfigSecondaryWorkerConfigDiskConfig["numLocalSsds"] = *r.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds
+				}
+				rConfigSecondaryWorkerConfig["diskConfig"] = rConfigSecondaryWorkerConfigDiskConfig
+			}
+			if r.Config.SecondaryWorkerConfig.Image != nil {
+				rConfigSecondaryWorkerConfig["image"] = *r.Config.SecondaryWorkerConfig.Image
+			}
+			var rConfigSecondaryWorkerConfigInstanceNames []interface{}
+			for _, rConfigSecondaryWorkerConfigInstanceNamesVal := range r.Config.SecondaryWorkerConfig.InstanceNames {
+				rConfigSecondaryWorkerConfigInstanceNames = append(rConfigSecondaryWorkerConfigInstanceNames, rConfigSecondaryWorkerConfigInstanceNamesVal)
+			}
+			rConfigSecondaryWorkerConfig["instanceNames"] = rConfigSecondaryWorkerConfigInstanceNames
+			if r.Config.SecondaryWorkerConfig.IsPreemptible != nil {
+				rConfigSecondaryWorkerConfig["isPreemptible"] = *r.Config.SecondaryWorkerConfig.IsPreemptible
+			}
+			if r.Config.SecondaryWorkerConfig.MachineType != nil {
+				rConfigSecondaryWorkerConfig["machineType"] = *r.Config.SecondaryWorkerConfig.MachineType
+			}
+			if r.Config.SecondaryWorkerConfig.ManagedGroupConfig != nil && r.Config.SecondaryWorkerConfig.ManagedGroupConfig != dclService.EmptyClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+				rConfigSecondaryWorkerConfigManagedGroupConfig := make(map[string]interface{})
+				if r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName != nil {
+					rConfigSecondaryWorkerConfigManagedGroupConfig["instanceGroupManagerName"] = *r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName
+				}
+				if r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName != nil {
+					rConfigSecondaryWorkerConfigManagedGroupConfig["instanceTemplateName"] = *r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName
+				}
+				rConfigSecondaryWorkerConfig["managedGroupConfig"] = rConfigSecondaryWorkerConfigManagedGroupConfig
+			}
+			if r.Config.SecondaryWorkerConfig.MinCpuPlatform != nil {
+				rConfigSecondaryWorkerConfig["minCpuPlatform"] = *r.Config.SecondaryWorkerConfig.MinCpuPlatform
+			}
+			if r.Config.SecondaryWorkerConfig.NumInstances != nil {
+				rConfigSecondaryWorkerConfig["numInstances"] = *r.Config.SecondaryWorkerConfig.NumInstances
+			}
+			if r.Config.SecondaryWorkerConfig.Preemptibility != nil {
+				rConfigSecondaryWorkerConfig["preemptibility"] = string(*r.Config.SecondaryWorkerConfig.Preemptibility)
+			}
+			rConfig["secondaryWorkerConfig"] = rConfigSecondaryWorkerConfig
+		}
+		if r.Config.SecurityConfig != nil && r.Config.SecurityConfig != dclService.EmptyClusterConfigSecurityConfig {
+			rConfigSecurityConfig := make(map[string]interface{})
+			if r.Config.SecurityConfig.KerberosConfig != nil && r.Config.SecurityConfig.KerberosConfig != dclService.EmptyClusterConfigSecurityConfigKerberosConfig {
+				rConfigSecurityConfigKerberosConfig := make(map[string]interface{})
+				if r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer != nil {
+					rConfigSecurityConfigKerberosConfig["crossRealmTrustAdminServer"] = *r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer
+				}
+				if r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc != nil {
+					rConfigSecurityConfigKerberosConfig["crossRealmTrustKdc"] = *r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc
+				}
+				if r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm != nil {
+					rConfigSecurityConfigKerberosConfig["crossRealmTrustRealm"] = *r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm
+				}
+				if r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword != nil {
+					rConfigSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"] = *r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword
+				}
+				if r.Config.SecurityConfig.KerberosConfig.EnableKerberos != nil {
+					rConfigSecurityConfigKerberosConfig["enableKerberos"] = *r.Config.SecurityConfig.KerberosConfig.EnableKerberos
+				}
+				if r.Config.SecurityConfig.KerberosConfig.KdcDbKey != nil {
+					rConfigSecurityConfigKerberosConfig["kdcDbKey"] = *r.Config.SecurityConfig.KerberosConfig.KdcDbKey
+				}
+				if r.Config.SecurityConfig.KerberosConfig.KeyPassword != nil {
+					rConfigSecurityConfigKerberosConfig["keyPassword"] = *r.Config.SecurityConfig.KerberosConfig.KeyPassword
+				}
+				if r.Config.SecurityConfig.KerberosConfig.Keystore != nil {
+					rConfigSecurityConfigKerberosConfig["keystore"] = *r.Config.SecurityConfig.KerberosConfig.Keystore
+				}
+				if r.Config.SecurityConfig.KerberosConfig.KeystorePassword != nil {
+					rConfigSecurityConfigKerberosConfig["keystorePassword"] = *r.Config.SecurityConfig.KerberosConfig.KeystorePassword
+				}
+				if r.Config.SecurityConfig.KerberosConfig.KmsKey != nil {
+					rConfigSecurityConfigKerberosConfig["kmsKey"] = *r.Config.SecurityConfig.KerberosConfig.KmsKey
+				}
+				if r.Config.SecurityConfig.KerberosConfig.Realm != nil {
+					rConfigSecurityConfigKerberosConfig["realm"] = *r.Config.SecurityConfig.KerberosConfig.Realm
+				}
+				if r.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword != nil {
+					rConfigSecurityConfigKerberosConfig["rootPrincipalPassword"] = *r.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword
+				}
+				if r.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours != nil {
+					rConfigSecurityConfigKerberosConfig["tgtLifetimeHours"] = *r.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours
+				}
+				if r.Config.SecurityConfig.KerberosConfig.Truststore != nil {
+					rConfigSecurityConfigKerberosConfig["truststore"] = *r.Config.SecurityConfig.KerberosConfig.Truststore
+				}
+				if r.Config.SecurityConfig.KerberosConfig.TruststorePassword != nil {
+					rConfigSecurityConfigKerberosConfig["truststorePassword"] = *r.Config.SecurityConfig.KerberosConfig.TruststorePassword
+				}
+				rConfigSecurityConfig["kerberosConfig"] = rConfigSecurityConfigKerberosConfig
+			}
+			rConfig["securityConfig"] = rConfigSecurityConfig
+		}
+		if r.Config.SoftwareConfig != nil && r.Config.SoftwareConfig != dclService.EmptyClusterConfigSoftwareConfig {
+			rConfigSoftwareConfig := make(map[string]interface{})
+			if r.Config.SoftwareConfig.ImageVersion != nil {
+				rConfigSoftwareConfig["imageVersion"] = *r.Config.SoftwareConfig.ImageVersion
+			}
+			var rConfigSoftwareConfigOptionalComponents []interface{}
+			for _, rConfigSoftwareConfigOptionalComponentsVal := range r.Config.SoftwareConfig.OptionalComponents {
+				rConfigSoftwareConfigOptionalComponents = append(rConfigSoftwareConfigOptionalComponents, string(rConfigSoftwareConfigOptionalComponentsVal))
+			}
+			rConfigSoftwareConfig["optionalComponents"] = rConfigSoftwareConfigOptionalComponents
+			if r.Config.SoftwareConfig.Properties != nil {
+				rConfigSoftwareConfigProperties := make(map[string]interface{})
+				for k, v := range r.Config.SoftwareConfig.Properties {
+					rConfigSoftwareConfigProperties[k] = v
+				}
+				rConfigSoftwareConfig["properties"] = rConfigSoftwareConfigProperties
+			}
+			rConfig["softwareConfig"] = rConfigSoftwareConfig
+		}
+		if r.Config.StagingBucket != nil {
+			rConfig["stagingBucket"] = *r.Config.StagingBucket
+		}
+		if r.Config.TempBucket != nil {
+			rConfig["tempBucket"] = *r.Config.TempBucket
+		}
+		if r.Config.WorkerConfig != nil && r.Config.WorkerConfig != dclService.EmptyClusterConfigWorkerConfig {
+			rConfigWorkerConfig := make(map[string]interface{})
+			var rConfigWorkerConfigAccelerators []interface{}
+			for _, rConfigWorkerConfigAcceleratorsVal := range r.Config.WorkerConfig.Accelerators {
+				rConfigWorkerConfigAcceleratorsObject := make(map[string]interface{})
+				if rConfigWorkerConfigAcceleratorsVal.AcceleratorCount != nil {
+					rConfigWorkerConfigAcceleratorsObject["acceleratorCount"] = *rConfigWorkerConfigAcceleratorsVal.AcceleratorCount
+				}
+				if rConfigWorkerConfigAcceleratorsVal.AcceleratorType != nil {
+					rConfigWorkerConfigAcceleratorsObject["acceleratorType"] = *rConfigWorkerConfigAcceleratorsVal.AcceleratorType
+				}
+				rConfigWorkerConfigAccelerators = append(rConfigWorkerConfigAccelerators, rConfigWorkerConfigAcceleratorsObject)
+			}
+			rConfigWorkerConfig["accelerators"] = rConfigWorkerConfigAccelerators
+			if r.Config.WorkerConfig.DiskConfig != nil && r.Config.WorkerConfig.DiskConfig != dclService.EmptyClusterConfigWorkerConfigDiskConfig {
+				rConfigWorkerConfigDiskConfig := make(map[string]interface{})
+				if r.Config.WorkerConfig.DiskConfig.BootDiskSizeGb != nil {
+					rConfigWorkerConfigDiskConfig["bootDiskSizeGb"] = *r.Config.WorkerConfig.DiskConfig.BootDiskSizeGb
+				}
+				if r.Config.WorkerConfig.DiskConfig.BootDiskType != nil {
+					rConfigWorkerConfigDiskConfig["bootDiskType"] = *r.Config.WorkerConfig.DiskConfig.BootDiskType
+				}
+				if r.Config.WorkerConfig.DiskConfig.NumLocalSsds != nil {
+					rConfigWorkerConfigDiskConfig["numLocalSsds"] = *r.Config.WorkerConfig.DiskConfig.NumLocalSsds
+				}
+				rConfigWorkerConfig["diskConfig"] = rConfigWorkerConfigDiskConfig
+			}
+			if r.Config.WorkerConfig.Image != nil {
+				rConfigWorkerConfig["image"] = *r.Config.WorkerConfig.Image
+			}
+			var rConfigWorkerConfigInstanceNames []interface{}
+			for _, rConfigWorkerConfigInstanceNamesVal := range r.Config.WorkerConfig.InstanceNames {
+				rConfigWorkerConfigInstanceNames = append(rConfigWorkerConfigInstanceNames, rConfigWorkerConfigInstanceNamesVal)
+			}
+			rConfigWorkerConfig["instanceNames"] = rConfigWorkerConfigInstanceNames
+			if r.Config.WorkerConfig.IsPreemptible != nil {
+				rConfigWorkerConfig["isPreemptible"] = *r.Config.WorkerConfig.IsPreemptible
+			}
+			if r.Config.WorkerConfig.MachineType != nil {
+				rConfigWorkerConfig["machineType"] = *r.Config.WorkerConfig.MachineType
+			}
+			if r.Config.WorkerConfig.ManagedGroupConfig != nil && r.Config.WorkerConfig.ManagedGroupConfig != dclService.EmptyClusterConfigWorkerConfigManagedGroupConfig {
+				rConfigWorkerConfigManagedGroupConfig := make(map[string]interface{})
+				if r.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName != nil {
+					rConfigWorkerConfigManagedGroupConfig["instanceGroupManagerName"] = *r.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName
+				}
+				if r.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName != nil {
+					rConfigWorkerConfigManagedGroupConfig["instanceTemplateName"] = *r.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName
+				}
+				rConfigWorkerConfig["managedGroupConfig"] = rConfigWorkerConfigManagedGroupConfig
+			}
+			if r.Config.WorkerConfig.MinCpuPlatform != nil {
+				rConfigWorkerConfig["minCpuPlatform"] = *r.Config.WorkerConfig.MinCpuPlatform
+			}
+			if r.Config.WorkerConfig.NumInstances != nil {
+				rConfigWorkerConfig["numInstances"] = *r.Config.WorkerConfig.NumInstances
+			}
+			if r.Config.WorkerConfig.Preemptibility != nil {
+				rConfigWorkerConfig["preemptibility"] = string(*r.Config.WorkerConfig.Preemptibility)
+			}
+			rConfig["workerConfig"] = rConfigWorkerConfig
+		}
+		u.Object["config"] = rConfig
 	}
 	if r.Labels != nil {
 		rLabels := make(map[string]interface{})
@@ -111,278 +493,6 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	return u
 }
 
-func ClusterClusterConfigToUnstructured(r *dclService.ClusterClusterConfig) map[string]interface{} {
-	result := make(map[string]interface{})
-	if r.AutoscalingConfig != nil && r.AutoscalingConfig != dclService.EmptyClusterClusterConfigAutoscalingConfig {
-		rAutoscalingConfig := make(map[string]interface{})
-		if r.AutoscalingConfig.Policy != nil {
-			rAutoscalingConfig["policy"] = *r.AutoscalingConfig.Policy
-		}
-		result["autoscalingConfig"] = rAutoscalingConfig
-	}
-	if r.EncryptionConfig != nil && r.EncryptionConfig != dclService.EmptyClusterClusterConfigEncryptionConfig {
-		rEncryptionConfig := make(map[string]interface{})
-		if r.EncryptionConfig.GcePdKmsKeyName != nil {
-			rEncryptionConfig["gcePdKmsKeyName"] = *r.EncryptionConfig.GcePdKmsKeyName
-		}
-		result["encryptionConfig"] = rEncryptionConfig
-	}
-	if r.EndpointConfig != nil && r.EndpointConfig != dclService.EmptyClusterClusterConfigEndpointConfig {
-		rEndpointConfig := make(map[string]interface{})
-		if r.EndpointConfig.EnableHttpPortAccess != nil {
-			rEndpointConfig["enableHttpPortAccess"] = *r.EndpointConfig.EnableHttpPortAccess
-		}
-		if r.EndpointConfig.HttpPorts != nil {
-			rEndpointConfigHttpPorts := make(map[string]interface{})
-			for k, v := range r.EndpointConfig.HttpPorts {
-				rEndpointConfigHttpPorts[k] = v
-			}
-			rEndpointConfig["httpPorts"] = rEndpointConfigHttpPorts
-		}
-		result["endpointConfig"] = rEndpointConfig
-	}
-	if r.GceClusterConfig != nil && r.GceClusterConfig != dclService.EmptyClusterClusterConfigGceClusterConfig {
-		rGceClusterConfig := make(map[string]interface{})
-		if r.GceClusterConfig.InternalIPOnly != nil {
-			rGceClusterConfig["internalIPOnly"] = *r.GceClusterConfig.InternalIPOnly
-		}
-		if r.GceClusterConfig.Metadata != nil {
-			rGceClusterConfigMetadata := make(map[string]interface{})
-			for k, v := range r.GceClusterConfig.Metadata {
-				rGceClusterConfigMetadata[k] = v
-			}
-			rGceClusterConfig["metadata"] = rGceClusterConfigMetadata
-		}
-		if r.GceClusterConfig.Network != nil {
-			rGceClusterConfig["network"] = *r.GceClusterConfig.Network
-		}
-		if r.GceClusterConfig.NodeGroupAffinity != nil && r.GceClusterConfig.NodeGroupAffinity != dclService.EmptyClusterClusterConfigGceClusterConfigNodeGroupAffinity {
-			rGceClusterConfigNodeGroupAffinity := make(map[string]interface{})
-			if r.GceClusterConfig.NodeGroupAffinity.NodeGroup != nil {
-				rGceClusterConfigNodeGroupAffinity["nodeGroup"] = *r.GceClusterConfig.NodeGroupAffinity.NodeGroup
-			}
-			rGceClusterConfig["nodeGroupAffinity"] = rGceClusterConfigNodeGroupAffinity
-		}
-		if r.GceClusterConfig.PrivateIPv6GoogleAccess != nil {
-			rGceClusterConfig["privateIPv6GoogleAccess"] = string(*r.GceClusterConfig.PrivateIPv6GoogleAccess)
-		}
-		if r.GceClusterConfig.ReservationAffinity != nil && r.GceClusterConfig.ReservationAffinity != dclService.EmptyClusterClusterConfigGceClusterConfigReservationAffinity {
-			rGceClusterConfigReservationAffinity := make(map[string]interface{})
-			if r.GceClusterConfig.ReservationAffinity.ConsumeReservationType != nil {
-				rGceClusterConfigReservationAffinity["consumeReservationType"] = string(*r.GceClusterConfig.ReservationAffinity.ConsumeReservationType)
-			}
-			if r.GceClusterConfig.ReservationAffinity.Key != nil {
-				rGceClusterConfigReservationAffinity["key"] = *r.GceClusterConfig.ReservationAffinity.Key
-			}
-			var rGceClusterConfigReservationAffinityValues []interface{}
-			for _, rGceClusterConfigReservationAffinityValuesVal := range r.GceClusterConfig.ReservationAffinity.Values {
-				rGceClusterConfigReservationAffinityValues = append(rGceClusterConfigReservationAffinityValues, rGceClusterConfigReservationAffinityValuesVal)
-			}
-			rGceClusterConfigReservationAffinity["values"] = rGceClusterConfigReservationAffinityValues
-			rGceClusterConfig["reservationAffinity"] = rGceClusterConfigReservationAffinity
-		}
-		if r.GceClusterConfig.ServiceAccount != nil {
-			rGceClusterConfig["serviceAccount"] = *r.GceClusterConfig.ServiceAccount
-		}
-		var rGceClusterConfigServiceAccountScopes []interface{}
-		for _, rGceClusterConfigServiceAccountScopesVal := range r.GceClusterConfig.ServiceAccountScopes {
-			rGceClusterConfigServiceAccountScopes = append(rGceClusterConfigServiceAccountScopes, rGceClusterConfigServiceAccountScopesVal)
-		}
-		rGceClusterConfig["serviceAccountScopes"] = rGceClusterConfigServiceAccountScopes
-		if r.GceClusterConfig.Subnetwork != nil {
-			rGceClusterConfig["subnetwork"] = *r.GceClusterConfig.Subnetwork
-		}
-		var rGceClusterConfigTags []interface{}
-		for _, rGceClusterConfigTagsVal := range r.GceClusterConfig.Tags {
-			rGceClusterConfigTags = append(rGceClusterConfigTags, rGceClusterConfigTagsVal)
-		}
-		rGceClusterConfig["tags"] = rGceClusterConfigTags
-		if r.GceClusterConfig.Zone != nil {
-			rGceClusterConfig["zone"] = *r.GceClusterConfig.Zone
-		}
-		result["gceClusterConfig"] = rGceClusterConfig
-	}
-	var rInitializationActions []interface{}
-	for _, rInitializationActionsVal := range r.InitializationActions {
-		rInitializationActionsObject := make(map[string]interface{})
-		if rInitializationActionsVal.ExecutableFile != nil {
-			rInitializationActionsObject["executableFile"] = *rInitializationActionsVal.ExecutableFile
-		}
-		if rInitializationActionsVal.ExecutionTimeout != nil {
-			rInitializationActionsObject["executionTimeout"] = *rInitializationActionsVal.ExecutionTimeout
-		}
-		rInitializationActions = append(rInitializationActions, rInitializationActionsObject)
-	}
-	result["initializationActions"] = rInitializationActions
-	if r.LifecycleConfig != nil && r.LifecycleConfig != dclService.EmptyClusterClusterConfigLifecycleConfig {
-		rLifecycleConfig := make(map[string]interface{})
-		if r.LifecycleConfig.AutoDeleteTime != nil {
-			rLifecycleConfig["autoDeleteTime"] = *r.LifecycleConfig.AutoDeleteTime
-		}
-		if r.LifecycleConfig.AutoDeleteTtl != nil {
-			rLifecycleConfig["autoDeleteTtl"] = *r.LifecycleConfig.AutoDeleteTtl
-		}
-		if r.LifecycleConfig.IdleDeleteTtl != nil {
-			rLifecycleConfig["idleDeleteTtl"] = *r.LifecycleConfig.IdleDeleteTtl
-		}
-		if r.LifecycleConfig.IdleStartTime != nil {
-			rLifecycleConfig["idleStartTime"] = *r.LifecycleConfig.IdleStartTime
-		}
-		result["lifecycleConfig"] = rLifecycleConfig
-	}
-	if r.MasterConfig != nil {
-		result["masterConfig"] = ClusterInstanceGroupConfigToUnstructured(r.MasterConfig)
-	}
-	if r.SecondaryWorkerConfig != nil {
-		result["secondaryWorkerConfig"] = ClusterInstanceGroupConfigToUnstructured(r.SecondaryWorkerConfig)
-	}
-	if r.SecurityConfig != nil && r.SecurityConfig != dclService.EmptyClusterClusterConfigSecurityConfig {
-		rSecurityConfig := make(map[string]interface{})
-		if r.SecurityConfig.KerberosConfig != nil && r.SecurityConfig.KerberosConfig != dclService.EmptyClusterClusterConfigSecurityConfigKerberosConfig {
-			rSecurityConfigKerberosConfig := make(map[string]interface{})
-			if r.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer != nil {
-				rSecurityConfigKerberosConfig["crossRealmTrustAdminServer"] = *r.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer
-			}
-			if r.SecurityConfig.KerberosConfig.CrossRealmTrustKdc != nil {
-				rSecurityConfigKerberosConfig["crossRealmTrustKdc"] = *r.SecurityConfig.KerberosConfig.CrossRealmTrustKdc
-			}
-			if r.SecurityConfig.KerberosConfig.CrossRealmTrustRealm != nil {
-				rSecurityConfigKerberosConfig["crossRealmTrustRealm"] = *r.SecurityConfig.KerberosConfig.CrossRealmTrustRealm
-			}
-			if r.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword != nil {
-				rSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"] = *r.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword
-			}
-			if r.SecurityConfig.KerberosConfig.EnableKerberos != nil {
-				rSecurityConfigKerberosConfig["enableKerberos"] = *r.SecurityConfig.KerberosConfig.EnableKerberos
-			}
-			if r.SecurityConfig.KerberosConfig.KdcDbKey != nil {
-				rSecurityConfigKerberosConfig["kdcDbKey"] = *r.SecurityConfig.KerberosConfig.KdcDbKey
-			}
-			if r.SecurityConfig.KerberosConfig.KeyPassword != nil {
-				rSecurityConfigKerberosConfig["keyPassword"] = *r.SecurityConfig.KerberosConfig.KeyPassword
-			}
-			if r.SecurityConfig.KerberosConfig.Keystore != nil {
-				rSecurityConfigKerberosConfig["keystore"] = *r.SecurityConfig.KerberosConfig.Keystore
-			}
-			if r.SecurityConfig.KerberosConfig.KeystorePassword != nil {
-				rSecurityConfigKerberosConfig["keystorePassword"] = *r.SecurityConfig.KerberosConfig.KeystorePassword
-			}
-			if r.SecurityConfig.KerberosConfig.KmsKey != nil {
-				rSecurityConfigKerberosConfig["kmsKey"] = *r.SecurityConfig.KerberosConfig.KmsKey
-			}
-			if r.SecurityConfig.KerberosConfig.Realm != nil {
-				rSecurityConfigKerberosConfig["realm"] = *r.SecurityConfig.KerberosConfig.Realm
-			}
-			if r.SecurityConfig.KerberosConfig.RootPrincipalPassword != nil {
-				rSecurityConfigKerberosConfig["rootPrincipalPassword"] = *r.SecurityConfig.KerberosConfig.RootPrincipalPassword
-			}
-			if r.SecurityConfig.KerberosConfig.TgtLifetimeHours != nil {
-				rSecurityConfigKerberosConfig["tgtLifetimeHours"] = *r.SecurityConfig.KerberosConfig.TgtLifetimeHours
-			}
-			if r.SecurityConfig.KerberosConfig.Truststore != nil {
-				rSecurityConfigKerberosConfig["truststore"] = *r.SecurityConfig.KerberosConfig.Truststore
-			}
-			if r.SecurityConfig.KerberosConfig.TruststorePassword != nil {
-				rSecurityConfigKerberosConfig["truststorePassword"] = *r.SecurityConfig.KerberosConfig.TruststorePassword
-			}
-			rSecurityConfig["kerberosConfig"] = rSecurityConfigKerberosConfig
-		}
-		result["securityConfig"] = rSecurityConfig
-	}
-	if r.SoftwareConfig != nil && r.SoftwareConfig != dclService.EmptyClusterClusterConfigSoftwareConfig {
-		rSoftwareConfig := make(map[string]interface{})
-		if r.SoftwareConfig.ImageVersion != nil {
-			rSoftwareConfig["imageVersion"] = *r.SoftwareConfig.ImageVersion
-		}
-		var rSoftwareConfigOptionalComponents []interface{}
-		for _, rSoftwareConfigOptionalComponentsVal := range r.SoftwareConfig.OptionalComponents {
-			rSoftwareConfigOptionalComponents = append(rSoftwareConfigOptionalComponents, string(rSoftwareConfigOptionalComponentsVal))
-		}
-		rSoftwareConfig["optionalComponents"] = rSoftwareConfigOptionalComponents
-		if r.SoftwareConfig.Properties != nil {
-			rSoftwareConfigProperties := make(map[string]interface{})
-			for k, v := range r.SoftwareConfig.Properties {
-				rSoftwareConfigProperties[k] = v
-			}
-			rSoftwareConfig["properties"] = rSoftwareConfigProperties
-		}
-		result["softwareConfig"] = rSoftwareConfig
-	}
-	if r.StagingBucket != nil {
-		result["stagingBucket"] = *r.StagingBucket
-	}
-	if r.TempBucket != nil {
-		result["tempBucket"] = *r.TempBucket
-	}
-	if r.WorkerConfig != nil {
-		result["workerConfig"] = ClusterInstanceGroupConfigToUnstructured(r.WorkerConfig)
-	}
-	return result
-}
-
-func ClusterInstanceGroupConfigToUnstructured(r *dclService.ClusterInstanceGroupConfig) map[string]interface{} {
-	result := make(map[string]interface{})
-	var rAccelerators []interface{}
-	for _, rAcceleratorsVal := range r.Accelerators {
-		rAcceleratorsObject := make(map[string]interface{})
-		if rAcceleratorsVal.AcceleratorCount != nil {
-			rAcceleratorsObject["acceleratorCount"] = *rAcceleratorsVal.AcceleratorCount
-		}
-		if rAcceleratorsVal.AcceleratorType != nil {
-			rAcceleratorsObject["acceleratorType"] = *rAcceleratorsVal.AcceleratorType
-		}
-		rAccelerators = append(rAccelerators, rAcceleratorsObject)
-	}
-	result["accelerators"] = rAccelerators
-	if r.DiskConfig != nil && r.DiskConfig != dclService.EmptyClusterInstanceGroupConfigDiskConfig {
-		rDiskConfig := make(map[string]interface{})
-		if r.DiskConfig.BootDiskSizeGb != nil {
-			rDiskConfig["bootDiskSizeGb"] = *r.DiskConfig.BootDiskSizeGb
-		}
-		if r.DiskConfig.BootDiskType != nil {
-			rDiskConfig["bootDiskType"] = *r.DiskConfig.BootDiskType
-		}
-		if r.DiskConfig.NumLocalSsds != nil {
-			rDiskConfig["numLocalSsds"] = *r.DiskConfig.NumLocalSsds
-		}
-		result["diskConfig"] = rDiskConfig
-	}
-	if r.Image != nil {
-		result["image"] = *r.Image
-	}
-	var rInstanceNames []interface{}
-	for _, rInstanceNamesVal := range r.InstanceNames {
-		rInstanceNames = append(rInstanceNames, rInstanceNamesVal)
-	}
-	result["instanceNames"] = rInstanceNames
-	if r.IsPreemptible != nil {
-		result["isPreemptible"] = *r.IsPreemptible
-	}
-	if r.MachineType != nil {
-		result["machineType"] = *r.MachineType
-	}
-	if r.ManagedGroupConfig != nil && r.ManagedGroupConfig != dclService.EmptyClusterInstanceGroupConfigManagedGroupConfig {
-		rManagedGroupConfig := make(map[string]interface{})
-		if r.ManagedGroupConfig.InstanceGroupManagerName != nil {
-			rManagedGroupConfig["instanceGroupManagerName"] = *r.ManagedGroupConfig.InstanceGroupManagerName
-		}
-		if r.ManagedGroupConfig.InstanceTemplateName != nil {
-			rManagedGroupConfig["instanceTemplateName"] = *r.ManagedGroupConfig.InstanceTemplateName
-		}
-		result["managedGroupConfig"] = rManagedGroupConfig
-	}
-	if r.MinCpuPlatform != nil {
-		result["minCpuPlatform"] = *r.MinCpuPlatform
-	}
-	if r.NumInstances != nil {
-		result["numInstances"] = *r.NumInstances
-	}
-	if r.Preemptibility != nil {
-		result["preemptibility"] = string(*r.Preemptibility)
-	}
-	return result
-}
-
 func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error) {
 	r := &dclService.Cluster{}
 	if _, ok := u.Object["clusterUuid"]; ok {
@@ -394,10 +504,828 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 	}
 	if _, ok := u.Object["config"]; ok {
 		if rConfig, ok := u.Object["config"].(map[string]interface{}); ok {
-			var err error
-			r.Config, err = UnstructuredToClusterClusterConfig(rConfig)
-			if err != nil {
-				return nil, err
+			r.Config = &dclService.ClusterConfig{}
+			if _, ok := rConfig["autoscalingConfig"]; ok {
+				if rConfigAutoscalingConfig, ok := rConfig["autoscalingConfig"].(map[string]interface{}); ok {
+					r.Config.AutoscalingConfig = &dclService.ClusterConfigAutoscalingConfig{}
+					if _, ok := rConfigAutoscalingConfig["policy"]; ok {
+						if s, ok := rConfigAutoscalingConfig["policy"].(string); ok {
+							r.Config.AutoscalingConfig.Policy = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.AutoscalingConfig.Policy: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.AutoscalingConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["encryptionConfig"]; ok {
+				if rConfigEncryptionConfig, ok := rConfig["encryptionConfig"].(map[string]interface{}); ok {
+					r.Config.EncryptionConfig = &dclService.ClusterConfigEncryptionConfig{}
+					if _, ok := rConfigEncryptionConfig["gcePdKmsKeyName"]; ok {
+						if s, ok := rConfigEncryptionConfig["gcePdKmsKeyName"].(string); ok {
+							r.Config.EncryptionConfig.GcePdKmsKeyName = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.EncryptionConfig.GcePdKmsKeyName: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.EncryptionConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["endpointConfig"]; ok {
+				if rConfigEndpointConfig, ok := rConfig["endpointConfig"].(map[string]interface{}); ok {
+					r.Config.EndpointConfig = &dclService.ClusterConfigEndpointConfig{}
+					if _, ok := rConfigEndpointConfig["enableHttpPortAccess"]; ok {
+						if b, ok := rConfigEndpointConfig["enableHttpPortAccess"].(bool); ok {
+							r.Config.EndpointConfig.EnableHttpPortAccess = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Config.EndpointConfig.EnableHttpPortAccess: expected bool")
+						}
+					}
+					if _, ok := rConfigEndpointConfig["httpPorts"]; ok {
+						if rConfigEndpointConfigHttpPorts, ok := rConfigEndpointConfig["httpPorts"].(map[string]interface{}); ok {
+							m := make(map[string]string)
+							for k, v := range rConfigEndpointConfigHttpPorts {
+								if s, ok := v.(string); ok {
+									m[k] = s
+								}
+							}
+							r.Config.EndpointConfig.HttpPorts = m
+						} else {
+							return nil, fmt.Errorf("r.Config.EndpointConfig.HttpPorts: expected map[string]interface{}")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.EndpointConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["gceClusterConfig"]; ok {
+				if rConfigGceClusterConfig, ok := rConfig["gceClusterConfig"].(map[string]interface{}); ok {
+					r.Config.GceClusterConfig = &dclService.ClusterConfigGceClusterConfig{}
+					if _, ok := rConfigGceClusterConfig["internalIPOnly"]; ok {
+						if b, ok := rConfigGceClusterConfig["internalIPOnly"].(bool); ok {
+							r.Config.GceClusterConfig.InternalIPOnly = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.InternalIPOnly: expected bool")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["metadata"]; ok {
+						if rConfigGceClusterConfigMetadata, ok := rConfigGceClusterConfig["metadata"].(map[string]interface{}); ok {
+							m := make(map[string]string)
+							for k, v := range rConfigGceClusterConfigMetadata {
+								if s, ok := v.(string); ok {
+									m[k] = s
+								}
+							}
+							r.Config.GceClusterConfig.Metadata = m
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.Metadata: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["network"]; ok {
+						if s, ok := rConfigGceClusterConfig["network"].(string); ok {
+							r.Config.GceClusterConfig.Network = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.Network: expected string")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["nodeGroupAffinity"]; ok {
+						if rConfigGceClusterConfigNodeGroupAffinity, ok := rConfigGceClusterConfig["nodeGroupAffinity"].(map[string]interface{}); ok {
+							r.Config.GceClusterConfig.NodeGroupAffinity = &dclService.ClusterConfigGceClusterConfigNodeGroupAffinity{}
+							if _, ok := rConfigGceClusterConfigNodeGroupAffinity["nodeGroup"]; ok {
+								if s, ok := rConfigGceClusterConfigNodeGroupAffinity["nodeGroup"].(string); ok {
+									r.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup: expected string")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.NodeGroupAffinity: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["privateIPv6GoogleAccess"]; ok {
+						if s, ok := rConfigGceClusterConfig["privateIPv6GoogleAccess"].(string); ok {
+							r.Config.GceClusterConfig.PrivateIPv6GoogleAccess = dclService.ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.PrivateIPv6GoogleAccess: expected string")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["reservationAffinity"]; ok {
+						if rConfigGceClusterConfigReservationAffinity, ok := rConfigGceClusterConfig["reservationAffinity"].(map[string]interface{}); ok {
+							r.Config.GceClusterConfig.ReservationAffinity = &dclService.ClusterConfigGceClusterConfigReservationAffinity{}
+							if _, ok := rConfigGceClusterConfigReservationAffinity["consumeReservationType"]; ok {
+								if s, ok := rConfigGceClusterConfigReservationAffinity["consumeReservationType"].(string); ok {
+									r.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType = dclService.ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType: expected string")
+								}
+							}
+							if _, ok := rConfigGceClusterConfigReservationAffinity["key"]; ok {
+								if s, ok := rConfigGceClusterConfigReservationAffinity["key"].(string); ok {
+									r.Config.GceClusterConfig.ReservationAffinity.Key = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.GceClusterConfig.ReservationAffinity.Key: expected string")
+								}
+							}
+							if _, ok := rConfigGceClusterConfigReservationAffinity["values"]; ok {
+								if s, ok := rConfigGceClusterConfigReservationAffinity["values"].([]interface{}); ok {
+									for _, ss := range s {
+										if strval, ok := ss.(string); ok {
+											r.Config.GceClusterConfig.ReservationAffinity.Values = append(r.Config.GceClusterConfig.ReservationAffinity.Values, strval)
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Config.GceClusterConfig.ReservationAffinity.Values: expected []interface{}")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.ReservationAffinity: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["serviceAccount"]; ok {
+						if s, ok := rConfigGceClusterConfig["serviceAccount"].(string); ok {
+							r.Config.GceClusterConfig.ServiceAccount = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.ServiceAccount: expected string")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["serviceAccountScopes"]; ok {
+						if s, ok := rConfigGceClusterConfig["serviceAccountScopes"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.GceClusterConfig.ServiceAccountScopes = append(r.Config.GceClusterConfig.ServiceAccountScopes, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.ServiceAccountScopes: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["subnetwork"]; ok {
+						if s, ok := rConfigGceClusterConfig["subnetwork"].(string); ok {
+							r.Config.GceClusterConfig.Subnetwork = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.Subnetwork: expected string")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["tags"]; ok {
+						if s, ok := rConfigGceClusterConfig["tags"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.GceClusterConfig.Tags = append(r.Config.GceClusterConfig.Tags, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.Tags: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigGceClusterConfig["zone"]; ok {
+						if s, ok := rConfigGceClusterConfig["zone"].(string); ok {
+							r.Config.GceClusterConfig.Zone = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.GceClusterConfig.Zone: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.GceClusterConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["initializationActions"]; ok {
+				if s, ok := rConfig["initializationActions"].([]interface{}); ok {
+					for _, o := range s {
+						if objval, ok := o.(map[string]interface{}); ok {
+							var rConfigInitializationActions dclService.ClusterConfigInitializationActions
+							if _, ok := objval["executableFile"]; ok {
+								if s, ok := objval["executableFile"].(string); ok {
+									rConfigInitializationActions.ExecutableFile = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("rConfigInitializationActions.ExecutableFile: expected string")
+								}
+							}
+							if _, ok := objval["executionTimeout"]; ok {
+								if s, ok := objval["executionTimeout"].(string); ok {
+									rConfigInitializationActions.ExecutionTimeout = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("rConfigInitializationActions.ExecutionTimeout: expected string")
+								}
+							}
+							r.Config.InitializationActions = append(r.Config.InitializationActions, rConfigInitializationActions)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.InitializationActions: expected []interface{}")
+				}
+			}
+			if _, ok := rConfig["lifecycleConfig"]; ok {
+				if rConfigLifecycleConfig, ok := rConfig["lifecycleConfig"].(map[string]interface{}); ok {
+					r.Config.LifecycleConfig = &dclService.ClusterConfigLifecycleConfig{}
+					if _, ok := rConfigLifecycleConfig["autoDeleteTime"]; ok {
+						if s, ok := rConfigLifecycleConfig["autoDeleteTime"].(string); ok {
+							r.Config.LifecycleConfig.AutoDeleteTime = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.LifecycleConfig.AutoDeleteTime: expected string")
+						}
+					}
+					if _, ok := rConfigLifecycleConfig["autoDeleteTtl"]; ok {
+						if s, ok := rConfigLifecycleConfig["autoDeleteTtl"].(string); ok {
+							r.Config.LifecycleConfig.AutoDeleteTtl = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.LifecycleConfig.AutoDeleteTtl: expected string")
+						}
+					}
+					if _, ok := rConfigLifecycleConfig["idleDeleteTtl"]; ok {
+						if s, ok := rConfigLifecycleConfig["idleDeleteTtl"].(string); ok {
+							r.Config.LifecycleConfig.IdleDeleteTtl = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.LifecycleConfig.IdleDeleteTtl: expected string")
+						}
+					}
+					if _, ok := rConfigLifecycleConfig["idleStartTime"]; ok {
+						if s, ok := rConfigLifecycleConfig["idleStartTime"].(string); ok {
+							r.Config.LifecycleConfig.IdleStartTime = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.LifecycleConfig.IdleStartTime: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.LifecycleConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["masterConfig"]; ok {
+				if rConfigMasterConfig, ok := rConfig["masterConfig"].(map[string]interface{}); ok {
+					r.Config.MasterConfig = &dclService.ClusterConfigMasterConfig{}
+					if _, ok := rConfigMasterConfig["accelerators"]; ok {
+						if s, ok := rConfigMasterConfig["accelerators"].([]interface{}); ok {
+							for _, o := range s {
+								if objval, ok := o.(map[string]interface{}); ok {
+									var rConfigMasterConfigAccelerators dclService.ClusterConfigMasterConfigAccelerators
+									if _, ok := objval["acceleratorCount"]; ok {
+										if i, ok := objval["acceleratorCount"].(int64); ok {
+											rConfigMasterConfigAccelerators.AcceleratorCount = dcl.Int64(i)
+										} else {
+											return nil, fmt.Errorf("rConfigMasterConfigAccelerators.AcceleratorCount: expected int64")
+										}
+									}
+									if _, ok := objval["acceleratorType"]; ok {
+										if s, ok := objval["acceleratorType"].(string); ok {
+											rConfigMasterConfigAccelerators.AcceleratorType = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rConfigMasterConfigAccelerators.AcceleratorType: expected string")
+										}
+									}
+									r.Config.MasterConfig.Accelerators = append(r.Config.MasterConfig.Accelerators, rConfigMasterConfigAccelerators)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.Accelerators: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigMasterConfig["diskConfig"]; ok {
+						if rConfigMasterConfigDiskConfig, ok := rConfigMasterConfig["diskConfig"].(map[string]interface{}); ok {
+							r.Config.MasterConfig.DiskConfig = &dclService.ClusterConfigMasterConfigDiskConfig{}
+							if _, ok := rConfigMasterConfigDiskConfig["bootDiskSizeGb"]; ok {
+								if i, ok := rConfigMasterConfigDiskConfig["bootDiskSizeGb"].(int64); ok {
+									r.Config.MasterConfig.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("r.Config.MasterConfig.DiskConfig.BootDiskSizeGb: expected int64")
+								}
+							}
+							if _, ok := rConfigMasterConfigDiskConfig["bootDiskType"]; ok {
+								if s, ok := rConfigMasterConfigDiskConfig["bootDiskType"].(string); ok {
+									r.Config.MasterConfig.DiskConfig.BootDiskType = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.MasterConfig.DiskConfig.BootDiskType: expected string")
+								}
+							}
+							if _, ok := rConfigMasterConfigDiskConfig["numLocalSsds"]; ok {
+								if i, ok := rConfigMasterConfigDiskConfig["numLocalSsds"].(int64); ok {
+									r.Config.MasterConfig.DiskConfig.NumLocalSsds = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("r.Config.MasterConfig.DiskConfig.NumLocalSsds: expected int64")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.DiskConfig: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigMasterConfig["image"]; ok {
+						if s, ok := rConfigMasterConfig["image"].(string); ok {
+							r.Config.MasterConfig.Image = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.Image: expected string")
+						}
+					}
+					if _, ok := rConfigMasterConfig["instanceNames"]; ok {
+						if s, ok := rConfigMasterConfig["instanceNames"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.MasterConfig.InstanceNames = append(r.Config.MasterConfig.InstanceNames, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.InstanceNames: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigMasterConfig["isPreemptible"]; ok {
+						if b, ok := rConfigMasterConfig["isPreemptible"].(bool); ok {
+							r.Config.MasterConfig.IsPreemptible = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.IsPreemptible: expected bool")
+						}
+					}
+					if _, ok := rConfigMasterConfig["machineType"]; ok {
+						if s, ok := rConfigMasterConfig["machineType"].(string); ok {
+							r.Config.MasterConfig.MachineType = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.MachineType: expected string")
+						}
+					}
+					if _, ok := rConfigMasterConfig["managedGroupConfig"]; ok {
+						if rConfigMasterConfigManagedGroupConfig, ok := rConfigMasterConfig["managedGroupConfig"].(map[string]interface{}); ok {
+							r.Config.MasterConfig.ManagedGroupConfig = &dclService.ClusterConfigMasterConfigManagedGroupConfig{}
+							if _, ok := rConfigMasterConfigManagedGroupConfig["instanceGroupManagerName"]; ok {
+								if s, ok := rConfigMasterConfigManagedGroupConfig["instanceGroupManagerName"].(string); ok {
+									r.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName: expected string")
+								}
+							}
+							if _, ok := rConfigMasterConfigManagedGroupConfig["instanceTemplateName"]; ok {
+								if s, ok := rConfigMasterConfigManagedGroupConfig["instanceTemplateName"].(string); ok {
+									r.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName: expected string")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.ManagedGroupConfig: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigMasterConfig["minCpuPlatform"]; ok {
+						if s, ok := rConfigMasterConfig["minCpuPlatform"].(string); ok {
+							r.Config.MasterConfig.MinCpuPlatform = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.MinCpuPlatform: expected string")
+						}
+					}
+					if _, ok := rConfigMasterConfig["numInstances"]; ok {
+						if i, ok := rConfigMasterConfig["numInstances"].(int64); ok {
+							r.Config.MasterConfig.NumInstances = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.NumInstances: expected int64")
+						}
+					}
+					if _, ok := rConfigMasterConfig["preemptibility"]; ok {
+						if s, ok := rConfigMasterConfig["preemptibility"].(string); ok {
+							r.Config.MasterConfig.Preemptibility = dclService.ClusterConfigMasterConfigPreemptibilityEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.MasterConfig.Preemptibility: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.MasterConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["secondaryWorkerConfig"]; ok {
+				if rConfigSecondaryWorkerConfig, ok := rConfig["secondaryWorkerConfig"].(map[string]interface{}); ok {
+					r.Config.SecondaryWorkerConfig = &dclService.ClusterConfigSecondaryWorkerConfig{}
+					if _, ok := rConfigSecondaryWorkerConfig["accelerators"]; ok {
+						if s, ok := rConfigSecondaryWorkerConfig["accelerators"].([]interface{}); ok {
+							for _, o := range s {
+								if objval, ok := o.(map[string]interface{}); ok {
+									var rConfigSecondaryWorkerConfigAccelerators dclService.ClusterConfigSecondaryWorkerConfigAccelerators
+									if _, ok := objval["acceleratorCount"]; ok {
+										if i, ok := objval["acceleratorCount"].(int64); ok {
+											rConfigSecondaryWorkerConfigAccelerators.AcceleratorCount = dcl.Int64(i)
+										} else {
+											return nil, fmt.Errorf("rConfigSecondaryWorkerConfigAccelerators.AcceleratorCount: expected int64")
+										}
+									}
+									if _, ok := objval["acceleratorType"]; ok {
+										if s, ok := objval["acceleratorType"].(string); ok {
+											rConfigSecondaryWorkerConfigAccelerators.AcceleratorType = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rConfigSecondaryWorkerConfigAccelerators.AcceleratorType: expected string")
+										}
+									}
+									r.Config.SecondaryWorkerConfig.Accelerators = append(r.Config.SecondaryWorkerConfig.Accelerators, rConfigSecondaryWorkerConfigAccelerators)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.Accelerators: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["diskConfig"]; ok {
+						if rConfigSecondaryWorkerConfigDiskConfig, ok := rConfigSecondaryWorkerConfig["diskConfig"].(map[string]interface{}); ok {
+							r.Config.SecondaryWorkerConfig.DiskConfig = &dclService.ClusterConfigSecondaryWorkerConfigDiskConfig{}
+							if _, ok := rConfigSecondaryWorkerConfigDiskConfig["bootDiskSizeGb"]; ok {
+								if i, ok := rConfigSecondaryWorkerConfigDiskConfig["bootDiskSizeGb"].(int64); ok {
+									r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb: expected int64")
+								}
+							}
+							if _, ok := rConfigSecondaryWorkerConfigDiskConfig["bootDiskType"]; ok {
+								if s, ok := rConfigSecondaryWorkerConfigDiskConfig["bootDiskType"].(string); ok {
+									r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType: expected string")
+								}
+							}
+							if _, ok := rConfigSecondaryWorkerConfigDiskConfig["numLocalSsds"]; ok {
+								if i, ok := rConfigSecondaryWorkerConfigDiskConfig["numLocalSsds"].(int64); ok {
+									r.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds: expected int64")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.DiskConfig: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["image"]; ok {
+						if s, ok := rConfigSecondaryWorkerConfig["image"].(string); ok {
+							r.Config.SecondaryWorkerConfig.Image = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.Image: expected string")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["instanceNames"]; ok {
+						if s, ok := rConfigSecondaryWorkerConfig["instanceNames"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.SecondaryWorkerConfig.InstanceNames = append(r.Config.SecondaryWorkerConfig.InstanceNames, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.InstanceNames: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["isPreemptible"]; ok {
+						if b, ok := rConfigSecondaryWorkerConfig["isPreemptible"].(bool); ok {
+							r.Config.SecondaryWorkerConfig.IsPreemptible = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.IsPreemptible: expected bool")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["machineType"]; ok {
+						if s, ok := rConfigSecondaryWorkerConfig["machineType"].(string); ok {
+							r.Config.SecondaryWorkerConfig.MachineType = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.MachineType: expected string")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["managedGroupConfig"]; ok {
+						if rConfigSecondaryWorkerConfigManagedGroupConfig, ok := rConfigSecondaryWorkerConfig["managedGroupConfig"].(map[string]interface{}); ok {
+							r.Config.SecondaryWorkerConfig.ManagedGroupConfig = &dclService.ClusterConfigSecondaryWorkerConfigManagedGroupConfig{}
+							if _, ok := rConfigSecondaryWorkerConfigManagedGroupConfig["instanceGroupManagerName"]; ok {
+								if s, ok := rConfigSecondaryWorkerConfigManagedGroupConfig["instanceGroupManagerName"].(string); ok {
+									r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName: expected string")
+								}
+							}
+							if _, ok := rConfigSecondaryWorkerConfigManagedGroupConfig["instanceTemplateName"]; ok {
+								if s, ok := rConfigSecondaryWorkerConfigManagedGroupConfig["instanceTemplateName"].(string); ok {
+									r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName: expected string")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.ManagedGroupConfig: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["minCpuPlatform"]; ok {
+						if s, ok := rConfigSecondaryWorkerConfig["minCpuPlatform"].(string); ok {
+							r.Config.SecondaryWorkerConfig.MinCpuPlatform = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.MinCpuPlatform: expected string")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["numInstances"]; ok {
+						if i, ok := rConfigSecondaryWorkerConfig["numInstances"].(int64); ok {
+							r.Config.SecondaryWorkerConfig.NumInstances = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.NumInstances: expected int64")
+						}
+					}
+					if _, ok := rConfigSecondaryWorkerConfig["preemptibility"]; ok {
+						if s, ok := rConfigSecondaryWorkerConfig["preemptibility"].(string); ok {
+							r.Config.SecondaryWorkerConfig.Preemptibility = dclService.ClusterConfigSecondaryWorkerConfigPreemptibilityEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig.Preemptibility: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.SecondaryWorkerConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["securityConfig"]; ok {
+				if rConfigSecurityConfig, ok := rConfig["securityConfig"].(map[string]interface{}); ok {
+					r.Config.SecurityConfig = &dclService.ClusterConfigSecurityConfig{}
+					if _, ok := rConfigSecurityConfig["kerberosConfig"]; ok {
+						if rConfigSecurityConfigKerberosConfig, ok := rConfigSecurityConfig["kerberosConfig"].(map[string]interface{}); ok {
+							r.Config.SecurityConfig.KerberosConfig = &dclService.ClusterConfigSecurityConfigKerberosConfig{}
+							if _, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustAdminServer"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustAdminServer"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustKdc"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustKdc"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustRealm"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustRealm"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["enableKerberos"]; ok {
+								if b, ok := rConfigSecurityConfigKerberosConfig["enableKerberos"].(bool); ok {
+									r.Config.SecurityConfig.KerberosConfig.EnableKerberos = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.EnableKerberos: expected bool")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["kdcDbKey"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["kdcDbKey"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.KdcDbKey = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.KdcDbKey: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["keyPassword"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["keyPassword"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.KeyPassword = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.KeyPassword: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["keystore"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["keystore"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.Keystore = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.Keystore: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["keystorePassword"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["keystorePassword"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.KeystorePassword = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.KeystorePassword: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["kmsKey"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["kmsKey"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.KmsKey = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.KmsKey: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["realm"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["realm"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.Realm = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.Realm: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["rootPrincipalPassword"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["rootPrincipalPassword"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["tgtLifetimeHours"]; ok {
+								if i, ok := rConfigSecurityConfigKerberosConfig["tgtLifetimeHours"].(int64); ok {
+									r.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours: expected int64")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["truststore"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["truststore"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.Truststore = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.Truststore: expected string")
+								}
+							}
+							if _, ok := rConfigSecurityConfigKerberosConfig["truststorePassword"]; ok {
+								if s, ok := rConfigSecurityConfigKerberosConfig["truststorePassword"].(string); ok {
+									r.Config.SecurityConfig.KerberosConfig.TruststorePassword = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig.TruststorePassword: expected string")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.SecurityConfig.KerberosConfig: expected map[string]interface{}")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.SecurityConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["softwareConfig"]; ok {
+				if rConfigSoftwareConfig, ok := rConfig["softwareConfig"].(map[string]interface{}); ok {
+					r.Config.SoftwareConfig = &dclService.ClusterConfigSoftwareConfig{}
+					if _, ok := rConfigSoftwareConfig["imageVersion"]; ok {
+						if s, ok := rConfigSoftwareConfig["imageVersion"].(string); ok {
+							r.Config.SoftwareConfig.ImageVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.SoftwareConfig.ImageVersion: expected string")
+						}
+					}
+					if _, ok := rConfigSoftwareConfig["optionalComponents"]; ok {
+						if s, ok := rConfigSoftwareConfig["optionalComponents"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.SoftwareConfig.OptionalComponents = append(r.Config.SoftwareConfig.OptionalComponents, dclService.ClusterConfigSoftwareConfigOptionalComponentsEnum(strval))
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.SoftwareConfig.OptionalComponents: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigSoftwareConfig["properties"]; ok {
+						if rConfigSoftwareConfigProperties, ok := rConfigSoftwareConfig["properties"].(map[string]interface{}); ok {
+							m := make(map[string]string)
+							for k, v := range rConfigSoftwareConfigProperties {
+								if s, ok := v.(string); ok {
+									m[k] = s
+								}
+							}
+							r.Config.SoftwareConfig.Properties = m
+						} else {
+							return nil, fmt.Errorf("r.Config.SoftwareConfig.Properties: expected map[string]interface{}")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.SoftwareConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["stagingBucket"]; ok {
+				if s, ok := rConfig["stagingBucket"].(string); ok {
+					r.Config.StagingBucket = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Config.StagingBucket: expected string")
+				}
+			}
+			if _, ok := rConfig["tempBucket"]; ok {
+				if s, ok := rConfig["tempBucket"].(string); ok {
+					r.Config.TempBucket = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Config.TempBucket: expected string")
+				}
+			}
+			if _, ok := rConfig["workerConfig"]; ok {
+				if rConfigWorkerConfig, ok := rConfig["workerConfig"].(map[string]interface{}); ok {
+					r.Config.WorkerConfig = &dclService.ClusterConfigWorkerConfig{}
+					if _, ok := rConfigWorkerConfig["accelerators"]; ok {
+						if s, ok := rConfigWorkerConfig["accelerators"].([]interface{}); ok {
+							for _, o := range s {
+								if objval, ok := o.(map[string]interface{}); ok {
+									var rConfigWorkerConfigAccelerators dclService.ClusterConfigWorkerConfigAccelerators
+									if _, ok := objval["acceleratorCount"]; ok {
+										if i, ok := objval["acceleratorCount"].(int64); ok {
+											rConfigWorkerConfigAccelerators.AcceleratorCount = dcl.Int64(i)
+										} else {
+											return nil, fmt.Errorf("rConfigWorkerConfigAccelerators.AcceleratorCount: expected int64")
+										}
+									}
+									if _, ok := objval["acceleratorType"]; ok {
+										if s, ok := objval["acceleratorType"].(string); ok {
+											rConfigWorkerConfigAccelerators.AcceleratorType = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rConfigWorkerConfigAccelerators.AcceleratorType: expected string")
+										}
+									}
+									r.Config.WorkerConfig.Accelerators = append(r.Config.WorkerConfig.Accelerators, rConfigWorkerConfigAccelerators)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.Accelerators: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["diskConfig"]; ok {
+						if rConfigWorkerConfigDiskConfig, ok := rConfigWorkerConfig["diskConfig"].(map[string]interface{}); ok {
+							r.Config.WorkerConfig.DiskConfig = &dclService.ClusterConfigWorkerConfigDiskConfig{}
+							if _, ok := rConfigWorkerConfigDiskConfig["bootDiskSizeGb"]; ok {
+								if i, ok := rConfigWorkerConfigDiskConfig["bootDiskSizeGb"].(int64); ok {
+									r.Config.WorkerConfig.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("r.Config.WorkerConfig.DiskConfig.BootDiskSizeGb: expected int64")
+								}
+							}
+							if _, ok := rConfigWorkerConfigDiskConfig["bootDiskType"]; ok {
+								if s, ok := rConfigWorkerConfigDiskConfig["bootDiskType"].(string); ok {
+									r.Config.WorkerConfig.DiskConfig.BootDiskType = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.WorkerConfig.DiskConfig.BootDiskType: expected string")
+								}
+							}
+							if _, ok := rConfigWorkerConfigDiskConfig["numLocalSsds"]; ok {
+								if i, ok := rConfigWorkerConfigDiskConfig["numLocalSsds"].(int64); ok {
+									r.Config.WorkerConfig.DiskConfig.NumLocalSsds = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("r.Config.WorkerConfig.DiskConfig.NumLocalSsds: expected int64")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.DiskConfig: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["image"]; ok {
+						if s, ok := rConfigWorkerConfig["image"].(string); ok {
+							r.Config.WorkerConfig.Image = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.Image: expected string")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["instanceNames"]; ok {
+						if s, ok := rConfigWorkerConfig["instanceNames"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.WorkerConfig.InstanceNames = append(r.Config.WorkerConfig.InstanceNames, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.InstanceNames: expected []interface{}")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["isPreemptible"]; ok {
+						if b, ok := rConfigWorkerConfig["isPreemptible"].(bool); ok {
+							r.Config.WorkerConfig.IsPreemptible = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.IsPreemptible: expected bool")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["machineType"]; ok {
+						if s, ok := rConfigWorkerConfig["machineType"].(string); ok {
+							r.Config.WorkerConfig.MachineType = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.MachineType: expected string")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["managedGroupConfig"]; ok {
+						if rConfigWorkerConfigManagedGroupConfig, ok := rConfigWorkerConfig["managedGroupConfig"].(map[string]interface{}); ok {
+							r.Config.WorkerConfig.ManagedGroupConfig = &dclService.ClusterConfigWorkerConfigManagedGroupConfig{}
+							if _, ok := rConfigWorkerConfigManagedGroupConfig["instanceGroupManagerName"]; ok {
+								if s, ok := rConfigWorkerConfigManagedGroupConfig["instanceGroupManagerName"].(string); ok {
+									r.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName: expected string")
+								}
+							}
+							if _, ok := rConfigWorkerConfigManagedGroupConfig["instanceTemplateName"]; ok {
+								if s, ok := rConfigWorkerConfigManagedGroupConfig["instanceTemplateName"].(string); ok {
+									r.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName: expected string")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.ManagedGroupConfig: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["minCpuPlatform"]; ok {
+						if s, ok := rConfigWorkerConfig["minCpuPlatform"].(string); ok {
+							r.Config.WorkerConfig.MinCpuPlatform = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.MinCpuPlatform: expected string")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["numInstances"]; ok {
+						if i, ok := rConfigWorkerConfig["numInstances"].(int64); ok {
+							r.Config.WorkerConfig.NumInstances = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.NumInstances: expected int64")
+						}
+					}
+					if _, ok := rConfigWorkerConfig["preemptibility"]; ok {
+						if s, ok := rConfigWorkerConfig["preemptibility"].(string); ok {
+							r.Config.WorkerConfig.Preemptibility = dclService.ClusterConfigWorkerConfigPreemptibilityEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.WorkerConfig.Preemptibility: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.WorkerConfig: expected map[string]interface{}")
+				}
 			}
 		} else {
 			return nil, fmt.Errorf("r.Config: expected map[string]interface{}")
@@ -543,594 +1471,6 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			}
 		} else {
 			return nil, fmt.Errorf("r.StatusHistory: expected []interface{}")
-		}
-	}
-	return r, nil
-}
-
-func UnstructuredToClusterClusterConfig(obj map[string]interface{}) (*dclService.ClusterClusterConfig, error) {
-	r := &dclService.ClusterClusterConfig{}
-	if _, ok := obj["autoscalingConfig"]; ok {
-		if rAutoscalingConfig, ok := obj["autoscalingConfig"].(map[string]interface{}); ok {
-			r.AutoscalingConfig = &dclService.ClusterClusterConfigAutoscalingConfig{}
-			if _, ok := rAutoscalingConfig["policy"]; ok {
-				if s, ok := rAutoscalingConfig["policy"].(string); ok {
-					r.AutoscalingConfig.Policy = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.AutoscalingConfig.Policy: expected string")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.AutoscalingConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["encryptionConfig"]; ok {
-		if rEncryptionConfig, ok := obj["encryptionConfig"].(map[string]interface{}); ok {
-			r.EncryptionConfig = &dclService.ClusterClusterConfigEncryptionConfig{}
-			if _, ok := rEncryptionConfig["gcePdKmsKeyName"]; ok {
-				if s, ok := rEncryptionConfig["gcePdKmsKeyName"].(string); ok {
-					r.EncryptionConfig.GcePdKmsKeyName = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.EncryptionConfig.GcePdKmsKeyName: expected string")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.EncryptionConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["endpointConfig"]; ok {
-		if rEndpointConfig, ok := obj["endpointConfig"].(map[string]interface{}); ok {
-			r.EndpointConfig = &dclService.ClusterClusterConfigEndpointConfig{}
-			if _, ok := rEndpointConfig["enableHttpPortAccess"]; ok {
-				if b, ok := rEndpointConfig["enableHttpPortAccess"].(bool); ok {
-					r.EndpointConfig.EnableHttpPortAccess = dcl.Bool(b)
-				} else {
-					return nil, fmt.Errorf("r.EndpointConfig.EnableHttpPortAccess: expected bool")
-				}
-			}
-			if _, ok := rEndpointConfig["httpPorts"]; ok {
-				if rEndpointConfigHttpPorts, ok := rEndpointConfig["httpPorts"].(map[string]interface{}); ok {
-					m := make(map[string]string)
-					for k, v := range rEndpointConfigHttpPorts {
-						if s, ok := v.(string); ok {
-							m[k] = s
-						}
-					}
-					r.EndpointConfig.HttpPorts = m
-				} else {
-					return nil, fmt.Errorf("r.EndpointConfig.HttpPorts: expected map[string]interface{}")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.EndpointConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["gceClusterConfig"]; ok {
-		if rGceClusterConfig, ok := obj["gceClusterConfig"].(map[string]interface{}); ok {
-			r.GceClusterConfig = &dclService.ClusterClusterConfigGceClusterConfig{}
-			if _, ok := rGceClusterConfig["internalIPOnly"]; ok {
-				if b, ok := rGceClusterConfig["internalIPOnly"].(bool); ok {
-					r.GceClusterConfig.InternalIPOnly = dcl.Bool(b)
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.InternalIPOnly: expected bool")
-				}
-			}
-			if _, ok := rGceClusterConfig["metadata"]; ok {
-				if rGceClusterConfigMetadata, ok := rGceClusterConfig["metadata"].(map[string]interface{}); ok {
-					m := make(map[string]string)
-					for k, v := range rGceClusterConfigMetadata {
-						if s, ok := v.(string); ok {
-							m[k] = s
-						}
-					}
-					r.GceClusterConfig.Metadata = m
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.Metadata: expected map[string]interface{}")
-				}
-			}
-			if _, ok := rGceClusterConfig["network"]; ok {
-				if s, ok := rGceClusterConfig["network"].(string); ok {
-					r.GceClusterConfig.Network = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.Network: expected string")
-				}
-			}
-			if _, ok := rGceClusterConfig["nodeGroupAffinity"]; ok {
-				if rGceClusterConfigNodeGroupAffinity, ok := rGceClusterConfig["nodeGroupAffinity"].(map[string]interface{}); ok {
-					r.GceClusterConfig.NodeGroupAffinity = &dclService.ClusterClusterConfigGceClusterConfigNodeGroupAffinity{}
-					if _, ok := rGceClusterConfigNodeGroupAffinity["nodeGroup"]; ok {
-						if s, ok := rGceClusterConfigNodeGroupAffinity["nodeGroup"].(string); ok {
-							r.GceClusterConfig.NodeGroupAffinity.NodeGroup = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.GceClusterConfig.NodeGroupAffinity.NodeGroup: expected string")
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.NodeGroupAffinity: expected map[string]interface{}")
-				}
-			}
-			if _, ok := rGceClusterConfig["privateIPv6GoogleAccess"]; ok {
-				if s, ok := rGceClusterConfig["privateIPv6GoogleAccess"].(string); ok {
-					r.GceClusterConfig.PrivateIPv6GoogleAccess = dclService.ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s)
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.PrivateIPv6GoogleAccess: expected string")
-				}
-			}
-			if _, ok := rGceClusterConfig["reservationAffinity"]; ok {
-				if rGceClusterConfigReservationAffinity, ok := rGceClusterConfig["reservationAffinity"].(map[string]interface{}); ok {
-					r.GceClusterConfig.ReservationAffinity = &dclService.ClusterClusterConfigGceClusterConfigReservationAffinity{}
-					if _, ok := rGceClusterConfigReservationAffinity["consumeReservationType"]; ok {
-						if s, ok := rGceClusterConfigReservationAffinity["consumeReservationType"].(string); ok {
-							r.GceClusterConfig.ReservationAffinity.ConsumeReservationType = dclService.ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s)
-						} else {
-							return nil, fmt.Errorf("r.GceClusterConfig.ReservationAffinity.ConsumeReservationType: expected string")
-						}
-					}
-					if _, ok := rGceClusterConfigReservationAffinity["key"]; ok {
-						if s, ok := rGceClusterConfigReservationAffinity["key"].(string); ok {
-							r.GceClusterConfig.ReservationAffinity.Key = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.GceClusterConfig.ReservationAffinity.Key: expected string")
-						}
-					}
-					if _, ok := rGceClusterConfigReservationAffinity["values"]; ok {
-						if s, ok := rGceClusterConfigReservationAffinity["values"].([]interface{}); ok {
-							for _, ss := range s {
-								if strval, ok := ss.(string); ok {
-									r.GceClusterConfig.ReservationAffinity.Values = append(r.GceClusterConfig.ReservationAffinity.Values, strval)
-								}
-							}
-						} else {
-							return nil, fmt.Errorf("r.GceClusterConfig.ReservationAffinity.Values: expected []interface{}")
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.ReservationAffinity: expected map[string]interface{}")
-				}
-			}
-			if _, ok := rGceClusterConfig["serviceAccount"]; ok {
-				if s, ok := rGceClusterConfig["serviceAccount"].(string); ok {
-					r.GceClusterConfig.ServiceAccount = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.ServiceAccount: expected string")
-				}
-			}
-			if _, ok := rGceClusterConfig["serviceAccountScopes"]; ok {
-				if s, ok := rGceClusterConfig["serviceAccountScopes"].([]interface{}); ok {
-					for _, ss := range s {
-						if strval, ok := ss.(string); ok {
-							r.GceClusterConfig.ServiceAccountScopes = append(r.GceClusterConfig.ServiceAccountScopes, strval)
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.ServiceAccountScopes: expected []interface{}")
-				}
-			}
-			if _, ok := rGceClusterConfig["subnetwork"]; ok {
-				if s, ok := rGceClusterConfig["subnetwork"].(string); ok {
-					r.GceClusterConfig.Subnetwork = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.Subnetwork: expected string")
-				}
-			}
-			if _, ok := rGceClusterConfig["tags"]; ok {
-				if s, ok := rGceClusterConfig["tags"].([]interface{}); ok {
-					for _, ss := range s {
-						if strval, ok := ss.(string); ok {
-							r.GceClusterConfig.Tags = append(r.GceClusterConfig.Tags, strval)
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.Tags: expected []interface{}")
-				}
-			}
-			if _, ok := rGceClusterConfig["zone"]; ok {
-				if s, ok := rGceClusterConfig["zone"].(string); ok {
-					r.GceClusterConfig.Zone = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.GceClusterConfig.Zone: expected string")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.GceClusterConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["initializationActions"]; ok {
-		if s, ok := obj["initializationActions"].([]interface{}); ok {
-			for _, o := range s {
-				if objval, ok := o.(map[string]interface{}); ok {
-					var rInitializationActions dclService.ClusterClusterConfigInitializationActions
-					if _, ok := objval["executableFile"]; ok {
-						if s, ok := objval["executableFile"].(string); ok {
-							rInitializationActions.ExecutableFile = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rInitializationActions.ExecutableFile: expected string")
-						}
-					}
-					if _, ok := objval["executionTimeout"]; ok {
-						if s, ok := objval["executionTimeout"].(string); ok {
-							rInitializationActions.ExecutionTimeout = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rInitializationActions.ExecutionTimeout: expected string")
-						}
-					}
-					r.InitializationActions = append(r.InitializationActions, rInitializationActions)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.InitializationActions: expected []interface{}")
-		}
-	}
-	if _, ok := obj["lifecycleConfig"]; ok {
-		if rLifecycleConfig, ok := obj["lifecycleConfig"].(map[string]interface{}); ok {
-			r.LifecycleConfig = &dclService.ClusterClusterConfigLifecycleConfig{}
-			if _, ok := rLifecycleConfig["autoDeleteTime"]; ok {
-				if s, ok := rLifecycleConfig["autoDeleteTime"].(string); ok {
-					r.LifecycleConfig.AutoDeleteTime = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.LifecycleConfig.AutoDeleteTime: expected string")
-				}
-			}
-			if _, ok := rLifecycleConfig["autoDeleteTtl"]; ok {
-				if s, ok := rLifecycleConfig["autoDeleteTtl"].(string); ok {
-					r.LifecycleConfig.AutoDeleteTtl = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.LifecycleConfig.AutoDeleteTtl: expected string")
-				}
-			}
-			if _, ok := rLifecycleConfig["idleDeleteTtl"]; ok {
-				if s, ok := rLifecycleConfig["idleDeleteTtl"].(string); ok {
-					r.LifecycleConfig.IdleDeleteTtl = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.LifecycleConfig.IdleDeleteTtl: expected string")
-				}
-			}
-			if _, ok := rLifecycleConfig["idleStartTime"]; ok {
-				if s, ok := rLifecycleConfig["idleStartTime"].(string); ok {
-					r.LifecycleConfig.IdleStartTime = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.LifecycleConfig.IdleStartTime: expected string")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.LifecycleConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["masterConfig"]; ok {
-		if rMasterConfig, ok := obj["masterConfig"].(map[string]interface{}); ok {
-			var err error
-			r.MasterConfig, err = UnstructuredToClusterInstanceGroupConfig(rMasterConfig)
-			if err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, fmt.Errorf("r.MasterConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["secondaryWorkerConfig"]; ok {
-		if rSecondaryWorkerConfig, ok := obj["secondaryWorkerConfig"].(map[string]interface{}); ok {
-			var err error
-			r.SecondaryWorkerConfig, err = UnstructuredToClusterInstanceGroupConfig(rSecondaryWorkerConfig)
-			if err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, fmt.Errorf("r.SecondaryWorkerConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["securityConfig"]; ok {
-		if rSecurityConfig, ok := obj["securityConfig"].(map[string]interface{}); ok {
-			r.SecurityConfig = &dclService.ClusterClusterConfigSecurityConfig{}
-			if _, ok := rSecurityConfig["kerberosConfig"]; ok {
-				if rSecurityConfigKerberosConfig, ok := rSecurityConfig["kerberosConfig"].(map[string]interface{}); ok {
-					r.SecurityConfig.KerberosConfig = &dclService.ClusterClusterConfigSecurityConfigKerberosConfig{}
-					if _, ok := rSecurityConfigKerberosConfig["crossRealmTrustAdminServer"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["crossRealmTrustAdminServer"].(string); ok {
-							r.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["crossRealmTrustKdc"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["crossRealmTrustKdc"].(string); ok {
-							r.SecurityConfig.KerberosConfig.CrossRealmTrustKdc = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.CrossRealmTrustKdc: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["crossRealmTrustRealm"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["crossRealmTrustRealm"].(string); ok {
-							r.SecurityConfig.KerberosConfig.CrossRealmTrustRealm = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.CrossRealmTrustRealm: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"].(string); ok {
-							r.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["enableKerberos"]; ok {
-						if b, ok := rSecurityConfigKerberosConfig["enableKerberos"].(bool); ok {
-							r.SecurityConfig.KerberosConfig.EnableKerberos = dcl.Bool(b)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.EnableKerberos: expected bool")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["kdcDbKey"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["kdcDbKey"].(string); ok {
-							r.SecurityConfig.KerberosConfig.KdcDbKey = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.KdcDbKey: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["keyPassword"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["keyPassword"].(string); ok {
-							r.SecurityConfig.KerberosConfig.KeyPassword = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.KeyPassword: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["keystore"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["keystore"].(string); ok {
-							r.SecurityConfig.KerberosConfig.Keystore = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.Keystore: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["keystorePassword"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["keystorePassword"].(string); ok {
-							r.SecurityConfig.KerberosConfig.KeystorePassword = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.KeystorePassword: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["kmsKey"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["kmsKey"].(string); ok {
-							r.SecurityConfig.KerberosConfig.KmsKey = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.KmsKey: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["realm"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["realm"].(string); ok {
-							r.SecurityConfig.KerberosConfig.Realm = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.Realm: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["rootPrincipalPassword"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["rootPrincipalPassword"].(string); ok {
-							r.SecurityConfig.KerberosConfig.RootPrincipalPassword = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.RootPrincipalPassword: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["tgtLifetimeHours"]; ok {
-						if i, ok := rSecurityConfigKerberosConfig["tgtLifetimeHours"].(int64); ok {
-							r.SecurityConfig.KerberosConfig.TgtLifetimeHours = dcl.Int64(i)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.TgtLifetimeHours: expected int64")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["truststore"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["truststore"].(string); ok {
-							r.SecurityConfig.KerberosConfig.Truststore = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.Truststore: expected string")
-						}
-					}
-					if _, ok := rSecurityConfigKerberosConfig["truststorePassword"]; ok {
-						if s, ok := rSecurityConfigKerberosConfig["truststorePassword"].(string); ok {
-							r.SecurityConfig.KerberosConfig.TruststorePassword = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig.TruststorePassword: expected string")
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.SecurityConfig.KerberosConfig: expected map[string]interface{}")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.SecurityConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["softwareConfig"]; ok {
-		if rSoftwareConfig, ok := obj["softwareConfig"].(map[string]interface{}); ok {
-			r.SoftwareConfig = &dclService.ClusterClusterConfigSoftwareConfig{}
-			if _, ok := rSoftwareConfig["imageVersion"]; ok {
-				if s, ok := rSoftwareConfig["imageVersion"].(string); ok {
-					r.SoftwareConfig.ImageVersion = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.SoftwareConfig.ImageVersion: expected string")
-				}
-			}
-			if _, ok := rSoftwareConfig["optionalComponents"]; ok {
-				if s, ok := rSoftwareConfig["optionalComponents"].([]interface{}); ok {
-					for _, ss := range s {
-						if strval, ok := ss.(string); ok {
-							r.SoftwareConfig.OptionalComponents = append(r.SoftwareConfig.OptionalComponents, dclService.ClusterClusterConfigSoftwareConfigOptionalComponentsEnum(strval))
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.SoftwareConfig.OptionalComponents: expected []interface{}")
-				}
-			}
-			if _, ok := rSoftwareConfig["properties"]; ok {
-				if rSoftwareConfigProperties, ok := rSoftwareConfig["properties"].(map[string]interface{}); ok {
-					m := make(map[string]string)
-					for k, v := range rSoftwareConfigProperties {
-						if s, ok := v.(string); ok {
-							m[k] = s
-						}
-					}
-					r.SoftwareConfig.Properties = m
-				} else {
-					return nil, fmt.Errorf("r.SoftwareConfig.Properties: expected map[string]interface{}")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.SoftwareConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["stagingBucket"]; ok {
-		if s, ok := obj["stagingBucket"].(string); ok {
-			r.StagingBucket = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.StagingBucket: expected string")
-		}
-	}
-	if _, ok := obj["tempBucket"]; ok {
-		if s, ok := obj["tempBucket"].(string); ok {
-			r.TempBucket = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.TempBucket: expected string")
-		}
-	}
-	if _, ok := obj["workerConfig"]; ok {
-		if rWorkerConfig, ok := obj["workerConfig"].(map[string]interface{}); ok {
-			var err error
-			r.WorkerConfig, err = UnstructuredToClusterInstanceGroupConfig(rWorkerConfig)
-			if err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, fmt.Errorf("r.WorkerConfig: expected map[string]interface{}")
-		}
-	}
-	return r, nil
-}
-
-func UnstructuredToClusterInstanceGroupConfig(obj map[string]interface{}) (*dclService.ClusterInstanceGroupConfig, error) {
-	r := &dclService.ClusterInstanceGroupConfig{}
-	if _, ok := obj["accelerators"]; ok {
-		if s, ok := obj["accelerators"].([]interface{}); ok {
-			for _, o := range s {
-				if objval, ok := o.(map[string]interface{}); ok {
-					var rAccelerators dclService.ClusterInstanceGroupConfigAccelerators
-					if _, ok := objval["acceleratorCount"]; ok {
-						if i, ok := objval["acceleratorCount"].(int64); ok {
-							rAccelerators.AcceleratorCount = dcl.Int64(i)
-						} else {
-							return nil, fmt.Errorf("rAccelerators.AcceleratorCount: expected int64")
-						}
-					}
-					if _, ok := objval["acceleratorType"]; ok {
-						if s, ok := objval["acceleratorType"].(string); ok {
-							rAccelerators.AcceleratorType = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rAccelerators.AcceleratorType: expected string")
-						}
-					}
-					r.Accelerators = append(r.Accelerators, rAccelerators)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.Accelerators: expected []interface{}")
-		}
-	}
-	if _, ok := obj["diskConfig"]; ok {
-		if rDiskConfig, ok := obj["diskConfig"].(map[string]interface{}); ok {
-			r.DiskConfig = &dclService.ClusterInstanceGroupConfigDiskConfig{}
-			if _, ok := rDiskConfig["bootDiskSizeGb"]; ok {
-				if i, ok := rDiskConfig["bootDiskSizeGb"].(int64); ok {
-					r.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
-				} else {
-					return nil, fmt.Errorf("r.DiskConfig.BootDiskSizeGb: expected int64")
-				}
-			}
-			if _, ok := rDiskConfig["bootDiskType"]; ok {
-				if s, ok := rDiskConfig["bootDiskType"].(string); ok {
-					r.DiskConfig.BootDiskType = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.DiskConfig.BootDiskType: expected string")
-				}
-			}
-			if _, ok := rDiskConfig["numLocalSsds"]; ok {
-				if i, ok := rDiskConfig["numLocalSsds"].(int64); ok {
-					r.DiskConfig.NumLocalSsds = dcl.Int64(i)
-				} else {
-					return nil, fmt.Errorf("r.DiskConfig.NumLocalSsds: expected int64")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.DiskConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["image"]; ok {
-		if s, ok := obj["image"].(string); ok {
-			r.Image = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Image: expected string")
-		}
-	}
-	if _, ok := obj["instanceNames"]; ok {
-		if s, ok := obj["instanceNames"].([]interface{}); ok {
-			for _, ss := range s {
-				if strval, ok := ss.(string); ok {
-					r.InstanceNames = append(r.InstanceNames, strval)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.InstanceNames: expected []interface{}")
-		}
-	}
-	if _, ok := obj["isPreemptible"]; ok {
-		if b, ok := obj["isPreemptible"].(bool); ok {
-			r.IsPreemptible = dcl.Bool(b)
-		} else {
-			return nil, fmt.Errorf("r.IsPreemptible: expected bool")
-		}
-	}
-	if _, ok := obj["machineType"]; ok {
-		if s, ok := obj["machineType"].(string); ok {
-			r.MachineType = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.MachineType: expected string")
-		}
-	}
-	if _, ok := obj["managedGroupConfig"]; ok {
-		if rManagedGroupConfig, ok := obj["managedGroupConfig"].(map[string]interface{}); ok {
-			r.ManagedGroupConfig = &dclService.ClusterInstanceGroupConfigManagedGroupConfig{}
-			if _, ok := rManagedGroupConfig["instanceGroupManagerName"]; ok {
-				if s, ok := rManagedGroupConfig["instanceGroupManagerName"].(string); ok {
-					r.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.ManagedGroupConfig.InstanceGroupManagerName: expected string")
-				}
-			}
-			if _, ok := rManagedGroupConfig["instanceTemplateName"]; ok {
-				if s, ok := rManagedGroupConfig["instanceTemplateName"].(string); ok {
-					r.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.ManagedGroupConfig.InstanceTemplateName: expected string")
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.ManagedGroupConfig: expected map[string]interface{}")
-		}
-	}
-	if _, ok := obj["minCpuPlatform"]; ok {
-		if s, ok := obj["minCpuPlatform"].(string); ok {
-			r.MinCpuPlatform = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.MinCpuPlatform: expected string")
-		}
-	}
-	if _, ok := obj["numInstances"]; ok {
-		if i, ok := obj["numInstances"].(int64); ok {
-			r.NumInstances = dcl.Int64(i)
-		} else {
-			return nil, fmt.Errorf("r.NumInstances: expected int64")
-		}
-	}
-	if _, ok := obj["preemptibility"]; ok {
-		if s, ok := obj["preemptibility"].(string); ok {
-			r.Preemptibility = dclService.ClusterInstanceGroupConfigPreemptibilityEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.Preemptibility: expected string")
 		}
 	}
 	return r, nil

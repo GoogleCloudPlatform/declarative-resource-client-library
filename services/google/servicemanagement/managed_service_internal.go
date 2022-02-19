@@ -445,6 +445,8 @@ func unmarshalMapManagedService(m map[string]interface{}, c *Client) (*ManagedSe
 // expandManagedService expands ManagedService into a JSON request object.
 func expandManagedService(c *Client, f *ManagedService) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["serviceName"] = v
 	}

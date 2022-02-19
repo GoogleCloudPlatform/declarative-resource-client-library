@@ -114,6 +114,8 @@ type environmentApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateEnvironmentUpdateEnvironmentRequest(ctx context.Context, f *Environment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -612,6 +614,8 @@ func unmarshalMapEnvironment(m map[string]interface{}, c *Client) (*Environment,
 // expandEnvironment expands Environment into a JSON request object.
 func expandEnvironment(c *Client, f *Environment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

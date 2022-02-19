@@ -147,8 +147,10 @@ type featureMembershipApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateFeatureMembershipUpdateFeatureMembershipRequest(ctx context.Context, f *FeatureMembership, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
+	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement, res); err != nil {
 		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["configmanagement"] = v
@@ -1560,7 +1562,9 @@ func unmarshalMapFeatureMembership(m map[string]interface{}, c *Client) (*Featur
 // expandFeatureMembership expands FeatureMembership into a JSON request object.
 func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
+	res := f
+	_ = res
+	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement, res); err != nil {
 		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["configmanagement"] = v
@@ -1612,14 +1616,14 @@ func flattenFeatureMembership(c *Client, i interface{}) *FeatureMembership {
 
 // expandFeatureMembershipConfigmanagementMap expands the contents of FeatureMembershipConfigmanagement into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementMap(c *Client, f map[string]FeatureMembershipConfigmanagement) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementMap(c *Client, f map[string]FeatureMembershipConfigmanagement, res *FeatureMembership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureMembershipConfigmanagement(c, &item)
+		i, err := expandFeatureMembershipConfigmanagement(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1633,14 +1637,14 @@ func expandFeatureMembershipConfigmanagementMap(c *Client, f map[string]FeatureM
 
 // expandFeatureMembershipConfigmanagementSlice expands the contents of FeatureMembershipConfigmanagement into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementSlice(c *Client, f []FeatureMembershipConfigmanagement) ([]map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementSlice(c *Client, f []FeatureMembershipConfigmanagement, res *FeatureMembership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureMembershipConfigmanagement(c, &item)
+		i, err := expandFeatureMembershipConfigmanagement(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1693,28 +1697,28 @@ func flattenFeatureMembershipConfigmanagementSlice(c *Client, i interface{}) []F
 
 // expandFeatureMembershipConfigmanagement expands an instance of FeatureMembershipConfigmanagement into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConfigmanagement) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConfigmanagement, res *FeatureMembership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandFeatureMembershipConfigmanagementConfigSync(c, f.ConfigSync); err != nil {
+	if v, err := expandFeatureMembershipConfigmanagementConfigSync(c, f.ConfigSync, res); err != nil {
 		return nil, fmt.Errorf("error expanding ConfigSync into configSync: %w", err)
 	} else if v != nil {
 		m["configSync"] = v
 	}
-	if v, err := expandFeatureMembershipConfigmanagementPolicyController(c, f.PolicyController); err != nil {
+	if v, err := expandFeatureMembershipConfigmanagementPolicyController(c, f.PolicyController, res); err != nil {
 		return nil, fmt.Errorf("error expanding PolicyController into policyController: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["policyController"] = v
 	}
-	if v, err := expandFeatureMembershipConfigmanagementBinauthz(c, f.Binauthz); err != nil {
+	if v, err := expandFeatureMembershipConfigmanagementBinauthz(c, f.Binauthz, res); err != nil {
 		return nil, fmt.Errorf("error expanding Binauthz into binauthz: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["binauthz"] = v
 	}
-	if v, err := expandFeatureMembershipConfigmanagementHierarchyController(c, f.HierarchyController); err != nil {
+	if v, err := expandFeatureMembershipConfigmanagementHierarchyController(c, f.HierarchyController, res); err != nil {
 		return nil, fmt.Errorf("error expanding HierarchyController into hierarchyController: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["hierarchyController"] = v
@@ -1750,14 +1754,14 @@ func flattenFeatureMembershipConfigmanagement(c *Client, i interface{}) *Feature
 
 // expandFeatureMembershipConfigmanagementConfigSyncMap expands the contents of FeatureMembershipConfigmanagementConfigSync into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementConfigSyncMap(c *Client, f map[string]FeatureMembershipConfigmanagementConfigSync) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementConfigSyncMap(c *Client, f map[string]FeatureMembershipConfigmanagementConfigSync, res *FeatureMembership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementConfigSync(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementConfigSync(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1771,14 +1775,14 @@ func expandFeatureMembershipConfigmanagementConfigSyncMap(c *Client, f map[strin
 
 // expandFeatureMembershipConfigmanagementConfigSyncSlice expands the contents of FeatureMembershipConfigmanagementConfigSync into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, f []FeatureMembershipConfigmanagementConfigSync) ([]map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, f []FeatureMembershipConfigmanagementConfigSync, res *FeatureMembership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementConfigSync(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementConfigSync(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1831,13 +1835,13 @@ func flattenFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, i interf
 
 // expandFeatureMembershipConfigmanagementConfigSync expands an instance of FeatureMembershipConfigmanagementConfigSync into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMembershipConfigmanagementConfigSync) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMembershipConfigmanagementConfigSync, res *FeatureMembership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, f.Git); err != nil {
+	if v, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, f.Git, res); err != nil {
 		return nil, fmt.Errorf("error expanding Git into git: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["git"] = v
@@ -1870,14 +1874,14 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 
 // expandFeatureMembershipConfigmanagementConfigSyncGitMap expands the contents of FeatureMembershipConfigmanagementConfigSyncGit into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, f map[string]FeatureMembershipConfigmanagementConfigSyncGit) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, f map[string]FeatureMembershipConfigmanagementConfigSyncGit, res *FeatureMembership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1891,14 +1895,14 @@ func expandFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, f map[st
 
 // expandFeatureMembershipConfigmanagementConfigSyncGitSlice expands the contents of FeatureMembershipConfigmanagementConfigSyncGit into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, f []FeatureMembershipConfigmanagementConfigSyncGit) ([]map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, f []FeatureMembershipConfigmanagementConfigSyncGit, res *FeatureMembership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1951,7 +1955,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, i int
 
 // expandFeatureMembershipConfigmanagementConfigSyncGit expands an instance of FeatureMembershipConfigmanagementConfigSyncGit into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementConfigSyncGit(c *Client, f *FeatureMembershipConfigmanagementConfigSyncGit) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementConfigSyncGit(c *Client, f *FeatureMembershipConfigmanagementConfigSyncGit, res *FeatureMembership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2012,14 +2016,14 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGit(c *Client, i interfac
 
 // expandFeatureMembershipConfigmanagementPolicyControllerMap expands the contents of FeatureMembershipConfigmanagementPolicyController into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, f map[string]FeatureMembershipConfigmanagementPolicyController) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, f map[string]FeatureMembershipConfigmanagementPolicyController, res *FeatureMembership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementPolicyController(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementPolicyController(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2033,14 +2037,14 @@ func expandFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, f map
 
 // expandFeatureMembershipConfigmanagementPolicyControllerSlice expands the contents of FeatureMembershipConfigmanagementPolicyController into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, f []FeatureMembershipConfigmanagementPolicyController) ([]map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, f []FeatureMembershipConfigmanagementPolicyController, res *FeatureMembership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementPolicyController(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementPolicyController(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2093,7 +2097,7 @@ func flattenFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, i 
 
 // expandFeatureMembershipConfigmanagementPolicyController expands an instance of FeatureMembershipConfigmanagementPolicyController into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementPolicyController(c *Client, f *FeatureMembershipConfigmanagementPolicyController) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementPolicyController(c *Client, f *FeatureMembershipConfigmanagementPolicyController, res *FeatureMembership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2146,14 +2150,14 @@ func flattenFeatureMembershipConfigmanagementPolicyController(c *Client, i inter
 
 // expandFeatureMembershipConfigmanagementBinauthzMap expands the contents of FeatureMembershipConfigmanagementBinauthz into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementBinauthzMap(c *Client, f map[string]FeatureMembershipConfigmanagementBinauthz) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementBinauthzMap(c *Client, f map[string]FeatureMembershipConfigmanagementBinauthz, res *FeatureMembership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementBinauthz(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementBinauthz(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2167,14 +2171,14 @@ func expandFeatureMembershipConfigmanagementBinauthzMap(c *Client, f map[string]
 
 // expandFeatureMembershipConfigmanagementBinauthzSlice expands the contents of FeatureMembershipConfigmanagementBinauthz into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementBinauthzSlice(c *Client, f []FeatureMembershipConfigmanagementBinauthz) ([]map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementBinauthzSlice(c *Client, f []FeatureMembershipConfigmanagementBinauthz, res *FeatureMembership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementBinauthz(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementBinauthz(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2227,7 +2231,7 @@ func flattenFeatureMembershipConfigmanagementBinauthzSlice(c *Client, i interfac
 
 // expandFeatureMembershipConfigmanagementBinauthz expands an instance of FeatureMembershipConfigmanagementBinauthz into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementBinauthz(c *Client, f *FeatureMembershipConfigmanagementBinauthz) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementBinauthz(c *Client, f *FeatureMembershipConfigmanagementBinauthz, res *FeatureMembership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2260,14 +2264,14 @@ func flattenFeatureMembershipConfigmanagementBinauthz(c *Client, i interface{}) 
 
 // expandFeatureMembershipConfigmanagementHierarchyControllerMap expands the contents of FeatureMembershipConfigmanagementHierarchyController into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, f map[string]FeatureMembershipConfigmanagementHierarchyController) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, f map[string]FeatureMembershipConfigmanagementHierarchyController, res *FeatureMembership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementHierarchyController(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementHierarchyController(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2281,14 +2285,14 @@ func expandFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, f 
 
 // expandFeatureMembershipConfigmanagementHierarchyControllerSlice expands the contents of FeatureMembershipConfigmanagementHierarchyController into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client, f []FeatureMembershipConfigmanagementHierarchyController) ([]map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client, f []FeatureMembershipConfigmanagementHierarchyController, res *FeatureMembership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureMembershipConfigmanagementHierarchyController(c, &item)
+		i, err := expandFeatureMembershipConfigmanagementHierarchyController(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2341,7 +2345,7 @@ func flattenFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client,
 
 // expandFeatureMembershipConfigmanagementHierarchyController expands an instance of FeatureMembershipConfigmanagementHierarchyController into a JSON
 // request object.
-func expandFeatureMembershipConfigmanagementHierarchyController(c *Client, f *FeatureMembershipConfigmanagementHierarchyController) (map[string]interface{}, error) {
+func expandFeatureMembershipConfigmanagementHierarchyController(c *Client, f *FeatureMembershipConfigmanagementHierarchyController, res *FeatureMembership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

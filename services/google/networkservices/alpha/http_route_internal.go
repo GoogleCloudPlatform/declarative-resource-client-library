@@ -230,6 +230,8 @@ type httpRouteApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateHttpRouteUpdateHttpRouteRequest(ctx context.Context, f *HttpRoute, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("projects/%s/locations/global/httpRoutes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -254,7 +256,7 @@ func newUpdateHttpRouteUpdateHttpRouteRequest(ctx context.Context, f *HttpRoute,
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	if v, err := expandHttpRouteRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandHttpRouteRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		req["rules"] = v
@@ -4246,6 +4248,8 @@ func unmarshalMapHttpRoute(m map[string]interface{}, c *Client) (*HttpRoute, err
 // expandHttpRoute expands HttpRoute into a JSON request object.
 func expandHttpRoute(c *Client, f *HttpRoute) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/global/httpRoutes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -4269,7 +4273,7 @@ func expandHttpRoute(c *Client, f *HttpRoute) (map[string]interface{}, error) {
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandHttpRouteRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandHttpRouteRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		m["rules"] = v
@@ -4318,14 +4322,14 @@ func flattenHttpRoute(c *Client, i interface{}) *HttpRoute {
 
 // expandHttpRouteRulesMap expands the contents of HttpRouteRules into a JSON
 // request object.
-func expandHttpRouteRulesMap(c *Client, f map[string]HttpRouteRules) (map[string]interface{}, error) {
+func expandHttpRouteRulesMap(c *Client, f map[string]HttpRouteRules, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRules(c, &item)
+		i, err := expandHttpRouteRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4339,14 +4343,14 @@ func expandHttpRouteRulesMap(c *Client, f map[string]HttpRouteRules) (map[string
 
 // expandHttpRouteRulesSlice expands the contents of HttpRouteRules into a JSON
 // request object.
-func expandHttpRouteRulesSlice(c *Client, f []HttpRouteRules) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesSlice(c *Client, f []HttpRouteRules, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRules(c, &item)
+		i, err := expandHttpRouteRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4399,18 +4403,18 @@ func flattenHttpRouteRulesSlice(c *Client, i interface{}) []HttpRouteRules {
 
 // expandHttpRouteRules expands an instance of HttpRouteRules into a JSON
 // request object.
-func expandHttpRouteRules(c *Client, f *HttpRouteRules) (map[string]interface{}, error) {
+func expandHttpRouteRules(c *Client, f *HttpRouteRules, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandHttpRouteRulesMatchesSlice(c, f.Matches); err != nil {
+	if v, err := expandHttpRouteRulesMatchesSlice(c, f.Matches, res); err != nil {
 		return nil, fmt.Errorf("error expanding Matches into matches: %w", err)
 	} else if v != nil {
 		m["matches"] = v
 	}
-	if v, err := expandHttpRouteRulesAction(c, f.Action); err != nil {
+	if v, err := expandHttpRouteRulesAction(c, f.Action, res); err != nil {
 		return nil, fmt.Errorf("error expanding Action into action: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["action"] = v
@@ -4440,14 +4444,14 @@ func flattenHttpRouteRules(c *Client, i interface{}) *HttpRouteRules {
 
 // expandHttpRouteRulesMatchesMap expands the contents of HttpRouteRulesMatches into a JSON
 // request object.
-func expandHttpRouteRulesMatchesMap(c *Client, f map[string]HttpRouteRulesMatches) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesMap(c *Client, f map[string]HttpRouteRulesMatches, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesMatches(c, &item)
+		i, err := expandHttpRouteRulesMatches(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4461,14 +4465,14 @@ func expandHttpRouteRulesMatchesMap(c *Client, f map[string]HttpRouteRulesMatche
 
 // expandHttpRouteRulesMatchesSlice expands the contents of HttpRouteRulesMatches into a JSON
 // request object.
-func expandHttpRouteRulesMatchesSlice(c *Client, f []HttpRouteRulesMatches) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesSlice(c *Client, f []HttpRouteRulesMatches, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesMatches(c, &item)
+		i, err := expandHttpRouteRulesMatches(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4521,7 +4525,7 @@ func flattenHttpRouteRulesMatchesSlice(c *Client, i interface{}) []HttpRouteRule
 
 // expandHttpRouteRulesMatches expands an instance of HttpRouteRulesMatches into a JSON
 // request object.
-func expandHttpRouteRulesMatches(c *Client, f *HttpRouteRulesMatches) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatches(c *Client, f *HttpRouteRulesMatches, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -4539,12 +4543,12 @@ func expandHttpRouteRulesMatches(c *Client, f *HttpRouteRulesMatches) (map[strin
 	if v := f.IgnoreCase; !dcl.IsEmptyValueIndirect(v) {
 		m["ignoreCase"] = v
 	}
-	if v, err := expandHttpRouteRulesMatchesHeadersSlice(c, f.Headers); err != nil {
+	if v, err := expandHttpRouteRulesMatchesHeadersSlice(c, f.Headers, res); err != nil {
 		return nil, fmt.Errorf("error expanding Headers into headers: %w", err)
 	} else if v != nil {
 		m["headers"] = v
 	}
-	if v, err := expandHttpRouteRulesMatchesQueryParametersSlice(c, f.QueryParameters); err != nil {
+	if v, err := expandHttpRouteRulesMatchesQueryParametersSlice(c, f.QueryParameters, res); err != nil {
 		return nil, fmt.Errorf("error expanding QueryParameters into queryParameters: %w", err)
 	} else if v != nil {
 		m["queryParameters"] = v
@@ -4578,14 +4582,14 @@ func flattenHttpRouteRulesMatches(c *Client, i interface{}) *HttpRouteRulesMatch
 
 // expandHttpRouteRulesMatchesHeadersMap expands the contents of HttpRouteRulesMatchesHeaders into a JSON
 // request object.
-func expandHttpRouteRulesMatchesHeadersMap(c *Client, f map[string]HttpRouteRulesMatchesHeaders) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesHeadersMap(c *Client, f map[string]HttpRouteRulesMatchesHeaders, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesMatchesHeaders(c, &item)
+		i, err := expandHttpRouteRulesMatchesHeaders(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4599,14 +4603,14 @@ func expandHttpRouteRulesMatchesHeadersMap(c *Client, f map[string]HttpRouteRule
 
 // expandHttpRouteRulesMatchesHeadersSlice expands the contents of HttpRouteRulesMatchesHeaders into a JSON
 // request object.
-func expandHttpRouteRulesMatchesHeadersSlice(c *Client, f []HttpRouteRulesMatchesHeaders) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesHeadersSlice(c *Client, f []HttpRouteRulesMatchesHeaders, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesMatchesHeaders(c, &item)
+		i, err := expandHttpRouteRulesMatchesHeaders(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4659,7 +4663,7 @@ func flattenHttpRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []HttpRo
 
 // expandHttpRouteRulesMatchesHeaders expands an instance of HttpRouteRulesMatchesHeaders into a JSON
 // request object.
-func expandHttpRouteRulesMatchesHeaders(c *Client, f *HttpRouteRulesMatchesHeaders) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesHeaders(c *Client, f *HttpRouteRulesMatchesHeaders, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -4683,7 +4687,7 @@ func expandHttpRouteRulesMatchesHeaders(c *Client, f *HttpRouteRulesMatchesHeade
 	if v := f.SuffixMatch; !dcl.IsEmptyValueIndirect(v) {
 		m["suffixMatch"] = v
 	}
-	if v, err := expandHttpRouteRulesMatchesHeadersRangeMatch(c, f.RangeMatch); err != nil {
+	if v, err := expandHttpRouteRulesMatchesHeadersRangeMatch(c, f.RangeMatch, res); err != nil {
 		return nil, fmt.Errorf("error expanding RangeMatch into rangeMatch: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rangeMatch"] = v
@@ -4722,14 +4726,14 @@ func flattenHttpRouteRulesMatchesHeaders(c *Client, i interface{}) *HttpRouteRul
 
 // expandHttpRouteRulesMatchesHeadersRangeMatchMap expands the contents of HttpRouteRulesMatchesHeadersRangeMatch into a JSON
 // request object.
-func expandHttpRouteRulesMatchesHeadersRangeMatchMap(c *Client, f map[string]HttpRouteRulesMatchesHeadersRangeMatch) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesHeadersRangeMatchMap(c *Client, f map[string]HttpRouteRulesMatchesHeadersRangeMatch, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesMatchesHeadersRangeMatch(c, &item)
+		i, err := expandHttpRouteRulesMatchesHeadersRangeMatch(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4743,14 +4747,14 @@ func expandHttpRouteRulesMatchesHeadersRangeMatchMap(c *Client, f map[string]Htt
 
 // expandHttpRouteRulesMatchesHeadersRangeMatchSlice expands the contents of HttpRouteRulesMatchesHeadersRangeMatch into a JSON
 // request object.
-func expandHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, f []HttpRouteRulesMatchesHeadersRangeMatch) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, f []HttpRouteRulesMatchesHeadersRangeMatch, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesMatchesHeadersRangeMatch(c, &item)
+		i, err := expandHttpRouteRulesMatchesHeadersRangeMatch(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4803,7 +4807,7 @@ func flattenHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, i interface{}
 
 // expandHttpRouteRulesMatchesHeadersRangeMatch expands an instance of HttpRouteRulesMatchesHeadersRangeMatch into a JSON
 // request object.
-func expandHttpRouteRulesMatchesHeadersRangeMatch(c *Client, f *HttpRouteRulesMatchesHeadersRangeMatch) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesHeadersRangeMatch(c *Client, f *HttpRouteRulesMatchesHeadersRangeMatch, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4840,14 +4844,14 @@ func flattenHttpRouteRulesMatchesHeadersRangeMatch(c *Client, i interface{}) *Ht
 
 // expandHttpRouteRulesMatchesQueryParametersMap expands the contents of HttpRouteRulesMatchesQueryParameters into a JSON
 // request object.
-func expandHttpRouteRulesMatchesQueryParametersMap(c *Client, f map[string]HttpRouteRulesMatchesQueryParameters) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesQueryParametersMap(c *Client, f map[string]HttpRouteRulesMatchesQueryParameters, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesMatchesQueryParameters(c, &item)
+		i, err := expandHttpRouteRulesMatchesQueryParameters(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4861,14 +4865,14 @@ func expandHttpRouteRulesMatchesQueryParametersMap(c *Client, f map[string]HttpR
 
 // expandHttpRouteRulesMatchesQueryParametersSlice expands the contents of HttpRouteRulesMatchesQueryParameters into a JSON
 // request object.
-func expandHttpRouteRulesMatchesQueryParametersSlice(c *Client, f []HttpRouteRulesMatchesQueryParameters) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesQueryParametersSlice(c *Client, f []HttpRouteRulesMatchesQueryParameters, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesMatchesQueryParameters(c, &item)
+		i, err := expandHttpRouteRulesMatchesQueryParameters(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4921,7 +4925,7 @@ func flattenHttpRouteRulesMatchesQueryParametersSlice(c *Client, i interface{}) 
 
 // expandHttpRouteRulesMatchesQueryParameters expands an instance of HttpRouteRulesMatchesQueryParameters into a JSON
 // request object.
-func expandHttpRouteRulesMatchesQueryParameters(c *Client, f *HttpRouteRulesMatchesQueryParameters) (map[string]interface{}, error) {
+func expandHttpRouteRulesMatchesQueryParameters(c *Client, f *HttpRouteRulesMatchesQueryParameters, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -4966,14 +4970,14 @@ func flattenHttpRouteRulesMatchesQueryParameters(c *Client, i interface{}) *Http
 
 // expandHttpRouteRulesActionMap expands the contents of HttpRouteRulesAction into a JSON
 // request object.
-func expandHttpRouteRulesActionMap(c *Client, f map[string]HttpRouteRulesAction) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionMap(c *Client, f map[string]HttpRouteRulesAction, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesAction(c, &item)
+		i, err := expandHttpRouteRulesAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4987,14 +4991,14 @@ func expandHttpRouteRulesActionMap(c *Client, f map[string]HttpRouteRulesAction)
 
 // expandHttpRouteRulesActionSlice expands the contents of HttpRouteRulesAction into a JSON
 // request object.
-func expandHttpRouteRulesActionSlice(c *Client, f []HttpRouteRulesAction) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionSlice(c *Client, f []HttpRouteRulesAction, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesAction(c, &item)
+		i, err := expandHttpRouteRulesAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5047,18 +5051,18 @@ func flattenHttpRouteRulesActionSlice(c *Client, i interface{}) []HttpRouteRules
 
 // expandHttpRouteRulesAction expands an instance of HttpRouteRulesAction into a JSON
 // request object.
-func expandHttpRouteRulesAction(c *Client, f *HttpRouteRulesAction) (map[string]interface{}, error) {
+func expandHttpRouteRulesAction(c *Client, f *HttpRouteRulesAction, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandHttpRouteRulesActionDestinationsSlice(c, f.Destinations); err != nil {
+	if v, err := expandHttpRouteRulesActionDestinationsSlice(c, f.Destinations, res); err != nil {
 		return nil, fmt.Errorf("error expanding Destinations into destinations: %w", err)
 	} else if v != nil {
 		m["destinations"] = v
 	}
-	if v, err := expandHttpRouteRulesActionRedirect(c, f.Redirect); err != nil {
+	if v, err := expandHttpRouteRulesActionRedirect(c, f.Redirect, res); err != nil {
 		return nil, fmt.Errorf("error expanding Redirect into redirect: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["redirect"] = v
@@ -5066,22 +5070,22 @@ func expandHttpRouteRulesAction(c *Client, f *HttpRouteRulesAction) (map[string]
 	if v := f.OriginalDestination; !dcl.IsEmptyValueIndirect(v) {
 		m["originalDestination"] = v
 	}
-	if v, err := expandHttpRouteRulesActionFaultInjectionPolicy(c, f.FaultInjectionPolicy); err != nil {
+	if v, err := expandHttpRouteRulesActionFaultInjectionPolicy(c, f.FaultInjectionPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding FaultInjectionPolicy into faultInjectionPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["faultInjectionPolicy"] = v
 	}
-	if v, err := expandHttpRouteRulesActionRequestHeaderModifier(c, f.RequestHeaderModifier); err != nil {
+	if v, err := expandHttpRouteRulesActionRequestHeaderModifier(c, f.RequestHeaderModifier, res); err != nil {
 		return nil, fmt.Errorf("error expanding RequestHeaderModifier into requestHeaderModifier: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["requestHeaderModifier"] = v
 	}
-	if v, err := expandHttpRouteRulesActionResponseHeaderModifier(c, f.ResponseHeaderModifier); err != nil {
+	if v, err := expandHttpRouteRulesActionResponseHeaderModifier(c, f.ResponseHeaderModifier, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseHeaderModifier into responseHeaderModifier: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["responseHeaderModifier"] = v
 	}
-	if v, err := expandHttpRouteRulesActionUrlRewrite(c, f.UrlRewrite); err != nil {
+	if v, err := expandHttpRouteRulesActionUrlRewrite(c, f.UrlRewrite, res); err != nil {
 		return nil, fmt.Errorf("error expanding UrlRewrite into urlRewrite: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["urlRewrite"] = v
@@ -5089,17 +5093,17 @@ func expandHttpRouteRulesAction(c *Client, f *HttpRouteRulesAction) (map[string]
 	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		m["timeout"] = v
 	}
-	if v, err := expandHttpRouteRulesActionRetryPolicy(c, f.RetryPolicy); err != nil {
+	if v, err := expandHttpRouteRulesActionRetryPolicy(c, f.RetryPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding RetryPolicy into retryPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["retryPolicy"] = v
 	}
-	if v, err := expandHttpRouteRulesActionRequestMirrorPolicy(c, f.RequestMirrorPolicy); err != nil {
+	if v, err := expandHttpRouteRulesActionRequestMirrorPolicy(c, f.RequestMirrorPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding RequestMirrorPolicy into requestMirrorPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["requestMirrorPolicy"] = v
 	}
-	if v, err := expandHttpRouteRulesActionCorsPolicy(c, f.CorsPolicy); err != nil {
+	if v, err := expandHttpRouteRulesActionCorsPolicy(c, f.CorsPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding CorsPolicy into corsPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["corsPolicy"] = v
@@ -5138,14 +5142,14 @@ func flattenHttpRouteRulesAction(c *Client, i interface{}) *HttpRouteRulesAction
 
 // expandHttpRouteRulesActionDestinationsMap expands the contents of HttpRouteRulesActionDestinations into a JSON
 // request object.
-func expandHttpRouteRulesActionDestinationsMap(c *Client, f map[string]HttpRouteRulesActionDestinations) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionDestinationsMap(c *Client, f map[string]HttpRouteRulesActionDestinations, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionDestinations(c, &item)
+		i, err := expandHttpRouteRulesActionDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5159,14 +5163,14 @@ func expandHttpRouteRulesActionDestinationsMap(c *Client, f map[string]HttpRoute
 
 // expandHttpRouteRulesActionDestinationsSlice expands the contents of HttpRouteRulesActionDestinations into a JSON
 // request object.
-func expandHttpRouteRulesActionDestinationsSlice(c *Client, f []HttpRouteRulesActionDestinations) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionDestinationsSlice(c *Client, f []HttpRouteRulesActionDestinations, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionDestinations(c, &item)
+		i, err := expandHttpRouteRulesActionDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5219,7 +5223,7 @@ func flattenHttpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Ht
 
 // expandHttpRouteRulesActionDestinations expands an instance of HttpRouteRulesActionDestinations into a JSON
 // request object.
-func expandHttpRouteRulesActionDestinations(c *Client, f *HttpRouteRulesActionDestinations) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionDestinations(c *Client, f *HttpRouteRulesActionDestinations, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5256,14 +5260,14 @@ func flattenHttpRouteRulesActionDestinations(c *Client, i interface{}) *HttpRout
 
 // expandHttpRouteRulesActionRedirectMap expands the contents of HttpRouteRulesActionRedirect into a JSON
 // request object.
-func expandHttpRouteRulesActionRedirectMap(c *Client, f map[string]HttpRouteRulesActionRedirect) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRedirectMap(c *Client, f map[string]HttpRouteRulesActionRedirect, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionRedirect(c, &item)
+		i, err := expandHttpRouteRulesActionRedirect(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5277,14 +5281,14 @@ func expandHttpRouteRulesActionRedirectMap(c *Client, f map[string]HttpRouteRule
 
 // expandHttpRouteRulesActionRedirectSlice expands the contents of HttpRouteRulesActionRedirect into a JSON
 // request object.
-func expandHttpRouteRulesActionRedirectSlice(c *Client, f []HttpRouteRulesActionRedirect) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionRedirectSlice(c *Client, f []HttpRouteRulesActionRedirect, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionRedirect(c, &item)
+		i, err := expandHttpRouteRulesActionRedirect(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5337,7 +5341,7 @@ func flattenHttpRouteRulesActionRedirectSlice(c *Client, i interface{}) []HttpRo
 
 // expandHttpRouteRulesActionRedirect expands an instance of HttpRouteRulesActionRedirect into a JSON
 // request object.
-func expandHttpRouteRulesActionRedirect(c *Client, f *HttpRouteRulesActionRedirect) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRedirect(c *Client, f *HttpRouteRulesActionRedirect, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5394,14 +5398,14 @@ func flattenHttpRouteRulesActionRedirect(c *Client, i interface{}) *HttpRouteRul
 
 // expandHttpRouteRulesActionFaultInjectionPolicyMap expands the contents of HttpRouteRulesActionFaultInjectionPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicyMap(c *Client, f map[string]HttpRouteRulesActionFaultInjectionPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicyMap(c *Client, f map[string]HttpRouteRulesActionFaultInjectionPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionFaultInjectionPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionFaultInjectionPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5415,14 +5419,14 @@ func expandHttpRouteRulesActionFaultInjectionPolicyMap(c *Client, f map[string]H
 
 // expandHttpRouteRulesActionFaultInjectionPolicySlice expands the contents of HttpRouteRulesActionFaultInjectionPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, f []HttpRouteRulesActionFaultInjectionPolicy) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, f []HttpRouteRulesActionFaultInjectionPolicy, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionFaultInjectionPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionFaultInjectionPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5475,18 +5479,18 @@ func flattenHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface
 
 // expandHttpRouteRulesActionFaultInjectionPolicy expands an instance of HttpRouteRulesActionFaultInjectionPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicy(c *Client, f *HttpRouteRulesActionFaultInjectionPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicy(c *Client, f *HttpRouteRulesActionFaultInjectionPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandHttpRouteRulesActionFaultInjectionPolicyDelay(c, f.Delay); err != nil {
+	if v, err := expandHttpRouteRulesActionFaultInjectionPolicyDelay(c, f.Delay, res); err != nil {
 		return nil, fmt.Errorf("error expanding Delay into delay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["delay"] = v
 	}
-	if v, err := expandHttpRouteRulesActionFaultInjectionPolicyAbort(c, f.Abort); err != nil {
+	if v, err := expandHttpRouteRulesActionFaultInjectionPolicyAbort(c, f.Abort, res); err != nil {
 		return nil, fmt.Errorf("error expanding Abort into abort: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["abort"] = v
@@ -5516,14 +5520,14 @@ func flattenHttpRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}) *
 
 // expandHttpRouteRulesActionFaultInjectionPolicyDelayMap expands the contents of HttpRouteRulesActionFaultInjectionPolicyDelay into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, f map[string]HttpRouteRulesActionFaultInjectionPolicyDelay) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, f map[string]HttpRouteRulesActionFaultInjectionPolicyDelay, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionFaultInjectionPolicyDelay(c, &item)
+		i, err := expandHttpRouteRulesActionFaultInjectionPolicyDelay(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5537,14 +5541,14 @@ func expandHttpRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, f map[str
 
 // expandHttpRouteRulesActionFaultInjectionPolicyDelaySlice expands the contents of HttpRouteRulesActionFaultInjectionPolicyDelay into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, f []HttpRouteRulesActionFaultInjectionPolicyDelay) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, f []HttpRouteRulesActionFaultInjectionPolicyDelay, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionFaultInjectionPolicyDelay(c, &item)
+		i, err := expandHttpRouteRulesActionFaultInjectionPolicyDelay(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5597,7 +5601,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i inte
 
 // expandHttpRouteRulesActionFaultInjectionPolicyDelay expands an instance of HttpRouteRulesActionFaultInjectionPolicyDelay into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicyDelay(c *Client, f *HttpRouteRulesActionFaultInjectionPolicyDelay) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicyDelay(c *Client, f *HttpRouteRulesActionFaultInjectionPolicyDelay, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5634,14 +5638,14 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c *Client, i interface
 
 // expandHttpRouteRulesActionFaultInjectionPolicyAbortMap expands the contents of HttpRouteRulesActionFaultInjectionPolicyAbort into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, f map[string]HttpRouteRulesActionFaultInjectionPolicyAbort) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, f map[string]HttpRouteRulesActionFaultInjectionPolicyAbort, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionFaultInjectionPolicyAbort(c, &item)
+		i, err := expandHttpRouteRulesActionFaultInjectionPolicyAbort(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5655,14 +5659,14 @@ func expandHttpRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, f map[str
 
 // expandHttpRouteRulesActionFaultInjectionPolicyAbortSlice expands the contents of HttpRouteRulesActionFaultInjectionPolicyAbort into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, f []HttpRouteRulesActionFaultInjectionPolicyAbort) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, f []HttpRouteRulesActionFaultInjectionPolicyAbort, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionFaultInjectionPolicyAbort(c, &item)
+		i, err := expandHttpRouteRulesActionFaultInjectionPolicyAbort(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5715,7 +5719,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i inte
 
 // expandHttpRouteRulesActionFaultInjectionPolicyAbort expands an instance of HttpRouteRulesActionFaultInjectionPolicyAbort into a JSON
 // request object.
-func expandHttpRouteRulesActionFaultInjectionPolicyAbort(c *Client, f *HttpRouteRulesActionFaultInjectionPolicyAbort) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionFaultInjectionPolicyAbort(c *Client, f *HttpRouteRulesActionFaultInjectionPolicyAbort, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5752,14 +5756,14 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c *Client, i interface
 
 // expandHttpRouteRulesActionRequestHeaderModifierMap expands the contents of HttpRouteRulesActionRequestHeaderModifier into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestHeaderModifierMap(c *Client, f map[string]HttpRouteRulesActionRequestHeaderModifier) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestHeaderModifierMap(c *Client, f map[string]HttpRouteRulesActionRequestHeaderModifier, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionRequestHeaderModifier(c, &item)
+		i, err := expandHttpRouteRulesActionRequestHeaderModifier(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5773,14 +5777,14 @@ func expandHttpRouteRulesActionRequestHeaderModifierMap(c *Client, f map[string]
 
 // expandHttpRouteRulesActionRequestHeaderModifierSlice expands the contents of HttpRouteRulesActionRequestHeaderModifier into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, f []HttpRouteRulesActionRequestHeaderModifier) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, f []HttpRouteRulesActionRequestHeaderModifier, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionRequestHeaderModifier(c, &item)
+		i, err := expandHttpRouteRulesActionRequestHeaderModifier(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5833,7 +5837,7 @@ func flattenHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, i interfac
 
 // expandHttpRouteRulesActionRequestHeaderModifier expands an instance of HttpRouteRulesActionRequestHeaderModifier into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestHeaderModifier(c *Client, f *HttpRouteRulesActionRequestHeaderModifier) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestHeaderModifier(c *Client, f *HttpRouteRulesActionRequestHeaderModifier, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5874,14 +5878,14 @@ func flattenHttpRouteRulesActionRequestHeaderModifier(c *Client, i interface{}) 
 
 // expandHttpRouteRulesActionResponseHeaderModifierMap expands the contents of HttpRouteRulesActionResponseHeaderModifier into a JSON
 // request object.
-func expandHttpRouteRulesActionResponseHeaderModifierMap(c *Client, f map[string]HttpRouteRulesActionResponseHeaderModifier) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionResponseHeaderModifierMap(c *Client, f map[string]HttpRouteRulesActionResponseHeaderModifier, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionResponseHeaderModifier(c, &item)
+		i, err := expandHttpRouteRulesActionResponseHeaderModifier(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5895,14 +5899,14 @@ func expandHttpRouteRulesActionResponseHeaderModifierMap(c *Client, f map[string
 
 // expandHttpRouteRulesActionResponseHeaderModifierSlice expands the contents of HttpRouteRulesActionResponseHeaderModifier into a JSON
 // request object.
-func expandHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, f []HttpRouteRulesActionResponseHeaderModifier) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, f []HttpRouteRulesActionResponseHeaderModifier, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionResponseHeaderModifier(c, &item)
+		i, err := expandHttpRouteRulesActionResponseHeaderModifier(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5955,7 +5959,7 @@ func flattenHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, i interfa
 
 // expandHttpRouteRulesActionResponseHeaderModifier expands an instance of HttpRouteRulesActionResponseHeaderModifier into a JSON
 // request object.
-func expandHttpRouteRulesActionResponseHeaderModifier(c *Client, f *HttpRouteRulesActionResponseHeaderModifier) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionResponseHeaderModifier(c *Client, f *HttpRouteRulesActionResponseHeaderModifier, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5996,14 +6000,14 @@ func flattenHttpRouteRulesActionResponseHeaderModifier(c *Client, i interface{})
 
 // expandHttpRouteRulesActionUrlRewriteMap expands the contents of HttpRouteRulesActionUrlRewrite into a JSON
 // request object.
-func expandHttpRouteRulesActionUrlRewriteMap(c *Client, f map[string]HttpRouteRulesActionUrlRewrite) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionUrlRewriteMap(c *Client, f map[string]HttpRouteRulesActionUrlRewrite, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionUrlRewrite(c, &item)
+		i, err := expandHttpRouteRulesActionUrlRewrite(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6017,14 +6021,14 @@ func expandHttpRouteRulesActionUrlRewriteMap(c *Client, f map[string]HttpRouteRu
 
 // expandHttpRouteRulesActionUrlRewriteSlice expands the contents of HttpRouteRulesActionUrlRewrite into a JSON
 // request object.
-func expandHttpRouteRulesActionUrlRewriteSlice(c *Client, f []HttpRouteRulesActionUrlRewrite) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionUrlRewriteSlice(c *Client, f []HttpRouteRulesActionUrlRewrite, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionUrlRewrite(c, &item)
+		i, err := expandHttpRouteRulesActionUrlRewrite(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6077,7 +6081,7 @@ func flattenHttpRouteRulesActionUrlRewriteSlice(c *Client, i interface{}) []Http
 
 // expandHttpRouteRulesActionUrlRewrite expands an instance of HttpRouteRulesActionUrlRewrite into a JSON
 // request object.
-func expandHttpRouteRulesActionUrlRewrite(c *Client, f *HttpRouteRulesActionUrlRewrite) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionUrlRewrite(c *Client, f *HttpRouteRulesActionUrlRewrite, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6114,14 +6118,14 @@ func flattenHttpRouteRulesActionUrlRewrite(c *Client, i interface{}) *HttpRouteR
 
 // expandHttpRouteRulesActionRetryPolicyMap expands the contents of HttpRouteRulesActionRetryPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionRetryPolicyMap(c *Client, f map[string]HttpRouteRulesActionRetryPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRetryPolicyMap(c *Client, f map[string]HttpRouteRulesActionRetryPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionRetryPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionRetryPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6135,14 +6139,14 @@ func expandHttpRouteRulesActionRetryPolicyMap(c *Client, f map[string]HttpRouteR
 
 // expandHttpRouteRulesActionRetryPolicySlice expands the contents of HttpRouteRulesActionRetryPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionRetryPolicySlice(c *Client, f []HttpRouteRulesActionRetryPolicy) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionRetryPolicySlice(c *Client, f []HttpRouteRulesActionRetryPolicy, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionRetryPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionRetryPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6195,7 +6199,7 @@ func flattenHttpRouteRulesActionRetryPolicySlice(c *Client, i interface{}) []Htt
 
 // expandHttpRouteRulesActionRetryPolicy expands an instance of HttpRouteRulesActionRetryPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionRetryPolicy(c *Client, f *HttpRouteRulesActionRetryPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRetryPolicy(c *Client, f *HttpRouteRulesActionRetryPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6236,14 +6240,14 @@ func flattenHttpRouteRulesActionRetryPolicy(c *Client, i interface{}) *HttpRoute
 
 // expandHttpRouteRulesActionRequestMirrorPolicyMap expands the contents of HttpRouteRulesActionRequestMirrorPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestMirrorPolicyMap(c *Client, f map[string]HttpRouteRulesActionRequestMirrorPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestMirrorPolicyMap(c *Client, f map[string]HttpRouteRulesActionRequestMirrorPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionRequestMirrorPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionRequestMirrorPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6257,14 +6261,14 @@ func expandHttpRouteRulesActionRequestMirrorPolicyMap(c *Client, f map[string]Ht
 
 // expandHttpRouteRulesActionRequestMirrorPolicySlice expands the contents of HttpRouteRulesActionRequestMirrorPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, f []HttpRouteRulesActionRequestMirrorPolicy) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, f []HttpRouteRulesActionRequestMirrorPolicy, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionRequestMirrorPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionRequestMirrorPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6317,13 +6321,13 @@ func flattenHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, i interface{
 
 // expandHttpRouteRulesActionRequestMirrorPolicy expands an instance of HttpRouteRulesActionRequestMirrorPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestMirrorPolicy(c *Client, f *HttpRouteRulesActionRequestMirrorPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestMirrorPolicy(c *Client, f *HttpRouteRulesActionRequestMirrorPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandHttpRouteRulesActionRequestMirrorPolicyDestination(c, f.Destination); err != nil {
+	if v, err := expandHttpRouteRulesActionRequestMirrorPolicyDestination(c, f.Destination, res); err != nil {
 		return nil, fmt.Errorf("error expanding Destination into destination: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["destination"] = v
@@ -6352,14 +6356,14 @@ func flattenHttpRouteRulesActionRequestMirrorPolicy(c *Client, i interface{}) *H
 
 // expandHttpRouteRulesActionRequestMirrorPolicyDestinationMap expands the contents of HttpRouteRulesActionRequestMirrorPolicyDestination into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestMirrorPolicyDestinationMap(c *Client, f map[string]HttpRouteRulesActionRequestMirrorPolicyDestination) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestMirrorPolicyDestinationMap(c *Client, f map[string]HttpRouteRulesActionRequestMirrorPolicyDestination, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionRequestMirrorPolicyDestination(c, &item)
+		i, err := expandHttpRouteRulesActionRequestMirrorPolicyDestination(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6373,14 +6377,14 @@ func expandHttpRouteRulesActionRequestMirrorPolicyDestinationMap(c *Client, f ma
 
 // expandHttpRouteRulesActionRequestMirrorPolicyDestinationSlice expands the contents of HttpRouteRulesActionRequestMirrorPolicyDestination into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *Client, f []HttpRouteRulesActionRequestMirrorPolicyDestination) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *Client, f []HttpRouteRulesActionRequestMirrorPolicyDestination, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionRequestMirrorPolicyDestination(c, &item)
+		i, err := expandHttpRouteRulesActionRequestMirrorPolicyDestination(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6433,7 +6437,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *Client, i
 
 // expandHttpRouteRulesActionRequestMirrorPolicyDestination expands an instance of HttpRouteRulesActionRequestMirrorPolicyDestination into a JSON
 // request object.
-func expandHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, f *HttpRouteRulesActionRequestMirrorPolicyDestination) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, f *HttpRouteRulesActionRequestMirrorPolicyDestination, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6470,14 +6474,14 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, i inte
 
 // expandHttpRouteRulesActionCorsPolicyMap expands the contents of HttpRouteRulesActionCorsPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionCorsPolicyMap(c *Client, f map[string]HttpRouteRulesActionCorsPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionCorsPolicyMap(c *Client, f map[string]HttpRouteRulesActionCorsPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHttpRouteRulesActionCorsPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionCorsPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6491,14 +6495,14 @@ func expandHttpRouteRulesActionCorsPolicyMap(c *Client, f map[string]HttpRouteRu
 
 // expandHttpRouteRulesActionCorsPolicySlice expands the contents of HttpRouteRulesActionCorsPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionCorsPolicySlice(c *Client, f []HttpRouteRulesActionCorsPolicy) ([]map[string]interface{}, error) {
+func expandHttpRouteRulesActionCorsPolicySlice(c *Client, f []HttpRouteRulesActionCorsPolicy, res *HttpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHttpRouteRulesActionCorsPolicy(c, &item)
+		i, err := expandHttpRouteRulesActionCorsPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6551,7 +6555,7 @@ func flattenHttpRouteRulesActionCorsPolicySlice(c *Client, i interface{}) []Http
 
 // expandHttpRouteRulesActionCorsPolicy expands an instance of HttpRouteRulesActionCorsPolicy into a JSON
 // request object.
-func expandHttpRouteRulesActionCorsPolicy(c *Client, f *HttpRouteRulesActionCorsPolicy) (map[string]interface{}, error) {
+func expandHttpRouteRulesActionCorsPolicy(c *Client, f *HttpRouteRulesActionCorsPolicy, res *HttpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

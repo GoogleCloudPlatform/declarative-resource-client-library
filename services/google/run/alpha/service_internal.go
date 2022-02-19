@@ -263,6 +263,8 @@ type serviceApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -287,22 +289,22 @@ func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Cl
 	if v := f.LaunchStage; !dcl.IsEmptyValueIndirect(v) {
 		req["launchStage"] = v
 	}
-	if v, err := expandServiceBinaryAuthorization(c, f.BinaryAuthorization); err != nil {
+	if v, err := expandServiceBinaryAuthorization(c, f.BinaryAuthorization, res); err != nil {
 		return nil, fmt.Errorf("error expanding BinaryAuthorization into binaryAuthorization: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["binaryAuthorization"] = v
 	}
-	if v, err := expandServiceTemplate(c, f.Template); err != nil {
+	if v, err := expandServiceTemplate(c, f.Template, res); err != nil {
 		return nil, fmt.Errorf("error expanding Template into template: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["template"] = v
 	}
-	if v, err := expandServiceTrafficSlice(c, f.Traffic); err != nil {
+	if v, err := expandServiceTrafficSlice(c, f.Traffic, res); err != nil {
 		return nil, fmt.Errorf("error expanding Traffic into traffic: %w", err)
 	} else if v != nil {
 		req["traffic"] = v
 	}
-	if v, err := expandServiceGooglecloudrunopv2Condition(c, f.TerminalCondition); err != nil {
+	if v, err := expandServiceGooglecloudrunopv2Condition(c, f.TerminalCondition, res); err != nil {
 		return nil, fmt.Errorf("error expanding TerminalCondition into terminalCondition: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["terminalCondition"] = v
@@ -4448,6 +4450,8 @@ func unmarshalMapService(m map[string]interface{}, c *Client) (*Service, error) 
 // expandService expands Service into a JSON request object.
 func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -4471,17 +4475,17 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	if v := f.LaunchStage; dcl.ValueShouldBeSent(v) {
 		m["launchStage"] = v
 	}
-	if v, err := expandServiceBinaryAuthorization(c, f.BinaryAuthorization); err != nil {
+	if v, err := expandServiceBinaryAuthorization(c, f.BinaryAuthorization, res); err != nil {
 		return nil, fmt.Errorf("error expanding BinaryAuthorization into binaryAuthorization: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["binaryAuthorization"] = v
 	}
-	if v, err := expandServiceTemplate(c, f.Template); err != nil {
+	if v, err := expandServiceTemplate(c, f.Template, res); err != nil {
 		return nil, fmt.Errorf("error expanding Template into template: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["template"] = v
 	}
-	if v, err := expandServiceTrafficSlice(c, f.Traffic); err != nil {
+	if v, err := expandServiceTrafficSlice(c, f.Traffic, res); err != nil {
 		return nil, fmt.Errorf("error expanding Traffic into traffic: %w", err)
 	} else if v != nil {
 		m["traffic"] = v
@@ -4546,14 +4550,14 @@ func flattenService(c *Client, i interface{}) *Service {
 
 // expandServiceBinaryAuthorizationMap expands the contents of ServiceBinaryAuthorization into a JSON
 // request object.
-func expandServiceBinaryAuthorizationMap(c *Client, f map[string]ServiceBinaryAuthorization) (map[string]interface{}, error) {
+func expandServiceBinaryAuthorizationMap(c *Client, f map[string]ServiceBinaryAuthorization, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceBinaryAuthorization(c, &item)
+		i, err := expandServiceBinaryAuthorization(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4567,14 +4571,14 @@ func expandServiceBinaryAuthorizationMap(c *Client, f map[string]ServiceBinaryAu
 
 // expandServiceBinaryAuthorizationSlice expands the contents of ServiceBinaryAuthorization into a JSON
 // request object.
-func expandServiceBinaryAuthorizationSlice(c *Client, f []ServiceBinaryAuthorization) ([]map[string]interface{}, error) {
+func expandServiceBinaryAuthorizationSlice(c *Client, f []ServiceBinaryAuthorization, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceBinaryAuthorization(c, &item)
+		i, err := expandServiceBinaryAuthorization(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4627,7 +4631,7 @@ func flattenServiceBinaryAuthorizationSlice(c *Client, i interface{}) []ServiceB
 
 // expandServiceBinaryAuthorization expands an instance of ServiceBinaryAuthorization into a JSON
 // request object.
-func expandServiceBinaryAuthorization(c *Client, f *ServiceBinaryAuthorization) (map[string]interface{}, error) {
+func expandServiceBinaryAuthorization(c *Client, f *ServiceBinaryAuthorization, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4664,14 +4668,14 @@ func flattenServiceBinaryAuthorization(c *Client, i interface{}) *ServiceBinaryA
 
 // expandServiceTemplateMap expands the contents of ServiceTemplate into a JSON
 // request object.
-func expandServiceTemplateMap(c *Client, f map[string]ServiceTemplate) (map[string]interface{}, error) {
+func expandServiceTemplateMap(c *Client, f map[string]ServiceTemplate, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplate(c, &item)
+		i, err := expandServiceTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4685,14 +4689,14 @@ func expandServiceTemplateMap(c *Client, f map[string]ServiceTemplate) (map[stri
 
 // expandServiceTemplateSlice expands the contents of ServiceTemplate into a JSON
 // request object.
-func expandServiceTemplateSlice(c *Client, f []ServiceTemplate) ([]map[string]interface{}, error) {
+func expandServiceTemplateSlice(c *Client, f []ServiceTemplate, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplate(c, &item)
+		i, err := expandServiceTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4745,7 +4749,7 @@ func flattenServiceTemplateSlice(c *Client, i interface{}) []ServiceTemplate {
 
 // expandServiceTemplate expands an instance of ServiceTemplate into a JSON
 // request object.
-func expandServiceTemplate(c *Client, f *ServiceTemplate) (map[string]interface{}, error) {
+func expandServiceTemplate(c *Client, f *ServiceTemplate, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4760,12 +4764,12 @@ func expandServiceTemplate(c *Client, f *ServiceTemplate) (map[string]interface{
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		m["annotations"] = v
 	}
-	if v, err := expandServiceTemplateScaling(c, f.Scaling); err != nil {
+	if v, err := expandServiceTemplateScaling(c, f.Scaling, res); err != nil {
 		return nil, fmt.Errorf("error expanding Scaling into scaling: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["scaling"] = v
 	}
-	if v, err := expandServiceTemplateVPCAccess(c, f.VPCAccess); err != nil {
+	if v, err := expandServiceTemplateVPCAccess(c, f.VPCAccess, res); err != nil {
 		return nil, fmt.Errorf("error expanding VPCAccess into vpcAccess: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["vpcAccess"] = v
@@ -4779,12 +4783,12 @@ func expandServiceTemplate(c *Client, f *ServiceTemplate) (map[string]interface{
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccount"] = v
 	}
-	if v, err := expandServiceTemplateContainersSlice(c, f.Containers); err != nil {
+	if v, err := expandServiceTemplateContainersSlice(c, f.Containers, res); err != nil {
 		return nil, fmt.Errorf("error expanding Containers into containers: %w", err)
 	} else if v != nil {
 		m["containers"] = v
 	}
-	if v, err := expandServiceTemplateVolumesSlice(c, f.Volumes); err != nil {
+	if v, err := expandServiceTemplateVolumesSlice(c, f.Volumes, res); err != nil {
 		return nil, fmt.Errorf("error expanding Volumes into volumes: %w", err)
 	} else if v != nil {
 		m["volumes"] = v
@@ -4830,14 +4834,14 @@ func flattenServiceTemplate(c *Client, i interface{}) *ServiceTemplate {
 
 // expandServiceTemplateScalingMap expands the contents of ServiceTemplateScaling into a JSON
 // request object.
-func expandServiceTemplateScalingMap(c *Client, f map[string]ServiceTemplateScaling) (map[string]interface{}, error) {
+func expandServiceTemplateScalingMap(c *Client, f map[string]ServiceTemplateScaling, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateScaling(c, &item)
+		i, err := expandServiceTemplateScaling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4851,14 +4855,14 @@ func expandServiceTemplateScalingMap(c *Client, f map[string]ServiceTemplateScal
 
 // expandServiceTemplateScalingSlice expands the contents of ServiceTemplateScaling into a JSON
 // request object.
-func expandServiceTemplateScalingSlice(c *Client, f []ServiceTemplateScaling) ([]map[string]interface{}, error) {
+func expandServiceTemplateScalingSlice(c *Client, f []ServiceTemplateScaling, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateScaling(c, &item)
+		i, err := expandServiceTemplateScaling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4911,7 +4915,7 @@ func flattenServiceTemplateScalingSlice(c *Client, i interface{}) []ServiceTempl
 
 // expandServiceTemplateScaling expands an instance of ServiceTemplateScaling into a JSON
 // request object.
-func expandServiceTemplateScaling(c *Client, f *ServiceTemplateScaling) (map[string]interface{}, error) {
+func expandServiceTemplateScaling(c *Client, f *ServiceTemplateScaling, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4948,14 +4952,14 @@ func flattenServiceTemplateScaling(c *Client, i interface{}) *ServiceTemplateSca
 
 // expandServiceTemplateVPCAccessMap expands the contents of ServiceTemplateVPCAccess into a JSON
 // request object.
-func expandServiceTemplateVPCAccessMap(c *Client, f map[string]ServiceTemplateVPCAccess) (map[string]interface{}, error) {
+func expandServiceTemplateVPCAccessMap(c *Client, f map[string]ServiceTemplateVPCAccess, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateVPCAccess(c, &item)
+		i, err := expandServiceTemplateVPCAccess(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4969,14 +4973,14 @@ func expandServiceTemplateVPCAccessMap(c *Client, f map[string]ServiceTemplateVP
 
 // expandServiceTemplateVPCAccessSlice expands the contents of ServiceTemplateVPCAccess into a JSON
 // request object.
-func expandServiceTemplateVPCAccessSlice(c *Client, f []ServiceTemplateVPCAccess) ([]map[string]interface{}, error) {
+func expandServiceTemplateVPCAccessSlice(c *Client, f []ServiceTemplateVPCAccess, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateVPCAccess(c, &item)
+		i, err := expandServiceTemplateVPCAccess(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5029,7 +5033,7 @@ func flattenServiceTemplateVPCAccessSlice(c *Client, i interface{}) []ServiceTem
 
 // expandServiceTemplateVPCAccess expands an instance of ServiceTemplateVPCAccess into a JSON
 // request object.
-func expandServiceTemplateVPCAccess(c *Client, f *ServiceTemplateVPCAccess) (map[string]interface{}, error) {
+func expandServiceTemplateVPCAccess(c *Client, f *ServiceTemplateVPCAccess, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5066,14 +5070,14 @@ func flattenServiceTemplateVPCAccess(c *Client, i interface{}) *ServiceTemplateV
 
 // expandServiceTemplateContainersMap expands the contents of ServiceTemplateContainers into a JSON
 // request object.
-func expandServiceTemplateContainersMap(c *Client, f map[string]ServiceTemplateContainers) (map[string]interface{}, error) {
+func expandServiceTemplateContainersMap(c *Client, f map[string]ServiceTemplateContainers, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateContainers(c, &item)
+		i, err := expandServiceTemplateContainers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5087,14 +5091,14 @@ func expandServiceTemplateContainersMap(c *Client, f map[string]ServiceTemplateC
 
 // expandServiceTemplateContainersSlice expands the contents of ServiceTemplateContainers into a JSON
 // request object.
-func expandServiceTemplateContainersSlice(c *Client, f []ServiceTemplateContainers) ([]map[string]interface{}, error) {
+func expandServiceTemplateContainersSlice(c *Client, f []ServiceTemplateContainers, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateContainers(c, &item)
+		i, err := expandServiceTemplateContainers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5147,7 +5151,7 @@ func flattenServiceTemplateContainersSlice(c *Client, i interface{}) []ServiceTe
 
 // expandServiceTemplateContainers expands an instance of ServiceTemplateContainers into a JSON
 // request object.
-func expandServiceTemplateContainers(c *Client, f *ServiceTemplateContainers) (map[string]interface{}, error) {
+func expandServiceTemplateContainers(c *Client, f *ServiceTemplateContainers, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5165,22 +5169,22 @@ func expandServiceTemplateContainers(c *Client, f *ServiceTemplateContainers) (m
 	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v, err := expandServiceTemplateContainersEnvSlice(c, f.Env); err != nil {
+	if v, err := expandServiceTemplateContainersEnvSlice(c, f.Env, res); err != nil {
 		return nil, fmt.Errorf("error expanding Env into env: %w", err)
 	} else if v != nil {
 		m["env"] = v
 	}
-	if v, err := expandServiceTemplateContainersResources(c, f.Resources); err != nil {
+	if v, err := expandServiceTemplateContainersResources(c, f.Resources, res); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resources"] = v
 	}
-	if v, err := expandServiceTemplateContainersPortsSlice(c, f.Ports); err != nil {
+	if v, err := expandServiceTemplateContainersPortsSlice(c, f.Ports, res); err != nil {
 		return nil, fmt.Errorf("error expanding Ports into ports: %w", err)
 	} else if v != nil {
 		m["ports"] = v
 	}
-	if v, err := expandServiceTemplateContainersVolumeMountsSlice(c, f.VolumeMounts); err != nil {
+	if v, err := expandServiceTemplateContainersVolumeMountsSlice(c, f.VolumeMounts, res); err != nil {
 		return nil, fmt.Errorf("error expanding VolumeMounts into volumeMounts: %w", err)
 	} else if v != nil {
 		m["volumeMounts"] = v
@@ -5216,14 +5220,14 @@ func flattenServiceTemplateContainers(c *Client, i interface{}) *ServiceTemplate
 
 // expandServiceTemplateContainersEnvMap expands the contents of ServiceTemplateContainersEnv into a JSON
 // request object.
-func expandServiceTemplateContainersEnvMap(c *Client, f map[string]ServiceTemplateContainersEnv) (map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvMap(c *Client, f map[string]ServiceTemplateContainersEnv, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateContainersEnv(c, &item)
+		i, err := expandServiceTemplateContainersEnv(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5237,14 +5241,14 @@ func expandServiceTemplateContainersEnvMap(c *Client, f map[string]ServiceTempla
 
 // expandServiceTemplateContainersEnvSlice expands the contents of ServiceTemplateContainersEnv into a JSON
 // request object.
-func expandServiceTemplateContainersEnvSlice(c *Client, f []ServiceTemplateContainersEnv) ([]map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvSlice(c *Client, f []ServiceTemplateContainersEnv, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateContainersEnv(c, &item)
+		i, err := expandServiceTemplateContainersEnv(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5297,7 +5301,7 @@ func flattenServiceTemplateContainersEnvSlice(c *Client, i interface{}) []Servic
 
 // expandServiceTemplateContainersEnv expands an instance of ServiceTemplateContainersEnv into a JSON
 // request object.
-func expandServiceTemplateContainersEnv(c *Client, f *ServiceTemplateContainersEnv) (map[string]interface{}, error) {
+func expandServiceTemplateContainersEnv(c *Client, f *ServiceTemplateContainersEnv, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5309,7 +5313,7 @@ func expandServiceTemplateContainersEnv(c *Client, f *ServiceTemplateContainersE
 	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
 		m["value"] = v
 	}
-	if v, err := expandServiceTemplateContainersEnvValueSource(c, f.ValueSource); err != nil {
+	if v, err := expandServiceTemplateContainersEnvValueSource(c, f.ValueSource, res); err != nil {
 		return nil, fmt.Errorf("error expanding ValueSource into valueSource: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["valueSource"] = v
@@ -5340,14 +5344,14 @@ func flattenServiceTemplateContainersEnv(c *Client, i interface{}) *ServiceTempl
 
 // expandServiceTemplateContainersEnvValueSourceMap expands the contents of ServiceTemplateContainersEnvValueSource into a JSON
 // request object.
-func expandServiceTemplateContainersEnvValueSourceMap(c *Client, f map[string]ServiceTemplateContainersEnvValueSource) (map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvValueSourceMap(c *Client, f map[string]ServiceTemplateContainersEnvValueSource, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateContainersEnvValueSource(c, &item)
+		i, err := expandServiceTemplateContainersEnvValueSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5361,14 +5365,14 @@ func expandServiceTemplateContainersEnvValueSourceMap(c *Client, f map[string]Se
 
 // expandServiceTemplateContainersEnvValueSourceSlice expands the contents of ServiceTemplateContainersEnvValueSource into a JSON
 // request object.
-func expandServiceTemplateContainersEnvValueSourceSlice(c *Client, f []ServiceTemplateContainersEnvValueSource) ([]map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvValueSourceSlice(c *Client, f []ServiceTemplateContainersEnvValueSource, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateContainersEnvValueSource(c, &item)
+		i, err := expandServiceTemplateContainersEnvValueSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5421,13 +5425,13 @@ func flattenServiceTemplateContainersEnvValueSourceSlice(c *Client, i interface{
 
 // expandServiceTemplateContainersEnvValueSource expands an instance of ServiceTemplateContainersEnvValueSource into a JSON
 // request object.
-func expandServiceTemplateContainersEnvValueSource(c *Client, f *ServiceTemplateContainersEnvValueSource) (map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvValueSource(c *Client, f *ServiceTemplateContainersEnvValueSource, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c, f.SecretKeyRef); err != nil {
+	if v, err := expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c, f.SecretKeyRef, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecretKeyRef into secretKeyRef: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secretKeyRef"] = v
@@ -5456,14 +5460,14 @@ func flattenServiceTemplateContainersEnvValueSource(c *Client, i interface{}) *S
 
 // expandServiceTemplateContainersEnvValueSourceSecretKeyRefMap expands the contents of ServiceTemplateContainersEnvValueSourceSecretKeyRef into a JSON
 // request object.
-func expandServiceTemplateContainersEnvValueSourceSecretKeyRefMap(c *Client, f map[string]ServiceTemplateContainersEnvValueSourceSecretKeyRef) (map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvValueSourceSecretKeyRefMap(c *Client, f map[string]ServiceTemplateContainersEnvValueSourceSecretKeyRef, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c, &item)
+		i, err := expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5477,14 +5481,14 @@ func expandServiceTemplateContainersEnvValueSourceSecretKeyRefMap(c *Client, f m
 
 // expandServiceTemplateContainersEnvValueSourceSecretKeyRefSlice expands the contents of ServiceTemplateContainersEnvValueSourceSecretKeyRef into a JSON
 // request object.
-func expandServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *Client, f []ServiceTemplateContainersEnvValueSourceSecretKeyRef) ([]map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *Client, f []ServiceTemplateContainersEnvValueSourceSecretKeyRef, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c, &item)
+		i, err := expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5537,7 +5541,7 @@ func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *Client, 
 
 // expandServiceTemplateContainersEnvValueSourceSecretKeyRef expands an instance of ServiceTemplateContainersEnvValueSourceSecretKeyRef into a JSON
 // request object.
-func expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Client, f *ServiceTemplateContainersEnvValueSourceSecretKeyRef) (map[string]interface{}, error) {
+func expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Client, f *ServiceTemplateContainersEnvValueSourceSecretKeyRef, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5578,14 +5582,14 @@ func flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Client, i int
 
 // expandServiceTemplateContainersResourcesMap expands the contents of ServiceTemplateContainersResources into a JSON
 // request object.
-func expandServiceTemplateContainersResourcesMap(c *Client, f map[string]ServiceTemplateContainersResources) (map[string]interface{}, error) {
+func expandServiceTemplateContainersResourcesMap(c *Client, f map[string]ServiceTemplateContainersResources, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateContainersResources(c, &item)
+		i, err := expandServiceTemplateContainersResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5599,14 +5603,14 @@ func expandServiceTemplateContainersResourcesMap(c *Client, f map[string]Service
 
 // expandServiceTemplateContainersResourcesSlice expands the contents of ServiceTemplateContainersResources into a JSON
 // request object.
-func expandServiceTemplateContainersResourcesSlice(c *Client, f []ServiceTemplateContainersResources) ([]map[string]interface{}, error) {
+func expandServiceTemplateContainersResourcesSlice(c *Client, f []ServiceTemplateContainersResources, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateContainersResources(c, &item)
+		i, err := expandServiceTemplateContainersResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5659,7 +5663,7 @@ func flattenServiceTemplateContainersResourcesSlice(c *Client, i interface{}) []
 
 // expandServiceTemplateContainersResources expands an instance of ServiceTemplateContainersResources into a JSON
 // request object.
-func expandServiceTemplateContainersResources(c *Client, f *ServiceTemplateContainersResources) (map[string]interface{}, error) {
+func expandServiceTemplateContainersResources(c *Client, f *ServiceTemplateContainersResources, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5696,14 +5700,14 @@ func flattenServiceTemplateContainersResources(c *Client, i interface{}) *Servic
 
 // expandServiceTemplateContainersPortsMap expands the contents of ServiceTemplateContainersPorts into a JSON
 // request object.
-func expandServiceTemplateContainersPortsMap(c *Client, f map[string]ServiceTemplateContainersPorts) (map[string]interface{}, error) {
+func expandServiceTemplateContainersPortsMap(c *Client, f map[string]ServiceTemplateContainersPorts, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateContainersPorts(c, &item)
+		i, err := expandServiceTemplateContainersPorts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5717,14 +5721,14 @@ func expandServiceTemplateContainersPortsMap(c *Client, f map[string]ServiceTemp
 
 // expandServiceTemplateContainersPortsSlice expands the contents of ServiceTemplateContainersPorts into a JSON
 // request object.
-func expandServiceTemplateContainersPortsSlice(c *Client, f []ServiceTemplateContainersPorts) ([]map[string]interface{}, error) {
+func expandServiceTemplateContainersPortsSlice(c *Client, f []ServiceTemplateContainersPorts, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateContainersPorts(c, &item)
+		i, err := expandServiceTemplateContainersPorts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5777,7 +5781,7 @@ func flattenServiceTemplateContainersPortsSlice(c *Client, i interface{}) []Serv
 
 // expandServiceTemplateContainersPorts expands an instance of ServiceTemplateContainersPorts into a JSON
 // request object.
-func expandServiceTemplateContainersPorts(c *Client, f *ServiceTemplateContainersPorts) (map[string]interface{}, error) {
+func expandServiceTemplateContainersPorts(c *Client, f *ServiceTemplateContainersPorts, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5814,14 +5818,14 @@ func flattenServiceTemplateContainersPorts(c *Client, i interface{}) *ServiceTem
 
 // expandServiceTemplateContainersVolumeMountsMap expands the contents of ServiceTemplateContainersVolumeMounts into a JSON
 // request object.
-func expandServiceTemplateContainersVolumeMountsMap(c *Client, f map[string]ServiceTemplateContainersVolumeMounts) (map[string]interface{}, error) {
+func expandServiceTemplateContainersVolumeMountsMap(c *Client, f map[string]ServiceTemplateContainersVolumeMounts, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateContainersVolumeMounts(c, &item)
+		i, err := expandServiceTemplateContainersVolumeMounts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5835,14 +5839,14 @@ func expandServiceTemplateContainersVolumeMountsMap(c *Client, f map[string]Serv
 
 // expandServiceTemplateContainersVolumeMountsSlice expands the contents of ServiceTemplateContainersVolumeMounts into a JSON
 // request object.
-func expandServiceTemplateContainersVolumeMountsSlice(c *Client, f []ServiceTemplateContainersVolumeMounts) ([]map[string]interface{}, error) {
+func expandServiceTemplateContainersVolumeMountsSlice(c *Client, f []ServiceTemplateContainersVolumeMounts, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateContainersVolumeMounts(c, &item)
+		i, err := expandServiceTemplateContainersVolumeMounts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5895,7 +5899,7 @@ func flattenServiceTemplateContainersVolumeMountsSlice(c *Client, i interface{})
 
 // expandServiceTemplateContainersVolumeMounts expands an instance of ServiceTemplateContainersVolumeMounts into a JSON
 // request object.
-func expandServiceTemplateContainersVolumeMounts(c *Client, f *ServiceTemplateContainersVolumeMounts) (map[string]interface{}, error) {
+func expandServiceTemplateContainersVolumeMounts(c *Client, f *ServiceTemplateContainersVolumeMounts, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5932,14 +5936,14 @@ func flattenServiceTemplateContainersVolumeMounts(c *Client, i interface{}) *Ser
 
 // expandServiceTemplateVolumesMap expands the contents of ServiceTemplateVolumes into a JSON
 // request object.
-func expandServiceTemplateVolumesMap(c *Client, f map[string]ServiceTemplateVolumes) (map[string]interface{}, error) {
+func expandServiceTemplateVolumesMap(c *Client, f map[string]ServiceTemplateVolumes, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateVolumes(c, &item)
+		i, err := expandServiceTemplateVolumes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5953,14 +5957,14 @@ func expandServiceTemplateVolumesMap(c *Client, f map[string]ServiceTemplateVolu
 
 // expandServiceTemplateVolumesSlice expands the contents of ServiceTemplateVolumes into a JSON
 // request object.
-func expandServiceTemplateVolumesSlice(c *Client, f []ServiceTemplateVolumes) ([]map[string]interface{}, error) {
+func expandServiceTemplateVolumesSlice(c *Client, f []ServiceTemplateVolumes, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateVolumes(c, &item)
+		i, err := expandServiceTemplateVolumes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6013,7 +6017,7 @@ func flattenServiceTemplateVolumesSlice(c *Client, i interface{}) []ServiceTempl
 
 // expandServiceTemplateVolumes expands an instance of ServiceTemplateVolumes into a JSON
 // request object.
-func expandServiceTemplateVolumes(c *Client, f *ServiceTemplateVolumes) (map[string]interface{}, error) {
+func expandServiceTemplateVolumes(c *Client, f *ServiceTemplateVolumes, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6022,12 +6026,12 @@ func expandServiceTemplateVolumes(c *Client, f *ServiceTemplateVolumes) (map[str
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandServiceTemplateVolumesSecret(c, f.Secret); err != nil {
+	if v, err := expandServiceTemplateVolumesSecret(c, f.Secret, res); err != nil {
 		return nil, fmt.Errorf("error expanding Secret into secret: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secret"] = v
 	}
-	if v, err := expandServiceTemplateVolumesCloudSqlInstance(c, f.CloudSqlInstance); err != nil {
+	if v, err := expandServiceTemplateVolumesCloudSqlInstance(c, f.CloudSqlInstance, res); err != nil {
 		return nil, fmt.Errorf("error expanding CloudSqlInstance into cloudSqlInstance: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cloudSqlInstance"] = v
@@ -6058,14 +6062,14 @@ func flattenServiceTemplateVolumes(c *Client, i interface{}) *ServiceTemplateVol
 
 // expandServiceTemplateVolumesSecretMap expands the contents of ServiceTemplateVolumesSecret into a JSON
 // request object.
-func expandServiceTemplateVolumesSecretMap(c *Client, f map[string]ServiceTemplateVolumesSecret) (map[string]interface{}, error) {
+func expandServiceTemplateVolumesSecretMap(c *Client, f map[string]ServiceTemplateVolumesSecret, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateVolumesSecret(c, &item)
+		i, err := expandServiceTemplateVolumesSecret(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6079,14 +6083,14 @@ func expandServiceTemplateVolumesSecretMap(c *Client, f map[string]ServiceTempla
 
 // expandServiceTemplateVolumesSecretSlice expands the contents of ServiceTemplateVolumesSecret into a JSON
 // request object.
-func expandServiceTemplateVolumesSecretSlice(c *Client, f []ServiceTemplateVolumesSecret) ([]map[string]interface{}, error) {
+func expandServiceTemplateVolumesSecretSlice(c *Client, f []ServiceTemplateVolumesSecret, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateVolumesSecret(c, &item)
+		i, err := expandServiceTemplateVolumesSecret(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6139,7 +6143,7 @@ func flattenServiceTemplateVolumesSecretSlice(c *Client, i interface{}) []Servic
 
 // expandServiceTemplateVolumesSecret expands an instance of ServiceTemplateVolumesSecret into a JSON
 // request object.
-func expandServiceTemplateVolumesSecret(c *Client, f *ServiceTemplateVolumesSecret) (map[string]interface{}, error) {
+func expandServiceTemplateVolumesSecret(c *Client, f *ServiceTemplateVolumesSecret, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6148,7 +6152,7 @@ func expandServiceTemplateVolumesSecret(c *Client, f *ServiceTemplateVolumesSecr
 	if v := f.Secret; !dcl.IsEmptyValueIndirect(v) {
 		m["secret"] = v
 	}
-	if v, err := expandServiceTemplateVolumesSecretItemsSlice(c, f.Items); err != nil {
+	if v, err := expandServiceTemplateVolumesSecretItemsSlice(c, f.Items, res); err != nil {
 		return nil, fmt.Errorf("error expanding Items into items: %w", err)
 	} else if v != nil {
 		m["items"] = v
@@ -6182,14 +6186,14 @@ func flattenServiceTemplateVolumesSecret(c *Client, i interface{}) *ServiceTempl
 
 // expandServiceTemplateVolumesSecretItemsMap expands the contents of ServiceTemplateVolumesSecretItems into a JSON
 // request object.
-func expandServiceTemplateVolumesSecretItemsMap(c *Client, f map[string]ServiceTemplateVolumesSecretItems) (map[string]interface{}, error) {
+func expandServiceTemplateVolumesSecretItemsMap(c *Client, f map[string]ServiceTemplateVolumesSecretItems, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateVolumesSecretItems(c, &item)
+		i, err := expandServiceTemplateVolumesSecretItems(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6203,14 +6207,14 @@ func expandServiceTemplateVolumesSecretItemsMap(c *Client, f map[string]ServiceT
 
 // expandServiceTemplateVolumesSecretItemsSlice expands the contents of ServiceTemplateVolumesSecretItems into a JSON
 // request object.
-func expandServiceTemplateVolumesSecretItemsSlice(c *Client, f []ServiceTemplateVolumesSecretItems) ([]map[string]interface{}, error) {
+func expandServiceTemplateVolumesSecretItemsSlice(c *Client, f []ServiceTemplateVolumesSecretItems, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateVolumesSecretItems(c, &item)
+		i, err := expandServiceTemplateVolumesSecretItems(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6263,7 +6267,7 @@ func flattenServiceTemplateVolumesSecretItemsSlice(c *Client, i interface{}) []S
 
 // expandServiceTemplateVolumesSecretItems expands an instance of ServiceTemplateVolumesSecretItems into a JSON
 // request object.
-func expandServiceTemplateVolumesSecretItems(c *Client, f *ServiceTemplateVolumesSecretItems) (map[string]interface{}, error) {
+func expandServiceTemplateVolumesSecretItems(c *Client, f *ServiceTemplateVolumesSecretItems, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6306,14 +6310,14 @@ func flattenServiceTemplateVolumesSecretItems(c *Client, i interface{}) *Service
 
 // expandServiceTemplateVolumesCloudSqlInstanceMap expands the contents of ServiceTemplateVolumesCloudSqlInstance into a JSON
 // request object.
-func expandServiceTemplateVolumesCloudSqlInstanceMap(c *Client, f map[string]ServiceTemplateVolumesCloudSqlInstance) (map[string]interface{}, error) {
+func expandServiceTemplateVolumesCloudSqlInstanceMap(c *Client, f map[string]ServiceTemplateVolumesCloudSqlInstance, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTemplateVolumesCloudSqlInstance(c, &item)
+		i, err := expandServiceTemplateVolumesCloudSqlInstance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6327,14 +6331,14 @@ func expandServiceTemplateVolumesCloudSqlInstanceMap(c *Client, f map[string]Ser
 
 // expandServiceTemplateVolumesCloudSqlInstanceSlice expands the contents of ServiceTemplateVolumesCloudSqlInstance into a JSON
 // request object.
-func expandServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, f []ServiceTemplateVolumesCloudSqlInstance) ([]map[string]interface{}, error) {
+func expandServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, f []ServiceTemplateVolumesCloudSqlInstance, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTemplateVolumesCloudSqlInstance(c, &item)
+		i, err := expandServiceTemplateVolumesCloudSqlInstance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6387,7 +6391,7 @@ func flattenServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, i interface{}
 
 // expandServiceTemplateVolumesCloudSqlInstance expands an instance of ServiceTemplateVolumesCloudSqlInstance into a JSON
 // request object.
-func expandServiceTemplateVolumesCloudSqlInstance(c *Client, f *ServiceTemplateVolumesCloudSqlInstance) (map[string]interface{}, error) {
+func expandServiceTemplateVolumesCloudSqlInstance(c *Client, f *ServiceTemplateVolumesCloudSqlInstance, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6420,14 +6424,14 @@ func flattenServiceTemplateVolumesCloudSqlInstance(c *Client, i interface{}) *Se
 
 // expandServiceTrafficMap expands the contents of ServiceTraffic into a JSON
 // request object.
-func expandServiceTrafficMap(c *Client, f map[string]ServiceTraffic) (map[string]interface{}, error) {
+func expandServiceTrafficMap(c *Client, f map[string]ServiceTraffic, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTraffic(c, &item)
+		i, err := expandServiceTraffic(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6441,14 +6445,14 @@ func expandServiceTrafficMap(c *Client, f map[string]ServiceTraffic) (map[string
 
 // expandServiceTrafficSlice expands the contents of ServiceTraffic into a JSON
 // request object.
-func expandServiceTrafficSlice(c *Client, f []ServiceTraffic) ([]map[string]interface{}, error) {
+func expandServiceTrafficSlice(c *Client, f []ServiceTraffic, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTraffic(c, &item)
+		i, err := expandServiceTraffic(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6501,7 +6505,7 @@ func flattenServiceTrafficSlice(c *Client, i interface{}) []ServiceTraffic {
 
 // expandServiceTraffic expands an instance of ServiceTraffic into a JSON
 // request object.
-func expandServiceTraffic(c *Client, f *ServiceTraffic) (map[string]interface{}, error) {
+func expandServiceTraffic(c *Client, f *ServiceTraffic, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6546,14 +6550,14 @@ func flattenServiceTraffic(c *Client, i interface{}) *ServiceTraffic {
 
 // expandServiceGooglecloudrunopv2ConditionMap expands the contents of ServiceGooglecloudrunopv2Condition into a JSON
 // request object.
-func expandServiceGooglecloudrunopv2ConditionMap(c *Client, f map[string]ServiceGooglecloudrunopv2Condition) (map[string]interface{}, error) {
+func expandServiceGooglecloudrunopv2ConditionMap(c *Client, f map[string]ServiceGooglecloudrunopv2Condition, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceGooglecloudrunopv2Condition(c, &item)
+		i, err := expandServiceGooglecloudrunopv2Condition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6567,14 +6571,14 @@ func expandServiceGooglecloudrunopv2ConditionMap(c *Client, f map[string]Service
 
 // expandServiceGooglecloudrunopv2ConditionSlice expands the contents of ServiceGooglecloudrunopv2Condition into a JSON
 // request object.
-func expandServiceGooglecloudrunopv2ConditionSlice(c *Client, f []ServiceGooglecloudrunopv2Condition) ([]map[string]interface{}, error) {
+func expandServiceGooglecloudrunopv2ConditionSlice(c *Client, f []ServiceGooglecloudrunopv2Condition, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceGooglecloudrunopv2Condition(c, &item)
+		i, err := expandServiceGooglecloudrunopv2Condition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6627,7 +6631,7 @@ func flattenServiceGooglecloudrunopv2ConditionSlice(c *Client, i interface{}) []
 
 // expandServiceGooglecloudrunopv2Condition expands an instance of ServiceGooglecloudrunopv2Condition into a JSON
 // request object.
-func expandServiceGooglecloudrunopv2Condition(c *Client, f *ServiceGooglecloudrunopv2Condition) (map[string]interface{}, error) {
+func expandServiceGooglecloudrunopv2Condition(c *Client, f *ServiceGooglecloudrunopv2Condition, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6696,14 +6700,14 @@ func flattenServiceGooglecloudrunopv2Condition(c *Client, i interface{}) *Servic
 
 // expandServiceTrafficStatusesMap expands the contents of ServiceTrafficStatuses into a JSON
 // request object.
-func expandServiceTrafficStatusesMap(c *Client, f map[string]ServiceTrafficStatuses) (map[string]interface{}, error) {
+func expandServiceTrafficStatusesMap(c *Client, f map[string]ServiceTrafficStatuses, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTrafficStatuses(c, &item)
+		i, err := expandServiceTrafficStatuses(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6717,14 +6721,14 @@ func expandServiceTrafficStatusesMap(c *Client, f map[string]ServiceTrafficStatu
 
 // expandServiceTrafficStatusesSlice expands the contents of ServiceTrafficStatuses into a JSON
 // request object.
-func expandServiceTrafficStatusesSlice(c *Client, f []ServiceTrafficStatuses) ([]map[string]interface{}, error) {
+func expandServiceTrafficStatusesSlice(c *Client, f []ServiceTrafficStatuses, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTrafficStatuses(c, &item)
+		i, err := expandServiceTrafficStatuses(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6777,7 +6781,7 @@ func flattenServiceTrafficStatusesSlice(c *Client, i interface{}) []ServiceTraff
 
 // expandServiceTrafficStatuses expands an instance of ServiceTrafficStatuses into a JSON
 // request object.
-func expandServiceTrafficStatuses(c *Client, f *ServiceTrafficStatuses) (map[string]interface{}, error) {
+func expandServiceTrafficStatuses(c *Client, f *ServiceTrafficStatuses, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

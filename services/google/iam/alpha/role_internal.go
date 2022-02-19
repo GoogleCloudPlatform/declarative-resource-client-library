@@ -88,6 +88,8 @@ type roleApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateRoleUpdateRoleRequest(ctx context.Context, f *Role, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	b, err := c.getRoleRaw(ctx, f)
 	if err != nil {
@@ -892,6 +894,8 @@ func unmarshalMapRole(m map[string]interface{}, c *Client) (*Role, error) {
 // expandRole expands Role into a JSON request object.
 func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("%s/roles/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -903,7 +907,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandRoleLocalizedValues(c, f.LocalizedValues); err != nil {
+	if v, err := expandRoleLocalizedValues(c, f.LocalizedValues, res); err != nil {
 		return nil, fmt.Errorf("error expanding LocalizedValues into localizedValues: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["localizedValues"] = v
@@ -972,14 +976,14 @@ func flattenRole(c *Client, i interface{}) *Role {
 
 // expandRoleLocalizedValuesMap expands the contents of RoleLocalizedValues into a JSON
 // request object.
-func expandRoleLocalizedValuesMap(c *Client, f map[string]RoleLocalizedValues) (map[string]interface{}, error) {
+func expandRoleLocalizedValuesMap(c *Client, f map[string]RoleLocalizedValues, res *Role) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRoleLocalizedValues(c, &item)
+		i, err := expandRoleLocalizedValues(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -993,14 +997,14 @@ func expandRoleLocalizedValuesMap(c *Client, f map[string]RoleLocalizedValues) (
 
 // expandRoleLocalizedValuesSlice expands the contents of RoleLocalizedValues into a JSON
 // request object.
-func expandRoleLocalizedValuesSlice(c *Client, f []RoleLocalizedValues) ([]map[string]interface{}, error) {
+func expandRoleLocalizedValuesSlice(c *Client, f []RoleLocalizedValues, res *Role) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRoleLocalizedValues(c, &item)
+		i, err := expandRoleLocalizedValues(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1053,7 +1057,7 @@ func flattenRoleLocalizedValuesSlice(c *Client, i interface{}) []RoleLocalizedVa
 
 // expandRoleLocalizedValues expands an instance of RoleLocalizedValues into a JSON
 // request object.
-func expandRoleLocalizedValues(c *Client, f *RoleLocalizedValues) (map[string]interface{}, error) {
+func expandRoleLocalizedValues(c *Client, f *RoleLocalizedValues, res *Role) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

@@ -96,8 +96,10 @@ type networkApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateNetworkUpdateRequest(ctx context.Context, f *Network, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandNetworkRoutingConfig(c, f.RoutingConfig); err != nil {
+	if v, err := expandNetworkRoutingConfig(c, f.RoutingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding RoutingConfig into routingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["routingConfig"] = v
@@ -782,6 +784,8 @@ func unmarshalMapNetwork(m map[string]interface{}, c *Client) (*Network, error) 
 // expandNetwork expands Network into a JSON request object.
 func expandNetwork(c *Client, f *Network) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
@@ -791,7 +795,7 @@ func expandNetwork(c *Client, f *Network) (map[string]interface{}, error) {
 	if v := f.AutoCreateSubnetworks; v != nil {
 		m["autoCreateSubnetworks"] = v
 	}
-	if v, err := expandNetworkRoutingConfig(c, f.RoutingConfig); err != nil {
+	if v, err := expandNetworkRoutingConfig(c, f.RoutingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding RoutingConfig into routingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["routingConfig"] = v
@@ -839,14 +843,14 @@ func flattenNetwork(c *Client, i interface{}) *Network {
 
 // expandNetworkRoutingConfigMap expands the contents of NetworkRoutingConfig into a JSON
 // request object.
-func expandNetworkRoutingConfigMap(c *Client, f map[string]NetworkRoutingConfig) (map[string]interface{}, error) {
+func expandNetworkRoutingConfigMap(c *Client, f map[string]NetworkRoutingConfig, res *Network) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNetworkRoutingConfig(c, &item)
+		i, err := expandNetworkRoutingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -860,14 +864,14 @@ func expandNetworkRoutingConfigMap(c *Client, f map[string]NetworkRoutingConfig)
 
 // expandNetworkRoutingConfigSlice expands the contents of NetworkRoutingConfig into a JSON
 // request object.
-func expandNetworkRoutingConfigSlice(c *Client, f []NetworkRoutingConfig) ([]map[string]interface{}, error) {
+func expandNetworkRoutingConfigSlice(c *Client, f []NetworkRoutingConfig, res *Network) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNetworkRoutingConfig(c, &item)
+		i, err := expandNetworkRoutingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -920,7 +924,7 @@ func flattenNetworkRoutingConfigSlice(c *Client, i interface{}) []NetworkRouting
 
 // expandNetworkRoutingConfig expands an instance of NetworkRoutingConfig into a JSON
 // request object.
-func expandNetworkRoutingConfig(c *Client, f *NetworkRoutingConfig) (map[string]interface{}, error) {
+func expandNetworkRoutingConfig(c *Client, f *NetworkRoutingConfig, res *Network) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

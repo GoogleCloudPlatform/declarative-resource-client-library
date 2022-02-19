@@ -552,6 +552,8 @@ func unmarshalMapAssignment(m map[string]interface{}, c *Client) (*Assignment, e
 // expandAssignment expands Assignment into a JSON request object.
 func expandAssignment(c *Client, f *Assignment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

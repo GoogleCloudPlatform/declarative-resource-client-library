@@ -128,6 +128,8 @@ type tcpRouteApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateTcpRouteUpdateTcpRouteRequest(ctx context.Context, f *TcpRoute, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("projects/%s/locations/global/tcpRoutes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -137,7 +139,7 @@ func newUpdateTcpRouteUpdateTcpRouteRequest(ctx context.Context, f *TcpRoute, c 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandTcpRouteRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandTcpRouteRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		req["rules"] = v
@@ -1377,6 +1379,8 @@ func unmarshalMapTcpRoute(m map[string]interface{}, c *Client) (*TcpRoute, error
 // expandTcpRoute expands TcpRoute into a JSON request object.
 func expandTcpRoute(c *Client, f *TcpRoute) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/global/tcpRoutes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1385,7 +1389,7 @@ func expandTcpRoute(c *Client, f *TcpRoute) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandTcpRouteRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandTcpRouteRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		m["rules"] = v
@@ -1445,14 +1449,14 @@ func flattenTcpRoute(c *Client, i interface{}) *TcpRoute {
 
 // expandTcpRouteRulesMap expands the contents of TcpRouteRules into a JSON
 // request object.
-func expandTcpRouteRulesMap(c *Client, f map[string]TcpRouteRules) (map[string]interface{}, error) {
+func expandTcpRouteRulesMap(c *Client, f map[string]TcpRouteRules, res *TcpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandTcpRouteRules(c, &item)
+		i, err := expandTcpRouteRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1466,14 +1470,14 @@ func expandTcpRouteRulesMap(c *Client, f map[string]TcpRouteRules) (map[string]i
 
 // expandTcpRouteRulesSlice expands the contents of TcpRouteRules into a JSON
 // request object.
-func expandTcpRouteRulesSlice(c *Client, f []TcpRouteRules) ([]map[string]interface{}, error) {
+func expandTcpRouteRulesSlice(c *Client, f []TcpRouteRules, res *TcpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandTcpRouteRules(c, &item)
+		i, err := expandTcpRouteRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1526,18 +1530,18 @@ func flattenTcpRouteRulesSlice(c *Client, i interface{}) []TcpRouteRules {
 
 // expandTcpRouteRules expands an instance of TcpRouteRules into a JSON
 // request object.
-func expandTcpRouteRules(c *Client, f *TcpRouteRules) (map[string]interface{}, error) {
+func expandTcpRouteRules(c *Client, f *TcpRouteRules, res *TcpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandTcpRouteRulesMatchesSlice(c, f.Matches); err != nil {
+	if v, err := expandTcpRouteRulesMatchesSlice(c, f.Matches, res); err != nil {
 		return nil, fmt.Errorf("error expanding Matches into matches: %w", err)
 	} else if v != nil {
 		m["matches"] = v
 	}
-	if v, err := expandTcpRouteRulesAction(c, f.Action); err != nil {
+	if v, err := expandTcpRouteRulesAction(c, f.Action, res); err != nil {
 		return nil, fmt.Errorf("error expanding Action into action: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["action"] = v
@@ -1567,14 +1571,14 @@ func flattenTcpRouteRules(c *Client, i interface{}) *TcpRouteRules {
 
 // expandTcpRouteRulesMatchesMap expands the contents of TcpRouteRulesMatches into a JSON
 // request object.
-func expandTcpRouteRulesMatchesMap(c *Client, f map[string]TcpRouteRulesMatches) (map[string]interface{}, error) {
+func expandTcpRouteRulesMatchesMap(c *Client, f map[string]TcpRouteRulesMatches, res *TcpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandTcpRouteRulesMatches(c, &item)
+		i, err := expandTcpRouteRulesMatches(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1588,14 +1592,14 @@ func expandTcpRouteRulesMatchesMap(c *Client, f map[string]TcpRouteRulesMatches)
 
 // expandTcpRouteRulesMatchesSlice expands the contents of TcpRouteRulesMatches into a JSON
 // request object.
-func expandTcpRouteRulesMatchesSlice(c *Client, f []TcpRouteRulesMatches) ([]map[string]interface{}, error) {
+func expandTcpRouteRulesMatchesSlice(c *Client, f []TcpRouteRulesMatches, res *TcpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandTcpRouteRulesMatches(c, &item)
+		i, err := expandTcpRouteRulesMatches(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1648,7 +1652,7 @@ func flattenTcpRouteRulesMatchesSlice(c *Client, i interface{}) []TcpRouteRulesM
 
 // expandTcpRouteRulesMatches expands an instance of TcpRouteRulesMatches into a JSON
 // request object.
-func expandTcpRouteRulesMatches(c *Client, f *TcpRouteRulesMatches) (map[string]interface{}, error) {
+func expandTcpRouteRulesMatches(c *Client, f *TcpRouteRulesMatches, res *TcpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1685,14 +1689,14 @@ func flattenTcpRouteRulesMatches(c *Client, i interface{}) *TcpRouteRulesMatches
 
 // expandTcpRouteRulesActionMap expands the contents of TcpRouteRulesAction into a JSON
 // request object.
-func expandTcpRouteRulesActionMap(c *Client, f map[string]TcpRouteRulesAction) (map[string]interface{}, error) {
+func expandTcpRouteRulesActionMap(c *Client, f map[string]TcpRouteRulesAction, res *TcpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandTcpRouteRulesAction(c, &item)
+		i, err := expandTcpRouteRulesAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1706,14 +1710,14 @@ func expandTcpRouteRulesActionMap(c *Client, f map[string]TcpRouteRulesAction) (
 
 // expandTcpRouteRulesActionSlice expands the contents of TcpRouteRulesAction into a JSON
 // request object.
-func expandTcpRouteRulesActionSlice(c *Client, f []TcpRouteRulesAction) ([]map[string]interface{}, error) {
+func expandTcpRouteRulesActionSlice(c *Client, f []TcpRouteRulesAction, res *TcpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandTcpRouteRulesAction(c, &item)
+		i, err := expandTcpRouteRulesAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1766,13 +1770,13 @@ func flattenTcpRouteRulesActionSlice(c *Client, i interface{}) []TcpRouteRulesAc
 
 // expandTcpRouteRulesAction expands an instance of TcpRouteRulesAction into a JSON
 // request object.
-func expandTcpRouteRulesAction(c *Client, f *TcpRouteRulesAction) (map[string]interface{}, error) {
+func expandTcpRouteRulesAction(c *Client, f *TcpRouteRulesAction, res *TcpRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandTcpRouteRulesActionDestinationsSlice(c, f.Destinations); err != nil {
+	if v, err := expandTcpRouteRulesActionDestinationsSlice(c, f.Destinations, res); err != nil {
 		return nil, fmt.Errorf("error expanding Destinations into destinations: %w", err)
 	} else if v != nil {
 		m["destinations"] = v
@@ -1805,14 +1809,14 @@ func flattenTcpRouteRulesAction(c *Client, i interface{}) *TcpRouteRulesAction {
 
 // expandTcpRouteRulesActionDestinationsMap expands the contents of TcpRouteRulesActionDestinations into a JSON
 // request object.
-func expandTcpRouteRulesActionDestinationsMap(c *Client, f map[string]TcpRouteRulesActionDestinations) (map[string]interface{}, error) {
+func expandTcpRouteRulesActionDestinationsMap(c *Client, f map[string]TcpRouteRulesActionDestinations, res *TcpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandTcpRouteRulesActionDestinations(c, &item)
+		i, err := expandTcpRouteRulesActionDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1826,14 +1830,14 @@ func expandTcpRouteRulesActionDestinationsMap(c *Client, f map[string]TcpRouteRu
 
 // expandTcpRouteRulesActionDestinationsSlice expands the contents of TcpRouteRulesActionDestinations into a JSON
 // request object.
-func expandTcpRouteRulesActionDestinationsSlice(c *Client, f []TcpRouteRulesActionDestinations) ([]map[string]interface{}, error) {
+func expandTcpRouteRulesActionDestinationsSlice(c *Client, f []TcpRouteRulesActionDestinations, res *TcpRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandTcpRouteRulesActionDestinations(c, &item)
+		i, err := expandTcpRouteRulesActionDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1886,7 +1890,7 @@ func flattenTcpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Tcp
 
 // expandTcpRouteRulesActionDestinations expands an instance of TcpRouteRulesActionDestinations into a JSON
 // request object.
-func expandTcpRouteRulesActionDestinations(c *Client, f *TcpRouteRulesActionDestinations) (map[string]interface{}, error) {
+func expandTcpRouteRulesActionDestinations(c *Client, f *TcpRouteRulesActionDestinations, res *TcpRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

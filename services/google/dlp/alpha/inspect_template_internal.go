@@ -321,6 +321,8 @@ type inspectTemplateApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateInspectTemplateUpdateInspectTemplateRequest(ctx context.Context, f *InspectTemplate, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -328,7 +330,7 @@ func newUpdateInspectTemplateUpdateInspectTemplateRequest(ctx context.Context, f
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfig(c, f.InspectConfig); err != nil {
+	if v, err := expandInspectTemplateInspectConfig(c, f.InspectConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding InspectConfig into inspectConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["inspectConfig"] = v
@@ -5896,6 +5898,8 @@ func unmarshalMapInspectTemplate(m map[string]interface{}, c *Client) (*InspectT
 // expandInspectTemplate expands InspectTemplate into a JSON request object.
 func expandInspectTemplate(c *Client, f *InspectTemplate) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("%s/inspectTemplates/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -5907,7 +5911,7 @@ func expandInspectTemplate(c *Client, f *InspectTemplate) (map[string]interface{
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfig(c, f.InspectConfig); err != nil {
+	if v, err := expandInspectTemplateInspectConfig(c, f.InspectConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding InspectConfig into inspectConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["inspectConfig"] = v
@@ -5947,14 +5951,14 @@ func flattenInspectTemplate(c *Client, i interface{}) *InspectTemplate {
 
 // expandInspectTemplateInspectConfigMap expands the contents of InspectTemplateInspectConfig into a JSON
 // request object.
-func expandInspectTemplateInspectConfigMap(c *Client, f map[string]InspectTemplateInspectConfig) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigMap(c *Client, f map[string]InspectTemplateInspectConfig, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfig(c, &item)
+		i, err := expandInspectTemplateInspectConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5968,14 +5972,14 @@ func expandInspectTemplateInspectConfigMap(c *Client, f map[string]InspectTempla
 
 // expandInspectTemplateInspectConfigSlice expands the contents of InspectTemplateInspectConfig into a JSON
 // request object.
-func expandInspectTemplateInspectConfigSlice(c *Client, f []InspectTemplateInspectConfig) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigSlice(c *Client, f []InspectTemplateInspectConfig, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfig(c, &item)
+		i, err := expandInspectTemplateInspectConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6028,13 +6032,13 @@ func flattenInspectTemplateInspectConfigSlice(c *Client, i interface{}) []Inspec
 
 // expandInspectTemplateInspectConfig expands an instance of InspectTemplateInspectConfig into a JSON
 // request object.
-func expandInspectTemplateInspectConfig(c *Client, f *InspectTemplateInspectConfig) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfig(c *Client, f *InspectTemplateInspectConfig, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigInfoTypesSlice(c, f.InfoTypes); err != nil {
+	if v, err := expandInspectTemplateInspectConfigInfoTypesSlice(c, f.InfoTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoTypes into infoTypes: %w", err)
 	} else if v != nil {
 		m["infoTypes"] = v
@@ -6042,7 +6046,7 @@ func expandInspectTemplateInspectConfig(c *Client, f *InspectTemplateInspectConf
 	if v := f.MinLikelihood; !dcl.IsEmptyValueIndirect(v) {
 		m["minLikelihood"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigLimits(c, f.Limits); err != nil {
+	if v, err := expandInspectTemplateInspectConfigLimits(c, f.Limits, res); err != nil {
 		return nil, fmt.Errorf("error expanding Limits into limits: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["limits"] = v
@@ -6053,7 +6057,7 @@ func expandInspectTemplateInspectConfig(c *Client, f *InspectTemplateInspectConf
 	if v := f.ExcludeInfoTypes; !dcl.IsEmptyValueIndirect(v) {
 		m["excludeInfoTypes"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesSlice(c, f.CustomInfoTypes); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesSlice(c, f.CustomInfoTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding CustomInfoTypes into customInfoTypes: %w", err)
 	} else if v != nil {
 		m["customInfoTypes"] = v
@@ -6061,7 +6065,7 @@ func expandInspectTemplateInspectConfig(c *Client, f *InspectTemplateInspectConf
 	if v := f.ContentOptions; v != nil {
 		m["contentOptions"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetSlice(c, f.RuleSet); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetSlice(c, f.RuleSet, res); err != nil {
 		return nil, fmt.Errorf("error expanding RuleSet into ruleSet: %w", err)
 	} else if v != nil {
 		m["ruleSet"] = v
@@ -6097,14 +6101,14 @@ func flattenInspectTemplateInspectConfig(c *Client, i interface{}) *InspectTempl
 
 // expandInspectTemplateInspectConfigInfoTypesMap expands the contents of InspectTemplateInspectConfigInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6118,14 +6122,14 @@ func expandInspectTemplateInspectConfigInfoTypesMap(c *Client, f map[string]Insp
 
 // expandInspectTemplateInspectConfigInfoTypesSlice expands the contents of InspectTemplateInspectConfigInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigInfoTypes) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigInfoTypes, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6178,7 +6182,7 @@ func flattenInspectTemplateInspectConfigInfoTypesSlice(c *Client, i interface{})
 
 // expandInspectTemplateInspectConfigInfoTypes expands an instance of InspectTemplateInspectConfigInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigInfoTypes(c *Client, f *InspectTemplateInspectConfigInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigInfoTypes(c *Client, f *InspectTemplateInspectConfigInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6211,14 +6215,14 @@ func flattenInspectTemplateInspectConfigInfoTypes(c *Client, i interface{}) *Ins
 
 // expandInspectTemplateInspectConfigLimitsMap expands the contents of InspectTemplateInspectConfigLimits into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsMap(c *Client, f map[string]InspectTemplateInspectConfigLimits) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsMap(c *Client, f map[string]InspectTemplateInspectConfigLimits, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigLimits(c, &item)
+		i, err := expandInspectTemplateInspectConfigLimits(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6232,14 +6236,14 @@ func expandInspectTemplateInspectConfigLimitsMap(c *Client, f map[string]Inspect
 
 // expandInspectTemplateInspectConfigLimitsSlice expands the contents of InspectTemplateInspectConfigLimits into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsSlice(c *Client, f []InspectTemplateInspectConfigLimits) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsSlice(c *Client, f []InspectTemplateInspectConfigLimits, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigLimits(c, &item)
+		i, err := expandInspectTemplateInspectConfigLimits(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6292,7 +6296,7 @@ func flattenInspectTemplateInspectConfigLimitsSlice(c *Client, i interface{}) []
 
 // expandInspectTemplateInspectConfigLimits expands an instance of InspectTemplateInspectConfigLimits into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimits(c *Client, f *InspectTemplateInspectConfigLimits) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimits(c *Client, f *InspectTemplateInspectConfigLimits, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6304,7 +6308,7 @@ func expandInspectTemplateInspectConfigLimits(c *Client, f *InspectTemplateInspe
 	if v := f.MaxFindingsPerRequest; !dcl.IsEmptyValueIndirect(v) {
 		m["maxFindingsPerRequest"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c, f.MaxFindingsPerInfoType); err != nil {
+	if v, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c, f.MaxFindingsPerInfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding MaxFindingsPerInfoType into maxFindingsPerInfoType: %w", err)
 	} else if v != nil {
 		m["maxFindingsPerInfoType"] = v
@@ -6335,14 +6339,14 @@ func flattenInspectTemplateInspectConfigLimits(c *Client, i interface{}) *Inspec
 
 // expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap expands the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap(c *Client, f map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap(c *Client, f map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, &item)
+		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6356,14 +6360,14 @@ func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap(c *Client
 
 // expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice expands the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c *Client, f []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c *Client, f []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, &item)
+		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6416,13 +6420,13 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c *Cli
 
 // expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType expands an instance of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c *Client, f *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c *Client, f *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, f.InfoType); err != nil {
+	if v, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, f.InfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoType into infoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["infoType"] = v
@@ -6455,14 +6459,14 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c *Client, 
 
 // expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap expands the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap(c *Client, f map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap(c *Client, f map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, &item)
+		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6476,14 +6480,14 @@ func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap(c
 
 // expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice expands the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice(c *Client, f []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice(c *Client, f []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, &item)
+		i, err := expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6536,7 +6540,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlic
 
 // expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType expands an instance of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c *Client, f *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c *Client, f *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6569,14 +6573,14 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c *
 
 // expandInspectTemplateInspectConfigCustomInfoTypesMap expands the contents of InspectTemplateInspectConfigCustomInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6590,14 +6594,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesMap(c *Client, f map[strin
 
 // expandInspectTemplateInspectConfigCustomInfoTypesSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypes) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypes, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6650,13 +6654,13 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, i interf
 
 // expandInspectTemplateInspectConfigCustomInfoTypes expands an instance of InspectTemplateInspectConfigCustomInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypes(c *Client, f *InspectTemplateInspectConfigCustomInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypes(c *Client, f *InspectTemplateInspectConfigCustomInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c, f.InfoType); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c, f.InfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoType into infoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["infoType"] = v
@@ -6664,27 +6668,27 @@ func expandInspectTemplateInspectConfigCustomInfoTypes(c *Client, f *InspectTemp
 	if v := f.Likelihood; !dcl.IsEmptyValueIndirect(v) {
 		m["likelihood"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c, f.Dictionary); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c, f.Dictionary, res); err != nil {
 		return nil, fmt.Errorf("error expanding Dictionary into dictionary: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dictionary"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesRegex(c, f.Regex); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesRegex(c, f.Regex, res); err != nil {
 		return nil, fmt.Errorf("error expanding Regex into regex: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["regex"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, f.SurrogateType); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, f.SurrogateType, res); err != nil {
 		return nil, fmt.Errorf("error expanding SurrogateType into surrogateType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["surrogateType"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c, f.StoredType); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c, f.StoredType, res); err != nil {
 		return nil, fmt.Errorf("error expanding StoredType into storedType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["storedType"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c, f.DetectionRules); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c, f.DetectionRules, res); err != nil {
 		return nil, fmt.Errorf("error expanding DetectionRules into detectionRules: %w", err)
 	} else if v != nil {
 		m["detectionRules"] = v
@@ -6723,14 +6727,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypes(c *Client, i interface{}
 
 // expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesInfoType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesInfoType, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6744,14 +6748,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap(c *Client, f m
 
 // expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesInfoType) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesInfoType, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6804,7 +6808,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *Client, 
 
 // expandInspectTemplateInspectConfigCustomInfoTypesInfoType expands an instance of InspectTemplateInspectConfigCustomInfoTypesInfoType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesInfoType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesInfoType, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6837,14 +6841,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c *Client, i int
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionaryMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDictionary into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDictionary) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDictionary, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6858,14 +6862,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryMap(c *Client, f
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionarySlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDictionary into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDictionary) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDictionary, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6918,18 +6922,18 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c *Client
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionary expands an instance of InspectTemplateInspectConfigCustomInfoTypesDictionary into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDictionary) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDictionary, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, f.WordList); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, f.WordList, res); err != nil {
 		return nil, fmt.Errorf("error expanding WordList into wordList: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["wordList"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, f.CloudStoragePath); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, f.CloudStoragePath, res); err != nil {
 		return nil, fmt.Errorf("error expanding CloudStoragePath into cloudStoragePath: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cloudStoragePath"] = v
@@ -6959,14 +6963,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c *Client, i i
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6980,14 +6984,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap(c *C
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7040,7 +7044,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(c
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList expands an instance of InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7073,14 +7077,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c *Cli
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7094,14 +7098,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7154,7 +7158,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePat
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath expands an instance of InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7187,14 +7191,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePat
 
 // expandInspectTemplateInspectConfigCustomInfoTypesRegexMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesRegexMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesRegexMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7208,14 +7212,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesRegexMap(c *Client, f map[
 
 // expandInspectTemplateInspectConfigCustomInfoTypesRegexSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesRegex) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesRegex, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7268,7 +7272,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Client, i i
 
 // expandInspectTemplateInspectConfigCustomInfoTypesRegex expands an instance of InspectTemplateInspectConfigCustomInfoTypesRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesRegex(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesRegex(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7305,14 +7309,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c *Client, i interf
 
 // expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesSurrogateType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesSurrogateType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesSurrogateType, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7326,14 +7330,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap(c *Client
 
 // expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesSurrogateType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesSurrogateType) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesSurrogateType, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7386,7 +7390,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(c *Cli
 
 // expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType expands an instance of InspectTemplateInspectConfigCustomInfoTypesSurrogateType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesSurrogateType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesSurrogateType, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7415,14 +7419,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c *Client, 
 
 // expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesStoredType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesStoredType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesStoredType, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7436,14 +7440,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap(c *Client, f
 
 // expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesStoredType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesStoredType) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesStoredType, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7496,7 +7500,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c *Client
 
 // expandInspectTemplateInspectConfigCustomInfoTypesStoredType expands an instance of InspectTemplateInspectConfigCustomInfoTypesStoredType into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesStoredType) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesStoredType, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7530,14 +7534,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c *Client, i i
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRules into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRules) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRules, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7551,14 +7555,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap(c *Clien
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRules into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRules) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRules, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7611,13 +7615,13 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c *Cl
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRules into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRules, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, f.HotwordRule); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, f.HotwordRule, res); err != nil {
 		return nil, fmt.Errorf("error expanding HotwordRule into hotwordRule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["hotwordRule"] = v
@@ -7646,14 +7650,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c *Client,
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7667,14 +7671,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleM
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7727,23 +7731,23 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, f.HotwordRegex); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, f.HotwordRegex, res); err != nil {
 		return nil, fmt.Errorf("error expanding HotwordRegex into hotwordRegex: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["hotwordRegex"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, f.Proximity); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, f.Proximity, res); err != nil {
 		return nil, fmt.Errorf("error expanding Proximity into proximity: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["proximity"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, f.LikelihoodAdjustment); err != nil {
+	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, f.LikelihoodAdjustment, res); err != nil {
 		return nil, fmt.Errorf("error expanding LikelihoodAdjustment into likelihoodAdjustment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["likelihoodAdjustment"] = v
@@ -7774,14 +7778,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7795,14 +7799,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleH
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7855,7 +7859,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7892,14 +7896,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7913,14 +7917,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleP
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7973,7 +7977,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8010,14 +8014,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8031,14 +8035,14 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleL
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, &item)
+		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8091,7 +8095,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment into a JSON
 // request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8128,14 +8132,14 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
 
 // expandInspectTemplateInspectConfigRuleSetMap expands the contents of InspectTemplateInspectConfigRuleSet into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSet) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSet, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSet(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSet(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8149,14 +8153,14 @@ func expandInspectTemplateInspectConfigRuleSetMap(c *Client, f map[string]Inspec
 
 // expandInspectTemplateInspectConfigRuleSetSlice expands the contents of InspectTemplateInspectConfigRuleSet into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetSlice(c *Client, f []InspectTemplateInspectConfigRuleSet) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetSlice(c *Client, f []InspectTemplateInspectConfigRuleSet, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSet(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSet(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8209,18 +8213,18 @@ func flattenInspectTemplateInspectConfigRuleSetSlice(c *Client, i interface{}) [
 
 // expandInspectTemplateInspectConfigRuleSet expands an instance of InspectTemplateInspectConfigRuleSet into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSet(c *Client, f *InspectTemplateInspectConfigRuleSet) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSet(c *Client, f *InspectTemplateInspectConfigRuleSet, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigRuleSetInfoTypesSlice(c, f.InfoTypes); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetInfoTypesSlice(c, f.InfoTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoTypes into infoTypes: %w", err)
 	} else if v != nil {
 		m["infoTypes"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		m["rules"] = v
@@ -8250,14 +8254,14 @@ func flattenInspectTemplateInspectConfigRuleSet(c *Client, i interface{}) *Inspe
 
 // expandInspectTemplateInspectConfigRuleSetInfoTypesMap expands the contents of InspectTemplateInspectConfigRuleSetInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8271,14 +8275,14 @@ func expandInspectTemplateInspectConfigRuleSetInfoTypesMap(c *Client, f map[stri
 
 // expandInspectTemplateInspectConfigRuleSetInfoTypesSlice expands the contents of InspectTemplateInspectConfigRuleSetInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetInfoTypes) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetInfoTypes, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8331,7 +8335,7 @@ func flattenInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client, i inter
 
 // expandInspectTemplateInspectConfigRuleSetInfoTypes expands an instance of InspectTemplateInspectConfigRuleSetInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetInfoTypes(c *Client, f *InspectTemplateInspectConfigRuleSetInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetInfoTypes(c *Client, f *InspectTemplateInspectConfigRuleSetInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -8364,14 +8368,14 @@ func flattenInspectTemplateInspectConfigRuleSetInfoTypes(c *Client, i interface{
 
 // expandInspectTemplateInspectConfigRuleSetRulesMap expands the contents of InspectTemplateInspectConfigRuleSetRules into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRules) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRules, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRules(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8385,14 +8389,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesMap(c *Client, f map[string]I
 
 // expandInspectTemplateInspectConfigRuleSetRulesSlice expands the contents of InspectTemplateInspectConfigRuleSetRules into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRules) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRules, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRules(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8445,18 +8449,18 @@ func flattenInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, i interface
 
 // expandInspectTemplateInspectConfigRuleSetRules expands an instance of InspectTemplateInspectConfigRuleSetRules into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRules(c *Client, f *InspectTemplateInspectConfigRuleSetRules) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRules(c *Client, f *InspectTemplateInspectConfigRuleSetRules, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, f.HotwordRule); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, f.HotwordRule, res); err != nil {
 		return nil, fmt.Errorf("error expanding HotwordRule into hotwordRule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["hotwordRule"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, f.ExclusionRule); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, f.ExclusionRule, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExclusionRule into exclusionRule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["exclusionRule"] = v
@@ -8486,14 +8490,14 @@ func flattenInspectTemplateInspectConfigRuleSetRules(c *Client, i interface{}) *
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRule) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRule, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8507,14 +8511,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap(c *Client, f m
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRule) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRule, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8567,23 +8571,23 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *Client, 
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRule expands an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRule) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRule, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, f.HotwordRegex); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, f.HotwordRegex, res); err != nil {
 		return nil, fmt.Errorf("error expanding HotwordRegex into hotwordRegex: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["hotwordRegex"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, f.Proximity); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, f.Proximity, res); err != nil {
 		return nil, fmt.Errorf("error expanding Proximity into proximity: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["proximity"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, f.LikelihoodAdjustment); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, f.LikelihoodAdjustment, res); err != nil {
 		return nil, fmt.Errorf("error expanding LikelihoodAdjustment into likelihoodAdjustment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["likelihoodAdjustment"] = v
@@ -8614,14 +8618,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c *Client, i int
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8635,14 +8639,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap(c 
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8695,7 +8699,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex expands an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8732,14 +8736,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c *C
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8753,14 +8757,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap(c *Cl
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8813,7 +8817,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(c 
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity expands an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8850,14 +8854,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c *Clie
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentMap expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8871,14 +8875,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustme
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8931,7 +8935,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 
 // expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment expands an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c *Client, f *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8968,14 +8972,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRule) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRule, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8989,14 +8993,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap(c *Client, f
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRule) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRule, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9049,23 +9053,23 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c *Client
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRule expands an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRule into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRule) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRule, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, f.Dictionary); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, f.Dictionary, res); err != nil {
 		return nil, fmt.Errorf("error expanding Dictionary into dictionary: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dictionary"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, f.Regex); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, f.Regex, res); err != nil {
 		return nil, fmt.Errorf("error expanding Regex into regex: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["regex"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, f.ExcludeInfoTypes); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, f.ExcludeInfoTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExcludeInfoTypes into excludeInfoTypes: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["excludeInfoTypes"] = v
@@ -9100,14 +9104,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c *Client, i i
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9121,14 +9125,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap(c 
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9181,18 +9185,18 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary expands an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, f.WordList); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, f.WordList, res); err != nil {
 		return nil, fmt.Errorf("error expanding WordList into wordList: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["wordList"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, f.CloudStoragePath); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, f.CloudStoragePath, res); err != nil {
 		return nil, fmt.Errorf("error expanding CloudStoragePath into cloudStoragePath: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cloudStoragePath"] = v
@@ -9222,14 +9226,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c *C
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListMap expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9243,14 +9247,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordLi
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9303,7 +9307,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordL
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList expands an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9336,14 +9340,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordL
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathMap expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9357,14 +9361,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudS
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9417,7 +9421,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloud
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath expands an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9450,14 +9454,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloud
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9471,14 +9475,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap(c *Clie
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9531,7 +9535,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(c *C
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex expands an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9568,14 +9572,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c *Client
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesMap expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9589,14 +9593,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9649,13 +9653,13 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes expands an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c, f.InfoTypes); err != nil {
+	if v, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c, f.InfoTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoTypes into infoTypes: %w", err)
 	} else if v != nil {
 		m["infoTypes"] = v
@@ -9684,14 +9688,14 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesMap expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesMap(c *Client, f map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9705,14 +9709,14 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice expands the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes) ([]map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c *Client, f []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, res *InspectTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, &item)
+		i, err := expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9765,7 +9769,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 // expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes expands an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes into a JSON
 // request object.
-func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes) (map[string]interface{}, error) {
+func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c *Client, f *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, res *InspectTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

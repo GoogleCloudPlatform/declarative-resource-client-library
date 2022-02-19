@@ -50,8 +50,8 @@ class Cluster(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if ClusterClusterConfig.to_proto(self.config):
-            request.resource.config.CopyFrom(ClusterClusterConfig.to_proto(self.config))
+        if ClusterConfig.to_proto(self.config):
+            request.resource.config.CopyFrom(ClusterConfig.to_proto(self.config))
         else:
             request.resource.ClearField("config")
         if Primitive.to_proto(self.labels):
@@ -65,7 +65,7 @@ class Cluster(object):
         response = stub.ApplyDataprocBetaCluster(request)
         self.project = Primitive.from_proto(response.project)
         self.name = Primitive.from_proto(response.name)
-        self.config = ClusterClusterConfig.from_proto(response.config)
+        self.config = ClusterConfig.from_proto(response.config)
         self.labels = Primitive.from_proto(response.labels)
         self.status = ClusterStatus.from_proto(response.status)
         self.status_history = ClusterStatusHistoryArray.from_proto(
@@ -85,8 +85,8 @@ class Cluster(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if ClusterClusterConfig.to_proto(self.config):
-            request.resource.config.CopyFrom(ClusterClusterConfig.to_proto(self.config))
+        if ClusterConfig.to_proto(self.config):
+            request.resource.config.CopyFrom(ClusterConfig.to_proto(self.config))
         else:
             request.resource.ClearField("config")
         if Primitive.to_proto(self.labels):
@@ -114,8 +114,8 @@ class Cluster(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if ClusterClusterConfig.to_proto(self.config):
-            resource.config.CopyFrom(ClusterClusterConfig.to_proto(self.config))
+        if ClusterConfig.to_proto(self.config):
+            resource.config.CopyFrom(ClusterConfig.to_proto(self.config))
         else:
             resource.ClearField("config")
         if Primitive.to_proto(self.labels):
@@ -125,7 +125,7 @@ class Cluster(object):
         return resource
 
 
-class ClusterClusterConfig(object):
+class ClusterConfig(object):
     def __init__(
         self,
         staging_bucket: str = None,
@@ -165,96 +165,92 @@ class ClusterClusterConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfig()
+        res = cluster_pb2.DataprocBetaClusterConfig()
         if Primitive.to_proto(resource.staging_bucket):
             res.staging_bucket = Primitive.to_proto(resource.staging_bucket)
         if Primitive.to_proto(resource.temp_bucket):
             res.temp_bucket = Primitive.to_proto(resource.temp_bucket)
-        if ClusterClusterConfigGceClusterConfig.to_proto(resource.gce_cluster_config):
+        if ClusterConfigGceClusterConfig.to_proto(resource.gce_cluster_config):
             res.gce_cluster_config.CopyFrom(
-                ClusterClusterConfigGceClusterConfig.to_proto(
-                    resource.gce_cluster_config
-                )
+                ClusterConfigGceClusterConfig.to_proto(resource.gce_cluster_config)
             )
         else:
             res.ClearField("gce_cluster_config")
-        if ClusterInstanceGroupConfig.to_proto(resource.master_config):
+        if ClusterConfigMasterConfig.to_proto(resource.master_config):
             res.master_config.CopyFrom(
-                ClusterInstanceGroupConfig.to_proto(resource.master_config)
+                ClusterConfigMasterConfig.to_proto(resource.master_config)
             )
         else:
             res.ClearField("master_config")
-        if ClusterInstanceGroupConfig.to_proto(resource.worker_config):
+        if ClusterConfigWorkerConfig.to_proto(resource.worker_config):
             res.worker_config.CopyFrom(
-                ClusterInstanceGroupConfig.to_proto(resource.worker_config)
+                ClusterConfigWorkerConfig.to_proto(resource.worker_config)
             )
         else:
             res.ClearField("worker_config")
-        if ClusterInstanceGroupConfig.to_proto(resource.secondary_worker_config):
+        if ClusterConfigSecondaryWorkerConfig.to_proto(
+            resource.secondary_worker_config
+        ):
             res.secondary_worker_config.CopyFrom(
-                ClusterInstanceGroupConfig.to_proto(resource.secondary_worker_config)
+                ClusterConfigSecondaryWorkerConfig.to_proto(
+                    resource.secondary_worker_config
+                )
             )
         else:
             res.ClearField("secondary_worker_config")
-        if ClusterClusterConfigSoftwareConfig.to_proto(resource.software_config):
+        if ClusterConfigSoftwareConfig.to_proto(resource.software_config):
             res.software_config.CopyFrom(
-                ClusterClusterConfigSoftwareConfig.to_proto(resource.software_config)
+                ClusterConfigSoftwareConfig.to_proto(resource.software_config)
             )
         else:
             res.ClearField("software_config")
-        if ClusterClusterConfigInitializationActionsArray.to_proto(
+        if ClusterConfigInitializationActionsArray.to_proto(
             resource.initialization_actions
         ):
             res.initialization_actions.extend(
-                ClusterClusterConfigInitializationActionsArray.to_proto(
+                ClusterConfigInitializationActionsArray.to_proto(
                     resource.initialization_actions
                 )
             )
-        if ClusterClusterConfigEncryptionConfig.to_proto(resource.encryption_config):
+        if ClusterConfigEncryptionConfig.to_proto(resource.encryption_config):
             res.encryption_config.CopyFrom(
-                ClusterClusterConfigEncryptionConfig.to_proto(
-                    resource.encryption_config
-                )
+                ClusterConfigEncryptionConfig.to_proto(resource.encryption_config)
             )
         else:
             res.ClearField("encryption_config")
-        if ClusterClusterConfigAutoscalingConfig.to_proto(resource.autoscaling_config):
+        if ClusterConfigAutoscalingConfig.to_proto(resource.autoscaling_config):
             res.autoscaling_config.CopyFrom(
-                ClusterClusterConfigAutoscalingConfig.to_proto(
-                    resource.autoscaling_config
-                )
+                ClusterConfigAutoscalingConfig.to_proto(resource.autoscaling_config)
             )
         else:
             res.ClearField("autoscaling_config")
-        if ClusterClusterConfigSecurityConfig.to_proto(resource.security_config):
+        if ClusterConfigSecurityConfig.to_proto(resource.security_config):
             res.security_config.CopyFrom(
-                ClusterClusterConfigSecurityConfig.to_proto(resource.security_config)
+                ClusterConfigSecurityConfig.to_proto(resource.security_config)
             )
         else:
             res.ClearField("security_config")
-        if ClusterClusterConfigLifecycleConfig.to_proto(resource.lifecycle_config):
+        if ClusterConfigLifecycleConfig.to_proto(resource.lifecycle_config):
             res.lifecycle_config.CopyFrom(
-                ClusterClusterConfigLifecycleConfig.to_proto(resource.lifecycle_config)
+                ClusterConfigLifecycleConfig.to_proto(resource.lifecycle_config)
             )
         else:
             res.ClearField("lifecycle_config")
-        if ClusterClusterConfigEndpointConfig.to_proto(resource.endpoint_config):
+        if ClusterConfigEndpointConfig.to_proto(resource.endpoint_config):
             res.endpoint_config.CopyFrom(
-                ClusterClusterConfigEndpointConfig.to_proto(resource.endpoint_config)
+                ClusterConfigEndpointConfig.to_proto(resource.endpoint_config)
             )
         else:
             res.ClearField("endpoint_config")
-        if ClusterClusterConfigGkeClusterConfig.to_proto(resource.gke_cluster_config):
+        if ClusterConfigGkeClusterConfig.to_proto(resource.gke_cluster_config):
             res.gke_cluster_config.CopyFrom(
-                ClusterClusterConfigGkeClusterConfig.to_proto(
-                    resource.gke_cluster_config
-                )
+                ClusterConfigGkeClusterConfig.to_proto(resource.gke_cluster_config)
             )
         else:
             res.ClearField("gke_cluster_config")
-        if ClusterClusterConfigMetastoreConfig.to_proto(resource.metastore_config):
+        if ClusterConfigMetastoreConfig.to_proto(resource.metastore_config):
             res.metastore_config.CopyFrom(
-                ClusterClusterConfigMetastoreConfig.to_proto(resource.metastore_config)
+                ClusterConfigMetastoreConfig.to_proto(resource.metastore_config)
             )
         else:
             res.ClearField("metastore_config")
@@ -265,60 +261,60 @@ class ClusterClusterConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfig(
+        return ClusterConfig(
             staging_bucket=Primitive.from_proto(resource.staging_bucket),
             temp_bucket=Primitive.from_proto(resource.temp_bucket),
-            gce_cluster_config=ClusterClusterConfigGceClusterConfig.from_proto(
+            gce_cluster_config=ClusterConfigGceClusterConfig.from_proto(
                 resource.gce_cluster_config
             ),
-            master_config=ClusterInstanceGroupConfig.from_proto(resource.master_config),
-            worker_config=ClusterInstanceGroupConfig.from_proto(resource.worker_config),
-            secondary_worker_config=ClusterInstanceGroupConfig.from_proto(
+            master_config=ClusterConfigMasterConfig.from_proto(resource.master_config),
+            worker_config=ClusterConfigWorkerConfig.from_proto(resource.worker_config),
+            secondary_worker_config=ClusterConfigSecondaryWorkerConfig.from_proto(
                 resource.secondary_worker_config
             ),
-            software_config=ClusterClusterConfigSoftwareConfig.from_proto(
+            software_config=ClusterConfigSoftwareConfig.from_proto(
                 resource.software_config
             ),
-            initialization_actions=ClusterClusterConfigInitializationActionsArray.from_proto(
+            initialization_actions=ClusterConfigInitializationActionsArray.from_proto(
                 resource.initialization_actions
             ),
-            encryption_config=ClusterClusterConfigEncryptionConfig.from_proto(
+            encryption_config=ClusterConfigEncryptionConfig.from_proto(
                 resource.encryption_config
             ),
-            autoscaling_config=ClusterClusterConfigAutoscalingConfig.from_proto(
+            autoscaling_config=ClusterConfigAutoscalingConfig.from_proto(
                 resource.autoscaling_config
             ),
-            security_config=ClusterClusterConfigSecurityConfig.from_proto(
+            security_config=ClusterConfigSecurityConfig.from_proto(
                 resource.security_config
             ),
-            lifecycle_config=ClusterClusterConfigLifecycleConfig.from_proto(
+            lifecycle_config=ClusterConfigLifecycleConfig.from_proto(
                 resource.lifecycle_config
             ),
-            endpoint_config=ClusterClusterConfigEndpointConfig.from_proto(
+            endpoint_config=ClusterConfigEndpointConfig.from_proto(
                 resource.endpoint_config
             ),
-            gke_cluster_config=ClusterClusterConfigGkeClusterConfig.from_proto(
+            gke_cluster_config=ClusterConfigGkeClusterConfig.from_proto(
                 resource.gke_cluster_config
             ),
-            metastore_config=ClusterClusterConfigMetastoreConfig.from_proto(
+            metastore_config=ClusterConfigMetastoreConfig.from_proto(
                 resource.metastore_config
             ),
         )
 
 
-class ClusterClusterConfigArray(object):
+class ClusterConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfig.to_proto(i) for i in resources]
+        return [ClusterConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfig.from_proto(i) for i in resources]
+        return [ClusterConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigGceClusterConfig(object):
+class ClusterConfigGceClusterConfig(object):
     def __init__(
         self,
         zone: str = None,
@@ -350,7 +346,7 @@ class ClusterClusterConfigGceClusterConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigGceClusterConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigGceClusterConfig()
         if Primitive.to_proto(resource.zone):
             res.zone = Primitive.to_proto(resource.zone)
         if Primitive.to_proto(resource.network):
@@ -359,10 +355,10 @@ class ClusterClusterConfigGceClusterConfig(object):
             res.subnetwork = Primitive.to_proto(resource.subnetwork)
         if Primitive.to_proto(resource.internal_ip_only):
             res.internal_ip_only = Primitive.to_proto(resource.internal_ip_only)
-        if ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
+        if ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
             resource.private_ipv6_google_access
         ):
-            res.private_ipv6_google_access = ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
+            res.private_ipv6_google_access = ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
                 resource.private_ipv6_google_access
             )
         if Primitive.to_proto(resource.service_account):
@@ -375,21 +371,21 @@ class ClusterClusterConfigGceClusterConfig(object):
             res.tags.extend(Primitive.to_proto(resource.tags))
         if Primitive.to_proto(resource.metadata):
             res.metadata = Primitive.to_proto(resource.metadata)
-        if ClusterClusterConfigGceClusterConfigReservationAffinity.to_proto(
+        if ClusterConfigGceClusterConfigReservationAffinity.to_proto(
             resource.reservation_affinity
         ):
             res.reservation_affinity.CopyFrom(
-                ClusterClusterConfigGceClusterConfigReservationAffinity.to_proto(
+                ClusterConfigGceClusterConfigReservationAffinity.to_proto(
                     resource.reservation_affinity
                 )
             )
         else:
             res.ClearField("reservation_affinity")
-        if ClusterClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(
+        if ClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(
             resource.node_group_affinity
         ):
             res.node_group_affinity.CopyFrom(
-                ClusterClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(
+                ClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(
                     resource.node_group_affinity
                 )
             )
@@ -402,12 +398,12 @@ class ClusterClusterConfigGceClusterConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigGceClusterConfig(
+        return ClusterConfigGceClusterConfig(
             zone=Primitive.from_proto(resource.zone),
             network=Primitive.from_proto(resource.network),
             subnetwork=Primitive.from_proto(resource.subnetwork),
             internal_ip_only=Primitive.from_proto(resource.internal_ip_only),
-            private_ipv6_google_access=ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.from_proto(
+            private_ipv6_google_access=ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.from_proto(
                 resource.private_ipv6_google_access
             ),
             service_account=Primitive.from_proto(resource.service_account),
@@ -416,28 +412,28 @@ class ClusterClusterConfigGceClusterConfig(object):
             ),
             tags=Primitive.from_proto(resource.tags),
             metadata=Primitive.from_proto(resource.metadata),
-            reservation_affinity=ClusterClusterConfigGceClusterConfigReservationAffinity.from_proto(
+            reservation_affinity=ClusterConfigGceClusterConfigReservationAffinity.from_proto(
                 resource.reservation_affinity
             ),
-            node_group_affinity=ClusterClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(
+            node_group_affinity=ClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(
                 resource.node_group_affinity
             ),
         )
 
 
-class ClusterClusterConfigGceClusterConfigArray(object):
+class ClusterConfigGceClusterConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigGceClusterConfig.to_proto(i) for i in resources]
+        return [ClusterConfigGceClusterConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigGceClusterConfig.from_proto(i) for i in resources]
+        return [ClusterConfigGceClusterConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigGceClusterConfigReservationAffinity(object):
+class ClusterConfigGceClusterConfigReservationAffinity(object):
     def __init__(
         self, consume_reservation_type: str = None, key: str = None, values: list = None
     ):
@@ -450,13 +446,11 @@ class ClusterClusterConfigGceClusterConfigReservationAffinity(object):
         if not resource:
             return None
 
-        res = (
-            cluster_pb2.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity()
-        )
-        if ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.to_proto(
+        res = cluster_pb2.DataprocBetaClusterConfigGceClusterConfigReservationAffinity()
+        if ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.to_proto(
             resource.consume_reservation_type
         ):
-            res.consume_reservation_type = ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.to_proto(
+            res.consume_reservation_type = ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.to_proto(
                 resource.consume_reservation_type
             )
         if Primitive.to_proto(resource.key):
@@ -470,8 +464,8 @@ class ClusterClusterConfigGceClusterConfigReservationAffinity(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigGceClusterConfigReservationAffinity(
-            consume_reservation_type=ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.from_proto(
+        return ClusterConfigGceClusterConfigReservationAffinity(
+            consume_reservation_type=ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.from_proto(
                 resource.consume_reservation_type
             ),
             key=Primitive.from_proto(resource.key),
@@ -479,25 +473,25 @@ class ClusterClusterConfigGceClusterConfigReservationAffinity(object):
         )
 
 
-class ClusterClusterConfigGceClusterConfigReservationAffinityArray(object):
+class ClusterConfigGceClusterConfigReservationAffinityArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ClusterClusterConfigGceClusterConfigReservationAffinity.to_proto(i)
+            ClusterConfigGceClusterConfigReservationAffinity.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ClusterClusterConfigGceClusterConfigReservationAffinity.from_proto(i)
+            ClusterConfigGceClusterConfigReservationAffinity.from_proto(i)
             for i in resources
         ]
 
 
-class ClusterClusterConfigGceClusterConfigNodeGroupAffinity(object):
+class ClusterConfigGceClusterConfigNodeGroupAffinity(object):
     def __init__(self, node_group: str = None):
         self.node_group = node_group
 
@@ -506,9 +500,7 @@ class ClusterClusterConfigGceClusterConfigNodeGroupAffinity(object):
         if not resource:
             return None
 
-        res = (
-            cluster_pb2.DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity()
-        )
+        res = cluster_pb2.DataprocBetaClusterConfigGceClusterConfigNodeGroupAffinity()
         if Primitive.to_proto(resource.node_group):
             res.node_group = Primitive.to_proto(resource.node_group)
         return res
@@ -518,30 +510,30 @@ class ClusterClusterConfigGceClusterConfigNodeGroupAffinity(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigGceClusterConfigNodeGroupAffinity(
+        return ClusterConfigGceClusterConfigNodeGroupAffinity(
             node_group=Primitive.from_proto(resource.node_group),
         )
 
 
-class ClusterClusterConfigGceClusterConfigNodeGroupAffinityArray(object):
+class ClusterConfigGceClusterConfigNodeGroupAffinityArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ClusterClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(i)
+            ClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ClusterClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(i)
+            ClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(i)
             for i in resources
         ]
 
 
-class ClusterInstanceGroupConfig(object):
+class ClusterConfigMasterConfig(object):
     def __init__(
         self,
         num_instances: int = None,
@@ -571,7 +563,7 @@ class ClusterInstanceGroupConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterInstanceGroupConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigMasterConfig()
         if Primitive.to_proto(resource.num_instances):
             res.num_instances = Primitive.to_proto(resource.num_instances)
         if Primitive.to_proto(resource.instance_names):
@@ -580,33 +572,33 @@ class ClusterInstanceGroupConfig(object):
             res.image = Primitive.to_proto(resource.image)
         if Primitive.to_proto(resource.machine_type):
             res.machine_type = Primitive.to_proto(resource.machine_type)
-        if ClusterInstanceGroupConfigDiskConfig.to_proto(resource.disk_config):
+        if ClusterConfigMasterConfigDiskConfig.to_proto(resource.disk_config):
             res.disk_config.CopyFrom(
-                ClusterInstanceGroupConfigDiskConfig.to_proto(resource.disk_config)
+                ClusterConfigMasterConfigDiskConfig.to_proto(resource.disk_config)
             )
         else:
             res.ClearField("disk_config")
         if Primitive.to_proto(resource.is_preemptible):
             res.is_preemptible = Primitive.to_proto(resource.is_preemptible)
-        if ClusterInstanceGroupConfigPreemptibilityEnum.to_proto(
+        if ClusterConfigMasterConfigPreemptibilityEnum.to_proto(
             resource.preemptibility
         ):
-            res.preemptibility = ClusterInstanceGroupConfigPreemptibilityEnum.to_proto(
+            res.preemptibility = ClusterConfigMasterConfigPreemptibilityEnum.to_proto(
                 resource.preemptibility
             )
-        if ClusterInstanceGroupConfigManagedGroupConfig.to_proto(
+        if ClusterConfigMasterConfigManagedGroupConfig.to_proto(
             resource.managed_group_config
         ):
             res.managed_group_config.CopyFrom(
-                ClusterInstanceGroupConfigManagedGroupConfig.to_proto(
+                ClusterConfigMasterConfigManagedGroupConfig.to_proto(
                     resource.managed_group_config
                 )
             )
         else:
             res.ClearField("managed_group_config")
-        if ClusterInstanceGroupConfigAcceleratorsArray.to_proto(resource.accelerators):
+        if ClusterConfigMasterConfigAcceleratorsArray.to_proto(resource.accelerators):
             res.accelerators.extend(
-                ClusterInstanceGroupConfigAcceleratorsArray.to_proto(
+                ClusterConfigMasterConfigAcceleratorsArray.to_proto(
                     resource.accelerators
                 )
             )
@@ -619,41 +611,41 @@ class ClusterInstanceGroupConfig(object):
         if not resource:
             return None
 
-        return ClusterInstanceGroupConfig(
+        return ClusterConfigMasterConfig(
             num_instances=Primitive.from_proto(resource.num_instances),
             instance_names=Primitive.from_proto(resource.instance_names),
             image=Primitive.from_proto(resource.image),
             machine_type=Primitive.from_proto(resource.machine_type),
-            disk_config=ClusterInstanceGroupConfigDiskConfig.from_proto(
+            disk_config=ClusterConfigMasterConfigDiskConfig.from_proto(
                 resource.disk_config
             ),
             is_preemptible=Primitive.from_proto(resource.is_preemptible),
-            preemptibility=ClusterInstanceGroupConfigPreemptibilityEnum.from_proto(
+            preemptibility=ClusterConfigMasterConfigPreemptibilityEnum.from_proto(
                 resource.preemptibility
             ),
-            managed_group_config=ClusterInstanceGroupConfigManagedGroupConfig.from_proto(
+            managed_group_config=ClusterConfigMasterConfigManagedGroupConfig.from_proto(
                 resource.managed_group_config
             ),
-            accelerators=ClusterInstanceGroupConfigAcceleratorsArray.from_proto(
+            accelerators=ClusterConfigMasterConfigAcceleratorsArray.from_proto(
                 resource.accelerators
             ),
             min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
         )
 
 
-class ClusterInstanceGroupConfigArray(object):
+class ClusterConfigMasterConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterInstanceGroupConfig.to_proto(i) for i in resources]
+        return [ClusterConfigMasterConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterInstanceGroupConfig.from_proto(i) for i in resources]
+        return [ClusterConfigMasterConfig.from_proto(i) for i in resources]
 
 
-class ClusterInstanceGroupConfigDiskConfig(object):
+class ClusterConfigMasterConfigDiskConfig(object):
     def __init__(
         self,
         boot_disk_type: str = None,
@@ -669,7 +661,7 @@ class ClusterInstanceGroupConfigDiskConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterInstanceGroupConfigDiskConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigMasterConfigDiskConfig()
         if Primitive.to_proto(resource.boot_disk_type):
             res.boot_disk_type = Primitive.to_proto(resource.boot_disk_type)
         if Primitive.to_proto(resource.boot_disk_size_gb):
@@ -683,26 +675,26 @@ class ClusterInstanceGroupConfigDiskConfig(object):
         if not resource:
             return None
 
-        return ClusterInstanceGroupConfigDiskConfig(
+        return ClusterConfigMasterConfigDiskConfig(
             boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
             boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
             num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
         )
 
 
-class ClusterInstanceGroupConfigDiskConfigArray(object):
+class ClusterConfigMasterConfigDiskConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterInstanceGroupConfigDiskConfig.to_proto(i) for i in resources]
+        return [ClusterConfigMasterConfigDiskConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterInstanceGroupConfigDiskConfig.from_proto(i) for i in resources]
+        return [ClusterConfigMasterConfigDiskConfig.from_proto(i) for i in resources]
 
 
-class ClusterInstanceGroupConfigManagedGroupConfig(object):
+class ClusterConfigMasterConfigManagedGroupConfig(object):
     def __init__(
         self,
         instance_template_name: str = None,
@@ -716,7 +708,7 @@ class ClusterInstanceGroupConfigManagedGroupConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterInstanceGroupConfigManagedGroupConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigMasterConfigManagedGroupConfig()
         if Primitive.to_proto(resource.instance_template_name):
             res.instance_template_name = Primitive.to_proto(
                 resource.instance_template_name
@@ -732,7 +724,7 @@ class ClusterInstanceGroupConfigManagedGroupConfig(object):
         if not resource:
             return None
 
-        return ClusterInstanceGroupConfigManagedGroupConfig(
+        return ClusterConfigMasterConfigManagedGroupConfig(
             instance_template_name=Primitive.from_proto(
                 resource.instance_template_name
             ),
@@ -742,24 +734,23 @@ class ClusterInstanceGroupConfigManagedGroupConfig(object):
         )
 
 
-class ClusterInstanceGroupConfigManagedGroupConfigArray(object):
+class ClusterConfigMasterConfigManagedGroupConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ClusterInstanceGroupConfigManagedGroupConfig.to_proto(i) for i in resources
+            ClusterConfigMasterConfigManagedGroupConfig.to_proto(i) for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ClusterInstanceGroupConfigManagedGroupConfig.from_proto(i)
-            for i in resources
+            ClusterConfigMasterConfigManagedGroupConfig.from_proto(i) for i in resources
         ]
 
 
-class ClusterInstanceGroupConfigAccelerators(object):
+class ClusterConfigMasterConfigAccelerators(object):
     def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
         self.accelerator_type = accelerator_type
         self.accelerator_count = accelerator_count
@@ -769,7 +760,7 @@ class ClusterInstanceGroupConfigAccelerators(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterInstanceGroupConfigAccelerators()
+        res = cluster_pb2.DataprocBetaClusterConfigMasterConfigAccelerators()
         if Primitive.to_proto(resource.accelerator_type):
             res.accelerator_type = Primitive.to_proto(resource.accelerator_type)
         if Primitive.to_proto(resource.accelerator_count):
@@ -781,25 +772,558 @@ class ClusterInstanceGroupConfigAccelerators(object):
         if not resource:
             return None
 
-        return ClusterInstanceGroupConfigAccelerators(
+        return ClusterConfigMasterConfigAccelerators(
             accelerator_type=Primitive.from_proto(resource.accelerator_type),
             accelerator_count=Primitive.from_proto(resource.accelerator_count),
         )
 
 
-class ClusterInstanceGroupConfigAcceleratorsArray(object):
+class ClusterConfigMasterConfigAcceleratorsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterInstanceGroupConfigAccelerators.to_proto(i) for i in resources]
+        return [ClusterConfigMasterConfigAccelerators.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterInstanceGroupConfigAccelerators.from_proto(i) for i in resources]
+        return [ClusterConfigMasterConfigAccelerators.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigSoftwareConfig(object):
+class ClusterConfigWorkerConfig(object):
+    def __init__(
+        self,
+        num_instances: int = None,
+        instance_names: list = None,
+        image: str = None,
+        machine_type: str = None,
+        disk_config: dict = None,
+        is_preemptible: bool = None,
+        preemptibility: str = None,
+        managed_group_config: dict = None,
+        accelerators: list = None,
+        min_cpu_platform: str = None,
+    ):
+        self.num_instances = num_instances
+        self.instance_names = instance_names
+        self.image = image
+        self.machine_type = machine_type
+        self.disk_config = disk_config
+        self.is_preemptible = is_preemptible
+        self.preemptibility = preemptibility
+        self.managed_group_config = managed_group_config
+        self.accelerators = accelerators
+        self.min_cpu_platform = min_cpu_platform
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigWorkerConfig()
+        if Primitive.to_proto(resource.num_instances):
+            res.num_instances = Primitive.to_proto(resource.num_instances)
+        if Primitive.to_proto(resource.instance_names):
+            res.instance_names.extend(Primitive.to_proto(resource.instance_names))
+        if Primitive.to_proto(resource.image):
+            res.image = Primitive.to_proto(resource.image)
+        if Primitive.to_proto(resource.machine_type):
+            res.machine_type = Primitive.to_proto(resource.machine_type)
+        if ClusterConfigWorkerConfigDiskConfig.to_proto(resource.disk_config):
+            res.disk_config.CopyFrom(
+                ClusterConfigWorkerConfigDiskConfig.to_proto(resource.disk_config)
+            )
+        else:
+            res.ClearField("disk_config")
+        if Primitive.to_proto(resource.is_preemptible):
+            res.is_preemptible = Primitive.to_proto(resource.is_preemptible)
+        if ClusterConfigWorkerConfigPreemptibilityEnum.to_proto(
+            resource.preemptibility
+        ):
+            res.preemptibility = ClusterConfigWorkerConfigPreemptibilityEnum.to_proto(
+                resource.preemptibility
+            )
+        if ClusterConfigWorkerConfigManagedGroupConfig.to_proto(
+            resource.managed_group_config
+        ):
+            res.managed_group_config.CopyFrom(
+                ClusterConfigWorkerConfigManagedGroupConfig.to_proto(
+                    resource.managed_group_config
+                )
+            )
+        else:
+            res.ClearField("managed_group_config")
+        if ClusterConfigWorkerConfigAcceleratorsArray.to_proto(resource.accelerators):
+            res.accelerators.extend(
+                ClusterConfigWorkerConfigAcceleratorsArray.to_proto(
+                    resource.accelerators
+                )
+            )
+        if Primitive.to_proto(resource.min_cpu_platform):
+            res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigWorkerConfig(
+            num_instances=Primitive.from_proto(resource.num_instances),
+            instance_names=Primitive.from_proto(resource.instance_names),
+            image=Primitive.from_proto(resource.image),
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_config=ClusterConfigWorkerConfigDiskConfig.from_proto(
+                resource.disk_config
+            ),
+            is_preemptible=Primitive.from_proto(resource.is_preemptible),
+            preemptibility=ClusterConfigWorkerConfigPreemptibilityEnum.from_proto(
+                resource.preemptibility
+            ),
+            managed_group_config=ClusterConfigWorkerConfigManagedGroupConfig.from_proto(
+                resource.managed_group_config
+            ),
+            accelerators=ClusterConfigWorkerConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+        )
+
+
+class ClusterConfigWorkerConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterConfigWorkerConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterConfigWorkerConfig.from_proto(i) for i in resources]
+
+
+class ClusterConfigWorkerConfigDiskConfig(object):
+    def __init__(
+        self,
+        boot_disk_type: str = None,
+        boot_disk_size_gb: int = None,
+        num_local_ssds: int = None,
+    ):
+        self.boot_disk_type = boot_disk_type
+        self.boot_disk_size_gb = boot_disk_size_gb
+        self.num_local_ssds = num_local_ssds
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigWorkerConfigDiskConfig()
+        if Primitive.to_proto(resource.boot_disk_type):
+            res.boot_disk_type = Primitive.to_proto(resource.boot_disk_type)
+        if Primitive.to_proto(resource.boot_disk_size_gb):
+            res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
+        if Primitive.to_proto(resource.num_local_ssds):
+            res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigWorkerConfigDiskConfig(
+            boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
+            boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
+            num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+        )
+
+
+class ClusterConfigWorkerConfigDiskConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterConfigWorkerConfigDiskConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterConfigWorkerConfigDiskConfig.from_proto(i) for i in resources]
+
+
+class ClusterConfigWorkerConfigManagedGroupConfig(object):
+    def __init__(
+        self,
+        instance_template_name: str = None,
+        instance_group_manager_name: str = None,
+    ):
+        self.instance_template_name = instance_template_name
+        self.instance_group_manager_name = instance_group_manager_name
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigWorkerConfigManagedGroupConfig()
+        if Primitive.to_proto(resource.instance_template_name):
+            res.instance_template_name = Primitive.to_proto(
+                resource.instance_template_name
+            )
+        if Primitive.to_proto(resource.instance_group_manager_name):
+            res.instance_group_manager_name = Primitive.to_proto(
+                resource.instance_group_manager_name
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigWorkerConfigManagedGroupConfig(
+            instance_template_name=Primitive.from_proto(
+                resource.instance_template_name
+            ),
+            instance_group_manager_name=Primitive.from_proto(
+                resource.instance_group_manager_name
+            ),
+        )
+
+
+class ClusterConfigWorkerConfigManagedGroupConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigWorkerConfigManagedGroupConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigWorkerConfigManagedGroupConfig.from_proto(i) for i in resources
+        ]
+
+
+class ClusterConfigWorkerConfigAccelerators(object):
+    def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
+        self.accelerator_type = accelerator_type
+        self.accelerator_count = accelerator_count
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigWorkerConfigAccelerators()
+        if Primitive.to_proto(resource.accelerator_type):
+            res.accelerator_type = Primitive.to_proto(resource.accelerator_type)
+        if Primitive.to_proto(resource.accelerator_count):
+            res.accelerator_count = Primitive.to_proto(resource.accelerator_count)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigWorkerConfigAccelerators(
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+        )
+
+
+class ClusterConfigWorkerConfigAcceleratorsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterConfigWorkerConfigAccelerators.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterConfigWorkerConfigAccelerators.from_proto(i) for i in resources]
+
+
+class ClusterConfigSecondaryWorkerConfig(object):
+    def __init__(
+        self,
+        num_instances: int = None,
+        instance_names: list = None,
+        image: str = None,
+        machine_type: str = None,
+        disk_config: dict = None,
+        is_preemptible: bool = None,
+        preemptibility: str = None,
+        managed_group_config: dict = None,
+        accelerators: list = None,
+        min_cpu_platform: str = None,
+    ):
+        self.num_instances = num_instances
+        self.instance_names = instance_names
+        self.image = image
+        self.machine_type = machine_type
+        self.disk_config = disk_config
+        self.is_preemptible = is_preemptible
+        self.preemptibility = preemptibility
+        self.managed_group_config = managed_group_config
+        self.accelerators = accelerators
+        self.min_cpu_platform = min_cpu_platform
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigSecondaryWorkerConfig()
+        if Primitive.to_proto(resource.num_instances):
+            res.num_instances = Primitive.to_proto(resource.num_instances)
+        if Primitive.to_proto(resource.instance_names):
+            res.instance_names.extend(Primitive.to_proto(resource.instance_names))
+        if Primitive.to_proto(resource.image):
+            res.image = Primitive.to_proto(resource.image)
+        if Primitive.to_proto(resource.machine_type):
+            res.machine_type = Primitive.to_proto(resource.machine_type)
+        if ClusterConfigSecondaryWorkerConfigDiskConfig.to_proto(resource.disk_config):
+            res.disk_config.CopyFrom(
+                ClusterConfigSecondaryWorkerConfigDiskConfig.to_proto(
+                    resource.disk_config
+                )
+            )
+        else:
+            res.ClearField("disk_config")
+        if Primitive.to_proto(resource.is_preemptible):
+            res.is_preemptible = Primitive.to_proto(resource.is_preemptible)
+        if ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
+            resource.preemptibility
+        ):
+            res.preemptibility = ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
+                resource.preemptibility
+            )
+        if ClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(
+            resource.managed_group_config
+        ):
+            res.managed_group_config.CopyFrom(
+                ClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(
+                    resource.managed_group_config
+                )
+            )
+        else:
+            res.ClearField("managed_group_config")
+        if ClusterConfigSecondaryWorkerConfigAcceleratorsArray.to_proto(
+            resource.accelerators
+        ):
+            res.accelerators.extend(
+                ClusterConfigSecondaryWorkerConfigAcceleratorsArray.to_proto(
+                    resource.accelerators
+                )
+            )
+        if Primitive.to_proto(resource.min_cpu_platform):
+            res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigSecondaryWorkerConfig(
+            num_instances=Primitive.from_proto(resource.num_instances),
+            instance_names=Primitive.from_proto(resource.instance_names),
+            image=Primitive.from_proto(resource.image),
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_config=ClusterConfigSecondaryWorkerConfigDiskConfig.from_proto(
+                resource.disk_config
+            ),
+            is_preemptible=Primitive.from_proto(resource.is_preemptible),
+            preemptibility=ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.from_proto(
+                resource.preemptibility
+            ),
+            managed_group_config=ClusterConfigSecondaryWorkerConfigManagedGroupConfig.from_proto(
+                resource.managed_group_config
+            ),
+            accelerators=ClusterConfigSecondaryWorkerConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+        )
+
+
+class ClusterConfigSecondaryWorkerConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterConfigSecondaryWorkerConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterConfigSecondaryWorkerConfig.from_proto(i) for i in resources]
+
+
+class ClusterConfigSecondaryWorkerConfigDiskConfig(object):
+    def __init__(
+        self,
+        boot_disk_type: str = None,
+        boot_disk_size_gb: int = None,
+        num_local_ssds: int = None,
+    ):
+        self.boot_disk_type = boot_disk_type
+        self.boot_disk_size_gb = boot_disk_size_gb
+        self.num_local_ssds = num_local_ssds
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigSecondaryWorkerConfigDiskConfig()
+        if Primitive.to_proto(resource.boot_disk_type):
+            res.boot_disk_type = Primitive.to_proto(resource.boot_disk_type)
+        if Primitive.to_proto(resource.boot_disk_size_gb):
+            res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
+        if Primitive.to_proto(resource.num_local_ssds):
+            res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigSecondaryWorkerConfigDiskConfig(
+            boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
+            boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
+            num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+        )
+
+
+class ClusterConfigSecondaryWorkerConfigDiskConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigSecondaryWorkerConfigDiskConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigSecondaryWorkerConfigDiskConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class ClusterConfigSecondaryWorkerConfigManagedGroupConfig(object):
+    def __init__(
+        self,
+        instance_template_name: str = None,
+        instance_group_manager_name: str = None,
+    ):
+        self.instance_template_name = instance_template_name
+        self.instance_group_manager_name = instance_group_manager_name
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterConfigSecondaryWorkerConfigManagedGroupConfig()
+        )
+        if Primitive.to_proto(resource.instance_template_name):
+            res.instance_template_name = Primitive.to_proto(
+                resource.instance_template_name
+            )
+        if Primitive.to_proto(resource.instance_group_manager_name):
+            res.instance_group_manager_name = Primitive.to_proto(
+                resource.instance_group_manager_name
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigSecondaryWorkerConfigManagedGroupConfig(
+            instance_template_name=Primitive.from_proto(
+                resource.instance_template_name
+            ),
+            instance_group_manager_name=Primitive.from_proto(
+                resource.instance_group_manager_name
+            ),
+        )
+
+
+class ClusterConfigSecondaryWorkerConfigManagedGroupConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigSecondaryWorkerConfigManagedGroupConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class ClusterConfigSecondaryWorkerConfigAccelerators(object):
+    def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
+        self.accelerator_type = accelerator_type
+        self.accelerator_count = accelerator_count
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigSecondaryWorkerConfigAccelerators()
+        if Primitive.to_proto(resource.accelerator_type):
+            res.accelerator_type = Primitive.to_proto(resource.accelerator_type)
+        if Primitive.to_proto(resource.accelerator_count):
+            res.accelerator_count = Primitive.to_proto(resource.accelerator_count)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigSecondaryWorkerConfigAccelerators(
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+        )
+
+
+class ClusterConfigSecondaryWorkerConfigAcceleratorsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigSecondaryWorkerConfigAccelerators.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigSecondaryWorkerConfigAccelerators.from_proto(i)
+            for i in resources
+        ]
+
+
+class ClusterConfigSoftwareConfig(object):
     def __init__(
         self,
         image_version: str = None,
@@ -815,16 +1339,16 @@ class ClusterClusterConfigSoftwareConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigSoftwareConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigSoftwareConfig()
         if Primitive.to_proto(resource.image_version):
             res.image_version = Primitive.to_proto(resource.image_version)
         if Primitive.to_proto(resource.properties):
             res.properties = Primitive.to_proto(resource.properties)
-        if ClusterClusterConfigSoftwareConfigOptionalComponentsEnumArray.to_proto(
+        if ClusterConfigSoftwareConfigOptionalComponentsEnumArray.to_proto(
             resource.optional_components
         ):
             res.optional_components.extend(
-                ClusterClusterConfigSoftwareConfigOptionalComponentsEnumArray.to_proto(
+                ClusterConfigSoftwareConfigOptionalComponentsEnumArray.to_proto(
                     resource.optional_components
                 )
             )
@@ -835,28 +1359,28 @@ class ClusterClusterConfigSoftwareConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigSoftwareConfig(
+        return ClusterConfigSoftwareConfig(
             image_version=Primitive.from_proto(resource.image_version),
             properties=Primitive.from_proto(resource.properties),
-            optional_components=ClusterClusterConfigSoftwareConfigOptionalComponentsEnumArray.from_proto(
+            optional_components=ClusterConfigSoftwareConfigOptionalComponentsEnumArray.from_proto(
                 resource.optional_components
             ),
         )
 
 
-class ClusterClusterConfigSoftwareConfigArray(object):
+class ClusterConfigSoftwareConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigSoftwareConfig.to_proto(i) for i in resources]
+        return [ClusterConfigSoftwareConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigSoftwareConfig.from_proto(i) for i in resources]
+        return [ClusterConfigSoftwareConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigInitializationActions(object):
+class ClusterConfigInitializationActions(object):
     def __init__(self, executable_file: str = None, execution_timeout: str = None):
         self.executable_file = executable_file
         self.execution_timeout = execution_timeout
@@ -866,7 +1390,7 @@ class ClusterClusterConfigInitializationActions(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigInitializationActions()
+        res = cluster_pb2.DataprocBetaClusterConfigInitializationActions()
         if Primitive.to_proto(resource.executable_file):
             res.executable_file = Primitive.to_proto(resource.executable_file)
         if Primitive.to_proto(resource.execution_timeout):
@@ -878,29 +1402,25 @@ class ClusterClusterConfigInitializationActions(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigInitializationActions(
+        return ClusterConfigInitializationActions(
             executable_file=Primitive.from_proto(resource.executable_file),
             execution_timeout=Primitive.from_proto(resource.execution_timeout),
         )
 
 
-class ClusterClusterConfigInitializationActionsArray(object):
+class ClusterConfigInitializationActionsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [
-            ClusterClusterConfigInitializationActions.to_proto(i) for i in resources
-        ]
+        return [ClusterConfigInitializationActions.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [
-            ClusterClusterConfigInitializationActions.from_proto(i) for i in resources
-        ]
+        return [ClusterConfigInitializationActions.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigEncryptionConfig(object):
+class ClusterConfigEncryptionConfig(object):
     def __init__(self, gce_pd_kms_key_name: str = None):
         self.gce_pd_kms_key_name = gce_pd_kms_key_name
 
@@ -909,7 +1429,7 @@ class ClusterClusterConfigEncryptionConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigEncryptionConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigEncryptionConfig()
         if Primitive.to_proto(resource.gce_pd_kms_key_name):
             res.gce_pd_kms_key_name = Primitive.to_proto(resource.gce_pd_kms_key_name)
         return res
@@ -919,24 +1439,24 @@ class ClusterClusterConfigEncryptionConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigEncryptionConfig(
+        return ClusterConfigEncryptionConfig(
             gce_pd_kms_key_name=Primitive.from_proto(resource.gce_pd_kms_key_name),
         )
 
 
-class ClusterClusterConfigEncryptionConfigArray(object):
+class ClusterConfigEncryptionConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigEncryptionConfig.to_proto(i) for i in resources]
+        return [ClusterConfigEncryptionConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigEncryptionConfig.from_proto(i) for i in resources]
+        return [ClusterConfigEncryptionConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigAutoscalingConfig(object):
+class ClusterConfigAutoscalingConfig(object):
     def __init__(self, policy: str = None):
         self.policy = policy
 
@@ -945,7 +1465,7 @@ class ClusterClusterConfigAutoscalingConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigAutoscalingConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigAutoscalingConfig()
         if Primitive.to_proto(resource.policy):
             res.policy = Primitive.to_proto(resource.policy)
         return res
@@ -955,24 +1475,24 @@ class ClusterClusterConfigAutoscalingConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigAutoscalingConfig(
+        return ClusterConfigAutoscalingConfig(
             policy=Primitive.from_proto(resource.policy),
         )
 
 
-class ClusterClusterConfigAutoscalingConfigArray(object):
+class ClusterConfigAutoscalingConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigAutoscalingConfig.to_proto(i) for i in resources]
+        return [ClusterConfigAutoscalingConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigAutoscalingConfig.from_proto(i) for i in resources]
+        return [ClusterConfigAutoscalingConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigSecurityConfig(object):
+class ClusterConfigSecurityConfig(object):
     def __init__(self, kerberos_config: dict = None):
         self.kerberos_config = kerberos_config
 
@@ -981,12 +1501,10 @@ class ClusterClusterConfigSecurityConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigSecurityConfig()
-        if ClusterClusterConfigSecurityConfigKerberosConfig.to_proto(
-            resource.kerberos_config
-        ):
+        res = cluster_pb2.DataprocBetaClusterConfigSecurityConfig()
+        if ClusterConfigSecurityConfigKerberosConfig.to_proto(resource.kerberos_config):
             res.kerberos_config.CopyFrom(
-                ClusterClusterConfigSecurityConfigKerberosConfig.to_proto(
+                ClusterConfigSecurityConfigKerberosConfig.to_proto(
                     resource.kerberos_config
                 )
             )
@@ -999,26 +1517,26 @@ class ClusterClusterConfigSecurityConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigSecurityConfig(
-            kerberos_config=ClusterClusterConfigSecurityConfigKerberosConfig.from_proto(
+        return ClusterConfigSecurityConfig(
+            kerberos_config=ClusterConfigSecurityConfigKerberosConfig.from_proto(
                 resource.kerberos_config
             ),
         )
 
 
-class ClusterClusterConfigSecurityConfigArray(object):
+class ClusterConfigSecurityConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigSecurityConfig.to_proto(i) for i in resources]
+        return [ClusterConfigSecurityConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigSecurityConfig.from_proto(i) for i in resources]
+        return [ClusterConfigSecurityConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigSecurityConfigKerberosConfig(object):
+class ClusterConfigSecurityConfigKerberosConfig(object):
     def __init__(
         self,
         enable_kerberos: bool = None,
@@ -1058,7 +1576,7 @@ class ClusterClusterConfigSecurityConfigKerberosConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigSecurityConfigKerberosConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigSecurityConfigKerberosConfig()
         if Primitive.to_proto(resource.enable_kerberos):
             res.enable_kerberos = Primitive.to_proto(resource.enable_kerberos)
         if Primitive.to_proto(resource.root_principal_password):
@@ -1106,7 +1624,7 @@ class ClusterClusterConfigSecurityConfigKerberosConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigSecurityConfigKerberosConfig(
+        return ClusterConfigSecurityConfigKerberosConfig(
             enable_kerberos=Primitive.from_proto(resource.enable_kerberos),
             root_principal_password=Primitive.from_proto(
                 resource.root_principal_password
@@ -1133,25 +1651,23 @@ class ClusterClusterConfigSecurityConfigKerberosConfig(object):
         )
 
 
-class ClusterClusterConfigSecurityConfigKerberosConfigArray(object):
+class ClusterConfigSecurityConfigKerberosConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ClusterClusterConfigSecurityConfigKerberosConfig.to_proto(i)
-            for i in resources
+            ClusterConfigSecurityConfigKerberosConfig.to_proto(i) for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ClusterClusterConfigSecurityConfigKerberosConfig.from_proto(i)
-            for i in resources
+            ClusterConfigSecurityConfigKerberosConfig.from_proto(i) for i in resources
         ]
 
 
-class ClusterClusterConfigLifecycleConfig(object):
+class ClusterConfigLifecycleConfig(object):
     def __init__(
         self,
         idle_delete_ttl: str = None,
@@ -1169,7 +1685,7 @@ class ClusterClusterConfigLifecycleConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigLifecycleConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigLifecycleConfig()
         if Primitive.to_proto(resource.idle_delete_ttl):
             res.idle_delete_ttl = Primitive.to_proto(resource.idle_delete_ttl)
         if Primitive.to_proto(resource.auto_delete_time):
@@ -1185,7 +1701,7 @@ class ClusterClusterConfigLifecycleConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigLifecycleConfig(
+        return ClusterConfigLifecycleConfig(
             idle_delete_ttl=Primitive.from_proto(resource.idle_delete_ttl),
             auto_delete_time=Primitive.from_proto(resource.auto_delete_time),
             auto_delete_ttl=Primitive.from_proto(resource.auto_delete_ttl),
@@ -1193,19 +1709,19 @@ class ClusterClusterConfigLifecycleConfig(object):
         )
 
 
-class ClusterClusterConfigLifecycleConfigArray(object):
+class ClusterConfigLifecycleConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigLifecycleConfig.to_proto(i) for i in resources]
+        return [ClusterConfigLifecycleConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigLifecycleConfig.from_proto(i) for i in resources]
+        return [ClusterConfigLifecycleConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigEndpointConfig(object):
+class ClusterConfigEndpointConfig(object):
     def __init__(self, http_ports: dict = None, enable_http_port_access: bool = None):
         self.http_ports = http_ports
         self.enable_http_port_access = enable_http_port_access
@@ -1215,7 +1731,7 @@ class ClusterClusterConfigEndpointConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigEndpointConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigEndpointConfig()
         if Primitive.to_proto(resource.http_ports):
             res.http_ports = Primitive.to_proto(resource.http_ports)
         if Primitive.to_proto(resource.enable_http_port_access):
@@ -1229,7 +1745,7 @@ class ClusterClusterConfigEndpointConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigEndpointConfig(
+        return ClusterConfigEndpointConfig(
             http_ports=Primitive.from_proto(resource.http_ports),
             enable_http_port_access=Primitive.from_proto(
                 resource.enable_http_port_access
@@ -1237,19 +1753,19 @@ class ClusterClusterConfigEndpointConfig(object):
         )
 
 
-class ClusterClusterConfigEndpointConfigArray(object):
+class ClusterConfigEndpointConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigEndpointConfig.to_proto(i) for i in resources]
+        return [ClusterConfigEndpointConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigEndpointConfig.from_proto(i) for i in resources]
+        return [ClusterConfigEndpointConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigGkeClusterConfig(object):
+class ClusterConfigGkeClusterConfig(object):
     def __init__(self, namespaced_gke_deployment_target: dict = None):
         self.namespaced_gke_deployment_target = namespaced_gke_deployment_target
 
@@ -1258,12 +1774,12 @@ class ClusterClusterConfigGkeClusterConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigGkeClusterConfig()
-        if ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.to_proto(
+        res = cluster_pb2.DataprocBetaClusterConfigGkeClusterConfig()
+        if ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.to_proto(
             resource.namespaced_gke_deployment_target
         ):
             res.namespaced_gke_deployment_target.CopyFrom(
-                ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.to_proto(
+                ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.to_proto(
                     resource.namespaced_gke_deployment_target
                 )
             )
@@ -1276,26 +1792,26 @@ class ClusterClusterConfigGkeClusterConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigGkeClusterConfig(
-            namespaced_gke_deployment_target=ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.from_proto(
+        return ClusterConfigGkeClusterConfig(
+            namespaced_gke_deployment_target=ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.from_proto(
                 resource.namespaced_gke_deployment_target
             ),
         )
 
 
-class ClusterClusterConfigGkeClusterConfigArray(object):
+class ClusterConfigGkeClusterConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigGkeClusterConfig.to_proto(i) for i in resources]
+        return [ClusterConfigGkeClusterConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigGkeClusterConfig.from_proto(i) for i in resources]
+        return [ClusterConfigGkeClusterConfig.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(object):
+class ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(object):
     def __init__(self, target_gke_cluster: str = None, cluster_namespace: str = None):
         self.target_gke_cluster = target_gke_cluster
         self.cluster_namespace = cluster_namespace
@@ -1306,7 +1822,7 @@ class ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(object):
             return None
 
         res = (
-            cluster_pb2.DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget()
+            cluster_pb2.DataprocBetaClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget()
         )
         if Primitive.to_proto(resource.target_gke_cluster):
             res.target_gke_cluster = Primitive.to_proto(resource.target_gke_cluster)
@@ -1319,35 +1835,31 @@ class ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(
+        return ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(
             target_gke_cluster=Primitive.from_proto(resource.target_gke_cluster),
             cluster_namespace=Primitive.from_proto(resource.cluster_namespace),
         )
 
 
-class ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetArray(object):
+class ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.to_proto(
-                i
-            )
+            ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.from_proto(
-                i
-            )
+            ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget.from_proto(i)
             for i in resources
         ]
 
 
-class ClusterClusterConfigMetastoreConfig(object):
+class ClusterConfigMetastoreConfig(object):
     def __init__(self, dataproc_metastore_service: str = None):
         self.dataproc_metastore_service = dataproc_metastore_service
 
@@ -1356,7 +1868,7 @@ class ClusterClusterConfigMetastoreConfig(object):
         if not resource:
             return None
 
-        res = cluster_pb2.DataprocBetaClusterClusterConfigMetastoreConfig()
+        res = cluster_pb2.DataprocBetaClusterConfigMetastoreConfig()
         if Primitive.to_proto(resource.dataproc_metastore_service):
             res.dataproc_metastore_service = Primitive.to_proto(
                 resource.dataproc_metastore_service
@@ -1368,23 +1880,23 @@ class ClusterClusterConfigMetastoreConfig(object):
         if not resource:
             return None
 
-        return ClusterClusterConfigMetastoreConfig(
+        return ClusterConfigMetastoreConfig(
             dataproc_metastore_service=Primitive.from_proto(
                 resource.dataproc_metastore_service
             ),
         )
 
 
-class ClusterClusterConfigMetastoreConfigArray(object):
+class ClusterConfigMetastoreConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ClusterClusterConfigMetastoreConfig.to_proto(i) for i in resources]
+        return [ClusterConfigMetastoreConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ClusterClusterConfigMetastoreConfig.from_proto(i) for i in resources]
+        return [ClusterConfigMetastoreConfig.from_proto(i) for i in resources]
 
 
 class ClusterStatus(object):
@@ -1535,13 +2047,13 @@ class ClusterMetricsArray(object):
         return [ClusterMetrics.from_proto(i) for i in resources]
 
 
-class ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(object):
+class ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.Value(
-            "DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum%s"
+        return cluster_pb2.DataprocBetaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.Value(
+            "DataprocBetaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum%s"
             % resource
         )
 
@@ -1549,24 +2061,24 @@ class ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.Name(
+        return cluster_pb2.DataprocBetaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.Name(
             resource
         )[
             len(
-                "DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum"
+                "DataprocBetaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum"
             ) :
         ]
 
 
-class ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(
+class ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(
     object
 ):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.Value(
-            "DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum%s"
+        return cluster_pb2.DataprocBetaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.Value(
+            "DataprocBetaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum%s"
             % resource
         )
 
@@ -1574,42 +2086,58 @@ class ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationT
     def from_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.Name(
+        return cluster_pb2.DataprocBetaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.Name(
             resource
         )[
             len(
-                "DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum"
+                "DataprocBetaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum"
             ) :
         ]
 
 
-class ClusterInstanceGroupConfigPreemptibilityEnum(object):
+class ClusterConfigMasterConfigPreemptibilityEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum.Value(
-            "DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum%s" % resource
+        return cluster_pb2.DataprocBetaClusterConfigMasterConfigPreemptibilityEnum.Value(
+            "DataprocBetaClusterConfigMasterConfigPreemptibilityEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum.Name(
+        return cluster_pb2.DataprocBetaClusterConfigMasterConfigPreemptibilityEnum.Name(
             resource
-        )[
-            len("DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum") :
-        ]
+        )[len("DataprocBetaClusterConfigMasterConfigPreemptibilityEnum") :]
 
 
-class ClusterClusterConfigSoftwareConfigOptionalComponentsEnum(object):
+class ClusterConfigWorkerConfigPreemptibilityEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum.Value(
-            "DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum%s"
+        return cluster_pb2.DataprocBetaClusterConfigWorkerConfigPreemptibilityEnum.Value(
+            "DataprocBetaClusterConfigWorkerConfigPreemptibilityEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterConfigWorkerConfigPreemptibilityEnum.Name(
+            resource
+        )[len("DataprocBetaClusterConfigWorkerConfigPreemptibilityEnum") :]
+
+
+class ClusterConfigSecondaryWorkerConfigPreemptibilityEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterConfigSecondaryWorkerConfigPreemptibilityEnum.Value(
+            "DataprocBetaClusterConfigSecondaryWorkerConfigPreemptibilityEnum%s"
             % resource
         )
 
@@ -1617,12 +2145,30 @@ class ClusterClusterConfigSoftwareConfigOptionalComponentsEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum.Name(
+        return cluster_pb2.DataprocBetaClusterConfigSecondaryWorkerConfigPreemptibilityEnum.Name(
             resource
         )[
-            len(
-                "DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum"
-            ) :
+            len("DataprocBetaClusterConfigSecondaryWorkerConfigPreemptibilityEnum") :
+        ]
+
+
+class ClusterConfigSoftwareConfigOptionalComponentsEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterConfigSoftwareConfigOptionalComponentsEnum.Value(
+            "DataprocBetaClusterConfigSoftwareConfigOptionalComponentsEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterConfigSoftwareConfigOptionalComponentsEnum.Name(
+            resource
+        )[
+            len("DataprocBetaClusterConfigSoftwareConfigOptionalComponentsEnum") :
         ]
 
 

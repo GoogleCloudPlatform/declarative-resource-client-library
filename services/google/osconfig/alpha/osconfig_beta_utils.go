@@ -14,16 +14,11 @@
 package alpha
 
 import (
-	"errors"
 	"strings"
 )
 
 // expandGuestPolicyInstances truncates the instances field to just the part from "zones" forward.
-func expandGuestPolicyInstances(_ *GuestPolicyAssignment, i interface{}) ([]string, error) {
-	instances, ok := i.([]string)
-	if !ok {
-		return nil, errors.New("expand instances encountered unknown instances type")
-	}
+func expandGuestPolicyInstances(_ *Client, instances []string, _ *GuestPolicy) ([]string, error) {
 	for j, instance := range instances {
 		parts := strings.Split(instance, "/")
 		for k, part := range parts {

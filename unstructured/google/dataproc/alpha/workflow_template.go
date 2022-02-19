@@ -506,8 +506,411 @@ func WorkflowTemplateToUnstructured(r *dclService.WorkflowTemplate) *unstructure
 			if r.Placement.ManagedCluster.ClusterName != nil {
 				rPlacementManagedCluster["clusterName"] = *r.Placement.ManagedCluster.ClusterName
 			}
-			if r.Placement.ManagedCluster.Config != nil {
-				rPlacementManagedCluster["config"] = ClusterClusterConfigToUnstructured(r.Placement.ManagedCluster.Config)
+			if r.Placement.ManagedCluster.Config != nil && r.Placement.ManagedCluster.Config != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfig {
+				rPlacementManagedClusterConfig := make(map[string]interface{})
+				if r.Placement.ManagedCluster.Config.AutoscalingConfig != nil && r.Placement.ManagedCluster.Config.AutoscalingConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
+					rPlacementManagedClusterConfigAutoscalingConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.AutoscalingConfig.Policy != nil {
+						rPlacementManagedClusterConfigAutoscalingConfig["policy"] = *r.Placement.ManagedCluster.Config.AutoscalingConfig.Policy
+					}
+					rPlacementManagedClusterConfig["autoscalingConfig"] = rPlacementManagedClusterConfigAutoscalingConfig
+				}
+				if r.Placement.ManagedCluster.Config.EncryptionConfig != nil && r.Placement.ManagedCluster.Config.EncryptionConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
+					rPlacementManagedClusterConfigEncryptionConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.EncryptionConfig.GcePdKmsKeyName != nil {
+						rPlacementManagedClusterConfigEncryptionConfig["gcePdKmsKeyName"] = *r.Placement.ManagedCluster.Config.EncryptionConfig.GcePdKmsKeyName
+					}
+					rPlacementManagedClusterConfig["encryptionConfig"] = rPlacementManagedClusterConfigEncryptionConfig
+				}
+				if r.Placement.ManagedCluster.Config.EndpointConfig != nil && r.Placement.ManagedCluster.Config.EndpointConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
+					rPlacementManagedClusterConfigEndpointConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.EndpointConfig.EnableHttpPortAccess != nil {
+						rPlacementManagedClusterConfigEndpointConfig["enableHttpPortAccess"] = *r.Placement.ManagedCluster.Config.EndpointConfig.EnableHttpPortAccess
+					}
+					if r.Placement.ManagedCluster.Config.EndpointConfig.HttpPorts != nil {
+						rPlacementManagedClusterConfigEndpointConfigHttpPorts := make(map[string]interface{})
+						for k, v := range r.Placement.ManagedCluster.Config.EndpointConfig.HttpPorts {
+							rPlacementManagedClusterConfigEndpointConfigHttpPorts[k] = v
+						}
+						rPlacementManagedClusterConfigEndpointConfig["httpPorts"] = rPlacementManagedClusterConfigEndpointConfigHttpPorts
+					}
+					rPlacementManagedClusterConfig["endpointConfig"] = rPlacementManagedClusterConfigEndpointConfig
+				}
+				if r.Placement.ManagedCluster.Config.GceClusterConfig != nil && r.Placement.ManagedCluster.Config.GceClusterConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
+					rPlacementManagedClusterConfigGceClusterConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.InternalIPOnly != nil {
+						rPlacementManagedClusterConfigGceClusterConfig["internalIPOnly"] = *r.Placement.ManagedCluster.Config.GceClusterConfig.InternalIPOnly
+					}
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.Metadata != nil {
+						rPlacementManagedClusterConfigGceClusterConfigMetadata := make(map[string]interface{})
+						for k, v := range r.Placement.ManagedCluster.Config.GceClusterConfig.Metadata {
+							rPlacementManagedClusterConfigGceClusterConfigMetadata[k] = v
+						}
+						rPlacementManagedClusterConfigGceClusterConfig["metadata"] = rPlacementManagedClusterConfigGceClusterConfigMetadata
+					}
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.Network != nil {
+						rPlacementManagedClusterConfigGceClusterConfig["network"] = *r.Placement.ManagedCluster.Config.GceClusterConfig.Network
+					}
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity != nil && r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
+						rPlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup != nil {
+							rPlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity["nodeGroup"] = *r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup
+						}
+						rPlacementManagedClusterConfigGceClusterConfig["nodeGroupAffinity"] = rPlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity
+					}
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.PrivateIPv6GoogleAccess != nil {
+						rPlacementManagedClusterConfigGceClusterConfig["privateIPv6GoogleAccess"] = string(*r.Placement.ManagedCluster.Config.GceClusterConfig.PrivateIPv6GoogleAccess)
+					}
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity != nil && r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
+						rPlacementManagedClusterConfigGceClusterConfigReservationAffinity := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType != nil {
+							rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["consumeReservationType"] = string(*r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType)
+						}
+						if r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Key != nil {
+							rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["key"] = *r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Key
+						}
+						var rPlacementManagedClusterConfigGceClusterConfigReservationAffinityValues []interface{}
+						for _, rPlacementManagedClusterConfigGceClusterConfigReservationAffinityValuesVal := range r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Values {
+							rPlacementManagedClusterConfigGceClusterConfigReservationAffinityValues = append(rPlacementManagedClusterConfigGceClusterConfigReservationAffinityValues, rPlacementManagedClusterConfigGceClusterConfigReservationAffinityValuesVal)
+						}
+						rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["values"] = rPlacementManagedClusterConfigGceClusterConfigReservationAffinityValues
+						rPlacementManagedClusterConfigGceClusterConfig["reservationAffinity"] = rPlacementManagedClusterConfigGceClusterConfigReservationAffinity
+					}
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccount != nil {
+						rPlacementManagedClusterConfigGceClusterConfig["serviceAccount"] = *r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccount
+					}
+					var rPlacementManagedClusterConfigGceClusterConfigServiceAccountScopes []interface{}
+					for _, rPlacementManagedClusterConfigGceClusterConfigServiceAccountScopesVal := range r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccountScopes {
+						rPlacementManagedClusterConfigGceClusterConfigServiceAccountScopes = append(rPlacementManagedClusterConfigGceClusterConfigServiceAccountScopes, rPlacementManagedClusterConfigGceClusterConfigServiceAccountScopesVal)
+					}
+					rPlacementManagedClusterConfigGceClusterConfig["serviceAccountScopes"] = rPlacementManagedClusterConfigGceClusterConfigServiceAccountScopes
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.Subnetwork != nil {
+						rPlacementManagedClusterConfigGceClusterConfig["subnetwork"] = *r.Placement.ManagedCluster.Config.GceClusterConfig.Subnetwork
+					}
+					var rPlacementManagedClusterConfigGceClusterConfigTags []interface{}
+					for _, rPlacementManagedClusterConfigGceClusterConfigTagsVal := range r.Placement.ManagedCluster.Config.GceClusterConfig.Tags {
+						rPlacementManagedClusterConfigGceClusterConfigTags = append(rPlacementManagedClusterConfigGceClusterConfigTags, rPlacementManagedClusterConfigGceClusterConfigTagsVal)
+					}
+					rPlacementManagedClusterConfigGceClusterConfig["tags"] = rPlacementManagedClusterConfigGceClusterConfigTags
+					if r.Placement.ManagedCluster.Config.GceClusterConfig.Zone != nil {
+						rPlacementManagedClusterConfigGceClusterConfig["zone"] = *r.Placement.ManagedCluster.Config.GceClusterConfig.Zone
+					}
+					rPlacementManagedClusterConfig["gceClusterConfig"] = rPlacementManagedClusterConfigGceClusterConfig
+				}
+				if r.Placement.ManagedCluster.Config.GkeClusterConfig != nil && r.Placement.ManagedCluster.Config.GkeClusterConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
+					rPlacementManagedClusterConfigGkeClusterConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget != nil && r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+						rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.ClusterNamespace != nil {
+							rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget["clusterNamespace"] = *r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.ClusterNamespace
+						}
+						if r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.TargetGkeCluster != nil {
+							rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget["targetGkeCluster"] = *r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.TargetGkeCluster
+						}
+						rPlacementManagedClusterConfigGkeClusterConfig["namespacedGkeDeploymentTarget"] = rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget
+					}
+					rPlacementManagedClusterConfig["gkeClusterConfig"] = rPlacementManagedClusterConfigGkeClusterConfig
+				}
+				var rPlacementManagedClusterConfigInitializationActions []interface{}
+				for _, rPlacementManagedClusterConfigInitializationActionsVal := range r.Placement.ManagedCluster.Config.InitializationActions {
+					rPlacementManagedClusterConfigInitializationActionsObject := make(map[string]interface{})
+					if rPlacementManagedClusterConfigInitializationActionsVal.ExecutableFile != nil {
+						rPlacementManagedClusterConfigInitializationActionsObject["executableFile"] = *rPlacementManagedClusterConfigInitializationActionsVal.ExecutableFile
+					}
+					if rPlacementManagedClusterConfigInitializationActionsVal.ExecutionTimeout != nil {
+						rPlacementManagedClusterConfigInitializationActionsObject["executionTimeout"] = *rPlacementManagedClusterConfigInitializationActionsVal.ExecutionTimeout
+					}
+					rPlacementManagedClusterConfigInitializationActions = append(rPlacementManagedClusterConfigInitializationActions, rPlacementManagedClusterConfigInitializationActionsObject)
+				}
+				rPlacementManagedClusterConfig["initializationActions"] = rPlacementManagedClusterConfigInitializationActions
+				if r.Placement.ManagedCluster.Config.LifecycleConfig != nil && r.Placement.ManagedCluster.Config.LifecycleConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
+					rPlacementManagedClusterConfigLifecycleConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTime != nil {
+						rPlacementManagedClusterConfigLifecycleConfig["autoDeleteTime"] = *r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTime
+					}
+					if r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTtl != nil {
+						rPlacementManagedClusterConfigLifecycleConfig["autoDeleteTtl"] = *r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTtl
+					}
+					if r.Placement.ManagedCluster.Config.LifecycleConfig.IdleDeleteTtl != nil {
+						rPlacementManagedClusterConfigLifecycleConfig["idleDeleteTtl"] = *r.Placement.ManagedCluster.Config.LifecycleConfig.IdleDeleteTtl
+					}
+					if r.Placement.ManagedCluster.Config.LifecycleConfig.IdleStartTime != nil {
+						rPlacementManagedClusterConfigLifecycleConfig["idleStartTime"] = *r.Placement.ManagedCluster.Config.LifecycleConfig.IdleStartTime
+					}
+					rPlacementManagedClusterConfig["lifecycleConfig"] = rPlacementManagedClusterConfigLifecycleConfig
+				}
+				if r.Placement.ManagedCluster.Config.MasterConfig != nil && r.Placement.ManagedCluster.Config.MasterConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfig {
+					rPlacementManagedClusterConfigMasterConfig := make(map[string]interface{})
+					var rPlacementManagedClusterConfigMasterConfigAccelerators []interface{}
+					for _, rPlacementManagedClusterConfigMasterConfigAcceleratorsVal := range r.Placement.ManagedCluster.Config.MasterConfig.Accelerators {
+						rPlacementManagedClusterConfigMasterConfigAcceleratorsObject := make(map[string]interface{})
+						if rPlacementManagedClusterConfigMasterConfigAcceleratorsVal.AcceleratorCount != nil {
+							rPlacementManagedClusterConfigMasterConfigAcceleratorsObject["acceleratorCount"] = *rPlacementManagedClusterConfigMasterConfigAcceleratorsVal.AcceleratorCount
+						}
+						if rPlacementManagedClusterConfigMasterConfigAcceleratorsVal.AcceleratorType != nil {
+							rPlacementManagedClusterConfigMasterConfigAcceleratorsObject["acceleratorType"] = *rPlacementManagedClusterConfigMasterConfigAcceleratorsVal.AcceleratorType
+						}
+						rPlacementManagedClusterConfigMasterConfigAccelerators = append(rPlacementManagedClusterConfigMasterConfigAccelerators, rPlacementManagedClusterConfigMasterConfigAcceleratorsObject)
+					}
+					rPlacementManagedClusterConfigMasterConfig["accelerators"] = rPlacementManagedClusterConfigMasterConfigAccelerators
+					if r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig != nil && r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
+						rPlacementManagedClusterConfigMasterConfigDiskConfig := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskSizeGb != nil {
+							rPlacementManagedClusterConfigMasterConfigDiskConfig["bootDiskSizeGb"] = *r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskSizeGb
+						}
+						if r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskType != nil {
+							rPlacementManagedClusterConfigMasterConfigDiskConfig["bootDiskType"] = *r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskType
+						}
+						if r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.NumLocalSsds != nil {
+							rPlacementManagedClusterConfigMasterConfigDiskConfig["numLocalSsds"] = *r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.NumLocalSsds
+						}
+						rPlacementManagedClusterConfigMasterConfig["diskConfig"] = rPlacementManagedClusterConfigMasterConfigDiskConfig
+					}
+					if r.Placement.ManagedCluster.Config.MasterConfig.Image != nil {
+						rPlacementManagedClusterConfigMasterConfig["image"] = *r.Placement.ManagedCluster.Config.MasterConfig.Image
+					}
+					var rPlacementManagedClusterConfigMasterConfigInstanceNames []interface{}
+					for _, rPlacementManagedClusterConfigMasterConfigInstanceNamesVal := range r.Placement.ManagedCluster.Config.MasterConfig.InstanceNames {
+						rPlacementManagedClusterConfigMasterConfigInstanceNames = append(rPlacementManagedClusterConfigMasterConfigInstanceNames, rPlacementManagedClusterConfigMasterConfigInstanceNamesVal)
+					}
+					rPlacementManagedClusterConfigMasterConfig["instanceNames"] = rPlacementManagedClusterConfigMasterConfigInstanceNames
+					if r.Placement.ManagedCluster.Config.MasterConfig.IsPreemptible != nil {
+						rPlacementManagedClusterConfigMasterConfig["isPreemptible"] = *r.Placement.ManagedCluster.Config.MasterConfig.IsPreemptible
+					}
+					if r.Placement.ManagedCluster.Config.MasterConfig.MachineType != nil {
+						rPlacementManagedClusterConfigMasterConfig["machineType"] = *r.Placement.ManagedCluster.Config.MasterConfig.MachineType
+					}
+					if r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig != nil && r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
+						rPlacementManagedClusterConfigMasterConfigManagedGroupConfig := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName != nil {
+							rPlacementManagedClusterConfigMasterConfigManagedGroupConfig["instanceGroupManagerName"] = *r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName
+						}
+						if r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName != nil {
+							rPlacementManagedClusterConfigMasterConfigManagedGroupConfig["instanceTemplateName"] = *r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName
+						}
+						rPlacementManagedClusterConfigMasterConfig["managedGroupConfig"] = rPlacementManagedClusterConfigMasterConfigManagedGroupConfig
+					}
+					if r.Placement.ManagedCluster.Config.MasterConfig.MinCpuPlatform != nil {
+						rPlacementManagedClusterConfigMasterConfig["minCpuPlatform"] = *r.Placement.ManagedCluster.Config.MasterConfig.MinCpuPlatform
+					}
+					if r.Placement.ManagedCluster.Config.MasterConfig.NumInstances != nil {
+						rPlacementManagedClusterConfigMasterConfig["numInstances"] = *r.Placement.ManagedCluster.Config.MasterConfig.NumInstances
+					}
+					if r.Placement.ManagedCluster.Config.MasterConfig.Preemptibility != nil {
+						rPlacementManagedClusterConfigMasterConfig["preemptibility"] = string(*r.Placement.ManagedCluster.Config.MasterConfig.Preemptibility)
+					}
+					rPlacementManagedClusterConfig["masterConfig"] = rPlacementManagedClusterConfigMasterConfig
+				}
+				if r.Placement.ManagedCluster.Config.MetastoreConfig != nil && r.Placement.ManagedCluster.Config.MetastoreConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
+					rPlacementManagedClusterConfigMetastoreConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.MetastoreConfig.DataprocMetastoreService != nil {
+						rPlacementManagedClusterConfigMetastoreConfig["dataprocMetastoreService"] = *r.Placement.ManagedCluster.Config.MetastoreConfig.DataprocMetastoreService
+					}
+					rPlacementManagedClusterConfig["metastoreConfig"] = rPlacementManagedClusterConfigMetastoreConfig
+				}
+				if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig != nil && r.Placement.ManagedCluster.Config.SecondaryWorkerConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
+					rPlacementManagedClusterConfigSecondaryWorkerConfig := make(map[string]interface{})
+					var rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators []interface{}
+					for _, rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsVal := range r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Accelerators {
+						rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsObject := make(map[string]interface{})
+						if rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorCount != nil {
+							rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsObject["acceleratorCount"] = *rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorCount
+						}
+						if rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorType != nil {
+							rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsObject["acceleratorType"] = *rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsVal.AcceleratorType
+						}
+						rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators = append(rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators, rPlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsObject)
+					}
+					rPlacementManagedClusterConfigSecondaryWorkerConfig["accelerators"] = rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig != nil && r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
+						rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb != nil {
+							rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["bootDiskSizeGb"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb
+						}
+						if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType != nil {
+							rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["bootDiskType"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType
+						}
+						if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds != nil {
+							rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["numLocalSsds"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds
+						}
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["diskConfig"] = rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig
+					}
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Image != nil {
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["image"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Image
+					}
+					var rPlacementManagedClusterConfigSecondaryWorkerConfigInstanceNames []interface{}
+					for _, rPlacementManagedClusterConfigSecondaryWorkerConfigInstanceNamesVal := range r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.InstanceNames {
+						rPlacementManagedClusterConfigSecondaryWorkerConfigInstanceNames = append(rPlacementManagedClusterConfigSecondaryWorkerConfigInstanceNames, rPlacementManagedClusterConfigSecondaryWorkerConfigInstanceNamesVal)
+					}
+					rPlacementManagedClusterConfigSecondaryWorkerConfig["instanceNames"] = rPlacementManagedClusterConfigSecondaryWorkerConfigInstanceNames
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.IsPreemptible != nil {
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["isPreemptible"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.IsPreemptible
+					}
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MachineType != nil {
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["machineType"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MachineType
+					}
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig != nil && r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+						rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName != nil {
+							rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig["instanceGroupManagerName"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName
+						}
+						if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName != nil {
+							rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig["instanceTemplateName"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName
+						}
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["managedGroupConfig"] = rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig
+					}
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MinCpuPlatform != nil {
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["minCpuPlatform"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MinCpuPlatform
+					}
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.NumInstances != nil {
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["numInstances"] = *r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.NumInstances
+					}
+					if r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Preemptibility != nil {
+						rPlacementManagedClusterConfigSecondaryWorkerConfig["preemptibility"] = string(*r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Preemptibility)
+					}
+					rPlacementManagedClusterConfig["secondaryWorkerConfig"] = rPlacementManagedClusterConfigSecondaryWorkerConfig
+				}
+				if r.Placement.ManagedCluster.Config.SecurityConfig != nil && r.Placement.ManagedCluster.Config.SecurityConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
+					rPlacementManagedClusterConfigSecurityConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig != nil && r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
+						rPlacementManagedClusterConfigSecurityConfigKerberosConfig := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustAdminServer"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustKdc"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustRealm"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.EnableKerberos != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["enableKerberos"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.EnableKerberos
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KdcDbKey != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["kdcDbKey"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KdcDbKey
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeyPassword != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keyPassword"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeyPassword
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Keystore != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keystore"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Keystore
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeystorePassword != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keystorePassword"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeystorePassword
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KmsKey != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["kmsKey"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KmsKey
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Realm != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["realm"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Realm
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["rootPrincipalPassword"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["tgtLifetimeHours"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Truststore != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["truststore"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Truststore
+						}
+						if r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TruststorePassword != nil {
+							rPlacementManagedClusterConfigSecurityConfigKerberosConfig["truststorePassword"] = *r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TruststorePassword
+						}
+						rPlacementManagedClusterConfigSecurityConfig["kerberosConfig"] = rPlacementManagedClusterConfigSecurityConfigKerberosConfig
+					}
+					rPlacementManagedClusterConfig["securityConfig"] = rPlacementManagedClusterConfigSecurityConfig
+				}
+				if r.Placement.ManagedCluster.Config.SoftwareConfig != nil && r.Placement.ManagedCluster.Config.SoftwareConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
+					rPlacementManagedClusterConfigSoftwareConfig := make(map[string]interface{})
+					if r.Placement.ManagedCluster.Config.SoftwareConfig.ImageVersion != nil {
+						rPlacementManagedClusterConfigSoftwareConfig["imageVersion"] = *r.Placement.ManagedCluster.Config.SoftwareConfig.ImageVersion
+					}
+					var rPlacementManagedClusterConfigSoftwareConfigOptionalComponents []interface{}
+					for _, rPlacementManagedClusterConfigSoftwareConfigOptionalComponentsVal := range r.Placement.ManagedCluster.Config.SoftwareConfig.OptionalComponents {
+						rPlacementManagedClusterConfigSoftwareConfigOptionalComponents = append(rPlacementManagedClusterConfigSoftwareConfigOptionalComponents, string(rPlacementManagedClusterConfigSoftwareConfigOptionalComponentsVal))
+					}
+					rPlacementManagedClusterConfigSoftwareConfig["optionalComponents"] = rPlacementManagedClusterConfigSoftwareConfigOptionalComponents
+					if r.Placement.ManagedCluster.Config.SoftwareConfig.Properties != nil {
+						rPlacementManagedClusterConfigSoftwareConfigProperties := make(map[string]interface{})
+						for k, v := range r.Placement.ManagedCluster.Config.SoftwareConfig.Properties {
+							rPlacementManagedClusterConfigSoftwareConfigProperties[k] = v
+						}
+						rPlacementManagedClusterConfigSoftwareConfig["properties"] = rPlacementManagedClusterConfigSoftwareConfigProperties
+					}
+					rPlacementManagedClusterConfig["softwareConfig"] = rPlacementManagedClusterConfigSoftwareConfig
+				}
+				if r.Placement.ManagedCluster.Config.StagingBucket != nil {
+					rPlacementManagedClusterConfig["stagingBucket"] = *r.Placement.ManagedCluster.Config.StagingBucket
+				}
+				if r.Placement.ManagedCluster.Config.TempBucket != nil {
+					rPlacementManagedClusterConfig["tempBucket"] = *r.Placement.ManagedCluster.Config.TempBucket
+				}
+				if r.Placement.ManagedCluster.Config.WorkerConfig != nil && r.Placement.ManagedCluster.Config.WorkerConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
+					rPlacementManagedClusterConfigWorkerConfig := make(map[string]interface{})
+					var rPlacementManagedClusterConfigWorkerConfigAccelerators []interface{}
+					for _, rPlacementManagedClusterConfigWorkerConfigAcceleratorsVal := range r.Placement.ManagedCluster.Config.WorkerConfig.Accelerators {
+						rPlacementManagedClusterConfigWorkerConfigAcceleratorsObject := make(map[string]interface{})
+						if rPlacementManagedClusterConfigWorkerConfigAcceleratorsVal.AcceleratorCount != nil {
+							rPlacementManagedClusterConfigWorkerConfigAcceleratorsObject["acceleratorCount"] = *rPlacementManagedClusterConfigWorkerConfigAcceleratorsVal.AcceleratorCount
+						}
+						if rPlacementManagedClusterConfigWorkerConfigAcceleratorsVal.AcceleratorType != nil {
+							rPlacementManagedClusterConfigWorkerConfigAcceleratorsObject["acceleratorType"] = *rPlacementManagedClusterConfigWorkerConfigAcceleratorsVal.AcceleratorType
+						}
+						rPlacementManagedClusterConfigWorkerConfigAccelerators = append(rPlacementManagedClusterConfigWorkerConfigAccelerators, rPlacementManagedClusterConfigWorkerConfigAcceleratorsObject)
+					}
+					rPlacementManagedClusterConfigWorkerConfig["accelerators"] = rPlacementManagedClusterConfigWorkerConfigAccelerators
+					if r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig != nil && r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
+						rPlacementManagedClusterConfigWorkerConfigDiskConfig := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskSizeGb != nil {
+							rPlacementManagedClusterConfigWorkerConfigDiskConfig["bootDiskSizeGb"] = *r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskSizeGb
+						}
+						if r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskType != nil {
+							rPlacementManagedClusterConfigWorkerConfigDiskConfig["bootDiskType"] = *r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskType
+						}
+						if r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.NumLocalSsds != nil {
+							rPlacementManagedClusterConfigWorkerConfigDiskConfig["numLocalSsds"] = *r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.NumLocalSsds
+						}
+						rPlacementManagedClusterConfigWorkerConfig["diskConfig"] = rPlacementManagedClusterConfigWorkerConfigDiskConfig
+					}
+					if r.Placement.ManagedCluster.Config.WorkerConfig.Image != nil {
+						rPlacementManagedClusterConfigWorkerConfig["image"] = *r.Placement.ManagedCluster.Config.WorkerConfig.Image
+					}
+					var rPlacementManagedClusterConfigWorkerConfigInstanceNames []interface{}
+					for _, rPlacementManagedClusterConfigWorkerConfigInstanceNamesVal := range r.Placement.ManagedCluster.Config.WorkerConfig.InstanceNames {
+						rPlacementManagedClusterConfigWorkerConfigInstanceNames = append(rPlacementManagedClusterConfigWorkerConfigInstanceNames, rPlacementManagedClusterConfigWorkerConfigInstanceNamesVal)
+					}
+					rPlacementManagedClusterConfigWorkerConfig["instanceNames"] = rPlacementManagedClusterConfigWorkerConfigInstanceNames
+					if r.Placement.ManagedCluster.Config.WorkerConfig.IsPreemptible != nil {
+						rPlacementManagedClusterConfigWorkerConfig["isPreemptible"] = *r.Placement.ManagedCluster.Config.WorkerConfig.IsPreemptible
+					}
+					if r.Placement.ManagedCluster.Config.WorkerConfig.MachineType != nil {
+						rPlacementManagedClusterConfigWorkerConfig["machineType"] = *r.Placement.ManagedCluster.Config.WorkerConfig.MachineType
+					}
+					if r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig != nil && r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig != dclService.EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
+						rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig := make(map[string]interface{})
+						if r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName != nil {
+							rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig["instanceGroupManagerName"] = *r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName
+						}
+						if r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName != nil {
+							rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig["instanceTemplateName"] = *r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName
+						}
+						rPlacementManagedClusterConfigWorkerConfig["managedGroupConfig"] = rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig
+					}
+					if r.Placement.ManagedCluster.Config.WorkerConfig.MinCpuPlatform != nil {
+						rPlacementManagedClusterConfigWorkerConfig["minCpuPlatform"] = *r.Placement.ManagedCluster.Config.WorkerConfig.MinCpuPlatform
+					}
+					if r.Placement.ManagedCluster.Config.WorkerConfig.NumInstances != nil {
+						rPlacementManagedClusterConfigWorkerConfig["numInstances"] = *r.Placement.ManagedCluster.Config.WorkerConfig.NumInstances
+					}
+					if r.Placement.ManagedCluster.Config.WorkerConfig.Preemptibility != nil {
+						rPlacementManagedClusterConfigWorkerConfig["preemptibility"] = string(*r.Placement.ManagedCluster.Config.WorkerConfig.Preemptibility)
+					}
+					rPlacementManagedClusterConfig["workerConfig"] = rPlacementManagedClusterConfigWorkerConfig
+				}
+				rPlacementManagedCluster["config"] = rPlacementManagedClusterConfig
 			}
 			if r.Placement.ManagedCluster.Labels != nil {
 				rPlacementManagedClusterLabels := make(map[string]interface{})
@@ -1490,10 +1893,870 @@ func UnstructuredToWorkflowTemplate(u *unstructured.Resource) (*dclService.Workf
 					}
 					if _, ok := rPlacementManagedCluster["config"]; ok {
 						if rPlacementManagedClusterConfig, ok := rPlacementManagedCluster["config"].(map[string]interface{}); ok {
-							var err error
-							r.Placement.ManagedCluster.Config, err = UnstructuredToClusterClusterConfig(rPlacementManagedClusterConfig)
-							if err != nil {
-								return nil, err
+							r.Placement.ManagedCluster.Config = &dclService.WorkflowTemplatePlacementManagedClusterConfig{}
+							if _, ok := rPlacementManagedClusterConfig["autoscalingConfig"]; ok {
+								if rPlacementManagedClusterConfigAutoscalingConfig, ok := rPlacementManagedClusterConfig["autoscalingConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.AutoscalingConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig{}
+									if _, ok := rPlacementManagedClusterConfigAutoscalingConfig["policy"]; ok {
+										if s, ok := rPlacementManagedClusterConfigAutoscalingConfig["policy"].(string); ok {
+											r.Placement.ManagedCluster.Config.AutoscalingConfig.Policy = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.AutoscalingConfig.Policy: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.AutoscalingConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["encryptionConfig"]; ok {
+								if rPlacementManagedClusterConfigEncryptionConfig, ok := rPlacementManagedClusterConfig["encryptionConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.EncryptionConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig{}
+									if _, ok := rPlacementManagedClusterConfigEncryptionConfig["gcePdKmsKeyName"]; ok {
+										if s, ok := rPlacementManagedClusterConfigEncryptionConfig["gcePdKmsKeyName"].(string); ok {
+											r.Placement.ManagedCluster.Config.EncryptionConfig.GcePdKmsKeyName = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.EncryptionConfig.GcePdKmsKeyName: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.EncryptionConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["endpointConfig"]; ok {
+								if rPlacementManagedClusterConfigEndpointConfig, ok := rPlacementManagedClusterConfig["endpointConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.EndpointConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigEndpointConfig{}
+									if _, ok := rPlacementManagedClusterConfigEndpointConfig["enableHttpPortAccess"]; ok {
+										if b, ok := rPlacementManagedClusterConfigEndpointConfig["enableHttpPortAccess"].(bool); ok {
+											r.Placement.ManagedCluster.Config.EndpointConfig.EnableHttpPortAccess = dcl.Bool(b)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.EndpointConfig.EnableHttpPortAccess: expected bool")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigEndpointConfig["httpPorts"]; ok {
+										if rPlacementManagedClusterConfigEndpointConfigHttpPorts, ok := rPlacementManagedClusterConfigEndpointConfig["httpPorts"].(map[string]interface{}); ok {
+											m := make(map[string]string)
+											for k, v := range rPlacementManagedClusterConfigEndpointConfigHttpPorts {
+												if s, ok := v.(string); ok {
+													m[k] = s
+												}
+											}
+											r.Placement.ManagedCluster.Config.EndpointConfig.HttpPorts = m
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.EndpointConfig.HttpPorts: expected map[string]interface{}")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.EndpointConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["gceClusterConfig"]; ok {
+								if rPlacementManagedClusterConfigGceClusterConfig, ok := rPlacementManagedClusterConfig["gceClusterConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.GceClusterConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig{}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["internalIPOnly"]; ok {
+										if b, ok := rPlacementManagedClusterConfigGceClusterConfig["internalIPOnly"].(bool); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.InternalIPOnly = dcl.Bool(b)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.InternalIPOnly: expected bool")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["metadata"]; ok {
+										if rPlacementManagedClusterConfigGceClusterConfigMetadata, ok := rPlacementManagedClusterConfigGceClusterConfig["metadata"].(map[string]interface{}); ok {
+											m := make(map[string]string)
+											for k, v := range rPlacementManagedClusterConfigGceClusterConfigMetadata {
+												if s, ok := v.(string); ok {
+													m[k] = s
+												}
+											}
+											r.Placement.ManagedCluster.Config.GceClusterConfig.Metadata = m
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.Metadata: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["network"]; ok {
+										if s, ok := rPlacementManagedClusterConfigGceClusterConfig["network"].(string); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.Network = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.Network: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["nodeGroupAffinity"]; ok {
+										if rPlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity, ok := rPlacementManagedClusterConfigGceClusterConfig["nodeGroupAffinity"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity = &dclService.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{}
+											if _, ok := rPlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity["nodeGroup"]; ok {
+												if s, ok := rPlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity["nodeGroup"].(string); ok {
+													r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity.NodeGroup: expected string")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.NodeGroupAffinity: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["privateIPv6GoogleAccess"]; ok {
+										if s, ok := rPlacementManagedClusterConfigGceClusterConfig["privateIPv6GoogleAccess"].(string); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.PrivateIPv6GoogleAccess = dclService.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.PrivateIPv6GoogleAccess: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["reservationAffinity"]; ok {
+										if rPlacementManagedClusterConfigGceClusterConfigReservationAffinity, ok := rPlacementManagedClusterConfigGceClusterConfig["reservationAffinity"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity = &dclService.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity{}
+											if _, ok := rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["consumeReservationType"]; ok {
+												if s, ok := rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["consumeReservationType"].(string); ok {
+													r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType = dclService.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.ConsumeReservationType: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["key"]; ok {
+												if s, ok := rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["key"].(string); ok {
+													r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Key = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Key: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["values"]; ok {
+												if s, ok := rPlacementManagedClusterConfigGceClusterConfigReservationAffinity["values"].([]interface{}); ok {
+													for _, ss := range s {
+														if strval, ok := ss.(string); ok {
+															r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Values = append(r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Values, strval)
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity.Values: expected []interface{}")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.ReservationAffinity: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["serviceAccount"]; ok {
+										if s, ok := rPlacementManagedClusterConfigGceClusterConfig["serviceAccount"].(string); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccount = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccount: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["serviceAccountScopes"]; ok {
+										if s, ok := rPlacementManagedClusterConfigGceClusterConfig["serviceAccountScopes"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccountScopes = append(r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccountScopes, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.ServiceAccountScopes: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["subnetwork"]; ok {
+										if s, ok := rPlacementManagedClusterConfigGceClusterConfig["subnetwork"].(string); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.Subnetwork = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.Subnetwork: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["tags"]; ok {
+										if s, ok := rPlacementManagedClusterConfigGceClusterConfig["tags"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													r.Placement.ManagedCluster.Config.GceClusterConfig.Tags = append(r.Placement.ManagedCluster.Config.GceClusterConfig.Tags, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.Tags: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigGceClusterConfig["zone"]; ok {
+										if s, ok := rPlacementManagedClusterConfigGceClusterConfig["zone"].(string); ok {
+											r.Placement.ManagedCluster.Config.GceClusterConfig.Zone = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig.Zone: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GceClusterConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["gkeClusterConfig"]; ok {
+								if rPlacementManagedClusterConfigGkeClusterConfig, ok := rPlacementManagedClusterConfig["gkeClusterConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.GkeClusterConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig{}
+									if _, ok := rPlacementManagedClusterConfigGkeClusterConfig["namespacedGkeDeploymentTarget"]; ok {
+										if rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, ok := rPlacementManagedClusterConfigGkeClusterConfig["namespacedGkeDeploymentTarget"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget = &dclService.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
+											if _, ok := rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget["clusterNamespace"]; ok {
+												if s, ok := rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget["clusterNamespace"].(string); ok {
+													r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.ClusterNamespace = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.ClusterNamespace: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget["targetGkeCluster"]; ok {
+												if s, ok := rPlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget["targetGkeCluster"].(string); ok {
+													r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.TargetGkeCluster = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget.TargetGkeCluster: expected string")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GkeClusterConfig.NamespacedGkeDeploymentTarget: expected map[string]interface{}")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.GkeClusterConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["initializationActions"]; ok {
+								if s, ok := rPlacementManagedClusterConfig["initializationActions"].([]interface{}); ok {
+									for _, o := range s {
+										if objval, ok := o.(map[string]interface{}); ok {
+											var rPlacementManagedClusterConfigInitializationActions dclService.WorkflowTemplatePlacementManagedClusterConfigInitializationActions
+											if _, ok := objval["executableFile"]; ok {
+												if s, ok := objval["executableFile"].(string); ok {
+													rPlacementManagedClusterConfigInitializationActions.ExecutableFile = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("rPlacementManagedClusterConfigInitializationActions.ExecutableFile: expected string")
+												}
+											}
+											if _, ok := objval["executionTimeout"]; ok {
+												if s, ok := objval["executionTimeout"].(string); ok {
+													rPlacementManagedClusterConfigInitializationActions.ExecutionTimeout = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("rPlacementManagedClusterConfigInitializationActions.ExecutionTimeout: expected string")
+												}
+											}
+											r.Placement.ManagedCluster.Config.InitializationActions = append(r.Placement.ManagedCluster.Config.InitializationActions, rPlacementManagedClusterConfigInitializationActions)
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.InitializationActions: expected []interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["lifecycleConfig"]; ok {
+								if rPlacementManagedClusterConfigLifecycleConfig, ok := rPlacementManagedClusterConfig["lifecycleConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.LifecycleConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig{}
+									if _, ok := rPlacementManagedClusterConfigLifecycleConfig["autoDeleteTime"]; ok {
+										if s, ok := rPlacementManagedClusterConfigLifecycleConfig["autoDeleteTime"].(string); ok {
+											r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTime = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTime: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigLifecycleConfig["autoDeleteTtl"]; ok {
+										if s, ok := rPlacementManagedClusterConfigLifecycleConfig["autoDeleteTtl"].(string); ok {
+											r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTtl = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.LifecycleConfig.AutoDeleteTtl: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigLifecycleConfig["idleDeleteTtl"]; ok {
+										if s, ok := rPlacementManagedClusterConfigLifecycleConfig["idleDeleteTtl"].(string); ok {
+											r.Placement.ManagedCluster.Config.LifecycleConfig.IdleDeleteTtl = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.LifecycleConfig.IdleDeleteTtl: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigLifecycleConfig["idleStartTime"]; ok {
+										if s, ok := rPlacementManagedClusterConfigLifecycleConfig["idleStartTime"].(string); ok {
+											r.Placement.ManagedCluster.Config.LifecycleConfig.IdleStartTime = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.LifecycleConfig.IdleStartTime: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.LifecycleConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["masterConfig"]; ok {
+								if rPlacementManagedClusterConfigMasterConfig, ok := rPlacementManagedClusterConfig["masterConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.MasterConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigMasterConfig{}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["accelerators"]; ok {
+										if s, ok := rPlacementManagedClusterConfigMasterConfig["accelerators"].([]interface{}); ok {
+											for _, o := range s {
+												if objval, ok := o.(map[string]interface{}); ok {
+													var rPlacementManagedClusterConfigMasterConfigAccelerators dclService.WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators
+													if _, ok := objval["acceleratorCount"]; ok {
+														if i, ok := objval["acceleratorCount"].(int64); ok {
+															rPlacementManagedClusterConfigMasterConfigAccelerators.AcceleratorCount = dcl.Int64(i)
+														} else {
+															return nil, fmt.Errorf("rPlacementManagedClusterConfigMasterConfigAccelerators.AcceleratorCount: expected int64")
+														}
+													}
+													if _, ok := objval["acceleratorType"]; ok {
+														if s, ok := objval["acceleratorType"].(string); ok {
+															rPlacementManagedClusterConfigMasterConfigAccelerators.AcceleratorType = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPlacementManagedClusterConfigMasterConfigAccelerators.AcceleratorType: expected string")
+														}
+													}
+													r.Placement.ManagedCluster.Config.MasterConfig.Accelerators = append(r.Placement.ManagedCluster.Config.MasterConfig.Accelerators, rPlacementManagedClusterConfigMasterConfigAccelerators)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.Accelerators: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["diskConfig"]; ok {
+										if rPlacementManagedClusterConfigMasterConfigDiskConfig, ok := rPlacementManagedClusterConfigMasterConfig["diskConfig"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig{}
+											if _, ok := rPlacementManagedClusterConfigMasterConfigDiskConfig["bootDiskSizeGb"]; ok {
+												if i, ok := rPlacementManagedClusterConfigMasterConfigDiskConfig["bootDiskSizeGb"].(int64); ok {
+													r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskSizeGb: expected int64")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigMasterConfigDiskConfig["bootDiskType"]; ok {
+												if s, ok := rPlacementManagedClusterConfigMasterConfigDiskConfig["bootDiskType"].(string); ok {
+													r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskType = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.BootDiskType: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigMasterConfigDiskConfig["numLocalSsds"]; ok {
+												if i, ok := rPlacementManagedClusterConfigMasterConfigDiskConfig["numLocalSsds"].(int64); ok {
+													r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.NumLocalSsds = dcl.Int64(i)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig.NumLocalSsds: expected int64")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.DiskConfig: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["image"]; ok {
+										if s, ok := rPlacementManagedClusterConfigMasterConfig["image"].(string); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.Image = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.Image: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["instanceNames"]; ok {
+										if s, ok := rPlacementManagedClusterConfigMasterConfig["instanceNames"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													r.Placement.ManagedCluster.Config.MasterConfig.InstanceNames = append(r.Placement.ManagedCluster.Config.MasterConfig.InstanceNames, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.InstanceNames: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["isPreemptible"]; ok {
+										if b, ok := rPlacementManagedClusterConfigMasterConfig["isPreemptible"].(bool); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.IsPreemptible = dcl.Bool(b)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.IsPreemptible: expected bool")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["machineType"]; ok {
+										if s, ok := rPlacementManagedClusterConfigMasterConfig["machineType"].(string); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.MachineType = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.MachineType: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["managedGroupConfig"]; ok {
+										if rPlacementManagedClusterConfigMasterConfigManagedGroupConfig, ok := rPlacementManagedClusterConfigMasterConfig["managedGroupConfig"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig{}
+											if _, ok := rPlacementManagedClusterConfigMasterConfigManagedGroupConfig["instanceGroupManagerName"]; ok {
+												if s, ok := rPlacementManagedClusterConfigMasterConfigManagedGroupConfig["instanceGroupManagerName"].(string); ok {
+													r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceGroupManagerName: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigMasterConfigManagedGroupConfig["instanceTemplateName"]; ok {
+												if s, ok := rPlacementManagedClusterConfigMasterConfigManagedGroupConfig["instanceTemplateName"].(string); ok {
+													r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig.InstanceTemplateName: expected string")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.ManagedGroupConfig: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["minCpuPlatform"]; ok {
+										if s, ok := rPlacementManagedClusterConfigMasterConfig["minCpuPlatform"].(string); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.MinCpuPlatform = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.MinCpuPlatform: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["numInstances"]; ok {
+										if i, ok := rPlacementManagedClusterConfigMasterConfig["numInstances"].(int64); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.NumInstances = dcl.Int64(i)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.NumInstances: expected int64")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigMasterConfig["preemptibility"]; ok {
+										if s, ok := rPlacementManagedClusterConfigMasterConfig["preemptibility"].(string); ok {
+											r.Placement.ManagedCluster.Config.MasterConfig.Preemptibility = dclService.WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumRef(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig.Preemptibility: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MasterConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["metastoreConfig"]; ok {
+								if rPlacementManagedClusterConfigMetastoreConfig, ok := rPlacementManagedClusterConfig["metastoreConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.MetastoreConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig{}
+									if _, ok := rPlacementManagedClusterConfigMetastoreConfig["dataprocMetastoreService"]; ok {
+										if s, ok := rPlacementManagedClusterConfigMetastoreConfig["dataprocMetastoreService"].(string); ok {
+											r.Placement.ManagedCluster.Config.MetastoreConfig.DataprocMetastoreService = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MetastoreConfig.DataprocMetastoreService: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.MetastoreConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["secondaryWorkerConfig"]; ok {
+								if rPlacementManagedClusterConfigSecondaryWorkerConfig, ok := rPlacementManagedClusterConfig["secondaryWorkerConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.SecondaryWorkerConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig{}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["accelerators"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["accelerators"].([]interface{}); ok {
+											for _, o := range s {
+												if objval, ok := o.(map[string]interface{}); ok {
+													var rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators dclService.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators
+													if _, ok := objval["acceleratorCount"]; ok {
+														if i, ok := objval["acceleratorCount"].(int64); ok {
+															rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators.AcceleratorCount = dcl.Int64(i)
+														} else {
+															return nil, fmt.Errorf("rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators.AcceleratorCount: expected int64")
+														}
+													}
+													if _, ok := objval["acceleratorType"]; ok {
+														if s, ok := objval["acceleratorType"].(string); ok {
+															rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators.AcceleratorType = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators.AcceleratorType: expected string")
+														}
+													}
+													r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Accelerators = append(r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Accelerators, rPlacementManagedClusterConfigSecondaryWorkerConfigAccelerators)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Accelerators: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["diskConfig"]; ok {
+										if rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["diskConfig"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig{}
+											if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["bootDiskSizeGb"]; ok {
+												if i, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["bootDiskSizeGb"].(int64); ok {
+													r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskSizeGb: expected int64")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["bootDiskType"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["bootDiskType"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.BootDiskType: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["numLocalSsds"]; ok {
+												if i, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig["numLocalSsds"].(int64); ok {
+													r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds = dcl.Int64(i)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig.NumLocalSsds: expected int64")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.DiskConfig: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["image"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["image"].(string); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Image = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Image: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["instanceNames"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["instanceNames"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.InstanceNames = append(r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.InstanceNames, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.InstanceNames: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["isPreemptible"]; ok {
+										if b, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["isPreemptible"].(bool); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.IsPreemptible = dcl.Bool(b)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.IsPreemptible: expected bool")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["machineType"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["machineType"].(string); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MachineType = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MachineType: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["managedGroupConfig"]; ok {
+										if rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["managedGroupConfig"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig{}
+											if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig["instanceGroupManagerName"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig["instanceGroupManagerName"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceGroupManagerName: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig["instanceTemplateName"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig["instanceTemplateName"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig.InstanceTemplateName: expected string")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.ManagedGroupConfig: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["minCpuPlatform"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["minCpuPlatform"].(string); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MinCpuPlatform = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.MinCpuPlatform: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["numInstances"]; ok {
+										if i, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["numInstances"].(int64); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.NumInstances = dcl.Int64(i)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.NumInstances: expected int64")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["preemptibility"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSecondaryWorkerConfig["preemptibility"].(string); ok {
+											r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Preemptibility = dclService.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumRef(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig.Preemptibility: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecondaryWorkerConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["securityConfig"]; ok {
+								if rPlacementManagedClusterConfigSecurityConfig, ok := rPlacementManagedClusterConfig["securityConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.SecurityConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigSecurityConfig{}
+									if _, ok := rPlacementManagedClusterConfigSecurityConfig["kerberosConfig"]; ok {
+										if rPlacementManagedClusterConfigSecurityConfigKerberosConfig, ok := rPlacementManagedClusterConfigSecurityConfig["kerberosConfig"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig{}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustAdminServer"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustAdminServer"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustAdminServer: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustKdc"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustKdc"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustKdc: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustRealm"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustRealm"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustRealm: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["crossRealmTrustSharedPassword"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.CrossRealmTrustSharedPassword: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["enableKerberos"]; ok {
+												if b, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["enableKerberos"].(bool); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.EnableKerberos = dcl.Bool(b)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.EnableKerberos: expected bool")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["kdcDbKey"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["kdcDbKey"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KdcDbKey = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KdcDbKey: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keyPassword"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keyPassword"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeyPassword = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeyPassword: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keystore"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keystore"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Keystore = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Keystore: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keystorePassword"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["keystorePassword"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeystorePassword = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KeystorePassword: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["kmsKey"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["kmsKey"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KmsKey = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.KmsKey: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["realm"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["realm"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Realm = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Realm: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["rootPrincipalPassword"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["rootPrincipalPassword"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.RootPrincipalPassword: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["tgtLifetimeHours"]; ok {
+												if i, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["tgtLifetimeHours"].(int64); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours = dcl.Int64(i)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TgtLifetimeHours: expected int64")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["truststore"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["truststore"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Truststore = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.Truststore: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["truststorePassword"]; ok {
+												if s, ok := rPlacementManagedClusterConfigSecurityConfigKerberosConfig["truststorePassword"].(string); ok {
+													r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TruststorePassword = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig.TruststorePassword: expected string")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig.KerberosConfig: expected map[string]interface{}")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SecurityConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["softwareConfig"]; ok {
+								if rPlacementManagedClusterConfigSoftwareConfig, ok := rPlacementManagedClusterConfig["softwareConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.SoftwareConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig{}
+									if _, ok := rPlacementManagedClusterConfigSoftwareConfig["imageVersion"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSoftwareConfig["imageVersion"].(string); ok {
+											r.Placement.ManagedCluster.Config.SoftwareConfig.ImageVersion = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SoftwareConfig.ImageVersion: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSoftwareConfig["optionalComponents"]; ok {
+										if s, ok := rPlacementManagedClusterConfigSoftwareConfig["optionalComponents"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													r.Placement.ManagedCluster.Config.SoftwareConfig.OptionalComponents = append(r.Placement.ManagedCluster.Config.SoftwareConfig.OptionalComponents, dclService.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(strval))
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SoftwareConfig.OptionalComponents: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigSoftwareConfig["properties"]; ok {
+										if rPlacementManagedClusterConfigSoftwareConfigProperties, ok := rPlacementManagedClusterConfigSoftwareConfig["properties"].(map[string]interface{}); ok {
+											m := make(map[string]string)
+											for k, v := range rPlacementManagedClusterConfigSoftwareConfigProperties {
+												if s, ok := v.(string); ok {
+													m[k] = s
+												}
+											}
+											r.Placement.ManagedCluster.Config.SoftwareConfig.Properties = m
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SoftwareConfig.Properties: expected map[string]interface{}")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.SoftwareConfig: expected map[string]interface{}")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["stagingBucket"]; ok {
+								if s, ok := rPlacementManagedClusterConfig["stagingBucket"].(string); ok {
+									r.Placement.ManagedCluster.Config.StagingBucket = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.StagingBucket: expected string")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["tempBucket"]; ok {
+								if s, ok := rPlacementManagedClusterConfig["tempBucket"].(string); ok {
+									r.Placement.ManagedCluster.Config.TempBucket = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.TempBucket: expected string")
+								}
+							}
+							if _, ok := rPlacementManagedClusterConfig["workerConfig"]; ok {
+								if rPlacementManagedClusterConfigWorkerConfig, ok := rPlacementManagedClusterConfig["workerConfig"].(map[string]interface{}); ok {
+									r.Placement.ManagedCluster.Config.WorkerConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigWorkerConfig{}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["accelerators"]; ok {
+										if s, ok := rPlacementManagedClusterConfigWorkerConfig["accelerators"].([]interface{}); ok {
+											for _, o := range s {
+												if objval, ok := o.(map[string]interface{}); ok {
+													var rPlacementManagedClusterConfigWorkerConfigAccelerators dclService.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators
+													if _, ok := objval["acceleratorCount"]; ok {
+														if i, ok := objval["acceleratorCount"].(int64); ok {
+															rPlacementManagedClusterConfigWorkerConfigAccelerators.AcceleratorCount = dcl.Int64(i)
+														} else {
+															return nil, fmt.Errorf("rPlacementManagedClusterConfigWorkerConfigAccelerators.AcceleratorCount: expected int64")
+														}
+													}
+													if _, ok := objval["acceleratorType"]; ok {
+														if s, ok := objval["acceleratorType"].(string); ok {
+															rPlacementManagedClusterConfigWorkerConfigAccelerators.AcceleratorType = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPlacementManagedClusterConfigWorkerConfigAccelerators.AcceleratorType: expected string")
+														}
+													}
+													r.Placement.ManagedCluster.Config.WorkerConfig.Accelerators = append(r.Placement.ManagedCluster.Config.WorkerConfig.Accelerators, rPlacementManagedClusterConfigWorkerConfigAccelerators)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.Accelerators: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["diskConfig"]; ok {
+										if rPlacementManagedClusterConfigWorkerConfigDiskConfig, ok := rPlacementManagedClusterConfigWorkerConfig["diskConfig"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig{}
+											if _, ok := rPlacementManagedClusterConfigWorkerConfigDiskConfig["bootDiskSizeGb"]; ok {
+												if i, ok := rPlacementManagedClusterConfigWorkerConfigDiskConfig["bootDiskSizeGb"].(int64); ok {
+													r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskSizeGb = dcl.Int64(i)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskSizeGb: expected int64")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigWorkerConfigDiskConfig["bootDiskType"]; ok {
+												if s, ok := rPlacementManagedClusterConfigWorkerConfigDiskConfig["bootDiskType"].(string); ok {
+													r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskType = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.BootDiskType: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigWorkerConfigDiskConfig["numLocalSsds"]; ok {
+												if i, ok := rPlacementManagedClusterConfigWorkerConfigDiskConfig["numLocalSsds"].(int64); ok {
+													r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.NumLocalSsds = dcl.Int64(i)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig.NumLocalSsds: expected int64")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.DiskConfig: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["image"]; ok {
+										if s, ok := rPlacementManagedClusterConfigWorkerConfig["image"].(string); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.Image = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.Image: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["instanceNames"]; ok {
+										if s, ok := rPlacementManagedClusterConfigWorkerConfig["instanceNames"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													r.Placement.ManagedCluster.Config.WorkerConfig.InstanceNames = append(r.Placement.ManagedCluster.Config.WorkerConfig.InstanceNames, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.InstanceNames: expected []interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["isPreemptible"]; ok {
+										if b, ok := rPlacementManagedClusterConfigWorkerConfig["isPreemptible"].(bool); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.IsPreemptible = dcl.Bool(b)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.IsPreemptible: expected bool")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["machineType"]; ok {
+										if s, ok := rPlacementManagedClusterConfigWorkerConfig["machineType"].(string); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.MachineType = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.MachineType: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["managedGroupConfig"]; ok {
+										if rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig, ok := rPlacementManagedClusterConfigWorkerConfig["managedGroupConfig"].(map[string]interface{}); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig = &dclService.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig{}
+											if _, ok := rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig["instanceGroupManagerName"]; ok {
+												if s, ok := rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig["instanceGroupManagerName"].(string); ok {
+													r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceGroupManagerName: expected string")
+												}
+											}
+											if _, ok := rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig["instanceTemplateName"]; ok {
+												if s, ok := rPlacementManagedClusterConfigWorkerConfigManagedGroupConfig["instanceTemplateName"].(string); ok {
+													r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig.InstanceTemplateName: expected string")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.ManagedGroupConfig: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["minCpuPlatform"]; ok {
+										if s, ok := rPlacementManagedClusterConfigWorkerConfig["minCpuPlatform"].(string); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.MinCpuPlatform = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.MinCpuPlatform: expected string")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["numInstances"]; ok {
+										if i, ok := rPlacementManagedClusterConfigWorkerConfig["numInstances"].(int64); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.NumInstances = dcl.Int64(i)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.NumInstances: expected int64")
+										}
+									}
+									if _, ok := rPlacementManagedClusterConfigWorkerConfig["preemptibility"]; ok {
+										if s, ok := rPlacementManagedClusterConfigWorkerConfig["preemptibility"].(string); ok {
+											r.Placement.ManagedCluster.Config.WorkerConfig.Preemptibility = dclService.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumRef(s)
+										} else {
+											return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig.Preemptibility: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Placement.ManagedCluster.Config.WorkerConfig: expected map[string]interface{}")
+								}
 							}
 						} else {
 							return nil, fmt.Errorf("r.Placement.ManagedCluster.Config: expected map[string]interface{}")

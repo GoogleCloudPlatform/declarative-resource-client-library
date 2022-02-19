@@ -147,18 +147,20 @@ type autoscalingPolicyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateAutoscalingPolicyUpdateAutoscalingPolicyRequest(ctx context.Context, f *AutoscalingPolicy, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandAutoscalingPolicyBasicAlgorithm(c, f.BasicAlgorithm); err != nil {
+	if v, err := expandAutoscalingPolicyBasicAlgorithm(c, f.BasicAlgorithm, res); err != nil {
 		return nil, fmt.Errorf("error expanding BasicAlgorithm into basicAlgorithm: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["basicAlgorithm"] = v
 	}
-	if v, err := expandAutoscalingPolicyWorkerConfig(c, f.WorkerConfig); err != nil {
+	if v, err := expandAutoscalingPolicyWorkerConfig(c, f.WorkerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["workerConfig"] = v
 	}
-	if v, err := expandAutoscalingPolicySecondaryWorkerConfig(c, f.SecondaryWorkerConfig); err != nil {
+	if v, err := expandAutoscalingPolicySecondaryWorkerConfig(c, f.SecondaryWorkerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryWorkerConfig into secondaryWorkerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["secondaryWorkerConfig"] = v
@@ -1336,20 +1338,22 @@ func unmarshalMapAutoscalingPolicy(m map[string]interface{}, c *Client) (*Autosc
 // expandAutoscalingPolicy expands AutoscalingPolicy into a JSON request object.
 func expandAutoscalingPolicy(c *Client, f *AutoscalingPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["id"] = v
 	}
-	if v, err := expandAutoscalingPolicyBasicAlgorithm(c, f.BasicAlgorithm); err != nil {
+	if v, err := expandAutoscalingPolicyBasicAlgorithm(c, f.BasicAlgorithm, res); err != nil {
 		return nil, fmt.Errorf("error expanding BasicAlgorithm into basicAlgorithm: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["basicAlgorithm"] = v
 	}
-	if v, err := expandAutoscalingPolicyWorkerConfig(c, f.WorkerConfig); err != nil {
+	if v, err := expandAutoscalingPolicyWorkerConfig(c, f.WorkerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["workerConfig"] = v
 	}
-	if v, err := expandAutoscalingPolicySecondaryWorkerConfig(c, f.SecondaryWorkerConfig); err != nil {
+	if v, err := expandAutoscalingPolicySecondaryWorkerConfig(c, f.SecondaryWorkerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryWorkerConfig into secondaryWorkerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secondaryWorkerConfig"] = v
@@ -1392,14 +1396,14 @@ func flattenAutoscalingPolicy(c *Client, i interface{}) *AutoscalingPolicy {
 
 // expandAutoscalingPolicyBasicAlgorithmMap expands the contents of AutoscalingPolicyBasicAlgorithm into a JSON
 // request object.
-func expandAutoscalingPolicyBasicAlgorithmMap(c *Client, f map[string]AutoscalingPolicyBasicAlgorithm) (map[string]interface{}, error) {
+func expandAutoscalingPolicyBasicAlgorithmMap(c *Client, f map[string]AutoscalingPolicyBasicAlgorithm, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAutoscalingPolicyBasicAlgorithm(c, &item)
+		i, err := expandAutoscalingPolicyBasicAlgorithm(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1413,14 +1417,14 @@ func expandAutoscalingPolicyBasicAlgorithmMap(c *Client, f map[string]Autoscalin
 
 // expandAutoscalingPolicyBasicAlgorithmSlice expands the contents of AutoscalingPolicyBasicAlgorithm into a JSON
 // request object.
-func expandAutoscalingPolicyBasicAlgorithmSlice(c *Client, f []AutoscalingPolicyBasicAlgorithm) ([]map[string]interface{}, error) {
+func expandAutoscalingPolicyBasicAlgorithmSlice(c *Client, f []AutoscalingPolicyBasicAlgorithm, res *AutoscalingPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAutoscalingPolicyBasicAlgorithm(c, &item)
+		i, err := expandAutoscalingPolicyBasicAlgorithm(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1473,13 +1477,13 @@ func flattenAutoscalingPolicyBasicAlgorithmSlice(c *Client, i interface{}) []Aut
 
 // expandAutoscalingPolicyBasicAlgorithm expands an instance of AutoscalingPolicyBasicAlgorithm into a JSON
 // request object.
-func expandAutoscalingPolicyBasicAlgorithm(c *Client, f *AutoscalingPolicyBasicAlgorithm) (map[string]interface{}, error) {
+func expandAutoscalingPolicyBasicAlgorithm(c *Client, f *AutoscalingPolicyBasicAlgorithm, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandAutoscalingPolicyBasicAlgorithmYarnConfig(c, f.YarnConfig); err != nil {
+	if v, err := expandAutoscalingPolicyBasicAlgorithmYarnConfig(c, f.YarnConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding YarnConfig into yarnConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["yarnConfig"] = v
@@ -1512,14 +1516,14 @@ func flattenAutoscalingPolicyBasicAlgorithm(c *Client, i interface{}) *Autoscali
 
 // expandAutoscalingPolicyBasicAlgorithmYarnConfigMap expands the contents of AutoscalingPolicyBasicAlgorithmYarnConfig into a JSON
 // request object.
-func expandAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, f map[string]AutoscalingPolicyBasicAlgorithmYarnConfig) (map[string]interface{}, error) {
+func expandAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, f map[string]AutoscalingPolicyBasicAlgorithmYarnConfig, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAutoscalingPolicyBasicAlgorithmYarnConfig(c, &item)
+		i, err := expandAutoscalingPolicyBasicAlgorithmYarnConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1533,14 +1537,14 @@ func expandAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, f map[string]
 
 // expandAutoscalingPolicyBasicAlgorithmYarnConfigSlice expands the contents of AutoscalingPolicyBasicAlgorithmYarnConfig into a JSON
 // request object.
-func expandAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, f []AutoscalingPolicyBasicAlgorithmYarnConfig) ([]map[string]interface{}, error) {
+func expandAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, f []AutoscalingPolicyBasicAlgorithmYarnConfig, res *AutoscalingPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAutoscalingPolicyBasicAlgorithmYarnConfig(c, &item)
+		i, err := expandAutoscalingPolicyBasicAlgorithmYarnConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1593,7 +1597,7 @@ func flattenAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, i interfac
 
 // expandAutoscalingPolicyBasicAlgorithmYarnConfig expands an instance of AutoscalingPolicyBasicAlgorithmYarnConfig into a JSON
 // request object.
-func expandAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, f *AutoscalingPolicyBasicAlgorithmYarnConfig) (map[string]interface{}, error) {
+func expandAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, f *AutoscalingPolicyBasicAlgorithmYarnConfig, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1642,14 +1646,14 @@ func flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, i interface{}) 
 
 // expandAutoscalingPolicyWorkerConfigMap expands the contents of AutoscalingPolicyWorkerConfig into a JSON
 // request object.
-func expandAutoscalingPolicyWorkerConfigMap(c *Client, f map[string]AutoscalingPolicyWorkerConfig) (map[string]interface{}, error) {
+func expandAutoscalingPolicyWorkerConfigMap(c *Client, f map[string]AutoscalingPolicyWorkerConfig, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAutoscalingPolicyWorkerConfig(c, &item)
+		i, err := expandAutoscalingPolicyWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1663,14 +1667,14 @@ func expandAutoscalingPolicyWorkerConfigMap(c *Client, f map[string]AutoscalingP
 
 // expandAutoscalingPolicyWorkerConfigSlice expands the contents of AutoscalingPolicyWorkerConfig into a JSON
 // request object.
-func expandAutoscalingPolicyWorkerConfigSlice(c *Client, f []AutoscalingPolicyWorkerConfig) ([]map[string]interface{}, error) {
+func expandAutoscalingPolicyWorkerConfigSlice(c *Client, f []AutoscalingPolicyWorkerConfig, res *AutoscalingPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAutoscalingPolicyWorkerConfig(c, &item)
+		i, err := expandAutoscalingPolicyWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1723,7 +1727,7 @@ func flattenAutoscalingPolicyWorkerConfigSlice(c *Client, i interface{}) []Autos
 
 // expandAutoscalingPolicyWorkerConfig expands an instance of AutoscalingPolicyWorkerConfig into a JSON
 // request object.
-func expandAutoscalingPolicyWorkerConfig(c *Client, f *AutoscalingPolicyWorkerConfig) (map[string]interface{}, error) {
+func expandAutoscalingPolicyWorkerConfig(c *Client, f *AutoscalingPolicyWorkerConfig, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1764,14 +1768,14 @@ func flattenAutoscalingPolicyWorkerConfig(c *Client, i interface{}) *Autoscaling
 
 // expandAutoscalingPolicySecondaryWorkerConfigMap expands the contents of AutoscalingPolicySecondaryWorkerConfig into a JSON
 // request object.
-func expandAutoscalingPolicySecondaryWorkerConfigMap(c *Client, f map[string]AutoscalingPolicySecondaryWorkerConfig) (map[string]interface{}, error) {
+func expandAutoscalingPolicySecondaryWorkerConfigMap(c *Client, f map[string]AutoscalingPolicySecondaryWorkerConfig, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAutoscalingPolicySecondaryWorkerConfig(c, &item)
+		i, err := expandAutoscalingPolicySecondaryWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1785,14 +1789,14 @@ func expandAutoscalingPolicySecondaryWorkerConfigMap(c *Client, f map[string]Aut
 
 // expandAutoscalingPolicySecondaryWorkerConfigSlice expands the contents of AutoscalingPolicySecondaryWorkerConfig into a JSON
 // request object.
-func expandAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, f []AutoscalingPolicySecondaryWorkerConfig) ([]map[string]interface{}, error) {
+func expandAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, f []AutoscalingPolicySecondaryWorkerConfig, res *AutoscalingPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAutoscalingPolicySecondaryWorkerConfig(c, &item)
+		i, err := expandAutoscalingPolicySecondaryWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1845,7 +1849,7 @@ func flattenAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, i interface{}
 
 // expandAutoscalingPolicySecondaryWorkerConfig expands an instance of AutoscalingPolicySecondaryWorkerConfig into a JSON
 // request object.
-func expandAutoscalingPolicySecondaryWorkerConfig(c *Client, f *AutoscalingPolicySecondaryWorkerConfig) (map[string]interface{}, error) {
+func expandAutoscalingPolicySecondaryWorkerConfig(c *Client, f *AutoscalingPolicySecondaryWorkerConfig, res *AutoscalingPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

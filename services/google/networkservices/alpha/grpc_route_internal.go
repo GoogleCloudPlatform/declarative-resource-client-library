@@ -207,6 +207,8 @@ type grpcRouteApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateGrpcRouteUpdateGrpcRouteRequest(ctx context.Context, f *GrpcRoute, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("projects/%s/locations/global/grpcRoutes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -231,7 +233,7 @@ func newUpdateGrpcRouteUpdateGrpcRouteRequest(ctx context.Context, f *GrpcRoute,
 	if v := f.Gateways; v != nil {
 		req["gateways"] = v
 	}
-	if v, err := expandGrpcRouteRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandGrpcRouteRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		req["rules"] = v
@@ -2549,6 +2551,8 @@ func unmarshalMapGrpcRoute(m map[string]interface{}, c *Client) (*GrpcRoute, err
 // expandGrpcRoute expands GrpcRoute into a JSON request object.
 func expandGrpcRoute(c *Client, f *GrpcRoute) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/global/grpcRoutes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2572,7 +2576,7 @@ func expandGrpcRoute(c *Client, f *GrpcRoute) (map[string]interface{}, error) {
 	if v := f.Gateways; v != nil {
 		m["gateways"] = v
 	}
-	if v, err := expandGrpcRouteRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandGrpcRouteRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		m["rules"] = v
@@ -2621,14 +2625,14 @@ func flattenGrpcRoute(c *Client, i interface{}) *GrpcRoute {
 
 // expandGrpcRouteRulesMap expands the contents of GrpcRouteRules into a JSON
 // request object.
-func expandGrpcRouteRulesMap(c *Client, f map[string]GrpcRouteRules) (map[string]interface{}, error) {
+func expandGrpcRouteRulesMap(c *Client, f map[string]GrpcRouteRules, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRules(c, &item)
+		i, err := expandGrpcRouteRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2642,14 +2646,14 @@ func expandGrpcRouteRulesMap(c *Client, f map[string]GrpcRouteRules) (map[string
 
 // expandGrpcRouteRulesSlice expands the contents of GrpcRouteRules into a JSON
 // request object.
-func expandGrpcRouteRulesSlice(c *Client, f []GrpcRouteRules) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesSlice(c *Client, f []GrpcRouteRules, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRules(c, &item)
+		i, err := expandGrpcRouteRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2702,18 +2706,18 @@ func flattenGrpcRouteRulesSlice(c *Client, i interface{}) []GrpcRouteRules {
 
 // expandGrpcRouteRules expands an instance of GrpcRouteRules into a JSON
 // request object.
-func expandGrpcRouteRules(c *Client, f *GrpcRouteRules) (map[string]interface{}, error) {
+func expandGrpcRouteRules(c *Client, f *GrpcRouteRules, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGrpcRouteRulesMatchesSlice(c, f.Matches); err != nil {
+	if v, err := expandGrpcRouteRulesMatchesSlice(c, f.Matches, res); err != nil {
 		return nil, fmt.Errorf("error expanding Matches into matches: %w", err)
 	} else if v != nil {
 		m["matches"] = v
 	}
-	if v, err := expandGrpcRouteRulesAction(c, f.Action); err != nil {
+	if v, err := expandGrpcRouteRulesAction(c, f.Action, res); err != nil {
 		return nil, fmt.Errorf("error expanding Action into action: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["action"] = v
@@ -2743,14 +2747,14 @@ func flattenGrpcRouteRules(c *Client, i interface{}) *GrpcRouteRules {
 
 // expandGrpcRouteRulesMatchesMap expands the contents of GrpcRouteRulesMatches into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesMap(c *Client, f map[string]GrpcRouteRulesMatches) (map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesMap(c *Client, f map[string]GrpcRouteRulesMatches, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesMatches(c, &item)
+		i, err := expandGrpcRouteRulesMatches(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2764,14 +2768,14 @@ func expandGrpcRouteRulesMatchesMap(c *Client, f map[string]GrpcRouteRulesMatche
 
 // expandGrpcRouteRulesMatchesSlice expands the contents of GrpcRouteRulesMatches into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesSlice(c *Client, f []GrpcRouteRulesMatches) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesSlice(c *Client, f []GrpcRouteRulesMatches, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesMatches(c, &item)
+		i, err := expandGrpcRouteRulesMatches(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2824,18 +2828,18 @@ func flattenGrpcRouteRulesMatchesSlice(c *Client, i interface{}) []GrpcRouteRule
 
 // expandGrpcRouteRulesMatches expands an instance of GrpcRouteRulesMatches into a JSON
 // request object.
-func expandGrpcRouteRulesMatches(c *Client, f *GrpcRouteRulesMatches) (map[string]interface{}, error) {
+func expandGrpcRouteRulesMatches(c *Client, f *GrpcRouteRulesMatches, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGrpcRouteRulesMatchesMethod(c, f.Method); err != nil {
+	if v, err := expandGrpcRouteRulesMatchesMethod(c, f.Method, res); err != nil {
 		return nil, fmt.Errorf("error expanding Method into method: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["method"] = v
 	}
-	if v, err := expandGrpcRouteRulesMatchesHeadersSlice(c, f.Headers); err != nil {
+	if v, err := expandGrpcRouteRulesMatchesHeadersSlice(c, f.Headers, res); err != nil {
 		return nil, fmt.Errorf("error expanding Headers into headers: %w", err)
 	} else if v != nil {
 		m["headers"] = v
@@ -2865,14 +2869,14 @@ func flattenGrpcRouteRulesMatches(c *Client, i interface{}) *GrpcRouteRulesMatch
 
 // expandGrpcRouteRulesMatchesMethodMap expands the contents of GrpcRouteRulesMatchesMethod into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesMethodMap(c *Client, f map[string]GrpcRouteRulesMatchesMethod) (map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesMethodMap(c *Client, f map[string]GrpcRouteRulesMatchesMethod, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesMatchesMethod(c, &item)
+		i, err := expandGrpcRouteRulesMatchesMethod(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2886,14 +2890,14 @@ func expandGrpcRouteRulesMatchesMethodMap(c *Client, f map[string]GrpcRouteRules
 
 // expandGrpcRouteRulesMatchesMethodSlice expands the contents of GrpcRouteRulesMatchesMethod into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesMethodSlice(c *Client, f []GrpcRouteRulesMatchesMethod) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesMethodSlice(c *Client, f []GrpcRouteRulesMatchesMethod, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesMatchesMethod(c, &item)
+		i, err := expandGrpcRouteRulesMatchesMethod(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2946,7 +2950,7 @@ func flattenGrpcRouteRulesMatchesMethodSlice(c *Client, i interface{}) []GrpcRou
 
 // expandGrpcRouteRulesMatchesMethod expands an instance of GrpcRouteRulesMatchesMethod into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesMethod(c *Client, f *GrpcRouteRulesMatchesMethod) (map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesMethod(c *Client, f *GrpcRouteRulesMatchesMethod, res *GrpcRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2991,14 +2995,14 @@ func flattenGrpcRouteRulesMatchesMethod(c *Client, i interface{}) *GrpcRouteRule
 
 // expandGrpcRouteRulesMatchesHeadersMap expands the contents of GrpcRouteRulesMatchesHeaders into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesHeadersMap(c *Client, f map[string]GrpcRouteRulesMatchesHeaders) (map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesHeadersMap(c *Client, f map[string]GrpcRouteRulesMatchesHeaders, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesMatchesHeaders(c, &item)
+		i, err := expandGrpcRouteRulesMatchesHeaders(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3012,14 +3016,14 @@ func expandGrpcRouteRulesMatchesHeadersMap(c *Client, f map[string]GrpcRouteRule
 
 // expandGrpcRouteRulesMatchesHeadersSlice expands the contents of GrpcRouteRulesMatchesHeaders into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesHeadersSlice(c *Client, f []GrpcRouteRulesMatchesHeaders) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesHeadersSlice(c *Client, f []GrpcRouteRulesMatchesHeaders, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesMatchesHeaders(c, &item)
+		i, err := expandGrpcRouteRulesMatchesHeaders(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3072,7 +3076,7 @@ func flattenGrpcRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []GrpcRo
 
 // expandGrpcRouteRulesMatchesHeaders expands an instance of GrpcRouteRulesMatchesHeaders into a JSON
 // request object.
-func expandGrpcRouteRulesMatchesHeaders(c *Client, f *GrpcRouteRulesMatchesHeaders) (map[string]interface{}, error) {
+func expandGrpcRouteRulesMatchesHeaders(c *Client, f *GrpcRouteRulesMatchesHeaders, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -3113,14 +3117,14 @@ func flattenGrpcRouteRulesMatchesHeaders(c *Client, i interface{}) *GrpcRouteRul
 
 // expandGrpcRouteRulesActionMap expands the contents of GrpcRouteRulesAction into a JSON
 // request object.
-func expandGrpcRouteRulesActionMap(c *Client, f map[string]GrpcRouteRulesAction) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionMap(c *Client, f map[string]GrpcRouteRulesAction, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesAction(c, &item)
+		i, err := expandGrpcRouteRulesAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3134,14 +3138,14 @@ func expandGrpcRouteRulesActionMap(c *Client, f map[string]GrpcRouteRulesAction)
 
 // expandGrpcRouteRulesActionSlice expands the contents of GrpcRouteRulesAction into a JSON
 // request object.
-func expandGrpcRouteRulesActionSlice(c *Client, f []GrpcRouteRulesAction) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesActionSlice(c *Client, f []GrpcRouteRulesAction, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesAction(c, &item)
+		i, err := expandGrpcRouteRulesAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3194,18 +3198,18 @@ func flattenGrpcRouteRulesActionSlice(c *Client, i interface{}) []GrpcRouteRules
 
 // expandGrpcRouteRulesAction expands an instance of GrpcRouteRulesAction into a JSON
 // request object.
-func expandGrpcRouteRulesAction(c *Client, f *GrpcRouteRulesAction) (map[string]interface{}, error) {
+func expandGrpcRouteRulesAction(c *Client, f *GrpcRouteRulesAction, res *GrpcRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGrpcRouteRulesActionDestinationsSlice(c, f.Destinations); err != nil {
+	if v, err := expandGrpcRouteRulesActionDestinationsSlice(c, f.Destinations, res); err != nil {
 		return nil, fmt.Errorf("error expanding Destinations into destinations: %w", err)
 	} else if v != nil {
 		m["destinations"] = v
 	}
-	if v, err := expandGrpcRouteRulesActionFaultInjectionPolicy(c, f.FaultInjectionPolicy); err != nil {
+	if v, err := expandGrpcRouteRulesActionFaultInjectionPolicy(c, f.FaultInjectionPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding FaultInjectionPolicy into faultInjectionPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["faultInjectionPolicy"] = v
@@ -3213,7 +3217,7 @@ func expandGrpcRouteRulesAction(c *Client, f *GrpcRouteRulesAction) (map[string]
 	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		m["timeout"] = v
 	}
-	if v, err := expandGrpcRouteRulesActionRetryPolicy(c, f.RetryPolicy); err != nil {
+	if v, err := expandGrpcRouteRulesActionRetryPolicy(c, f.RetryPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding RetryPolicy into retryPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["retryPolicy"] = v
@@ -3245,14 +3249,14 @@ func flattenGrpcRouteRulesAction(c *Client, i interface{}) *GrpcRouteRulesAction
 
 // expandGrpcRouteRulesActionDestinationsMap expands the contents of GrpcRouteRulesActionDestinations into a JSON
 // request object.
-func expandGrpcRouteRulesActionDestinationsMap(c *Client, f map[string]GrpcRouteRulesActionDestinations) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionDestinationsMap(c *Client, f map[string]GrpcRouteRulesActionDestinations, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesActionDestinations(c, &item)
+		i, err := expandGrpcRouteRulesActionDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3266,14 +3270,14 @@ func expandGrpcRouteRulesActionDestinationsMap(c *Client, f map[string]GrpcRoute
 
 // expandGrpcRouteRulesActionDestinationsSlice expands the contents of GrpcRouteRulesActionDestinations into a JSON
 // request object.
-func expandGrpcRouteRulesActionDestinationsSlice(c *Client, f []GrpcRouteRulesActionDestinations) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesActionDestinationsSlice(c *Client, f []GrpcRouteRulesActionDestinations, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesActionDestinations(c, &item)
+		i, err := expandGrpcRouteRulesActionDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3326,7 +3330,7 @@ func flattenGrpcRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Gr
 
 // expandGrpcRouteRulesActionDestinations expands an instance of GrpcRouteRulesActionDestinations into a JSON
 // request object.
-func expandGrpcRouteRulesActionDestinations(c *Client, f *GrpcRouteRulesActionDestinations) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionDestinations(c *Client, f *GrpcRouteRulesActionDestinations, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -3363,14 +3367,14 @@ func flattenGrpcRouteRulesActionDestinations(c *Client, i interface{}) *GrpcRout
 
 // expandGrpcRouteRulesActionFaultInjectionPolicyMap expands the contents of GrpcRouteRulesActionFaultInjectionPolicy into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicyMap(c *Client, f map[string]GrpcRouteRulesActionFaultInjectionPolicy) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicyMap(c *Client, f map[string]GrpcRouteRulesActionFaultInjectionPolicy, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesActionFaultInjectionPolicy(c, &item)
+		i, err := expandGrpcRouteRulesActionFaultInjectionPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3384,14 +3388,14 @@ func expandGrpcRouteRulesActionFaultInjectionPolicyMap(c *Client, f map[string]G
 
 // expandGrpcRouteRulesActionFaultInjectionPolicySlice expands the contents of GrpcRouteRulesActionFaultInjectionPolicy into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, f []GrpcRouteRulesActionFaultInjectionPolicy) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, f []GrpcRouteRulesActionFaultInjectionPolicy, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesActionFaultInjectionPolicy(c, &item)
+		i, err := expandGrpcRouteRulesActionFaultInjectionPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3444,18 +3448,18 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface
 
 // expandGrpcRouteRulesActionFaultInjectionPolicy expands an instance of GrpcRouteRulesActionFaultInjectionPolicy into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicy(c *Client, f *GrpcRouteRulesActionFaultInjectionPolicy) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicy(c *Client, f *GrpcRouteRulesActionFaultInjectionPolicy, res *GrpcRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c, f.Delay); err != nil {
+	if v, err := expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c, f.Delay, res); err != nil {
 		return nil, fmt.Errorf("error expanding Delay into delay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["delay"] = v
 	}
-	if v, err := expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c, f.Abort); err != nil {
+	if v, err := expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c, f.Abort, res); err != nil {
 		return nil, fmt.Errorf("error expanding Abort into abort: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["abort"] = v
@@ -3485,14 +3489,14 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}) *
 
 // expandGrpcRouteRulesActionFaultInjectionPolicyDelayMap expands the contents of GrpcRouteRulesActionFaultInjectionPolicyDelay into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, f map[string]GrpcRouteRulesActionFaultInjectionPolicyDelay) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, f map[string]GrpcRouteRulesActionFaultInjectionPolicyDelay, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c, &item)
+		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3506,14 +3510,14 @@ func expandGrpcRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, f map[str
 
 // expandGrpcRouteRulesActionFaultInjectionPolicyDelaySlice expands the contents of GrpcRouteRulesActionFaultInjectionPolicyDelay into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, f []GrpcRouteRulesActionFaultInjectionPolicyDelay) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, f []GrpcRouteRulesActionFaultInjectionPolicyDelay, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c, &item)
+		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3566,7 +3570,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i inte
 
 // expandGrpcRouteRulesActionFaultInjectionPolicyDelay expands an instance of GrpcRouteRulesActionFaultInjectionPolicyDelay into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c *Client, f *GrpcRouteRulesActionFaultInjectionPolicyDelay) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c *Client, f *GrpcRouteRulesActionFaultInjectionPolicyDelay, res *GrpcRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3603,14 +3607,14 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c *Client, i interface
 
 // expandGrpcRouteRulesActionFaultInjectionPolicyAbortMap expands the contents of GrpcRouteRulesActionFaultInjectionPolicyAbort into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, f map[string]GrpcRouteRulesActionFaultInjectionPolicyAbort) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, f map[string]GrpcRouteRulesActionFaultInjectionPolicyAbort, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c, &item)
+		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3624,14 +3628,14 @@ func expandGrpcRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, f map[str
 
 // expandGrpcRouteRulesActionFaultInjectionPolicyAbortSlice expands the contents of GrpcRouteRulesActionFaultInjectionPolicyAbort into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, f []GrpcRouteRulesActionFaultInjectionPolicyAbort) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, f []GrpcRouteRulesActionFaultInjectionPolicyAbort, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c, &item)
+		i, err := expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3684,7 +3688,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i inte
 
 // expandGrpcRouteRulesActionFaultInjectionPolicyAbort expands an instance of GrpcRouteRulesActionFaultInjectionPolicyAbort into a JSON
 // request object.
-func expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c *Client, f *GrpcRouteRulesActionFaultInjectionPolicyAbort) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c *Client, f *GrpcRouteRulesActionFaultInjectionPolicyAbort, res *GrpcRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3721,14 +3725,14 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c *Client, i interface
 
 // expandGrpcRouteRulesActionRetryPolicyMap expands the contents of GrpcRouteRulesActionRetryPolicy into a JSON
 // request object.
-func expandGrpcRouteRulesActionRetryPolicyMap(c *Client, f map[string]GrpcRouteRulesActionRetryPolicy) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionRetryPolicyMap(c *Client, f map[string]GrpcRouteRulesActionRetryPolicy, res *GrpcRoute) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGrpcRouteRulesActionRetryPolicy(c, &item)
+		i, err := expandGrpcRouteRulesActionRetryPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3742,14 +3746,14 @@ func expandGrpcRouteRulesActionRetryPolicyMap(c *Client, f map[string]GrpcRouteR
 
 // expandGrpcRouteRulesActionRetryPolicySlice expands the contents of GrpcRouteRulesActionRetryPolicy into a JSON
 // request object.
-func expandGrpcRouteRulesActionRetryPolicySlice(c *Client, f []GrpcRouteRulesActionRetryPolicy) ([]map[string]interface{}, error) {
+func expandGrpcRouteRulesActionRetryPolicySlice(c *Client, f []GrpcRouteRulesActionRetryPolicy, res *GrpcRoute) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGrpcRouteRulesActionRetryPolicy(c, &item)
+		i, err := expandGrpcRouteRulesActionRetryPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3802,7 +3806,7 @@ func flattenGrpcRouteRulesActionRetryPolicySlice(c *Client, i interface{}) []Grp
 
 // expandGrpcRouteRulesActionRetryPolicy expands an instance of GrpcRouteRulesActionRetryPolicy into a JSON
 // request object.
-func expandGrpcRouteRulesActionRetryPolicy(c *Client, f *GrpcRouteRulesActionRetryPolicy) (map[string]interface{}, error) {
+func expandGrpcRouteRulesActionRetryPolicy(c *Client, f *GrpcRouteRulesActionRetryPolicy, res *GrpcRoute) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

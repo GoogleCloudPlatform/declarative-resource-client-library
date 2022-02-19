@@ -118,6 +118,8 @@ type subnetworkApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateSubnetworkExpandIpCidrRangeRequest(ctx context.Context, f *Subnetwork, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.IPCidrRange; !dcl.IsEmptyValueIndirect(v) {
 		req["ipCidrRange"] = v
@@ -188,6 +190,8 @@ func (op *updateSubnetworkExpandIpCidrRangeOperation) do(ctx context.Context, r 
 // fields based on the intended state of the resource.
 func newUpdateSubnetworkSetPrivateIpGoogleAccessRequest(ctx context.Context, f *Subnetwork, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.PrivateIPGoogleAccess; !dcl.IsEmptyValueIndirect(v) {
 		req["privateIpGoogleAccess"] = v
@@ -258,16 +262,18 @@ func (op *updateSubnetworkSetPrivateIpGoogleAccessOperation) do(ctx context.Cont
 // fields based on the intended state of the resource.
 func newUpdateSubnetworkUpdateRequest(ctx context.Context, f *Subnetwork, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Role; !dcl.IsEmptyValueIndirect(v) {
 		req["role"] = v
 	}
-	if v, err := expandSubnetworkSecondaryIPRangesSlice(c, f.SecondaryIPRanges); err != nil {
+	if v, err := expandSubnetworkSecondaryIPRangesSlice(c, f.SecondaryIPRanges, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryIPRanges into secondaryIpRanges: %w", err)
 	} else if v != nil {
 		req["secondaryIpRanges"] = v
 	}
-	if v, err := expandSubnetworkLogConfig(c, f.LogConfig); err != nil {
+	if v, err := expandSubnetworkLogConfig(c, f.LogConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding LogConfig into logConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["logConfig"] = v
@@ -1309,6 +1315,8 @@ func unmarshalMapSubnetwork(m map[string]interface{}, c *Client) (*Subnetwork, e
 // expandSubnetwork expands Subnetwork into a JSON request object.
 func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
@@ -1327,7 +1335,7 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 	if v := f.Role; dcl.ValueShouldBeSent(v) {
 		m["role"] = v
 	}
-	if v, err := expandSubnetworkSecondaryIPRangesSlice(c, f.SecondaryIPRanges); err != nil {
+	if v, err := expandSubnetworkSecondaryIPRangesSlice(c, f.SecondaryIPRanges, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryIPRanges into secondaryIpRanges: %w", err)
 	} else if v != nil {
 		m["secondaryIpRanges"] = v
@@ -1340,7 +1348,7 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}
-	if v, err := expandSubnetworkLogConfig(c, f.LogConfig); err != nil {
+	if v, err := expandSubnetworkLogConfig(c, f.LogConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding LogConfig into logConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["logConfig"] = v
@@ -1391,14 +1399,14 @@ func flattenSubnetwork(c *Client, i interface{}) *Subnetwork {
 
 // expandSubnetworkSecondaryIPRangesMap expands the contents of SubnetworkSecondaryIPRanges into a JSON
 // request object.
-func expandSubnetworkSecondaryIPRangesMap(c *Client, f map[string]SubnetworkSecondaryIPRanges) (map[string]interface{}, error) {
+func expandSubnetworkSecondaryIPRangesMap(c *Client, f map[string]SubnetworkSecondaryIPRanges, res *Subnetwork) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandSubnetworkSecondaryIPRanges(c, &item)
+		i, err := expandSubnetworkSecondaryIPRanges(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1412,14 +1420,14 @@ func expandSubnetworkSecondaryIPRangesMap(c *Client, f map[string]SubnetworkSeco
 
 // expandSubnetworkSecondaryIPRangesSlice expands the contents of SubnetworkSecondaryIPRanges into a JSON
 // request object.
-func expandSubnetworkSecondaryIPRangesSlice(c *Client, f []SubnetworkSecondaryIPRanges) ([]map[string]interface{}, error) {
+func expandSubnetworkSecondaryIPRangesSlice(c *Client, f []SubnetworkSecondaryIPRanges, res *Subnetwork) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandSubnetworkSecondaryIPRanges(c, &item)
+		i, err := expandSubnetworkSecondaryIPRanges(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1472,7 +1480,7 @@ func flattenSubnetworkSecondaryIPRangesSlice(c *Client, i interface{}) []Subnetw
 
 // expandSubnetworkSecondaryIPRanges expands an instance of SubnetworkSecondaryIPRanges into a JSON
 // request object.
-func expandSubnetworkSecondaryIPRanges(c *Client, f *SubnetworkSecondaryIPRanges) (map[string]interface{}, error) {
+func expandSubnetworkSecondaryIPRanges(c *Client, f *SubnetworkSecondaryIPRanges, res *Subnetwork) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1509,14 +1517,14 @@ func flattenSubnetworkSecondaryIPRanges(c *Client, i interface{}) *SubnetworkSec
 
 // expandSubnetworkLogConfigMap expands the contents of SubnetworkLogConfig into a JSON
 // request object.
-func expandSubnetworkLogConfigMap(c *Client, f map[string]SubnetworkLogConfig) (map[string]interface{}, error) {
+func expandSubnetworkLogConfigMap(c *Client, f map[string]SubnetworkLogConfig, res *Subnetwork) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandSubnetworkLogConfig(c, &item)
+		i, err := expandSubnetworkLogConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1530,14 +1538,14 @@ func expandSubnetworkLogConfigMap(c *Client, f map[string]SubnetworkLogConfig) (
 
 // expandSubnetworkLogConfigSlice expands the contents of SubnetworkLogConfig into a JSON
 // request object.
-func expandSubnetworkLogConfigSlice(c *Client, f []SubnetworkLogConfig) ([]map[string]interface{}, error) {
+func expandSubnetworkLogConfigSlice(c *Client, f []SubnetworkLogConfig, res *Subnetwork) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandSubnetworkLogConfig(c, &item)
+		i, err := expandSubnetworkLogConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1590,7 +1598,7 @@ func flattenSubnetworkLogConfigSlice(c *Client, i interface{}) []SubnetworkLogCo
 
 // expandSubnetworkLogConfig expands an instance of SubnetworkLogConfig into a JSON
 // request object.
-func expandSubnetworkLogConfig(c *Client, f *SubnetworkLogConfig) (map[string]interface{}, error) {
+func expandSubnetworkLogConfig(c *Client, f *SubnetworkLogConfig, res *Subnetwork) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

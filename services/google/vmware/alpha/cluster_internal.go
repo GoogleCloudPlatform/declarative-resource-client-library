@@ -109,6 +109,8 @@ type clusterApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateClusterUpdateClusterRequest(ctx context.Context, f *Cluster, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -715,6 +717,8 @@ func unmarshalMapCluster(m map[string]interface{}, c *Client) (*Cluster, error) 
 // expandCluster expands Cluster into a JSON request object.
 func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/privateClouds/%s/clusters/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.PrivateCloud), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

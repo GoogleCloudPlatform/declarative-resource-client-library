@@ -451,6 +451,8 @@ func unmarshalMapMonitoredProject(m map[string]interface{}, c *Client) (*Monitor
 // expandMonitoredProject expands MonitoredProject into a JSON request object.
 func expandMonitoredProject(c *Client, f *MonitoredProject) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("locations/global/metricsScopes/%s/projects/%s", f.Name, dcl.SelfLinkToName(f.MetricsScope), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

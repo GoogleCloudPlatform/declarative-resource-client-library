@@ -148,6 +148,8 @@ type packetMirroringApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdatePacketMirroringPatchRequest(ctx context.Context, f *PacketMirroring, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -155,17 +157,17 @@ func newUpdatePacketMirroringPatchRequest(ctx context.Context, f *PacketMirrorin
 	if v := f.Priority; !dcl.IsEmptyValueIndirect(v) {
 		req["priority"] = v
 	}
-	if v, err := expandPacketMirroringCollectorIlb(c, f.CollectorIlb); err != nil {
+	if v, err := expandPacketMirroringCollectorIlb(c, f.CollectorIlb, res); err != nil {
 		return nil, fmt.Errorf("error expanding CollectorIlb into collectorIlb: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["collectorIlb"] = v
 	}
-	if v, err := expandPacketMirroringMirroredResources(c, f.MirroredResources); err != nil {
+	if v, err := expandPacketMirroringMirroredResources(c, f.MirroredResources, res); err != nil {
 		return nil, fmt.Errorf("error expanding MirroredResources into mirroredResources: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["mirroredResources"] = v
 	}
-	if v, err := expandPacketMirroringFilter(c, f.Filter); err != nil {
+	if v, err := expandPacketMirroringFilter(c, f.Filter, res); err != nil {
 		return nil, fmt.Errorf("error expanding Filter into filter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["filter"] = v
@@ -1747,13 +1749,15 @@ func unmarshalMapPacketMirroring(m map[string]interface{}, c *Client) (*PacketMi
 // expandPacketMirroring expands PacketMirroring into a JSON request object.
 func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandPacketMirroringNetwork(c, f.Network); err != nil {
+	if v, err := expandPacketMirroringNetwork(c, f.Network, res); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
@@ -1761,17 +1765,17 @@ func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{
 	if v := f.Priority; dcl.ValueShouldBeSent(v) {
 		m["priority"] = v
 	}
-	if v, err := expandPacketMirroringCollectorIlb(c, f.CollectorIlb); err != nil {
+	if v, err := expandPacketMirroringCollectorIlb(c, f.CollectorIlb, res); err != nil {
 		return nil, fmt.Errorf("error expanding CollectorIlb into collectorIlb: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["collectorIlb"] = v
 	}
-	if v, err := expandPacketMirroringMirroredResources(c, f.MirroredResources); err != nil {
+	if v, err := expandPacketMirroringMirroredResources(c, f.MirroredResources, res); err != nil {
 		return nil, fmt.Errorf("error expanding MirroredResources into mirroredResources: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mirroredResources"] = v
 	}
-	if v, err := expandPacketMirroringFilter(c, f.Filter); err != nil {
+	if v, err := expandPacketMirroringFilter(c, f.Filter, res); err != nil {
 		return nil, fmt.Errorf("error expanding Filter into filter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
@@ -1824,14 +1828,14 @@ func flattenPacketMirroring(c *Client, i interface{}) *PacketMirroring {
 
 // expandPacketMirroringNetworkMap expands the contents of PacketMirroringNetwork into a JSON
 // request object.
-func expandPacketMirroringNetworkMap(c *Client, f map[string]PacketMirroringNetwork) (map[string]interface{}, error) {
+func expandPacketMirroringNetworkMap(c *Client, f map[string]PacketMirroringNetwork, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPacketMirroringNetwork(c, &item)
+		i, err := expandPacketMirroringNetwork(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1845,14 +1849,14 @@ func expandPacketMirroringNetworkMap(c *Client, f map[string]PacketMirroringNetw
 
 // expandPacketMirroringNetworkSlice expands the contents of PacketMirroringNetwork into a JSON
 // request object.
-func expandPacketMirroringNetworkSlice(c *Client, f []PacketMirroringNetwork) ([]map[string]interface{}, error) {
+func expandPacketMirroringNetworkSlice(c *Client, f []PacketMirroringNetwork, res *PacketMirroring) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPacketMirroringNetwork(c, &item)
+		i, err := expandPacketMirroringNetwork(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1905,7 +1909,7 @@ func flattenPacketMirroringNetworkSlice(c *Client, i interface{}) []PacketMirror
 
 // expandPacketMirroringNetwork expands an instance of PacketMirroringNetwork into a JSON
 // request object.
-func expandPacketMirroringNetwork(c *Client, f *PacketMirroringNetwork) (map[string]interface{}, error) {
+func expandPacketMirroringNetwork(c *Client, f *PacketMirroringNetwork, res *PacketMirroring) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1939,14 +1943,14 @@ func flattenPacketMirroringNetwork(c *Client, i interface{}) *PacketMirroringNet
 
 // expandPacketMirroringCollectorIlbMap expands the contents of PacketMirroringCollectorIlb into a JSON
 // request object.
-func expandPacketMirroringCollectorIlbMap(c *Client, f map[string]PacketMirroringCollectorIlb) (map[string]interface{}, error) {
+func expandPacketMirroringCollectorIlbMap(c *Client, f map[string]PacketMirroringCollectorIlb, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPacketMirroringCollectorIlb(c, &item)
+		i, err := expandPacketMirroringCollectorIlb(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1960,14 +1964,14 @@ func expandPacketMirroringCollectorIlbMap(c *Client, f map[string]PacketMirrorin
 
 // expandPacketMirroringCollectorIlbSlice expands the contents of PacketMirroringCollectorIlb into a JSON
 // request object.
-func expandPacketMirroringCollectorIlbSlice(c *Client, f []PacketMirroringCollectorIlb) ([]map[string]interface{}, error) {
+func expandPacketMirroringCollectorIlbSlice(c *Client, f []PacketMirroringCollectorIlb, res *PacketMirroring) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPacketMirroringCollectorIlb(c, &item)
+		i, err := expandPacketMirroringCollectorIlb(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2020,7 +2024,7 @@ func flattenPacketMirroringCollectorIlbSlice(c *Client, i interface{}) []PacketM
 
 // expandPacketMirroringCollectorIlb expands an instance of PacketMirroringCollectorIlb into a JSON
 // request object.
-func expandPacketMirroringCollectorIlb(c *Client, f *PacketMirroringCollectorIlb) (map[string]interface{}, error) {
+func expandPacketMirroringCollectorIlb(c *Client, f *PacketMirroringCollectorIlb, res *PacketMirroring) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2054,14 +2058,14 @@ func flattenPacketMirroringCollectorIlb(c *Client, i interface{}) *PacketMirrori
 
 // expandPacketMirroringMirroredResourcesMap expands the contents of PacketMirroringMirroredResources into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesMap(c *Client, f map[string]PacketMirroringMirroredResources) (map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesMap(c *Client, f map[string]PacketMirroringMirroredResources, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPacketMirroringMirroredResources(c, &item)
+		i, err := expandPacketMirroringMirroredResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2075,14 +2079,14 @@ func expandPacketMirroringMirroredResourcesMap(c *Client, f map[string]PacketMir
 
 // expandPacketMirroringMirroredResourcesSlice expands the contents of PacketMirroringMirroredResources into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesSlice(c *Client, f []PacketMirroringMirroredResources) ([]map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesSlice(c *Client, f []PacketMirroringMirroredResources, res *PacketMirroring) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPacketMirroringMirroredResources(c, &item)
+		i, err := expandPacketMirroringMirroredResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2135,18 +2139,18 @@ func flattenPacketMirroringMirroredResourcesSlice(c *Client, i interface{}) []Pa
 
 // expandPacketMirroringMirroredResources expands an instance of PacketMirroringMirroredResources into a JSON
 // request object.
-func expandPacketMirroringMirroredResources(c *Client, f *PacketMirroringMirroredResources) (map[string]interface{}, error) {
+func expandPacketMirroringMirroredResources(c *Client, f *PacketMirroringMirroredResources, res *PacketMirroring) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandPacketMirroringMirroredResourcesSubnetworksSlice(c, f.Subnetworks); err != nil {
+	if v, err := expandPacketMirroringMirroredResourcesSubnetworksSlice(c, f.Subnetworks, res); err != nil {
 		return nil, fmt.Errorf("error expanding Subnetworks into subnetworks: %w", err)
 	} else if v != nil {
 		m["subnetworks"] = v
 	}
-	if v, err := expandPacketMirroringMirroredResourcesInstancesSlice(c, f.Instances); err != nil {
+	if v, err := expandPacketMirroringMirroredResourcesInstancesSlice(c, f.Instances, res); err != nil {
 		return nil, fmt.Errorf("error expanding Instances into instances: %w", err)
 	} else if v != nil {
 		m["instances"] = v
@@ -2180,14 +2184,14 @@ func flattenPacketMirroringMirroredResources(c *Client, i interface{}) *PacketMi
 
 // expandPacketMirroringMirroredResourcesSubnetworksMap expands the contents of PacketMirroringMirroredResourcesSubnetworks into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesSubnetworksMap(c *Client, f map[string]PacketMirroringMirroredResourcesSubnetworks) (map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesSubnetworksMap(c *Client, f map[string]PacketMirroringMirroredResourcesSubnetworks, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPacketMirroringMirroredResourcesSubnetworks(c, &item)
+		i, err := expandPacketMirroringMirroredResourcesSubnetworks(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2201,14 +2205,14 @@ func expandPacketMirroringMirroredResourcesSubnetworksMap(c *Client, f map[strin
 
 // expandPacketMirroringMirroredResourcesSubnetworksSlice expands the contents of PacketMirroringMirroredResourcesSubnetworks into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, f []PacketMirroringMirroredResourcesSubnetworks) ([]map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, f []PacketMirroringMirroredResourcesSubnetworks, res *PacketMirroring) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPacketMirroringMirroredResourcesSubnetworks(c, &item)
+		i, err := expandPacketMirroringMirroredResourcesSubnetworks(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2261,7 +2265,7 @@ func flattenPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, i interf
 
 // expandPacketMirroringMirroredResourcesSubnetworks expands an instance of PacketMirroringMirroredResourcesSubnetworks into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesSubnetworks(c *Client, f *PacketMirroringMirroredResourcesSubnetworks) (map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesSubnetworks(c *Client, f *PacketMirroringMirroredResourcesSubnetworks, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2295,14 +2299,14 @@ func flattenPacketMirroringMirroredResourcesSubnetworks(c *Client, i interface{}
 
 // expandPacketMirroringMirroredResourcesInstancesMap expands the contents of PacketMirroringMirroredResourcesInstances into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesInstancesMap(c *Client, f map[string]PacketMirroringMirroredResourcesInstances) (map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesInstancesMap(c *Client, f map[string]PacketMirroringMirroredResourcesInstances, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPacketMirroringMirroredResourcesInstances(c, &item)
+		i, err := expandPacketMirroringMirroredResourcesInstances(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2316,14 +2320,14 @@ func expandPacketMirroringMirroredResourcesInstancesMap(c *Client, f map[string]
 
 // expandPacketMirroringMirroredResourcesInstancesSlice expands the contents of PacketMirroringMirroredResourcesInstances into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesInstancesSlice(c *Client, f []PacketMirroringMirroredResourcesInstances) ([]map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesInstancesSlice(c *Client, f []PacketMirroringMirroredResourcesInstances, res *PacketMirroring) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPacketMirroringMirroredResourcesInstances(c, &item)
+		i, err := expandPacketMirroringMirroredResourcesInstances(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2376,7 +2380,7 @@ func flattenPacketMirroringMirroredResourcesInstancesSlice(c *Client, i interfac
 
 // expandPacketMirroringMirroredResourcesInstances expands an instance of PacketMirroringMirroredResourcesInstances into a JSON
 // request object.
-func expandPacketMirroringMirroredResourcesInstances(c *Client, f *PacketMirroringMirroredResourcesInstances) (map[string]interface{}, error) {
+func expandPacketMirroringMirroredResourcesInstances(c *Client, f *PacketMirroringMirroredResourcesInstances, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2410,14 +2414,14 @@ func flattenPacketMirroringMirroredResourcesInstances(c *Client, i interface{}) 
 
 // expandPacketMirroringFilterMap expands the contents of PacketMirroringFilter into a JSON
 // request object.
-func expandPacketMirroringFilterMap(c *Client, f map[string]PacketMirroringFilter) (map[string]interface{}, error) {
+func expandPacketMirroringFilterMap(c *Client, f map[string]PacketMirroringFilter, res *PacketMirroring) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPacketMirroringFilter(c, &item)
+		i, err := expandPacketMirroringFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2431,14 +2435,14 @@ func expandPacketMirroringFilterMap(c *Client, f map[string]PacketMirroringFilte
 
 // expandPacketMirroringFilterSlice expands the contents of PacketMirroringFilter into a JSON
 // request object.
-func expandPacketMirroringFilterSlice(c *Client, f []PacketMirroringFilter) ([]map[string]interface{}, error) {
+func expandPacketMirroringFilterSlice(c *Client, f []PacketMirroringFilter, res *PacketMirroring) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPacketMirroringFilter(c, &item)
+		i, err := expandPacketMirroringFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2491,7 +2495,7 @@ func flattenPacketMirroringFilterSlice(c *Client, i interface{}) []PacketMirrori
 
 // expandPacketMirroringFilter expands an instance of PacketMirroringFilter into a JSON
 // request object.
-func expandPacketMirroringFilter(c *Client, f *PacketMirroringFilter) (map[string]interface{}, error) {
+func expandPacketMirroringFilter(c *Client, f *PacketMirroringFilter, res *PacketMirroring) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

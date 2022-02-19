@@ -310,6 +310,8 @@ type guestPolicyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateGuestPolicyUpdateGuestPolicyRequest(ctx context.Context, f *GuestPolicy, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -317,22 +319,22 @@ func newUpdateGuestPolicyUpdateGuestPolicyRequest(ctx context.Context, f *GuestP
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandGuestPolicyAssignment(c, f.Assignment); err != nil {
+	if v, err := expandGuestPolicyAssignment(c, f.Assignment, res); err != nil {
 		return nil, fmt.Errorf("error expanding Assignment into assignment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["assignment"] = v
 	}
-	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages); err != nil {
+	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages, res); err != nil {
 		return nil, fmt.Errorf("error expanding Packages into packages: %w", err)
 	} else if v != nil {
 		req["packages"] = v
 	}
-	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories); err != nil {
+	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories, res); err != nil {
 		return nil, fmt.Errorf("error expanding PackageRepositories into packageRepositories: %w", err)
 	} else if v != nil {
 		req["packageRepositories"] = v
 	}
-	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes); err != nil {
+	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes, res); err != nil {
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
 	} else if v != nil {
 		req["recipes"] = v
@@ -5982,28 +5984,30 @@ func unmarshalMapGuestPolicy(m map[string]interface{}, c *Client) (*GuestPolicy,
 // expandGuestPolicy expands GuestPolicy into a JSON request object.
 func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandGuestPolicyAssignment(c, f.Assignment); err != nil {
+	if v, err := expandGuestPolicyAssignment(c, f.Assignment, res); err != nil {
 		return nil, fmt.Errorf("error expanding Assignment into assignment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["assignment"] = v
 	}
-	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages); err != nil {
+	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages, res); err != nil {
 		return nil, fmt.Errorf("error expanding Packages into packages: %w", err)
 	} else if v != nil {
 		m["packages"] = v
 	}
-	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories); err != nil {
+	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories, res); err != nil {
 		return nil, fmt.Errorf("error expanding PackageRepositories into packageRepositories: %w", err)
 	} else if v != nil {
 		m["packageRepositories"] = v
 	}
-	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes); err != nil {
+	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes, res); err != nil {
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
 	} else if v != nil {
 		m["recipes"] = v
@@ -6045,14 +6049,14 @@ func flattenGuestPolicy(c *Client, i interface{}) *GuestPolicy {
 
 // expandGuestPolicyAssignmentMap expands the contents of GuestPolicyAssignment into a JSON
 // request object.
-func expandGuestPolicyAssignmentMap(c *Client, f map[string]GuestPolicyAssignment) (map[string]interface{}, error) {
+func expandGuestPolicyAssignmentMap(c *Client, f map[string]GuestPolicyAssignment, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyAssignment(c, &item)
+		i, err := expandGuestPolicyAssignment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6066,14 +6070,14 @@ func expandGuestPolicyAssignmentMap(c *Client, f map[string]GuestPolicyAssignmen
 
 // expandGuestPolicyAssignmentSlice expands the contents of GuestPolicyAssignment into a JSON
 // request object.
-func expandGuestPolicyAssignmentSlice(c *Client, f []GuestPolicyAssignment) ([]map[string]interface{}, error) {
+func expandGuestPolicyAssignmentSlice(c *Client, f []GuestPolicyAssignment, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyAssignment(c, &item)
+		i, err := expandGuestPolicyAssignment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6126,13 +6130,13 @@ func flattenGuestPolicyAssignmentSlice(c *Client, i interface{}) []GuestPolicyAs
 
 // expandGuestPolicyAssignment expands an instance of GuestPolicyAssignment into a JSON
 // request object.
-func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[string]interface{}, error) {
+func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGuestPolicyAssignmentGroupLabelsSlice(c, f.GroupLabels); err != nil {
+	if v, err := expandGuestPolicyAssignmentGroupLabelsSlice(c, f.GroupLabels, res); err != nil {
 		return nil, fmt.Errorf("error expanding GroupLabels into groupLabels: %w", err)
 	} else if v != nil {
 		m["groupLabels"] = v
@@ -6140,7 +6144,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	if v := f.Zones; v != nil {
 		m["zones"] = v
 	}
-	if v, err := expandGuestPolicyInstances(f, f.Instances); err != nil {
+	if v, err := expandGuestPolicyInstances(c, f.Instances, res); err != nil {
 		return nil, fmt.Errorf("error expanding Instances into instances: %w", err)
 	} else if v != nil {
 		m["instances"] = v
@@ -6148,7 +6152,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	if v := f.InstanceNamePrefixes; v != nil {
 		m["instanceNamePrefixes"] = v
 	}
-	if v, err := expandGuestPolicyAssignmentOSTypesSlice(c, f.OSTypes); err != nil {
+	if v, err := expandGuestPolicyAssignmentOSTypesSlice(c, f.OSTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding OSTypes into osTypes: %w", err)
 	} else if v != nil {
 		m["osTypes"] = v
@@ -6181,14 +6185,14 @@ func flattenGuestPolicyAssignment(c *Client, i interface{}) *GuestPolicyAssignme
 
 // expandGuestPolicyAssignmentGroupLabelsMap expands the contents of GuestPolicyAssignmentGroupLabels into a JSON
 // request object.
-func expandGuestPolicyAssignmentGroupLabelsMap(c *Client, f map[string]GuestPolicyAssignmentGroupLabels) (map[string]interface{}, error) {
+func expandGuestPolicyAssignmentGroupLabelsMap(c *Client, f map[string]GuestPolicyAssignmentGroupLabels, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyAssignmentGroupLabels(c, &item)
+		i, err := expandGuestPolicyAssignmentGroupLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6202,14 +6206,14 @@ func expandGuestPolicyAssignmentGroupLabelsMap(c *Client, f map[string]GuestPoli
 
 // expandGuestPolicyAssignmentGroupLabelsSlice expands the contents of GuestPolicyAssignmentGroupLabels into a JSON
 // request object.
-func expandGuestPolicyAssignmentGroupLabelsSlice(c *Client, f []GuestPolicyAssignmentGroupLabels) ([]map[string]interface{}, error) {
+func expandGuestPolicyAssignmentGroupLabelsSlice(c *Client, f []GuestPolicyAssignmentGroupLabels, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyAssignmentGroupLabels(c, &item)
+		i, err := expandGuestPolicyAssignmentGroupLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6262,7 +6266,7 @@ func flattenGuestPolicyAssignmentGroupLabelsSlice(c *Client, i interface{}) []Gu
 
 // expandGuestPolicyAssignmentGroupLabels expands an instance of GuestPolicyAssignmentGroupLabels into a JSON
 // request object.
-func expandGuestPolicyAssignmentGroupLabels(c *Client, f *GuestPolicyAssignmentGroupLabels) (map[string]interface{}, error) {
+func expandGuestPolicyAssignmentGroupLabels(c *Client, f *GuestPolicyAssignmentGroupLabels, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6295,14 +6299,14 @@ func flattenGuestPolicyAssignmentGroupLabels(c *Client, i interface{}) *GuestPol
 
 // expandGuestPolicyAssignmentOSTypesMap expands the contents of GuestPolicyAssignmentOSTypes into a JSON
 // request object.
-func expandGuestPolicyAssignmentOSTypesMap(c *Client, f map[string]GuestPolicyAssignmentOSTypes) (map[string]interface{}, error) {
+func expandGuestPolicyAssignmentOSTypesMap(c *Client, f map[string]GuestPolicyAssignmentOSTypes, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyAssignmentOSTypes(c, &item)
+		i, err := expandGuestPolicyAssignmentOSTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6316,14 +6320,14 @@ func expandGuestPolicyAssignmentOSTypesMap(c *Client, f map[string]GuestPolicyAs
 
 // expandGuestPolicyAssignmentOSTypesSlice expands the contents of GuestPolicyAssignmentOSTypes into a JSON
 // request object.
-func expandGuestPolicyAssignmentOSTypesSlice(c *Client, f []GuestPolicyAssignmentOSTypes) ([]map[string]interface{}, error) {
+func expandGuestPolicyAssignmentOSTypesSlice(c *Client, f []GuestPolicyAssignmentOSTypes, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyAssignmentOSTypes(c, &item)
+		i, err := expandGuestPolicyAssignmentOSTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6376,7 +6380,7 @@ func flattenGuestPolicyAssignmentOSTypesSlice(c *Client, i interface{}) []GuestP
 
 // expandGuestPolicyAssignmentOSTypes expands an instance of GuestPolicyAssignmentOSTypes into a JSON
 // request object.
-func expandGuestPolicyAssignmentOSTypes(c *Client, f *GuestPolicyAssignmentOSTypes) (map[string]interface{}, error) {
+func expandGuestPolicyAssignmentOSTypes(c *Client, f *GuestPolicyAssignmentOSTypes, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6417,14 +6421,14 @@ func flattenGuestPolicyAssignmentOSTypes(c *Client, i interface{}) *GuestPolicyA
 
 // expandGuestPolicyPackagesMap expands the contents of GuestPolicyPackages into a JSON
 // request object.
-func expandGuestPolicyPackagesMap(c *Client, f map[string]GuestPolicyPackages) (map[string]interface{}, error) {
+func expandGuestPolicyPackagesMap(c *Client, f map[string]GuestPolicyPackages, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyPackages(c, &item)
+		i, err := expandGuestPolicyPackages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6438,14 +6442,14 @@ func expandGuestPolicyPackagesMap(c *Client, f map[string]GuestPolicyPackages) (
 
 // expandGuestPolicyPackagesSlice expands the contents of GuestPolicyPackages into a JSON
 // request object.
-func expandGuestPolicyPackagesSlice(c *Client, f []GuestPolicyPackages) ([]map[string]interface{}, error) {
+func expandGuestPolicyPackagesSlice(c *Client, f []GuestPolicyPackages, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyPackages(c, &item)
+		i, err := expandGuestPolicyPackages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6498,7 +6502,7 @@ func flattenGuestPolicyPackagesSlice(c *Client, i interface{}) []GuestPolicyPack
 
 // expandGuestPolicyPackages expands an instance of GuestPolicyPackages into a JSON
 // request object.
-func expandGuestPolicyPackages(c *Client, f *GuestPolicyPackages) (map[string]interface{}, error) {
+func expandGuestPolicyPackages(c *Client, f *GuestPolicyPackages, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6539,14 +6543,14 @@ func flattenGuestPolicyPackages(c *Client, i interface{}) *GuestPolicyPackages {
 
 // expandGuestPolicyPackageRepositoriesMap expands the contents of GuestPolicyPackageRepositories into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesMap(c *Client, f map[string]GuestPolicyPackageRepositories) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesMap(c *Client, f map[string]GuestPolicyPackageRepositories, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyPackageRepositories(c, &item)
+		i, err := expandGuestPolicyPackageRepositories(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6560,14 +6564,14 @@ func expandGuestPolicyPackageRepositoriesMap(c *Client, f map[string]GuestPolicy
 
 // expandGuestPolicyPackageRepositoriesSlice expands the contents of GuestPolicyPackageRepositories into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesSlice(c *Client, f []GuestPolicyPackageRepositories) ([]map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesSlice(c *Client, f []GuestPolicyPackageRepositories, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyPackageRepositories(c, &item)
+		i, err := expandGuestPolicyPackageRepositories(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6620,28 +6624,28 @@ func flattenGuestPolicyPackageRepositoriesSlice(c *Client, i interface{}) []Gues
 
 // expandGuestPolicyPackageRepositories expands an instance of GuestPolicyPackageRepositories into a JSON
 // request object.
-func expandGuestPolicyPackageRepositories(c *Client, f *GuestPolicyPackageRepositories) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositories(c *Client, f *GuestPolicyPackageRepositories, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGuestPolicyPackageRepositoriesApt(c, f.Apt); err != nil {
+	if v, err := expandGuestPolicyPackageRepositoriesApt(c, f.Apt, res); err != nil {
 		return nil, fmt.Errorf("error expanding Apt into apt: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apt"] = v
 	}
-	if v, err := expandGuestPolicyPackageRepositoriesYum(c, f.Yum); err != nil {
+	if v, err := expandGuestPolicyPackageRepositoriesYum(c, f.Yum, res); err != nil {
 		return nil, fmt.Errorf("error expanding Yum into yum: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["yum"] = v
 	}
-	if v, err := expandGuestPolicyPackageRepositoriesZypper(c, f.Zypper); err != nil {
+	if v, err := expandGuestPolicyPackageRepositoriesZypper(c, f.Zypper, res); err != nil {
 		return nil, fmt.Errorf("error expanding Zypper into zypper: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["zypper"] = v
 	}
-	if v, err := expandGuestPolicyPackageRepositoriesGoo(c, f.Goo); err != nil {
+	if v, err := expandGuestPolicyPackageRepositoriesGoo(c, f.Goo, res); err != nil {
 		return nil, fmt.Errorf("error expanding Goo into goo: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["goo"] = v
@@ -6673,14 +6677,14 @@ func flattenGuestPolicyPackageRepositories(c *Client, i interface{}) *GuestPolic
 
 // expandGuestPolicyPackageRepositoriesAptMap expands the contents of GuestPolicyPackageRepositoriesApt into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesAptMap(c *Client, f map[string]GuestPolicyPackageRepositoriesApt) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesAptMap(c *Client, f map[string]GuestPolicyPackageRepositoriesApt, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesApt(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6694,14 +6698,14 @@ func expandGuestPolicyPackageRepositoriesAptMap(c *Client, f map[string]GuestPol
 
 // expandGuestPolicyPackageRepositoriesAptSlice expands the contents of GuestPolicyPackageRepositoriesApt into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesAptSlice(c *Client, f []GuestPolicyPackageRepositoriesApt) ([]map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesAptSlice(c *Client, f []GuestPolicyPackageRepositoriesApt, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesApt(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6754,7 +6758,7 @@ func flattenGuestPolicyPackageRepositoriesAptSlice(c *Client, i interface{}) []G
 
 // expandGuestPolicyPackageRepositoriesApt expands an instance of GuestPolicyPackageRepositoriesApt into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesApt(c *Client, f *GuestPolicyPackageRepositoriesApt) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesApt(c *Client, f *GuestPolicyPackageRepositoriesApt, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6803,14 +6807,14 @@ func flattenGuestPolicyPackageRepositoriesApt(c *Client, i interface{}) *GuestPo
 
 // expandGuestPolicyPackageRepositoriesYumMap expands the contents of GuestPolicyPackageRepositoriesYum into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesYumMap(c *Client, f map[string]GuestPolicyPackageRepositoriesYum) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesYumMap(c *Client, f map[string]GuestPolicyPackageRepositoriesYum, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesYum(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6824,14 +6828,14 @@ func expandGuestPolicyPackageRepositoriesYumMap(c *Client, f map[string]GuestPol
 
 // expandGuestPolicyPackageRepositoriesYumSlice expands the contents of GuestPolicyPackageRepositoriesYum into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesYumSlice(c *Client, f []GuestPolicyPackageRepositoriesYum) ([]map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesYumSlice(c *Client, f []GuestPolicyPackageRepositoriesYum, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesYum(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6884,7 +6888,7 @@ func flattenGuestPolicyPackageRepositoriesYumSlice(c *Client, i interface{}) []G
 
 // expandGuestPolicyPackageRepositoriesYum expands an instance of GuestPolicyPackageRepositoriesYum into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesYum(c *Client, f *GuestPolicyPackageRepositoriesYum) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesYum(c *Client, f *GuestPolicyPackageRepositoriesYum, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6929,14 +6933,14 @@ func flattenGuestPolicyPackageRepositoriesYum(c *Client, i interface{}) *GuestPo
 
 // expandGuestPolicyPackageRepositoriesZypperMap expands the contents of GuestPolicyPackageRepositoriesZypper into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesZypperMap(c *Client, f map[string]GuestPolicyPackageRepositoriesZypper) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesZypperMap(c *Client, f map[string]GuestPolicyPackageRepositoriesZypper, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesZypper(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6950,14 +6954,14 @@ func expandGuestPolicyPackageRepositoriesZypperMap(c *Client, f map[string]Guest
 
 // expandGuestPolicyPackageRepositoriesZypperSlice expands the contents of GuestPolicyPackageRepositoriesZypper into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesZypperSlice(c *Client, f []GuestPolicyPackageRepositoriesZypper) ([]map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesZypperSlice(c *Client, f []GuestPolicyPackageRepositoriesZypper, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesZypper(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7010,7 +7014,7 @@ func flattenGuestPolicyPackageRepositoriesZypperSlice(c *Client, i interface{}) 
 
 // expandGuestPolicyPackageRepositoriesZypper expands an instance of GuestPolicyPackageRepositoriesZypper into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesZypper(c *Client, f *GuestPolicyPackageRepositoriesZypper) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesZypper(c *Client, f *GuestPolicyPackageRepositoriesZypper, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7055,14 +7059,14 @@ func flattenGuestPolicyPackageRepositoriesZypper(c *Client, i interface{}) *Gues
 
 // expandGuestPolicyPackageRepositoriesGooMap expands the contents of GuestPolicyPackageRepositoriesGoo into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesGooMap(c *Client, f map[string]GuestPolicyPackageRepositoriesGoo) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesGooMap(c *Client, f map[string]GuestPolicyPackageRepositoriesGoo, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesGoo(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesGoo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7076,14 +7080,14 @@ func expandGuestPolicyPackageRepositoriesGooMap(c *Client, f map[string]GuestPol
 
 // expandGuestPolicyPackageRepositoriesGooSlice expands the contents of GuestPolicyPackageRepositoriesGoo into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesGooSlice(c *Client, f []GuestPolicyPackageRepositoriesGoo) ([]map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesGooSlice(c *Client, f []GuestPolicyPackageRepositoriesGoo, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyPackageRepositoriesGoo(c, &item)
+		i, err := expandGuestPolicyPackageRepositoriesGoo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7136,7 +7140,7 @@ func flattenGuestPolicyPackageRepositoriesGooSlice(c *Client, i interface{}) []G
 
 // expandGuestPolicyPackageRepositoriesGoo expands an instance of GuestPolicyPackageRepositoriesGoo into a JSON
 // request object.
-func expandGuestPolicyPackageRepositoriesGoo(c *Client, f *GuestPolicyPackageRepositoriesGoo) (map[string]interface{}, error) {
+func expandGuestPolicyPackageRepositoriesGoo(c *Client, f *GuestPolicyPackageRepositoriesGoo, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7173,14 +7177,14 @@ func flattenGuestPolicyPackageRepositoriesGoo(c *Client, i interface{}) *GuestPo
 
 // expandGuestPolicyRecipesMap expands the contents of GuestPolicyRecipes into a JSON
 // request object.
-func expandGuestPolicyRecipesMap(c *Client, f map[string]GuestPolicyRecipes) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesMap(c *Client, f map[string]GuestPolicyRecipes, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipes(c, &item)
+		i, err := expandGuestPolicyRecipes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7194,14 +7198,14 @@ func expandGuestPolicyRecipesMap(c *Client, f map[string]GuestPolicyRecipes) (ma
 
 // expandGuestPolicyRecipesSlice expands the contents of GuestPolicyRecipes into a JSON
 // request object.
-func expandGuestPolicyRecipesSlice(c *Client, f []GuestPolicyRecipes) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesSlice(c *Client, f []GuestPolicyRecipes, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipes(c, &item)
+		i, err := expandGuestPolicyRecipes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7254,7 +7258,7 @@ func flattenGuestPolicyRecipesSlice(c *Client, i interface{}) []GuestPolicyRecip
 
 // expandGuestPolicyRecipes expands an instance of GuestPolicyRecipes into a JSON
 // request object.
-func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes) (map[string]interface{}, error) {
+func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -7266,17 +7270,17 @@ func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes) (map[string]inte
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		m["version"] = v
 	}
-	if v, err := expandGuestPolicyRecipesArtifactsSlice(c, f.Artifacts); err != nil {
+	if v, err := expandGuestPolicyRecipesArtifactsSlice(c, f.Artifacts, res); err != nil {
 		return nil, fmt.Errorf("error expanding Artifacts into artifacts: %w", err)
 	} else if v != nil {
 		m["artifacts"] = v
 	}
-	if v, err := expandGuestPolicyRecipesInstallStepsSlice(c, f.InstallSteps); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsSlice(c, f.InstallSteps, res); err != nil {
 		return nil, fmt.Errorf("error expanding InstallSteps into installSteps: %w", err)
 	} else if v != nil {
 		m["installSteps"] = v
 	}
-	if v, err := expandGuestPolicyRecipesUpdateStepsSlice(c, f.UpdateSteps); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsSlice(c, f.UpdateSteps, res); err != nil {
 		return nil, fmt.Errorf("error expanding UpdateSteps into updateSteps: %w", err)
 	} else if v != nil {
 		m["updateSteps"] = v
@@ -7313,14 +7317,14 @@ func flattenGuestPolicyRecipes(c *Client, i interface{}) *GuestPolicyRecipes {
 
 // expandGuestPolicyRecipesArtifactsMap expands the contents of GuestPolicyRecipesArtifacts into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsMap(c *Client, f map[string]GuestPolicyRecipesArtifacts) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsMap(c *Client, f map[string]GuestPolicyRecipesArtifacts, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesArtifacts(c, &item)
+		i, err := expandGuestPolicyRecipesArtifacts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7334,14 +7338,14 @@ func expandGuestPolicyRecipesArtifactsMap(c *Client, f map[string]GuestPolicyRec
 
 // expandGuestPolicyRecipesArtifactsSlice expands the contents of GuestPolicyRecipesArtifacts into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsSlice(c *Client, f []GuestPolicyRecipesArtifacts) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsSlice(c *Client, f []GuestPolicyRecipesArtifacts, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesArtifacts(c, &item)
+		i, err := expandGuestPolicyRecipesArtifacts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7394,7 +7398,7 @@ func flattenGuestPolicyRecipesArtifactsSlice(c *Client, i interface{}) []GuestPo
 
 // expandGuestPolicyRecipesArtifacts expands an instance of GuestPolicyRecipesArtifacts into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifacts(c *Client, f *GuestPolicyRecipesArtifacts) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifacts(c *Client, f *GuestPolicyRecipesArtifacts, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -7403,12 +7407,12 @@ func expandGuestPolicyRecipesArtifacts(c *Client, f *GuestPolicyRecipesArtifacts
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
-	if v, err := expandGuestPolicyRecipesArtifactsRemote(c, f.Remote); err != nil {
+	if v, err := expandGuestPolicyRecipesArtifactsRemote(c, f.Remote, res); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandGuestPolicyRecipesArtifactsGcs(c, f.Gcs); err != nil {
+	if v, err := expandGuestPolicyRecipesArtifactsGcs(c, f.Gcs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -7443,14 +7447,14 @@ func flattenGuestPolicyRecipesArtifacts(c *Client, i interface{}) *GuestPolicyRe
 
 // expandGuestPolicyRecipesArtifactsRemoteMap expands the contents of GuestPolicyRecipesArtifactsRemote into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsRemoteMap(c *Client, f map[string]GuestPolicyRecipesArtifactsRemote) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsRemoteMap(c *Client, f map[string]GuestPolicyRecipesArtifactsRemote, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesArtifactsRemote(c, &item)
+		i, err := expandGuestPolicyRecipesArtifactsRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7464,14 +7468,14 @@ func expandGuestPolicyRecipesArtifactsRemoteMap(c *Client, f map[string]GuestPol
 
 // expandGuestPolicyRecipesArtifactsRemoteSlice expands the contents of GuestPolicyRecipesArtifactsRemote into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsRemoteSlice(c *Client, f []GuestPolicyRecipesArtifactsRemote) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsRemoteSlice(c *Client, f []GuestPolicyRecipesArtifactsRemote, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesArtifactsRemote(c, &item)
+		i, err := expandGuestPolicyRecipesArtifactsRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7524,7 +7528,7 @@ func flattenGuestPolicyRecipesArtifactsRemoteSlice(c *Client, i interface{}) []G
 
 // expandGuestPolicyRecipesArtifactsRemote expands an instance of GuestPolicyRecipesArtifactsRemote into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsRemote(c *Client, f *GuestPolicyRecipesArtifactsRemote) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsRemote(c *Client, f *GuestPolicyRecipesArtifactsRemote, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7561,14 +7565,14 @@ func flattenGuestPolicyRecipesArtifactsRemote(c *Client, i interface{}) *GuestPo
 
 // expandGuestPolicyRecipesArtifactsGcsMap expands the contents of GuestPolicyRecipesArtifactsGcs into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsGcsMap(c *Client, f map[string]GuestPolicyRecipesArtifactsGcs) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsGcsMap(c *Client, f map[string]GuestPolicyRecipesArtifactsGcs, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesArtifactsGcs(c, &item)
+		i, err := expandGuestPolicyRecipesArtifactsGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7582,14 +7586,14 @@ func expandGuestPolicyRecipesArtifactsGcsMap(c *Client, f map[string]GuestPolicy
 
 // expandGuestPolicyRecipesArtifactsGcsSlice expands the contents of GuestPolicyRecipesArtifactsGcs into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsGcsSlice(c *Client, f []GuestPolicyRecipesArtifactsGcs) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsGcsSlice(c *Client, f []GuestPolicyRecipesArtifactsGcs, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesArtifactsGcs(c, &item)
+		i, err := expandGuestPolicyRecipesArtifactsGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7642,7 +7646,7 @@ func flattenGuestPolicyRecipesArtifactsGcsSlice(c *Client, i interface{}) []Gues
 
 // expandGuestPolicyRecipesArtifactsGcs expands an instance of GuestPolicyRecipesArtifactsGcs into a JSON
 // request object.
-func expandGuestPolicyRecipesArtifactsGcs(c *Client, f *GuestPolicyRecipesArtifactsGcs) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesArtifactsGcs(c *Client, f *GuestPolicyRecipesArtifactsGcs, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7683,14 +7687,14 @@ func flattenGuestPolicyRecipesArtifactsGcs(c *Client, i interface{}) *GuestPolic
 
 // expandGuestPolicyRecipesInstallStepsMap expands the contents of GuestPolicyRecipesInstallSteps into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsMap(c *Client, f map[string]GuestPolicyRecipesInstallSteps) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsMap(c *Client, f map[string]GuestPolicyRecipesInstallSteps, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallSteps(c, &item)
+		i, err := expandGuestPolicyRecipesInstallSteps(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7704,14 +7708,14 @@ func expandGuestPolicyRecipesInstallStepsMap(c *Client, f map[string]GuestPolicy
 
 // expandGuestPolicyRecipesInstallStepsSlice expands the contents of GuestPolicyRecipesInstallSteps into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsSlice(c *Client, f []GuestPolicyRecipesInstallSteps) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsSlice(c *Client, f []GuestPolicyRecipesInstallSteps, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallSteps(c, &item)
+		i, err := expandGuestPolicyRecipesInstallSteps(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7764,43 +7768,43 @@ func flattenGuestPolicyRecipesInstallStepsSlice(c *Client, i interface{}) []Gues
 
 // expandGuestPolicyRecipesInstallSteps expands an instance of GuestPolicyRecipesInstallSteps into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallSteps(c *Client, f *GuestPolicyRecipesInstallSteps) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallSteps(c *Client, f *GuestPolicyRecipesInstallSteps, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, f.FileCopy); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, f.FileCopy, res); err != nil {
 		return nil, fmt.Errorf("error expanding FileCopy into fileCopy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fileCopy"] = v
 	}
-	if v, err := expandGuestPolicyRecipesInstallStepsArchiveExtraction(c, f.ArchiveExtraction); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsArchiveExtraction(c, f.ArchiveExtraction, res); err != nil {
 		return nil, fmt.Errorf("error expanding ArchiveExtraction into archiveExtraction: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["archiveExtraction"] = v
 	}
-	if v, err := expandGuestPolicyRecipesInstallStepsMsiInstallation(c, f.MsiInstallation); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsMsiInstallation(c, f.MsiInstallation, res); err != nil {
 		return nil, fmt.Errorf("error expanding MsiInstallation into msiInstallation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["msiInstallation"] = v
 	}
-	if v, err := expandGuestPolicyRecipesInstallStepsDpkgInstallation(c, f.DpkgInstallation); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsDpkgInstallation(c, f.DpkgInstallation, res); err != nil {
 		return nil, fmt.Errorf("error expanding DpkgInstallation into dpkgInstallation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dpkgInstallation"] = v
 	}
-	if v, err := expandGuestPolicyRecipesInstallStepsRpmInstallation(c, f.RpmInstallation); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsRpmInstallation(c, f.RpmInstallation, res); err != nil {
 		return nil, fmt.Errorf("error expanding RpmInstallation into rpmInstallation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rpmInstallation"] = v
 	}
-	if v, err := expandGuestPolicyRecipesInstallStepsFileExec(c, f.FileExec); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsFileExec(c, f.FileExec, res); err != nil {
 		return nil, fmt.Errorf("error expanding FileExec into fileExec: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fileExec"] = v
 	}
-	if v, err := expandGuestPolicyRecipesInstallStepsScriptRun(c, f.ScriptRun); err != nil {
+	if v, err := expandGuestPolicyRecipesInstallStepsScriptRun(c, f.ScriptRun, res); err != nil {
 		return nil, fmt.Errorf("error expanding ScriptRun into scriptRun: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["scriptRun"] = v
@@ -7835,14 +7839,14 @@ func flattenGuestPolicyRecipesInstallSteps(c *Client, i interface{}) *GuestPolic
 
 // expandGuestPolicyRecipesInstallStepsFileCopyMap expands the contents of GuestPolicyRecipesInstallStepsFileCopy into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsFileCopy) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsFileCopy, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7856,14 +7860,14 @@ func expandGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, f map[string]Gue
 
 // expandGuestPolicyRecipesInstallStepsFileCopySlice expands the contents of GuestPolicyRecipesInstallStepsFileCopy into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, f []GuestPolicyRecipesInstallStepsFileCopy) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, f []GuestPolicyRecipesInstallStepsFileCopy, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7916,7 +7920,7 @@ func flattenGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, i interface{}
 
 // expandGuestPolicyRecipesInstallStepsFileCopy expands an instance of GuestPolicyRecipesInstallStepsFileCopy into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsFileCopy(c *Client, f *GuestPolicyRecipesInstallStepsFileCopy) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsFileCopy(c *Client, f *GuestPolicyRecipesInstallStepsFileCopy, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7961,14 +7965,14 @@ func flattenGuestPolicyRecipesInstallStepsFileCopy(c *Client, i interface{}) *Gu
 
 // expandGuestPolicyRecipesInstallStepsArchiveExtractionMap expands the contents of GuestPolicyRecipesInstallStepsArchiveExtraction into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsArchiveExtraction) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsArchiveExtraction, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsArchiveExtraction(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsArchiveExtraction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7982,14 +7986,14 @@ func expandGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, f map[s
 
 // expandGuestPolicyRecipesInstallStepsArchiveExtractionSlice expands the contents of GuestPolicyRecipesInstallStepsArchiveExtraction into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, f []GuestPolicyRecipesInstallStepsArchiveExtraction) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, f []GuestPolicyRecipesInstallStepsArchiveExtraction, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsArchiveExtraction(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsArchiveExtraction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8042,7 +8046,7 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, i in
 
 // expandGuestPolicyRecipesInstallStepsArchiveExtraction expands an instance of GuestPolicyRecipesInstallStepsArchiveExtraction into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesInstallStepsArchiveExtraction) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesInstallStepsArchiveExtraction, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8083,14 +8087,14 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, i interfa
 
 // expandGuestPolicyRecipesInstallStepsMsiInstallationMap expands the contents of GuestPolicyRecipesInstallStepsMsiInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsMsiInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsMsiInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsMsiInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsMsiInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8104,14 +8108,14 @@ func expandGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, f map[str
 
 // expandGuestPolicyRecipesInstallStepsMsiInstallationSlice expands the contents of GuestPolicyRecipesInstallStepsMsiInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, f []GuestPolicyRecipesInstallStepsMsiInstallation) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, f []GuestPolicyRecipesInstallStepsMsiInstallation, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsMsiInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsMsiInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8164,7 +8168,7 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, i inte
 
 // expandGuestPolicyRecipesInstallStepsMsiInstallation expands an instance of GuestPolicyRecipesInstallStepsMsiInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, f *GuestPolicyRecipesInstallStepsMsiInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, f *GuestPolicyRecipesInstallStepsMsiInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8205,14 +8209,14 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, i interface
 
 // expandGuestPolicyRecipesInstallStepsDpkgInstallationMap expands the contents of GuestPolicyRecipesInstallStepsDpkgInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsDpkgInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsDpkgInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsDpkgInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsDpkgInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8226,14 +8230,14 @@ func expandGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, f map[st
 
 // expandGuestPolicyRecipesInstallStepsDpkgInstallationSlice expands the contents of GuestPolicyRecipesInstallStepsDpkgInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, f []GuestPolicyRecipesInstallStepsDpkgInstallation) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, f []GuestPolicyRecipesInstallStepsDpkgInstallation, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsDpkgInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsDpkgInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8286,7 +8290,7 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, i int
 
 // expandGuestPolicyRecipesInstallStepsDpkgInstallation expands an instance of GuestPolicyRecipesInstallStepsDpkgInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesInstallStepsDpkgInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesInstallStepsDpkgInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8319,14 +8323,14 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, i interfac
 
 // expandGuestPolicyRecipesInstallStepsRpmInstallationMap expands the contents of GuestPolicyRecipesInstallStepsRpmInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsRpmInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsRpmInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsRpmInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsRpmInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8340,14 +8344,14 @@ func expandGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, f map[str
 
 // expandGuestPolicyRecipesInstallStepsRpmInstallationSlice expands the contents of GuestPolicyRecipesInstallStepsRpmInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, f []GuestPolicyRecipesInstallStepsRpmInstallation) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, f []GuestPolicyRecipesInstallStepsRpmInstallation, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsRpmInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsRpmInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8400,7 +8404,7 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, i inte
 
 // expandGuestPolicyRecipesInstallStepsRpmInstallation expands an instance of GuestPolicyRecipesInstallStepsRpmInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, f *GuestPolicyRecipesInstallStepsRpmInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, f *GuestPolicyRecipesInstallStepsRpmInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8433,14 +8437,14 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, i interface
 
 // expandGuestPolicyRecipesInstallStepsFileExecMap expands the contents of GuestPolicyRecipesInstallStepsFileExec into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsFileExecMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsFileExec) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsFileExecMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsFileExec, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsFileExec(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsFileExec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8454,14 +8458,14 @@ func expandGuestPolicyRecipesInstallStepsFileExecMap(c *Client, f map[string]Gue
 
 // expandGuestPolicyRecipesInstallStepsFileExecSlice expands the contents of GuestPolicyRecipesInstallStepsFileExec into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, f []GuestPolicyRecipesInstallStepsFileExec) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, f []GuestPolicyRecipesInstallStepsFileExec, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsFileExec(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsFileExec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8514,7 +8518,7 @@ func flattenGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, i interface{}
 
 // expandGuestPolicyRecipesInstallStepsFileExec expands an instance of GuestPolicyRecipesInstallStepsFileExec into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsFileExec(c *Client, f *GuestPolicyRecipesInstallStepsFileExec) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsFileExec(c *Client, f *GuestPolicyRecipesInstallStepsFileExec, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8559,14 +8563,14 @@ func flattenGuestPolicyRecipesInstallStepsFileExec(c *Client, i interface{}) *Gu
 
 // expandGuestPolicyRecipesInstallStepsScriptRunMap expands the contents of GuestPolicyRecipesInstallStepsScriptRun into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsScriptRun) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, f map[string]GuestPolicyRecipesInstallStepsScriptRun, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsScriptRun(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsScriptRun(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8580,14 +8584,14 @@ func expandGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, f map[string]Gu
 
 // expandGuestPolicyRecipesInstallStepsScriptRunSlice expands the contents of GuestPolicyRecipesInstallStepsScriptRun into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, f []GuestPolicyRecipesInstallStepsScriptRun) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, f []GuestPolicyRecipesInstallStepsScriptRun, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesInstallStepsScriptRun(c, &item)
+		i, err := expandGuestPolicyRecipesInstallStepsScriptRun(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8640,7 +8644,7 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, i interface{
 
 // expandGuestPolicyRecipesInstallStepsScriptRun expands an instance of GuestPolicyRecipesInstallStepsScriptRun into a JSON
 // request object.
-func expandGuestPolicyRecipesInstallStepsScriptRun(c *Client, f *GuestPolicyRecipesInstallStepsScriptRun) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesInstallStepsScriptRun(c *Client, f *GuestPolicyRecipesInstallStepsScriptRun, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8681,14 +8685,14 @@ func flattenGuestPolicyRecipesInstallStepsScriptRun(c *Client, i interface{}) *G
 
 // expandGuestPolicyRecipesUpdateStepsMap expands the contents of GuestPolicyRecipesUpdateSteps into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsMap(c *Client, f map[string]GuestPolicyRecipesUpdateSteps) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsMap(c *Client, f map[string]GuestPolicyRecipesUpdateSteps, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateSteps(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateSteps(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8702,14 +8706,14 @@ func expandGuestPolicyRecipesUpdateStepsMap(c *Client, f map[string]GuestPolicyR
 
 // expandGuestPolicyRecipesUpdateStepsSlice expands the contents of GuestPolicyRecipesUpdateSteps into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsSlice(c *Client, f []GuestPolicyRecipesUpdateSteps) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsSlice(c *Client, f []GuestPolicyRecipesUpdateSteps, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateSteps(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateSteps(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8762,43 +8766,43 @@ func flattenGuestPolicyRecipesUpdateStepsSlice(c *Client, i interface{}) []Guest
 
 // expandGuestPolicyRecipesUpdateSteps expands an instance of GuestPolicyRecipesUpdateSteps into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateSteps(c *Client, f *GuestPolicyRecipesUpdateSteps) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateSteps(c *Client, f *GuestPolicyRecipesUpdateSteps, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, f.FileCopy); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, f.FileCopy, res); err != nil {
 		return nil, fmt.Errorf("error expanding FileCopy into fileCopy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fileCopy"] = v
 	}
-	if v, err := expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c, f.ArchiveExtraction); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c, f.ArchiveExtraction, res); err != nil {
 		return nil, fmt.Errorf("error expanding ArchiveExtraction into archiveExtraction: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["archiveExtraction"] = v
 	}
-	if v, err := expandGuestPolicyRecipesUpdateStepsMsiInstallation(c, f.MsiInstallation); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsMsiInstallation(c, f.MsiInstallation, res); err != nil {
 		return nil, fmt.Errorf("error expanding MsiInstallation into msiInstallation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["msiInstallation"] = v
 	}
-	if v, err := expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c, f.DpkgInstallation); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c, f.DpkgInstallation, res); err != nil {
 		return nil, fmt.Errorf("error expanding DpkgInstallation into dpkgInstallation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dpkgInstallation"] = v
 	}
-	if v, err := expandGuestPolicyRecipesUpdateStepsRpmInstallation(c, f.RpmInstallation); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsRpmInstallation(c, f.RpmInstallation, res); err != nil {
 		return nil, fmt.Errorf("error expanding RpmInstallation into rpmInstallation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rpmInstallation"] = v
 	}
-	if v, err := expandGuestPolicyRecipesUpdateStepsFileExec(c, f.FileExec); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsFileExec(c, f.FileExec, res); err != nil {
 		return nil, fmt.Errorf("error expanding FileExec into fileExec: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fileExec"] = v
 	}
-	if v, err := expandGuestPolicyRecipesUpdateStepsScriptRun(c, f.ScriptRun); err != nil {
+	if v, err := expandGuestPolicyRecipesUpdateStepsScriptRun(c, f.ScriptRun, res); err != nil {
 		return nil, fmt.Errorf("error expanding ScriptRun into scriptRun: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["scriptRun"] = v
@@ -8833,14 +8837,14 @@ func flattenGuestPolicyRecipesUpdateSteps(c *Client, i interface{}) *GuestPolicy
 
 // expandGuestPolicyRecipesUpdateStepsFileCopyMap expands the contents of GuestPolicyRecipesUpdateStepsFileCopy into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsFileCopy) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsFileCopy, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8854,14 +8858,14 @@ func expandGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, f map[string]Gues
 
 // expandGuestPolicyRecipesUpdateStepsFileCopySlice expands the contents of GuestPolicyRecipesUpdateStepsFileCopy into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, f []GuestPolicyRecipesUpdateStepsFileCopy) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, f []GuestPolicyRecipesUpdateStepsFileCopy, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8914,7 +8918,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, i interface{})
 
 // expandGuestPolicyRecipesUpdateStepsFileCopy expands an instance of GuestPolicyRecipesUpdateStepsFileCopy into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsFileCopy(c *Client, f *GuestPolicyRecipesUpdateStepsFileCopy) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsFileCopy(c *Client, f *GuestPolicyRecipesUpdateStepsFileCopy, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8959,14 +8963,14 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopy(c *Client, i interface{}) *Gue
 
 // expandGuestPolicyRecipesUpdateStepsArchiveExtractionMap expands the contents of GuestPolicyRecipesUpdateStepsArchiveExtraction into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsArchiveExtraction) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsArchiveExtraction, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8980,14 +8984,14 @@ func expandGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, f map[st
 
 // expandGuestPolicyRecipesUpdateStepsArchiveExtractionSlice expands the contents of GuestPolicyRecipesUpdateStepsArchiveExtraction into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, f []GuestPolicyRecipesUpdateStepsArchiveExtraction) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, f []GuestPolicyRecipesUpdateStepsArchiveExtraction, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9040,7 +9044,7 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, i int
 
 // expandGuestPolicyRecipesUpdateStepsArchiveExtraction expands an instance of GuestPolicyRecipesUpdateStepsArchiveExtraction into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesUpdateStepsArchiveExtraction) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesUpdateStepsArchiveExtraction, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9081,14 +9085,14 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, i interfac
 
 // expandGuestPolicyRecipesUpdateStepsMsiInstallationMap expands the contents of GuestPolicyRecipesUpdateStepsMsiInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsMsiInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsMsiInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsMsiInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsMsiInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9102,14 +9106,14 @@ func expandGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, f map[stri
 
 // expandGuestPolicyRecipesUpdateStepsMsiInstallationSlice expands the contents of GuestPolicyRecipesUpdateStepsMsiInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, f []GuestPolicyRecipesUpdateStepsMsiInstallation) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, f []GuestPolicyRecipesUpdateStepsMsiInstallation, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsMsiInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsMsiInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9162,7 +9166,7 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, i inter
 
 // expandGuestPolicyRecipesUpdateStepsMsiInstallation expands an instance of GuestPolicyRecipesUpdateStepsMsiInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsMsiInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsMsiInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9203,14 +9207,14 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, i interface{
 
 // expandGuestPolicyRecipesUpdateStepsDpkgInstallationMap expands the contents of GuestPolicyRecipesUpdateStepsDpkgInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsDpkgInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsDpkgInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9224,14 +9228,14 @@ func expandGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, f map[str
 
 // expandGuestPolicyRecipesUpdateStepsDpkgInstallationSlice expands the contents of GuestPolicyRecipesUpdateStepsDpkgInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, f []GuestPolicyRecipesUpdateStepsDpkgInstallation) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, f []GuestPolicyRecipesUpdateStepsDpkgInstallation, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9284,7 +9288,7 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, i inte
 
 // expandGuestPolicyRecipesUpdateStepsDpkgInstallation expands an instance of GuestPolicyRecipesUpdateStepsDpkgInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsDpkgInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsDpkgInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9317,14 +9321,14 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, i interface
 
 // expandGuestPolicyRecipesUpdateStepsRpmInstallationMap expands the contents of GuestPolicyRecipesUpdateStepsRpmInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsRpmInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsRpmInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsRpmInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsRpmInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9338,14 +9342,14 @@ func expandGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, f map[stri
 
 // expandGuestPolicyRecipesUpdateStepsRpmInstallationSlice expands the contents of GuestPolicyRecipesUpdateStepsRpmInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, f []GuestPolicyRecipesUpdateStepsRpmInstallation) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, f []GuestPolicyRecipesUpdateStepsRpmInstallation, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsRpmInstallation(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsRpmInstallation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9398,7 +9402,7 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, i inter
 
 // expandGuestPolicyRecipesUpdateStepsRpmInstallation expands an instance of GuestPolicyRecipesUpdateStepsRpmInstallation into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsRpmInstallation) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsRpmInstallation, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9431,14 +9435,14 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, i interface{
 
 // expandGuestPolicyRecipesUpdateStepsFileExecMap expands the contents of GuestPolicyRecipesUpdateStepsFileExec into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsFileExec) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsFileExec, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsFileExec(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsFileExec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9452,14 +9456,14 @@ func expandGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, f map[string]Gues
 
 // expandGuestPolicyRecipesUpdateStepsFileExecSlice expands the contents of GuestPolicyRecipesUpdateStepsFileExec into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, f []GuestPolicyRecipesUpdateStepsFileExec) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, f []GuestPolicyRecipesUpdateStepsFileExec, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsFileExec(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsFileExec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9512,7 +9516,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, i interface{})
 
 // expandGuestPolicyRecipesUpdateStepsFileExec expands an instance of GuestPolicyRecipesUpdateStepsFileExec into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsFileExec(c *Client, f *GuestPolicyRecipesUpdateStepsFileExec) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsFileExec(c *Client, f *GuestPolicyRecipesUpdateStepsFileExec, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9557,14 +9561,14 @@ func flattenGuestPolicyRecipesUpdateStepsFileExec(c *Client, i interface{}) *Gue
 
 // expandGuestPolicyRecipesUpdateStepsScriptRunMap expands the contents of GuestPolicyRecipesUpdateStepsScriptRun into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsScriptRun) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, f map[string]GuestPolicyRecipesUpdateStepsScriptRun, res *GuestPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsScriptRun(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsScriptRun(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9578,14 +9582,14 @@ func expandGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, f map[string]Gue
 
 // expandGuestPolicyRecipesUpdateStepsScriptRunSlice expands the contents of GuestPolicyRecipesUpdateStepsScriptRun into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, f []GuestPolicyRecipesUpdateStepsScriptRun) ([]map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, f []GuestPolicyRecipesUpdateStepsScriptRun, res *GuestPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyRecipesUpdateStepsScriptRun(c, &item)
+		i, err := expandGuestPolicyRecipesUpdateStepsScriptRun(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9638,7 +9642,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, i interface{}
 
 // expandGuestPolicyRecipesUpdateStepsScriptRun expands an instance of GuestPolicyRecipesUpdateStepsScriptRun into a JSON
 // request object.
-func expandGuestPolicyRecipesUpdateStepsScriptRun(c *Client, f *GuestPolicyRecipesUpdateStepsScriptRun) (map[string]interface{}, error) {
+func expandGuestPolicyRecipesUpdateStepsScriptRun(c *Client, f *GuestPolicyRecipesUpdateStepsScriptRun, res *GuestPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

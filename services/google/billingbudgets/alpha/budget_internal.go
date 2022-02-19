@@ -169,26 +169,28 @@ type budgetApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateBudgetUpdateBudgetRequest(ctx context.Context, f *Budget, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandBudgetBudgetFilter(c, f.BudgetFilter); err != nil {
+	if v, err := expandBudgetBudgetFilter(c, f.BudgetFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding BudgetFilter into budgetFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["budgetFilter"] = v
 	}
-	if v, err := expandBudgetAmount(c, f.Amount); err != nil {
+	if v, err := expandBudgetAmount(c, f.Amount, res); err != nil {
 		return nil, fmt.Errorf("error expanding Amount into amount: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["amount"] = v
 	}
-	if v, err := expandBudgetThresholdRulesSlice(c, f.ThresholdRules); err != nil {
+	if v, err := expandBudgetThresholdRulesSlice(c, f.ThresholdRules, res); err != nil {
 		return nil, fmt.Errorf("error expanding ThresholdRules into thresholdRules: %w", err)
 	} else if v != nil {
 		req["thresholdRules"] = v
 	}
-	if v, err := expandBudgetAllUpdatesRule(c, f.AllUpdatesRule); err != nil {
+	if v, err := expandBudgetAllUpdatesRule(c, f.AllUpdatesRule, res); err != nil {
 		return nil, fmt.Errorf("error expanding AllUpdatesRule into allUpdatesRule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["allUpdatesRule"] = v
@@ -2345,6 +2347,8 @@ func unmarshalMapBudget(m map[string]interface{}, c *Client) (*Budget, error) {
 // expandBudget expands Budget into a JSON request object.
 func expandBudget(c *Client, f *Budget) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("billingAccounts/%s/budgets/%s", f.Name, dcl.SelfLinkToName(f.BillingAccount), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2353,22 +2357,22 @@ func expandBudget(c *Client, f *Budget) (map[string]interface{}, error) {
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandBudgetBudgetFilter(c, f.BudgetFilter); err != nil {
+	if v, err := expandBudgetBudgetFilter(c, f.BudgetFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding BudgetFilter into budgetFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["budgetFilter"] = v
 	}
-	if v, err := expandBudgetAmount(c, f.Amount); err != nil {
+	if v, err := expandBudgetAmount(c, f.Amount, res); err != nil {
 		return nil, fmt.Errorf("error expanding Amount into amount: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
-	if v, err := expandBudgetThresholdRulesSlice(c, f.ThresholdRules); err != nil {
+	if v, err := expandBudgetThresholdRulesSlice(c, f.ThresholdRules, res); err != nil {
 		return nil, fmt.Errorf("error expanding ThresholdRules into thresholdRules: %w", err)
 	} else if v != nil {
 		m["thresholdRules"] = v
 	}
-	if v, err := expandBudgetAllUpdatesRule(c, f.AllUpdatesRule); err != nil {
+	if v, err := expandBudgetAllUpdatesRule(c, f.AllUpdatesRule, res); err != nil {
 		return nil, fmt.Errorf("error expanding AllUpdatesRule into allUpdatesRule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["allUpdatesRule"] = v
@@ -2408,14 +2412,14 @@ func flattenBudget(c *Client, i interface{}) *Budget {
 
 // expandBudgetBudgetFilterMap expands the contents of BudgetBudgetFilter into a JSON
 // request object.
-func expandBudgetBudgetFilterMap(c *Client, f map[string]BudgetBudgetFilter) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterMap(c *Client, f map[string]BudgetBudgetFilter, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetBudgetFilter(c, &item)
+		i, err := expandBudgetBudgetFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2429,14 +2433,14 @@ func expandBudgetBudgetFilterMap(c *Client, f map[string]BudgetBudgetFilter) (ma
 
 // expandBudgetBudgetFilterSlice expands the contents of BudgetBudgetFilter into a JSON
 // request object.
-func expandBudgetBudgetFilterSlice(c *Client, f []BudgetBudgetFilter) ([]map[string]interface{}, error) {
+func expandBudgetBudgetFilterSlice(c *Client, f []BudgetBudgetFilter, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetBudgetFilter(c, &item)
+		i, err := expandBudgetBudgetFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2489,7 +2493,7 @@ func flattenBudgetBudgetFilterSlice(c *Client, i interface{}) []BudgetBudgetFilt
 
 // expandBudgetBudgetFilter expands an instance of BudgetBudgetFilter into a JSON
 // request object.
-func expandBudgetBudgetFilter(c *Client, f *BudgetBudgetFilter) (map[string]interface{}, error) {
+func expandBudgetBudgetFilter(c *Client, f *BudgetBudgetFilter, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2510,7 +2514,7 @@ func expandBudgetBudgetFilter(c *Client, f *BudgetBudgetFilter) (map[string]inte
 	if v := f.Subaccounts; v != nil {
 		m["subaccounts"] = v
 	}
-	if v, err := expandBudgetFilterLabels(f, f.Labels); err != nil {
+	if v, err := expandBudgetFilterLabels(c, f.Labels, res); err != nil {
 		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
@@ -2518,7 +2522,7 @@ func expandBudgetBudgetFilter(c *Client, f *BudgetBudgetFilter) (map[string]inte
 	if v := f.CalendarPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["calendarPeriod"] = v
 	}
-	if v, err := expandBudgetBudgetFilterCustomPeriod(c, f.CustomPeriod); err != nil {
+	if v, err := expandBudgetBudgetFilterCustomPeriod(c, f.CustomPeriod, res); err != nil {
 		return nil, fmt.Errorf("error expanding CustomPeriod into customPeriod: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["customPeriod"] = v
@@ -2554,14 +2558,14 @@ func flattenBudgetBudgetFilter(c *Client, i interface{}) *BudgetBudgetFilter {
 
 // expandBudgetBudgetFilterLabelsMap expands the contents of BudgetBudgetFilterLabels into a JSON
 // request object.
-func expandBudgetBudgetFilterLabelsMap(c *Client, f map[string]BudgetBudgetFilterLabels) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterLabelsMap(c *Client, f map[string]BudgetBudgetFilterLabels, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetBudgetFilterLabels(c, &item)
+		i, err := expandBudgetBudgetFilterLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2575,14 +2579,14 @@ func expandBudgetBudgetFilterLabelsMap(c *Client, f map[string]BudgetBudgetFilte
 
 // expandBudgetBudgetFilterLabelsSlice expands the contents of BudgetBudgetFilterLabels into a JSON
 // request object.
-func expandBudgetBudgetFilterLabelsSlice(c *Client, f []BudgetBudgetFilterLabels) ([]map[string]interface{}, error) {
+func expandBudgetBudgetFilterLabelsSlice(c *Client, f []BudgetBudgetFilterLabels, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetBudgetFilterLabels(c, &item)
+		i, err := expandBudgetBudgetFilterLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2635,7 +2639,7 @@ func flattenBudgetBudgetFilterLabelsSlice(c *Client, i interface{}) []BudgetBudg
 
 // expandBudgetBudgetFilterLabels expands an instance of BudgetBudgetFilterLabels into a JSON
 // request object.
-func expandBudgetBudgetFilterLabels(c *Client, f *BudgetBudgetFilterLabels) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterLabels(c *Client, f *BudgetBudgetFilterLabels, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2668,14 +2672,14 @@ func flattenBudgetBudgetFilterLabels(c *Client, i interface{}) *BudgetBudgetFilt
 
 // expandBudgetBudgetFilterCustomPeriodMap expands the contents of BudgetBudgetFilterCustomPeriod into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodMap(c *Client, f map[string]BudgetBudgetFilterCustomPeriod) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodMap(c *Client, f map[string]BudgetBudgetFilterCustomPeriod, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetBudgetFilterCustomPeriod(c, &item)
+		i, err := expandBudgetBudgetFilterCustomPeriod(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2689,14 +2693,14 @@ func expandBudgetBudgetFilterCustomPeriodMap(c *Client, f map[string]BudgetBudge
 
 // expandBudgetBudgetFilterCustomPeriodSlice expands the contents of BudgetBudgetFilterCustomPeriod into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodSlice(c *Client, f []BudgetBudgetFilterCustomPeriod) ([]map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodSlice(c *Client, f []BudgetBudgetFilterCustomPeriod, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetBudgetFilterCustomPeriod(c, &item)
+		i, err := expandBudgetBudgetFilterCustomPeriod(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2749,18 +2753,18 @@ func flattenBudgetBudgetFilterCustomPeriodSlice(c *Client, i interface{}) []Budg
 
 // expandBudgetBudgetFilterCustomPeriod expands an instance of BudgetBudgetFilterCustomPeriod into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriod(c *Client, f *BudgetBudgetFilterCustomPeriod) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriod(c *Client, f *BudgetBudgetFilterCustomPeriod, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandBudgetBudgetFilterCustomPeriodStartDate(c, f.StartDate); err != nil {
+	if v, err := expandBudgetBudgetFilterCustomPeriodStartDate(c, f.StartDate, res); err != nil {
 		return nil, fmt.Errorf("error expanding StartDate into startDate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["startDate"] = v
 	}
-	if v, err := expandBudgetBudgetFilterCustomPeriodEndDate(c, f.EndDate); err != nil {
+	if v, err := expandBudgetBudgetFilterCustomPeriodEndDate(c, f.EndDate, res); err != nil {
 		return nil, fmt.Errorf("error expanding EndDate into endDate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["endDate"] = v
@@ -2790,14 +2794,14 @@ func flattenBudgetBudgetFilterCustomPeriod(c *Client, i interface{}) *BudgetBudg
 
 // expandBudgetBudgetFilterCustomPeriodStartDateMap expands the contents of BudgetBudgetFilterCustomPeriodStartDate into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodStartDateMap(c *Client, f map[string]BudgetBudgetFilterCustomPeriodStartDate) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodStartDateMap(c *Client, f map[string]BudgetBudgetFilterCustomPeriodStartDate, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetBudgetFilterCustomPeriodStartDate(c, &item)
+		i, err := expandBudgetBudgetFilterCustomPeriodStartDate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2811,14 +2815,14 @@ func expandBudgetBudgetFilterCustomPeriodStartDateMap(c *Client, f map[string]Bu
 
 // expandBudgetBudgetFilterCustomPeriodStartDateSlice expands the contents of BudgetBudgetFilterCustomPeriodStartDate into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, f []BudgetBudgetFilterCustomPeriodStartDate) ([]map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, f []BudgetBudgetFilterCustomPeriodStartDate, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetBudgetFilterCustomPeriodStartDate(c, &item)
+		i, err := expandBudgetBudgetFilterCustomPeriodStartDate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2871,7 +2875,7 @@ func flattenBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, i interface{
 
 // expandBudgetBudgetFilterCustomPeriodStartDate expands an instance of BudgetBudgetFilterCustomPeriodStartDate into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodStartDate(c *Client, f *BudgetBudgetFilterCustomPeriodStartDate) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodStartDate(c *Client, f *BudgetBudgetFilterCustomPeriodStartDate, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2912,14 +2916,14 @@ func flattenBudgetBudgetFilterCustomPeriodStartDate(c *Client, i interface{}) *B
 
 // expandBudgetBudgetFilterCustomPeriodEndDateMap expands the contents of BudgetBudgetFilterCustomPeriodEndDate into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodEndDateMap(c *Client, f map[string]BudgetBudgetFilterCustomPeriodEndDate) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodEndDateMap(c *Client, f map[string]BudgetBudgetFilterCustomPeriodEndDate, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetBudgetFilterCustomPeriodEndDate(c, &item)
+		i, err := expandBudgetBudgetFilterCustomPeriodEndDate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2933,14 +2937,14 @@ func expandBudgetBudgetFilterCustomPeriodEndDateMap(c *Client, f map[string]Budg
 
 // expandBudgetBudgetFilterCustomPeriodEndDateSlice expands the contents of BudgetBudgetFilterCustomPeriodEndDate into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, f []BudgetBudgetFilterCustomPeriodEndDate) ([]map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, f []BudgetBudgetFilterCustomPeriodEndDate, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetBudgetFilterCustomPeriodEndDate(c, &item)
+		i, err := expandBudgetBudgetFilterCustomPeriodEndDate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2993,7 +2997,7 @@ func flattenBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, i interface{})
 
 // expandBudgetBudgetFilterCustomPeriodEndDate expands an instance of BudgetBudgetFilterCustomPeriodEndDate into a JSON
 // request object.
-func expandBudgetBudgetFilterCustomPeriodEndDate(c *Client, f *BudgetBudgetFilterCustomPeriodEndDate) (map[string]interface{}, error) {
+func expandBudgetBudgetFilterCustomPeriodEndDate(c *Client, f *BudgetBudgetFilterCustomPeriodEndDate, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3034,14 +3038,14 @@ func flattenBudgetBudgetFilterCustomPeriodEndDate(c *Client, i interface{}) *Bud
 
 // expandBudgetAmountMap expands the contents of BudgetAmount into a JSON
 // request object.
-func expandBudgetAmountMap(c *Client, f map[string]BudgetAmount) (map[string]interface{}, error) {
+func expandBudgetAmountMap(c *Client, f map[string]BudgetAmount, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetAmount(c, &item)
+		i, err := expandBudgetAmount(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3055,14 +3059,14 @@ func expandBudgetAmountMap(c *Client, f map[string]BudgetAmount) (map[string]int
 
 // expandBudgetAmountSlice expands the contents of BudgetAmount into a JSON
 // request object.
-func expandBudgetAmountSlice(c *Client, f []BudgetAmount) ([]map[string]interface{}, error) {
+func expandBudgetAmountSlice(c *Client, f []BudgetAmount, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetAmount(c, &item)
+		i, err := expandBudgetAmount(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3115,18 +3119,18 @@ func flattenBudgetAmountSlice(c *Client, i interface{}) []BudgetAmount {
 
 // expandBudgetAmount expands an instance of BudgetAmount into a JSON
 // request object.
-func expandBudgetAmount(c *Client, f *BudgetAmount) (map[string]interface{}, error) {
+func expandBudgetAmount(c *Client, f *BudgetAmount, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandBudgetAmountSpecifiedAmount(c, f.SpecifiedAmount); err != nil {
+	if v, err := expandBudgetAmountSpecifiedAmount(c, f.SpecifiedAmount, res); err != nil {
 		return nil, fmt.Errorf("error expanding SpecifiedAmount into specifiedAmount: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["specifiedAmount"] = v
 	}
-	if v, err := expandBudgetAmountLastPeriodAmount(c, f.LastPeriodAmount); err != nil {
+	if v, err := expandBudgetAmountLastPeriodAmount(c, f.LastPeriodAmount, res); err != nil {
 		return nil, fmt.Errorf("error expanding LastPeriodAmount into lastPeriodAmount: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["lastPeriodAmount"] = v
@@ -3156,14 +3160,14 @@ func flattenBudgetAmount(c *Client, i interface{}) *BudgetAmount {
 
 // expandBudgetAmountSpecifiedAmountMap expands the contents of BudgetAmountSpecifiedAmount into a JSON
 // request object.
-func expandBudgetAmountSpecifiedAmountMap(c *Client, f map[string]BudgetAmountSpecifiedAmount) (map[string]interface{}, error) {
+func expandBudgetAmountSpecifiedAmountMap(c *Client, f map[string]BudgetAmountSpecifiedAmount, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetAmountSpecifiedAmount(c, &item)
+		i, err := expandBudgetAmountSpecifiedAmount(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3177,14 +3181,14 @@ func expandBudgetAmountSpecifiedAmountMap(c *Client, f map[string]BudgetAmountSp
 
 // expandBudgetAmountSpecifiedAmountSlice expands the contents of BudgetAmountSpecifiedAmount into a JSON
 // request object.
-func expandBudgetAmountSpecifiedAmountSlice(c *Client, f []BudgetAmountSpecifiedAmount) ([]map[string]interface{}, error) {
+func expandBudgetAmountSpecifiedAmountSlice(c *Client, f []BudgetAmountSpecifiedAmount, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetAmountSpecifiedAmount(c, &item)
+		i, err := expandBudgetAmountSpecifiedAmount(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3237,7 +3241,7 @@ func flattenBudgetAmountSpecifiedAmountSlice(c *Client, i interface{}) []BudgetA
 
 // expandBudgetAmountSpecifiedAmount expands an instance of BudgetAmountSpecifiedAmount into a JSON
 // request object.
-func expandBudgetAmountSpecifiedAmount(c *Client, f *BudgetAmountSpecifiedAmount) (map[string]interface{}, error) {
+func expandBudgetAmountSpecifiedAmount(c *Client, f *BudgetAmountSpecifiedAmount, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3278,14 +3282,14 @@ func flattenBudgetAmountSpecifiedAmount(c *Client, i interface{}) *BudgetAmountS
 
 // expandBudgetAmountLastPeriodAmountMap expands the contents of BudgetAmountLastPeriodAmount into a JSON
 // request object.
-func expandBudgetAmountLastPeriodAmountMap(c *Client, f map[string]BudgetAmountLastPeriodAmount) (map[string]interface{}, error) {
+func expandBudgetAmountLastPeriodAmountMap(c *Client, f map[string]BudgetAmountLastPeriodAmount, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetAmountLastPeriodAmount(c, &item)
+		i, err := expandBudgetAmountLastPeriodAmount(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3299,14 +3303,14 @@ func expandBudgetAmountLastPeriodAmountMap(c *Client, f map[string]BudgetAmountL
 
 // expandBudgetAmountLastPeriodAmountSlice expands the contents of BudgetAmountLastPeriodAmount into a JSON
 // request object.
-func expandBudgetAmountLastPeriodAmountSlice(c *Client, f []BudgetAmountLastPeriodAmount) ([]map[string]interface{}, error) {
+func expandBudgetAmountLastPeriodAmountSlice(c *Client, f []BudgetAmountLastPeriodAmount, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetAmountLastPeriodAmount(c, &item)
+		i, err := expandBudgetAmountLastPeriodAmount(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3359,7 +3363,7 @@ func flattenBudgetAmountLastPeriodAmountSlice(c *Client, i interface{}) []Budget
 
 // expandBudgetAmountLastPeriodAmount expands an instance of BudgetAmountLastPeriodAmount into a JSON
 // request object.
-func expandBudgetAmountLastPeriodAmount(c *Client, f *BudgetAmountLastPeriodAmount) (map[string]interface{}, error) {
+func expandBudgetAmountLastPeriodAmount(c *Client, f *BudgetAmountLastPeriodAmount, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3388,14 +3392,14 @@ func flattenBudgetAmountLastPeriodAmount(c *Client, i interface{}) *BudgetAmount
 
 // expandBudgetThresholdRulesMap expands the contents of BudgetThresholdRules into a JSON
 // request object.
-func expandBudgetThresholdRulesMap(c *Client, f map[string]BudgetThresholdRules) (map[string]interface{}, error) {
+func expandBudgetThresholdRulesMap(c *Client, f map[string]BudgetThresholdRules, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetThresholdRules(c, &item)
+		i, err := expandBudgetThresholdRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3409,14 +3413,14 @@ func expandBudgetThresholdRulesMap(c *Client, f map[string]BudgetThresholdRules)
 
 // expandBudgetThresholdRulesSlice expands the contents of BudgetThresholdRules into a JSON
 // request object.
-func expandBudgetThresholdRulesSlice(c *Client, f []BudgetThresholdRules) ([]map[string]interface{}, error) {
+func expandBudgetThresholdRulesSlice(c *Client, f []BudgetThresholdRules, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetThresholdRules(c, &item)
+		i, err := expandBudgetThresholdRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3469,7 +3473,7 @@ func flattenBudgetThresholdRulesSlice(c *Client, i interface{}) []BudgetThreshol
 
 // expandBudgetThresholdRules expands an instance of BudgetThresholdRules into a JSON
 // request object.
-func expandBudgetThresholdRules(c *Client, f *BudgetThresholdRules) (map[string]interface{}, error) {
+func expandBudgetThresholdRules(c *Client, f *BudgetThresholdRules, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -3506,14 +3510,14 @@ func flattenBudgetThresholdRules(c *Client, i interface{}) *BudgetThresholdRules
 
 // expandBudgetAllUpdatesRuleMap expands the contents of BudgetAllUpdatesRule into a JSON
 // request object.
-func expandBudgetAllUpdatesRuleMap(c *Client, f map[string]BudgetAllUpdatesRule) (map[string]interface{}, error) {
+func expandBudgetAllUpdatesRuleMap(c *Client, f map[string]BudgetAllUpdatesRule, res *Budget) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBudgetAllUpdatesRule(c, &item)
+		i, err := expandBudgetAllUpdatesRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3527,14 +3531,14 @@ func expandBudgetAllUpdatesRuleMap(c *Client, f map[string]BudgetAllUpdatesRule)
 
 // expandBudgetAllUpdatesRuleSlice expands the contents of BudgetAllUpdatesRule into a JSON
 // request object.
-func expandBudgetAllUpdatesRuleSlice(c *Client, f []BudgetAllUpdatesRule) ([]map[string]interface{}, error) {
+func expandBudgetAllUpdatesRuleSlice(c *Client, f []BudgetAllUpdatesRule, res *Budget) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBudgetAllUpdatesRule(c, &item)
+		i, err := expandBudgetAllUpdatesRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3587,7 +3591,7 @@ func flattenBudgetAllUpdatesRuleSlice(c *Client, i interface{}) []BudgetAllUpdat
 
 // expandBudgetAllUpdatesRule expands an instance of BudgetAllUpdatesRule into a JSON
 // request object.
-func expandBudgetAllUpdatesRule(c *Client, f *BudgetAllUpdatesRule) (map[string]interface{}, error) {
+func expandBudgetAllUpdatesRule(c *Client, f *BudgetAllUpdatesRule, res *Budget) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

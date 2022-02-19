@@ -126,6 +126,8 @@ type forwardingRuleApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateForwardingRuleSetLabelsRequest(ctx context.Context, f *ForwardingRule, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -213,6 +215,8 @@ func (op *updateForwardingRuleSetLabelsOperation) do(ctx context.Context, r *For
 // fields based on the intended state of the resource.
 func newUpdateForwardingRuleSetTargetRequest(ctx context.Context, f *ForwardingRule, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Target; !dcl.IsEmptyValueIndirect(v) {
 		req["target"] = v
@@ -283,6 +287,8 @@ func (op *updateForwardingRuleSetTargetOperation) do(ctx context.Context, r *For
 // fields based on the intended state of the resource.
 func newUpdateForwardingRuleUpdateRequest(ctx context.Context, f *ForwardingRule, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.FalseToNil(f.AllowGlobalAccess); err != nil {
 		return nil, fmt.Errorf("error expanding AllowGlobalAccess into allowGlobalAccess: %w", err)
@@ -1535,6 +1541,8 @@ func unmarshalMapForwardingRule(m map[string]interface{}, c *Client) (*Forwardin
 // expandForwardingRule expands ForwardingRule into a JSON request object.
 func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
@@ -1571,7 +1579,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.LoadBalancingScheme; dcl.ValueShouldBeSent(v) {
 		m["loadBalancingScheme"] = v
 	}
-	if v, err := expandForwardingRuleMetadataFilterSlice(c, f.MetadataFilter); err != nil {
+	if v, err := expandForwardingRuleMetadataFilterSlice(c, f.MetadataFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataFilter into metadataFilters: %w", err)
 	} else if v != nil {
 		m["metadataFilters"] = v
@@ -1663,14 +1671,14 @@ func flattenForwardingRule(c *Client, i interface{}) *ForwardingRule {
 
 // expandForwardingRuleMetadataFilterMap expands the contents of ForwardingRuleMetadataFilter into a JSON
 // request object.
-func expandForwardingRuleMetadataFilterMap(c *Client, f map[string]ForwardingRuleMetadataFilter) (map[string]interface{}, error) {
+func expandForwardingRuleMetadataFilterMap(c *Client, f map[string]ForwardingRuleMetadataFilter, res *ForwardingRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandForwardingRuleMetadataFilter(c, &item)
+		i, err := expandForwardingRuleMetadataFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1684,14 +1692,14 @@ func expandForwardingRuleMetadataFilterMap(c *Client, f map[string]ForwardingRul
 
 // expandForwardingRuleMetadataFilterSlice expands the contents of ForwardingRuleMetadataFilter into a JSON
 // request object.
-func expandForwardingRuleMetadataFilterSlice(c *Client, f []ForwardingRuleMetadataFilter) ([]map[string]interface{}, error) {
+func expandForwardingRuleMetadataFilterSlice(c *Client, f []ForwardingRuleMetadataFilter, res *ForwardingRule) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandForwardingRuleMetadataFilter(c, &item)
+		i, err := expandForwardingRuleMetadataFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1744,7 +1752,7 @@ func flattenForwardingRuleMetadataFilterSlice(c *Client, i interface{}) []Forwar
 
 // expandForwardingRuleMetadataFilter expands an instance of ForwardingRuleMetadataFilter into a JSON
 // request object.
-func expandForwardingRuleMetadataFilter(c *Client, f *ForwardingRuleMetadataFilter) (map[string]interface{}, error) {
+func expandForwardingRuleMetadataFilter(c *Client, f *ForwardingRuleMetadataFilter, res *ForwardingRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1753,7 +1761,7 @@ func expandForwardingRuleMetadataFilter(c *Client, f *ForwardingRuleMetadataFilt
 	if v := f.FilterMatchCriteria; !dcl.IsEmptyValueIndirect(v) {
 		m["filterMatchCriteria"] = v
 	}
-	if v, err := expandForwardingRuleMetadataFilterFilterLabelSlice(c, f.FilterLabel); err != nil {
+	if v, err := expandForwardingRuleMetadataFilterFilterLabelSlice(c, f.FilterLabel, res); err != nil {
 		return nil, fmt.Errorf("error expanding FilterLabel into filterLabels: %w", err)
 	} else if v != nil {
 		m["filterLabels"] = v
@@ -1783,14 +1791,14 @@ func flattenForwardingRuleMetadataFilter(c *Client, i interface{}) *ForwardingRu
 
 // expandForwardingRuleMetadataFilterFilterLabelMap expands the contents of ForwardingRuleMetadataFilterFilterLabel into a JSON
 // request object.
-func expandForwardingRuleMetadataFilterFilterLabelMap(c *Client, f map[string]ForwardingRuleMetadataFilterFilterLabel) (map[string]interface{}, error) {
+func expandForwardingRuleMetadataFilterFilterLabelMap(c *Client, f map[string]ForwardingRuleMetadataFilterFilterLabel, res *ForwardingRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandForwardingRuleMetadataFilterFilterLabel(c, &item)
+		i, err := expandForwardingRuleMetadataFilterFilterLabel(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1804,14 +1812,14 @@ func expandForwardingRuleMetadataFilterFilterLabelMap(c *Client, f map[string]Fo
 
 // expandForwardingRuleMetadataFilterFilterLabelSlice expands the contents of ForwardingRuleMetadataFilterFilterLabel into a JSON
 // request object.
-func expandForwardingRuleMetadataFilterFilterLabelSlice(c *Client, f []ForwardingRuleMetadataFilterFilterLabel) ([]map[string]interface{}, error) {
+func expandForwardingRuleMetadataFilterFilterLabelSlice(c *Client, f []ForwardingRuleMetadataFilterFilterLabel, res *ForwardingRule) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandForwardingRuleMetadataFilterFilterLabel(c, &item)
+		i, err := expandForwardingRuleMetadataFilterFilterLabel(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1864,7 +1872,7 @@ func flattenForwardingRuleMetadataFilterFilterLabelSlice(c *Client, i interface{
 
 // expandForwardingRuleMetadataFilterFilterLabel expands an instance of ForwardingRuleMetadataFilterFilterLabel into a JSON
 // request object.
-func expandForwardingRuleMetadataFilterFilterLabel(c *Client, f *ForwardingRuleMetadataFilterFilterLabel) (map[string]interface{}, error) {
+func expandForwardingRuleMetadataFilterFilterLabel(c *Client, f *ForwardingRuleMetadataFilterFilterLabel, res *ForwardingRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

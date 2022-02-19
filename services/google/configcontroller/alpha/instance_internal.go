@@ -1271,13 +1271,15 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 // expandInstance expands Instance into a JSON request object.
 func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandInstanceBundlesConfig(c, f.BundlesConfig); err != nil {
+	if v, err := expandInstanceBundlesConfig(c, f.BundlesConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding BundlesConfig into bundlesConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["bundlesConfig"] = v
@@ -1285,7 +1287,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.UsePrivateEndpoint; dcl.ValueShouldBeSent(v) {
 		m["usePrivateEndpoint"] = v
 	}
-	if v, err := expandInstanceManagementConfig(c, f.ManagementConfig); err != nil {
+	if v, err := expandInstanceManagementConfig(c, f.ManagementConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ManagementConfig into managementConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["managementConfig"] = v
@@ -1331,14 +1333,14 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 
 // expandInstanceBundlesConfigMap expands the contents of InstanceBundlesConfig into a JSON
 // request object.
-func expandInstanceBundlesConfigMap(c *Client, f map[string]InstanceBundlesConfig) (map[string]interface{}, error) {
+func expandInstanceBundlesConfigMap(c *Client, f map[string]InstanceBundlesConfig, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceBundlesConfig(c, &item)
+		i, err := expandInstanceBundlesConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1352,14 +1354,14 @@ func expandInstanceBundlesConfigMap(c *Client, f map[string]InstanceBundlesConfi
 
 // expandInstanceBundlesConfigSlice expands the contents of InstanceBundlesConfig into a JSON
 // request object.
-func expandInstanceBundlesConfigSlice(c *Client, f []InstanceBundlesConfig) ([]map[string]interface{}, error) {
+func expandInstanceBundlesConfigSlice(c *Client, f []InstanceBundlesConfig, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceBundlesConfig(c, &item)
+		i, err := expandInstanceBundlesConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1412,13 +1414,13 @@ func flattenInstanceBundlesConfigSlice(c *Client, i interface{}) []InstanceBundl
 
 // expandInstanceBundlesConfig expands an instance of InstanceBundlesConfig into a JSON
 // request object.
-func expandInstanceBundlesConfig(c *Client, f *InstanceBundlesConfig) (map[string]interface{}, error) {
+func expandInstanceBundlesConfig(c *Client, f *InstanceBundlesConfig, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceBundlesConfigConfigControllerConfig(c, f.ConfigControllerConfig); err != nil {
+	if v, err := expandInstanceBundlesConfigConfigControllerConfig(c, f.ConfigControllerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ConfigControllerConfig into configControllerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["configControllerConfig"] = v
@@ -1447,14 +1449,14 @@ func flattenInstanceBundlesConfig(c *Client, i interface{}) *InstanceBundlesConf
 
 // expandInstanceBundlesConfigConfigControllerConfigMap expands the contents of InstanceBundlesConfigConfigControllerConfig into a JSON
 // request object.
-func expandInstanceBundlesConfigConfigControllerConfigMap(c *Client, f map[string]InstanceBundlesConfigConfigControllerConfig) (map[string]interface{}, error) {
+func expandInstanceBundlesConfigConfigControllerConfigMap(c *Client, f map[string]InstanceBundlesConfigConfigControllerConfig, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceBundlesConfigConfigControllerConfig(c, &item)
+		i, err := expandInstanceBundlesConfigConfigControllerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1468,14 +1470,14 @@ func expandInstanceBundlesConfigConfigControllerConfigMap(c *Client, f map[strin
 
 // expandInstanceBundlesConfigConfigControllerConfigSlice expands the contents of InstanceBundlesConfigConfigControllerConfig into a JSON
 // request object.
-func expandInstanceBundlesConfigConfigControllerConfigSlice(c *Client, f []InstanceBundlesConfigConfigControllerConfig) ([]map[string]interface{}, error) {
+func expandInstanceBundlesConfigConfigControllerConfigSlice(c *Client, f []InstanceBundlesConfigConfigControllerConfig, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceBundlesConfigConfigControllerConfig(c, &item)
+		i, err := expandInstanceBundlesConfigConfigControllerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1528,7 +1530,7 @@ func flattenInstanceBundlesConfigConfigControllerConfigSlice(c *Client, i interf
 
 // expandInstanceBundlesConfigConfigControllerConfig expands an instance of InstanceBundlesConfigConfigControllerConfig into a JSON
 // request object.
-func expandInstanceBundlesConfigConfigControllerConfig(c *Client, f *InstanceBundlesConfigConfigControllerConfig) (map[string]interface{}, error) {
+func expandInstanceBundlesConfigConfigControllerConfig(c *Client, f *InstanceBundlesConfigConfigControllerConfig, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1561,14 +1563,14 @@ func flattenInstanceBundlesConfigConfigControllerConfig(c *Client, i interface{}
 
 // expandInstanceManagementConfigMap expands the contents of InstanceManagementConfig into a JSON
 // request object.
-func expandInstanceManagementConfigMap(c *Client, f map[string]InstanceManagementConfig) (map[string]interface{}, error) {
+func expandInstanceManagementConfigMap(c *Client, f map[string]InstanceManagementConfig, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceManagementConfig(c, &item)
+		i, err := expandInstanceManagementConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1582,14 +1584,14 @@ func expandInstanceManagementConfigMap(c *Client, f map[string]InstanceManagemen
 
 // expandInstanceManagementConfigSlice expands the contents of InstanceManagementConfig into a JSON
 // request object.
-func expandInstanceManagementConfigSlice(c *Client, f []InstanceManagementConfig) ([]map[string]interface{}, error) {
+func expandInstanceManagementConfigSlice(c *Client, f []InstanceManagementConfig, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceManagementConfig(c, &item)
+		i, err := expandInstanceManagementConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1642,13 +1644,13 @@ func flattenInstanceManagementConfigSlice(c *Client, i interface{}) []InstanceMa
 
 // expandInstanceManagementConfig expands an instance of InstanceManagementConfig into a JSON
 // request object.
-func expandInstanceManagementConfig(c *Client, f *InstanceManagementConfig) (map[string]interface{}, error) {
+func expandInstanceManagementConfig(c *Client, f *InstanceManagementConfig, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceManagementConfigStandardManagementConfig(c, f.StandardManagementConfig); err != nil {
+	if v, err := expandInstanceManagementConfigStandardManagementConfig(c, f.StandardManagementConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding StandardManagementConfig into standardManagementConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["standardManagementConfig"] = v
@@ -1677,14 +1679,14 @@ func flattenInstanceManagementConfig(c *Client, i interface{}) *InstanceManageme
 
 // expandInstanceManagementConfigStandardManagementConfigMap expands the contents of InstanceManagementConfigStandardManagementConfig into a JSON
 // request object.
-func expandInstanceManagementConfigStandardManagementConfigMap(c *Client, f map[string]InstanceManagementConfigStandardManagementConfig) (map[string]interface{}, error) {
+func expandInstanceManagementConfigStandardManagementConfigMap(c *Client, f map[string]InstanceManagementConfigStandardManagementConfig, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceManagementConfigStandardManagementConfig(c, &item)
+		i, err := expandInstanceManagementConfigStandardManagementConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1698,14 +1700,14 @@ func expandInstanceManagementConfigStandardManagementConfigMap(c *Client, f map[
 
 // expandInstanceManagementConfigStandardManagementConfigSlice expands the contents of InstanceManagementConfigStandardManagementConfig into a JSON
 // request object.
-func expandInstanceManagementConfigStandardManagementConfigSlice(c *Client, f []InstanceManagementConfigStandardManagementConfig) ([]map[string]interface{}, error) {
+func expandInstanceManagementConfigStandardManagementConfigSlice(c *Client, f []InstanceManagementConfigStandardManagementConfig, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceManagementConfigStandardManagementConfig(c, &item)
+		i, err := expandInstanceManagementConfigStandardManagementConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1758,7 +1760,7 @@ func flattenInstanceManagementConfigStandardManagementConfigSlice(c *Client, i i
 
 // expandInstanceManagementConfigStandardManagementConfig expands an instance of InstanceManagementConfigStandardManagementConfig into a JSON
 // request object.
-func expandInstanceManagementConfigStandardManagementConfig(c *Client, f *InstanceManagementConfigStandardManagementConfig) (map[string]interface{}, error) {
+func expandInstanceManagementConfigStandardManagementConfig(c *Client, f *InstanceManagementConfigStandardManagementConfig, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

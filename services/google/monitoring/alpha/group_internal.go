@@ -90,6 +90,8 @@ type groupApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateGroupUpdateRequest(ctx context.Context, f *Group, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -622,6 +624,8 @@ func unmarshalMapGroup(m map[string]interface{}, c *Client) (*Group, error) {
 // expandGroup expands Group into a JSON request object.
 func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}

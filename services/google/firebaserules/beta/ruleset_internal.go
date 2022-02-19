@@ -976,12 +976,14 @@ func unmarshalMapRuleset(m map[string]interface{}, c *Client) (*Ruleset, error) 
 // expandRuleset expands Ruleset into a JSON request object.
 func expandRuleset(c *Client, f *Ruleset) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/rulesets/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandRulesetSource(c, f.Source); err != nil {
+	if v, err := expandRulesetSource(c, f.Source, res); err != nil {
 		return nil, fmt.Errorf("error expanding Source into source: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
@@ -1018,14 +1020,14 @@ func flattenRuleset(c *Client, i interface{}) *Ruleset {
 
 // expandRulesetSourceMap expands the contents of RulesetSource into a JSON
 // request object.
-func expandRulesetSourceMap(c *Client, f map[string]RulesetSource) (map[string]interface{}, error) {
+func expandRulesetSourceMap(c *Client, f map[string]RulesetSource, res *Ruleset) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRulesetSource(c, &item)
+		i, err := expandRulesetSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1039,14 +1041,14 @@ func expandRulesetSourceMap(c *Client, f map[string]RulesetSource) (map[string]i
 
 // expandRulesetSourceSlice expands the contents of RulesetSource into a JSON
 // request object.
-func expandRulesetSourceSlice(c *Client, f []RulesetSource) ([]map[string]interface{}, error) {
+func expandRulesetSourceSlice(c *Client, f []RulesetSource, res *Ruleset) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRulesetSource(c, &item)
+		i, err := expandRulesetSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1099,13 +1101,13 @@ func flattenRulesetSourceSlice(c *Client, i interface{}) []RulesetSource {
 
 // expandRulesetSource expands an instance of RulesetSource into a JSON
 // request object.
-func expandRulesetSource(c *Client, f *RulesetSource) (map[string]interface{}, error) {
+func expandRulesetSource(c *Client, f *RulesetSource, res *Ruleset) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandRulesetSourceFilesSlice(c, f.Files); err != nil {
+	if v, err := expandRulesetSourceFilesSlice(c, f.Files, res); err != nil {
 		return nil, fmt.Errorf("error expanding Files into files: %w", err)
 	} else if v != nil {
 		m["files"] = v
@@ -1138,14 +1140,14 @@ func flattenRulesetSource(c *Client, i interface{}) *RulesetSource {
 
 // expandRulesetSourceFilesMap expands the contents of RulesetSourceFiles into a JSON
 // request object.
-func expandRulesetSourceFilesMap(c *Client, f map[string]RulesetSourceFiles) (map[string]interface{}, error) {
+func expandRulesetSourceFilesMap(c *Client, f map[string]RulesetSourceFiles, res *Ruleset) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRulesetSourceFiles(c, &item)
+		i, err := expandRulesetSourceFiles(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1159,14 +1161,14 @@ func expandRulesetSourceFilesMap(c *Client, f map[string]RulesetSourceFiles) (ma
 
 // expandRulesetSourceFilesSlice expands the contents of RulesetSourceFiles into a JSON
 // request object.
-func expandRulesetSourceFilesSlice(c *Client, f []RulesetSourceFiles) ([]map[string]interface{}, error) {
+func expandRulesetSourceFilesSlice(c *Client, f []RulesetSourceFiles, res *Ruleset) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRulesetSourceFiles(c, &item)
+		i, err := expandRulesetSourceFiles(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1219,7 +1221,7 @@ func flattenRulesetSourceFilesSlice(c *Client, i interface{}) []RulesetSourceFil
 
 // expandRulesetSourceFiles expands an instance of RulesetSourceFiles into a JSON
 // request object.
-func expandRulesetSourceFiles(c *Client, f *RulesetSourceFiles) (map[string]interface{}, error) {
+func expandRulesetSourceFiles(c *Client, f *RulesetSourceFiles, res *Ruleset) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1260,14 +1262,14 @@ func flattenRulesetSourceFiles(c *Client, i interface{}) *RulesetSourceFiles {
 
 // expandRulesetMetadataMap expands the contents of RulesetMetadata into a JSON
 // request object.
-func expandRulesetMetadataMap(c *Client, f map[string]RulesetMetadata) (map[string]interface{}, error) {
+func expandRulesetMetadataMap(c *Client, f map[string]RulesetMetadata, res *Ruleset) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRulesetMetadata(c, &item)
+		i, err := expandRulesetMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1281,14 +1283,14 @@ func expandRulesetMetadataMap(c *Client, f map[string]RulesetMetadata) (map[stri
 
 // expandRulesetMetadataSlice expands the contents of RulesetMetadata into a JSON
 // request object.
-func expandRulesetMetadataSlice(c *Client, f []RulesetMetadata) ([]map[string]interface{}, error) {
+func expandRulesetMetadataSlice(c *Client, f []RulesetMetadata, res *Ruleset) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRulesetMetadata(c, &item)
+		i, err := expandRulesetMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1341,7 +1343,7 @@ func flattenRulesetMetadataSlice(c *Client, i interface{}) []RulesetMetadata {
 
 // expandRulesetMetadata expands an instance of RulesetMetadata into a JSON
 // request object.
-func expandRulesetMetadata(c *Client, f *RulesetMetadata) (map[string]interface{}, error) {
+func expandRulesetMetadata(c *Client, f *RulesetMetadata, res *Ruleset) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

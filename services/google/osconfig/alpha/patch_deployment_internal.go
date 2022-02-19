@@ -444,16 +444,18 @@ type patchDeploymentApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdatePatchDeploymentUpdatePatchDeploymentRequest(ctx context.Context, f *PatchDeployment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandPatchDeploymentInstanceFilter(c, f.InstanceFilter); err != nil {
+	if v, err := expandPatchDeploymentInstanceFilter(c, f.InstanceFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding InstanceFilter into instanceFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["instanceFilter"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfig(c, f.PatchConfig); err != nil {
+	if v, err := expandPatchDeploymentPatchConfig(c, f.PatchConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding PatchConfig into patchConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["patchConfig"] = v
@@ -461,17 +463,17 @@ func newUpdatePatchDeploymentUpdatePatchDeploymentRequest(ctx context.Context, f
 	if v := f.Duration; !dcl.IsEmptyValueIndirect(v) {
 		req["duration"] = v
 	}
-	if v, err := expandPatchDeploymentOneTimeSchedule(c, f.OneTimeSchedule); err != nil {
+	if v, err := expandPatchDeploymentOneTimeSchedule(c, f.OneTimeSchedule, res); err != nil {
 		return nil, fmt.Errorf("error expanding OneTimeSchedule into oneTimeSchedule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["oneTimeSchedule"] = v
 	}
-	if v, err := expandPatchDeploymentRecurringSchedule(c, f.RecurringSchedule); err != nil {
+	if v, err := expandPatchDeploymentRecurringSchedule(c, f.RecurringSchedule, res); err != nil {
 		return nil, fmt.Errorf("error expanding RecurringSchedule into recurringSchedule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["recurringSchedule"] = v
 	}
-	if v, err := expandPatchDeploymentRollout(c, f.Rollout); err != nil {
+	if v, err := expandPatchDeploymentRollout(c, f.Rollout, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rollout into rollout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["rollout"] = v
@@ -6199,6 +6201,8 @@ func unmarshalMapPatchDeployment(m map[string]interface{}, c *Client) (*PatchDep
 // expandPatchDeployment expands PatchDeployment into a JSON request object.
 func expandPatchDeployment(c *Client, f *PatchDeployment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/patchDeployments/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -6207,12 +6211,12 @@ func expandPatchDeployment(c *Client, f *PatchDeployment) (map[string]interface{
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandPatchDeploymentInstanceFilter(c, f.InstanceFilter); err != nil {
+	if v, err := expandPatchDeploymentInstanceFilter(c, f.InstanceFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding InstanceFilter into instanceFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["instanceFilter"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfig(c, f.PatchConfig); err != nil {
+	if v, err := expandPatchDeploymentPatchConfig(c, f.PatchConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding PatchConfig into patchConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["patchConfig"] = v
@@ -6220,17 +6224,17 @@ func expandPatchDeployment(c *Client, f *PatchDeployment) (map[string]interface{
 	if v := f.Duration; dcl.ValueShouldBeSent(v) {
 		m["duration"] = v
 	}
-	if v, err := expandPatchDeploymentOneTimeSchedule(c, f.OneTimeSchedule); err != nil {
+	if v, err := expandPatchDeploymentOneTimeSchedule(c, f.OneTimeSchedule, res); err != nil {
 		return nil, fmt.Errorf("error expanding OneTimeSchedule into oneTimeSchedule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["oneTimeSchedule"] = v
 	}
-	if v, err := expandPatchDeploymentRecurringSchedule(c, f.RecurringSchedule); err != nil {
+	if v, err := expandPatchDeploymentRecurringSchedule(c, f.RecurringSchedule, res); err != nil {
 		return nil, fmt.Errorf("error expanding RecurringSchedule into recurringSchedule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["recurringSchedule"] = v
 	}
-	if v, err := expandPatchDeploymentRollout(c, f.Rollout); err != nil {
+	if v, err := expandPatchDeploymentRollout(c, f.Rollout, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rollout into rollout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rollout"] = v
@@ -6274,14 +6278,14 @@ func flattenPatchDeployment(c *Client, i interface{}) *PatchDeployment {
 
 // expandPatchDeploymentInstanceFilterMap expands the contents of PatchDeploymentInstanceFilter into a JSON
 // request object.
-func expandPatchDeploymentInstanceFilterMap(c *Client, f map[string]PatchDeploymentInstanceFilter) (map[string]interface{}, error) {
+func expandPatchDeploymentInstanceFilterMap(c *Client, f map[string]PatchDeploymentInstanceFilter, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentInstanceFilter(c, &item)
+		i, err := expandPatchDeploymentInstanceFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6295,14 +6299,14 @@ func expandPatchDeploymentInstanceFilterMap(c *Client, f map[string]PatchDeploym
 
 // expandPatchDeploymentInstanceFilterSlice expands the contents of PatchDeploymentInstanceFilter into a JSON
 // request object.
-func expandPatchDeploymentInstanceFilterSlice(c *Client, f []PatchDeploymentInstanceFilter) ([]map[string]interface{}, error) {
+func expandPatchDeploymentInstanceFilterSlice(c *Client, f []PatchDeploymentInstanceFilter, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentInstanceFilter(c, &item)
+		i, err := expandPatchDeploymentInstanceFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6355,7 +6359,7 @@ func flattenPatchDeploymentInstanceFilterSlice(c *Client, i interface{}) []Patch
 
 // expandPatchDeploymentInstanceFilter expands an instance of PatchDeploymentInstanceFilter into a JSON
 // request object.
-func expandPatchDeploymentInstanceFilter(c *Client, f *PatchDeploymentInstanceFilter) (map[string]interface{}, error) {
+func expandPatchDeploymentInstanceFilter(c *Client, f *PatchDeploymentInstanceFilter, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6364,7 +6368,7 @@ func expandPatchDeploymentInstanceFilter(c *Client, f *PatchDeploymentInstanceFi
 	if v := f.All; !dcl.IsEmptyValueIndirect(v) {
 		m["all"] = v
 	}
-	if v, err := expandPatchDeploymentInstanceFilterGroupLabelsSlice(c, f.GroupLabels); err != nil {
+	if v, err := expandPatchDeploymentInstanceFilterGroupLabelsSlice(c, f.GroupLabels, res); err != nil {
 		return nil, fmt.Errorf("error expanding GroupLabels into groupLabels: %w", err)
 	} else if v != nil {
 		m["groupLabels"] = v
@@ -6406,14 +6410,14 @@ func flattenPatchDeploymentInstanceFilter(c *Client, i interface{}) *PatchDeploy
 
 // expandPatchDeploymentInstanceFilterGroupLabelsMap expands the contents of PatchDeploymentInstanceFilterGroupLabels into a JSON
 // request object.
-func expandPatchDeploymentInstanceFilterGroupLabelsMap(c *Client, f map[string]PatchDeploymentInstanceFilterGroupLabels) (map[string]interface{}, error) {
+func expandPatchDeploymentInstanceFilterGroupLabelsMap(c *Client, f map[string]PatchDeploymentInstanceFilterGroupLabels, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentInstanceFilterGroupLabels(c, &item)
+		i, err := expandPatchDeploymentInstanceFilterGroupLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6427,14 +6431,14 @@ func expandPatchDeploymentInstanceFilterGroupLabelsMap(c *Client, f map[string]P
 
 // expandPatchDeploymentInstanceFilterGroupLabelsSlice expands the contents of PatchDeploymentInstanceFilterGroupLabels into a JSON
 // request object.
-func expandPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, f []PatchDeploymentInstanceFilterGroupLabels) ([]map[string]interface{}, error) {
+func expandPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, f []PatchDeploymentInstanceFilterGroupLabels, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentInstanceFilterGroupLabels(c, &item)
+		i, err := expandPatchDeploymentInstanceFilterGroupLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6487,7 +6491,7 @@ func flattenPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, i interface
 
 // expandPatchDeploymentInstanceFilterGroupLabels expands an instance of PatchDeploymentInstanceFilterGroupLabels into a JSON
 // request object.
-func expandPatchDeploymentInstanceFilterGroupLabels(c *Client, f *PatchDeploymentInstanceFilterGroupLabels) (map[string]interface{}, error) {
+func expandPatchDeploymentInstanceFilterGroupLabels(c *Client, f *PatchDeploymentInstanceFilterGroupLabels, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6520,14 +6524,14 @@ func flattenPatchDeploymentInstanceFilterGroupLabels(c *Client, i interface{}) *
 
 // expandPatchDeploymentPatchConfigMap expands the contents of PatchDeploymentPatchConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigMap(c *Client, f map[string]PatchDeploymentPatchConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigMap(c *Client, f map[string]PatchDeploymentPatchConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6541,14 +6545,14 @@ func expandPatchDeploymentPatchConfigMap(c *Client, f map[string]PatchDeployment
 
 // expandPatchDeploymentPatchConfigSlice expands the contents of PatchDeploymentPatchConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigSlice(c *Client, f []PatchDeploymentPatchConfig) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigSlice(c *Client, f []PatchDeploymentPatchConfig, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6601,7 +6605,7 @@ func flattenPatchDeploymentPatchConfigSlice(c *Client, i interface{}) []PatchDep
 
 // expandPatchDeploymentPatchConfig expands an instance of PatchDeploymentPatchConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfig(c *Client, f *PatchDeploymentPatchConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfig(c *Client, f *PatchDeploymentPatchConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6610,42 +6614,42 @@ func expandPatchDeploymentPatchConfig(c *Client, f *PatchDeploymentPatchConfig) 
 	if v := f.RebootConfig; !dcl.IsEmptyValueIndirect(v) {
 		m["rebootConfig"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigApt(c, f.Apt); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigApt(c, f.Apt, res); err != nil {
 		return nil, fmt.Errorf("error expanding Apt into apt: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apt"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigYum(c, f.Yum); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigYum(c, f.Yum, res); err != nil {
 		return nil, fmt.Errorf("error expanding Yum into yum: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["yum"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigGoo(c, f.Goo); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigGoo(c, f.Goo, res); err != nil {
 		return nil, fmt.Errorf("error expanding Goo into goo: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["goo"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigZypper(c, f.Zypper); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigZypper(c, f.Zypper, res); err != nil {
 		return nil, fmt.Errorf("error expanding Zypper into zypper: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["zypper"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigWindowsUpdate(c, f.WindowsUpdate); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigWindowsUpdate(c, f.WindowsUpdate, res); err != nil {
 		return nil, fmt.Errorf("error expanding WindowsUpdate into windowsUpdate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["windowsUpdate"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPreStep(c, f.PreStep); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPreStep(c, f.PreStep, res); err != nil {
 		return nil, fmt.Errorf("error expanding PreStep into preStep: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["preStep"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPostStep(c, f.PostStep); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPostStep(c, f.PostStep, res); err != nil {
 		return nil, fmt.Errorf("error expanding PostStep into postStep: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["postStep"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigRetryStrategy(c, f.RetryStrategy); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigRetryStrategy(c, f.RetryStrategy, res); err != nil {
 		return nil, fmt.Errorf("error expanding RetryStrategy into retryStrategy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["retryStrategy"] = v
@@ -6682,14 +6686,14 @@ func flattenPatchDeploymentPatchConfig(c *Client, i interface{}) *PatchDeploymen
 
 // expandPatchDeploymentPatchConfigAptMap expands the contents of PatchDeploymentPatchConfigApt into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigAptMap(c *Client, f map[string]PatchDeploymentPatchConfigApt) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigAptMap(c *Client, f map[string]PatchDeploymentPatchConfigApt, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigApt(c, &item)
+		i, err := expandPatchDeploymentPatchConfigApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6703,14 +6707,14 @@ func expandPatchDeploymentPatchConfigAptMap(c *Client, f map[string]PatchDeploym
 
 // expandPatchDeploymentPatchConfigAptSlice expands the contents of PatchDeploymentPatchConfigApt into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigAptSlice(c *Client, f []PatchDeploymentPatchConfigApt) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigAptSlice(c *Client, f []PatchDeploymentPatchConfigApt, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigApt(c, &item)
+		i, err := expandPatchDeploymentPatchConfigApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6763,7 +6767,7 @@ func flattenPatchDeploymentPatchConfigAptSlice(c *Client, i interface{}) []Patch
 
 // expandPatchDeploymentPatchConfigApt expands an instance of PatchDeploymentPatchConfigApt into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigApt(c *Client, f *PatchDeploymentPatchConfigApt) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigApt(c *Client, f *PatchDeploymentPatchConfigApt, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6804,14 +6808,14 @@ func flattenPatchDeploymentPatchConfigApt(c *Client, i interface{}) *PatchDeploy
 
 // expandPatchDeploymentPatchConfigYumMap expands the contents of PatchDeploymentPatchConfigYum into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigYumMap(c *Client, f map[string]PatchDeploymentPatchConfigYum) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigYumMap(c *Client, f map[string]PatchDeploymentPatchConfigYum, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigYum(c, &item)
+		i, err := expandPatchDeploymentPatchConfigYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6825,14 +6829,14 @@ func expandPatchDeploymentPatchConfigYumMap(c *Client, f map[string]PatchDeploym
 
 // expandPatchDeploymentPatchConfigYumSlice expands the contents of PatchDeploymentPatchConfigYum into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigYumSlice(c *Client, f []PatchDeploymentPatchConfigYum) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigYumSlice(c *Client, f []PatchDeploymentPatchConfigYum, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigYum(c, &item)
+		i, err := expandPatchDeploymentPatchConfigYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6885,7 +6889,7 @@ func flattenPatchDeploymentPatchConfigYumSlice(c *Client, i interface{}) []Patch
 
 // expandPatchDeploymentPatchConfigYum expands an instance of PatchDeploymentPatchConfigYum into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigYum(c *Client, f *PatchDeploymentPatchConfigYum) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigYum(c *Client, f *PatchDeploymentPatchConfigYum, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6930,14 +6934,14 @@ func flattenPatchDeploymentPatchConfigYum(c *Client, i interface{}) *PatchDeploy
 
 // expandPatchDeploymentPatchConfigGooMap expands the contents of PatchDeploymentPatchConfigGoo into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigGooMap(c *Client, f map[string]PatchDeploymentPatchConfigGoo) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigGooMap(c *Client, f map[string]PatchDeploymentPatchConfigGoo, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigGoo(c, &item)
+		i, err := expandPatchDeploymentPatchConfigGoo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6951,14 +6955,14 @@ func expandPatchDeploymentPatchConfigGooMap(c *Client, f map[string]PatchDeploym
 
 // expandPatchDeploymentPatchConfigGooSlice expands the contents of PatchDeploymentPatchConfigGoo into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigGooSlice(c *Client, f []PatchDeploymentPatchConfigGoo) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigGooSlice(c *Client, f []PatchDeploymentPatchConfigGoo, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigGoo(c, &item)
+		i, err := expandPatchDeploymentPatchConfigGoo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7011,7 +7015,7 @@ func flattenPatchDeploymentPatchConfigGooSlice(c *Client, i interface{}) []Patch
 
 // expandPatchDeploymentPatchConfigGoo expands an instance of PatchDeploymentPatchConfigGoo into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigGoo(c *Client, f *PatchDeploymentPatchConfigGoo) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigGoo(c *Client, f *PatchDeploymentPatchConfigGoo, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7040,14 +7044,14 @@ func flattenPatchDeploymentPatchConfigGoo(c *Client, i interface{}) *PatchDeploy
 
 // expandPatchDeploymentPatchConfigZypperMap expands the contents of PatchDeploymentPatchConfigZypper into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigZypperMap(c *Client, f map[string]PatchDeploymentPatchConfigZypper) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigZypperMap(c *Client, f map[string]PatchDeploymentPatchConfigZypper, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigZypper(c, &item)
+		i, err := expandPatchDeploymentPatchConfigZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7061,14 +7065,14 @@ func expandPatchDeploymentPatchConfigZypperMap(c *Client, f map[string]PatchDepl
 
 // expandPatchDeploymentPatchConfigZypperSlice expands the contents of PatchDeploymentPatchConfigZypper into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigZypperSlice(c *Client, f []PatchDeploymentPatchConfigZypper) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigZypperSlice(c *Client, f []PatchDeploymentPatchConfigZypper, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigZypper(c, &item)
+		i, err := expandPatchDeploymentPatchConfigZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7121,7 +7125,7 @@ func flattenPatchDeploymentPatchConfigZypperSlice(c *Client, i interface{}) []Pa
 
 // expandPatchDeploymentPatchConfigZypper expands an instance of PatchDeploymentPatchConfigZypper into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigZypper(c *Client, f *PatchDeploymentPatchConfigZypper) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigZypper(c *Client, f *PatchDeploymentPatchConfigZypper, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7174,14 +7178,14 @@ func flattenPatchDeploymentPatchConfigZypper(c *Client, i interface{}) *PatchDep
 
 // expandPatchDeploymentPatchConfigWindowsUpdateMap expands the contents of PatchDeploymentPatchConfigWindowsUpdate into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigWindowsUpdateMap(c *Client, f map[string]PatchDeploymentPatchConfigWindowsUpdate) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigWindowsUpdateMap(c *Client, f map[string]PatchDeploymentPatchConfigWindowsUpdate, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigWindowsUpdate(c, &item)
+		i, err := expandPatchDeploymentPatchConfigWindowsUpdate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7195,14 +7199,14 @@ func expandPatchDeploymentPatchConfigWindowsUpdateMap(c *Client, f map[string]Pa
 
 // expandPatchDeploymentPatchConfigWindowsUpdateSlice expands the contents of PatchDeploymentPatchConfigWindowsUpdate into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, f []PatchDeploymentPatchConfigWindowsUpdate) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, f []PatchDeploymentPatchConfigWindowsUpdate, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigWindowsUpdate(c, &item)
+		i, err := expandPatchDeploymentPatchConfigWindowsUpdate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7255,7 +7259,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, i interface{
 
 // expandPatchDeploymentPatchConfigWindowsUpdate expands an instance of PatchDeploymentPatchConfigWindowsUpdate into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigWindowsUpdate(c *Client, f *PatchDeploymentPatchConfigWindowsUpdate) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigWindowsUpdate(c *Client, f *PatchDeploymentPatchConfigWindowsUpdate, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7296,14 +7300,14 @@ func flattenPatchDeploymentPatchConfigWindowsUpdate(c *Client, i interface{}) *P
 
 // expandPatchDeploymentPatchConfigPreStepMap expands the contents of PatchDeploymentPatchConfigPreStep into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStep) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStep, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStep(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStep(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7317,14 +7321,14 @@ func expandPatchDeploymentPatchConfigPreStepMap(c *Client, f map[string]PatchDep
 
 // expandPatchDeploymentPatchConfigPreStepSlice expands the contents of PatchDeploymentPatchConfigPreStep into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepSlice(c *Client, f []PatchDeploymentPatchConfigPreStep) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepSlice(c *Client, f []PatchDeploymentPatchConfigPreStep, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStep(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStep(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7377,18 +7381,18 @@ func flattenPatchDeploymentPatchConfigPreStepSlice(c *Client, i interface{}) []P
 
 // expandPatchDeploymentPatchConfigPreStep expands an instance of PatchDeploymentPatchConfigPreStep into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStep(c *Client, f *PatchDeploymentPatchConfigPreStep) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStep(c *Client, f *PatchDeploymentPatchConfigPreStep, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, f.LinuxExecStepConfig); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, f.LinuxExecStepConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding LinuxExecStepConfig into linuxExecStepConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linuxExecStepConfig"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, f.WindowsExecStepConfig); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, f.WindowsExecStepConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WindowsExecStepConfig into windowsExecStepConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["windowsExecStepConfig"] = v
@@ -7418,14 +7422,14 @@ func flattenPatchDeploymentPatchConfigPreStep(c *Client, i interface{}) *PatchDe
 
 // expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap expands the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7439,14 +7443,14 @@ func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap(c *Client, f 
 
 // expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice expands the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7499,7 +7503,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c *Client,
 
 // expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig expands an instance of PatchDeploymentPatchConfigPreStepLinuxExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7508,7 +7512,7 @@ func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, f *Pa
 	if v := f.LocalPath; !dcl.IsEmptyValueIndirect(v) {
 		m["localPath"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, f.GcsObject); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, f.GcsObject, res); err != nil {
 		return nil, fmt.Errorf("error expanding GcsObject into gcsObject: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcsObject"] = v
@@ -7546,14 +7550,14 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, i in
 
 // expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap expands the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7567,14 +7571,14 @@ func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap(c *C
 
 // expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice expands the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7627,7 +7631,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(c
 
 // expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject expands an instance of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7668,14 +7672,14 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c *Cli
 
 // expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap expands the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7689,14 +7693,14 @@ func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap(c *Client, 
 
 // expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice expands the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7749,7 +7753,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(c *Clien
 
 // expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig expands an instance of PatchDeploymentPatchConfigPreStepWindowsExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7758,7 +7762,7 @@ func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, f *
 	if v := f.LocalPath; !dcl.IsEmptyValueIndirect(v) {
 		m["localPath"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, f.GcsObject); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, f.GcsObject, res); err != nil {
 		return nil, fmt.Errorf("error expanding GcsObject into gcsObject: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcsObject"] = v
@@ -7796,14 +7800,14 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, i 
 
 // expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap expands the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7817,14 +7821,14 @@ func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap(c 
 
 // expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice expands the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7877,7 +7881,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice
 
 // expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject expands an instance of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7918,14 +7922,14 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c *C
 
 // expandPatchDeploymentPatchConfigPostStepMap expands the contents of PatchDeploymentPatchConfigPostStep into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStep) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStep, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStep(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStep(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7939,14 +7943,14 @@ func expandPatchDeploymentPatchConfigPostStepMap(c *Client, f map[string]PatchDe
 
 // expandPatchDeploymentPatchConfigPostStepSlice expands the contents of PatchDeploymentPatchConfigPostStep into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepSlice(c *Client, f []PatchDeploymentPatchConfigPostStep) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepSlice(c *Client, f []PatchDeploymentPatchConfigPostStep, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStep(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStep(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7999,18 +8003,18 @@ func flattenPatchDeploymentPatchConfigPostStepSlice(c *Client, i interface{}) []
 
 // expandPatchDeploymentPatchConfigPostStep expands an instance of PatchDeploymentPatchConfigPostStep into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStep(c *Client, f *PatchDeploymentPatchConfigPostStep) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStep(c *Client, f *PatchDeploymentPatchConfigPostStep, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, f.LinuxExecStepConfig); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, f.LinuxExecStepConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding LinuxExecStepConfig into linuxExecStepConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linuxExecStepConfig"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, f.WindowsExecStepConfig); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, f.WindowsExecStepConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WindowsExecStepConfig into windowsExecStepConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["windowsExecStepConfig"] = v
@@ -8040,14 +8044,14 @@ func flattenPatchDeploymentPatchConfigPostStep(c *Client, i interface{}) *PatchD
 
 // expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap expands the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8061,14 +8065,14 @@ func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap(c *Client, f
 
 // expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice expands the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8121,7 +8125,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c *Client
 
 // expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig expands an instance of PatchDeploymentPatchConfigPostStepLinuxExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8130,7 +8134,7 @@ func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, f *P
 	if v := f.LocalPath; !dcl.IsEmptyValueIndirect(v) {
 		m["localPath"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, f.GcsObject); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, f.GcsObject, res); err != nil {
 		return nil, fmt.Errorf("error expanding GcsObject into gcsObject: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcsObject"] = v
@@ -8168,14 +8172,14 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, i i
 
 // expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap expands the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8189,14 +8193,14 @@ func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap(c *
 
 // expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice expands the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8249,7 +8253,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(
 
 // expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject expands an instance of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8290,14 +8294,14 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c *Cl
 
 // expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap expands the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8311,14 +8315,14 @@ func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap(c *Client,
 
 // expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice expands the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(c *Client, f []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8371,7 +8375,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(c *Clie
 
 // expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig expands an instance of PatchDeploymentPatchConfigPostStepWindowsExecStepConfig into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, f *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8380,7 +8384,7 @@ func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, f 
 	if v := f.LocalPath; !dcl.IsEmptyValueIndirect(v) {
 		m["localPath"] = v
 	}
-	if v, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, f.GcsObject); err != nil {
+	if v, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, f.GcsObject, res); err != nil {
 		return nil, fmt.Errorf("error expanding GcsObject into gcsObject: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcsObject"] = v
@@ -8418,14 +8422,14 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, i
 
 // expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap expands the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap(c *Client, f map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8439,14 +8443,14 @@ func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap(c
 
 // expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice expands the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice(c *Client, f []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, &item)
+		i, err := expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8499,7 +8503,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlic
 
 // expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject expands an instance of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c *Client, f *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8540,14 +8544,14 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c *
 
 // expandPatchDeploymentPatchConfigRetryStrategyMap expands the contents of PatchDeploymentPatchConfigRetryStrategy into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigRetryStrategyMap(c *Client, f map[string]PatchDeploymentPatchConfigRetryStrategy) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigRetryStrategyMap(c *Client, f map[string]PatchDeploymentPatchConfigRetryStrategy, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentPatchConfigRetryStrategy(c, &item)
+		i, err := expandPatchDeploymentPatchConfigRetryStrategy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8561,14 +8565,14 @@ func expandPatchDeploymentPatchConfigRetryStrategyMap(c *Client, f map[string]Pa
 
 // expandPatchDeploymentPatchConfigRetryStrategySlice expands the contents of PatchDeploymentPatchConfigRetryStrategy into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigRetryStrategySlice(c *Client, f []PatchDeploymentPatchConfigRetryStrategy) ([]map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigRetryStrategySlice(c *Client, f []PatchDeploymentPatchConfigRetryStrategy, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentPatchConfigRetryStrategy(c, &item)
+		i, err := expandPatchDeploymentPatchConfigRetryStrategy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8621,7 +8625,7 @@ func flattenPatchDeploymentPatchConfigRetryStrategySlice(c *Client, i interface{
 
 // expandPatchDeploymentPatchConfigRetryStrategy expands an instance of PatchDeploymentPatchConfigRetryStrategy into a JSON
 // request object.
-func expandPatchDeploymentPatchConfigRetryStrategy(c *Client, f *PatchDeploymentPatchConfigRetryStrategy) (map[string]interface{}, error) {
+func expandPatchDeploymentPatchConfigRetryStrategy(c *Client, f *PatchDeploymentPatchConfigRetryStrategy, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8654,14 +8658,14 @@ func flattenPatchDeploymentPatchConfigRetryStrategy(c *Client, i interface{}) *P
 
 // expandPatchDeploymentOneTimeScheduleMap expands the contents of PatchDeploymentOneTimeSchedule into a JSON
 // request object.
-func expandPatchDeploymentOneTimeScheduleMap(c *Client, f map[string]PatchDeploymentOneTimeSchedule) (map[string]interface{}, error) {
+func expandPatchDeploymentOneTimeScheduleMap(c *Client, f map[string]PatchDeploymentOneTimeSchedule, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentOneTimeSchedule(c, &item)
+		i, err := expandPatchDeploymentOneTimeSchedule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8675,14 +8679,14 @@ func expandPatchDeploymentOneTimeScheduleMap(c *Client, f map[string]PatchDeploy
 
 // expandPatchDeploymentOneTimeScheduleSlice expands the contents of PatchDeploymentOneTimeSchedule into a JSON
 // request object.
-func expandPatchDeploymentOneTimeScheduleSlice(c *Client, f []PatchDeploymentOneTimeSchedule) ([]map[string]interface{}, error) {
+func expandPatchDeploymentOneTimeScheduleSlice(c *Client, f []PatchDeploymentOneTimeSchedule, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentOneTimeSchedule(c, &item)
+		i, err := expandPatchDeploymentOneTimeSchedule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8735,7 +8739,7 @@ func flattenPatchDeploymentOneTimeScheduleSlice(c *Client, i interface{}) []Patc
 
 // expandPatchDeploymentOneTimeSchedule expands an instance of PatchDeploymentOneTimeSchedule into a JSON
 // request object.
-func expandPatchDeploymentOneTimeSchedule(c *Client, f *PatchDeploymentOneTimeSchedule) (map[string]interface{}, error) {
+func expandPatchDeploymentOneTimeSchedule(c *Client, f *PatchDeploymentOneTimeSchedule, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8768,14 +8772,14 @@ func flattenPatchDeploymentOneTimeSchedule(c *Client, i interface{}) *PatchDeplo
 
 // expandPatchDeploymentRecurringScheduleMap expands the contents of PatchDeploymentRecurringSchedule into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleMap(c *Client, f map[string]PatchDeploymentRecurringSchedule) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleMap(c *Client, f map[string]PatchDeploymentRecurringSchedule, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRecurringSchedule(c, &item)
+		i, err := expandPatchDeploymentRecurringSchedule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8789,14 +8793,14 @@ func expandPatchDeploymentRecurringScheduleMap(c *Client, f map[string]PatchDepl
 
 // expandPatchDeploymentRecurringScheduleSlice expands the contents of PatchDeploymentRecurringSchedule into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleSlice(c *Client, f []PatchDeploymentRecurringSchedule) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleSlice(c *Client, f []PatchDeploymentRecurringSchedule, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRecurringSchedule(c, &item)
+		i, err := expandPatchDeploymentRecurringSchedule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8849,13 +8853,13 @@ func flattenPatchDeploymentRecurringScheduleSlice(c *Client, i interface{}) []Pa
 
 // expandPatchDeploymentRecurringSchedule expands an instance of PatchDeploymentRecurringSchedule into a JSON
 // request object.
-func expandPatchDeploymentRecurringSchedule(c *Client, f *PatchDeploymentRecurringSchedule) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringSchedule(c *Client, f *PatchDeploymentRecurringSchedule, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandPatchDeploymentRecurringScheduleTimeZone(c, f.TimeZone); err != nil {
+	if v, err := expandPatchDeploymentRecurringScheduleTimeZone(c, f.TimeZone, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeZone into timeZone: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeZone"] = v
@@ -8866,7 +8870,7 @@ func expandPatchDeploymentRecurringSchedule(c *Client, f *PatchDeploymentRecurri
 	if v := f.EndTime; !dcl.IsEmptyValueIndirect(v) {
 		m["endTime"] = v
 	}
-	if v, err := expandPatchDeploymentRecurringScheduleTimeOfDay(c, f.TimeOfDay); err != nil {
+	if v, err := expandPatchDeploymentRecurringScheduleTimeOfDay(c, f.TimeOfDay, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeOfDay into timeOfDay: %w", err)
 	} else if v != nil {
 		m["timeOfDay"] = v
@@ -8874,12 +8878,12 @@ func expandPatchDeploymentRecurringSchedule(c *Client, f *PatchDeploymentRecurri
 	if v := f.Frequency; !dcl.IsEmptyValueIndirect(v) {
 		m["frequency"] = v
 	}
-	if v, err := expandPatchDeploymentRecurringScheduleWeekly(c, f.Weekly); err != nil {
+	if v, err := expandPatchDeploymentRecurringScheduleWeekly(c, f.Weekly, res); err != nil {
 		return nil, fmt.Errorf("error expanding Weekly into weekly: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["weekly"] = v
 	}
-	if v, err := expandPatchDeploymentRecurringScheduleMonthly(c, f.Monthly); err != nil {
+	if v, err := expandPatchDeploymentRecurringScheduleMonthly(c, f.Monthly, res); err != nil {
 		return nil, fmt.Errorf("error expanding Monthly into monthly: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["monthly"] = v
@@ -8916,14 +8920,14 @@ func flattenPatchDeploymentRecurringSchedule(c *Client, i interface{}) *PatchDep
 
 // expandPatchDeploymentRecurringScheduleTimeZoneMap expands the contents of PatchDeploymentRecurringScheduleTimeZone into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleTimeZoneMap(c *Client, f map[string]PatchDeploymentRecurringScheduleTimeZone) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleTimeZoneMap(c *Client, f map[string]PatchDeploymentRecurringScheduleTimeZone, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleTimeZone(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleTimeZone(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8937,14 +8941,14 @@ func expandPatchDeploymentRecurringScheduleTimeZoneMap(c *Client, f map[string]P
 
 // expandPatchDeploymentRecurringScheduleTimeZoneSlice expands the contents of PatchDeploymentRecurringScheduleTimeZone into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, f []PatchDeploymentRecurringScheduleTimeZone) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, f []PatchDeploymentRecurringScheduleTimeZone, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleTimeZone(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleTimeZone(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8997,7 +9001,7 @@ func flattenPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, i interface
 
 // expandPatchDeploymentRecurringScheduleTimeZone expands an instance of PatchDeploymentRecurringScheduleTimeZone into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleTimeZone(c *Client, f *PatchDeploymentRecurringScheduleTimeZone) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleTimeZone(c *Client, f *PatchDeploymentRecurringScheduleTimeZone, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9034,14 +9038,14 @@ func flattenPatchDeploymentRecurringScheduleTimeZone(c *Client, i interface{}) *
 
 // expandPatchDeploymentRecurringScheduleTimeOfDayMap expands the contents of PatchDeploymentRecurringScheduleTimeOfDay into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleTimeOfDayMap(c *Client, f map[string]PatchDeploymentRecurringScheduleTimeOfDay) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleTimeOfDayMap(c *Client, f map[string]PatchDeploymentRecurringScheduleTimeOfDay, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleTimeOfDay(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleTimeOfDay(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9055,14 +9059,14 @@ func expandPatchDeploymentRecurringScheduleTimeOfDayMap(c *Client, f map[string]
 
 // expandPatchDeploymentRecurringScheduleTimeOfDaySlice expands the contents of PatchDeploymentRecurringScheduleTimeOfDay into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, f []PatchDeploymentRecurringScheduleTimeOfDay) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, f []PatchDeploymentRecurringScheduleTimeOfDay, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleTimeOfDay(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleTimeOfDay(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9115,7 +9119,7 @@ func flattenPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, i interfac
 
 // expandPatchDeploymentRecurringScheduleTimeOfDay expands an instance of PatchDeploymentRecurringScheduleTimeOfDay into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleTimeOfDay(c *Client, f *PatchDeploymentRecurringScheduleTimeOfDay) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleTimeOfDay(c *Client, f *PatchDeploymentRecurringScheduleTimeOfDay, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -9160,14 +9164,14 @@ func flattenPatchDeploymentRecurringScheduleTimeOfDay(c *Client, i interface{}) 
 
 // expandPatchDeploymentRecurringScheduleWeeklyMap expands the contents of PatchDeploymentRecurringScheduleWeekly into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleWeeklyMap(c *Client, f map[string]PatchDeploymentRecurringScheduleWeekly) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleWeeklyMap(c *Client, f map[string]PatchDeploymentRecurringScheduleWeekly, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleWeekly(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleWeekly(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9181,14 +9185,14 @@ func expandPatchDeploymentRecurringScheduleWeeklyMap(c *Client, f map[string]Pat
 
 // expandPatchDeploymentRecurringScheduleWeeklySlice expands the contents of PatchDeploymentRecurringScheduleWeekly into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleWeeklySlice(c *Client, f []PatchDeploymentRecurringScheduleWeekly) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleWeeklySlice(c *Client, f []PatchDeploymentRecurringScheduleWeekly, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleWeekly(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleWeekly(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9241,7 +9245,7 @@ func flattenPatchDeploymentRecurringScheduleWeeklySlice(c *Client, i interface{}
 
 // expandPatchDeploymentRecurringScheduleWeekly expands an instance of PatchDeploymentRecurringScheduleWeekly into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleWeekly(c *Client, f *PatchDeploymentRecurringScheduleWeekly) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleWeekly(c *Client, f *PatchDeploymentRecurringScheduleWeekly, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9274,14 +9278,14 @@ func flattenPatchDeploymentRecurringScheduleWeekly(c *Client, i interface{}) *Pa
 
 // expandPatchDeploymentRecurringScheduleMonthlyMap expands the contents of PatchDeploymentRecurringScheduleMonthly into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleMonthlyMap(c *Client, f map[string]PatchDeploymentRecurringScheduleMonthly) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleMonthlyMap(c *Client, f map[string]PatchDeploymentRecurringScheduleMonthly, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleMonthly(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleMonthly(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9295,14 +9299,14 @@ func expandPatchDeploymentRecurringScheduleMonthlyMap(c *Client, f map[string]Pa
 
 // expandPatchDeploymentRecurringScheduleMonthlySlice expands the contents of PatchDeploymentRecurringScheduleMonthly into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleMonthlySlice(c *Client, f []PatchDeploymentRecurringScheduleMonthly) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleMonthlySlice(c *Client, f []PatchDeploymentRecurringScheduleMonthly, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleMonthly(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleMonthly(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9355,13 +9359,13 @@ func flattenPatchDeploymentRecurringScheduleMonthlySlice(c *Client, i interface{
 
 // expandPatchDeploymentRecurringScheduleMonthly expands an instance of PatchDeploymentRecurringScheduleMonthly into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleMonthly(c *Client, f *PatchDeploymentRecurringScheduleMonthly) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleMonthly(c *Client, f *PatchDeploymentRecurringScheduleMonthly, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, f.WeekDayOfMonth); err != nil {
+	if v, err := expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, f.WeekDayOfMonth, res); err != nil {
 		return nil, fmt.Errorf("error expanding WeekDayOfMonth into weekDayOfMonth: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["weekDayOfMonth"] = v
@@ -9394,14 +9398,14 @@ func flattenPatchDeploymentRecurringScheduleMonthly(c *Client, i interface{}) *P
 
 // expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap expands the contents of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap(c *Client, f map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap(c *Client, f map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9415,14 +9419,14 @@ func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap(c *Client, f
 
 // expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice expands the contents of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c *Client, f []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c *Client, f []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, &item)
+		i, err := expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9475,7 +9479,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c *Client
 
 // expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth expands an instance of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth into a JSON
 // request object.
-func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c *Client, f *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth) (map[string]interface{}, error) {
+func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c *Client, f *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9512,14 +9516,14 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c *Client, i i
 
 // expandPatchDeploymentRolloutMap expands the contents of PatchDeploymentRollout into a JSON
 // request object.
-func expandPatchDeploymentRolloutMap(c *Client, f map[string]PatchDeploymentRollout) (map[string]interface{}, error) {
+func expandPatchDeploymentRolloutMap(c *Client, f map[string]PatchDeploymentRollout, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRollout(c, &item)
+		i, err := expandPatchDeploymentRollout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9533,14 +9537,14 @@ func expandPatchDeploymentRolloutMap(c *Client, f map[string]PatchDeploymentRoll
 
 // expandPatchDeploymentRolloutSlice expands the contents of PatchDeploymentRollout into a JSON
 // request object.
-func expandPatchDeploymentRolloutSlice(c *Client, f []PatchDeploymentRollout) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRolloutSlice(c *Client, f []PatchDeploymentRollout, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRollout(c, &item)
+		i, err := expandPatchDeploymentRollout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9593,7 +9597,7 @@ func flattenPatchDeploymentRolloutSlice(c *Client, i interface{}) []PatchDeploym
 
 // expandPatchDeploymentRollout expands an instance of PatchDeploymentRollout into a JSON
 // request object.
-func expandPatchDeploymentRollout(c *Client, f *PatchDeploymentRollout) (map[string]interface{}, error) {
+func expandPatchDeploymentRollout(c *Client, f *PatchDeploymentRollout, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9602,7 +9606,7 @@ func expandPatchDeploymentRollout(c *Client, f *PatchDeploymentRollout) (map[str
 	if v := f.Mode; !dcl.IsEmptyValueIndirect(v) {
 		m["mode"] = v
 	}
-	if v, err := expandPatchDeploymentRolloutDisruptionBudget(c, f.DisruptionBudget); err != nil {
+	if v, err := expandPatchDeploymentRolloutDisruptionBudget(c, f.DisruptionBudget, res); err != nil {
 		return nil, fmt.Errorf("error expanding DisruptionBudget into disruptionBudget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["disruptionBudget"] = v
@@ -9632,14 +9636,14 @@ func flattenPatchDeploymentRollout(c *Client, i interface{}) *PatchDeploymentRol
 
 // expandPatchDeploymentRolloutDisruptionBudgetMap expands the contents of PatchDeploymentRolloutDisruptionBudget into a JSON
 // request object.
-func expandPatchDeploymentRolloutDisruptionBudgetMap(c *Client, f map[string]PatchDeploymentRolloutDisruptionBudget) (map[string]interface{}, error) {
+func expandPatchDeploymentRolloutDisruptionBudgetMap(c *Client, f map[string]PatchDeploymentRolloutDisruptionBudget, res *PatchDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPatchDeploymentRolloutDisruptionBudget(c, &item)
+		i, err := expandPatchDeploymentRolloutDisruptionBudget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9653,14 +9657,14 @@ func expandPatchDeploymentRolloutDisruptionBudgetMap(c *Client, f map[string]Pat
 
 // expandPatchDeploymentRolloutDisruptionBudgetSlice expands the contents of PatchDeploymentRolloutDisruptionBudget into a JSON
 // request object.
-func expandPatchDeploymentRolloutDisruptionBudgetSlice(c *Client, f []PatchDeploymentRolloutDisruptionBudget) ([]map[string]interface{}, error) {
+func expandPatchDeploymentRolloutDisruptionBudgetSlice(c *Client, f []PatchDeploymentRolloutDisruptionBudget, res *PatchDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPatchDeploymentRolloutDisruptionBudget(c, &item)
+		i, err := expandPatchDeploymentRolloutDisruptionBudget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9713,7 +9717,7 @@ func flattenPatchDeploymentRolloutDisruptionBudgetSlice(c *Client, i interface{}
 
 // expandPatchDeploymentRolloutDisruptionBudget expands an instance of PatchDeploymentRolloutDisruptionBudget into a JSON
 // request object.
-func expandPatchDeploymentRolloutDisruptionBudget(c *Client, f *PatchDeploymentRolloutDisruptionBudget) (map[string]interface{}, error) {
+func expandPatchDeploymentRolloutDisruptionBudget(c *Client, f *PatchDeploymentRolloutDisruptionBudget, res *PatchDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

@@ -321,11 +321,13 @@ type serviceLevelObjectiveApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateServiceLevelObjectiveUpdateServiceLevelObjectiveRequest(ctx context.Context, f *ServiceLevelObjective, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicator(c, f.ServiceLevelIndicator); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicator(c, f.ServiceLevelIndicator, res); err != nil {
 		return nil, fmt.Errorf("error expanding ServiceLevelIndicator into serviceLevelIndicator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["serviceLevelIndicator"] = v
@@ -5023,6 +5025,8 @@ func unmarshalMapServiceLevelObjective(m map[string]interface{}, c *Client) (*Se
 // expandServiceLevelObjective expands ServiceLevelObjective into a JSON request object.
 func expandServiceLevelObjective(c *Client, f *ServiceLevelObjective) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/services/%s/serviceLevelObjectives/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Service), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -5031,7 +5035,7 @@ func expandServiceLevelObjective(c *Client, f *ServiceLevelObjective) (map[strin
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicator(c, f.ServiceLevelIndicator); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicator(c, f.ServiceLevelIndicator, res); err != nil {
 		return nil, fmt.Errorf("error expanding ServiceLevelIndicator into serviceLevelIndicator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["serviceLevelIndicator"] = v
@@ -5092,14 +5096,14 @@ func flattenServiceLevelObjective(c *Client, i interface{}) *ServiceLevelObjecti
 
 // expandServiceLevelObjectiveServiceLevelIndicatorMap expands the contents of ServiceLevelObjectiveServiceLevelIndicator into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicator) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicator, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicator(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5113,14 +5117,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorMap(c *Client, f map[string
 
 // expandServiceLevelObjectiveServiceLevelIndicatorSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicator into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicator) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicator, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicator(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5173,23 +5177,23 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, i interfa
 
 // expandServiceLevelObjectiveServiceLevelIndicator expands an instance of ServiceLevelObjectiveServiceLevelIndicator into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicator(c *Client, f *ServiceLevelObjectiveServiceLevelIndicator) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicator(c *Client, f *ServiceLevelObjectiveServiceLevelIndicator, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, f.BasicSli); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, f.BasicSli, res); err != nil {
 		return nil, fmt.Errorf("error expanding BasicSli into basicSli: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["basicSli"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, f.RequestBased); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, f.RequestBased, res); err != nil {
 		return nil, fmt.Errorf("error expanding RequestBased into requestBased: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["requestBased"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, f.WindowsBased); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, f.WindowsBased, res); err != nil {
 		return nil, fmt.Errorf("error expanding WindowsBased into windowsBased: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["windowsBased"] = v
@@ -5220,14 +5224,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicator(c *Client, i interface{})
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSli into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSli) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSli, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5241,14 +5245,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliMap(c *Client, f ma
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSli into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSli) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSli, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5301,7 +5305,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *Client, i
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSli expands an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSli into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSli) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSli, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5316,22 +5320,22 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, f *Serv
 	if v := f.Version; v != nil {
 		m["version"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, f.Availability); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, f.Availability, res); err != nil {
 		return nil, fmt.Errorf("error expanding Availability into availability: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["availability"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, f.Latency); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, f.Latency, res); err != nil {
 		return nil, fmt.Errorf("error expanding Latency into latency: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["latency"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, f.OperationAvailability); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, f.OperationAvailability, res); err != nil {
 		return nil, fmt.Errorf("error expanding OperationAvailability into operationAvailability: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["operationAvailability"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, f.OperationLatency); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, f.OperationLatency, res); err != nil {
 		return nil, fmt.Errorf("error expanding OperationLatency into operationLatency: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["operationLatency"] = v
@@ -5366,14 +5370,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, i inte
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5387,14 +5391,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap(c *
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5447,7 +5451,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability expands an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5476,14 +5480,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c *Cl
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5497,14 +5501,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap(c *Clien
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5557,7 +5561,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(c *Cl
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency expands an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5594,14 +5598,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c *Client,
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5615,14 +5619,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabili
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilitySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5675,7 +5679,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabil
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability expands an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5704,14 +5708,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabil
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5725,14 +5729,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMap
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5785,7 +5789,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySl
 
 // expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency expands an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5822,14 +5826,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBased into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBased) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBased, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5843,14 +5847,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap(c *Client, 
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBased into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBased) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBased, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5903,18 +5907,18 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(c *Clien
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBased expands an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBased into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBased) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBased, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, f.GoodTotalRatio); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, f.GoodTotalRatio, res); err != nil {
 		return nil, fmt.Errorf("error expanding GoodTotalRatio into goodTotalRatio: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["goodTotalRatio"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, f.DistributionCut); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, f.DistributionCut, res); err != nil {
 		return nil, fmt.Errorf("error expanding DistributionCut into distributionCut: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["distributionCut"] = v
@@ -5944,14 +5948,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c *Client, i 
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5965,14 +5969,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioM
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6025,7 +6029,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio expands an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6066,14 +6070,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6087,14 +6091,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6147,7 +6151,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut expands an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6156,7 +6160,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 	if v := f.DistributionFilter; !dcl.IsEmptyValueIndirect(v) {
 		m["distributionFilter"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, f.Range); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, f.Range, res); err != nil {
 		return nil, fmt.Errorf("error expanding Range into range: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["range"] = v
@@ -6186,14 +6190,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6207,14 +6211,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6267,7 +6271,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 // expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange expands an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6304,14 +6308,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBased into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBased, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6325,14 +6329,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap(c *Client, 
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBased into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBased, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6385,7 +6389,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(c *Clien
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBased into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6394,17 +6398,17 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, f *
 	if v := f.GoodBadMetricFilter; !dcl.IsEmptyValueIndirect(v) {
 		m["goodBadMetricFilter"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, f.GoodTotalRatioThreshold); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, f.GoodTotalRatioThreshold, res); err != nil {
 		return nil, fmt.Errorf("error expanding GoodTotalRatioThreshold into goodTotalRatioThreshold: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["goodTotalRatioThreshold"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, f.MetricMeanInRange); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, f.MetricMeanInRange, res); err != nil {
 		return nil, fmt.Errorf("error expanding MetricMeanInRange into metricMeanInRange: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metricMeanInRange"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, f.MetricSumInRange); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, f.MetricSumInRange, res); err != nil {
 		return nil, fmt.Errorf("error expanding MetricSumInRange into metricSumInRange: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metricSumInRange"] = v
@@ -6440,14 +6444,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, i 
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6461,14 +6465,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6521,18 +6525,18 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, f.Performance); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, f.Performance, res); err != nil {
 		return nil, fmt.Errorf("error expanding Performance into performance: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["performance"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, f.BasicSliPerformance); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, f.BasicSliPerformance, res); err != nil {
 		return nil, fmt.Errorf("error expanding BasicSliPerformance into basicSliPerformance: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["basicSliPerformance"] = v
@@ -6566,14 +6570,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6587,14 +6591,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6647,18 +6651,18 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, f.GoodTotalRatio); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, f.GoodTotalRatio, res); err != nil {
 		return nil, fmt.Errorf("error expanding GoodTotalRatio into goodTotalRatio: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["goodTotalRatio"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, f.DistributionCut); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, f.DistributionCut, res); err != nil {
 		return nil, fmt.Errorf("error expanding DistributionCut into distributionCut: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["distributionCut"] = v
@@ -6688,14 +6692,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6709,14 +6713,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6769,7 +6773,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6810,14 +6814,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6831,14 +6835,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6891,7 +6895,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6900,7 +6904,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 	if v := f.DistributionFilter; !dcl.IsEmptyValueIndirect(v) {
 		m["distributionFilter"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, f.Range); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, f.Range, res); err != nil {
 		return nil, fmt.Errorf("error expanding Range into range: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["range"] = v
@@ -6930,14 +6934,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6951,14 +6955,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7011,7 +7015,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7048,14 +7052,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7069,14 +7073,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7129,7 +7133,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7144,22 +7148,22 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 	if v := f.Version; v != nil {
 		m["version"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, f.Availability); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, f.Availability, res); err != nil {
 		return nil, fmt.Errorf("error expanding Availability into availability: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["availability"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, f.Latency); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, f.Latency, res); err != nil {
 		return nil, fmt.Errorf("error expanding Latency into latency: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["latency"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, f.OperationAvailability); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, f.OperationAvailability, res); err != nil {
 		return nil, fmt.Errorf("error expanding OperationAvailability into operationAvailability: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["operationAvailability"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, f.OperationLatency); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, f.OperationLatency, res); err != nil {
 		return nil, fmt.Errorf("error expanding OperationLatency into operationLatency: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["operationLatency"] = v
@@ -7194,14 +7198,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7215,14 +7219,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilitySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7275,7 +7279,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7304,14 +7308,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7325,14 +7329,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7385,7 +7389,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7422,14 +7426,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7443,14 +7447,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilitySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilitySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7503,7 +7507,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7532,14 +7536,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7553,14 +7557,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencySlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencySlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7613,7 +7617,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7650,14 +7654,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7671,14 +7675,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRan
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7731,7 +7735,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7740,7 +7744,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRan
 	if v := f.TimeSeries; !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeries"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, f.Range); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, f.Range, res); err != nil {
 		return nil, fmt.Errorf("error expanding Range into range: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["range"] = v
@@ -7770,14 +7774,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7791,14 +7795,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRan
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7851,7 +7855,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7888,14 +7892,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7909,14 +7913,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRang
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7969,7 +7973,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7978,7 +7982,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRang
 	if v := f.TimeSeries; !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeries"] = v
 	}
-	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, f.Range); err != nil {
+	if v, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, f.Range, res); err != nil {
 		return nil, fmt.Errorf("error expanding Range into range: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["range"] = v
@@ -8008,14 +8012,14 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeMap expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeMap(c *Client, f map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8029,14 +8033,14 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRang
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeSlice expands the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange) ([]map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeSlice(c *Client, f []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, res *ServiceLevelObjective) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, &item)
+		i, err := expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8089,7 +8093,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 // expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange expands an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange into a JSON
 // request object.
-func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange) (map[string]interface{}, error) {
+func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c *Client, f *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, res *ServiceLevelObjective) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

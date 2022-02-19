@@ -244,8 +244,10 @@ class WorkflowTemplatePlacementManagedCluster(object):
         res = workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedCluster()
         if Primitive.to_proto(resource.cluster_name):
             res.cluster_name = Primitive.to_proto(resource.cluster_name)
-        if ClusterClusterConfig.to_proto(resource.config):
-            res.config.CopyFrom(ClusterClusterConfig.to_proto(resource.config))
+        if WorkflowTemplatePlacementManagedClusterConfig.to_proto(resource.config):
+            res.config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfig.to_proto(resource.config)
+            )
         else:
             res.ClearField("config")
         if Primitive.to_proto(resource.labels):
@@ -259,7 +261,9 @@ class WorkflowTemplatePlacementManagedCluster(object):
 
         return WorkflowTemplatePlacementManagedCluster(
             cluster_name=Primitive.from_proto(resource.cluster_name),
-            config=ClusterClusterConfig.from_proto(resource.config),
+            config=WorkflowTemplatePlacementManagedClusterConfig.from_proto(
+                resource.config
+            ),
             labels=Primitive.from_proto(resource.labels),
         )
 
@@ -275,6 +279,1918 @@ class WorkflowTemplatePlacementManagedClusterArray(object):
     def from_proto(self, resources):
         return [
             WorkflowTemplatePlacementManagedCluster.from_proto(i) for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfig(object):
+    def __init__(
+        self,
+        staging_bucket: str = None,
+        temp_bucket: str = None,
+        gce_cluster_config: dict = None,
+        master_config: dict = None,
+        worker_config: dict = None,
+        secondary_worker_config: dict = None,
+        software_config: dict = None,
+        initialization_actions: list = None,
+        encryption_config: dict = None,
+        autoscaling_config: dict = None,
+        security_config: dict = None,
+        lifecycle_config: dict = None,
+        endpoint_config: dict = None,
+    ):
+        self.staging_bucket = staging_bucket
+        self.temp_bucket = temp_bucket
+        self.gce_cluster_config = gce_cluster_config
+        self.master_config = master_config
+        self.worker_config = worker_config
+        self.secondary_worker_config = secondary_worker_config
+        self.software_config = software_config
+        self.initialization_actions = initialization_actions
+        self.encryption_config = encryption_config
+        self.autoscaling_config = autoscaling_config
+        self.security_config = security_config
+        self.lifecycle_config = lifecycle_config
+        self.endpoint_config = endpoint_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfig()
+        )
+        if Primitive.to_proto(resource.staging_bucket):
+            res.staging_bucket = Primitive.to_proto(resource.staging_bucket)
+        if Primitive.to_proto(resource.temp_bucket):
+            res.temp_bucket = Primitive.to_proto(resource.temp_bucket)
+        if WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig.to_proto(
+            resource.gce_cluster_config
+        ):
+            res.gce_cluster_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig.to_proto(
+                    resource.gce_cluster_config
+                )
+            )
+        else:
+            res.ClearField("gce_cluster_config")
+        if WorkflowTemplatePlacementManagedClusterConfigMasterConfig.to_proto(
+            resource.master_config
+        ):
+            res.master_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigMasterConfig.to_proto(
+                    resource.master_config
+                )
+            )
+        else:
+            res.ClearField("master_config")
+        if WorkflowTemplatePlacementManagedClusterConfigWorkerConfig.to_proto(
+            resource.worker_config
+        ):
+            res.worker_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigWorkerConfig.to_proto(
+                    resource.worker_config
+                )
+            )
+        else:
+            res.ClearField("worker_config")
+        if WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig.to_proto(
+            resource.secondary_worker_config
+        ):
+            res.secondary_worker_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig.to_proto(
+                    resource.secondary_worker_config
+                )
+            )
+        else:
+            res.ClearField("secondary_worker_config")
+        if WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig.to_proto(
+            resource.software_config
+        ):
+            res.software_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig.to_proto(
+                    resource.software_config
+                )
+            )
+        else:
+            res.ClearField("software_config")
+        if WorkflowTemplatePlacementManagedClusterConfigInitializationActionsArray.to_proto(
+            resource.initialization_actions
+        ):
+            res.initialization_actions.extend(
+                WorkflowTemplatePlacementManagedClusterConfigInitializationActionsArray.to_proto(
+                    resource.initialization_actions
+                )
+            )
+        if WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig.to_proto(
+            resource.encryption_config
+        ):
+            res.encryption_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig.to_proto(
+                    resource.encryption_config
+                )
+            )
+        else:
+            res.ClearField("encryption_config")
+        if WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig.to_proto(
+            resource.autoscaling_config
+        ):
+            res.autoscaling_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig.to_proto(
+                    resource.autoscaling_config
+                )
+            )
+        else:
+            res.ClearField("autoscaling_config")
+        if WorkflowTemplatePlacementManagedClusterConfigSecurityConfig.to_proto(
+            resource.security_config
+        ):
+            res.security_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigSecurityConfig.to_proto(
+                    resource.security_config
+                )
+            )
+        else:
+            res.ClearField("security_config")
+        if WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig.to_proto(
+            resource.lifecycle_config
+        ):
+            res.lifecycle_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig.to_proto(
+                    resource.lifecycle_config
+                )
+            )
+        else:
+            res.ClearField("lifecycle_config")
+        if WorkflowTemplatePlacementManagedClusterConfigEndpointConfig.to_proto(
+            resource.endpoint_config
+        ):
+            res.endpoint_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigEndpointConfig.to_proto(
+                    resource.endpoint_config
+                )
+            )
+        else:
+            res.ClearField("endpoint_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfig(
+            staging_bucket=Primitive.from_proto(resource.staging_bucket),
+            temp_bucket=Primitive.from_proto(resource.temp_bucket),
+            gce_cluster_config=WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig.from_proto(
+                resource.gce_cluster_config
+            ),
+            master_config=WorkflowTemplatePlacementManagedClusterConfigMasterConfig.from_proto(
+                resource.master_config
+            ),
+            worker_config=WorkflowTemplatePlacementManagedClusterConfigWorkerConfig.from_proto(
+                resource.worker_config
+            ),
+            secondary_worker_config=WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig.from_proto(
+                resource.secondary_worker_config
+            ),
+            software_config=WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig.from_proto(
+                resource.software_config
+            ),
+            initialization_actions=WorkflowTemplatePlacementManagedClusterConfigInitializationActionsArray.from_proto(
+                resource.initialization_actions
+            ),
+            encryption_config=WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig.from_proto(
+                resource.encryption_config
+            ),
+            autoscaling_config=WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig.from_proto(
+                resource.autoscaling_config
+            ),
+            security_config=WorkflowTemplatePlacementManagedClusterConfigSecurityConfig.from_proto(
+                resource.security_config
+            ),
+            lifecycle_config=WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig.from_proto(
+                resource.lifecycle_config
+            ),
+            endpoint_config=WorkflowTemplatePlacementManagedClusterConfigEndpointConfig.from_proto(
+                resource.endpoint_config
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(object):
+    def __init__(
+        self,
+        zone: str = None,
+        network: str = None,
+        subnetwork: str = None,
+        internal_ip_only: bool = None,
+        private_ipv6_google_access: str = None,
+        service_account: str = None,
+        service_account_scopes: list = None,
+        tags: list = None,
+        metadata: dict = None,
+        reservation_affinity: dict = None,
+        node_group_affinity: dict = None,
+    ):
+        self.zone = zone
+        self.network = network
+        self.subnetwork = subnetwork
+        self.internal_ip_only = internal_ip_only
+        self.private_ipv6_google_access = private_ipv6_google_access
+        self.service_account = service_account
+        self.service_account_scopes = service_account_scopes
+        self.tags = tags
+        self.metadata = metadata
+        self.reservation_affinity = reservation_affinity
+        self.node_group_affinity = node_group_affinity
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig()
+        )
+        if Primitive.to_proto(resource.zone):
+            res.zone = Primitive.to_proto(resource.zone)
+        if Primitive.to_proto(resource.network):
+            res.network = Primitive.to_proto(resource.network)
+        if Primitive.to_proto(resource.subnetwork):
+            res.subnetwork = Primitive.to_proto(resource.subnetwork)
+        if Primitive.to_proto(resource.internal_ip_only):
+            res.internal_ip_only = Primitive.to_proto(resource.internal_ip_only)
+        if WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
+            resource.private_ipv6_google_access
+        ):
+            res.private_ipv6_google_access = WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
+                resource.private_ipv6_google_access
+            )
+        if Primitive.to_proto(resource.service_account):
+            res.service_account = Primitive.to_proto(resource.service_account)
+        if Primitive.to_proto(resource.service_account_scopes):
+            res.service_account_scopes.extend(
+                Primitive.to_proto(resource.service_account_scopes)
+            )
+        if Primitive.to_proto(resource.tags):
+            res.tags.extend(Primitive.to_proto(resource.tags))
+        if Primitive.to_proto(resource.metadata):
+            res.metadata = Primitive.to_proto(resource.metadata)
+        if WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity.to_proto(
+            resource.reservation_affinity
+        ):
+            res.reservation_affinity.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity.to_proto(
+                    resource.reservation_affinity
+                )
+            )
+        else:
+            res.ClearField("reservation_affinity")
+        if WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(
+            resource.node_group_affinity
+        ):
+            res.node_group_affinity.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(
+                    resource.node_group_affinity
+                )
+            )
+        else:
+            res.ClearField("node_group_affinity")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(
+            zone=Primitive.from_proto(resource.zone),
+            network=Primitive.from_proto(resource.network),
+            subnetwork=Primitive.from_proto(resource.subnetwork),
+            internal_ip_only=Primitive.from_proto(resource.internal_ip_only),
+            private_ipv6_google_access=WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.from_proto(
+                resource.private_ipv6_google_access
+            ),
+            service_account=Primitive.from_proto(resource.service_account),
+            service_account_scopes=Primitive.from_proto(
+                resource.service_account_scopes
+            ),
+            tags=Primitive.from_proto(resource.tags),
+            metadata=Primitive.from_proto(resource.metadata),
+            reservation_affinity=WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity.from_proto(
+                resource.reservation_affinity
+            ),
+            node_group_affinity=WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(
+                resource.node_group_affinity
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(
+    object
+):
+    def __init__(
+        self, consume_reservation_type: str = None, key: str = None, values: list = None
+    ):
+        self.consume_reservation_type = consume_reservation_type
+        self.key = key
+        self.values = values
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity()
+        )
+        if WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.to_proto(
+            resource.consume_reservation_type
+        ):
+            res.consume_reservation_type = WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.to_proto(
+                resource.consume_reservation_type
+            )
+        if Primitive.to_proto(resource.key):
+            res.key = Primitive.to_proto(resource.key)
+        if Primitive.to_proto(resource.values):
+            res.values.extend(Primitive.to_proto(resource.values))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(
+            consume_reservation_type=WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.from_proto(
+                resource.consume_reservation_type
+            ),
+            key=Primitive.from_proto(resource.key),
+            values=Primitive.from_proto(resource.values),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(
+    object
+):
+    def __init__(self, node_group: str = None):
+        self.node_group = node_group
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity()
+        )
+        if Primitive.to_proto(resource.node_group):
+            res.node_group = Primitive.to_proto(resource.node_group)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(
+            node_group=Primitive.from_proto(resource.node_group),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfig(object):
+    def __init__(
+        self,
+        num_instances: int = None,
+        instance_names: list = None,
+        image: str = None,
+        machine_type: str = None,
+        disk_config: dict = None,
+        is_preemptible: bool = None,
+        preemptibility: str = None,
+        managed_group_config: dict = None,
+        accelerators: list = None,
+        min_cpu_platform: str = None,
+    ):
+        self.num_instances = num_instances
+        self.instance_names = instance_names
+        self.image = image
+        self.machine_type = machine_type
+        self.disk_config = disk_config
+        self.is_preemptible = is_preemptible
+        self.preemptibility = preemptibility
+        self.managed_group_config = managed_group_config
+        self.accelerators = accelerators
+        self.min_cpu_platform = min_cpu_platform
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfig()
+        )
+        if Primitive.to_proto(resource.num_instances):
+            res.num_instances = Primitive.to_proto(resource.num_instances)
+        if Primitive.to_proto(resource.instance_names):
+            res.instance_names.extend(Primitive.to_proto(resource.instance_names))
+        if Primitive.to_proto(resource.image):
+            res.image = Primitive.to_proto(resource.image)
+        if Primitive.to_proto(resource.machine_type):
+            res.machine_type = Primitive.to_proto(resource.machine_type)
+        if WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig.to_proto(
+            resource.disk_config
+        ):
+            res.disk_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig.to_proto(
+                    resource.disk_config
+                )
+            )
+        else:
+            res.ClearField("disk_config")
+        if Primitive.to_proto(resource.is_preemptible):
+            res.is_preemptible = Primitive.to_proto(resource.is_preemptible)
+        if WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum.to_proto(
+            resource.preemptibility
+        ):
+            res.preemptibility = WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum.to_proto(
+                resource.preemptibility
+            )
+        if WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig.to_proto(
+            resource.managed_group_config
+        ):
+            res.managed_group_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig.to_proto(
+                    resource.managed_group_config
+                )
+            )
+        else:
+            res.ClearField("managed_group_config")
+        if WorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsArray.to_proto(
+            resource.accelerators
+        ):
+            res.accelerators.extend(
+                WorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsArray.to_proto(
+                    resource.accelerators
+                )
+            )
+        if Primitive.to_proto(resource.min_cpu_platform):
+            res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigMasterConfig(
+            num_instances=Primitive.from_proto(resource.num_instances),
+            instance_names=Primitive.from_proto(resource.instance_names),
+            image=Primitive.from_proto(resource.image),
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_config=WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig.from_proto(
+                resource.disk_config
+            ),
+            is_preemptible=Primitive.from_proto(resource.is_preemptible),
+            preemptibility=WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum.from_proto(
+                resource.preemptibility
+            ),
+            managed_group_config=WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig.from_proto(
+                resource.managed_group_config
+            ),
+            accelerators=WorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(object):
+    def __init__(
+        self,
+        boot_disk_type: str = None,
+        boot_disk_size_gb: int = None,
+        num_local_ssds: int = None,
+    ):
+        self.boot_disk_type = boot_disk_type
+        self.boot_disk_size_gb = boot_disk_size_gb
+        self.num_local_ssds = num_local_ssds
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig()
+        )
+        if Primitive.to_proto(resource.boot_disk_type):
+            res.boot_disk_type = Primitive.to_proto(resource.boot_disk_type)
+        if Primitive.to_proto(resource.boot_disk_size_gb):
+            res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
+        if Primitive.to_proto(resource.num_local_ssds):
+            res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(
+            boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
+            boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
+            num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(
+    object
+):
+    def __init__(
+        self,
+        instance_template_name: str = None,
+        instance_group_manager_name: str = None,
+    ):
+        self.instance_template_name = instance_template_name
+        self.instance_group_manager_name = instance_group_manager_name
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig()
+        )
+        if Primitive.to_proto(resource.instance_template_name):
+            res.instance_template_name = Primitive.to_proto(
+                resource.instance_template_name
+            )
+        if Primitive.to_proto(resource.instance_group_manager_name):
+            res.instance_group_manager_name = Primitive.to_proto(
+                resource.instance_group_manager_name
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(
+            instance_template_name=Primitive.from_proto(
+                resource.instance_template_name
+            ),
+            instance_group_manager_name=Primitive.from_proto(
+                resource.instance_group_manager_name
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(object):
+    def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
+        self.accelerator_type = accelerator_type
+        self.accelerator_count = accelerator_count
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators()
+        )
+        if Primitive.to_proto(resource.accelerator_type):
+            res.accelerator_type = Primitive.to_proto(resource.accelerator_type)
+        if Primitive.to_proto(resource.accelerator_count):
+            res.accelerator_count = Primitive.to_proto(resource.accelerator_count)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfig(object):
+    def __init__(
+        self,
+        num_instances: int = None,
+        instance_names: list = None,
+        image: str = None,
+        machine_type: str = None,
+        disk_config: dict = None,
+        is_preemptible: bool = None,
+        preemptibility: str = None,
+        managed_group_config: dict = None,
+        accelerators: list = None,
+        min_cpu_platform: str = None,
+    ):
+        self.num_instances = num_instances
+        self.instance_names = instance_names
+        self.image = image
+        self.machine_type = machine_type
+        self.disk_config = disk_config
+        self.is_preemptible = is_preemptible
+        self.preemptibility = preemptibility
+        self.managed_group_config = managed_group_config
+        self.accelerators = accelerators
+        self.min_cpu_platform = min_cpu_platform
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfig()
+        )
+        if Primitive.to_proto(resource.num_instances):
+            res.num_instances = Primitive.to_proto(resource.num_instances)
+        if Primitive.to_proto(resource.instance_names):
+            res.instance_names.extend(Primitive.to_proto(resource.instance_names))
+        if Primitive.to_proto(resource.image):
+            res.image = Primitive.to_proto(resource.image)
+        if Primitive.to_proto(resource.machine_type):
+            res.machine_type = Primitive.to_proto(resource.machine_type)
+        if WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig.to_proto(
+            resource.disk_config
+        ):
+            res.disk_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig.to_proto(
+                    resource.disk_config
+                )
+            )
+        else:
+            res.ClearField("disk_config")
+        if Primitive.to_proto(resource.is_preemptible):
+            res.is_preemptible = Primitive.to_proto(resource.is_preemptible)
+        if WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum.to_proto(
+            resource.preemptibility
+        ):
+            res.preemptibility = WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum.to_proto(
+                resource.preemptibility
+            )
+        if WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig.to_proto(
+            resource.managed_group_config
+        ):
+            res.managed_group_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig.to_proto(
+                    resource.managed_group_config
+                )
+            )
+        else:
+            res.ClearField("managed_group_config")
+        if WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsArray.to_proto(
+            resource.accelerators
+        ):
+            res.accelerators.extend(
+                WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsArray.to_proto(
+                    resource.accelerators
+                )
+            )
+        if Primitive.to_proto(resource.min_cpu_platform):
+            res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigWorkerConfig(
+            num_instances=Primitive.from_proto(resource.num_instances),
+            instance_names=Primitive.from_proto(resource.instance_names),
+            image=Primitive.from_proto(resource.image),
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_config=WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig.from_proto(
+                resource.disk_config
+            ),
+            is_preemptible=Primitive.from_proto(resource.is_preemptible),
+            preemptibility=WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum.from_proto(
+                resource.preemptibility
+            ),
+            managed_group_config=WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig.from_proto(
+                resource.managed_group_config
+            ),
+            accelerators=WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(object):
+    def __init__(
+        self,
+        boot_disk_type: str = None,
+        boot_disk_size_gb: int = None,
+        num_local_ssds: int = None,
+    ):
+        self.boot_disk_type = boot_disk_type
+        self.boot_disk_size_gb = boot_disk_size_gb
+        self.num_local_ssds = num_local_ssds
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig()
+        )
+        if Primitive.to_proto(resource.boot_disk_type):
+            res.boot_disk_type = Primitive.to_proto(resource.boot_disk_type)
+        if Primitive.to_proto(resource.boot_disk_size_gb):
+            res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
+        if Primitive.to_proto(resource.num_local_ssds):
+            res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(
+            boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
+            boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
+            num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(
+    object
+):
+    def __init__(
+        self,
+        instance_template_name: str = None,
+        instance_group_manager_name: str = None,
+    ):
+        self.instance_template_name = instance_template_name
+        self.instance_group_manager_name = instance_group_manager_name
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig()
+        )
+        if Primitive.to_proto(resource.instance_template_name):
+            res.instance_template_name = Primitive.to_proto(
+                resource.instance_template_name
+            )
+        if Primitive.to_proto(resource.instance_group_manager_name):
+            res.instance_group_manager_name = Primitive.to_proto(
+                resource.instance_group_manager_name
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(
+            instance_template_name=Primitive.from_proto(
+                resource.instance_template_name
+            ),
+            instance_group_manager_name=Primitive.from_proto(
+                resource.instance_group_manager_name
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(object):
+    def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
+        self.accelerator_type = accelerator_type
+        self.accelerator_count = accelerator_count
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators()
+        )
+        if Primitive.to_proto(resource.accelerator_type):
+            res.accelerator_type = Primitive.to_proto(resource.accelerator_type)
+        if Primitive.to_proto(resource.accelerator_count):
+            res.accelerator_count = Primitive.to_proto(resource.accelerator_count)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(object):
+    def __init__(
+        self,
+        num_instances: int = None,
+        instance_names: list = None,
+        image: str = None,
+        machine_type: str = None,
+        disk_config: dict = None,
+        is_preemptible: bool = None,
+        preemptibility: str = None,
+        managed_group_config: dict = None,
+        accelerators: list = None,
+        min_cpu_platform: str = None,
+    ):
+        self.num_instances = num_instances
+        self.instance_names = instance_names
+        self.image = image
+        self.machine_type = machine_type
+        self.disk_config = disk_config
+        self.is_preemptible = is_preemptible
+        self.preemptibility = preemptibility
+        self.managed_group_config = managed_group_config
+        self.accelerators = accelerators
+        self.min_cpu_platform = min_cpu_platform
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig()
+        )
+        if Primitive.to_proto(resource.num_instances):
+            res.num_instances = Primitive.to_proto(resource.num_instances)
+        if Primitive.to_proto(resource.instance_names):
+            res.instance_names.extend(Primitive.to_proto(resource.instance_names))
+        if Primitive.to_proto(resource.image):
+            res.image = Primitive.to_proto(resource.image)
+        if Primitive.to_proto(resource.machine_type):
+            res.machine_type = Primitive.to_proto(resource.machine_type)
+        if WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig.to_proto(
+            resource.disk_config
+        ):
+            res.disk_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig.to_proto(
+                    resource.disk_config
+                )
+            )
+        else:
+            res.ClearField("disk_config")
+        if Primitive.to_proto(resource.is_preemptible):
+            res.is_preemptible = Primitive.to_proto(resource.is_preemptible)
+        if WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
+            resource.preemptibility
+        ):
+            res.preemptibility = WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
+                resource.preemptibility
+            )
+        if WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(
+            resource.managed_group_config
+        ):
+            res.managed_group_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(
+                    resource.managed_group_config
+                )
+            )
+        else:
+            res.ClearField("managed_group_config")
+        if WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsArray.to_proto(
+            resource.accelerators
+        ):
+            res.accelerators.extend(
+                WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsArray.to_proto(
+                    resource.accelerators
+                )
+            )
+        if Primitive.to_proto(resource.min_cpu_platform):
+            res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(
+            num_instances=Primitive.from_proto(resource.num_instances),
+            instance_names=Primitive.from_proto(resource.instance_names),
+            image=Primitive.from_proto(resource.image),
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_config=WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig.from_proto(
+                resource.disk_config
+            ),
+            is_preemptible=Primitive.from_proto(resource.is_preemptible),
+            preemptibility=WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum.from_proto(
+                resource.preemptibility
+            ),
+            managed_group_config=WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig.from_proto(
+                resource.managed_group_config
+            ),
+            accelerators=WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(
+    object
+):
+    def __init__(
+        self,
+        boot_disk_type: str = None,
+        boot_disk_size_gb: int = None,
+        num_local_ssds: int = None,
+    ):
+        self.boot_disk_type = boot_disk_type
+        self.boot_disk_size_gb = boot_disk_size_gb
+        self.num_local_ssds = num_local_ssds
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig()
+        )
+        if Primitive.to_proto(resource.boot_disk_type):
+            res.boot_disk_type = Primitive.to_proto(resource.boot_disk_type)
+        if Primitive.to_proto(resource.boot_disk_size_gb):
+            res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
+        if Primitive.to_proto(resource.num_local_ssds):
+            res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(
+            boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
+            boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
+            num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(
+    object
+):
+    def __init__(
+        self,
+        instance_template_name: str = None,
+        instance_group_manager_name: str = None,
+    ):
+        self.instance_template_name = instance_template_name
+        self.instance_group_manager_name = instance_group_manager_name
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig()
+        )
+        if Primitive.to_proto(resource.instance_template_name):
+            res.instance_template_name = Primitive.to_proto(
+                resource.instance_template_name
+            )
+        if Primitive.to_proto(resource.instance_group_manager_name):
+            res.instance_group_manager_name = Primitive.to_proto(
+                resource.instance_group_manager_name
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(
+            instance_template_name=Primitive.from_proto(
+                resource.instance_template_name
+            ),
+            instance_group_manager_name=Primitive.from_proto(
+                resource.instance_group_manager_name
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(
+    object
+):
+    def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
+        self.accelerator_type = accelerator_type
+        self.accelerator_count = accelerator_count
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators()
+        )
+        if Primitive.to_proto(resource.accelerator_type):
+            res.accelerator_type = Primitive.to_proto(resource.accelerator_type)
+        if Primitive.to_proto(resource.accelerator_count):
+            res.accelerator_count = Primitive.to_proto(resource.accelerator_count)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(object):
+    def __init__(
+        self,
+        image_version: str = None,
+        properties: dict = None,
+        optional_components: list = None,
+    ):
+        self.image_version = image_version
+        self.properties = properties
+        self.optional_components = optional_components
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig()
+        )
+        if Primitive.to_proto(resource.image_version):
+            res.image_version = Primitive.to_proto(resource.image_version)
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
+        if WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumArray.to_proto(
+            resource.optional_components
+        ):
+            res.optional_components.extend(
+                WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumArray.to_proto(
+                    resource.optional_components
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(
+            image_version=Primitive.from_proto(resource.image_version),
+            properties=Primitive.from_proto(resource.properties),
+            optional_components=WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumArray.from_proto(
+                resource.optional_components
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigInitializationActions(object):
+    def __init__(self, executable_file: str = None, execution_timeout: str = None):
+        self.executable_file = executable_file
+        self.execution_timeout = execution_timeout
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigInitializationActions()
+        )
+        if Primitive.to_proto(resource.executable_file):
+            res.executable_file = Primitive.to_proto(resource.executable_file)
+        if Primitive.to_proto(resource.execution_timeout):
+            res.execution_timeout = Primitive.to_proto(resource.execution_timeout)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigInitializationActions(
+            executable_file=Primitive.from_proto(resource.executable_file),
+            execution_timeout=Primitive.from_proto(resource.execution_timeout),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigInitializationActionsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigInitializationActions.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigInitializationActions.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(object):
+    def __init__(self, gce_pd_kms_key_name: str = None):
+        self.gce_pd_kms_key_name = gce_pd_kms_key_name
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig()
+        )
+        if Primitive.to_proto(resource.gce_pd_kms_key_name):
+            res.gce_pd_kms_key_name = Primitive.to_proto(resource.gce_pd_kms_key_name)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(
+            gce_pd_kms_key_name=Primitive.from_proto(resource.gce_pd_kms_key_name),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigEncryptionConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(object):
+    def __init__(self, policy: str = None):
+        self.policy = policy
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig()
+        )
+        if Primitive.to_proto(resource.policy):
+            res.policy = Primitive.to_proto(resource.policy)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(
+            policy=Primitive.from_proto(resource.policy),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecurityConfig(object):
+    def __init__(self, kerberos_config: dict = None):
+        self.kerberos_config = kerberos_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecurityConfig()
+        )
+        if WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig.to_proto(
+            resource.kerberos_config
+        ):
+            res.kerberos_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig.to_proto(
+                    resource.kerberos_config
+                )
+            )
+        else:
+            res.ClearField("kerberos_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigSecurityConfig(
+            kerberos_config=WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig.from_proto(
+                resource.kerberos_config
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecurityConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecurityConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecurityConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(object):
+    def __init__(
+        self,
+        enable_kerberos: bool = None,
+        root_principal_password: str = None,
+        kms_key: str = None,
+        keystore: str = None,
+        truststore: str = None,
+        keystore_password: str = None,
+        key_password: str = None,
+        truststore_password: str = None,
+        cross_realm_trust_realm: str = None,
+        cross_realm_trust_kdc: str = None,
+        cross_realm_trust_admin_server: str = None,
+        cross_realm_trust_shared_password: str = None,
+        kdc_db_key: str = None,
+        tgt_lifetime_hours: int = None,
+        realm: str = None,
+    ):
+        self.enable_kerberos = enable_kerberos
+        self.root_principal_password = root_principal_password
+        self.kms_key = kms_key
+        self.keystore = keystore
+        self.truststore = truststore
+        self.keystore_password = keystore_password
+        self.key_password = key_password
+        self.truststore_password = truststore_password
+        self.cross_realm_trust_realm = cross_realm_trust_realm
+        self.cross_realm_trust_kdc = cross_realm_trust_kdc
+        self.cross_realm_trust_admin_server = cross_realm_trust_admin_server
+        self.cross_realm_trust_shared_password = cross_realm_trust_shared_password
+        self.kdc_db_key = kdc_db_key
+        self.tgt_lifetime_hours = tgt_lifetime_hours
+        self.realm = realm
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig()
+        )
+        if Primitive.to_proto(resource.enable_kerberos):
+            res.enable_kerberos = Primitive.to_proto(resource.enable_kerberos)
+        if Primitive.to_proto(resource.root_principal_password):
+            res.root_principal_password = Primitive.to_proto(
+                resource.root_principal_password
+            )
+        if Primitive.to_proto(resource.kms_key):
+            res.kms_key = Primitive.to_proto(resource.kms_key)
+        if Primitive.to_proto(resource.keystore):
+            res.keystore = Primitive.to_proto(resource.keystore)
+        if Primitive.to_proto(resource.truststore):
+            res.truststore = Primitive.to_proto(resource.truststore)
+        if Primitive.to_proto(resource.keystore_password):
+            res.keystore_password = Primitive.to_proto(resource.keystore_password)
+        if Primitive.to_proto(resource.key_password):
+            res.key_password = Primitive.to_proto(resource.key_password)
+        if Primitive.to_proto(resource.truststore_password):
+            res.truststore_password = Primitive.to_proto(resource.truststore_password)
+        if Primitive.to_proto(resource.cross_realm_trust_realm):
+            res.cross_realm_trust_realm = Primitive.to_proto(
+                resource.cross_realm_trust_realm
+            )
+        if Primitive.to_proto(resource.cross_realm_trust_kdc):
+            res.cross_realm_trust_kdc = Primitive.to_proto(
+                resource.cross_realm_trust_kdc
+            )
+        if Primitive.to_proto(resource.cross_realm_trust_admin_server):
+            res.cross_realm_trust_admin_server = Primitive.to_proto(
+                resource.cross_realm_trust_admin_server
+            )
+        if Primitive.to_proto(resource.cross_realm_trust_shared_password):
+            res.cross_realm_trust_shared_password = Primitive.to_proto(
+                resource.cross_realm_trust_shared_password
+            )
+        if Primitive.to_proto(resource.kdc_db_key):
+            res.kdc_db_key = Primitive.to_proto(resource.kdc_db_key)
+        if Primitive.to_proto(resource.tgt_lifetime_hours):
+            res.tgt_lifetime_hours = Primitive.to_proto(resource.tgt_lifetime_hours)
+        if Primitive.to_proto(resource.realm):
+            res.realm = Primitive.to_proto(resource.realm)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(
+            enable_kerberos=Primitive.from_proto(resource.enable_kerberos),
+            root_principal_password=Primitive.from_proto(
+                resource.root_principal_password
+            ),
+            kms_key=Primitive.from_proto(resource.kms_key),
+            keystore=Primitive.from_proto(resource.keystore),
+            truststore=Primitive.from_proto(resource.truststore),
+            keystore_password=Primitive.from_proto(resource.keystore_password),
+            key_password=Primitive.from_proto(resource.key_password),
+            truststore_password=Primitive.from_proto(resource.truststore_password),
+            cross_realm_trust_realm=Primitive.from_proto(
+                resource.cross_realm_trust_realm
+            ),
+            cross_realm_trust_kdc=Primitive.from_proto(resource.cross_realm_trust_kdc),
+            cross_realm_trust_admin_server=Primitive.from_proto(
+                resource.cross_realm_trust_admin_server
+            ),
+            cross_realm_trust_shared_password=Primitive.from_proto(
+                resource.cross_realm_trust_shared_password
+            ),
+            kdc_db_key=Primitive.from_proto(resource.kdc_db_key),
+            tgt_lifetime_hours=Primitive.from_proto(resource.tgt_lifetime_hours),
+            realm=Primitive.from_proto(resource.realm),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(object):
+    def __init__(
+        self,
+        idle_delete_ttl: str = None,
+        auto_delete_time: str = None,
+        auto_delete_ttl: str = None,
+        idle_start_time: str = None,
+    ):
+        self.idle_delete_ttl = idle_delete_ttl
+        self.auto_delete_time = auto_delete_time
+        self.auto_delete_ttl = auto_delete_ttl
+        self.idle_start_time = idle_start_time
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig()
+        )
+        if Primitive.to_proto(resource.idle_delete_ttl):
+            res.idle_delete_ttl = Primitive.to_proto(resource.idle_delete_ttl)
+        if Primitive.to_proto(resource.auto_delete_time):
+            res.auto_delete_time = Primitive.to_proto(resource.auto_delete_time)
+        if Primitive.to_proto(resource.auto_delete_ttl):
+            res.auto_delete_ttl = Primitive.to_proto(resource.auto_delete_ttl)
+        if Primitive.to_proto(resource.idle_start_time):
+            res.idle_start_time = Primitive.to_proto(resource.idle_start_time)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(
+            idle_delete_ttl=Primitive.from_proto(resource.idle_delete_ttl),
+            auto_delete_time=Primitive.from_proto(resource.auto_delete_time),
+            auto_delete_ttl=Primitive.from_proto(resource.auto_delete_ttl),
+            idle_start_time=Primitive.from_proto(resource.idle_start_time),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigLifecycleConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigEndpointConfig(object):
+    def __init__(self, http_ports: dict = None, enable_http_port_access: bool = None):
+        self.http_ports = http_ports
+        self.enable_http_port_access = enable_http_port_access
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigEndpointConfig()
+        )
+        if Primitive.to_proto(resource.http_ports):
+            res.http_ports = Primitive.to_proto(resource.http_ports)
+        if Primitive.to_proto(resource.enable_http_port_access):
+            res.enable_http_port_access = Primitive.to_proto(
+                resource.enable_http_port_access
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigEndpointConfig(
+            http_ports=Primitive.from_proto(resource.http_ports),
+            enable_http_port_access=Primitive.from_proto(
+                resource.enable_http_port_access
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigEndpointConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigEndpointConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigEndpointConfig.from_proto(i)
+            for i in resources
         ]
 
 
@@ -1748,6 +3664,156 @@ class WorkflowTemplateParametersValidationValuesArray(object):
     def from_proto(self, resources):
         return [
             WorkflowTemplateParametersValidationValues.from_proto(i) for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.Value(
+            "DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum"
+            ) :
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.Value(
+            "DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum"
+            ) :
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum.Value(
+            "DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum"
+            ) :
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum.Value(
+            "DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum"
+            ) :
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum.Value(
+            "DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum"
+            ) :
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum.Value(
+            "DataprocWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum"
+            ) :
         ]
 
 

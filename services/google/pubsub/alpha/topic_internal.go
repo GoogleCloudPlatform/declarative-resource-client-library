@@ -96,6 +96,8 @@ type topicApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateTopicUpdateRequest(ctx context.Context, f *Topic, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.KmsKeyName; !dcl.IsEmptyValueIndirect(v) {
 		req["kmsKeyName"] = v
@@ -103,7 +105,7 @@ func newUpdateTopicUpdateRequest(ctx context.Context, f *Topic, c *Client) (map[
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	if v, err := expandTopicMessageStoragePolicy(c, f.MessageStoragePolicy); err != nil {
+	if v, err := expandTopicMessageStoragePolicy(c, f.MessageStoragePolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding MessageStoragePolicy into messageStoragePolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["messageStoragePolicy"] = v
@@ -754,6 +756,8 @@ func unmarshalMapTopic(m map[string]interface{}, c *Client) (*Topic, error) {
 // expandTopic expands Topic into a JSON request object.
 func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -765,7 +769,7 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandTopicMessageStoragePolicy(c, f.MessageStoragePolicy); err != nil {
+	if v, err := expandTopicMessageStoragePolicy(c, f.MessageStoragePolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding MessageStoragePolicy into messageStoragePolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["messageStoragePolicy"] = v
@@ -802,14 +806,14 @@ func flattenTopic(c *Client, i interface{}) *Topic {
 
 // expandTopicMessageStoragePolicyMap expands the contents of TopicMessageStoragePolicy into a JSON
 // request object.
-func expandTopicMessageStoragePolicyMap(c *Client, f map[string]TopicMessageStoragePolicy) (map[string]interface{}, error) {
+func expandTopicMessageStoragePolicyMap(c *Client, f map[string]TopicMessageStoragePolicy, res *Topic) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandTopicMessageStoragePolicy(c, &item)
+		i, err := expandTopicMessageStoragePolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -823,14 +827,14 @@ func expandTopicMessageStoragePolicyMap(c *Client, f map[string]TopicMessageStor
 
 // expandTopicMessageStoragePolicySlice expands the contents of TopicMessageStoragePolicy into a JSON
 // request object.
-func expandTopicMessageStoragePolicySlice(c *Client, f []TopicMessageStoragePolicy) ([]map[string]interface{}, error) {
+func expandTopicMessageStoragePolicySlice(c *Client, f []TopicMessageStoragePolicy, res *Topic) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandTopicMessageStoragePolicy(c, &item)
+		i, err := expandTopicMessageStoragePolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -883,7 +887,7 @@ func flattenTopicMessageStoragePolicySlice(c *Client, i interface{}) []TopicMess
 
 // expandTopicMessageStoragePolicy expands an instance of TopicMessageStoragePolicy into a JSON
 // request object.
-func expandTopicMessageStoragePolicy(c *Client, f *TopicMessageStoragePolicy) (map[string]interface{}, error) {
+func expandTopicMessageStoragePolicy(c *Client, f *TopicMessageStoragePolicy, res *Topic) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

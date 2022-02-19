@@ -156,6 +156,8 @@ type authorizationPolicyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateAuthorizationPolicyUpdateAuthorizationPolicyRequest(ctx context.Context, f *AuthorizationPolicy, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -166,7 +168,7 @@ func newUpdateAuthorizationPolicyUpdateAuthorizationPolicyRequest(ctx context.Co
 	if v := f.Action; !dcl.IsEmptyValueIndirect(v) {
 		req["action"] = v
 	}
-	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		req["rules"] = v
@@ -1375,6 +1377,8 @@ func unmarshalMapAuthorizationPolicy(m map[string]interface{}, c *Client) (*Auth
 // expandAuthorizationPolicy expands AuthorizationPolicy into a JSON request object.
 func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/*/locations/%s/authorizationPolicies/%s", f.Name, dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1389,7 +1393,7 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 	if v := f.Action; dcl.ValueShouldBeSent(v) {
 		m["action"] = v
 	}
-	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
+	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
 	} else if v != nil {
 		m["rules"] = v
@@ -1435,14 +1439,14 @@ func flattenAuthorizationPolicy(c *Client, i interface{}) *AuthorizationPolicy {
 
 // expandAuthorizationPolicyRulesMap expands the contents of AuthorizationPolicyRules into a JSON
 // request object.
-func expandAuthorizationPolicyRulesMap(c *Client, f map[string]AuthorizationPolicyRules) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesMap(c *Client, f map[string]AuthorizationPolicyRules, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAuthorizationPolicyRules(c, &item)
+		i, err := expandAuthorizationPolicyRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1456,14 +1460,14 @@ func expandAuthorizationPolicyRulesMap(c *Client, f map[string]AuthorizationPoli
 
 // expandAuthorizationPolicyRulesSlice expands the contents of AuthorizationPolicyRules into a JSON
 // request object.
-func expandAuthorizationPolicyRulesSlice(c *Client, f []AuthorizationPolicyRules) ([]map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesSlice(c *Client, f []AuthorizationPolicyRules, res *AuthorizationPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAuthorizationPolicyRules(c, &item)
+		i, err := expandAuthorizationPolicyRules(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1516,18 +1520,18 @@ func flattenAuthorizationPolicyRulesSlice(c *Client, i interface{}) []Authorizat
 
 // expandAuthorizationPolicyRules expands an instance of AuthorizationPolicyRules into a JSON
 // request object.
-func expandAuthorizationPolicyRules(c *Client, f *AuthorizationPolicyRules) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRules(c *Client, f *AuthorizationPolicyRules, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandAuthorizationPolicyRulesSourcesSlice(c, f.Sources); err != nil {
+	if v, err := expandAuthorizationPolicyRulesSourcesSlice(c, f.Sources, res); err != nil {
 		return nil, fmt.Errorf("error expanding Sources into sources: %w", err)
 	} else if v != nil {
 		m["sources"] = v
 	}
-	if v, err := expandAuthorizationPolicyRulesDestinationsSlice(c, f.Destinations); err != nil {
+	if v, err := expandAuthorizationPolicyRulesDestinationsSlice(c, f.Destinations, res); err != nil {
 		return nil, fmt.Errorf("error expanding Destinations into destinations: %w", err)
 	} else if v != nil {
 		m["destinations"] = v
@@ -1557,14 +1561,14 @@ func flattenAuthorizationPolicyRules(c *Client, i interface{}) *AuthorizationPol
 
 // expandAuthorizationPolicyRulesSourcesMap expands the contents of AuthorizationPolicyRulesSources into a JSON
 // request object.
-func expandAuthorizationPolicyRulesSourcesMap(c *Client, f map[string]AuthorizationPolicyRulesSources) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesSourcesMap(c *Client, f map[string]AuthorizationPolicyRulesSources, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAuthorizationPolicyRulesSources(c, &item)
+		i, err := expandAuthorizationPolicyRulesSources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1578,14 +1582,14 @@ func expandAuthorizationPolicyRulesSourcesMap(c *Client, f map[string]Authorizat
 
 // expandAuthorizationPolicyRulesSourcesSlice expands the contents of AuthorizationPolicyRulesSources into a JSON
 // request object.
-func expandAuthorizationPolicyRulesSourcesSlice(c *Client, f []AuthorizationPolicyRulesSources) ([]map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesSourcesSlice(c *Client, f []AuthorizationPolicyRulesSources, res *AuthorizationPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAuthorizationPolicyRulesSources(c, &item)
+		i, err := expandAuthorizationPolicyRulesSources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1638,7 +1642,7 @@ func flattenAuthorizationPolicyRulesSourcesSlice(c *Client, i interface{}) []Aut
 
 // expandAuthorizationPolicyRulesSources expands an instance of AuthorizationPolicyRulesSources into a JSON
 // request object.
-func expandAuthorizationPolicyRulesSources(c *Client, f *AuthorizationPolicyRulesSources) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesSources(c *Client, f *AuthorizationPolicyRulesSources, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1675,14 +1679,14 @@ func flattenAuthorizationPolicyRulesSources(c *Client, i interface{}) *Authoriza
 
 // expandAuthorizationPolicyRulesDestinationsMap expands the contents of AuthorizationPolicyRulesDestinations into a JSON
 // request object.
-func expandAuthorizationPolicyRulesDestinationsMap(c *Client, f map[string]AuthorizationPolicyRulesDestinations) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesDestinationsMap(c *Client, f map[string]AuthorizationPolicyRulesDestinations, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAuthorizationPolicyRulesDestinations(c, &item)
+		i, err := expandAuthorizationPolicyRulesDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1696,14 +1700,14 @@ func expandAuthorizationPolicyRulesDestinationsMap(c *Client, f map[string]Autho
 
 // expandAuthorizationPolicyRulesDestinationsSlice expands the contents of AuthorizationPolicyRulesDestinations into a JSON
 // request object.
-func expandAuthorizationPolicyRulesDestinationsSlice(c *Client, f []AuthorizationPolicyRulesDestinations) ([]map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesDestinationsSlice(c *Client, f []AuthorizationPolicyRulesDestinations, res *AuthorizationPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAuthorizationPolicyRulesDestinations(c, &item)
+		i, err := expandAuthorizationPolicyRulesDestinations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1756,7 +1760,7 @@ func flattenAuthorizationPolicyRulesDestinationsSlice(c *Client, i interface{}) 
 
 // expandAuthorizationPolicyRulesDestinations expands an instance of AuthorizationPolicyRulesDestinations into a JSON
 // request object.
-func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolicyRulesDestinations) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolicyRulesDestinations, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1771,7 +1775,7 @@ func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolic
 	if v := f.Methods; v != nil {
 		m["methods"] = v
 	}
-	if v, err := expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, f.HttpHeaderMatch); err != nil {
+	if v, err := expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, f.HttpHeaderMatch, res); err != nil {
 		return nil, fmt.Errorf("error expanding HttpHeaderMatch into httpHeaderMatch: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["httpHeaderMatch"] = v
@@ -1803,14 +1807,14 @@ func flattenAuthorizationPolicyRulesDestinations(c *Client, i interface{}) *Auth
 
 // expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap expands the contents of AuthorizationPolicyRulesDestinationsHttpHeaderMatch into a JSON
 // request object.
-func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, f map[string]AuthorizationPolicyRulesDestinationsHttpHeaderMatch) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, f map[string]AuthorizationPolicyRulesDestinationsHttpHeaderMatch, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, &item)
+		i, err := expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1824,14 +1828,14 @@ func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, f m
 
 // expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice expands the contents of AuthorizationPolicyRulesDestinationsHttpHeaderMatch into a JSON
 // request object.
-func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, f []AuthorizationPolicyRulesDestinationsHttpHeaderMatch) ([]map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, f []AuthorizationPolicyRulesDestinationsHttpHeaderMatch, res *AuthorizationPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, &item)
+		i, err := expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1884,7 +1888,7 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, 
 
 // expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch expands an instance of AuthorizationPolicyRulesDestinationsHttpHeaderMatch into a JSON
 // request object.
-func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, f *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) (map[string]interface{}, error) {
+func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, f *AuthorizationPolicyRulesDestinationsHttpHeaderMatch, res *AuthorizationPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

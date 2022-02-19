@@ -121,6 +121,8 @@ type serviceAttachmentApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateServiceAttachmentPatchRequest(ctx context.Context, f *ServiceAttachment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -136,7 +138,7 @@ func newUpdateServiceAttachmentPatchRequest(ctx context.Context, f *ServiceAttac
 	} else if v != nil {
 		req["consumerRejectLists"] = v
 	}
-	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists); err != nil {
+	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists, res); err != nil {
 		return nil, fmt.Errorf("error expanding ConsumerAcceptLists into consumerAcceptLists: %w", err)
 	} else if v != nil {
 		req["consumerAcceptLists"] = v
@@ -1312,6 +1314,8 @@ func unmarshalMapServiceAttachment(m map[string]interface{}, c *Client) (*Servic
 // expandServiceAttachment expands ServiceAttachment into a JSON request object.
 func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
@@ -1335,7 +1339,7 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 	} else if v != nil {
 		m["consumerRejectLists"] = v
 	}
-	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists); err != nil {
+	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists, res); err != nil {
 		return nil, fmt.Errorf("error expanding ConsumerAcceptLists into consumerAcceptLists: %w", err)
 	} else if v != nil {
 		m["consumerAcceptLists"] = v
@@ -1388,14 +1392,14 @@ func flattenServiceAttachment(c *Client, i interface{}) *ServiceAttachment {
 
 // expandServiceAttachmentConnectedEndpointsMap expands the contents of ServiceAttachmentConnectedEndpoints into a JSON
 // request object.
-func expandServiceAttachmentConnectedEndpointsMap(c *Client, f map[string]ServiceAttachmentConnectedEndpoints) (map[string]interface{}, error) {
+func expandServiceAttachmentConnectedEndpointsMap(c *Client, f map[string]ServiceAttachmentConnectedEndpoints, res *ServiceAttachment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceAttachmentConnectedEndpoints(c, &item)
+		i, err := expandServiceAttachmentConnectedEndpoints(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1409,14 +1413,14 @@ func expandServiceAttachmentConnectedEndpointsMap(c *Client, f map[string]Servic
 
 // expandServiceAttachmentConnectedEndpointsSlice expands the contents of ServiceAttachmentConnectedEndpoints into a JSON
 // request object.
-func expandServiceAttachmentConnectedEndpointsSlice(c *Client, f []ServiceAttachmentConnectedEndpoints) ([]map[string]interface{}, error) {
+func expandServiceAttachmentConnectedEndpointsSlice(c *Client, f []ServiceAttachmentConnectedEndpoints, res *ServiceAttachment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceAttachmentConnectedEndpoints(c, &item)
+		i, err := expandServiceAttachmentConnectedEndpoints(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1469,7 +1473,7 @@ func flattenServiceAttachmentConnectedEndpointsSlice(c *Client, i interface{}) [
 
 // expandServiceAttachmentConnectedEndpoints expands an instance of ServiceAttachmentConnectedEndpoints into a JSON
 // request object.
-func expandServiceAttachmentConnectedEndpoints(c *Client, f *ServiceAttachmentConnectedEndpoints) (map[string]interface{}, error) {
+func expandServiceAttachmentConnectedEndpoints(c *Client, f *ServiceAttachmentConnectedEndpoints, res *ServiceAttachment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1510,14 +1514,14 @@ func flattenServiceAttachmentConnectedEndpoints(c *Client, i interface{}) *Servi
 
 // expandServiceAttachmentConsumerAcceptListsMap expands the contents of ServiceAttachmentConsumerAcceptLists into a JSON
 // request object.
-func expandServiceAttachmentConsumerAcceptListsMap(c *Client, f map[string]ServiceAttachmentConsumerAcceptLists) (map[string]interface{}, error) {
+func expandServiceAttachmentConsumerAcceptListsMap(c *Client, f map[string]ServiceAttachmentConsumerAcceptLists, res *ServiceAttachment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceAttachmentConsumerAcceptLists(c, &item)
+		i, err := expandServiceAttachmentConsumerAcceptLists(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1531,14 +1535,14 @@ func expandServiceAttachmentConsumerAcceptListsMap(c *Client, f map[string]Servi
 
 // expandServiceAttachmentConsumerAcceptListsSlice expands the contents of ServiceAttachmentConsumerAcceptLists into a JSON
 // request object.
-func expandServiceAttachmentConsumerAcceptListsSlice(c *Client, f []ServiceAttachmentConsumerAcceptLists) ([]map[string]interface{}, error) {
+func expandServiceAttachmentConsumerAcceptListsSlice(c *Client, f []ServiceAttachmentConsumerAcceptLists, res *ServiceAttachment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceAttachmentConsumerAcceptLists(c, &item)
+		i, err := expandServiceAttachmentConsumerAcceptLists(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1591,7 +1595,7 @@ func flattenServiceAttachmentConsumerAcceptListsSlice(c *Client, i interface{}) 
 
 // expandServiceAttachmentConsumerAcceptLists expands an instance of ServiceAttachmentConsumerAcceptLists into a JSON
 // request object.
-func expandServiceAttachmentConsumerAcceptLists(c *Client, f *ServiceAttachmentConsumerAcceptLists) (map[string]interface{}, error) {
+func expandServiceAttachmentConsumerAcceptLists(c *Client, f *ServiceAttachmentConsumerAcceptLists, res *ServiceAttachment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1630,14 +1634,14 @@ func flattenServiceAttachmentConsumerAcceptLists(c *Client, i interface{}) *Serv
 
 // expandServiceAttachmentPscServiceAttachmentIdMap expands the contents of ServiceAttachmentPscServiceAttachmentId into a JSON
 // request object.
-func expandServiceAttachmentPscServiceAttachmentIdMap(c *Client, f map[string]ServiceAttachmentPscServiceAttachmentId) (map[string]interface{}, error) {
+func expandServiceAttachmentPscServiceAttachmentIdMap(c *Client, f map[string]ServiceAttachmentPscServiceAttachmentId, res *ServiceAttachment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceAttachmentPscServiceAttachmentId(c, &item)
+		i, err := expandServiceAttachmentPscServiceAttachmentId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1651,14 +1655,14 @@ func expandServiceAttachmentPscServiceAttachmentIdMap(c *Client, f map[string]Se
 
 // expandServiceAttachmentPscServiceAttachmentIdSlice expands the contents of ServiceAttachmentPscServiceAttachmentId into a JSON
 // request object.
-func expandServiceAttachmentPscServiceAttachmentIdSlice(c *Client, f []ServiceAttachmentPscServiceAttachmentId) ([]map[string]interface{}, error) {
+func expandServiceAttachmentPscServiceAttachmentIdSlice(c *Client, f []ServiceAttachmentPscServiceAttachmentId, res *ServiceAttachment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceAttachmentPscServiceAttachmentId(c, &item)
+		i, err := expandServiceAttachmentPscServiceAttachmentId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1711,7 +1715,7 @@ func flattenServiceAttachmentPscServiceAttachmentIdSlice(c *Client, i interface{
 
 // expandServiceAttachmentPscServiceAttachmentId expands an instance of ServiceAttachmentPscServiceAttachmentId into a JSON
 // request object.
-func expandServiceAttachmentPscServiceAttachmentId(c *Client, f *ServiceAttachmentPscServiceAttachmentId) (map[string]interface{}, error) {
+func expandServiceAttachmentPscServiceAttachmentId(c *Client, f *ServiceAttachmentPscServiceAttachmentId, res *ServiceAttachment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

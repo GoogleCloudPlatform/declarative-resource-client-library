@@ -512,6 +512,8 @@ func unmarshalMapIdentityAwareProxyClient(m map[string]interface{}, c *Client) (
 // expandIdentityAwareProxyClient expands IdentityAwareProxyClient into a JSON request object.
 func expandIdentityAwareProxyClient(c *Client, f *IdentityAwareProxyClient) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/brands/%s/identityAwareProxyClients/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Brand), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

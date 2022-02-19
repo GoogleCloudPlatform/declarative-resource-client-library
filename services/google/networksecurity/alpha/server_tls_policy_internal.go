@@ -210,6 +210,8 @@ type serverTlsPolicyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateServerTlsPolicyUpdateServerTlsPolicyRequest(ctx context.Context, f *ServerTlsPolicy, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -220,12 +222,12 @@ func newUpdateServerTlsPolicyUpdateServerTlsPolicyRequest(ctx context.Context, f
 	if v := f.AllowOpen; !dcl.IsEmptyValueIndirect(v) {
 		req["allowOpen"] = v
 	}
-	if v, err := expandServerTlsPolicyServerCertificate(c, f.ServerCertificate); err != nil {
+	if v, err := expandServerTlsPolicyServerCertificate(c, f.ServerCertificate, res); err != nil {
 		return nil, fmt.Errorf("error expanding ServerCertificate into serverCertificate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["serverCertificate"] = v
 	}
-	if v, err := expandServerTlsPolicyMtlsPolicy(c, f.MtlsPolicy); err != nil {
+	if v, err := expandServerTlsPolicyMtlsPolicy(c, f.MtlsPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding MtlsPolicy into mtlsPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["mtlsPolicy"] = v
@@ -2057,6 +2059,8 @@ func unmarshalMapServerTlsPolicy(m map[string]interface{}, c *Client) (*ServerTl
 // expandServerTlsPolicy expands ServerTlsPolicy into a JSON request object.
 func expandServerTlsPolicy(c *Client, f *ServerTlsPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/serverTlsPolicies/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2071,12 +2075,12 @@ func expandServerTlsPolicy(c *Client, f *ServerTlsPolicy) (map[string]interface{
 	if v := f.AllowOpen; dcl.ValueShouldBeSent(v) {
 		m["allowOpen"] = v
 	}
-	if v, err := expandServerTlsPolicyServerCertificate(c, f.ServerCertificate); err != nil {
+	if v, err := expandServerTlsPolicyServerCertificate(c, f.ServerCertificate, res); err != nil {
 		return nil, fmt.Errorf("error expanding ServerCertificate into serverCertificate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["serverCertificate"] = v
 	}
-	if v, err := expandServerTlsPolicyMtlsPolicy(c, f.MtlsPolicy); err != nil {
+	if v, err := expandServerTlsPolicyMtlsPolicy(c, f.MtlsPolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding MtlsPolicy into mtlsPolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mtlsPolicy"] = v
@@ -2123,14 +2127,14 @@ func flattenServerTlsPolicy(c *Client, i interface{}) *ServerTlsPolicy {
 
 // expandServerTlsPolicyServerCertificateMap expands the contents of ServerTlsPolicyServerCertificate into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateMap(c *Client, f map[string]ServerTlsPolicyServerCertificate) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateMap(c *Client, f map[string]ServerTlsPolicyServerCertificate, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyServerCertificate(c, &item)
+		i, err := expandServerTlsPolicyServerCertificate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2144,14 +2148,14 @@ func expandServerTlsPolicyServerCertificateMap(c *Client, f map[string]ServerTls
 
 // expandServerTlsPolicyServerCertificateSlice expands the contents of ServerTlsPolicyServerCertificate into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateSlice(c *Client, f []ServerTlsPolicyServerCertificate) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateSlice(c *Client, f []ServerTlsPolicyServerCertificate, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyServerCertificate(c, &item)
+		i, err := expandServerTlsPolicyServerCertificate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2204,23 +2208,23 @@ func flattenServerTlsPolicyServerCertificateSlice(c *Client, i interface{}) []Se
 
 // expandServerTlsPolicyServerCertificate expands an instance of ServerTlsPolicyServerCertificate into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificate(c *Client, f *ServerTlsPolicyServerCertificate) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificate(c *Client, f *ServerTlsPolicyServerCertificate, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServerTlsPolicyServerCertificateLocalFilepath(c, f.LocalFilepath); err != nil {
+	if v, err := expandServerTlsPolicyServerCertificateLocalFilepath(c, f.LocalFilepath, res); err != nil {
 		return nil, fmt.Errorf("error expanding LocalFilepath into localFilepath: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["localFilepath"] = v
 	}
-	if v, err := expandServerTlsPolicyServerCertificateGrpcEndpoint(c, f.GrpcEndpoint); err != nil {
+	if v, err := expandServerTlsPolicyServerCertificateGrpcEndpoint(c, f.GrpcEndpoint, res); err != nil {
 		return nil, fmt.Errorf("error expanding GrpcEndpoint into grpcEndpoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["grpcEndpoint"] = v
 	}
-	if v, err := expandServerTlsPolicyServerCertificateCertificateProviderInstance(c, f.CertificateProviderInstance); err != nil {
+	if v, err := expandServerTlsPolicyServerCertificateCertificateProviderInstance(c, f.CertificateProviderInstance, res); err != nil {
 		return nil, fmt.Errorf("error expanding CertificateProviderInstance into certificateProviderInstance: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["certificateProviderInstance"] = v
@@ -2251,14 +2255,14 @@ func flattenServerTlsPolicyServerCertificate(c *Client, i interface{}) *ServerTl
 
 // expandServerTlsPolicyServerCertificateLocalFilepathMap expands the contents of ServerTlsPolicyServerCertificateLocalFilepath into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateLocalFilepathMap(c *Client, f map[string]ServerTlsPolicyServerCertificateLocalFilepath) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateLocalFilepathMap(c *Client, f map[string]ServerTlsPolicyServerCertificateLocalFilepath, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyServerCertificateLocalFilepath(c, &item)
+		i, err := expandServerTlsPolicyServerCertificateLocalFilepath(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2272,14 +2276,14 @@ func expandServerTlsPolicyServerCertificateLocalFilepathMap(c *Client, f map[str
 
 // expandServerTlsPolicyServerCertificateLocalFilepathSlice expands the contents of ServerTlsPolicyServerCertificateLocalFilepath into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateLocalFilepathSlice(c *Client, f []ServerTlsPolicyServerCertificateLocalFilepath) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateLocalFilepathSlice(c *Client, f []ServerTlsPolicyServerCertificateLocalFilepath, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyServerCertificateLocalFilepath(c, &item)
+		i, err := expandServerTlsPolicyServerCertificateLocalFilepath(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2332,7 +2336,7 @@ func flattenServerTlsPolicyServerCertificateLocalFilepathSlice(c *Client, i inte
 
 // expandServerTlsPolicyServerCertificateLocalFilepath expands an instance of ServerTlsPolicyServerCertificateLocalFilepath into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateLocalFilepath(c *Client, f *ServerTlsPolicyServerCertificateLocalFilepath) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateLocalFilepath(c *Client, f *ServerTlsPolicyServerCertificateLocalFilepath, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2369,14 +2373,14 @@ func flattenServerTlsPolicyServerCertificateLocalFilepath(c *Client, i interface
 
 // expandServerTlsPolicyServerCertificateGrpcEndpointMap expands the contents of ServerTlsPolicyServerCertificateGrpcEndpoint into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateGrpcEndpointMap(c *Client, f map[string]ServerTlsPolicyServerCertificateGrpcEndpoint) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateGrpcEndpointMap(c *Client, f map[string]ServerTlsPolicyServerCertificateGrpcEndpoint, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyServerCertificateGrpcEndpoint(c, &item)
+		i, err := expandServerTlsPolicyServerCertificateGrpcEndpoint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2390,14 +2394,14 @@ func expandServerTlsPolicyServerCertificateGrpcEndpointMap(c *Client, f map[stri
 
 // expandServerTlsPolicyServerCertificateGrpcEndpointSlice expands the contents of ServerTlsPolicyServerCertificateGrpcEndpoint into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateGrpcEndpointSlice(c *Client, f []ServerTlsPolicyServerCertificateGrpcEndpoint) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateGrpcEndpointSlice(c *Client, f []ServerTlsPolicyServerCertificateGrpcEndpoint, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyServerCertificateGrpcEndpoint(c, &item)
+		i, err := expandServerTlsPolicyServerCertificateGrpcEndpoint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2450,7 +2454,7 @@ func flattenServerTlsPolicyServerCertificateGrpcEndpointSlice(c *Client, i inter
 
 // expandServerTlsPolicyServerCertificateGrpcEndpoint expands an instance of ServerTlsPolicyServerCertificateGrpcEndpoint into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, f *ServerTlsPolicyServerCertificateGrpcEndpoint) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, f *ServerTlsPolicyServerCertificateGrpcEndpoint, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2483,14 +2487,14 @@ func flattenServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, i interface{
 
 // expandServerTlsPolicyServerCertificateCertificateProviderInstanceMap expands the contents of ServerTlsPolicyServerCertificateCertificateProviderInstance into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateCertificateProviderInstanceMap(c *Client, f map[string]ServerTlsPolicyServerCertificateCertificateProviderInstance) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateCertificateProviderInstanceMap(c *Client, f map[string]ServerTlsPolicyServerCertificateCertificateProviderInstance, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyServerCertificateCertificateProviderInstance(c, &item)
+		i, err := expandServerTlsPolicyServerCertificateCertificateProviderInstance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2504,14 +2508,14 @@ func expandServerTlsPolicyServerCertificateCertificateProviderInstanceMap(c *Cli
 
 // expandServerTlsPolicyServerCertificateCertificateProviderInstanceSlice expands the contents of ServerTlsPolicyServerCertificateCertificateProviderInstance into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(c *Client, f []ServerTlsPolicyServerCertificateCertificateProviderInstance) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(c *Client, f []ServerTlsPolicyServerCertificateCertificateProviderInstance, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyServerCertificateCertificateProviderInstance(c, &item)
+		i, err := expandServerTlsPolicyServerCertificateCertificateProviderInstance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2564,7 +2568,7 @@ func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(c *
 
 // expandServerTlsPolicyServerCertificateCertificateProviderInstance expands an instance of ServerTlsPolicyServerCertificateCertificateProviderInstance into a JSON
 // request object.
-func expandServerTlsPolicyServerCertificateCertificateProviderInstance(c *Client, f *ServerTlsPolicyServerCertificateCertificateProviderInstance) (map[string]interface{}, error) {
+func expandServerTlsPolicyServerCertificateCertificateProviderInstance(c *Client, f *ServerTlsPolicyServerCertificateCertificateProviderInstance, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2597,14 +2601,14 @@ func flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c *Clien
 
 // expandServerTlsPolicyMtlsPolicyMap expands the contents of ServerTlsPolicyMtlsPolicy into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicy) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicy, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicy(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2618,14 +2622,14 @@ func expandServerTlsPolicyMtlsPolicyMap(c *Client, f map[string]ServerTlsPolicyM
 
 // expandServerTlsPolicyMtlsPolicySlice expands the contents of ServerTlsPolicyMtlsPolicy into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicySlice(c *Client, f []ServerTlsPolicyMtlsPolicy) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicySlice(c *Client, f []ServerTlsPolicyMtlsPolicy, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicy(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2678,13 +2682,13 @@ func flattenServerTlsPolicyMtlsPolicySlice(c *Client, i interface{}) []ServerTls
 
 // expandServerTlsPolicyMtlsPolicy expands an instance of ServerTlsPolicyMtlsPolicy into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicy(c *Client, f *ServerTlsPolicyMtlsPolicy) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicy(c *Client, f *ServerTlsPolicyMtlsPolicy, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServerTlsPolicyMtlsPolicyClientValidationCaSlice(c, f.ClientValidationCa); err != nil {
+	if v, err := expandServerTlsPolicyMtlsPolicyClientValidationCaSlice(c, f.ClientValidationCa, res); err != nil {
 		return nil, fmt.Errorf("error expanding ClientValidationCa into clientValidationCa: %w", err)
 	} else if v != nil {
 		m["clientValidationCa"] = v
@@ -2713,14 +2717,14 @@ func flattenServerTlsPolicyMtlsPolicy(c *Client, i interface{}) *ServerTlsPolicy
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaMap expands the contents of ServerTlsPolicyMtlsPolicyClientValidationCa into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicyClientValidationCa) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicyClientValidationCa, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCa(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCa(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2734,14 +2738,14 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaMap(c *Client, f map[strin
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaSlice expands the contents of ServerTlsPolicyMtlsPolicyClientValidationCa into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaSlice(c *Client, f []ServerTlsPolicyMtlsPolicyClientValidationCa) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaSlice(c *Client, f []ServerTlsPolicyMtlsPolicyClientValidationCa, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCa(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCa(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2794,7 +2798,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice(c *Client, i interf
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCa expands an instance of ServerTlsPolicyMtlsPolicyClientValidationCa into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, f *ServerTlsPolicyMtlsPolicyClientValidationCa) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, f *ServerTlsPolicyMtlsPolicyClientValidationCa, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2803,12 +2807,12 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, f *ServerTlsPo
 	if v := f.CaCertPath; !dcl.IsEmptyValueIndirect(v) {
 		m["caCertPath"] = v
 	}
-	if v, err := expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, f.GrpcEndpoint); err != nil {
+	if v, err := expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, f.GrpcEndpoint, res); err != nil {
 		return nil, fmt.Errorf("error expanding GrpcEndpoint into grpcEndpoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["grpcEndpoint"] = v
 	}
-	if v, err := expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, f.CertificateProviderInstance); err != nil {
+	if v, err := expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, f.CertificateProviderInstance, res); err != nil {
 		return nil, fmt.Errorf("error expanding CertificateProviderInstance into certificateProviderInstance: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["certificateProviderInstance"] = v
@@ -2839,14 +2843,14 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, i interface{}
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap expands the contents of ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2860,14 +2864,14 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap(c *Client,
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice expands the contents of ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(c *Client, f []ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(c *Client, f []ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2920,7 +2924,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(c *Clie
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint expands an instance of ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, f *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, f *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2953,14 +2957,14 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, i
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceMap expands the contents of ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceMap(c *Client, f map[string]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2974,14 +2978,14 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanc
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceSlice expands the contents of ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceSlice(c *Client, f []ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) ([]map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceSlice(c *Client, f []ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance, res *ServerTlsPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, &item)
+		i, err := expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3034,7 +3038,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstan
 
 // expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance expands an instance of ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance into a JSON
 // request object.
-func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c *Client, f *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) (map[string]interface{}, error) {
+func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c *Client, f *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance, res *ServerTlsPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

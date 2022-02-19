@@ -127,6 +127,8 @@ type groupApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateGroupUpdateGroupRequest(ctx context.Context, f *Group, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("groups/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -142,7 +144,7 @@ func newUpdateGroupUpdateGroupRequest(ctx context.Context, f *Group, c *Client) 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	if v, err := expandGroupDynamicGroupMetadata(c, f.DynamicGroupMetadata); err != nil {
+	if v, err := expandGroupDynamicGroupMetadata(c, f.DynamicGroupMetadata, res); err != nil {
 		return nil, fmt.Errorf("error expanding DynamicGroupMetadata into dynamicGroupMetadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["dynamicGroupMetadata"] = v
@@ -1558,12 +1560,14 @@ func unmarshalMapGroup(m map[string]interface{}, c *Client) (*Group, error) {
 // expandGroup expands Group into a JSON request object.
 func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("groups/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, f.GroupKey); err != nil {
+	if v, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, f.GroupKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding GroupKey into groupKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["groupKey"] = v
@@ -1583,7 +1587,7 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandGroupDynamicGroupMetadata(c, f.DynamicGroupMetadata); err != nil {
+	if v, err := expandGroupDynamicGroupMetadata(c, f.DynamicGroupMetadata, res); err != nil {
 		return nil, fmt.Errorf("error expanding DynamicGroupMetadata into dynamicGroupMetadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dynamicGroupMetadata"] = v
@@ -1629,14 +1633,14 @@ func flattenGroup(c *Client, i interface{}) *Group {
 
 // expandGroupGoogleappscloudidentitygroupsvxentitykeyMap expands the contents of GroupGoogleappscloudidentitygroupsvxentitykey into a JSON
 // request object.
-func expandGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, f map[string]GroupGoogleappscloudidentitygroupsvxentitykey) (map[string]interface{}, error) {
+func expandGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, f map[string]GroupGoogleappscloudidentitygroupsvxentitykey, res *Group) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, &item)
+		i, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1650,14 +1654,14 @@ func expandGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, f map[str
 
 // expandGroupGoogleappscloudidentitygroupsvxentitykeySlice expands the contents of GroupGoogleappscloudidentitygroupsvxentitykey into a JSON
 // request object.
-func expandGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, f []GroupGoogleappscloudidentitygroupsvxentitykey) ([]map[string]interface{}, error) {
+func expandGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, f []GroupGoogleappscloudidentitygroupsvxentitykey, res *Group) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, &item)
+		i, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1710,7 +1714,7 @@ func flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, i inte
 
 // expandGroupGoogleappscloudidentitygroupsvxentitykey expands an instance of GroupGoogleappscloudidentitygroupsvxentitykey into a JSON
 // request object.
-func expandGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, f *GroupGoogleappscloudidentitygroupsvxentitykey) (map[string]interface{}, error) {
+func expandGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, f *GroupGoogleappscloudidentitygroupsvxentitykey, res *Group) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1747,14 +1751,14 @@ func flattenGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, i interface
 
 // expandGroupDirectMemberCountPerTypeMap expands the contents of GroupDirectMemberCountPerType into a JSON
 // request object.
-func expandGroupDirectMemberCountPerTypeMap(c *Client, f map[string]GroupDirectMemberCountPerType) (map[string]interface{}, error) {
+func expandGroupDirectMemberCountPerTypeMap(c *Client, f map[string]GroupDirectMemberCountPerType, res *Group) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGroupDirectMemberCountPerType(c, &item)
+		i, err := expandGroupDirectMemberCountPerType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1768,14 +1772,14 @@ func expandGroupDirectMemberCountPerTypeMap(c *Client, f map[string]GroupDirectM
 
 // expandGroupDirectMemberCountPerTypeSlice expands the contents of GroupDirectMemberCountPerType into a JSON
 // request object.
-func expandGroupDirectMemberCountPerTypeSlice(c *Client, f []GroupDirectMemberCountPerType) ([]map[string]interface{}, error) {
+func expandGroupDirectMemberCountPerTypeSlice(c *Client, f []GroupDirectMemberCountPerType, res *Group) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGroupDirectMemberCountPerType(c, &item)
+		i, err := expandGroupDirectMemberCountPerType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1828,7 +1832,7 @@ func flattenGroupDirectMemberCountPerTypeSlice(c *Client, i interface{}) []Group
 
 // expandGroupDirectMemberCountPerType expands an instance of GroupDirectMemberCountPerType into a JSON
 // request object.
-func expandGroupDirectMemberCountPerType(c *Client, f *GroupDirectMemberCountPerType) (map[string]interface{}, error) {
+func expandGroupDirectMemberCountPerType(c *Client, f *GroupDirectMemberCountPerType, res *Group) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1859,14 +1863,14 @@ func flattenGroupDirectMemberCountPerType(c *Client, i interface{}) *GroupDirect
 
 // expandGroupDynamicGroupMetadataMap expands the contents of GroupDynamicGroupMetadata into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataMap(c *Client, f map[string]GroupDynamicGroupMetadata) (map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataMap(c *Client, f map[string]GroupDynamicGroupMetadata, res *Group) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGroupDynamicGroupMetadata(c, &item)
+		i, err := expandGroupDynamicGroupMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1880,14 +1884,14 @@ func expandGroupDynamicGroupMetadataMap(c *Client, f map[string]GroupDynamicGrou
 
 // expandGroupDynamicGroupMetadataSlice expands the contents of GroupDynamicGroupMetadata into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataSlice(c *Client, f []GroupDynamicGroupMetadata) ([]map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataSlice(c *Client, f []GroupDynamicGroupMetadata, res *Group) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGroupDynamicGroupMetadata(c, &item)
+		i, err := expandGroupDynamicGroupMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1940,13 +1944,13 @@ func flattenGroupDynamicGroupMetadataSlice(c *Client, i interface{}) []GroupDyna
 
 // expandGroupDynamicGroupMetadata expands an instance of GroupDynamicGroupMetadata into a JSON
 // request object.
-func expandGroupDynamicGroupMetadata(c *Client, f *GroupDynamicGroupMetadata) (map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadata(c *Client, f *GroupDynamicGroupMetadata, res *Group) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandGroupDynamicGroupMetadataQueriesSlice(c, f.Queries); err != nil {
+	if v, err := expandGroupDynamicGroupMetadataQueriesSlice(c, f.Queries, res); err != nil {
 		return nil, fmt.Errorf("error expanding Queries into queries: %w", err)
 	} else if v != nil {
 		m["queries"] = v
@@ -1976,14 +1980,14 @@ func flattenGroupDynamicGroupMetadata(c *Client, i interface{}) *GroupDynamicGro
 
 // expandGroupDynamicGroupMetadataQueriesMap expands the contents of GroupDynamicGroupMetadataQueries into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataQueriesMap(c *Client, f map[string]GroupDynamicGroupMetadataQueries) (map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataQueriesMap(c *Client, f map[string]GroupDynamicGroupMetadataQueries, res *Group) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGroupDynamicGroupMetadataQueries(c, &item)
+		i, err := expandGroupDynamicGroupMetadataQueries(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1997,14 +2001,14 @@ func expandGroupDynamicGroupMetadataQueriesMap(c *Client, f map[string]GroupDyna
 
 // expandGroupDynamicGroupMetadataQueriesSlice expands the contents of GroupDynamicGroupMetadataQueries into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataQueriesSlice(c *Client, f []GroupDynamicGroupMetadataQueries) ([]map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataQueriesSlice(c *Client, f []GroupDynamicGroupMetadataQueries, res *Group) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGroupDynamicGroupMetadataQueries(c, &item)
+		i, err := expandGroupDynamicGroupMetadataQueries(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2057,7 +2061,7 @@ func flattenGroupDynamicGroupMetadataQueriesSlice(c *Client, i interface{}) []Gr
 
 // expandGroupDynamicGroupMetadataQueries expands an instance of GroupDynamicGroupMetadataQueries into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataQueries(c *Client, f *GroupDynamicGroupMetadataQueries) (map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataQueries(c *Client, f *GroupDynamicGroupMetadataQueries, res *Group) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2094,14 +2098,14 @@ func flattenGroupDynamicGroupMetadataQueries(c *Client, i interface{}) *GroupDyn
 
 // expandGroupDynamicGroupMetadataStatusMap expands the contents of GroupDynamicGroupMetadataStatus into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataStatusMap(c *Client, f map[string]GroupDynamicGroupMetadataStatus) (map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataStatusMap(c *Client, f map[string]GroupDynamicGroupMetadataStatus, res *Group) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGroupDynamicGroupMetadataStatus(c, &item)
+		i, err := expandGroupDynamicGroupMetadataStatus(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2115,14 +2119,14 @@ func expandGroupDynamicGroupMetadataStatusMap(c *Client, f map[string]GroupDynam
 
 // expandGroupDynamicGroupMetadataStatusSlice expands the contents of GroupDynamicGroupMetadataStatus into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataStatusSlice(c *Client, f []GroupDynamicGroupMetadataStatus) ([]map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataStatusSlice(c *Client, f []GroupDynamicGroupMetadataStatus, res *Group) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGroupDynamicGroupMetadataStatus(c, &item)
+		i, err := expandGroupDynamicGroupMetadataStatus(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2175,7 +2179,7 @@ func flattenGroupDynamicGroupMetadataStatusSlice(c *Client, i interface{}) []Gro
 
 // expandGroupDynamicGroupMetadataStatus expands an instance of GroupDynamicGroupMetadataStatus into a JSON
 // request object.
-func expandGroupDynamicGroupMetadataStatus(c *Client, f *GroupDynamicGroupMetadataStatus) (map[string]interface{}, error) {
+func expandGroupDynamicGroupMetadataStatus(c *Client, f *GroupDynamicGroupMetadataStatus, res *Group) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

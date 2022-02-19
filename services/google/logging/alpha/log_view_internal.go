@@ -96,6 +96,8 @@ type logViewApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateLogViewUpdateLogViewRequest(ctx context.Context, f *LogView, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -631,6 +633,8 @@ func unmarshalMapLogView(m map[string]interface{}, c *Client) (*LogView, error) 
 // expandLogView expands LogView into a JSON request object.
 func expandLogView(c *Client, f *LogView) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("%s/locations/%s/buckets/%s/views/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Bucket), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

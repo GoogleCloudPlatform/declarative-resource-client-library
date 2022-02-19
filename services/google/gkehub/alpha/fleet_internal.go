@@ -83,6 +83,8 @@ type fleetApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateFleetUpdateFleetRequest(ctx context.Context, f *Fleet, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -555,6 +557,8 @@ func unmarshalMapFleet(m map[string]interface{}, c *Client) (*Fleet, error) {
 // expandFleet expands Fleet into a JSON request object.
 func expandFleet(c *Client, f *Fleet) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/fleets/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

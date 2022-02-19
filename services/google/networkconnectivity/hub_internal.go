@@ -92,6 +92,8 @@ type hubApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateHubUpdateHubRequest(ctx context.Context, f *Hub, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -798,6 +800,8 @@ func unmarshalMapHub(m map[string]interface{}, c *Client) (*Hub, error) {
 // expandHub expands Hub into a JSON request object.
 func expandHub(c *Client, f *Hub) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/global/hubs/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -845,14 +849,14 @@ func flattenHub(c *Client, i interface{}) *Hub {
 
 // expandHubRoutingVpcsMap expands the contents of HubRoutingVpcs into a JSON
 // request object.
-func expandHubRoutingVpcsMap(c *Client, f map[string]HubRoutingVpcs) (map[string]interface{}, error) {
+func expandHubRoutingVpcsMap(c *Client, f map[string]HubRoutingVpcs, res *Hub) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandHubRoutingVpcs(c, &item)
+		i, err := expandHubRoutingVpcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -866,14 +870,14 @@ func expandHubRoutingVpcsMap(c *Client, f map[string]HubRoutingVpcs) (map[string
 
 // expandHubRoutingVpcsSlice expands the contents of HubRoutingVpcs into a JSON
 // request object.
-func expandHubRoutingVpcsSlice(c *Client, f []HubRoutingVpcs) ([]map[string]interface{}, error) {
+func expandHubRoutingVpcsSlice(c *Client, f []HubRoutingVpcs, res *Hub) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandHubRoutingVpcs(c, &item)
+		i, err := expandHubRoutingVpcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -926,7 +930,7 @@ func flattenHubRoutingVpcsSlice(c *Client, i interface{}) []HubRoutingVpcs {
 
 // expandHubRoutingVpcs expands an instance of HubRoutingVpcs into a JSON
 // request object.
-func expandHubRoutingVpcs(c *Client, f *HubRoutingVpcs) (map[string]interface{}, error) {
+func expandHubRoutingVpcs(c *Client, f *HubRoutingVpcs, res *Hub) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

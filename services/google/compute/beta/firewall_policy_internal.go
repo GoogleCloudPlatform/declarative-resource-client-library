@@ -84,6 +84,8 @@ type firewallPolicyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateFirewallPolicyPatchRequest(ctx context.Context, f *FirewallPolicy, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -572,6 +574,8 @@ func unmarshalMapFirewallPolicy(m map[string]interface{}, c *Client) (*FirewallP
 // expandFirewallPolicy expands FirewallPolicy into a JSON request object.
 func expandFirewallPolicy(c *Client, f *FirewallPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

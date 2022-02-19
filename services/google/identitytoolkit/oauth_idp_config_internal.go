@@ -93,6 +93,8 @@ type oAuthIdpConfigApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateOAuthIdpConfigUpdateConfigRequest(ctx context.Context, f *OAuthIdpConfig, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -112,7 +114,7 @@ func newUpdateOAuthIdpConfigUpdateConfigRequest(ctx context.Context, f *OAuthIdp
 	if v := f.ClientSecret; !dcl.IsEmptyValueIndirect(v) {
 		req["clientSecret"] = v
 	}
-	if v, err := expandOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {
+	if v, err := expandOAuthIdpConfigResponseType(c, f.ResponseType, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseType into responseType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["responseType"] = v
@@ -842,6 +844,8 @@ func unmarshalMapOAuthIdpConfig(m map[string]interface{}, c *Client) (*OAuthIdpC
 // expandOAuthIdpConfig expands OAuthIdpConfig into a JSON request object.
 func expandOAuthIdpConfig(c *Client, f *OAuthIdpConfig) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
@@ -860,7 +864,7 @@ func expandOAuthIdpConfig(c *Client, f *OAuthIdpConfig) (map[string]interface{},
 	if v := f.ClientSecret; dcl.ValueShouldBeSent(v) {
 		m["clientSecret"] = v
 	}
-	if v, err := expandOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {
+	if v, err := expandOAuthIdpConfigResponseType(c, f.ResponseType, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseType into responseType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["responseType"] = v
@@ -900,14 +904,14 @@ func flattenOAuthIdpConfig(c *Client, i interface{}) *OAuthIdpConfig {
 
 // expandOAuthIdpConfigResponseTypeMap expands the contents of OAuthIdpConfigResponseType into a JSON
 // request object.
-func expandOAuthIdpConfigResponseTypeMap(c *Client, f map[string]OAuthIdpConfigResponseType) (map[string]interface{}, error) {
+func expandOAuthIdpConfigResponseTypeMap(c *Client, f map[string]OAuthIdpConfigResponseType, res *OAuthIdpConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOAuthIdpConfigResponseType(c, &item)
+		i, err := expandOAuthIdpConfigResponseType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -921,14 +925,14 @@ func expandOAuthIdpConfigResponseTypeMap(c *Client, f map[string]OAuthIdpConfigR
 
 // expandOAuthIdpConfigResponseTypeSlice expands the contents of OAuthIdpConfigResponseType into a JSON
 // request object.
-func expandOAuthIdpConfigResponseTypeSlice(c *Client, f []OAuthIdpConfigResponseType) ([]map[string]interface{}, error) {
+func expandOAuthIdpConfigResponseTypeSlice(c *Client, f []OAuthIdpConfigResponseType, res *OAuthIdpConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOAuthIdpConfigResponseType(c, &item)
+		i, err := expandOAuthIdpConfigResponseType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -981,7 +985,7 @@ func flattenOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []OAuthIdp
 
 // expandOAuthIdpConfigResponseType expands an instance of OAuthIdpConfigResponseType into a JSON
 // request object.
-func expandOAuthIdpConfigResponseType(c *Client, f *OAuthIdpConfigResponseType) (map[string]interface{}, error) {
+func expandOAuthIdpConfigResponseType(c *Client, f *OAuthIdpConfigResponseType, res *OAuthIdpConfig) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

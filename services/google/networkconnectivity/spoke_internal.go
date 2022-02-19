@@ -147,6 +147,8 @@ type spokeApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateSpokeUpdateSpokeRequest(ctx context.Context, f *Spoke, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -1456,6 +1458,8 @@ func unmarshalMapSpoke(m map[string]interface{}, c *Client) (*Spoke, error) {
 // expandSpoke expands Spoke into a JSON request object.
 func expandSpoke(c *Client, f *Spoke) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/spokes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1470,17 +1474,17 @@ func expandSpoke(c *Client, f *Spoke) (map[string]interface{}, error) {
 	if v := f.Hub; dcl.ValueShouldBeSent(v) {
 		m["hub"] = v
 	}
-	if v, err := expandSpokeLinkedVpnTunnels(c, f.LinkedVpnTunnels); err != nil {
+	if v, err := expandSpokeLinkedVpnTunnels(c, f.LinkedVpnTunnels, res); err != nil {
 		return nil, fmt.Errorf("error expanding LinkedVpnTunnels into linkedVpnTunnels: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linkedVpnTunnels"] = v
 	}
-	if v, err := expandSpokeLinkedInterconnectAttachments(c, f.LinkedInterconnectAttachments); err != nil {
+	if v, err := expandSpokeLinkedInterconnectAttachments(c, f.LinkedInterconnectAttachments, res); err != nil {
 		return nil, fmt.Errorf("error expanding LinkedInterconnectAttachments into linkedInterconnectAttachments: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linkedInterconnectAttachments"] = v
 	}
-	if v, err := expandSpokeLinkedRouterApplianceInstances(c, f.LinkedRouterApplianceInstances); err != nil {
+	if v, err := expandSpokeLinkedRouterApplianceInstances(c, f.LinkedRouterApplianceInstances, res); err != nil {
 		return nil, fmt.Errorf("error expanding LinkedRouterApplianceInstances into linkedRouterApplianceInstances: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linkedRouterApplianceInstances"] = v
@@ -1530,14 +1534,14 @@ func flattenSpoke(c *Client, i interface{}) *Spoke {
 
 // expandSpokeLinkedVpnTunnelsMap expands the contents of SpokeLinkedVpnTunnels into a JSON
 // request object.
-func expandSpokeLinkedVpnTunnelsMap(c *Client, f map[string]SpokeLinkedVpnTunnels) (map[string]interface{}, error) {
+func expandSpokeLinkedVpnTunnelsMap(c *Client, f map[string]SpokeLinkedVpnTunnels, res *Spoke) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandSpokeLinkedVpnTunnels(c, &item)
+		i, err := expandSpokeLinkedVpnTunnels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1551,14 +1555,14 @@ func expandSpokeLinkedVpnTunnelsMap(c *Client, f map[string]SpokeLinkedVpnTunnel
 
 // expandSpokeLinkedVpnTunnelsSlice expands the contents of SpokeLinkedVpnTunnels into a JSON
 // request object.
-func expandSpokeLinkedVpnTunnelsSlice(c *Client, f []SpokeLinkedVpnTunnels) ([]map[string]interface{}, error) {
+func expandSpokeLinkedVpnTunnelsSlice(c *Client, f []SpokeLinkedVpnTunnels, res *Spoke) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandSpokeLinkedVpnTunnels(c, &item)
+		i, err := expandSpokeLinkedVpnTunnels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1611,7 +1615,7 @@ func flattenSpokeLinkedVpnTunnelsSlice(c *Client, i interface{}) []SpokeLinkedVp
 
 // expandSpokeLinkedVpnTunnels expands an instance of SpokeLinkedVpnTunnels into a JSON
 // request object.
-func expandSpokeLinkedVpnTunnels(c *Client, f *SpokeLinkedVpnTunnels) (map[string]interface{}, error) {
+func expandSpokeLinkedVpnTunnels(c *Client, f *SpokeLinkedVpnTunnels, res *Spoke) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1648,14 +1652,14 @@ func flattenSpokeLinkedVpnTunnels(c *Client, i interface{}) *SpokeLinkedVpnTunne
 
 // expandSpokeLinkedInterconnectAttachmentsMap expands the contents of SpokeLinkedInterconnectAttachments into a JSON
 // request object.
-func expandSpokeLinkedInterconnectAttachmentsMap(c *Client, f map[string]SpokeLinkedInterconnectAttachments) (map[string]interface{}, error) {
+func expandSpokeLinkedInterconnectAttachmentsMap(c *Client, f map[string]SpokeLinkedInterconnectAttachments, res *Spoke) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandSpokeLinkedInterconnectAttachments(c, &item)
+		i, err := expandSpokeLinkedInterconnectAttachments(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1669,14 +1673,14 @@ func expandSpokeLinkedInterconnectAttachmentsMap(c *Client, f map[string]SpokeLi
 
 // expandSpokeLinkedInterconnectAttachmentsSlice expands the contents of SpokeLinkedInterconnectAttachments into a JSON
 // request object.
-func expandSpokeLinkedInterconnectAttachmentsSlice(c *Client, f []SpokeLinkedInterconnectAttachments) ([]map[string]interface{}, error) {
+func expandSpokeLinkedInterconnectAttachmentsSlice(c *Client, f []SpokeLinkedInterconnectAttachments, res *Spoke) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandSpokeLinkedInterconnectAttachments(c, &item)
+		i, err := expandSpokeLinkedInterconnectAttachments(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1729,7 +1733,7 @@ func flattenSpokeLinkedInterconnectAttachmentsSlice(c *Client, i interface{}) []
 
 // expandSpokeLinkedInterconnectAttachments expands an instance of SpokeLinkedInterconnectAttachments into a JSON
 // request object.
-func expandSpokeLinkedInterconnectAttachments(c *Client, f *SpokeLinkedInterconnectAttachments) (map[string]interface{}, error) {
+func expandSpokeLinkedInterconnectAttachments(c *Client, f *SpokeLinkedInterconnectAttachments, res *Spoke) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1766,14 +1770,14 @@ func flattenSpokeLinkedInterconnectAttachments(c *Client, i interface{}) *SpokeL
 
 // expandSpokeLinkedRouterApplianceInstancesMap expands the contents of SpokeLinkedRouterApplianceInstances into a JSON
 // request object.
-func expandSpokeLinkedRouterApplianceInstancesMap(c *Client, f map[string]SpokeLinkedRouterApplianceInstances) (map[string]interface{}, error) {
+func expandSpokeLinkedRouterApplianceInstancesMap(c *Client, f map[string]SpokeLinkedRouterApplianceInstances, res *Spoke) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandSpokeLinkedRouterApplianceInstances(c, &item)
+		i, err := expandSpokeLinkedRouterApplianceInstances(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1787,14 +1791,14 @@ func expandSpokeLinkedRouterApplianceInstancesMap(c *Client, f map[string]SpokeL
 
 // expandSpokeLinkedRouterApplianceInstancesSlice expands the contents of SpokeLinkedRouterApplianceInstances into a JSON
 // request object.
-func expandSpokeLinkedRouterApplianceInstancesSlice(c *Client, f []SpokeLinkedRouterApplianceInstances) ([]map[string]interface{}, error) {
+func expandSpokeLinkedRouterApplianceInstancesSlice(c *Client, f []SpokeLinkedRouterApplianceInstances, res *Spoke) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandSpokeLinkedRouterApplianceInstances(c, &item)
+		i, err := expandSpokeLinkedRouterApplianceInstances(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1847,13 +1851,13 @@ func flattenSpokeLinkedRouterApplianceInstancesSlice(c *Client, i interface{}) [
 
 // expandSpokeLinkedRouterApplianceInstances expands an instance of SpokeLinkedRouterApplianceInstances into a JSON
 // request object.
-func expandSpokeLinkedRouterApplianceInstances(c *Client, f *SpokeLinkedRouterApplianceInstances) (map[string]interface{}, error) {
+func expandSpokeLinkedRouterApplianceInstances(c *Client, f *SpokeLinkedRouterApplianceInstances, res *Spoke) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandSpokeLinkedRouterApplianceInstancesInstancesSlice(c, f.Instances); err != nil {
+	if v, err := expandSpokeLinkedRouterApplianceInstancesInstancesSlice(c, f.Instances, res); err != nil {
 		return nil, fmt.Errorf("error expanding Instances into instances: %w", err)
 	} else if v != nil {
 		m["instances"] = v
@@ -1886,14 +1890,14 @@ func flattenSpokeLinkedRouterApplianceInstances(c *Client, i interface{}) *Spoke
 
 // expandSpokeLinkedRouterApplianceInstancesInstancesMap expands the contents of SpokeLinkedRouterApplianceInstancesInstances into a JSON
 // request object.
-func expandSpokeLinkedRouterApplianceInstancesInstancesMap(c *Client, f map[string]SpokeLinkedRouterApplianceInstancesInstances) (map[string]interface{}, error) {
+func expandSpokeLinkedRouterApplianceInstancesInstancesMap(c *Client, f map[string]SpokeLinkedRouterApplianceInstancesInstances, res *Spoke) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandSpokeLinkedRouterApplianceInstancesInstances(c, &item)
+		i, err := expandSpokeLinkedRouterApplianceInstancesInstances(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1907,14 +1911,14 @@ func expandSpokeLinkedRouterApplianceInstancesInstancesMap(c *Client, f map[stri
 
 // expandSpokeLinkedRouterApplianceInstancesInstancesSlice expands the contents of SpokeLinkedRouterApplianceInstancesInstances into a JSON
 // request object.
-func expandSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, f []SpokeLinkedRouterApplianceInstancesInstances) ([]map[string]interface{}, error) {
+func expandSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, f []SpokeLinkedRouterApplianceInstancesInstances, res *Spoke) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandSpokeLinkedRouterApplianceInstancesInstances(c, &item)
+		i, err := expandSpokeLinkedRouterApplianceInstancesInstances(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1967,7 +1971,7 @@ func flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, i inter
 
 // expandSpokeLinkedRouterApplianceInstancesInstances expands an instance of SpokeLinkedRouterApplianceInstancesInstances into a JSON
 // request object.
-func expandSpokeLinkedRouterApplianceInstancesInstances(c *Client, f *SpokeLinkedRouterApplianceInstancesInstances) (map[string]interface{}, error) {
+func expandSpokeLinkedRouterApplianceInstancesInstances(c *Client, f *SpokeLinkedRouterApplianceInstancesInstances, res *Spoke) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

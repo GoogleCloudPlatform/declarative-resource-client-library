@@ -168,18 +168,20 @@ type bucketApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateBucketUpdateRequest(ctx context.Context, f *Bucket, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandBucketCorsSlice(c, f.Cors); err != nil {
+	if v, err := expandBucketCorsSlice(c, f.Cors, res); err != nil {
 		return nil, fmt.Errorf("error expanding Cors into cors: %w", err)
 	} else if v != nil {
 		req["cors"] = v
 	}
-	if v, err := expandBucketLifecycle(c, f.Lifecycle); err != nil {
+	if v, err := expandBucketLifecycle(c, f.Lifecycle, res); err != nil {
 		return nil, fmt.Errorf("error expanding Lifecycle into lifecycle: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["lifecycle"] = v
 	}
-	if v, err := expandBucketLogging(c, f.Logging); err != nil {
+	if v, err := expandBucketLogging(c, f.Logging, res); err != nil {
 		return nil, fmt.Errorf("error expanding Logging into logging: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["logging"] = v
@@ -187,12 +189,12 @@ func newUpdateBucketUpdateRequest(ctx context.Context, f *Bucket, c *Client) (ma
 	if v := f.StorageClass; !dcl.IsEmptyValueIndirect(v) {
 		req["storageClass"] = v
 	}
-	if v, err := expandBucketVersioning(c, f.Versioning); err != nil {
+	if v, err := expandBucketVersioning(c, f.Versioning, res); err != nil {
 		return nil, fmt.Errorf("error expanding Versioning into versioning: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["versioning"] = v
 	}
-	if v, err := expandBucketWebsite(c, f.Website); err != nil {
+	if v, err := expandBucketWebsite(c, f.Website, res); err != nil {
 		return nil, fmt.Errorf("error expanding Website into website: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["website"] = v
@@ -2018,6 +2020,8 @@ func unmarshalMapBucket(m map[string]interface{}, c *Client) (*Bucket, error) {
 // expandBucket expands Bucket into a JSON request object.
 func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2029,17 +2033,17 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v, err := expandBucketCorsSlice(c, f.Cors); err != nil {
+	if v, err := expandBucketCorsSlice(c, f.Cors, res); err != nil {
 		return nil, fmt.Errorf("error expanding Cors into cors: %w", err)
 	} else if v != nil {
 		m["cors"] = v
 	}
-	if v, err := expandBucketLifecycle(c, f.Lifecycle); err != nil {
+	if v, err := expandBucketLifecycle(c, f.Lifecycle, res); err != nil {
 		return nil, fmt.Errorf("error expanding Lifecycle into lifecycle: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["lifecycle"] = v
 	}
-	if v, err := expandBucketLogging(c, f.Logging); err != nil {
+	if v, err := expandBucketLogging(c, f.Logging, res); err != nil {
 		return nil, fmt.Errorf("error expanding Logging into logging: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["logging"] = v
@@ -2047,12 +2051,12 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	if v := f.StorageClass; dcl.ValueShouldBeSent(v) {
 		m["storageClass"] = v
 	}
-	if v, err := expandBucketVersioning(c, f.Versioning); err != nil {
+	if v, err := expandBucketVersioning(c, f.Versioning, res); err != nil {
 		return nil, fmt.Errorf("error expanding Versioning into versioning: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["versioning"] = v
 	}
-	if v, err := expandBucketWebsite(c, f.Website); err != nil {
+	if v, err := expandBucketWebsite(c, f.Website, res); err != nil {
 		return nil, fmt.Errorf("error expanding Website into website: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["website"] = v
@@ -2088,14 +2092,14 @@ func flattenBucket(c *Client, i interface{}) *Bucket {
 
 // expandBucketCorsMap expands the contents of BucketCors into a JSON
 // request object.
-func expandBucketCorsMap(c *Client, f map[string]BucketCors) (map[string]interface{}, error) {
+func expandBucketCorsMap(c *Client, f map[string]BucketCors, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketCors(c, &item)
+		i, err := expandBucketCors(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2109,14 +2113,14 @@ func expandBucketCorsMap(c *Client, f map[string]BucketCors) (map[string]interfa
 
 // expandBucketCorsSlice expands the contents of BucketCors into a JSON
 // request object.
-func expandBucketCorsSlice(c *Client, f []BucketCors) ([]map[string]interface{}, error) {
+func expandBucketCorsSlice(c *Client, f []BucketCors, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketCors(c, &item)
+		i, err := expandBucketCors(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2169,7 +2173,7 @@ func flattenBucketCorsSlice(c *Client, i interface{}) []BucketCors {
 
 // expandBucketCors expands an instance of BucketCors into a JSON
 // request object.
-func expandBucketCors(c *Client, f *BucketCors) (map[string]interface{}, error) {
+func expandBucketCors(c *Client, f *BucketCors, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2214,14 +2218,14 @@ func flattenBucketCors(c *Client, i interface{}) *BucketCors {
 
 // expandBucketLifecycleMap expands the contents of BucketLifecycle into a JSON
 // request object.
-func expandBucketLifecycleMap(c *Client, f map[string]BucketLifecycle) (map[string]interface{}, error) {
+func expandBucketLifecycleMap(c *Client, f map[string]BucketLifecycle, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketLifecycle(c, &item)
+		i, err := expandBucketLifecycle(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2235,14 +2239,14 @@ func expandBucketLifecycleMap(c *Client, f map[string]BucketLifecycle) (map[stri
 
 // expandBucketLifecycleSlice expands the contents of BucketLifecycle into a JSON
 // request object.
-func expandBucketLifecycleSlice(c *Client, f []BucketLifecycle) ([]map[string]interface{}, error) {
+func expandBucketLifecycleSlice(c *Client, f []BucketLifecycle, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketLifecycle(c, &item)
+		i, err := expandBucketLifecycle(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2295,13 +2299,13 @@ func flattenBucketLifecycleSlice(c *Client, i interface{}) []BucketLifecycle {
 
 // expandBucketLifecycle expands an instance of BucketLifecycle into a JSON
 // request object.
-func expandBucketLifecycle(c *Client, f *BucketLifecycle) (map[string]interface{}, error) {
+func expandBucketLifecycle(c *Client, f *BucketLifecycle, res *Bucket) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandBucketLifecycleRuleSlice(c, f.Rule); err != nil {
+	if v, err := expandBucketLifecycleRuleSlice(c, f.Rule, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rule into rule: %w", err)
 	} else if v != nil {
 		m["rule"] = v
@@ -2330,14 +2334,14 @@ func flattenBucketLifecycle(c *Client, i interface{}) *BucketLifecycle {
 
 // expandBucketLifecycleRuleMap expands the contents of BucketLifecycleRule into a JSON
 // request object.
-func expandBucketLifecycleRuleMap(c *Client, f map[string]BucketLifecycleRule) (map[string]interface{}, error) {
+func expandBucketLifecycleRuleMap(c *Client, f map[string]BucketLifecycleRule, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketLifecycleRule(c, &item)
+		i, err := expandBucketLifecycleRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2351,14 +2355,14 @@ func expandBucketLifecycleRuleMap(c *Client, f map[string]BucketLifecycleRule) (
 
 // expandBucketLifecycleRuleSlice expands the contents of BucketLifecycleRule into a JSON
 // request object.
-func expandBucketLifecycleRuleSlice(c *Client, f []BucketLifecycleRule) ([]map[string]interface{}, error) {
+func expandBucketLifecycleRuleSlice(c *Client, f []BucketLifecycleRule, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketLifecycleRule(c, &item)
+		i, err := expandBucketLifecycleRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2411,18 +2415,18 @@ func flattenBucketLifecycleRuleSlice(c *Client, i interface{}) []BucketLifecycle
 
 // expandBucketLifecycleRule expands an instance of BucketLifecycleRule into a JSON
 // request object.
-func expandBucketLifecycleRule(c *Client, f *BucketLifecycleRule) (map[string]interface{}, error) {
+func expandBucketLifecycleRule(c *Client, f *BucketLifecycleRule, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandBucketLifecycleRuleAction(c, f.Action); err != nil {
+	if v, err := expandBucketLifecycleRuleAction(c, f.Action, res); err != nil {
 		return nil, fmt.Errorf("error expanding Action into action: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["action"] = v
 	}
-	if v, err := expandBucketLifecycleRuleCondition(c, f.Condition); err != nil {
+	if v, err := expandBucketLifecycleRuleCondition(c, f.Condition, res); err != nil {
 		return nil, fmt.Errorf("error expanding Condition into condition: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["condition"] = v
@@ -2452,14 +2456,14 @@ func flattenBucketLifecycleRule(c *Client, i interface{}) *BucketLifecycleRule {
 
 // expandBucketLifecycleRuleActionMap expands the contents of BucketLifecycleRuleAction into a JSON
 // request object.
-func expandBucketLifecycleRuleActionMap(c *Client, f map[string]BucketLifecycleRuleAction) (map[string]interface{}, error) {
+func expandBucketLifecycleRuleActionMap(c *Client, f map[string]BucketLifecycleRuleAction, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketLifecycleRuleAction(c, &item)
+		i, err := expandBucketLifecycleRuleAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2473,14 +2477,14 @@ func expandBucketLifecycleRuleActionMap(c *Client, f map[string]BucketLifecycleR
 
 // expandBucketLifecycleRuleActionSlice expands the contents of BucketLifecycleRuleAction into a JSON
 // request object.
-func expandBucketLifecycleRuleActionSlice(c *Client, f []BucketLifecycleRuleAction) ([]map[string]interface{}, error) {
+func expandBucketLifecycleRuleActionSlice(c *Client, f []BucketLifecycleRuleAction, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketLifecycleRuleAction(c, &item)
+		i, err := expandBucketLifecycleRuleAction(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2533,7 +2537,7 @@ func flattenBucketLifecycleRuleActionSlice(c *Client, i interface{}) []BucketLif
 
 // expandBucketLifecycleRuleAction expands an instance of BucketLifecycleRuleAction into a JSON
 // request object.
-func expandBucketLifecycleRuleAction(c *Client, f *BucketLifecycleRuleAction) (map[string]interface{}, error) {
+func expandBucketLifecycleRuleAction(c *Client, f *BucketLifecycleRuleAction, res *Bucket) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2570,14 +2574,14 @@ func flattenBucketLifecycleRuleAction(c *Client, i interface{}) *BucketLifecycle
 
 // expandBucketLifecycleRuleConditionMap expands the contents of BucketLifecycleRuleCondition into a JSON
 // request object.
-func expandBucketLifecycleRuleConditionMap(c *Client, f map[string]BucketLifecycleRuleCondition) (map[string]interface{}, error) {
+func expandBucketLifecycleRuleConditionMap(c *Client, f map[string]BucketLifecycleRuleCondition, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketLifecycleRuleCondition(c, &item)
+		i, err := expandBucketLifecycleRuleCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2591,14 +2595,14 @@ func expandBucketLifecycleRuleConditionMap(c *Client, f map[string]BucketLifecyc
 
 // expandBucketLifecycleRuleConditionSlice expands the contents of BucketLifecycleRuleCondition into a JSON
 // request object.
-func expandBucketLifecycleRuleConditionSlice(c *Client, f []BucketLifecycleRuleCondition) ([]map[string]interface{}, error) {
+func expandBucketLifecycleRuleConditionSlice(c *Client, f []BucketLifecycleRuleCondition, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketLifecycleRuleCondition(c, &item)
+		i, err := expandBucketLifecycleRuleCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2651,7 +2655,7 @@ func flattenBucketLifecycleRuleConditionSlice(c *Client, i interface{}) []Bucket
 
 // expandBucketLifecycleRuleCondition expands an instance of BucketLifecycleRuleCondition into a JSON
 // request object.
-func expandBucketLifecycleRuleCondition(c *Client, f *BucketLifecycleRuleCondition) (map[string]interface{}, error) {
+func expandBucketLifecycleRuleCondition(c *Client, f *BucketLifecycleRuleCondition, res *Bucket) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2663,7 +2667,7 @@ func expandBucketLifecycleRuleCondition(c *Client, f *BucketLifecycleRuleConditi
 	if v := f.CreatedBefore; !dcl.IsEmptyValueIndirect(v) {
 		m["createdBefore"] = v
 	}
-	if v, err := expandStorageBucketLifecycleWithState(f, f.WithState); err != nil {
+	if v, err := expandStorageBucketLifecycleWithState(c, f.WithState, res); err != nil {
 		return nil, fmt.Errorf("error expanding WithState into isLive: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["isLive"] = v
@@ -2702,14 +2706,14 @@ func flattenBucketLifecycleRuleCondition(c *Client, i interface{}) *BucketLifecy
 
 // expandBucketLoggingMap expands the contents of BucketLogging into a JSON
 // request object.
-func expandBucketLoggingMap(c *Client, f map[string]BucketLogging) (map[string]interface{}, error) {
+func expandBucketLoggingMap(c *Client, f map[string]BucketLogging, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketLogging(c, &item)
+		i, err := expandBucketLogging(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2723,14 +2727,14 @@ func expandBucketLoggingMap(c *Client, f map[string]BucketLogging) (map[string]i
 
 // expandBucketLoggingSlice expands the contents of BucketLogging into a JSON
 // request object.
-func expandBucketLoggingSlice(c *Client, f []BucketLogging) ([]map[string]interface{}, error) {
+func expandBucketLoggingSlice(c *Client, f []BucketLogging, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketLogging(c, &item)
+		i, err := expandBucketLogging(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2783,7 +2787,7 @@ func flattenBucketLoggingSlice(c *Client, i interface{}) []BucketLogging {
 
 // expandBucketLogging expands an instance of BucketLogging into a JSON
 // request object.
-func expandBucketLogging(c *Client, f *BucketLogging) (map[string]interface{}, error) {
+func expandBucketLogging(c *Client, f *BucketLogging, res *Bucket) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2820,14 +2824,14 @@ func flattenBucketLogging(c *Client, i interface{}) *BucketLogging {
 
 // expandBucketVersioningMap expands the contents of BucketVersioning into a JSON
 // request object.
-func expandBucketVersioningMap(c *Client, f map[string]BucketVersioning) (map[string]interface{}, error) {
+func expandBucketVersioningMap(c *Client, f map[string]BucketVersioning, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketVersioning(c, &item)
+		i, err := expandBucketVersioning(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2841,14 +2845,14 @@ func expandBucketVersioningMap(c *Client, f map[string]BucketVersioning) (map[st
 
 // expandBucketVersioningSlice expands the contents of BucketVersioning into a JSON
 // request object.
-func expandBucketVersioningSlice(c *Client, f []BucketVersioning) ([]map[string]interface{}, error) {
+func expandBucketVersioningSlice(c *Client, f []BucketVersioning, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketVersioning(c, &item)
+		i, err := expandBucketVersioning(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2901,7 +2905,7 @@ func flattenBucketVersioningSlice(c *Client, i interface{}) []BucketVersioning {
 
 // expandBucketVersioning expands an instance of BucketVersioning into a JSON
 // request object.
-func expandBucketVersioning(c *Client, f *BucketVersioning) (map[string]interface{}, error) {
+func expandBucketVersioning(c *Client, f *BucketVersioning, res *Bucket) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2934,14 +2938,14 @@ func flattenBucketVersioning(c *Client, i interface{}) *BucketVersioning {
 
 // expandBucketWebsiteMap expands the contents of BucketWebsite into a JSON
 // request object.
-func expandBucketWebsiteMap(c *Client, f map[string]BucketWebsite) (map[string]interface{}, error) {
+func expandBucketWebsiteMap(c *Client, f map[string]BucketWebsite, res *Bucket) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandBucketWebsite(c, &item)
+		i, err := expandBucketWebsite(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2955,14 +2959,14 @@ func expandBucketWebsiteMap(c *Client, f map[string]BucketWebsite) (map[string]i
 
 // expandBucketWebsiteSlice expands the contents of BucketWebsite into a JSON
 // request object.
-func expandBucketWebsiteSlice(c *Client, f []BucketWebsite) ([]map[string]interface{}, error) {
+func expandBucketWebsiteSlice(c *Client, f []BucketWebsite, res *Bucket) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandBucketWebsite(c, &item)
+		i, err := expandBucketWebsite(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3015,7 +3019,7 @@ func flattenBucketWebsiteSlice(c *Client, i interface{}) []BucketWebsite {
 
 // expandBucketWebsite expands an instance of BucketWebsite into a JSON
 // request object.
-func expandBucketWebsite(c *Client, f *BucketWebsite) (map[string]interface{}, error) {
+func expandBucketWebsite(c *Client, f *BucketWebsite, res *Bucket) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

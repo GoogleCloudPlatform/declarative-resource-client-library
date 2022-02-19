@@ -88,6 +88,8 @@ type envgroupApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateEnvgroupPatchEnvironmentGroupRequest(ctx context.Context, f *Envgroup, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Hostnames; v != nil {
 		req["hostnames"] = v
@@ -600,6 +602,8 @@ func unmarshalMapEnvgroup(m map[string]interface{}, c *Client) (*Envgroup, error
 // expandEnvgroup expands Envgroup into a JSON request object.
 func expandEnvgroup(c *Client, f *Envgroup) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

@@ -165,6 +165,8 @@ type functionApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateFunctionUpdateRequest(ctx context.Context, f *Function, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -1561,8 +1563,8 @@ func unmarshalMapFunction(m map[string]interface{}, c *Client) (*Function, error
 // expandFunction expands Function into a JSON request object.
 func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	// Alias full resource as res to distinguish it from nested objects.
 	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/functions/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Region), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1996,7 +1998,7 @@ func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger, res *Functio
 	if v := f.EventType; !dcl.IsEmptyValueIndirect(v) {
 		m["eventType"] = v
 	}
-	if v, err := ExpandFunctionEventResource(res); err != nil {
+	if v, err := ExpandFunctionEventTriggerResource(c, f.Resource, res); err != nil {
 		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resource"] = v
@@ -2004,7 +2006,7 @@ func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger, res *Functio
 	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
-	if v, err := ExpandFunctionEventRetry(res); err != nil {
+	if v, err := ExpandFunctionEventTriggerFailurePolicy(c, f.FailurePolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding FailurePolicy into failurePolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["failurePolicy"] = v
@@ -2029,7 +2031,7 @@ func flattenFunctionEventTrigger(c *Client, i interface{}) *FunctionEventTrigger
 	r.EventType = dcl.FlattenString(m["eventType"])
 	r.Resource = dcl.FlattenString(m["resource"])
 	r.Service = dcl.FlattenString(m["service"])
-	r.FailurePolicy = FlattenFunctionEventRetry(m["failurePolicy"])
+	r.FailurePolicy = flattenFunctionEventTriggerFailurePolicy(m["failurePolicy"])
 
 	return r
 }

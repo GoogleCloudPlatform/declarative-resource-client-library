@@ -103,16 +103,18 @@ type serviceApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandServiceCustom(c, f.Custom); err != nil {
+	if v, err := expandServiceCustom(c, f.Custom, res); err != nil {
 		return nil, fmt.Errorf("error expanding Custom into custom: %w", err)
 	} else if v != nil {
 		req["custom"] = v
 	}
-	if v, err := expandServiceTelemetry(c, f.Telemetry); err != nil {
+	if v, err := expandServiceTelemetry(c, f.Telemetry, res); err != nil {
 		return nil, fmt.Errorf("error expanding Telemetry into telemetry: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["telemetry"] = v
@@ -862,6 +864,8 @@ func unmarshalMapService(m map[string]interface{}, c *Client) (*Service, error) 
 // expandService expands Service into a JSON request object.
 func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/services/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -870,12 +874,12 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandServiceCustom(c, f.Custom); err != nil {
+	if v, err := expandServiceCustom(c, f.Custom, res); err != nil {
 		return nil, fmt.Errorf("error expanding Custom into custom: %w", err)
 	} else if v != nil {
 		m["custom"] = v
 	}
-	if v, err := expandServiceTelemetry(c, f.Telemetry); err != nil {
+	if v, err := expandServiceTelemetry(c, f.Telemetry, res); err != nil {
 		return nil, fmt.Errorf("error expanding Telemetry into telemetry: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["telemetry"] = v
@@ -920,14 +924,14 @@ func flattenService(c *Client, i interface{}) *Service {
 
 // expandServiceCustomMap expands the contents of ServiceCustom into a JSON
 // request object.
-func expandServiceCustomMap(c *Client, f map[string]ServiceCustom) (map[string]interface{}, error) {
+func expandServiceCustomMap(c *Client, f map[string]ServiceCustom, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceCustom(c, &item)
+		i, err := expandServiceCustom(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -941,14 +945,14 @@ func expandServiceCustomMap(c *Client, f map[string]ServiceCustom) (map[string]i
 
 // expandServiceCustomSlice expands the contents of ServiceCustom into a JSON
 // request object.
-func expandServiceCustomSlice(c *Client, f []ServiceCustom) ([]map[string]interface{}, error) {
+func expandServiceCustomSlice(c *Client, f []ServiceCustom, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceCustom(c, &item)
+		i, err := expandServiceCustom(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1001,7 +1005,7 @@ func flattenServiceCustomSlice(c *Client, i interface{}) []ServiceCustom {
 
 // expandServiceCustom expands an instance of ServiceCustom into a JSON
 // request object.
-func expandServiceCustom(c *Client, f *ServiceCustom) (map[string]interface{}, error) {
+func expandServiceCustom(c *Client, f *ServiceCustom, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1030,14 +1034,14 @@ func flattenServiceCustom(c *Client, i interface{}) *ServiceCustom {
 
 // expandServiceTelemetryMap expands the contents of ServiceTelemetry into a JSON
 // request object.
-func expandServiceTelemetryMap(c *Client, f map[string]ServiceTelemetry) (map[string]interface{}, error) {
+func expandServiceTelemetryMap(c *Client, f map[string]ServiceTelemetry, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceTelemetry(c, &item)
+		i, err := expandServiceTelemetry(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1051,14 +1055,14 @@ func expandServiceTelemetryMap(c *Client, f map[string]ServiceTelemetry) (map[st
 
 // expandServiceTelemetrySlice expands the contents of ServiceTelemetry into a JSON
 // request object.
-func expandServiceTelemetrySlice(c *Client, f []ServiceTelemetry) ([]map[string]interface{}, error) {
+func expandServiceTelemetrySlice(c *Client, f []ServiceTelemetry, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceTelemetry(c, &item)
+		i, err := expandServiceTelemetry(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1111,7 +1115,7 @@ func flattenServiceTelemetrySlice(c *Client, i interface{}) []ServiceTelemetry {
 
 // expandServiceTelemetry expands an instance of ServiceTelemetry into a JSON
 // request object.
-func expandServiceTelemetry(c *Client, f *ServiceTelemetry) (map[string]interface{}, error) {
+func expandServiceTelemetry(c *Client, f *ServiceTelemetry, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

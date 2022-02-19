@@ -838,6 +838,8 @@ func unmarshalMapVpnTunnel(m map[string]interface{}, c *Client) (*VpnTunnel, err
 // expandVpnTunnel expands VpnTunnel into a JSON request object.
 func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}

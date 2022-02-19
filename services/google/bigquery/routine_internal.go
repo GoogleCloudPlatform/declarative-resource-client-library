@@ -143,6 +143,8 @@ type routineApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateRoutinePatchRoutineRequest(ctx context.Context, f *Routine, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -159,12 +161,12 @@ func newUpdateRoutinePatchRoutineRequest(ctx context.Context, f *Routine, c *Cli
 	if v := f.Language; !dcl.IsEmptyValueIndirect(v) {
 		req["language"] = v
 	}
-	if v, err := expandRoutineArgumentsSlice(c, f.Arguments); err != nil {
+	if v, err := expandRoutineArgumentsSlice(c, f.Arguments, res); err != nil {
 		return nil, fmt.Errorf("error expanding Arguments into arguments: %w", err)
 	} else if v != nil {
 		req["arguments"] = v
 	}
-	if v, err := expandRoutineArgumentsDataType(c, f.ReturnType); err != nil {
+	if v, err := expandRoutineArgumentsDataType(c, f.ReturnType, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReturnType into returnType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["returnType"] = v
@@ -1552,6 +1554,8 @@ func unmarshalMapRoutine(m map[string]interface{}, c *Client) (*Routine, error) 
 // expandRoutine expands Routine into a JSON request object.
 func expandRoutine(c *Client, f *Routine) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
@@ -1567,12 +1571,12 @@ func expandRoutine(c *Client, f *Routine) (map[string]interface{}, error) {
 	if v := f.Language; dcl.ValueShouldBeSent(v) {
 		m["language"] = v
 	}
-	if v, err := expandRoutineArgumentsSlice(c, f.Arguments); err != nil {
+	if v, err := expandRoutineArgumentsSlice(c, f.Arguments, res); err != nil {
 		return nil, fmt.Errorf("error expanding Arguments into arguments: %w", err)
 	} else if v != nil {
 		m["arguments"] = v
 	}
-	if v, err := expandRoutineArgumentsDataType(c, f.ReturnType); err != nil {
+	if v, err := expandRoutineArgumentsDataType(c, f.ReturnType, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReturnType into returnType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["returnType"] = v
@@ -1629,14 +1633,14 @@ func flattenRoutine(c *Client, i interface{}) *Routine {
 
 // expandRoutineArgumentsMap expands the contents of RoutineArguments into a JSON
 // request object.
-func expandRoutineArgumentsMap(c *Client, f map[string]RoutineArguments) (map[string]interface{}, error) {
+func expandRoutineArgumentsMap(c *Client, f map[string]RoutineArguments, res *Routine) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRoutineArguments(c, &item)
+		i, err := expandRoutineArguments(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1650,14 +1654,14 @@ func expandRoutineArgumentsMap(c *Client, f map[string]RoutineArguments) (map[st
 
 // expandRoutineArgumentsSlice expands the contents of RoutineArguments into a JSON
 // request object.
-func expandRoutineArgumentsSlice(c *Client, f []RoutineArguments) ([]map[string]interface{}, error) {
+func expandRoutineArgumentsSlice(c *Client, f []RoutineArguments, res *Routine) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRoutineArguments(c, &item)
+		i, err := expandRoutineArguments(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1710,7 +1714,7 @@ func flattenRoutineArgumentsSlice(c *Client, i interface{}) []RoutineArguments {
 
 // expandRoutineArguments expands an instance of RoutineArguments into a JSON
 // request object.
-func expandRoutineArguments(c *Client, f *RoutineArguments) (map[string]interface{}, error) {
+func expandRoutineArguments(c *Client, f *RoutineArguments, res *Routine) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1725,7 +1729,7 @@ func expandRoutineArguments(c *Client, f *RoutineArguments) (map[string]interfac
 	if v := f.Mode; !dcl.IsEmptyValueIndirect(v) {
 		m["mode"] = v
 	}
-	if v, err := expandRoutineArgumentsDataType(c, f.DataType); err != nil {
+	if v, err := expandRoutineArgumentsDataType(c, f.DataType, res); err != nil {
 		return nil, fmt.Errorf("error expanding DataType into dataType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dataType"] = v
@@ -1757,14 +1761,14 @@ func flattenRoutineArguments(c *Client, i interface{}) *RoutineArguments {
 
 // expandRoutineArgumentsDataTypeMap expands the contents of RoutineArgumentsDataType into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeMap(c *Client, f map[string]RoutineArgumentsDataType) (map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeMap(c *Client, f map[string]RoutineArgumentsDataType, res *Routine) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRoutineArgumentsDataType(c, &item)
+		i, err := expandRoutineArgumentsDataType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1778,14 +1782,14 @@ func expandRoutineArgumentsDataTypeMap(c *Client, f map[string]RoutineArgumentsD
 
 // expandRoutineArgumentsDataTypeSlice expands the contents of RoutineArgumentsDataType into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeSlice(c *Client, f []RoutineArgumentsDataType) ([]map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeSlice(c *Client, f []RoutineArgumentsDataType, res *Routine) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRoutineArgumentsDataType(c, &item)
+		i, err := expandRoutineArgumentsDataType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1838,7 +1842,7 @@ func flattenRoutineArgumentsDataTypeSlice(c *Client, i interface{}) []RoutineArg
 
 // expandRoutineArgumentsDataType expands an instance of RoutineArgumentsDataType into a JSON
 // request object.
-func expandRoutineArgumentsDataType(c *Client, f *RoutineArgumentsDataType) (map[string]interface{}, error) {
+func expandRoutineArgumentsDataType(c *Client, f *RoutineArgumentsDataType, res *Routine) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1847,12 +1851,12 @@ func expandRoutineArgumentsDataType(c *Client, f *RoutineArgumentsDataType) (map
 	if v := f.TypeKind; !dcl.IsEmptyValueIndirect(v) {
 		m["typeKind"] = v
 	}
-	if v, err := expandRoutineArgumentsDataType(c, f.ArrayElementType); err != nil {
+	if v, err := expandRoutineArgumentsDataType(c, f.ArrayElementType, res); err != nil {
 		return nil, fmt.Errorf("error expanding ArrayElementType into arrayElementType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["arrayElementType"] = v
 	}
-	if v, err := expandRoutineArgumentsDataTypeStructType(c, f.StructType); err != nil {
+	if v, err := expandRoutineArgumentsDataTypeStructType(c, f.StructType, res); err != nil {
 		return nil, fmt.Errorf("error expanding StructType into structType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["structType"] = v
@@ -1883,14 +1887,14 @@ func flattenRoutineArgumentsDataType(c *Client, i interface{}) *RoutineArguments
 
 // expandRoutineArgumentsDataTypeStructTypeMap expands the contents of RoutineArgumentsDataTypeStructType into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeStructTypeMap(c *Client, f map[string]RoutineArgumentsDataTypeStructType) (map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeStructTypeMap(c *Client, f map[string]RoutineArgumentsDataTypeStructType, res *Routine) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRoutineArgumentsDataTypeStructType(c, &item)
+		i, err := expandRoutineArgumentsDataTypeStructType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1904,14 +1908,14 @@ func expandRoutineArgumentsDataTypeStructTypeMap(c *Client, f map[string]Routine
 
 // expandRoutineArgumentsDataTypeStructTypeSlice expands the contents of RoutineArgumentsDataTypeStructType into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeStructTypeSlice(c *Client, f []RoutineArgumentsDataTypeStructType) ([]map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeStructTypeSlice(c *Client, f []RoutineArgumentsDataTypeStructType, res *Routine) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRoutineArgumentsDataTypeStructType(c, &item)
+		i, err := expandRoutineArgumentsDataTypeStructType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1964,13 +1968,13 @@ func flattenRoutineArgumentsDataTypeStructTypeSlice(c *Client, i interface{}) []
 
 // expandRoutineArgumentsDataTypeStructType expands an instance of RoutineArgumentsDataTypeStructType into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeStructType(c *Client, f *RoutineArgumentsDataTypeStructType) (map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeStructType(c *Client, f *RoutineArgumentsDataTypeStructType, res *Routine) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandRoutineArgumentsDataTypeStructTypeFieldsSlice(c, f.Fields); err != nil {
+	if v, err := expandRoutineArgumentsDataTypeStructTypeFieldsSlice(c, f.Fields, res); err != nil {
 		return nil, fmt.Errorf("error expanding Fields into fields: %w", err)
 	} else if v != nil {
 		m["fields"] = v
@@ -1999,14 +2003,14 @@ func flattenRoutineArgumentsDataTypeStructType(c *Client, i interface{}) *Routin
 
 // expandRoutineArgumentsDataTypeStructTypeFieldsMap expands the contents of RoutineArgumentsDataTypeStructTypeFields into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeStructTypeFieldsMap(c *Client, f map[string]RoutineArgumentsDataTypeStructTypeFields) (map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeStructTypeFieldsMap(c *Client, f map[string]RoutineArgumentsDataTypeStructTypeFields, res *Routine) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRoutineArgumentsDataTypeStructTypeFields(c, &item)
+		i, err := expandRoutineArgumentsDataTypeStructTypeFields(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2020,14 +2024,14 @@ func expandRoutineArgumentsDataTypeStructTypeFieldsMap(c *Client, f map[string]R
 
 // expandRoutineArgumentsDataTypeStructTypeFieldsSlice expands the contents of RoutineArgumentsDataTypeStructTypeFields into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, f []RoutineArgumentsDataTypeStructTypeFields) ([]map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, f []RoutineArgumentsDataTypeStructTypeFields, res *Routine) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRoutineArgumentsDataTypeStructTypeFields(c, &item)
+		i, err := expandRoutineArgumentsDataTypeStructTypeFields(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2080,7 +2084,7 @@ func flattenRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, i interface
 
 // expandRoutineArgumentsDataTypeStructTypeFields expands an instance of RoutineArgumentsDataTypeStructTypeFields into a JSON
 // request object.
-func expandRoutineArgumentsDataTypeStructTypeFields(c *Client, f *RoutineArgumentsDataTypeStructTypeFields) (map[string]interface{}, error) {
+func expandRoutineArgumentsDataTypeStructTypeFields(c *Client, f *RoutineArgumentsDataTypeStructTypeFields, res *Routine) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2089,7 +2093,7 @@ func expandRoutineArgumentsDataTypeStructTypeFields(c *Client, f *RoutineArgumen
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandRoutineArgumentsDataType(c, f.Type); err != nil {
+	if v, err := expandRoutineArgumentsDataType(c, f.Type, res); err != nil {
 		return nil, fmt.Errorf("error expanding Type into type: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v

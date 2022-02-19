@@ -158,8 +158,10 @@ type membershipApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateMembershipUpdateMembershipRequest(ctx context.Context, f *Membership, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandMembershipEndpoint(c, f.Endpoint); err != nil {
+	if v, err := expandMembershipEndpoint(c, f.Endpoint, res); err != nil {
 		return nil, fmt.Errorf("error expanding Endpoint into endpoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["endpoint"] = v
@@ -173,7 +175,7 @@ func newUpdateMembershipUpdateMembershipRequest(ctx context.Context, f *Membersh
 	if v := f.ExternalId; !dcl.IsEmptyValueIndirect(v) {
 		req["externalId"] = v
 	}
-	if v, err := expandMembershipAuthority(c, f.Authority); err != nil {
+	if v, err := expandMembershipAuthority(c, f.Authority, res); err != nil {
 		return nil, fmt.Errorf("error expanding Authority into authority: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["authority"] = v
@@ -2252,7 +2254,9 @@ func unmarshalMapMembership(m map[string]interface{}, c *Client) (*Membership, e
 // expandMembership expands Membership into a JSON request object.
 func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := expandMembershipEndpoint(c, f.Endpoint); err != nil {
+	res := f
+	_ = res
+	if v, err := expandMembershipEndpoint(c, f.Endpoint, res); err != nil {
 		return nil, fmt.Errorf("error expanding Endpoint into endpoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["endpoint"] = v
@@ -2271,7 +2275,7 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	if v := f.ExternalId; dcl.ValueShouldBeSent(v) {
 		m["externalId"] = v
 	}
-	if v, err := expandMembershipAuthority(c, f.Authority); err != nil {
+	if v, err := expandMembershipAuthority(c, f.Authority, res); err != nil {
 		return nil, fmt.Errorf("error expanding Authority into authority: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["authority"] = v
@@ -2326,14 +2330,14 @@ func flattenMembership(c *Client, i interface{}) *Membership {
 
 // expandMembershipEndpointMap expands the contents of MembershipEndpoint into a JSON
 // request object.
-func expandMembershipEndpointMap(c *Client, f map[string]MembershipEndpoint) (map[string]interface{}, error) {
+func expandMembershipEndpointMap(c *Client, f map[string]MembershipEndpoint, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipEndpoint(c, &item)
+		i, err := expandMembershipEndpoint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2347,14 +2351,14 @@ func expandMembershipEndpointMap(c *Client, f map[string]MembershipEndpoint) (ma
 
 // expandMembershipEndpointSlice expands the contents of MembershipEndpoint into a JSON
 // request object.
-func expandMembershipEndpointSlice(c *Client, f []MembershipEndpoint) ([]map[string]interface{}, error) {
+func expandMembershipEndpointSlice(c *Client, f []MembershipEndpoint, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipEndpoint(c, &item)
+		i, err := expandMembershipEndpoint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2407,18 +2411,18 @@ func flattenMembershipEndpointSlice(c *Client, i interface{}) []MembershipEndpoi
 
 // expandMembershipEndpoint expands an instance of MembershipEndpoint into a JSON
 // request object.
-func expandMembershipEndpoint(c *Client, f *MembershipEndpoint) (map[string]interface{}, error) {
+func expandMembershipEndpoint(c *Client, f *MembershipEndpoint, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandMembershipEndpointGkeCluster(c, f.GkeCluster); err != nil {
+	if v, err := expandMembershipEndpointGkeCluster(c, f.GkeCluster, res); err != nil {
 		return nil, fmt.Errorf("error expanding GkeCluster into gkeCluster: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gkeCluster"] = v
 	}
-	if v, err := expandMembershipEndpointKubernetesResource(c, f.KubernetesResource); err != nil {
+	if v, err := expandMembershipEndpointKubernetesResource(c, f.KubernetesResource, res); err != nil {
 		return nil, fmt.Errorf("error expanding KubernetesResource into kubernetesResource: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kubernetesResource"] = v
@@ -2449,14 +2453,14 @@ func flattenMembershipEndpoint(c *Client, i interface{}) *MembershipEndpoint {
 
 // expandMembershipEndpointGkeClusterMap expands the contents of MembershipEndpointGkeCluster into a JSON
 // request object.
-func expandMembershipEndpointGkeClusterMap(c *Client, f map[string]MembershipEndpointGkeCluster) (map[string]interface{}, error) {
+func expandMembershipEndpointGkeClusterMap(c *Client, f map[string]MembershipEndpointGkeCluster, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipEndpointGkeCluster(c, &item)
+		i, err := expandMembershipEndpointGkeCluster(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2470,14 +2474,14 @@ func expandMembershipEndpointGkeClusterMap(c *Client, f map[string]MembershipEnd
 
 // expandMembershipEndpointGkeClusterSlice expands the contents of MembershipEndpointGkeCluster into a JSON
 // request object.
-func expandMembershipEndpointGkeClusterSlice(c *Client, f []MembershipEndpointGkeCluster) ([]map[string]interface{}, error) {
+func expandMembershipEndpointGkeClusterSlice(c *Client, f []MembershipEndpointGkeCluster, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipEndpointGkeCluster(c, &item)
+		i, err := expandMembershipEndpointGkeCluster(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2530,13 +2534,13 @@ func flattenMembershipEndpointGkeClusterSlice(c *Client, i interface{}) []Member
 
 // expandMembershipEndpointGkeCluster expands an instance of MembershipEndpointGkeCluster into a JSON
 // request object.
-func expandMembershipEndpointGkeCluster(c *Client, f *MembershipEndpointGkeCluster) (map[string]interface{}, error) {
+func expandMembershipEndpointGkeCluster(c *Client, f *MembershipEndpointGkeCluster, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandHubReferenceLink(f, f.ResourceLink); err != nil {
+	if v, err := expandHubReferenceLink(c, f.ResourceLink, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceLink into resourceLink: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resourceLink"] = v
@@ -2565,14 +2569,14 @@ func flattenMembershipEndpointGkeCluster(c *Client, i interface{}) *MembershipEn
 
 // expandMembershipEndpointKubernetesMetadataMap expands the contents of MembershipEndpointKubernetesMetadata into a JSON
 // request object.
-func expandMembershipEndpointKubernetesMetadataMap(c *Client, f map[string]MembershipEndpointKubernetesMetadata) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesMetadataMap(c *Client, f map[string]MembershipEndpointKubernetesMetadata, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipEndpointKubernetesMetadata(c, &item)
+		i, err := expandMembershipEndpointKubernetesMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2586,14 +2590,14 @@ func expandMembershipEndpointKubernetesMetadataMap(c *Client, f map[string]Membe
 
 // expandMembershipEndpointKubernetesMetadataSlice expands the contents of MembershipEndpointKubernetesMetadata into a JSON
 // request object.
-func expandMembershipEndpointKubernetesMetadataSlice(c *Client, f []MembershipEndpointKubernetesMetadata) ([]map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesMetadataSlice(c *Client, f []MembershipEndpointKubernetesMetadata, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipEndpointKubernetesMetadata(c, &item)
+		i, err := expandMembershipEndpointKubernetesMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2646,7 +2650,7 @@ func flattenMembershipEndpointKubernetesMetadataSlice(c *Client, i interface{}) 
 
 // expandMembershipEndpointKubernetesMetadata expands an instance of MembershipEndpointKubernetesMetadata into a JSON
 // request object.
-func expandMembershipEndpointKubernetesMetadata(c *Client, f *MembershipEndpointKubernetesMetadata) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesMetadata(c *Client, f *MembershipEndpointKubernetesMetadata, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2681,14 +2685,14 @@ func flattenMembershipEndpointKubernetesMetadata(c *Client, i interface{}) *Memb
 
 // expandMembershipEndpointKubernetesResourceMap expands the contents of MembershipEndpointKubernetesResource into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceMap(c *Client, f map[string]MembershipEndpointKubernetesResource) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceMap(c *Client, f map[string]MembershipEndpointKubernetesResource, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipEndpointKubernetesResource(c, &item)
+		i, err := expandMembershipEndpointKubernetesResource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2702,14 +2706,14 @@ func expandMembershipEndpointKubernetesResourceMap(c *Client, f map[string]Membe
 
 // expandMembershipEndpointKubernetesResourceSlice expands the contents of MembershipEndpointKubernetesResource into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceSlice(c *Client, f []MembershipEndpointKubernetesResource) ([]map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceSlice(c *Client, f []MembershipEndpointKubernetesResource, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipEndpointKubernetesResource(c, &item)
+		i, err := expandMembershipEndpointKubernetesResource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2762,7 +2766,7 @@ func flattenMembershipEndpointKubernetesResourceSlice(c *Client, i interface{}) 
 
 // expandMembershipEndpointKubernetesResource expands an instance of MembershipEndpointKubernetesResource into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResource(c *Client, f *MembershipEndpointKubernetesResource) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResource(c *Client, f *MembershipEndpointKubernetesResource, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2771,7 +2775,7 @@ func expandMembershipEndpointKubernetesResource(c *Client, f *MembershipEndpoint
 	if v := f.MembershipCrManifest; !dcl.IsEmptyValueIndirect(v) {
 		m["membershipCrManifest"] = v
 	}
-	if v, err := expandMembershipEndpointKubernetesResourceResourceOptions(c, f.ResourceOptions); err != nil {
+	if v, err := expandMembershipEndpointKubernetesResourceResourceOptions(c, f.ResourceOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceOptions into resourceOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resourceOptions"] = v
@@ -2803,14 +2807,14 @@ func flattenMembershipEndpointKubernetesResource(c *Client, i interface{}) *Memb
 
 // expandMembershipEndpointKubernetesResourceMembershipResourcesMap expands the contents of MembershipEndpointKubernetesResourceMembershipResources into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceMembershipResourcesMap(c *Client, f map[string]MembershipEndpointKubernetesResourceMembershipResources) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceMembershipResourcesMap(c *Client, f map[string]MembershipEndpointKubernetesResourceMembershipResources, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipEndpointKubernetesResourceMembershipResources(c, &item)
+		i, err := expandMembershipEndpointKubernetesResourceMembershipResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2824,14 +2828,14 @@ func expandMembershipEndpointKubernetesResourceMembershipResourcesMap(c *Client,
 
 // expandMembershipEndpointKubernetesResourceMembershipResourcesSlice expands the contents of MembershipEndpointKubernetesResourceMembershipResources into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Client, f []MembershipEndpointKubernetesResourceMembershipResources) ([]map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Client, f []MembershipEndpointKubernetesResourceMembershipResources, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipEndpointKubernetesResourceMembershipResources(c, &item)
+		i, err := expandMembershipEndpointKubernetesResourceMembershipResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2884,7 +2888,7 @@ func flattenMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Clie
 
 // expandMembershipEndpointKubernetesResourceMembershipResources expands an instance of MembershipEndpointKubernetesResourceMembershipResources into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceMembershipResources(c *Client, f *MembershipEndpointKubernetesResourceMembershipResources) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceMembershipResources(c *Client, f *MembershipEndpointKubernetesResourceMembershipResources, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2921,14 +2925,14 @@ func flattenMembershipEndpointKubernetesResourceMembershipResources(c *Client, i
 
 // expandMembershipEndpointKubernetesResourceConnectResourcesMap expands the contents of MembershipEndpointKubernetesResourceConnectResources into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceConnectResourcesMap(c *Client, f map[string]MembershipEndpointKubernetesResourceConnectResources) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceConnectResourcesMap(c *Client, f map[string]MembershipEndpointKubernetesResourceConnectResources, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipEndpointKubernetesResourceConnectResources(c, &item)
+		i, err := expandMembershipEndpointKubernetesResourceConnectResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2942,14 +2946,14 @@ func expandMembershipEndpointKubernetesResourceConnectResourcesMap(c *Client, f 
 
 // expandMembershipEndpointKubernetesResourceConnectResourcesSlice expands the contents of MembershipEndpointKubernetesResourceConnectResources into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client, f []MembershipEndpointKubernetesResourceConnectResources) ([]map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client, f []MembershipEndpointKubernetesResourceConnectResources, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipEndpointKubernetesResourceConnectResources(c, &item)
+		i, err := expandMembershipEndpointKubernetesResourceConnectResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3002,7 +3006,7 @@ func flattenMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client,
 
 // expandMembershipEndpointKubernetesResourceConnectResources expands an instance of MembershipEndpointKubernetesResourceConnectResources into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceConnectResources(c *Client, f *MembershipEndpointKubernetesResourceConnectResources) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceConnectResources(c *Client, f *MembershipEndpointKubernetesResourceConnectResources, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3039,14 +3043,14 @@ func flattenMembershipEndpointKubernetesResourceConnectResources(c *Client, i in
 
 // expandMembershipEndpointKubernetesResourceResourceOptionsMap expands the contents of MembershipEndpointKubernetesResourceResourceOptions into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceResourceOptionsMap(c *Client, f map[string]MembershipEndpointKubernetesResourceResourceOptions) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceResourceOptionsMap(c *Client, f map[string]MembershipEndpointKubernetesResourceResourceOptions, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipEndpointKubernetesResourceResourceOptions(c, &item)
+		i, err := expandMembershipEndpointKubernetesResourceResourceOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3060,14 +3064,14 @@ func expandMembershipEndpointKubernetesResourceResourceOptionsMap(c *Client, f m
 
 // expandMembershipEndpointKubernetesResourceResourceOptionsSlice expands the contents of MembershipEndpointKubernetesResourceResourceOptions into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, f []MembershipEndpointKubernetesResourceResourceOptions) ([]map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, f []MembershipEndpointKubernetesResourceResourceOptions, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipEndpointKubernetesResourceResourceOptions(c, &item)
+		i, err := expandMembershipEndpointKubernetesResourceResourceOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3120,7 +3124,7 @@ func flattenMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, 
 
 // expandMembershipEndpointKubernetesResourceResourceOptions expands an instance of MembershipEndpointKubernetesResourceResourceOptions into a JSON
 // request object.
-func expandMembershipEndpointKubernetesResourceResourceOptions(c *Client, f *MembershipEndpointKubernetesResourceResourceOptions) (map[string]interface{}, error) {
+func expandMembershipEndpointKubernetesResourceResourceOptions(c *Client, f *MembershipEndpointKubernetesResourceResourceOptions, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3157,14 +3161,14 @@ func flattenMembershipEndpointKubernetesResourceResourceOptions(c *Client, i int
 
 // expandMembershipStateMap expands the contents of MembershipState into a JSON
 // request object.
-func expandMembershipStateMap(c *Client, f map[string]MembershipState) (map[string]interface{}, error) {
+func expandMembershipStateMap(c *Client, f map[string]MembershipState, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipState(c, &item)
+		i, err := expandMembershipState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3178,14 +3182,14 @@ func expandMembershipStateMap(c *Client, f map[string]MembershipState) (map[stri
 
 // expandMembershipStateSlice expands the contents of MembershipState into a JSON
 // request object.
-func expandMembershipStateSlice(c *Client, f []MembershipState) ([]map[string]interface{}, error) {
+func expandMembershipStateSlice(c *Client, f []MembershipState, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipState(c, &item)
+		i, err := expandMembershipState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3238,7 +3242,7 @@ func flattenMembershipStateSlice(c *Client, i interface{}) []MembershipState {
 
 // expandMembershipState expands an instance of MembershipState into a JSON
 // request object.
-func expandMembershipState(c *Client, f *MembershipState) (map[string]interface{}, error) {
+func expandMembershipState(c *Client, f *MembershipState, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3268,14 +3272,14 @@ func flattenMembershipState(c *Client, i interface{}) *MembershipState {
 
 // expandMembershipAuthorityMap expands the contents of MembershipAuthority into a JSON
 // request object.
-func expandMembershipAuthorityMap(c *Client, f map[string]MembershipAuthority) (map[string]interface{}, error) {
+func expandMembershipAuthorityMap(c *Client, f map[string]MembershipAuthority, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipAuthority(c, &item)
+		i, err := expandMembershipAuthority(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3289,14 +3293,14 @@ func expandMembershipAuthorityMap(c *Client, f map[string]MembershipAuthority) (
 
 // expandMembershipAuthoritySlice expands the contents of MembershipAuthority into a JSON
 // request object.
-func expandMembershipAuthoritySlice(c *Client, f []MembershipAuthority) ([]map[string]interface{}, error) {
+func expandMembershipAuthoritySlice(c *Client, f []MembershipAuthority, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipAuthority(c, &item)
+		i, err := expandMembershipAuthority(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3349,7 +3353,7 @@ func flattenMembershipAuthoritySlice(c *Client, i interface{}) []MembershipAutho
 
 // expandMembershipAuthority expands an instance of MembershipAuthority into a JSON
 // request object.
-func expandMembershipAuthority(c *Client, f *MembershipAuthority) (map[string]interface{}, error) {
+func expandMembershipAuthority(c *Client, f *MembershipAuthority, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

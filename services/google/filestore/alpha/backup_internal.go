@@ -102,6 +102,8 @@ type backupApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateBackupUpdateBackupRequest(ctx context.Context, f *Backup, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -725,6 +727,8 @@ func unmarshalMapBackup(m map[string]interface{}, c *Client) (*Backup, error) {
 // expandBackup expands Backup into a JSON request object.
 func expandBackup(c *Client, f *Backup) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

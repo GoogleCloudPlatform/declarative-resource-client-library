@@ -92,6 +92,8 @@ type vpnTunnelApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateVpnTunnelSetLabelsRequest(ctx context.Context, f *VpnTunnel, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -918,6 +920,8 @@ func unmarshalMapVpnTunnel(m map[string]interface{}, c *Client) (*VpnTunnel, err
 // expandVpnTunnel expands VpnTunnel into a JSON request object.
 func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}

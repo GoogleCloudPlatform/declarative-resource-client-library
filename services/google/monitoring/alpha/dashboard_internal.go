@@ -448,26 +448,28 @@ type dashboardApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateDashboardUpdateDashboardRequest(ctx context.Context, f *Dashboard, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandDashboardGridLayout(c, f.GridLayout); err != nil {
+	if v, err := expandDashboardGridLayout(c, f.GridLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding GridLayout into gridLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["gridLayout"] = v
 	}
-	if v, err := expandDashboardMosaicLayout(c, f.MosaicLayout); err != nil {
+	if v, err := expandDashboardMosaicLayout(c, f.MosaicLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding MosaicLayout into mosaicLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["mosaicLayout"] = v
 	}
-	if v, err := expandDashboardRowLayout(c, f.RowLayout); err != nil {
+	if v, err := expandDashboardRowLayout(c, f.RowLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding RowLayout into rowLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["rowLayout"] = v
 	}
-	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
+	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["columnLayout"] = v
@@ -8463,6 +8465,8 @@ func unmarshalMapDashboard(m map[string]interface{}, c *Client) (*Dashboard, err
 // expandDashboard expands Dashboard into a JSON request object.
 func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -8471,22 +8475,22 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandDashboardGridLayout(c, f.GridLayout); err != nil {
+	if v, err := expandDashboardGridLayout(c, f.GridLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding GridLayout into gridLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gridLayout"] = v
 	}
-	if v, err := expandDashboardMosaicLayout(c, f.MosaicLayout); err != nil {
+	if v, err := expandDashboardMosaicLayout(c, f.MosaicLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding MosaicLayout into mosaicLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mosaicLayout"] = v
 	}
-	if v, err := expandDashboardRowLayout(c, f.RowLayout); err != nil {
+	if v, err := expandDashboardRowLayout(c, f.RowLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding RowLayout into rowLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rowLayout"] = v
 	}
-	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
+	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout, res); err != nil {
 		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["columnLayout"] = v
@@ -8526,14 +8530,14 @@ func flattenDashboard(c *Client, i interface{}) *Dashboard {
 
 // expandDashboardGridLayoutMap expands the contents of DashboardGridLayout into a JSON
 // request object.
-func expandDashboardGridLayoutMap(c *Client, f map[string]DashboardGridLayout) (map[string]interface{}, error) {
+func expandDashboardGridLayoutMap(c *Client, f map[string]DashboardGridLayout, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardGridLayout(c, &item)
+		i, err := expandDashboardGridLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8547,14 +8551,14 @@ func expandDashboardGridLayoutMap(c *Client, f map[string]DashboardGridLayout) (
 
 // expandDashboardGridLayoutSlice expands the contents of DashboardGridLayout into a JSON
 // request object.
-func expandDashboardGridLayoutSlice(c *Client, f []DashboardGridLayout) ([]map[string]interface{}, error) {
+func expandDashboardGridLayoutSlice(c *Client, f []DashboardGridLayout, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardGridLayout(c, &item)
+		i, err := expandDashboardGridLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8607,7 +8611,7 @@ func flattenDashboardGridLayoutSlice(c *Client, i interface{}) []DashboardGridLa
 
 // expandDashboardGridLayout expands an instance of DashboardGridLayout into a JSON
 // request object.
-func expandDashboardGridLayout(c *Client, f *DashboardGridLayout) (map[string]interface{}, error) {
+func expandDashboardGridLayout(c *Client, f *DashboardGridLayout, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8644,14 +8648,14 @@ func flattenDashboardGridLayout(c *Client, i interface{}) *DashboardGridLayout {
 
 // expandDashboardMosaicLayoutMap expands the contents of DashboardMosaicLayout into a JSON
 // request object.
-func expandDashboardMosaicLayoutMap(c *Client, f map[string]DashboardMosaicLayout) (map[string]interface{}, error) {
+func expandDashboardMosaicLayoutMap(c *Client, f map[string]DashboardMosaicLayout, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardMosaicLayout(c, &item)
+		i, err := expandDashboardMosaicLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8665,14 +8669,14 @@ func expandDashboardMosaicLayoutMap(c *Client, f map[string]DashboardMosaicLayou
 
 // expandDashboardMosaicLayoutSlice expands the contents of DashboardMosaicLayout into a JSON
 // request object.
-func expandDashboardMosaicLayoutSlice(c *Client, f []DashboardMosaicLayout) ([]map[string]interface{}, error) {
+func expandDashboardMosaicLayoutSlice(c *Client, f []DashboardMosaicLayout, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardMosaicLayout(c, &item)
+		i, err := expandDashboardMosaicLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8725,7 +8729,7 @@ func flattenDashboardMosaicLayoutSlice(c *Client, i interface{}) []DashboardMosa
 
 // expandDashboardMosaicLayout expands an instance of DashboardMosaicLayout into a JSON
 // request object.
-func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout) (map[string]interface{}, error) {
+func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8734,7 +8738,7 @@ func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout) (map[strin
 	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
 		m["columns"] = v
 	}
-	if v, err := expandDashboardMosaicLayoutTilesSlice(c, f.Tiles); err != nil {
+	if v, err := expandDashboardMosaicLayoutTilesSlice(c, f.Tiles, res); err != nil {
 		return nil, fmt.Errorf("error expanding Tiles into tiles: %w", err)
 	} else if v != nil {
 		m["tiles"] = v
@@ -8764,14 +8768,14 @@ func flattenDashboardMosaicLayout(c *Client, i interface{}) *DashboardMosaicLayo
 
 // expandDashboardMosaicLayoutTilesMap expands the contents of DashboardMosaicLayoutTiles into a JSON
 // request object.
-func expandDashboardMosaicLayoutTilesMap(c *Client, f map[string]DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
+func expandDashboardMosaicLayoutTilesMap(c *Client, f map[string]DashboardMosaicLayoutTiles, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardMosaicLayoutTiles(c, &item)
+		i, err := expandDashboardMosaicLayoutTiles(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8785,14 +8789,14 @@ func expandDashboardMosaicLayoutTilesMap(c *Client, f map[string]DashboardMosaic
 
 // expandDashboardMosaicLayoutTilesSlice expands the contents of DashboardMosaicLayoutTiles into a JSON
 // request object.
-func expandDashboardMosaicLayoutTilesSlice(c *Client, f []DashboardMosaicLayoutTiles) ([]map[string]interface{}, error) {
+func expandDashboardMosaicLayoutTilesSlice(c *Client, f []DashboardMosaicLayoutTiles, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardMosaicLayoutTiles(c, &item)
+		i, err := expandDashboardMosaicLayoutTiles(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8845,7 +8849,7 @@ func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}) []Dashboar
 
 // expandDashboardMosaicLayoutTiles expands an instance of DashboardMosaicLayoutTiles into a JSON
 // request object.
-func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
+func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -8863,7 +8867,7 @@ func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles) 
 	if v := f.Height; !dcl.IsEmptyValueIndirect(v) {
 		m["height"] = v
 	}
-	if v, err := expandDashboardWidget(c, f.Widget); err != nil {
+	if v, err := expandDashboardWidget(c, f.Widget, res); err != nil {
 		return nil, fmt.Errorf("error expanding Widget into widget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["widget"] = v
@@ -8896,14 +8900,14 @@ func flattenDashboardMosaicLayoutTiles(c *Client, i interface{}) *DashboardMosai
 
 // expandDashboardRowLayoutMap expands the contents of DashboardRowLayout into a JSON
 // request object.
-func expandDashboardRowLayoutMap(c *Client, f map[string]DashboardRowLayout) (map[string]interface{}, error) {
+func expandDashboardRowLayoutMap(c *Client, f map[string]DashboardRowLayout, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardRowLayout(c, &item)
+		i, err := expandDashboardRowLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8917,14 +8921,14 @@ func expandDashboardRowLayoutMap(c *Client, f map[string]DashboardRowLayout) (ma
 
 // expandDashboardRowLayoutSlice expands the contents of DashboardRowLayout into a JSON
 // request object.
-func expandDashboardRowLayoutSlice(c *Client, f []DashboardRowLayout) ([]map[string]interface{}, error) {
+func expandDashboardRowLayoutSlice(c *Client, f []DashboardRowLayout, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardRowLayout(c, &item)
+		i, err := expandDashboardRowLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8977,13 +8981,13 @@ func flattenDashboardRowLayoutSlice(c *Client, i interface{}) []DashboardRowLayo
 
 // expandDashboardRowLayout expands an instance of DashboardRowLayout into a JSON
 // request object.
-func expandDashboardRowLayout(c *Client, f *DashboardRowLayout) (map[string]interface{}, error) {
+func expandDashboardRowLayout(c *Client, f *DashboardRowLayout, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardRowLayoutRowsSlice(c, f.Rows); err != nil {
+	if v, err := expandDashboardRowLayoutRowsSlice(c, f.Rows, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rows into rows: %w", err)
 	} else if v != nil {
 		m["rows"] = v
@@ -9012,14 +9016,14 @@ func flattenDashboardRowLayout(c *Client, i interface{}) *DashboardRowLayout {
 
 // expandDashboardRowLayoutRowsMap expands the contents of DashboardRowLayoutRows into a JSON
 // request object.
-func expandDashboardRowLayoutRowsMap(c *Client, f map[string]DashboardRowLayoutRows) (map[string]interface{}, error) {
+func expandDashboardRowLayoutRowsMap(c *Client, f map[string]DashboardRowLayoutRows, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardRowLayoutRows(c, &item)
+		i, err := expandDashboardRowLayoutRows(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9033,14 +9037,14 @@ func expandDashboardRowLayoutRowsMap(c *Client, f map[string]DashboardRowLayoutR
 
 // expandDashboardRowLayoutRowsSlice expands the contents of DashboardRowLayoutRows into a JSON
 // request object.
-func expandDashboardRowLayoutRowsSlice(c *Client, f []DashboardRowLayoutRows) ([]map[string]interface{}, error) {
+func expandDashboardRowLayoutRowsSlice(c *Client, f []DashboardRowLayoutRows, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardRowLayoutRows(c, &item)
+		i, err := expandDashboardRowLayoutRows(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9093,7 +9097,7 @@ func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}) []DashboardRow
 
 // expandDashboardRowLayoutRows expands an instance of DashboardRowLayoutRows into a JSON
 // request object.
-func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows) (map[string]interface{}, error) {
+func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -9130,14 +9134,14 @@ func flattenDashboardRowLayoutRows(c *Client, i interface{}) *DashboardRowLayout
 
 // expandDashboardColumnLayoutMap expands the contents of DashboardColumnLayout into a JSON
 // request object.
-func expandDashboardColumnLayoutMap(c *Client, f map[string]DashboardColumnLayout) (map[string]interface{}, error) {
+func expandDashboardColumnLayoutMap(c *Client, f map[string]DashboardColumnLayout, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardColumnLayout(c, &item)
+		i, err := expandDashboardColumnLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9151,14 +9155,14 @@ func expandDashboardColumnLayoutMap(c *Client, f map[string]DashboardColumnLayou
 
 // expandDashboardColumnLayoutSlice expands the contents of DashboardColumnLayout into a JSON
 // request object.
-func expandDashboardColumnLayoutSlice(c *Client, f []DashboardColumnLayout) ([]map[string]interface{}, error) {
+func expandDashboardColumnLayoutSlice(c *Client, f []DashboardColumnLayout, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardColumnLayout(c, &item)
+		i, err := expandDashboardColumnLayout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9211,13 +9215,13 @@ func flattenDashboardColumnLayoutSlice(c *Client, i interface{}) []DashboardColu
 
 // expandDashboardColumnLayout expands an instance of DashboardColumnLayout into a JSON
 // request object.
-func expandDashboardColumnLayout(c *Client, f *DashboardColumnLayout) (map[string]interface{}, error) {
+func expandDashboardColumnLayout(c *Client, f *DashboardColumnLayout, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardColumnLayoutColumnsSlice(c, f.Columns); err != nil {
+	if v, err := expandDashboardColumnLayoutColumnsSlice(c, f.Columns, res); err != nil {
 		return nil, fmt.Errorf("error expanding Columns into columns: %w", err)
 	} else if v != nil {
 		m["columns"] = v
@@ -9246,14 +9250,14 @@ func flattenDashboardColumnLayout(c *Client, i interface{}) *DashboardColumnLayo
 
 // expandDashboardColumnLayoutColumnsMap expands the contents of DashboardColumnLayoutColumns into a JSON
 // request object.
-func expandDashboardColumnLayoutColumnsMap(c *Client, f map[string]DashboardColumnLayoutColumns) (map[string]interface{}, error) {
+func expandDashboardColumnLayoutColumnsMap(c *Client, f map[string]DashboardColumnLayoutColumns, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardColumnLayoutColumns(c, &item)
+		i, err := expandDashboardColumnLayoutColumns(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9267,14 +9271,14 @@ func expandDashboardColumnLayoutColumnsMap(c *Client, f map[string]DashboardColu
 
 // expandDashboardColumnLayoutColumnsSlice expands the contents of DashboardColumnLayoutColumns into a JSON
 // request object.
-func expandDashboardColumnLayoutColumnsSlice(c *Client, f []DashboardColumnLayoutColumns) ([]map[string]interface{}, error) {
+func expandDashboardColumnLayoutColumnsSlice(c *Client, f []DashboardColumnLayoutColumns, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardColumnLayoutColumns(c, &item)
+		i, err := expandDashboardColumnLayoutColumns(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9327,7 +9331,7 @@ func flattenDashboardColumnLayoutColumnsSlice(c *Client, i interface{}) []Dashbo
 
 // expandDashboardColumnLayoutColumns expands an instance of DashboardColumnLayoutColumns into a JSON
 // request object.
-func expandDashboardColumnLayoutColumns(c *Client, f *DashboardColumnLayoutColumns) (map[string]interface{}, error) {
+func expandDashboardColumnLayoutColumns(c *Client, f *DashboardColumnLayoutColumns, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -9336,7 +9340,7 @@ func expandDashboardColumnLayoutColumns(c *Client, f *DashboardColumnLayoutColum
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
 	}
-	if v, err := expandDashboardWidgetSlice(c, f.Widgets); err != nil {
+	if v, err := expandDashboardWidgetSlice(c, f.Widgets, res); err != nil {
 		return nil, fmt.Errorf("error expanding Widgets into widgets: %w", err)
 	} else if v != nil {
 		m["widgets"] = v
@@ -9366,14 +9370,14 @@ func flattenDashboardColumnLayoutColumns(c *Client, i interface{}) *DashboardCol
 
 // expandDashboardWidgetMap expands the contents of DashboardWidget into a JSON
 // request object.
-func expandDashboardWidgetMap(c *Client, f map[string]DashboardWidget) (map[string]interface{}, error) {
+func expandDashboardWidgetMap(c *Client, f map[string]DashboardWidget, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidget(c, &item)
+		i, err := expandDashboardWidget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9387,14 +9391,14 @@ func expandDashboardWidgetMap(c *Client, f map[string]DashboardWidget) (map[stri
 
 // expandDashboardWidgetSlice expands the contents of DashboardWidget into a JSON
 // request object.
-func expandDashboardWidgetSlice(c *Client, f []DashboardWidget) ([]map[string]interface{}, error) {
+func expandDashboardWidgetSlice(c *Client, f []DashboardWidget, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidget(c, &item)
+		i, err := expandDashboardWidget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9447,7 +9451,7 @@ func flattenDashboardWidgetSlice(c *Client, i interface{}) []DashboardWidget {
 
 // expandDashboardWidget expands an instance of DashboardWidget into a JSON
 // request object.
-func expandDashboardWidget(c *Client, f *DashboardWidget) (map[string]interface{}, error) {
+func expandDashboardWidget(c *Client, f *DashboardWidget, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -9456,22 +9460,22 @@ func expandDashboardWidget(c *Client, f *DashboardWidget) (map[string]interface{
 	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {
 		m["title"] = v
 	}
-	if v, err := expandDashboardWidgetXyChart(c, f.XyChart); err != nil {
+	if v, err := expandDashboardWidgetXyChart(c, f.XyChart, res); err != nil {
 		return nil, fmt.Errorf("error expanding XyChart into xyChart: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["xyChart"] = v
 	}
-	if v, err := expandDashboardWidgetScorecard(c, f.Scorecard); err != nil {
+	if v, err := expandDashboardWidgetScorecard(c, f.Scorecard, res); err != nil {
 		return nil, fmt.Errorf("error expanding Scorecard into scorecard: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["scorecard"] = v
 	}
-	if v, err := expandDashboardWidgetText(c, f.Text); err != nil {
+	if v, err := expandDashboardWidgetText(c, f.Text, res); err != nil {
 		return nil, fmt.Errorf("error expanding Text into text: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["text"] = v
 	}
-	if v, err := expandDashboardWidgetBlank(c, f.Blank); err != nil {
+	if v, err := expandDashboardWidgetBlank(c, f.Blank, res); err != nil {
 		return nil, fmt.Errorf("error expanding Blank into blank: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blank"] = v
@@ -9504,14 +9508,14 @@ func flattenDashboardWidget(c *Client, i interface{}) *DashboardWidget {
 
 // expandDashboardWidgetXyChartMap expands the contents of DashboardWidgetXyChart into a JSON
 // request object.
-func expandDashboardWidgetXyChartMap(c *Client, f map[string]DashboardWidgetXyChart) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartMap(c *Client, f map[string]DashboardWidgetXyChart, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChart(c, &item)
+		i, err := expandDashboardWidgetXyChart(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9525,14 +9529,14 @@ func expandDashboardWidgetXyChartMap(c *Client, f map[string]DashboardWidgetXyCh
 
 // expandDashboardWidgetXyChartSlice expands the contents of DashboardWidgetXyChart into a JSON
 // request object.
-func expandDashboardWidgetXyChartSlice(c *Client, f []DashboardWidgetXyChart) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartSlice(c *Client, f []DashboardWidgetXyChart, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChart(c, &item)
+		i, err := expandDashboardWidgetXyChart(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9585,13 +9589,13 @@ func flattenDashboardWidgetXyChartSlice(c *Client, i interface{}) []DashboardWid
 
 // expandDashboardWidgetXyChart expands an instance of DashboardWidgetXyChart into a JSON
 // request object.
-func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsSlice(c, f.DataSets); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsSlice(c, f.DataSets, res); err != nil {
 		return nil, fmt.Errorf("error expanding DataSets into dataSets: %w", err)
 	} else if v != nil {
 		m["dataSets"] = v
@@ -9599,22 +9603,22 @@ func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart) (map[str
 	if v := f.TimeshiftDuration; !dcl.IsEmptyValueIndirect(v) {
 		m["timeshiftDuration"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartThresholdsSlice(c, f.Thresholds); err != nil {
+	if v, err := expandDashboardWidgetXyChartThresholdsSlice(c, f.Thresholds, res); err != nil {
 		return nil, fmt.Errorf("error expanding Thresholds into thresholds: %w", err)
 	} else if v != nil {
 		m["thresholds"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartXAxis(c, f.XAxis); err != nil {
+	if v, err := expandDashboardWidgetXyChartXAxis(c, f.XAxis, res); err != nil {
 		return nil, fmt.Errorf("error expanding XAxis into xAxis: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["xAxis"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartYAxis(c, f.YAxis); err != nil {
+	if v, err := expandDashboardWidgetXyChartYAxis(c, f.YAxis, res); err != nil {
 		return nil, fmt.Errorf("error expanding YAxis into yAxis: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["yAxis"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartChartOptions(c, f.ChartOptions); err != nil {
+	if v, err := expandDashboardWidgetXyChartChartOptions(c, f.ChartOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding ChartOptions into chartOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["chartOptions"] = v
@@ -9648,14 +9652,14 @@ func flattenDashboardWidgetXyChart(c *Client, i interface{}) *DashboardWidgetXyC
 
 // expandDashboardWidgetXyChartDataSetsMap expands the contents of DashboardWidgetXyChartDataSets into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsMap(c *Client, f map[string]DashboardWidgetXyChartDataSets) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsMap(c *Client, f map[string]DashboardWidgetXyChartDataSets, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSets(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9669,14 +9673,14 @@ func expandDashboardWidgetXyChartDataSetsMap(c *Client, f map[string]DashboardWi
 
 // expandDashboardWidgetXyChartDataSetsSlice expands the contents of DashboardWidgetXyChartDataSets into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsSlice(c *Client, f []DashboardWidgetXyChartDataSets) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsSlice(c *Client, f []DashboardWidgetXyChartDataSets, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSets(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9729,13 +9733,13 @@ func flattenDashboardWidgetXyChartDataSetsSlice(c *Client, i interface{}) []Dash
 
 // expandDashboardWidgetXyChartDataSets expands an instance of DashboardWidgetXyChartDataSets into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSets(c *Client, f *DashboardWidgetXyChartDataSets) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSets(c *Client, f *DashboardWidgetXyChartDataSets, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, f.TimeSeriesQuery); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, f.TimeSeriesQuery, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesQuery into timeSeriesQuery: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeriesQuery"] = v
@@ -9776,14 +9780,14 @@ func flattenDashboardWidgetXyChartDataSets(c *Client, i interface{}) *DashboardW
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQuery into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQuery) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQuery, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9797,14 +9801,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, f map[str
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQuery into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQuery) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQuery, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9857,18 +9861,18 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, i inte
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQuery expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQuery into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQuery) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQuery, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, f.TimeSeriesFilter); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, f.TimeSeriesFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesFilter into timeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeriesFilter"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, f.TimeSeriesFilterRatio); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, f.TimeSeriesFilterRatio, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesFilterRatio into timeSeriesFilterRatio: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeriesFilterRatio"] = v
@@ -9906,14 +9910,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, i interface
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9927,14 +9931,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *C
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9987,7 +9991,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9996,17 +10000,17 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Clie
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, f.Aggregation); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, f.Aggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aggregation into aggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aggregation"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, f.SecondaryAggregation); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, f.SecondaryAggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryAggregation into secondaryAggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secondaryAggregation"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, f.PickTimeSeriesFilter); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, f.PickTimeSeriesFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding PickTimeSeriesFilter into pickTimeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pickTimeSeriesFilter"] = v
@@ -10038,14 +10042,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Cli
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10059,14 +10063,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregat
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10119,7 +10123,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10164,14 +10168,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10185,14 +10189,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondar
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10245,7 +10249,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10290,14 +10294,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10311,14 +10315,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTime
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10371,7 +10375,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10412,14 +10416,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10433,14 +10437,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10493,28 +10497,28 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSl
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, f.Numerator); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, f.Numerator, res); err != nil {
 		return nil, fmt.Errorf("error expanding Numerator into numerator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["numerator"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, f.Denominator); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, f.Denominator, res); err != nil {
 		return nil, fmt.Errorf("error expanding Denominator into denominator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["denominator"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, f.SecondaryAggregation); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, f.SecondaryAggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryAggregation into secondaryAggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secondaryAggregation"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, f.PickTimeSeriesFilter); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, f.PickTimeSeriesFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding PickTimeSeriesFilter into pickTimeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pickTimeSeriesFilter"] = v
@@ -10546,14 +10550,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10567,14 +10571,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10627,7 +10631,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10636,7 +10640,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, f.Aggregation); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, f.Aggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aggregation into aggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aggregation"] = v
@@ -10666,14 +10670,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10687,14 +10691,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10747,7 +10751,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10792,14 +10796,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10813,14 +10817,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10873,7 +10877,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10882,7 +10886,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, f.Aggregation); err != nil {
+	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, f.Aggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aggregation into aggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aggregation"] = v
@@ -10912,14 +10916,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10933,14 +10937,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10993,7 +10997,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11038,14 +11042,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11059,14 +11063,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSec
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11119,7 +11123,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11164,14 +11168,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11185,14 +11189,14 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPic
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11245,7 +11249,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11286,14 +11290,14 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 // expandDashboardWidgetXyChartThresholdsMap expands the contents of DashboardWidgetXyChartThresholds into a JSON
 // request object.
-func expandDashboardWidgetXyChartThresholdsMap(c *Client, f map[string]DashboardWidgetXyChartThresholds) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartThresholdsMap(c *Client, f map[string]DashboardWidgetXyChartThresholds, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartThresholds(c, &item)
+		i, err := expandDashboardWidgetXyChartThresholds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11307,14 +11311,14 @@ func expandDashboardWidgetXyChartThresholdsMap(c *Client, f map[string]Dashboard
 
 // expandDashboardWidgetXyChartThresholdsSlice expands the contents of DashboardWidgetXyChartThresholds into a JSON
 // request object.
-func expandDashboardWidgetXyChartThresholdsSlice(c *Client, f []DashboardWidgetXyChartThresholds) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartThresholdsSlice(c *Client, f []DashboardWidgetXyChartThresholds, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartThresholds(c, &item)
+		i, err := expandDashboardWidgetXyChartThresholds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11367,7 +11371,7 @@ func flattenDashboardWidgetXyChartThresholdsSlice(c *Client, i interface{}) []Da
 
 // expandDashboardWidgetXyChartThresholds expands an instance of DashboardWidgetXyChartThresholds into a JSON
 // request object.
-func expandDashboardWidgetXyChartThresholds(c *Client, f *DashboardWidgetXyChartThresholds) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartThresholds(c *Client, f *DashboardWidgetXyChartThresholds, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -11412,14 +11416,14 @@ func flattenDashboardWidgetXyChartThresholds(c *Client, i interface{}) *Dashboar
 
 // expandDashboardWidgetXyChartXAxisMap expands the contents of DashboardWidgetXyChartXAxis into a JSON
 // request object.
-func expandDashboardWidgetXyChartXAxisMap(c *Client, f map[string]DashboardWidgetXyChartXAxis) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartXAxisMap(c *Client, f map[string]DashboardWidgetXyChartXAxis, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartXAxis(c, &item)
+		i, err := expandDashboardWidgetXyChartXAxis(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11433,14 +11437,14 @@ func expandDashboardWidgetXyChartXAxisMap(c *Client, f map[string]DashboardWidge
 
 // expandDashboardWidgetXyChartXAxisSlice expands the contents of DashboardWidgetXyChartXAxis into a JSON
 // request object.
-func expandDashboardWidgetXyChartXAxisSlice(c *Client, f []DashboardWidgetXyChartXAxis) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartXAxisSlice(c *Client, f []DashboardWidgetXyChartXAxis, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartXAxis(c, &item)
+		i, err := expandDashboardWidgetXyChartXAxis(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11493,7 +11497,7 @@ func flattenDashboardWidgetXyChartXAxisSlice(c *Client, i interface{}) []Dashboa
 
 // expandDashboardWidgetXyChartXAxis expands an instance of DashboardWidgetXyChartXAxis into a JSON
 // request object.
-func expandDashboardWidgetXyChartXAxis(c *Client, f *DashboardWidgetXyChartXAxis) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartXAxis(c *Client, f *DashboardWidgetXyChartXAxis, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11530,14 +11534,14 @@ func flattenDashboardWidgetXyChartXAxis(c *Client, i interface{}) *DashboardWidg
 
 // expandDashboardWidgetXyChartYAxisMap expands the contents of DashboardWidgetXyChartYAxis into a JSON
 // request object.
-func expandDashboardWidgetXyChartYAxisMap(c *Client, f map[string]DashboardWidgetXyChartYAxis) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartYAxisMap(c *Client, f map[string]DashboardWidgetXyChartYAxis, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartYAxis(c, &item)
+		i, err := expandDashboardWidgetXyChartYAxis(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11551,14 +11555,14 @@ func expandDashboardWidgetXyChartYAxisMap(c *Client, f map[string]DashboardWidge
 
 // expandDashboardWidgetXyChartYAxisSlice expands the contents of DashboardWidgetXyChartYAxis into a JSON
 // request object.
-func expandDashboardWidgetXyChartYAxisSlice(c *Client, f []DashboardWidgetXyChartYAxis) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartYAxisSlice(c *Client, f []DashboardWidgetXyChartYAxis, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartYAxis(c, &item)
+		i, err := expandDashboardWidgetXyChartYAxis(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11611,7 +11615,7 @@ func flattenDashboardWidgetXyChartYAxisSlice(c *Client, i interface{}) []Dashboa
 
 // expandDashboardWidgetXyChartYAxis expands an instance of DashboardWidgetXyChartYAxis into a JSON
 // request object.
-func expandDashboardWidgetXyChartYAxis(c *Client, f *DashboardWidgetXyChartYAxis) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartYAxis(c *Client, f *DashboardWidgetXyChartYAxis, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11648,14 +11652,14 @@ func flattenDashboardWidgetXyChartYAxis(c *Client, i interface{}) *DashboardWidg
 
 // expandDashboardWidgetXyChartChartOptionsMap expands the contents of DashboardWidgetXyChartChartOptions into a JSON
 // request object.
-func expandDashboardWidgetXyChartChartOptionsMap(c *Client, f map[string]DashboardWidgetXyChartChartOptions) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartChartOptionsMap(c *Client, f map[string]DashboardWidgetXyChartChartOptions, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartChartOptions(c, &item)
+		i, err := expandDashboardWidgetXyChartChartOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11669,14 +11673,14 @@ func expandDashboardWidgetXyChartChartOptionsMap(c *Client, f map[string]Dashboa
 
 // expandDashboardWidgetXyChartChartOptionsSlice expands the contents of DashboardWidgetXyChartChartOptions into a JSON
 // request object.
-func expandDashboardWidgetXyChartChartOptionsSlice(c *Client, f []DashboardWidgetXyChartChartOptions) ([]map[string]interface{}, error) {
+func expandDashboardWidgetXyChartChartOptionsSlice(c *Client, f []DashboardWidgetXyChartChartOptions, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartChartOptions(c, &item)
+		i, err := expandDashboardWidgetXyChartChartOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11729,7 +11733,7 @@ func flattenDashboardWidgetXyChartChartOptionsSlice(c *Client, i interface{}) []
 
 // expandDashboardWidgetXyChartChartOptions expands an instance of DashboardWidgetXyChartChartOptions into a JSON
 // request object.
-func expandDashboardWidgetXyChartChartOptions(c *Client, f *DashboardWidgetXyChartChartOptions) (map[string]interface{}, error) {
+func expandDashboardWidgetXyChartChartOptions(c *Client, f *DashboardWidgetXyChartChartOptions, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11762,14 +11766,14 @@ func flattenDashboardWidgetXyChartChartOptions(c *Client, i interface{}) *Dashbo
 
 // expandDashboardWidgetScorecardMap expands the contents of DashboardWidgetScorecard into a JSON
 // request object.
-func expandDashboardWidgetScorecardMap(c *Client, f map[string]DashboardWidgetScorecard) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardMap(c *Client, f map[string]DashboardWidgetScorecard, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecard(c, &item)
+		i, err := expandDashboardWidgetScorecard(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11783,14 +11787,14 @@ func expandDashboardWidgetScorecardMap(c *Client, f map[string]DashboardWidgetSc
 
 // expandDashboardWidgetScorecardSlice expands the contents of DashboardWidgetScorecard into a JSON
 // request object.
-func expandDashboardWidgetScorecardSlice(c *Client, f []DashboardWidgetScorecard) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardSlice(c *Client, f []DashboardWidgetScorecard, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecard(c, &item)
+		i, err := expandDashboardWidgetScorecard(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11843,28 +11847,28 @@ func flattenDashboardWidgetScorecardSlice(c *Client, i interface{}) []DashboardW
 
 // expandDashboardWidgetScorecard expands an instance of DashboardWidgetScorecard into a JSON
 // request object.
-func expandDashboardWidgetScorecard(c *Client, f *DashboardWidgetScorecard) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecard(c *Client, f *DashboardWidgetScorecard, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQuery(c, f.TimeSeriesQuery); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQuery(c, f.TimeSeriesQuery, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesQuery into timeSeriesQuery: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeriesQuery"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardGaugeView(c, f.GaugeView); err != nil {
+	if v, err := expandDashboardWidgetScorecardGaugeView(c, f.GaugeView, res); err != nil {
 		return nil, fmt.Errorf("error expanding GaugeView into gaugeView: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gaugeView"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardSparkChartView(c, f.SparkChartView); err != nil {
+	if v, err := expandDashboardWidgetScorecardSparkChartView(c, f.SparkChartView, res); err != nil {
 		return nil, fmt.Errorf("error expanding SparkChartView into sparkChartView: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sparkChartView"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardThresholdsSlice(c, f.Thresholds); err != nil {
+	if v, err := expandDashboardWidgetScorecardThresholdsSlice(c, f.Thresholds, res); err != nil {
 		return nil, fmt.Errorf("error expanding Thresholds into thresholds: %w", err)
 	} else if v != nil {
 		m["thresholds"] = v
@@ -11896,14 +11900,14 @@ func flattenDashboardWidgetScorecard(c *Client, i interface{}) *DashboardWidgetS
 
 // expandDashboardWidgetScorecardTimeSeriesQueryMap expands the contents of DashboardWidgetScorecardTimeSeriesQuery into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQuery) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQuery, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQuery(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQuery(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11917,14 +11921,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, f map[string]Da
 
 // expandDashboardWidgetScorecardTimeSeriesQuerySlice expands the contents of DashboardWidgetScorecardTimeSeriesQuery into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQuery) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQuery, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQuery(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQuery(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11977,18 +11981,18 @@ func flattenDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, i interface{
 
 // expandDashboardWidgetScorecardTimeSeriesQuery expands an instance of DashboardWidgetScorecardTimeSeriesQuery into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQuery(c *Client, f *DashboardWidgetScorecardTimeSeriesQuery) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQuery(c *Client, f *DashboardWidgetScorecardTimeSeriesQuery, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, f.TimeSeriesFilter); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, f.TimeSeriesFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesFilter into timeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeriesFilter"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, f.TimeSeriesFilterRatio); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, f.TimeSeriesFilterRatio, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesFilterRatio into timeSeriesFilterRatio: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeSeriesFilterRatio"] = v
@@ -12026,14 +12030,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQuery(c *Client, i interface{}) *D
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12047,14 +12051,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client,
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12107,7 +12111,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Clie
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12116,17 +12120,17 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, f 
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, f.Aggregation); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, f.Aggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aggregation into aggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aggregation"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, f.SecondaryAggregation); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, f.SecondaryAggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryAggregation into secondaryAggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secondaryAggregation"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, f.PickTimeSeriesFilter); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, f.PickTimeSeriesFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding PickTimeSeriesFilter into pickTimeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pickTimeSeriesFilter"] = v
@@ -12158,14 +12162,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, i
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12179,14 +12183,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12239,7 +12243,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSl
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12284,14 +12288,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12305,14 +12309,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12365,7 +12369,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12410,14 +12414,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12431,14 +12435,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeries
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12491,7 +12495,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12532,14 +12536,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12553,14 +12557,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *Cl
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12613,28 +12617,28 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c 
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, f.Numerator); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, f.Numerator, res); err != nil {
 		return nil, fmt.Errorf("error expanding Numerator into numerator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["numerator"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, f.Denominator); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, f.Denominator, res); err != nil {
 		return nil, fmt.Errorf("error expanding Denominator into denominator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["denominator"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, f.SecondaryAggregation); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, f.SecondaryAggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryAggregation into secondaryAggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["secondaryAggregation"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, f.PickTimeSeriesFilter); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, f.PickTimeSeriesFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding PickTimeSeriesFilter into pickTimeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pickTimeSeriesFilter"] = v
@@ -12666,14 +12670,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Clie
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12687,14 +12691,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12747,7 +12751,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12756,7 +12760,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, f.Aggregation); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, f.Aggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aggregation into aggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aggregation"] = v
@@ -12786,14 +12790,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12807,14 +12811,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12867,7 +12871,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12912,14 +12916,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12933,14 +12937,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12993,7 +12997,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13002,7 +13006,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, f.Aggregation); err != nil {
+	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, f.Aggregation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aggregation into aggregation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aggregation"] = v
@@ -13032,14 +13036,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13053,14 +13057,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13113,7 +13117,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13158,14 +13162,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13179,14 +13183,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondary
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13239,7 +13243,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13284,14 +13288,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13305,14 +13309,14 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeS
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item)
+		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13365,7 +13369,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13406,14 +13410,14 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 // expandDashboardWidgetScorecardGaugeViewMap expands the contents of DashboardWidgetScorecardGaugeView into a JSON
 // request object.
-func expandDashboardWidgetScorecardGaugeViewMap(c *Client, f map[string]DashboardWidgetScorecardGaugeView) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardGaugeViewMap(c *Client, f map[string]DashboardWidgetScorecardGaugeView, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardGaugeView(c, &item)
+		i, err := expandDashboardWidgetScorecardGaugeView(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13427,14 +13431,14 @@ func expandDashboardWidgetScorecardGaugeViewMap(c *Client, f map[string]Dashboar
 
 // expandDashboardWidgetScorecardGaugeViewSlice expands the contents of DashboardWidgetScorecardGaugeView into a JSON
 // request object.
-func expandDashboardWidgetScorecardGaugeViewSlice(c *Client, f []DashboardWidgetScorecardGaugeView) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardGaugeViewSlice(c *Client, f []DashboardWidgetScorecardGaugeView, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardGaugeView(c, &item)
+		i, err := expandDashboardWidgetScorecardGaugeView(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13487,7 +13491,7 @@ func flattenDashboardWidgetScorecardGaugeViewSlice(c *Client, i interface{}) []D
 
 // expandDashboardWidgetScorecardGaugeView expands an instance of DashboardWidgetScorecardGaugeView into a JSON
 // request object.
-func expandDashboardWidgetScorecardGaugeView(c *Client, f *DashboardWidgetScorecardGaugeView) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardGaugeView(c *Client, f *DashboardWidgetScorecardGaugeView, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13524,14 +13528,14 @@ func flattenDashboardWidgetScorecardGaugeView(c *Client, i interface{}) *Dashboa
 
 // expandDashboardWidgetScorecardSparkChartViewMap expands the contents of DashboardWidgetScorecardSparkChartView into a JSON
 // request object.
-func expandDashboardWidgetScorecardSparkChartViewMap(c *Client, f map[string]DashboardWidgetScorecardSparkChartView) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardSparkChartViewMap(c *Client, f map[string]DashboardWidgetScorecardSparkChartView, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardSparkChartView(c, &item)
+		i, err := expandDashboardWidgetScorecardSparkChartView(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13545,14 +13549,14 @@ func expandDashboardWidgetScorecardSparkChartViewMap(c *Client, f map[string]Das
 
 // expandDashboardWidgetScorecardSparkChartViewSlice expands the contents of DashboardWidgetScorecardSparkChartView into a JSON
 // request object.
-func expandDashboardWidgetScorecardSparkChartViewSlice(c *Client, f []DashboardWidgetScorecardSparkChartView) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardSparkChartViewSlice(c *Client, f []DashboardWidgetScorecardSparkChartView, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardSparkChartView(c, &item)
+		i, err := expandDashboardWidgetScorecardSparkChartView(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13605,7 +13609,7 @@ func flattenDashboardWidgetScorecardSparkChartViewSlice(c *Client, i interface{}
 
 // expandDashboardWidgetScorecardSparkChartView expands an instance of DashboardWidgetScorecardSparkChartView into a JSON
 // request object.
-func expandDashboardWidgetScorecardSparkChartView(c *Client, f *DashboardWidgetScorecardSparkChartView) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardSparkChartView(c *Client, f *DashboardWidgetScorecardSparkChartView, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13642,14 +13646,14 @@ func flattenDashboardWidgetScorecardSparkChartView(c *Client, i interface{}) *Da
 
 // expandDashboardWidgetScorecardThresholdsMap expands the contents of DashboardWidgetScorecardThresholds into a JSON
 // request object.
-func expandDashboardWidgetScorecardThresholdsMap(c *Client, f map[string]DashboardWidgetScorecardThresholds) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardThresholdsMap(c *Client, f map[string]DashboardWidgetScorecardThresholds, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardThresholds(c, &item)
+		i, err := expandDashboardWidgetScorecardThresholds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13663,14 +13667,14 @@ func expandDashboardWidgetScorecardThresholdsMap(c *Client, f map[string]Dashboa
 
 // expandDashboardWidgetScorecardThresholdsSlice expands the contents of DashboardWidgetScorecardThresholds into a JSON
 // request object.
-func expandDashboardWidgetScorecardThresholdsSlice(c *Client, f []DashboardWidgetScorecardThresholds) ([]map[string]interface{}, error) {
+func expandDashboardWidgetScorecardThresholdsSlice(c *Client, f []DashboardWidgetScorecardThresholds, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardThresholds(c, &item)
+		i, err := expandDashboardWidgetScorecardThresholds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13723,7 +13727,7 @@ func flattenDashboardWidgetScorecardThresholdsSlice(c *Client, i interface{}) []
 
 // expandDashboardWidgetScorecardThresholds expands an instance of DashboardWidgetScorecardThresholds into a JSON
 // request object.
-func expandDashboardWidgetScorecardThresholds(c *Client, f *DashboardWidgetScorecardThresholds) (map[string]interface{}, error) {
+func expandDashboardWidgetScorecardThresholds(c *Client, f *DashboardWidgetScorecardThresholds, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -13768,14 +13772,14 @@ func flattenDashboardWidgetScorecardThresholds(c *Client, i interface{}) *Dashbo
 
 // expandDashboardWidgetTextMap expands the contents of DashboardWidgetText into a JSON
 // request object.
-func expandDashboardWidgetTextMap(c *Client, f map[string]DashboardWidgetText) (map[string]interface{}, error) {
+func expandDashboardWidgetTextMap(c *Client, f map[string]DashboardWidgetText, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetText(c, &item)
+		i, err := expandDashboardWidgetText(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13789,14 +13793,14 @@ func expandDashboardWidgetTextMap(c *Client, f map[string]DashboardWidgetText) (
 
 // expandDashboardWidgetTextSlice expands the contents of DashboardWidgetText into a JSON
 // request object.
-func expandDashboardWidgetTextSlice(c *Client, f []DashboardWidgetText) ([]map[string]interface{}, error) {
+func expandDashboardWidgetTextSlice(c *Client, f []DashboardWidgetText, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetText(c, &item)
+		i, err := expandDashboardWidgetText(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13849,7 +13853,7 @@ func flattenDashboardWidgetTextSlice(c *Client, i interface{}) []DashboardWidget
 
 // expandDashboardWidgetText expands an instance of DashboardWidgetText into a JSON
 // request object.
-func expandDashboardWidgetText(c *Client, f *DashboardWidgetText) (map[string]interface{}, error) {
+func expandDashboardWidgetText(c *Client, f *DashboardWidgetText, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13886,14 +13890,14 @@ func flattenDashboardWidgetText(c *Client, i interface{}) *DashboardWidgetText {
 
 // expandDashboardWidgetBlankMap expands the contents of DashboardWidgetBlank into a JSON
 // request object.
-func expandDashboardWidgetBlankMap(c *Client, f map[string]DashboardWidgetBlank) (map[string]interface{}, error) {
+func expandDashboardWidgetBlankMap(c *Client, f map[string]DashboardWidgetBlank, res *Dashboard) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDashboardWidgetBlank(c, &item)
+		i, err := expandDashboardWidgetBlank(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13907,14 +13911,14 @@ func expandDashboardWidgetBlankMap(c *Client, f map[string]DashboardWidgetBlank)
 
 // expandDashboardWidgetBlankSlice expands the contents of DashboardWidgetBlank into a JSON
 // request object.
-func expandDashboardWidgetBlankSlice(c *Client, f []DashboardWidgetBlank) ([]map[string]interface{}, error) {
+func expandDashboardWidgetBlankSlice(c *Client, f []DashboardWidgetBlank, res *Dashboard) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDashboardWidgetBlank(c, &item)
+		i, err := expandDashboardWidgetBlank(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13967,7 +13971,7 @@ func flattenDashboardWidgetBlankSlice(c *Client, i interface{}) []DashboardWidge
 
 // expandDashboardWidgetBlank expands an instance of DashboardWidgetBlank into a JSON
 // request object.
-func expandDashboardWidgetBlank(c *Client, f *DashboardWidgetBlank) (map[string]interface{}, error) {
+func expandDashboardWidgetBlank(c *Client, f *DashboardWidgetBlank, res *Dashboard) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

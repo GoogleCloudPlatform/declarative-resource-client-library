@@ -19,24 +19,24 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-// ExpandFunctionEventResource handles the special case for StorageBucket
+// ExpandFunctionEventTriggerResource handles the special case for StorageBucket
 // and makes sure resource field has format projects/{{project}}/buckets/{{name}}.
 // http://b/210923505
-func ExpandFunctionEventResource(f *Function) (*string, error) {
-	if f.EventTrigger == nil || f.EventTrigger.Resource == nil {
+func ExpandFunctionEventTriggerResource(_ *Client, _ *string, res *Function) (*string, error) {
+	if res.EventTrigger == nil || res.EventTrigger.Resource == nil {
 		return nil, nil
 	}
 
-	if dcl.ValueOrEmptyString(f.EventTrigger.EventType) == "providers/cloud.storage/eventTypes/object.change" {
-		return dcl.DeriveField("projects/%s/buckets/%s", f.EventTrigger.Resource, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.EventTrigger.Resource))
+	if dcl.ValueOrEmptyString(res.EventTrigger.EventType) == "providers/cloud.storage/eventTypes/object.change" {
+		return dcl.DeriveField("projects/%s/buckets/%s", res.EventTrigger.Resource, dcl.SelfLinkToName(res.Project), dcl.SelfLinkToName(res.EventTrigger.Resource))
 	}
 
-	return f.EventTrigger.Resource, nil
+	return res.EventTrigger.Resource, nil
 }
 
-// ExpandFunctionEventRetry inverts the FlattenFunctionEventRetry transformation.
-func ExpandFunctionEventRetry(f *Function) (interface{}, error) {
-	if f.EventTrigger == nil || f.EventTrigger.FailurePolicy == nil || !*(f.EventTrigger.FailurePolicy) {
+// ExpandFunctionEventTriggerFailurePolicy inverts the flattenFunctionEventTriggerFailurePolicy transformation.
+func ExpandFunctionEventTriggerFailurePolicy(_ *Client, _ *bool, res *Function) (interface{}, error) {
+	if res.EventTrigger == nil || res.EventTrigger.FailurePolicy == nil || !*(res.EventTrigger.FailurePolicy) {
 		return nil, nil
 	}
 	return map[string]interface{}{
@@ -44,10 +44,10 @@ func ExpandFunctionEventRetry(f *Function) (interface{}, error) {
 	}, nil
 }
 
-// FlattenFunctionEventRetry converts the API reprensentation of an event
+// flattenFunctionEventTriggerFailurePolicy converts the API reprensentation of an event
 // trigger retry policy, which is true or false based on the presence or absence
 // of an empty object, to an actual bool for convenience purposes.
-func FlattenFunctionEventRetry(i interface{}) *bool {
+func flattenFunctionEventTriggerFailurePolicy(i interface{}) *bool {
 	if _, ok := i.(map[string]interface{}); ok {
 		return dcl.Bool(true)
 	}

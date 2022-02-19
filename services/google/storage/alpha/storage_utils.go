@@ -21,7 +21,7 @@ import (
 // expandStorageBucketLifecycleWithState expands the with_state enum into the
 // ternary boolean is_live. It can be true, false, or unset each corresponding
 // to a different value.
-func expandStorageBucketLifecycleWithState(_ *BucketLifecycleRuleCondition, v *BucketLifecycleRuleConditionWithStateEnum) (interface{}, error) {
+func expandStorageBucketLifecycleWithState(_ *Client, v *BucketLifecycleRuleConditionWithStateEnum, _ *Bucket) (interface{}, error) {
 	switch *v {
 	case "LIVE":
 		b := true

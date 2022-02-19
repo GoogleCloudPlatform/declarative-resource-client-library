@@ -152,8 +152,8 @@ type triggerApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
-	// Alias full resource as res to distinguish it from nested objects.
 	res := f
+	_ = res
 
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria, res); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
@@ -1593,8 +1593,8 @@ func unmarshalMapTrigger(m map[string]interface{}, c *Client) (*Trigger, error) 
 // expandTrigger expands Trigger into a JSON request object.
 func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	// Alias full resource as res to distinguish it from nested objects.
 	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/triggers/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

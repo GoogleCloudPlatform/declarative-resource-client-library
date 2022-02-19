@@ -188,7 +188,7 @@ func flattenBudgetFilterProjects(c *Client, projects interface{}) []string {
 }
 
 // Returns the labels field as a map with slices as values.
-func expandBudgetFilterLabels(f *BudgetBudgetFilter, labels map[string]BudgetBudgetFilterLabels) (interface{}, error) {
+func expandBudgetFilterLabels(_ *Client, labels map[string]BudgetBudgetFilterLabels, _ *Budget) (interface{}, error) {
 	m := make(map[string][]string, len(labels))
 	for k, v := range labels {
 		m[k] = v.Values

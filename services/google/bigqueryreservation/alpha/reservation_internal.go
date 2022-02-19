@@ -95,6 +95,8 @@ type reservationApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateReservationUpdateReservationRequest(ctx context.Context, f *Reservation, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.SlotCapacity; !dcl.IsEmptyValueIndirect(v) {
 		req["slotCapacity"] = v
@@ -624,6 +626,8 @@ func unmarshalMapReservation(m map[string]interface{}, c *Client) (*Reservation,
 // expandReservation expands Reservation into a JSON request object.
 func expandReservation(c *Client, f *Reservation) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

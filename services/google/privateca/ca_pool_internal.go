@@ -253,13 +253,15 @@ type caPoolApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateCaPoolUpdateCaPoolRequest(ctx context.Context, f *CaPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandCaPoolIssuancePolicy(c, f.IssuancePolicy); err != nil {
+	if v, err := expandCaPoolIssuancePolicy(c, f.IssuancePolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding IssuancePolicy into issuancePolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["issuancePolicy"] = v
 	}
-	if v, err := expandCaPoolPublishingOptions(c, f.PublishingOptions); err != nil {
+	if v, err := expandCaPoolPublishingOptions(c, f.PublishingOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding PublishingOptions into publishingOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["publishingOptions"] = v
@@ -3989,6 +3991,8 @@ func unmarshalMapCaPool(m map[string]interface{}, c *Client) (*CaPool, error) {
 // expandCaPool expands CaPool into a JSON request object.
 func expandCaPool(c *Client, f *CaPool) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -3997,12 +4001,12 @@ func expandCaPool(c *Client, f *CaPool) (map[string]interface{}, error) {
 	if v := f.Tier; dcl.ValueShouldBeSent(v) {
 		m["tier"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicy(c, f.IssuancePolicy); err != nil {
+	if v, err := expandCaPoolIssuancePolicy(c, f.IssuancePolicy, res); err != nil {
 		return nil, fmt.Errorf("error expanding IssuancePolicy into issuancePolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["issuancePolicy"] = v
 	}
-	if v, err := expandCaPoolPublishingOptions(c, f.PublishingOptions); err != nil {
+	if v, err := expandCaPoolPublishingOptions(c, f.PublishingOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding PublishingOptions into publishingOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["publishingOptions"] = v
@@ -4049,14 +4053,14 @@ func flattenCaPool(c *Client, i interface{}) *CaPool {
 
 // expandCaPoolIssuancePolicyMap expands the contents of CaPoolIssuancePolicy into a JSON
 // request object.
-func expandCaPoolIssuancePolicyMap(c *Client, f map[string]CaPoolIssuancePolicy) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyMap(c *Client, f map[string]CaPoolIssuancePolicy, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicy(c, &item)
+		i, err := expandCaPoolIssuancePolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4070,14 +4074,14 @@ func expandCaPoolIssuancePolicyMap(c *Client, f map[string]CaPoolIssuancePolicy)
 
 // expandCaPoolIssuancePolicySlice expands the contents of CaPoolIssuancePolicy into a JSON
 // request object.
-func expandCaPoolIssuancePolicySlice(c *Client, f []CaPoolIssuancePolicy) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicySlice(c *Client, f []CaPoolIssuancePolicy, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicy(c, &item)
+		i, err := expandCaPoolIssuancePolicy(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4130,13 +4134,13 @@ func flattenCaPoolIssuancePolicySlice(c *Client, i interface{}) []CaPoolIssuance
 
 // expandCaPoolIssuancePolicy expands an instance of CaPoolIssuancePolicy into a JSON
 // request object.
-func expandCaPoolIssuancePolicy(c *Client, f *CaPoolIssuancePolicy) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicy(c *Client, f *CaPoolIssuancePolicy, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCaPoolIssuancePolicyAllowedKeyTypesSlice(c, f.AllowedKeyTypes); err != nil {
+	if v, err := expandCaPoolIssuancePolicyAllowedKeyTypesSlice(c, f.AllowedKeyTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding AllowedKeyTypes into allowedKeyTypes: %w", err)
 	} else if v != nil {
 		m["allowedKeyTypes"] = v
@@ -4144,22 +4148,22 @@ func expandCaPoolIssuancePolicy(c *Client, f *CaPoolIssuancePolicy) (map[string]
 	if v := f.MaximumLifetime; !dcl.IsEmptyValueIndirect(v) {
 		m["maximumLifetime"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyAllowedIssuanceModes(c, f.AllowedIssuanceModes); err != nil {
+	if v, err := expandCaPoolIssuancePolicyAllowedIssuanceModes(c, f.AllowedIssuanceModes, res); err != nil {
 		return nil, fmt.Errorf("error expanding AllowedIssuanceModes into allowedIssuanceModes: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["allowedIssuanceModes"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyBaselineValues(c, f.BaselineValues); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValues(c, f.BaselineValues, res); err != nil {
 		return nil, fmt.Errorf("error expanding BaselineValues into baselineValues: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["baselineValues"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyIdentityConstraints(c, f.IdentityConstraints); err != nil {
+	if v, err := expandCaPoolIssuancePolicyIdentityConstraints(c, f.IdentityConstraints, res); err != nil {
 		return nil, fmt.Errorf("error expanding IdentityConstraints into identityConstraints: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["identityConstraints"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyPassthroughExtensions(c, f.PassthroughExtensions); err != nil {
+	if v, err := expandCaPoolIssuancePolicyPassthroughExtensions(c, f.PassthroughExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding PassthroughExtensions into passthroughExtensions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["passthroughExtensions"] = v
@@ -4193,14 +4197,14 @@ func flattenCaPoolIssuancePolicy(c *Client, i interface{}) *CaPoolIssuancePolicy
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesMap expands the contents of CaPoolIssuancePolicyAllowedKeyTypes into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedKeyTypes) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedKeyTypes, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedKeyTypes(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedKeyTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4214,14 +4218,14 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesMap(c *Client, f map[string]CaPool
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesSlice expands the contents of CaPoolIssuancePolicyAllowedKeyTypes into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, f []CaPoolIssuancePolicyAllowedKeyTypes) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, f []CaPoolIssuancePolicyAllowedKeyTypes, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedKeyTypes(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedKeyTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4274,18 +4278,18 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, i interface{}) [
 
 // expandCaPoolIssuancePolicyAllowedKeyTypes expands an instance of CaPoolIssuancePolicyAllowedKeyTypes into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypes(c *Client, f *CaPoolIssuancePolicyAllowedKeyTypes) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypes(c *Client, f *CaPoolIssuancePolicyAllowedKeyTypes, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c, f.Rsa); err != nil {
+	if v, err := expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c, f.Rsa, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rsa into rsa: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rsa"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, f.EllipticCurve); err != nil {
+	if v, err := expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, f.EllipticCurve, res); err != nil {
 		return nil, fmt.Errorf("error expanding EllipticCurve into ellipticCurve: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["ellipticCurve"] = v
@@ -4315,14 +4319,14 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypes(c *Client, i interface{}) *CaPoo
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesRsaMap expands the contents of CaPoolIssuancePolicyAllowedKeyTypesRsa into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesRsaMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedKeyTypesRsa) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesRsaMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedKeyTypesRsa, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4336,14 +4340,14 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesRsaMap(c *Client, f map[string]CaP
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesRsaSlice expands the contents of CaPoolIssuancePolicyAllowedKeyTypesRsa into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(c *Client, f []CaPoolIssuancePolicyAllowedKeyTypesRsa) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(c *Client, f []CaPoolIssuancePolicyAllowedKeyTypesRsa, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4396,7 +4400,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(c *Client, i interface{}
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesRsa expands an instance of CaPoolIssuancePolicyAllowedKeyTypesRsa into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c *Client, f *CaPoolIssuancePolicyAllowedKeyTypesRsa) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c *Client, f *CaPoolIssuancePolicyAllowedKeyTypesRsa, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4433,14 +4437,14 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c *Client, i interface{}) *Ca
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap expands the contents of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4454,14 +4458,14 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap(c *Client, f map[
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice expands the contents of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(c *Client, f []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(c *Client, f []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4514,7 +4518,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(c *Client, i i
 
 // expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve expands an instance of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c *Client, f *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c *Client, f *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4547,14 +4551,14 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c *Client, i interf
 
 // expandCaPoolIssuancePolicyAllowedIssuanceModesMap expands the contents of CaPoolIssuancePolicyAllowedIssuanceModes into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedIssuanceModesMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedIssuanceModes) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedIssuanceModesMap(c *Client, f map[string]CaPoolIssuancePolicyAllowedIssuanceModes, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedIssuanceModes(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedIssuanceModes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4568,14 +4572,14 @@ func expandCaPoolIssuancePolicyAllowedIssuanceModesMap(c *Client, f map[string]C
 
 // expandCaPoolIssuancePolicyAllowedIssuanceModesSlice expands the contents of CaPoolIssuancePolicyAllowedIssuanceModes into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedIssuanceModesSlice(c *Client, f []CaPoolIssuancePolicyAllowedIssuanceModes) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedIssuanceModesSlice(c *Client, f []CaPoolIssuancePolicyAllowedIssuanceModes, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyAllowedIssuanceModes(c, &item)
+		i, err := expandCaPoolIssuancePolicyAllowedIssuanceModes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4628,7 +4632,7 @@ func flattenCaPoolIssuancePolicyAllowedIssuanceModesSlice(c *Client, i interface
 
 // expandCaPoolIssuancePolicyAllowedIssuanceModes expands an instance of CaPoolIssuancePolicyAllowedIssuanceModes into a JSON
 // request object.
-func expandCaPoolIssuancePolicyAllowedIssuanceModes(c *Client, f *CaPoolIssuancePolicyAllowedIssuanceModes) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyAllowedIssuanceModes(c *Client, f *CaPoolIssuancePolicyAllowedIssuanceModes, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4665,14 +4669,14 @@ func flattenCaPoolIssuancePolicyAllowedIssuanceModes(c *Client, i interface{}) *
 
 // expandCaPoolIssuancePolicyBaselineValuesMap expands the contents of CaPoolIssuancePolicyBaselineValues into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValues) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValues, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValues(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValues(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4686,14 +4690,14 @@ func expandCaPoolIssuancePolicyBaselineValuesMap(c *Client, f map[string]CaPoolI
 
 // expandCaPoolIssuancePolicyBaselineValuesSlice expands the contents of CaPoolIssuancePolicyBaselineValues into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesSlice(c *Client, f []CaPoolIssuancePolicyBaselineValues) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesSlice(c *Client, f []CaPoolIssuancePolicyBaselineValues, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValues(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValues(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4746,23 +4750,23 @@ func flattenCaPoolIssuancePolicyBaselineValuesSlice(c *Client, i interface{}) []
 
 // expandCaPoolIssuancePolicyBaselineValues expands an instance of CaPoolIssuancePolicyBaselineValues into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValues(c *Client, f *CaPoolIssuancePolicyBaselineValues) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValues(c *Client, f *CaPoolIssuancePolicyBaselineValues, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c, f.KeyUsage); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c, f.KeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding KeyUsage into keyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["keyUsage"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesCaOptions(c, f.CaOptions); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesCaOptions(c, f.CaOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding CaOptions into caOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["caOptions"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c, f.PolicyIds); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c, f.PolicyIds, res); err != nil {
 		return nil, fmt.Errorf("error expanding PolicyIds into policyIds: %w", err)
 	} else if v != nil {
 		m["policyIds"] = v
@@ -4770,7 +4774,7 @@ func expandCaPoolIssuancePolicyBaselineValues(c *Client, f *CaPoolIssuancePolicy
 	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
 	} else if v != nil {
 		m["additionalExtensions"] = v
@@ -4803,14 +4807,14 @@ func flattenCaPoolIssuancePolicyBaselineValues(c *Client, i interface{}) *CaPool
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageMap expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsage) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsage, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4824,14 +4828,14 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageMap(c *Client, f map[string
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageSlice expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsage) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsage, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4884,23 +4888,23 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(c *Client, i interfa
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsage expands an instance of CaPoolIssuancePolicyBaselineValuesKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsage) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsage, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, f.BaseKeyUsage); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, f.BaseKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding BaseKeyUsage into baseKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["baseKeyUsage"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExtendedKeyUsage into extendedKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["extendedKeyUsage"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages, res); err != nil {
 		return nil, fmt.Errorf("error expanding UnknownExtendedKeyUsages into unknownExtendedKeyUsages: %w", err)
 	} else if v != nil {
 		m["unknownExtendedKeyUsages"] = v
@@ -4931,14 +4935,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c *Client, i interface{})
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4952,14 +4956,14 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap(c *Client, 
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5012,7 +5016,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(c *Clien
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage expands an instance of CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5077,14 +5081,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c *Client, i 
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5098,14 +5102,14 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap(c *Clie
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5158,7 +5162,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(c *C
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage expands an instance of CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5211,14 +5215,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c *Client
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMap expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5232,14 +5236,14 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMap
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice expands the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5292,7 +5296,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSl
 
 // expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages expands an instance of CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c *Client, f *CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5325,14 +5329,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c
 
 // expandCaPoolIssuancePolicyBaselineValuesCaOptionsMap expands the contents of CaPoolIssuancePolicyBaselineValuesCaOptions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesCaOptionsMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesCaOptions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesCaOptionsMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesCaOptions, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesCaOptions(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5346,14 +5350,14 @@ func expandCaPoolIssuancePolicyBaselineValuesCaOptionsMap(c *Client, f map[strin
 
 // expandCaPoolIssuancePolicyBaselineValuesCaOptionsSlice expands the contents of CaPoolIssuancePolicyBaselineValuesCaOptions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesCaOptions) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesCaOptions, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesCaOptions(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5406,7 +5410,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(c *Client, i interf
 
 // expandCaPoolIssuancePolicyBaselineValuesCaOptions expands an instance of CaPoolIssuancePolicyBaselineValuesCaOptions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, f *CaPoolIssuancePolicyBaselineValuesCaOptions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, f *CaPoolIssuancePolicyBaselineValuesCaOptions, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5443,14 +5447,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, i interface{}
 
 // expandCaPoolIssuancePolicyBaselineValuesPolicyIdsMap expands the contents of CaPoolIssuancePolicyBaselineValuesPolicyIds into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesPolicyIdsMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesPolicyIds) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesPolicyIdsMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesPolicyIds, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5464,14 +5468,14 @@ func expandCaPoolIssuancePolicyBaselineValuesPolicyIdsMap(c *Client, f map[strin
 
 // expandCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice expands the contents of CaPoolIssuancePolicyBaselineValuesPolicyIds into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesPolicyIds) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesPolicyIds, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5524,7 +5528,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, i interf
 
 // expandCaPoolIssuancePolicyBaselineValuesPolicyIds expands an instance of CaPoolIssuancePolicyBaselineValuesPolicyIds into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, f *CaPoolIssuancePolicyBaselineValuesPolicyIds) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, f *CaPoolIssuancePolicyBaselineValuesPolicyIds, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5557,14 +5561,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, i interface{}
 
 // expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap expands the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensions, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5578,14 +5582,14 @@ func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap(c *Client, 
 
 // expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice expands the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesAdditionalExtensions) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesAdditionalExtensions, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5638,13 +5642,13 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Clien
 
 // expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions expands an instance of CaPoolIssuancePolicyBaselineValuesAdditionalExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, f *CaPoolIssuancePolicyBaselineValuesAdditionalExtensions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, f *CaPoolIssuancePolicyBaselineValuesAdditionalExtensions, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, f.ObjectId); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, f.ObjectId, res); err != nil {
 		return nil, fmt.Errorf("error expanding ObjectId into objectId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["objectId"] = v
@@ -5681,14 +5685,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, i 
 
 // expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap expands the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap(c *Client, f map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5702,14 +5706,14 @@ func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap(c *
 
 // expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice expands the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(c *Client, f []CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5762,7 +5766,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(
 
 // expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId expands an instance of CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c *Client, f *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c *Client, f *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5795,14 +5799,14 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c *Cl
 
 // expandCaPoolIssuancePolicyIdentityConstraintsMap expands the contents of CaPoolIssuancePolicyIdentityConstraints into a JSON
 // request object.
-func expandCaPoolIssuancePolicyIdentityConstraintsMap(c *Client, f map[string]CaPoolIssuancePolicyIdentityConstraints) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyIdentityConstraintsMap(c *Client, f map[string]CaPoolIssuancePolicyIdentityConstraints, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyIdentityConstraints(c, &item)
+		i, err := expandCaPoolIssuancePolicyIdentityConstraints(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5816,14 +5820,14 @@ func expandCaPoolIssuancePolicyIdentityConstraintsMap(c *Client, f map[string]Ca
 
 // expandCaPoolIssuancePolicyIdentityConstraintsSlice expands the contents of CaPoolIssuancePolicyIdentityConstraints into a JSON
 // request object.
-func expandCaPoolIssuancePolicyIdentityConstraintsSlice(c *Client, f []CaPoolIssuancePolicyIdentityConstraints) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyIdentityConstraintsSlice(c *Client, f []CaPoolIssuancePolicyIdentityConstraints, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyIdentityConstraints(c, &item)
+		i, err := expandCaPoolIssuancePolicyIdentityConstraints(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5876,13 +5880,13 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsSlice(c *Client, i interface{
 
 // expandCaPoolIssuancePolicyIdentityConstraints expands an instance of CaPoolIssuancePolicyIdentityConstraints into a JSON
 // request object.
-func expandCaPoolIssuancePolicyIdentityConstraints(c *Client, f *CaPoolIssuancePolicyIdentityConstraints) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyIdentityConstraints(c *Client, f *CaPoolIssuancePolicyIdentityConstraints, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, f.CelExpression); err != nil {
+	if v, err := expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, f.CelExpression, res); err != nil {
 		return nil, fmt.Errorf("error expanding CelExpression into celExpression: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["celExpression"] = v
@@ -5919,14 +5923,14 @@ func flattenCaPoolIssuancePolicyIdentityConstraints(c *Client, i interface{}) *C
 
 // expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap expands the contents of CaPoolIssuancePolicyIdentityConstraintsCelExpression into a JSON
 // request object.
-func expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap(c *Client, f map[string]CaPoolIssuancePolicyIdentityConstraintsCelExpression) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap(c *Client, f map[string]CaPoolIssuancePolicyIdentityConstraintsCelExpression, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, &item)
+		i, err := expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5940,14 +5944,14 @@ func expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap(c *Client, f 
 
 // expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice expands the contents of CaPoolIssuancePolicyIdentityConstraintsCelExpression into a JSON
 // request object.
-func expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(c *Client, f []CaPoolIssuancePolicyIdentityConstraintsCelExpression) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(c *Client, f []CaPoolIssuancePolicyIdentityConstraintsCelExpression, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, &item)
+		i, err := expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6000,7 +6004,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(c *Client,
 
 // expandCaPoolIssuancePolicyIdentityConstraintsCelExpression expands an instance of CaPoolIssuancePolicyIdentityConstraintsCelExpression into a JSON
 // request object.
-func expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c *Client, f *CaPoolIssuancePolicyIdentityConstraintsCelExpression) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c *Client, f *CaPoolIssuancePolicyIdentityConstraintsCelExpression, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6045,14 +6049,14 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c *Client, i in
 
 // expandCaPoolIssuancePolicyPassthroughExtensionsMap expands the contents of CaPoolIssuancePolicyPassthroughExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyPassthroughExtensionsMap(c *Client, f map[string]CaPoolIssuancePolicyPassthroughExtensions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyPassthroughExtensionsMap(c *Client, f map[string]CaPoolIssuancePolicyPassthroughExtensions, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyPassthroughExtensions(c, &item)
+		i, err := expandCaPoolIssuancePolicyPassthroughExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6066,14 +6070,14 @@ func expandCaPoolIssuancePolicyPassthroughExtensionsMap(c *Client, f map[string]
 
 // expandCaPoolIssuancePolicyPassthroughExtensionsSlice expands the contents of CaPoolIssuancePolicyPassthroughExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyPassthroughExtensionsSlice(c *Client, f []CaPoolIssuancePolicyPassthroughExtensions) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyPassthroughExtensionsSlice(c *Client, f []CaPoolIssuancePolicyPassthroughExtensions, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyPassthroughExtensions(c, &item)
+		i, err := expandCaPoolIssuancePolicyPassthroughExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6126,7 +6130,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsSlice(c *Client, i interfac
 
 // expandCaPoolIssuancePolicyPassthroughExtensions expands an instance of CaPoolIssuancePolicyPassthroughExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyPassthroughExtensions(c *Client, f *CaPoolIssuancePolicyPassthroughExtensions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyPassthroughExtensions(c *Client, f *CaPoolIssuancePolicyPassthroughExtensions, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6135,7 +6139,7 @@ func expandCaPoolIssuancePolicyPassthroughExtensions(c *Client, f *CaPoolIssuanc
 	if v := f.KnownExtensions; v != nil {
 		m["knownExtensions"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
+	if v, err := expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c, f.AdditionalExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
 	} else if v != nil {
 		m["additionalExtensions"] = v
@@ -6165,14 +6169,14 @@ func flattenCaPoolIssuancePolicyPassthroughExtensions(c *Client, i interface{}) 
 
 // expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap expands the contents of CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap(c *Client, f map[string]CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap(c *Client, f map[string]CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, &item)
+		i, err := expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6186,14 +6190,14 @@ func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap(c *C
 
 // expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice expands the contents of CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c *Client, f []CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions) ([]map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c *Client, f []CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, &item)
+		i, err := expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6246,7 +6250,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c
 
 // expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions expands an instance of CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions into a JSON
 // request object.
-func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Client, f *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions) (map[string]interface{}, error) {
+func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Client, f *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -6279,14 +6283,14 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Cli
 
 // expandCaPoolPublishingOptionsMap expands the contents of CaPoolPublishingOptions into a JSON
 // request object.
-func expandCaPoolPublishingOptionsMap(c *Client, f map[string]CaPoolPublishingOptions) (map[string]interface{}, error) {
+func expandCaPoolPublishingOptionsMap(c *Client, f map[string]CaPoolPublishingOptions, res *CaPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCaPoolPublishingOptions(c, &item)
+		i, err := expandCaPoolPublishingOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6300,14 +6304,14 @@ func expandCaPoolPublishingOptionsMap(c *Client, f map[string]CaPoolPublishingOp
 
 // expandCaPoolPublishingOptionsSlice expands the contents of CaPoolPublishingOptions into a JSON
 // request object.
-func expandCaPoolPublishingOptionsSlice(c *Client, f []CaPoolPublishingOptions) ([]map[string]interface{}, error) {
+func expandCaPoolPublishingOptionsSlice(c *Client, f []CaPoolPublishingOptions, res *CaPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCaPoolPublishingOptions(c, &item)
+		i, err := expandCaPoolPublishingOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6360,7 +6364,7 @@ func flattenCaPoolPublishingOptionsSlice(c *Client, i interface{}) []CaPoolPubli
 
 // expandCaPoolPublishingOptions expands an instance of CaPoolPublishingOptions into a JSON
 // request object.
-func expandCaPoolPublishingOptions(c *Client, f *CaPoolPublishingOptions) (map[string]interface{}, error) {
+func expandCaPoolPublishingOptions(c *Client, f *CaPoolPublishingOptions, res *CaPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

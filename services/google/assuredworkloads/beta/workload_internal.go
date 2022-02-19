@@ -123,6 +123,8 @@ type workloadApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateWorkloadUpdateWorkloadRequest(ctx context.Context, f *Workload, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -1216,6 +1218,8 @@ func unmarshalMapWorkload(m map[string]interface{}, c *Client) (*Workload, error
 // expandWorkload expands Workload into a JSON request object.
 func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("organizations/%s/locations/%s/workloads/%s", f.Name, dcl.SelfLinkToName(f.Organization), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1236,12 +1240,12 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	if v := f.ProvisionedResourcesParent; dcl.ValueShouldBeSent(v) {
 		m["provisionedResourcesParent"] = v
 	}
-	if v, err := expandWorkloadKmsSettings(c, f.KmsSettings); err != nil {
+	if v, err := expandWorkloadKmsSettings(c, f.KmsSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsSettings into kmsSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsSettings"] = v
 	}
-	if v, err := expandWorkloadResourceSettingsSlice(c, f.ResourceSettings); err != nil {
+	if v, err := expandWorkloadResourceSettingsSlice(c, f.ResourceSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceSettings into resourceSettings: %w", err)
 	} else if v != nil {
 		m["resourceSettings"] = v
@@ -1290,14 +1294,14 @@ func flattenWorkload(c *Client, i interface{}) *Workload {
 
 // expandWorkloadResourcesMap expands the contents of WorkloadResources into a JSON
 // request object.
-func expandWorkloadResourcesMap(c *Client, f map[string]WorkloadResources) (map[string]interface{}, error) {
+func expandWorkloadResourcesMap(c *Client, f map[string]WorkloadResources, res *Workload) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkloadResources(c, &item)
+		i, err := expandWorkloadResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1311,14 +1315,14 @@ func expandWorkloadResourcesMap(c *Client, f map[string]WorkloadResources) (map[
 
 // expandWorkloadResourcesSlice expands the contents of WorkloadResources into a JSON
 // request object.
-func expandWorkloadResourcesSlice(c *Client, f []WorkloadResources) ([]map[string]interface{}, error) {
+func expandWorkloadResourcesSlice(c *Client, f []WorkloadResources, res *Workload) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkloadResources(c, &item)
+		i, err := expandWorkloadResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1371,7 +1375,7 @@ func flattenWorkloadResourcesSlice(c *Client, i interface{}) []WorkloadResources
 
 // expandWorkloadResources expands an instance of WorkloadResources into a JSON
 // request object.
-func expandWorkloadResources(c *Client, f *WorkloadResources) (map[string]interface{}, error) {
+func expandWorkloadResources(c *Client, f *WorkloadResources, res *Workload) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1408,14 +1412,14 @@ func flattenWorkloadResources(c *Client, i interface{}) *WorkloadResources {
 
 // expandWorkloadKmsSettingsMap expands the contents of WorkloadKmsSettings into a JSON
 // request object.
-func expandWorkloadKmsSettingsMap(c *Client, f map[string]WorkloadKmsSettings) (map[string]interface{}, error) {
+func expandWorkloadKmsSettingsMap(c *Client, f map[string]WorkloadKmsSettings, res *Workload) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkloadKmsSettings(c, &item)
+		i, err := expandWorkloadKmsSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1429,14 +1433,14 @@ func expandWorkloadKmsSettingsMap(c *Client, f map[string]WorkloadKmsSettings) (
 
 // expandWorkloadKmsSettingsSlice expands the contents of WorkloadKmsSettings into a JSON
 // request object.
-func expandWorkloadKmsSettingsSlice(c *Client, f []WorkloadKmsSettings) ([]map[string]interface{}, error) {
+func expandWorkloadKmsSettingsSlice(c *Client, f []WorkloadKmsSettings, res *Workload) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkloadKmsSettings(c, &item)
+		i, err := expandWorkloadKmsSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1489,7 +1493,7 @@ func flattenWorkloadKmsSettingsSlice(c *Client, i interface{}) []WorkloadKmsSett
 
 // expandWorkloadKmsSettings expands an instance of WorkloadKmsSettings into a JSON
 // request object.
-func expandWorkloadKmsSettings(c *Client, f *WorkloadKmsSettings) (map[string]interface{}, error) {
+func expandWorkloadKmsSettings(c *Client, f *WorkloadKmsSettings, res *Workload) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1526,14 +1530,14 @@ func flattenWorkloadKmsSettings(c *Client, i interface{}) *WorkloadKmsSettings {
 
 // expandWorkloadResourceSettingsMap expands the contents of WorkloadResourceSettings into a JSON
 // request object.
-func expandWorkloadResourceSettingsMap(c *Client, f map[string]WorkloadResourceSettings) (map[string]interface{}, error) {
+func expandWorkloadResourceSettingsMap(c *Client, f map[string]WorkloadResourceSettings, res *Workload) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkloadResourceSettings(c, &item)
+		i, err := expandWorkloadResourceSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1547,14 +1551,14 @@ func expandWorkloadResourceSettingsMap(c *Client, f map[string]WorkloadResourceS
 
 // expandWorkloadResourceSettingsSlice expands the contents of WorkloadResourceSettings into a JSON
 // request object.
-func expandWorkloadResourceSettingsSlice(c *Client, f []WorkloadResourceSettings) ([]map[string]interface{}, error) {
+func expandWorkloadResourceSettingsSlice(c *Client, f []WorkloadResourceSettings, res *Workload) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkloadResourceSettings(c, &item)
+		i, err := expandWorkloadResourceSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1607,7 +1611,7 @@ func flattenWorkloadResourceSettingsSlice(c *Client, i interface{}) []WorkloadRe
 
 // expandWorkloadResourceSettings expands an instance of WorkloadResourceSettings into a JSON
 // request object.
-func expandWorkloadResourceSettings(c *Client, f *WorkloadResourceSettings) (map[string]interface{}, error) {
+func expandWorkloadResourceSettings(c *Client, f *WorkloadResourceSettings, res *Workload) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

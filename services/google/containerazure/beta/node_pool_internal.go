@@ -175,6 +175,8 @@ type nodePoolApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateNodePoolUpdateAzureNodePoolRequest(ctx context.Context, f *NodePool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		req["version"] = v
@@ -1648,6 +1650,8 @@ func unmarshalMapNodePool(m map[string]interface{}, c *Client) (*NodePool, error
 // expandNodePool expands NodePool into a JSON request object.
 func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/azureClusters/%s/azureNodePools/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Cluster), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1656,7 +1660,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	if v := f.Version; dcl.ValueShouldBeSent(v) {
 		m["version"] = v
 	}
-	if v, err := expandNodePoolConfig(c, f.Config); err != nil {
+	if v, err := expandNodePoolConfig(c, f.Config, res); err != nil {
 		return nil, fmt.Errorf("error expanding Config into config: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
@@ -1664,7 +1668,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	if v := f.SubnetId; dcl.ValueShouldBeSent(v) {
 		m["subnetId"] = v
 	}
-	if v, err := expandNodePoolAutoscaling(c, f.Autoscaling); err != nil {
+	if v, err := expandNodePoolAutoscaling(c, f.Autoscaling, res); err != nil {
 		return nil, fmt.Errorf("error expanding Autoscaling into autoscaling: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["autoscaling"] = v
@@ -1672,7 +1676,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
 		m["annotations"] = v
 	}
-	if v, err := expandNodePoolMaxPodsConstraint(c, f.MaxPodsConstraint); err != nil {
+	if v, err := expandNodePoolMaxPodsConstraint(c, f.MaxPodsConstraint, res); err != nil {
 		return nil, fmt.Errorf("error expanding MaxPodsConstraint into maxPodsConstraint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["maxPodsConstraint"] = v
@@ -1734,14 +1738,14 @@ func flattenNodePool(c *Client, i interface{}) *NodePool {
 
 // expandNodePoolConfigMap expands the contents of NodePoolConfig into a JSON
 // request object.
-func expandNodePoolConfigMap(c *Client, f map[string]NodePoolConfig) (map[string]interface{}, error) {
+func expandNodePoolConfigMap(c *Client, f map[string]NodePoolConfig, res *NodePool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNodePoolConfig(c, &item)
+		i, err := expandNodePoolConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1755,14 +1759,14 @@ func expandNodePoolConfigMap(c *Client, f map[string]NodePoolConfig) (map[string
 
 // expandNodePoolConfigSlice expands the contents of NodePoolConfig into a JSON
 // request object.
-func expandNodePoolConfigSlice(c *Client, f []NodePoolConfig) ([]map[string]interface{}, error) {
+func expandNodePoolConfigSlice(c *Client, f []NodePoolConfig, res *NodePool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNodePoolConfig(c, &item)
+		i, err := expandNodePoolConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1815,7 +1819,7 @@ func flattenNodePoolConfigSlice(c *Client, i interface{}) []NodePoolConfig {
 
 // expandNodePoolConfig expands an instance of NodePoolConfig into a JSON
 // request object.
-func expandNodePoolConfig(c *Client, f *NodePoolConfig) (map[string]interface{}, error) {
+func expandNodePoolConfig(c *Client, f *NodePoolConfig, res *NodePool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1824,7 +1828,7 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig) (map[string]interface{},
 	if v := f.VmSize; !dcl.IsEmptyValueIndirect(v) {
 		m["vmSize"] = v
 	}
-	if v, err := expandNodePoolConfigRootVolume(c, f.RootVolume); err != nil {
+	if v, err := expandNodePoolConfigRootVolume(c, f.RootVolume, res); err != nil {
 		return nil, fmt.Errorf("error expanding RootVolume into rootVolume: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rootVolume"] = v
@@ -1832,7 +1836,7 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig) (map[string]interface{},
 	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
 		m["tags"] = v
 	}
-	if v, err := expandNodePoolConfigSshConfig(c, f.SshConfig); err != nil {
+	if v, err := expandNodePoolConfigSshConfig(c, f.SshConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding SshConfig into sshConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sshConfig"] = v
@@ -1864,14 +1868,14 @@ func flattenNodePoolConfig(c *Client, i interface{}) *NodePoolConfig {
 
 // expandNodePoolConfigRootVolumeMap expands the contents of NodePoolConfigRootVolume into a JSON
 // request object.
-func expandNodePoolConfigRootVolumeMap(c *Client, f map[string]NodePoolConfigRootVolume) (map[string]interface{}, error) {
+func expandNodePoolConfigRootVolumeMap(c *Client, f map[string]NodePoolConfigRootVolume, res *NodePool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNodePoolConfigRootVolume(c, &item)
+		i, err := expandNodePoolConfigRootVolume(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1885,14 +1889,14 @@ func expandNodePoolConfigRootVolumeMap(c *Client, f map[string]NodePoolConfigRoo
 
 // expandNodePoolConfigRootVolumeSlice expands the contents of NodePoolConfigRootVolume into a JSON
 // request object.
-func expandNodePoolConfigRootVolumeSlice(c *Client, f []NodePoolConfigRootVolume) ([]map[string]interface{}, error) {
+func expandNodePoolConfigRootVolumeSlice(c *Client, f []NodePoolConfigRootVolume, res *NodePool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNodePoolConfigRootVolume(c, &item)
+		i, err := expandNodePoolConfigRootVolume(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1945,7 +1949,7 @@ func flattenNodePoolConfigRootVolumeSlice(c *Client, i interface{}) []NodePoolCo
 
 // expandNodePoolConfigRootVolume expands an instance of NodePoolConfigRootVolume into a JSON
 // request object.
-func expandNodePoolConfigRootVolume(c *Client, f *NodePoolConfigRootVolume) (map[string]interface{}, error) {
+func expandNodePoolConfigRootVolume(c *Client, f *NodePoolConfigRootVolume, res *NodePool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1978,14 +1982,14 @@ func flattenNodePoolConfigRootVolume(c *Client, i interface{}) *NodePoolConfigRo
 
 // expandNodePoolConfigSshConfigMap expands the contents of NodePoolConfigSshConfig into a JSON
 // request object.
-func expandNodePoolConfigSshConfigMap(c *Client, f map[string]NodePoolConfigSshConfig) (map[string]interface{}, error) {
+func expandNodePoolConfigSshConfigMap(c *Client, f map[string]NodePoolConfigSshConfig, res *NodePool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNodePoolConfigSshConfig(c, &item)
+		i, err := expandNodePoolConfigSshConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1999,14 +2003,14 @@ func expandNodePoolConfigSshConfigMap(c *Client, f map[string]NodePoolConfigSshC
 
 // expandNodePoolConfigSshConfigSlice expands the contents of NodePoolConfigSshConfig into a JSON
 // request object.
-func expandNodePoolConfigSshConfigSlice(c *Client, f []NodePoolConfigSshConfig) ([]map[string]interface{}, error) {
+func expandNodePoolConfigSshConfigSlice(c *Client, f []NodePoolConfigSshConfig, res *NodePool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNodePoolConfigSshConfig(c, &item)
+		i, err := expandNodePoolConfigSshConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2059,7 +2063,7 @@ func flattenNodePoolConfigSshConfigSlice(c *Client, i interface{}) []NodePoolCon
 
 // expandNodePoolConfigSshConfig expands an instance of NodePoolConfigSshConfig into a JSON
 // request object.
-func expandNodePoolConfigSshConfig(c *Client, f *NodePoolConfigSshConfig) (map[string]interface{}, error) {
+func expandNodePoolConfigSshConfig(c *Client, f *NodePoolConfigSshConfig, res *NodePool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2092,14 +2096,14 @@ func flattenNodePoolConfigSshConfig(c *Client, i interface{}) *NodePoolConfigSsh
 
 // expandNodePoolAutoscalingMap expands the contents of NodePoolAutoscaling into a JSON
 // request object.
-func expandNodePoolAutoscalingMap(c *Client, f map[string]NodePoolAutoscaling) (map[string]interface{}, error) {
+func expandNodePoolAutoscalingMap(c *Client, f map[string]NodePoolAutoscaling, res *NodePool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNodePoolAutoscaling(c, &item)
+		i, err := expandNodePoolAutoscaling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2113,14 +2117,14 @@ func expandNodePoolAutoscalingMap(c *Client, f map[string]NodePoolAutoscaling) (
 
 // expandNodePoolAutoscalingSlice expands the contents of NodePoolAutoscaling into a JSON
 // request object.
-func expandNodePoolAutoscalingSlice(c *Client, f []NodePoolAutoscaling) ([]map[string]interface{}, error) {
+func expandNodePoolAutoscalingSlice(c *Client, f []NodePoolAutoscaling, res *NodePool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNodePoolAutoscaling(c, &item)
+		i, err := expandNodePoolAutoscaling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2173,7 +2177,7 @@ func flattenNodePoolAutoscalingSlice(c *Client, i interface{}) []NodePoolAutosca
 
 // expandNodePoolAutoscaling expands an instance of NodePoolAutoscaling into a JSON
 // request object.
-func expandNodePoolAutoscaling(c *Client, f *NodePoolAutoscaling) (map[string]interface{}, error) {
+func expandNodePoolAutoscaling(c *Client, f *NodePoolAutoscaling, res *NodePool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2210,14 +2214,14 @@ func flattenNodePoolAutoscaling(c *Client, i interface{}) *NodePoolAutoscaling {
 
 // expandNodePoolMaxPodsConstraintMap expands the contents of NodePoolMaxPodsConstraint into a JSON
 // request object.
-func expandNodePoolMaxPodsConstraintMap(c *Client, f map[string]NodePoolMaxPodsConstraint) (map[string]interface{}, error) {
+func expandNodePoolMaxPodsConstraintMap(c *Client, f map[string]NodePoolMaxPodsConstraint, res *NodePool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNodePoolMaxPodsConstraint(c, &item)
+		i, err := expandNodePoolMaxPodsConstraint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2231,14 +2235,14 @@ func expandNodePoolMaxPodsConstraintMap(c *Client, f map[string]NodePoolMaxPodsC
 
 // expandNodePoolMaxPodsConstraintSlice expands the contents of NodePoolMaxPodsConstraint into a JSON
 // request object.
-func expandNodePoolMaxPodsConstraintSlice(c *Client, f []NodePoolMaxPodsConstraint) ([]map[string]interface{}, error) {
+func expandNodePoolMaxPodsConstraintSlice(c *Client, f []NodePoolMaxPodsConstraint, res *NodePool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNodePoolMaxPodsConstraint(c, &item)
+		i, err := expandNodePoolMaxPodsConstraint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2291,7 +2295,7 @@ func flattenNodePoolMaxPodsConstraintSlice(c *Client, i interface{}) []NodePoolM
 
 // expandNodePoolMaxPodsConstraint expands an instance of NodePoolMaxPodsConstraint into a JSON
 // request object.
-func expandNodePoolMaxPodsConstraint(c *Client, f *NodePoolMaxPodsConstraint) (map[string]interface{}, error) {
+func expandNodePoolMaxPodsConstraint(c *Client, f *NodePoolMaxPodsConstraint, res *NodePool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

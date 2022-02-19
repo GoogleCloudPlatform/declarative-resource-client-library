@@ -1901,6 +1901,8 @@ type deidentifyTemplateApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateDeidentifyTemplateUpdateDeidentifyTemplateRequest(ctx context.Context, f *DeidentifyTemplate, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -1908,7 +1910,7 @@ func newUpdateDeidentifyTemplateUpdateDeidentifyTemplateRequest(ctx context.Cont
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfig(c, f.DeidentifyConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfig(c, f.DeidentifyConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding DeidentifyConfig into deidentifyConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["deidentifyConfig"] = v
@@ -35852,6 +35854,8 @@ func unmarshalMapDeidentifyTemplate(m map[string]interface{}, c *Client) (*Deide
 // expandDeidentifyTemplate expands DeidentifyTemplate into a JSON request object.
 func expandDeidentifyTemplate(c *Client, f *DeidentifyTemplate) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("%s/deidentifyTemplates/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -35863,7 +35867,7 @@ func expandDeidentifyTemplate(c *Client, f *DeidentifyTemplate) (map[string]inte
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfig(c, f.DeidentifyConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfig(c, f.DeidentifyConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding DeidentifyConfig into deidentifyConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["deidentifyConfig"] = v
@@ -35903,14 +35907,14 @@ func flattenDeidentifyTemplate(c *Client, i interface{}) *DeidentifyTemplate {
 
 // expandDeidentifyTemplateDeidentifyConfigMap expands the contents of DeidentifyTemplateDeidentifyConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -35924,14 +35928,14 @@ func expandDeidentifyTemplateDeidentifyConfigMap(c *Client, f map[string]Deident
 
 // expandDeidentifyTemplateDeidentifyConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -35984,23 +35988,23 @@ func flattenDeidentifyTemplateDeidentifyConfigSlice(c *Client, i interface{}) []
 
 // expandDeidentifyTemplateDeidentifyConfig expands an instance of DeidentifyTemplateDeidentifyConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfig(c *Client, f *DeidentifyTemplateDeidentifyConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfig(c *Client, f *DeidentifyTemplateDeidentifyConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c, f.InfoTypeTransformations); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c, f.InfoTypeTransformations, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoTypeTransformations into infoTypeTransformations: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["infoTypeTransformations"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c, f.RecordTransformations); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c, f.RecordTransformations, res); err != nil {
 		return nil, fmt.Errorf("error expanding RecordTransformations into recordTransformations: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["recordTransformations"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c, f.TransformationErrorHandling); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c, f.TransformationErrorHandling, res); err != nil {
 		return nil, fmt.Errorf("error expanding TransformationErrorHandling into transformationErrorHandling: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transformationErrorHandling"] = v
@@ -36031,14 +36035,14 @@ func flattenDeidentifyTemplateDeidentifyConfig(c *Client, i interface{}) *Deiden
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36052,14 +36056,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsMap(c *Clien
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformations) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformations, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36112,13 +36116,13 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsSlice(c *Cl
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsSlice(c, f.Transformations); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsSlice(c, f.Transformations, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transformations into transformations: %w", err)
 	} else if v != nil {
 		m["transformations"] = v
@@ -36147,14 +36151,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformations(c *Client,
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36168,14 +36172,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36228,18 +36232,18 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesSlice(c, f.InfoTypes); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesSlice(c, f.InfoTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoTypes into infoTypes: %w", err)
 	} else if v != nil {
 		m["infoTypes"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c, f.PrimitiveTransformation); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c, f.PrimitiveTransformation, res); err != nil {
 		return nil, fmt.Errorf("error expanding PrimitiveTransformation into primitiveTransformation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["primitiveTransformation"] = v
@@ -36269,14 +36273,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36290,14 +36294,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypesSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36350,7 +36354,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -36383,14 +36387,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36404,14 +36408,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36464,63 +36468,63 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, f.ReplaceConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, f.ReplaceConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplaceConfig into replaceConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["replaceConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, f.RedactConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, f.RedactConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding RedactConfig into redactConfig: %w", err)
 	} else if v != nil {
 		m["redactConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, f.CharacterMaskConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, f.CharacterMaskConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CharacterMaskConfig into characterMaskConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["characterMaskConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, f.CryptoReplaceFfxFpeConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, f.CryptoReplaceFfxFpeConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoReplaceFfxFpeConfig into cryptoReplaceFfxFpeConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoReplaceFfxFpeConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, f.FixedSizeBucketingConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, f.FixedSizeBucketingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding FixedSizeBucketingConfig into fixedSizeBucketingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fixedSizeBucketingConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, f.BucketingConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, f.BucketingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding BucketingConfig into bucketingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["bucketingConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, f.ReplaceWithInfoTypeConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, f.ReplaceWithInfoTypeConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplaceWithInfoTypeConfig into replaceWithInfoTypeConfig: %w", err)
 	} else if v != nil {
 		m["replaceWithInfoTypeConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, f.TimePartConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, f.TimePartConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimePartConfig into timePartConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timePartConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, f.CryptoHashConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, f.CryptoHashConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoHashConfig into cryptoHashConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoHashConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, f.DateShiftConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, f.DateShiftConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateShiftConfig into dateShiftConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateShiftConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, f.CryptoDeterministicConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, f.CryptoDeterministicConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoDeterministicConfig into cryptoDeterministicConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoDeterministicConfig"] = v
@@ -36559,14 +36563,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36580,14 +36584,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36640,13 +36644,13 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, f.NewValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, f.NewValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding NewValue into newValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["newValue"] = v
@@ -36675,14 +36679,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36696,14 +36700,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36756,7 +36760,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -36777,12 +36781,12 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -36821,14 +36825,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36842,14 +36846,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36902,7 +36906,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -36947,14 +36951,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -36968,14 +36972,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37028,7 +37032,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -37069,14 +37073,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37090,14 +37094,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37150,7 +37154,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -37179,14 +37183,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37200,14 +37204,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37260,7 +37264,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -37275,7 +37279,7 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.ReverseOrder; !dcl.IsEmptyValueIndirect(v) {
 		m["reverseOrder"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c, f.CharactersToIgnore); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c, f.CharactersToIgnore, res); err != nil {
 		return nil, fmt.Errorf("error expanding CharactersToIgnore into charactersToIgnore: %w", err)
 	} else if v != nil {
 		m["charactersToIgnore"] = v
@@ -37307,14 +37311,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37328,14 +37332,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37388,7 +37392,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -37425,14 +37429,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37446,14 +37450,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37506,18 +37510,18 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
@@ -37531,7 +37535,7 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.Radix; !dcl.IsEmptyValueIndirect(v) {
 		m["radix"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, f.SurrogateInfoType); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, f.SurrogateInfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding SurrogateInfoType into surrogateInfoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["surrogateInfoType"] = v
@@ -37565,14 +37569,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37586,14 +37590,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37646,23 +37650,23 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -37693,14 +37697,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37714,14 +37718,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37774,7 +37778,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -37807,14 +37811,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37828,14 +37832,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37888,7 +37892,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -37921,14 +37925,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -37942,14 +37946,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38002,7 +38006,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -38039,14 +38043,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38060,14 +38064,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38120,7 +38124,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -38153,14 +38157,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38174,14 +38178,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38234,7 +38238,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -38267,14 +38271,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38288,14 +38292,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38348,18 +38352,18 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, f.LowerBound); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, f.LowerBound, res); err != nil {
 		return nil, fmt.Errorf("error expanding LowerBound into lowerBound: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["lowerBound"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, f.UpperBound); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, f.UpperBound, res); err != nil {
 		return nil, fmt.Errorf("error expanding UpperBound into upperBound: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["upperBound"] = v
@@ -38393,14 +38397,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38414,14 +38418,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38474,7 +38478,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -38495,12 +38499,12 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -38539,14 +38543,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38560,14 +38564,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38620,7 +38624,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -38665,14 +38669,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38686,14 +38690,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38746,7 +38750,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -38787,14 +38791,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38808,14 +38812,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38868,7 +38872,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -38889,12 +38893,12 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -38933,14 +38937,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -38954,14 +38958,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39014,7 +39018,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -39059,14 +39063,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39080,14 +39084,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39140,7 +39144,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -39181,14 +39185,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39202,14 +39206,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39262,13 +39266,13 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c, f.Buckets); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c, f.Buckets, res); err != nil {
 		return nil, fmt.Errorf("error expanding Buckets into buckets: %w", err)
 	} else if v != nil {
 		m["buckets"] = v
@@ -39297,14 +39301,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39318,14 +39322,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39378,23 +39382,23 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, f.Min); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, f.Min, res); err != nil {
 		return nil, fmt.Errorf("error expanding Min into min: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["min"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, f.Max); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, f.Max, res); err != nil {
 		return nil, fmt.Errorf("error expanding Max into max: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["max"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, f.ReplacementValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, f.ReplacementValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplacementValue into replacementValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["replacementValue"] = v
@@ -39425,14 +39429,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39446,14 +39450,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39506,7 +39510,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -39527,12 +39531,12 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -39571,14 +39575,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39592,14 +39596,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39652,7 +39656,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -39697,14 +39701,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39718,14 +39722,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39778,7 +39782,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -39819,14 +39823,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39840,14 +39844,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39900,7 +39904,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -39921,12 +39925,12 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -39965,14 +39969,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -39986,14 +39990,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40046,7 +40050,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -40091,14 +40095,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40112,14 +40116,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40172,7 +40176,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -40213,14 +40217,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40234,14 +40238,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40294,7 +40298,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -40315,12 +40319,12 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -40359,14 +40363,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40380,14 +40384,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40440,7 +40444,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -40485,14 +40489,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40506,14 +40510,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40566,7 +40570,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -40607,14 +40611,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40628,14 +40632,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40688,7 +40692,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -40717,14 +40721,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40738,14 +40742,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40798,7 +40802,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -40831,14 +40835,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40852,14 +40856,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40912,13 +40916,13 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
@@ -40947,14 +40951,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -40968,14 +40972,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41028,23 +41032,23 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -41075,14 +41079,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41096,14 +41100,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41156,7 +41160,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -41189,14 +41193,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41210,14 +41214,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41270,7 +41274,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -41303,14 +41307,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41324,14 +41328,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41384,7 +41388,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -41421,14 +41425,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41442,14 +41446,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41502,7 +41506,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -41514,12 +41518,12 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 	if v := f.LowerBoundDays; !dcl.IsEmptyValueIndirect(v) {
 		m["lowerBoundDays"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
@@ -41551,14 +41555,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41572,14 +41576,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41632,7 +41636,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -41665,14 +41669,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41686,14 +41690,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41746,23 +41750,23 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -41793,14 +41797,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41814,14 +41818,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41874,7 +41878,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -41907,14 +41911,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41928,14 +41932,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -41988,7 +41992,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -42021,14 +42025,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42042,14 +42046,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42102,7 +42106,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -42139,14 +42143,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42160,14 +42164,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42220,23 +42224,23 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, f.SurrogateInfoType); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, f.SurrogateInfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding SurrogateInfoType into surrogateInfoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["surrogateInfoType"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
@@ -42267,14 +42271,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42288,14 +42292,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42348,23 +42352,23 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -42395,14 +42399,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42416,14 +42420,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42476,7 +42480,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -42509,14 +42513,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42530,14 +42534,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42590,7 +42594,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -42623,14 +42627,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42644,14 +42648,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42704,7 +42708,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -42741,14 +42745,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42762,14 +42766,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42822,7 +42826,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -42855,14 +42859,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42876,14 +42880,14 @@ func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformati
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42936,7 +42940,7 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -42969,14 +42973,14 @@ func flattenDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -42990,14 +42994,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsMap(c *Client,
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformations) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformations, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43050,18 +43054,18 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsSlice(c *Clie
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformations expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsSlice(c, f.FieldTransformations); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsSlice(c, f.FieldTransformations, res); err != nil {
 		return nil, fmt.Errorf("error expanding FieldTransformations into fieldTransformations: %w", err)
 	} else if v != nil {
 		m["fieldTransformations"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsSlice(c, f.RecordSuppressions); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsSlice(c, f.RecordSuppressions, res); err != nil {
 		return nil, fmt.Errorf("error expanding RecordSuppressions into recordSuppressions: %w", err)
 	} else if v != nil {
 		m["recordSuppressions"] = v
@@ -43091,14 +43095,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformations(c *Client, i
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43112,14 +43116,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43172,28 +43176,28 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsSlice(c, f.Fields); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsSlice(c, f.Fields, res); err != nil {
 		return nil, fmt.Errorf("error expanding Fields into fields: %w", err)
 	} else if v != nil {
 		m["fields"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c, f.Condition); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c, f.Condition, res); err != nil {
 		return nil, fmt.Errorf("error expanding Condition into condition: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["condition"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c, f.PrimitiveTransformation); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c, f.PrimitiveTransformation, res); err != nil {
 		return nil, fmt.Errorf("error expanding PrimitiveTransformation into primitiveTransformation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["primitiveTransformation"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c, f.InfoTypeTransformations); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c, f.InfoTypeTransformations, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoTypeTransformations into infoTypeTransformations: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["infoTypeTransformations"] = v
@@ -43225,14 +43229,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43246,14 +43250,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFieldsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43306,7 +43310,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -43339,14 +43343,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43360,14 +43364,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43420,13 +43424,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c, f.Expressions); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c, f.Expressions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Expressions into expressions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["expressions"] = v
@@ -43455,14 +43459,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43476,14 +43480,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43536,7 +43540,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -43545,7 +43549,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.LogicalOperator; !dcl.IsEmptyValueIndirect(v) {
 		m["logicalOperator"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c, f.Conditions); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c, f.Conditions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["conditions"] = v
@@ -43575,14 +43579,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43596,14 +43600,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43656,13 +43660,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsSlice(c, f.Conditions); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsSlice(c, f.Conditions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
 	} else if v != nil {
 		m["conditions"] = v
@@ -43691,14 +43695,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43712,14 +43716,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43772,13 +43776,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c, f.Field); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c, f.Field, res); err != nil {
 		return nil, fmt.Errorf("error expanding Field into field: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["field"] = v
@@ -43786,7 +43790,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.Operator; !dcl.IsEmptyValueIndirect(v) {
 		m["operator"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c, f.Value); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c, f.Value, res); err != nil {
 		return nil, fmt.Errorf("error expanding Value into value: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["value"] = v
@@ -43817,14 +43821,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsFieldMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsFieldMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsFieldMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43838,14 +43842,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsFieldSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsFieldSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsFieldSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43898,7 +43902,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -43931,14 +43935,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -43952,14 +43956,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44012,7 +44016,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -44033,12 +44037,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -44077,14 +44081,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44098,14 +44102,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44158,7 +44162,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -44203,14 +44207,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44224,14 +44228,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44284,7 +44288,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -44325,14 +44329,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44346,14 +44350,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44406,63 +44410,63 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c, f.ReplaceConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c, f.ReplaceConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplaceConfig into replaceConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["replaceConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c, f.RedactConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c, f.RedactConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding RedactConfig into redactConfig: %w", err)
 	} else if v != nil {
 		m["redactConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c, f.CharacterMaskConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c, f.CharacterMaskConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CharacterMaskConfig into characterMaskConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["characterMaskConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, f.CryptoReplaceFfxFpeConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, f.CryptoReplaceFfxFpeConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoReplaceFfxFpeConfig into cryptoReplaceFfxFpeConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoReplaceFfxFpeConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, f.FixedSizeBucketingConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, f.FixedSizeBucketingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding FixedSizeBucketingConfig into fixedSizeBucketingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fixedSizeBucketingConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c, f.BucketingConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c, f.BucketingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding BucketingConfig into bucketingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["bucketingConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, f.ReplaceWithInfoTypeConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, f.ReplaceWithInfoTypeConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplaceWithInfoTypeConfig into replaceWithInfoTypeConfig: %w", err)
 	} else if v != nil {
 		m["replaceWithInfoTypeConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c, f.TimePartConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c, f.TimePartConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimePartConfig into timePartConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timePartConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c, f.CryptoHashConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c, f.CryptoHashConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoHashConfig into cryptoHashConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoHashConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c, f.DateShiftConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c, f.DateShiftConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateShiftConfig into dateShiftConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateShiftConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, f.CryptoDeterministicConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, f.CryptoDeterministicConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoDeterministicConfig into cryptoDeterministicConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoDeterministicConfig"] = v
@@ -44501,14 +44505,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44522,14 +44526,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44582,13 +44586,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c, f.NewValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c, f.NewValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding NewValue into newValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["newValue"] = v
@@ -44617,14 +44621,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44638,14 +44642,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44698,7 +44702,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -44719,12 +44723,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -44763,14 +44767,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44784,14 +44788,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44844,7 +44848,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -44889,14 +44893,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44910,14 +44914,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -44970,7 +44974,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -45011,14 +45015,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45032,14 +45036,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45092,7 +45096,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -45121,14 +45125,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45142,14 +45146,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45202,7 +45206,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -45217,7 +45221,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.ReverseOrder; !dcl.IsEmptyValueIndirect(v) {
 		m["reverseOrder"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c, f.CharactersToIgnore); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c, f.CharactersToIgnore, res); err != nil {
 		return nil, fmt.Errorf("error expanding CharactersToIgnore into charactersToIgnore: %w", err)
 	} else if v != nil {
 		m["charactersToIgnore"] = v
@@ -45249,14 +45253,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45270,14 +45274,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45330,7 +45334,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -45367,14 +45371,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45388,14 +45392,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45448,18 +45452,18 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
@@ -45473,7 +45477,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.Radix; !dcl.IsEmptyValueIndirect(v) {
 		m["radix"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, f.SurrogateInfoType); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, f.SurrogateInfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding SurrogateInfoType into surrogateInfoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["surrogateInfoType"] = v
@@ -45507,14 +45511,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45528,14 +45532,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45588,23 +45592,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -45635,14 +45639,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45656,14 +45660,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45716,7 +45720,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -45749,14 +45753,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45770,14 +45774,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45830,7 +45834,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -45863,14 +45867,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45884,14 +45888,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -45944,7 +45948,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -45981,14 +45985,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46002,14 +46006,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46062,7 +46066,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -46095,14 +46099,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46116,14 +46120,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46176,7 +46180,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -46209,14 +46213,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46230,14 +46234,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46290,18 +46294,18 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, f.LowerBound); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, f.LowerBound, res); err != nil {
 		return nil, fmt.Errorf("error expanding LowerBound into lowerBound: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["lowerBound"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, f.UpperBound); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, f.UpperBound, res); err != nil {
 		return nil, fmt.Errorf("error expanding UpperBound into upperBound: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["upperBound"] = v
@@ -46335,14 +46339,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46356,14 +46360,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46416,7 +46420,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -46437,12 +46441,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -46481,14 +46485,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46502,14 +46506,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46562,7 +46566,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -46607,14 +46611,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46628,14 +46632,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46688,7 +46692,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -46729,14 +46733,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46750,14 +46754,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46810,7 +46814,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -46831,12 +46835,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -46875,14 +46879,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46896,14 +46900,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -46956,7 +46960,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -47001,14 +47005,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47022,14 +47026,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47082,7 +47086,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -47123,14 +47127,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47144,14 +47148,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47204,13 +47208,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c, f.Buckets); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c, f.Buckets, res); err != nil {
 		return nil, fmt.Errorf("error expanding Buckets into buckets: %w", err)
 	} else if v != nil {
 		m["buckets"] = v
@@ -47239,14 +47243,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47260,14 +47264,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47320,23 +47324,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, f.Min); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, f.Min, res); err != nil {
 		return nil, fmt.Errorf("error expanding Min into min: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["min"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, f.Max); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, f.Max, res); err != nil {
 		return nil, fmt.Errorf("error expanding Max into max: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["max"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, f.ReplacementValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, f.ReplacementValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplacementValue into replacementValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["replacementValue"] = v
@@ -47367,14 +47371,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47388,14 +47392,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47448,7 +47452,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -47469,12 +47473,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -47513,14 +47517,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47534,14 +47538,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47594,7 +47598,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -47639,14 +47643,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47660,14 +47664,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47720,7 +47724,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -47761,14 +47765,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47782,14 +47786,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47842,7 +47846,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -47863,12 +47867,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -47907,14 +47911,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47928,14 +47932,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -47988,7 +47992,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -48033,14 +48037,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48054,14 +48058,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48114,7 +48118,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -48155,14 +48159,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48176,14 +48180,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48236,7 +48240,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -48257,12 +48261,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -48301,14 +48305,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48322,14 +48326,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48382,7 +48386,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -48427,14 +48431,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48448,14 +48452,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48508,7 +48512,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -48549,14 +48553,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48570,14 +48574,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48630,7 +48634,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -48659,14 +48663,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48680,14 +48684,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48740,7 +48744,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -48773,14 +48777,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48794,14 +48798,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48854,13 +48858,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
@@ -48889,14 +48893,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48910,14 +48914,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -48970,23 +48974,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -49017,14 +49021,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49038,14 +49042,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49098,7 +49102,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -49131,14 +49135,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49152,14 +49156,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49212,7 +49216,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -49245,14 +49249,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49266,14 +49270,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49326,7 +49330,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -49363,14 +49367,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49384,14 +49388,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49444,7 +49448,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -49456,12 +49460,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.LowerBoundDays; !dcl.IsEmptyValueIndirect(v) {
 		m["lowerBoundDays"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
@@ -49493,14 +49497,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49514,14 +49518,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49574,7 +49578,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -49607,14 +49611,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49628,14 +49632,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49688,23 +49692,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -49735,14 +49739,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49756,14 +49760,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49816,7 +49820,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -49849,14 +49853,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49870,14 +49874,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49930,7 +49934,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -49963,14 +49967,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -49984,14 +49988,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50044,7 +50048,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -50081,14 +50085,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50102,14 +50106,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50162,23 +50166,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, f.SurrogateInfoType); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, f.SurrogateInfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding SurrogateInfoType into surrogateInfoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["surrogateInfoType"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
@@ -50209,14 +50213,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50230,14 +50234,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50290,23 +50294,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -50337,14 +50341,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50358,14 +50362,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50418,7 +50422,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -50451,14 +50455,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50472,14 +50476,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50532,7 +50536,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -50565,14 +50569,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50586,14 +50590,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50646,7 +50650,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -50683,14 +50687,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50704,14 +50708,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50764,7 +50768,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -50797,14 +50801,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50818,14 +50822,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50878,7 +50882,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -50911,14 +50915,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50932,14 +50936,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -50992,13 +50996,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsSlice(c, f.Transformations); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsSlice(c, f.Transformations, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transformations into transformations: %w", err)
 	} else if v != nil {
 		m["transformations"] = v
@@ -51027,14 +51031,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51048,14 +51052,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51108,18 +51112,18 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesSlice(c, f.InfoTypes); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesSlice(c, f.InfoTypes, res); err != nil {
 		return nil, fmt.Errorf("error expanding InfoTypes into infoTypes: %w", err)
 	} else if v != nil {
 		m["infoTypes"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c, f.PrimitiveTransformation); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c, f.PrimitiveTransformation, res); err != nil {
 		return nil, fmt.Errorf("error expanding PrimitiveTransformation into primitiveTransformation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["primitiveTransformation"] = v
@@ -51149,14 +51153,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51170,14 +51174,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypesSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51230,7 +51234,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -51263,14 +51267,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51284,14 +51288,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51344,63 +51348,63 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, f.ReplaceConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, f.ReplaceConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplaceConfig into replaceConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["replaceConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, f.RedactConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, f.RedactConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding RedactConfig into redactConfig: %w", err)
 	} else if v != nil {
 		m["redactConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, f.CharacterMaskConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, f.CharacterMaskConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CharacterMaskConfig into characterMaskConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["characterMaskConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, f.CryptoReplaceFfxFpeConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, f.CryptoReplaceFfxFpeConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoReplaceFfxFpeConfig into cryptoReplaceFfxFpeConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoReplaceFfxFpeConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, f.FixedSizeBucketingConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, f.FixedSizeBucketingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding FixedSizeBucketingConfig into fixedSizeBucketingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fixedSizeBucketingConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, f.BucketingConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, f.BucketingConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding BucketingConfig into bucketingConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["bucketingConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, f.ReplaceWithInfoTypeConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, f.ReplaceWithInfoTypeConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplaceWithInfoTypeConfig into replaceWithInfoTypeConfig: %w", err)
 	} else if v != nil {
 		m["replaceWithInfoTypeConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, f.TimePartConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, f.TimePartConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimePartConfig into timePartConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timePartConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, f.CryptoHashConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, f.CryptoHashConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoHashConfig into cryptoHashConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoHashConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, f.DateShiftConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, f.DateShiftConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateShiftConfig into dateShiftConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateShiftConfig"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, f.CryptoDeterministicConfig); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, f.CryptoDeterministicConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoDeterministicConfig into cryptoDeterministicConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoDeterministicConfig"] = v
@@ -51439,14 +51443,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51460,14 +51464,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51520,13 +51524,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, f.NewValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, f.NewValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding NewValue into newValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["newValue"] = v
@@ -51555,14 +51559,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51576,14 +51580,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51636,7 +51640,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -51657,12 +51661,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -51701,14 +51705,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51722,14 +51726,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51782,7 +51786,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -51827,14 +51831,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51848,14 +51852,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51908,7 +51912,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -51949,14 +51953,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -51970,14 +51974,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52030,7 +52034,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -52059,14 +52063,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52080,14 +52084,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52140,7 +52144,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -52155,7 +52159,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.ReverseOrder; !dcl.IsEmptyValueIndirect(v) {
 		m["reverseOrder"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c, f.CharactersToIgnore); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c, f.CharactersToIgnore, res); err != nil {
 		return nil, fmt.Errorf("error expanding CharactersToIgnore into charactersToIgnore: %w", err)
 	} else if v != nil {
 		m["charactersToIgnore"] = v
@@ -52187,14 +52191,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52208,14 +52212,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnoreSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52268,7 +52272,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -52305,14 +52309,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52326,14 +52330,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52386,18 +52390,18 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
@@ -52411,7 +52415,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.Radix; !dcl.IsEmptyValueIndirect(v) {
 		m["radix"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, f.SurrogateInfoType); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, f.SurrogateInfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding SurrogateInfoType into surrogateInfoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["surrogateInfoType"] = v
@@ -52445,14 +52449,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52466,14 +52470,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52526,23 +52530,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -52573,14 +52577,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52594,14 +52598,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52654,7 +52658,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -52687,14 +52691,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52708,14 +52712,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52768,7 +52772,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -52801,14 +52805,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52822,14 +52826,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52882,7 +52886,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -52919,14 +52923,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -52940,14 +52944,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53000,7 +53004,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -53033,14 +53037,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53054,14 +53058,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53114,7 +53118,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -53147,14 +53151,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53168,14 +53172,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53228,18 +53232,18 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, f.LowerBound); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, f.LowerBound, res); err != nil {
 		return nil, fmt.Errorf("error expanding LowerBound into lowerBound: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["lowerBound"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, f.UpperBound); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, f.UpperBound, res); err != nil {
 		return nil, fmt.Errorf("error expanding UpperBound into upperBound: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["upperBound"] = v
@@ -53273,14 +53277,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53294,14 +53298,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53354,7 +53358,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -53375,12 +53379,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -53419,14 +53423,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53440,14 +53444,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53500,7 +53504,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -53545,14 +53549,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53566,14 +53570,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53626,7 +53630,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -53667,14 +53671,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53688,14 +53692,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53748,7 +53752,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -53769,12 +53773,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -53813,14 +53817,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53834,14 +53838,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53894,7 +53898,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -53939,14 +53943,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -53960,14 +53964,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54020,7 +54024,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -54061,14 +54065,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54082,14 +54086,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54142,13 +54146,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c, f.Buckets); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c, f.Buckets, res); err != nil {
 		return nil, fmt.Errorf("error expanding Buckets into buckets: %w", err)
 	} else if v != nil {
 		m["buckets"] = v
@@ -54177,14 +54181,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54198,14 +54202,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54258,23 +54262,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, f.Min); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, f.Min, res); err != nil {
 		return nil, fmt.Errorf("error expanding Min into min: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["min"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, f.Max); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, f.Max, res); err != nil {
 		return nil, fmt.Errorf("error expanding Max into max: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["max"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, f.ReplacementValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, f.ReplacementValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplacementValue into replacementValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["replacementValue"] = v
@@ -54305,14 +54309,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54326,14 +54330,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54386,7 +54390,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -54407,12 +54411,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -54451,14 +54455,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54472,14 +54476,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54532,7 +54536,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -54577,14 +54581,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54598,14 +54602,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54658,7 +54662,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -54699,14 +54703,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54720,14 +54724,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54780,7 +54784,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -54801,12 +54805,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -54845,14 +54849,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54866,14 +54870,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54926,7 +54930,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -54971,14 +54975,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -54992,14 +54996,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55052,7 +55056,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -55093,14 +55097,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55114,14 +55118,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55174,7 +55178,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -55195,12 +55199,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -55239,14 +55243,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55260,14 +55264,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55320,7 +55324,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -55365,14 +55369,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55386,14 +55390,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55446,7 +55450,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -55487,14 +55491,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55508,14 +55512,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55568,7 +55572,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -55597,14 +55601,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55618,14 +55622,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55678,7 +55682,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -55711,14 +55715,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55732,14 +55736,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55792,13 +55796,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
@@ -55827,14 +55831,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55848,14 +55852,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55908,23 +55912,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -55955,14 +55959,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -55976,14 +55980,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56036,7 +56040,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -56069,14 +56073,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56090,14 +56094,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56150,7 +56154,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -56183,14 +56187,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56204,14 +56208,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56264,7 +56268,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -56301,14 +56305,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56322,14 +56326,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56382,7 +56386,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -56394,12 +56398,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 	if v := f.LowerBoundDays; !dcl.IsEmptyValueIndirect(v) {
 		m["lowerBoundDays"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
@@ -56431,14 +56435,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56452,14 +56456,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56512,7 +56516,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -56545,14 +56549,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56566,14 +56570,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56626,23 +56630,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -56673,14 +56677,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56694,14 +56698,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56754,7 +56758,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -56787,14 +56791,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56808,14 +56812,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56868,7 +56872,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -56901,14 +56905,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56922,14 +56926,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -56982,7 +56986,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -57019,14 +57023,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57040,14 +57044,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57100,23 +57104,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, f.CryptoKey); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, f.CryptoKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding CryptoKey into cryptoKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cryptoKey"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, f.SurrogateInfoType); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, f.SurrogateInfoType, res); err != nil {
 		return nil, fmt.Errorf("error expanding SurrogateInfoType into surrogateInfoType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["surrogateInfoType"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, f.Context); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, f.Context, res); err != nil {
 		return nil, fmt.Errorf("error expanding Context into context: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["context"] = v
@@ -57147,14 +57151,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57168,14 +57172,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeySlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57228,23 +57232,23 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, f.Transient); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, f.Transient, res); err != nil {
 		return nil, fmt.Errorf("error expanding Transient into transient: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transient"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, f.Unwrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, f.Unwrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding Unwrapped into unwrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["unwrapped"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, f.KmsWrapped); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, f.KmsWrapped, res); err != nil {
 		return nil, fmt.Errorf("error expanding KmsWrapped into kmsWrapped: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["kmsWrapped"] = v
@@ -57275,14 +57279,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57296,14 +57300,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransientSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57356,7 +57360,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -57389,14 +57393,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57410,14 +57414,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57470,7 +57474,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -57503,14 +57507,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57524,14 +57528,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrappedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57584,7 +57588,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -57621,14 +57625,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57642,14 +57646,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoTypeSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57702,7 +57706,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -57735,14 +57739,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57756,14 +57760,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransform
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContextSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57816,7 +57820,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -57849,14 +57853,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransfor
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57870,14 +57874,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57930,13 +57934,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c, f.Condition); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c, f.Condition, res); err != nil {
 		return nil, fmt.Errorf("error expanding Condition into condition: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["condition"] = v
@@ -57965,14 +57969,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -57986,14 +57990,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58046,13 +58050,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c, f.Expressions); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c, f.Expressions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Expressions into expressions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["expressions"] = v
@@ -58081,14 +58085,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58102,14 +58106,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58162,7 +58166,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -58171,7 +58175,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 	if v := f.LogicalOperator; !dcl.IsEmptyValueIndirect(v) {
 		m["logicalOperator"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c, f.Conditions); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c, f.Conditions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["conditions"] = v
@@ -58201,14 +58205,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58222,14 +58226,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58282,13 +58286,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsSlice(c, f.Conditions); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsSlice(c, f.Conditions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
 	} else if v != nil {
 		m["conditions"] = v
@@ -58317,14 +58321,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58338,14 +58342,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58398,13 +58402,13 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c, f.Field); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c, f.Field, res); err != nil {
 		return nil, fmt.Errorf("error expanding Field into field: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["field"] = v
@@ -58412,7 +58416,7 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 	if v := f.Operator; !dcl.IsEmptyValueIndirect(v) {
 		m["operator"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c, f.Value); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c, f.Value, res); err != nil {
 		return nil, fmt.Errorf("error expanding Value into value: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["value"] = v
@@ -58443,14 +58447,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsFieldMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsFieldMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsFieldMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58464,14 +58468,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsFieldSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsFieldSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsFieldSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58524,7 +58528,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -58557,14 +58561,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58578,14 +58582,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58638,7 +58642,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -58659,12 +58663,12 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 	if v := f.TimestampValue; !dcl.IsEmptyValueIndirect(v) {
 		m["timestampValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c, f.TimeValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c, f.TimeValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding TimeValue into timeValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["timeValue"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c, f.DateValue); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c, f.DateValue, res); err != nil {
 		return nil, fmt.Errorf("error expanding DateValue into dateValue: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dateValue"] = v
@@ -58703,14 +58707,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58724,14 +58728,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58784,7 +58788,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -58829,14 +58833,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValueMap expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValueMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58850,14 +58854,14 @@ func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppress
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValueSlice expands the contents of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValueSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58910,7 +58914,7 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue expands an instance of DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(c *Client, f *DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -58951,14 +58955,14 @@ func flattenDeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppres
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingMap expands the contents of DeidentifyTemplateDeidentifyConfigTransformationErrorHandling into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigTransformationErrorHandling) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigTransformationErrorHandling, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -58972,14 +58976,14 @@ func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingMap(c *C
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingSlice expands the contents of DeidentifyTemplateDeidentifyConfigTransformationErrorHandling into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigTransformationErrorHandling) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigTransformationErrorHandling, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -59032,18 +59036,18 @@ func flattenDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingSlice(c
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling expands an instance of DeidentifyTemplateDeidentifyConfigTransformationErrorHandling into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c *Client, f *DeidentifyTemplateDeidentifyConfigTransformationErrorHandling) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c *Client, f *DeidentifyTemplateDeidentifyConfigTransformationErrorHandling, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c, f.ThrowError); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c, f.ThrowError, res); err != nil {
 		return nil, fmt.Errorf("error expanding ThrowError into throwError: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["throwError"] = v
 	}
-	if v, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c, f.LeaveUntransformed); err != nil {
+	if v, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c, f.LeaveUntransformed, res); err != nil {
 		return nil, fmt.Errorf("error expanding LeaveUntransformed into leaveUntransformed: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["leaveUntransformed"] = v
@@ -59073,14 +59077,14 @@ func flattenDeidentifyTemplateDeidentifyConfigTransformationErrorHandling(c *Cli
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErrorMap expands the contents of DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErrorMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErrorMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -59094,14 +59098,14 @@ func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErr
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErrorSlice expands the contents of DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErrorSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErrorSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -59154,7 +59158,7 @@ func flattenDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowEr
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError expands an instance of DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c *Client, f *DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(c *Client, f *DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -59183,14 +59187,14 @@ func flattenDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowEr
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformedMap expands the contents of DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformedMap(c *Client, f map[string]DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -59204,14 +59208,14 @@ func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUnt
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformedSlice expands the contents of DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed) ([]map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformedSlice(c *Client, f []DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed, res *DeidentifyTemplate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c, &item)
+		i, err := expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -59264,7 +59268,7 @@ func flattenDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUn
 
 // expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed expands an instance of DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed into a JSON
 // request object.
-func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c *Client, f *DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed) (map[string]interface{}, error) {
+func expandDeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(c *Client, f *DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed, res *DeidentifyTemplate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

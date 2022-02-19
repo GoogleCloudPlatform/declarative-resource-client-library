@@ -148,6 +148,8 @@ type workerPoolApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx context.Context, f *WorkerPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -155,12 +157,12 @@ func newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx context.Context, f *WorkerPo
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		req["annotations"] = v
 	}
-	if v, err := expandWorkerPoolPrivatePoolV1Config(c, f.PrivatePoolV1Config); err != nil {
+	if v, err := expandWorkerPoolPrivatePoolV1Config(c, f.PrivatePoolV1Config, res); err != nil {
 		return nil, fmt.Errorf("error expanding PrivatePoolV1Config into privatePoolV1Config: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["privatePoolV1Config"] = v
 	}
-	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
+	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["workerConfig"] = v
@@ -1653,6 +1655,8 @@ func unmarshalMapWorkerPool(m map[string]interface{}, c *Client) (*WorkerPool, e
 // expandWorkerPool expands WorkerPool into a JSON request object.
 func expandWorkerPool(c *Client, f *WorkerPool) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/workerPools/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1664,17 +1668,17 @@ func expandWorkerPool(c *Client, f *WorkerPool) (map[string]interface{}, error) 
 	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
 		m["annotations"] = v
 	}
-	if v, err := expandWorkerPoolPrivatePoolV1Config(c, f.PrivatePoolV1Config); err != nil {
+	if v, err := expandWorkerPoolPrivatePoolV1Config(c, f.PrivatePoolV1Config, res); err != nil {
 		return nil, fmt.Errorf("error expanding PrivatePoolV1Config into privatePoolV1Config: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["privatePoolV1Config"] = v
 	}
-	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
+	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["workerConfig"] = v
 	}
-	if v, err := expandWorkerPoolNetworkConfig(c, f.NetworkConfig); err != nil {
+	if v, err := expandWorkerPoolNetworkConfig(c, f.NetworkConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["networkConfig"] = v
@@ -1725,14 +1729,14 @@ func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
 
 // expandWorkerPoolPrivatePoolV1ConfigMap expands the contents of WorkerPoolPrivatePoolV1Config into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1Config) (map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1Config, res *WorkerPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkerPoolPrivatePoolV1Config(c, &item)
+		i, err := expandWorkerPoolPrivatePoolV1Config(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1746,14 +1750,14 @@ func expandWorkerPoolPrivatePoolV1ConfigMap(c *Client, f map[string]WorkerPoolPr
 
 // expandWorkerPoolPrivatePoolV1ConfigSlice expands the contents of WorkerPoolPrivatePoolV1Config into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1Config) ([]map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1Config, res *WorkerPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkerPoolPrivatePoolV1Config(c, &item)
+		i, err := expandWorkerPoolPrivatePoolV1Config(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1806,18 +1810,18 @@ func flattenWorkerPoolPrivatePoolV1ConfigSlice(c *Client, i interface{}) []Worke
 
 // expandWorkerPoolPrivatePoolV1Config expands an instance of WorkerPoolPrivatePoolV1Config into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1Config(c *Client, f *WorkerPoolPrivatePoolV1Config) (map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1Config(c *Client, f *WorkerPoolPrivatePoolV1Config, res *WorkerPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, f.WorkerConfig); err != nil {
+	if v, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, f.WorkerConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["workerConfig"] = v
 	}
-	if v, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, f.NetworkConfig); err != nil {
+	if v, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, f.NetworkConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["networkConfig"] = v
@@ -1847,14 +1851,14 @@ func flattenWorkerPoolPrivatePoolV1Config(c *Client, i interface{}) *WorkerPoolP
 
 // expandWorkerPoolPrivatePoolV1ConfigWorkerConfigMap expands the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig) (map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, &item)
+		i, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1868,14 +1872,14 @@ func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, f map[string]
 
 // expandWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice expands the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1ConfigWorkerConfig) ([]map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1ConfigWorkerConfig, res *WorkerPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, &item)
+		i, err := expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1928,7 +1932,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, i interfac
 
 // expandWorkerPoolPrivatePoolV1ConfigWorkerConfig expands an instance of WorkerPoolPrivatePoolV1ConfigWorkerConfig into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, f *WorkerPoolPrivatePoolV1ConfigWorkerConfig) (map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, f *WorkerPoolPrivatePoolV1ConfigWorkerConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1965,14 +1969,14 @@ func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, i interface{}) 
 
 // expandWorkerPoolPrivatePoolV1ConfigNetworkConfigMap expands the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig) (map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, f map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, &item)
+		i, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1986,14 +1990,14 @@ func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, f map[string
 
 // expandWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice expands the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1ConfigNetworkConfig) ([]map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, f []WorkerPoolPrivatePoolV1ConfigNetworkConfig, res *WorkerPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, &item)
+		i, err := expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2046,7 +2050,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, i interfa
 
 // expandWorkerPoolPrivatePoolV1ConfigNetworkConfig expands an instance of WorkerPoolPrivatePoolV1ConfigNetworkConfig into a JSON
 // request object.
-func expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, f *WorkerPoolPrivatePoolV1ConfigNetworkConfig) (map[string]interface{}, error) {
+func expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, f *WorkerPoolPrivatePoolV1ConfigNetworkConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2083,14 +2087,14 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, i interface{})
 
 // expandWorkerPoolWorkerConfigMap expands the contents of WorkerPoolWorkerConfig into a JSON
 // request object.
-func expandWorkerPoolWorkerConfigMap(c *Client, f map[string]WorkerPoolWorkerConfig) (map[string]interface{}, error) {
+func expandWorkerPoolWorkerConfigMap(c *Client, f map[string]WorkerPoolWorkerConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkerPoolWorkerConfig(c, &item)
+		i, err := expandWorkerPoolWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2104,14 +2108,14 @@ func expandWorkerPoolWorkerConfigMap(c *Client, f map[string]WorkerPoolWorkerCon
 
 // expandWorkerPoolWorkerConfigSlice expands the contents of WorkerPoolWorkerConfig into a JSON
 // request object.
-func expandWorkerPoolWorkerConfigSlice(c *Client, f []WorkerPoolWorkerConfig) ([]map[string]interface{}, error) {
+func expandWorkerPoolWorkerConfigSlice(c *Client, f []WorkerPoolWorkerConfig, res *WorkerPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkerPoolWorkerConfig(c, &item)
+		i, err := expandWorkerPoolWorkerConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2164,7 +2168,7 @@ func flattenWorkerPoolWorkerConfigSlice(c *Client, i interface{}) []WorkerPoolWo
 
 // expandWorkerPoolWorkerConfig expands an instance of WorkerPoolWorkerConfig into a JSON
 // request object.
-func expandWorkerPoolWorkerConfig(c *Client, f *WorkerPoolWorkerConfig) (map[string]interface{}, error) {
+func expandWorkerPoolWorkerConfig(c *Client, f *WorkerPoolWorkerConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2205,14 +2209,14 @@ func flattenWorkerPoolWorkerConfig(c *Client, i interface{}) *WorkerPoolWorkerCo
 
 // expandWorkerPoolNetworkConfigMap expands the contents of WorkerPoolNetworkConfig into a JSON
 // request object.
-func expandWorkerPoolNetworkConfigMap(c *Client, f map[string]WorkerPoolNetworkConfig) (map[string]interface{}, error) {
+func expandWorkerPoolNetworkConfigMap(c *Client, f map[string]WorkerPoolNetworkConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkerPoolNetworkConfig(c, &item)
+		i, err := expandWorkerPoolNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2226,14 +2230,14 @@ func expandWorkerPoolNetworkConfigMap(c *Client, f map[string]WorkerPoolNetworkC
 
 // expandWorkerPoolNetworkConfigSlice expands the contents of WorkerPoolNetworkConfig into a JSON
 // request object.
-func expandWorkerPoolNetworkConfigSlice(c *Client, f []WorkerPoolNetworkConfig) ([]map[string]interface{}, error) {
+func expandWorkerPoolNetworkConfigSlice(c *Client, f []WorkerPoolNetworkConfig, res *WorkerPool) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkerPoolNetworkConfig(c, &item)
+		i, err := expandWorkerPoolNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2286,7 +2290,7 @@ func flattenWorkerPoolNetworkConfigSlice(c *Client, i interface{}) []WorkerPoolN
 
 // expandWorkerPoolNetworkConfig expands an instance of WorkerPoolNetworkConfig into a JSON
 // request object.
-func expandWorkerPoolNetworkConfig(c *Client, f *WorkerPoolNetworkConfig) (map[string]interface{}, error) {
+func expandWorkerPoolNetworkConfig(c *Client, f *WorkerPoolNetworkConfig, res *WorkerPool) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

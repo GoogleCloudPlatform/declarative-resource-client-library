@@ -89,6 +89,8 @@ type releaseApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateReleaseUpdateReleaseRequest(ctx context.Context, f *Release, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.RulesetName; !dcl.IsEmptyValueIndirect(v) {
 		req["rulesetName"] = v
@@ -564,6 +566,8 @@ func unmarshalMapRelease(m map[string]interface{}, c *Client) (*Release, error) 
 // expandRelease expands Release into a JSON request object.
 func expandRelease(c *Client, f *Release) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveFromPattern("projects/%s/releases/%s", f.Name, dcl.SelfLinkToName(f.Project), f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

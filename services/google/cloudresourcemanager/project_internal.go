@@ -99,6 +99,8 @@ type projectApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateProjectUpdateProjectRequest(ctx context.Context, f *Project, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -597,13 +599,15 @@ func unmarshalMapProject(m map[string]interface{}, c *Client) (*Project, error) 
 // expandProject expands Project into a JSON request object.
 func expandProject(c *Client, f *Project) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v, err := expandProjectParent(f, f.Parent); err != nil {
+	if v, err := expandProjectParent(c, f.Parent, res); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v

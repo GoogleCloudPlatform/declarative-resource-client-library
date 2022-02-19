@@ -112,11 +112,13 @@ type firewallPolicyRuleApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateFirewallPolicyRulePatchRuleRequest(ctx context.Context, f *FirewallPolicyRule, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandFirewallPolicyRuleMatch(c, f.Match); err != nil {
+	if v, err := expandFirewallPolicyRuleMatch(c, f.Match, res); err != nil {
 		return nil, fmt.Errorf("error expanding Match into match: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["match"] = v
@@ -978,13 +980,15 @@ func unmarshalMapFirewallPolicyRule(m map[string]interface{}, c *Client) (*Firew
 // expandFirewallPolicyRule expands FirewallPolicyRule into a JSON request object.
 func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v := f.Priority; dcl.ValueShouldBeSent(v) {
 		m["priority"] = v
 	}
-	if v, err := expandFirewallPolicyRuleMatch(c, f.Match); err != nil {
+	if v, err := expandFirewallPolicyRuleMatch(c, f.Match, res); err != nil {
 		return nil, fmt.Errorf("error expanding Match into match: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["match"] = v
@@ -1044,14 +1048,14 @@ func flattenFirewallPolicyRule(c *Client, i interface{}) *FirewallPolicyRule {
 
 // expandFirewallPolicyRuleMatchMap expands the contents of FirewallPolicyRuleMatch into a JSON
 // request object.
-func expandFirewallPolicyRuleMatchMap(c *Client, f map[string]FirewallPolicyRuleMatch) (map[string]interface{}, error) {
+func expandFirewallPolicyRuleMatchMap(c *Client, f map[string]FirewallPolicyRuleMatch, res *FirewallPolicyRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFirewallPolicyRuleMatch(c, &item)
+		i, err := expandFirewallPolicyRuleMatch(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1065,14 +1069,14 @@ func expandFirewallPolicyRuleMatchMap(c *Client, f map[string]FirewallPolicyRule
 
 // expandFirewallPolicyRuleMatchSlice expands the contents of FirewallPolicyRuleMatch into a JSON
 // request object.
-func expandFirewallPolicyRuleMatchSlice(c *Client, f []FirewallPolicyRuleMatch) ([]map[string]interface{}, error) {
+func expandFirewallPolicyRuleMatchSlice(c *Client, f []FirewallPolicyRuleMatch, res *FirewallPolicyRule) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFirewallPolicyRuleMatch(c, &item)
+		i, err := expandFirewallPolicyRuleMatch(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1125,7 +1129,7 @@ func flattenFirewallPolicyRuleMatchSlice(c *Client, i interface{}) []FirewallPol
 
 // expandFirewallPolicyRuleMatch expands an instance of FirewallPolicyRuleMatch into a JSON
 // request object.
-func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch) (map[string]interface{}, error) {
+func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch, res *FirewallPolicyRule) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1137,7 +1141,7 @@ func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch) (map[s
 	if v := f.DestIPRanges; v != nil {
 		m["destIpRanges"] = v
 	}
-	if v, err := expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c, f.Layer4Configs); err != nil {
+	if v, err := expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c, f.Layer4Configs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Layer4Configs into layer4Configs: %w", err)
 	} else if v != nil {
 		m["layer4Configs"] = v
@@ -1168,14 +1172,14 @@ func flattenFirewallPolicyRuleMatch(c *Client, i interface{}) *FirewallPolicyRul
 
 // expandFirewallPolicyRuleMatchLayer4ConfigsMap expands the contents of FirewallPolicyRuleMatchLayer4Configs into a JSON
 // request object.
-func expandFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, f map[string]FirewallPolicyRuleMatchLayer4Configs) (map[string]interface{}, error) {
+func expandFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, f map[string]FirewallPolicyRuleMatchLayer4Configs, res *FirewallPolicyRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFirewallPolicyRuleMatchLayer4Configs(c, &item)
+		i, err := expandFirewallPolicyRuleMatchLayer4Configs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1189,14 +1193,14 @@ func expandFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, f map[string]Firew
 
 // expandFirewallPolicyRuleMatchLayer4ConfigsSlice expands the contents of FirewallPolicyRuleMatchLayer4Configs into a JSON
 // request object.
-func expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, f []FirewallPolicyRuleMatchLayer4Configs) ([]map[string]interface{}, error) {
+func expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, f []FirewallPolicyRuleMatchLayer4Configs, res *FirewallPolicyRule) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFirewallPolicyRuleMatchLayer4Configs(c, &item)
+		i, err := expandFirewallPolicyRuleMatchLayer4Configs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1249,7 +1253,7 @@ func flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, i interface{}) 
 
 // expandFirewallPolicyRuleMatchLayer4Configs expands an instance of FirewallPolicyRuleMatchLayer4Configs into a JSON
 // request object.
-func expandFirewallPolicyRuleMatchLayer4Configs(c *Client, f *FirewallPolicyRuleMatchLayer4Configs) (map[string]interface{}, error) {
+func expandFirewallPolicyRuleMatchLayer4Configs(c *Client, f *FirewallPolicyRuleMatchLayer4Configs, res *FirewallPolicyRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

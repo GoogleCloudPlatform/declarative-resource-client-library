@@ -27,7 +27,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
-func expandHubReferenceLink(f *MembershipEndpointGkeCluster, val *string) (interface{}, error) {
+func expandHubReferenceLink(_ *Client, val *string, _ *Membership) (interface{}, error) {
 	if val == nil {
 		return nil, nil
 	}

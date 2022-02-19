@@ -419,6 +419,8 @@ func unmarshalMapFirewallPolicyAssociation(m map[string]interface{}, c *Client) 
 // expandFirewallPolicyAssociation expands FirewallPolicyAssociation into a JSON request object.
 func expandFirewallPolicyAssociation(c *Client, f *FirewallPolicyAssociation) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

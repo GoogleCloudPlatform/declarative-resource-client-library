@@ -110,6 +110,8 @@ type instanceApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		req["type"] = v
@@ -120,7 +122,7 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	if v := f.EnableStackdriverMonitoring; !dcl.IsEmptyValueIndirect(v) {
 		req["enableStackdriverMonitoring"] = v
 	}
-	if v, err := expandInstanceNetworkConfig(c, f.NetworkConfig); err != nil {
+	if v, err := expandInstanceNetworkConfig(c, f.NetworkConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["networkConfig"] = v
@@ -1298,6 +1300,8 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 // expandInstance expands Instance into a JSON request object.
 func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1318,7 +1322,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.PrivateInstance; dcl.ValueShouldBeSent(v) {
 		m["privateInstance"] = v
 	}
-	if v, err := expandInstanceNetworkConfig(c, f.NetworkConfig); err != nil {
+	if v, err := expandInstanceNetworkConfig(c, f.NetworkConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["networkConfig"] = v
@@ -1398,14 +1402,14 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 
 // expandInstanceNetworkConfigMap expands the contents of InstanceNetworkConfig into a JSON
 // request object.
-func expandInstanceNetworkConfigMap(c *Client, f map[string]InstanceNetworkConfig) (map[string]interface{}, error) {
+func expandInstanceNetworkConfigMap(c *Client, f map[string]InstanceNetworkConfig, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceNetworkConfig(c, &item)
+		i, err := expandInstanceNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1419,14 +1423,14 @@ func expandInstanceNetworkConfigMap(c *Client, f map[string]InstanceNetworkConfi
 
 // expandInstanceNetworkConfigSlice expands the contents of InstanceNetworkConfig into a JSON
 // request object.
-func expandInstanceNetworkConfigSlice(c *Client, f []InstanceNetworkConfig) ([]map[string]interface{}, error) {
+func expandInstanceNetworkConfigSlice(c *Client, f []InstanceNetworkConfig, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceNetworkConfig(c, &item)
+		i, err := expandInstanceNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1479,7 +1483,7 @@ func flattenInstanceNetworkConfigSlice(c *Client, i interface{}) []InstanceNetwo
 
 // expandInstanceNetworkConfig expands an instance of InstanceNetworkConfig into a JSON
 // request object.
-func expandInstanceNetworkConfig(c *Client, f *InstanceNetworkConfig) (map[string]interface{}, error) {
+func expandInstanceNetworkConfig(c *Client, f *InstanceNetworkConfig, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1516,14 +1520,14 @@ func flattenInstanceNetworkConfig(c *Client, i interface{}) *InstanceNetworkConf
 
 // expandInstanceAvailableVersionMap expands the contents of InstanceAvailableVersion into a JSON
 // request object.
-func expandInstanceAvailableVersionMap(c *Client, f map[string]InstanceAvailableVersion) (map[string]interface{}, error) {
+func expandInstanceAvailableVersionMap(c *Client, f map[string]InstanceAvailableVersion, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceAvailableVersion(c, &item)
+		i, err := expandInstanceAvailableVersion(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1537,14 +1541,14 @@ func expandInstanceAvailableVersionMap(c *Client, f map[string]InstanceAvailable
 
 // expandInstanceAvailableVersionSlice expands the contents of InstanceAvailableVersion into a JSON
 // request object.
-func expandInstanceAvailableVersionSlice(c *Client, f []InstanceAvailableVersion) ([]map[string]interface{}, error) {
+func expandInstanceAvailableVersionSlice(c *Client, f []InstanceAvailableVersion, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceAvailableVersion(c, &item)
+		i, err := expandInstanceAvailableVersion(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1597,7 +1601,7 @@ func flattenInstanceAvailableVersionSlice(c *Client, i interface{}) []InstanceAv
 
 // expandInstanceAvailableVersion expands an instance of InstanceAvailableVersion into a JSON
 // request object.
-func expandInstanceAvailableVersion(c *Client, f *InstanceAvailableVersion) (map[string]interface{}, error) {
+func expandInstanceAvailableVersion(c *Client, f *InstanceAvailableVersion, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

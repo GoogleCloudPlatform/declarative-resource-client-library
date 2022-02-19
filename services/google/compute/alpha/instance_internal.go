@@ -193,6 +193,8 @@ type instanceApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateInstanceSetDeletionProtectionRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DeletionProtection; !dcl.IsEmptyValueIndirect(v) {
 		req["deletionProtection"] = v
@@ -268,6 +270,8 @@ func (op *updateInstanceSetDeletionProtectionOperation) do(ctx context.Context, 
 // fields based on the intended state of the resource.
 func newUpdateInstanceSetLabelsRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -360,6 +364,8 @@ func (op *updateInstanceSetLabelsOperation) do(ctx context.Context, r *Instance,
 // fields based on the intended state of the resource.
 func newUpdateInstanceSetMachineTypeRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.MachineType; !dcl.IsEmptyValueIndirect(v) {
 		req["machineType"] = v
@@ -435,6 +441,8 @@ func (op *updateInstanceSetMachineTypeOperation) do(ctx context.Context, r *Inst
 // fields based on the intended state of the resource.
 func newUpdateInstanceSetMetadataRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.ListOfKeyValuesFromMap(f.Metadata, "key", "value"); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into items: %w", err)
@@ -529,6 +537,8 @@ func (op *updateInstanceSetMetadataOperation) do(ctx context.Context, r *Instanc
 // fields based on the intended state of the resource.
 func newUpdateInstanceSetTagsRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Tags; v != nil {
 		req["items"] = v
@@ -621,6 +631,8 @@ func (op *updateInstanceSetTagsOperation) do(ctx context.Context, r *Instance, c
 // fields based on the intended state of the resource.
 func newUpdateInstanceStartRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	return req, nil
 }
@@ -693,6 +705,8 @@ func (op *updateInstanceStartOperation) do(ctx context.Context, r *Instance, c *
 // fields based on the intended state of the resource.
 func newUpdateInstanceStopRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	return req, nil
 }
@@ -765,6 +779,8 @@ func (op *updateInstanceStopOperation) do(ctx context.Context, r *Instance, c *C
 // fields based on the intended state of the resource.
 func newUpdateInstanceUpdateRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	return req, nil
 }
@@ -837,8 +853,10 @@ func (op *updateInstanceUpdateOperation) do(ctx context.Context, r *Instance, c 
 // fields based on the intended state of the resource.
 func newUpdateInstanceUpdateShieldedInstanceConfigRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandInstanceShieldedInstanceConfig(c, f.ShieldedInstanceConfig); err != nil {
+	if v, err := expandInstanceShieldedInstanceConfig(c, f.ShieldedInstanceConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ShieldedInstanceConfig into shieldedInstanceConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["shieldedInstanceConfig"] = v
@@ -4048,6 +4066,8 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 // expandInstance expands Instance into a JSON request object.
 func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.CanIPForward; dcl.ValueShouldBeSent(v) {
 		m["canIpForward"] = v
 	}
@@ -4057,12 +4077,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandInstanceDisksSlice(c, f.Disks); err != nil {
+	if v, err := expandInstanceDisksSlice(c, f.Disks, res); err != nil {
 		return nil, fmt.Errorf("error expanding Disks into disks: %w", err)
 	} else if v != nil {
 		m["disks"] = v
 	}
-	if v, err := expandInstanceGuestAcceleratorsSlice(c, f.GuestAccelerators); err != nil {
+	if v, err := expandInstanceGuestAcceleratorsSlice(c, f.GuestAccelerators, res); err != nil {
 		return nil, fmt.Errorf("error expanding GuestAccelerators into guestAccelerators: %w", err)
 	} else if v != nil {
 		m["guestAccelerators"] = v
@@ -4087,22 +4107,22 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v, err := expandInstanceNetworkInterfacesSlice(c, f.NetworkInterfaces); err != nil {
+	if v, err := expandInstanceNetworkInterfacesSlice(c, f.NetworkInterfaces, res); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkInterfaces into networkInterfaces: %w", err)
 	} else if v != nil {
 		m["networkInterfaces"] = v
 	}
-	if v, err := expandInstanceScheduling(c, f.Scheduling); err != nil {
+	if v, err := expandInstanceScheduling(c, f.Scheduling, res); err != nil {
 		return nil, fmt.Errorf("error expanding Scheduling into scheduling: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["scheduling"] = v
 	}
-	if v, err := expandInstanceServiceAccountsSlice(c, f.ServiceAccounts); err != nil {
+	if v, err := expandInstanceServiceAccountsSlice(c, f.ServiceAccounts, res); err != nil {
 		return nil, fmt.Errorf("error expanding ServiceAccounts into serviceAccounts: %w", err)
 	} else if v != nil {
 		m["serviceAccounts"] = v
 	}
-	if v, err := expandInstanceShieldedInstanceConfig(c, f.ShieldedInstanceConfig); err != nil {
+	if v, err := expandInstanceShieldedInstanceConfig(c, f.ShieldedInstanceConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ShieldedInstanceConfig into shieldedInstanceConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["shieldedInstanceConfig"] = v
@@ -4167,14 +4187,14 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 
 // expandInstanceDisksMap expands the contents of InstanceDisks into a JSON
 // request object.
-func expandInstanceDisksMap(c *Client, f map[string]InstanceDisks) (map[string]interface{}, error) {
+func expandInstanceDisksMap(c *Client, f map[string]InstanceDisks, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceDisks(c, &item)
+		i, err := expandInstanceDisks(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4188,14 +4208,14 @@ func expandInstanceDisksMap(c *Client, f map[string]InstanceDisks) (map[string]i
 
 // expandInstanceDisksSlice expands the contents of InstanceDisks into a JSON
 // request object.
-func expandInstanceDisksSlice(c *Client, f []InstanceDisks) ([]map[string]interface{}, error) {
+func expandInstanceDisksSlice(c *Client, f []InstanceDisks, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceDisks(c, &item)
+		i, err := expandInstanceDisks(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4248,7 +4268,7 @@ func flattenInstanceDisksSlice(c *Client, i interface{}) []InstanceDisks {
 
 // expandInstanceDisks expands an instance of InstanceDisks into a JSON
 // request object.
-func expandInstanceDisks(c *Client, f *InstanceDisks) (map[string]interface{}, error) {
+func expandInstanceDisks(c *Client, f *InstanceDisks, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -4263,7 +4283,7 @@ func expandInstanceDisks(c *Client, f *InstanceDisks) (map[string]interface{}, e
 	if v := f.DeviceName; !dcl.IsEmptyValueIndirect(v) {
 		m["deviceName"] = v
 	}
-	if v, err := expandInstanceDisksDiskEncryptionKey(c, f.DiskEncryptionKey); err != nil {
+	if v, err := expandInstanceDisksDiskEncryptionKey(c, f.DiskEncryptionKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding DiskEncryptionKey into diskEncryptionKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["diskEncryptionKey"] = v
@@ -4271,7 +4291,7 @@ func expandInstanceDisks(c *Client, f *InstanceDisks) (map[string]interface{}, e
 	if v := f.Index; !dcl.IsEmptyValueIndirect(v) {
 		m["index"] = v
 	}
-	if v, err := expandInstanceDisksInitializeParams(c, f.InitializeParams); err != nil {
+	if v, err := expandInstanceDisksInitializeParams(c, f.InitializeParams, res); err != nil {
 		return nil, fmt.Errorf("error expanding InitializeParams into initializeParams: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["initializeParams"] = v
@@ -4321,14 +4341,14 @@ func flattenInstanceDisks(c *Client, i interface{}) *InstanceDisks {
 
 // expandInstanceDisksDiskEncryptionKeyMap expands the contents of InstanceDisksDiskEncryptionKey into a JSON
 // request object.
-func expandInstanceDisksDiskEncryptionKeyMap(c *Client, f map[string]InstanceDisksDiskEncryptionKey) (map[string]interface{}, error) {
+func expandInstanceDisksDiskEncryptionKeyMap(c *Client, f map[string]InstanceDisksDiskEncryptionKey, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceDisksDiskEncryptionKey(c, &item)
+		i, err := expandInstanceDisksDiskEncryptionKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4342,14 +4362,14 @@ func expandInstanceDisksDiskEncryptionKeyMap(c *Client, f map[string]InstanceDis
 
 // expandInstanceDisksDiskEncryptionKeySlice expands the contents of InstanceDisksDiskEncryptionKey into a JSON
 // request object.
-func expandInstanceDisksDiskEncryptionKeySlice(c *Client, f []InstanceDisksDiskEncryptionKey) ([]map[string]interface{}, error) {
+func expandInstanceDisksDiskEncryptionKeySlice(c *Client, f []InstanceDisksDiskEncryptionKey, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceDisksDiskEncryptionKey(c, &item)
+		i, err := expandInstanceDisksDiskEncryptionKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4402,7 +4422,7 @@ func flattenInstanceDisksDiskEncryptionKeySlice(c *Client, i interface{}) []Inst
 
 // expandInstanceDisksDiskEncryptionKey expands an instance of InstanceDisksDiskEncryptionKey into a JSON
 // request object.
-func expandInstanceDisksDiskEncryptionKey(c *Client, f *InstanceDisksDiskEncryptionKey) (map[string]interface{}, error) {
+func expandInstanceDisksDiskEncryptionKey(c *Client, f *InstanceDisksDiskEncryptionKey, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4440,14 +4460,14 @@ func flattenInstanceDisksDiskEncryptionKey(c *Client, i interface{}) *InstanceDi
 
 // expandInstanceDisksInitializeParamsMap expands the contents of InstanceDisksInitializeParams into a JSON
 // request object.
-func expandInstanceDisksInitializeParamsMap(c *Client, f map[string]InstanceDisksInitializeParams) (map[string]interface{}, error) {
+func expandInstanceDisksInitializeParamsMap(c *Client, f map[string]InstanceDisksInitializeParams, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceDisksInitializeParams(c, &item)
+		i, err := expandInstanceDisksInitializeParams(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4461,14 +4481,14 @@ func expandInstanceDisksInitializeParamsMap(c *Client, f map[string]InstanceDisk
 
 // expandInstanceDisksInitializeParamsSlice expands the contents of InstanceDisksInitializeParams into a JSON
 // request object.
-func expandInstanceDisksInitializeParamsSlice(c *Client, f []InstanceDisksInitializeParams) ([]map[string]interface{}, error) {
+func expandInstanceDisksInitializeParamsSlice(c *Client, f []InstanceDisksInitializeParams, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceDisksInitializeParams(c, &item)
+		i, err := expandInstanceDisksInitializeParams(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4521,7 +4541,7 @@ func flattenInstanceDisksInitializeParamsSlice(c *Client, i interface{}) []Insta
 
 // expandInstanceDisksInitializeParams expands an instance of InstanceDisksInitializeParams into a JSON
 // request object.
-func expandInstanceDisksInitializeParams(c *Client, f *InstanceDisksInitializeParams) (map[string]interface{}, error) {
+func expandInstanceDisksInitializeParams(c *Client, f *InstanceDisksInitializeParams, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4539,7 +4559,7 @@ func expandInstanceDisksInitializeParams(c *Client, f *InstanceDisksInitializePa
 	if v := f.SourceImage; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceImage"] = v
 	}
-	if v, err := expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c, f.SourceImageEncryptionKey); err != nil {
+	if v, err := expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c, f.SourceImageEncryptionKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding SourceImageEncryptionKey into sourceImageEncryptionKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sourceImageEncryptionKey"] = v
@@ -4572,14 +4592,14 @@ func flattenInstanceDisksInitializeParams(c *Client, i interface{}) *InstanceDis
 
 // expandInstanceDisksInitializeParamsSourceImageEncryptionKeyMap expands the contents of InstanceDisksInitializeParamsSourceImageEncryptionKey into a JSON
 // request object.
-func expandInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, f map[string]InstanceDisksInitializeParamsSourceImageEncryptionKey) (map[string]interface{}, error) {
+func expandInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, f map[string]InstanceDisksInitializeParamsSourceImageEncryptionKey, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c, &item)
+		i, err := expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4593,14 +4613,14 @@ func expandInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, f
 
 // expandInstanceDisksInitializeParamsSourceImageEncryptionKeySlice expands the contents of InstanceDisksInitializeParamsSourceImageEncryptionKey into a JSON
 // request object.
-func expandInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, f []InstanceDisksInitializeParamsSourceImageEncryptionKey) ([]map[string]interface{}, error) {
+func expandInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, f []InstanceDisksInitializeParamsSourceImageEncryptionKey, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c, &item)
+		i, err := expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4653,7 +4673,7 @@ func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client
 
 // expandInstanceDisksInitializeParamsSourceImageEncryptionKey expands an instance of InstanceDisksInitializeParamsSourceImageEncryptionKey into a JSON
 // request object.
-func expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, f *InstanceDisksInitializeParamsSourceImageEncryptionKey) (map[string]interface{}, error) {
+func expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, f *InstanceDisksInitializeParamsSourceImageEncryptionKey, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4687,14 +4707,14 @@ func flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, i i
 
 // expandInstanceGuestAcceleratorsMap expands the contents of InstanceGuestAccelerators into a JSON
 // request object.
-func expandInstanceGuestAcceleratorsMap(c *Client, f map[string]InstanceGuestAccelerators) (map[string]interface{}, error) {
+func expandInstanceGuestAcceleratorsMap(c *Client, f map[string]InstanceGuestAccelerators, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceGuestAccelerators(c, &item)
+		i, err := expandInstanceGuestAccelerators(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4708,14 +4728,14 @@ func expandInstanceGuestAcceleratorsMap(c *Client, f map[string]InstanceGuestAcc
 
 // expandInstanceGuestAcceleratorsSlice expands the contents of InstanceGuestAccelerators into a JSON
 // request object.
-func expandInstanceGuestAcceleratorsSlice(c *Client, f []InstanceGuestAccelerators) ([]map[string]interface{}, error) {
+func expandInstanceGuestAcceleratorsSlice(c *Client, f []InstanceGuestAccelerators, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceGuestAccelerators(c, &item)
+		i, err := expandInstanceGuestAccelerators(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4768,7 +4788,7 @@ func flattenInstanceGuestAcceleratorsSlice(c *Client, i interface{}) []InstanceG
 
 // expandInstanceGuestAccelerators expands an instance of InstanceGuestAccelerators into a JSON
 // request object.
-func expandInstanceGuestAccelerators(c *Client, f *InstanceGuestAccelerators) (map[string]interface{}, error) {
+func expandInstanceGuestAccelerators(c *Client, f *InstanceGuestAccelerators, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -4805,14 +4825,14 @@ func flattenInstanceGuestAccelerators(c *Client, i interface{}) *InstanceGuestAc
 
 // expandInstanceNetworkInterfacesMap expands the contents of InstanceNetworkInterfaces into a JSON
 // request object.
-func expandInstanceNetworkInterfacesMap(c *Client, f map[string]InstanceNetworkInterfaces) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesMap(c *Client, f map[string]InstanceNetworkInterfaces, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceNetworkInterfaces(c, &item)
+		i, err := expandInstanceNetworkInterfaces(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4826,14 +4846,14 @@ func expandInstanceNetworkInterfacesMap(c *Client, f map[string]InstanceNetworkI
 
 // expandInstanceNetworkInterfacesSlice expands the contents of InstanceNetworkInterfaces into a JSON
 // request object.
-func expandInstanceNetworkInterfacesSlice(c *Client, f []InstanceNetworkInterfaces) ([]map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesSlice(c *Client, f []InstanceNetworkInterfaces, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceNetworkInterfaces(c, &item)
+		i, err := expandInstanceNetworkInterfaces(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4886,23 +4906,23 @@ func flattenInstanceNetworkInterfacesSlice(c *Client, i interface{}) []InstanceN
 
 // expandInstanceNetworkInterfaces expands an instance of InstanceNetworkInterfaces into a JSON
 // request object.
-func expandInstanceNetworkInterfaces(c *Client, f *InstanceNetworkInterfaces) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfaces(c *Client, f *InstanceNetworkInterfaces, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceNetworkInterfacesAccessConfigsSlice(c, f.AccessConfigs); err != nil {
+	if v, err := expandInstanceNetworkInterfacesAccessConfigsSlice(c, f.AccessConfigs, res); err != nil {
 		return nil, fmt.Errorf("error expanding AccessConfigs into accessConfigs: %w", err)
 	} else if v != nil {
 		m["accessConfigs"] = v
 	}
-	if v, err := expandInstanceNetworkInterfacesIPv6AccessConfigsSlice(c, f.IPv6AccessConfigs); err != nil {
+	if v, err := expandInstanceNetworkInterfacesIPv6AccessConfigsSlice(c, f.IPv6AccessConfigs, res); err != nil {
 		return nil, fmt.Errorf("error expanding IPv6AccessConfigs into ipv6AccessConfigs: %w", err)
 	} else if v != nil {
 		m["ipv6AccessConfigs"] = v
 	}
-	if v, err := expandInstanceNetworkInterfacesAliasIPRangesSlice(c, f.AliasIPRanges); err != nil {
+	if v, err := expandInstanceNetworkInterfacesAliasIPRangesSlice(c, f.AliasIPRanges, res); err != nil {
 		return nil, fmt.Errorf("error expanding AliasIPRanges into aliasIPRanges: %w", err)
 	} else if v != nil {
 		m["aliasIPRanges"] = v
@@ -4946,14 +4966,14 @@ func flattenInstanceNetworkInterfaces(c *Client, i interface{}) *InstanceNetwork
 
 // expandInstanceNetworkInterfacesAccessConfigsMap expands the contents of InstanceNetworkInterfacesAccessConfigs into a JSON
 // request object.
-func expandInstanceNetworkInterfacesAccessConfigsMap(c *Client, f map[string]InstanceNetworkInterfacesAccessConfigs) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesAccessConfigsMap(c *Client, f map[string]InstanceNetworkInterfacesAccessConfigs, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceNetworkInterfacesAccessConfigs(c, &item)
+		i, err := expandInstanceNetworkInterfacesAccessConfigs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4967,14 +4987,14 @@ func expandInstanceNetworkInterfacesAccessConfigsMap(c *Client, f map[string]Ins
 
 // expandInstanceNetworkInterfacesAccessConfigsSlice expands the contents of InstanceNetworkInterfacesAccessConfigs into a JSON
 // request object.
-func expandInstanceNetworkInterfacesAccessConfigsSlice(c *Client, f []InstanceNetworkInterfacesAccessConfigs) ([]map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesAccessConfigsSlice(c *Client, f []InstanceNetworkInterfacesAccessConfigs, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceNetworkInterfacesAccessConfigs(c, &item)
+		i, err := expandInstanceNetworkInterfacesAccessConfigs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5027,7 +5047,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsSlice(c *Client, i interface{}
 
 // expandInstanceNetworkInterfacesAccessConfigs expands an instance of InstanceNetworkInterfacesAccessConfigs into a JSON
 // request object.
-func expandInstanceNetworkInterfacesAccessConfigs(c *Client, f *InstanceNetworkInterfacesAccessConfigs) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesAccessConfigs(c *Client, f *InstanceNetworkInterfacesAccessConfigs, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5082,14 +5102,14 @@ func flattenInstanceNetworkInterfacesAccessConfigs(c *Client, i interface{}) *In
 
 // expandInstanceNetworkInterfacesIPv6AccessConfigsMap expands the contents of InstanceNetworkInterfacesIPv6AccessConfigs into a JSON
 // request object.
-func expandInstanceNetworkInterfacesIPv6AccessConfigsMap(c *Client, f map[string]InstanceNetworkInterfacesIPv6AccessConfigs) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesIPv6AccessConfigsMap(c *Client, f map[string]InstanceNetworkInterfacesIPv6AccessConfigs, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceNetworkInterfacesIPv6AccessConfigs(c, &item)
+		i, err := expandInstanceNetworkInterfacesIPv6AccessConfigs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5103,14 +5123,14 @@ func expandInstanceNetworkInterfacesIPv6AccessConfigsMap(c *Client, f map[string
 
 // expandInstanceNetworkInterfacesIPv6AccessConfigsSlice expands the contents of InstanceNetworkInterfacesIPv6AccessConfigs into a JSON
 // request object.
-func expandInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, f []InstanceNetworkInterfacesIPv6AccessConfigs) ([]map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, f []InstanceNetworkInterfacesIPv6AccessConfigs, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceNetworkInterfacesIPv6AccessConfigs(c, &item)
+		i, err := expandInstanceNetworkInterfacesIPv6AccessConfigs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5163,7 +5183,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, i interfa
 
 // expandInstanceNetworkInterfacesIPv6AccessConfigs expands an instance of InstanceNetworkInterfacesIPv6AccessConfigs into a JSON
 // request object.
-func expandInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, f *InstanceNetworkInterfacesIPv6AccessConfigs) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, f *InstanceNetworkInterfacesIPv6AccessConfigs, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5218,14 +5238,14 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, i interface{})
 
 // expandInstanceNetworkInterfacesAliasIPRangesMap expands the contents of InstanceNetworkInterfacesAliasIPRanges into a JSON
 // request object.
-func expandInstanceNetworkInterfacesAliasIPRangesMap(c *Client, f map[string]InstanceNetworkInterfacesAliasIPRanges) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesAliasIPRangesMap(c *Client, f map[string]InstanceNetworkInterfacesAliasIPRanges, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceNetworkInterfacesAliasIPRanges(c, &item)
+		i, err := expandInstanceNetworkInterfacesAliasIPRanges(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5239,14 +5259,14 @@ func expandInstanceNetworkInterfacesAliasIPRangesMap(c *Client, f map[string]Ins
 
 // expandInstanceNetworkInterfacesAliasIPRangesSlice expands the contents of InstanceNetworkInterfacesAliasIPRanges into a JSON
 // request object.
-func expandInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, f []InstanceNetworkInterfacesAliasIPRanges) ([]map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, f []InstanceNetworkInterfacesAliasIPRanges, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceNetworkInterfacesAliasIPRanges(c, &item)
+		i, err := expandInstanceNetworkInterfacesAliasIPRanges(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5299,7 +5319,7 @@ func flattenInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, i interface{}
 
 // expandInstanceNetworkInterfacesAliasIPRanges expands an instance of InstanceNetworkInterfacesAliasIPRanges into a JSON
 // request object.
-func expandInstanceNetworkInterfacesAliasIPRanges(c *Client, f *InstanceNetworkInterfacesAliasIPRanges) (map[string]interface{}, error) {
+func expandInstanceNetworkInterfacesAliasIPRanges(c *Client, f *InstanceNetworkInterfacesAliasIPRanges, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5336,14 +5356,14 @@ func flattenInstanceNetworkInterfacesAliasIPRanges(c *Client, i interface{}) *In
 
 // expandInstanceSchedulingMap expands the contents of InstanceScheduling into a JSON
 // request object.
-func expandInstanceSchedulingMap(c *Client, f map[string]InstanceScheduling) (map[string]interface{}, error) {
+func expandInstanceSchedulingMap(c *Client, f map[string]InstanceScheduling, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceScheduling(c, &item)
+		i, err := expandInstanceScheduling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5357,14 +5377,14 @@ func expandInstanceSchedulingMap(c *Client, f map[string]InstanceScheduling) (ma
 
 // expandInstanceSchedulingSlice expands the contents of InstanceScheduling into a JSON
 // request object.
-func expandInstanceSchedulingSlice(c *Client, f []InstanceScheduling) ([]map[string]interface{}, error) {
+func expandInstanceSchedulingSlice(c *Client, f []InstanceScheduling, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceScheduling(c, &item)
+		i, err := expandInstanceScheduling(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5417,7 +5437,7 @@ func flattenInstanceSchedulingSlice(c *Client, i interface{}) []InstanceScheduli
 
 // expandInstanceScheduling expands an instance of InstanceScheduling into a JSON
 // request object.
-func expandInstanceScheduling(c *Client, f *InstanceScheduling) (map[string]interface{}, error) {
+func expandInstanceScheduling(c *Client, f *InstanceScheduling, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5458,14 +5478,14 @@ func flattenInstanceScheduling(c *Client, i interface{}) *InstanceScheduling {
 
 // expandInstanceServiceAccountsMap expands the contents of InstanceServiceAccounts into a JSON
 // request object.
-func expandInstanceServiceAccountsMap(c *Client, f map[string]InstanceServiceAccounts) (map[string]interface{}, error) {
+func expandInstanceServiceAccountsMap(c *Client, f map[string]InstanceServiceAccounts, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceServiceAccounts(c, &item)
+		i, err := expandInstanceServiceAccounts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5479,14 +5499,14 @@ func expandInstanceServiceAccountsMap(c *Client, f map[string]InstanceServiceAcc
 
 // expandInstanceServiceAccountsSlice expands the contents of InstanceServiceAccounts into a JSON
 // request object.
-func expandInstanceServiceAccountsSlice(c *Client, f []InstanceServiceAccounts) ([]map[string]interface{}, error) {
+func expandInstanceServiceAccountsSlice(c *Client, f []InstanceServiceAccounts, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceServiceAccounts(c, &item)
+		i, err := expandInstanceServiceAccounts(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5539,7 +5559,7 @@ func flattenInstanceServiceAccountsSlice(c *Client, i interface{}) []InstanceSer
 
 // expandInstanceServiceAccounts expands an instance of InstanceServiceAccounts into a JSON
 // request object.
-func expandInstanceServiceAccounts(c *Client, f *InstanceServiceAccounts) (map[string]interface{}, error) {
+func expandInstanceServiceAccounts(c *Client, f *InstanceServiceAccounts, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -5576,14 +5596,14 @@ func flattenInstanceServiceAccounts(c *Client, i interface{}) *InstanceServiceAc
 
 // expandInstanceShieldedInstanceConfigMap expands the contents of InstanceShieldedInstanceConfig into a JSON
 // request object.
-func expandInstanceShieldedInstanceConfigMap(c *Client, f map[string]InstanceShieldedInstanceConfig) (map[string]interface{}, error) {
+func expandInstanceShieldedInstanceConfigMap(c *Client, f map[string]InstanceShieldedInstanceConfig, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceShieldedInstanceConfig(c, &item)
+		i, err := expandInstanceShieldedInstanceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5597,14 +5617,14 @@ func expandInstanceShieldedInstanceConfigMap(c *Client, f map[string]InstanceShi
 
 // expandInstanceShieldedInstanceConfigSlice expands the contents of InstanceShieldedInstanceConfig into a JSON
 // request object.
-func expandInstanceShieldedInstanceConfigSlice(c *Client, f []InstanceShieldedInstanceConfig) ([]map[string]interface{}, error) {
+func expandInstanceShieldedInstanceConfigSlice(c *Client, f []InstanceShieldedInstanceConfig, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceShieldedInstanceConfig(c, &item)
+		i, err := expandInstanceShieldedInstanceConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5657,7 +5677,7 @@ func flattenInstanceShieldedInstanceConfigSlice(c *Client, i interface{}) []Inst
 
 // expandInstanceShieldedInstanceConfig expands an instance of InstanceShieldedInstanceConfig into a JSON
 // request object.
-func expandInstanceShieldedInstanceConfig(c *Client, f *InstanceShieldedInstanceConfig) (map[string]interface{}, error) {
+func expandInstanceShieldedInstanceConfig(c *Client, f *InstanceShieldedInstanceConfig, res *Instance) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

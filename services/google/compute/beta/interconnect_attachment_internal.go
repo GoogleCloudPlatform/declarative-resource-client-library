@@ -110,6 +110,8 @@ type interconnectAttachmentApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateInterconnectAttachmentPatchRequest(ctx context.Context, f *InterconnectAttachment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -147,7 +149,7 @@ func newUpdateInterconnectAttachmentPatchRequest(ctx context.Context, f *Interco
 	if v := f.Bandwidth; !dcl.IsEmptyValueIndirect(v) {
 		req["bandwidth"] = v
 	}
-	if v, err := expandInterconnectAttachmentPartnerMetadata(c, f.PartnerMetadata); err != nil {
+	if v, err := expandInterconnectAttachmentPartnerMetadata(c, f.PartnerMetadata, res); err != nil {
 		return nil, fmt.Errorf("error expanding PartnerMetadata into partnerMetadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["partnerMetadata"] = v
@@ -1378,6 +1380,8 @@ func unmarshalMapInterconnectAttachment(m map[string]interface{}, c *Client) (*I
 // expandInterconnectAttachment expands InterconnectAttachment into a JSON request object.
 func expandInterconnectAttachment(c *Client, f *InterconnectAttachment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
@@ -1417,7 +1421,7 @@ func expandInterconnectAttachment(c *Client, f *InterconnectAttachment) (map[str
 	if v := f.Bandwidth; dcl.ValueShouldBeSent(v) {
 		m["bandwidth"] = v
 	}
-	if v, err := expandInterconnectAttachmentPartnerMetadata(c, f.PartnerMetadata); err != nil {
+	if v, err := expandInterconnectAttachmentPartnerMetadata(c, f.PartnerMetadata, res); err != nil {
 		return nil, fmt.Errorf("error expanding PartnerMetadata into partnerMetadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["partnerMetadata"] = v
@@ -1496,14 +1500,14 @@ func flattenInterconnectAttachment(c *Client, i interface{}) *InterconnectAttach
 
 // expandInterconnectAttachmentPrivateInterconnectInfoMap expands the contents of InterconnectAttachmentPrivateInterconnectInfo into a JSON
 // request object.
-func expandInterconnectAttachmentPrivateInterconnectInfoMap(c *Client, f map[string]InterconnectAttachmentPrivateInterconnectInfo) (map[string]interface{}, error) {
+func expandInterconnectAttachmentPrivateInterconnectInfoMap(c *Client, f map[string]InterconnectAttachmentPrivateInterconnectInfo, res *InterconnectAttachment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInterconnectAttachmentPrivateInterconnectInfo(c, &item)
+		i, err := expandInterconnectAttachmentPrivateInterconnectInfo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1517,14 +1521,14 @@ func expandInterconnectAttachmentPrivateInterconnectInfoMap(c *Client, f map[str
 
 // expandInterconnectAttachmentPrivateInterconnectInfoSlice expands the contents of InterconnectAttachmentPrivateInterconnectInfo into a JSON
 // request object.
-func expandInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client, f []InterconnectAttachmentPrivateInterconnectInfo) ([]map[string]interface{}, error) {
+func expandInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client, f []InterconnectAttachmentPrivateInterconnectInfo, res *InterconnectAttachment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInterconnectAttachmentPrivateInterconnectInfo(c, &item)
+		i, err := expandInterconnectAttachmentPrivateInterconnectInfo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1577,7 +1581,7 @@ func flattenInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client, i inte
 
 // expandInterconnectAttachmentPrivateInterconnectInfo expands an instance of InterconnectAttachmentPrivateInterconnectInfo into a JSON
 // request object.
-func expandInterconnectAttachmentPrivateInterconnectInfo(c *Client, f *InterconnectAttachmentPrivateInterconnectInfo) (map[string]interface{}, error) {
+func expandInterconnectAttachmentPrivateInterconnectInfo(c *Client, f *InterconnectAttachmentPrivateInterconnectInfo, res *InterconnectAttachment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1607,14 +1611,14 @@ func flattenInterconnectAttachmentPrivateInterconnectInfo(c *Client, i interface
 
 // expandInterconnectAttachmentPartnerMetadataMap expands the contents of InterconnectAttachmentPartnerMetadata into a JSON
 // request object.
-func expandInterconnectAttachmentPartnerMetadataMap(c *Client, f map[string]InterconnectAttachmentPartnerMetadata) (map[string]interface{}, error) {
+func expandInterconnectAttachmentPartnerMetadataMap(c *Client, f map[string]InterconnectAttachmentPartnerMetadata, res *InterconnectAttachment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInterconnectAttachmentPartnerMetadata(c, &item)
+		i, err := expandInterconnectAttachmentPartnerMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1628,14 +1632,14 @@ func expandInterconnectAttachmentPartnerMetadataMap(c *Client, f map[string]Inte
 
 // expandInterconnectAttachmentPartnerMetadataSlice expands the contents of InterconnectAttachmentPartnerMetadata into a JSON
 // request object.
-func expandInterconnectAttachmentPartnerMetadataSlice(c *Client, f []InterconnectAttachmentPartnerMetadata) ([]map[string]interface{}, error) {
+func expandInterconnectAttachmentPartnerMetadataSlice(c *Client, f []InterconnectAttachmentPartnerMetadata, res *InterconnectAttachment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInterconnectAttachmentPartnerMetadata(c, &item)
+		i, err := expandInterconnectAttachmentPartnerMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1688,7 +1692,7 @@ func flattenInterconnectAttachmentPartnerMetadataSlice(c *Client, i interface{})
 
 // expandInterconnectAttachmentPartnerMetadata expands an instance of InterconnectAttachmentPartnerMetadata into a JSON
 // request object.
-func expandInterconnectAttachmentPartnerMetadata(c *Client, f *InterconnectAttachmentPartnerMetadata) (map[string]interface{}, error) {
+func expandInterconnectAttachmentPartnerMetadata(c *Client, f *InterconnectAttachmentPartnerMetadata, res *InterconnectAttachment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

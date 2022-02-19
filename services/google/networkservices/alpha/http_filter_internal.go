@@ -105,6 +105,8 @@ type httpFilterApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateHttpFilterUpdateHttpFilterRequest(ctx context.Context, f *HttpFilter, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("projects/%s/locations/global/httpFilters/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -721,6 +723,8 @@ func unmarshalMapHttpFilter(m map[string]interface{}, c *Client) (*HttpFilter, e
 // expandHttpFilter expands HttpFilter into a JSON request object.
 func expandHttpFilter(c *Client, f *HttpFilter) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/global/httpFilters/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

@@ -191,6 +191,8 @@ type noteApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateNoteUpdateNoteRequest(ctx context.Context, f *Note, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.ShortDescription; !dcl.IsEmptyValueIndirect(v) {
 		req["shortDescription"] = v
@@ -198,7 +200,7 @@ func newUpdateNoteUpdateNoteRequest(ctx context.Context, f *Note, c *Client) (ma
 	if v := f.LongDescription; !dcl.IsEmptyValueIndirect(v) {
 		req["longDescription"] = v
 	}
-	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl); err != nil {
+	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl, res); err != nil {
 		return nil, fmt.Errorf("error expanding RelatedUrl into relatedUrl: %w", err)
 	} else if v != nil {
 		req["relatedUrl"] = v
@@ -206,27 +208,27 @@ func newUpdateNoteUpdateNoteRequest(ctx context.Context, f *Note, c *Client) (ma
 	if v := f.ExpirationTime; !dcl.IsEmptyValueIndirect(v) {
 		req["expirationTime"] = v
 	}
-	if v, err := expandNoteImage(c, f.Image); err != nil {
+	if v, err := expandNoteImage(c, f.Image, res); err != nil {
 		return nil, fmt.Errorf("error expanding Image into image: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["image"] = v
 	}
-	if v, err := expandNotePackage(c, f.Package); err != nil {
+	if v, err := expandNotePackage(c, f.Package, res); err != nil {
 		return nil, fmt.Errorf("error expanding Package into package: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["package"] = v
 	}
-	if v, err := expandNoteDiscovery(c, f.Discovery); err != nil {
+	if v, err := expandNoteDiscovery(c, f.Discovery, res); err != nil {
 		return nil, fmt.Errorf("error expanding Discovery into discovery: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["discovery"] = v
 	}
-	if v, err := expandNoteDeployment(c, f.Deployment); err != nil {
+	if v, err := expandNoteDeployment(c, f.Deployment, res); err != nil {
 		return nil, fmt.Errorf("error expanding Deployment into deployment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["deployment"] = v
 	}
-	if v, err := expandNoteAttestation(c, f.Attestation); err != nil {
+	if v, err := expandNoteAttestation(c, f.Attestation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Attestation into attestation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["attestation"] = v
@@ -2516,6 +2518,8 @@ func unmarshalMapNote(m map[string]interface{}, c *Client) (*Note, error) {
 // expandNote expands Note into a JSON request object.
 func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/notes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2527,7 +2531,7 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	if v := f.LongDescription; dcl.ValueShouldBeSent(v) {
 		m["longDescription"] = v
 	}
-	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl); err != nil {
+	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl, res); err != nil {
 		return nil, fmt.Errorf("error expanding RelatedUrl into relatedUrl: %w", err)
 	} else if v != nil {
 		m["relatedUrl"] = v
@@ -2535,27 +2539,27 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	if v := f.ExpirationTime; dcl.ValueShouldBeSent(v) {
 		m["expirationTime"] = v
 	}
-	if v, err := expandNoteImage(c, f.Image); err != nil {
+	if v, err := expandNoteImage(c, f.Image, res); err != nil {
 		return nil, fmt.Errorf("error expanding Image into image: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["image"] = v
 	}
-	if v, err := expandNotePackage(c, f.Package); err != nil {
+	if v, err := expandNotePackage(c, f.Package, res); err != nil {
 		return nil, fmt.Errorf("error expanding Package into package: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["package"] = v
 	}
-	if v, err := expandNoteDiscovery(c, f.Discovery); err != nil {
+	if v, err := expandNoteDiscovery(c, f.Discovery, res); err != nil {
 		return nil, fmt.Errorf("error expanding Discovery into discovery: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["discovery"] = v
 	}
-	if v, err := expandNoteDeployment(c, f.Deployment); err != nil {
+	if v, err := expandNoteDeployment(c, f.Deployment, res); err != nil {
 		return nil, fmt.Errorf("error expanding Deployment into deployment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["deployment"] = v
 	}
-	if v, err := expandNoteAttestation(c, f.Attestation); err != nil {
+	if v, err := expandNoteAttestation(c, f.Attestation, res); err != nil {
 		return nil, fmt.Errorf("error expanding Attestation into attestation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["attestation"] = v
@@ -2600,14 +2604,14 @@ func flattenNote(c *Client, i interface{}) *Note {
 
 // expandNoteRelatedUrlMap expands the contents of NoteRelatedUrl into a JSON
 // request object.
-func expandNoteRelatedUrlMap(c *Client, f map[string]NoteRelatedUrl) (map[string]interface{}, error) {
+func expandNoteRelatedUrlMap(c *Client, f map[string]NoteRelatedUrl, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteRelatedUrl(c, &item)
+		i, err := expandNoteRelatedUrl(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2621,14 +2625,14 @@ func expandNoteRelatedUrlMap(c *Client, f map[string]NoteRelatedUrl) (map[string
 
 // expandNoteRelatedUrlSlice expands the contents of NoteRelatedUrl into a JSON
 // request object.
-func expandNoteRelatedUrlSlice(c *Client, f []NoteRelatedUrl) ([]map[string]interface{}, error) {
+func expandNoteRelatedUrlSlice(c *Client, f []NoteRelatedUrl, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteRelatedUrl(c, &item)
+		i, err := expandNoteRelatedUrl(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2681,7 +2685,7 @@ func flattenNoteRelatedUrlSlice(c *Client, i interface{}) []NoteRelatedUrl {
 
 // expandNoteRelatedUrl expands an instance of NoteRelatedUrl into a JSON
 // request object.
-func expandNoteRelatedUrl(c *Client, f *NoteRelatedUrl) (map[string]interface{}, error) {
+func expandNoteRelatedUrl(c *Client, f *NoteRelatedUrl, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2718,14 +2722,14 @@ func flattenNoteRelatedUrl(c *Client, i interface{}) *NoteRelatedUrl {
 
 // expandNoteImageMap expands the contents of NoteImage into a JSON
 // request object.
-func expandNoteImageMap(c *Client, f map[string]NoteImage) (map[string]interface{}, error) {
+func expandNoteImageMap(c *Client, f map[string]NoteImage, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteImage(c, &item)
+		i, err := expandNoteImage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2739,14 +2743,14 @@ func expandNoteImageMap(c *Client, f map[string]NoteImage) (map[string]interface
 
 // expandNoteImageSlice expands the contents of NoteImage into a JSON
 // request object.
-func expandNoteImageSlice(c *Client, f []NoteImage) ([]map[string]interface{}, error) {
+func expandNoteImageSlice(c *Client, f []NoteImage, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteImage(c, &item)
+		i, err := expandNoteImage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2799,7 +2803,7 @@ func flattenNoteImageSlice(c *Client, i interface{}) []NoteImage {
 
 // expandNoteImage expands an instance of NoteImage into a JSON
 // request object.
-func expandNoteImage(c *Client, f *NoteImage) (map[string]interface{}, error) {
+func expandNoteImage(c *Client, f *NoteImage, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2808,7 +2812,7 @@ func expandNoteImage(c *Client, f *NoteImage) (map[string]interface{}, error) {
 	if v := f.ResourceUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["resourceUrl"] = v
 	}
-	if v, err := expandNoteImageFingerprint(c, f.Fingerprint); err != nil {
+	if v, err := expandNoteImageFingerprint(c, f.Fingerprint, res); err != nil {
 		return nil, fmt.Errorf("error expanding Fingerprint into fingerprint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fingerprint"] = v
@@ -2838,14 +2842,14 @@ func flattenNoteImage(c *Client, i interface{}) *NoteImage {
 
 // expandNoteImageFingerprintMap expands the contents of NoteImageFingerprint into a JSON
 // request object.
-func expandNoteImageFingerprintMap(c *Client, f map[string]NoteImageFingerprint) (map[string]interface{}, error) {
+func expandNoteImageFingerprintMap(c *Client, f map[string]NoteImageFingerprint, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteImageFingerprint(c, &item)
+		i, err := expandNoteImageFingerprint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2859,14 +2863,14 @@ func expandNoteImageFingerprintMap(c *Client, f map[string]NoteImageFingerprint)
 
 // expandNoteImageFingerprintSlice expands the contents of NoteImageFingerprint into a JSON
 // request object.
-func expandNoteImageFingerprintSlice(c *Client, f []NoteImageFingerprint) ([]map[string]interface{}, error) {
+func expandNoteImageFingerprintSlice(c *Client, f []NoteImageFingerprint, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteImageFingerprint(c, &item)
+		i, err := expandNoteImageFingerprint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2919,7 +2923,7 @@ func flattenNoteImageFingerprintSlice(c *Client, i interface{}) []NoteImageFinge
 
 // expandNoteImageFingerprint expands an instance of NoteImageFingerprint into a JSON
 // request object.
-func expandNoteImageFingerprint(c *Client, f *NoteImageFingerprint) (map[string]interface{}, error) {
+func expandNoteImageFingerprint(c *Client, f *NoteImageFingerprint, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2957,14 +2961,14 @@ func flattenNoteImageFingerprint(c *Client, i interface{}) *NoteImageFingerprint
 
 // expandNotePackageMap expands the contents of NotePackage into a JSON
 // request object.
-func expandNotePackageMap(c *Client, f map[string]NotePackage) (map[string]interface{}, error) {
+func expandNotePackageMap(c *Client, f map[string]NotePackage, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNotePackage(c, &item)
+		i, err := expandNotePackage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2978,14 +2982,14 @@ func expandNotePackageMap(c *Client, f map[string]NotePackage) (map[string]inter
 
 // expandNotePackageSlice expands the contents of NotePackage into a JSON
 // request object.
-func expandNotePackageSlice(c *Client, f []NotePackage) ([]map[string]interface{}, error) {
+func expandNotePackageSlice(c *Client, f []NotePackage, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNotePackage(c, &item)
+		i, err := expandNotePackage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3038,7 +3042,7 @@ func flattenNotePackageSlice(c *Client, i interface{}) []NotePackage {
 
 // expandNotePackage expands an instance of NotePackage into a JSON
 // request object.
-func expandNotePackage(c *Client, f *NotePackage) (map[string]interface{}, error) {
+func expandNotePackage(c *Client, f *NotePackage, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3047,7 +3051,7 @@ func expandNotePackage(c *Client, f *NotePackage) (map[string]interface{}, error
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandNotePackageDistributionSlice(c, f.Distribution); err != nil {
+	if v, err := expandNotePackageDistributionSlice(c, f.Distribution, res); err != nil {
 		return nil, fmt.Errorf("error expanding Distribution into distribution: %w", err)
 	} else if v != nil {
 		m["distribution"] = v
@@ -3077,14 +3081,14 @@ func flattenNotePackage(c *Client, i interface{}) *NotePackage {
 
 // expandNotePackageDistributionMap expands the contents of NotePackageDistribution into a JSON
 // request object.
-func expandNotePackageDistributionMap(c *Client, f map[string]NotePackageDistribution) (map[string]interface{}, error) {
+func expandNotePackageDistributionMap(c *Client, f map[string]NotePackageDistribution, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNotePackageDistribution(c, &item)
+		i, err := expandNotePackageDistribution(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3098,14 +3102,14 @@ func expandNotePackageDistributionMap(c *Client, f map[string]NotePackageDistrib
 
 // expandNotePackageDistributionSlice expands the contents of NotePackageDistribution into a JSON
 // request object.
-func expandNotePackageDistributionSlice(c *Client, f []NotePackageDistribution) ([]map[string]interface{}, error) {
+func expandNotePackageDistributionSlice(c *Client, f []NotePackageDistribution, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNotePackageDistribution(c, &item)
+		i, err := expandNotePackageDistribution(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3158,7 +3162,7 @@ func flattenNotePackageDistributionSlice(c *Client, i interface{}) []NotePackage
 
 // expandNotePackageDistribution expands an instance of NotePackageDistribution into a JSON
 // request object.
-func expandNotePackageDistribution(c *Client, f *NotePackageDistribution) (map[string]interface{}, error) {
+func expandNotePackageDistribution(c *Client, f *NotePackageDistribution, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -3170,7 +3174,7 @@ func expandNotePackageDistribution(c *Client, f *NotePackageDistribution) (map[s
 	if v := f.Architecture; !dcl.IsEmptyValueIndirect(v) {
 		m["architecture"] = v
 	}
-	if v, err := expandNotePackageDistributionLatestVersion(c, f.LatestVersion); err != nil {
+	if v, err := expandNotePackageDistributionLatestVersion(c, f.LatestVersion, res); err != nil {
 		return nil, fmt.Errorf("error expanding LatestVersion into latestVersion: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["latestVersion"] = v
@@ -3213,14 +3217,14 @@ func flattenNotePackageDistribution(c *Client, i interface{}) *NotePackageDistri
 
 // expandNotePackageDistributionLatestVersionMap expands the contents of NotePackageDistributionLatestVersion into a JSON
 // request object.
-func expandNotePackageDistributionLatestVersionMap(c *Client, f map[string]NotePackageDistributionLatestVersion) (map[string]interface{}, error) {
+func expandNotePackageDistributionLatestVersionMap(c *Client, f map[string]NotePackageDistributionLatestVersion, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNotePackageDistributionLatestVersion(c, &item)
+		i, err := expandNotePackageDistributionLatestVersion(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3234,14 +3238,14 @@ func expandNotePackageDistributionLatestVersionMap(c *Client, f map[string]NoteP
 
 // expandNotePackageDistributionLatestVersionSlice expands the contents of NotePackageDistributionLatestVersion into a JSON
 // request object.
-func expandNotePackageDistributionLatestVersionSlice(c *Client, f []NotePackageDistributionLatestVersion) ([]map[string]interface{}, error) {
+func expandNotePackageDistributionLatestVersionSlice(c *Client, f []NotePackageDistributionLatestVersion, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNotePackageDistributionLatestVersion(c, &item)
+		i, err := expandNotePackageDistributionLatestVersion(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3294,7 +3298,7 @@ func flattenNotePackageDistributionLatestVersionSlice(c *Client, i interface{}) 
 
 // expandNotePackageDistributionLatestVersion expands an instance of NotePackageDistributionLatestVersion into a JSON
 // request object.
-func expandNotePackageDistributionLatestVersion(c *Client, f *NotePackageDistributionLatestVersion) (map[string]interface{}, error) {
+func expandNotePackageDistributionLatestVersion(c *Client, f *NotePackageDistributionLatestVersion, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3343,14 +3347,14 @@ func flattenNotePackageDistributionLatestVersion(c *Client, i interface{}) *Note
 
 // expandNoteDiscoveryMap expands the contents of NoteDiscovery into a JSON
 // request object.
-func expandNoteDiscoveryMap(c *Client, f map[string]NoteDiscovery) (map[string]interface{}, error) {
+func expandNoteDiscoveryMap(c *Client, f map[string]NoteDiscovery, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteDiscovery(c, &item)
+		i, err := expandNoteDiscovery(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3364,14 +3368,14 @@ func expandNoteDiscoveryMap(c *Client, f map[string]NoteDiscovery) (map[string]i
 
 // expandNoteDiscoverySlice expands the contents of NoteDiscovery into a JSON
 // request object.
-func expandNoteDiscoverySlice(c *Client, f []NoteDiscovery) ([]map[string]interface{}, error) {
+func expandNoteDiscoverySlice(c *Client, f []NoteDiscovery, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteDiscovery(c, &item)
+		i, err := expandNoteDiscovery(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3424,7 +3428,7 @@ func flattenNoteDiscoverySlice(c *Client, i interface{}) []NoteDiscovery {
 
 // expandNoteDiscovery expands an instance of NoteDiscovery into a JSON
 // request object.
-func expandNoteDiscovery(c *Client, f *NoteDiscovery) (map[string]interface{}, error) {
+func expandNoteDiscovery(c *Client, f *NoteDiscovery, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3457,14 +3461,14 @@ func flattenNoteDiscovery(c *Client, i interface{}) *NoteDiscovery {
 
 // expandNoteDeploymentMap expands the contents of NoteDeployment into a JSON
 // request object.
-func expandNoteDeploymentMap(c *Client, f map[string]NoteDeployment) (map[string]interface{}, error) {
+func expandNoteDeploymentMap(c *Client, f map[string]NoteDeployment, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteDeployment(c, &item)
+		i, err := expandNoteDeployment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3478,14 +3482,14 @@ func expandNoteDeploymentMap(c *Client, f map[string]NoteDeployment) (map[string
 
 // expandNoteDeploymentSlice expands the contents of NoteDeployment into a JSON
 // request object.
-func expandNoteDeploymentSlice(c *Client, f []NoteDeployment) ([]map[string]interface{}, error) {
+func expandNoteDeploymentSlice(c *Client, f []NoteDeployment, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteDeployment(c, &item)
+		i, err := expandNoteDeployment(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3538,7 +3542,7 @@ func flattenNoteDeploymentSlice(c *Client, i interface{}) []NoteDeployment {
 
 // expandNoteDeployment expands an instance of NoteDeployment into a JSON
 // request object.
-func expandNoteDeployment(c *Client, f *NoteDeployment) (map[string]interface{}, error) {
+func expandNoteDeployment(c *Client, f *NoteDeployment, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3571,14 +3575,14 @@ func flattenNoteDeployment(c *Client, i interface{}) *NoteDeployment {
 
 // expandNoteAttestationMap expands the contents of NoteAttestation into a JSON
 // request object.
-func expandNoteAttestationMap(c *Client, f map[string]NoteAttestation) (map[string]interface{}, error) {
+func expandNoteAttestationMap(c *Client, f map[string]NoteAttestation, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteAttestation(c, &item)
+		i, err := expandNoteAttestation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3592,14 +3596,14 @@ func expandNoteAttestationMap(c *Client, f map[string]NoteAttestation) (map[stri
 
 // expandNoteAttestationSlice expands the contents of NoteAttestation into a JSON
 // request object.
-func expandNoteAttestationSlice(c *Client, f []NoteAttestation) ([]map[string]interface{}, error) {
+func expandNoteAttestationSlice(c *Client, f []NoteAttestation, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteAttestation(c, &item)
+		i, err := expandNoteAttestation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3652,13 +3656,13 @@ func flattenNoteAttestationSlice(c *Client, i interface{}) []NoteAttestation {
 
 // expandNoteAttestation expands an instance of NoteAttestation into a JSON
 // request object.
-func expandNoteAttestation(c *Client, f *NoteAttestation) (map[string]interface{}, error) {
+func expandNoteAttestation(c *Client, f *NoteAttestation, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandNoteAttestationHint(c, f.Hint); err != nil {
+	if v, err := expandNoteAttestationHint(c, f.Hint, res); err != nil {
 		return nil, fmt.Errorf("error expanding Hint into hint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["hint"] = v
@@ -3687,14 +3691,14 @@ func flattenNoteAttestation(c *Client, i interface{}) *NoteAttestation {
 
 // expandNoteAttestationHintMap expands the contents of NoteAttestationHint into a JSON
 // request object.
-func expandNoteAttestationHintMap(c *Client, f map[string]NoteAttestationHint) (map[string]interface{}, error) {
+func expandNoteAttestationHintMap(c *Client, f map[string]NoteAttestationHint, res *Note) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteAttestationHint(c, &item)
+		i, err := expandNoteAttestationHint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3708,14 +3712,14 @@ func expandNoteAttestationHintMap(c *Client, f map[string]NoteAttestationHint) (
 
 // expandNoteAttestationHintSlice expands the contents of NoteAttestationHint into a JSON
 // request object.
-func expandNoteAttestationHintSlice(c *Client, f []NoteAttestationHint) ([]map[string]interface{}, error) {
+func expandNoteAttestationHintSlice(c *Client, f []NoteAttestationHint, res *Note) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteAttestationHint(c, &item)
+		i, err := expandNoteAttestationHint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3768,7 +3772,7 @@ func flattenNoteAttestationHintSlice(c *Client, i interface{}) []NoteAttestation
 
 // expandNoteAttestationHint expands an instance of NoteAttestationHint into a JSON
 // request object.
-func expandNoteAttestationHint(c *Client, f *NoteAttestationHint) (map[string]interface{}, error) {
+func expandNoteAttestationHint(c *Client, f *NoteAttestationHint, res *Note) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

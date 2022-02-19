@@ -374,6 +374,8 @@ type certificateApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateCertificateUpdateCertificateRequest(ctx context.Context, f *Certificate, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -7082,6 +7084,8 @@ func unmarshalMapCertificate(m map[string]interface{}, c *Client) (*Certificate,
 // expandCertificate expands Certificate into a JSON request object.
 func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/caPools/%s/certificates/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.CaPool), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -7090,7 +7094,7 @@ func expandCertificate(c *Client, f *Certificate) (map[string]interface{}, error
 	if v := f.PemCsr; dcl.ValueShouldBeSent(v) {
 		m["pemCsr"] = v
 	}
-	if v, err := expandCertificateConfig(c, f.Config); err != nil {
+	if v, err := expandCertificateConfig(c, f.Config, res); err != nil {
 		return nil, fmt.Errorf("error expanding Config into config: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
@@ -7169,14 +7173,14 @@ func flattenCertificate(c *Client, i interface{}) *Certificate {
 
 // expandCertificateConfigMap expands the contents of CertificateConfig into a JSON
 // request object.
-func expandCertificateConfigMap(c *Client, f map[string]CertificateConfig) (map[string]interface{}, error) {
+func expandCertificateConfigMap(c *Client, f map[string]CertificateConfig, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfig(c, &item)
+		i, err := expandCertificateConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7190,14 +7194,14 @@ func expandCertificateConfigMap(c *Client, f map[string]CertificateConfig) (map[
 
 // expandCertificateConfigSlice expands the contents of CertificateConfig into a JSON
 // request object.
-func expandCertificateConfigSlice(c *Client, f []CertificateConfig) ([]map[string]interface{}, error) {
+func expandCertificateConfigSlice(c *Client, f []CertificateConfig, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfig(c, &item)
+		i, err := expandCertificateConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7250,23 +7254,23 @@ func flattenCertificateConfigSlice(c *Client, i interface{}) []CertificateConfig
 
 // expandCertificateConfig expands an instance of CertificateConfig into a JSON
 // request object.
-func expandCertificateConfig(c *Client, f *CertificateConfig) (map[string]interface{}, error) {
+func expandCertificateConfig(c *Client, f *CertificateConfig, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateConfigSubjectConfig(c, f.SubjectConfig); err != nil {
+	if v, err := expandCertificateConfigSubjectConfig(c, f.SubjectConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding SubjectConfig into subjectConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subjectConfig"] = v
 	}
-	if v, err := expandCertificateConfigX509Config(c, f.X509Config); err != nil {
+	if v, err := expandCertificateConfigX509Config(c, f.X509Config, res); err != nil {
 		return nil, fmt.Errorf("error expanding X509Config into x509Config: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["x509Config"] = v
 	}
-	if v, err := expandCertificateConfigPublicKey(c, f.PublicKey); err != nil {
+	if v, err := expandCertificateConfigPublicKey(c, f.PublicKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding PublicKey into publicKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["publicKey"] = v
@@ -7297,14 +7301,14 @@ func flattenCertificateConfig(c *Client, i interface{}) *CertificateConfig {
 
 // expandCertificateConfigSubjectConfigMap expands the contents of CertificateConfigSubjectConfig into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigMap(c *Client, f map[string]CertificateConfigSubjectConfig) (map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigMap(c *Client, f map[string]CertificateConfigSubjectConfig, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigSubjectConfig(c, &item)
+		i, err := expandCertificateConfigSubjectConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7318,14 +7322,14 @@ func expandCertificateConfigSubjectConfigMap(c *Client, f map[string]Certificate
 
 // expandCertificateConfigSubjectConfigSlice expands the contents of CertificateConfigSubjectConfig into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigSlice(c *Client, f []CertificateConfigSubjectConfig) ([]map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigSlice(c *Client, f []CertificateConfigSubjectConfig, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigSubjectConfig(c, &item)
+		i, err := expandCertificateConfigSubjectConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7378,18 +7382,18 @@ func flattenCertificateConfigSubjectConfigSlice(c *Client, i interface{}) []Cert
 
 // expandCertificateConfigSubjectConfig expands an instance of CertificateConfigSubjectConfig into a JSON
 // request object.
-func expandCertificateConfigSubjectConfig(c *Client, f *CertificateConfigSubjectConfig) (map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfig(c *Client, f *CertificateConfigSubjectConfig, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateConfigSubjectConfigSubject(c, f.Subject); err != nil {
+	if v, err := expandCertificateConfigSubjectConfigSubject(c, f.Subject, res); err != nil {
 		return nil, fmt.Errorf("error expanding Subject into subject: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subject"] = v
 	}
-	if v, err := expandCertificateConfigSubjectConfigSubjectAltName(c, f.SubjectAltName); err != nil {
+	if v, err := expandCertificateConfigSubjectConfigSubjectAltName(c, f.SubjectAltName, res); err != nil {
 		return nil, fmt.Errorf("error expanding SubjectAltName into subjectAltName: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subjectAltName"] = v
@@ -7419,14 +7423,14 @@ func flattenCertificateConfigSubjectConfig(c *Client, i interface{}) *Certificat
 
 // expandCertificateConfigSubjectConfigSubjectMap expands the contents of CertificateConfigSubjectConfigSubject into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigSubjectMap(c *Client, f map[string]CertificateConfigSubjectConfigSubject) (map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigSubjectMap(c *Client, f map[string]CertificateConfigSubjectConfigSubject, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigSubjectConfigSubject(c, &item)
+		i, err := expandCertificateConfigSubjectConfigSubject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7440,14 +7444,14 @@ func expandCertificateConfigSubjectConfigSubjectMap(c *Client, f map[string]Cert
 
 // expandCertificateConfigSubjectConfigSubjectSlice expands the contents of CertificateConfigSubjectConfigSubject into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigSubjectSlice(c *Client, f []CertificateConfigSubjectConfigSubject) ([]map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigSubjectSlice(c *Client, f []CertificateConfigSubjectConfigSubject, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigSubjectConfigSubject(c, &item)
+		i, err := expandCertificateConfigSubjectConfigSubject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7500,7 +7504,7 @@ func flattenCertificateConfigSubjectConfigSubjectSlice(c *Client, i interface{})
 
 // expandCertificateConfigSubjectConfigSubject expands an instance of CertificateConfigSubjectConfigSubject into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigSubject(c *Client, f *CertificateConfigSubjectConfigSubject) (map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigSubject(c *Client, f *CertificateConfigSubjectConfigSubject, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7561,14 +7565,14 @@ func flattenCertificateConfigSubjectConfigSubject(c *Client, i interface{}) *Cer
 
 // expandCertificateConfigSubjectConfigSubjectAltNameMap expands the contents of CertificateConfigSubjectConfigSubjectAltName into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigSubjectAltNameMap(c *Client, f map[string]CertificateConfigSubjectConfigSubjectAltName) (map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigSubjectAltNameMap(c *Client, f map[string]CertificateConfigSubjectConfigSubjectAltName, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigSubjectConfigSubjectAltName(c, &item)
+		i, err := expandCertificateConfigSubjectConfigSubjectAltName(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7582,14 +7586,14 @@ func expandCertificateConfigSubjectConfigSubjectAltNameMap(c *Client, f map[stri
 
 // expandCertificateConfigSubjectConfigSubjectAltNameSlice expands the contents of CertificateConfigSubjectConfigSubjectAltName into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigSubjectAltNameSlice(c *Client, f []CertificateConfigSubjectConfigSubjectAltName) ([]map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigSubjectAltNameSlice(c *Client, f []CertificateConfigSubjectConfigSubjectAltName, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigSubjectConfigSubjectAltName(c, &item)
+		i, err := expandCertificateConfigSubjectConfigSubjectAltName(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7642,7 +7646,7 @@ func flattenCertificateConfigSubjectConfigSubjectAltNameSlice(c *Client, i inter
 
 // expandCertificateConfigSubjectConfigSubjectAltName expands an instance of CertificateConfigSubjectConfigSubjectAltName into a JSON
 // request object.
-func expandCertificateConfigSubjectConfigSubjectAltName(c *Client, f *CertificateConfigSubjectConfigSubjectAltName) (map[string]interface{}, error) {
+func expandCertificateConfigSubjectConfigSubjectAltName(c *Client, f *CertificateConfigSubjectConfigSubjectAltName, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7687,14 +7691,14 @@ func flattenCertificateConfigSubjectConfigSubjectAltName(c *Client, i interface{
 
 // expandCertificateConfigX509ConfigMap expands the contents of CertificateConfigX509Config into a JSON
 // request object.
-func expandCertificateConfigX509ConfigMap(c *Client, f map[string]CertificateConfigX509Config) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigMap(c *Client, f map[string]CertificateConfigX509Config, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509Config(c, &item)
+		i, err := expandCertificateConfigX509Config(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7708,14 +7712,14 @@ func expandCertificateConfigX509ConfigMap(c *Client, f map[string]CertificateCon
 
 // expandCertificateConfigX509ConfigSlice expands the contents of CertificateConfigX509Config into a JSON
 // request object.
-func expandCertificateConfigX509ConfigSlice(c *Client, f []CertificateConfigX509Config) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigSlice(c *Client, f []CertificateConfigX509Config, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509Config(c, &item)
+		i, err := expandCertificateConfigX509Config(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7768,23 +7772,23 @@ func flattenCertificateConfigX509ConfigSlice(c *Client, i interface{}) []Certifi
 
 // expandCertificateConfigX509Config expands an instance of CertificateConfigX509Config into a JSON
 // request object.
-func expandCertificateConfigX509Config(c *Client, f *CertificateConfigX509Config) (map[string]interface{}, error) {
+func expandCertificateConfigX509Config(c *Client, f *CertificateConfigX509Config, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateConfigX509ConfigKeyUsage(c, f.KeyUsage); err != nil {
+	if v, err := expandCertificateConfigX509ConfigKeyUsage(c, f.KeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding KeyUsage into keyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["keyUsage"] = v
 	}
-	if v, err := expandCertificateConfigX509ConfigCaOptions(c, f.CaOptions); err != nil {
+	if v, err := expandCertificateConfigX509ConfigCaOptions(c, f.CaOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding CaOptions into caOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["caOptions"] = v
 	}
-	if v, err := expandCertificateConfigX509ConfigPolicyIdsSlice(c, f.PolicyIds); err != nil {
+	if v, err := expandCertificateConfigX509ConfigPolicyIdsSlice(c, f.PolicyIds, res); err != nil {
 		return nil, fmt.Errorf("error expanding PolicyIds into policyIds: %w", err)
 	} else if v != nil {
 		m["policyIds"] = v
@@ -7792,7 +7796,7 @@ func expandCertificateConfigX509Config(c *Client, f *CertificateConfigX509Config
 	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
-	if v, err := expandCertificateConfigX509ConfigAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
+	if v, err := expandCertificateConfigX509ConfigAdditionalExtensionsSlice(c, f.AdditionalExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
 	} else if v != nil {
 		m["additionalExtensions"] = v
@@ -7825,14 +7829,14 @@ func flattenCertificateConfigX509Config(c *Client, i interface{}) *CertificateCo
 
 // expandCertificateConfigX509ConfigKeyUsageMap expands the contents of CertificateConfigX509ConfigKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsage) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsage(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7846,14 +7850,14 @@ func expandCertificateConfigX509ConfigKeyUsageMap(c *Client, f map[string]Certif
 
 // expandCertificateConfigX509ConfigKeyUsageSlice expands the contents of CertificateConfigX509ConfigKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageSlice(c *Client, f []CertificateConfigX509ConfigKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageSlice(c *Client, f []CertificateConfigX509ConfigKeyUsage, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsage(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7906,23 +7910,23 @@ func flattenCertificateConfigX509ConfigKeyUsageSlice(c *Client, i interface{}) [
 
 // expandCertificateConfigX509ConfigKeyUsage expands an instance of CertificateConfigX509ConfigKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsage(c *Client, f *CertificateConfigX509ConfigKeyUsage) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsage(c *Client, f *CertificateConfigX509ConfigKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c, f.BaseKeyUsage); err != nil {
+	if v, err := expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c, f.BaseKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding BaseKeyUsage into baseKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["baseKeyUsage"] = v
 	}
-	if v, err := expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage); err != nil {
+	if v, err := expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExtendedKeyUsage into extendedKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["extendedKeyUsage"] = v
 	}
-	if v, err := expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages); err != nil {
+	if v, err := expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages, res); err != nil {
 		return nil, fmt.Errorf("error expanding UnknownExtendedKeyUsages into unknownExtendedKeyUsages: %w", err)
 	} else if v != nil {
 		m["unknownExtendedKeyUsages"] = v
@@ -7953,14 +7957,14 @@ func flattenCertificateConfigX509ConfigKeyUsage(c *Client, i interface{}) *Certi
 
 // expandCertificateConfigX509ConfigKeyUsageBaseKeyUsageMap expands the contents of CertificateConfigX509ConfigKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageBaseKeyUsageMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageBaseKeyUsageMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsageBaseKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -7974,14 +7978,14 @@ func expandCertificateConfigX509ConfigKeyUsageBaseKeyUsageMap(c *Client, f map[s
 
 // expandCertificateConfigX509ConfigKeyUsageBaseKeyUsageSlice expands the contents of CertificateConfigX509ConfigKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageBaseKeyUsageSlice(c *Client, f []CertificateConfigX509ConfigKeyUsageBaseKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageBaseKeyUsageSlice(c *Client, f []CertificateConfigX509ConfigKeyUsageBaseKeyUsage, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8034,7 +8038,7 @@ func flattenCertificateConfigX509ConfigKeyUsageBaseKeyUsageSlice(c *Client, i in
 
 // expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage expands an instance of CertificateConfigX509ConfigKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c *Client, f *CertificateConfigX509ConfigKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c *Client, f *CertificateConfigX509ConfigKeyUsageBaseKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8099,14 +8103,14 @@ func flattenCertificateConfigX509ConfigKeyUsageBaseKeyUsage(c *Client, i interfa
 
 // expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsageMap expands the contents of CertificateConfigX509ConfigKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsageExtendedKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8120,14 +8124,14 @@ func expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsageMap(c *Client, f m
 
 // expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsageSlice expands the contents of CertificateConfigX509ConfigKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsageSlice(c *Client, f []CertificateConfigX509ConfigKeyUsageExtendedKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsageSlice(c *Client, f []CertificateConfigX509ConfigKeyUsageExtendedKeyUsage, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8180,7 +8184,7 @@ func flattenCertificateConfigX509ConfigKeyUsageExtendedKeyUsageSlice(c *Client, 
 
 // expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage expands an instance of CertificateConfigX509ConfigKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c *Client, f *CertificateConfigX509ConfigKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c *Client, f *CertificateConfigX509ConfigKeyUsageExtendedKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8233,14 +8237,14 @@ func flattenCertificateConfigX509ConfigKeyUsageExtendedKeyUsage(c *Client, i int
 
 // expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesMap expands the contents of CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8254,14 +8258,14 @@ func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesMap(c *Cli
 
 // expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesSlice expands the contents of CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8314,7 +8318,7 @@ func flattenCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesSlice(c *
 
 // expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages expands an instance of CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -8347,14 +8351,14 @@ func flattenCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(c *Clien
 
 // expandCertificateConfigX509ConfigCaOptionsMap expands the contents of CertificateConfigX509ConfigCaOptions into a JSON
 // request object.
-func expandCertificateConfigX509ConfigCaOptionsMap(c *Client, f map[string]CertificateConfigX509ConfigCaOptions) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigCaOptionsMap(c *Client, f map[string]CertificateConfigX509ConfigCaOptions, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigCaOptions(c, &item)
+		i, err := expandCertificateConfigX509ConfigCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8368,14 +8372,14 @@ func expandCertificateConfigX509ConfigCaOptionsMap(c *Client, f map[string]Certi
 
 // expandCertificateConfigX509ConfigCaOptionsSlice expands the contents of CertificateConfigX509ConfigCaOptions into a JSON
 // request object.
-func expandCertificateConfigX509ConfigCaOptionsSlice(c *Client, f []CertificateConfigX509ConfigCaOptions) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigCaOptionsSlice(c *Client, f []CertificateConfigX509ConfigCaOptions, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigCaOptions(c, &item)
+		i, err := expandCertificateConfigX509ConfigCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8428,7 +8432,7 @@ func flattenCertificateConfigX509ConfigCaOptionsSlice(c *Client, i interface{}) 
 
 // expandCertificateConfigX509ConfigCaOptions expands an instance of CertificateConfigX509ConfigCaOptions into a JSON
 // request object.
-func expandCertificateConfigX509ConfigCaOptions(c *Client, f *CertificateConfigX509ConfigCaOptions) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigCaOptions(c *Client, f *CertificateConfigX509ConfigCaOptions, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8465,14 +8469,14 @@ func flattenCertificateConfigX509ConfigCaOptions(c *Client, i interface{}) *Cert
 
 // expandCertificateConfigX509ConfigPolicyIdsMap expands the contents of CertificateConfigX509ConfigPolicyIds into a JSON
 // request object.
-func expandCertificateConfigX509ConfigPolicyIdsMap(c *Client, f map[string]CertificateConfigX509ConfigPolicyIds) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigPolicyIdsMap(c *Client, f map[string]CertificateConfigX509ConfigPolicyIds, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigPolicyIds(c, &item)
+		i, err := expandCertificateConfigX509ConfigPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8486,14 +8490,14 @@ func expandCertificateConfigX509ConfigPolicyIdsMap(c *Client, f map[string]Certi
 
 // expandCertificateConfigX509ConfigPolicyIdsSlice expands the contents of CertificateConfigX509ConfigPolicyIds into a JSON
 // request object.
-func expandCertificateConfigX509ConfigPolicyIdsSlice(c *Client, f []CertificateConfigX509ConfigPolicyIds) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigPolicyIdsSlice(c *Client, f []CertificateConfigX509ConfigPolicyIds, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigPolicyIds(c, &item)
+		i, err := expandCertificateConfigX509ConfigPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8546,7 +8550,7 @@ func flattenCertificateConfigX509ConfigPolicyIdsSlice(c *Client, i interface{}) 
 
 // expandCertificateConfigX509ConfigPolicyIds expands an instance of CertificateConfigX509ConfigPolicyIds into a JSON
 // request object.
-func expandCertificateConfigX509ConfigPolicyIds(c *Client, f *CertificateConfigX509ConfigPolicyIds) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigPolicyIds(c *Client, f *CertificateConfigX509ConfigPolicyIds, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -8579,14 +8583,14 @@ func flattenCertificateConfigX509ConfigPolicyIds(c *Client, i interface{}) *Cert
 
 // expandCertificateConfigX509ConfigAdditionalExtensionsMap expands the contents of CertificateConfigX509ConfigAdditionalExtensions into a JSON
 // request object.
-func expandCertificateConfigX509ConfigAdditionalExtensionsMap(c *Client, f map[string]CertificateConfigX509ConfigAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigAdditionalExtensionsMap(c *Client, f map[string]CertificateConfigX509ConfigAdditionalExtensions, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigAdditionalExtensions(c, &item)
+		i, err := expandCertificateConfigX509ConfigAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8600,14 +8604,14 @@ func expandCertificateConfigX509ConfigAdditionalExtensionsMap(c *Client, f map[s
 
 // expandCertificateConfigX509ConfigAdditionalExtensionsSlice expands the contents of CertificateConfigX509ConfigAdditionalExtensions into a JSON
 // request object.
-func expandCertificateConfigX509ConfigAdditionalExtensionsSlice(c *Client, f []CertificateConfigX509ConfigAdditionalExtensions) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigAdditionalExtensionsSlice(c *Client, f []CertificateConfigX509ConfigAdditionalExtensions, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigAdditionalExtensions(c, &item)
+		i, err := expandCertificateConfigX509ConfigAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8660,13 +8664,13 @@ func flattenCertificateConfigX509ConfigAdditionalExtensionsSlice(c *Client, i in
 
 // expandCertificateConfigX509ConfigAdditionalExtensions expands an instance of CertificateConfigX509ConfigAdditionalExtensions into a JSON
 // request object.
-func expandCertificateConfigX509ConfigAdditionalExtensions(c *Client, f *CertificateConfigX509ConfigAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigAdditionalExtensions(c *Client, f *CertificateConfigX509ConfigAdditionalExtensions, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c, f.ObjectId); err != nil {
+	if v, err := expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c, f.ObjectId, res); err != nil {
 		return nil, fmt.Errorf("error expanding ObjectId into objectId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["objectId"] = v
@@ -8703,14 +8707,14 @@ func flattenCertificateConfigX509ConfigAdditionalExtensions(c *Client, i interfa
 
 // expandCertificateConfigX509ConfigAdditionalExtensionsObjectIdMap expands the contents of CertificateConfigX509ConfigAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateConfigX509ConfigAdditionalExtensionsObjectIdMap(c *Client, f map[string]CertificateConfigX509ConfigAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigAdditionalExtensionsObjectIdMap(c *Client, f map[string]CertificateConfigX509ConfigAdditionalExtensionsObjectId, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8724,14 +8728,14 @@ func expandCertificateConfigX509ConfigAdditionalExtensionsObjectIdMap(c *Client,
 
 // expandCertificateConfigX509ConfigAdditionalExtensionsObjectIdSlice expands the contents of CertificateConfigX509ConfigAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateConfigX509ConfigAdditionalExtensionsObjectIdSlice(c *Client, f []CertificateConfigX509ConfigAdditionalExtensionsObjectId) ([]map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigAdditionalExtensionsObjectIdSlice(c *Client, f []CertificateConfigX509ConfigAdditionalExtensionsObjectId, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8784,7 +8788,7 @@ func flattenCertificateConfigX509ConfigAdditionalExtensionsObjectIdSlice(c *Clie
 
 // expandCertificateConfigX509ConfigAdditionalExtensionsObjectId expands an instance of CertificateConfigX509ConfigAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c *Client, f *CertificateConfigX509ConfigAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigAdditionalExtensionsObjectId(c *Client, f *CertificateConfigX509ConfigAdditionalExtensionsObjectId, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8817,14 +8821,14 @@ func flattenCertificateConfigX509ConfigAdditionalExtensionsObjectId(c *Client, i
 
 // expandCertificateConfigPublicKeyMap expands the contents of CertificateConfigPublicKey into a JSON
 // request object.
-func expandCertificateConfigPublicKeyMap(c *Client, f map[string]CertificateConfigPublicKey) (map[string]interface{}, error) {
+func expandCertificateConfigPublicKeyMap(c *Client, f map[string]CertificateConfigPublicKey, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateConfigPublicKey(c, &item)
+		i, err := expandCertificateConfigPublicKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8838,14 +8842,14 @@ func expandCertificateConfigPublicKeyMap(c *Client, f map[string]CertificateConf
 
 // expandCertificateConfigPublicKeySlice expands the contents of CertificateConfigPublicKey into a JSON
 // request object.
-func expandCertificateConfigPublicKeySlice(c *Client, f []CertificateConfigPublicKey) ([]map[string]interface{}, error) {
+func expandCertificateConfigPublicKeySlice(c *Client, f []CertificateConfigPublicKey, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateConfigPublicKey(c, &item)
+		i, err := expandCertificateConfigPublicKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8898,7 +8902,7 @@ func flattenCertificateConfigPublicKeySlice(c *Client, i interface{}) []Certific
 
 // expandCertificateConfigPublicKey expands an instance of CertificateConfigPublicKey into a JSON
 // request object.
-func expandCertificateConfigPublicKey(c *Client, f *CertificateConfigPublicKey) (map[string]interface{}, error) {
+func expandCertificateConfigPublicKey(c *Client, f *CertificateConfigPublicKey, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -8935,14 +8939,14 @@ func flattenCertificateConfigPublicKey(c *Client, i interface{}) *CertificateCon
 
 // expandCertificateRevocationDetailsMap expands the contents of CertificateRevocationDetails into a JSON
 // request object.
-func expandCertificateRevocationDetailsMap(c *Client, f map[string]CertificateRevocationDetails) (map[string]interface{}, error) {
+func expandCertificateRevocationDetailsMap(c *Client, f map[string]CertificateRevocationDetails, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateRevocationDetails(c, &item)
+		i, err := expandCertificateRevocationDetails(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -8956,14 +8960,14 @@ func expandCertificateRevocationDetailsMap(c *Client, f map[string]CertificateRe
 
 // expandCertificateRevocationDetailsSlice expands the contents of CertificateRevocationDetails into a JSON
 // request object.
-func expandCertificateRevocationDetailsSlice(c *Client, f []CertificateRevocationDetails) ([]map[string]interface{}, error) {
+func expandCertificateRevocationDetailsSlice(c *Client, f []CertificateRevocationDetails, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateRevocationDetails(c, &item)
+		i, err := expandCertificateRevocationDetails(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9016,7 +9020,7 @@ func flattenCertificateRevocationDetailsSlice(c *Client, i interface{}) []Certif
 
 // expandCertificateRevocationDetails expands an instance of CertificateRevocationDetails into a JSON
 // request object.
-func expandCertificateRevocationDetails(c *Client, f *CertificateRevocationDetails) (map[string]interface{}, error) {
+func expandCertificateRevocationDetails(c *Client, f *CertificateRevocationDetails, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9053,14 +9057,14 @@ func flattenCertificateRevocationDetails(c *Client, i interface{}) *CertificateR
 
 // expandCertificateCertificateDescriptionMap expands the contents of CertificateCertificateDescription into a JSON
 // request object.
-func expandCertificateCertificateDescriptionMap(c *Client, f map[string]CertificateCertificateDescription) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionMap(c *Client, f map[string]CertificateCertificateDescription, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescription(c, &item)
+		i, err := expandCertificateCertificateDescription(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9074,14 +9078,14 @@ func expandCertificateCertificateDescriptionMap(c *Client, f map[string]Certific
 
 // expandCertificateCertificateDescriptionSlice expands the contents of CertificateCertificateDescription into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSlice(c *Client, f []CertificateCertificateDescription) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSlice(c *Client, f []CertificateCertificateDescription, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescription(c, &item)
+		i, err := expandCertificateCertificateDescription(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9134,33 +9138,33 @@ func flattenCertificateCertificateDescriptionSlice(c *Client, i interface{}) []C
 
 // expandCertificateCertificateDescription expands an instance of CertificateCertificateDescription into a JSON
 // request object.
-func expandCertificateCertificateDescription(c *Client, f *CertificateCertificateDescription) (map[string]interface{}, error) {
+func expandCertificateCertificateDescription(c *Client, f *CertificateCertificateDescription, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateCertificateDescriptionSubjectDescription(c, f.SubjectDescription); err != nil {
+	if v, err := expandCertificateCertificateDescriptionSubjectDescription(c, f.SubjectDescription, res); err != nil {
 		return nil, fmt.Errorf("error expanding SubjectDescription into subjectDescription: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subjectDescription"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionX509Description(c, f.X509Description); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509Description(c, f.X509Description, res); err != nil {
 		return nil, fmt.Errorf("error expanding X509Description into x509Description: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["x509Description"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionPublicKey(c, f.PublicKey); err != nil {
+	if v, err := expandCertificateCertificateDescriptionPublicKey(c, f.PublicKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding PublicKey into publicKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["publicKey"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionSubjectKeyId(c, f.SubjectKeyId); err != nil {
+	if v, err := expandCertificateCertificateDescriptionSubjectKeyId(c, f.SubjectKeyId, res); err != nil {
 		return nil, fmt.Errorf("error expanding SubjectKeyId into subjectKeyId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subjectKeyId"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionAuthorityKeyId(c, f.AuthorityKeyId); err != nil {
+	if v, err := expandCertificateCertificateDescriptionAuthorityKeyId(c, f.AuthorityKeyId, res); err != nil {
 		return nil, fmt.Errorf("error expanding AuthorityKeyId into authorityKeyId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["authorityKeyId"] = v
@@ -9171,7 +9175,7 @@ func expandCertificateCertificateDescription(c *Client, f *CertificateCertificat
 	if v := f.AiaIssuingCertificateUrls; v != nil {
 		m["aiaIssuingCertificateUrls"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionCertFingerprint(c, f.CertFingerprint); err != nil {
+	if v, err := expandCertificateCertificateDescriptionCertFingerprint(c, f.CertFingerprint, res); err != nil {
 		return nil, fmt.Errorf("error expanding CertFingerprint into certFingerprint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["certFingerprint"] = v
@@ -9207,14 +9211,14 @@ func flattenCertificateCertificateDescription(c *Client, i interface{}) *Certifi
 
 // expandCertificateCertificateDescriptionSubjectDescriptionMap expands the contents of CertificateCertificateDescriptionSubjectDescription into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescription) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescription, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescription(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescription(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9228,14 +9232,14 @@ func expandCertificateCertificateDescriptionSubjectDescriptionMap(c *Client, f m
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSlice expands the contents of CertificateCertificateDescriptionSubjectDescription into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescription) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescription, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescription(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescription(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9288,18 +9292,18 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSlice(c *Client, 
 
 // expandCertificateCertificateDescriptionSubjectDescription expands an instance of CertificateCertificateDescriptionSubjectDescription into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescription(c *Client, f *CertificateCertificateDescriptionSubjectDescription) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescription(c *Client, f *CertificateCertificateDescriptionSubjectDescription, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubject(c, f.Subject); err != nil {
+	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubject(c, f.Subject, res); err != nil {
 		return nil, fmt.Errorf("error expanding Subject into subject: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subject"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c, f.SubjectAltName); err != nil {
+	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c, f.SubjectAltName, res); err != nil {
 		return nil, fmt.Errorf("error expanding SubjectAltName into subjectAltName: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subjectAltName"] = v
@@ -9345,14 +9349,14 @@ func flattenCertificateCertificateDescriptionSubjectDescription(c *Client, i int
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectMap expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubject into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubject) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubject, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubject(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9366,14 +9370,14 @@ func expandCertificateCertificateDescriptionSubjectDescriptionSubjectMap(c *Clie
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectSlice expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubject into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubject) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubject, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubject(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubject(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9426,7 +9430,7 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectSlice(c *C
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubject expands an instance of CertificateCertificateDescriptionSubjectDescriptionSubject into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubject(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubject) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubject(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubject, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9487,14 +9491,14 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubject(c *Client
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameMap expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubjectAltName into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubjectAltName) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubjectAltName, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9508,14 +9512,14 @@ func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameMap(
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameSlice expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubjectAltName into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubjectAltName) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubjectAltName, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9568,7 +9572,7 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameSli
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName expands an instance of CertificateCertificateDescriptionSubjectDescriptionSubjectAltName into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubjectAltName) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubjectAltName, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9586,7 +9590,7 @@ func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c *
 	if v := f.IPAddresses; v != nil {
 		m["ipAddresses"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansSlice(c, f.CustomSans); err != nil {
+	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansSlice(c, f.CustomSans, res); err != nil {
 		return nil, fmt.Errorf("error expanding CustomSans into customSans: %w", err)
 	} else if v != nil {
 		m["customSans"] = v
@@ -9619,14 +9623,14 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectAltName(c 
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansMap expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9640,14 +9644,14 @@ func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCust
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansSlice expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9700,13 +9704,13 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCus
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans expands an instance of CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSans, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c, f.ObjectId); err != nil {
+	if v, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c, f.ObjectId, res); err != nil {
 		return nil, fmt.Errorf("error expanding ObjectId into objectId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["objectId"] = v
@@ -9743,14 +9747,14 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCus
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectIdMap expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectIdMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectIdMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9764,14 +9768,14 @@ func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCust
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectIdSlice expands the contents of CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectIdSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectIdSlice(c *Client, f []CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9824,7 +9828,7 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCus
 
 // expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId expands an instance of CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId(c *Client, f *CertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCustomSansObjectId, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9857,14 +9861,14 @@ func flattenCertificateCertificateDescriptionSubjectDescriptionSubjectAltNameCus
 
 // expandCertificateCertificateDescriptionX509DescriptionMap expands the contents of CertificateCertificateDescriptionX509Description into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionMap(c *Client, f map[string]CertificateCertificateDescriptionX509Description) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionMap(c *Client, f map[string]CertificateCertificateDescriptionX509Description, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509Description(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509Description(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9878,14 +9882,14 @@ func expandCertificateCertificateDescriptionX509DescriptionMap(c *Client, f map[
 
 // expandCertificateCertificateDescriptionX509DescriptionSlice expands the contents of CertificateCertificateDescriptionX509Description into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionSlice(c *Client, f []CertificateCertificateDescriptionX509Description) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionSlice(c *Client, f []CertificateCertificateDescriptionX509Description, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509Description(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509Description(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9938,23 +9942,23 @@ func flattenCertificateCertificateDescriptionX509DescriptionSlice(c *Client, i i
 
 // expandCertificateCertificateDescriptionX509Description expands an instance of CertificateCertificateDescriptionX509Description into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509Description(c *Client, f *CertificateCertificateDescriptionX509Description) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509Description(c *Client, f *CertificateCertificateDescriptionX509Description, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c, f.KeyUsage); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c, f.KeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding KeyUsage into keyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["keyUsage"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionCaOptions(c, f.CaOptions); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionCaOptions(c, f.CaOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding CaOptions into caOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["caOptions"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice(c, f.PolicyIds); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice(c, f.PolicyIds, res); err != nil {
 		return nil, fmt.Errorf("error expanding PolicyIds into policyIds: %w", err)
 	} else if v != nil {
 		m["policyIds"] = v
@@ -9962,7 +9966,7 @@ func expandCertificateCertificateDescriptionX509Description(c *Client, f *Certif
 	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsSlice(c, f.AdditionalExtensions, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdditionalExtensions into additionalExtensions: %w", err)
 	} else if v != nil {
 		m["additionalExtensions"] = v
@@ -9995,14 +9999,14 @@ func flattenCertificateCertificateDescriptionX509Description(c *Client, i interf
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageMap expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsage) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10016,14 +10020,14 @@ func expandCertificateCertificateDescriptionX509DescriptionKeyUsageMap(c *Client
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageSlice expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsage, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10076,23 +10080,23 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageSlice(c *Cli
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsage expands an instance of CertificateCertificateDescriptionX509DescriptionKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsage) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsage(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c, f.BaseKeyUsage); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c, f.BaseKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding BaseKeyUsage into baseKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["baseKeyUsage"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c, f.ExtendedKeyUsage, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExtendedKeyUsage into extendedKeyUsage: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["extendedKeyUsage"] = v
 	}
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesSlice(c, f.UnknownExtendedKeyUsages, res); err != nil {
 		return nil, fmt.Errorf("error expanding UnknownExtendedKeyUsages into unknownExtendedKeyUsages: %w", err)
 	} else if v != nil {
 		m["unknownExtendedKeyUsages"] = v
@@ -10123,14 +10127,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsage(c *Client, 
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageMap expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10144,14 +10148,14 @@ func expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageM
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageSlice expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsageSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10204,7 +10208,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage expands an instance of CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10269,14 +10273,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageBaseKeyUsage
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsageMap expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsageMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10290,14 +10294,14 @@ func expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUs
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsageSlice expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsageSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsageSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10350,7 +10354,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyU
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage expands an instance of CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyUsage, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10403,14 +10407,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageExtendedKeyU
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesMap expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10424,14 +10428,14 @@ func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtend
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesSlice expands the contents of CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10484,7 +10488,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExten
 
 // expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages expands an instance of CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages(c *Client, f *CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtendedKeyUsages, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -10517,14 +10521,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExten
 
 // expandCertificateCertificateDescriptionX509DescriptionCaOptionsMap expands the contents of CertificateCertificateDescriptionX509DescriptionCaOptions into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionCaOptionsMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionCaOptions) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionCaOptionsMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionCaOptions, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionCaOptions(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10538,14 +10542,14 @@ func expandCertificateCertificateDescriptionX509DescriptionCaOptionsMap(c *Clien
 
 // expandCertificateCertificateDescriptionX509DescriptionCaOptionsSlice expands the contents of CertificateCertificateDescriptionX509DescriptionCaOptions into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionCaOptionsSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionCaOptions) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionCaOptionsSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionCaOptions, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionCaOptions(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionCaOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10598,7 +10602,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionCaOptionsSlice(c *Cl
 
 // expandCertificateCertificateDescriptionX509DescriptionCaOptions expands an instance of CertificateCertificateDescriptionX509DescriptionCaOptions into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionCaOptions(c *Client, f *CertificateCertificateDescriptionX509DescriptionCaOptions) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionCaOptions(c *Client, f *CertificateCertificateDescriptionX509DescriptionCaOptions, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10635,14 +10639,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionCaOptions(c *Client,
 
 // expandCertificateCertificateDescriptionX509DescriptionPolicyIdsMap expands the contents of CertificateCertificateDescriptionX509DescriptionPolicyIds into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionPolicyIdsMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionPolicyIds) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionPolicyIdsMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionPolicyIds, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionPolicyIds(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10656,14 +10660,14 @@ func expandCertificateCertificateDescriptionX509DescriptionPolicyIdsMap(c *Clien
 
 // expandCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice expands the contents of CertificateCertificateDescriptionX509DescriptionPolicyIds into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionPolicyIds) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionPolicyIds, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionPolicyIds(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionPolicyIds(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10716,7 +10720,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionPolicyIdsSlice(c *Cl
 
 // expandCertificateCertificateDescriptionX509DescriptionPolicyIds expands an instance of CertificateCertificateDescriptionX509DescriptionPolicyIds into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionPolicyIds(c *Client, f *CertificateCertificateDescriptionX509DescriptionPolicyIds) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionPolicyIds(c *Client, f *CertificateCertificateDescriptionX509DescriptionPolicyIds, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -10749,14 +10753,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionPolicyIds(c *Client,
 
 // expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsMap expands the contents of CertificateCertificateDescriptionX509DescriptionAdditionalExtensions into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionAdditionalExtensions, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10770,14 +10774,14 @@ func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsM
 
 // expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsSlice expands the contents of CertificateCertificateDescriptionX509DescriptionAdditionalExtensions into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionAdditionalExtensions) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionAdditionalExtensions, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10830,13 +10834,13 @@ func flattenCertificateCertificateDescriptionX509DescriptionAdditionalExtensions
 
 // expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions expands an instance of CertificateCertificateDescriptionX509DescriptionAdditionalExtensions into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions(c *Client, f *CertificateCertificateDescriptionX509DescriptionAdditionalExtensions) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensions(c *Client, f *CertificateCertificateDescriptionX509DescriptionAdditionalExtensions, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c, f.ObjectId); err != nil {
+	if v, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c, f.ObjectId, res); err != nil {
 		return nil, fmt.Errorf("error expanding ObjectId into objectId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["objectId"] = v
@@ -10873,14 +10877,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionAdditionalExtensions
 
 // expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectIdMap expands the contents of CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectIdMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectIdMap(c *Client, f map[string]CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10894,14 +10898,14 @@ func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsO
 
 // expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectIdSlice expands the contents of CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectIdSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectIdSlice(c *Client, f []CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c, &item)
+		i, err := expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10954,7 +10958,7 @@ func flattenCertificateCertificateDescriptionX509DescriptionAdditionalExtensions
 
 // expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId expands an instance of CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c *Client, f *CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId(c *Client, f *CertificateCertificateDescriptionX509DescriptionAdditionalExtensionsObjectId, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10987,14 +10991,14 @@ func flattenCertificateCertificateDescriptionX509DescriptionAdditionalExtensions
 
 // expandCertificateCertificateDescriptionPublicKeyMap expands the contents of CertificateCertificateDescriptionPublicKey into a JSON
 // request object.
-func expandCertificateCertificateDescriptionPublicKeyMap(c *Client, f map[string]CertificateCertificateDescriptionPublicKey) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionPublicKeyMap(c *Client, f map[string]CertificateCertificateDescriptionPublicKey, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionPublicKey(c, &item)
+		i, err := expandCertificateCertificateDescriptionPublicKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11008,14 +11012,14 @@ func expandCertificateCertificateDescriptionPublicKeyMap(c *Client, f map[string
 
 // expandCertificateCertificateDescriptionPublicKeySlice expands the contents of CertificateCertificateDescriptionPublicKey into a JSON
 // request object.
-func expandCertificateCertificateDescriptionPublicKeySlice(c *Client, f []CertificateCertificateDescriptionPublicKey) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionPublicKeySlice(c *Client, f []CertificateCertificateDescriptionPublicKey, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionPublicKey(c, &item)
+		i, err := expandCertificateCertificateDescriptionPublicKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11068,7 +11072,7 @@ func flattenCertificateCertificateDescriptionPublicKeySlice(c *Client, i interfa
 
 // expandCertificateCertificateDescriptionPublicKey expands an instance of CertificateCertificateDescriptionPublicKey into a JSON
 // request object.
-func expandCertificateCertificateDescriptionPublicKey(c *Client, f *CertificateCertificateDescriptionPublicKey) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionPublicKey(c *Client, f *CertificateCertificateDescriptionPublicKey, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11105,14 +11109,14 @@ func flattenCertificateCertificateDescriptionPublicKey(c *Client, i interface{})
 
 // expandCertificateCertificateDescriptionSubjectKeyIdMap expands the contents of CertificateCertificateDescriptionSubjectKeyId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectKeyIdMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectKeyId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectKeyIdMap(c *Client, f map[string]CertificateCertificateDescriptionSubjectKeyId, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectKeyId(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectKeyId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11126,14 +11130,14 @@ func expandCertificateCertificateDescriptionSubjectKeyIdMap(c *Client, f map[str
 
 // expandCertificateCertificateDescriptionSubjectKeyIdSlice expands the contents of CertificateCertificateDescriptionSubjectKeyId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectKeyIdSlice(c *Client, f []CertificateCertificateDescriptionSubjectKeyId) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectKeyIdSlice(c *Client, f []CertificateCertificateDescriptionSubjectKeyId, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionSubjectKeyId(c, &item)
+		i, err := expandCertificateCertificateDescriptionSubjectKeyId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11186,7 +11190,7 @@ func flattenCertificateCertificateDescriptionSubjectKeyIdSlice(c *Client, i inte
 
 // expandCertificateCertificateDescriptionSubjectKeyId expands an instance of CertificateCertificateDescriptionSubjectKeyId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionSubjectKeyId(c *Client, f *CertificateCertificateDescriptionSubjectKeyId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionSubjectKeyId(c *Client, f *CertificateCertificateDescriptionSubjectKeyId, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11219,14 +11223,14 @@ func flattenCertificateCertificateDescriptionSubjectKeyId(c *Client, i interface
 
 // expandCertificateCertificateDescriptionAuthorityKeyIdMap expands the contents of CertificateCertificateDescriptionAuthorityKeyId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionAuthorityKeyIdMap(c *Client, f map[string]CertificateCertificateDescriptionAuthorityKeyId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionAuthorityKeyIdMap(c *Client, f map[string]CertificateCertificateDescriptionAuthorityKeyId, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionAuthorityKeyId(c, &item)
+		i, err := expandCertificateCertificateDescriptionAuthorityKeyId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11240,14 +11244,14 @@ func expandCertificateCertificateDescriptionAuthorityKeyIdMap(c *Client, f map[s
 
 // expandCertificateCertificateDescriptionAuthorityKeyIdSlice expands the contents of CertificateCertificateDescriptionAuthorityKeyId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionAuthorityKeyIdSlice(c *Client, f []CertificateCertificateDescriptionAuthorityKeyId) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionAuthorityKeyIdSlice(c *Client, f []CertificateCertificateDescriptionAuthorityKeyId, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionAuthorityKeyId(c, &item)
+		i, err := expandCertificateCertificateDescriptionAuthorityKeyId(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11300,7 +11304,7 @@ func flattenCertificateCertificateDescriptionAuthorityKeyIdSlice(c *Client, i in
 
 // expandCertificateCertificateDescriptionAuthorityKeyId expands an instance of CertificateCertificateDescriptionAuthorityKeyId into a JSON
 // request object.
-func expandCertificateCertificateDescriptionAuthorityKeyId(c *Client, f *CertificateCertificateDescriptionAuthorityKeyId) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionAuthorityKeyId(c *Client, f *CertificateCertificateDescriptionAuthorityKeyId, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11333,14 +11337,14 @@ func flattenCertificateCertificateDescriptionAuthorityKeyId(c *Client, i interfa
 
 // expandCertificateCertificateDescriptionCertFingerprintMap expands the contents of CertificateCertificateDescriptionCertFingerprint into a JSON
 // request object.
-func expandCertificateCertificateDescriptionCertFingerprintMap(c *Client, f map[string]CertificateCertificateDescriptionCertFingerprint) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionCertFingerprintMap(c *Client, f map[string]CertificateCertificateDescriptionCertFingerprint, res *Certificate) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCertificateCertificateDescriptionCertFingerprint(c, &item)
+		i, err := expandCertificateCertificateDescriptionCertFingerprint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11354,14 +11358,14 @@ func expandCertificateCertificateDescriptionCertFingerprintMap(c *Client, f map[
 
 // expandCertificateCertificateDescriptionCertFingerprintSlice expands the contents of CertificateCertificateDescriptionCertFingerprint into a JSON
 // request object.
-func expandCertificateCertificateDescriptionCertFingerprintSlice(c *Client, f []CertificateCertificateDescriptionCertFingerprint) ([]map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionCertFingerprintSlice(c *Client, f []CertificateCertificateDescriptionCertFingerprint, res *Certificate) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCertificateCertificateDescriptionCertFingerprint(c, &item)
+		i, err := expandCertificateCertificateDescriptionCertFingerprint(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11414,7 +11418,7 @@ func flattenCertificateCertificateDescriptionCertFingerprintSlice(c *Client, i i
 
 // expandCertificateCertificateDescriptionCertFingerprint expands an instance of CertificateCertificateDescriptionCertFingerprint into a JSON
 // request object.
-func expandCertificateCertificateDescriptionCertFingerprint(c *Client, f *CertificateCertificateDescriptionCertFingerprint) (map[string]interface{}, error) {
+func expandCertificateCertificateDescriptionCertFingerprint(c *Client, f *CertificateCertificateDescriptionCertFingerprint, res *Certificate) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

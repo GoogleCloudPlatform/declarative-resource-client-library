@@ -124,21 +124,23 @@ type keyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateKeyUpdateKeyRequest(ctx context.Context, f *Key, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandKeyWebSettings(c, f.WebSettings); err != nil {
+	if v, err := expandKeyWebSettings(c, f.WebSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding WebSettings into webSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["webSettings"] = v
 	}
-	if v, err := expandKeyAndroidSettings(c, f.AndroidSettings); err != nil {
+	if v, err := expandKeyAndroidSettings(c, f.AndroidSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding AndroidSettings into androidSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["androidSettings"] = v
 	}
-	if v, err := expandKeyIosSettings(c, f.IosSettings); err != nil {
+	if v, err := expandKeyIosSettings(c, f.IosSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding IosSettings into iosSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["iosSettings"] = v
@@ -1399,6 +1401,8 @@ func unmarshalMapKey(m map[string]interface{}, c *Client) (*Key, error) {
 // expandKey expands Key into a JSON request object.
 func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/keys/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1407,17 +1411,17 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandKeyWebSettings(c, f.WebSettings); err != nil {
+	if v, err := expandKeyWebSettings(c, f.WebSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding WebSettings into webSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["webSettings"] = v
 	}
-	if v, err := expandKeyAndroidSettings(c, f.AndroidSettings); err != nil {
+	if v, err := expandKeyAndroidSettings(c, f.AndroidSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding AndroidSettings into androidSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["androidSettings"] = v
 	}
-	if v, err := expandKeyIosSettings(c, f.IosSettings); err != nil {
+	if v, err := expandKeyIosSettings(c, f.IosSettings, res); err != nil {
 		return nil, fmt.Errorf("error expanding IosSettings into iosSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["iosSettings"] = v
@@ -1425,7 +1429,7 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandKeyTestingOptions(c, f.TestingOptions); err != nil {
+	if v, err := expandKeyTestingOptions(c, f.TestingOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding TestingOptions into testingOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["testingOptions"] = v
@@ -1466,14 +1470,14 @@ func flattenKey(c *Client, i interface{}) *Key {
 
 // expandKeyWebSettingsMap expands the contents of KeyWebSettings into a JSON
 // request object.
-func expandKeyWebSettingsMap(c *Client, f map[string]KeyWebSettings) (map[string]interface{}, error) {
+func expandKeyWebSettingsMap(c *Client, f map[string]KeyWebSettings, res *Key) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandKeyWebSettings(c, &item)
+		i, err := expandKeyWebSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1487,14 +1491,14 @@ func expandKeyWebSettingsMap(c *Client, f map[string]KeyWebSettings) (map[string
 
 // expandKeyWebSettingsSlice expands the contents of KeyWebSettings into a JSON
 // request object.
-func expandKeyWebSettingsSlice(c *Client, f []KeyWebSettings) ([]map[string]interface{}, error) {
+func expandKeyWebSettingsSlice(c *Client, f []KeyWebSettings, res *Key) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandKeyWebSettings(c, &item)
+		i, err := expandKeyWebSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1547,7 +1551,7 @@ func flattenKeyWebSettingsSlice(c *Client, i interface{}) []KeyWebSettings {
 
 // expandKeyWebSettings expands an instance of KeyWebSettings into a JSON
 // request object.
-func expandKeyWebSettings(c *Client, f *KeyWebSettings) (map[string]interface{}, error) {
+func expandKeyWebSettings(c *Client, f *KeyWebSettings, res *Key) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1596,14 +1600,14 @@ func flattenKeyWebSettings(c *Client, i interface{}) *KeyWebSettings {
 
 // expandKeyAndroidSettingsMap expands the contents of KeyAndroidSettings into a JSON
 // request object.
-func expandKeyAndroidSettingsMap(c *Client, f map[string]KeyAndroidSettings) (map[string]interface{}, error) {
+func expandKeyAndroidSettingsMap(c *Client, f map[string]KeyAndroidSettings, res *Key) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandKeyAndroidSettings(c, &item)
+		i, err := expandKeyAndroidSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1617,14 +1621,14 @@ func expandKeyAndroidSettingsMap(c *Client, f map[string]KeyAndroidSettings) (ma
 
 // expandKeyAndroidSettingsSlice expands the contents of KeyAndroidSettings into a JSON
 // request object.
-func expandKeyAndroidSettingsSlice(c *Client, f []KeyAndroidSettings) ([]map[string]interface{}, error) {
+func expandKeyAndroidSettingsSlice(c *Client, f []KeyAndroidSettings, res *Key) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandKeyAndroidSettings(c, &item)
+		i, err := expandKeyAndroidSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1677,7 +1681,7 @@ func flattenKeyAndroidSettingsSlice(c *Client, i interface{}) []KeyAndroidSettin
 
 // expandKeyAndroidSettings expands an instance of KeyAndroidSettings into a JSON
 // request object.
-func expandKeyAndroidSettings(c *Client, f *KeyAndroidSettings) (map[string]interface{}, error) {
+func expandKeyAndroidSettings(c *Client, f *KeyAndroidSettings, res *Key) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1714,14 +1718,14 @@ func flattenKeyAndroidSettings(c *Client, i interface{}) *KeyAndroidSettings {
 
 // expandKeyIosSettingsMap expands the contents of KeyIosSettings into a JSON
 // request object.
-func expandKeyIosSettingsMap(c *Client, f map[string]KeyIosSettings) (map[string]interface{}, error) {
+func expandKeyIosSettingsMap(c *Client, f map[string]KeyIosSettings, res *Key) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandKeyIosSettings(c, &item)
+		i, err := expandKeyIosSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1735,14 +1739,14 @@ func expandKeyIosSettingsMap(c *Client, f map[string]KeyIosSettings) (map[string
 
 // expandKeyIosSettingsSlice expands the contents of KeyIosSettings into a JSON
 // request object.
-func expandKeyIosSettingsSlice(c *Client, f []KeyIosSettings) ([]map[string]interface{}, error) {
+func expandKeyIosSettingsSlice(c *Client, f []KeyIosSettings, res *Key) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandKeyIosSettings(c, &item)
+		i, err := expandKeyIosSettings(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1795,7 +1799,7 @@ func flattenKeyIosSettingsSlice(c *Client, i interface{}) []KeyIosSettings {
 
 // expandKeyIosSettings expands an instance of KeyIosSettings into a JSON
 // request object.
-func expandKeyIosSettings(c *Client, f *KeyIosSettings) (map[string]interface{}, error) {
+func expandKeyIosSettings(c *Client, f *KeyIosSettings, res *Key) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1832,14 +1836,14 @@ func flattenKeyIosSettings(c *Client, i interface{}) *KeyIosSettings {
 
 // expandKeyTestingOptionsMap expands the contents of KeyTestingOptions into a JSON
 // request object.
-func expandKeyTestingOptionsMap(c *Client, f map[string]KeyTestingOptions) (map[string]interface{}, error) {
+func expandKeyTestingOptionsMap(c *Client, f map[string]KeyTestingOptions, res *Key) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandKeyTestingOptions(c, &item)
+		i, err := expandKeyTestingOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1853,14 +1857,14 @@ func expandKeyTestingOptionsMap(c *Client, f map[string]KeyTestingOptions) (map[
 
 // expandKeyTestingOptionsSlice expands the contents of KeyTestingOptions into a JSON
 // request object.
-func expandKeyTestingOptionsSlice(c *Client, f []KeyTestingOptions) ([]map[string]interface{}, error) {
+func expandKeyTestingOptionsSlice(c *Client, f []KeyTestingOptions, res *Key) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandKeyTestingOptions(c, &item)
+		i, err := expandKeyTestingOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1913,7 +1917,7 @@ func flattenKeyTestingOptionsSlice(c *Client, i interface{}) []KeyTestingOptions
 
 // expandKeyTestingOptions expands an instance of KeyTestingOptions into a JSON
 // request object.
-func expandKeyTestingOptions(c *Client, f *KeyTestingOptions) (map[string]interface{}, error) {
+func expandKeyTestingOptions(c *Client, f *KeyTestingOptions, res *Key) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

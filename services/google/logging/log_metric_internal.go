@@ -144,6 +144,8 @@ type logMetricApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateLogMetricUpdateRequest(ctx context.Context, f *LogMetric, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -154,7 +156,7 @@ func newUpdateLogMetricUpdateRequest(ctx context.Context, f *LogMetric, c *Clien
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		req["disabled"] = v
 	}
-	if v, err := expandLogMetricMetricDescriptor(c, f.MetricDescriptor); err != nil {
+	if v, err := expandLogMetricMetricDescriptor(c, f.MetricDescriptor, res); err != nil {
 		return nil, fmt.Errorf("error expanding MetricDescriptor into metricDescriptor: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["metricDescriptor"] = v
@@ -165,7 +167,7 @@ func newUpdateLogMetricUpdateRequest(ctx context.Context, f *LogMetric, c *Clien
 	if v := f.LabelExtractors; !dcl.IsEmptyValueIndirect(v) {
 		req["labelExtractors"] = v
 	}
-	if v, err := expandLogMetricBucketOptions(c, f.BucketOptions); err != nil {
+	if v, err := expandLogMetricBucketOptions(c, f.BucketOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["bucketOptions"] = v
@@ -2000,6 +2002,8 @@ func unmarshalMapLogMetric(m map[string]interface{}, c *Client) (*LogMetric, err
 // expandLogMetric expands LogMetric into a JSON request object.
 func expandLogMetric(c *Client, f *LogMetric) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
@@ -2012,7 +2016,7 @@ func expandLogMetric(c *Client, f *LogMetric) (map[string]interface{}, error) {
 	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}
-	if v, err := expandLogMetricMetricDescriptor(c, f.MetricDescriptor); err != nil {
+	if v, err := expandLogMetricMetricDescriptor(c, f.MetricDescriptor, res); err != nil {
 		return nil, fmt.Errorf("error expanding MetricDescriptor into metricDescriptor: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metricDescriptor"] = v
@@ -2023,7 +2027,7 @@ func expandLogMetric(c *Client, f *LogMetric) (map[string]interface{}, error) {
 	if v := f.LabelExtractors; dcl.ValueShouldBeSent(v) {
 		m["labelExtractors"] = v
 	}
-	if v, err := expandLogMetricBucketOptions(c, f.BucketOptions); err != nil {
+	if v, err := expandLogMetricBucketOptions(c, f.BucketOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["bucketOptions"] = v
@@ -2066,14 +2070,14 @@ func flattenLogMetric(c *Client, i interface{}) *LogMetric {
 
 // expandLogMetricMetricDescriptorMap expands the contents of LogMetricMetricDescriptor into a JSON
 // request object.
-func expandLogMetricMetricDescriptorMap(c *Client, f map[string]LogMetricMetricDescriptor) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorMap(c *Client, f map[string]LogMetricMetricDescriptor, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricMetricDescriptor(c, &item)
+		i, err := expandLogMetricMetricDescriptor(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2087,14 +2091,14 @@ func expandLogMetricMetricDescriptorMap(c *Client, f map[string]LogMetricMetricD
 
 // expandLogMetricMetricDescriptorSlice expands the contents of LogMetricMetricDescriptor into a JSON
 // request object.
-func expandLogMetricMetricDescriptorSlice(c *Client, f []LogMetricMetricDescriptor) ([]map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorSlice(c *Client, f []LogMetricMetricDescriptor, res *LogMetric) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricMetricDescriptor(c, &item)
+		i, err := expandLogMetricMetricDescriptor(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2147,13 +2151,13 @@ func flattenLogMetricMetricDescriptorSlice(c *Client, i interface{}) []LogMetric
 
 // expandLogMetricMetricDescriptor expands an instance of LogMetricMetricDescriptor into a JSON
 // request object.
-func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor, res *LogMetric) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandLogMetricMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
+	if v, err := expandLogMetricMetricDescriptorLabelsSlice(c, f.Labels, res); err != nil {
 		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
 	} else if v != nil {
 		m["labels"] = v
@@ -2170,7 +2174,7 @@ func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor) (m
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandLogMetricMetricDescriptorMetadata(c, f.Metadata); err != nil {
+	if v, err := expandLogMetricMetricDescriptorMetadata(c, f.Metadata, res); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metadata"] = v
@@ -2212,14 +2216,14 @@ func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetric
 
 // expandLogMetricMetricDescriptorLabelsMap expands the contents of LogMetricMetricDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorLabelsMap(c *Client, f map[string]LogMetricMetricDescriptorLabels) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorLabelsMap(c *Client, f map[string]LogMetricMetricDescriptorLabels, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricMetricDescriptorLabels(c, &item)
+		i, err := expandLogMetricMetricDescriptorLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2233,14 +2237,14 @@ func expandLogMetricMetricDescriptorLabelsMap(c *Client, f map[string]LogMetricM
 
 // expandLogMetricMetricDescriptorLabelsSlice expands the contents of LogMetricMetricDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorLabelsSlice(c *Client, f []LogMetricMetricDescriptorLabels) ([]map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorLabelsSlice(c *Client, f []LogMetricMetricDescriptorLabels, res *LogMetric) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricMetricDescriptorLabels(c, &item)
+		i, err := expandLogMetricMetricDescriptorLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2293,7 +2297,7 @@ func flattenLogMetricMetricDescriptorLabelsSlice(c *Client, i interface{}) []Log
 
 // expandLogMetricMetricDescriptorLabels expands an instance of LogMetricMetricDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorLabels(c *Client, f *LogMetricMetricDescriptorLabels) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorLabels(c *Client, f *LogMetricMetricDescriptorLabels, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2334,14 +2338,14 @@ func flattenLogMetricMetricDescriptorLabels(c *Client, i interface{}) *LogMetric
 
 // expandLogMetricMetricDescriptorMetadataMap expands the contents of LogMetricMetricDescriptorMetadata into a JSON
 // request object.
-func expandLogMetricMetricDescriptorMetadataMap(c *Client, f map[string]LogMetricMetricDescriptorMetadata) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorMetadataMap(c *Client, f map[string]LogMetricMetricDescriptorMetadata, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricMetricDescriptorMetadata(c, &item)
+		i, err := expandLogMetricMetricDescriptorMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2355,14 +2359,14 @@ func expandLogMetricMetricDescriptorMetadataMap(c *Client, f map[string]LogMetri
 
 // expandLogMetricMetricDescriptorMetadataSlice expands the contents of LogMetricMetricDescriptorMetadata into a JSON
 // request object.
-func expandLogMetricMetricDescriptorMetadataSlice(c *Client, f []LogMetricMetricDescriptorMetadata) ([]map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorMetadataSlice(c *Client, f []LogMetricMetricDescriptorMetadata, res *LogMetric) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricMetricDescriptorMetadata(c, &item)
+		i, err := expandLogMetricMetricDescriptorMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2415,7 +2419,7 @@ func flattenLogMetricMetricDescriptorMetadataSlice(c *Client, i interface{}) []L
 
 // expandLogMetricMetricDescriptorMetadata expands an instance of LogMetricMetricDescriptorMetadata into a JSON
 // request object.
-func expandLogMetricMetricDescriptorMetadata(c *Client, f *LogMetricMetricDescriptorMetadata) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorMetadata(c *Client, f *LogMetricMetricDescriptorMetadata, res *LogMetric) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2452,14 +2456,14 @@ func flattenLogMetricMetricDescriptorMetadata(c *Client, i interface{}) *LogMetr
 
 // expandLogMetricBucketOptionsMap expands the contents of LogMetricBucketOptions into a JSON
 // request object.
-func expandLogMetricBucketOptionsMap(c *Client, f map[string]LogMetricBucketOptions) (map[string]interface{}, error) {
+func expandLogMetricBucketOptionsMap(c *Client, f map[string]LogMetricBucketOptions, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricBucketOptions(c, &item)
+		i, err := expandLogMetricBucketOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2473,14 +2477,14 @@ func expandLogMetricBucketOptionsMap(c *Client, f map[string]LogMetricBucketOpti
 
 // expandLogMetricBucketOptionsSlice expands the contents of LogMetricBucketOptions into a JSON
 // request object.
-func expandLogMetricBucketOptionsSlice(c *Client, f []LogMetricBucketOptions) ([]map[string]interface{}, error) {
+func expandLogMetricBucketOptionsSlice(c *Client, f []LogMetricBucketOptions, res *LogMetric) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricBucketOptions(c, &item)
+		i, err := expandLogMetricBucketOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2533,23 +2537,23 @@ func flattenLogMetricBucketOptionsSlice(c *Client, i interface{}) []LogMetricBuc
 
 // expandLogMetricBucketOptions expands an instance of LogMetricBucketOptions into a JSON
 // request object.
-func expandLogMetricBucketOptions(c *Client, f *LogMetricBucketOptions) (map[string]interface{}, error) {
+func expandLogMetricBucketOptions(c *Client, f *LogMetricBucketOptions, res *LogMetric) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandLogMetricBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
+	if v, err := expandLogMetricBucketOptionsLinearBuckets(c, f.LinearBuckets, res); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["linearBuckets"] = v
 	}
-	if v, err := expandLogMetricBucketOptionsExponentialBuckets(c, f.ExponentialBuckets); err != nil {
+	if v, err := expandLogMetricBucketOptionsExponentialBuckets(c, f.ExponentialBuckets, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExponentialBuckets into exponentialBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["exponentialBuckets"] = v
 	}
-	if v, err := expandLogMetricBucketOptionsExplicitBuckets(c, f.ExplicitBuckets); err != nil {
+	if v, err := expandLogMetricBucketOptionsExplicitBuckets(c, f.ExplicitBuckets, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExplicitBuckets into explicitBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["explicitBuckets"] = v
@@ -2580,14 +2584,14 @@ func flattenLogMetricBucketOptions(c *Client, i interface{}) *LogMetricBucketOpt
 
 // expandLogMetricBucketOptionsLinearBucketsMap expands the contents of LogMetricBucketOptionsLinearBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsLinearBucketsMap(c *Client, f map[string]LogMetricBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+func expandLogMetricBucketOptionsLinearBucketsMap(c *Client, f map[string]LogMetricBucketOptionsLinearBuckets, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricBucketOptionsLinearBuckets(c, &item)
+		i, err := expandLogMetricBucketOptionsLinearBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2601,14 +2605,14 @@ func expandLogMetricBucketOptionsLinearBucketsMap(c *Client, f map[string]LogMet
 
 // expandLogMetricBucketOptionsLinearBucketsSlice expands the contents of LogMetricBucketOptionsLinearBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsLinearBucketsSlice(c *Client, f []LogMetricBucketOptionsLinearBuckets) ([]map[string]interface{}, error) {
+func expandLogMetricBucketOptionsLinearBucketsSlice(c *Client, f []LogMetricBucketOptionsLinearBuckets, res *LogMetric) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricBucketOptionsLinearBuckets(c, &item)
+		i, err := expandLogMetricBucketOptionsLinearBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2661,7 +2665,7 @@ func flattenLogMetricBucketOptionsLinearBucketsSlice(c *Client, i interface{}) [
 
 // expandLogMetricBucketOptionsLinearBuckets expands an instance of LogMetricBucketOptionsLinearBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsLinearBuckets(c *Client, f *LogMetricBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+func expandLogMetricBucketOptionsLinearBuckets(c *Client, f *LogMetricBucketOptionsLinearBuckets, res *LogMetric) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2702,14 +2706,14 @@ func flattenLogMetricBucketOptionsLinearBuckets(c *Client, i interface{}) *LogMe
 
 // expandLogMetricBucketOptionsExponentialBucketsMap expands the contents of LogMetricBucketOptionsExponentialBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsExponentialBucketsMap(c *Client, f map[string]LogMetricBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+func expandLogMetricBucketOptionsExponentialBucketsMap(c *Client, f map[string]LogMetricBucketOptionsExponentialBuckets, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricBucketOptionsExponentialBuckets(c, &item)
+		i, err := expandLogMetricBucketOptionsExponentialBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2723,14 +2727,14 @@ func expandLogMetricBucketOptionsExponentialBucketsMap(c *Client, f map[string]L
 
 // expandLogMetricBucketOptionsExponentialBucketsSlice expands the contents of LogMetricBucketOptionsExponentialBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsExponentialBucketsSlice(c *Client, f []LogMetricBucketOptionsExponentialBuckets) ([]map[string]interface{}, error) {
+func expandLogMetricBucketOptionsExponentialBucketsSlice(c *Client, f []LogMetricBucketOptionsExponentialBuckets, res *LogMetric) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricBucketOptionsExponentialBuckets(c, &item)
+		i, err := expandLogMetricBucketOptionsExponentialBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2783,7 +2787,7 @@ func flattenLogMetricBucketOptionsExponentialBucketsSlice(c *Client, i interface
 
 // expandLogMetricBucketOptionsExponentialBuckets expands an instance of LogMetricBucketOptionsExponentialBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsExponentialBuckets(c *Client, f *LogMetricBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+func expandLogMetricBucketOptionsExponentialBuckets(c *Client, f *LogMetricBucketOptionsExponentialBuckets, res *LogMetric) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2824,14 +2828,14 @@ func flattenLogMetricBucketOptionsExponentialBuckets(c *Client, i interface{}) *
 
 // expandLogMetricBucketOptionsExplicitBucketsMap expands the contents of LogMetricBucketOptionsExplicitBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsExplicitBucketsMap(c *Client, f map[string]LogMetricBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+func expandLogMetricBucketOptionsExplicitBucketsMap(c *Client, f map[string]LogMetricBucketOptionsExplicitBuckets, res *LogMetric) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricBucketOptionsExplicitBuckets(c, &item)
+		i, err := expandLogMetricBucketOptionsExplicitBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2845,14 +2849,14 @@ func expandLogMetricBucketOptionsExplicitBucketsMap(c *Client, f map[string]LogM
 
 // expandLogMetricBucketOptionsExplicitBucketsSlice expands the contents of LogMetricBucketOptionsExplicitBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsExplicitBucketsSlice(c *Client, f []LogMetricBucketOptionsExplicitBuckets) ([]map[string]interface{}, error) {
+func expandLogMetricBucketOptionsExplicitBucketsSlice(c *Client, f []LogMetricBucketOptionsExplicitBuckets, res *LogMetric) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricBucketOptionsExplicitBuckets(c, &item)
+		i, err := expandLogMetricBucketOptionsExplicitBuckets(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2905,7 +2909,7 @@ func flattenLogMetricBucketOptionsExplicitBucketsSlice(c *Client, i interface{})
 
 // expandLogMetricBucketOptionsExplicitBuckets expands an instance of LogMetricBucketOptionsExplicitBuckets into a JSON
 // request object.
-func expandLogMetricBucketOptionsExplicitBuckets(c *Client, f *LogMetricBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+func expandLogMetricBucketOptionsExplicitBuckets(c *Client, f *LogMetricBucketOptionsExplicitBuckets, res *LogMetric) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

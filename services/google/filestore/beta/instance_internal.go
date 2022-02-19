@@ -105,6 +105,8 @@ type instanceApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -112,7 +114,7 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
+	if v, err := expandInstanceFileSharesSlice(c, f.FileShares, res); err != nil {
 		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
 	} else if v != nil {
 		req["fileShares"] = v
@@ -1261,6 +1263,8 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 // expandInstance expands Instance into a JSON request object.
 func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1275,12 +1279,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
+	if v, err := expandInstanceFileSharesSlice(c, f.FileShares, res); err != nil {
 		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
 	} else if v != nil {
 		m["fileShares"] = v
 	}
-	if v, err := expandInstanceNetworksSlice(c, f.Networks); err != nil {
+	if v, err := expandInstanceNetworksSlice(c, f.Networks, res); err != nil {
 		return nil, fmt.Errorf("error expanding Networks into networks: %w", err)
 	} else if v != nil {
 		m["networks"] = v
@@ -1329,14 +1333,14 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 
 // expandInstanceFileSharesMap expands the contents of InstanceFileShares into a JSON
 // request object.
-func expandInstanceFileSharesMap(c *Client, f map[string]InstanceFileShares) (map[string]interface{}, error) {
+func expandInstanceFileSharesMap(c *Client, f map[string]InstanceFileShares, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceFileShares(c, &item)
+		i, err := expandInstanceFileShares(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1350,14 +1354,14 @@ func expandInstanceFileSharesMap(c *Client, f map[string]InstanceFileShares) (ma
 
 // expandInstanceFileSharesSlice expands the contents of InstanceFileShares into a JSON
 // request object.
-func expandInstanceFileSharesSlice(c *Client, f []InstanceFileShares) ([]map[string]interface{}, error) {
+func expandInstanceFileSharesSlice(c *Client, f []InstanceFileShares, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceFileShares(c, &item)
+		i, err := expandInstanceFileShares(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1410,7 +1414,7 @@ func flattenInstanceFileSharesSlice(c *Client, i interface{}) []InstanceFileShar
 
 // expandInstanceFileShares expands an instance of InstanceFileShares into a JSON
 // request object.
-func expandInstanceFileShares(c *Client, f *InstanceFileShares) (map[string]interface{}, error) {
+func expandInstanceFileShares(c *Client, f *InstanceFileShares, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1425,7 +1429,7 @@ func expandInstanceFileShares(c *Client, f *InstanceFileShares) (map[string]inte
 	if v := f.SourceBackup; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceBackup"] = v
 	}
-	if v, err := expandInstanceFileSharesNfsExportOptionsSlice(c, f.NfsExportOptions); err != nil {
+	if v, err := expandInstanceFileSharesNfsExportOptionsSlice(c, f.NfsExportOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding NfsExportOptions into nfsExportOptions: %w", err)
 	} else if v != nil {
 		m["nfsExportOptions"] = v
@@ -1457,14 +1461,14 @@ func flattenInstanceFileShares(c *Client, i interface{}) *InstanceFileShares {
 
 // expandInstanceFileSharesNfsExportOptionsMap expands the contents of InstanceFileSharesNfsExportOptions into a JSON
 // request object.
-func expandInstanceFileSharesNfsExportOptionsMap(c *Client, f map[string]InstanceFileSharesNfsExportOptions) (map[string]interface{}, error) {
+func expandInstanceFileSharesNfsExportOptionsMap(c *Client, f map[string]InstanceFileSharesNfsExportOptions, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceFileSharesNfsExportOptions(c, &item)
+		i, err := expandInstanceFileSharesNfsExportOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1478,14 +1482,14 @@ func expandInstanceFileSharesNfsExportOptionsMap(c *Client, f map[string]Instanc
 
 // expandInstanceFileSharesNfsExportOptionsSlice expands the contents of InstanceFileSharesNfsExportOptions into a JSON
 // request object.
-func expandInstanceFileSharesNfsExportOptionsSlice(c *Client, f []InstanceFileSharesNfsExportOptions) ([]map[string]interface{}, error) {
+func expandInstanceFileSharesNfsExportOptionsSlice(c *Client, f []InstanceFileSharesNfsExportOptions, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceFileSharesNfsExportOptions(c, &item)
+		i, err := expandInstanceFileSharesNfsExportOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1538,7 +1542,7 @@ func flattenInstanceFileSharesNfsExportOptionsSlice(c *Client, i interface{}) []
 
 // expandInstanceFileSharesNfsExportOptions expands an instance of InstanceFileSharesNfsExportOptions into a JSON
 // request object.
-func expandInstanceFileSharesNfsExportOptions(c *Client, f *InstanceFileSharesNfsExportOptions) (map[string]interface{}, error) {
+func expandInstanceFileSharesNfsExportOptions(c *Client, f *InstanceFileSharesNfsExportOptions, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1587,14 +1591,14 @@ func flattenInstanceFileSharesNfsExportOptions(c *Client, i interface{}) *Instan
 
 // expandInstanceNetworksMap expands the contents of InstanceNetworks into a JSON
 // request object.
-func expandInstanceNetworksMap(c *Client, f map[string]InstanceNetworks) (map[string]interface{}, error) {
+func expandInstanceNetworksMap(c *Client, f map[string]InstanceNetworks, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceNetworks(c, &item)
+		i, err := expandInstanceNetworks(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1608,14 +1612,14 @@ func expandInstanceNetworksMap(c *Client, f map[string]InstanceNetworks) (map[st
 
 // expandInstanceNetworksSlice expands the contents of InstanceNetworks into a JSON
 // request object.
-func expandInstanceNetworksSlice(c *Client, f []InstanceNetworks) ([]map[string]interface{}, error) {
+func expandInstanceNetworksSlice(c *Client, f []InstanceNetworks, res *Instance) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceNetworks(c, &item)
+		i, err := expandInstanceNetworks(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1668,7 +1672,7 @@ func flattenInstanceNetworksSlice(c *Client, i interface{}) []InstanceNetworks {
 
 // expandInstanceNetworks expands an instance of InstanceNetworks into a JSON
 // request object.
-func expandInstanceNetworks(c *Client, f *InstanceNetworks) (map[string]interface{}, error) {
+func expandInstanceNetworks(c *Client, f *InstanceNetworks, res *Instance) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

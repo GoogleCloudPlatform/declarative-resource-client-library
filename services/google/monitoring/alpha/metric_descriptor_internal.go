@@ -1004,10 +1004,12 @@ func unmarshalMapMetricDescriptor(m map[string]interface{}, c *Client) (*MetricD
 // expandMetricDescriptor expands MetricDescriptor into a JSON request object.
 func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Type; dcl.ValueShouldBeSent(v) {
 		m["type"] = v
 	}
-	if v, err := expandMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
+	if v, err := expandMetricDescriptorLabelsSlice(c, f.Labels, res); err != nil {
 		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
 	} else if v != nil {
 		m["labels"] = v
@@ -1027,7 +1029,7 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandMetricDescriptorMetadata(c, f.Metadata); err != nil {
+	if v, err := expandMetricDescriptorMetadata(c, f.Metadata, res); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metadata"] = v
@@ -1074,14 +1076,14 @@ func flattenMetricDescriptor(c *Client, i interface{}) *MetricDescriptor {
 
 // expandMetricDescriptorLabelsMap expands the contents of MetricDescriptorLabels into a JSON
 // request object.
-func expandMetricDescriptorLabelsMap(c *Client, f map[string]MetricDescriptorLabels) (map[string]interface{}, error) {
+func expandMetricDescriptorLabelsMap(c *Client, f map[string]MetricDescriptorLabels, res *MetricDescriptor) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMetricDescriptorLabels(c, &item)
+		i, err := expandMetricDescriptorLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1095,14 +1097,14 @@ func expandMetricDescriptorLabelsMap(c *Client, f map[string]MetricDescriptorLab
 
 // expandMetricDescriptorLabelsSlice expands the contents of MetricDescriptorLabels into a JSON
 // request object.
-func expandMetricDescriptorLabelsSlice(c *Client, f []MetricDescriptorLabels) ([]map[string]interface{}, error) {
+func expandMetricDescriptorLabelsSlice(c *Client, f []MetricDescriptorLabels, res *MetricDescriptor) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMetricDescriptorLabels(c, &item)
+		i, err := expandMetricDescriptorLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1155,7 +1157,7 @@ func flattenMetricDescriptorLabelsSlice(c *Client, i interface{}) []MetricDescri
 
 // expandMetricDescriptorLabels expands an instance of MetricDescriptorLabels into a JSON
 // request object.
-func expandMetricDescriptorLabels(c *Client, f *MetricDescriptorLabels) (map[string]interface{}, error) {
+func expandMetricDescriptorLabels(c *Client, f *MetricDescriptorLabels, res *MetricDescriptor) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1196,14 +1198,14 @@ func flattenMetricDescriptorLabels(c *Client, i interface{}) *MetricDescriptorLa
 
 // expandMetricDescriptorMetadataMap expands the contents of MetricDescriptorMetadata into a JSON
 // request object.
-func expandMetricDescriptorMetadataMap(c *Client, f map[string]MetricDescriptorMetadata) (map[string]interface{}, error) {
+func expandMetricDescriptorMetadataMap(c *Client, f map[string]MetricDescriptorMetadata, res *MetricDescriptor) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMetricDescriptorMetadata(c, &item)
+		i, err := expandMetricDescriptorMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1217,14 +1219,14 @@ func expandMetricDescriptorMetadataMap(c *Client, f map[string]MetricDescriptorM
 
 // expandMetricDescriptorMetadataSlice expands the contents of MetricDescriptorMetadata into a JSON
 // request object.
-func expandMetricDescriptorMetadataSlice(c *Client, f []MetricDescriptorMetadata) ([]map[string]interface{}, error) {
+func expandMetricDescriptorMetadataSlice(c *Client, f []MetricDescriptorMetadata, res *MetricDescriptor) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMetricDescriptorMetadata(c, &item)
+		i, err := expandMetricDescriptorMetadata(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1277,7 +1279,7 @@ func flattenMetricDescriptorMetadataSlice(c *Client, i interface{}) []MetricDesc
 
 // expandMetricDescriptorMetadata expands an instance of MetricDescriptorMetadata into a JSON
 // request object.
-func expandMetricDescriptorMetadata(c *Client, f *MetricDescriptorMetadata) (map[string]interface{}, error) {
+func expandMetricDescriptorMetadata(c *Client, f *MetricDescriptorMetadata, res *MetricDescriptor) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

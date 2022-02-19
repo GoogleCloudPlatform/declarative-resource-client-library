@@ -108,8 +108,10 @@ type organizationApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateOrganizationSetAddonsRequest(ctx context.Context, f *Organization, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandOrganizationAddonsConfig(c, f.AddonsConfig); err != nil {
+	if v, err := expandOrganizationAddonsConfig(c, f.AddonsConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding AddonsConfig into addonsConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["addonsConfig"] = v
@@ -180,6 +182,8 @@ func (op *updateOrganizationSetAddonsOperation) do(ctx context.Context, r *Organ
 // fields based on the intended state of the resource.
 func newUpdateOrganizationUpdateOrganizationRequest(ctx context.Context, f *Organization, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -1285,6 +1289,8 @@ func unmarshalMapOrganization(m map[string]interface{}, c *Client) (*Organizatio
 // expandOrganization expands Organization into a JSON request object.
 func expandOrganization(c *Client, f *Organization) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("organizations/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1310,7 +1316,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	if v := f.RuntimeType; dcl.ValueShouldBeSent(v) {
 		m["runtimeType"] = v
 	}
-	if v, err := expandOrganizationAddonsConfig(c, f.AddonsConfig); err != nil {
+	if v, err := expandOrganizationAddonsConfig(c, f.AddonsConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding AddonsConfig into addonsConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["addonsConfig"] = v
@@ -1364,14 +1370,14 @@ func flattenOrganization(c *Client, i interface{}) *Organization {
 
 // expandOrganizationAddonsConfigMap expands the contents of OrganizationAddonsConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigMap(c *Client, f map[string]OrganizationAddonsConfig) (map[string]interface{}, error) {
+func expandOrganizationAddonsConfigMap(c *Client, f map[string]OrganizationAddonsConfig, res *Organization) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOrganizationAddonsConfig(c, &item)
+		i, err := expandOrganizationAddonsConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1385,14 +1391,14 @@ func expandOrganizationAddonsConfigMap(c *Client, f map[string]OrganizationAddon
 
 // expandOrganizationAddonsConfigSlice expands the contents of OrganizationAddonsConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigSlice(c *Client, f []OrganizationAddonsConfig) ([]map[string]interface{}, error) {
+func expandOrganizationAddonsConfigSlice(c *Client, f []OrganizationAddonsConfig, res *Organization) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOrganizationAddonsConfig(c, &item)
+		i, err := expandOrganizationAddonsConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1445,18 +1451,18 @@ func flattenOrganizationAddonsConfigSlice(c *Client, i interface{}) []Organizati
 
 // expandOrganizationAddonsConfig expands an instance of OrganizationAddonsConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfig(c *Client, f *OrganizationAddonsConfig) (map[string]interface{}, error) {
+func expandOrganizationAddonsConfig(c *Client, f *OrganizationAddonsConfig, res *Organization) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOrganizationAddonsConfigAdvancedApiOpsConfig(c, f.AdvancedApiOpsConfig); err != nil {
+	if v, err := expandOrganizationAddonsConfigAdvancedApiOpsConfig(c, f.AdvancedApiOpsConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdvancedApiOpsConfig into advancedApiOpsConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["advancedApiOpsConfig"] = v
 	}
-	if v, err := expandOrganizationAddonsConfigMonetizationConfig(c, f.MonetizationConfig); err != nil {
+	if v, err := expandOrganizationAddonsConfigMonetizationConfig(c, f.MonetizationConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding MonetizationConfig into monetizationConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["monetizationConfig"] = v
@@ -1486,14 +1492,14 @@ func flattenOrganizationAddonsConfig(c *Client, i interface{}) *OrganizationAddo
 
 // expandOrganizationAddonsConfigAdvancedApiOpsConfigMap expands the contents of OrganizationAddonsConfigAdvancedApiOpsConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigAdvancedApiOpsConfigMap(c *Client, f map[string]OrganizationAddonsConfigAdvancedApiOpsConfig) (map[string]interface{}, error) {
+func expandOrganizationAddonsConfigAdvancedApiOpsConfigMap(c *Client, f map[string]OrganizationAddonsConfigAdvancedApiOpsConfig, res *Organization) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOrganizationAddonsConfigAdvancedApiOpsConfig(c, &item)
+		i, err := expandOrganizationAddonsConfigAdvancedApiOpsConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1507,14 +1513,14 @@ func expandOrganizationAddonsConfigAdvancedApiOpsConfigMap(c *Client, f map[stri
 
 // expandOrganizationAddonsConfigAdvancedApiOpsConfigSlice expands the contents of OrganizationAddonsConfigAdvancedApiOpsConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client, f []OrganizationAddonsConfigAdvancedApiOpsConfig) ([]map[string]interface{}, error) {
+func expandOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client, f []OrganizationAddonsConfigAdvancedApiOpsConfig, res *Organization) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOrganizationAddonsConfigAdvancedApiOpsConfig(c, &item)
+		i, err := expandOrganizationAddonsConfigAdvancedApiOpsConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1567,7 +1573,7 @@ func flattenOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client, i inter
 
 // expandOrganizationAddonsConfigAdvancedApiOpsConfig expands an instance of OrganizationAddonsConfigAdvancedApiOpsConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigAdvancedApiOpsConfig(c *Client, f *OrganizationAddonsConfigAdvancedApiOpsConfig) (map[string]interface{}, error) {
+func expandOrganizationAddonsConfigAdvancedApiOpsConfig(c *Client, f *OrganizationAddonsConfigAdvancedApiOpsConfig, res *Organization) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1600,14 +1606,14 @@ func flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c *Client, i interface{
 
 // expandOrganizationAddonsConfigMonetizationConfigMap expands the contents of OrganizationAddonsConfigMonetizationConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigMonetizationConfigMap(c *Client, f map[string]OrganizationAddonsConfigMonetizationConfig) (map[string]interface{}, error) {
+func expandOrganizationAddonsConfigMonetizationConfigMap(c *Client, f map[string]OrganizationAddonsConfigMonetizationConfig, res *Organization) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOrganizationAddonsConfigMonetizationConfig(c, &item)
+		i, err := expandOrganizationAddonsConfigMonetizationConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1621,14 +1627,14 @@ func expandOrganizationAddonsConfigMonetizationConfigMap(c *Client, f map[string
 
 // expandOrganizationAddonsConfigMonetizationConfigSlice expands the contents of OrganizationAddonsConfigMonetizationConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigMonetizationConfigSlice(c *Client, f []OrganizationAddonsConfigMonetizationConfig) ([]map[string]interface{}, error) {
+func expandOrganizationAddonsConfigMonetizationConfigSlice(c *Client, f []OrganizationAddonsConfigMonetizationConfig, res *Organization) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOrganizationAddonsConfigMonetizationConfig(c, &item)
+		i, err := expandOrganizationAddonsConfigMonetizationConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1681,7 +1687,7 @@ func flattenOrganizationAddonsConfigMonetizationConfigSlice(c *Client, i interfa
 
 // expandOrganizationAddonsConfigMonetizationConfig expands an instance of OrganizationAddonsConfigMonetizationConfig into a JSON
 // request object.
-func expandOrganizationAddonsConfigMonetizationConfig(c *Client, f *OrganizationAddonsConfigMonetizationConfig) (map[string]interface{}, error) {
+func expandOrganizationAddonsConfigMonetizationConfig(c *Client, f *OrganizationAddonsConfigMonetizationConfig, res *Organization) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

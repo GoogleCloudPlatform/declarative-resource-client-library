@@ -96,6 +96,8 @@ type realmApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateRealmUpdateRequest(ctx context.Context, f *Realm, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -647,6 +649,8 @@ func unmarshalMapRealm(m map[string]interface{}, c *Client) (*Realm, error) {
 // expandRealm expands Realm into a JSON request object.
 func expandRealm(c *Client, f *Realm) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

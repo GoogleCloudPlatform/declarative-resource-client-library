@@ -154,16 +154,18 @@ type uptimeCheckConfigApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(ctx context.Context, f *UptimeCheckConfig, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandUptimeCheckConfigHttpCheck(c, f.HttpCheck); err != nil {
+	if v, err := expandUptimeCheckConfigHttpCheck(c, f.HttpCheck, res); err != nil {
 		return nil, fmt.Errorf("error expanding HttpCheck into httpCheck: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["httpCheck"] = v
 	}
-	if v, err := expandUptimeCheckConfigTcpCheck(c, f.TcpCheck); err != nil {
+	if v, err := expandUptimeCheckConfigTcpCheck(c, f.TcpCheck, res); err != nil {
 		return nil, fmt.Errorf("error expanding TcpCheck into tcpCheck: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["tcpCheck"] = v
@@ -174,7 +176,7 @@ func newUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(ctx context.Contex
 	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		req["timeout"] = v
 	}
-	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers); err != nil {
+	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers, res); err != nil {
 		return nil, fmt.Errorf("error expanding ContentMatchers into contentMatchers: %w", err)
 	} else if v != nil {
 		req["contentMatchers"] = v
@@ -1907,28 +1909,30 @@ func unmarshalMapUptimeCheckConfig(m map[string]interface{}, c *Client) (*Uptime
 // expandUptimeCheckConfig expands UptimeCheckConfig into a JSON request object.
 func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandUptimeCheckConfigMonitoredResource(c, f.MonitoredResource); err != nil {
+	if v, err := expandUptimeCheckConfigMonitoredResource(c, f.MonitoredResource, res); err != nil {
 		return nil, fmt.Errorf("error expanding MonitoredResource into monitoredResource: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["monitoredResource"] = v
 	}
-	if v, err := expandUptimeCheckConfigResourceGroup(c, f.ResourceGroup); err != nil {
+	if v, err := expandUptimeCheckConfigResourceGroup(c, f.ResourceGroup, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceGroup into resourceGroup: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resourceGroup"] = v
 	}
-	if v, err := expandUptimeCheckConfigHttpCheck(c, f.HttpCheck); err != nil {
+	if v, err := expandUptimeCheckConfigHttpCheck(c, f.HttpCheck, res); err != nil {
 		return nil, fmt.Errorf("error expanding HttpCheck into httpCheck: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["httpCheck"] = v
 	}
-	if v, err := expandUptimeCheckConfigTcpCheck(c, f.TcpCheck); err != nil {
+	if v, err := expandUptimeCheckConfigTcpCheck(c, f.TcpCheck, res); err != nil {
 		return nil, fmt.Errorf("error expanding TcpCheck into tcpCheck: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["tcpCheck"] = v
@@ -1939,7 +1943,7 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	if v := f.Timeout; dcl.ValueShouldBeSent(v) {
 		m["timeout"] = v
 	}
-	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers); err != nil {
+	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers, res); err != nil {
 		return nil, fmt.Errorf("error expanding ContentMatchers into contentMatchers: %w", err)
 	} else if v != nil {
 		m["contentMatchers"] = v
@@ -1989,14 +1993,14 @@ func flattenUptimeCheckConfig(c *Client, i interface{}) *UptimeCheckConfig {
 
 // expandUptimeCheckConfigMonitoredResourceMap expands the contents of UptimeCheckConfigMonitoredResource into a JSON
 // request object.
-func expandUptimeCheckConfigMonitoredResourceMap(c *Client, f map[string]UptimeCheckConfigMonitoredResource) (map[string]interface{}, error) {
+func expandUptimeCheckConfigMonitoredResourceMap(c *Client, f map[string]UptimeCheckConfigMonitoredResource, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandUptimeCheckConfigMonitoredResource(c, &item)
+		i, err := expandUptimeCheckConfigMonitoredResource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2010,14 +2014,14 @@ func expandUptimeCheckConfigMonitoredResourceMap(c *Client, f map[string]UptimeC
 
 // expandUptimeCheckConfigMonitoredResourceSlice expands the contents of UptimeCheckConfigMonitoredResource into a JSON
 // request object.
-func expandUptimeCheckConfigMonitoredResourceSlice(c *Client, f []UptimeCheckConfigMonitoredResource) ([]map[string]interface{}, error) {
+func expandUptimeCheckConfigMonitoredResourceSlice(c *Client, f []UptimeCheckConfigMonitoredResource, res *UptimeCheckConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandUptimeCheckConfigMonitoredResource(c, &item)
+		i, err := expandUptimeCheckConfigMonitoredResource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2070,7 +2074,7 @@ func flattenUptimeCheckConfigMonitoredResourceSlice(c *Client, i interface{}) []
 
 // expandUptimeCheckConfigMonitoredResource expands an instance of UptimeCheckConfigMonitoredResource into a JSON
 // request object.
-func expandUptimeCheckConfigMonitoredResource(c *Client, f *UptimeCheckConfigMonitoredResource) (map[string]interface{}, error) {
+func expandUptimeCheckConfigMonitoredResource(c *Client, f *UptimeCheckConfigMonitoredResource, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2107,14 +2111,14 @@ func flattenUptimeCheckConfigMonitoredResource(c *Client, i interface{}) *Uptime
 
 // expandUptimeCheckConfigResourceGroupMap expands the contents of UptimeCheckConfigResourceGroup into a JSON
 // request object.
-func expandUptimeCheckConfigResourceGroupMap(c *Client, f map[string]UptimeCheckConfigResourceGroup) (map[string]interface{}, error) {
+func expandUptimeCheckConfigResourceGroupMap(c *Client, f map[string]UptimeCheckConfigResourceGroup, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandUptimeCheckConfigResourceGroup(c, &item)
+		i, err := expandUptimeCheckConfigResourceGroup(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2128,14 +2132,14 @@ func expandUptimeCheckConfigResourceGroupMap(c *Client, f map[string]UptimeCheck
 
 // expandUptimeCheckConfigResourceGroupSlice expands the contents of UptimeCheckConfigResourceGroup into a JSON
 // request object.
-func expandUptimeCheckConfigResourceGroupSlice(c *Client, f []UptimeCheckConfigResourceGroup) ([]map[string]interface{}, error) {
+func expandUptimeCheckConfigResourceGroupSlice(c *Client, f []UptimeCheckConfigResourceGroup, res *UptimeCheckConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandUptimeCheckConfigResourceGroup(c, &item)
+		i, err := expandUptimeCheckConfigResourceGroup(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2188,7 +2192,7 @@ func flattenUptimeCheckConfigResourceGroupSlice(c *Client, i interface{}) []Upti
 
 // expandUptimeCheckConfigResourceGroup expands an instance of UptimeCheckConfigResourceGroup into a JSON
 // request object.
-func expandUptimeCheckConfigResourceGroup(c *Client, f *UptimeCheckConfigResourceGroup) (map[string]interface{}, error) {
+func expandUptimeCheckConfigResourceGroup(c *Client, f *UptimeCheckConfigResourceGroup, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2227,14 +2231,14 @@ func flattenUptimeCheckConfigResourceGroup(c *Client, i interface{}) *UptimeChec
 
 // expandUptimeCheckConfigHttpCheckMap expands the contents of UptimeCheckConfigHttpCheck into a JSON
 // request object.
-func expandUptimeCheckConfigHttpCheckMap(c *Client, f map[string]UptimeCheckConfigHttpCheck) (map[string]interface{}, error) {
+func expandUptimeCheckConfigHttpCheckMap(c *Client, f map[string]UptimeCheckConfigHttpCheck, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandUptimeCheckConfigHttpCheck(c, &item)
+		i, err := expandUptimeCheckConfigHttpCheck(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2248,14 +2252,14 @@ func expandUptimeCheckConfigHttpCheckMap(c *Client, f map[string]UptimeCheckConf
 
 // expandUptimeCheckConfigHttpCheckSlice expands the contents of UptimeCheckConfigHttpCheck into a JSON
 // request object.
-func expandUptimeCheckConfigHttpCheckSlice(c *Client, f []UptimeCheckConfigHttpCheck) ([]map[string]interface{}, error) {
+func expandUptimeCheckConfigHttpCheckSlice(c *Client, f []UptimeCheckConfigHttpCheck, res *UptimeCheckConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandUptimeCheckConfigHttpCheck(c, &item)
+		i, err := expandUptimeCheckConfigHttpCheck(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2308,7 +2312,7 @@ func flattenUptimeCheckConfigHttpCheckSlice(c *Client, i interface{}) []UptimeCh
 
 // expandUptimeCheckConfigHttpCheck expands an instance of UptimeCheckConfigHttpCheck into a JSON
 // request object.
-func expandUptimeCheckConfigHttpCheck(c *Client, f *UptimeCheckConfigHttpCheck) (map[string]interface{}, error) {
+func expandUptimeCheckConfigHttpCheck(c *Client, f *UptimeCheckConfigHttpCheck, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2326,7 +2330,7 @@ func expandUptimeCheckConfigHttpCheck(c *Client, f *UptimeCheckConfigHttpCheck) 
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
-	if v, err := expandUptimeCheckConfigHttpCheckAuthInfo(c, f.AuthInfo); err != nil {
+	if v, err := expandUptimeCheckConfigHttpCheckAuthInfo(c, f.AuthInfo, res); err != nil {
 		return nil, fmt.Errorf("error expanding AuthInfo into authInfo: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["authInfo"] = v
@@ -2387,14 +2391,14 @@ func flattenUptimeCheckConfigHttpCheck(c *Client, i interface{}) *UptimeCheckCon
 
 // expandUptimeCheckConfigHttpCheckAuthInfoMap expands the contents of UptimeCheckConfigHttpCheckAuthInfo into a JSON
 // request object.
-func expandUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, f map[string]UptimeCheckConfigHttpCheckAuthInfo) (map[string]interface{}, error) {
+func expandUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, f map[string]UptimeCheckConfigHttpCheckAuthInfo, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandUptimeCheckConfigHttpCheckAuthInfo(c, &item)
+		i, err := expandUptimeCheckConfigHttpCheckAuthInfo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2408,14 +2412,14 @@ func expandUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, f map[string]UptimeC
 
 // expandUptimeCheckConfigHttpCheckAuthInfoSlice expands the contents of UptimeCheckConfigHttpCheckAuthInfo into a JSON
 // request object.
-func expandUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, f []UptimeCheckConfigHttpCheckAuthInfo) ([]map[string]interface{}, error) {
+func expandUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, f []UptimeCheckConfigHttpCheckAuthInfo, res *UptimeCheckConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandUptimeCheckConfigHttpCheckAuthInfo(c, &item)
+		i, err := expandUptimeCheckConfigHttpCheckAuthInfo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2468,7 +2472,7 @@ func flattenUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, i interface{}) []
 
 // expandUptimeCheckConfigHttpCheckAuthInfo expands an instance of UptimeCheckConfigHttpCheckAuthInfo into a JSON
 // request object.
-func expandUptimeCheckConfigHttpCheckAuthInfo(c *Client, f *UptimeCheckConfigHttpCheckAuthInfo) (map[string]interface{}, error) {
+func expandUptimeCheckConfigHttpCheckAuthInfo(c *Client, f *UptimeCheckConfigHttpCheckAuthInfo, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2505,14 +2509,14 @@ func flattenUptimeCheckConfigHttpCheckAuthInfo(c *Client, i interface{}) *Uptime
 
 // expandUptimeCheckConfigTcpCheckMap expands the contents of UptimeCheckConfigTcpCheck into a JSON
 // request object.
-func expandUptimeCheckConfigTcpCheckMap(c *Client, f map[string]UptimeCheckConfigTcpCheck) (map[string]interface{}, error) {
+func expandUptimeCheckConfigTcpCheckMap(c *Client, f map[string]UptimeCheckConfigTcpCheck, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandUptimeCheckConfigTcpCheck(c, &item)
+		i, err := expandUptimeCheckConfigTcpCheck(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2526,14 +2530,14 @@ func expandUptimeCheckConfigTcpCheckMap(c *Client, f map[string]UptimeCheckConfi
 
 // expandUptimeCheckConfigTcpCheckSlice expands the contents of UptimeCheckConfigTcpCheck into a JSON
 // request object.
-func expandUptimeCheckConfigTcpCheckSlice(c *Client, f []UptimeCheckConfigTcpCheck) ([]map[string]interface{}, error) {
+func expandUptimeCheckConfigTcpCheckSlice(c *Client, f []UptimeCheckConfigTcpCheck, res *UptimeCheckConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandUptimeCheckConfigTcpCheck(c, &item)
+		i, err := expandUptimeCheckConfigTcpCheck(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2586,7 +2590,7 @@ func flattenUptimeCheckConfigTcpCheckSlice(c *Client, i interface{}) []UptimeChe
 
 // expandUptimeCheckConfigTcpCheck expands an instance of UptimeCheckConfigTcpCheck into a JSON
 // request object.
-func expandUptimeCheckConfigTcpCheck(c *Client, f *UptimeCheckConfigTcpCheck) (map[string]interface{}, error) {
+func expandUptimeCheckConfigTcpCheck(c *Client, f *UptimeCheckConfigTcpCheck, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2619,14 +2623,14 @@ func flattenUptimeCheckConfigTcpCheck(c *Client, i interface{}) *UptimeCheckConf
 
 // expandUptimeCheckConfigContentMatchersMap expands the contents of UptimeCheckConfigContentMatchers into a JSON
 // request object.
-func expandUptimeCheckConfigContentMatchersMap(c *Client, f map[string]UptimeCheckConfigContentMatchers) (map[string]interface{}, error) {
+func expandUptimeCheckConfigContentMatchersMap(c *Client, f map[string]UptimeCheckConfigContentMatchers, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandUptimeCheckConfigContentMatchers(c, &item)
+		i, err := expandUptimeCheckConfigContentMatchers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2640,14 +2644,14 @@ func expandUptimeCheckConfigContentMatchersMap(c *Client, f map[string]UptimeChe
 
 // expandUptimeCheckConfigContentMatchersSlice expands the contents of UptimeCheckConfigContentMatchers into a JSON
 // request object.
-func expandUptimeCheckConfigContentMatchersSlice(c *Client, f []UptimeCheckConfigContentMatchers) ([]map[string]interface{}, error) {
+func expandUptimeCheckConfigContentMatchersSlice(c *Client, f []UptimeCheckConfigContentMatchers, res *UptimeCheckConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandUptimeCheckConfigContentMatchers(c, &item)
+		i, err := expandUptimeCheckConfigContentMatchers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2700,7 +2704,7 @@ func flattenUptimeCheckConfigContentMatchersSlice(c *Client, i interface{}) []Up
 
 // expandUptimeCheckConfigContentMatchers expands an instance of UptimeCheckConfigContentMatchers into a JSON
 // request object.
-func expandUptimeCheckConfigContentMatchers(c *Client, f *UptimeCheckConfigContentMatchers) (map[string]interface{}, error) {
+func expandUptimeCheckConfigContentMatchers(c *Client, f *UptimeCheckConfigContentMatchers, res *UptimeCheckConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

@@ -503,6 +503,8 @@ func unmarshalMapAttachment(m map[string]interface{}, c *Client) (*Attachment, e
 // expandAttachment expands Attachment into a JSON request object.
 func expandAttachment(c *Client, f *Attachment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

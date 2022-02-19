@@ -250,6 +250,8 @@ type clusterApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateClusterUpdateAzureClusterRequest(ctx context.Context, f *Cluster, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -257,7 +259,7 @@ func newUpdateClusterUpdateAzureClusterRequest(ctx context.Context, f *Cluster, 
 	if v := f.Client; !dcl.IsEmptyValueIndirect(v) {
 		req["azureClient"] = v
 	}
-	if v, err := expandClusterControlPlane(c, f.ControlPlane); err != nil {
+	if v, err := expandClusterControlPlane(c, f.ControlPlane, res); err != nil {
 		return nil, fmt.Errorf("error expanding ControlPlane into controlPlane: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["controlPlane"] = v
@@ -2935,6 +2937,8 @@ func unmarshalMapCluster(m map[string]interface{}, c *Client) (*Cluster, error) 
 // expandCluster expands Cluster into a JSON request object.
 func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/azureClusters/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2952,17 +2956,17 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	if v := f.Client; dcl.ValueShouldBeSent(v) {
 		m["azureClient"] = v
 	}
-	if v, err := expandClusterNetworking(c, f.Networking); err != nil {
+	if v, err := expandClusterNetworking(c, f.Networking, res); err != nil {
 		return nil, fmt.Errorf("error expanding Networking into networking: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["networking"] = v
 	}
-	if v, err := expandClusterControlPlane(c, f.ControlPlane); err != nil {
+	if v, err := expandClusterControlPlane(c, f.ControlPlane, res); err != nil {
 		return nil, fmt.Errorf("error expanding ControlPlane into controlPlane: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["controlPlane"] = v
 	}
-	if v, err := expandClusterAuthorization(c, f.Authorization); err != nil {
+	if v, err := expandClusterAuthorization(c, f.Authorization, res); err != nil {
 		return nil, fmt.Errorf("error expanding Authorization into authorization: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["authorization"] = v
@@ -2980,7 +2984,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
-	if v, err := expandClusterFleet(c, f.Fleet); err != nil {
+	if v, err := expandClusterFleet(c, f.Fleet, res); err != nil {
 		return nil, fmt.Errorf("error expanding Fleet into fleet: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fleet"] = v
@@ -3027,14 +3031,14 @@ func flattenCluster(c *Client, i interface{}) *Cluster {
 
 // expandClusterNetworkingMap expands the contents of ClusterNetworking into a JSON
 // request object.
-func expandClusterNetworkingMap(c *Client, f map[string]ClusterNetworking) (map[string]interface{}, error) {
+func expandClusterNetworkingMap(c *Client, f map[string]ClusterNetworking, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterNetworking(c, &item)
+		i, err := expandClusterNetworking(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3048,14 +3052,14 @@ func expandClusterNetworkingMap(c *Client, f map[string]ClusterNetworking) (map[
 
 // expandClusterNetworkingSlice expands the contents of ClusterNetworking into a JSON
 // request object.
-func expandClusterNetworkingSlice(c *Client, f []ClusterNetworking) ([]map[string]interface{}, error) {
+func expandClusterNetworkingSlice(c *Client, f []ClusterNetworking, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterNetworking(c, &item)
+		i, err := expandClusterNetworking(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3108,7 +3112,7 @@ func flattenClusterNetworkingSlice(c *Client, i interface{}) []ClusterNetworking
 
 // expandClusterNetworking expands an instance of ClusterNetworking into a JSON
 // request object.
-func expandClusterNetworking(c *Client, f *ClusterNetworking) (map[string]interface{}, error) {
+func expandClusterNetworking(c *Client, f *ClusterNetworking, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3149,14 +3153,14 @@ func flattenClusterNetworking(c *Client, i interface{}) *ClusterNetworking {
 
 // expandClusterControlPlaneMap expands the contents of ClusterControlPlane into a JSON
 // request object.
-func expandClusterControlPlaneMap(c *Client, f map[string]ClusterControlPlane) (map[string]interface{}, error) {
+func expandClusterControlPlaneMap(c *Client, f map[string]ClusterControlPlane, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterControlPlane(c, &item)
+		i, err := expandClusterControlPlane(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3170,14 +3174,14 @@ func expandClusterControlPlaneMap(c *Client, f map[string]ClusterControlPlane) (
 
 // expandClusterControlPlaneSlice expands the contents of ClusterControlPlane into a JSON
 // request object.
-func expandClusterControlPlaneSlice(c *Client, f []ClusterControlPlane) ([]map[string]interface{}, error) {
+func expandClusterControlPlaneSlice(c *Client, f []ClusterControlPlane, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterControlPlane(c, &item)
+		i, err := expandClusterControlPlane(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3230,7 +3234,7 @@ func flattenClusterControlPlaneSlice(c *Client, i interface{}) []ClusterControlP
 
 // expandClusterControlPlane expands an instance of ClusterControlPlane into a JSON
 // request object.
-func expandClusterControlPlane(c *Client, f *ClusterControlPlane) (map[string]interface{}, error) {
+func expandClusterControlPlane(c *Client, f *ClusterControlPlane, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3245,22 +3249,22 @@ func expandClusterControlPlane(c *Client, f *ClusterControlPlane) (map[string]in
 	if v := f.VmSize; !dcl.IsEmptyValueIndirect(v) {
 		m["vmSize"] = v
 	}
-	if v, err := expandClusterControlPlaneSshConfig(c, f.SshConfig); err != nil {
+	if v, err := expandClusterControlPlaneSshConfig(c, f.SshConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding SshConfig into sshConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sshConfig"] = v
 	}
-	if v, err := expandClusterControlPlaneRootVolume(c, f.RootVolume); err != nil {
+	if v, err := expandClusterControlPlaneRootVolume(c, f.RootVolume, res); err != nil {
 		return nil, fmt.Errorf("error expanding RootVolume into rootVolume: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rootVolume"] = v
 	}
-	if v, err := expandClusterControlPlaneMainVolume(c, f.MainVolume); err != nil {
+	if v, err := expandClusterControlPlaneMainVolume(c, f.MainVolume, res); err != nil {
 		return nil, fmt.Errorf("error expanding MainVolume into mainVolume: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mainVolume"] = v
 	}
-	if v, err := expandClusterControlPlaneDatabaseEncryption(c, f.DatabaseEncryption); err != nil {
+	if v, err := expandClusterControlPlaneDatabaseEncryption(c, f.DatabaseEncryption, res); err != nil {
 		return nil, fmt.Errorf("error expanding DatabaseEncryption into databaseEncryption: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["databaseEncryption"] = v
@@ -3268,12 +3272,12 @@ func expandClusterControlPlane(c *Client, f *ClusterControlPlane) (map[string]in
 	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
 		m["tags"] = v
 	}
-	if v, err := expandClusterControlPlaneProxyConfig(c, f.ProxyConfig); err != nil {
+	if v, err := expandClusterControlPlaneProxyConfig(c, f.ProxyConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding ProxyConfig into proxyConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["proxyConfig"] = v
 	}
-	if v, err := expandClusterControlPlaneReplicaPlacementsSlice(c, f.ReplicaPlacements); err != nil {
+	if v, err := expandClusterControlPlaneReplicaPlacementsSlice(c, f.ReplicaPlacements, res); err != nil {
 		return nil, fmt.Errorf("error expanding ReplicaPlacements into replicaPlacements: %w", err)
 	} else if v != nil {
 		m["replicaPlacements"] = v
@@ -3311,14 +3315,14 @@ func flattenClusterControlPlane(c *Client, i interface{}) *ClusterControlPlane {
 
 // expandClusterControlPlaneSshConfigMap expands the contents of ClusterControlPlaneSshConfig into a JSON
 // request object.
-func expandClusterControlPlaneSshConfigMap(c *Client, f map[string]ClusterControlPlaneSshConfig) (map[string]interface{}, error) {
+func expandClusterControlPlaneSshConfigMap(c *Client, f map[string]ClusterControlPlaneSshConfig, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterControlPlaneSshConfig(c, &item)
+		i, err := expandClusterControlPlaneSshConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3332,14 +3336,14 @@ func expandClusterControlPlaneSshConfigMap(c *Client, f map[string]ClusterContro
 
 // expandClusterControlPlaneSshConfigSlice expands the contents of ClusterControlPlaneSshConfig into a JSON
 // request object.
-func expandClusterControlPlaneSshConfigSlice(c *Client, f []ClusterControlPlaneSshConfig) ([]map[string]interface{}, error) {
+func expandClusterControlPlaneSshConfigSlice(c *Client, f []ClusterControlPlaneSshConfig, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterControlPlaneSshConfig(c, &item)
+		i, err := expandClusterControlPlaneSshConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3392,7 +3396,7 @@ func flattenClusterControlPlaneSshConfigSlice(c *Client, i interface{}) []Cluste
 
 // expandClusterControlPlaneSshConfig expands an instance of ClusterControlPlaneSshConfig into a JSON
 // request object.
-func expandClusterControlPlaneSshConfig(c *Client, f *ClusterControlPlaneSshConfig) (map[string]interface{}, error) {
+func expandClusterControlPlaneSshConfig(c *Client, f *ClusterControlPlaneSshConfig, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3425,14 +3429,14 @@ func flattenClusterControlPlaneSshConfig(c *Client, i interface{}) *ClusterContr
 
 // expandClusterControlPlaneRootVolumeMap expands the contents of ClusterControlPlaneRootVolume into a JSON
 // request object.
-func expandClusterControlPlaneRootVolumeMap(c *Client, f map[string]ClusterControlPlaneRootVolume) (map[string]interface{}, error) {
+func expandClusterControlPlaneRootVolumeMap(c *Client, f map[string]ClusterControlPlaneRootVolume, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterControlPlaneRootVolume(c, &item)
+		i, err := expandClusterControlPlaneRootVolume(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3446,14 +3450,14 @@ func expandClusterControlPlaneRootVolumeMap(c *Client, f map[string]ClusterContr
 
 // expandClusterControlPlaneRootVolumeSlice expands the contents of ClusterControlPlaneRootVolume into a JSON
 // request object.
-func expandClusterControlPlaneRootVolumeSlice(c *Client, f []ClusterControlPlaneRootVolume) ([]map[string]interface{}, error) {
+func expandClusterControlPlaneRootVolumeSlice(c *Client, f []ClusterControlPlaneRootVolume, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterControlPlaneRootVolume(c, &item)
+		i, err := expandClusterControlPlaneRootVolume(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3506,7 +3510,7 @@ func flattenClusterControlPlaneRootVolumeSlice(c *Client, i interface{}) []Clust
 
 // expandClusterControlPlaneRootVolume expands an instance of ClusterControlPlaneRootVolume into a JSON
 // request object.
-func expandClusterControlPlaneRootVolume(c *Client, f *ClusterControlPlaneRootVolume) (map[string]interface{}, error) {
+func expandClusterControlPlaneRootVolume(c *Client, f *ClusterControlPlaneRootVolume, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3539,14 +3543,14 @@ func flattenClusterControlPlaneRootVolume(c *Client, i interface{}) *ClusterCont
 
 // expandClusterControlPlaneMainVolumeMap expands the contents of ClusterControlPlaneMainVolume into a JSON
 // request object.
-func expandClusterControlPlaneMainVolumeMap(c *Client, f map[string]ClusterControlPlaneMainVolume) (map[string]interface{}, error) {
+func expandClusterControlPlaneMainVolumeMap(c *Client, f map[string]ClusterControlPlaneMainVolume, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterControlPlaneMainVolume(c, &item)
+		i, err := expandClusterControlPlaneMainVolume(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3560,14 +3564,14 @@ func expandClusterControlPlaneMainVolumeMap(c *Client, f map[string]ClusterContr
 
 // expandClusterControlPlaneMainVolumeSlice expands the contents of ClusterControlPlaneMainVolume into a JSON
 // request object.
-func expandClusterControlPlaneMainVolumeSlice(c *Client, f []ClusterControlPlaneMainVolume) ([]map[string]interface{}, error) {
+func expandClusterControlPlaneMainVolumeSlice(c *Client, f []ClusterControlPlaneMainVolume, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterControlPlaneMainVolume(c, &item)
+		i, err := expandClusterControlPlaneMainVolume(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3620,7 +3624,7 @@ func flattenClusterControlPlaneMainVolumeSlice(c *Client, i interface{}) []Clust
 
 // expandClusterControlPlaneMainVolume expands an instance of ClusterControlPlaneMainVolume into a JSON
 // request object.
-func expandClusterControlPlaneMainVolume(c *Client, f *ClusterControlPlaneMainVolume) (map[string]interface{}, error) {
+func expandClusterControlPlaneMainVolume(c *Client, f *ClusterControlPlaneMainVolume, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3653,14 +3657,14 @@ func flattenClusterControlPlaneMainVolume(c *Client, i interface{}) *ClusterCont
 
 // expandClusterControlPlaneDatabaseEncryptionMap expands the contents of ClusterControlPlaneDatabaseEncryption into a JSON
 // request object.
-func expandClusterControlPlaneDatabaseEncryptionMap(c *Client, f map[string]ClusterControlPlaneDatabaseEncryption) (map[string]interface{}, error) {
+func expandClusterControlPlaneDatabaseEncryptionMap(c *Client, f map[string]ClusterControlPlaneDatabaseEncryption, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterControlPlaneDatabaseEncryption(c, &item)
+		i, err := expandClusterControlPlaneDatabaseEncryption(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3674,14 +3678,14 @@ func expandClusterControlPlaneDatabaseEncryptionMap(c *Client, f map[string]Clus
 
 // expandClusterControlPlaneDatabaseEncryptionSlice expands the contents of ClusterControlPlaneDatabaseEncryption into a JSON
 // request object.
-func expandClusterControlPlaneDatabaseEncryptionSlice(c *Client, f []ClusterControlPlaneDatabaseEncryption) ([]map[string]interface{}, error) {
+func expandClusterControlPlaneDatabaseEncryptionSlice(c *Client, f []ClusterControlPlaneDatabaseEncryption, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterControlPlaneDatabaseEncryption(c, &item)
+		i, err := expandClusterControlPlaneDatabaseEncryption(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3734,7 +3738,7 @@ func flattenClusterControlPlaneDatabaseEncryptionSlice(c *Client, i interface{})
 
 // expandClusterControlPlaneDatabaseEncryption expands an instance of ClusterControlPlaneDatabaseEncryption into a JSON
 // request object.
-func expandClusterControlPlaneDatabaseEncryption(c *Client, f *ClusterControlPlaneDatabaseEncryption) (map[string]interface{}, error) {
+func expandClusterControlPlaneDatabaseEncryption(c *Client, f *ClusterControlPlaneDatabaseEncryption, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3767,14 +3771,14 @@ func flattenClusterControlPlaneDatabaseEncryption(c *Client, i interface{}) *Clu
 
 // expandClusterControlPlaneProxyConfigMap expands the contents of ClusterControlPlaneProxyConfig into a JSON
 // request object.
-func expandClusterControlPlaneProxyConfigMap(c *Client, f map[string]ClusterControlPlaneProxyConfig) (map[string]interface{}, error) {
+func expandClusterControlPlaneProxyConfigMap(c *Client, f map[string]ClusterControlPlaneProxyConfig, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterControlPlaneProxyConfig(c, &item)
+		i, err := expandClusterControlPlaneProxyConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3788,14 +3792,14 @@ func expandClusterControlPlaneProxyConfigMap(c *Client, f map[string]ClusterCont
 
 // expandClusterControlPlaneProxyConfigSlice expands the contents of ClusterControlPlaneProxyConfig into a JSON
 // request object.
-func expandClusterControlPlaneProxyConfigSlice(c *Client, f []ClusterControlPlaneProxyConfig) ([]map[string]interface{}, error) {
+func expandClusterControlPlaneProxyConfigSlice(c *Client, f []ClusterControlPlaneProxyConfig, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterControlPlaneProxyConfig(c, &item)
+		i, err := expandClusterControlPlaneProxyConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3848,7 +3852,7 @@ func flattenClusterControlPlaneProxyConfigSlice(c *Client, i interface{}) []Clus
 
 // expandClusterControlPlaneProxyConfig expands an instance of ClusterControlPlaneProxyConfig into a JSON
 // request object.
-func expandClusterControlPlaneProxyConfig(c *Client, f *ClusterControlPlaneProxyConfig) (map[string]interface{}, error) {
+func expandClusterControlPlaneProxyConfig(c *Client, f *ClusterControlPlaneProxyConfig, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3885,14 +3889,14 @@ func flattenClusterControlPlaneProxyConfig(c *Client, i interface{}) *ClusterCon
 
 // expandClusterControlPlaneReplicaPlacementsMap expands the contents of ClusterControlPlaneReplicaPlacements into a JSON
 // request object.
-func expandClusterControlPlaneReplicaPlacementsMap(c *Client, f map[string]ClusterControlPlaneReplicaPlacements) (map[string]interface{}, error) {
+func expandClusterControlPlaneReplicaPlacementsMap(c *Client, f map[string]ClusterControlPlaneReplicaPlacements, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterControlPlaneReplicaPlacements(c, &item)
+		i, err := expandClusterControlPlaneReplicaPlacements(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3906,14 +3910,14 @@ func expandClusterControlPlaneReplicaPlacementsMap(c *Client, f map[string]Clust
 
 // expandClusterControlPlaneReplicaPlacementsSlice expands the contents of ClusterControlPlaneReplicaPlacements into a JSON
 // request object.
-func expandClusterControlPlaneReplicaPlacementsSlice(c *Client, f []ClusterControlPlaneReplicaPlacements) ([]map[string]interface{}, error) {
+func expandClusterControlPlaneReplicaPlacementsSlice(c *Client, f []ClusterControlPlaneReplicaPlacements, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterControlPlaneReplicaPlacements(c, &item)
+		i, err := expandClusterControlPlaneReplicaPlacements(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3966,7 +3970,7 @@ func flattenClusterControlPlaneReplicaPlacementsSlice(c *Client, i interface{}) 
 
 // expandClusterControlPlaneReplicaPlacements expands an instance of ClusterControlPlaneReplicaPlacements into a JSON
 // request object.
-func expandClusterControlPlaneReplicaPlacements(c *Client, f *ClusterControlPlaneReplicaPlacements) (map[string]interface{}, error) {
+func expandClusterControlPlaneReplicaPlacements(c *Client, f *ClusterControlPlaneReplicaPlacements, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -4003,14 +4007,14 @@ func flattenClusterControlPlaneReplicaPlacements(c *Client, i interface{}) *Clus
 
 // expandClusterAuthorizationMap expands the contents of ClusterAuthorization into a JSON
 // request object.
-func expandClusterAuthorizationMap(c *Client, f map[string]ClusterAuthorization) (map[string]interface{}, error) {
+func expandClusterAuthorizationMap(c *Client, f map[string]ClusterAuthorization, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterAuthorization(c, &item)
+		i, err := expandClusterAuthorization(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4024,14 +4028,14 @@ func expandClusterAuthorizationMap(c *Client, f map[string]ClusterAuthorization)
 
 // expandClusterAuthorizationSlice expands the contents of ClusterAuthorization into a JSON
 // request object.
-func expandClusterAuthorizationSlice(c *Client, f []ClusterAuthorization) ([]map[string]interface{}, error) {
+func expandClusterAuthorizationSlice(c *Client, f []ClusterAuthorization, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterAuthorization(c, &item)
+		i, err := expandClusterAuthorization(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4084,13 +4088,13 @@ func flattenClusterAuthorizationSlice(c *Client, i interface{}) []ClusterAuthori
 
 // expandClusterAuthorization expands an instance of ClusterAuthorization into a JSON
 // request object.
-func expandClusterAuthorization(c *Client, f *ClusterAuthorization) (map[string]interface{}, error) {
+func expandClusterAuthorization(c *Client, f *ClusterAuthorization, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandClusterAuthorizationAdminUsersSlice(c, f.AdminUsers); err != nil {
+	if v, err := expandClusterAuthorizationAdminUsersSlice(c, f.AdminUsers, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdminUsers into adminUsers: %w", err)
 	} else if v != nil {
 		m["adminUsers"] = v
@@ -4119,14 +4123,14 @@ func flattenClusterAuthorization(c *Client, i interface{}) *ClusterAuthorization
 
 // expandClusterAuthorizationAdminUsersMap expands the contents of ClusterAuthorizationAdminUsers into a JSON
 // request object.
-func expandClusterAuthorizationAdminUsersMap(c *Client, f map[string]ClusterAuthorizationAdminUsers) (map[string]interface{}, error) {
+func expandClusterAuthorizationAdminUsersMap(c *Client, f map[string]ClusterAuthorizationAdminUsers, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterAuthorizationAdminUsers(c, &item)
+		i, err := expandClusterAuthorizationAdminUsers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4140,14 +4144,14 @@ func expandClusterAuthorizationAdminUsersMap(c *Client, f map[string]ClusterAuth
 
 // expandClusterAuthorizationAdminUsersSlice expands the contents of ClusterAuthorizationAdminUsers into a JSON
 // request object.
-func expandClusterAuthorizationAdminUsersSlice(c *Client, f []ClusterAuthorizationAdminUsers) ([]map[string]interface{}, error) {
+func expandClusterAuthorizationAdminUsersSlice(c *Client, f []ClusterAuthorizationAdminUsers, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterAuthorizationAdminUsers(c, &item)
+		i, err := expandClusterAuthorizationAdminUsers(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4200,7 +4204,7 @@ func flattenClusterAuthorizationAdminUsersSlice(c *Client, i interface{}) []Clus
 
 // expandClusterAuthorizationAdminUsers expands an instance of ClusterAuthorizationAdminUsers into a JSON
 // request object.
-func expandClusterAuthorizationAdminUsers(c *Client, f *ClusterAuthorizationAdminUsers) (map[string]interface{}, error) {
+func expandClusterAuthorizationAdminUsers(c *Client, f *ClusterAuthorizationAdminUsers, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -4233,14 +4237,14 @@ func flattenClusterAuthorizationAdminUsers(c *Client, i interface{}) *ClusterAut
 
 // expandClusterWorkloadIdentityConfigMap expands the contents of ClusterWorkloadIdentityConfig into a JSON
 // request object.
-func expandClusterWorkloadIdentityConfigMap(c *Client, f map[string]ClusterWorkloadIdentityConfig) (map[string]interface{}, error) {
+func expandClusterWorkloadIdentityConfigMap(c *Client, f map[string]ClusterWorkloadIdentityConfig, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterWorkloadIdentityConfig(c, &item)
+		i, err := expandClusterWorkloadIdentityConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4254,14 +4258,14 @@ func expandClusterWorkloadIdentityConfigMap(c *Client, f map[string]ClusterWorkl
 
 // expandClusterWorkloadIdentityConfigSlice expands the contents of ClusterWorkloadIdentityConfig into a JSON
 // request object.
-func expandClusterWorkloadIdentityConfigSlice(c *Client, f []ClusterWorkloadIdentityConfig) ([]map[string]interface{}, error) {
+func expandClusterWorkloadIdentityConfigSlice(c *Client, f []ClusterWorkloadIdentityConfig, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterWorkloadIdentityConfig(c, &item)
+		i, err := expandClusterWorkloadIdentityConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4314,7 +4318,7 @@ func flattenClusterWorkloadIdentityConfigSlice(c *Client, i interface{}) []Clust
 
 // expandClusterWorkloadIdentityConfig expands an instance of ClusterWorkloadIdentityConfig into a JSON
 // request object.
-func expandClusterWorkloadIdentityConfig(c *Client, f *ClusterWorkloadIdentityConfig) (map[string]interface{}, error) {
+func expandClusterWorkloadIdentityConfig(c *Client, f *ClusterWorkloadIdentityConfig, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4355,14 +4359,14 @@ func flattenClusterWorkloadIdentityConfig(c *Client, i interface{}) *ClusterWork
 
 // expandClusterFleetMap expands the contents of ClusterFleet into a JSON
 // request object.
-func expandClusterFleetMap(c *Client, f map[string]ClusterFleet) (map[string]interface{}, error) {
+func expandClusterFleetMap(c *Client, f map[string]ClusterFleet, res *Cluster) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandClusterFleet(c, &item)
+		i, err := expandClusterFleet(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4376,14 +4380,14 @@ func expandClusterFleetMap(c *Client, f map[string]ClusterFleet) (map[string]int
 
 // expandClusterFleetSlice expands the contents of ClusterFleet into a JSON
 // request object.
-func expandClusterFleetSlice(c *Client, f []ClusterFleet) ([]map[string]interface{}, error) {
+func expandClusterFleetSlice(c *Client, f []ClusterFleet, res *Cluster) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandClusterFleet(c, &item)
+		i, err := expandClusterFleet(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4436,7 +4440,7 @@ func flattenClusterFleetSlice(c *Client, i interface{}) []ClusterFleet {
 
 // expandClusterFleet expands an instance of ClusterFleet into a JSON
 // request object.
-func expandClusterFleet(c *Client, f *ClusterFleet) (map[string]interface{}, error) {
+func expandClusterFleet(c *Client, f *ClusterFleet, res *Cluster) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

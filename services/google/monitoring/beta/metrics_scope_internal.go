@@ -440,6 +440,8 @@ func unmarshalMapMetricsScope(m map[string]interface{}, c *Client) (*MetricsScop
 // expandMetricsScope expands MetricsScope into a JSON request object.
 func expandMetricsScope(c *Client, f *MetricsScope) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("locations/global/metricsScope/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -471,14 +473,14 @@ func flattenMetricsScope(c *Client, i interface{}) *MetricsScope {
 
 // expandMetricsScopeMonitoredProjectsMap expands the contents of MetricsScopeMonitoredProjects into a JSON
 // request object.
-func expandMetricsScopeMonitoredProjectsMap(c *Client, f map[string]MetricsScopeMonitoredProjects) (map[string]interface{}, error) {
+func expandMetricsScopeMonitoredProjectsMap(c *Client, f map[string]MetricsScopeMonitoredProjects, res *MetricsScope) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMetricsScopeMonitoredProjects(c, &item)
+		i, err := expandMetricsScopeMonitoredProjects(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -492,14 +494,14 @@ func expandMetricsScopeMonitoredProjectsMap(c *Client, f map[string]MetricsScope
 
 // expandMetricsScopeMonitoredProjectsSlice expands the contents of MetricsScopeMonitoredProjects into a JSON
 // request object.
-func expandMetricsScopeMonitoredProjectsSlice(c *Client, f []MetricsScopeMonitoredProjects) ([]map[string]interface{}, error) {
+func expandMetricsScopeMonitoredProjectsSlice(c *Client, f []MetricsScopeMonitoredProjects, res *MetricsScope) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMetricsScopeMonitoredProjects(c, &item)
+		i, err := expandMetricsScopeMonitoredProjects(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -552,7 +554,7 @@ func flattenMetricsScopeMonitoredProjectsSlice(c *Client, i interface{}) []Metri
 
 // expandMetricsScopeMonitoredProjects expands an instance of MetricsScopeMonitoredProjects into a JSON
 // request object.
-func expandMetricsScopeMonitoredProjects(c *Client, f *MetricsScopeMonitoredProjects) (map[string]interface{}, error) {
+func expandMetricsScopeMonitoredProjects(c *Client, f *MetricsScopeMonitoredProjects, res *MetricsScope) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

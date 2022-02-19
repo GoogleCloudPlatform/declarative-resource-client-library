@@ -21,45 +21,59 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
-enum DataprocAlphaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
-  DataprocAlphaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumNO_VALUE_DO_NOT_USE = 0;
-  DataprocAlphaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED = 1;
-  DataprocAlphaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumINHERIT_FROM_SUBNETWORK = 2;
-  DataprocAlphaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumOUTBOUND = 3;
-  DataprocAlphaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumBIDIRECTIONAL = 4;
+enum DataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+  DataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED = 1;
+  DataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumINHERIT_FROM_SUBNETWORK = 2;
+  DataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumOUTBOUND = 3;
+  DataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumBIDIRECTIONAL = 4;
 }
 
-enum DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
-  DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumTYPE_UNSPECIFIED = 1;
-  DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumNO_RESERVATION = 2;
-  DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumANY_RESERVATION = 3;
-  DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSPECIFIC_RESERVATION = 4;
+enum DataprocAlphaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+  DataprocAlphaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocAlphaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumTYPE_UNSPECIFIED = 1;
+  DataprocAlphaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumNO_RESERVATION = 2;
+  DataprocAlphaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumANY_RESERVATION = 3;
+  DataprocAlphaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSPECIFIC_RESERVATION = 4;
 }
 
-enum DataprocAlphaClusterInstanceGroupConfigPreemptibilityEnum {
-  DataprocAlphaClusterInstanceGroupConfigPreemptibilityEnumNO_VALUE_DO_NOT_USE = 0;
-  DataprocAlphaClusterInstanceGroupConfigPreemptibilityEnumPREEMPTIBILITY_UNSPECIFIED = 1;
-  DataprocAlphaClusterInstanceGroupConfigPreemptibilityEnumNON_PREEMPTIBLE = 2;
-  DataprocAlphaClusterInstanceGroupConfigPreemptibilityEnumPREEMPTIBLE = 3;
+enum DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum {
+  DataprocAlphaClusterConfigMasterConfigPreemptibilityEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocAlphaClusterConfigMasterConfigPreemptibilityEnumPREEMPTIBILITY_UNSPECIFIED = 1;
+  DataprocAlphaClusterConfigMasterConfigPreemptibilityEnumNON_PREEMPTIBLE = 2;
+  DataprocAlphaClusterConfigMasterConfigPreemptibilityEnumPREEMPTIBLE = 3;
 }
 
-enum DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnum {
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumNO_VALUE_DO_NOT_USE = 0;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumCOMPONENT_UNSPECIFIED = 1;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumANACONDA = 2;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumDOCKER = 3;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumDRUID = 4;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumFLINK = 5;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumHBASE = 6;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumHIVE_WEBHCAT = 7;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumJUPYTER = 8;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumKERBEROS = 9;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumPRESTO = 10;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumRANGER = 11;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumSOLR = 12;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumZEPPELIN = 13;
-  DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnumZOOKEEPER = 14;
+enum DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum {
+  DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnumPREEMPTIBILITY_UNSPECIFIED = 1;
+  DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnumNON_PREEMPTIBLE = 2;
+  DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnumPREEMPTIBLE = 3;
+}
+
+enum DataprocAlphaClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+  DataprocAlphaClusterConfigSecondaryWorkerConfigPreemptibilityEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocAlphaClusterConfigSecondaryWorkerConfigPreemptibilityEnumPREEMPTIBILITY_UNSPECIFIED = 1;
+  DataprocAlphaClusterConfigSecondaryWorkerConfigPreemptibilityEnumNON_PREEMPTIBLE = 2;
+  DataprocAlphaClusterConfigSecondaryWorkerConfigPreemptibilityEnumPREEMPTIBLE = 3;
+}
+
+enum DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnum {
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumCOMPONENT_UNSPECIFIED = 1;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumANACONDA = 2;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumDOCKER = 3;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumDRUID = 4;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumFLINK = 5;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumHBASE = 6;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumHIVE_WEBHCAT = 7;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumJUPYTER = 8;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumKERBEROS = 9;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumPRESTO = 10;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumRANGER = 11;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumSOLR = 12;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumZEPPELIN = 13;
+  DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumZOOKEEPER = 14;
 }
 
 enum DataprocAlphaClusterStatusStateEnum {
@@ -105,7 +119,7 @@ enum DataprocAlphaClusterStatusHistorySubstateEnum {
 message DataprocAlphaCluster {
   string project = 1;
   string name = 2;
-  DataprocAlphaClusterClusterConfig config = 3;
+  DataprocAlphaClusterConfig config = 3;
   map<string, string> labels = 4;
   DataprocAlphaClusterStatus status = 5;
   repeated DataprocAlphaClusterStatusHistory status_history = 6;
@@ -114,101 +128,159 @@ message DataprocAlphaCluster {
   string location = 9;
 }
 
-message DataprocAlphaClusterClusterConfig {
+message DataprocAlphaClusterConfig {
   string staging_bucket = 1;
   string temp_bucket = 2;
-  DataprocAlphaClusterClusterConfigGceClusterConfig gce_cluster_config = 3;
-  DataprocAlphaClusterInstanceGroupConfig master_config = 4;
-  DataprocAlphaClusterInstanceGroupConfig worker_config = 5;
-  DataprocAlphaClusterInstanceGroupConfig secondary_worker_config = 6;
-  DataprocAlphaClusterClusterConfigSoftwareConfig software_config = 7;
-  repeated DataprocAlphaClusterClusterConfigInitializationActions initialization_actions = 8;
-  DataprocAlphaClusterClusterConfigEncryptionConfig encryption_config = 9;
-  DataprocAlphaClusterClusterConfigAutoscalingConfig autoscaling_config = 10;
-  DataprocAlphaClusterClusterConfigSecurityConfig security_config = 11;
-  DataprocAlphaClusterClusterConfigLifecycleConfig lifecycle_config = 12;
-  DataprocAlphaClusterClusterConfigEndpointConfig endpoint_config = 13;
-  DataprocAlphaClusterClusterConfigGkeClusterConfig gke_cluster_config = 14;
-  DataprocAlphaClusterClusterConfigMetastoreConfig metastore_config = 15;
+  DataprocAlphaClusterConfigGceClusterConfig gce_cluster_config = 3;
+  DataprocAlphaClusterConfigMasterConfig master_config = 4;
+  DataprocAlphaClusterConfigWorkerConfig worker_config = 5;
+  DataprocAlphaClusterConfigSecondaryWorkerConfig secondary_worker_config = 6;
+  DataprocAlphaClusterConfigSoftwareConfig software_config = 7;
+  repeated DataprocAlphaClusterConfigInitializationActions initialization_actions = 8;
+  DataprocAlphaClusterConfigEncryptionConfig encryption_config = 9;
+  DataprocAlphaClusterConfigAutoscalingConfig autoscaling_config = 10;
+  DataprocAlphaClusterConfigSecurityConfig security_config = 11;
+  DataprocAlphaClusterConfigLifecycleConfig lifecycle_config = 12;
+  DataprocAlphaClusterConfigEndpointConfig endpoint_config = 13;
+  DataprocAlphaClusterConfigGkeClusterConfig gke_cluster_config = 14;
+  DataprocAlphaClusterConfigMetastoreConfig metastore_config = 15;
 }
 
-message DataprocAlphaClusterClusterConfigGceClusterConfig {
+message DataprocAlphaClusterConfigGceClusterConfig {
   string zone = 1;
   string network = 2;
   string subnetwork = 3;
   bool internal_ip_only = 4;
-  DataprocAlphaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum private_ipv6_google_access = 5;
+  DataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum private_ipv6_google_access = 5;
   string service_account = 6;
   repeated string service_account_scopes = 7;
   repeated string tags = 8;
   map<string, string> metadata = 9;
-  DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinity reservation_affinity = 10;
-  DataprocAlphaClusterClusterConfigGceClusterConfigNodeGroupAffinity node_group_affinity = 11;
+  DataprocAlphaClusterConfigGceClusterConfigReservationAffinity reservation_affinity = 10;
+  DataprocAlphaClusterConfigGceClusterConfigNodeGroupAffinity node_group_affinity = 11;
 }
 
-message DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinity {
-  DataprocAlphaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum consume_reservation_type = 1;
+message DataprocAlphaClusterConfigGceClusterConfigReservationAffinity {
+  DataprocAlphaClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum consume_reservation_type = 1;
   string key = 2;
   repeated string values = 3;
 }
 
-message DataprocAlphaClusterClusterConfigGceClusterConfigNodeGroupAffinity {
+message DataprocAlphaClusterConfigGceClusterConfigNodeGroupAffinity {
   string node_group = 1;
 }
 
-message DataprocAlphaClusterInstanceGroupConfig {
+message DataprocAlphaClusterConfigMasterConfig {
   int64 num_instances = 1;
   repeated string instance_names = 2;
   string image = 3;
   string machine_type = 4;
-  DataprocAlphaClusterInstanceGroupConfigDiskConfig disk_config = 5;
+  DataprocAlphaClusterConfigMasterConfigDiskConfig disk_config = 5;
   bool is_preemptible = 6;
-  DataprocAlphaClusterInstanceGroupConfigPreemptibilityEnum preemptibility = 7;
-  DataprocAlphaClusterInstanceGroupConfigManagedGroupConfig managed_group_config = 8;
-  repeated DataprocAlphaClusterInstanceGroupConfigAccelerators accelerators = 9;
+  DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum preemptibility = 7;
+  DataprocAlphaClusterConfigMasterConfigManagedGroupConfig managed_group_config = 8;
+  repeated DataprocAlphaClusterConfigMasterConfigAccelerators accelerators = 9;
   string min_cpu_platform = 10;
 }
 
-message DataprocAlphaClusterInstanceGroupConfigDiskConfig {
+message DataprocAlphaClusterConfigMasterConfigDiskConfig {
   string boot_disk_type = 1;
   int64 boot_disk_size_gb = 2;
   int64 num_local_ssds = 3;
 }
 
-message DataprocAlphaClusterInstanceGroupConfigManagedGroupConfig {
+message DataprocAlphaClusterConfigMasterConfigManagedGroupConfig {
   string instance_template_name = 1;
   string instance_group_manager_name = 2;
 }
 
-message DataprocAlphaClusterInstanceGroupConfigAccelerators {
+message DataprocAlphaClusterConfigMasterConfigAccelerators {
   string accelerator_type = 1;
   int64 accelerator_count = 2;
 }
 
-message DataprocAlphaClusterClusterConfigSoftwareConfig {
-  string image_version = 1;
-  map<string, string> properties = 2;
-  repeated DataprocAlphaClusterClusterConfigSoftwareConfigOptionalComponentsEnum optional_components = 3;
+message DataprocAlphaClusterConfigWorkerConfig {
+  int64 num_instances = 1;
+  repeated string instance_names = 2;
+  string image = 3;
+  string machine_type = 4;
+  DataprocAlphaClusterConfigWorkerConfigDiskConfig disk_config = 5;
+  bool is_preemptible = 6;
+  DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum preemptibility = 7;
+  DataprocAlphaClusterConfigWorkerConfigManagedGroupConfig managed_group_config = 8;
+  repeated DataprocAlphaClusterConfigWorkerConfigAccelerators accelerators = 9;
+  string min_cpu_platform = 10;
 }
 
-message DataprocAlphaClusterClusterConfigInitializationActions {
+message DataprocAlphaClusterConfigWorkerConfigDiskConfig {
+  string boot_disk_type = 1;
+  int64 boot_disk_size_gb = 2;
+  int64 num_local_ssds = 3;
+}
+
+message DataprocAlphaClusterConfigWorkerConfigManagedGroupConfig {
+  string instance_template_name = 1;
+  string instance_group_manager_name = 2;
+}
+
+message DataprocAlphaClusterConfigWorkerConfigAccelerators {
+  string accelerator_type = 1;
+  int64 accelerator_count = 2;
+}
+
+message DataprocAlphaClusterConfigSecondaryWorkerConfig {
+  int64 num_instances = 1;
+  repeated string instance_names = 2;
+  string image = 3;
+  string machine_type = 4;
+  DataprocAlphaClusterConfigSecondaryWorkerConfigDiskConfig disk_config = 5;
+  bool is_preemptible = 6;
+  DataprocAlphaClusterConfigSecondaryWorkerConfigPreemptibilityEnum preemptibility = 7;
+  DataprocAlphaClusterConfigSecondaryWorkerConfigManagedGroupConfig managed_group_config = 8;
+  repeated DataprocAlphaClusterConfigSecondaryWorkerConfigAccelerators accelerators = 9;
+  string min_cpu_platform = 10;
+}
+
+message DataprocAlphaClusterConfigSecondaryWorkerConfigDiskConfig {
+  string boot_disk_type = 1;
+  int64 boot_disk_size_gb = 2;
+  int64 num_local_ssds = 3;
+}
+
+message DataprocAlphaClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+  string instance_template_name = 1;
+  string instance_group_manager_name = 2;
+}
+
+message DataprocAlphaClusterConfigSecondaryWorkerConfigAccelerators {
+  string accelerator_type = 1;
+  int64 accelerator_count = 2;
+}
+
+message DataprocAlphaClusterConfigSoftwareConfig {
+  string image_version = 1;
+  map<string, string> properties = 2;
+  repeated DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnum optional_components = 3;
+}
+
+message DataprocAlphaClusterConfigInitializationActions {
   string executable_file = 1;
   string execution_timeout = 2;
 }
 
-message DataprocAlphaClusterClusterConfigEncryptionConfig {
+message DataprocAlphaClusterConfigEncryptionConfig {
   string gce_pd_kms_key_name = 1;
 }
 
-message DataprocAlphaClusterClusterConfigAutoscalingConfig {
+message DataprocAlphaClusterConfigAutoscalingConfig {
   string policy = 1;
 }
 
-message DataprocAlphaClusterClusterConfigSecurityConfig {
-  DataprocAlphaClusterClusterConfigSecurityConfigKerberosConfig kerberos_config = 1;
+message DataprocAlphaClusterConfigSecurityConfig {
+  DataprocAlphaClusterConfigSecurityConfigKerberosConfig kerberos_config = 1;
 }
 
-message DataprocAlphaClusterClusterConfigSecurityConfigKerberosConfig {
+message DataprocAlphaClusterConfigSecurityConfigKerberosConfig {
   bool enable_kerberos = 1;
   string root_principal_password = 2;
   string kms_key = 3;
@@ -226,28 +298,28 @@ message DataprocAlphaClusterClusterConfigSecurityConfigKerberosConfig {
   string realm = 15;
 }
 
-message DataprocAlphaClusterClusterConfigLifecycleConfig {
+message DataprocAlphaClusterConfigLifecycleConfig {
   string idle_delete_ttl = 1;
   string auto_delete_time = 2;
   string auto_delete_ttl = 3;
   string idle_start_time = 4;
 }
 
-message DataprocAlphaClusterClusterConfigEndpointConfig {
+message DataprocAlphaClusterConfigEndpointConfig {
   map<string, string> http_ports = 1;
   bool enable_http_port_access = 2;
 }
 
-message DataprocAlphaClusterClusterConfigGkeClusterConfig {
-  DataprocAlphaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget namespaced_gke_deployment_target = 1;
+message DataprocAlphaClusterConfigGkeClusterConfig {
+  DataprocAlphaClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget namespaced_gke_deployment_target = 1;
 }
 
-message DataprocAlphaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+message DataprocAlphaClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
   string target_gke_cluster = 1;
   string cluster_namespace = 2;
 }
 
-message DataprocAlphaClusterClusterConfigMetastoreConfig {
+message DataprocAlphaClusterConfigMetastoreConfig {
   string dataproc_metastore_service = 1;
 }
 

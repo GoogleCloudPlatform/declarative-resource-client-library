@@ -632,6 +632,8 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 // expandInstance expands Instance into a JSON request object.
 func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

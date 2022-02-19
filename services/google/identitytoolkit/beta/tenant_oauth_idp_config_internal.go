@@ -100,6 +100,8 @@ type tenantOAuthIdpConfigApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateTenantOAuthIdpConfigUpdateConfigRequest(ctx context.Context, f *TenantOAuthIdpConfig, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -119,7 +121,7 @@ func newUpdateTenantOAuthIdpConfigUpdateConfigRequest(ctx context.Context, f *Te
 	if v := f.ClientSecret; !dcl.IsEmptyValueIndirect(v) {
 		req["clientSecret"] = v
 	}
-	if v, err := expandTenantOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {
+	if v, err := expandTenantOAuthIdpConfigResponseType(c, f.ResponseType, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseType into responseType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["responseType"] = v
@@ -866,6 +868,8 @@ func unmarshalMapTenantOAuthIdpConfig(m map[string]interface{}, c *Client) (*Ten
 // expandTenantOAuthIdpConfig expands TenantOAuthIdpConfig into a JSON request object.
 func expandTenantOAuthIdpConfig(c *Client, f *TenantOAuthIdpConfig) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
@@ -884,7 +888,7 @@ func expandTenantOAuthIdpConfig(c *Client, f *TenantOAuthIdpConfig) (map[string]
 	if v := f.ClientSecret; dcl.ValueShouldBeSent(v) {
 		m["clientSecret"] = v
 	}
-	if v, err := expandTenantOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {
+	if v, err := expandTenantOAuthIdpConfigResponseType(c, f.ResponseType, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseType into responseType: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["responseType"] = v
@@ -930,14 +934,14 @@ func flattenTenantOAuthIdpConfig(c *Client, i interface{}) *TenantOAuthIdpConfig
 
 // expandTenantOAuthIdpConfigResponseTypeMap expands the contents of TenantOAuthIdpConfigResponseType into a JSON
 // request object.
-func expandTenantOAuthIdpConfigResponseTypeMap(c *Client, f map[string]TenantOAuthIdpConfigResponseType) (map[string]interface{}, error) {
+func expandTenantOAuthIdpConfigResponseTypeMap(c *Client, f map[string]TenantOAuthIdpConfigResponseType, res *TenantOAuthIdpConfig) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandTenantOAuthIdpConfigResponseType(c, &item)
+		i, err := expandTenantOAuthIdpConfigResponseType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -951,14 +955,14 @@ func expandTenantOAuthIdpConfigResponseTypeMap(c *Client, f map[string]TenantOAu
 
 // expandTenantOAuthIdpConfigResponseTypeSlice expands the contents of TenantOAuthIdpConfigResponseType into a JSON
 // request object.
-func expandTenantOAuthIdpConfigResponseTypeSlice(c *Client, f []TenantOAuthIdpConfigResponseType) ([]map[string]interface{}, error) {
+func expandTenantOAuthIdpConfigResponseTypeSlice(c *Client, f []TenantOAuthIdpConfigResponseType, res *TenantOAuthIdpConfig) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandTenantOAuthIdpConfigResponseType(c, &item)
+		i, err := expandTenantOAuthIdpConfigResponseType(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1011,7 +1015,7 @@ func flattenTenantOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []Te
 
 // expandTenantOAuthIdpConfigResponseType expands an instance of TenantOAuthIdpConfigResponseType into a JSON
 // request object.
-func expandTenantOAuthIdpConfigResponseType(c *Client, f *TenantOAuthIdpConfigResponseType) (map[string]interface{}, error) {
+func expandTenantOAuthIdpConfigResponseType(c *Client, f *TenantOAuthIdpConfigResponseType, res *TenantOAuthIdpConfig) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

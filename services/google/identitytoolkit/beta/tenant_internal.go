@@ -92,6 +92,8 @@ type tenantApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateTenantUpdateTenantRequest(ctx context.Context, f *Tenant, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -108,7 +110,7 @@ func newUpdateTenantUpdateTenantRequest(ctx context.Context, f *Tenant, c *Clien
 	if v := f.EnableAnonymousUser; !dcl.IsEmptyValueIndirect(v) {
 		req["enableAnonymousUser"] = v
 	}
-	if v, err := expandTenantMfaConfig(c, f.MfaConfig); err != nil {
+	if v, err := expandTenantMfaConfig(c, f.MfaConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding MfaConfig into mfaConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["mfaConfig"] = v
@@ -837,6 +839,8 @@ func unmarshalMapTenant(m map[string]interface{}, c *Client) (*Tenant, error) {
 // expandTenant expands Tenant into a JSON request object.
 func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/tenants/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -857,7 +861,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	if v := f.EnableAnonymousUser; dcl.ValueShouldBeSent(v) {
 		m["enableAnonymousUser"] = v
 	}
-	if v, err := expandTenantMfaConfig(c, f.MfaConfig); err != nil {
+	if v, err := expandTenantMfaConfig(c, f.MfaConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding MfaConfig into mfaConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mfaConfig"] = v
@@ -901,14 +905,14 @@ func flattenTenant(c *Client, i interface{}) *Tenant {
 
 // expandTenantMfaConfigMap expands the contents of TenantMfaConfig into a JSON
 // request object.
-func expandTenantMfaConfigMap(c *Client, f map[string]TenantMfaConfig) (map[string]interface{}, error) {
+func expandTenantMfaConfigMap(c *Client, f map[string]TenantMfaConfig, res *Tenant) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandTenantMfaConfig(c, &item)
+		i, err := expandTenantMfaConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -922,14 +926,14 @@ func expandTenantMfaConfigMap(c *Client, f map[string]TenantMfaConfig) (map[stri
 
 // expandTenantMfaConfigSlice expands the contents of TenantMfaConfig into a JSON
 // request object.
-func expandTenantMfaConfigSlice(c *Client, f []TenantMfaConfig) ([]map[string]interface{}, error) {
+func expandTenantMfaConfigSlice(c *Client, f []TenantMfaConfig, res *Tenant) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandTenantMfaConfig(c, &item)
+		i, err := expandTenantMfaConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -982,7 +986,7 @@ func flattenTenantMfaConfigSlice(c *Client, i interface{}) []TenantMfaConfig {
 
 // expandTenantMfaConfig expands an instance of TenantMfaConfig into a JSON
 // request object.
-func expandTenantMfaConfig(c *Client, f *TenantMfaConfig) (map[string]interface{}, error) {
+func expandTenantMfaConfig(c *Client, f *TenantMfaConfig, res *Tenant) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

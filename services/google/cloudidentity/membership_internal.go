@@ -152,13 +152,15 @@ type membershipApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateMembershipUpdateMembershipRequest(ctx context.Context, f *Membership, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("groups/%s/memberships/%s", f.Name, dcl.SelfLinkToName(f.Group), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
 	}
-	if v, err := expandMembershipRolesSlice(c, f.Roles); err != nil {
+	if v, err := expandMembershipRolesSlice(c, f.Roles, res); err != nil {
 		return nil, fmt.Errorf("error expanding Roles into roles: %w", err)
 	} else if v != nil {
 		req["roles"] = v
@@ -1611,17 +1613,19 @@ func unmarshalMapMembership(m map[string]interface{}, c *Client) (*Membership, e
 // expandMembership expands Membership into a JSON request object.
 func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("groups/%s/memberships/%s", f.Name, dcl.SelfLinkToName(f.Group), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandMembershipPreferredMemberKey(c, f.PreferredMemberKey); err != nil {
+	if v, err := expandMembershipPreferredMemberKey(c, f.PreferredMemberKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding PreferredMemberKey into preferredMemberKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["preferredMemberKey"] = v
 	}
-	if v, err := expandMembershipRolesSlice(c, f.Roles); err != nil {
+	if v, err := expandMembershipRolesSlice(c, f.Roles, res); err != nil {
 		return nil, fmt.Errorf("error expanding Roles into roles: %w", err)
 	} else if v != nil {
 		m["roles"] = v
@@ -1662,14 +1666,14 @@ func flattenMembership(c *Client, i interface{}) *Membership {
 
 // expandMembershipPreferredMemberKeyMap expands the contents of MembershipPreferredMemberKey into a JSON
 // request object.
-func expandMembershipPreferredMemberKeyMap(c *Client, f map[string]MembershipPreferredMemberKey) (map[string]interface{}, error) {
+func expandMembershipPreferredMemberKeyMap(c *Client, f map[string]MembershipPreferredMemberKey, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipPreferredMemberKey(c, &item)
+		i, err := expandMembershipPreferredMemberKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1683,14 +1687,14 @@ func expandMembershipPreferredMemberKeyMap(c *Client, f map[string]MembershipPre
 
 // expandMembershipPreferredMemberKeySlice expands the contents of MembershipPreferredMemberKey into a JSON
 // request object.
-func expandMembershipPreferredMemberKeySlice(c *Client, f []MembershipPreferredMemberKey) ([]map[string]interface{}, error) {
+func expandMembershipPreferredMemberKeySlice(c *Client, f []MembershipPreferredMemberKey, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipPreferredMemberKey(c, &item)
+		i, err := expandMembershipPreferredMemberKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1743,7 +1747,7 @@ func flattenMembershipPreferredMemberKeySlice(c *Client, i interface{}) []Member
 
 // expandMembershipPreferredMemberKey expands an instance of MembershipPreferredMemberKey into a JSON
 // request object.
-func expandMembershipPreferredMemberKey(c *Client, f *MembershipPreferredMemberKey) (map[string]interface{}, error) {
+func expandMembershipPreferredMemberKey(c *Client, f *MembershipPreferredMemberKey, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1780,14 +1784,14 @@ func flattenMembershipPreferredMemberKey(c *Client, i interface{}) *MembershipPr
 
 // expandMembershipRolesMap expands the contents of MembershipRoles into a JSON
 // request object.
-func expandMembershipRolesMap(c *Client, f map[string]MembershipRoles) (map[string]interface{}, error) {
+func expandMembershipRolesMap(c *Client, f map[string]MembershipRoles, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipRoles(c, &item)
+		i, err := expandMembershipRoles(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1801,14 +1805,14 @@ func expandMembershipRolesMap(c *Client, f map[string]MembershipRoles) (map[stri
 
 // expandMembershipRolesSlice expands the contents of MembershipRoles into a JSON
 // request object.
-func expandMembershipRolesSlice(c *Client, f []MembershipRoles) ([]map[string]interface{}, error) {
+func expandMembershipRolesSlice(c *Client, f []MembershipRoles, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipRoles(c, &item)
+		i, err := expandMembershipRoles(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1861,7 +1865,7 @@ func flattenMembershipRolesSlice(c *Client, i interface{}) []MembershipRoles {
 
 // expandMembershipRoles expands an instance of MembershipRoles into a JSON
 // request object.
-func expandMembershipRoles(c *Client, f *MembershipRoles) (map[string]interface{}, error) {
+func expandMembershipRoles(c *Client, f *MembershipRoles, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1870,12 +1874,12 @@ func expandMembershipRoles(c *Client, f *MembershipRoles) (map[string]interface{
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandMembershipRolesExpiryDetail(c, f.ExpiryDetail); err != nil {
+	if v, err := expandMembershipRolesExpiryDetail(c, f.ExpiryDetail, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExpiryDetail into expiryDetail: %w", err)
 	} else if v != nil {
 		m["expiryDetail"] = v
 	}
-	if v, err := expandMembershipRolesRestrictionEvaluations(c, f.RestrictionEvaluations); err != nil {
+	if v, err := expandMembershipRolesRestrictionEvaluations(c, f.RestrictionEvaluations, res); err != nil {
 		return nil, fmt.Errorf("error expanding RestrictionEvaluations into restrictionEvaluations: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["restrictionEvaluations"] = v
@@ -1906,14 +1910,14 @@ func flattenMembershipRoles(c *Client, i interface{}) *MembershipRoles {
 
 // expandMembershipRolesExpiryDetailMap expands the contents of MembershipRolesExpiryDetail into a JSON
 // request object.
-func expandMembershipRolesExpiryDetailMap(c *Client, f map[string]MembershipRolesExpiryDetail) (map[string]interface{}, error) {
+func expandMembershipRolesExpiryDetailMap(c *Client, f map[string]MembershipRolesExpiryDetail, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipRolesExpiryDetail(c, &item)
+		i, err := expandMembershipRolesExpiryDetail(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1927,14 +1931,14 @@ func expandMembershipRolesExpiryDetailMap(c *Client, f map[string]MembershipRole
 
 // expandMembershipRolesExpiryDetailSlice expands the contents of MembershipRolesExpiryDetail into a JSON
 // request object.
-func expandMembershipRolesExpiryDetailSlice(c *Client, f []MembershipRolesExpiryDetail) ([]map[string]interface{}, error) {
+func expandMembershipRolesExpiryDetailSlice(c *Client, f []MembershipRolesExpiryDetail, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipRolesExpiryDetail(c, &item)
+		i, err := expandMembershipRolesExpiryDetail(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1987,7 +1991,7 @@ func flattenMembershipRolesExpiryDetailSlice(c *Client, i interface{}) []Members
 
 // expandMembershipRolesExpiryDetail expands an instance of MembershipRolesExpiryDetail into a JSON
 // request object.
-func expandMembershipRolesExpiryDetail(c *Client, f *MembershipRolesExpiryDetail) (map[string]interface{}, error) {
+func expandMembershipRolesExpiryDetail(c *Client, f *MembershipRolesExpiryDetail, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -2020,14 +2024,14 @@ func flattenMembershipRolesExpiryDetail(c *Client, i interface{}) *MembershipRol
 
 // expandMembershipRolesRestrictionEvaluationsMap expands the contents of MembershipRolesRestrictionEvaluations into a JSON
 // request object.
-func expandMembershipRolesRestrictionEvaluationsMap(c *Client, f map[string]MembershipRolesRestrictionEvaluations) (map[string]interface{}, error) {
+func expandMembershipRolesRestrictionEvaluationsMap(c *Client, f map[string]MembershipRolesRestrictionEvaluations, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipRolesRestrictionEvaluations(c, &item)
+		i, err := expandMembershipRolesRestrictionEvaluations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2041,14 +2045,14 @@ func expandMembershipRolesRestrictionEvaluationsMap(c *Client, f map[string]Memb
 
 // expandMembershipRolesRestrictionEvaluationsSlice expands the contents of MembershipRolesRestrictionEvaluations into a JSON
 // request object.
-func expandMembershipRolesRestrictionEvaluationsSlice(c *Client, f []MembershipRolesRestrictionEvaluations) ([]map[string]interface{}, error) {
+func expandMembershipRolesRestrictionEvaluationsSlice(c *Client, f []MembershipRolesRestrictionEvaluations, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipRolesRestrictionEvaluations(c, &item)
+		i, err := expandMembershipRolesRestrictionEvaluations(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2101,13 +2105,13 @@ func flattenMembershipRolesRestrictionEvaluationsSlice(c *Client, i interface{})
 
 // expandMembershipRolesRestrictionEvaluations expands an instance of MembershipRolesRestrictionEvaluations into a JSON
 // request object.
-func expandMembershipRolesRestrictionEvaluations(c *Client, f *MembershipRolesRestrictionEvaluations) (map[string]interface{}, error) {
+func expandMembershipRolesRestrictionEvaluations(c *Client, f *MembershipRolesRestrictionEvaluations, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, f.MemberRestrictionEvaluation); err != nil {
+	if v, err := expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, f.MemberRestrictionEvaluation, res); err != nil {
 		return nil, fmt.Errorf("error expanding MemberRestrictionEvaluation into memberRestrictionEvaluation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["memberRestrictionEvaluation"] = v
@@ -2136,14 +2140,14 @@ func flattenMembershipRolesRestrictionEvaluations(c *Client, i interface{}) *Mem
 
 // expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap expands the contents of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation into a JSON
 // request object.
-func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap(c *Client, f map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) (map[string]interface{}, error) {
+func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap(c *Client, f map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, &item)
+		i, err := expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2157,14 +2161,14 @@ func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap(c
 
 // expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice expands the contents of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation into a JSON
 // request object.
-func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice(c *Client, f []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) ([]map[string]interface{}, error) {
+func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice(c *Client, f []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, &item)
+		i, err := expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2217,7 +2221,7 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlic
 
 // expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation expands an instance of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation into a JSON
 // request object.
-func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c *Client, f *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) (map[string]interface{}, error) {
+func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c *Client, f *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2247,14 +2251,14 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c *
 
 // expandMembershipDisplayNameMap expands the contents of MembershipDisplayName into a JSON
 // request object.
-func expandMembershipDisplayNameMap(c *Client, f map[string]MembershipDisplayName) (map[string]interface{}, error) {
+func expandMembershipDisplayNameMap(c *Client, f map[string]MembershipDisplayName, res *Membership) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMembershipDisplayName(c, &item)
+		i, err := expandMembershipDisplayName(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2268,14 +2272,14 @@ func expandMembershipDisplayNameMap(c *Client, f map[string]MembershipDisplayNam
 
 // expandMembershipDisplayNameSlice expands the contents of MembershipDisplayName into a JSON
 // request object.
-func expandMembershipDisplayNameSlice(c *Client, f []MembershipDisplayName) ([]map[string]interface{}, error) {
+func expandMembershipDisplayNameSlice(c *Client, f []MembershipDisplayName, res *Membership) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMembershipDisplayName(c, &item)
+		i, err := expandMembershipDisplayName(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2328,7 +2332,7 @@ func flattenMembershipDisplayNameSlice(c *Client, i interface{}) []MembershipDis
 
 // expandMembershipDisplayName expands an instance of MembershipDisplayName into a JSON
 // request object.
-func expandMembershipDisplayName(c *Client, f *MembershipDisplayName) (map[string]interface{}, error) {
+func expandMembershipDisplayName(c *Client, f *MembershipDisplayName, res *Membership) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

@@ -127,6 +127,8 @@ type workloadIdentityPoolProviderApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateWorkloadIdentityPoolProviderUpdateWorkloadIdentityPoolProviderRequest(ctx context.Context, f *WorkloadIdentityPoolProvider, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -143,12 +145,12 @@ func newUpdateWorkloadIdentityPoolProviderUpdateWorkloadIdentityPoolProviderRequ
 	if v := f.AttributeCondition; !dcl.IsEmptyValueIndirect(v) {
 		req["attributeCondition"] = v
 	}
-	if v, err := expandWorkloadIdentityPoolProviderAws(c, f.Aws); err != nil {
+	if v, err := expandWorkloadIdentityPoolProviderAws(c, f.Aws, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aws into aws: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["aws"] = v
 	}
-	if v, err := expandWorkloadIdentityPoolProviderOidc(c, f.Oidc); err != nil {
+	if v, err := expandWorkloadIdentityPoolProviderOidc(c, f.Oidc, res); err != nil {
 		return nil, fmt.Errorf("error expanding Oidc into oidc: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["oidc"] = v
@@ -1105,6 +1107,8 @@ func unmarshalMapWorkloadIdentityPoolProvider(m map[string]interface{}, c *Clien
 // expandWorkloadIdentityPoolProvider expands WorkloadIdentityPoolProvider into a JSON request object.
 func expandWorkloadIdentityPoolProvider(c *Client, f *WorkloadIdentityPoolProvider) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/workloadIdentityPools/%s/providers/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.WorkloadIdentityPool), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1125,12 +1129,12 @@ func expandWorkloadIdentityPoolProvider(c *Client, f *WorkloadIdentityPoolProvid
 	if v := f.AttributeCondition; dcl.ValueShouldBeSent(v) {
 		m["attributeCondition"] = v
 	}
-	if v, err := expandWorkloadIdentityPoolProviderAws(c, f.Aws); err != nil {
+	if v, err := expandWorkloadIdentityPoolProviderAws(c, f.Aws, res); err != nil {
 		return nil, fmt.Errorf("error expanding Aws into aws: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["aws"] = v
 	}
-	if v, err := expandWorkloadIdentityPoolProviderOidc(c, f.Oidc); err != nil {
+	if v, err := expandWorkloadIdentityPoolProviderOidc(c, f.Oidc, res); err != nil {
 		return nil, fmt.Errorf("error expanding Oidc into oidc: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["oidc"] = v
@@ -1184,14 +1188,14 @@ func flattenWorkloadIdentityPoolProvider(c *Client, i interface{}) *WorkloadIden
 
 // expandWorkloadIdentityPoolProviderAwsMap expands the contents of WorkloadIdentityPoolProviderAws into a JSON
 // request object.
-func expandWorkloadIdentityPoolProviderAwsMap(c *Client, f map[string]WorkloadIdentityPoolProviderAws) (map[string]interface{}, error) {
+func expandWorkloadIdentityPoolProviderAwsMap(c *Client, f map[string]WorkloadIdentityPoolProviderAws, res *WorkloadIdentityPoolProvider) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkloadIdentityPoolProviderAws(c, &item)
+		i, err := expandWorkloadIdentityPoolProviderAws(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1205,14 +1209,14 @@ func expandWorkloadIdentityPoolProviderAwsMap(c *Client, f map[string]WorkloadId
 
 // expandWorkloadIdentityPoolProviderAwsSlice expands the contents of WorkloadIdentityPoolProviderAws into a JSON
 // request object.
-func expandWorkloadIdentityPoolProviderAwsSlice(c *Client, f []WorkloadIdentityPoolProviderAws) ([]map[string]interface{}, error) {
+func expandWorkloadIdentityPoolProviderAwsSlice(c *Client, f []WorkloadIdentityPoolProviderAws, res *WorkloadIdentityPoolProvider) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkloadIdentityPoolProviderAws(c, &item)
+		i, err := expandWorkloadIdentityPoolProviderAws(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1265,7 +1269,7 @@ func flattenWorkloadIdentityPoolProviderAwsSlice(c *Client, i interface{}) []Wor
 
 // expandWorkloadIdentityPoolProviderAws expands an instance of WorkloadIdentityPoolProviderAws into a JSON
 // request object.
-func expandWorkloadIdentityPoolProviderAws(c *Client, f *WorkloadIdentityPoolProviderAws) (map[string]interface{}, error) {
+func expandWorkloadIdentityPoolProviderAws(c *Client, f *WorkloadIdentityPoolProviderAws, res *WorkloadIdentityPoolProvider) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1302,14 +1306,14 @@ func flattenWorkloadIdentityPoolProviderAws(c *Client, i interface{}) *WorkloadI
 
 // expandWorkloadIdentityPoolProviderOidcMap expands the contents of WorkloadIdentityPoolProviderOidc into a JSON
 // request object.
-func expandWorkloadIdentityPoolProviderOidcMap(c *Client, f map[string]WorkloadIdentityPoolProviderOidc) (map[string]interface{}, error) {
+func expandWorkloadIdentityPoolProviderOidcMap(c *Client, f map[string]WorkloadIdentityPoolProviderOidc, res *WorkloadIdentityPoolProvider) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandWorkloadIdentityPoolProviderOidc(c, &item)
+		i, err := expandWorkloadIdentityPoolProviderOidc(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1323,14 +1327,14 @@ func expandWorkloadIdentityPoolProviderOidcMap(c *Client, f map[string]WorkloadI
 
 // expandWorkloadIdentityPoolProviderOidcSlice expands the contents of WorkloadIdentityPoolProviderOidc into a JSON
 // request object.
-func expandWorkloadIdentityPoolProviderOidcSlice(c *Client, f []WorkloadIdentityPoolProviderOidc) ([]map[string]interface{}, error) {
+func expandWorkloadIdentityPoolProviderOidcSlice(c *Client, f []WorkloadIdentityPoolProviderOidc, res *WorkloadIdentityPoolProvider) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandWorkloadIdentityPoolProviderOidc(c, &item)
+		i, err := expandWorkloadIdentityPoolProviderOidc(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1383,7 +1387,7 @@ func flattenWorkloadIdentityPoolProviderOidcSlice(c *Client, i interface{}) []Wo
 
 // expandWorkloadIdentityPoolProviderOidc expands an instance of WorkloadIdentityPoolProviderOidc into a JSON
 // request object.
-func expandWorkloadIdentityPoolProviderOidc(c *Client, f *WorkloadIdentityPoolProviderOidc) (map[string]interface{}, error) {
+func expandWorkloadIdentityPoolProviderOidc(c *Client, f *WorkloadIdentityPoolProviderOidc, res *WorkloadIdentityPoolProvider) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

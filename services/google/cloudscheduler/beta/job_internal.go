@@ -167,6 +167,8 @@ type jobApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateJobUpdateJobRequest(ctx context.Context, f *Job, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/jobs/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -176,17 +178,17 @@ func newUpdateJobUpdateJobRequest(ctx context.Context, f *Job, c *Client) (map[s
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandJobPubsubTarget(c, f.PubsubTarget); err != nil {
+	if v, err := expandJobPubsubTarget(c, f.PubsubTarget, res); err != nil {
 		return nil, fmt.Errorf("error expanding PubsubTarget into pubsubTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["pubsubTarget"] = v
 	}
-	if v, err := expandJobAppEngineHttpTarget(c, f.AppEngineHttpTarget); err != nil {
+	if v, err := expandJobAppEngineHttpTarget(c, f.AppEngineHttpTarget, res); err != nil {
 		return nil, fmt.Errorf("error expanding AppEngineHttpTarget into appEngineHttpTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["appEngineHttpTarget"] = v
 	}
-	if v, err := expandJobHttpTarget(c, f.HttpTarget); err != nil {
+	if v, err := expandJobHttpTarget(c, f.HttpTarget, res); err != nil {
 		return nil, fmt.Errorf("error expanding HttpTarget into httpTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["httpTarget"] = v
@@ -197,7 +199,7 @@ func newUpdateJobUpdateJobRequest(ctx context.Context, f *Job, c *Client) (map[s
 	if v := f.TimeZone; !dcl.IsEmptyValueIndirect(v) {
 		req["timeZone"] = v
 	}
-	if v, err := expandJobRetryConfig(c, f.RetryConfig); err != nil {
+	if v, err := expandJobRetryConfig(c, f.RetryConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding RetryConfig into retryConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["retryConfig"] = v
@@ -2446,6 +2448,8 @@ func unmarshalMapJob(m map[string]interface{}, c *Client) (*Job, error) {
 // expandJob expands Job into a JSON request object.
 func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/jobs/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2454,17 +2458,17 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandJobPubsubTarget(c, f.PubsubTarget); err != nil {
+	if v, err := expandJobPubsubTarget(c, f.PubsubTarget, res); err != nil {
 		return nil, fmt.Errorf("error expanding PubsubTarget into pubsubTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pubsubTarget"] = v
 	}
-	if v, err := expandJobAppEngineHttpTarget(c, f.AppEngineHttpTarget); err != nil {
+	if v, err := expandJobAppEngineHttpTarget(c, f.AppEngineHttpTarget, res); err != nil {
 		return nil, fmt.Errorf("error expanding AppEngineHttpTarget into appEngineHttpTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["appEngineHttpTarget"] = v
 	}
-	if v, err := expandJobHttpTarget(c, f.HttpTarget); err != nil {
+	if v, err := expandJobHttpTarget(c, f.HttpTarget, res); err != nil {
 		return nil, fmt.Errorf("error expanding HttpTarget into httpTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["httpTarget"] = v
@@ -2475,7 +2479,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	if v := f.TimeZone; dcl.ValueShouldBeSent(v) {
 		m["timeZone"] = v
 	}
-	if v, err := expandJobRetryConfig(c, f.RetryConfig); err != nil {
+	if v, err := expandJobRetryConfig(c, f.RetryConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding RetryConfig into retryConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["retryConfig"] = v
@@ -2531,14 +2535,14 @@ func flattenJob(c *Client, i interface{}) *Job {
 
 // expandJobPubsubTargetMap expands the contents of JobPubsubTarget into a JSON
 // request object.
-func expandJobPubsubTargetMap(c *Client, f map[string]JobPubsubTarget) (map[string]interface{}, error) {
+func expandJobPubsubTargetMap(c *Client, f map[string]JobPubsubTarget, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobPubsubTarget(c, &item)
+		i, err := expandJobPubsubTarget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2552,14 +2556,14 @@ func expandJobPubsubTargetMap(c *Client, f map[string]JobPubsubTarget) (map[stri
 
 // expandJobPubsubTargetSlice expands the contents of JobPubsubTarget into a JSON
 // request object.
-func expandJobPubsubTargetSlice(c *Client, f []JobPubsubTarget) ([]map[string]interface{}, error) {
+func expandJobPubsubTargetSlice(c *Client, f []JobPubsubTarget, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobPubsubTarget(c, &item)
+		i, err := expandJobPubsubTarget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2612,7 +2616,7 @@ func flattenJobPubsubTargetSlice(c *Client, i interface{}) []JobPubsubTarget {
 
 // expandJobPubsubTarget expands an instance of JobPubsubTarget into a JSON
 // request object.
-func expandJobPubsubTarget(c *Client, f *JobPubsubTarget) (map[string]interface{}, error) {
+func expandJobPubsubTarget(c *Client, f *JobPubsubTarget, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2653,14 +2657,14 @@ func flattenJobPubsubTarget(c *Client, i interface{}) *JobPubsubTarget {
 
 // expandJobAppEngineHttpTargetMap expands the contents of JobAppEngineHttpTarget into a JSON
 // request object.
-func expandJobAppEngineHttpTargetMap(c *Client, f map[string]JobAppEngineHttpTarget) (map[string]interface{}, error) {
+func expandJobAppEngineHttpTargetMap(c *Client, f map[string]JobAppEngineHttpTarget, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobAppEngineHttpTarget(c, &item)
+		i, err := expandJobAppEngineHttpTarget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2674,14 +2678,14 @@ func expandJobAppEngineHttpTargetMap(c *Client, f map[string]JobAppEngineHttpTar
 
 // expandJobAppEngineHttpTargetSlice expands the contents of JobAppEngineHttpTarget into a JSON
 // request object.
-func expandJobAppEngineHttpTargetSlice(c *Client, f []JobAppEngineHttpTarget) ([]map[string]interface{}, error) {
+func expandJobAppEngineHttpTargetSlice(c *Client, f []JobAppEngineHttpTarget, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobAppEngineHttpTarget(c, &item)
+		i, err := expandJobAppEngineHttpTarget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2734,7 +2738,7 @@ func flattenJobAppEngineHttpTargetSlice(c *Client, i interface{}) []JobAppEngine
 
 // expandJobAppEngineHttpTarget expands an instance of JobAppEngineHttpTarget into a JSON
 // request object.
-func expandJobAppEngineHttpTarget(c *Client, f *JobAppEngineHttpTarget) (map[string]interface{}, error) {
+func expandJobAppEngineHttpTarget(c *Client, f *JobAppEngineHttpTarget, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2743,7 +2747,7 @@ func expandJobAppEngineHttpTarget(c *Client, f *JobAppEngineHttpTarget) (map[str
 	if v := f.HttpMethod; !dcl.IsEmptyValueIndirect(v) {
 		m["httpMethod"] = v
 	}
-	if v, err := expandJobAppEngineHttpTargetAppEngineRouting(c, f.AppEngineRouting); err != nil {
+	if v, err := expandJobAppEngineHttpTargetAppEngineRouting(c, f.AppEngineRouting, res); err != nil {
 		return nil, fmt.Errorf("error expanding AppEngineRouting into appEngineRouting: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["appEngineRouting"] = v
@@ -2785,14 +2789,14 @@ func flattenJobAppEngineHttpTarget(c *Client, i interface{}) *JobAppEngineHttpTa
 
 // expandJobAppEngineHttpTargetAppEngineRoutingMap expands the contents of JobAppEngineHttpTargetAppEngineRouting into a JSON
 // request object.
-func expandJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, f map[string]JobAppEngineHttpTargetAppEngineRouting) (map[string]interface{}, error) {
+func expandJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, f map[string]JobAppEngineHttpTargetAppEngineRouting, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobAppEngineHttpTargetAppEngineRouting(c, &item)
+		i, err := expandJobAppEngineHttpTargetAppEngineRouting(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2806,14 +2810,14 @@ func expandJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, f map[string]Job
 
 // expandJobAppEngineHttpTargetAppEngineRoutingSlice expands the contents of JobAppEngineHttpTargetAppEngineRouting into a JSON
 // request object.
-func expandJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, f []JobAppEngineHttpTargetAppEngineRouting) ([]map[string]interface{}, error) {
+func expandJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, f []JobAppEngineHttpTargetAppEngineRouting, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobAppEngineHttpTargetAppEngineRouting(c, &item)
+		i, err := expandJobAppEngineHttpTargetAppEngineRouting(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2866,7 +2870,7 @@ func flattenJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, i interface{}
 
 // expandJobAppEngineHttpTargetAppEngineRouting expands an instance of JobAppEngineHttpTargetAppEngineRouting into a JSON
 // request object.
-func expandJobAppEngineHttpTargetAppEngineRouting(c *Client, f *JobAppEngineHttpTargetAppEngineRouting) (map[string]interface{}, error) {
+func expandJobAppEngineHttpTargetAppEngineRouting(c *Client, f *JobAppEngineHttpTargetAppEngineRouting, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2908,14 +2912,14 @@ func flattenJobAppEngineHttpTargetAppEngineRouting(c *Client, i interface{}) *Jo
 
 // expandJobHttpTargetMap expands the contents of JobHttpTarget into a JSON
 // request object.
-func expandJobHttpTargetMap(c *Client, f map[string]JobHttpTarget) (map[string]interface{}, error) {
+func expandJobHttpTargetMap(c *Client, f map[string]JobHttpTarget, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobHttpTarget(c, &item)
+		i, err := expandJobHttpTarget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2929,14 +2933,14 @@ func expandJobHttpTargetMap(c *Client, f map[string]JobHttpTarget) (map[string]i
 
 // expandJobHttpTargetSlice expands the contents of JobHttpTarget into a JSON
 // request object.
-func expandJobHttpTargetSlice(c *Client, f []JobHttpTarget) ([]map[string]interface{}, error) {
+func expandJobHttpTargetSlice(c *Client, f []JobHttpTarget, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobHttpTarget(c, &item)
+		i, err := expandJobHttpTarget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2989,7 +2993,7 @@ func flattenJobHttpTargetSlice(c *Client, i interface{}) []JobHttpTarget {
 
 // expandJobHttpTarget expands an instance of JobHttpTarget into a JSON
 // request object.
-func expandJobHttpTarget(c *Client, f *JobHttpTarget) (map[string]interface{}, error) {
+func expandJobHttpTarget(c *Client, f *JobHttpTarget, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3007,12 +3011,12 @@ func expandJobHttpTarget(c *Client, f *JobHttpTarget) (map[string]interface{}, e
 	if v := f.Body; !dcl.IsEmptyValueIndirect(v) {
 		m["body"] = v
 	}
-	if v, err := expandJobHttpTargetOAuthToken(c, f.OAuthToken); err != nil {
+	if v, err := expandJobHttpTargetOAuthToken(c, f.OAuthToken, res); err != nil {
 		return nil, fmt.Errorf("error expanding OAuthToken into oauthToken: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["oauthToken"] = v
 	}
-	if v, err := expandJobHttpTargetOidcToken(c, f.OidcToken); err != nil {
+	if v, err := expandJobHttpTargetOidcToken(c, f.OidcToken, res); err != nil {
 		return nil, fmt.Errorf("error expanding OidcToken into oidcToken: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["oidcToken"] = v
@@ -3046,14 +3050,14 @@ func flattenJobHttpTarget(c *Client, i interface{}) *JobHttpTarget {
 
 // expandJobHttpTargetOAuthTokenMap expands the contents of JobHttpTargetOAuthToken into a JSON
 // request object.
-func expandJobHttpTargetOAuthTokenMap(c *Client, f map[string]JobHttpTargetOAuthToken) (map[string]interface{}, error) {
+func expandJobHttpTargetOAuthTokenMap(c *Client, f map[string]JobHttpTargetOAuthToken, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobHttpTargetOAuthToken(c, &item)
+		i, err := expandJobHttpTargetOAuthToken(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3067,14 +3071,14 @@ func expandJobHttpTargetOAuthTokenMap(c *Client, f map[string]JobHttpTargetOAuth
 
 // expandJobHttpTargetOAuthTokenSlice expands the contents of JobHttpTargetOAuthToken into a JSON
 // request object.
-func expandJobHttpTargetOAuthTokenSlice(c *Client, f []JobHttpTargetOAuthToken) ([]map[string]interface{}, error) {
+func expandJobHttpTargetOAuthTokenSlice(c *Client, f []JobHttpTargetOAuthToken, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobHttpTargetOAuthToken(c, &item)
+		i, err := expandJobHttpTargetOAuthToken(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3127,7 +3131,7 @@ func flattenJobHttpTargetOAuthTokenSlice(c *Client, i interface{}) []JobHttpTarg
 
 // expandJobHttpTargetOAuthToken expands an instance of JobHttpTargetOAuthToken into a JSON
 // request object.
-func expandJobHttpTargetOAuthToken(c *Client, f *JobHttpTargetOAuthToken) (map[string]interface{}, error) {
+func expandJobHttpTargetOAuthToken(c *Client, f *JobHttpTargetOAuthToken, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3164,14 +3168,14 @@ func flattenJobHttpTargetOAuthToken(c *Client, i interface{}) *JobHttpTargetOAut
 
 // expandJobHttpTargetOidcTokenMap expands the contents of JobHttpTargetOidcToken into a JSON
 // request object.
-func expandJobHttpTargetOidcTokenMap(c *Client, f map[string]JobHttpTargetOidcToken) (map[string]interface{}, error) {
+func expandJobHttpTargetOidcTokenMap(c *Client, f map[string]JobHttpTargetOidcToken, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobHttpTargetOidcToken(c, &item)
+		i, err := expandJobHttpTargetOidcToken(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3185,14 +3189,14 @@ func expandJobHttpTargetOidcTokenMap(c *Client, f map[string]JobHttpTargetOidcTo
 
 // expandJobHttpTargetOidcTokenSlice expands the contents of JobHttpTargetOidcToken into a JSON
 // request object.
-func expandJobHttpTargetOidcTokenSlice(c *Client, f []JobHttpTargetOidcToken) ([]map[string]interface{}, error) {
+func expandJobHttpTargetOidcTokenSlice(c *Client, f []JobHttpTargetOidcToken, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobHttpTargetOidcToken(c, &item)
+		i, err := expandJobHttpTargetOidcToken(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3245,7 +3249,7 @@ func flattenJobHttpTargetOidcTokenSlice(c *Client, i interface{}) []JobHttpTarge
 
 // expandJobHttpTargetOidcToken expands an instance of JobHttpTargetOidcToken into a JSON
 // request object.
-func expandJobHttpTargetOidcToken(c *Client, f *JobHttpTargetOidcToken) (map[string]interface{}, error) {
+func expandJobHttpTargetOidcToken(c *Client, f *JobHttpTargetOidcToken, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3282,14 +3286,14 @@ func flattenJobHttpTargetOidcToken(c *Client, i interface{}) *JobHttpTargetOidcT
 
 // expandJobStatusMap expands the contents of JobStatus into a JSON
 // request object.
-func expandJobStatusMap(c *Client, f map[string]JobStatus) (map[string]interface{}, error) {
+func expandJobStatusMap(c *Client, f map[string]JobStatus, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobStatus(c, &item)
+		i, err := expandJobStatus(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3303,14 +3307,14 @@ func expandJobStatusMap(c *Client, f map[string]JobStatus) (map[string]interface
 
 // expandJobStatusSlice expands the contents of JobStatus into a JSON
 // request object.
-func expandJobStatusSlice(c *Client, f []JobStatus) ([]map[string]interface{}, error) {
+func expandJobStatusSlice(c *Client, f []JobStatus, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobStatus(c, &item)
+		i, err := expandJobStatus(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3363,7 +3367,7 @@ func flattenJobStatusSlice(c *Client, i interface{}) []JobStatus {
 
 // expandJobStatus expands an instance of JobStatus into a JSON
 // request object.
-func expandJobStatus(c *Client, f *JobStatus) (map[string]interface{}, error) {
+func expandJobStatus(c *Client, f *JobStatus, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -3375,7 +3379,7 @@ func expandJobStatus(c *Client, f *JobStatus) (map[string]interface{}, error) {
 	if v := f.Message; !dcl.IsEmptyValueIndirect(v) {
 		m["message"] = v
 	}
-	if v, err := expandJobStatusDetailsSlice(c, f.Details); err != nil {
+	if v, err := expandJobStatusDetailsSlice(c, f.Details, res); err != nil {
 		return nil, fmt.Errorf("error expanding Details into details: %w", err)
 	} else if v != nil {
 		m["details"] = v
@@ -3406,14 +3410,14 @@ func flattenJobStatus(c *Client, i interface{}) *JobStatus {
 
 // expandJobStatusDetailsMap expands the contents of JobStatusDetails into a JSON
 // request object.
-func expandJobStatusDetailsMap(c *Client, f map[string]JobStatusDetails) (map[string]interface{}, error) {
+func expandJobStatusDetailsMap(c *Client, f map[string]JobStatusDetails, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobStatusDetails(c, &item)
+		i, err := expandJobStatusDetails(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3427,14 +3431,14 @@ func expandJobStatusDetailsMap(c *Client, f map[string]JobStatusDetails) (map[st
 
 // expandJobStatusDetailsSlice expands the contents of JobStatusDetails into a JSON
 // request object.
-func expandJobStatusDetailsSlice(c *Client, f []JobStatusDetails) ([]map[string]interface{}, error) {
+func expandJobStatusDetailsSlice(c *Client, f []JobStatusDetails, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobStatusDetails(c, &item)
+		i, err := expandJobStatusDetails(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3487,7 +3491,7 @@ func flattenJobStatusDetailsSlice(c *Client, i interface{}) []JobStatusDetails {
 
 // expandJobStatusDetails expands an instance of JobStatusDetails into a JSON
 // request object.
-func expandJobStatusDetails(c *Client, f *JobStatusDetails) (map[string]interface{}, error) {
+func expandJobStatusDetails(c *Client, f *JobStatusDetails, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -3524,14 +3528,14 @@ func flattenJobStatusDetails(c *Client, i interface{}) *JobStatusDetails {
 
 // expandJobRetryConfigMap expands the contents of JobRetryConfig into a JSON
 // request object.
-func expandJobRetryConfigMap(c *Client, f map[string]JobRetryConfig) (map[string]interface{}, error) {
+func expandJobRetryConfigMap(c *Client, f map[string]JobRetryConfig, res *Job) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandJobRetryConfig(c, &item)
+		i, err := expandJobRetryConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3545,14 +3549,14 @@ func expandJobRetryConfigMap(c *Client, f map[string]JobRetryConfig) (map[string
 
 // expandJobRetryConfigSlice expands the contents of JobRetryConfig into a JSON
 // request object.
-func expandJobRetryConfigSlice(c *Client, f []JobRetryConfig) ([]map[string]interface{}, error) {
+func expandJobRetryConfigSlice(c *Client, f []JobRetryConfig, res *Job) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandJobRetryConfig(c, &item)
+		i, err := expandJobRetryConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -3605,7 +3609,7 @@ func flattenJobRetryConfigSlice(c *Client, i interface{}) []JobRetryConfig {
 
 // expandJobRetryConfig expands an instance of JobRetryConfig into a JSON
 // request object.
-func expandJobRetryConfig(c *Client, f *JobRetryConfig) (map[string]interface{}, error) {
+func expandJobRetryConfig(c *Client, f *JobRetryConfig, res *Job) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

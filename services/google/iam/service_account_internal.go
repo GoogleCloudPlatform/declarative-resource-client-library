@@ -119,6 +119,8 @@ type serviceAccountApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateServiceAccountPatchServiceAccountRequest(ctx context.Context, f *ServiceAccount, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -1013,6 +1015,8 @@ func unmarshalMapServiceAccount(m map[string]interface{}, c *Client) (*ServiceAc
 // expandServiceAccount expands ServiceAccount into a JSON request object.
 func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/serviceAccounts/%s@%s.iam.gserviceaccounts.com", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1027,7 +1031,7 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandServiceAccountActasResources(c, f.ActasResources); err != nil {
+	if v, err := expandServiceAccountActasResources(c, f.ActasResources, res); err != nil {
 		return nil, fmt.Errorf("error expanding ActasResources into actasResources: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["actasResources"] = v
@@ -1063,14 +1067,14 @@ func flattenServiceAccount(c *Client, i interface{}) *ServiceAccount {
 
 // expandServiceAccountActasResourcesMap expands the contents of ServiceAccountActasResources into a JSON
 // request object.
-func expandServiceAccountActasResourcesMap(c *Client, f map[string]ServiceAccountActasResources) (map[string]interface{}, error) {
+func expandServiceAccountActasResourcesMap(c *Client, f map[string]ServiceAccountActasResources, res *ServiceAccount) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceAccountActasResources(c, &item)
+		i, err := expandServiceAccountActasResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1084,14 +1088,14 @@ func expandServiceAccountActasResourcesMap(c *Client, f map[string]ServiceAccoun
 
 // expandServiceAccountActasResourcesSlice expands the contents of ServiceAccountActasResources into a JSON
 // request object.
-func expandServiceAccountActasResourcesSlice(c *Client, f []ServiceAccountActasResources) ([]map[string]interface{}, error) {
+func expandServiceAccountActasResourcesSlice(c *Client, f []ServiceAccountActasResources, res *ServiceAccount) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceAccountActasResources(c, &item)
+		i, err := expandServiceAccountActasResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1144,13 +1148,13 @@ func flattenServiceAccountActasResourcesSlice(c *Client, i interface{}) []Servic
 
 // expandServiceAccountActasResources expands an instance of ServiceAccountActasResources into a JSON
 // request object.
-func expandServiceAccountActasResources(c *Client, f *ServiceAccountActasResources) (map[string]interface{}, error) {
+func expandServiceAccountActasResources(c *Client, f *ServiceAccountActasResources, res *ServiceAccount) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandServiceAccountActasResourcesResourcesSlice(c, f.Resources); err != nil {
+	if v, err := expandServiceAccountActasResourcesResourcesSlice(c, f.Resources, res); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
 	} else if v != nil {
 		m["resources"] = v
@@ -1179,14 +1183,14 @@ func flattenServiceAccountActasResources(c *Client, i interface{}) *ServiceAccou
 
 // expandServiceAccountActasResourcesResourcesMap expands the contents of ServiceAccountActasResourcesResources into a JSON
 // request object.
-func expandServiceAccountActasResourcesResourcesMap(c *Client, f map[string]ServiceAccountActasResourcesResources) (map[string]interface{}, error) {
+func expandServiceAccountActasResourcesResourcesMap(c *Client, f map[string]ServiceAccountActasResourcesResources, res *ServiceAccount) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceAccountActasResourcesResources(c, &item)
+		i, err := expandServiceAccountActasResourcesResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1200,14 +1204,14 @@ func expandServiceAccountActasResourcesResourcesMap(c *Client, f map[string]Serv
 
 // expandServiceAccountActasResourcesResourcesSlice expands the contents of ServiceAccountActasResourcesResources into a JSON
 // request object.
-func expandServiceAccountActasResourcesResourcesSlice(c *Client, f []ServiceAccountActasResourcesResources) ([]map[string]interface{}, error) {
+func expandServiceAccountActasResourcesResourcesSlice(c *Client, f []ServiceAccountActasResourcesResources, res *ServiceAccount) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceAccountActasResourcesResources(c, &item)
+		i, err := expandServiceAccountActasResourcesResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1260,7 +1264,7 @@ func flattenServiceAccountActasResourcesResourcesSlice(c *Client, i interface{})
 
 // expandServiceAccountActasResourcesResources expands an instance of ServiceAccountActasResourcesResources into a JSON
 // request object.
-func expandServiceAccountActasResourcesResources(c *Client, f *ServiceAccountActasResourcesResources) (map[string]interface{}, error) {
+func expandServiceAccountActasResourcesResources(c *Client, f *ServiceAccountActasResourcesResources, res *ServiceAccount) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}

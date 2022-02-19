@@ -110,11 +110,13 @@ type attestorApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateAttestorUpdateAttestorRequest(ctx context.Context, f *Attestor, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote); err != nil {
+	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote, res); err != nil {
 		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedGrafeasNote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["userOwnedGrafeasNote"] = v
@@ -1092,6 +1094,8 @@ func unmarshalMapAttestor(m map[string]interface{}, c *Client) (*Attestor, error
 // expandAttestor expands Attestor into a JSON request object.
 func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/attestors/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1100,7 +1104,7 @@ func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote); err != nil {
+	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote, res); err != nil {
 		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedGrafeasNote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["userOwnedGrafeasNote"] = v
@@ -1137,14 +1141,14 @@ func flattenAttestor(c *Client, i interface{}) *Attestor {
 
 // expandAttestorUserOwnedDrydockNoteMap expands the contents of AttestorUserOwnedDrydockNote into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNoteMap(c *Client, f map[string]AttestorUserOwnedDrydockNote) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNoteMap(c *Client, f map[string]AttestorUserOwnedDrydockNote, res *Attestor) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAttestorUserOwnedDrydockNote(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1158,14 +1162,14 @@ func expandAttestorUserOwnedDrydockNoteMap(c *Client, f map[string]AttestorUserO
 
 // expandAttestorUserOwnedDrydockNoteSlice expands the contents of AttestorUserOwnedDrydockNote into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNoteSlice(c *Client, f []AttestorUserOwnedDrydockNote) ([]map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNoteSlice(c *Client, f []AttestorUserOwnedDrydockNote, res *Attestor) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAttestorUserOwnedDrydockNote(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1218,7 +1222,7 @@ func flattenAttestorUserOwnedDrydockNoteSlice(c *Client, i interface{}) []Attest
 
 // expandAttestorUserOwnedDrydockNote expands an instance of AttestorUserOwnedDrydockNote into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNote(c *Client, f *AttestorUserOwnedDrydockNote) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNote(c *Client, f *AttestorUserOwnedDrydockNote, res *Attestor) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1227,7 +1231,7 @@ func expandAttestorUserOwnedDrydockNote(c *Client, f *AttestorUserOwnedDrydockNo
 	if v := f.NoteReference; !dcl.IsEmptyValueIndirect(v) {
 		m["noteReference"] = v
 	}
-	if v, err := expandAttestorUserOwnedDrydockNotePublicKeysSlice(c, f.PublicKeys); err != nil {
+	if v, err := expandAttestorUserOwnedDrydockNotePublicKeysSlice(c, f.PublicKeys, res); err != nil {
 		return nil, fmt.Errorf("error expanding PublicKeys into publicKeys: %w", err)
 	} else if v != nil {
 		m["publicKeys"] = v
@@ -1258,14 +1262,14 @@ func flattenAttestorUserOwnedDrydockNote(c *Client, i interface{}) *AttestorUser
 
 // expandAttestorUserOwnedDrydockNotePublicKeysMap expands the contents of AttestorUserOwnedDrydockNotePublicKeys into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, f map[string]AttestorUserOwnedDrydockNotePublicKeys) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, f map[string]AttestorUserOwnedDrydockNotePublicKeys, res *Attestor) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAttestorUserOwnedDrydockNotePublicKeys(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeys(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1279,14 +1283,14 @@ func expandAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, f map[string]Att
 
 // expandAttestorUserOwnedDrydockNotePublicKeysSlice expands the contents of AttestorUserOwnedDrydockNotePublicKeys into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, f []AttestorUserOwnedDrydockNotePublicKeys) ([]map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, f []AttestorUserOwnedDrydockNotePublicKeys, res *Attestor) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAttestorUserOwnedDrydockNotePublicKeys(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeys(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1339,7 +1343,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, i interface{}
 
 // expandAttestorUserOwnedDrydockNotePublicKeys expands an instance of AttestorUserOwnedDrydockNotePublicKeys into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNotePublicKeys(c *Client, f *AttestorUserOwnedDrydockNotePublicKeys) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeys(c *Client, f *AttestorUserOwnedDrydockNotePublicKeys, res *Attestor) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1354,7 +1358,7 @@ func expandAttestorUserOwnedDrydockNotePublicKeys(c *Client, f *AttestorUserOwne
 	if v := f.AsciiArmoredPgpPublicKey; !dcl.IsEmptyValueIndirect(v) {
 		m["asciiArmoredPgpPublicKey"] = v
 	}
-	if v, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, f.PkixPublicKey); err != nil {
+	if v, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, f.PkixPublicKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding PkixPublicKey into pkixPublicKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pkixPublicKey"] = v
@@ -1386,14 +1390,14 @@ func flattenAttestorUserOwnedDrydockNotePublicKeys(c *Client, i interface{}) *At
 
 // expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap expands the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, f map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, f map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, res *Attestor) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1407,14 +1411,14 @@ func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, f m
 
 // expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice expands the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, f []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) ([]map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, f []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, res *Attestor) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1467,7 +1471,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, 
 
 // expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey expands an instance of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey into a JSON
 // request object.
-func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, f *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, f *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, res *Attestor) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

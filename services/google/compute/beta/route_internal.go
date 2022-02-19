@@ -994,6 +994,8 @@ func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
 // expandRoute expands Route into a JSON request object.
 func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
@@ -1079,14 +1081,14 @@ func flattenRoute(c *Client, i interface{}) *Route {
 
 // expandRouteWarningMap expands the contents of RouteWarning into a JSON
 // request object.
-func expandRouteWarningMap(c *Client, f map[string]RouteWarning) (map[string]interface{}, error) {
+func expandRouteWarningMap(c *Client, f map[string]RouteWarning, res *Route) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandRouteWarning(c, &item)
+		i, err := expandRouteWarning(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1100,14 +1102,14 @@ func expandRouteWarningMap(c *Client, f map[string]RouteWarning) (map[string]int
 
 // expandRouteWarningSlice expands the contents of RouteWarning into a JSON
 // request object.
-func expandRouteWarningSlice(c *Client, f []RouteWarning) ([]map[string]interface{}, error) {
+func expandRouteWarningSlice(c *Client, f []RouteWarning, res *Route) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandRouteWarning(c, &item)
+		i, err := expandRouteWarning(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1160,7 +1162,7 @@ func flattenRouteWarningSlice(c *Client, i interface{}) []RouteWarning {
 
 // expandRouteWarning expands an instance of RouteWarning into a JSON
 // request object.
-func expandRouteWarning(c *Client, f *RouteWarning) (map[string]interface{}, error) {
+func expandRouteWarning(c *Client, f *RouteWarning, res *Route) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

@@ -98,13 +98,15 @@ type policyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdatePolicyUpdatePolicyRequest(ctx context.Context, f *Policy, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns); err != nil {
+	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdmissionWhitelistPatterns into admissionWhitelistPatterns: %w", err)
 	} else if v != nil {
 		req["admissionWhitelistPatterns"] = v
 	}
-	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules); err != nil {
+	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules, res); err != nil {
 		return nil, fmt.Errorf("error expanding ClusterAdmissionRules into clusterAdmissionRules: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["clusterAdmissionRules"] = v
@@ -118,7 +120,7 @@ func newUpdatePolicyUpdatePolicyRequest(ctx context.Context, f *Policy, c *Clien
 	if v := f.IstioServiceIdentityAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
 		req["istioServiceIdentityAdmissionRules"] = v
 	}
-	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule); err != nil {
+	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule, res); err != nil {
 		return nil, fmt.Errorf("error expanding DefaultAdmissionRule into defaultAdmissionRule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["defaultAdmissionRule"] = v
@@ -929,12 +931,14 @@ func unmarshalMapPolicy(m map[string]interface{}, c *Client) (*Policy, error) {
 // expandPolicy expands Policy into a JSON request object.
 func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns); err != nil {
+	res := f
+	_ = res
+	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns, res); err != nil {
 		return nil, fmt.Errorf("error expanding AdmissionWhitelistPatterns into admissionWhitelistPatterns: %w", err)
 	} else if v != nil {
 		m["admissionWhitelistPatterns"] = v
 	}
-	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules); err != nil {
+	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules, res); err != nil {
 		return nil, fmt.Errorf("error expanding ClusterAdmissionRules into clusterAdmissionRules: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["clusterAdmissionRules"] = v
@@ -948,7 +952,7 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	if v := f.IstioServiceIdentityAdmissionRules; dcl.ValueShouldBeSent(v) {
 		m["istioServiceIdentityAdmissionRules"] = v
 	}
-	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule); err != nil {
+	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule, res); err != nil {
 		return nil, fmt.Errorf("error expanding DefaultAdmissionRule into defaultAdmissionRule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["defaultAdmissionRule"] = v
@@ -997,14 +1001,14 @@ func flattenPolicy(c *Client, i interface{}) *Policy {
 
 // expandPolicyAdmissionWhitelistPatternsMap expands the contents of PolicyAdmissionWhitelistPatterns into a JSON
 // request object.
-func expandPolicyAdmissionWhitelistPatternsMap(c *Client, f map[string]PolicyAdmissionWhitelistPatterns) (map[string]interface{}, error) {
+func expandPolicyAdmissionWhitelistPatternsMap(c *Client, f map[string]PolicyAdmissionWhitelistPatterns, res *Policy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPolicyAdmissionWhitelistPatterns(c, &item)
+		i, err := expandPolicyAdmissionWhitelistPatterns(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1018,14 +1022,14 @@ func expandPolicyAdmissionWhitelistPatternsMap(c *Client, f map[string]PolicyAdm
 
 // expandPolicyAdmissionWhitelistPatternsSlice expands the contents of PolicyAdmissionWhitelistPatterns into a JSON
 // request object.
-func expandPolicyAdmissionWhitelistPatternsSlice(c *Client, f []PolicyAdmissionWhitelistPatterns) ([]map[string]interface{}, error) {
+func expandPolicyAdmissionWhitelistPatternsSlice(c *Client, f []PolicyAdmissionWhitelistPatterns, res *Policy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPolicyAdmissionWhitelistPatterns(c, &item)
+		i, err := expandPolicyAdmissionWhitelistPatterns(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1078,7 +1082,7 @@ func flattenPolicyAdmissionWhitelistPatternsSlice(c *Client, i interface{}) []Po
 
 // expandPolicyAdmissionWhitelistPatterns expands an instance of PolicyAdmissionWhitelistPatterns into a JSON
 // request object.
-func expandPolicyAdmissionWhitelistPatterns(c *Client, f *PolicyAdmissionWhitelistPatterns) (map[string]interface{}, error) {
+func expandPolicyAdmissionWhitelistPatterns(c *Client, f *PolicyAdmissionWhitelistPatterns, res *Policy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1111,14 +1115,14 @@ func flattenPolicyAdmissionWhitelistPatterns(c *Client, i interface{}) *PolicyAd
 
 // expandPolicyAdmissionRuleMap expands the contents of PolicyAdmissionRule into a JSON
 // request object.
-func expandPolicyAdmissionRuleMap(c *Client, f map[string]PolicyAdmissionRule) (map[string]interface{}, error) {
+func expandPolicyAdmissionRuleMap(c *Client, f map[string]PolicyAdmissionRule, res *Policy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPolicyAdmissionRule(c, &item)
+		i, err := expandPolicyAdmissionRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1132,14 +1136,14 @@ func expandPolicyAdmissionRuleMap(c *Client, f map[string]PolicyAdmissionRule) (
 
 // expandPolicyAdmissionRuleSlice expands the contents of PolicyAdmissionRule into a JSON
 // request object.
-func expandPolicyAdmissionRuleSlice(c *Client, f []PolicyAdmissionRule) ([]map[string]interface{}, error) {
+func expandPolicyAdmissionRuleSlice(c *Client, f []PolicyAdmissionRule, res *Policy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPolicyAdmissionRule(c, &item)
+		i, err := expandPolicyAdmissionRule(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1192,7 +1196,7 @@ func flattenPolicyAdmissionRuleSlice(c *Client, i interface{}) []PolicyAdmission
 
 // expandPolicyAdmissionRule expands an instance of PolicyAdmissionRule into a JSON
 // request object.
-func expandPolicyAdmissionRule(c *Client, f *PolicyAdmissionRule) (map[string]interface{}, error) {
+func expandPolicyAdmissionRule(c *Client, f *PolicyAdmissionRule, res *Policy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

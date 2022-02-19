@@ -72,6 +72,8 @@ type folderApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateFolderMoveFolderRequest(ctx context.Context, f *Folder, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Parent; !dcl.IsEmptyValueIndirect(v) {
 		req["parent"] = v
@@ -102,6 +104,8 @@ type updateFolderMoveFolderOperation struct {
 // fields based on the intended state of the resource.
 func newUpdateFolderUpdateFolderRequest(ctx context.Context, f *Folder, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -617,6 +621,8 @@ func unmarshalMapFolder(m map[string]interface{}, c *Client) (*Folder, error) {
 // expandFolder expands Folder into a JSON request object.
 func expandFolder(c *Client, f *Folder) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}

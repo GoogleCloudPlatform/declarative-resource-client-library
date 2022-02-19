@@ -435,6 +435,8 @@ func unmarshalMapBrand(m map[string]interface{}, c *Client) (*Brand, error) {
 // expandBrand expands Brand into a JSON request object.
 func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.ApplicationTitle; dcl.ValueShouldBeSent(v) {
 		m["applicationTitle"] = v
 	}

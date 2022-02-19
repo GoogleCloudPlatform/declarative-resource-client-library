@@ -138,8 +138,10 @@ type cryptoKeyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateCryptoKeyUpdateCryptoKeyRequest(ctx context.Context, f *CryptoKey, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandCryptoKeyPrimary(c, f.Primary); err != nil {
+	if v, err := expandCryptoKeyPrimary(c, f.Primary, res); err != nil {
 		return nil, fmt.Errorf("error expanding Primary into primary: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["primary"] = v
@@ -150,7 +152,7 @@ func newUpdateCryptoKeyUpdateCryptoKeyRequest(ctx context.Context, f *CryptoKey,
 	if v := f.RotationPeriod; !dcl.IsEmptyValueIndirect(v) {
 		req["rotationPeriod"] = v
 	}
-	if v, err := expandCryptoKeyVersionTemplate(c, f.VersionTemplate); err != nil {
+	if v, err := expandCryptoKeyVersionTemplate(c, f.VersionTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding VersionTemplate into versionTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["versionTemplate"] = v
@@ -1613,6 +1615,8 @@ func unmarshalMapCryptoKey(m map[string]interface{}, c *Client) (*CryptoKey, err
 // expandCryptoKey expands CryptoKey into a JSON request object.
 func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/keyRings/%s/cryptoKeys/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.KeyRing), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1627,7 +1631,7 @@ func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 	if v := f.RotationPeriod; dcl.ValueShouldBeSent(v) {
 		m["rotationPeriod"] = v
 	}
-	if v, err := expandCryptoKeyVersionTemplate(c, f.VersionTemplate); err != nil {
+	if v, err := expandCryptoKeyVersionTemplate(c, f.VersionTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding VersionTemplate into versionTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["versionTemplate"] = v
@@ -1691,14 +1695,14 @@ func flattenCryptoKey(c *Client, i interface{}) *CryptoKey {
 
 // expandCryptoKeyPrimaryMap expands the contents of CryptoKeyPrimary into a JSON
 // request object.
-func expandCryptoKeyPrimaryMap(c *Client, f map[string]CryptoKeyPrimary) (map[string]interface{}, error) {
+func expandCryptoKeyPrimaryMap(c *Client, f map[string]CryptoKeyPrimary, res *CryptoKey) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCryptoKeyPrimary(c, &item)
+		i, err := expandCryptoKeyPrimary(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1712,14 +1716,14 @@ func expandCryptoKeyPrimaryMap(c *Client, f map[string]CryptoKeyPrimary) (map[st
 
 // expandCryptoKeyPrimarySlice expands the contents of CryptoKeyPrimary into a JSON
 // request object.
-func expandCryptoKeyPrimarySlice(c *Client, f []CryptoKeyPrimary) ([]map[string]interface{}, error) {
+func expandCryptoKeyPrimarySlice(c *Client, f []CryptoKeyPrimary, res *CryptoKey) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCryptoKeyPrimary(c, &item)
+		i, err := expandCryptoKeyPrimary(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1772,7 +1776,7 @@ func flattenCryptoKeyPrimarySlice(c *Client, i interface{}) []CryptoKeyPrimary {
 
 // expandCryptoKeyPrimary expands an instance of CryptoKeyPrimary into a JSON
 // request object.
-func expandCryptoKeyPrimary(c *Client, f *CryptoKeyPrimary) (map[string]interface{}, error) {
+func expandCryptoKeyPrimary(c *Client, f *CryptoKeyPrimary, res *CryptoKey) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1784,7 +1788,7 @@ func expandCryptoKeyPrimary(c *Client, f *CryptoKeyPrimary) (map[string]interfac
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
-	if v, err := expandCryptoKeyPrimaryExternalProtectionLevelOptions(c, f.ExternalProtectionLevelOptions); err != nil {
+	if v, err := expandCryptoKeyPrimaryExternalProtectionLevelOptions(c, f.ExternalProtectionLevelOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExternalProtectionLevelOptions into externalProtectionLevelOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["externalProtectionLevelOptions"] = v
@@ -1826,14 +1830,14 @@ func flattenCryptoKeyPrimary(c *Client, i interface{}) *CryptoKeyPrimary {
 
 // expandCryptoKeyPrimaryAttestationMap expands the contents of CryptoKeyPrimaryAttestation into a JSON
 // request object.
-func expandCryptoKeyPrimaryAttestationMap(c *Client, f map[string]CryptoKeyPrimaryAttestation) (map[string]interface{}, error) {
+func expandCryptoKeyPrimaryAttestationMap(c *Client, f map[string]CryptoKeyPrimaryAttestation, res *CryptoKey) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCryptoKeyPrimaryAttestation(c, &item)
+		i, err := expandCryptoKeyPrimaryAttestation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1847,14 +1851,14 @@ func expandCryptoKeyPrimaryAttestationMap(c *Client, f map[string]CryptoKeyPrima
 
 // expandCryptoKeyPrimaryAttestationSlice expands the contents of CryptoKeyPrimaryAttestation into a JSON
 // request object.
-func expandCryptoKeyPrimaryAttestationSlice(c *Client, f []CryptoKeyPrimaryAttestation) ([]map[string]interface{}, error) {
+func expandCryptoKeyPrimaryAttestationSlice(c *Client, f []CryptoKeyPrimaryAttestation, res *CryptoKey) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCryptoKeyPrimaryAttestation(c, &item)
+		i, err := expandCryptoKeyPrimaryAttestation(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1907,7 +1911,7 @@ func flattenCryptoKeyPrimaryAttestationSlice(c *Client, i interface{}) []CryptoK
 
 // expandCryptoKeyPrimaryAttestation expands an instance of CryptoKeyPrimaryAttestation into a JSON
 // request object.
-func expandCryptoKeyPrimaryAttestation(c *Client, f *CryptoKeyPrimaryAttestation) (map[string]interface{}, error) {
+func expandCryptoKeyPrimaryAttestation(c *Client, f *CryptoKeyPrimaryAttestation, res *CryptoKey) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1939,14 +1943,14 @@ func flattenCryptoKeyPrimaryAttestation(c *Client, i interface{}) *CryptoKeyPrim
 
 // expandCryptoKeyPrimaryAttestationCertChainsMap expands the contents of CryptoKeyPrimaryAttestationCertChains into a JSON
 // request object.
-func expandCryptoKeyPrimaryAttestationCertChainsMap(c *Client, f map[string]CryptoKeyPrimaryAttestationCertChains) (map[string]interface{}, error) {
+func expandCryptoKeyPrimaryAttestationCertChainsMap(c *Client, f map[string]CryptoKeyPrimaryAttestationCertChains, res *CryptoKey) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCryptoKeyPrimaryAttestationCertChains(c, &item)
+		i, err := expandCryptoKeyPrimaryAttestationCertChains(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1960,14 +1964,14 @@ func expandCryptoKeyPrimaryAttestationCertChainsMap(c *Client, f map[string]Cryp
 
 // expandCryptoKeyPrimaryAttestationCertChainsSlice expands the contents of CryptoKeyPrimaryAttestationCertChains into a JSON
 // request object.
-func expandCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, f []CryptoKeyPrimaryAttestationCertChains) ([]map[string]interface{}, error) {
+func expandCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, f []CryptoKeyPrimaryAttestationCertChains, res *CryptoKey) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCryptoKeyPrimaryAttestationCertChains(c, &item)
+		i, err := expandCryptoKeyPrimaryAttestationCertChains(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2020,7 +2024,7 @@ func flattenCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, i interface{})
 
 // expandCryptoKeyPrimaryAttestationCertChains expands an instance of CryptoKeyPrimaryAttestationCertChains into a JSON
 // request object.
-func expandCryptoKeyPrimaryAttestationCertChains(c *Client, f *CryptoKeyPrimaryAttestationCertChains) (map[string]interface{}, error) {
+func expandCryptoKeyPrimaryAttestationCertChains(c *Client, f *CryptoKeyPrimaryAttestationCertChains, res *CryptoKey) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2061,14 +2065,14 @@ func flattenCryptoKeyPrimaryAttestationCertChains(c *Client, i interface{}) *Cry
 
 // expandCryptoKeyPrimaryExternalProtectionLevelOptionsMap expands the contents of CryptoKeyPrimaryExternalProtectionLevelOptions into a JSON
 // request object.
-func expandCryptoKeyPrimaryExternalProtectionLevelOptionsMap(c *Client, f map[string]CryptoKeyPrimaryExternalProtectionLevelOptions) (map[string]interface{}, error) {
+func expandCryptoKeyPrimaryExternalProtectionLevelOptionsMap(c *Client, f map[string]CryptoKeyPrimaryExternalProtectionLevelOptions, res *CryptoKey) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCryptoKeyPrimaryExternalProtectionLevelOptions(c, &item)
+		i, err := expandCryptoKeyPrimaryExternalProtectionLevelOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2082,14 +2086,14 @@ func expandCryptoKeyPrimaryExternalProtectionLevelOptionsMap(c *Client, f map[st
 
 // expandCryptoKeyPrimaryExternalProtectionLevelOptionsSlice expands the contents of CryptoKeyPrimaryExternalProtectionLevelOptions into a JSON
 // request object.
-func expandCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Client, f []CryptoKeyPrimaryExternalProtectionLevelOptions) ([]map[string]interface{}, error) {
+func expandCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Client, f []CryptoKeyPrimaryExternalProtectionLevelOptions, res *CryptoKey) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCryptoKeyPrimaryExternalProtectionLevelOptions(c, &item)
+		i, err := expandCryptoKeyPrimaryExternalProtectionLevelOptions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2142,7 +2146,7 @@ func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Client, i int
 
 // expandCryptoKeyPrimaryExternalProtectionLevelOptions expands an instance of CryptoKeyPrimaryExternalProtectionLevelOptions into a JSON
 // request object.
-func expandCryptoKeyPrimaryExternalProtectionLevelOptions(c *Client, f *CryptoKeyPrimaryExternalProtectionLevelOptions) (map[string]interface{}, error) {
+func expandCryptoKeyPrimaryExternalProtectionLevelOptions(c *Client, f *CryptoKeyPrimaryExternalProtectionLevelOptions, res *CryptoKey) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2175,14 +2179,14 @@ func flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c *Client, i interfac
 
 // expandCryptoKeyVersionTemplateMap expands the contents of CryptoKeyVersionTemplate into a JSON
 // request object.
-func expandCryptoKeyVersionTemplateMap(c *Client, f map[string]CryptoKeyVersionTemplate) (map[string]interface{}, error) {
+func expandCryptoKeyVersionTemplateMap(c *Client, f map[string]CryptoKeyVersionTemplate, res *CryptoKey) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCryptoKeyVersionTemplate(c, &item)
+		i, err := expandCryptoKeyVersionTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2196,14 +2200,14 @@ func expandCryptoKeyVersionTemplateMap(c *Client, f map[string]CryptoKeyVersionT
 
 // expandCryptoKeyVersionTemplateSlice expands the contents of CryptoKeyVersionTemplate into a JSON
 // request object.
-func expandCryptoKeyVersionTemplateSlice(c *Client, f []CryptoKeyVersionTemplate) ([]map[string]interface{}, error) {
+func expandCryptoKeyVersionTemplateSlice(c *Client, f []CryptoKeyVersionTemplate, res *CryptoKey) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCryptoKeyVersionTemplate(c, &item)
+		i, err := expandCryptoKeyVersionTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2256,7 +2260,7 @@ func flattenCryptoKeyVersionTemplateSlice(c *Client, i interface{}) []CryptoKeyV
 
 // expandCryptoKeyVersionTemplate expands an instance of CryptoKeyVersionTemplate into a JSON
 // request object.
-func expandCryptoKeyVersionTemplate(c *Client, f *CryptoKeyVersionTemplate) (map[string]interface{}, error) {
+func expandCryptoKeyVersionTemplate(c *Client, f *CryptoKeyVersionTemplate, res *CryptoKey) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

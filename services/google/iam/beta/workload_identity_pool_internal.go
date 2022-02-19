@@ -95,6 +95,8 @@ type workloadIdentityPoolApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateWorkloadIdentityPoolUpdateWorkloadIdentityPoolRequest(ctx context.Context, f *WorkloadIdentityPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
@@ -605,6 +607,8 @@ func unmarshalMapWorkloadIdentityPool(m map[string]interface{}, c *Client) (*Wor
 // expandWorkloadIdentityPool expands WorkloadIdentityPool into a JSON request object.
 func expandWorkloadIdentityPool(c *Client, f *WorkloadIdentityPool) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/workloadIdentityPools/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {

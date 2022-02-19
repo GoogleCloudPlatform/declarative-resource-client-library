@@ -820,6 +820,8 @@ func unmarshalMapConnector(m map[string]interface{}, c *Client) (*Connector, err
 // expandConnector expands Connector into a JSON request object.
 func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -839,7 +841,7 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	if v := f.MaxThroughput; dcl.ValueShouldBeSent(v) {
 		m["maxThroughput"] = v
 	}
-	if v, err := expandConnectorSubnet(c, f.Subnet); err != nil {
+	if v, err := expandConnectorSubnet(c, f.Subnet, res); err != nil {
 		return nil, fmt.Errorf("error expanding Subnet into subnet: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["subnet"] = v
@@ -898,14 +900,14 @@ func flattenConnector(c *Client, i interface{}) *Connector {
 
 // expandConnectorSubnetMap expands the contents of ConnectorSubnet into a JSON
 // request object.
-func expandConnectorSubnetMap(c *Client, f map[string]ConnectorSubnet) (map[string]interface{}, error) {
+func expandConnectorSubnetMap(c *Client, f map[string]ConnectorSubnet, res *Connector) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConnectorSubnet(c, &item)
+		i, err := expandConnectorSubnet(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -919,14 +921,14 @@ func expandConnectorSubnetMap(c *Client, f map[string]ConnectorSubnet) (map[stri
 
 // expandConnectorSubnetSlice expands the contents of ConnectorSubnet into a JSON
 // request object.
-func expandConnectorSubnetSlice(c *Client, f []ConnectorSubnet) ([]map[string]interface{}, error) {
+func expandConnectorSubnetSlice(c *Client, f []ConnectorSubnet, res *Connector) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConnectorSubnet(c, &item)
+		i, err := expandConnectorSubnet(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -979,7 +981,7 @@ func flattenConnectorSubnetSlice(c *Client, i interface{}) []ConnectorSubnet {
 
 // expandConnectorSubnet expands an instance of ConnectorSubnet into a JSON
 // request object.
-func expandConnectorSubnet(c *Client, f *ConnectorSubnet) (map[string]interface{}, error) {
+func expandConnectorSubnet(c *Client, f *ConnectorSubnet, res *Connector) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

@@ -24,6 +24,78 @@ import (
 // Server implements the gRPC interface for WorkflowTemplate.
 type WorkflowTemplateServer struct{}
 
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum enum from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(e alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum) *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum_name[int32(e)]; ok {
+		e := alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(n[len("DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum enum from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(e alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum) *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum_name[int32(e)]; ok {
+		e := alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(n[len("DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum enum from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(e alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum) *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum_name[int32(e)]; ok {
+		e := alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(n[len("DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum enum from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(e alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum) *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum_name[int32(e)]; ok {
+		e := alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(n[len("DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum enum from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(e alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum) *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum_name[int32(e)]; ok {
+		e := alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(n[len("DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum converts a WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum enum from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(e alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum) *alpha.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum_name[int32(e)]; ok {
+		e := alpha.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(n[len("DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToWorkflowTemplatePlacement converts a WorkflowTemplatePlacement object from its proto representation.
 func ProtoToDataprocAlphaWorkflowTemplatePlacement(p *alphapb.DataprocAlphaWorkflowTemplatePlacement) *alpha.WorkflowTemplatePlacement {
 	if p == nil {
@@ -43,7 +115,410 @@ func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedCluster(p *alphapb.Data
 	}
 	obj := &alpha.WorkflowTemplatePlacementManagedCluster{
 		ClusterName: dcl.StringOrNil(p.GetClusterName()),
-		Config:      ProtoToDataprocAlphaClusterClusterConfig(p.GetConfig()),
+		Config:      ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfig(p.GetConfig()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfig converts a WorkflowTemplatePlacementManagedClusterConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfig{
+		StagingBucket:         dcl.StringOrNil(p.GetStagingBucket()),
+		TempBucket:            dcl.StringOrNil(p.GetTempBucket()),
+		GceClusterConfig:      ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(p.GetGceClusterConfig()),
+		MasterConfig:          ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfig(p.GetMasterConfig()),
+		WorkerConfig:          ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(p.GetWorkerConfig()),
+		SecondaryWorkerConfig: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(p.GetSecondaryWorkerConfig()),
+		SoftwareConfig:        ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(p.GetSoftwareConfig()),
+		EncryptionConfig:      ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(p.GetEncryptionConfig()),
+		AutoscalingConfig:     ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(p.GetAutoscalingConfig()),
+		SecurityConfig:        ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(p.GetSecurityConfig()),
+		LifecycleConfig:       ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(p.GetLifecycleConfig()),
+		EndpointConfig:        ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(p.GetEndpointConfig()),
+		GkeClusterConfig:      ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(p.GetGkeClusterConfig()),
+		MetastoreConfig:       ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(p.GetMetastoreConfig()),
+	}
+	for _, r := range p.GetInitializationActions() {
+		obj.InitializationActions = append(obj.InitializationActions, *ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActions(r))
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig{
+		Zone:                    dcl.StringOrNil(p.GetZone()),
+		Network:                 dcl.StringOrNil(p.GetNetwork()),
+		Subnetwork:              dcl.StringOrNil(p.GetSubnetwork()),
+		InternalIPOnly:          dcl.Bool(p.GetInternalIpOnly()),
+		PrivateIPv6GoogleAccess: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(p.GetPrivateIpv6GoogleAccess()),
+		ServiceAccount:          dcl.StringOrNil(p.GetServiceAccount()),
+		ReservationAffinity:     ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(p.GetReservationAffinity()),
+		NodeGroupAffinity:       ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(p.GetNodeGroupAffinity()),
+	}
+	for _, r := range p.GetServiceAccountScopes() {
+		obj.ServiceAccountScopes = append(obj.ServiceAccountScopes, r)
+	}
+	for _, r := range p.GetTags() {
+		obj.Tags = append(obj.Tags, r)
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity) *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity{
+		ConsumeReservationType: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(p.GetConsumeReservationType()),
+		Key:                    dcl.StringOrNil(p.GetKey()),
+	}
+	for _, r := range p.GetValues() {
+		obj.Values = append(obj.Values, r)
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity) *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{
+		NodeGroup: dcl.StringOrNil(p.GetNodeGroup()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigMasterConfig converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfig{
+		NumInstances:       dcl.Int64OrNil(p.GetNumInstances()),
+		Image:              dcl.StringOrNil(p.GetImage()),
+		MachineType:        dcl.StringOrNil(p.GetMachineType()),
+		DiskConfig:         ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(p.GetDiskConfig()),
+		IsPreemptible:      dcl.Bool(p.GetIsPreemptible()),
+		Preemptibility:     ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(p.GetPreemptibility()),
+		ManagedGroupConfig: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(p.GetManagedGroupConfig()),
+		MinCpuPlatform:     dcl.StringOrNil(p.GetMinCpuPlatform()),
+	}
+	for _, r := range p.GetInstanceNames() {
+		obj.InstanceNames = append(obj.InstanceNames, r)
+	}
+	for _, r := range p.GetAccelerators() {
+		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(r))
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig{
+		BootDiskType:   dcl.StringOrNil(p.GetBootDiskType()),
+		BootDiskSizeGb: dcl.Int64OrNil(p.GetBootDiskSizeGb()),
+		NumLocalSsds:   dcl.Int64OrNil(p.GetNumLocalSsds()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig{
+		InstanceTemplateName:     dcl.StringOrNil(p.GetInstanceTemplateName()),
+		InstanceGroupManagerName: dcl.StringOrNil(p.GetInstanceGroupManagerName()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators) *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators{
+		AcceleratorType:  dcl.StringOrNil(p.GetAcceleratorType()),
+		AcceleratorCount: dcl.Int64OrNil(p.GetAcceleratorCount()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigWorkerConfig converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfig{
+		NumInstances:       dcl.Int64OrNil(p.GetNumInstances()),
+		Image:              dcl.StringOrNil(p.GetImage()),
+		MachineType:        dcl.StringOrNil(p.GetMachineType()),
+		DiskConfig:         ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(p.GetDiskConfig()),
+		IsPreemptible:      dcl.Bool(p.GetIsPreemptible()),
+		Preemptibility:     ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(p.GetPreemptibility()),
+		ManagedGroupConfig: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(p.GetManagedGroupConfig()),
+		MinCpuPlatform:     dcl.StringOrNil(p.GetMinCpuPlatform()),
+	}
+	for _, r := range p.GetInstanceNames() {
+		obj.InstanceNames = append(obj.InstanceNames, r)
+	}
+	for _, r := range p.GetAccelerators() {
+		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(r))
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig{
+		BootDiskType:   dcl.StringOrNil(p.GetBootDiskType()),
+		BootDiskSizeGb: dcl.Int64OrNil(p.GetBootDiskSizeGb()),
+		NumLocalSsds:   dcl.Int64OrNil(p.GetNumLocalSsds()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig{
+		InstanceTemplateName:     dcl.StringOrNil(p.GetInstanceTemplateName()),
+		InstanceGroupManagerName: dcl.StringOrNil(p.GetInstanceGroupManagerName()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators) *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators{
+		AcceleratorType:  dcl.StringOrNil(p.GetAcceleratorType()),
+		AcceleratorCount: dcl.Int64OrNil(p.GetAcceleratorCount()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig{
+		NumInstances:       dcl.Int64OrNil(p.GetNumInstances()),
+		Image:              dcl.StringOrNil(p.GetImage()),
+		MachineType:        dcl.StringOrNil(p.GetMachineType()),
+		DiskConfig:         ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(p.GetDiskConfig()),
+		IsPreemptible:      dcl.Bool(p.GetIsPreemptible()),
+		Preemptibility:     ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(p.GetPreemptibility()),
+		ManagedGroupConfig: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(p.GetManagedGroupConfig()),
+		MinCpuPlatform:     dcl.StringOrNil(p.GetMinCpuPlatform()),
+	}
+	for _, r := range p.GetInstanceNames() {
+		obj.InstanceNames = append(obj.InstanceNames, r)
+	}
+	for _, r := range p.GetAccelerators() {
+		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(r))
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig{
+		BootDiskType:   dcl.StringOrNil(p.GetBootDiskType()),
+		BootDiskSizeGb: dcl.Int64OrNil(p.GetBootDiskSizeGb()),
+		NumLocalSsds:   dcl.Int64OrNil(p.GetNumLocalSsds()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig{
+		InstanceTemplateName:     dcl.StringOrNil(p.GetInstanceTemplateName()),
+		InstanceGroupManagerName: dcl.StringOrNil(p.GetInstanceGroupManagerName()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators) *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators{
+		AcceleratorType:  dcl.StringOrNil(p.GetAcceleratorType()),
+		AcceleratorCount: dcl.Int64OrNil(p.GetAcceleratorCount()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig converts a WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig{
+		ImageVersion: dcl.StringOrNil(p.GetImageVersion()),
+	}
+	for _, r := range p.GetOptionalComponents() {
+		obj.OptionalComponents = append(obj.OptionalComponents, *ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(r))
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigInitializationActions converts a WorkflowTemplatePlacementManagedClusterConfigInitializationActions object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActions(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActions) *alpha.WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigInitializationActions{
+		ExecutableFile:   dcl.StringOrNil(p.GetExecutableFile()),
+		ExecutionTimeout: dcl.StringOrNil(p.GetExecutionTimeout()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig converts a WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig{
+		GcePdKmsKeyName: dcl.StringOrNil(p.GetGcePdKmsKeyName()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig converts a WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig{
+		Policy: dcl.StringOrNil(p.GetPolicy()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSecurityConfig converts a WorkflowTemplatePlacementManagedClusterConfigSecurityConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigSecurityConfig{
+		KerberosConfig: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(p.GetKerberosConfig()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig converts a WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig{
+		EnableKerberos:                dcl.Bool(p.GetEnableKerberos()),
+		RootPrincipalPassword:         dcl.StringOrNil(p.GetRootPrincipalPassword()),
+		KmsKey:                        dcl.StringOrNil(p.GetKmsKey()),
+		Keystore:                      dcl.StringOrNil(p.GetKeystore()),
+		Truststore:                    dcl.StringOrNil(p.GetTruststore()),
+		KeystorePassword:              dcl.StringOrNil(p.GetKeystorePassword()),
+		KeyPassword:                   dcl.StringOrNil(p.GetKeyPassword()),
+		TruststorePassword:            dcl.StringOrNil(p.GetTruststorePassword()),
+		CrossRealmTrustRealm:          dcl.StringOrNil(p.GetCrossRealmTrustRealm()),
+		CrossRealmTrustKdc:            dcl.StringOrNil(p.GetCrossRealmTrustKdc()),
+		CrossRealmTrustAdminServer:    dcl.StringOrNil(p.GetCrossRealmTrustAdminServer()),
+		CrossRealmTrustSharedPassword: dcl.StringOrNil(p.GetCrossRealmTrustSharedPassword()),
+		KdcDbKey:                      dcl.StringOrNil(p.GetKdcDbKey()),
+		TgtLifetimeHours:              dcl.Int64OrNil(p.GetTgtLifetimeHours()),
+		Realm:                         dcl.StringOrNil(p.GetRealm()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig converts a WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig{
+		IdleDeleteTtl:  dcl.StringOrNil(p.GetIdleDeleteTtl()),
+		AutoDeleteTime: dcl.StringOrNil(p.GetAutoDeleteTime()),
+		AutoDeleteTtl:  dcl.StringOrNil(p.GetAutoDeleteTtl()),
+		IdleStartTime:  dcl.StringOrNil(p.GetIdleStartTime()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigEndpointConfig converts a WorkflowTemplatePlacementManagedClusterConfigEndpointConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEndpointConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigEndpointConfig{
+		EnableHttpPortAccess: dcl.Bool(p.GetEnableHttpPortAccess()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig converts a WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig{
+		NamespacedGkeDeploymentTarget: ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(p.GetNamespacedGkeDeploymentTarget()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget converts a WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget) *alpha.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{
+		TargetGkeCluster: dcl.StringOrNil(p.GetTargetGkeCluster()),
+		ClusterNamespace: dcl.StringOrNil(p.GetClusterNamespace()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig converts a WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(p *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig) *alpha.WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig{
+		DataprocMetastoreService: dcl.StringOrNil(p.GetDataprocMetastoreService()),
 	}
 	return obj
 }
@@ -443,6 +918,72 @@ func ProtoToWorkflowTemplate(p *alphapb.DataprocAlphaWorkflowTemplate) *alpha.Wo
 	return obj
 }
 
+// WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumToProto converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum enum to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumToProto(e *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum) alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum_value["WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(v)
+	}
+	return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(0)
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumToProto converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum enum to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumToProto(e *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum) alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum_value["WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(v)
+	}
+	return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(0)
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumToProto converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum enum to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumToProto(e *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum) alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum_value["WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(v)
+	}
+	return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(0)
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumToProto converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum enum to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumToProto(e *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum) alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum_value["WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(v)
+	}
+	return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(0)
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumToProto converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum enum to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumToProto(e *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum) alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum_value["WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(v)
+	}
+	return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(0)
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumToProto converts a WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum enum to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumToProto(e *alpha.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum) alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum_value["WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(v)
+	}
+	return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(0)
+}
+
 // WorkflowTemplatePlacementToProto converts a WorkflowTemplatePlacement object to its proto representation.
 func DataprocAlphaWorkflowTemplatePlacementToProto(o *alpha.WorkflowTemplatePlacement) *alphapb.DataprocAlphaWorkflowTemplatePlacement {
 	if o == nil {
@@ -461,12 +1002,425 @@ func DataprocAlphaWorkflowTemplatePlacementManagedClusterToProto(o *alpha.Workfl
 	}
 	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedCluster{}
 	p.SetClusterName(dcl.ValueOrEmptyString(o.ClusterName))
-	p.SetConfig(DataprocAlphaClusterClusterConfigToProto(o.Config))
+	p.SetConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigToProto(o.Config))
 	mLabels := make(map[string]string, len(o.Labels))
 	for k, r := range o.Labels {
 		mLabels[k] = r
 	}
 	p.SetLabels(mLabels)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfig{}
+	p.SetStagingBucket(dcl.ValueOrEmptyString(o.StagingBucket))
+	p.SetTempBucket(dcl.ValueOrEmptyString(o.TempBucket))
+	p.SetGceClusterConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigToProto(o.GceClusterConfig))
+	p.SetMasterConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigToProto(o.MasterConfig))
+	p.SetWorkerConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigToProto(o.WorkerConfig))
+	p.SetSecondaryWorkerConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigToProto(o.SecondaryWorkerConfig))
+	p.SetSoftwareConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigToProto(o.SoftwareConfig))
+	p.SetEncryptionConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigToProto(o.EncryptionConfig))
+	p.SetAutoscalingConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigToProto(o.AutoscalingConfig))
+	p.SetSecurityConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigToProto(o.SecurityConfig))
+	p.SetLifecycleConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigToProto(o.LifecycleConfig))
+	p.SetEndpointConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEndpointConfigToProto(o.EndpointConfig))
+	p.SetGkeClusterConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigToProto(o.GkeClusterConfig))
+	p.SetMetastoreConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigToProto(o.MetastoreConfig))
+	sInitializationActions := make([]*alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActions, len(o.InitializationActions))
+	for i, r := range o.InitializationActions {
+		sInitializationActions[i] = DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActionsToProto(&r)
+	}
+	p.SetInitializationActions(sInitializationActions)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig{}
+	p.SetZone(dcl.ValueOrEmptyString(o.Zone))
+	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
+	p.SetSubnetwork(dcl.ValueOrEmptyString(o.Subnetwork))
+	p.SetInternalIpOnly(dcl.ValueOrEmptyBool(o.InternalIPOnly))
+	p.SetPrivateIpv6GoogleAccess(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumToProto(o.PrivateIPv6GoogleAccess))
+	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
+	p.SetReservationAffinity(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityToProto(o.ReservationAffinity))
+	p.SetNodeGroupAffinity(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityToProto(o.NodeGroupAffinity))
+	sServiceAccountScopes := make([]string, len(o.ServiceAccountScopes))
+	for i, r := range o.ServiceAccountScopes {
+		sServiceAccountScopes[i] = r
+	}
+	p.SetServiceAccountScopes(sServiceAccountScopes)
+	sTags := make([]string, len(o.Tags))
+	for i, r := range o.Tags {
+		sTags[i] = r
+	}
+	p.SetTags(sTags)
+	mMetadata := make(map[string]string, len(o.Metadata))
+	for k, r := range o.Metadata {
+		mMetadata[k] = r
+	}
+	p.SetMetadata(mMetadata)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityToProto converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity{}
+	p.SetConsumeReservationType(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumToProto(o.ConsumeReservationType))
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	sValues := make([]string, len(o.Values))
+	for i, r := range o.Values {
+		sValues[i] = r
+	}
+	p.SetValues(sValues)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityToProto converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{}
+	p.SetNodeGroup(dcl.ValueOrEmptyString(o.NodeGroup))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigMasterConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfig{}
+	p.SetNumInstances(dcl.ValueOrEmptyInt64(o.NumInstances))
+	p.SetImage(dcl.ValueOrEmptyString(o.Image))
+	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
+	p.SetDiskConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigToProto(o.DiskConfig))
+	p.SetIsPreemptible(dcl.ValueOrEmptyBool(o.IsPreemptible))
+	p.SetPreemptibility(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumToProto(o.Preemptibility))
+	p.SetManagedGroupConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigToProto(o.ManagedGroupConfig))
+	p.SetMinCpuPlatform(dcl.ValueOrEmptyString(o.MinCpuPlatform))
+	sInstanceNames := make([]string, len(o.InstanceNames))
+	for i, r := range o.InstanceNames {
+		sInstanceNames[i] = r
+	}
+	p.SetInstanceNames(sInstanceNames)
+	sAccelerators := make([]*alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators, len(o.Accelerators))
+	for i, r := range o.Accelerators {
+		sAccelerators[i] = DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsToProto(&r)
+	}
+	p.SetAccelerators(sAccelerators)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig{}
+	p.SetBootDiskType(dcl.ValueOrEmptyString(o.BootDiskType))
+	p.SetBootDiskSizeGb(dcl.ValueOrEmptyInt64(o.BootDiskSizeGb))
+	p.SetNumLocalSsds(dcl.ValueOrEmptyInt64(o.NumLocalSsds))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig{}
+	p.SetInstanceTemplateName(dcl.ValueOrEmptyString(o.InstanceTemplateName))
+	p.SetInstanceGroupManagerName(dcl.ValueOrEmptyString(o.InstanceGroupManagerName))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsToProto converts a WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators{}
+	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
+	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigWorkerConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfig{}
+	p.SetNumInstances(dcl.ValueOrEmptyInt64(o.NumInstances))
+	p.SetImage(dcl.ValueOrEmptyString(o.Image))
+	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
+	p.SetDiskConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigToProto(o.DiskConfig))
+	p.SetIsPreemptible(dcl.ValueOrEmptyBool(o.IsPreemptible))
+	p.SetPreemptibility(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumToProto(o.Preemptibility))
+	p.SetManagedGroupConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigToProto(o.ManagedGroupConfig))
+	p.SetMinCpuPlatform(dcl.ValueOrEmptyString(o.MinCpuPlatform))
+	sInstanceNames := make([]string, len(o.InstanceNames))
+	for i, r := range o.InstanceNames {
+		sInstanceNames[i] = r
+	}
+	p.SetInstanceNames(sInstanceNames)
+	sAccelerators := make([]*alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators, len(o.Accelerators))
+	for i, r := range o.Accelerators {
+		sAccelerators[i] = DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsToProto(&r)
+	}
+	p.SetAccelerators(sAccelerators)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig{}
+	p.SetBootDiskType(dcl.ValueOrEmptyString(o.BootDiskType))
+	p.SetBootDiskSizeGb(dcl.ValueOrEmptyInt64(o.BootDiskSizeGb))
+	p.SetNumLocalSsds(dcl.ValueOrEmptyInt64(o.NumLocalSsds))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig{}
+	p.SetInstanceTemplateName(dcl.ValueOrEmptyString(o.InstanceTemplateName))
+	p.SetInstanceGroupManagerName(dcl.ValueOrEmptyString(o.InstanceGroupManagerName))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsToProto converts a WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators{}
+	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
+	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig{}
+	p.SetNumInstances(dcl.ValueOrEmptyInt64(o.NumInstances))
+	p.SetImage(dcl.ValueOrEmptyString(o.Image))
+	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
+	p.SetDiskConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigToProto(o.DiskConfig))
+	p.SetIsPreemptible(dcl.ValueOrEmptyBool(o.IsPreemptible))
+	p.SetPreemptibility(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumToProto(o.Preemptibility))
+	p.SetManagedGroupConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigToProto(o.ManagedGroupConfig))
+	p.SetMinCpuPlatform(dcl.ValueOrEmptyString(o.MinCpuPlatform))
+	sInstanceNames := make([]string, len(o.InstanceNames))
+	for i, r := range o.InstanceNames {
+		sInstanceNames[i] = r
+	}
+	p.SetInstanceNames(sInstanceNames)
+	sAccelerators := make([]*alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators, len(o.Accelerators))
+	for i, r := range o.Accelerators {
+		sAccelerators[i] = DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsToProto(&r)
+	}
+	p.SetAccelerators(sAccelerators)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig{}
+	p.SetBootDiskType(dcl.ValueOrEmptyString(o.BootDiskType))
+	p.SetBootDiskSizeGb(dcl.ValueOrEmptyInt64(o.BootDiskSizeGb))
+	p.SetNumLocalSsds(dcl.ValueOrEmptyInt64(o.NumLocalSsds))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig{}
+	p.SetInstanceTemplateName(dcl.ValueOrEmptyString(o.InstanceTemplateName))
+	p.SetInstanceGroupManagerName(dcl.ValueOrEmptyString(o.InstanceGroupManagerName))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsToProto converts a WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators{}
+	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
+	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig{}
+	p.SetImageVersion(dcl.ValueOrEmptyString(o.ImageVersion))
+	mProperties := make(map[string]string, len(o.Properties))
+	for k, r := range o.Properties {
+		mProperties[k] = r
+	}
+	p.SetProperties(mProperties)
+	sOptionalComponents := make([]alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum, len(o.OptionalComponents))
+	for i, r := range o.OptionalComponents {
+		sOptionalComponents[i] = alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum_value[string(r)])
+	}
+	p.SetOptionalComponents(sOptionalComponents)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigInitializationActionsToProto converts a WorkflowTemplatePlacementManagedClusterConfigInitializationActions object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActionsToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigInitializationActions) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigInitializationActions{}
+	p.SetExecutableFile(dcl.ValueOrEmptyString(o.ExecutableFile))
+	p.SetExecutionTimeout(dcl.ValueOrEmptyString(o.ExecutionTimeout))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigEncryptionConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig{}
+	p.SetGcePdKmsKeyName(dcl.ValueOrEmptyString(o.GcePdKmsKeyName))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig{}
+	p.SetPolicy(dcl.ValueOrEmptyString(o.Policy))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSecurityConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigSecurityConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigSecurityConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfig{}
+	p.SetKerberosConfig(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigToProto(o.KerberosConfig))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig{}
+	p.SetEnableKerberos(dcl.ValueOrEmptyBool(o.EnableKerberos))
+	p.SetRootPrincipalPassword(dcl.ValueOrEmptyString(o.RootPrincipalPassword))
+	p.SetKmsKey(dcl.ValueOrEmptyString(o.KmsKey))
+	p.SetKeystore(dcl.ValueOrEmptyString(o.Keystore))
+	p.SetTruststore(dcl.ValueOrEmptyString(o.Truststore))
+	p.SetKeystorePassword(dcl.ValueOrEmptyString(o.KeystorePassword))
+	p.SetKeyPassword(dcl.ValueOrEmptyString(o.KeyPassword))
+	p.SetTruststorePassword(dcl.ValueOrEmptyString(o.TruststorePassword))
+	p.SetCrossRealmTrustRealm(dcl.ValueOrEmptyString(o.CrossRealmTrustRealm))
+	p.SetCrossRealmTrustKdc(dcl.ValueOrEmptyString(o.CrossRealmTrustKdc))
+	p.SetCrossRealmTrustAdminServer(dcl.ValueOrEmptyString(o.CrossRealmTrustAdminServer))
+	p.SetCrossRealmTrustSharedPassword(dcl.ValueOrEmptyString(o.CrossRealmTrustSharedPassword))
+	p.SetKdcDbKey(dcl.ValueOrEmptyString(o.KdcDbKey))
+	p.SetTgtLifetimeHours(dcl.ValueOrEmptyInt64(o.TgtLifetimeHours))
+	p.SetRealm(dcl.ValueOrEmptyString(o.Realm))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigLifecycleConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig{}
+	p.SetIdleDeleteTtl(dcl.ValueOrEmptyString(o.IdleDeleteTtl))
+	p.SetAutoDeleteTime(dcl.ValueOrEmptyString(o.AutoDeleteTime))
+	p.SetAutoDeleteTtl(dcl.ValueOrEmptyString(o.AutoDeleteTtl))
+	p.SetIdleStartTime(dcl.ValueOrEmptyString(o.IdleStartTime))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigEndpointConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigEndpointConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEndpointConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigEndpointConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigEndpointConfig{}
+	p.SetEnableHttpPortAccess(dcl.ValueOrEmptyBool(o.EnableHttpPortAccess))
+	mHttpPorts := make(map[string]string, len(o.HttpPorts))
+	for k, r := range o.HttpPorts {
+		mHttpPorts[k] = r
+	}
+	p.SetHttpPorts(mHttpPorts)
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig{}
+	p.SetNamespacedGkeDeploymentTarget(DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto(o.NamespacedGkeDeploymentTarget))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto converts a WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
+	p.SetTargetGkeCluster(dcl.ValueOrEmptyString(o.TargetGkeCluster))
+	p.SetClusterNamespace(dcl.ValueOrEmptyString(o.ClusterNamespace))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigMetastoreConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigToProto(o *alpha.WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig) *alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig{}
+	p.SetDataprocMetastoreService(dcl.ValueOrEmptyString(o.DataprocMetastoreService))
 	return p
 }
 

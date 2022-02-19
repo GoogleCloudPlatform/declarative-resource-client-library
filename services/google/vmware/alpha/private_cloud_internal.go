@@ -187,8 +187,10 @@ type privateCloudApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdatePrivateCloudUpdateClusterRequest(ctx context.Context, f *PrivateCloud, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
-	if v, err := expandPrivateCloudManagementCluster(c, f.ManagementCluster); err != nil {
+	if v, err := expandPrivateCloudManagementCluster(c, f.ManagementCluster, res); err != nil {
 		return nil, fmt.Errorf("error expanding ManagementCluster into managementCluster: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["managementCluster"] = v
@@ -265,6 +267,8 @@ func (op *updatePrivateCloudUpdateClusterOperation) do(ctx context.Context, r *P
 // fields based on the intended state of the resource.
 func newUpdatePrivateCloudUpdatePrivateCloudRequest(ctx context.Context, f *PrivateCloud, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -1968,6 +1972,8 @@ func unmarshalMapPrivateCloud(m map[string]interface{}, c *Client) (*PrivateClou
 // expandPrivateCloud expands PrivateCloud into a JSON request object.
 func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/privateClouds/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1976,12 +1982,12 @@ func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, err
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandPrivateCloudNetworkConfig(c, f.NetworkConfig); err != nil {
+	if v, err := expandPrivateCloudNetworkConfig(c, f.NetworkConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["networkConfig"] = v
 	}
-	if v, err := expandPrivateCloudManagementCluster(c, f.ManagementCluster); err != nil {
+	if v, err := expandPrivateCloudManagementCluster(c, f.ManagementCluster, res); err != nil {
 		return nil, fmt.Errorf("error expanding ManagementCluster into managementCluster: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["managementCluster"] = v
@@ -2037,14 +2043,14 @@ func flattenPrivateCloud(c *Client, i interface{}) *PrivateCloud {
 
 // expandPrivateCloudNetworkConfigMap expands the contents of PrivateCloudNetworkConfig into a JSON
 // request object.
-func expandPrivateCloudNetworkConfigMap(c *Client, f map[string]PrivateCloudNetworkConfig) (map[string]interface{}, error) {
+func expandPrivateCloudNetworkConfigMap(c *Client, f map[string]PrivateCloudNetworkConfig, res *PrivateCloud) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPrivateCloudNetworkConfig(c, &item)
+		i, err := expandPrivateCloudNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2058,14 +2064,14 @@ func expandPrivateCloudNetworkConfigMap(c *Client, f map[string]PrivateCloudNetw
 
 // expandPrivateCloudNetworkConfigSlice expands the contents of PrivateCloudNetworkConfig into a JSON
 // request object.
-func expandPrivateCloudNetworkConfigSlice(c *Client, f []PrivateCloudNetworkConfig) ([]map[string]interface{}, error) {
+func expandPrivateCloudNetworkConfigSlice(c *Client, f []PrivateCloudNetworkConfig, res *PrivateCloud) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPrivateCloudNetworkConfig(c, &item)
+		i, err := expandPrivateCloudNetworkConfig(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2118,7 +2124,7 @@ func flattenPrivateCloudNetworkConfigSlice(c *Client, i interface{}) []PrivateCl
 
 // expandPrivateCloudNetworkConfig expands an instance of PrivateCloudNetworkConfig into a JSON
 // request object.
-func expandPrivateCloudNetworkConfig(c *Client, f *PrivateCloudNetworkConfig) (map[string]interface{}, error) {
+func expandPrivateCloudNetworkConfig(c *Client, f *PrivateCloudNetworkConfig, res *PrivateCloud) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2156,14 +2162,14 @@ func flattenPrivateCloudNetworkConfig(c *Client, i interface{}) *PrivateCloudNet
 
 // expandPrivateCloudManagementClusterMap expands the contents of PrivateCloudManagementCluster into a JSON
 // request object.
-func expandPrivateCloudManagementClusterMap(c *Client, f map[string]PrivateCloudManagementCluster) (map[string]interface{}, error) {
+func expandPrivateCloudManagementClusterMap(c *Client, f map[string]PrivateCloudManagementCluster, res *PrivateCloud) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPrivateCloudManagementCluster(c, &item)
+		i, err := expandPrivateCloudManagementCluster(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2177,14 +2183,14 @@ func expandPrivateCloudManagementClusterMap(c *Client, f map[string]PrivateCloud
 
 // expandPrivateCloudManagementClusterSlice expands the contents of PrivateCloudManagementCluster into a JSON
 // request object.
-func expandPrivateCloudManagementClusterSlice(c *Client, f []PrivateCloudManagementCluster) ([]map[string]interface{}, error) {
+func expandPrivateCloudManagementClusterSlice(c *Client, f []PrivateCloudManagementCluster, res *PrivateCloud) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPrivateCloudManagementCluster(c, &item)
+		i, err := expandPrivateCloudManagementCluster(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2237,7 +2243,7 @@ func flattenPrivateCloudManagementClusterSlice(c *Client, i interface{}) []Priva
 
 // expandPrivateCloudManagementCluster expands an instance of PrivateCloudManagementCluster into a JSON
 // request object.
-func expandPrivateCloudManagementCluster(c *Client, f *PrivateCloudManagementCluster) (map[string]interface{}, error) {
+func expandPrivateCloudManagementCluster(c *Client, f *PrivateCloudManagementCluster, res *PrivateCloud) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2278,14 +2284,14 @@ func flattenPrivateCloudManagementCluster(c *Client, i interface{}) *PrivateClou
 
 // expandPrivateCloudConditionsMap expands the contents of PrivateCloudConditions into a JSON
 // request object.
-func expandPrivateCloudConditionsMap(c *Client, f map[string]PrivateCloudConditions) (map[string]interface{}, error) {
+func expandPrivateCloudConditionsMap(c *Client, f map[string]PrivateCloudConditions, res *PrivateCloud) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPrivateCloudConditions(c, &item)
+		i, err := expandPrivateCloudConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2299,14 +2305,14 @@ func expandPrivateCloudConditionsMap(c *Client, f map[string]PrivateCloudConditi
 
 // expandPrivateCloudConditionsSlice expands the contents of PrivateCloudConditions into a JSON
 // request object.
-func expandPrivateCloudConditionsSlice(c *Client, f []PrivateCloudConditions) ([]map[string]interface{}, error) {
+func expandPrivateCloudConditionsSlice(c *Client, f []PrivateCloudConditions, res *PrivateCloud) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPrivateCloudConditions(c, &item)
+		i, err := expandPrivateCloudConditions(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2359,7 +2365,7 @@ func flattenPrivateCloudConditionsSlice(c *Client, i interface{}) []PrivateCloud
 
 // expandPrivateCloudConditions expands an instance of PrivateCloudConditions into a JSON
 // request object.
-func expandPrivateCloudConditions(c *Client, f *PrivateCloudConditions) (map[string]interface{}, error) {
+func expandPrivateCloudConditions(c *Client, f *PrivateCloudConditions, res *PrivateCloud) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2390,14 +2396,14 @@ func flattenPrivateCloudConditions(c *Client, i interface{}) *PrivateCloudCondit
 
 // expandPrivateCloudHcxMap expands the contents of PrivateCloudHcx into a JSON
 // request object.
-func expandPrivateCloudHcxMap(c *Client, f map[string]PrivateCloudHcx) (map[string]interface{}, error) {
+func expandPrivateCloudHcxMap(c *Client, f map[string]PrivateCloudHcx, res *PrivateCloud) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPrivateCloudHcx(c, &item)
+		i, err := expandPrivateCloudHcx(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2411,14 +2417,14 @@ func expandPrivateCloudHcxMap(c *Client, f map[string]PrivateCloudHcx) (map[stri
 
 // expandPrivateCloudHcxSlice expands the contents of PrivateCloudHcx into a JSON
 // request object.
-func expandPrivateCloudHcxSlice(c *Client, f []PrivateCloudHcx) ([]map[string]interface{}, error) {
+func expandPrivateCloudHcxSlice(c *Client, f []PrivateCloudHcx, res *PrivateCloud) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPrivateCloudHcx(c, &item)
+		i, err := expandPrivateCloudHcx(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2471,7 +2477,7 @@ func flattenPrivateCloudHcxSlice(c *Client, i interface{}) []PrivateCloudHcx {
 
 // expandPrivateCloudHcx expands an instance of PrivateCloudHcx into a JSON
 // request object.
-func expandPrivateCloudHcx(c *Client, f *PrivateCloudHcx) (map[string]interface{}, error) {
+func expandPrivateCloudHcx(c *Client, f *PrivateCloudHcx, res *PrivateCloud) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2516,14 +2522,14 @@ func flattenPrivateCloudHcx(c *Client, i interface{}) *PrivateCloudHcx {
 
 // expandPrivateCloudNsxMap expands the contents of PrivateCloudNsx into a JSON
 // request object.
-func expandPrivateCloudNsxMap(c *Client, f map[string]PrivateCloudNsx) (map[string]interface{}, error) {
+func expandPrivateCloudNsxMap(c *Client, f map[string]PrivateCloudNsx, res *PrivateCloud) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPrivateCloudNsx(c, &item)
+		i, err := expandPrivateCloudNsx(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2537,14 +2543,14 @@ func expandPrivateCloudNsxMap(c *Client, f map[string]PrivateCloudNsx) (map[stri
 
 // expandPrivateCloudNsxSlice expands the contents of PrivateCloudNsx into a JSON
 // request object.
-func expandPrivateCloudNsxSlice(c *Client, f []PrivateCloudNsx) ([]map[string]interface{}, error) {
+func expandPrivateCloudNsxSlice(c *Client, f []PrivateCloudNsx, res *PrivateCloud) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPrivateCloudNsx(c, &item)
+		i, err := expandPrivateCloudNsx(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2597,7 +2603,7 @@ func flattenPrivateCloudNsxSlice(c *Client, i interface{}) []PrivateCloudNsx {
 
 // expandPrivateCloudNsx expands an instance of PrivateCloudNsx into a JSON
 // request object.
-func expandPrivateCloudNsx(c *Client, f *PrivateCloudNsx) (map[string]interface{}, error) {
+func expandPrivateCloudNsx(c *Client, f *PrivateCloudNsx, res *PrivateCloud) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2642,14 +2648,14 @@ func flattenPrivateCloudNsx(c *Client, i interface{}) *PrivateCloudNsx {
 
 // expandPrivateCloudVcenterMap expands the contents of PrivateCloudVcenter into a JSON
 // request object.
-func expandPrivateCloudVcenterMap(c *Client, f map[string]PrivateCloudVcenter) (map[string]interface{}, error) {
+func expandPrivateCloudVcenterMap(c *Client, f map[string]PrivateCloudVcenter, res *PrivateCloud) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPrivateCloudVcenter(c, &item)
+		i, err := expandPrivateCloudVcenter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2663,14 +2669,14 @@ func expandPrivateCloudVcenterMap(c *Client, f map[string]PrivateCloudVcenter) (
 
 // expandPrivateCloudVcenterSlice expands the contents of PrivateCloudVcenter into a JSON
 // request object.
-func expandPrivateCloudVcenterSlice(c *Client, f []PrivateCloudVcenter) ([]map[string]interface{}, error) {
+func expandPrivateCloudVcenterSlice(c *Client, f []PrivateCloudVcenter, res *PrivateCloud) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPrivateCloudVcenter(c, &item)
+		i, err := expandPrivateCloudVcenter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -2723,7 +2729,7 @@ func flattenPrivateCloudVcenterSlice(c *Client, i interface{}) []PrivateCloudVce
 
 // expandPrivateCloudVcenter expands an instance of PrivateCloudVcenter into a JSON
 // request object.
-func expandPrivateCloudVcenter(c *Client, f *PrivateCloudVcenter) (map[string]interface{}, error) {
+func expandPrivateCloudVcenter(c *Client, f *PrivateCloudVcenter, res *PrivateCloud) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

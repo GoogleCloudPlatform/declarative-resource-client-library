@@ -95,11 +95,13 @@ type featureApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateFeatureUpdateFeatureRequest(ctx context.Context, f *Feature, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	if v, err := expandFeatureSpec(c, f.Spec); err != nil {
+	if v, err := expandFeatureSpec(c, f.Spec, res); err != nil {
 		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["spec"] = v
@@ -1343,6 +1345,8 @@ func unmarshalMapFeature(m map[string]interface{}, c *Client) (*Feature, error) 
 // expandFeature expands Feature into a JSON request object.
 func expandFeature(c *Client, f *Feature) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/features/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1351,7 +1355,7 @@ func expandFeature(c *Client, f *Feature) (map[string]interface{}, error) {
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v, err := expandFeatureSpec(c, f.Spec); err != nil {
+	if v, err := expandFeatureSpec(c, f.Spec, res); err != nil {
 		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["spec"] = v
@@ -1398,14 +1402,14 @@ func flattenFeature(c *Client, i interface{}) *Feature {
 
 // expandFeatureResourceStateMap expands the contents of FeatureResourceState into a JSON
 // request object.
-func expandFeatureResourceStateMap(c *Client, f map[string]FeatureResourceState) (map[string]interface{}, error) {
+func expandFeatureResourceStateMap(c *Client, f map[string]FeatureResourceState, res *Feature) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureResourceState(c, &item)
+		i, err := expandFeatureResourceState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1419,14 +1423,14 @@ func expandFeatureResourceStateMap(c *Client, f map[string]FeatureResourceState)
 
 // expandFeatureResourceStateSlice expands the contents of FeatureResourceState into a JSON
 // request object.
-func expandFeatureResourceStateSlice(c *Client, f []FeatureResourceState) ([]map[string]interface{}, error) {
+func expandFeatureResourceStateSlice(c *Client, f []FeatureResourceState, res *Feature) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureResourceState(c, &item)
+		i, err := expandFeatureResourceState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1479,7 +1483,7 @@ func flattenFeatureResourceStateSlice(c *Client, i interface{}) []FeatureResourc
 
 // expandFeatureResourceState expands an instance of FeatureResourceState into a JSON
 // request object.
-func expandFeatureResourceState(c *Client, f *FeatureResourceState) (map[string]interface{}, error) {
+func expandFeatureResourceState(c *Client, f *FeatureResourceState, res *Feature) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1510,14 +1514,14 @@ func flattenFeatureResourceState(c *Client, i interface{}) *FeatureResourceState
 
 // expandFeatureSpecMap expands the contents of FeatureSpec into a JSON
 // request object.
-func expandFeatureSpecMap(c *Client, f map[string]FeatureSpec) (map[string]interface{}, error) {
+func expandFeatureSpecMap(c *Client, f map[string]FeatureSpec, res *Feature) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureSpec(c, &item)
+		i, err := expandFeatureSpec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1531,14 +1535,14 @@ func expandFeatureSpecMap(c *Client, f map[string]FeatureSpec) (map[string]inter
 
 // expandFeatureSpecSlice expands the contents of FeatureSpec into a JSON
 // request object.
-func expandFeatureSpecSlice(c *Client, f []FeatureSpec) ([]map[string]interface{}, error) {
+func expandFeatureSpecSlice(c *Client, f []FeatureSpec, res *Feature) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureSpec(c, &item)
+		i, err := expandFeatureSpec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1591,13 +1595,13 @@ func flattenFeatureSpecSlice(c *Client, i interface{}) []FeatureSpec {
 
 // expandFeatureSpec expands an instance of FeatureSpec into a JSON
 // request object.
-func expandFeatureSpec(c *Client, f *FeatureSpec) (map[string]interface{}, error) {
+func expandFeatureSpec(c *Client, f *FeatureSpec, res *Feature) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandFeatureSpecMulticlusteringress(c, f.Multiclusteringress); err != nil {
+	if v, err := expandFeatureSpecMulticlusteringress(c, f.Multiclusteringress, res); err != nil {
 		return nil, fmt.Errorf("error expanding Multiclusteringress into multiclusteringress: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["multiclusteringress"] = v
@@ -1626,14 +1630,14 @@ func flattenFeatureSpec(c *Client, i interface{}) *FeatureSpec {
 
 // expandFeatureSpecMulticlusteringressMap expands the contents of FeatureSpecMulticlusteringress into a JSON
 // request object.
-func expandFeatureSpecMulticlusteringressMap(c *Client, f map[string]FeatureSpecMulticlusteringress) (map[string]interface{}, error) {
+func expandFeatureSpecMulticlusteringressMap(c *Client, f map[string]FeatureSpecMulticlusteringress, res *Feature) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureSpecMulticlusteringress(c, &item)
+		i, err := expandFeatureSpecMulticlusteringress(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1647,14 +1651,14 @@ func expandFeatureSpecMulticlusteringressMap(c *Client, f map[string]FeatureSpec
 
 // expandFeatureSpecMulticlusteringressSlice expands the contents of FeatureSpecMulticlusteringress into a JSON
 // request object.
-func expandFeatureSpecMulticlusteringressSlice(c *Client, f []FeatureSpecMulticlusteringress) ([]map[string]interface{}, error) {
+func expandFeatureSpecMulticlusteringressSlice(c *Client, f []FeatureSpecMulticlusteringress, res *Feature) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureSpecMulticlusteringress(c, &item)
+		i, err := expandFeatureSpecMulticlusteringress(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1707,7 +1711,7 @@ func flattenFeatureSpecMulticlusteringressSlice(c *Client, i interface{}) []Feat
 
 // expandFeatureSpecMulticlusteringress expands an instance of FeatureSpecMulticlusteringress into a JSON
 // request object.
-func expandFeatureSpecMulticlusteringress(c *Client, f *FeatureSpecMulticlusteringress) (map[string]interface{}, error) {
+func expandFeatureSpecMulticlusteringress(c *Client, f *FeatureSpecMulticlusteringress, res *Feature) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1740,14 +1744,14 @@ func flattenFeatureSpecMulticlusteringress(c *Client, i interface{}) *FeatureSpe
 
 // expandFeatureStateMap expands the contents of FeatureState into a JSON
 // request object.
-func expandFeatureStateMap(c *Client, f map[string]FeatureState) (map[string]interface{}, error) {
+func expandFeatureStateMap(c *Client, f map[string]FeatureState, res *Feature) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureState(c, &item)
+		i, err := expandFeatureState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1761,14 +1765,14 @@ func expandFeatureStateMap(c *Client, f map[string]FeatureState) (map[string]int
 
 // expandFeatureStateSlice expands the contents of FeatureState into a JSON
 // request object.
-func expandFeatureStateSlice(c *Client, f []FeatureState) ([]map[string]interface{}, error) {
+func expandFeatureStateSlice(c *Client, f []FeatureState, res *Feature) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureState(c, &item)
+		i, err := expandFeatureState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1821,7 +1825,7 @@ func flattenFeatureStateSlice(c *Client, i interface{}) []FeatureState {
 
 // expandFeatureState expands an instance of FeatureState into a JSON
 // request object.
-func expandFeatureState(c *Client, f *FeatureState) (map[string]interface{}, error) {
+func expandFeatureState(c *Client, f *FeatureState, res *Feature) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1851,14 +1855,14 @@ func flattenFeatureState(c *Client, i interface{}) *FeatureState {
 
 // expandFeatureStateStateMap expands the contents of FeatureStateState into a JSON
 // request object.
-func expandFeatureStateStateMap(c *Client, f map[string]FeatureStateState) (map[string]interface{}, error) {
+func expandFeatureStateStateMap(c *Client, f map[string]FeatureStateState, res *Feature) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandFeatureStateState(c, &item)
+		i, err := expandFeatureStateState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1872,14 +1876,14 @@ func expandFeatureStateStateMap(c *Client, f map[string]FeatureStateState) (map[
 
 // expandFeatureStateStateSlice expands the contents of FeatureStateState into a JSON
 // request object.
-func expandFeatureStateStateSlice(c *Client, f []FeatureStateState) ([]map[string]interface{}, error) {
+func expandFeatureStateStateSlice(c *Client, f []FeatureStateState, res *Feature) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandFeatureStateState(c, &item)
+		i, err := expandFeatureStateState(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1932,7 +1936,7 @@ func flattenFeatureStateStateSlice(c *Client, i interface{}) []FeatureStateState
 
 // expandFeatureStateState expands an instance of FeatureStateState into a JSON
 // request object.
-func expandFeatureStateState(c *Client, f *FeatureStateState) (map[string]interface{}, error) {
+func expandFeatureStateState(c *Client, f *FeatureStateState, res *Feature) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

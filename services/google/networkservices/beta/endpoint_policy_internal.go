@@ -135,6 +135,8 @@ type endpointPolicyApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateEndpointPolicyUpdateEndpointPolicyRequest(ctx context.Context, f *EndpointPolicy, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
@@ -145,12 +147,12 @@ func newUpdateEndpointPolicyUpdateEndpointPolicyRequest(ctx context.Context, f *
 	if v := f.AuthorizationPolicy; !dcl.IsEmptyValueIndirect(v) {
 		req["authorizationPolicy"] = v
 	}
-	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher); err != nil {
+	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher, res); err != nil {
 		return nil, fmt.Errorf("error expanding EndpointMatcher into endpointMatcher: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["endpointMatcher"] = v
 	}
-	if v, err := expandEndpointPolicyTrafficPortSelector(c, f.TrafficPortSelector); err != nil {
+	if v, err := expandEndpointPolicyTrafficPortSelector(c, f.TrafficPortSelector, res); err != nil {
 		return nil, fmt.Errorf("error expanding TrafficPortSelector into trafficPortSelector: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["trafficPortSelector"] = v
@@ -1393,6 +1395,8 @@ func unmarshalMapEndpointPolicy(m map[string]interface{}, c *Client) (*EndpointP
 // expandEndpointPolicy expands EndpointPolicy into a JSON request object.
 func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/*/locations/global/endpointPolicies/%s", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1407,12 +1411,12 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	if v := f.AuthorizationPolicy; dcl.ValueShouldBeSent(v) {
 		m["authorizationPolicy"] = v
 	}
-	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher); err != nil {
+	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher, res); err != nil {
 		return nil, fmt.Errorf("error expanding EndpointMatcher into endpointMatcher: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["endpointMatcher"] = v
 	}
-	if v, err := expandEndpointPolicyTrafficPortSelector(c, f.TrafficPortSelector); err != nil {
+	if v, err := expandEndpointPolicyTrafficPortSelector(c, f.TrafficPortSelector, res); err != nil {
 		return nil, fmt.Errorf("error expanding TrafficPortSelector into trafficPortSelector: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["trafficPortSelector"] = v
@@ -1471,14 +1475,14 @@ func flattenEndpointPolicy(c *Client, i interface{}) *EndpointPolicy {
 
 // expandEndpointPolicyEndpointMatcherMap expands the contents of EndpointPolicyEndpointMatcher into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherMap(c *Client, f map[string]EndpointPolicyEndpointMatcher) (map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherMap(c *Client, f map[string]EndpointPolicyEndpointMatcher, res *EndpointPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandEndpointPolicyEndpointMatcher(c, &item)
+		i, err := expandEndpointPolicyEndpointMatcher(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1492,14 +1496,14 @@ func expandEndpointPolicyEndpointMatcherMap(c *Client, f map[string]EndpointPoli
 
 // expandEndpointPolicyEndpointMatcherSlice expands the contents of EndpointPolicyEndpointMatcher into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherSlice(c *Client, f []EndpointPolicyEndpointMatcher) ([]map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherSlice(c *Client, f []EndpointPolicyEndpointMatcher, res *EndpointPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandEndpointPolicyEndpointMatcher(c, &item)
+		i, err := expandEndpointPolicyEndpointMatcher(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1552,13 +1556,13 @@ func flattenEndpointPolicyEndpointMatcherSlice(c *Client, i interface{}) []Endpo
 
 // expandEndpointPolicyEndpointMatcher expands an instance of EndpointPolicyEndpointMatcher into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcher(c *Client, f *EndpointPolicyEndpointMatcher) (map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcher(c *Client, f *EndpointPolicyEndpointMatcher, res *EndpointPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, f.MetadataLabelMatcher); err != nil {
+	if v, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, f.MetadataLabelMatcher, res); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataLabelMatcher into metadataLabelMatcher: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metadataLabelMatcher"] = v
@@ -1587,14 +1591,14 @@ func flattenEndpointPolicyEndpointMatcher(c *Client, i interface{}) *EndpointPol
 
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMap expands the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcher into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMap(c *Client, f map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcher) (map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMap(c *Client, f map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcher, res *EndpointPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, &item)
+		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1608,14 +1612,14 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMap(c *Client, f map
 
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice expands the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcher into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Client, f []EndpointPolicyEndpointMatcherMetadataLabelMatcher) ([]map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Client, f []EndpointPolicyEndpointMatcherMetadataLabelMatcher, res *EndpointPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, &item)
+		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1668,7 +1672,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Client, i 
 
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcher expands an instance of EndpointPolicyEndpointMatcherMetadataLabelMatcher into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, f *EndpointPolicyEndpointMatcherMetadataLabelMatcher) (map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, f *EndpointPolicyEndpointMatcherMetadataLabelMatcher, res *EndpointPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1677,7 +1681,7 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, f *Endpo
 	if v := f.MetadataLabelMatchCriteria; !dcl.IsEmptyValueIndirect(v) {
 		m["metadataLabelMatchCriteria"] = v
 	}
-	if v, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, f.MetadataLabels); err != nil {
+	if v, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, f.MetadataLabels, res); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataLabels into metadataLabels: %w", err)
 	} else if v != nil {
 		m["metadataLabels"] = v
@@ -1707,14 +1711,14 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, i inter
 
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap expands the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap(c *Client, f map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) (map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap(c *Client, f map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, res *EndpointPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, &item)
+		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1728,14 +1732,14 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap(c 
 
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice expands the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c *Client, f []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) ([]map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c *Client, f []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, res *EndpointPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, &item)
+		i, err := expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1788,7 +1792,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice
 
 // expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels expands an instance of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels into a JSON
 // request object.
-func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, f *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) (map[string]interface{}, error) {
+func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, f *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, res *EndpointPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -1825,14 +1829,14 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *C
 
 // expandEndpointPolicyTrafficPortSelectorMap expands the contents of EndpointPolicyTrafficPortSelector into a JSON
 // request object.
-func expandEndpointPolicyTrafficPortSelectorMap(c *Client, f map[string]EndpointPolicyTrafficPortSelector) (map[string]interface{}, error) {
+func expandEndpointPolicyTrafficPortSelectorMap(c *Client, f map[string]EndpointPolicyTrafficPortSelector, res *EndpointPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandEndpointPolicyTrafficPortSelector(c, &item)
+		i, err := expandEndpointPolicyTrafficPortSelector(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1846,14 +1850,14 @@ func expandEndpointPolicyTrafficPortSelectorMap(c *Client, f map[string]Endpoint
 
 // expandEndpointPolicyTrafficPortSelectorSlice expands the contents of EndpointPolicyTrafficPortSelector into a JSON
 // request object.
-func expandEndpointPolicyTrafficPortSelectorSlice(c *Client, f []EndpointPolicyTrafficPortSelector) ([]map[string]interface{}, error) {
+func expandEndpointPolicyTrafficPortSelectorSlice(c *Client, f []EndpointPolicyTrafficPortSelector, res *EndpointPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandEndpointPolicyTrafficPortSelector(c, &item)
+		i, err := expandEndpointPolicyTrafficPortSelector(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1906,7 +1910,7 @@ func flattenEndpointPolicyTrafficPortSelectorSlice(c *Client, i interface{}) []E
 
 // expandEndpointPolicyTrafficPortSelector expands an instance of EndpointPolicyTrafficPortSelector into a JSON
 // request object.
-func expandEndpointPolicyTrafficPortSelector(c *Client, f *EndpointPolicyTrafficPortSelector) (map[string]interface{}, error) {
+func expandEndpointPolicyTrafficPortSelector(c *Client, f *EndpointPolicyTrafficPortSelector, res *EndpointPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}

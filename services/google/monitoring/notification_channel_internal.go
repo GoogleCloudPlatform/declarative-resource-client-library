@@ -81,6 +81,8 @@ type notificationChannelApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateNotificationChannelUpdateRequest(ctx context.Context, f *NotificationChannel, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
@@ -679,6 +681,8 @@ func unmarshalMapNotificationChannel(m map[string]interface{}, c *Client) (*Noti
 // expandNotificationChannel expands NotificationChannel into a JSON request object.
 func expandNotificationChannel(c *Client, f *NotificationChannel) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}

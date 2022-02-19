@@ -619,21 +619,23 @@ type oSPolicyAssignmentApiOperation interface {
 // fields based on the intended state of the resource.
 func newUpdateOSPolicyAssignmentUpdateOSPolicyAssignmentRequest(ctx context.Context, f *OSPolicyAssignment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
+	res := f
+	_ = res
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies, res); err != nil {
 		return nil, fmt.Errorf("error expanding OSPolicies into osPolicies: %w", err)
 	} else if v != nil {
 		req["osPolicies"] = v
 	}
-	if v, err := expandOSPolicyAssignmentInstanceFilter(c, f.InstanceFilter); err != nil {
+	if v, err := expandOSPolicyAssignmentInstanceFilter(c, f.InstanceFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding InstanceFilter into instanceFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["instanceFilter"] = v
 	}
-	if v, err := expandOSPolicyAssignmentRollout(c, f.Rollout); err != nil {
+	if v, err := expandOSPolicyAssignmentRollout(c, f.Rollout, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rollout into rollout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["rollout"] = v
@@ -9242,6 +9244,8 @@ func unmarshalMapOSPolicyAssignment(m map[string]interface{}, c *Client) (*OSPol
 // expandOSPolicyAssignment expands OSPolicyAssignment into a JSON request object.
 func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	res := f
+	_ = res
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/osPolicyAssignments/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -9250,17 +9254,17 @@ func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]inte
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies, res); err != nil {
 		return nil, fmt.Errorf("error expanding OSPolicies into osPolicies: %w", err)
 	} else if v != nil {
 		m["osPolicies"] = v
 	}
-	if v, err := expandOSPolicyAssignmentInstanceFilter(c, f.InstanceFilter); err != nil {
+	if v, err := expandOSPolicyAssignmentInstanceFilter(c, f.InstanceFilter, res); err != nil {
 		return nil, fmt.Errorf("error expanding InstanceFilter into instanceFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["instanceFilter"] = v
 	}
-	if v, err := expandOSPolicyAssignmentRollout(c, f.Rollout); err != nil {
+	if v, err := expandOSPolicyAssignmentRollout(c, f.Rollout, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rollout into rollout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rollout"] = v
@@ -9312,14 +9316,14 @@ func flattenOSPolicyAssignment(c *Client, i interface{}) *OSPolicyAssignment {
 
 // expandOSPolicyAssignmentOSPoliciesMap expands the contents of OSPolicyAssignmentOSPolicies into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesMap(c *Client, f map[string]OSPolicyAssignmentOSPolicies) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesMap(c *Client, f map[string]OSPolicyAssignmentOSPolicies, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPolicies(c, &item)
+		i, err := expandOSPolicyAssignmentOSPolicies(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9333,14 +9337,14 @@ func expandOSPolicyAssignmentOSPoliciesMap(c *Client, f map[string]OSPolicyAssig
 
 // expandOSPolicyAssignmentOSPoliciesSlice expands the contents of OSPolicyAssignmentOSPolicies into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesSlice(c *Client, f []OSPolicyAssignmentOSPolicies) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesSlice(c *Client, f []OSPolicyAssignmentOSPolicies, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPolicies(c, &item)
+		i, err := expandOSPolicyAssignmentOSPolicies(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9393,7 +9397,7 @@ func flattenOSPolicyAssignmentOSPoliciesSlice(c *Client, i interface{}) []OSPoli
 
 // expandOSPolicyAssignmentOSPolicies expands an instance of OSPolicyAssignmentOSPolicies into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPolicies(c *Client, f *OSPolicyAssignmentOSPolicies) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPolicies(c *Client, f *OSPolicyAssignmentOSPolicies, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -9408,7 +9412,7 @@ func expandOSPolicyAssignmentOSPolicies(c *Client, f *OSPolicyAssignmentOSPolici
 	if v := f.Mode; !dcl.IsEmptyValueIndirect(v) {
 		m["mode"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c, f.ResourceGroups); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c, f.ResourceGroups, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceGroups into resourceGroups: %w", err)
 	} else if v != nil {
 		m["resourceGroups"] = v
@@ -9444,14 +9448,14 @@ func flattenOSPolicyAssignmentOSPolicies(c *Client, i interface{}) *OSPolicyAssi
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroups into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroups) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroups, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroups(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroups(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9465,14 +9469,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsMap(c *Client, f map[string
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroups into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroups) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroups, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroups(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroups(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9525,18 +9529,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, i interfa
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroups expands an instance of OSPolicyAssignmentOSPoliciesResourceGroups into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroups) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroups, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c, f.InventoryFilters); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c, f.InventoryFilters, res); err != nil {
 		return nil, fmt.Errorf("error expanding InventoryFilters into inventoryFilters: %w", err)
 	} else if v != nil {
 		m["inventoryFilters"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c, f.Resources); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c, f.Resources, res); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
 	} else if v != nil {
 		m["resources"] = v
@@ -9566,14 +9570,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, i interface{})
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9587,14 +9591,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap(c *Clie
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9647,7 +9651,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c *C
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -9684,14 +9688,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c *Client
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResources into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResources) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResources, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9705,14 +9709,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap(c *Client, f m
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResources into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResources) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResources, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9765,7 +9769,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *Client, 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResources expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResources into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResources) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResources, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -9774,22 +9778,22 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, f *OSP
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, f.Pkg); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, f.Pkg, res); err != nil {
 		return nil, fmt.Errorf("error expanding Pkg into pkg: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pkg"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, f.Repository); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, f.Repository, res); err != nil {
 		return nil, fmt.Errorf("error expanding Repository into repository: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["repository"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, f.Exec); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, f.Exec, res); err != nil {
 		return nil, fmt.Errorf("error expanding Exec into exec: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["exec"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, f.File); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, f.File, res); err != nil {
 		return nil, fmt.Errorf("error expanding File into file: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["file"] = v
@@ -9822,14 +9826,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, i int
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9843,14 +9847,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap(c *Client, 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9903,7 +9907,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(c *Clien
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -9912,37 +9916,37 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, f *
 	if v := f.DesiredState; !dcl.IsEmptyValueIndirect(v) {
 		m["desiredState"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, f.Apt); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, f.Apt, res); err != nil {
 		return nil, fmt.Errorf("error expanding Apt into apt: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apt"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, f.Deb); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, f.Deb, res); err != nil {
 		return nil, fmt.Errorf("error expanding Deb into deb: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["deb"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, f.Yum); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, f.Yum, res); err != nil {
 		return nil, fmt.Errorf("error expanding Yum into yum: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["yum"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, f.Zypper); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, f.Zypper, res); err != nil {
 		return nil, fmt.Errorf("error expanding Zypper into zypper: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["zypper"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, f.Rpm); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, f.Rpm, res); err != nil {
 		return nil, fmt.Errorf("error expanding Rpm into rpm: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rpm"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, f.Googet); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, f.Googet, res); err != nil {
 		return nil, fmt.Errorf("error expanding Googet into googet: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["googet"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, f.Msi); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, f.Msi, res); err != nil {
 		return nil, fmt.Errorf("error expanding Msi into msi: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["msi"] = v
@@ -9978,14 +9982,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, i 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -9999,14 +10003,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap(c *Clien
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10059,7 +10063,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10092,14 +10096,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client,
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10113,14 +10117,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap(c *Clien
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10173,13 +10177,13 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, f.Source); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, f.Source, res); err != nil {
 		return nil, fmt.Errorf("error expanding Source into source: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
@@ -10212,14 +10216,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client,
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10233,14 +10237,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap(c 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10293,18 +10297,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, f.Remote); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, f.Remote, res); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, f.Gcs); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, f.Gcs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -10342,14 +10346,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *C
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10363,14 +10367,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10423,7 +10427,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemot
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10460,14 +10464,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemot
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10481,14 +10485,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMap
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10541,7 +10545,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10582,14 +10586,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10603,14 +10607,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap(c *Clien
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10663,7 +10667,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10696,14 +10700,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client,
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10717,14 +10721,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10777,7 +10781,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(c 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -10810,14 +10814,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Clie
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10831,14 +10835,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap(c *Clien
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10891,13 +10895,13 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, f.Source); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, f.Source, res); err != nil {
 		return nil, fmt.Errorf("error expanding Source into source: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
@@ -10930,14 +10934,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client,
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -10951,14 +10955,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap(c 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11011,18 +11015,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, f.Remote); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, f.Remote, res); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, f.Gcs); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, f.Gcs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -11060,14 +11064,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c *C
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11081,14 +11085,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11141,7 +11145,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemot
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11178,14 +11182,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemot
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11199,14 +11203,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMap
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11259,7 +11263,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11300,14 +11304,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11321,14 +11325,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11381,7 +11385,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(c 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11414,14 +11418,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Clie
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11435,14 +11439,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap(c *Clien
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11495,13 +11499,13 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, f.Source); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, f.Source, res); err != nil {
 		return nil, fmt.Errorf("error expanding Source into source: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
@@ -11534,14 +11538,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client,
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11555,14 +11559,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap(c 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11615,18 +11619,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, f.Remote); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, f.Remote, res); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, f.Gcs); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, f.Gcs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -11664,14 +11668,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c *C
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11685,14 +11689,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11745,7 +11749,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemot
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11782,14 +11786,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemot
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11803,14 +11807,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMap
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11863,7 +11867,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -11904,14 +11908,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11925,14 +11929,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap(c *C
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -11985,28 +11989,28 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, f.Apt); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, f.Apt, res); err != nil {
 		return nil, fmt.Errorf("error expanding Apt into apt: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apt"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, f.Yum); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, f.Yum, res); err != nil {
 		return nil, fmt.Errorf("error expanding Yum into yum: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["yum"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, f.Zypper); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, f.Zypper, res); err != nil {
 		return nil, fmt.Errorf("error expanding Zypper into zypper: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["zypper"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, f.Goo); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, f.Goo, res); err != nil {
 		return nil, fmt.Errorf("error expanding Goo into goo: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["goo"] = v
@@ -12038,14 +12042,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Cli
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12059,14 +12063,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12119,7 +12123,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlic
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12168,14 +12172,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12189,14 +12193,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12249,7 +12253,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlic
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12294,14 +12298,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12315,14 +12319,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperMa
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12375,7 +12379,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperS
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12420,14 +12424,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12441,14 +12445,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12501,7 +12505,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlic
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -12538,14 +12542,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12559,14 +12563,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap(c *Client,
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12619,18 +12623,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(c *Clie
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, f.Validate); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, f.Validate, res); err != nil {
 		return nil, fmt.Errorf("error expanding Validate into validate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["validate"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, f.Enforce); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, f.Enforce, res); err != nil {
 		return nil, fmt.Errorf("error expanding Enforce into enforce: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["enforce"] = v
@@ -12660,14 +12664,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, i
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12681,14 +12685,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap(c 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12741,13 +12745,13 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, f.File); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, f.File, res); err != nil {
 		return nil, fmt.Errorf("error expanding File into file: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["file"] = v
@@ -12792,14 +12796,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c *C
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12813,14 +12817,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileMa
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12873,18 +12877,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileS
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, f.Remote); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, f.Remote, res); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, f.Gcs); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, f.Gcs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -12922,14 +12926,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -12943,14 +12947,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRe
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13003,7 +13007,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileR
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13040,14 +13044,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileR
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13061,14 +13065,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGc
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13121,7 +13125,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileG
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13162,14 +13166,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileG
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13183,14 +13187,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap(c *
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13243,13 +13247,13 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, f.File); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, f.File, res); err != nil {
 		return nil, fmt.Errorf("error expanding File into file: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["file"] = v
@@ -13294,14 +13298,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c *Cl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13315,14 +13319,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMap
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13375,18 +13379,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSl
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, f.Remote); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, f.Remote, res); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, f.Gcs); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, f.Gcs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -13424,14 +13428,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13445,14 +13449,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRem
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13505,7 +13509,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRe
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13542,14 +13546,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRe
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13563,14 +13567,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13623,7 +13627,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGc
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -13664,14 +13668,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGc
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13685,14 +13689,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap(c *Client,
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13745,13 +13749,13 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(c *Clie
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, f.File); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, f.File, res); err != nil {
 		return nil, fmt.Errorf("error expanding File into file: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["file"] = v
@@ -13793,14 +13797,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, i
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13814,14 +13818,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap(c *Cli
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13874,18 +13878,18 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(c *
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, f.Remote); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, f.Remote, res); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, f.Gcs); err != nil {
+	if v, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, f.Gcs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -13923,14 +13927,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c *Clien
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -13944,14 +13948,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap(
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14004,7 +14008,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSli
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -14041,14 +14045,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c 
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap(c *Client, f map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14062,14 +14066,14 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap(c *
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice expands the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(c *Client, f []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14122,7 +14126,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(
 
 // expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs expands an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c *Client, f *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -14163,14 +14167,14 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c *Cl
 
 // expandOSPolicyAssignmentInstanceFilterMap expands the contents of OSPolicyAssignmentInstanceFilter into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilter) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilter, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilter(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14184,14 +14188,14 @@ func expandOSPolicyAssignmentInstanceFilterMap(c *Client, f map[string]OSPolicyA
 
 // expandOSPolicyAssignmentInstanceFilterSlice expands the contents of OSPolicyAssignmentInstanceFilter into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterSlice(c *Client, f []OSPolicyAssignmentInstanceFilter) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterSlice(c *Client, f []OSPolicyAssignmentInstanceFilter, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilter(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilter(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14244,7 +14248,7 @@ func flattenOSPolicyAssignmentInstanceFilterSlice(c *Client, i interface{}) []OS
 
 // expandOSPolicyAssignmentInstanceFilter expands an instance of OSPolicyAssignmentInstanceFilter into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilter(c *Client, f *OSPolicyAssignmentInstanceFilter) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilter(c *Client, f *OSPolicyAssignmentInstanceFilter, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -14253,17 +14257,17 @@ func expandOSPolicyAssignmentInstanceFilter(c *Client, f *OSPolicyAssignmentInst
 	if v := f.All; v != nil {
 		m["all"] = v
 	}
-	if v, err := expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c, f.InclusionLabels); err != nil {
+	if v, err := expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c, f.InclusionLabels, res); err != nil {
 		return nil, fmt.Errorf("error expanding InclusionLabels into inclusionLabels: %w", err)
 	} else if v != nil {
 		m["inclusionLabels"] = v
 	}
-	if v, err := expandOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c, f.ExclusionLabels); err != nil {
+	if v, err := expandOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c, f.ExclusionLabels, res); err != nil {
 		return nil, fmt.Errorf("error expanding ExclusionLabels into exclusionLabels: %w", err)
 	} else if v != nil {
 		m["exclusionLabels"] = v
 	}
-	if v, err := expandOSPolicyAssignmentInstanceFilterInventoriesSlice(c, f.Inventories); err != nil {
+	if v, err := expandOSPolicyAssignmentInstanceFilterInventoriesSlice(c, f.Inventories, res); err != nil {
 		return nil, fmt.Errorf("error expanding Inventories into inventories: %w", err)
 	} else if v != nil {
 		m["inventories"] = v
@@ -14295,14 +14299,14 @@ func flattenOSPolicyAssignmentInstanceFilter(c *Client, i interface{}) *OSPolicy
 
 // expandOSPolicyAssignmentInstanceFilterInclusionLabelsMap expands the contents of OSPolicyAssignmentInstanceFilterInclusionLabels into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterInclusionLabelsMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilterInclusionLabels) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterInclusionLabelsMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilterInclusionLabels, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilterInclusionLabels(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilterInclusionLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14316,14 +14320,14 @@ func expandOSPolicyAssignmentInstanceFilterInclusionLabelsMap(c *Client, f map[s
 
 // expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice expands the contents of OSPolicyAssignmentInstanceFilterInclusionLabels into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Client, f []OSPolicyAssignmentInstanceFilterInclusionLabels) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Client, f []OSPolicyAssignmentInstanceFilterInclusionLabels, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilterInclusionLabels(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilterInclusionLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14376,7 +14380,7 @@ func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Client, i in
 
 // expandOSPolicyAssignmentInstanceFilterInclusionLabels expands an instance of OSPolicyAssignmentInstanceFilterInclusionLabels into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, f *OSPolicyAssignmentInstanceFilterInclusionLabels) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, f *OSPolicyAssignmentInstanceFilterInclusionLabels, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -14409,14 +14413,14 @@ func flattenOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, i interfa
 
 // expandOSPolicyAssignmentInstanceFilterExclusionLabelsMap expands the contents of OSPolicyAssignmentInstanceFilterExclusionLabels into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterExclusionLabelsMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilterExclusionLabels) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterExclusionLabelsMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilterExclusionLabels, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilterExclusionLabels(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilterExclusionLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14430,14 +14434,14 @@ func expandOSPolicyAssignmentInstanceFilterExclusionLabelsMap(c *Client, f map[s
 
 // expandOSPolicyAssignmentInstanceFilterExclusionLabelsSlice expands the contents of OSPolicyAssignmentInstanceFilterExclusionLabels into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Client, f []OSPolicyAssignmentInstanceFilterExclusionLabels) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Client, f []OSPolicyAssignmentInstanceFilterExclusionLabels, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilterExclusionLabels(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilterExclusionLabels(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14490,7 +14494,7 @@ func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Client, i in
 
 // expandOSPolicyAssignmentInstanceFilterExclusionLabels expands an instance of OSPolicyAssignmentInstanceFilterExclusionLabels into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, f *OSPolicyAssignmentInstanceFilterExclusionLabels) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, f *OSPolicyAssignmentInstanceFilterExclusionLabels, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -14523,14 +14527,14 @@ func flattenOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, i interfa
 
 // expandOSPolicyAssignmentInstanceFilterInventoriesMap expands the contents of OSPolicyAssignmentInstanceFilterInventories into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterInventoriesMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilterInventories) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterInventoriesMap(c *Client, f map[string]OSPolicyAssignmentInstanceFilterInventories, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilterInventories(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilterInventories(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14544,14 +14548,14 @@ func expandOSPolicyAssignmentInstanceFilterInventoriesMap(c *Client, f map[strin
 
 // expandOSPolicyAssignmentInstanceFilterInventoriesSlice expands the contents of OSPolicyAssignmentInstanceFilterInventories into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, f []OSPolicyAssignmentInstanceFilterInventories) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, f []OSPolicyAssignmentInstanceFilterInventories, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentInstanceFilterInventories(c, &item)
+		i, err := expandOSPolicyAssignmentInstanceFilterInventories(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14604,7 +14608,7 @@ func flattenOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, i interf
 
 // expandOSPolicyAssignmentInstanceFilterInventories expands an instance of OSPolicyAssignmentInstanceFilterInventories into a JSON
 // request object.
-func expandOSPolicyAssignmentInstanceFilterInventories(c *Client, f *OSPolicyAssignmentInstanceFilterInventories) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentInstanceFilterInventories(c *Client, f *OSPolicyAssignmentInstanceFilterInventories, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
@@ -14641,14 +14645,14 @@ func flattenOSPolicyAssignmentInstanceFilterInventories(c *Client, i interface{}
 
 // expandOSPolicyAssignmentRolloutMap expands the contents of OSPolicyAssignmentRollout into a JSON
 // request object.
-func expandOSPolicyAssignmentRolloutMap(c *Client, f map[string]OSPolicyAssignmentRollout) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentRolloutMap(c *Client, f map[string]OSPolicyAssignmentRollout, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentRollout(c, &item)
+		i, err := expandOSPolicyAssignmentRollout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14662,14 +14666,14 @@ func expandOSPolicyAssignmentRolloutMap(c *Client, f map[string]OSPolicyAssignme
 
 // expandOSPolicyAssignmentRolloutSlice expands the contents of OSPolicyAssignmentRollout into a JSON
 // request object.
-func expandOSPolicyAssignmentRolloutSlice(c *Client, f []OSPolicyAssignmentRollout) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentRolloutSlice(c *Client, f []OSPolicyAssignmentRollout, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentRollout(c, &item)
+		i, err := expandOSPolicyAssignmentRollout(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14722,13 +14726,13 @@ func flattenOSPolicyAssignmentRolloutSlice(c *Client, i interface{}) []OSPolicyA
 
 // expandOSPolicyAssignmentRollout expands an instance of OSPolicyAssignmentRollout into a JSON
 // request object.
-func expandOSPolicyAssignmentRollout(c *Client, f *OSPolicyAssignmentRollout) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentRollout(c *Client, f *OSPolicyAssignmentRollout, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentRolloutDisruptionBudget(c, f.DisruptionBudget); err != nil {
+	if v, err := expandOSPolicyAssignmentRolloutDisruptionBudget(c, f.DisruptionBudget, res); err != nil {
 		return nil, fmt.Errorf("error expanding DisruptionBudget into disruptionBudget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["disruptionBudget"] = v
@@ -14761,14 +14765,14 @@ func flattenOSPolicyAssignmentRollout(c *Client, i interface{}) *OSPolicyAssignm
 
 // expandOSPolicyAssignmentRolloutDisruptionBudgetMap expands the contents of OSPolicyAssignmentRolloutDisruptionBudget into a JSON
 // request object.
-func expandOSPolicyAssignmentRolloutDisruptionBudgetMap(c *Client, f map[string]OSPolicyAssignmentRolloutDisruptionBudget) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentRolloutDisruptionBudgetMap(c *Client, f map[string]OSPolicyAssignmentRolloutDisruptionBudget, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentRolloutDisruptionBudget(c, &item)
+		i, err := expandOSPolicyAssignmentRolloutDisruptionBudget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14782,14 +14786,14 @@ func expandOSPolicyAssignmentRolloutDisruptionBudgetMap(c *Client, f map[string]
 
 // expandOSPolicyAssignmentRolloutDisruptionBudgetSlice expands the contents of OSPolicyAssignmentRolloutDisruptionBudget into a JSON
 // request object.
-func expandOSPolicyAssignmentRolloutDisruptionBudgetSlice(c *Client, f []OSPolicyAssignmentRolloutDisruptionBudget) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentRolloutDisruptionBudgetSlice(c *Client, f []OSPolicyAssignmentRolloutDisruptionBudget, res *OSPolicyAssignment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentRolloutDisruptionBudget(c, &item)
+		i, err := expandOSPolicyAssignmentRolloutDisruptionBudget(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -14842,7 +14846,7 @@ func flattenOSPolicyAssignmentRolloutDisruptionBudgetSlice(c *Client, i interfac
 
 // expandOSPolicyAssignmentRolloutDisruptionBudget expands an instance of OSPolicyAssignmentRolloutDisruptionBudget into a JSON
 // request object.
-func expandOSPolicyAssignmentRolloutDisruptionBudget(c *Client, f *OSPolicyAssignmentRolloutDisruptionBudget) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentRolloutDisruptionBudget(c *Client, f *OSPolicyAssignmentRolloutDisruptionBudget, res *OSPolicyAssignment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
