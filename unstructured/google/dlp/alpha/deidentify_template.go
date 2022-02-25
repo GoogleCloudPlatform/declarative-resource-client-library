@@ -1931,6 +1931,9 @@ func DeidentifyTemplateToUnstructured(r *dclService.DeidentifyTemplate) *unstruc
 	if r.DisplayName != nil {
 		u.Object["displayName"] = *r.DisplayName
 	}
+	if r.Location != nil {
+		u.Object["location"] = *r.Location
+	}
 	if r.LocationId != nil {
 		u.Object["locationId"] = *r.LocationId
 	}
@@ -5943,6 +5946,13 @@ func UnstructuredToDeidentifyTemplate(u *unstructured.Resource) (*dclService.Dei
 			return nil, fmt.Errorf("r.DisplayName: expected string")
 		}
 	}
+	if _, ok := u.Object["location"]; ok {
+		if s, ok := u.Object["location"].(string); ok {
+			r.Location = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Location: expected string")
+		}
+	}
 	if _, ok := u.Object["locationId"]; ok {
 		if s, ok := u.Object["locationId"].(string); ok {
 			r.LocationId = dcl.String(s)
@@ -5987,9 +5997,9 @@ func GetDeidentifyTemplate(ctx context.Context, config *dcl.Config, u *unstructu
 	return DeidentifyTemplateToUnstructured(r), nil
 }
 
-func ListDeidentifyTemplate(ctx context.Context, config *dcl.Config, parent string) ([]*unstructured.Resource, error) {
+func ListDeidentifyTemplate(ctx context.Context, config *dcl.Config, location string, parent string) ([]*unstructured.Resource, error) {
 	c := dclService.NewClient(config)
-	l, err := c.ListDeidentifyTemplate(ctx, parent)
+	l, err := c.ListDeidentifyTemplate(ctx, location, parent)
 	if err != nil {
 		return nil, err
 	}

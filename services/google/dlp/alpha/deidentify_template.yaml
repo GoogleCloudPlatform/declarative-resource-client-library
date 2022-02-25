@@ -38,6 +38,10 @@ paths:
   deleteAll:
     description: The function used to delete all DeidentifyTemplate
     parameters:
+    - name: location
+      required: true
+      schema:
+        type: string
     - name: parent
       required: true
       schema:
@@ -45,6 +49,10 @@ paths:
   list:
     description: The function used to list information about many DeidentifyTemplate
     parameters:
+    - name: location
+      required: true
+      schema:
+        type: string
     - name: parent
       required: true
       schema:
@@ -54,6 +62,8 @@ components:
     DeidentifyTemplate:
       title: DeidentifyTemplate
       x-dcl-id: '{{parent}}/deidentifyTemplates/{{name}}'
+      x-dcl-locations:
+      - region
       x-dcl-has-iam: false
       type: object
       required:
@@ -6318,6 +6328,11 @@ components:
           type: string
           x-dcl-go-name: DisplayName
           description: Display name (max 256 chars).
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location of the resource
+          x-kubernetes-immutable: true
         locationId:
           type: string
           x-dcl-go-name: LocationId

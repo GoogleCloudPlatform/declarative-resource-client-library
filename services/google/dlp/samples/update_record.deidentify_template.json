@@ -1,5 +1,6 @@
 {
   "parent": "projects/{{project}}",
+  "location": "{{region}}",
   "displayName": "sample-template",
   "description": "A sample deidentify template",
   "deidentifyConfig": {

@@ -33,6 +33,7 @@ type DeidentifyTemplate struct {
 	DeidentifyConfig *DeidentifyTemplateDeidentifyConfig `json:"deidentifyConfig"`
 	LocationId       *string                             `json:"locationId"`
 	Parent           *string                             `json:"parent"`
+	Location         *string                             `json:"location"`
 }
 
 func (r *DeidentifyTemplate) String() string {
@@ -10749,6 +10750,7 @@ func (r *DeidentifyTemplate) ID() (string, error) {
 		"deidentifyConfig": dcl.ValueOrEmptyString(nr.DeidentifyConfig),
 		"locationId":       dcl.ValueOrEmptyString(nr.LocationId),
 		"parent":           dcl.ValueOrEmptyString(nr.Parent),
+		"location":         dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("{{parent}}/deidentifyTemplates/{{name}}", params), nil
 }
@@ -10785,22 +10787,23 @@ func (l *DeidentifyTemplateList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListDeidentifyTemplate(ctx context.Context, parent string) (*DeidentifyTemplateList, error) {
+func (c *Client) ListDeidentifyTemplate(ctx context.Context, location, parent string) (*DeidentifyTemplateList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListDeidentifyTemplateWithMaxResults(ctx, parent, DeidentifyTemplateMaxPage)
+	return c.ListDeidentifyTemplateWithMaxResults(ctx, location, parent, DeidentifyTemplateMaxPage)
 
 }
 
-func (c *Client) ListDeidentifyTemplateWithMaxResults(ctx context.Context, parent string, pageSize int32) (*DeidentifyTemplateList, error) {
+func (c *Client) ListDeidentifyTemplateWithMaxResults(ctx context.Context, location, parent string, pageSize int32) (*DeidentifyTemplateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// Create a resource object so that we can use proper url normalization methods.
 	r := &DeidentifyTemplate{
-		Parent: &parent,
+		Location: &location,
+		Parent:   &parent,
 	}
 	items, token, err := c.listDeidentifyTemplate(ctx, r, "", pageSize)
 	if err != nil {
@@ -10838,6 +10841,7 @@ func (c *Client) GetDeidentifyTemplate(ctx context.Context, r *DeidentifyTemplat
 	if err != nil {
 		return nil, err
 	}
+	result.Location = r.Location
 	result.Parent = r.Parent
 	result.Name = r.Name
 
@@ -10869,8 +10873,8 @@ func (c *Client) DeleteDeidentifyTemplate(ctx context.Context, r *DeidentifyTemp
 }
 
 // DeleteAllDeidentifyTemplate deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllDeidentifyTemplate(ctx context.Context, parent string, filter func(*DeidentifyTemplate) bool) error {
-	listObj, err := c.ListDeidentifyTemplate(ctx, parent)
+func (c *Client) DeleteAllDeidentifyTemplate(ctx context.Context, location, parent string, filter func(*DeidentifyTemplate) bool) error {
+	listObj, err := c.ListDeidentifyTemplate(ctx, location, parent)
 	if err != nil {
 		return err
 	}

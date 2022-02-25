@@ -17,62 +17,44 @@ package beta
 import (
 	"bytes"
 	"context"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 // encodeDLPCreateRequest encodes the create request for an dlp resource.
-func encodeDLPCreateRequest(m map[string]interface{}, resourceName string) map[string]interface{} {
+func encodeDLPCreateRequest(m map[string]interface{}, resourceName string, idFieldName string) map[string]interface{} {
 	req := make(map[string]interface{})
 	// Put base object into object field.
 	dcl.PutMapEntry(req, []string{resourceName}, m)
+	name, ok := m["name"].(*string)
+	if !ok {
+		// No name specified, server will generate one.
+		return req
+	}
+	// Remove name from resource object.
+	delete(m, "name")
+	// Convert to short name.
+	nameParts := strings.Split(dcl.ValueOrEmptyString(name), "/")
+	if len(nameParts) > 0 {
+		req[idFieldName] = nameParts[len(nameParts)-1]
+	}
 	return req
 }
 
 // encodeDeidentifyTemplateCreateRequest properly encodes the create request for an dlp deidentify template.
 func encodeDeidentifyTemplateCreateRequest(m map[string]interface{}) map[string]interface{} {
-	return encodeDLPCreateRequest(m, "deidentifyTemplate")
+	return encodeDLPCreateRequest(m, "deidentifyTemplate", "templateId")
 }
 
 // encodeInspectTemplateCreateRequest properly encodes the create request for an dlp inspect template.
 func encodeInspectTemplateCreateRequest(m map[string]interface{}) map[string]interface{} {
-	return encodeDLPCreateRequest(m, "inspectTemplate")
+	return encodeDLPCreateRequest(m, "inspectTemplate", "templateId")
 }
 
-// Update has a custom method because the update mask needs to be in the request body.
-func (op *updateDeidentifyTemplateUpdateDeidentifyTemplateOperation) do(ctx context.Context, r *DeidentifyTemplate, c *Client) error {
-	_, err := c.GetDeidentifyTemplate(ctx, r)
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "UpdateDeidentifyTemplate")
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdateDeidentifyTemplateUpdateDeidentifyTemplateRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
-	req = map[string]interface{}{
-		"deidentifyTemplate": req,
-		"updateMask":         mask,
-	}
-
-	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
-	body, err := marshalUpdateDeidentifyTemplateUpdateDeidentifyTemplateRequest(c, req)
-	if err != nil {
-		return err
-	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	return nil
+// encodeStoredInfoTypeCreateRequest properly encodes the create request for an dlp stored info type.
+func encodeStoredInfoTypeCreateRequest(m map[string]interface{}) map[string]interface{} {
+	return encodeDLPCreateRequest(m, "config", "storedInfoTypeId")
 }
 
 // Update has a custom method because the update mask needs to be in the request body.
@@ -100,6 +82,78 @@ func (op *updateInspectTemplateUpdateInspectTemplateOperation) do(ctx context.Co
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateInspectTemplateUpdateInspectTemplateRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Update has a custom method because the update mask needs to be in the request body.
+func (op *updateStoredInfoTypeUpdateStoredInfoTypeOperation) do(ctx context.Context, r *StoredInfoType, c *Client) error {
+	_, err := c.GetStoredInfoType(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateStoredInfoType")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateStoredInfoTypeUpdateStoredInfoTypeRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
+	req = map[string]interface{}{
+		"config":     req,
+		"updateMask": mask,
+	}
+
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdateStoredInfoTypeUpdateStoredInfoTypeRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Update has a custom method because the update mask needs to be in the request body.
+func (op *updateDeidentifyTemplateUpdateDeidentifyTemplateOperation) do(ctx context.Context, r *DeidentifyTemplate, c *Client) error {
+	_, err := c.GetDeidentifyTemplate(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateDeidentifyTemplate")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateDeidentifyTemplateUpdateDeidentifyTemplateRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
+	req = map[string]interface{}{
+		"deidentifyTemplate": req,
+		"updateMask":         mask,
+	}
+
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdateDeidentifyTemplateUpdateDeidentifyTemplateRequest(c, req)
 	if err != nil {
 		return err
 	}

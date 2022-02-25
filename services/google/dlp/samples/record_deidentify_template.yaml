@@ -24,3 +24,5 @@ updates:
 variables:
 - name: project
   type: project
+- name: region
+  type: region

@@ -41,16 +41,6 @@ enum DlpAlphaInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
   DlpAlphaInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumVERY_LIKELY = 6;
 }
 
-enum DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumNO_VALUE_DO_NOT_USE = 0;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumLIKELIHOOD_UNSPECIFIED = 1;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumVERY_UNLIKELY = 2;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumUNLIKELY = 3;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumPOSSIBLE = 4;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumLIKELY = 5;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumVERY_LIKELY = 6;
-}
-
 enum DlpAlphaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
   DlpAlphaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumNO_VALUE_DO_NOT_USE = 0;
   DlpAlphaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumEXCLUSION_TYPE_UNSPECIFIED = 1;
@@ -91,6 +81,7 @@ message DlpAlphaInspectTemplate {
   DlpAlphaInspectTemplateInspectConfig inspect_config = 6;
   string location_id = 7;
   string parent = 8;
+  string location = 9;
 }
 
 message DlpAlphaInspectTemplateInspectConfig {
@@ -130,8 +121,7 @@ message DlpAlphaInspectTemplateInspectConfigCustomInfoTypes {
   DlpAlphaInspectTemplateInspectConfigCustomInfoTypesRegex regex = 4;
   DlpAlphaInspectTemplateInspectConfigCustomInfoTypesSurrogateType surrogate_type = 5;
   DlpAlphaInspectTemplateInspectConfigCustomInfoTypesStoredType stored_type = 6;
-  repeated DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRules detection_rules = 7;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum exclusion_type = 8;
+  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum exclusion_type = 7;
 }
 
 message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesInfoType {
@@ -162,31 +152,6 @@ message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesSurrogateType {
 message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesStoredType {
   string name = 1;
   string create_time = 2;
-}
-
-message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule hotword_rule = 1;
-}
-
-message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex hotword_regex = 1;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity proximity = 2;
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment likelihood_adjustment = 3;
-}
-
-message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-  string pattern = 1;
-  repeated int64 group_indexes = 2;
-}
-
-message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-  int64 window_before = 1;
-  int64 window_after = 2;
-}
-
-message DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-  DlpAlphaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum fixed_likelihood = 1;
-  int64 relative_likelihood = 2;
 }
 
 message DlpAlphaInspectTemplateInspectConfigRuleSet {
@@ -270,7 +235,8 @@ message DeleteDlpAlphaInspectTemplateRequest {
 
 message ListDlpAlphaInspectTemplateRequest {
   string service_account_file = 1;
-  string Parent = 2;
+  string Location = 2;
+  string Parent = 3;
 }
 
 message ListDlpAlphaInspectTemplateResponse {

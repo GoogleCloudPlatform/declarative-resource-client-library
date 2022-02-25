@@ -41,16 +41,6 @@ enum DlpBetaInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
   DlpBetaInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumVERY_LIKELY = 6;
 }
 
-enum DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumNO_VALUE_DO_NOT_USE = 0;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumLIKELIHOOD_UNSPECIFIED = 1;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumVERY_UNLIKELY = 2;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumUNLIKELY = 3;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumPOSSIBLE = 4;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumLIKELY = 5;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumVERY_LIKELY = 6;
-}
-
 enum DlpBetaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
   DlpBetaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumNO_VALUE_DO_NOT_USE = 0;
   DlpBetaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumEXCLUSION_TYPE_UNSPECIFIED = 1;
@@ -91,6 +81,7 @@ message DlpBetaInspectTemplate {
   DlpBetaInspectTemplateInspectConfig inspect_config = 6;
   string location_id = 7;
   string parent = 8;
+  string location = 9;
 }
 
 message DlpBetaInspectTemplateInspectConfig {
@@ -130,8 +121,7 @@ message DlpBetaInspectTemplateInspectConfigCustomInfoTypes {
   DlpBetaInspectTemplateInspectConfigCustomInfoTypesRegex regex = 4;
   DlpBetaInspectTemplateInspectConfigCustomInfoTypesSurrogateType surrogate_type = 5;
   DlpBetaInspectTemplateInspectConfigCustomInfoTypesStoredType stored_type = 6;
-  repeated DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRules detection_rules = 7;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum exclusion_type = 8;
+  DlpBetaInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum exclusion_type = 7;
 }
 
 message DlpBetaInspectTemplateInspectConfigCustomInfoTypesInfoType {
@@ -162,31 +152,6 @@ message DlpBetaInspectTemplateInspectConfigCustomInfoTypesSurrogateType {
 message DlpBetaInspectTemplateInspectConfigCustomInfoTypesStoredType {
   string name = 1;
   string create_time = 2;
-}
-
-message DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule hotword_rule = 1;
-}
-
-message DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex hotword_regex = 1;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity proximity = 2;
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment likelihood_adjustment = 3;
-}
-
-message DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-  string pattern = 1;
-  repeated int64 group_indexes = 2;
-}
-
-message DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-  int64 window_before = 1;
-  int64 window_after = 2;
-}
-
-message DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-  DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum fixed_likelihood = 1;
-  int64 relative_likelihood = 2;
 }
 
 message DlpBetaInspectTemplateInspectConfigRuleSet {
@@ -270,7 +235,8 @@ message DeleteDlpBetaInspectTemplateRequest {
 
 message ListDlpBetaInspectTemplateRequest {
   string service_account_file = 1;
-  string Parent = 2;
+  string Location = 2;
+  string Parent = 3;
 }
 
 message ListDlpBetaInspectTemplateResponse {

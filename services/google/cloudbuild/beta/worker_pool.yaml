@@ -202,3 +202,4 @@ components:
               x-dcl-go-name: NoExternalIP
               description: If true, workers are created without any public address,
                 which prevents network egress to public IPs.
+              x-dcl-server-default: true

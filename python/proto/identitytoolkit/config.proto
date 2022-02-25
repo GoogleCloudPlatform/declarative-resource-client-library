@@ -104,17 +104,17 @@ enum IdentitytoolkitConfigMfaStateEnum {
 }
 
 message IdentitytoolkitConfig {
-  string name = 1;
-  IdentitytoolkitConfigSignIn sign_in = 2;
-  IdentitytoolkitConfigNotification notification = 3;
-  IdentitytoolkitConfigQuota quota = 4;
-  IdentitytoolkitConfigMonitoring monitoring = 5;
-  IdentitytoolkitConfigMultiTenant multi_tenant = 6;
-  repeated string authorized_domains = 7;
-  IdentitytoolkitConfigSubtypeEnum subtype = 8;
-  IdentitytoolkitConfigClient client = 9;
-  IdentitytoolkitConfigMfa mfa = 10;
-  IdentitytoolkitConfigBlockingFunctions blocking_functions = 11;
+  IdentitytoolkitConfigSignIn sign_in = 1;
+  IdentitytoolkitConfigNotification notification = 2;
+  IdentitytoolkitConfigQuota quota = 3;
+  IdentitytoolkitConfigMonitoring monitoring = 4;
+  IdentitytoolkitConfigMultiTenant multi_tenant = 5;
+  repeated string authorized_domains = 6;
+  IdentitytoolkitConfigSubtypeEnum subtype = 7;
+  IdentitytoolkitConfigClient client = 8;
+  IdentitytoolkitConfigMfa mfa = 9;
+  IdentitytoolkitConfigBlockingFunctions blocking_functions = 10;
+  string project = 11;
 }
 
 message IdentitytoolkitConfigSignIn {

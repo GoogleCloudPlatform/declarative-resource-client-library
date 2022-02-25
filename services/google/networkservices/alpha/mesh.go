@@ -14,6 +14,7 @@
 package alpha
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"time"
@@ -372,4 +373,14 @@ func applyMeshDiff(c *Client, ctx context.Context, desired *Mesh, rawDesired *Me
 	}
 	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
+}
+
+func (r *Mesh) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
+	u := r.getPolicyURL(basePath)
+	body := &bytes.Buffer{}
+	u, err := dcl.AddQueryParams(u, map[string]string{"optionsRequestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
+	if err != nil {
+		return "", "", nil, err
+	}
+	return u, "", body, nil
 }

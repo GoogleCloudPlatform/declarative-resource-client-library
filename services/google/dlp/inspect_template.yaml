@@ -38,6 +38,10 @@ paths:
   deleteAll:
     description: The function used to delete all InspectTemplate
     parameters:
+    - name: location
+      required: true
+      schema:
+        type: string
     - name: parent
       required: true
       schema:
@@ -45,6 +49,10 @@ paths:
   list:
     description: The function used to list information about many InspectTemplate
     parameters:
+    - name: location
+      required: true
+      schema:
+        type: string
     - name: parent
       required: true
       schema:
@@ -54,7 +62,8 @@ components:
     InspectTemplate:
       title: InspectTemplate
       x-dcl-id: '{{parent}}/inspectTemplates/{{name}}'
-      x-dcl-uses-state-hint: true
+      x-dcl-locations:
+      - region
       x-dcl-has-iam: false
       type: object
       required:
@@ -107,116 +116,6 @@ components:
                 type: object
                 x-dcl-go-type: InspectTemplateInspectConfigCustomInfoTypes
                 properties:
-                  detectionRules:
-                    type: array
-                    x-dcl-go-name: DetectionRules
-                    description: Set of detection rules to apply to all findings of
-                      this CustomInfoType. Rules are applied in order that they are
-                      specified. Not supported for the `surrogate_type` CustomInfoType.
-                    x-dcl-send-empty: true
-                    x-dcl-list-type: list
-                    items:
-                      type: object
-                      x-dcl-go-type: InspectTemplateInspectConfigCustomInfoTypesDetectionRules
-                      properties:
-                        hotwordRule:
-                          type: object
-                          x-dcl-go-name: HotwordRule
-                          x-dcl-go-type: InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
-                          description: Hotword-based detection rule.
-                          properties:
-                            hotwordRegex:
-                              type: object
-                              x-dcl-go-name: HotwordRegex
-                              x-dcl-go-type: InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex
-                              description: Regular expression pattern defining what
-                                qualifies as a hotword.
-                              properties:
-                                groupIndexes:
-                                  type: array
-                                  x-dcl-go-name: GroupIndexes
-                                  description: The index of the submatch to extract
-                                    as findings. When not specified, the entire match
-                                    is returned. No more than 3 may be included.
-                                  x-dcl-send-empty: true
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: integer
-                                    format: int64
-                                    x-dcl-go-type: int64
-                                pattern:
-                                  type: string
-                                  x-dcl-go-name: Pattern
-                                  description: Pattern defining the regular expression.
-                                    Its syntax (https://github.com/google/re2/wiki/Syntax)
-                                    can be found under the google/re2 repository on
-                                    GitHub.
-                            likelihoodAdjustment:
-                              type: object
-                              x-dcl-go-name: LikelihoodAdjustment
-                              x-dcl-go-type: InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment
-                              description: Likelihood adjustment to apply to all matching
-                                findings.
-                              properties:
-                                fixedLikelihood:
-                                  type: string
-                                  x-dcl-go-name: FixedLikelihood
-                                  x-dcl-go-type: InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum
-                                  description: 'Set the likelihood of a finding to
-                                    a fixed value. Possible values: LIKELIHOOD_UNSPECIFIED,
-                                    VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY, VERY_LIKELY'
-                                  x-dcl-conflicts:
-                                  - relativeLikelihood
-                                  enum:
-                                  - LIKELIHOOD_UNSPECIFIED
-                                  - VERY_UNLIKELY
-                                  - UNLIKELY
-                                  - POSSIBLE
-                                  - LIKELY
-                                  - VERY_LIKELY
-                                relativeLikelihood:
-                                  type: integer
-                                  format: int64
-                                  x-dcl-go-name: RelativeLikelihood
-                                  description: Increase or decrease the likelihood
-                                    by the specified number of levels. For example,
-                                    if a finding would be `POSSIBLE` without the detection
-                                    rule and `relative_likelihood` is 1, then it is
-                                    upgraded to `LIKELY`, while a value of -1 would
-                                    downgrade it to `UNLIKELY`. Likelihood may never
-                                    drop below `VERY_UNLIKELY` or exceed `VERY_LIKELY`,
-                                    so applying an adjustment of 1 followed by an
-                                    adjustment of -1 when base likelihood is `VERY_LIKELY`
-                                    will result in a final likelihood of `LIKELY`.
-                                  x-dcl-conflicts:
-                                  - fixedLikelihood
-                            proximity:
-                              type: object
-                              x-dcl-go-name: Proximity
-                              x-dcl-go-type: InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity
-                              description: Proximity of the finding within which the
-                                entire hotword must reside. The total length of the
-                                window cannot exceed 1000 characters. Note that the
-                                finding itself will be included in the window, so
-                                that hotwords may be used to match substrings of the
-                                finding itself. For example, the certainty of a phone
-                                number regex "(d{3}) d{3}-d{4}" could be adjusted
-                                upwards if the area code is known to be the local
-                                area code of a company office using the hotword regex
-                                "(xxx)", where "xxx" is the area code in question.
-                              properties:
-                                windowAfter:
-                                  type: integer
-                                  format: int64
-                                  x-dcl-go-name: WindowAfter
-                                  description: Number of characters after the finding
-                                    to consider.
-                                windowBefore:
-                                  type: integer
-                                  format: int64
-                                  x-dcl-go-name: WindowBefore
-                                  description: Number of characters before the finding
-                                    to consider.
                   dictionary:
                     type: object
                     x-dcl-go-name: Dictionary
@@ -758,7 +657,11 @@ components:
                                   x-dcl-go-name: WindowBefore
                                   description: Number of characters before the finding
                                     to consider.
-              x-dcl-mutable-unreadable: true
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location of the resource
+          x-kubernetes-immutable: true
         locationId:
           type: string
           x-dcl-go-name: LocationId
@@ -769,9 +672,8 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: 'Output only. The template name. The template will have one
-            of the following formats: `projects/PROJECT_ID/inspectTemplates/TEMPLATE_ID`
-            OR `organizations/ORGANIZATION_ID/inspectTemplates/TEMPLATE_ID`;'
+          description: 'The template name. The template will have one of the following
+            formats: `projects/PROJECT_ID/inspectTemplates/TEMPLATE_ID` OR `organizations/ORGANIZATION_ID/inspectTemplates/TEMPLATE_ID`;'
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
         parent:

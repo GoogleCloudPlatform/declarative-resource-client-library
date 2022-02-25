@@ -1,0 +1,12 @@
+{
+  "name": "{{type}}",
+  "parent": "projects/{{project}}/locations/{{region}}",
+  "largeCustomDictionary": {
+    "outputPath": {
+      "path": "gs://aaa-dont-delete-dcl-dlp-testing/dictionary-3"
+    },
+    "cloudStorageFileSet": {
+      "url": "gs://aaa-dont-delete-dcl-dlp-testing/*"
+    }
+  }
+}

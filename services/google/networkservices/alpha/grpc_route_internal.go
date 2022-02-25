@@ -196,6 +196,26 @@ func (r *GrpcRoute) deleteURL(userBasePath string) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/grpcRoutes/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
+func (r *GrpcRoute) SetPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *GrpcRoute) SetPolicyVerb() string {
+	return ""
+}
+
+func (r *GrpcRoute) getPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *GrpcRoute) IAMPolicyVersion() int {
+	return 3
+}
+
 // grpcRouteApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type grpcRouteApiOperation interface {

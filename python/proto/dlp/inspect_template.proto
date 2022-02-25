@@ -41,16 +41,6 @@ enum DlpInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
   DlpInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumVERY_LIKELY = 6;
 }
 
-enum DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumNO_VALUE_DO_NOT_USE = 0;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumLIKELIHOOD_UNSPECIFIED = 1;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumVERY_UNLIKELY = 2;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumUNLIKELY = 3;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumPOSSIBLE = 4;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumLIKELY = 5;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumVERY_LIKELY = 6;
-}
-
 enum DlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
   DlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumNO_VALUE_DO_NOT_USE = 0;
   DlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumEXCLUSION_TYPE_UNSPECIFIED = 1;
@@ -91,6 +81,7 @@ message DlpInspectTemplate {
   DlpInspectTemplateInspectConfig inspect_config = 6;
   string location_id = 7;
   string parent = 8;
+  string location = 9;
 }
 
 message DlpInspectTemplateInspectConfig {
@@ -130,8 +121,7 @@ message DlpInspectTemplateInspectConfigCustomInfoTypes {
   DlpInspectTemplateInspectConfigCustomInfoTypesRegex regex = 4;
   DlpInspectTemplateInspectConfigCustomInfoTypesSurrogateType surrogate_type = 5;
   DlpInspectTemplateInspectConfigCustomInfoTypesStoredType stored_type = 6;
-  repeated DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules detection_rules = 7;
-  DlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum exclusion_type = 8;
+  DlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum exclusion_type = 7;
 }
 
 message DlpInspectTemplateInspectConfigCustomInfoTypesInfoType {
@@ -162,31 +152,6 @@ message DlpInspectTemplateInspectConfigCustomInfoTypesSurrogateType {
 message DlpInspectTemplateInspectConfigCustomInfoTypesStoredType {
   string name = 1;
   string create_time = 2;
-}
-
-message DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule hotword_rule = 1;
-}
-
-message DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex hotword_regex = 1;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity proximity = 2;
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment likelihood_adjustment = 3;
-}
-
-message DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-  string pattern = 1;
-  repeated int64 group_indexes = 2;
-}
-
-message DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-  int64 window_before = 1;
-  int64 window_after = 2;
-}
-
-message DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-  DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum fixed_likelihood = 1;
-  int64 relative_likelihood = 2;
 }
 
 message DlpInspectTemplateInspectConfigRuleSet {
@@ -270,7 +235,8 @@ message DeleteDlpInspectTemplateRequest {
 
 message ListDlpInspectTemplateRequest {
   string service_account_file = 1;
-  string Parent = 2;
+  string Location = 2;
+  string Parent = 3;
 }
 
 message ListDlpInspectTemplateResponse {

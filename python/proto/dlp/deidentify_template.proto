@@ -384,6 +384,7 @@ message DlpDeidentifyTemplate {
   DlpDeidentifyTemplateDeidentifyConfig deidentify_config = 6;
   string location_id = 7;
   string parent = 8;
+  string location = 9;
 }
 
 message DlpDeidentifyTemplateDeidentifyConfig {
@@ -1522,7 +1523,8 @@ message DeleteDlpDeidentifyTemplateRequest {
 
 message ListDlpDeidentifyTemplateRequest {
   string service_account_file = 1;
-  string Parent = 2;
+  string Location = 2;
+  string Parent = 3;
 }
 
 message ListDlpDeidentifyTemplateResponse {

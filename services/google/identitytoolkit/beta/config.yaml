@@ -33,12 +33,13 @@ components:
   schemas:
     Config:
       title: Config
-      x-dcl-id: projects/{{name}}/config
+      x-dcl-id: projects/{{project}}/config
       x-dcl-uses-state-hint: true
+      x-dcl-parent-container: project
       x-dcl-has-iam: false
       type: object
       required:
-      - name
+      - project
       properties:
         authorizedDomains:
           type: array
@@ -90,6 +91,7 @@ components:
               readOnly: true
               description: Output only. API key that can be used when making requests
                 for this project.
+              x-dcl-sensitive: true
             firebaseSubdomain:
               type: string
               x-dcl-go-name: FirebaseSubdomain
@@ -173,11 +175,6 @@ components:
                 field: name
               - resource: Cloudresourcemanager/Organization
                 field: name
-        name:
-          type: string
-          x-dcl-go-name: Name
-          description: 'The name of the Config resource. Example: "projects/my-awesome-project/config"'
-          x-kubernetes-immutable: true
         notification:
           type: object
           x-dcl-go-name: Notification
@@ -333,6 +330,15 @@ components:
                   type: boolean
                   x-dcl-go-name: UseDeviceLocale
                   description: Whether to use the accept_language header for SMS.
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project of the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         quota:
           type: object
           x-dcl-go-name: Quota

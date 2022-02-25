@@ -1,5 +1,5 @@
 {
-  "name": "{{project}}",
+  "project": "{{project}}",
   "signIn": {
     "email": {
       "enabled": true,

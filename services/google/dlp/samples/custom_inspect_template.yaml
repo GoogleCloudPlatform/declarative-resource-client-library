@@ -18,9 +18,20 @@ versions:
 - ga
 - beta
 resource: samples/custom.inspect_template.json
+dependencies:
+- samples/minimal.stored_info_type.json
+- samples/regex.stored_info_type.json
 updates:
 - resource: samples/update_custom.inspect_template.json
-  dependencies: []
+  dependencies:
+  - samples/minimal.stored_info_type.json
+  - samples/regex.stored_info_type.json
 variables:
+- name: min_type
+  type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
+- name: type
+  type: resource_name

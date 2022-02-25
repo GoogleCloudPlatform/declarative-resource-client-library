@@ -48,18 +48,6 @@ func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(e dlppb
 	return nil
 }
 
-// ProtoToInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum enum from its proto representation.
-func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(e dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum) *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum_name[int32(e)]; ok {
-		e := dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(n[len("DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum converts a InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum enum from its proto representation.
 func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum(e dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum) *dlp.InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
 	if e == 0 {
@@ -197,9 +185,6 @@ func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypes(p *dlppb.DlpInspectTe
 		StoredType:    ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesStoredType(p.GetStoredType()),
 		ExclusionType: ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum(p.GetExclusionType()),
 	}
-	for _, r := range p.GetDetectionRules() {
-		obj.DetectionRules = append(obj.DetectionRules, *ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules(r))
-	}
 	return obj
 }
 
@@ -280,68 +265,6 @@ func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesStoredType(p *dlppb.Dl
 	obj := &dlp.InspectTemplateInspectConfigCustomInfoTypesStoredType{
 		Name:       dcl.StringOrNil(p.GetName()),
 		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
-	}
-	return obj
-}
-
-// ProtoToInspectTemplateInspectConfigCustomInfoTypesDetectionRules converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRules object from its proto representation.
-func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules(p *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules) *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	if p == nil {
-		return nil
-	}
-	obj := &dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRules{
-		HotwordRule: ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(p.GetHotwordRule()),
-	}
-	return obj
-}
-
-// ProtoToInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule object from its proto representation.
-func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(p *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	if p == nil {
-		return nil
-	}
-	obj := &dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{
-		HotwordRegex:         ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(p.GetHotwordRegex()),
-		Proximity:            ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(p.GetProximity()),
-		LikelihoodAdjustment: ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(p.GetLikelihoodAdjustment()),
-	}
-	return obj
-}
-
-// ProtoToInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex object from its proto representation.
-func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(p *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	if p == nil {
-		return nil
-	}
-	obj := &dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{
-		Pattern: dcl.StringOrNil(p.GetPattern()),
-	}
-	for _, r := range p.GetGroupIndexes() {
-		obj.GroupIndexes = append(obj.GroupIndexes, r)
-	}
-	return obj
-}
-
-// ProtoToInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity object from its proto representation.
-func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(p *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	if p == nil {
-		return nil
-	}
-	obj := &dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{
-		WindowBefore: dcl.Int64OrNil(p.GetWindowBefore()),
-		WindowAfter:  dcl.Int64OrNil(p.GetWindowAfter()),
-	}
-	return obj
-}
-
-// ProtoToInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment object from its proto representation.
-func ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(p *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	if p == nil {
-		return nil
-	}
-	obj := &dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{
-		FixedLikelihood:    ProtoToDlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(p.GetFixedLikelihood()),
-		RelativeLikelihood: dcl.Int64OrNil(p.GetRelativeLikelihood()),
 	}
 	return obj
 }
@@ -532,6 +455,7 @@ func ProtoToInspectTemplate(p *dlppb.DlpInspectTemplate) *dlp.InspectTemplate {
 		InspectConfig: ProtoToDlpInspectTemplateInspectConfig(p.GetInspectConfig()),
 		LocationId:    dcl.StringOrNil(p.GetLocationId()),
 		Parent:        dcl.StringOrNil(p.GetParent()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -556,17 +480,6 @@ func DlpInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumToProto(e *dlp.
 		return dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(v)
 	}
 	return dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(0)
-}
-
-// InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumToProto converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum enum to its proto representation.
-func DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumToProto(e *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum) dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-	if e == nil {
-		return dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(0)
-	}
-	if v, ok := dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum_value["InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum"+string(*e)]; ok {
-		return dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(v)
-	}
-	return dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(0)
 }
 
 // InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumToProto converts a InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum enum to its proto representation.
@@ -706,11 +619,6 @@ func DlpInspectTemplateInspectConfigCustomInfoTypesToProto(o *dlp.InspectTemplat
 	p.SetSurrogateType(DlpInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeToProto(o.SurrogateType))
 	p.SetStoredType(DlpInspectTemplateInspectConfigCustomInfoTypesStoredTypeToProto(o.StoredType))
 	p.SetExclusionType(DlpInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumToProto(o.ExclusionType))
-	sDetectionRules := make([]*dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules, len(o.DetectionRules))
-	for i, r := range o.DetectionRules {
-		sDetectionRules[i] = DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesToProto(&r)
-	}
-	p.SetDetectionRules(sDetectionRules)
 	return p
 }
 
@@ -791,65 +699,6 @@ func DlpInspectTemplateInspectConfigCustomInfoTypesStoredTypeToProto(o *dlp.Insp
 	p := &dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesStoredType{}
 	p.SetName(dcl.ValueOrEmptyString(o.Name))
 	p.SetCreateTime(dcl.ValueOrEmptyString(o.CreateTime))
-	return p
-}
-
-// InspectTemplateInspectConfigCustomInfoTypesDetectionRulesToProto converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRules object to its proto representation.
-func DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesToProto(o *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRules) *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	if o == nil {
-		return nil
-	}
-	p := &dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRules{}
-	p.SetHotwordRule(DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleToProto(o.HotwordRule))
-	return p
-}
-
-// InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleToProto converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule object to its proto representation.
-func DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleToProto(o *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	if o == nil {
-		return nil
-	}
-	p := &dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-	p.SetHotwordRegex(DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexToProto(o.HotwordRegex))
-	p.SetProximity(DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityToProto(o.Proximity))
-	p.SetLikelihoodAdjustment(DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentToProto(o.LikelihoodAdjustment))
-	return p
-}
-
-// InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexToProto converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex object to its proto representation.
-func DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexToProto(o *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	if o == nil {
-		return nil
-	}
-	p := &dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-	p.SetPattern(dcl.ValueOrEmptyString(o.Pattern))
-	sGroupIndexes := make([]int64, len(o.GroupIndexes))
-	for i, r := range o.GroupIndexes {
-		sGroupIndexes[i] = r
-	}
-	p.SetGroupIndexes(sGroupIndexes)
-	return p
-}
-
-// InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityToProto converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity object to its proto representation.
-func DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityToProto(o *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	if o == nil {
-		return nil
-	}
-	p := &dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-	p.SetWindowBefore(dcl.ValueOrEmptyInt64(o.WindowBefore))
-	p.SetWindowAfter(dcl.ValueOrEmptyInt64(o.WindowAfter))
-	return p
-}
-
-// InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentToProto converts a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment object to its proto representation.
-func DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentToProto(o *dlp.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) *dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	if o == nil {
-		return nil
-	}
-	p := &dlppb.DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-	p.SetFixedLikelihood(DlpInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumToProto(o.FixedLikelihood))
-	p.SetRelativeLikelihood(dcl.ValueOrEmptyInt64(o.RelativeLikelihood))
 	return p
 }
 
@@ -1040,6 +889,7 @@ func InspectTemplateToProto(resource *dlp.InspectTemplate) *dlppb.DlpInspectTemp
 	p.SetInspectConfig(DlpInspectTemplateInspectConfigToProto(resource.InspectConfig))
 	p.SetLocationId(dcl.ValueOrEmptyString(resource.LocationId))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
@@ -1082,7 +932,7 @@ func (s *InspectTemplateServer) ListDlpInspectTemplate(ctx context.Context, requ
 		return nil, err
 	}
 
-	resources, err := cl.ListInspectTemplate(ctx, request.GetParent())
+	resources, err := cl.ListInspectTemplate(ctx, request.GetLocation(), request.GetParent())
 	if err != nil {
 		return nil, err
 	}

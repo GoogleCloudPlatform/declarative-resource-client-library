@@ -1,5 +1,6 @@
 {
   "parent": "projects/{{project}}",
+  "location": "{{region}}",
   "displayName": "sample-template",
   "description": "A sample dlp inspect template",
   "inspectConfig": {
@@ -29,37 +30,6 @@
           "name": "PHONE_NUMBER"
         },
         "likelihood": "POSSIBLE",
-        "detectionRules": [
-          {
-            "hotwordRule": {
-              "hotwordRegex": {
-                "pattern": "\\(([0-9]{3})\\) ?[0-9]{3}-[0-9]{4}",
-                "groupIndexes": [0, 1]
-              },
-              "proximity": {
-                "windowBefore": 2,
-                "windowAfter": 3
-              },
-              "likelihoodAdjustment": {
-                "fixedLikelihood": "LIKELY"
-              }
-            }
-          },
-          {
-            "hotwordRule": {
-              "hotwordRegex": {
-                "pattern": "\\+?[0-9]*"
-              },
-              "proximity": {
-                "windowBefore": 2,
-                "windowAfter": 3
-              },
-              "likelihoodAdjustment": {
-                "relativeLikelihood": 1
-              }
-            }
-          }
-        ],
         "dictionary": {
           "wordList": {
             "words": ["911"]
@@ -81,7 +51,7 @@
           "name": "HOME_ADDRESS"
         },
         "storedType": {
-          "name": "projects/{{project}}/locations/global/storedInfoTypes/test-stored-info-type"
+          "name": "projects/{{project}}/locations/global/storedInfoTypes/{{ref:minimal.stored_info_type.json:name}}"
         }
       },
       {
@@ -90,7 +60,7 @@
         },
         "exclusionType": "EXCLUSION_TYPE_EXCLUDE",
         "regex": {
-          "pattern": "([^a-zA-Z0-9])(\\d*)",
+          "pattern": "(\\$)(\\d*)",
           "groupIndexes": [1, 2]
         }
       },
@@ -150,6 +120,44 @@
                     "name": "PHONE_NUMBER"
                   }
                 ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "infoTypes": [
+          {
+            "name": "PHONE_NUMBER"
+          }
+        ],
+        "rules": [
+          {
+            "hotwordRule": {
+              "hotwordRegex": {
+                "pattern": "\\(([0-9]{3})\\) ?[0-9]{3}-[0-9]{4}",
+                "groupIndexes": [0, 1]
+              },
+              "proximity": {
+                "windowBefore": 2,
+                "windowAfter": 3
+              },
+              "likelihoodAdjustment": {
+                "fixedLikelihood": "LIKELY"
+              }
+            }
+          },
+          {
+            "hotwordRule": {
+              "hotwordRegex": {
+                "pattern": "\\+?[0-9]*"
+              },
+              "proximity": {
+                "windowBefore": 2,
+                "windowAfter": 3
+              },
+              "likelihoodAdjustment": {
+                "relativeLikelihood": 1
               }
             }
           }

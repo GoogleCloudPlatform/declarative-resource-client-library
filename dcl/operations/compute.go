@@ -40,7 +40,9 @@ type ComputeOperation struct {
 
 // ComputeOperationError is the GCE operation's Error body.
 type ComputeOperationError struct {
-	Errors []*ComputeOperationErrorError `json:"errors"`
+	Code    int                           `json:"code"`
+	Message string                        `json:"message"`
+	Errors  []*ComputeOperationErrorError `json:"errors"`
 }
 
 // String formats the OperationError as an error string.
@@ -51,6 +53,9 @@ func (e *ComputeOperationError) String() string {
 	var b strings.Builder
 	for _, err := range e.Errors {
 		fmt.Fprintf(&b, "error code %q, message: %s\n", err.Code, err.Message)
+	}
+	if e.Code != 0 || e.Message != "" {
+		fmt.Fprintf(&b, "error code %d, message: %s\n", e.Code, e.Message)
 	}
 
 	return b.String()
@@ -87,7 +92,7 @@ func (op *ComputeOperation) handleResponse(resp *dcl.RetryDetails, err error) (*
 	}
 
 	if op.Error != nil {
-		return nil, fmt.Errorf("operation received error: %+v", op.Error)
+		return nil, fmt.Errorf("operation received error: %v", op.Error)
 	}
 
 	return resp, nil

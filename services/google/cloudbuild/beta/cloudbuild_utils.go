@@ -56,7 +56,7 @@ func gaToBetaPrivatePool(r *WorkerPool, c *WorkerPoolPrivatePoolV1Config) *Worke
 		}
 
 	}
-	if c.NetworkConfig != nil && r.NetworkConfig == nil {
+	if c.NetworkConfig != nil && c.NetworkConfig.PeeredNetwork != nil && r.NetworkConfig == nil {
 		r.NetworkConfig = &WorkerPoolNetworkConfig{
 			PeeredNetwork: c.NetworkConfig.PeeredNetwork,
 		}

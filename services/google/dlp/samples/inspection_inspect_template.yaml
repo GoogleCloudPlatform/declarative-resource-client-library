@@ -24,3 +24,5 @@ updates:
 variables:
 - name: project
   type: project
+- name: template
+  type: resource_name

@@ -123,6 +123,26 @@ func (r *Instance) deleteURL(userBasePath string) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/krmApiHosts/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
+func (r *Instance) SetPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *Instance) SetPolicyVerb() string {
+	return ""
+}
+
+func (r *Instance) getPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *Instance) IAMPolicyVersion() int {
+	return 3
+}
+
 // instanceApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type instanceApiOperation interface {

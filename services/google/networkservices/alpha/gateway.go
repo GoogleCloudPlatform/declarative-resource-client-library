@@ -14,6 +14,7 @@
 package alpha
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"time"
@@ -409,4 +410,14 @@ func applyGatewayDiff(c *Client, ctx context.Context, desired *Gateway, rawDesir
 	}
 	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
+}
+
+func (r *Gateway) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
+	u := r.getPolicyURL(basePath)
+	body := &bytes.Buffer{}
+	u, err := dcl.AddQueryParams(u, map[string]string{"optionsRequestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
+	if err != nil {
+		return "", "", nil, err
+	}
+	return u, "", body, nil
 }

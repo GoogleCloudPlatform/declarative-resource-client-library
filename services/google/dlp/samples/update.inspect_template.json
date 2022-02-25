@@ -1,0 +1,127 @@
+{
+  "parent": "projects/{{project}}",
+  "displayName": "updated-sample-template",
+  "description": "An updated sample dlp inspect template",
+  "inspectConfig": {
+    "infoTypes": [
+      {
+        "name": "AGE"
+      }
+    ],
+    "minLikelihood": "POSSIBLE",
+    "limits": {
+      "maxFindingsPerItem": 7,
+      "maxFindingsPerRequest": 7,
+      "maxFindingsPerInfoType": [
+        {
+          "infoType": {
+            "name": "AGE"
+          },
+          "maxFindings": 7
+        }
+      ]
+    },
+    "includeQuote": false,
+    "excludeInfoTypes": false,
+    "customInfoTypes": [
+      {
+        "infoType": {
+          "name": "PHONE_NUMBER"
+        },
+        "likelihood": "POSSIBLE",
+        "detectionRules": [
+          {
+            "hotwordRule": {
+              "hotwordRegex": {
+                "pattern": "\\(([0-9]{3})\\) ?[0-9]{3}-[0-9]{4}",
+                "groupIndexes": [0, 1]
+              },
+              "proximity": {
+                "windowBefore": 3,
+                "windowAfter": 4
+              },
+              "likelihoodAdjustment": {
+                "fixedLikelihood": "LIKELY"
+              }
+            }
+          },
+          {
+            "hotwordRule": {
+              "hotwordRegex": {
+                "pattern": "\\+?[0-9]*"
+              },
+              "likelihoodAdjustment": {
+                "relativeLikelihood": 1
+              }
+            }
+          }
+        ],
+        "dictionary": {
+          "wordList": {
+            "words": ["911"]
+          }
+        }
+      },
+      {
+        "infoType": {
+          "name": "AGE"
+        },
+        "dictionary": {
+          "cloudStoragePath": {
+            "path": "gs://aaa-dont-delete-dcl-cloud-functions-testing/http-trigger.zip"
+          }
+        }
+      },
+      {
+        "infoType": {
+          "name": "HOME_ADDRESS"
+        },
+        "storedType": {
+          "name": "{{ref:minimal.stored_info_type.json:name}}"
+        }
+      },
+      {
+        "infoType": {
+          "name": "SALARY"
+        },
+        "exclusionType": "EXCLUSION_TYPE_EXCLUDE"
+      },
+      {
+        "infoType": {
+          "name": "DATE_OF_BIRTH"
+        },
+        "regex": {
+          "pattern": "\\d{2}(-|/)\\d{2}(-|/)\\d{2,4}"
+        }
+      },
+      {
+        "infoType": {
+          "name": "HEIGHT"
+        },
+        "surrogateType": {}
+      }
+    ],
+    "contentOptions": ["CONTENT_TEXT"],
+    "ruleSet": [
+      {
+        "infoTypes": [
+          {
+            "name": "AGE"
+          }
+        ],
+        "rules": [
+          {
+            "exclusionRule": {
+              "matchingType": "MATCHING_TYPE_FULL_MATCH",
+              "dictionary": {
+                "cloudStoragePath": {
+                  "path": "gs://aaa-dont-delete-dcl-cloud-functions-testing/gcloud-iam-roles-list.txt"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

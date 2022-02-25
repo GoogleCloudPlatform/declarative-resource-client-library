@@ -1,5 +1,7 @@
 {
+  "name": "{{template}}",
   "parent": "projects/{{project}}",
+  "location": "global",
   "inspectConfig": {
     "infoTypes": [
       {

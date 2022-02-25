@@ -21,3 +21,5 @@ resource: samples/minimal.deidentify_template.json
 variables:
 - name: project
   type: project
+- name: region
+  type: region

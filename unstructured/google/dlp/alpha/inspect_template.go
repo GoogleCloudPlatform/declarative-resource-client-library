@@ -51,48 +51,6 @@ func InspectTemplateToUnstructured(r *dclService.InspectTemplate) *unstructured.
 		var rInspectConfigCustomInfoTypes []interface{}
 		for _, rInspectConfigCustomInfoTypesVal := range r.InspectConfig.CustomInfoTypes {
 			rInspectConfigCustomInfoTypesObject := make(map[string]interface{})
-			var rInspectConfigCustomInfoTypesValDetectionRules []interface{}
-			for _, rInspectConfigCustomInfoTypesValDetectionRulesVal := range rInspectConfigCustomInfoTypesVal.DetectionRules {
-				rInspectConfigCustomInfoTypesValDetectionRulesObject := make(map[string]interface{})
-				if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule != nil && rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule != dclService.EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-					rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRule := make(map[string]interface{})
-					if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.HotwordRegex != nil && rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.HotwordRegex != dclService.EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-						rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegex := make(map[string]interface{})
-						var rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegexGroupIndexes []interface{}
-						for _, rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegexGroupIndexesVal := range rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.HotwordRegex.GroupIndexes {
-							rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegexGroupIndexes = append(rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegexGroupIndexes, rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegexGroupIndexesVal)
-						}
-						rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegex["groupIndexes"] = rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegexGroupIndexes
-						if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.HotwordRegex.Pattern != nil {
-							rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegex["pattern"] = *rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.HotwordRegex.Pattern
-						}
-						rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRule["hotwordRegex"] = rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleHotwordRegex
-					}
-					if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.LikelihoodAdjustment != nil && rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.LikelihoodAdjustment != dclService.EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-						rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleLikelihoodAdjustment := make(map[string]interface{})
-						if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.LikelihoodAdjustment.FixedLikelihood != nil {
-							rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleLikelihoodAdjustment["fixedLikelihood"] = string(*rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.LikelihoodAdjustment.FixedLikelihood)
-						}
-						if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.LikelihoodAdjustment.RelativeLikelihood != nil {
-							rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleLikelihoodAdjustment["relativeLikelihood"] = *rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.LikelihoodAdjustment.RelativeLikelihood
-						}
-						rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRule["likelihoodAdjustment"] = rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleLikelihoodAdjustment
-					}
-					if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.Proximity != nil && rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.Proximity != dclService.EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-						rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleProximity := make(map[string]interface{})
-						if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.Proximity.WindowAfter != nil {
-							rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleProximity["windowAfter"] = *rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.Proximity.WindowAfter
-						}
-						if rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.Proximity.WindowBefore != nil {
-							rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleProximity["windowBefore"] = *rInspectConfigCustomInfoTypesValDetectionRulesVal.HotwordRule.Proximity.WindowBefore
-						}
-						rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRule["proximity"] = rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRuleProximity
-					}
-					rInspectConfigCustomInfoTypesValDetectionRulesObject["hotwordRule"] = rInspectConfigCustomInfoTypesValDetectionRulesValHotwordRule
-				}
-				rInspectConfigCustomInfoTypesValDetectionRules = append(rInspectConfigCustomInfoTypesValDetectionRules, rInspectConfigCustomInfoTypesValDetectionRulesObject)
-			}
-			rInspectConfigCustomInfoTypesObject["detectionRules"] = rInspectConfigCustomInfoTypesValDetectionRules
 			if rInspectConfigCustomInfoTypesVal.Dictionary != nil && rInspectConfigCustomInfoTypesVal.Dictionary != dclService.EmptyInspectTemplateInspectConfigCustomInfoTypesDictionary {
 				rInspectConfigCustomInfoTypesValDictionary := make(map[string]interface{})
 				if rInspectConfigCustomInfoTypesVal.Dictionary.CloudStoragePath != nil && rInspectConfigCustomInfoTypesVal.Dictionary.CloudStoragePath != dclService.EmptyInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
@@ -310,6 +268,9 @@ func InspectTemplateToUnstructured(r *dclService.InspectTemplate) *unstructured.
 		rInspectConfig["ruleSet"] = rInspectConfigRuleSet
 		u.Object["inspectConfig"] = rInspectConfig
 	}
+	if r.Location != nil {
+		u.Object["location"] = *r.Location
+	}
 	if r.LocationId != nil {
 		u.Object["locationId"] = *r.LocationId
 	}
@@ -367,92 +328,6 @@ func UnstructuredToInspectTemplate(u *unstructured.Resource) (*dclService.Inspec
 					for _, o := range s {
 						if objval, ok := o.(map[string]interface{}); ok {
 							var rInspectConfigCustomInfoTypes dclService.InspectTemplateInspectConfigCustomInfoTypes
-							if _, ok := objval["detectionRules"]; ok {
-								if s, ok := objval["detectionRules"].([]interface{}); ok {
-									for _, o := range s {
-										if objval, ok := o.(map[string]interface{}); ok {
-											var rInspectConfigCustomInfoTypesDetectionRules dclService.InspectTemplateInspectConfigCustomInfoTypesDetectionRules
-											if _, ok := objval["hotwordRule"]; ok {
-												if rInspectConfigCustomInfoTypesDetectionRulesHotwordRule, ok := objval["hotwordRule"].(map[string]interface{}); ok {
-													rInspectConfigCustomInfoTypesDetectionRules.HotwordRule = &dclService.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-													if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRule["hotwordRegex"]; ok {
-														if rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRule["hotwordRegex"].(map[string]interface{}); ok {
-															rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.HotwordRegex = &dclService.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-															if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex["groupIndexes"]; ok {
-																if s, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex["groupIndexes"].([]interface{}); ok {
-																	for _, ss := range s {
-																		if intval, ok := ss.(int64); ok {
-																			rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.HotwordRegex.GroupIndexes = append(rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.HotwordRegex.GroupIndexes, intval)
-																		}
-																	}
-																} else {
-																	return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.HotwordRegex.GroupIndexes: expected []interface{}")
-																}
-															}
-															if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex["pattern"]; ok {
-																if s, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex["pattern"].(string); ok {
-																	rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.HotwordRegex.Pattern = dcl.String(s)
-																} else {
-																	return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.HotwordRegex.Pattern: expected string")
-																}
-															}
-														} else {
-															return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.HotwordRegex: expected map[string]interface{}")
-														}
-													}
-													if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRule["likelihoodAdjustment"]; ok {
-														if rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRule["likelihoodAdjustment"].(map[string]interface{}); ok {
-															rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.LikelihoodAdjustment = &dclService.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-															if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment["fixedLikelihood"]; ok {
-																if s, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment["fixedLikelihood"].(string); ok {
-																	rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.LikelihoodAdjustment.FixedLikelihood = dclService.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef(s)
-																} else {
-																	return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.LikelihoodAdjustment.FixedLikelihood: expected string")
-																}
-															}
-															if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment["relativeLikelihood"]; ok {
-																if i, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment["relativeLikelihood"].(int64); ok {
-																	rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.LikelihoodAdjustment.RelativeLikelihood = dcl.Int64(i)
-																} else {
-																	return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.LikelihoodAdjustment.RelativeLikelihood: expected int64")
-																}
-															}
-														} else {
-															return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.LikelihoodAdjustment: expected map[string]interface{}")
-														}
-													}
-													if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRule["proximity"]; ok {
-														if rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRule["proximity"].(map[string]interface{}); ok {
-															rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.Proximity = &dclService.InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-															if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity["windowAfter"]; ok {
-																if i, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity["windowAfter"].(int64); ok {
-																	rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.Proximity.WindowAfter = dcl.Int64(i)
-																} else {
-																	return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.Proximity.WindowAfter: expected int64")
-																}
-															}
-															if _, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity["windowBefore"]; ok {
-																if i, ok := rInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity["windowBefore"].(int64); ok {
-																	rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.Proximity.WindowBefore = dcl.Int64(i)
-																} else {
-																	return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.Proximity.WindowBefore: expected int64")
-																}
-															}
-														} else {
-															return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule.Proximity: expected map[string]interface{}")
-														}
-													}
-												} else {
-													return nil, fmt.Errorf("rInspectConfigCustomInfoTypesDetectionRules.HotwordRule: expected map[string]interface{}")
-												}
-											}
-											rInspectConfigCustomInfoTypes.DetectionRules = append(rInspectConfigCustomInfoTypes.DetectionRules, rInspectConfigCustomInfoTypesDetectionRules)
-										}
-									}
-								} else {
-									return nil, fmt.Errorf("rInspectConfigCustomInfoTypes.DetectionRules: expected []interface{}")
-								}
-							}
 							if _, ok := objval["dictionary"]; ok {
 								if rInspectConfigCustomInfoTypesDictionary, ok := objval["dictionary"].(map[string]interface{}); ok {
 									rInspectConfigCustomInfoTypes.Dictionary = &dclService.InspectTemplateInspectConfigCustomInfoTypesDictionary{}
@@ -899,6 +774,13 @@ func UnstructuredToInspectTemplate(u *unstructured.Resource) (*dclService.Inspec
 			return nil, fmt.Errorf("r.InspectConfig: expected map[string]interface{}")
 		}
 	}
+	if _, ok := u.Object["location"]; ok {
+		if s, ok := u.Object["location"].(string); ok {
+			r.Location = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Location: expected string")
+		}
+	}
 	if _, ok := u.Object["locationId"]; ok {
 		if s, ok := u.Object["locationId"].(string); ok {
 			r.LocationId = dcl.String(s)
@@ -943,9 +825,9 @@ func GetInspectTemplate(ctx context.Context, config *dcl.Config, u *unstructured
 	return InspectTemplateToUnstructured(r), nil
 }
 
-func ListInspectTemplate(ctx context.Context, config *dcl.Config, parent string) ([]*unstructured.Resource, error) {
+func ListInspectTemplate(ctx context.Context, config *dcl.Config, location string, parent string) ([]*unstructured.Resource, error) {
 	c := dclService.NewClient(config)
-	l, err := c.ListInspectTemplate(ctx, parent)
+	l, err := c.ListInspectTemplate(ctx, location, parent)
 	if err != nil {
 		return nil, err
 	}

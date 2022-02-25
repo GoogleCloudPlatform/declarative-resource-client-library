@@ -127,44 +127,6 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesSurrogateType) validate() er
 func (r *InspectTemplateInspectConfigCustomInfoTypesStoredType) validate() error {
 	return nil
 }
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.HotwordRule) {
-		if err := r.HotwordRule.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.HotwordRegex) {
-		if err := r.HotwordRegex.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.Proximity) {
-		if err := r.Proximity.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.LikelihoodAdjustment) {
-		if err := r.LikelihoodAdjustment.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) validate() error {
-	return nil
-}
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) validate() error {
-	return nil
-}
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"FixedLikelihood", "RelativeLikelihood"}, r.FixedLikelihood, r.RelativeLikelihood); err != nil {
-		return err
-	}
-	return nil
-}
 func (r *InspectTemplateInspectConfigRuleSet) validate() error {
 	return nil
 }
@@ -277,17 +239,27 @@ func (r *InspectTemplate) basePath() string {
 func (r *InspectTemplate) getURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
-		"name":   dcl.ValueOrEmptyString(nr.Name),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/inspectTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/inspectTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *InspectTemplate) listURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/inspectTemplates", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/inspectTemplates", nr.basePath(), userBasePath, params), nil
 
 }
@@ -295,8 +267,13 @@ func (r *InspectTemplate) listURL(userBasePath string) (string, error) {
 func (r *InspectTemplate) createURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/inspectTemplates", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/inspectTemplates", nr.basePath(), userBasePath, params), nil
 
 }
@@ -304,9 +281,14 @@ func (r *InspectTemplate) createURL(userBasePath string) (string, error) {
 func (r *InspectTemplate) deleteURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
-		"name":   dcl.ValueOrEmptyString(nr.Name),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/inspectTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/inspectTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
@@ -406,6 +388,7 @@ func (c *Client) listInspectTemplate(ctx context.Context, r *InspectTemplate, pa
 		if err != nil {
 			return nil, m.Token, err
 		}
+		res.Location = r.Location
 		res.Parent = r.Parent
 		l = append(l, res)
 	}
@@ -644,6 +627,11 @@ func canonicalizeInspectTemplateDesiredState(rawDesired, rawInitial *InspectTemp
 	} else {
 		canonicalDesired.Parent = rawDesired.Parent
 	}
+	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
+	}
 
 	return canonicalDesired, nil
 }
@@ -696,6 +684,8 @@ func canonicalizeInspectTemplateNewState(c *Client, rawNew, rawDesired *InspectT
 	}
 
 	rawNew.Parent = rawDesired.Parent
+
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -795,7 +785,7 @@ func canonicalizeNewInspectTemplateInspectConfig(c *Client, des, nw *InspectTemp
 		nw.ExcludeInfoTypes = des.ExcludeInfoTypes
 	}
 	nw.CustomInfoTypes = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesSlice(c, des.CustomInfoTypes, nw.CustomInfoTypes)
-	nw.RuleSet = des.RuleSet
+	nw.RuleSet = canonicalizeNewInspectTemplateInspectConfigRuleSetSlice(c, des.RuleSet, nw.RuleSet)
 
 	return nw
 }
@@ -1374,7 +1364,6 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypes(des, initial *Inspe
 	cDes.Regex = canonicalizeInspectTemplateInspectConfigCustomInfoTypesRegex(des.Regex, initial.Regex, opts...)
 	cDes.SurrogateType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesSurrogateType(des.SurrogateType, initial.SurrogateType, opts...)
 	cDes.StoredType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesStoredType(des.StoredType, initial.StoredType, opts...)
-	cDes.DetectionRules = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(des.DetectionRules, initial.DetectionRules, opts...)
 	if dcl.IsZeroValue(des.ExclusionType) || (dcl.IsEmptyValueIndirect(des.ExclusionType) && dcl.IsEmptyValueIndirect(initial.ExclusionType)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ExclusionType = initial.ExclusionType
@@ -1432,7 +1421,6 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypes(c *Client, des, 
 	nw.Regex = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesRegex(c, des.Regex, nw.Regex)
 	nw.SurrogateType = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, des.SurrogateType, nw.SurrogateType)
 	nw.StoredType = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesStoredType(c, des.StoredType, nw.StoredType)
-	nw.DetectionRules = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c, des.DetectionRules, nw.DetectionRules)
 
 	return nw
 }
@@ -2291,605 +2279,6 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesStoredType(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRules(des, initial *InspectTemplateInspectConfigCustomInfoTypesDetectionRules, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InspectTemplateInspectConfigCustomInfoTypesDetectionRules{}
-
-	cDes.HotwordRule = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(des.HotwordRule, initial.HotwordRule, opts...)
-
-	return cDes
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDetectionRules, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	if des == nil {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRules, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRules(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRules, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRules(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c *Client, des, nw *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) *InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for InspectTemplateInspectConfigCustomInfoTypesDetectionRules while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	nw.HotwordRule = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, des.HotwordRule, nw.HotwordRule)
-
-	return nw
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSet(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRules) []InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InspectTemplateInspectConfigCustomInfoTypesDetectionRules
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRules) []InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InspectTemplateInspectConfigCustomInfoTypesDetectionRules
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(des, initial *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-
-	cDes.HotwordRegex = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(des.HotwordRegex, initial.HotwordRegex, opts...)
-	cDes.Proximity = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(des.Proximity, initial.Proximity, opts...)
-	cDes.LikelihoodAdjustment = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(des.LikelihoodAdjustment, initial.LikelihoodAdjustment, opts...)
-
-	return cDes
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	if dcl.IsEmptyValueIndirect(des) {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c *Client, des, nw *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	nw.HotwordRegex = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, des.HotwordRegex, nw.HotwordRegex)
-	nw.Proximity = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, des.Proximity, nw.Proximity)
-	nw.LikelihoodAdjustment = canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, des.LikelihoodAdjustment, nw.LikelihoodAdjustment)
-
-	return nw
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSet(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(des, initial *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
-		cDes.Pattern = initial.Pattern
-	} else {
-		cDes.Pattern = des.Pattern
-	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.GroupIndexes = initial.GroupIndexes
-	} else {
-		cDes.GroupIndexes = des.GroupIndexes
-	}
-
-	return cDes
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	if dcl.IsEmptyValueIndirect(des) {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c *Client, des, nw *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	if dcl.StringCanonicalize(des.Pattern, nw.Pattern) {
-		nw.Pattern = des.Pattern
-	}
-
-	return nw
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSet(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(des, initial *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-
-	if dcl.IsZeroValue(des.WindowBefore) || (dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.WindowBefore = initial.WindowBefore
-	} else {
-		cDes.WindowBefore = des.WindowBefore
-	}
-	if dcl.IsZeroValue(des.WindowAfter) || (dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.WindowAfter = initial.WindowAfter
-	} else {
-		cDes.WindowAfter = des.WindowAfter
-	}
-
-	return cDes
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	if dcl.IsEmptyValueIndirect(des) {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c *Client, des, nw *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	return nw
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySet(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(des, initial *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if des.FixedLikelihood != nil || (initial != nil && initial.FixedLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RelativeLikelihood) {
-			des.FixedLikelihood = nil
-			if initial != nil {
-				initial.FixedLikelihood = nil
-			}
-		}
-	}
-
-	if des.RelativeLikelihood != nil || (initial != nil && initial.RelativeLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.FixedLikelihood) {
-			des.RelativeLikelihood = nil
-			if initial != nil {
-				initial.RelativeLikelihood = nil
-			}
-		}
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-
-	if dcl.IsZeroValue(des.FixedLikelihood) || (dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.FixedLikelihood = initial.FixedLikelihood
-	} else {
-		cDes.FixedLikelihood = des.FixedLikelihood
-	}
-	if dcl.IsZeroValue(des.RelativeLikelihood) || (dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.RelativeLikelihood = initial.RelativeLikelihood
-	} else {
-		cDes.RelativeLikelihood = des.RelativeLikelihood
-	}
-
-	return cDes
-}
-
-func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	if dcl.IsEmptyValueIndirect(des) {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c *Client, des, nw *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	return nw
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSet(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, des, nw []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, &d, &n))
 	}
 
 	return items
@@ -4671,6 +4060,13 @@ func diffInspectTemplate(c *Client, desired, actual *InspectTemplate, opts ...dc
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareInspectTemplateInspectConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4950,13 +4346,6 @@ func compareInspectTemplateInspectConfigCustomInfoTypesNewStyle(d, a interface{}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DetectionRules, actual.DetectionRules, dcl.Info{ObjectFunction: compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesNewStyle, EmptyObject: EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRules, OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("DetectionRules")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.ExclusionType, actual.ExclusionType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("ExclusionType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -5159,186 +4548,6 @@ func compareInspectTemplateInspectConfigCustomInfoTypesStoredTypeNewStyle(d, a i
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRules)
-	if !ok {
-		desiredNotPointer, ok := d.(InspectTemplateInspectConfigCustomInfoTypesDetectionRules)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRules or *InspectTemplateInspectConfigCustomInfoTypesDetectionRules", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRules)
-	if !ok {
-		actualNotPointer, ok := a.(InspectTemplateInspectConfigCustomInfoTypesDetectionRules)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRules", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.HotwordRule, actual.HotwordRule, dcl.Info{ObjectFunction: compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleNewStyle, EmptyObject: EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("HotwordRule")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule)
-	if !ok {
-		desiredNotPointer, ok := d.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule or *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule)
-	if !ok {
-		actualNotPointer, ok := a.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.HotwordRegex, actual.HotwordRegex, dcl.Info{ObjectFunction: compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexNewStyle, EmptyObject: EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("HotwordRegex")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Proximity, actual.Proximity, dcl.Info{ObjectFunction: compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityNewStyle, EmptyObject: EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("Proximity")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.LikelihoodAdjustment, actual.LikelihoodAdjustment, dcl.Info{ObjectFunction: compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentNewStyle, EmptyObject: EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("LikelihoodAdjustment")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex)
-	if !ok {
-		desiredNotPointer, ok := d.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex or *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex)
-	if !ok {
-		actualNotPointer, ok := a.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity)
-	if !ok {
-		desiredNotPointer, ok := d.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity or *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity)
-	if !ok {
-		actualNotPointer, ok := a.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.WindowBefore, actual.WindowBefore, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("WindowBefore")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.WindowAfter, actual.WindowAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("WindowAfter")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment)
-	if !ok {
-		desiredNotPointer, ok := d.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment or *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment)
-	if !ok {
-		actualNotPointer, ok := a.(InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.FixedLikelihood, actual.FixedLikelihood, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("FixedLikelihood")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.RelativeLikelihood, actual.RelativeLikelihood, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("RelativeLikelihood")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5847,6 +5056,7 @@ func (r *InspectTemplate) urlNormalized() *InspectTemplate {
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.LocationId = dcl.SelfLinkToName(r.LocationId)
 	normalized.Parent = r.Parent
+	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
 
@@ -5854,9 +5064,14 @@ func (r *InspectTemplate) updateURL(userBasePath, updateName string) (string, er
 	nr := r.urlNormalized()
 	if updateName == "UpdateInspectTemplate" {
 		fields := map[string]interface{}{
-			"parent": dcl.ValueOrEmptyString(nr.Parent),
-			"name":   dcl.ValueOrEmptyString(nr.Name),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"parent":   dcl.ValueOrEmptyString(nr.Parent),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
+		if dcl.IsRegion(nr.Location) {
+			return dcl.URL("{{parent}}/locations/{{location}}/inspectTemplates/{{name}}", nr.basePath(), userBasePath, fields), nil
+		}
+
 		return dcl.URL("{{parent}}/inspectTemplates/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
@@ -5921,6 +5136,11 @@ func expandInspectTemplate(c *Client, f *InspectTemplate) (map[string]interface{
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Location into location: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["location"] = v
+	}
 
 	return m, nil
 }
@@ -5945,6 +5165,7 @@ func flattenInspectTemplate(c *Client, i interface{}) *InspectTemplate {
 	res.InspectConfig = flattenInspectTemplateInspectConfig(c, m["inspectConfig"])
 	res.LocationId = dcl.FlattenString(m["locationId"])
 	res.Parent = dcl.FlattenString(m["parent"])
+	res.Location = dcl.FlattenString(m["location"])
 
 	return res
 }
@@ -6688,11 +5909,6 @@ func expandInspectTemplateInspectConfigCustomInfoTypes(c *Client, f *InspectTemp
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["storedType"] = v
 	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c, f.DetectionRules, res); err != nil {
-		return nil, fmt.Errorf("error expanding DetectionRules into detectionRules: %w", err)
-	} else if v != nil {
-		m["detectionRules"] = v
-	}
 	if v := f.ExclusionType; !dcl.IsEmptyValueIndirect(v) {
 		m["exclusionType"] = v
 	}
@@ -6719,7 +5935,6 @@ func flattenInspectTemplateInspectConfigCustomInfoTypes(c *Client, i interface{}
 	r.Regex = flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c, m["regex"])
 	r.SurrogateType = flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, m["surrogateType"])
 	r.StoredType = flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c, m["storedType"])
-	r.DetectionRules = flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c, m["detectionRules"])
 	r.ExclusionType = flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum(m["exclusionType"])
 
 	return r
@@ -7528,604 +6743,6 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c *Client, i i
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
-
-	return r
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRules into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRules, res *InspectTemplate) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRules into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRules, res *InspectTemplate) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRules from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRules{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRules{}
-	}
-
-	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRules)
-	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRules from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRules{}
-	}
-
-	if len(a) == 0 {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRules{}
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRules, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRules into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRules, res *InspectTemplate) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, f.HotwordRule, res); err != nil {
-		return nil, fmt.Errorf("error expanding HotwordRule into hotwordRule: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["hotwordRule"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRules flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRules from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRules(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDetectionRules {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InspectTemplateInspectConfigCustomInfoTypesDetectionRules{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRules
-	}
-	r.HotwordRule = flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, m["hotwordRule"])
-
-	return r
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, res *InspectTemplate) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, res *InspectTemplate) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-	}
-
-	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule)
-	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-	}
-
-	if len(a) == 0 {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule, res *InspectTemplate) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, f.HotwordRegex, res); err != nil {
-		return nil, fmt.Errorf("error expanding HotwordRegex into hotwordRegex: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["hotwordRegex"] = v
-	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, f.Proximity, res); err != nil {
-		return nil, fmt.Errorf("error expanding Proximity into proximity: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["proximity"] = v
-	}
-	if v, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, f.LikelihoodAdjustment, res); err != nil {
-		return nil, fmt.Errorf("error expanding LikelihoodAdjustment into likelihoodAdjustment: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["likelihoodAdjustment"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
-	}
-	r.HotwordRegex = flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, m["hotwordRegex"])
-	r.Proximity = flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, m["proximity"])
-	r.LikelihoodAdjustment = flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, m["likelihoodAdjustment"])
-
-	return r
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, res *InspectTemplate) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, res *InspectTemplate) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-	}
-
-	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex)
-	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-	}
-
-	if len(a) == 0 {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, res *InspectTemplate) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Pattern; !dcl.IsEmptyValueIndirect(v) {
-		m["pattern"] = v
-	}
-	if v := f.GroupIndexes; v != nil {
-		m["groupIndexes"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex
-	}
-	r.Pattern = dcl.FlattenString(m["pattern"])
-	r.GroupIndexes = dcl.FlattenIntSlice(m["groupIndexes"])
-
-	return r
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, res *InspectTemplate) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, res *InspectTemplate) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-	}
-
-	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity)
-	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-	}
-
-	if len(a) == 0 {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, res *InspectTemplate) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.WindowBefore; !dcl.IsEmptyValueIndirect(v) {
-		m["windowBefore"] = v
-	}
-	if v := f.WindowAfter; !dcl.IsEmptyValueIndirect(v) {
-		m["windowAfter"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity
-	}
-	r.WindowBefore = dcl.FlattenInteger(m["windowBefore"])
-	r.WindowAfter = dcl.FlattenInteger(m["windowAfter"])
-
-	return r
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentMap expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, f map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice expands the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, f []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-	}
-
-	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment)
-	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-	}
-
-	if len(a) == 0 {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment expands an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment into a JSON
-// request object.
-func expandInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c *Client, f *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, res *InspectTemplate) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.FixedLikelihood; !dcl.IsEmptyValueIndirect(v) {
-		m["fixedLikelihood"] = v
-	}
-	if v := f.RelativeLikelihood; !dcl.IsEmptyValueIndirect(v) {
-		m["relativeLikelihood"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment
-	}
-	r.FixedLikelihood = flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(m["fixedLikelihood"])
-	r.RelativeLikelihood = dcl.FlattenInteger(m["relativeLikelihood"])
 
 	return r
 }
@@ -9902,57 +8519,6 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(i interfac
 	return InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumRef(s)
 }
 
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum{}
-	}
-
-	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum)
-	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum from a JSON
-// response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum{}
-	}
-
-	if len(a) == 0 {
-		return []InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum{}
-	}
-
-	items := make([]InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum asserts that an interface is a string, and returns a
-// pointer to a *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum with the same value as that string.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-	s, ok := i.(string)
-	if !ok {
-		return nil
-	}
-
-	return InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef(s)
-}
-
 // flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum from a JSON
 // response object.
 func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
@@ -10171,6 +8737,14 @@ func (r *InspectTemplate) matcher(c *Client) func([]byte) bool {
 		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
+		if nr.Location == nil && ncr.Location == nil {
+			c.Config.Logger.Info("Both Location fields null - considering equal.")
+		} else if nr.Location == nil || ncr.Location == nil {
+			c.Config.Logger.Info("Only one Location field is null - considering unequal.")
+			return false
+		} else if *nr.Location != *ncr.Location {
+			return false
+		}
 		if nr.Parent == nil && ncr.Parent == nil {
 			c.Config.Logger.Info("Both Parent fields null - considering equal.")
 		} else if nr.Parent == nil || ncr.Parent == nil {
@@ -10390,65 +8964,6 @@ func extractInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeFields(r *In
 	return nil
 }
 func extractInspectTemplateInspectConfigCustomInfoTypesStoredTypeFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesStoredType) error {
-	return nil
-}
-func extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) error {
-	vHotwordRule := o.HotwordRule
-	if vHotwordRule == nil {
-		// note: explicitly not the empty object.
-		vHotwordRule = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleFields(r, vHotwordRule); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vHotwordRule) {
-		o.HotwordRule = vHotwordRule
-	}
-	return nil
-}
-func extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) error {
-	vHotwordRegex := o.HotwordRegex
-	if vHotwordRegex == nil {
-		// note: explicitly not the empty object.
-		vHotwordRegex = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexFields(r, vHotwordRegex); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vHotwordRegex) {
-		o.HotwordRegex = vHotwordRegex
-	}
-	vProximity := o.Proximity
-	if vProximity == nil {
-		// note: explicitly not the empty object.
-		vProximity = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityFields(r, vProximity); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vProximity) {
-		o.Proximity = vProximity
-	}
-	vLikelihoodAdjustment := o.LikelihoodAdjustment
-	if vLikelihoodAdjustment == nil {
-		// note: explicitly not the empty object.
-		vLikelihoodAdjustment = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFields(r, vLikelihoodAdjustment); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vLikelihoodAdjustment) {
-		o.LikelihoodAdjustment = vLikelihoodAdjustment
-	}
-	return nil
-}
-func extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) error {
-	return nil
-}
-func extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) error {
-	return nil
-}
-func extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) error {
 	return nil
 }
 func extractInspectTemplateInspectConfigRuleSetFields(r *InspectTemplate, o *InspectTemplateInspectConfigRuleSet) error {
@@ -10754,65 +9269,6 @@ func postReadExtractInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeFiel
 	return nil
 }
 func postReadExtractInspectTemplateInspectConfigCustomInfoTypesStoredTypeFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesStoredType) error {
-	return nil
-}
-func postReadExtractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) error {
-	vHotwordRule := o.HotwordRule
-	if vHotwordRule == nil {
-		// note: explicitly not the empty object.
-		vHotwordRule = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleFields(r, vHotwordRule); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vHotwordRule) {
-		o.HotwordRule = vHotwordRule
-	}
-	return nil
-}
-func postReadExtractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) error {
-	vHotwordRegex := o.HotwordRegex
-	if vHotwordRegex == nil {
-		// note: explicitly not the empty object.
-		vHotwordRegex = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexFields(r, vHotwordRegex); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vHotwordRegex) {
-		o.HotwordRegex = vHotwordRegex
-	}
-	vProximity := o.Proximity
-	if vProximity == nil {
-		// note: explicitly not the empty object.
-		vProximity = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityFields(r, vProximity); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vProximity) {
-		o.Proximity = vProximity
-	}
-	vLikelihoodAdjustment := o.LikelihoodAdjustment
-	if vLikelihoodAdjustment == nil {
-		// note: explicitly not the empty object.
-		vLikelihoodAdjustment = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
-	}
-	if err := extractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFields(r, vLikelihoodAdjustment); err != nil {
-		return err
-	}
-	if !dcl.IsNotReturnedByServer(vLikelihoodAdjustment) {
-		o.LikelihoodAdjustment = vLikelihoodAdjustment
-	}
-	return nil
-}
-func postReadExtractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) error {
-	return nil
-}
-func postReadExtractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) error {
-	return nil
-}
-func postReadExtractInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFields(r *InspectTemplate, o *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) error {
 	return nil
 }
 func postReadExtractInspectTemplateInspectConfigRuleSetFields(r *InspectTemplate, o *InspectTemplateInspectConfigRuleSet) error {

@@ -25,7 +25,6 @@ import (
 )
 
 type Config struct {
-	Name              *string                  `json:"name"`
 	SignIn            *ConfigSignIn            `json:"signIn"`
 	Notification      *ConfigNotification      `json:"notification"`
 	Quota             *ConfigQuota             `json:"quota"`
@@ -36,6 +35,7 @@ type Config struct {
 	Client            *ConfigClient            `json:"client"`
 	Mfa               *ConfigMfa               `json:"mfa"`
 	BlockingFunctions *ConfigBlockingFunctions `json:"blockingFunctions"`
+	Project           *string                  `json:"project"`
 }
 
 func (r *Config) String() string {
@@ -1473,7 +1473,6 @@ func (r *Config) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":              dcl.ValueOrEmptyString(nr.Name),
 		"signIn":            dcl.ValueOrEmptyString(nr.SignIn),
 		"notification":      dcl.ValueOrEmptyString(nr.Notification),
 		"quota":             dcl.ValueOrEmptyString(nr.Quota),
@@ -1484,8 +1483,9 @@ func (r *Config) ID() (string, error) {
 		"client":            dcl.ValueOrEmptyString(nr.Client),
 		"mfa":               dcl.ValueOrEmptyString(nr.Mfa),
 		"blockingFunctions": dcl.ValueOrEmptyString(nr.BlockingFunctions),
+		"project":           dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.Nprintf("projects/{{name}}/config", params), nil
+	return dcl.Nprintf("projects/{{project}}/config", params), nil
 }
 
 const ConfigMaxPage = -1
@@ -1522,7 +1522,7 @@ func (c *Client) GetConfig(ctx context.Context, r *Config) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	result.Name = r.Name
+	result.Project = r.Project
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)

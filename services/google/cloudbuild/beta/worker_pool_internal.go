@@ -77,9 +77,6 @@ func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) validate() error {
 	return nil
 }
 func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) validate() error {
-	if err := dcl.Required(r, "peeredNetwork"); err != nil {
-		return err
-	}
 	return nil
 }
 func (r *WorkerPoolWorkerConfig) validate() error {

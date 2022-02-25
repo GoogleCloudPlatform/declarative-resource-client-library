@@ -103,9 +103,6 @@ func ConfigToUnstructured(r *dclService.Config) *unstructured.Resource {
 		}
 		u.Object["multiTenant"] = rMultiTenant
 	}
-	if r.Name != nil {
-		u.Object["name"] = *r.Name
-	}
 	if r.Notification != nil && r.Notification != dclService.EmptyConfigNotification {
 		rNotification := make(map[string]interface{})
 		if r.Notification.DefaultLocale != nil {
@@ -189,6 +186,9 @@ func ConfigToUnstructured(r *dclService.Config) *unstructured.Resource {
 			rNotification["sendSms"] = rNotificationSendSms
 		}
 		u.Object["notification"] = rNotification
+	}
+	if r.Project != nil {
+		u.Object["project"] = *r.Project
 	}
 	if r.Quota != nil && r.Quota != dclService.EmptyConfigQuota {
 		rQuota := make(map[string]interface{})
@@ -463,13 +463,6 @@ func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) 
 			return nil, fmt.Errorf("r.MultiTenant: expected map[string]interface{}")
 		}
 	}
-	if _, ok := u.Object["name"]; ok {
-		if s, ok := u.Object["name"].(string); ok {
-			r.Name = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Name: expected string")
-		}
-	}
 	if _, ok := u.Object["notification"]; ok {
 		if rNotification, ok := u.Object["notification"].(map[string]interface{}); ok {
 			r.Notification = &dclService.ConfigNotification{}
@@ -666,6 +659,13 @@ func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) 
 			}
 		} else {
 			return nil, fmt.Errorf("r.Notification: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["project"]; ok {
+		if s, ok := u.Object["project"].(string); ok {
+			r.Project = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Project: expected string")
 		}
 	}
 	if _, ok := u.Object["quota"]; ok {

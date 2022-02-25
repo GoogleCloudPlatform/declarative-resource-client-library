@@ -29,6 +29,7 @@ class InspectTemplate(object):
         inspect_config: dict = None,
         location_id: str = None,
         parent: str = None,
+        location: str = None,
         service_account_file: str = "",
     ):
 
@@ -38,6 +39,7 @@ class InspectTemplate(object):
         self.description = description
         self.inspect_config = inspect_config
         self.parent = parent
+        self.location = location
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -63,6 +65,9 @@ class InspectTemplate(object):
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyDlpBetaInspectTemplate(request)
@@ -76,6 +81,7 @@ class InspectTemplate(object):
         )
         self.location_id = Primitive.from_proto(response.location_id)
         self.parent = Primitive.from_proto(response.parent)
+        self.location = Primitive.from_proto(response.location)
 
     def delete(self):
         stub = inspect_template_pb2_grpc.DlpBetaInspectTemplateServiceStub(
@@ -101,15 +107,20 @@ class InspectTemplate(object):
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
         response = stub.DeleteDlpBetaInspectTemplate(request)
 
     @classmethod
-    def list(self, parent, service_account_file=""):
+    def list(self, location, parent, service_account_file=""):
         stub = inspect_template_pb2_grpc.DlpBetaInspectTemplateServiceStub(
             channel.Channel()
         )
         request = inspect_template_pb2.ListDlpBetaInspectTemplateRequest()
         request.service_account_file = service_account_file
+        request.Location = location
+
         request.Parent = parent
 
         return stub.ListDlpBetaInspectTemplate(request).items
@@ -130,6 +141,8 @@ class InspectTemplate(object):
             resource.ClearField("inspect_config")
         if Primitive.to_proto(self.parent):
             resource.parent = Primitive.to_proto(self.parent)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
         return resource
 
 
@@ -453,7 +466,6 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
         regex: dict = None,
         surrogate_type: dict = None,
         stored_type: dict = None,
-        detection_rules: list = None,
         exclusion_type: str = None,
     ):
         self.info_type = info_type
@@ -462,7 +474,6 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
         self.regex = regex
         self.surrogate_type = surrogate_type
         self.stored_type = stored_type
-        self.detection_rules = detection_rules
         self.exclusion_type = exclusion_type
 
     @classmethod
@@ -525,14 +536,6 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
             )
         else:
             res.ClearField("stored_type")
-        if InspectTemplateInspectConfigCustomInfoTypesDetectionRulesArray.to_proto(
-            resource.detection_rules
-        ):
-            res.detection_rules.extend(
-                InspectTemplateInspectConfigCustomInfoTypesDetectionRulesArray.to_proto(
-                    resource.detection_rules
-                )
-            )
         if InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.to_proto(
             resource.exclusion_type
         ):
@@ -564,9 +567,6 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
             ),
             stored_type=InspectTemplateInspectConfigCustomInfoTypesStoredType.from_proto(
                 resource.stored_type
-            ),
-            detection_rules=InspectTemplateInspectConfigCustomInfoTypesDetectionRulesArray.from_proto(
-                resource.detection_rules
             ),
             exclusion_type=InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.from_proto(
                 resource.exclusion_type
@@ -925,325 +925,6 @@ class InspectTemplateInspectConfigCustomInfoTypesStoredTypeArray(object):
     def from_proto(self, resources):
         return [
             InspectTemplateInspectConfigCustomInfoTypesStoredType.from_proto(i)
-            for i in resources
-        ]
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRules(object):
-    def __init__(self, hotword_rule: dict = None):
-        self.hotword_rule = hotword_rule
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            inspect_template_pb2.DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRules()
-        )
-        if InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule.to_proto(
-            resource.hotword_rule
-        ):
-            res.hotword_rule.CopyFrom(
-                InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule.to_proto(
-                    resource.hotword_rule
-                )
-            )
-        else:
-            res.ClearField("hotword_rule")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InspectTemplateInspectConfigCustomInfoTypesDetectionRules(
-            hotword_rule=InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule.from_proto(
-                resource.hotword_rule
-            ),
-        )
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRules.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRules.from_proto(i)
-            for i in resources
-        ]
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(object):
-    def __init__(
-        self,
-        hotword_regex: dict = None,
-        proximity: dict = None,
-        likelihood_adjustment: dict = None,
-    ):
-        self.hotword_regex = hotword_regex
-        self.proximity = proximity
-        self.likelihood_adjustment = likelihood_adjustment
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            inspect_template_pb2.DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule()
-        )
-        if InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex.to_proto(
-            resource.hotword_regex
-        ):
-            res.hotword_regex.CopyFrom(
-                InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex.to_proto(
-                    resource.hotword_regex
-                )
-            )
-        else:
-            res.ClearField("hotword_regex")
-        if InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity.to_proto(
-            resource.proximity
-        ):
-            res.proximity.CopyFrom(
-                InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity.to_proto(
-                    resource.proximity
-                )
-            )
-        else:
-            res.ClearField("proximity")
-        if InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment.to_proto(
-            resource.likelihood_adjustment
-        ):
-            res.likelihood_adjustment.CopyFrom(
-                InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment.to_proto(
-                    resource.likelihood_adjustment
-                )
-            )
-        else:
-            res.ClearField("likelihood_adjustment")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule(
-            hotword_regex=InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex.from_proto(
-                resource.hotword_regex
-            ),
-            proximity=InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity.from_proto(
-                resource.proximity
-            ),
-            likelihood_adjustment=InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment.from_proto(
-                resource.likelihood_adjustment
-            ),
-        )
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(
-    object
-):
-    def __init__(self, pattern: str = None, group_indexes: list = None):
-        self.pattern = pattern
-        self.group_indexes = group_indexes
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            inspect_template_pb2.DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex()
-        )
-        if Primitive.to_proto(resource.pattern):
-            res.pattern = Primitive.to_proto(resource.pattern)
-        if int64Array.to_proto(resource.group_indexes):
-            res.group_indexes.extend(int64Array.to_proto(resource.group_indexes))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(
-            pattern=Primitive.from_proto(resource.pattern),
-            group_indexes=int64Array.from_proto(resource.group_indexes),
-        )
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(
-    object
-):
-    def __init__(self, window_before: int = None, window_after: int = None):
-        self.window_before = window_before
-        self.window_after = window_after
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            inspect_template_pb2.DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity()
-        )
-        if Primitive.to_proto(resource.window_before):
-            res.window_before = Primitive.to_proto(resource.window_before)
-        if Primitive.to_proto(resource.window_after):
-            res.window_after = Primitive.to_proto(resource.window_after)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(
-            window_before=Primitive.from_proto(resource.window_before),
-            window_after=Primitive.from_proto(resource.window_after),
-        )
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(
-    object
-):
-    def __init__(self, fixed_likelihood: str = None, relative_likelihood: int = None):
-        self.fixed_likelihood = fixed_likelihood
-        self.relative_likelihood = relative_likelihood
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            inspect_template_pb2.DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment()
-        )
-        if InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum.to_proto(
-            resource.fixed_likelihood
-        ):
-            res.fixed_likelihood = InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum.to_proto(
-                resource.fixed_likelihood
-            )
-        if Primitive.to_proto(resource.relative_likelihood):
-            res.relative_likelihood = Primitive.to_proto(resource.relative_likelihood)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(
-            fixed_likelihood=InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum.from_proto(
-                resource.fixed_likelihood
-            ),
-            relative_likelihood=Primitive.from_proto(resource.relative_likelihood),
-        )
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment.from_proto(
-                i
-            )
             for i in resources
         ]
 
@@ -2114,31 +1795,6 @@ class InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(object):
             resource
         )[
             len("DlpBetaInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum") :
-        ]
-
-
-class InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(
-    object
-):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return inspect_template_pb2.DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum.Value(
-            "DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return inspect_template_pb2.DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum.Name(
-            resource
-        )[
-            len(
-                "DlpBetaInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum"
-            ) :
         ]
 
 

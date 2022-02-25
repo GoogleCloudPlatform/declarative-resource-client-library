@@ -147,6 +147,26 @@ func (r *Membership) deleteURL(userBasePath string) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/memberships/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
+func (r *Membership) SetPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *Membership) SetPolicyVerb() string {
+	return ""
+}
+
+func (r *Membership) getPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *Membership) IAMPolicyVersion() int {
+	return 3
+}
+
 // membershipApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type membershipApiOperation interface {

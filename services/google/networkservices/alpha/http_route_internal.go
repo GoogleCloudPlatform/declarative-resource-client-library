@@ -219,6 +219,26 @@ func (r *HttpRoute) deleteURL(userBasePath string) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/httpRoutes/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
+func (r *HttpRoute) SetPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *HttpRoute) SetPolicyVerb() string {
+	return ""
+}
+
+func (r *HttpRoute) getPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *HttpRoute) IAMPolicyVersion() int {
+	return 3
+}
+
 // httpRouteApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type httpRouteApiOperation interface {

@@ -421,7 +421,6 @@ func ProtoToIdentitytoolkitAlphaConfigBlockingFunctionsTriggers(p *alphapb.Ident
 // ProtoToConfig converts a Config resource from its proto representation.
 func ProtoToConfig(p *alphapb.IdentitytoolkitAlphaConfig) *alpha.Config {
 	obj := &alpha.Config{
-		Name:              dcl.StringOrNil(p.GetName()),
 		SignIn:            ProtoToIdentitytoolkitAlphaConfigSignIn(p.GetSignIn()),
 		Notification:      ProtoToIdentitytoolkitAlphaConfigNotification(p.GetNotification()),
 		Quota:             ProtoToIdentitytoolkitAlphaConfigQuota(p.GetQuota()),
@@ -431,6 +430,7 @@ func ProtoToConfig(p *alphapb.IdentitytoolkitAlphaConfig) *alpha.Config {
 		Client:            ProtoToIdentitytoolkitAlphaConfigClient(p.GetClient()),
 		Mfa:               ProtoToIdentitytoolkitAlphaConfigMfa(p.GetMfa()),
 		BlockingFunctions: ProtoToIdentitytoolkitAlphaConfigBlockingFunctions(p.GetBlockingFunctions()),
+		Project:           dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetAuthorizedDomains() {
 		obj.AuthorizedDomains = append(obj.AuthorizedDomains, r)
@@ -814,7 +814,6 @@ func IdentitytoolkitAlphaConfigBlockingFunctionsTriggersToProto(o *alpha.ConfigB
 // ConfigToProto converts a Config resource to its proto representation.
 func ConfigToProto(resource *alpha.Config) *alphapb.IdentitytoolkitAlphaConfig {
 	p := &alphapb.IdentitytoolkitAlphaConfig{}
-	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetSignIn(IdentitytoolkitAlphaConfigSignInToProto(resource.SignIn))
 	p.SetNotification(IdentitytoolkitAlphaConfigNotificationToProto(resource.Notification))
 	p.SetQuota(IdentitytoolkitAlphaConfigQuotaToProto(resource.Quota))
@@ -824,6 +823,7 @@ func ConfigToProto(resource *alpha.Config) *alphapb.IdentitytoolkitAlphaConfig {
 	p.SetClient(IdentitytoolkitAlphaConfigClientToProto(resource.Client))
 	p.SetMfa(IdentitytoolkitAlphaConfigMfaToProto(resource.Mfa))
 	p.SetBlockingFunctions(IdentitytoolkitAlphaConfigBlockingFunctionsToProto(resource.BlockingFunctions))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	sAuthorizedDomains := make([]string, len(resource.AuthorizedDomains))
 	for i, r := range resource.AuthorizedDomains {
 		sAuthorizedDomains[i] = r

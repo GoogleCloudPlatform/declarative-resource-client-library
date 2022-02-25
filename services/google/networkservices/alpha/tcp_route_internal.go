@@ -117,6 +117,26 @@ func (r *TcpRoute) deleteURL(userBasePath string) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/tcpRoutes/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
+func (r *TcpRoute) SetPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *TcpRoute) SetPolicyVerb() string {
+	return ""
+}
+
+func (r *TcpRoute) getPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{}
+	return dcl.URL("", nr.basePath(), userBasePath, fields)
+}
+
+func (r *TcpRoute) IAMPolicyVersion() int {
+	return 3
+}
+
 // tcpRouteApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type tcpRouteApiOperation interface {

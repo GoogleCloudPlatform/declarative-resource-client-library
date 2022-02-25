@@ -25,7 +25,7 @@ import (
 
 func (r *Config) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
+	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.SignIn) {
@@ -232,9 +232,9 @@ func (r *Config) basePath() string {
 func (r *Config) getURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name": dcl.ValueOrEmptyString(nr.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{name}}/config", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/config", nr.basePath(), userBasePath, params), nil
 }
 
 // configApiOperation represents a mutable operation in the underlying REST
@@ -463,11 +463,6 @@ func canonicalizeConfigDesiredState(rawDesired, rawInitial *Config, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Config{}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		canonicalDesired.Name = rawInitial.Name
-	} else {
-		canonicalDesired.Name = rawDesired.Name
-	}
 	canonicalDesired.SignIn = canonicalizeConfigSignIn(rawDesired.SignIn, rawInitial.SignIn, opts...)
 	canonicalDesired.Notification = canonicalizeConfigNotification(rawDesired.Notification, rawInitial.Notification, opts...)
 	canonicalDesired.Quota = canonicalizeConfigQuota(rawDesired.Quota, rawInitial.Quota, opts...)
@@ -481,19 +476,16 @@ func canonicalizeConfigDesiredState(rawDesired, rawInitial *Config, opts ...dcl.
 	canonicalDesired.Client = canonicalizeConfigClient(rawDesired.Client, rawInitial.Client, opts...)
 	canonicalDesired.Mfa = canonicalizeConfigMfa(rawDesired.Mfa, rawInitial.Mfa, opts...)
 	canonicalDesired.BlockingFunctions = canonicalizeConfigBlockingFunctions(rawDesired.BlockingFunctions, rawInitial.BlockingFunctions, opts...)
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
+	}
 
 	return canonicalDesired, nil
 }
 
 func canonicalizeConfigNewState(c *Client, rawNew, rawDesired *Config) (*Config, error) {
-
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SignIn) && dcl.IsNotReturnedByServer(rawDesired.SignIn) {
 		rawNew.SignIn = rawDesired.SignIn
@@ -555,6 +547,8 @@ func canonicalizeConfigNewState(c *Client, rawNew, rawDesired *Config) (*Config,
 	} else {
 		rawNew.BlockingFunctions = canonicalizeNewConfigBlockingFunctions(c, rawDesired.BlockingFunctions, rawNew.BlockingFunctions)
 	}
+
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -3348,13 +3342,6 @@ func diffConfig(c *Client, desired, actual *Config, opts ...dcl.ApplyOption) ([]
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.SignIn, actual.SignIn, dcl.Info{ObjectFunction: compareConfigSignInNewStyle, EmptyObject: EmptyConfigSignIn, OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("SignIn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -3419,6 +3406,13 @@ func diffConfig(c *Client, desired, actual *Config, opts ...dcl.ApplyOption) ([]
 	}
 
 	if ds, err := dcl.Diff(desired.BlockingFunctions, actual.BlockingFunctions, dcl.Info{ObjectFunction: compareConfigBlockingFunctionsNewStyle, EmptyObject: EmptyConfigBlockingFunctions, OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("BlockingFunctions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4428,7 +4422,7 @@ func compareConfigBlockingFunctionsTriggersNewStyle(d, a interface{}, fn dcl.Fie
 // short-form so they can be substituted in.
 func (r *Config) urlNormalized() *Config {
 	normalized := dcl.Copy(*r).(Config)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
 
@@ -4436,9 +4430,9 @@ func (r *Config) updateURL(userBasePath, updateName string) (string, error) {
 	nr := r.urlNormalized()
 	if updateName == "UpdateProjectConfig" {
 		fields := map[string]interface{}{
-			"name": dcl.ValueOrEmptyString(nr.Name),
+			"project": dcl.ValueOrEmptyString(nr.Project),
 		}
-		return dcl.URL("projects/{{name}}/config", nr.basePath(), userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/config", nr.basePath(), userBasePath, fields), nil
 
 	}
 
@@ -4480,11 +4474,6 @@ func expandConfig(c *Client, f *Config) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	res := f
 	_ = res
-	if v, err := dcl.DeriveField("projects/%s/config", f.Name, dcl.SelfLinkToName(f.Name)); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
 	if v, err := expandConfigSignIn(c, f.SignIn, res); err != nil {
 		return nil, fmt.Errorf("error expanding SignIn into signIn: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -4528,6 +4517,11 @@ func expandConfig(c *Client, f *Config) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blockingFunctions"] = v
 	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["project"] = v
+	}
 
 	return m, nil
 }
@@ -4544,7 +4538,6 @@ func flattenConfig(c *Client, i interface{}) *Config {
 	}
 
 	res := &Config{}
-	res.Name = dcl.FlattenString(m["name"])
 	res.SignIn = flattenConfigSignIn(c, m["signIn"])
 	res.Notification = flattenConfigNotification(c, m["notification"])
 	res.Quota = flattenConfigQuota(c, m["quota"])
@@ -4555,6 +4548,7 @@ func flattenConfig(c *Client, i interface{}) *Config {
 	res.Client = flattenConfigClient(c, m["client"])
 	res.Mfa = flattenConfigMfa(c, m["mfa"])
 	res.BlockingFunctions = flattenConfigBlockingFunctions(c, m["blockingFunctions"])
+	res.Project = dcl.FlattenString(m["project"])
 
 	return res
 }
@@ -7755,12 +7749,12 @@ func (r *Config) matcher(c *Client) func([]byte) bool {
 		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
-		if nr.Name == nil && ncr.Name == nil {
-			c.Config.Logger.Info("Both Name fields null - considering equal.")
-		} else if nr.Name == nil || ncr.Name == nil {
-			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+		if nr.Project == nil && ncr.Project == nil {
+			c.Config.Logger.Info("Both Project fields null - considering equal.")
+		} else if nr.Project == nil || ncr.Project == nil {
+			c.Config.Logger.Info("Only one Project field is null - considering unequal.")
 			return false
-		} else if *nr.Name != *ncr.Name {
+		} else if *nr.Project != *ncr.Project {
 			return false
 		}
 		return true

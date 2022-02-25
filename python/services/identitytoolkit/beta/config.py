@@ -21,7 +21,6 @@ from typing import List
 class Config(object):
     def __init__(
         self,
-        name: str = None,
         sign_in: dict = None,
         notification: dict = None,
         quota: dict = None,
@@ -32,11 +31,11 @@ class Config(object):
         client: dict = None,
         mfa: dict = None,
         blocking_functions: dict = None,
+        project: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
-        self.name = name
         self.sign_in = sign_in
         self.notification = notification
         self.quota = quota
@@ -46,14 +45,12 @@ class Config(object):
         self.client = client
         self.mfa = mfa
         self.blocking_functions = blocking_functions
+        self.project = project
         self.service_account_file = service_account_file
 
     def apply(self):
         stub = config_pb2_grpc.IdentitytoolkitBetaConfigServiceStub(channel.Channel())
         request = config_pb2.ApplyIdentitytoolkitBetaConfigRequest()
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         if ConfigSignIn.to_proto(self.sign_in):
             request.resource.sign_in.CopyFrom(ConfigSignIn.to_proto(self.sign_in))
         else:
@@ -98,10 +95,12 @@ class Config(object):
             )
         else:
             request.resource.ClearField("blocking_functions")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyIdentitytoolkitBetaConfig(request)
-        self.name = Primitive.from_proto(response.name)
         self.sign_in = ConfigSignIn.from_proto(response.sign_in)
         self.notification = ConfigNotification.from_proto(response.notification)
         self.quota = ConfigQuota.from_proto(response.quota)
@@ -114,14 +113,12 @@ class Config(object):
         self.blocking_functions = ConfigBlockingFunctions.from_proto(
             response.blocking_functions
         )
+        self.project = Primitive.from_proto(response.project)
 
     def delete(self):
         stub = config_pb2_grpc.IdentitytoolkitBetaConfigServiceStub(channel.Channel())
         request = config_pb2.DeleteIdentitytoolkitBetaConfigRequest()
         request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         if ConfigSignIn.to_proto(self.sign_in):
             request.resource.sign_in.CopyFrom(ConfigSignIn.to_proto(self.sign_in))
         else:
@@ -166,6 +163,9 @@ class Config(object):
             )
         else:
             request.resource.ClearField("blocking_functions")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
         response = stub.DeleteIdentitytoolkitBetaConfig(request)
 
     @classmethod
@@ -177,8 +177,6 @@ class Config(object):
 
     def to_proto(self):
         resource = config_pb2.IdentitytoolkitBetaConfig()
-        if Primitive.to_proto(self.name):
-            resource.name = Primitive.to_proto(self.name)
         if ConfigSignIn.to_proto(self.sign_in):
             resource.sign_in.CopyFrom(ConfigSignIn.to_proto(self.sign_in))
         else:
@@ -221,6 +219,8 @@ class Config(object):
             )
         else:
             resource.ClearField("blocking_functions")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
         return resource
 
 

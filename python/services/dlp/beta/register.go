@@ -22,4 +22,5 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterDlpBetaDeidentifyTemplateServiceServer(s, &DeidentifyTemplateServer{})
 	sdkgrpc.RegisterDlpBetaInspectTemplateServiceServer(s, &InspectTemplateServer{})
+	sdkgrpc.RegisterDlpBetaStoredInfoTypeServiceServer(s, &StoredInfoTypeServer{})
 }

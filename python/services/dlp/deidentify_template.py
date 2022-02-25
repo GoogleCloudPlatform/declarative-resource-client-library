@@ -29,6 +29,7 @@ class DeidentifyTemplate(object):
         deidentify_config: dict = None,
         location_id: str = None,
         parent: str = None,
+        location: str = None,
         service_account_file: str = "",
     ):
 
@@ -38,6 +39,7 @@ class DeidentifyTemplate(object):
         self.description = description
         self.deidentify_config = deidentify_config
         self.parent = parent
+        self.location = location
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -63,6 +65,9 @@ class DeidentifyTemplate(object):
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyDlpDeidentifyTemplate(request)
@@ -76,6 +81,7 @@ class DeidentifyTemplate(object):
         )
         self.location_id = Primitive.from_proto(response.location_id)
         self.parent = Primitive.from_proto(response.parent)
+        self.location = Primitive.from_proto(response.location)
 
     def delete(self):
         stub = deidentify_template_pb2_grpc.DlpDeidentifyTemplateServiceStub(
@@ -101,15 +107,20 @@ class DeidentifyTemplate(object):
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
         response = stub.DeleteDlpDeidentifyTemplate(request)
 
     @classmethod
-    def list(self, parent, service_account_file=""):
+    def list(self, location, parent, service_account_file=""):
         stub = deidentify_template_pb2_grpc.DlpDeidentifyTemplateServiceStub(
             channel.Channel()
         )
         request = deidentify_template_pb2.ListDlpDeidentifyTemplateRequest()
         request.service_account_file = service_account_file
+        request.Location = location
+
         request.Parent = parent
 
         return stub.ListDlpDeidentifyTemplate(request).items
@@ -130,6 +141,8 @@ class DeidentifyTemplate(object):
             resource.ClearField("deidentify_config")
         if Primitive.to_proto(self.parent):
             resource.parent = Primitive.to_proto(self.parent)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
         return resource
 
 

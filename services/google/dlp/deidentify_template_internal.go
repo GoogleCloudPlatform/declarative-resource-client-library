@@ -1857,17 +1857,27 @@ func (r *DeidentifyTemplate) basePath() string {
 func (r *DeidentifyTemplate) getURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
-		"name":   dcl.ValueOrEmptyString(nr.Name),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/deidentifyTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/deidentifyTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *DeidentifyTemplate) listURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/deidentifyTemplates", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/deidentifyTemplates", nr.basePath(), userBasePath, params), nil
 
 }
@@ -1875,8 +1885,13 @@ func (r *DeidentifyTemplate) listURL(userBasePath string) (string, error) {
 func (r *DeidentifyTemplate) createURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/deidentifyTemplates", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/deidentifyTemplates", nr.basePath(), userBasePath, params), nil
 
 }
@@ -1884,9 +1899,14 @@ func (r *DeidentifyTemplate) createURL(userBasePath string) (string, error) {
 func (r *DeidentifyTemplate) deleteURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
-		"name":   dcl.ValueOrEmptyString(nr.Name),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"parent":   dcl.ValueOrEmptyString(nr.Parent),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("{{parent}}/locations/{{location}}/deidentifyTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
+	}
+
 	return dcl.URL("{{parent}}/deidentifyTemplates/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
@@ -1986,6 +2006,7 @@ func (c *Client) listDeidentifyTemplate(ctx context.Context, r *DeidentifyTempla
 		if err != nil {
 			return nil, m.Token, err
 		}
+		res.Location = r.Location
 		res.Parent = r.Parent
 		l = append(l, res)
 	}
@@ -2209,6 +2230,11 @@ func canonicalizeDeidentifyTemplateDesiredState(rawDesired, rawInitial *Deidenti
 	} else {
 		canonicalDesired.Parent = rawDesired.Parent
 	}
+	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
+	}
 
 	return canonicalDesired, nil
 }
@@ -2261,6 +2287,8 @@ func canonicalizeDeidentifyTemplateNewState(c *Client, rawNew, rawDesired *Deide
 	}
 
 	rawNew.Parent = rawDesired.Parent
+
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -27869,6 +27897,13 @@ func diffDeidentifyTemplate(c *Client, desired, actual *DeidentifyTemplate, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareDeidentifyTemplateDeidentifyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -35803,6 +35838,7 @@ func (r *DeidentifyTemplate) urlNormalized() *DeidentifyTemplate {
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.LocationId = dcl.SelfLinkToName(r.LocationId)
 	normalized.Parent = r.Parent
+	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
 
@@ -35810,9 +35846,14 @@ func (r *DeidentifyTemplate) updateURL(userBasePath, updateName string) (string,
 	nr := r.urlNormalized()
 	if updateName == "UpdateDeidentifyTemplate" {
 		fields := map[string]interface{}{
-			"parent": dcl.ValueOrEmptyString(nr.Parent),
-			"name":   dcl.ValueOrEmptyString(nr.Name),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"parent":   dcl.ValueOrEmptyString(nr.Parent),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
+		if dcl.IsRegion(nr.Location) {
+			return dcl.URL("{{parent}}/locations/{{location}}/deidentifyTemplates/{{name}}", nr.basePath(), userBasePath, fields), nil
+		}
+
 		return dcl.URL("{{parent}}/deidentifyTemplates/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
@@ -35877,6 +35918,11 @@ func expandDeidentifyTemplate(c *Client, f *DeidentifyTemplate) (map[string]inte
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Location into location: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["location"] = v
+	}
 
 	return m, nil
 }
@@ -35901,6 +35947,7 @@ func flattenDeidentifyTemplate(c *Client, i interface{}) *DeidentifyTemplate {
 	res.DeidentifyConfig = flattenDeidentifyTemplateDeidentifyConfig(c, m["deidentifyConfig"])
 	res.LocationId = dcl.FlattenString(m["locationId"])
 	res.Parent = dcl.FlattenString(m["parent"])
+	res.Location = dcl.FlattenString(m["location"])
 
 	return res
 }
@@ -60992,6 +61039,14 @@ func (r *DeidentifyTemplate) matcher(c *Client) func([]byte) bool {
 		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
+		if nr.Location == nil && ncr.Location == nil {
+			c.Config.Logger.Info("Both Location fields null - considering equal.")
+		} else if nr.Location == nil || ncr.Location == nil {
+			c.Config.Logger.Info("Only one Location field is null - considering unequal.")
+			return false
+		} else if *nr.Location != *ncr.Location {
+			return false
+		}
 		if nr.Parent == nil && ncr.Parent == nil {
 			c.Config.Logger.Info("Both Parent fields null - considering equal.")
 		} else if nr.Parent == nil || ncr.Parent == nil {

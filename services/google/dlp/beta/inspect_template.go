@@ -33,6 +33,7 @@ type InspectTemplate struct {
 	InspectConfig *InspectTemplateInspectConfig `json:"inspectConfig"`
 	LocationId    *string                       `json:"locationId"`
 	Parent        *string                       `json:"parent"`
+	Location      *string                       `json:"location"`
 }
 
 func (r *InspectTemplate) String() string {
@@ -88,33 +89,6 @@ func (v InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum) Validate() er
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum.
-type InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum string
-
-// InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef returns a *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumRef(s string) *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
-	v := InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(s)
-	return &v
-}
-
-func (v InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"LIKELIHOOD_UNSPECIFIED", "VERY_UNLIKELY", "UNLIKELY", "POSSIBLE", "LIKELY", "VERY_LIKELY"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -489,15 +463,14 @@ func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) HashC
 }
 
 type InspectTemplateInspectConfigCustomInfoTypes struct {
-	empty          bool                                                          `json:"-"`
-	InfoType       *InspectTemplateInspectConfigCustomInfoTypesInfoType          `json:"infoType"`
-	Likelihood     *InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum    `json:"likelihood"`
-	Dictionary     *InspectTemplateInspectConfigCustomInfoTypesDictionary        `json:"dictionary"`
-	Regex          *InspectTemplateInspectConfigCustomInfoTypesRegex             `json:"regex"`
-	SurrogateType  *InspectTemplateInspectConfigCustomInfoTypesSurrogateType     `json:"surrogateType"`
-	StoredType     *InspectTemplateInspectConfigCustomInfoTypesStoredType        `json:"storedType"`
-	DetectionRules []InspectTemplateInspectConfigCustomInfoTypesDetectionRules   `json:"detectionRules"`
-	ExclusionType  *InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum `json:"exclusionType"`
+	empty         bool                                                          `json:"-"`
+	InfoType      *InspectTemplateInspectConfigCustomInfoTypesInfoType          `json:"infoType"`
+	Likelihood    *InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum    `json:"likelihood"`
+	Dictionary    *InspectTemplateInspectConfigCustomInfoTypesDictionary        `json:"dictionary"`
+	Regex         *InspectTemplateInspectConfigCustomInfoTypesRegex             `json:"regex"`
+	SurrogateType *InspectTemplateInspectConfigCustomInfoTypesSurrogateType     `json:"surrogateType"`
+	StoredType    *InspectTemplateInspectConfigCustomInfoTypesStoredType        `json:"storedType"`
+	ExclusionType *InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum `json:"exclusionType"`
 }
 
 type jsonInspectTemplateInspectConfigCustomInfoTypes InspectTemplateInspectConfigCustomInfoTypes
@@ -526,8 +499,6 @@ func (r *InspectTemplateInspectConfigCustomInfoTypes) UnmarshalJSON(data []byte)
 		r.SurrogateType = res.SurrogateType
 
 		r.StoredType = res.StoredType
-
-		r.DetectionRules = res.DetectionRules
 
 		r.ExclusionType = res.ExclusionType
 
@@ -877,251 +848,6 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesStoredType) String() string 
 }
 
 func (r *InspectTemplateInspectConfigCustomInfoTypesStoredType) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InspectTemplateInspectConfigCustomInfoTypesDetectionRules struct {
-	empty       bool                                                                  `json:"-"`
-	HotwordRule *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule `json:"hotwordRule"`
-}
-
-type jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRules InspectTemplateInspectConfigCustomInfoTypesDetectionRules
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) UnmarshalJSON(data []byte) error {
-	var res jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRules
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRules
-	} else {
-
-		r.HotwordRule = res.HotwordRule
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRules is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRules *InspectTemplateInspectConfigCustomInfoTypesDetectionRules = &InspectTemplateInspectConfigCustomInfoTypesDetectionRules{empty: true}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) Empty() bool {
-	return r.empty
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRules) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule struct {
-	empty                bool                                                                                      `json:"-"`
-	HotwordRegex         *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex         `json:"hotwordRegex"`
-	Proximity            *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity            `json:"proximity"`
-	LikelihoodAdjustment *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment `json:"likelihoodAdjustment"`
-}
-
-type jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) UnmarshalJSON(data []byte) error {
-	var res jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule
-	} else {
-
-		r.HotwordRegex = res.HotwordRegex
-
-		r.Proximity = res.Proximity
-
-		r.LikelihoodAdjustment = res.LikelihoodAdjustment
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule{empty: true}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) Empty() bool {
-	return r.empty
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRule) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex struct {
-	empty        bool    `json:"-"`
-	Pattern      *string `json:"pattern"`
-	GroupIndexes []int64 `json:"groupIndexes"`
-}
-
-type jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) UnmarshalJSON(data []byte) error {
-	var res jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex
-	} else {
-
-		r.Pattern = res.Pattern
-
-		r.GroupIndexes = res.GroupIndexes
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{empty: true}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) Empty() bool {
-	return r.empty
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity struct {
-	empty        bool   `json:"-"`
-	WindowBefore *int64 `json:"windowBefore"`
-	WindowAfter  *int64 `json:"windowAfter"`
-}
-
-type jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) UnmarshalJSON(data []byte) error {
-	var res jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity
-	} else {
-
-		r.WindowBefore = res.WindowBefore
-
-		r.WindowAfter = res.WindowAfter
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{empty: true}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) Empty() bool {
-	return r.empty
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment struct {
-	empty              bool                                                                                                         `json:"-"`
-	FixedLikelihood    *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum `json:"fixedLikelihood"`
-	RelativeLikelihood *int64                                                                                                       `json:"relativeLikelihood"`
-}
-
-type jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) UnmarshalJSON(data []byte) error {
-	var res jsonInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment
-	} else {
-
-		r.FixedLikelihood = res.FixedLikelihood
-
-		r.RelativeLikelihood = res.RelativeLikelihood
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyInspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment = &InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{empty: true}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) Empty() bool {
-	return r.empty
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InspectTemplateInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1832,6 +1558,7 @@ func (r *InspectTemplate) ID() (string, error) {
 		"inspectConfig": dcl.ValueOrEmptyString(nr.InspectConfig),
 		"locationId":    dcl.ValueOrEmptyString(nr.LocationId),
 		"parent":        dcl.ValueOrEmptyString(nr.Parent),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("{{parent}}/inspectTemplates/{{name}}", params), nil
 }
@@ -1868,22 +1595,23 @@ func (l *InspectTemplateList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListInspectTemplate(ctx context.Context, parent string) (*InspectTemplateList, error) {
+func (c *Client) ListInspectTemplate(ctx context.Context, location, parent string) (*InspectTemplateList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListInspectTemplateWithMaxResults(ctx, parent, InspectTemplateMaxPage)
+	return c.ListInspectTemplateWithMaxResults(ctx, location, parent, InspectTemplateMaxPage)
 
 }
 
-func (c *Client) ListInspectTemplateWithMaxResults(ctx context.Context, parent string, pageSize int32) (*InspectTemplateList, error) {
+func (c *Client) ListInspectTemplateWithMaxResults(ctx context.Context, location, parent string, pageSize int32) (*InspectTemplateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// Create a resource object so that we can use proper url normalization methods.
 	r := &InspectTemplate{
-		Parent: &parent,
+		Location: &location,
+		Parent:   &parent,
 	}
 	items, token, err := c.listInspectTemplate(ctx, r, "", pageSize)
 	if err != nil {
@@ -1921,6 +1649,7 @@ func (c *Client) GetInspectTemplate(ctx context.Context, r *InspectTemplate) (*I
 	if err != nil {
 		return nil, err
 	}
+	result.Location = r.Location
 	result.Parent = r.Parent
 	result.Name = r.Name
 
@@ -1952,8 +1681,8 @@ func (c *Client) DeleteInspectTemplate(ctx context.Context, r *InspectTemplate) 
 }
 
 // DeleteAllInspectTemplate deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllInspectTemplate(ctx context.Context, parent string, filter func(*InspectTemplate) bool) error {
-	listObj, err := c.ListInspectTemplate(ctx, parent)
+func (c *Client) DeleteAllInspectTemplate(ctx context.Context, location, parent string, filter func(*InspectTemplate) bool) error {
+	listObj, err := c.ListInspectTemplate(ctx, location, parent)
 	if err != nil {
 		return err
 	}

@@ -2891,6 +2891,7 @@ func ProtoToDeidentifyTemplate(p *dlppb.DlpDeidentifyTemplate) *dlp.DeidentifyTe
 		DeidentifyConfig: ProtoToDlpDeidentifyTemplateDeidentifyConfig(p.GetDeidentifyConfig()),
 		LocationId:       dcl.StringOrNil(p.GetLocationId()),
 		Parent:           dcl.StringOrNil(p.GetParent()),
+		Location:         dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -5586,6 +5587,7 @@ func DeidentifyTemplateToProto(resource *dlp.DeidentifyTemplate) *dlppb.DlpDeide
 	p.SetDeidentifyConfig(DlpDeidentifyTemplateDeidentifyConfigToProto(resource.DeidentifyConfig))
 	p.SetLocationId(dcl.ValueOrEmptyString(resource.LocationId))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
@@ -5628,7 +5630,7 @@ func (s *DeidentifyTemplateServer) ListDlpDeidentifyTemplate(ctx context.Context
 		return nil, err
 	}
 
-	resources, err := cl.ListDeidentifyTemplate(ctx, request.GetParent())
+	resources, err := cl.ListDeidentifyTemplate(ctx, request.GetLocation(), request.GetParent())
 	if err != nil {
 		return nil, err
 	}

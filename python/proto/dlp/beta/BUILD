@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="dlp/beta", resources=["deidentify_template","inspect_template"])
+proto_package(name="dlp/beta", resources=["deidentify_template","inspect_template","stored_info_type"])

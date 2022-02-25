@@ -104,17 +104,17 @@ enum IdentitytoolkitBetaConfigMfaStateEnum {
 }
 
 message IdentitytoolkitBetaConfig {
-  string name = 1;
-  IdentitytoolkitBetaConfigSignIn sign_in = 2;
-  IdentitytoolkitBetaConfigNotification notification = 3;
-  IdentitytoolkitBetaConfigQuota quota = 4;
-  IdentitytoolkitBetaConfigMonitoring monitoring = 5;
-  IdentitytoolkitBetaConfigMultiTenant multi_tenant = 6;
-  repeated string authorized_domains = 7;
-  IdentitytoolkitBetaConfigSubtypeEnum subtype = 8;
-  IdentitytoolkitBetaConfigClient client = 9;
-  IdentitytoolkitBetaConfigMfa mfa = 10;
-  IdentitytoolkitBetaConfigBlockingFunctions blocking_functions = 11;
+  IdentitytoolkitBetaConfigSignIn sign_in = 1;
+  IdentitytoolkitBetaConfigNotification notification = 2;
+  IdentitytoolkitBetaConfigQuota quota = 3;
+  IdentitytoolkitBetaConfigMonitoring monitoring = 4;
+  IdentitytoolkitBetaConfigMultiTenant multi_tenant = 5;
+  repeated string authorized_domains = 6;
+  IdentitytoolkitBetaConfigSubtypeEnum subtype = 7;
+  IdentitytoolkitBetaConfigClient client = 8;
+  IdentitytoolkitBetaConfigMfa mfa = 9;
+  IdentitytoolkitBetaConfigBlockingFunctions blocking_functions = 10;
+  string project = 11;
 }
 
 message IdentitytoolkitBetaConfigSignIn {
