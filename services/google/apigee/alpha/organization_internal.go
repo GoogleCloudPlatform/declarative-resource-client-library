@@ -1260,15 +1260,15 @@ func (r *Organization) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalOrganization decodes JSON responses into the Organization resource schema.
-func unmarshalOrganization(b []byte, c *Client) (*Organization, error) {
+func unmarshalOrganization(b []byte, c *Client, res *Organization) (*Organization, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapOrganization(m, c)
+	return unmarshalMapOrganization(m, c, res)
 }
 
-func unmarshalMapOrganization(m map[string]interface{}, c *Client) (*Organization, error) {
+func unmarshalMapOrganization(m map[string]interface{}, c *Client, res *Organization) (*Organization, error) {
 	if v, err := dcl.MapFromListOfKeyValues(m, []string{"properties", "property"}, "name", "value"); err != nil {
 		return nil, err
 	} else {
@@ -1279,7 +1279,7 @@ func unmarshalMapOrganization(m map[string]interface{}, c *Client) (*Organizatio
 		)
 	}
 
-	flattened := flattenOrganization(c, m)
+	flattened := flattenOrganization(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1335,7 +1335,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 
 // flattenOrganization flattens Organization from a JSON request object into the
 // Organization type.
-func flattenOrganization(c *Client, i interface{}) *Organization {
+func flattenOrganization(c *Client, i interface{}, res *Organization) *Organization {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1344,28 +1344,28 @@ func flattenOrganization(c *Client, i interface{}) *Organization {
 		return nil
 	}
 
-	res := &Organization{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreatedAt = dcl.FlattenInteger(m["createdAt"])
-	res.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
-	res.ExpiresAt = dcl.FlattenInteger(m["expiresAt"])
-	res.Environments = dcl.FlattenStringSlice(m["environments"])
-	res.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	res.AnalyticsRegion = dcl.FlattenString(m["analyticsRegion"])
-	res.AuthorizedNetwork = dcl.FlattenString(m["authorizedNetwork"])
-	res.RuntimeType = flattenOrganizationRuntimeTypeEnum(m["runtimeType"])
-	res.SubscriptionType = flattenOrganizationSubscriptionTypeEnum(m["subscriptionType"])
-	res.BillingType = flattenOrganizationBillingTypeEnum(m["billingType"])
-	res.AddonsConfig = flattenOrganizationAddonsConfig(c, m["addonsConfig"])
-	res.CaCertificate = dcl.FlattenString(m["caCertificate"])
-	res.RuntimeDatabaseEncryptionKeyName = dcl.FlattenString(m["runtimeDatabaseEncryptionKeyName"])
-	res.ProjectId = dcl.FlattenString(m["projectId"])
-	res.State = flattenOrganizationStateEnum(m["state"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Organization{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreatedAt = dcl.FlattenInteger(m["createdAt"])
+	resultRes.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
+	resultRes.ExpiresAt = dcl.FlattenInteger(m["expiresAt"])
+	resultRes.Environments = dcl.FlattenStringSlice(m["environments"])
+	resultRes.Properties = dcl.FlattenKeyValuePairs(m["properties"])
+	resultRes.AnalyticsRegion = dcl.FlattenString(m["analyticsRegion"])
+	resultRes.AuthorizedNetwork = dcl.FlattenString(m["authorizedNetwork"])
+	resultRes.RuntimeType = flattenOrganizationRuntimeTypeEnum(m["runtimeType"])
+	resultRes.SubscriptionType = flattenOrganizationSubscriptionTypeEnum(m["subscriptionType"])
+	resultRes.BillingType = flattenOrganizationBillingTypeEnum(m["billingType"])
+	resultRes.AddonsConfig = flattenOrganizationAddonsConfig(c, m["addonsConfig"], res)
+	resultRes.CaCertificate = dcl.FlattenString(m["caCertificate"])
+	resultRes.RuntimeDatabaseEncryptionKeyName = dcl.FlattenString(m["runtimeDatabaseEncryptionKeyName"])
+	resultRes.ProjectId = dcl.FlattenString(m["projectId"])
+	resultRes.State = flattenOrganizationStateEnum(m["state"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandOrganizationAddonsConfigMap expands the contents of OrganizationAddonsConfig into a JSON
@@ -1411,7 +1411,7 @@ func expandOrganizationAddonsConfigSlice(c *Client, f []OrganizationAddonsConfig
 
 // flattenOrganizationAddonsConfigMap flattens the contents of OrganizationAddonsConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigMap(c *Client, i interface{}) map[string]OrganizationAddonsConfig {
+func flattenOrganizationAddonsConfigMap(c *Client, i interface{}, res *Organization) map[string]OrganizationAddonsConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OrganizationAddonsConfig{}
@@ -1423,7 +1423,7 @@ func flattenOrganizationAddonsConfigMap(c *Client, i interface{}) map[string]Org
 
 	items := make(map[string]OrganizationAddonsConfig)
 	for k, item := range a {
-		items[k] = *flattenOrganizationAddonsConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenOrganizationAddonsConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1431,7 +1431,7 @@ func flattenOrganizationAddonsConfigMap(c *Client, i interface{}) map[string]Org
 
 // flattenOrganizationAddonsConfigSlice flattens the contents of OrganizationAddonsConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigSlice(c *Client, i interface{}) []OrganizationAddonsConfig {
+func flattenOrganizationAddonsConfigSlice(c *Client, i interface{}, res *Organization) []OrganizationAddonsConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OrganizationAddonsConfig{}
@@ -1443,7 +1443,7 @@ func flattenOrganizationAddonsConfigSlice(c *Client, i interface{}) []Organizati
 
 	items := make([]OrganizationAddonsConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOrganizationAddonsConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenOrganizationAddonsConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1473,7 +1473,7 @@ func expandOrganizationAddonsConfig(c *Client, f *OrganizationAddonsConfig, res 
 
 // flattenOrganizationAddonsConfig flattens an instance of OrganizationAddonsConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfig(c *Client, i interface{}) *OrganizationAddonsConfig {
+func flattenOrganizationAddonsConfig(c *Client, i interface{}, res *Organization) *OrganizationAddonsConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1484,8 +1484,8 @@ func flattenOrganizationAddonsConfig(c *Client, i interface{}) *OrganizationAddo
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOrganizationAddonsConfig
 	}
-	r.AdvancedApiOpsConfig = flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c, m["advancedApiOpsConfig"])
-	r.MonetizationConfig = flattenOrganizationAddonsConfigMonetizationConfig(c, m["monetizationConfig"])
+	r.AdvancedApiOpsConfig = flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c, m["advancedApiOpsConfig"], res)
+	r.MonetizationConfig = flattenOrganizationAddonsConfigMonetizationConfig(c, m["monetizationConfig"], res)
 
 	return r
 }
@@ -1533,7 +1533,7 @@ func expandOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client, f []Orga
 
 // flattenOrganizationAddonsConfigAdvancedApiOpsConfigMap flattens the contents of OrganizationAddonsConfigAdvancedApiOpsConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigAdvancedApiOpsConfigMap(c *Client, i interface{}) map[string]OrganizationAddonsConfigAdvancedApiOpsConfig {
+func flattenOrganizationAddonsConfigAdvancedApiOpsConfigMap(c *Client, i interface{}, res *Organization) map[string]OrganizationAddonsConfigAdvancedApiOpsConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OrganizationAddonsConfigAdvancedApiOpsConfig{}
@@ -1545,7 +1545,7 @@ func flattenOrganizationAddonsConfigAdvancedApiOpsConfigMap(c *Client, i interfa
 
 	items := make(map[string]OrganizationAddonsConfigAdvancedApiOpsConfig)
 	for k, item := range a {
-		items[k] = *flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1553,7 +1553,7 @@ func flattenOrganizationAddonsConfigAdvancedApiOpsConfigMap(c *Client, i interfa
 
 // flattenOrganizationAddonsConfigAdvancedApiOpsConfigSlice flattens the contents of OrganizationAddonsConfigAdvancedApiOpsConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client, i interface{}) []OrganizationAddonsConfigAdvancedApiOpsConfig {
+func flattenOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client, i interface{}, res *Organization) []OrganizationAddonsConfigAdvancedApiOpsConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OrganizationAddonsConfigAdvancedApiOpsConfig{}
@@ -1565,7 +1565,7 @@ func flattenOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client, i inter
 
 	items := make([]OrganizationAddonsConfigAdvancedApiOpsConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1588,7 +1588,7 @@ func expandOrganizationAddonsConfigAdvancedApiOpsConfig(c *Client, f *Organizati
 
 // flattenOrganizationAddonsConfigAdvancedApiOpsConfig flattens an instance of OrganizationAddonsConfigAdvancedApiOpsConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c *Client, i interface{}) *OrganizationAddonsConfigAdvancedApiOpsConfig {
+func flattenOrganizationAddonsConfigAdvancedApiOpsConfig(c *Client, i interface{}, res *Organization) *OrganizationAddonsConfigAdvancedApiOpsConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1647,7 +1647,7 @@ func expandOrganizationAddonsConfigMonetizationConfigSlice(c *Client, f []Organi
 
 // flattenOrganizationAddonsConfigMonetizationConfigMap flattens the contents of OrganizationAddonsConfigMonetizationConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigMonetizationConfigMap(c *Client, i interface{}) map[string]OrganizationAddonsConfigMonetizationConfig {
+func flattenOrganizationAddonsConfigMonetizationConfigMap(c *Client, i interface{}, res *Organization) map[string]OrganizationAddonsConfigMonetizationConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OrganizationAddonsConfigMonetizationConfig{}
@@ -1659,7 +1659,7 @@ func flattenOrganizationAddonsConfigMonetizationConfigMap(c *Client, i interface
 
 	items := make(map[string]OrganizationAddonsConfigMonetizationConfig)
 	for k, item := range a {
-		items[k] = *flattenOrganizationAddonsConfigMonetizationConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenOrganizationAddonsConfigMonetizationConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1667,7 +1667,7 @@ func flattenOrganizationAddonsConfigMonetizationConfigMap(c *Client, i interface
 
 // flattenOrganizationAddonsConfigMonetizationConfigSlice flattens the contents of OrganizationAddonsConfigMonetizationConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigMonetizationConfigSlice(c *Client, i interface{}) []OrganizationAddonsConfigMonetizationConfig {
+func flattenOrganizationAddonsConfigMonetizationConfigSlice(c *Client, i interface{}, res *Organization) []OrganizationAddonsConfigMonetizationConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OrganizationAddonsConfigMonetizationConfig{}
@@ -1679,7 +1679,7 @@ func flattenOrganizationAddonsConfigMonetizationConfigSlice(c *Client, i interfa
 
 	items := make([]OrganizationAddonsConfigMonetizationConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOrganizationAddonsConfigMonetizationConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenOrganizationAddonsConfigMonetizationConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1702,7 +1702,7 @@ func expandOrganizationAddonsConfigMonetizationConfig(c *Client, f *Organization
 
 // flattenOrganizationAddonsConfigMonetizationConfig flattens an instance of OrganizationAddonsConfigMonetizationConfig from a JSON
 // response object.
-func flattenOrganizationAddonsConfigMonetizationConfig(c *Client, i interface{}) *OrganizationAddonsConfigMonetizationConfig {
+func flattenOrganizationAddonsConfigMonetizationConfig(c *Client, i interface{}, res *Organization) *OrganizationAddonsConfigMonetizationConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1720,7 +1720,7 @@ func flattenOrganizationAddonsConfigMonetizationConfig(c *Client, i interface{})
 
 // flattenOrganizationRuntimeTypeEnumMap flattens the contents of OrganizationRuntimeTypeEnum from a JSON
 // response object.
-func flattenOrganizationRuntimeTypeEnumMap(c *Client, i interface{}) map[string]OrganizationRuntimeTypeEnum {
+func flattenOrganizationRuntimeTypeEnumMap(c *Client, i interface{}, res *Organization) map[string]OrganizationRuntimeTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OrganizationRuntimeTypeEnum{}
@@ -1740,7 +1740,7 @@ func flattenOrganizationRuntimeTypeEnumMap(c *Client, i interface{}) map[string]
 
 // flattenOrganizationRuntimeTypeEnumSlice flattens the contents of OrganizationRuntimeTypeEnum from a JSON
 // response object.
-func flattenOrganizationRuntimeTypeEnumSlice(c *Client, i interface{}) []OrganizationRuntimeTypeEnum {
+func flattenOrganizationRuntimeTypeEnumSlice(c *Client, i interface{}, res *Organization) []OrganizationRuntimeTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OrganizationRuntimeTypeEnum{}
@@ -1771,7 +1771,7 @@ func flattenOrganizationRuntimeTypeEnum(i interface{}) *OrganizationRuntimeTypeE
 
 // flattenOrganizationSubscriptionTypeEnumMap flattens the contents of OrganizationSubscriptionTypeEnum from a JSON
 // response object.
-func flattenOrganizationSubscriptionTypeEnumMap(c *Client, i interface{}) map[string]OrganizationSubscriptionTypeEnum {
+func flattenOrganizationSubscriptionTypeEnumMap(c *Client, i interface{}, res *Organization) map[string]OrganizationSubscriptionTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OrganizationSubscriptionTypeEnum{}
@@ -1791,7 +1791,7 @@ func flattenOrganizationSubscriptionTypeEnumMap(c *Client, i interface{}) map[st
 
 // flattenOrganizationSubscriptionTypeEnumSlice flattens the contents of OrganizationSubscriptionTypeEnum from a JSON
 // response object.
-func flattenOrganizationSubscriptionTypeEnumSlice(c *Client, i interface{}) []OrganizationSubscriptionTypeEnum {
+func flattenOrganizationSubscriptionTypeEnumSlice(c *Client, i interface{}, res *Organization) []OrganizationSubscriptionTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OrganizationSubscriptionTypeEnum{}
@@ -1822,7 +1822,7 @@ func flattenOrganizationSubscriptionTypeEnum(i interface{}) *OrganizationSubscri
 
 // flattenOrganizationBillingTypeEnumMap flattens the contents of OrganizationBillingTypeEnum from a JSON
 // response object.
-func flattenOrganizationBillingTypeEnumMap(c *Client, i interface{}) map[string]OrganizationBillingTypeEnum {
+func flattenOrganizationBillingTypeEnumMap(c *Client, i interface{}, res *Organization) map[string]OrganizationBillingTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OrganizationBillingTypeEnum{}
@@ -1842,7 +1842,7 @@ func flattenOrganizationBillingTypeEnumMap(c *Client, i interface{}) map[string]
 
 // flattenOrganizationBillingTypeEnumSlice flattens the contents of OrganizationBillingTypeEnum from a JSON
 // response object.
-func flattenOrganizationBillingTypeEnumSlice(c *Client, i interface{}) []OrganizationBillingTypeEnum {
+func flattenOrganizationBillingTypeEnumSlice(c *Client, i interface{}, res *Organization) []OrganizationBillingTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OrganizationBillingTypeEnum{}
@@ -1873,7 +1873,7 @@ func flattenOrganizationBillingTypeEnum(i interface{}) *OrganizationBillingTypeE
 
 // flattenOrganizationStateEnumMap flattens the contents of OrganizationStateEnum from a JSON
 // response object.
-func flattenOrganizationStateEnumMap(c *Client, i interface{}) map[string]OrganizationStateEnum {
+func flattenOrganizationStateEnumMap(c *Client, i interface{}, res *Organization) map[string]OrganizationStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OrganizationStateEnum{}
@@ -1893,7 +1893,7 @@ func flattenOrganizationStateEnumMap(c *Client, i interface{}) map[string]Organi
 
 // flattenOrganizationStateEnumSlice flattens the contents of OrganizationStateEnum from a JSON
 // response object.
-func flattenOrganizationStateEnumSlice(c *Client, i interface{}) []OrganizationStateEnum {
+func flattenOrganizationStateEnumSlice(c *Client, i interface{}, res *Organization) []OrganizationStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OrganizationStateEnum{}
@@ -1927,7 +1927,7 @@ func flattenOrganizationStateEnum(i interface{}) *OrganizationStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Organization) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalOrganization(b, c)
+		cr, err := unmarshalOrganization(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

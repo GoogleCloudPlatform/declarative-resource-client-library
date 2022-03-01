@@ -1213,7 +1213,7 @@ func (c *Client) GetCaPool(ctx context.Context, r *CaPool) (*CaPool, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalCaPool(b, c)
+	result, err := unmarshalCaPool(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1383,7 +1383,7 @@ func applyCaPoolDiff(c *Client, ctx context.Context, desired *CaPool, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapCaPool(r, c)
+				fullResp, err := unmarshalMapCaPool(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

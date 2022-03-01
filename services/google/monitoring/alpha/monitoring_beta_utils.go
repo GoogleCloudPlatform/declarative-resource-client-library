@@ -39,7 +39,7 @@ func (c *Client) GetMonitoredProject(ctx context.Context, r *MonitoredProject) (
 		}
 		return nil, err
 	}
-	result, err := unmarshalMonitoredProject(b, c)
+	result, err := unmarshalMonitoredProject(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func (c *Client) getMonitoredProjectRaw(ctx context.Context, r *MonitoredProject
 // This resource has a custom matcher to do a lookup and convert between project ids and project numbers.
 func (r *MonitoredProject) customMatcher(ctx context.Context, c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalMonitoredProject(b, c)
+		cr, err := unmarshalMonitoredProject(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("Failed to unmarshal provided resource in matcher.")
 			return false

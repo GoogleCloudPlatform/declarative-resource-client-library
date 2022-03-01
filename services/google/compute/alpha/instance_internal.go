@@ -972,7 +972,7 @@ func (c *Client) listInstance(ctx context.Context, r *Instance, pageToken string
 
 	var l []*Instance
 	for _, v := range m.Items {
-		res, err := unmarshalMapInstance(v, c)
+		res, err := unmarshalMapInstance(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -4032,15 +4032,15 @@ func (r *Instance) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInstance decodes JSON responses into the Instance resource schema.
-func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
+func unmarshalInstance(b []byte, c *Client, res *Instance) (*Instance, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInstance(m, c)
+	return unmarshalMapInstance(m, c, res)
 }
 
-func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
+func unmarshalMapInstance(m map[string]interface{}, c *Client, res *Instance) (*Instance, error) {
 	if v, err := dcl.MapFromListOfKeyValues(m, []string{"metadata", "items"}, "key", "value"); err != nil {
 		return nil, err
 	} else {
@@ -4056,7 +4056,7 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 		[]string{"tags"},
 	)
 
-	flattened := flattenInstance(c, m)
+	flattened := flattenInstance(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -4147,7 +4147,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 
 // flattenInstance flattens Instance from a JSON request object into the
 // Instance type.
-func flattenInstance(c *Client, i interface{}) *Instance {
+func flattenInstance(c *Client, i interface{}, res *Instance) *Instance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4156,33 +4156,33 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 		return nil
 	}
 
-	res := &Instance{}
-	res.CanIPForward = dcl.FlattenBool(m["canIpForward"])
-	res.CpuPlatform = dcl.FlattenString(m["cpuPlatform"])
-	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	res.DeletionProtection = dcl.FlattenBool(m["deletionProtection"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Disks = flattenInstanceDisksSlice(c, m["disks"])
-	res.GuestAccelerators = flattenInstanceGuestAcceleratorsSlice(c, m["guestAccelerators"])
-	res.Hostname = dcl.FlattenString(m["hostname"])
-	res.Id = dcl.FlattenString(m["id"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Metadata = dcl.FlattenKeyValuePairs(m["metadata"])
-	res.MachineType = dcl.FlattenString(m["machineType"])
-	res.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.NetworkInterfaces = flattenInstanceNetworkInterfacesSlice(c, m["networkInterfaces"])
-	res.Scheduling = flattenInstanceScheduling(c, m["scheduling"])
-	res.ServiceAccounts = flattenInstanceServiceAccountsSlice(c, m["serviceAccounts"])
-	res.ShieldedInstanceConfig = flattenInstanceShieldedInstanceConfig(c, m["shieldedInstanceConfig"])
-	res.Status = flattenInstanceStatusEnum(m["status"])
-	res.StatusMessage = dcl.FlattenString(m["statusMessage"])
-	res.Tags = dcl.FlattenStringSlice(m["tags"])
-	res.Zone = dcl.FlattenString(m["zone"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes := &Instance{}
+	resultRes.CanIPForward = dcl.FlattenBool(m["canIpForward"])
+	resultRes.CpuPlatform = dcl.FlattenString(m["cpuPlatform"])
+	resultRes.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	resultRes.DeletionProtection = dcl.FlattenBool(m["deletionProtection"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Disks = flattenInstanceDisksSlice(c, m["disks"], res)
+	resultRes.GuestAccelerators = flattenInstanceGuestAcceleratorsSlice(c, m["guestAccelerators"], res)
+	resultRes.Hostname = dcl.FlattenString(m["hostname"])
+	resultRes.Id = dcl.FlattenString(m["id"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Metadata = dcl.FlattenKeyValuePairs(m["metadata"])
+	resultRes.MachineType = dcl.FlattenString(m["machineType"])
+	resultRes.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.NetworkInterfaces = flattenInstanceNetworkInterfacesSlice(c, m["networkInterfaces"], res)
+	resultRes.Scheduling = flattenInstanceScheduling(c, m["scheduling"], res)
+	resultRes.ServiceAccounts = flattenInstanceServiceAccountsSlice(c, m["serviceAccounts"], res)
+	resultRes.ShieldedInstanceConfig = flattenInstanceShieldedInstanceConfig(c, m["shieldedInstanceConfig"], res)
+	resultRes.Status = flattenInstanceStatusEnum(m["status"])
+	resultRes.StatusMessage = dcl.FlattenString(m["statusMessage"])
+	resultRes.Tags = dcl.FlattenStringSlice(m["tags"])
+	resultRes.Zone = dcl.FlattenString(m["zone"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return res
+	return resultRes
 }
 
 // expandInstanceDisksMap expands the contents of InstanceDisks into a JSON
@@ -4228,7 +4228,7 @@ func expandInstanceDisksSlice(c *Client, f []InstanceDisks, res *Instance) ([]ma
 
 // flattenInstanceDisksMap flattens the contents of InstanceDisks from a JSON
 // response object.
-func flattenInstanceDisksMap(c *Client, i interface{}) map[string]InstanceDisks {
+func flattenInstanceDisksMap(c *Client, i interface{}, res *Instance) map[string]InstanceDisks {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceDisks{}
@@ -4240,7 +4240,7 @@ func flattenInstanceDisksMap(c *Client, i interface{}) map[string]InstanceDisks 
 
 	items := make(map[string]InstanceDisks)
 	for k, item := range a {
-		items[k] = *flattenInstanceDisks(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceDisks(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4248,7 +4248,7 @@ func flattenInstanceDisksMap(c *Client, i interface{}) map[string]InstanceDisks 
 
 // flattenInstanceDisksSlice flattens the contents of InstanceDisks from a JSON
 // response object.
-func flattenInstanceDisksSlice(c *Client, i interface{}) []InstanceDisks {
+func flattenInstanceDisksSlice(c *Client, i interface{}, res *Instance) []InstanceDisks {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceDisks{}
@@ -4260,7 +4260,7 @@ func flattenInstanceDisksSlice(c *Client, i interface{}) []InstanceDisks {
 
 	items := make([]InstanceDisks, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceDisks(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceDisks(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4314,7 +4314,7 @@ func expandInstanceDisks(c *Client, f *InstanceDisks, res *Instance) (map[string
 
 // flattenInstanceDisks flattens an instance of InstanceDisks from a JSON
 // response object.
-func flattenInstanceDisks(c *Client, i interface{}) *InstanceDisks {
+func flattenInstanceDisks(c *Client, i interface{}, res *Instance) *InstanceDisks {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4328,9 +4328,9 @@ func flattenInstanceDisks(c *Client, i interface{}) *InstanceDisks {
 	r.AutoDelete = dcl.FlattenBool(m["autoDelete"])
 	r.Boot = dcl.FlattenBool(m["boot"])
 	r.DeviceName = dcl.FlattenString(m["deviceName"])
-	r.DiskEncryptionKey = flattenInstanceDisksDiskEncryptionKey(c, m["diskEncryptionKey"])
+	r.DiskEncryptionKey = flattenInstanceDisksDiskEncryptionKey(c, m["diskEncryptionKey"], res)
 	r.Index = dcl.FlattenInteger(m["index"])
-	r.InitializeParams = flattenInstanceDisksInitializeParams(c, m["initializeParams"])
+	r.InitializeParams = flattenInstanceDisksInitializeParams(c, m["initializeParams"], res)
 	r.Interface = flattenInstanceDisksInterfaceEnum(m["interface"])
 	r.Mode = flattenInstanceDisksModeEnum(m["mode"])
 	r.Source = dcl.FlattenString(m["source"])
@@ -4382,7 +4382,7 @@ func expandInstanceDisksDiskEncryptionKeySlice(c *Client, f []InstanceDisksDiskE
 
 // flattenInstanceDisksDiskEncryptionKeyMap flattens the contents of InstanceDisksDiskEncryptionKey from a JSON
 // response object.
-func flattenInstanceDisksDiskEncryptionKeyMap(c *Client, i interface{}) map[string]InstanceDisksDiskEncryptionKey {
+func flattenInstanceDisksDiskEncryptionKeyMap(c *Client, i interface{}, res *Instance) map[string]InstanceDisksDiskEncryptionKey {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceDisksDiskEncryptionKey{}
@@ -4394,7 +4394,7 @@ func flattenInstanceDisksDiskEncryptionKeyMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]InstanceDisksDiskEncryptionKey)
 	for k, item := range a {
-		items[k] = *flattenInstanceDisksDiskEncryptionKey(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceDisksDiskEncryptionKey(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4402,7 +4402,7 @@ func flattenInstanceDisksDiskEncryptionKeyMap(c *Client, i interface{}) map[stri
 
 // flattenInstanceDisksDiskEncryptionKeySlice flattens the contents of InstanceDisksDiskEncryptionKey from a JSON
 // response object.
-func flattenInstanceDisksDiskEncryptionKeySlice(c *Client, i interface{}) []InstanceDisksDiskEncryptionKey {
+func flattenInstanceDisksDiskEncryptionKeySlice(c *Client, i interface{}, res *Instance) []InstanceDisksDiskEncryptionKey {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceDisksDiskEncryptionKey{}
@@ -4414,7 +4414,7 @@ func flattenInstanceDisksDiskEncryptionKeySlice(c *Client, i interface{}) []Inst
 
 	items := make([]InstanceDisksDiskEncryptionKey, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceDisksDiskEncryptionKey(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceDisksDiskEncryptionKey(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4440,7 +4440,7 @@ func expandInstanceDisksDiskEncryptionKey(c *Client, f *InstanceDisksDiskEncrypt
 
 // flattenInstanceDisksDiskEncryptionKey flattens an instance of InstanceDisksDiskEncryptionKey from a JSON
 // response object.
-func flattenInstanceDisksDiskEncryptionKey(c *Client, i interface{}) *InstanceDisksDiskEncryptionKey {
+func flattenInstanceDisksDiskEncryptionKey(c *Client, i interface{}, res *Instance) *InstanceDisksDiskEncryptionKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4501,7 +4501,7 @@ func expandInstanceDisksInitializeParamsSlice(c *Client, f []InstanceDisksInitia
 
 // flattenInstanceDisksInitializeParamsMap flattens the contents of InstanceDisksInitializeParams from a JSON
 // response object.
-func flattenInstanceDisksInitializeParamsMap(c *Client, i interface{}) map[string]InstanceDisksInitializeParams {
+func flattenInstanceDisksInitializeParamsMap(c *Client, i interface{}, res *Instance) map[string]InstanceDisksInitializeParams {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceDisksInitializeParams{}
@@ -4513,7 +4513,7 @@ func flattenInstanceDisksInitializeParamsMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]InstanceDisksInitializeParams)
 	for k, item := range a {
-		items[k] = *flattenInstanceDisksInitializeParams(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceDisksInitializeParams(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4521,7 +4521,7 @@ func flattenInstanceDisksInitializeParamsMap(c *Client, i interface{}) map[strin
 
 // flattenInstanceDisksInitializeParamsSlice flattens the contents of InstanceDisksInitializeParams from a JSON
 // response object.
-func flattenInstanceDisksInitializeParamsSlice(c *Client, i interface{}) []InstanceDisksInitializeParams {
+func flattenInstanceDisksInitializeParamsSlice(c *Client, i interface{}, res *Instance) []InstanceDisksInitializeParams {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceDisksInitializeParams{}
@@ -4533,7 +4533,7 @@ func flattenInstanceDisksInitializeParamsSlice(c *Client, i interface{}) []Insta
 
 	items := make([]InstanceDisksInitializeParams, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceDisksInitializeParams(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceDisksInitializeParams(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4570,7 +4570,7 @@ func expandInstanceDisksInitializeParams(c *Client, f *InstanceDisksInitializePa
 
 // flattenInstanceDisksInitializeParams flattens an instance of InstanceDisksInitializeParams from a JSON
 // response object.
-func flattenInstanceDisksInitializeParams(c *Client, i interface{}) *InstanceDisksInitializeParams {
+func flattenInstanceDisksInitializeParams(c *Client, i interface{}, res *Instance) *InstanceDisksInitializeParams {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4585,7 +4585,7 @@ func flattenInstanceDisksInitializeParams(c *Client, i interface{}) *InstanceDis
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.DiskType = dcl.FlattenString(m["diskType"])
 	r.SourceImage = dcl.FlattenString(m["sourceImage"])
-	r.SourceImageEncryptionKey = flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c, m["sourceImageEncryptionKey"])
+	r.SourceImageEncryptionKey = flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c, m["sourceImageEncryptionKey"], res)
 
 	return r
 }
@@ -4633,7 +4633,7 @@ func expandInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client,
 
 // flattenInstanceDisksInitializeParamsSourceImageEncryptionKeyMap flattens the contents of InstanceDisksInitializeParamsSourceImageEncryptionKey from a JSON
 // response object.
-func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, i interface{}) map[string]InstanceDisksInitializeParamsSourceImageEncryptionKey {
+func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, i interface{}, res *Instance) map[string]InstanceDisksInitializeParamsSourceImageEncryptionKey {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceDisksInitializeParamsSourceImageEncryptionKey{}
@@ -4645,7 +4645,7 @@ func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, 
 
 	items := make(map[string]InstanceDisksInitializeParamsSourceImageEncryptionKey)
 	for k, item := range a {
-		items[k] = *flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4653,7 +4653,7 @@ func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, 
 
 // flattenInstanceDisksInitializeParamsSourceImageEncryptionKeySlice flattens the contents of InstanceDisksInitializeParamsSourceImageEncryptionKey from a JSON
 // response object.
-func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, i interface{}) []InstanceDisksInitializeParamsSourceImageEncryptionKey {
+func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, i interface{}, res *Instance) []InstanceDisksInitializeParamsSourceImageEncryptionKey {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceDisksInitializeParamsSourceImageEncryptionKey{}
@@ -4665,7 +4665,7 @@ func flattenInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client
 
 	items := make([]InstanceDisksInitializeParamsSourceImageEncryptionKey, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4688,7 +4688,7 @@ func expandInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, f *I
 
 // flattenInstanceDisksInitializeParamsSourceImageEncryptionKey flattens an instance of InstanceDisksInitializeParamsSourceImageEncryptionKey from a JSON
 // response object.
-func flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, i interface{}) *InstanceDisksInitializeParamsSourceImageEncryptionKey {
+func flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, i interface{}, res *Instance) *InstanceDisksInitializeParamsSourceImageEncryptionKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4748,7 +4748,7 @@ func expandInstanceGuestAcceleratorsSlice(c *Client, f []InstanceGuestAccelerato
 
 // flattenInstanceGuestAcceleratorsMap flattens the contents of InstanceGuestAccelerators from a JSON
 // response object.
-func flattenInstanceGuestAcceleratorsMap(c *Client, i interface{}) map[string]InstanceGuestAccelerators {
+func flattenInstanceGuestAcceleratorsMap(c *Client, i interface{}, res *Instance) map[string]InstanceGuestAccelerators {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGuestAccelerators{}
@@ -4760,7 +4760,7 @@ func flattenInstanceGuestAcceleratorsMap(c *Client, i interface{}) map[string]In
 
 	items := make(map[string]InstanceGuestAccelerators)
 	for k, item := range a {
-		items[k] = *flattenInstanceGuestAccelerators(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGuestAccelerators(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4768,7 +4768,7 @@ func flattenInstanceGuestAcceleratorsMap(c *Client, i interface{}) map[string]In
 
 // flattenInstanceGuestAcceleratorsSlice flattens the contents of InstanceGuestAccelerators from a JSON
 // response object.
-func flattenInstanceGuestAcceleratorsSlice(c *Client, i interface{}) []InstanceGuestAccelerators {
+func flattenInstanceGuestAcceleratorsSlice(c *Client, i interface{}, res *Instance) []InstanceGuestAccelerators {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGuestAccelerators{}
@@ -4780,7 +4780,7 @@ func flattenInstanceGuestAcceleratorsSlice(c *Client, i interface{}) []InstanceG
 
 	items := make([]InstanceGuestAccelerators, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGuestAccelerators(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGuestAccelerators(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4806,7 +4806,7 @@ func expandInstanceGuestAccelerators(c *Client, f *InstanceGuestAccelerators, re
 
 // flattenInstanceGuestAccelerators flattens an instance of InstanceGuestAccelerators from a JSON
 // response object.
-func flattenInstanceGuestAccelerators(c *Client, i interface{}) *InstanceGuestAccelerators {
+func flattenInstanceGuestAccelerators(c *Client, i interface{}, res *Instance) *InstanceGuestAccelerators {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4866,7 +4866,7 @@ func expandInstanceNetworkInterfacesSlice(c *Client, f []InstanceNetworkInterfac
 
 // flattenInstanceNetworkInterfacesMap flattens the contents of InstanceNetworkInterfaces from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesMap(c *Client, i interface{}) map[string]InstanceNetworkInterfaces {
+func flattenInstanceNetworkInterfacesMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfaces {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfaces{}
@@ -4878,7 +4878,7 @@ func flattenInstanceNetworkInterfacesMap(c *Client, i interface{}) map[string]In
 
 	items := make(map[string]InstanceNetworkInterfaces)
 	for k, item := range a {
-		items[k] = *flattenInstanceNetworkInterfaces(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceNetworkInterfaces(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4886,7 +4886,7 @@ func flattenInstanceNetworkInterfacesMap(c *Client, i interface{}) map[string]In
 
 // flattenInstanceNetworkInterfacesSlice flattens the contents of InstanceNetworkInterfaces from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesSlice(c *Client, i interface{}) []InstanceNetworkInterfaces {
+func flattenInstanceNetworkInterfacesSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfaces {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfaces{}
@@ -4898,7 +4898,7 @@ func flattenInstanceNetworkInterfacesSlice(c *Client, i interface{}) []InstanceN
 
 	items := make([]InstanceNetworkInterfaces, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceNetworkInterfaces(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceNetworkInterfaces(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4942,7 +4942,7 @@ func expandInstanceNetworkInterfaces(c *Client, f *InstanceNetworkInterfaces, re
 
 // flattenInstanceNetworkInterfaces flattens an instance of InstanceNetworkInterfaces from a JSON
 // response object.
-func flattenInstanceNetworkInterfaces(c *Client, i interface{}) *InstanceNetworkInterfaces {
+func flattenInstanceNetworkInterfaces(c *Client, i interface{}, res *Instance) *InstanceNetworkInterfaces {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4953,9 +4953,9 @@ func flattenInstanceNetworkInterfaces(c *Client, i interface{}) *InstanceNetwork
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceNetworkInterfaces
 	}
-	r.AccessConfigs = flattenInstanceNetworkInterfacesAccessConfigsSlice(c, m["accessConfigs"])
-	r.IPv6AccessConfigs = flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice(c, m["ipv6AccessConfigs"])
-	r.AliasIPRanges = flattenInstanceNetworkInterfacesAliasIPRangesSlice(c, m["aliasIPRanges"])
+	r.AccessConfigs = flattenInstanceNetworkInterfacesAccessConfigsSlice(c, m["accessConfigs"], res)
+	r.IPv6AccessConfigs = flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice(c, m["ipv6AccessConfigs"], res)
+	r.AliasIPRanges = flattenInstanceNetworkInterfacesAliasIPRangesSlice(c, m["aliasIPRanges"], res)
 	r.Name = dcl.FlattenString(m["name"])
 	r.Network = dcl.FlattenString(m["network"])
 	r.NetworkIP = dcl.FlattenString(m["networkIP"])
@@ -5007,7 +5007,7 @@ func expandInstanceNetworkInterfacesAccessConfigsSlice(c *Client, f []InstanceNe
 
 // flattenInstanceNetworkInterfacesAccessConfigsMap flattens the contents of InstanceNetworkInterfacesAccessConfigs from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAccessConfigsMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesAccessConfigs {
+func flattenInstanceNetworkInterfacesAccessConfigsMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfacesAccessConfigs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfacesAccessConfigs{}
@@ -5019,7 +5019,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsMap(c *Client, i interface{}) 
 
 	items := make(map[string]InstanceNetworkInterfacesAccessConfigs)
 	for k, item := range a {
-		items[k] = *flattenInstanceNetworkInterfacesAccessConfigs(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceNetworkInterfacesAccessConfigs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5027,7 +5027,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsMap(c *Client, i interface{}) 
 
 // flattenInstanceNetworkInterfacesAccessConfigsSlice flattens the contents of InstanceNetworkInterfacesAccessConfigs from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAccessConfigsSlice(c *Client, i interface{}) []InstanceNetworkInterfacesAccessConfigs {
+func flattenInstanceNetworkInterfacesAccessConfigsSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfacesAccessConfigs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfacesAccessConfigs{}
@@ -5039,7 +5039,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsSlice(c *Client, i interface{}
 
 	items := make([]InstanceNetworkInterfacesAccessConfigs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceNetworkInterfacesAccessConfigs(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceNetworkInterfacesAccessConfigs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5077,7 +5077,7 @@ func expandInstanceNetworkInterfacesAccessConfigs(c *Client, f *InstanceNetworkI
 
 // flattenInstanceNetworkInterfacesAccessConfigs flattens an instance of InstanceNetworkInterfacesAccessConfigs from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAccessConfigs(c *Client, i interface{}) *InstanceNetworkInterfacesAccessConfigs {
+func flattenInstanceNetworkInterfacesAccessConfigs(c *Client, i interface{}, res *Instance) *InstanceNetworkInterfacesAccessConfigs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5143,7 +5143,7 @@ func expandInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, f []Instan
 
 // flattenInstanceNetworkInterfacesIPv6AccessConfigsMap flattens the contents of InstanceNetworkInterfacesIPv6AccessConfigs from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesIPv6AccessConfigsMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesIPv6AccessConfigs {
+func flattenInstanceNetworkInterfacesIPv6AccessConfigsMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfacesIPv6AccessConfigs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfacesIPv6AccessConfigs{}
@@ -5155,7 +5155,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsMap(c *Client, i interface
 
 	items := make(map[string]InstanceNetworkInterfacesIPv6AccessConfigs)
 	for k, item := range a {
-		items[k] = *flattenInstanceNetworkInterfacesIPv6AccessConfigs(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceNetworkInterfacesIPv6AccessConfigs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5163,7 +5163,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsMap(c *Client, i interface
 
 // flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice flattens the contents of InstanceNetworkInterfacesIPv6AccessConfigs from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, i interface{}) []InstanceNetworkInterfacesIPv6AccessConfigs {
+func flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfacesIPv6AccessConfigs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfacesIPv6AccessConfigs{}
@@ -5175,7 +5175,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, i interfa
 
 	items := make([]InstanceNetworkInterfacesIPv6AccessConfigs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceNetworkInterfacesIPv6AccessConfigs(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceNetworkInterfacesIPv6AccessConfigs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5213,7 +5213,7 @@ func expandInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, f *InstanceNetw
 
 // flattenInstanceNetworkInterfacesIPv6AccessConfigs flattens an instance of InstanceNetworkInterfacesIPv6AccessConfigs from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, i interface{}) *InstanceNetworkInterfacesIPv6AccessConfigs {
+func flattenInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, i interface{}, res *Instance) *InstanceNetworkInterfacesIPv6AccessConfigs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5279,7 +5279,7 @@ func expandInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, f []InstanceNe
 
 // flattenInstanceNetworkInterfacesAliasIPRangesMap flattens the contents of InstanceNetworkInterfacesAliasIPRanges from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAliasIPRangesMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesAliasIPRanges {
+func flattenInstanceNetworkInterfacesAliasIPRangesMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfacesAliasIPRanges {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfacesAliasIPRanges{}
@@ -5291,7 +5291,7 @@ func flattenInstanceNetworkInterfacesAliasIPRangesMap(c *Client, i interface{}) 
 
 	items := make(map[string]InstanceNetworkInterfacesAliasIPRanges)
 	for k, item := range a {
-		items[k] = *flattenInstanceNetworkInterfacesAliasIPRanges(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceNetworkInterfacesAliasIPRanges(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5299,7 +5299,7 @@ func flattenInstanceNetworkInterfacesAliasIPRangesMap(c *Client, i interface{}) 
 
 // flattenInstanceNetworkInterfacesAliasIPRangesSlice flattens the contents of InstanceNetworkInterfacesAliasIPRanges from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, i interface{}) []InstanceNetworkInterfacesAliasIPRanges {
+func flattenInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfacesAliasIPRanges {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfacesAliasIPRanges{}
@@ -5311,7 +5311,7 @@ func flattenInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, i interface{}
 
 	items := make([]InstanceNetworkInterfacesAliasIPRanges, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceNetworkInterfacesAliasIPRanges(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceNetworkInterfacesAliasIPRanges(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5337,7 +5337,7 @@ func expandInstanceNetworkInterfacesAliasIPRanges(c *Client, f *InstanceNetworkI
 
 // flattenInstanceNetworkInterfacesAliasIPRanges flattens an instance of InstanceNetworkInterfacesAliasIPRanges from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAliasIPRanges(c *Client, i interface{}) *InstanceNetworkInterfacesAliasIPRanges {
+func flattenInstanceNetworkInterfacesAliasIPRanges(c *Client, i interface{}, res *Instance) *InstanceNetworkInterfacesAliasIPRanges {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5397,7 +5397,7 @@ func expandInstanceSchedulingSlice(c *Client, f []InstanceScheduling, res *Insta
 
 // flattenInstanceSchedulingMap flattens the contents of InstanceScheduling from a JSON
 // response object.
-func flattenInstanceSchedulingMap(c *Client, i interface{}) map[string]InstanceScheduling {
+func flattenInstanceSchedulingMap(c *Client, i interface{}, res *Instance) map[string]InstanceScheduling {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceScheduling{}
@@ -5409,7 +5409,7 @@ func flattenInstanceSchedulingMap(c *Client, i interface{}) map[string]InstanceS
 
 	items := make(map[string]InstanceScheduling)
 	for k, item := range a {
-		items[k] = *flattenInstanceScheduling(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceScheduling(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5417,7 +5417,7 @@ func flattenInstanceSchedulingMap(c *Client, i interface{}) map[string]InstanceS
 
 // flattenInstanceSchedulingSlice flattens the contents of InstanceScheduling from a JSON
 // response object.
-func flattenInstanceSchedulingSlice(c *Client, i interface{}) []InstanceScheduling {
+func flattenInstanceSchedulingSlice(c *Client, i interface{}, res *Instance) []InstanceScheduling {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceScheduling{}
@@ -5429,7 +5429,7 @@ func flattenInstanceSchedulingSlice(c *Client, i interface{}) []InstanceScheduli
 
 	items := make([]InstanceScheduling, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceScheduling(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceScheduling(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5458,7 +5458,7 @@ func expandInstanceScheduling(c *Client, f *InstanceScheduling, res *Instance) (
 
 // flattenInstanceScheduling flattens an instance of InstanceScheduling from a JSON
 // response object.
-func flattenInstanceScheduling(c *Client, i interface{}) *InstanceScheduling {
+func flattenInstanceScheduling(c *Client, i interface{}, res *Instance) *InstanceScheduling {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5519,7 +5519,7 @@ func expandInstanceServiceAccountsSlice(c *Client, f []InstanceServiceAccounts, 
 
 // flattenInstanceServiceAccountsMap flattens the contents of InstanceServiceAccounts from a JSON
 // response object.
-func flattenInstanceServiceAccountsMap(c *Client, i interface{}) map[string]InstanceServiceAccounts {
+func flattenInstanceServiceAccountsMap(c *Client, i interface{}, res *Instance) map[string]InstanceServiceAccounts {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceServiceAccounts{}
@@ -5531,7 +5531,7 @@ func flattenInstanceServiceAccountsMap(c *Client, i interface{}) map[string]Inst
 
 	items := make(map[string]InstanceServiceAccounts)
 	for k, item := range a {
-		items[k] = *flattenInstanceServiceAccounts(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceServiceAccounts(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5539,7 +5539,7 @@ func flattenInstanceServiceAccountsMap(c *Client, i interface{}) map[string]Inst
 
 // flattenInstanceServiceAccountsSlice flattens the contents of InstanceServiceAccounts from a JSON
 // response object.
-func flattenInstanceServiceAccountsSlice(c *Client, i interface{}) []InstanceServiceAccounts {
+func flattenInstanceServiceAccountsSlice(c *Client, i interface{}, res *Instance) []InstanceServiceAccounts {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceServiceAccounts{}
@@ -5551,7 +5551,7 @@ func flattenInstanceServiceAccountsSlice(c *Client, i interface{}) []InstanceSer
 
 	items := make([]InstanceServiceAccounts, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceServiceAccounts(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceServiceAccounts(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5577,7 +5577,7 @@ func expandInstanceServiceAccounts(c *Client, f *InstanceServiceAccounts, res *I
 
 // flattenInstanceServiceAccounts flattens an instance of InstanceServiceAccounts from a JSON
 // response object.
-func flattenInstanceServiceAccounts(c *Client, i interface{}) *InstanceServiceAccounts {
+func flattenInstanceServiceAccounts(c *Client, i interface{}, res *Instance) *InstanceServiceAccounts {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5637,7 +5637,7 @@ func expandInstanceShieldedInstanceConfigSlice(c *Client, f []InstanceShieldedIn
 
 // flattenInstanceShieldedInstanceConfigMap flattens the contents of InstanceShieldedInstanceConfig from a JSON
 // response object.
-func flattenInstanceShieldedInstanceConfigMap(c *Client, i interface{}) map[string]InstanceShieldedInstanceConfig {
+func flattenInstanceShieldedInstanceConfigMap(c *Client, i interface{}, res *Instance) map[string]InstanceShieldedInstanceConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceShieldedInstanceConfig{}
@@ -5649,7 +5649,7 @@ func flattenInstanceShieldedInstanceConfigMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]InstanceShieldedInstanceConfig)
 	for k, item := range a {
-		items[k] = *flattenInstanceShieldedInstanceConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceShieldedInstanceConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5657,7 +5657,7 @@ func flattenInstanceShieldedInstanceConfigMap(c *Client, i interface{}) map[stri
 
 // flattenInstanceShieldedInstanceConfigSlice flattens the contents of InstanceShieldedInstanceConfig from a JSON
 // response object.
-func flattenInstanceShieldedInstanceConfigSlice(c *Client, i interface{}) []InstanceShieldedInstanceConfig {
+func flattenInstanceShieldedInstanceConfigSlice(c *Client, i interface{}, res *Instance) []InstanceShieldedInstanceConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceShieldedInstanceConfig{}
@@ -5669,7 +5669,7 @@ func flattenInstanceShieldedInstanceConfigSlice(c *Client, i interface{}) []Inst
 
 	items := make([]InstanceShieldedInstanceConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceShieldedInstanceConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceShieldedInstanceConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5698,7 +5698,7 @@ func expandInstanceShieldedInstanceConfig(c *Client, f *InstanceShieldedInstance
 
 // flattenInstanceShieldedInstanceConfig flattens an instance of InstanceShieldedInstanceConfig from a JSON
 // response object.
-func flattenInstanceShieldedInstanceConfig(c *Client, i interface{}) *InstanceShieldedInstanceConfig {
+func flattenInstanceShieldedInstanceConfig(c *Client, i interface{}, res *Instance) *InstanceShieldedInstanceConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5718,7 +5718,7 @@ func flattenInstanceShieldedInstanceConfig(c *Client, i interface{}) *InstanceSh
 
 // flattenInstanceDisksInterfaceEnumMap flattens the contents of InstanceDisksInterfaceEnum from a JSON
 // response object.
-func flattenInstanceDisksInterfaceEnumMap(c *Client, i interface{}) map[string]InstanceDisksInterfaceEnum {
+func flattenInstanceDisksInterfaceEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceDisksInterfaceEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceDisksInterfaceEnum{}
@@ -5738,7 +5738,7 @@ func flattenInstanceDisksInterfaceEnumMap(c *Client, i interface{}) map[string]I
 
 // flattenInstanceDisksInterfaceEnumSlice flattens the contents of InstanceDisksInterfaceEnum from a JSON
 // response object.
-func flattenInstanceDisksInterfaceEnumSlice(c *Client, i interface{}) []InstanceDisksInterfaceEnum {
+func flattenInstanceDisksInterfaceEnumSlice(c *Client, i interface{}, res *Instance) []InstanceDisksInterfaceEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceDisksInterfaceEnum{}
@@ -5769,7 +5769,7 @@ func flattenInstanceDisksInterfaceEnum(i interface{}) *InstanceDisksInterfaceEnu
 
 // flattenInstanceDisksModeEnumMap flattens the contents of InstanceDisksModeEnum from a JSON
 // response object.
-func flattenInstanceDisksModeEnumMap(c *Client, i interface{}) map[string]InstanceDisksModeEnum {
+func flattenInstanceDisksModeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceDisksModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceDisksModeEnum{}
@@ -5789,7 +5789,7 @@ func flattenInstanceDisksModeEnumMap(c *Client, i interface{}) map[string]Instan
 
 // flattenInstanceDisksModeEnumSlice flattens the contents of InstanceDisksModeEnum from a JSON
 // response object.
-func flattenInstanceDisksModeEnumSlice(c *Client, i interface{}) []InstanceDisksModeEnum {
+func flattenInstanceDisksModeEnumSlice(c *Client, i interface{}, res *Instance) []InstanceDisksModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceDisksModeEnum{}
@@ -5820,7 +5820,7 @@ func flattenInstanceDisksModeEnum(i interface{}) *InstanceDisksModeEnum {
 
 // flattenInstanceDisksTypeEnumMap flattens the contents of InstanceDisksTypeEnum from a JSON
 // response object.
-func flattenInstanceDisksTypeEnumMap(c *Client, i interface{}) map[string]InstanceDisksTypeEnum {
+func flattenInstanceDisksTypeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceDisksTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceDisksTypeEnum{}
@@ -5840,7 +5840,7 @@ func flattenInstanceDisksTypeEnumMap(c *Client, i interface{}) map[string]Instan
 
 // flattenInstanceDisksTypeEnumSlice flattens the contents of InstanceDisksTypeEnum from a JSON
 // response object.
-func flattenInstanceDisksTypeEnumSlice(c *Client, i interface{}) []InstanceDisksTypeEnum {
+func flattenInstanceDisksTypeEnumSlice(c *Client, i interface{}, res *Instance) []InstanceDisksTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceDisksTypeEnum{}
@@ -5871,7 +5871,7 @@ func flattenInstanceDisksTypeEnum(i interface{}) *InstanceDisksTypeEnum {
 
 // flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumMap flattens the contents of InstanceNetworkInterfacesAccessConfigsNetworkTierEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
+func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfacesAccessConfigsNetworkTierEnum{}
@@ -5891,7 +5891,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumMap(c *Client, 
 
 // flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumSlice flattens the contents of InstanceNetworkInterfacesAccessConfigsNetworkTierEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumSlice(c *Client, i interface{}) []InstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
+func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnumSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfacesAccessConfigsNetworkTierEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfacesAccessConfigsNetworkTierEnum{}
@@ -5922,7 +5922,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsNetworkTierEnum(i interface{})
 
 // flattenInstanceNetworkInterfacesAccessConfigsTypeEnumMap flattens the contents of InstanceNetworkInterfacesAccessConfigsTypeEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesAccessConfigsTypeEnum {
+func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfacesAccessConfigsTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfacesAccessConfigsTypeEnum{}
@@ -5942,7 +5942,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumMap(c *Client, i inter
 
 // flattenInstanceNetworkInterfacesAccessConfigsTypeEnumSlice flattens the contents of InstanceNetworkInterfacesAccessConfigsTypeEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumSlice(c *Client, i interface{}) []InstanceNetworkInterfacesAccessConfigsTypeEnum {
+func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfacesAccessConfigsTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfacesAccessConfigsTypeEnum{}
@@ -5973,7 +5973,7 @@ func flattenInstanceNetworkInterfacesAccessConfigsTypeEnum(i interface{}) *Insta
 
 // flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumMap flattens the contents of InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
+func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum{}
@@ -5993,7 +5993,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumMap(c *Clie
 
 // flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumSlice flattens the contents of InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumSlice(c *Client, i interface{}) []InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
+func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnumSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum{}
@@ -6024,7 +6024,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(i interfac
 
 // flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumMap flattens the contents of InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
+func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum{}
@@ -6044,7 +6044,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumMap(c *Client, i i
 
 // flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumSlice flattens the contents of InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum from a JSON
 // response object.
-func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumSlice(c *Client, i interface{}) []InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
+func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnumSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum{}
@@ -6075,7 +6075,7 @@ func flattenInstanceNetworkInterfacesIPv6AccessConfigsTypeEnum(i interface{}) *I
 
 // flattenInstanceStatusEnumMap flattens the contents of InstanceStatusEnum from a JSON
 // response object.
-func flattenInstanceStatusEnumMap(c *Client, i interface{}) map[string]InstanceStatusEnum {
+func flattenInstanceStatusEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceStatusEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceStatusEnum{}
@@ -6095,7 +6095,7 @@ func flattenInstanceStatusEnumMap(c *Client, i interface{}) map[string]InstanceS
 
 // flattenInstanceStatusEnumSlice flattens the contents of InstanceStatusEnum from a JSON
 // response object.
-func flattenInstanceStatusEnumSlice(c *Client, i interface{}) []InstanceStatusEnum {
+func flattenInstanceStatusEnumSlice(c *Client, i interface{}, res *Instance) []InstanceStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceStatusEnum{}
@@ -6129,7 +6129,7 @@ func flattenInstanceStatusEnum(i interface{}) *InstanceStatusEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Instance) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInstance(b, c)
+		cr, err := unmarshalInstance(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

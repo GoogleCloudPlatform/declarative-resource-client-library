@@ -57,6 +57,9 @@ func MeshToUnstructured(r *dclService.Mesh) *unstructured.Resource {
 	if r.Project != nil {
 		u.Object["project"] = *r.Project
 	}
+	if r.SelfLink != nil {
+		u.Object["selfLink"] = *r.SelfLink
+	}
 	if r.UpdateTime != nil {
 		u.Object["updateTime"] = *r.UpdateTime
 	}
@@ -118,6 +121,13 @@ func UnstructuredToMesh(u *unstructured.Resource) (*dclService.Mesh, error) {
 			r.Project = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Project: expected string")
+		}
+	}
+	if _, ok := u.Object["selfLink"]; ok {
+		if s, ok := u.Object["selfLink"].(string); ok {
+			r.SelfLink = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.SelfLink: expected string")
 		}
 	}
 	if _, ok := u.Object["updateTime"]; ok {

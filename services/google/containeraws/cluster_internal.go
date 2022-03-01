@@ -277,6 +277,11 @@ func newUpdateClusterUpdateAwsClusterRequest(ctx context.Context, f *Cluster, c 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["controlPlane"] = v
 	}
+	if v, err := expandClusterAuthorization(c, f.Authorization, res); err != nil {
+		return nil, fmt.Errorf("error expanding Authorization into authorization: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["authorization"] = v
+	}
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		req["annotations"] = v
 	}
@@ -408,7 +413,7 @@ func (c *Client) listCluster(ctx context.Context, r *Cluster, pageToken string, 
 
 	var l []*Cluster
 	for _, v := range m.AwsClusters {
-		res, err := unmarshalMapCluster(v, c)
+		res, err := unmarshalMapCluster(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -2632,7 +2637,7 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceType, actual.InstanceType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceType, actual.InstanceType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("InstanceType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2660,7 +2665,7 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecurityGroupIds, actual.SecurityGroupIds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityGroupIds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecurityGroupIds, actual.SecurityGroupIds, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("SecurityGroupIds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2767,7 +2772,7 @@ func compareClusterControlPlaneConfigEncryptionNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKeyArn, actual.KmsKeyArn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyArn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsKeyArn, actual.KmsKeyArn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("KmsKeyArn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2925,14 +2930,14 @@ func compareClusterControlPlaneAwsServicesAuthenticationNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RoleArn, actual.RoleArn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RoleArn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoleArn, actual.RoleArn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("RoleArn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RoleSessionName, actual.RoleSessionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RoleSessionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoleSessionName, actual.RoleSessionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("RoleSessionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2961,14 +2966,14 @@ func compareClusterControlPlaneProxyConfigNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SecretArn, actual.SecretArn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretArn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretArn, actual.SecretArn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("SecretArn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecretVersion, actual.SecretVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretVersion, actual.SecretVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("SecretVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2997,7 +3002,7 @@ func compareClusterAuthorizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AdminUsers, actual.AdminUsers, dcl.Info{ObjectFunction: compareClusterAuthorizationAdminUsersNewStyle, EmptyObject: EmptyClusterAuthorizationAdminUsers, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AdminUsers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdminUsers, actual.AdminUsers, dcl.Info{ObjectFunction: compareClusterAuthorizationAdminUsersNewStyle, EmptyObject: EmptyClusterAuthorizationAdminUsers, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("AdminUsers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3026,7 +3031,7 @@ func compareClusterAuthorizationAdminUsersNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3158,17 +3163,17 @@ func (r *Cluster) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalCluster decodes JSON responses into the Cluster resource schema.
-func unmarshalCluster(b []byte, c *Client) (*Cluster, error) {
+func unmarshalCluster(b []byte, c *Client, res *Cluster) (*Cluster, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapCluster(m, c)
+	return unmarshalMapCluster(m, c, res)
 }
 
-func unmarshalMapCluster(m map[string]interface{}, c *Client) (*Cluster, error) {
+func unmarshalMapCluster(m map[string]interface{}, c *Client, res *Cluster) (*Cluster, error) {
 
-	flattened := flattenCluster(c, m)
+	flattened := flattenCluster(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -3230,7 +3235,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 
 // flattenCluster flattens Cluster from a JSON request object into the
 // Cluster type.
-func flattenCluster(c *Client, i interface{}) *Cluster {
+func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3239,27 +3244,27 @@ func flattenCluster(c *Client, i interface{}) *Cluster {
 		return nil
 	}
 
-	res := &Cluster{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Networking = flattenClusterNetworking(c, m["networking"])
-	res.AwsRegion = dcl.FlattenString(m["awsRegion"])
-	res.ControlPlane = flattenClusterControlPlane(c, m["controlPlane"])
-	res.Authorization = flattenClusterAuthorization(c, m["authorization"])
-	res.State = flattenClusterStateEnum(m["state"])
-	res.Endpoint = dcl.FlattenString(m["endpoint"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.Reconciling = dcl.FlattenBool(m["reconciling"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
-	res.WorkloadIdentityConfig = flattenClusterWorkloadIdentityConfig(c, m["workloadIdentityConfig"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Fleet = flattenClusterFleet(c, m["fleet"])
+	resultRes := &Cluster{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Networking = flattenClusterNetworking(c, m["networking"], res)
+	resultRes.AwsRegion = dcl.FlattenString(m["awsRegion"])
+	resultRes.ControlPlane = flattenClusterControlPlane(c, m["controlPlane"], res)
+	resultRes.Authorization = flattenClusterAuthorization(c, m["authorization"], res)
+	resultRes.State = flattenClusterStateEnum(m["state"])
+	resultRes.Endpoint = dcl.FlattenString(m["endpoint"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.Reconciling = dcl.FlattenBool(m["reconciling"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
+	resultRes.WorkloadIdentityConfig = flattenClusterWorkloadIdentityConfig(c, m["workloadIdentityConfig"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Fleet = flattenClusterFleet(c, m["fleet"], res)
 
-	return res
+	return resultRes
 }
 
 // expandClusterNetworkingMap expands the contents of ClusterNetworking into a JSON
@@ -3305,7 +3310,7 @@ func expandClusterNetworkingSlice(c *Client, f []ClusterNetworking, res *Cluster
 
 // flattenClusterNetworkingMap flattens the contents of ClusterNetworking from a JSON
 // response object.
-func flattenClusterNetworkingMap(c *Client, i interface{}) map[string]ClusterNetworking {
+func flattenClusterNetworkingMap(c *Client, i interface{}, res *Cluster) map[string]ClusterNetworking {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterNetworking{}
@@ -3317,7 +3322,7 @@ func flattenClusterNetworkingMap(c *Client, i interface{}) map[string]ClusterNet
 
 	items := make(map[string]ClusterNetworking)
 	for k, item := range a {
-		items[k] = *flattenClusterNetworking(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterNetworking(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3325,7 +3330,7 @@ func flattenClusterNetworkingMap(c *Client, i interface{}) map[string]ClusterNet
 
 // flattenClusterNetworkingSlice flattens the contents of ClusterNetworking from a JSON
 // response object.
-func flattenClusterNetworkingSlice(c *Client, i interface{}) []ClusterNetworking {
+func flattenClusterNetworkingSlice(c *Client, i interface{}, res *Cluster) []ClusterNetworking {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterNetworking{}
@@ -3337,7 +3342,7 @@ func flattenClusterNetworkingSlice(c *Client, i interface{}) []ClusterNetworking
 
 	items := make([]ClusterNetworking, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterNetworking(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterNetworking(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3366,7 +3371,7 @@ func expandClusterNetworking(c *Client, f *ClusterNetworking, res *Cluster) (map
 
 // flattenClusterNetworking flattens an instance of ClusterNetworking from a JSON
 // response object.
-func flattenClusterNetworking(c *Client, i interface{}) *ClusterNetworking {
+func flattenClusterNetworking(c *Client, i interface{}, res *Cluster) *ClusterNetworking {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3427,7 +3432,7 @@ func expandClusterControlPlaneSlice(c *Client, f []ClusterControlPlane, res *Clu
 
 // flattenClusterControlPlaneMap flattens the contents of ClusterControlPlane from a JSON
 // response object.
-func flattenClusterControlPlaneMap(c *Client, i interface{}) map[string]ClusterControlPlane {
+func flattenClusterControlPlaneMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlane {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlane{}
@@ -3439,7 +3444,7 @@ func flattenClusterControlPlaneMap(c *Client, i interface{}) map[string]ClusterC
 
 	items := make(map[string]ClusterControlPlane)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlane(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlane(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3447,7 +3452,7 @@ func flattenClusterControlPlaneMap(c *Client, i interface{}) map[string]ClusterC
 
 // flattenClusterControlPlaneSlice flattens the contents of ClusterControlPlane from a JSON
 // response object.
-func flattenClusterControlPlaneSlice(c *Client, i interface{}) []ClusterControlPlane {
+func flattenClusterControlPlaneSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlane {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlane{}
@@ -3459,7 +3464,7 @@ func flattenClusterControlPlaneSlice(c *Client, i interface{}) []ClusterControlP
 
 	items := make([]ClusterControlPlane, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlane(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlane(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3532,7 +3537,7 @@ func expandClusterControlPlane(c *Client, f *ClusterControlPlane, res *Cluster) 
 
 // flattenClusterControlPlane flattens an instance of ClusterControlPlane from a JSON
 // response object.
-func flattenClusterControlPlane(c *Client, i interface{}) *ClusterControlPlane {
+func flattenClusterControlPlane(c *Client, i interface{}, res *Cluster) *ClusterControlPlane {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3545,17 +3550,17 @@ func flattenClusterControlPlane(c *Client, i interface{}) *ClusterControlPlane {
 	}
 	r.Version = dcl.FlattenString(m["version"])
 	r.InstanceType = dcl.FlattenString(m["instanceType"])
-	r.SshConfig = flattenClusterControlPlaneSshConfig(c, m["sshConfig"])
+	r.SshConfig = flattenClusterControlPlaneSshConfig(c, m["sshConfig"], res)
 	r.SubnetIds = dcl.FlattenStringSlice(m["subnetIds"])
-	r.ConfigEncryption = flattenClusterControlPlaneConfigEncryption(c, m["configEncryption"])
+	r.ConfigEncryption = flattenClusterControlPlaneConfigEncryption(c, m["configEncryption"], res)
 	r.SecurityGroupIds = dcl.FlattenStringSlice(m["securityGroupIds"])
 	r.IamInstanceProfile = dcl.FlattenString(m["iamInstanceProfile"])
-	r.RootVolume = flattenClusterControlPlaneRootVolume(c, m["rootVolume"])
-	r.MainVolume = flattenClusterControlPlaneMainVolume(c, m["mainVolume"])
-	r.DatabaseEncryption = flattenClusterControlPlaneDatabaseEncryption(c, m["databaseEncryption"])
+	r.RootVolume = flattenClusterControlPlaneRootVolume(c, m["rootVolume"], res)
+	r.MainVolume = flattenClusterControlPlaneMainVolume(c, m["mainVolume"], res)
+	r.DatabaseEncryption = flattenClusterControlPlaneDatabaseEncryption(c, m["databaseEncryption"], res)
 	r.Tags = dcl.FlattenKeyValuePairs(m["tags"])
-	r.AwsServicesAuthentication = flattenClusterControlPlaneAwsServicesAuthentication(c, m["awsServicesAuthentication"])
-	r.ProxyConfig = flattenClusterControlPlaneProxyConfig(c, m["proxyConfig"])
+	r.AwsServicesAuthentication = flattenClusterControlPlaneAwsServicesAuthentication(c, m["awsServicesAuthentication"], res)
+	r.ProxyConfig = flattenClusterControlPlaneProxyConfig(c, m["proxyConfig"], res)
 
 	return r
 }
@@ -3603,7 +3608,7 @@ func expandClusterControlPlaneSshConfigSlice(c *Client, f []ClusterControlPlaneS
 
 // flattenClusterControlPlaneSshConfigMap flattens the contents of ClusterControlPlaneSshConfig from a JSON
 // response object.
-func flattenClusterControlPlaneSshConfigMap(c *Client, i interface{}) map[string]ClusterControlPlaneSshConfig {
+func flattenClusterControlPlaneSshConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneSshConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneSshConfig{}
@@ -3615,7 +3620,7 @@ func flattenClusterControlPlaneSshConfigMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ClusterControlPlaneSshConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlaneSshConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlaneSshConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3623,7 +3628,7 @@ func flattenClusterControlPlaneSshConfigMap(c *Client, i interface{}) map[string
 
 // flattenClusterControlPlaneSshConfigSlice flattens the contents of ClusterControlPlaneSshConfig from a JSON
 // response object.
-func flattenClusterControlPlaneSshConfigSlice(c *Client, i interface{}) []ClusterControlPlaneSshConfig {
+func flattenClusterControlPlaneSshConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneSshConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneSshConfig{}
@@ -3635,7 +3640,7 @@ func flattenClusterControlPlaneSshConfigSlice(c *Client, i interface{}) []Cluste
 
 	items := make([]ClusterControlPlaneSshConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlaneSshConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlaneSshConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3658,7 +3663,7 @@ func expandClusterControlPlaneSshConfig(c *Client, f *ClusterControlPlaneSshConf
 
 // flattenClusterControlPlaneSshConfig flattens an instance of ClusterControlPlaneSshConfig from a JSON
 // response object.
-func flattenClusterControlPlaneSshConfig(c *Client, i interface{}) *ClusterControlPlaneSshConfig {
+func flattenClusterControlPlaneSshConfig(c *Client, i interface{}, res *Cluster) *ClusterControlPlaneSshConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3717,7 +3722,7 @@ func expandClusterControlPlaneConfigEncryptionSlice(c *Client, f []ClusterContro
 
 // flattenClusterControlPlaneConfigEncryptionMap flattens the contents of ClusterControlPlaneConfigEncryption from a JSON
 // response object.
-func flattenClusterControlPlaneConfigEncryptionMap(c *Client, i interface{}) map[string]ClusterControlPlaneConfigEncryption {
+func flattenClusterControlPlaneConfigEncryptionMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneConfigEncryption {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneConfigEncryption{}
@@ -3729,7 +3734,7 @@ func flattenClusterControlPlaneConfigEncryptionMap(c *Client, i interface{}) map
 
 	items := make(map[string]ClusterControlPlaneConfigEncryption)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlaneConfigEncryption(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlaneConfigEncryption(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3737,7 +3742,7 @@ func flattenClusterControlPlaneConfigEncryptionMap(c *Client, i interface{}) map
 
 // flattenClusterControlPlaneConfigEncryptionSlice flattens the contents of ClusterControlPlaneConfigEncryption from a JSON
 // response object.
-func flattenClusterControlPlaneConfigEncryptionSlice(c *Client, i interface{}) []ClusterControlPlaneConfigEncryption {
+func flattenClusterControlPlaneConfigEncryptionSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneConfigEncryption {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneConfigEncryption{}
@@ -3749,7 +3754,7 @@ func flattenClusterControlPlaneConfigEncryptionSlice(c *Client, i interface{}) [
 
 	items := make([]ClusterControlPlaneConfigEncryption, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlaneConfigEncryption(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlaneConfigEncryption(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3772,7 +3777,7 @@ func expandClusterControlPlaneConfigEncryption(c *Client, f *ClusterControlPlane
 
 // flattenClusterControlPlaneConfigEncryption flattens an instance of ClusterControlPlaneConfigEncryption from a JSON
 // response object.
-func flattenClusterControlPlaneConfigEncryption(c *Client, i interface{}) *ClusterControlPlaneConfigEncryption {
+func flattenClusterControlPlaneConfigEncryption(c *Client, i interface{}, res *Cluster) *ClusterControlPlaneConfigEncryption {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3831,7 +3836,7 @@ func expandClusterControlPlaneRootVolumeSlice(c *Client, f []ClusterControlPlane
 
 // flattenClusterControlPlaneRootVolumeMap flattens the contents of ClusterControlPlaneRootVolume from a JSON
 // response object.
-func flattenClusterControlPlaneRootVolumeMap(c *Client, i interface{}) map[string]ClusterControlPlaneRootVolume {
+func flattenClusterControlPlaneRootVolumeMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneRootVolume {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneRootVolume{}
@@ -3843,7 +3848,7 @@ func flattenClusterControlPlaneRootVolumeMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]ClusterControlPlaneRootVolume)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlaneRootVolume(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlaneRootVolume(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3851,7 +3856,7 @@ func flattenClusterControlPlaneRootVolumeMap(c *Client, i interface{}) map[strin
 
 // flattenClusterControlPlaneRootVolumeSlice flattens the contents of ClusterControlPlaneRootVolume from a JSON
 // response object.
-func flattenClusterControlPlaneRootVolumeSlice(c *Client, i interface{}) []ClusterControlPlaneRootVolume {
+func flattenClusterControlPlaneRootVolumeSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneRootVolume {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneRootVolume{}
@@ -3863,7 +3868,7 @@ func flattenClusterControlPlaneRootVolumeSlice(c *Client, i interface{}) []Clust
 
 	items := make([]ClusterControlPlaneRootVolume, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlaneRootVolume(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlaneRootVolume(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3895,7 +3900,7 @@ func expandClusterControlPlaneRootVolume(c *Client, f *ClusterControlPlaneRootVo
 
 // flattenClusterControlPlaneRootVolume flattens an instance of ClusterControlPlaneRootVolume from a JSON
 // response object.
-func flattenClusterControlPlaneRootVolume(c *Client, i interface{}) *ClusterControlPlaneRootVolume {
+func flattenClusterControlPlaneRootVolume(c *Client, i interface{}, res *Cluster) *ClusterControlPlaneRootVolume {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3957,7 +3962,7 @@ func expandClusterControlPlaneMainVolumeSlice(c *Client, f []ClusterControlPlane
 
 // flattenClusterControlPlaneMainVolumeMap flattens the contents of ClusterControlPlaneMainVolume from a JSON
 // response object.
-func flattenClusterControlPlaneMainVolumeMap(c *Client, i interface{}) map[string]ClusterControlPlaneMainVolume {
+func flattenClusterControlPlaneMainVolumeMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneMainVolume {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneMainVolume{}
@@ -3969,7 +3974,7 @@ func flattenClusterControlPlaneMainVolumeMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]ClusterControlPlaneMainVolume)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlaneMainVolume(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlaneMainVolume(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3977,7 +3982,7 @@ func flattenClusterControlPlaneMainVolumeMap(c *Client, i interface{}) map[strin
 
 // flattenClusterControlPlaneMainVolumeSlice flattens the contents of ClusterControlPlaneMainVolume from a JSON
 // response object.
-func flattenClusterControlPlaneMainVolumeSlice(c *Client, i interface{}) []ClusterControlPlaneMainVolume {
+func flattenClusterControlPlaneMainVolumeSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneMainVolume {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneMainVolume{}
@@ -3989,7 +3994,7 @@ func flattenClusterControlPlaneMainVolumeSlice(c *Client, i interface{}) []Clust
 
 	items := make([]ClusterControlPlaneMainVolume, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlaneMainVolume(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlaneMainVolume(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4021,7 +4026,7 @@ func expandClusterControlPlaneMainVolume(c *Client, f *ClusterControlPlaneMainVo
 
 // flattenClusterControlPlaneMainVolume flattens an instance of ClusterControlPlaneMainVolume from a JSON
 // response object.
-func flattenClusterControlPlaneMainVolume(c *Client, i interface{}) *ClusterControlPlaneMainVolume {
+func flattenClusterControlPlaneMainVolume(c *Client, i interface{}, res *Cluster) *ClusterControlPlaneMainVolume {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4083,7 +4088,7 @@ func expandClusterControlPlaneDatabaseEncryptionSlice(c *Client, f []ClusterCont
 
 // flattenClusterControlPlaneDatabaseEncryptionMap flattens the contents of ClusterControlPlaneDatabaseEncryption from a JSON
 // response object.
-func flattenClusterControlPlaneDatabaseEncryptionMap(c *Client, i interface{}) map[string]ClusterControlPlaneDatabaseEncryption {
+func flattenClusterControlPlaneDatabaseEncryptionMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneDatabaseEncryption {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneDatabaseEncryption{}
@@ -4095,7 +4100,7 @@ func flattenClusterControlPlaneDatabaseEncryptionMap(c *Client, i interface{}) m
 
 	items := make(map[string]ClusterControlPlaneDatabaseEncryption)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlaneDatabaseEncryption(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlaneDatabaseEncryption(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4103,7 +4108,7 @@ func flattenClusterControlPlaneDatabaseEncryptionMap(c *Client, i interface{}) m
 
 // flattenClusterControlPlaneDatabaseEncryptionSlice flattens the contents of ClusterControlPlaneDatabaseEncryption from a JSON
 // response object.
-func flattenClusterControlPlaneDatabaseEncryptionSlice(c *Client, i interface{}) []ClusterControlPlaneDatabaseEncryption {
+func flattenClusterControlPlaneDatabaseEncryptionSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneDatabaseEncryption {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneDatabaseEncryption{}
@@ -4115,7 +4120,7 @@ func flattenClusterControlPlaneDatabaseEncryptionSlice(c *Client, i interface{})
 
 	items := make([]ClusterControlPlaneDatabaseEncryption, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlaneDatabaseEncryption(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlaneDatabaseEncryption(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4138,7 +4143,7 @@ func expandClusterControlPlaneDatabaseEncryption(c *Client, f *ClusterControlPla
 
 // flattenClusterControlPlaneDatabaseEncryption flattens an instance of ClusterControlPlaneDatabaseEncryption from a JSON
 // response object.
-func flattenClusterControlPlaneDatabaseEncryption(c *Client, i interface{}) *ClusterControlPlaneDatabaseEncryption {
+func flattenClusterControlPlaneDatabaseEncryption(c *Client, i interface{}, res *Cluster) *ClusterControlPlaneDatabaseEncryption {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4197,7 +4202,7 @@ func expandClusterControlPlaneAwsServicesAuthenticationSlice(c *Client, f []Clus
 
 // flattenClusterControlPlaneAwsServicesAuthenticationMap flattens the contents of ClusterControlPlaneAwsServicesAuthentication from a JSON
 // response object.
-func flattenClusterControlPlaneAwsServicesAuthenticationMap(c *Client, i interface{}) map[string]ClusterControlPlaneAwsServicesAuthentication {
+func flattenClusterControlPlaneAwsServicesAuthenticationMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneAwsServicesAuthentication {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneAwsServicesAuthentication{}
@@ -4209,7 +4214,7 @@ func flattenClusterControlPlaneAwsServicesAuthenticationMap(c *Client, i interfa
 
 	items := make(map[string]ClusterControlPlaneAwsServicesAuthentication)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlaneAwsServicesAuthentication(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlaneAwsServicesAuthentication(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4217,7 +4222,7 @@ func flattenClusterControlPlaneAwsServicesAuthenticationMap(c *Client, i interfa
 
 // flattenClusterControlPlaneAwsServicesAuthenticationSlice flattens the contents of ClusterControlPlaneAwsServicesAuthentication from a JSON
 // response object.
-func flattenClusterControlPlaneAwsServicesAuthenticationSlice(c *Client, i interface{}) []ClusterControlPlaneAwsServicesAuthentication {
+func flattenClusterControlPlaneAwsServicesAuthenticationSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneAwsServicesAuthentication {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneAwsServicesAuthentication{}
@@ -4229,7 +4234,7 @@ func flattenClusterControlPlaneAwsServicesAuthenticationSlice(c *Client, i inter
 
 	items := make([]ClusterControlPlaneAwsServicesAuthentication, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlaneAwsServicesAuthentication(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlaneAwsServicesAuthentication(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4255,7 +4260,7 @@ func expandClusterControlPlaneAwsServicesAuthentication(c *Client, f *ClusterCon
 
 // flattenClusterControlPlaneAwsServicesAuthentication flattens an instance of ClusterControlPlaneAwsServicesAuthentication from a JSON
 // response object.
-func flattenClusterControlPlaneAwsServicesAuthentication(c *Client, i interface{}) *ClusterControlPlaneAwsServicesAuthentication {
+func flattenClusterControlPlaneAwsServicesAuthentication(c *Client, i interface{}, res *Cluster) *ClusterControlPlaneAwsServicesAuthentication {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4315,7 +4320,7 @@ func expandClusterControlPlaneProxyConfigSlice(c *Client, f []ClusterControlPlan
 
 // flattenClusterControlPlaneProxyConfigMap flattens the contents of ClusterControlPlaneProxyConfig from a JSON
 // response object.
-func flattenClusterControlPlaneProxyConfigMap(c *Client, i interface{}) map[string]ClusterControlPlaneProxyConfig {
+func flattenClusterControlPlaneProxyConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneProxyConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneProxyConfig{}
@@ -4327,7 +4332,7 @@ func flattenClusterControlPlaneProxyConfigMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]ClusterControlPlaneProxyConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterControlPlaneProxyConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterControlPlaneProxyConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4335,7 +4340,7 @@ func flattenClusterControlPlaneProxyConfigMap(c *Client, i interface{}) map[stri
 
 // flattenClusterControlPlaneProxyConfigSlice flattens the contents of ClusterControlPlaneProxyConfig from a JSON
 // response object.
-func flattenClusterControlPlaneProxyConfigSlice(c *Client, i interface{}) []ClusterControlPlaneProxyConfig {
+func flattenClusterControlPlaneProxyConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneProxyConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneProxyConfig{}
@@ -4347,7 +4352,7 @@ func flattenClusterControlPlaneProxyConfigSlice(c *Client, i interface{}) []Clus
 
 	items := make([]ClusterControlPlaneProxyConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterControlPlaneProxyConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterControlPlaneProxyConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4373,7 +4378,7 @@ func expandClusterControlPlaneProxyConfig(c *Client, f *ClusterControlPlaneProxy
 
 // flattenClusterControlPlaneProxyConfig flattens an instance of ClusterControlPlaneProxyConfig from a JSON
 // response object.
-func flattenClusterControlPlaneProxyConfig(c *Client, i interface{}) *ClusterControlPlaneProxyConfig {
+func flattenClusterControlPlaneProxyConfig(c *Client, i interface{}, res *Cluster) *ClusterControlPlaneProxyConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4433,7 +4438,7 @@ func expandClusterAuthorizationSlice(c *Client, f []ClusterAuthorization, res *C
 
 // flattenClusterAuthorizationMap flattens the contents of ClusterAuthorization from a JSON
 // response object.
-func flattenClusterAuthorizationMap(c *Client, i interface{}) map[string]ClusterAuthorization {
+func flattenClusterAuthorizationMap(c *Client, i interface{}, res *Cluster) map[string]ClusterAuthorization {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterAuthorization{}
@@ -4445,7 +4450,7 @@ func flattenClusterAuthorizationMap(c *Client, i interface{}) map[string]Cluster
 
 	items := make(map[string]ClusterAuthorization)
 	for k, item := range a {
-		items[k] = *flattenClusterAuthorization(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterAuthorization(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4453,7 +4458,7 @@ func flattenClusterAuthorizationMap(c *Client, i interface{}) map[string]Cluster
 
 // flattenClusterAuthorizationSlice flattens the contents of ClusterAuthorization from a JSON
 // response object.
-func flattenClusterAuthorizationSlice(c *Client, i interface{}) []ClusterAuthorization {
+func flattenClusterAuthorizationSlice(c *Client, i interface{}, res *Cluster) []ClusterAuthorization {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterAuthorization{}
@@ -4465,7 +4470,7 @@ func flattenClusterAuthorizationSlice(c *Client, i interface{}) []ClusterAuthori
 
 	items := make([]ClusterAuthorization, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterAuthorization(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterAuthorization(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4490,7 +4495,7 @@ func expandClusterAuthorization(c *Client, f *ClusterAuthorization, res *Cluster
 
 // flattenClusterAuthorization flattens an instance of ClusterAuthorization from a JSON
 // response object.
-func flattenClusterAuthorization(c *Client, i interface{}) *ClusterAuthorization {
+func flattenClusterAuthorization(c *Client, i interface{}, res *Cluster) *ClusterAuthorization {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4501,7 +4506,7 @@ func flattenClusterAuthorization(c *Client, i interface{}) *ClusterAuthorization
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyClusterAuthorization
 	}
-	r.AdminUsers = flattenClusterAuthorizationAdminUsersSlice(c, m["adminUsers"])
+	r.AdminUsers = flattenClusterAuthorizationAdminUsersSlice(c, m["adminUsers"], res)
 
 	return r
 }
@@ -4549,7 +4554,7 @@ func expandClusterAuthorizationAdminUsersSlice(c *Client, f []ClusterAuthorizati
 
 // flattenClusterAuthorizationAdminUsersMap flattens the contents of ClusterAuthorizationAdminUsers from a JSON
 // response object.
-func flattenClusterAuthorizationAdminUsersMap(c *Client, i interface{}) map[string]ClusterAuthorizationAdminUsers {
+func flattenClusterAuthorizationAdminUsersMap(c *Client, i interface{}, res *Cluster) map[string]ClusterAuthorizationAdminUsers {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterAuthorizationAdminUsers{}
@@ -4561,7 +4566,7 @@ func flattenClusterAuthorizationAdminUsersMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]ClusterAuthorizationAdminUsers)
 	for k, item := range a {
-		items[k] = *flattenClusterAuthorizationAdminUsers(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterAuthorizationAdminUsers(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4569,7 +4574,7 @@ func flattenClusterAuthorizationAdminUsersMap(c *Client, i interface{}) map[stri
 
 // flattenClusterAuthorizationAdminUsersSlice flattens the contents of ClusterAuthorizationAdminUsers from a JSON
 // response object.
-func flattenClusterAuthorizationAdminUsersSlice(c *Client, i interface{}) []ClusterAuthorizationAdminUsers {
+func flattenClusterAuthorizationAdminUsersSlice(c *Client, i interface{}, res *Cluster) []ClusterAuthorizationAdminUsers {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterAuthorizationAdminUsers{}
@@ -4581,7 +4586,7 @@ func flattenClusterAuthorizationAdminUsersSlice(c *Client, i interface{}) []Clus
 
 	items := make([]ClusterAuthorizationAdminUsers, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterAuthorizationAdminUsers(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterAuthorizationAdminUsers(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4604,7 +4609,7 @@ func expandClusterAuthorizationAdminUsers(c *Client, f *ClusterAuthorizationAdmi
 
 // flattenClusterAuthorizationAdminUsers flattens an instance of ClusterAuthorizationAdminUsers from a JSON
 // response object.
-func flattenClusterAuthorizationAdminUsers(c *Client, i interface{}) *ClusterAuthorizationAdminUsers {
+func flattenClusterAuthorizationAdminUsers(c *Client, i interface{}, res *Cluster) *ClusterAuthorizationAdminUsers {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4663,7 +4668,7 @@ func expandClusterWorkloadIdentityConfigSlice(c *Client, f []ClusterWorkloadIden
 
 // flattenClusterWorkloadIdentityConfigMap flattens the contents of ClusterWorkloadIdentityConfig from a JSON
 // response object.
-func flattenClusterWorkloadIdentityConfigMap(c *Client, i interface{}) map[string]ClusterWorkloadIdentityConfig {
+func flattenClusterWorkloadIdentityConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterWorkloadIdentityConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterWorkloadIdentityConfig{}
@@ -4675,7 +4680,7 @@ func flattenClusterWorkloadIdentityConfigMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]ClusterWorkloadIdentityConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterWorkloadIdentityConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterWorkloadIdentityConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4683,7 +4688,7 @@ func flattenClusterWorkloadIdentityConfigMap(c *Client, i interface{}) map[strin
 
 // flattenClusterWorkloadIdentityConfigSlice flattens the contents of ClusterWorkloadIdentityConfig from a JSON
 // response object.
-func flattenClusterWorkloadIdentityConfigSlice(c *Client, i interface{}) []ClusterWorkloadIdentityConfig {
+func flattenClusterWorkloadIdentityConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterWorkloadIdentityConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterWorkloadIdentityConfig{}
@@ -4695,7 +4700,7 @@ func flattenClusterWorkloadIdentityConfigSlice(c *Client, i interface{}) []Clust
 
 	items := make([]ClusterWorkloadIdentityConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterWorkloadIdentityConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterWorkloadIdentityConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4724,7 +4729,7 @@ func expandClusterWorkloadIdentityConfig(c *Client, f *ClusterWorkloadIdentityCo
 
 // flattenClusterWorkloadIdentityConfig flattens an instance of ClusterWorkloadIdentityConfig from a JSON
 // response object.
-func flattenClusterWorkloadIdentityConfig(c *Client, i interface{}) *ClusterWorkloadIdentityConfig {
+func flattenClusterWorkloadIdentityConfig(c *Client, i interface{}, res *Cluster) *ClusterWorkloadIdentityConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4785,7 +4790,7 @@ func expandClusterFleetSlice(c *Client, f []ClusterFleet, res *Cluster) ([]map[s
 
 // flattenClusterFleetMap flattens the contents of ClusterFleet from a JSON
 // response object.
-func flattenClusterFleetMap(c *Client, i interface{}) map[string]ClusterFleet {
+func flattenClusterFleetMap(c *Client, i interface{}, res *Cluster) map[string]ClusterFleet {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterFleet{}
@@ -4797,7 +4802,7 @@ func flattenClusterFleetMap(c *Client, i interface{}) map[string]ClusterFleet {
 
 	items := make(map[string]ClusterFleet)
 	for k, item := range a {
-		items[k] = *flattenClusterFleet(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterFleet(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4805,7 +4810,7 @@ func flattenClusterFleetMap(c *Client, i interface{}) map[string]ClusterFleet {
 
 // flattenClusterFleetSlice flattens the contents of ClusterFleet from a JSON
 // response object.
-func flattenClusterFleetSlice(c *Client, i interface{}) []ClusterFleet {
+func flattenClusterFleetSlice(c *Client, i interface{}, res *Cluster) []ClusterFleet {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterFleet{}
@@ -4817,7 +4822,7 @@ func flattenClusterFleetSlice(c *Client, i interface{}) []ClusterFleet {
 
 	items := make([]ClusterFleet, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterFleet(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterFleet(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4842,7 +4847,7 @@ func expandClusterFleet(c *Client, f *ClusterFleet, res *Cluster) (map[string]in
 
 // flattenClusterFleet flattens an instance of ClusterFleet from a JSON
 // response object.
-func flattenClusterFleet(c *Client, i interface{}) *ClusterFleet {
+func flattenClusterFleet(c *Client, i interface{}, res *Cluster) *ClusterFleet {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4861,7 +4866,7 @@ func flattenClusterFleet(c *Client, i interface{}) *ClusterFleet {
 
 // flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap flattens the contents of ClusterControlPlaneRootVolumeVolumeTypeEnum from a JSON
 // response object.
-func flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap(c *Client, i interface{}) map[string]ClusterControlPlaneRootVolumeVolumeTypeEnum {
+func flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneRootVolumeVolumeTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneRootVolumeVolumeTypeEnum{}
@@ -4881,7 +4886,7 @@ func flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap(c *Client, i interfac
 
 // flattenClusterControlPlaneRootVolumeVolumeTypeEnumSlice flattens the contents of ClusterControlPlaneRootVolumeVolumeTypeEnum from a JSON
 // response object.
-func flattenClusterControlPlaneRootVolumeVolumeTypeEnumSlice(c *Client, i interface{}) []ClusterControlPlaneRootVolumeVolumeTypeEnum {
+func flattenClusterControlPlaneRootVolumeVolumeTypeEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneRootVolumeVolumeTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneRootVolumeVolumeTypeEnum{}
@@ -4912,7 +4917,7 @@ func flattenClusterControlPlaneRootVolumeVolumeTypeEnum(i interface{}) *ClusterC
 
 // flattenClusterControlPlaneMainVolumeVolumeTypeEnumMap flattens the contents of ClusterControlPlaneMainVolumeVolumeTypeEnum from a JSON
 // response object.
-func flattenClusterControlPlaneMainVolumeVolumeTypeEnumMap(c *Client, i interface{}) map[string]ClusterControlPlaneMainVolumeVolumeTypeEnum {
+func flattenClusterControlPlaneMainVolumeVolumeTypeEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneMainVolumeVolumeTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterControlPlaneMainVolumeVolumeTypeEnum{}
@@ -4932,7 +4937,7 @@ func flattenClusterControlPlaneMainVolumeVolumeTypeEnumMap(c *Client, i interfac
 
 // flattenClusterControlPlaneMainVolumeVolumeTypeEnumSlice flattens the contents of ClusterControlPlaneMainVolumeVolumeTypeEnum from a JSON
 // response object.
-func flattenClusterControlPlaneMainVolumeVolumeTypeEnumSlice(c *Client, i interface{}) []ClusterControlPlaneMainVolumeVolumeTypeEnum {
+func flattenClusterControlPlaneMainVolumeVolumeTypeEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterControlPlaneMainVolumeVolumeTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterControlPlaneMainVolumeVolumeTypeEnum{}
@@ -4963,7 +4968,7 @@ func flattenClusterControlPlaneMainVolumeVolumeTypeEnum(i interface{}) *ClusterC
 
 // flattenClusterStateEnumMap flattens the contents of ClusterStateEnum from a JSON
 // response object.
-func flattenClusterStateEnumMap(c *Client, i interface{}) map[string]ClusterStateEnum {
+func flattenClusterStateEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStateEnum{}
@@ -4983,7 +4988,7 @@ func flattenClusterStateEnumMap(c *Client, i interface{}) map[string]ClusterStat
 
 // flattenClusterStateEnumSlice flattens the contents of ClusterStateEnum from a JSON
 // response object.
-func flattenClusterStateEnumSlice(c *Client, i interface{}) []ClusterStateEnum {
+func flattenClusterStateEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStateEnum{}
@@ -5017,7 +5022,7 @@ func flattenClusterStateEnum(i interface{}) *ClusterStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Cluster) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCluster(b, c)
+		cr, err := unmarshalCluster(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

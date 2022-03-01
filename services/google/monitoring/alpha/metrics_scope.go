@@ -138,7 +138,7 @@ func (c *Client) GetMetricsScope(ctx context.Context, r *MetricsScope) (*Metrics
 		}
 		return nil, err
 	}
-	result, err := unmarshalMetricsScope(b, c)
+	result, err := unmarshalMetricsScope(b, c, r)
 	if err != nil {
 		return nil, err
 	}

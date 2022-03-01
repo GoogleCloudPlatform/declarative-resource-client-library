@@ -181,7 +181,7 @@ func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalCluster(b, c)
+	result, err := unmarshalCluster(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -352,7 +352,7 @@ func applyClusterDiff(c *Client, ctx context.Context, desired *Cluster, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapCluster(r, c)
+				fullResp, err := unmarshalMapCluster(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

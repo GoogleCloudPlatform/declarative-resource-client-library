@@ -1,19 +1,24 @@
 {
   "name": "{{instance}}",
-  "project": "{{project}}",
+  "project": "{{ref:datafusion.serviceusage.service.json:project}}",
   "location": "us-central1",
-  "type": "BASIC",
-  "enableStackdriverLogging": true,
-  "enableStackdriverMonitoring": true,
+  "description": "A sample datafusion instance",
+  "type": "DEVELOPER",
+  "enableStackdriverLogging": false,
+  "enableStackdriverMonitoring": false,
+  "privateInstance": true,
   "labels": {
     "examplekey": "newexamplevalue",
     "newexamplekey": "newexamplevalue"
   },
-  "privateInstance": true,
+  "options": {
+    "examplekey": "examplevalue"
+  },
   "networkConfig": {
     "network": "{{ref:basic.compute.network.json:name}}",
     "ipAllocation": "10.89.48.0/22"
   },
-  "version": "6.3.0",
+  "zone": "{{zone}}",
+  "version": "6.4.1",
   "displayName": "basic-instance"
 }

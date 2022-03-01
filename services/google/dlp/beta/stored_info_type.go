@@ -643,7 +643,7 @@ func (c *Client) GetStoredInfoType(ctx context.Context, r *StoredInfoType) (*Sto
 		return nil, err
 	}
 
-	result, err := unmarshalStoredInfoType(b, c)
+	result, err := unmarshalStoredInfoType(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -813,7 +813,7 @@ func applyStoredInfoTypeDiff(c *Client, ctx context.Context, desired *StoredInfo
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapStoredInfoType(r, c)
+				fullResp, err := unmarshalMapStoredInfoType(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

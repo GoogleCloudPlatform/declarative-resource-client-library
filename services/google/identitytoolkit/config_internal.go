@@ -4452,17 +4452,17 @@ func (r *Config) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalConfig decodes JSON responses into the Config resource schema.
-func unmarshalConfig(b []byte, c *Client) (*Config, error) {
+func unmarshalConfig(b []byte, c *Client, res *Config) (*Config, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapConfig(m, c)
+	return unmarshalMapConfig(m, c, res)
 }
 
-func unmarshalMapConfig(m map[string]interface{}, c *Client) (*Config, error) {
+func unmarshalMapConfig(m map[string]interface{}, c *Client, res *Config) (*Config, error) {
 
-	flattened := flattenConfig(c, m)
+	flattened := flattenConfig(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -4528,7 +4528,7 @@ func expandConfig(c *Client, f *Config) (map[string]interface{}, error) {
 
 // flattenConfig flattens Config from a JSON request object into the
 // Config type.
-func flattenConfig(c *Client, i interface{}) *Config {
+func flattenConfig(c *Client, i interface{}, res *Config) *Config {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4537,20 +4537,20 @@ func flattenConfig(c *Client, i interface{}) *Config {
 		return nil
 	}
 
-	res := &Config{}
-	res.SignIn = flattenConfigSignIn(c, m["signIn"])
-	res.Notification = flattenConfigNotification(c, m["notification"])
-	res.Quota = flattenConfigQuota(c, m["quota"])
-	res.Monitoring = flattenConfigMonitoring(c, m["monitoring"])
-	res.MultiTenant = flattenConfigMultiTenant(c, m["multiTenant"])
-	res.AuthorizedDomains = dcl.FlattenStringSlice(m["authorizedDomains"])
-	res.Subtype = flattenConfigSubtypeEnum(m["subtype"])
-	res.Client = flattenConfigClient(c, m["client"])
-	res.Mfa = flattenConfigMfa(c, m["mfa"])
-	res.BlockingFunctions = flattenConfigBlockingFunctions(c, m["blockingFunctions"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Config{}
+	resultRes.SignIn = flattenConfigSignIn(c, m["signIn"], res)
+	resultRes.Notification = flattenConfigNotification(c, m["notification"], res)
+	resultRes.Quota = flattenConfigQuota(c, m["quota"], res)
+	resultRes.Monitoring = flattenConfigMonitoring(c, m["monitoring"], res)
+	resultRes.MultiTenant = flattenConfigMultiTenant(c, m["multiTenant"], res)
+	resultRes.AuthorizedDomains = dcl.FlattenStringSlice(m["authorizedDomains"])
+	resultRes.Subtype = flattenConfigSubtypeEnum(m["subtype"])
+	resultRes.Client = flattenConfigClient(c, m["client"], res)
+	resultRes.Mfa = flattenConfigMfa(c, m["mfa"], res)
+	resultRes.BlockingFunctions = flattenConfigBlockingFunctions(c, m["blockingFunctions"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandConfigSignInMap expands the contents of ConfigSignIn into a JSON
@@ -4596,7 +4596,7 @@ func expandConfigSignInSlice(c *Client, f []ConfigSignIn, res *Config) ([]map[st
 
 // flattenConfigSignInMap flattens the contents of ConfigSignIn from a JSON
 // response object.
-func flattenConfigSignInMap(c *Client, i interface{}) map[string]ConfigSignIn {
+func flattenConfigSignInMap(c *Client, i interface{}, res *Config) map[string]ConfigSignIn {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignIn{}
@@ -4608,7 +4608,7 @@ func flattenConfigSignInMap(c *Client, i interface{}) map[string]ConfigSignIn {
 
 	items := make(map[string]ConfigSignIn)
 	for k, item := range a {
-		items[k] = *flattenConfigSignIn(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigSignIn(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4616,7 +4616,7 @@ func flattenConfigSignInMap(c *Client, i interface{}) map[string]ConfigSignIn {
 
 // flattenConfigSignInSlice flattens the contents of ConfigSignIn from a JSON
 // response object.
-func flattenConfigSignInSlice(c *Client, i interface{}) []ConfigSignIn {
+func flattenConfigSignInSlice(c *Client, i interface{}, res *Config) []ConfigSignIn {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignIn{}
@@ -4628,7 +4628,7 @@ func flattenConfigSignInSlice(c *Client, i interface{}) []ConfigSignIn {
 
 	items := make([]ConfigSignIn, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigSignIn(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigSignIn(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4666,7 +4666,7 @@ func expandConfigSignIn(c *Client, f *ConfigSignIn, res *Config) (map[string]int
 
 // flattenConfigSignIn flattens an instance of ConfigSignIn from a JSON
 // response object.
-func flattenConfigSignIn(c *Client, i interface{}) *ConfigSignIn {
+func flattenConfigSignIn(c *Client, i interface{}, res *Config) *ConfigSignIn {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4677,11 +4677,11 @@ func flattenConfigSignIn(c *Client, i interface{}) *ConfigSignIn {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyConfigSignIn
 	}
-	r.Email = flattenConfigSignInEmail(c, m["email"])
-	r.PhoneNumber = flattenConfigSignInPhoneNumber(c, m["phoneNumber"])
-	r.Anonymous = flattenConfigSignInAnonymous(c, m["anonymous"])
+	r.Email = flattenConfigSignInEmail(c, m["email"], res)
+	r.PhoneNumber = flattenConfigSignInPhoneNumber(c, m["phoneNumber"], res)
+	r.Anonymous = flattenConfigSignInAnonymous(c, m["anonymous"], res)
 	r.AllowDuplicateEmails = dcl.FlattenBool(m["allowDuplicateEmails"])
-	r.HashConfig = flattenConfigSignInHashConfig(c, m["hashConfig"])
+	r.HashConfig = flattenConfigSignInHashConfig(c, m["hashConfig"], res)
 
 	return r
 }
@@ -4729,7 +4729,7 @@ func expandConfigSignInEmailSlice(c *Client, f []ConfigSignInEmail, res *Config)
 
 // flattenConfigSignInEmailMap flattens the contents of ConfigSignInEmail from a JSON
 // response object.
-func flattenConfigSignInEmailMap(c *Client, i interface{}) map[string]ConfigSignInEmail {
+func flattenConfigSignInEmailMap(c *Client, i interface{}, res *Config) map[string]ConfigSignInEmail {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignInEmail{}
@@ -4741,7 +4741,7 @@ func flattenConfigSignInEmailMap(c *Client, i interface{}) map[string]ConfigSign
 
 	items := make(map[string]ConfigSignInEmail)
 	for k, item := range a {
-		items[k] = *flattenConfigSignInEmail(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigSignInEmail(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4749,7 +4749,7 @@ func flattenConfigSignInEmailMap(c *Client, i interface{}) map[string]ConfigSign
 
 // flattenConfigSignInEmailSlice flattens the contents of ConfigSignInEmail from a JSON
 // response object.
-func flattenConfigSignInEmailSlice(c *Client, i interface{}) []ConfigSignInEmail {
+func flattenConfigSignInEmailSlice(c *Client, i interface{}, res *Config) []ConfigSignInEmail {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignInEmail{}
@@ -4761,7 +4761,7 @@ func flattenConfigSignInEmailSlice(c *Client, i interface{}) []ConfigSignInEmail
 
 	items := make([]ConfigSignInEmail, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigSignInEmail(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigSignInEmail(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4787,7 +4787,7 @@ func expandConfigSignInEmail(c *Client, f *ConfigSignInEmail, res *Config) (map[
 
 // flattenConfigSignInEmail flattens an instance of ConfigSignInEmail from a JSON
 // response object.
-func flattenConfigSignInEmail(c *Client, i interface{}) *ConfigSignInEmail {
+func flattenConfigSignInEmail(c *Client, i interface{}, res *Config) *ConfigSignInEmail {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4800,7 +4800,7 @@ func flattenConfigSignInEmail(c *Client, i interface{}) *ConfigSignInEmail {
 	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.PasswordRequired = dcl.FlattenBool(m["passwordRequired"])
-	r.HashConfig = flattenConfigSignInEmailHashConfig(c, m["hashConfig"])
+	r.HashConfig = flattenConfigSignInEmailHashConfig(c, m["hashConfig"], res)
 
 	return r
 }
@@ -4848,7 +4848,7 @@ func expandConfigSignInEmailHashConfigSlice(c *Client, f []ConfigSignInEmailHash
 
 // flattenConfigSignInEmailHashConfigMap flattens the contents of ConfigSignInEmailHashConfig from a JSON
 // response object.
-func flattenConfigSignInEmailHashConfigMap(c *Client, i interface{}) map[string]ConfigSignInEmailHashConfig {
+func flattenConfigSignInEmailHashConfigMap(c *Client, i interface{}, res *Config) map[string]ConfigSignInEmailHashConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignInEmailHashConfig{}
@@ -4860,7 +4860,7 @@ func flattenConfigSignInEmailHashConfigMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]ConfigSignInEmailHashConfig)
 	for k, item := range a {
-		items[k] = *flattenConfigSignInEmailHashConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigSignInEmailHashConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4868,7 +4868,7 @@ func flattenConfigSignInEmailHashConfigMap(c *Client, i interface{}) map[string]
 
 // flattenConfigSignInEmailHashConfigSlice flattens the contents of ConfigSignInEmailHashConfig from a JSON
 // response object.
-func flattenConfigSignInEmailHashConfigSlice(c *Client, i interface{}) []ConfigSignInEmailHashConfig {
+func flattenConfigSignInEmailHashConfigSlice(c *Client, i interface{}, res *Config) []ConfigSignInEmailHashConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignInEmailHashConfig{}
@@ -4880,7 +4880,7 @@ func flattenConfigSignInEmailHashConfigSlice(c *Client, i interface{}) []ConfigS
 
 	items := make([]ConfigSignInEmailHashConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigSignInEmailHashConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigSignInEmailHashConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4900,7 +4900,7 @@ func expandConfigSignInEmailHashConfig(c *Client, f *ConfigSignInEmailHashConfig
 
 // flattenConfigSignInEmailHashConfig flattens an instance of ConfigSignInEmailHashConfig from a JSON
 // response object.
-func flattenConfigSignInEmailHashConfig(c *Client, i interface{}) *ConfigSignInEmailHashConfig {
+func flattenConfigSignInEmailHashConfig(c *Client, i interface{}, res *Config) *ConfigSignInEmailHashConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4963,7 +4963,7 @@ func expandConfigSignInPhoneNumberSlice(c *Client, f []ConfigSignInPhoneNumber, 
 
 // flattenConfigSignInPhoneNumberMap flattens the contents of ConfigSignInPhoneNumber from a JSON
 // response object.
-func flattenConfigSignInPhoneNumberMap(c *Client, i interface{}) map[string]ConfigSignInPhoneNumber {
+func flattenConfigSignInPhoneNumberMap(c *Client, i interface{}, res *Config) map[string]ConfigSignInPhoneNumber {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignInPhoneNumber{}
@@ -4975,7 +4975,7 @@ func flattenConfigSignInPhoneNumberMap(c *Client, i interface{}) map[string]Conf
 
 	items := make(map[string]ConfigSignInPhoneNumber)
 	for k, item := range a {
-		items[k] = *flattenConfigSignInPhoneNumber(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigSignInPhoneNumber(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4983,7 +4983,7 @@ func flattenConfigSignInPhoneNumberMap(c *Client, i interface{}) map[string]Conf
 
 // flattenConfigSignInPhoneNumberSlice flattens the contents of ConfigSignInPhoneNumber from a JSON
 // response object.
-func flattenConfigSignInPhoneNumberSlice(c *Client, i interface{}) []ConfigSignInPhoneNumber {
+func flattenConfigSignInPhoneNumberSlice(c *Client, i interface{}, res *Config) []ConfigSignInPhoneNumber {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignInPhoneNumber{}
@@ -4995,7 +4995,7 @@ func flattenConfigSignInPhoneNumberSlice(c *Client, i interface{}) []ConfigSignI
 
 	items := make([]ConfigSignInPhoneNumber, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigSignInPhoneNumber(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigSignInPhoneNumber(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5021,7 +5021,7 @@ func expandConfigSignInPhoneNumber(c *Client, f *ConfigSignInPhoneNumber, res *C
 
 // flattenConfigSignInPhoneNumber flattens an instance of ConfigSignInPhoneNumber from a JSON
 // response object.
-func flattenConfigSignInPhoneNumber(c *Client, i interface{}) *ConfigSignInPhoneNumber {
+func flattenConfigSignInPhoneNumber(c *Client, i interface{}, res *Config) *ConfigSignInPhoneNumber {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5081,7 +5081,7 @@ func expandConfigSignInAnonymousSlice(c *Client, f []ConfigSignInAnonymous, res 
 
 // flattenConfigSignInAnonymousMap flattens the contents of ConfigSignInAnonymous from a JSON
 // response object.
-func flattenConfigSignInAnonymousMap(c *Client, i interface{}) map[string]ConfigSignInAnonymous {
+func flattenConfigSignInAnonymousMap(c *Client, i interface{}, res *Config) map[string]ConfigSignInAnonymous {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignInAnonymous{}
@@ -5093,7 +5093,7 @@ func flattenConfigSignInAnonymousMap(c *Client, i interface{}) map[string]Config
 
 	items := make(map[string]ConfigSignInAnonymous)
 	for k, item := range a {
-		items[k] = *flattenConfigSignInAnonymous(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigSignInAnonymous(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5101,7 +5101,7 @@ func flattenConfigSignInAnonymousMap(c *Client, i interface{}) map[string]Config
 
 // flattenConfigSignInAnonymousSlice flattens the contents of ConfigSignInAnonymous from a JSON
 // response object.
-func flattenConfigSignInAnonymousSlice(c *Client, i interface{}) []ConfigSignInAnonymous {
+func flattenConfigSignInAnonymousSlice(c *Client, i interface{}, res *Config) []ConfigSignInAnonymous {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignInAnonymous{}
@@ -5113,7 +5113,7 @@ func flattenConfigSignInAnonymousSlice(c *Client, i interface{}) []ConfigSignInA
 
 	items := make([]ConfigSignInAnonymous, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigSignInAnonymous(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigSignInAnonymous(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5136,7 +5136,7 @@ func expandConfigSignInAnonymous(c *Client, f *ConfigSignInAnonymous, res *Confi
 
 // flattenConfigSignInAnonymous flattens an instance of ConfigSignInAnonymous from a JSON
 // response object.
-func flattenConfigSignInAnonymous(c *Client, i interface{}) *ConfigSignInAnonymous {
+func flattenConfigSignInAnonymous(c *Client, i interface{}, res *Config) *ConfigSignInAnonymous {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5195,7 +5195,7 @@ func expandConfigSignInHashConfigSlice(c *Client, f []ConfigSignInHashConfig, re
 
 // flattenConfigSignInHashConfigMap flattens the contents of ConfigSignInHashConfig from a JSON
 // response object.
-func flattenConfigSignInHashConfigMap(c *Client, i interface{}) map[string]ConfigSignInHashConfig {
+func flattenConfigSignInHashConfigMap(c *Client, i interface{}, res *Config) map[string]ConfigSignInHashConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignInHashConfig{}
@@ -5207,7 +5207,7 @@ func flattenConfigSignInHashConfigMap(c *Client, i interface{}) map[string]Confi
 
 	items := make(map[string]ConfigSignInHashConfig)
 	for k, item := range a {
-		items[k] = *flattenConfigSignInHashConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigSignInHashConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5215,7 +5215,7 @@ func flattenConfigSignInHashConfigMap(c *Client, i interface{}) map[string]Confi
 
 // flattenConfigSignInHashConfigSlice flattens the contents of ConfigSignInHashConfig from a JSON
 // response object.
-func flattenConfigSignInHashConfigSlice(c *Client, i interface{}) []ConfigSignInHashConfig {
+func flattenConfigSignInHashConfigSlice(c *Client, i interface{}, res *Config) []ConfigSignInHashConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignInHashConfig{}
@@ -5227,7 +5227,7 @@ func flattenConfigSignInHashConfigSlice(c *Client, i interface{}) []ConfigSignIn
 
 	items := make([]ConfigSignInHashConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigSignInHashConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigSignInHashConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5247,7 +5247,7 @@ func expandConfigSignInHashConfig(c *Client, f *ConfigSignInHashConfig, res *Con
 
 // flattenConfigSignInHashConfig flattens an instance of ConfigSignInHashConfig from a JSON
 // response object.
-func flattenConfigSignInHashConfig(c *Client, i interface{}) *ConfigSignInHashConfig {
+func flattenConfigSignInHashConfig(c *Client, i interface{}, res *Config) *ConfigSignInHashConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5310,7 +5310,7 @@ func expandConfigNotificationSlice(c *Client, f []ConfigNotification, res *Confi
 
 // flattenConfigNotificationMap flattens the contents of ConfigNotification from a JSON
 // response object.
-func flattenConfigNotificationMap(c *Client, i interface{}) map[string]ConfigNotification {
+func flattenConfigNotificationMap(c *Client, i interface{}, res *Config) map[string]ConfigNotification {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotification{}
@@ -5322,7 +5322,7 @@ func flattenConfigNotificationMap(c *Client, i interface{}) map[string]ConfigNot
 
 	items := make(map[string]ConfigNotification)
 	for k, item := range a {
-		items[k] = *flattenConfigNotification(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigNotification(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5330,7 +5330,7 @@ func flattenConfigNotificationMap(c *Client, i interface{}) map[string]ConfigNot
 
 // flattenConfigNotificationSlice flattens the contents of ConfigNotification from a JSON
 // response object.
-func flattenConfigNotificationSlice(c *Client, i interface{}) []ConfigNotification {
+func flattenConfigNotificationSlice(c *Client, i interface{}, res *Config) []ConfigNotification {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotification{}
@@ -5342,7 +5342,7 @@ func flattenConfigNotificationSlice(c *Client, i interface{}) []ConfigNotificati
 
 	items := make([]ConfigNotification, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigNotification(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigNotification(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5375,7 +5375,7 @@ func expandConfigNotification(c *Client, f *ConfigNotification, res *Config) (ma
 
 // flattenConfigNotification flattens an instance of ConfigNotification from a JSON
 // response object.
-func flattenConfigNotification(c *Client, i interface{}) *ConfigNotification {
+func flattenConfigNotification(c *Client, i interface{}, res *Config) *ConfigNotification {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5386,8 +5386,8 @@ func flattenConfigNotification(c *Client, i interface{}) *ConfigNotification {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyConfigNotification
 	}
-	r.SendEmail = flattenConfigNotificationSendEmail(c, m["sendEmail"])
-	r.SendSms = flattenConfigNotificationSendSms(c, m["sendSms"])
+	r.SendEmail = flattenConfigNotificationSendEmail(c, m["sendEmail"], res)
+	r.SendSms = flattenConfigNotificationSendSms(c, m["sendSms"], res)
 	r.DefaultLocale = dcl.FlattenString(m["defaultLocale"])
 
 	return r
@@ -5436,7 +5436,7 @@ func expandConfigNotificationSendEmailSlice(c *Client, f []ConfigNotificationSen
 
 // flattenConfigNotificationSendEmailMap flattens the contents of ConfigNotificationSendEmail from a JSON
 // response object.
-func flattenConfigNotificationSendEmailMap(c *Client, i interface{}) map[string]ConfigNotificationSendEmail {
+func flattenConfigNotificationSendEmailMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmail {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendEmail{}
@@ -5448,7 +5448,7 @@ func flattenConfigNotificationSendEmailMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]ConfigNotificationSendEmail)
 	for k, item := range a {
-		items[k] = *flattenConfigNotificationSendEmail(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigNotificationSendEmail(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5456,7 +5456,7 @@ func flattenConfigNotificationSendEmailMap(c *Client, i interface{}) map[string]
 
 // flattenConfigNotificationSendEmailSlice flattens the contents of ConfigNotificationSendEmail from a JSON
 // response object.
-func flattenConfigNotificationSendEmailSlice(c *Client, i interface{}) []ConfigNotificationSendEmail {
+func flattenConfigNotificationSendEmailSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmail {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendEmail{}
@@ -5468,7 +5468,7 @@ func flattenConfigNotificationSendEmailSlice(c *Client, i interface{}) []ConfigN
 
 	items := make([]ConfigNotificationSendEmail, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigNotificationSendEmail(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigNotificationSendEmail(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5524,7 +5524,7 @@ func expandConfigNotificationSendEmail(c *Client, f *ConfigNotificationSendEmail
 
 // flattenConfigNotificationSendEmail flattens an instance of ConfigNotificationSendEmail from a JSON
 // response object.
-func flattenConfigNotificationSendEmail(c *Client, i interface{}) *ConfigNotificationSendEmail {
+func flattenConfigNotificationSendEmail(c *Client, i interface{}, res *Config) *ConfigNotificationSendEmail {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5536,13 +5536,13 @@ func flattenConfigNotificationSendEmail(c *Client, i interface{}) *ConfigNotific
 		return EmptyConfigNotificationSendEmail
 	}
 	r.Method = flattenConfigNotificationSendEmailMethodEnum(m["method"])
-	r.Smtp = flattenConfigNotificationSendEmailSmtp(c, m["smtp"])
-	r.ResetPasswordTemplate = flattenConfigEmailTemplate(c, m["resetPasswordTemplate"])
-	r.VerifyEmailTemplate = flattenConfigEmailTemplate(c, m["verifyEmailTemplate"])
-	r.ChangeEmailTemplate = flattenConfigEmailTemplate(c, m["changeEmailTemplate"])
+	r.Smtp = flattenConfigNotificationSendEmailSmtp(c, m["smtp"], res)
+	r.ResetPasswordTemplate = flattenConfigEmailTemplate(c, m["resetPasswordTemplate"], res)
+	r.VerifyEmailTemplate = flattenConfigEmailTemplate(c, m["verifyEmailTemplate"], res)
+	r.ChangeEmailTemplate = flattenConfigEmailTemplate(c, m["changeEmailTemplate"], res)
 	r.CallbackUri = dcl.FlattenString(m["callbackUri"])
-	r.DnsInfo = flattenConfigNotificationSendEmailDnsInfo(c, m["dnsInfo"])
-	r.RevertSecondFactorAdditionTemplate = flattenConfigEmailTemplate(c, m["revertSecondFactorAdditionTemplate"])
+	r.DnsInfo = flattenConfigNotificationSendEmailDnsInfo(c, m["dnsInfo"], res)
+	r.RevertSecondFactorAdditionTemplate = flattenConfigEmailTemplate(c, m["revertSecondFactorAdditionTemplate"], res)
 
 	return r
 }
@@ -5590,7 +5590,7 @@ func expandConfigNotificationSendEmailSmtpSlice(c *Client, f []ConfigNotificatio
 
 // flattenConfigNotificationSendEmailSmtpMap flattens the contents of ConfigNotificationSendEmailSmtp from a JSON
 // response object.
-func flattenConfigNotificationSendEmailSmtpMap(c *Client, i interface{}) map[string]ConfigNotificationSendEmailSmtp {
+func flattenConfigNotificationSendEmailSmtpMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailSmtp {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendEmailSmtp{}
@@ -5602,7 +5602,7 @@ func flattenConfigNotificationSendEmailSmtpMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]ConfigNotificationSendEmailSmtp)
 	for k, item := range a {
-		items[k] = *flattenConfigNotificationSendEmailSmtp(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigNotificationSendEmailSmtp(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5610,7 +5610,7 @@ func flattenConfigNotificationSendEmailSmtpMap(c *Client, i interface{}) map[str
 
 // flattenConfigNotificationSendEmailSmtpSlice flattens the contents of ConfigNotificationSendEmailSmtp from a JSON
 // response object.
-func flattenConfigNotificationSendEmailSmtpSlice(c *Client, i interface{}) []ConfigNotificationSendEmailSmtp {
+func flattenConfigNotificationSendEmailSmtpSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailSmtp {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendEmailSmtp{}
@@ -5622,7 +5622,7 @@ func flattenConfigNotificationSendEmailSmtpSlice(c *Client, i interface{}) []Con
 
 	items := make([]ConfigNotificationSendEmailSmtp, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigNotificationSendEmailSmtp(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigNotificationSendEmailSmtp(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5660,7 +5660,7 @@ func expandConfigNotificationSendEmailSmtp(c *Client, f *ConfigNotificationSendE
 
 // flattenConfigNotificationSendEmailSmtp flattens an instance of ConfigNotificationSendEmailSmtp from a JSON
 // response object.
-func flattenConfigNotificationSendEmailSmtp(c *Client, i interface{}) *ConfigNotificationSendEmailSmtp {
+func flattenConfigNotificationSendEmailSmtp(c *Client, i interface{}, res *Config) *ConfigNotificationSendEmailSmtp {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5724,7 +5724,7 @@ func expandConfigEmailTemplateSlice(c *Client, f []ConfigEmailTemplate, res *Con
 
 // flattenConfigEmailTemplateMap flattens the contents of ConfigEmailTemplate from a JSON
 // response object.
-func flattenConfigEmailTemplateMap(c *Client, i interface{}) map[string]ConfigEmailTemplate {
+func flattenConfigEmailTemplateMap(c *Client, i interface{}, res *Config) map[string]ConfigEmailTemplate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigEmailTemplate{}
@@ -5736,7 +5736,7 @@ func flattenConfigEmailTemplateMap(c *Client, i interface{}) map[string]ConfigEm
 
 	items := make(map[string]ConfigEmailTemplate)
 	for k, item := range a {
-		items[k] = *flattenConfigEmailTemplate(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigEmailTemplate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5744,7 +5744,7 @@ func flattenConfigEmailTemplateMap(c *Client, i interface{}) map[string]ConfigEm
 
 // flattenConfigEmailTemplateSlice flattens the contents of ConfigEmailTemplate from a JSON
 // response object.
-func flattenConfigEmailTemplateSlice(c *Client, i interface{}) []ConfigEmailTemplate {
+func flattenConfigEmailTemplateSlice(c *Client, i interface{}, res *Config) []ConfigEmailTemplate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigEmailTemplate{}
@@ -5756,7 +5756,7 @@ func flattenConfigEmailTemplateSlice(c *Client, i interface{}) []ConfigEmailTemp
 
 	items := make([]ConfigEmailTemplate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigEmailTemplate(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigEmailTemplate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5794,7 +5794,7 @@ func expandConfigEmailTemplate(c *Client, f *ConfigEmailTemplate, res *Config) (
 
 // flattenConfigEmailTemplate flattens an instance of ConfigEmailTemplate from a JSON
 // response object.
-func flattenConfigEmailTemplate(c *Client, i interface{}) *ConfigEmailTemplate {
+func flattenConfigEmailTemplate(c *Client, i interface{}, res *Config) *ConfigEmailTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5859,7 +5859,7 @@ func expandConfigNotificationSendEmailDnsInfoSlice(c *Client, f []ConfigNotifica
 
 // flattenConfigNotificationSendEmailDnsInfoMap flattens the contents of ConfigNotificationSendEmailDnsInfo from a JSON
 // response object.
-func flattenConfigNotificationSendEmailDnsInfoMap(c *Client, i interface{}) map[string]ConfigNotificationSendEmailDnsInfo {
+func flattenConfigNotificationSendEmailDnsInfoMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailDnsInfo {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendEmailDnsInfo{}
@@ -5871,7 +5871,7 @@ func flattenConfigNotificationSendEmailDnsInfoMap(c *Client, i interface{}) map[
 
 	items := make(map[string]ConfigNotificationSendEmailDnsInfo)
 	for k, item := range a {
-		items[k] = *flattenConfigNotificationSendEmailDnsInfo(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigNotificationSendEmailDnsInfo(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5879,7 +5879,7 @@ func flattenConfigNotificationSendEmailDnsInfoMap(c *Client, i interface{}) map[
 
 // flattenConfigNotificationSendEmailDnsInfoSlice flattens the contents of ConfigNotificationSendEmailDnsInfo from a JSON
 // response object.
-func flattenConfigNotificationSendEmailDnsInfoSlice(c *Client, i interface{}) []ConfigNotificationSendEmailDnsInfo {
+func flattenConfigNotificationSendEmailDnsInfoSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailDnsInfo {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendEmailDnsInfo{}
@@ -5891,7 +5891,7 @@ func flattenConfigNotificationSendEmailDnsInfoSlice(c *Client, i interface{}) []
 
 	items := make([]ConfigNotificationSendEmailDnsInfo, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigNotificationSendEmailDnsInfo(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigNotificationSendEmailDnsInfo(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5914,7 +5914,7 @@ func expandConfigNotificationSendEmailDnsInfo(c *Client, f *ConfigNotificationSe
 
 // flattenConfigNotificationSendEmailDnsInfo flattens an instance of ConfigNotificationSendEmailDnsInfo from a JSON
 // response object.
-func flattenConfigNotificationSendEmailDnsInfo(c *Client, i interface{}) *ConfigNotificationSendEmailDnsInfo {
+func flattenConfigNotificationSendEmailDnsInfo(c *Client, i interface{}, res *Config) *ConfigNotificationSendEmailDnsInfo {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5977,7 +5977,7 @@ func expandConfigNotificationSendSmsSlice(c *Client, f []ConfigNotificationSendS
 
 // flattenConfigNotificationSendSmsMap flattens the contents of ConfigNotificationSendSms from a JSON
 // response object.
-func flattenConfigNotificationSendSmsMap(c *Client, i interface{}) map[string]ConfigNotificationSendSms {
+func flattenConfigNotificationSendSmsMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendSms {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendSms{}
@@ -5989,7 +5989,7 @@ func flattenConfigNotificationSendSmsMap(c *Client, i interface{}) map[string]Co
 
 	items := make(map[string]ConfigNotificationSendSms)
 	for k, item := range a {
-		items[k] = *flattenConfigNotificationSendSms(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigNotificationSendSms(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5997,7 +5997,7 @@ func flattenConfigNotificationSendSmsMap(c *Client, i interface{}) map[string]Co
 
 // flattenConfigNotificationSendSmsSlice flattens the contents of ConfigNotificationSendSms from a JSON
 // response object.
-func flattenConfigNotificationSendSmsSlice(c *Client, i interface{}) []ConfigNotificationSendSms {
+func flattenConfigNotificationSendSmsSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendSms {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendSms{}
@@ -6009,7 +6009,7 @@ func flattenConfigNotificationSendSmsSlice(c *Client, i interface{}) []ConfigNot
 
 	items := make([]ConfigNotificationSendSms, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigNotificationSendSms(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigNotificationSendSms(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6032,7 +6032,7 @@ func expandConfigNotificationSendSms(c *Client, f *ConfigNotificationSendSms, re
 
 // flattenConfigNotificationSendSms flattens an instance of ConfigNotificationSendSms from a JSON
 // response object.
-func flattenConfigNotificationSendSms(c *Client, i interface{}) *ConfigNotificationSendSms {
+func flattenConfigNotificationSendSms(c *Client, i interface{}, res *Config) *ConfigNotificationSendSms {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6044,7 +6044,7 @@ func flattenConfigNotificationSendSms(c *Client, i interface{}) *ConfigNotificat
 		return EmptyConfigNotificationSendSms
 	}
 	r.UseDeviceLocale = dcl.FlattenBool(m["useDeviceLocale"])
-	r.SmsTemplate = flattenConfigNotificationSendSmsSmsTemplate(c, m["smsTemplate"])
+	r.SmsTemplate = flattenConfigNotificationSendSmsSmsTemplate(c, m["smsTemplate"], res)
 
 	return r
 }
@@ -6092,7 +6092,7 @@ func expandConfigNotificationSendSmsSmsTemplateSlice(c *Client, f []ConfigNotifi
 
 // flattenConfigNotificationSendSmsSmsTemplateMap flattens the contents of ConfigNotificationSendSmsSmsTemplate from a JSON
 // response object.
-func flattenConfigNotificationSendSmsSmsTemplateMap(c *Client, i interface{}) map[string]ConfigNotificationSendSmsSmsTemplate {
+func flattenConfigNotificationSendSmsSmsTemplateMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendSmsSmsTemplate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendSmsSmsTemplate{}
@@ -6104,7 +6104,7 @@ func flattenConfigNotificationSendSmsSmsTemplateMap(c *Client, i interface{}) ma
 
 	items := make(map[string]ConfigNotificationSendSmsSmsTemplate)
 	for k, item := range a {
-		items[k] = *flattenConfigNotificationSendSmsSmsTemplate(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigNotificationSendSmsSmsTemplate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6112,7 +6112,7 @@ func flattenConfigNotificationSendSmsSmsTemplateMap(c *Client, i interface{}) ma
 
 // flattenConfigNotificationSendSmsSmsTemplateSlice flattens the contents of ConfigNotificationSendSmsSmsTemplate from a JSON
 // response object.
-func flattenConfigNotificationSendSmsSmsTemplateSlice(c *Client, i interface{}) []ConfigNotificationSendSmsSmsTemplate {
+func flattenConfigNotificationSendSmsSmsTemplateSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendSmsSmsTemplate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendSmsSmsTemplate{}
@@ -6124,7 +6124,7 @@ func flattenConfigNotificationSendSmsSmsTemplateSlice(c *Client, i interface{}) 
 
 	items := make([]ConfigNotificationSendSmsSmsTemplate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigNotificationSendSmsSmsTemplate(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigNotificationSendSmsSmsTemplate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6144,7 +6144,7 @@ func expandConfigNotificationSendSmsSmsTemplate(c *Client, f *ConfigNotification
 
 // flattenConfigNotificationSendSmsSmsTemplate flattens an instance of ConfigNotificationSendSmsSmsTemplate from a JSON
 // response object.
-func flattenConfigNotificationSendSmsSmsTemplate(c *Client, i interface{}) *ConfigNotificationSendSmsSmsTemplate {
+func flattenConfigNotificationSendSmsSmsTemplate(c *Client, i interface{}, res *Config) *ConfigNotificationSendSmsSmsTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6203,7 +6203,7 @@ func expandConfigQuotaSlice(c *Client, f []ConfigQuota, res *Config) ([]map[stri
 
 // flattenConfigQuotaMap flattens the contents of ConfigQuota from a JSON
 // response object.
-func flattenConfigQuotaMap(c *Client, i interface{}) map[string]ConfigQuota {
+func flattenConfigQuotaMap(c *Client, i interface{}, res *Config) map[string]ConfigQuota {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigQuota{}
@@ -6215,7 +6215,7 @@ func flattenConfigQuotaMap(c *Client, i interface{}) map[string]ConfigQuota {
 
 	items := make(map[string]ConfigQuota)
 	for k, item := range a {
-		items[k] = *flattenConfigQuota(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigQuota(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6223,7 +6223,7 @@ func flattenConfigQuotaMap(c *Client, i interface{}) map[string]ConfigQuota {
 
 // flattenConfigQuotaSlice flattens the contents of ConfigQuota from a JSON
 // response object.
-func flattenConfigQuotaSlice(c *Client, i interface{}) []ConfigQuota {
+func flattenConfigQuotaSlice(c *Client, i interface{}, res *Config) []ConfigQuota {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigQuota{}
@@ -6235,7 +6235,7 @@ func flattenConfigQuotaSlice(c *Client, i interface{}) []ConfigQuota {
 
 	items := make([]ConfigQuota, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigQuota(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigQuota(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6260,7 +6260,7 @@ func expandConfigQuota(c *Client, f *ConfigQuota, res *Config) (map[string]inter
 
 // flattenConfigQuota flattens an instance of ConfigQuota from a JSON
 // response object.
-func flattenConfigQuota(c *Client, i interface{}) *ConfigQuota {
+func flattenConfigQuota(c *Client, i interface{}, res *Config) *ConfigQuota {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6271,7 +6271,7 @@ func flattenConfigQuota(c *Client, i interface{}) *ConfigQuota {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyConfigQuota
 	}
-	r.SignUpQuotaConfig = flattenConfigQuotaSignUpQuotaConfig(c, m["signUpQuotaConfig"])
+	r.SignUpQuotaConfig = flattenConfigQuotaSignUpQuotaConfig(c, m["signUpQuotaConfig"], res)
 
 	return r
 }
@@ -6319,7 +6319,7 @@ func expandConfigQuotaSignUpQuotaConfigSlice(c *Client, f []ConfigQuotaSignUpQuo
 
 // flattenConfigQuotaSignUpQuotaConfigMap flattens the contents of ConfigQuotaSignUpQuotaConfig from a JSON
 // response object.
-func flattenConfigQuotaSignUpQuotaConfigMap(c *Client, i interface{}) map[string]ConfigQuotaSignUpQuotaConfig {
+func flattenConfigQuotaSignUpQuotaConfigMap(c *Client, i interface{}, res *Config) map[string]ConfigQuotaSignUpQuotaConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigQuotaSignUpQuotaConfig{}
@@ -6331,7 +6331,7 @@ func flattenConfigQuotaSignUpQuotaConfigMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ConfigQuotaSignUpQuotaConfig)
 	for k, item := range a {
-		items[k] = *flattenConfigQuotaSignUpQuotaConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigQuotaSignUpQuotaConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6339,7 +6339,7 @@ func flattenConfigQuotaSignUpQuotaConfigMap(c *Client, i interface{}) map[string
 
 // flattenConfigQuotaSignUpQuotaConfigSlice flattens the contents of ConfigQuotaSignUpQuotaConfig from a JSON
 // response object.
-func flattenConfigQuotaSignUpQuotaConfigSlice(c *Client, i interface{}) []ConfigQuotaSignUpQuotaConfig {
+func flattenConfigQuotaSignUpQuotaConfigSlice(c *Client, i interface{}, res *Config) []ConfigQuotaSignUpQuotaConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigQuotaSignUpQuotaConfig{}
@@ -6351,7 +6351,7 @@ func flattenConfigQuotaSignUpQuotaConfigSlice(c *Client, i interface{}) []Config
 
 	items := make([]ConfigQuotaSignUpQuotaConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigQuotaSignUpQuotaConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigQuotaSignUpQuotaConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6380,7 +6380,7 @@ func expandConfigQuotaSignUpQuotaConfig(c *Client, f *ConfigQuotaSignUpQuotaConf
 
 // flattenConfigQuotaSignUpQuotaConfig flattens an instance of ConfigQuotaSignUpQuotaConfig from a JSON
 // response object.
-func flattenConfigQuotaSignUpQuotaConfig(c *Client, i interface{}) *ConfigQuotaSignUpQuotaConfig {
+func flattenConfigQuotaSignUpQuotaConfig(c *Client, i interface{}, res *Config) *ConfigQuotaSignUpQuotaConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6441,7 +6441,7 @@ func expandConfigMonitoringSlice(c *Client, f []ConfigMonitoring, res *Config) (
 
 // flattenConfigMonitoringMap flattens the contents of ConfigMonitoring from a JSON
 // response object.
-func flattenConfigMonitoringMap(c *Client, i interface{}) map[string]ConfigMonitoring {
+func flattenConfigMonitoringMap(c *Client, i interface{}, res *Config) map[string]ConfigMonitoring {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigMonitoring{}
@@ -6453,7 +6453,7 @@ func flattenConfigMonitoringMap(c *Client, i interface{}) map[string]ConfigMonit
 
 	items := make(map[string]ConfigMonitoring)
 	for k, item := range a {
-		items[k] = *flattenConfigMonitoring(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigMonitoring(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6461,7 +6461,7 @@ func flattenConfigMonitoringMap(c *Client, i interface{}) map[string]ConfigMonit
 
 // flattenConfigMonitoringSlice flattens the contents of ConfigMonitoring from a JSON
 // response object.
-func flattenConfigMonitoringSlice(c *Client, i interface{}) []ConfigMonitoring {
+func flattenConfigMonitoringSlice(c *Client, i interface{}, res *Config) []ConfigMonitoring {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigMonitoring{}
@@ -6473,7 +6473,7 @@ func flattenConfigMonitoringSlice(c *Client, i interface{}) []ConfigMonitoring {
 
 	items := make([]ConfigMonitoring, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigMonitoring(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigMonitoring(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6498,7 +6498,7 @@ func expandConfigMonitoring(c *Client, f *ConfigMonitoring, res *Config) (map[st
 
 // flattenConfigMonitoring flattens an instance of ConfigMonitoring from a JSON
 // response object.
-func flattenConfigMonitoring(c *Client, i interface{}) *ConfigMonitoring {
+func flattenConfigMonitoring(c *Client, i interface{}, res *Config) *ConfigMonitoring {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6509,7 +6509,7 @@ func flattenConfigMonitoring(c *Client, i interface{}) *ConfigMonitoring {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyConfigMonitoring
 	}
-	r.RequestLogging = flattenConfigMonitoringRequestLogging(c, m["requestLogging"])
+	r.RequestLogging = flattenConfigMonitoringRequestLogging(c, m["requestLogging"], res)
 
 	return r
 }
@@ -6557,7 +6557,7 @@ func expandConfigMonitoringRequestLoggingSlice(c *Client, f []ConfigMonitoringRe
 
 // flattenConfigMonitoringRequestLoggingMap flattens the contents of ConfigMonitoringRequestLogging from a JSON
 // response object.
-func flattenConfigMonitoringRequestLoggingMap(c *Client, i interface{}) map[string]ConfigMonitoringRequestLogging {
+func flattenConfigMonitoringRequestLoggingMap(c *Client, i interface{}, res *Config) map[string]ConfigMonitoringRequestLogging {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigMonitoringRequestLogging{}
@@ -6569,7 +6569,7 @@ func flattenConfigMonitoringRequestLoggingMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]ConfigMonitoringRequestLogging)
 	for k, item := range a {
-		items[k] = *flattenConfigMonitoringRequestLogging(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigMonitoringRequestLogging(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6577,7 +6577,7 @@ func flattenConfigMonitoringRequestLoggingMap(c *Client, i interface{}) map[stri
 
 // flattenConfigMonitoringRequestLoggingSlice flattens the contents of ConfigMonitoringRequestLogging from a JSON
 // response object.
-func flattenConfigMonitoringRequestLoggingSlice(c *Client, i interface{}) []ConfigMonitoringRequestLogging {
+func flattenConfigMonitoringRequestLoggingSlice(c *Client, i interface{}, res *Config) []ConfigMonitoringRequestLogging {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigMonitoringRequestLogging{}
@@ -6589,7 +6589,7 @@ func flattenConfigMonitoringRequestLoggingSlice(c *Client, i interface{}) []Conf
 
 	items := make([]ConfigMonitoringRequestLogging, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigMonitoringRequestLogging(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigMonitoringRequestLogging(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6612,7 +6612,7 @@ func expandConfigMonitoringRequestLogging(c *Client, f *ConfigMonitoringRequestL
 
 // flattenConfigMonitoringRequestLogging flattens an instance of ConfigMonitoringRequestLogging from a JSON
 // response object.
-func flattenConfigMonitoringRequestLogging(c *Client, i interface{}) *ConfigMonitoringRequestLogging {
+func flattenConfigMonitoringRequestLogging(c *Client, i interface{}, res *Config) *ConfigMonitoringRequestLogging {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6671,7 +6671,7 @@ func expandConfigMultiTenantSlice(c *Client, f []ConfigMultiTenant, res *Config)
 
 // flattenConfigMultiTenantMap flattens the contents of ConfigMultiTenant from a JSON
 // response object.
-func flattenConfigMultiTenantMap(c *Client, i interface{}) map[string]ConfigMultiTenant {
+func flattenConfigMultiTenantMap(c *Client, i interface{}, res *Config) map[string]ConfigMultiTenant {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigMultiTenant{}
@@ -6683,7 +6683,7 @@ func flattenConfigMultiTenantMap(c *Client, i interface{}) map[string]ConfigMult
 
 	items := make(map[string]ConfigMultiTenant)
 	for k, item := range a {
-		items[k] = *flattenConfigMultiTenant(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigMultiTenant(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6691,7 +6691,7 @@ func flattenConfigMultiTenantMap(c *Client, i interface{}) map[string]ConfigMult
 
 // flattenConfigMultiTenantSlice flattens the contents of ConfigMultiTenant from a JSON
 // response object.
-func flattenConfigMultiTenantSlice(c *Client, i interface{}) []ConfigMultiTenant {
+func flattenConfigMultiTenantSlice(c *Client, i interface{}, res *Config) []ConfigMultiTenant {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigMultiTenant{}
@@ -6703,7 +6703,7 @@ func flattenConfigMultiTenantSlice(c *Client, i interface{}) []ConfigMultiTenant
 
 	items := make([]ConfigMultiTenant, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigMultiTenant(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigMultiTenant(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6729,7 +6729,7 @@ func expandConfigMultiTenant(c *Client, f *ConfigMultiTenant, res *Config) (map[
 
 // flattenConfigMultiTenant flattens an instance of ConfigMultiTenant from a JSON
 // response object.
-func flattenConfigMultiTenant(c *Client, i interface{}) *ConfigMultiTenant {
+func flattenConfigMultiTenant(c *Client, i interface{}, res *Config) *ConfigMultiTenant {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6789,7 +6789,7 @@ func expandConfigClientSlice(c *Client, f []ConfigClient, res *Config) ([]map[st
 
 // flattenConfigClientMap flattens the contents of ConfigClient from a JSON
 // response object.
-func flattenConfigClientMap(c *Client, i interface{}) map[string]ConfigClient {
+func flattenConfigClientMap(c *Client, i interface{}, res *Config) map[string]ConfigClient {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigClient{}
@@ -6801,7 +6801,7 @@ func flattenConfigClientMap(c *Client, i interface{}) map[string]ConfigClient {
 
 	items := make(map[string]ConfigClient)
 	for k, item := range a {
-		items[k] = *flattenConfigClient(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigClient(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6809,7 +6809,7 @@ func flattenConfigClientMap(c *Client, i interface{}) map[string]ConfigClient {
 
 // flattenConfigClientSlice flattens the contents of ConfigClient from a JSON
 // response object.
-func flattenConfigClientSlice(c *Client, i interface{}) []ConfigClient {
+func flattenConfigClientSlice(c *Client, i interface{}, res *Config) []ConfigClient {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigClient{}
@@ -6821,7 +6821,7 @@ func flattenConfigClientSlice(c *Client, i interface{}) []ConfigClient {
 
 	items := make([]ConfigClient, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigClient(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigClient(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6846,7 +6846,7 @@ func expandConfigClient(c *Client, f *ConfigClient, res *Config) (map[string]int
 
 // flattenConfigClient flattens an instance of ConfigClient from a JSON
 // response object.
-func flattenConfigClient(c *Client, i interface{}) *ConfigClient {
+func flattenConfigClient(c *Client, i interface{}, res *Config) *ConfigClient {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6858,7 +6858,7 @@ func flattenConfigClient(c *Client, i interface{}) *ConfigClient {
 		return EmptyConfigClient
 	}
 	r.ApiKey = dcl.FlattenString(m["apiKey"])
-	r.Permissions = flattenConfigClientPermissions(c, m["permissions"])
+	r.Permissions = flattenConfigClientPermissions(c, m["permissions"], res)
 	r.FirebaseSubdomain = dcl.FlattenString(m["firebaseSubdomain"])
 
 	return r
@@ -6907,7 +6907,7 @@ func expandConfigClientPermissionsSlice(c *Client, f []ConfigClientPermissions, 
 
 // flattenConfigClientPermissionsMap flattens the contents of ConfigClientPermissions from a JSON
 // response object.
-func flattenConfigClientPermissionsMap(c *Client, i interface{}) map[string]ConfigClientPermissions {
+func flattenConfigClientPermissionsMap(c *Client, i interface{}, res *Config) map[string]ConfigClientPermissions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigClientPermissions{}
@@ -6919,7 +6919,7 @@ func flattenConfigClientPermissionsMap(c *Client, i interface{}) map[string]Conf
 
 	items := make(map[string]ConfigClientPermissions)
 	for k, item := range a {
-		items[k] = *flattenConfigClientPermissions(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigClientPermissions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6927,7 +6927,7 @@ func flattenConfigClientPermissionsMap(c *Client, i interface{}) map[string]Conf
 
 // flattenConfigClientPermissionsSlice flattens the contents of ConfigClientPermissions from a JSON
 // response object.
-func flattenConfigClientPermissionsSlice(c *Client, i interface{}) []ConfigClientPermissions {
+func flattenConfigClientPermissionsSlice(c *Client, i interface{}, res *Config) []ConfigClientPermissions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigClientPermissions{}
@@ -6939,7 +6939,7 @@ func flattenConfigClientPermissionsSlice(c *Client, i interface{}) []ConfigClien
 
 	items := make([]ConfigClientPermissions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigClientPermissions(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigClientPermissions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6965,7 +6965,7 @@ func expandConfigClientPermissions(c *Client, f *ConfigClientPermissions, res *C
 
 // flattenConfigClientPermissions flattens an instance of ConfigClientPermissions from a JSON
 // response object.
-func flattenConfigClientPermissions(c *Client, i interface{}) *ConfigClientPermissions {
+func flattenConfigClientPermissions(c *Client, i interface{}, res *Config) *ConfigClientPermissions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7025,7 +7025,7 @@ func expandConfigMfaSlice(c *Client, f []ConfigMfa, res *Config) ([]map[string]i
 
 // flattenConfigMfaMap flattens the contents of ConfigMfa from a JSON
 // response object.
-func flattenConfigMfaMap(c *Client, i interface{}) map[string]ConfigMfa {
+func flattenConfigMfaMap(c *Client, i interface{}, res *Config) map[string]ConfigMfa {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigMfa{}
@@ -7037,7 +7037,7 @@ func flattenConfigMfaMap(c *Client, i interface{}) map[string]ConfigMfa {
 
 	items := make(map[string]ConfigMfa)
 	for k, item := range a {
-		items[k] = *flattenConfigMfa(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigMfa(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7045,7 +7045,7 @@ func flattenConfigMfaMap(c *Client, i interface{}) map[string]ConfigMfa {
 
 // flattenConfigMfaSlice flattens the contents of ConfigMfa from a JSON
 // response object.
-func flattenConfigMfaSlice(c *Client, i interface{}) []ConfigMfa {
+func flattenConfigMfaSlice(c *Client, i interface{}, res *Config) []ConfigMfa {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigMfa{}
@@ -7057,7 +7057,7 @@ func flattenConfigMfaSlice(c *Client, i interface{}) []ConfigMfa {
 
 	items := make([]ConfigMfa, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigMfa(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigMfa(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7080,7 +7080,7 @@ func expandConfigMfa(c *Client, f *ConfigMfa, res *Config) (map[string]interface
 
 // flattenConfigMfa flattens an instance of ConfigMfa from a JSON
 // response object.
-func flattenConfigMfa(c *Client, i interface{}) *ConfigMfa {
+func flattenConfigMfa(c *Client, i interface{}, res *Config) *ConfigMfa {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7139,7 +7139,7 @@ func expandConfigBlockingFunctionsSlice(c *Client, f []ConfigBlockingFunctions, 
 
 // flattenConfigBlockingFunctionsMap flattens the contents of ConfigBlockingFunctions from a JSON
 // response object.
-func flattenConfigBlockingFunctionsMap(c *Client, i interface{}) map[string]ConfigBlockingFunctions {
+func flattenConfigBlockingFunctionsMap(c *Client, i interface{}, res *Config) map[string]ConfigBlockingFunctions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigBlockingFunctions{}
@@ -7151,7 +7151,7 @@ func flattenConfigBlockingFunctionsMap(c *Client, i interface{}) map[string]Conf
 
 	items := make(map[string]ConfigBlockingFunctions)
 	for k, item := range a {
-		items[k] = *flattenConfigBlockingFunctions(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigBlockingFunctions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7159,7 +7159,7 @@ func flattenConfigBlockingFunctionsMap(c *Client, i interface{}) map[string]Conf
 
 // flattenConfigBlockingFunctionsSlice flattens the contents of ConfigBlockingFunctions from a JSON
 // response object.
-func flattenConfigBlockingFunctionsSlice(c *Client, i interface{}) []ConfigBlockingFunctions {
+func flattenConfigBlockingFunctionsSlice(c *Client, i interface{}, res *Config) []ConfigBlockingFunctions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigBlockingFunctions{}
@@ -7171,7 +7171,7 @@ func flattenConfigBlockingFunctionsSlice(c *Client, i interface{}) []ConfigBlock
 
 	items := make([]ConfigBlockingFunctions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigBlockingFunctions(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigBlockingFunctions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7196,7 +7196,7 @@ func expandConfigBlockingFunctions(c *Client, f *ConfigBlockingFunctions, res *C
 
 // flattenConfigBlockingFunctions flattens an instance of ConfigBlockingFunctions from a JSON
 // response object.
-func flattenConfigBlockingFunctions(c *Client, i interface{}) *ConfigBlockingFunctions {
+func flattenConfigBlockingFunctions(c *Client, i interface{}, res *Config) *ConfigBlockingFunctions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7207,7 +7207,7 @@ func flattenConfigBlockingFunctions(c *Client, i interface{}) *ConfigBlockingFun
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyConfigBlockingFunctions
 	}
-	r.Triggers = flattenConfigBlockingFunctionsTriggersMap(c, m["triggers"])
+	r.Triggers = flattenConfigBlockingFunctionsTriggersMap(c, m["triggers"], res)
 
 	return r
 }
@@ -7255,7 +7255,7 @@ func expandConfigBlockingFunctionsTriggersSlice(c *Client, f []ConfigBlockingFun
 
 // flattenConfigBlockingFunctionsTriggersMap flattens the contents of ConfigBlockingFunctionsTriggers from a JSON
 // response object.
-func flattenConfigBlockingFunctionsTriggersMap(c *Client, i interface{}) map[string]ConfigBlockingFunctionsTriggers {
+func flattenConfigBlockingFunctionsTriggersMap(c *Client, i interface{}, res *Config) map[string]ConfigBlockingFunctionsTriggers {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigBlockingFunctionsTriggers{}
@@ -7267,7 +7267,7 @@ func flattenConfigBlockingFunctionsTriggersMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]ConfigBlockingFunctionsTriggers)
 	for k, item := range a {
-		items[k] = *flattenConfigBlockingFunctionsTriggers(c, item.(map[string]interface{}))
+		items[k] = *flattenConfigBlockingFunctionsTriggers(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7275,7 +7275,7 @@ func flattenConfigBlockingFunctionsTriggersMap(c *Client, i interface{}) map[str
 
 // flattenConfigBlockingFunctionsTriggersSlice flattens the contents of ConfigBlockingFunctionsTriggers from a JSON
 // response object.
-func flattenConfigBlockingFunctionsTriggersSlice(c *Client, i interface{}) []ConfigBlockingFunctionsTriggers {
+func flattenConfigBlockingFunctionsTriggersSlice(c *Client, i interface{}, res *Config) []ConfigBlockingFunctionsTriggers {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigBlockingFunctionsTriggers{}
@@ -7287,7 +7287,7 @@ func flattenConfigBlockingFunctionsTriggersSlice(c *Client, i interface{}) []Con
 
 	items := make([]ConfigBlockingFunctionsTriggers, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigBlockingFunctionsTriggers(c, item.(map[string]interface{})))
+		items = append(items, *flattenConfigBlockingFunctionsTriggers(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7310,7 +7310,7 @@ func expandConfigBlockingFunctionsTriggers(c *Client, f *ConfigBlockingFunctions
 
 // flattenConfigBlockingFunctionsTriggers flattens an instance of ConfigBlockingFunctionsTriggers from a JSON
 // response object.
-func flattenConfigBlockingFunctionsTriggers(c *Client, i interface{}) *ConfigBlockingFunctionsTriggers {
+func flattenConfigBlockingFunctionsTriggers(c *Client, i interface{}, res *Config) *ConfigBlockingFunctionsTriggers {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7329,7 +7329,7 @@ func flattenConfigBlockingFunctionsTriggers(c *Client, i interface{}) *ConfigBlo
 
 // flattenConfigSignInEmailHashConfigAlgorithmEnumMap flattens the contents of ConfigSignInEmailHashConfigAlgorithmEnum from a JSON
 // response object.
-func flattenConfigSignInEmailHashConfigAlgorithmEnumMap(c *Client, i interface{}) map[string]ConfigSignInEmailHashConfigAlgorithmEnum {
+func flattenConfigSignInEmailHashConfigAlgorithmEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigSignInEmailHashConfigAlgorithmEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignInEmailHashConfigAlgorithmEnum{}
@@ -7349,7 +7349,7 @@ func flattenConfigSignInEmailHashConfigAlgorithmEnumMap(c *Client, i interface{}
 
 // flattenConfigSignInEmailHashConfigAlgorithmEnumSlice flattens the contents of ConfigSignInEmailHashConfigAlgorithmEnum from a JSON
 // response object.
-func flattenConfigSignInEmailHashConfigAlgorithmEnumSlice(c *Client, i interface{}) []ConfigSignInEmailHashConfigAlgorithmEnum {
+func flattenConfigSignInEmailHashConfigAlgorithmEnumSlice(c *Client, i interface{}, res *Config) []ConfigSignInEmailHashConfigAlgorithmEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignInEmailHashConfigAlgorithmEnum{}
@@ -7380,7 +7380,7 @@ func flattenConfigSignInEmailHashConfigAlgorithmEnum(i interface{}) *ConfigSignI
 
 // flattenConfigSignInHashConfigAlgorithmEnumMap flattens the contents of ConfigSignInHashConfigAlgorithmEnum from a JSON
 // response object.
-func flattenConfigSignInHashConfigAlgorithmEnumMap(c *Client, i interface{}) map[string]ConfigSignInHashConfigAlgorithmEnum {
+func flattenConfigSignInHashConfigAlgorithmEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigSignInHashConfigAlgorithmEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSignInHashConfigAlgorithmEnum{}
@@ -7400,7 +7400,7 @@ func flattenConfigSignInHashConfigAlgorithmEnumMap(c *Client, i interface{}) map
 
 // flattenConfigSignInHashConfigAlgorithmEnumSlice flattens the contents of ConfigSignInHashConfigAlgorithmEnum from a JSON
 // response object.
-func flattenConfigSignInHashConfigAlgorithmEnumSlice(c *Client, i interface{}) []ConfigSignInHashConfigAlgorithmEnum {
+func flattenConfigSignInHashConfigAlgorithmEnumSlice(c *Client, i interface{}, res *Config) []ConfigSignInHashConfigAlgorithmEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSignInHashConfigAlgorithmEnum{}
@@ -7431,7 +7431,7 @@ func flattenConfigSignInHashConfigAlgorithmEnum(i interface{}) *ConfigSignInHash
 
 // flattenConfigNotificationSendEmailMethodEnumMap flattens the contents of ConfigNotificationSendEmailMethodEnum from a JSON
 // response object.
-func flattenConfigNotificationSendEmailMethodEnumMap(c *Client, i interface{}) map[string]ConfigNotificationSendEmailMethodEnum {
+func flattenConfigNotificationSendEmailMethodEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendEmailMethodEnum{}
@@ -7451,7 +7451,7 @@ func flattenConfigNotificationSendEmailMethodEnumMap(c *Client, i interface{}) m
 
 // flattenConfigNotificationSendEmailMethodEnumSlice flattens the contents of ConfigNotificationSendEmailMethodEnum from a JSON
 // response object.
-func flattenConfigNotificationSendEmailMethodEnumSlice(c *Client, i interface{}) []ConfigNotificationSendEmailMethodEnum {
+func flattenConfigNotificationSendEmailMethodEnumSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendEmailMethodEnum{}
@@ -7482,7 +7482,7 @@ func flattenConfigNotificationSendEmailMethodEnum(i interface{}) *ConfigNotifica
 
 // flattenConfigNotificationSendEmailSmtpSecurityModeEnumMap flattens the contents of ConfigNotificationSendEmailSmtpSecurityModeEnum from a JSON
 // response object.
-func flattenConfigNotificationSendEmailSmtpSecurityModeEnumMap(c *Client, i interface{}) map[string]ConfigNotificationSendEmailSmtpSecurityModeEnum {
+func flattenConfigNotificationSendEmailSmtpSecurityModeEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailSmtpSecurityModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendEmailSmtpSecurityModeEnum{}
@@ -7502,7 +7502,7 @@ func flattenConfigNotificationSendEmailSmtpSecurityModeEnumMap(c *Client, i inte
 
 // flattenConfigNotificationSendEmailSmtpSecurityModeEnumSlice flattens the contents of ConfigNotificationSendEmailSmtpSecurityModeEnum from a JSON
 // response object.
-func flattenConfigNotificationSendEmailSmtpSecurityModeEnumSlice(c *Client, i interface{}) []ConfigNotificationSendEmailSmtpSecurityModeEnum {
+func flattenConfigNotificationSendEmailSmtpSecurityModeEnumSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailSmtpSecurityModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendEmailSmtpSecurityModeEnum{}
@@ -7533,7 +7533,7 @@ func flattenConfigNotificationSendEmailSmtpSecurityModeEnum(i interface{}) *Conf
 
 // flattenConfigEmailTemplateBodyFormatEnumMap flattens the contents of ConfigEmailTemplateBodyFormatEnum from a JSON
 // response object.
-func flattenConfigEmailTemplateBodyFormatEnumMap(c *Client, i interface{}) map[string]ConfigEmailTemplateBodyFormatEnum {
+func flattenConfigEmailTemplateBodyFormatEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigEmailTemplateBodyFormatEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigEmailTemplateBodyFormatEnum{}
@@ -7553,7 +7553,7 @@ func flattenConfigEmailTemplateBodyFormatEnumMap(c *Client, i interface{}) map[s
 
 // flattenConfigEmailTemplateBodyFormatEnumSlice flattens the contents of ConfigEmailTemplateBodyFormatEnum from a JSON
 // response object.
-func flattenConfigEmailTemplateBodyFormatEnumSlice(c *Client, i interface{}) []ConfigEmailTemplateBodyFormatEnum {
+func flattenConfigEmailTemplateBodyFormatEnumSlice(c *Client, i interface{}, res *Config) []ConfigEmailTemplateBodyFormatEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigEmailTemplateBodyFormatEnum{}
@@ -7584,7 +7584,7 @@ func flattenConfigEmailTemplateBodyFormatEnum(i interface{}) *ConfigEmailTemplat
 
 // flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumMap flattens the contents of ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum from a JSON
 // response object.
-func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumMap(c *Client, i interface{}) map[string]ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum {
+func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum{}
@@ -7604,7 +7604,7 @@ func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumMap(c *Client
 
 // flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumSlice flattens the contents of ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum from a JSON
 // response object.
-func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumSlice(c *Client, i interface{}) []ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum {
+func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum{}
@@ -7635,7 +7635,7 @@ func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(i interface{
 
 // flattenConfigSubtypeEnumMap flattens the contents of ConfigSubtypeEnum from a JSON
 // response object.
-func flattenConfigSubtypeEnumMap(c *Client, i interface{}) map[string]ConfigSubtypeEnum {
+func flattenConfigSubtypeEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigSubtypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigSubtypeEnum{}
@@ -7655,7 +7655,7 @@ func flattenConfigSubtypeEnumMap(c *Client, i interface{}) map[string]ConfigSubt
 
 // flattenConfigSubtypeEnumSlice flattens the contents of ConfigSubtypeEnum from a JSON
 // response object.
-func flattenConfigSubtypeEnumSlice(c *Client, i interface{}) []ConfigSubtypeEnum {
+func flattenConfigSubtypeEnumSlice(c *Client, i interface{}, res *Config) []ConfigSubtypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigSubtypeEnum{}
@@ -7686,7 +7686,7 @@ func flattenConfigSubtypeEnum(i interface{}) *ConfigSubtypeEnum {
 
 // flattenConfigMfaStateEnumMap flattens the contents of ConfigMfaStateEnum from a JSON
 // response object.
-func flattenConfigMfaStateEnumMap(c *Client, i interface{}) map[string]ConfigMfaStateEnum {
+func flattenConfigMfaStateEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigMfaStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConfigMfaStateEnum{}
@@ -7706,7 +7706,7 @@ func flattenConfigMfaStateEnumMap(c *Client, i interface{}) map[string]ConfigMfa
 
 // flattenConfigMfaStateEnumSlice flattens the contents of ConfigMfaStateEnum from a JSON
 // response object.
-func flattenConfigMfaStateEnumSlice(c *Client, i interface{}) []ConfigMfaStateEnum {
+func flattenConfigMfaStateEnumSlice(c *Client, i interface{}, res *Config) []ConfigMfaStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConfigMfaStateEnum{}
@@ -7740,7 +7740,7 @@ func flattenConfigMfaStateEnum(i interface{}) *ConfigMfaStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Config) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalConfig(b, c)
+		cr, err := unmarshalConfig(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

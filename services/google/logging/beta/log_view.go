@@ -148,7 +148,7 @@ func (c *Client) GetLogView(ctx context.Context, r *LogView) (*LogView, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalLogView(b, c)
+	result, err := unmarshalLogView(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +319,7 @@ func applyLogViewDiff(c *Client, ctx context.Context, desired *LogView, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapLogView(r, c)
+				fullResp, err := unmarshalMapLogView(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

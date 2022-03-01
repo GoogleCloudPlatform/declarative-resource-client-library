@@ -140,7 +140,7 @@ func (c *Client) GetBrand(ctx context.Context, r *Brand) (*Brand, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalBrand(b, c)
+	result, err := unmarshalBrand(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func applyBrandDiff(c *Client, ctx context.Context, desired *Brand, rawDesired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapBrand(r, c)
+				fullResp, err := unmarshalMapBrand(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -280,7 +280,7 @@ func (c *Client) listStoredInfoType(ctx context.Context, r *StoredInfoType, page
 
 	var l []*StoredInfoType
 	for _, v := range m.StoredInfoTypes {
-		res, err := unmarshalMapStoredInfoType(v, c)
+		res, err := unmarshalMapStoredInfoType(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -536,7 +536,7 @@ func canonicalizeStoredInfoTypeDesiredState(rawDesired, rawInitial *StoredInfoTy
 	}
 
 	canonicalDesired := &StoredInfoType{}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -573,7 +573,7 @@ func canonicalizeStoredInfoTypeNewState(c *Client, rawNew, rawDesired *StoredInf
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
 		}
 	}
@@ -2282,17 +2282,17 @@ func (r *StoredInfoType) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalStoredInfoType decodes JSON responses into the StoredInfoType resource schema.
-func unmarshalStoredInfoType(b []byte, c *Client) (*StoredInfoType, error) {
+func unmarshalStoredInfoType(b []byte, c *Client, res *StoredInfoType) (*StoredInfoType, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapStoredInfoType(m, c)
+	return unmarshalMapStoredInfoType(m, c, res)
 }
 
-func unmarshalMapStoredInfoType(m map[string]interface{}, c *Client) (*StoredInfoType, error) {
+func unmarshalMapStoredInfoType(m map[string]interface{}, c *Client, res *StoredInfoType) (*StoredInfoType, error) {
 
-	flattened := flattenStoredInfoType(c, m)
+	flattened := flattenStoredInfoType(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2304,9 +2304,7 @@ func expandStoredInfoType(c *Client, f *StoredInfoType) (map[string]interface{},
 	m := make(map[string]interface{})
 	res := f
 	_ = res
-	if v, err := dcl.DeriveField("%s/storedInfoTypes/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Name)); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -2346,7 +2344,7 @@ func expandStoredInfoType(c *Client, f *StoredInfoType) (map[string]interface{},
 
 // flattenStoredInfoType flattens StoredInfoType from a JSON request object into the
 // StoredInfoType type.
-func flattenStoredInfoType(c *Client, i interface{}) *StoredInfoType {
+func flattenStoredInfoType(c *Client, i interface{}, res *StoredInfoType) *StoredInfoType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2355,17 +2353,17 @@ func flattenStoredInfoType(c *Client, i interface{}) *StoredInfoType {
 		return nil
 	}
 
-	res := &StoredInfoType{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.LargeCustomDictionary = flattenStoredInfoTypeLargeCustomDictionary(c, m["largeCustomDictionary"])
-	res.Dictionary = flattenStoredInfoTypeDictionary(c, m["dictionary"])
-	res.Regex = flattenStoredInfoTypeRegex(c, m["regex"])
-	res.Parent = dcl.FlattenString(m["parent"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &StoredInfoType{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.LargeCustomDictionary = flattenStoredInfoTypeLargeCustomDictionary(c, m["largeCustomDictionary"], res)
+	resultRes.Dictionary = flattenStoredInfoTypeDictionary(c, m["dictionary"], res)
+	resultRes.Regex = flattenStoredInfoTypeRegex(c, m["regex"], res)
+	resultRes.Parent = dcl.FlattenString(m["parent"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandStoredInfoTypeLargeCustomDictionaryMap expands the contents of StoredInfoTypeLargeCustomDictionary into a JSON
@@ -2411,7 +2409,7 @@ func expandStoredInfoTypeLargeCustomDictionarySlice(c *Client, f []StoredInfoTyp
 
 // flattenStoredInfoTypeLargeCustomDictionaryMap flattens the contents of StoredInfoTypeLargeCustomDictionary from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryMap(c *Client, i interface{}) map[string]StoredInfoTypeLargeCustomDictionary {
+func flattenStoredInfoTypeLargeCustomDictionaryMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeLargeCustomDictionary {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeLargeCustomDictionary{}
@@ -2423,7 +2421,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryMap(c *Client, i interface{}) map
 
 	items := make(map[string]StoredInfoTypeLargeCustomDictionary)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeLargeCustomDictionary(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeLargeCustomDictionary(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2431,7 +2429,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryMap(c *Client, i interface{}) map
 
 // flattenStoredInfoTypeLargeCustomDictionarySlice flattens the contents of StoredInfoTypeLargeCustomDictionary from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionarySlice(c *Client, i interface{}) []StoredInfoTypeLargeCustomDictionary {
+func flattenStoredInfoTypeLargeCustomDictionarySlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeLargeCustomDictionary {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeLargeCustomDictionary{}
@@ -2443,7 +2441,7 @@ func flattenStoredInfoTypeLargeCustomDictionarySlice(c *Client, i interface{}) [
 
 	items := make([]StoredInfoTypeLargeCustomDictionary, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeLargeCustomDictionary(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeLargeCustomDictionary(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2478,7 +2476,7 @@ func expandStoredInfoTypeLargeCustomDictionary(c *Client, f *StoredInfoTypeLarge
 
 // flattenStoredInfoTypeLargeCustomDictionary flattens an instance of StoredInfoTypeLargeCustomDictionary from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionary(c *Client, i interface{}) *StoredInfoTypeLargeCustomDictionary {
+func flattenStoredInfoTypeLargeCustomDictionary(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeLargeCustomDictionary {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2489,9 +2487,9 @@ func flattenStoredInfoTypeLargeCustomDictionary(c *Client, i interface{}) *Store
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyStoredInfoTypeLargeCustomDictionary
 	}
-	r.OutputPath = flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c, m["outputPath"])
-	r.CloudStorageFileSet = flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c, m["cloudStorageFileSet"])
-	r.BigQueryField = flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c, m["bigQueryField"])
+	r.OutputPath = flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c, m["outputPath"], res)
+	r.CloudStorageFileSet = flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c, m["cloudStorageFileSet"], res)
+	r.BigQueryField = flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c, m["bigQueryField"], res)
 
 	return r
 }
@@ -2539,7 +2537,7 @@ func expandStoredInfoTypeLargeCustomDictionaryOutputPathSlice(c *Client, f []Sto
 
 // flattenStoredInfoTypeLargeCustomDictionaryOutputPathMap flattens the contents of StoredInfoTypeLargeCustomDictionaryOutputPath from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryOutputPathMap(c *Client, i interface{}) map[string]StoredInfoTypeLargeCustomDictionaryOutputPath {
+func flattenStoredInfoTypeLargeCustomDictionaryOutputPathMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeLargeCustomDictionaryOutputPath {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeLargeCustomDictionaryOutputPath{}
@@ -2551,7 +2549,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryOutputPathMap(c *Client, i interf
 
 	items := make(map[string]StoredInfoTypeLargeCustomDictionaryOutputPath)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2559,7 +2557,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryOutputPathMap(c *Client, i interf
 
 // flattenStoredInfoTypeLargeCustomDictionaryOutputPathSlice flattens the contents of StoredInfoTypeLargeCustomDictionaryOutputPath from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryOutputPathSlice(c *Client, i interface{}) []StoredInfoTypeLargeCustomDictionaryOutputPath {
+func flattenStoredInfoTypeLargeCustomDictionaryOutputPathSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeLargeCustomDictionaryOutputPath {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeLargeCustomDictionaryOutputPath{}
@@ -2571,7 +2569,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryOutputPathSlice(c *Client, i inte
 
 	items := make([]StoredInfoTypeLargeCustomDictionaryOutputPath, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2594,7 +2592,7 @@ func expandStoredInfoTypeLargeCustomDictionaryOutputPath(c *Client, f *StoredInf
 
 // flattenStoredInfoTypeLargeCustomDictionaryOutputPath flattens an instance of StoredInfoTypeLargeCustomDictionaryOutputPath from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c *Client, i interface{}) *StoredInfoTypeLargeCustomDictionaryOutputPath {
+func flattenStoredInfoTypeLargeCustomDictionaryOutputPath(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeLargeCustomDictionaryOutputPath {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2653,7 +2651,7 @@ func expandStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice(c *Client
 
 // flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetMap flattens the contents of StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetMap(c *Client, i interface{}) map[string]StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
+func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet{}
@@ -2665,7 +2663,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetMap(c *Client,
 
 	items := make(map[string]StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2673,7 +2671,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetMap(c *Client,
 
 // flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice flattens the contents of StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice(c *Client, i interface{}) []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
+func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet{}
@@ -2685,7 +2683,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice(c *Clien
 
 	items := make([]StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2708,7 +2706,7 @@ func expandStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c *Client, f *
 
 // flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet flattens an instance of StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c *Client, i interface{}) *StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
+func flattenStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2767,7 +2765,7 @@ func expandStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice(c *Client, f []
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldMap flattens the contents of StoredInfoTypeLargeCustomDictionaryBigQueryField from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldMap(c *Client, i interface{}) map[string]StoredInfoTypeLargeCustomDictionaryBigQueryField {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeLargeCustomDictionaryBigQueryField {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeLargeCustomDictionaryBigQueryField{}
@@ -2779,7 +2777,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldMap(c *Client, i int
 
 	items := make(map[string]StoredInfoTypeLargeCustomDictionaryBigQueryField)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2787,7 +2785,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldMap(c *Client, i int
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice flattens the contents of StoredInfoTypeLargeCustomDictionaryBigQueryField from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice(c *Client, i interface{}) []StoredInfoTypeLargeCustomDictionaryBigQueryField {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeLargeCustomDictionaryBigQueryField {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeLargeCustomDictionaryBigQueryField{}
@@ -2799,7 +2797,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice(c *Client, i i
 
 	items := make([]StoredInfoTypeLargeCustomDictionaryBigQueryField, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2829,7 +2827,7 @@ func expandStoredInfoTypeLargeCustomDictionaryBigQueryField(c *Client, f *Stored
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryField flattens an instance of StoredInfoTypeLargeCustomDictionaryBigQueryField from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c *Client, i interface{}) *StoredInfoTypeLargeCustomDictionaryBigQueryField {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeLargeCustomDictionaryBigQueryField {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2840,8 +2838,8 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryField(c *Client, i interf
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyStoredInfoTypeLargeCustomDictionaryBigQueryField
 	}
-	r.Table = flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c, m["table"])
-	r.Field = flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c, m["field"])
+	r.Table = flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c, m["table"], res)
+	r.Field = flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c, m["field"], res)
 
 	return r
 }
@@ -2889,7 +2887,7 @@ func expandStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice(c *Client,
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableMap flattens the contents of StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableMap(c *Client, i interface{}) map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable{}
@@ -2901,7 +2899,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableMap(c *Client, 
 
 	items := make(map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2909,7 +2907,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableMap(c *Client, 
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice flattens the contents of StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice(c *Client, i interface{}) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable{}
@@ -2921,7 +2919,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice(c *Client
 
 	items := make([]StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2950,7 +2948,7 @@ func expandStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c *Client, f *S
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable flattens an instance of StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c *Client, i interface{}) *StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3011,7 +3009,7 @@ func expandStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice(c *Client,
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldMap flattens the contents of StoredInfoTypeLargeCustomDictionaryBigQueryFieldField from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldMap(c *Client, i interface{}) map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldField{}
@@ -3023,7 +3021,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldMap(c *Client, 
 
 	items := make(map[string]StoredInfoTypeLargeCustomDictionaryBigQueryFieldField)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3031,7 +3029,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldMap(c *Client, 
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice flattens the contents of StoredInfoTypeLargeCustomDictionaryBigQueryFieldField from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice(c *Client, i interface{}) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField{}
@@ -3043,7 +3041,7 @@ func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice(c *Client
 
 	items := make([]StoredInfoTypeLargeCustomDictionaryBigQueryFieldField, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3066,7 +3064,7 @@ func expandStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c *Client, f *S
 
 // flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField flattens an instance of StoredInfoTypeLargeCustomDictionaryBigQueryFieldField from a JSON
 // response object.
-func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c *Client, i interface{}) *StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
+func flattenStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3125,7 +3123,7 @@ func expandStoredInfoTypeDictionarySlice(c *Client, f []StoredInfoTypeDictionary
 
 // flattenStoredInfoTypeDictionaryMap flattens the contents of StoredInfoTypeDictionary from a JSON
 // response object.
-func flattenStoredInfoTypeDictionaryMap(c *Client, i interface{}) map[string]StoredInfoTypeDictionary {
+func flattenStoredInfoTypeDictionaryMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeDictionary {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeDictionary{}
@@ -3137,7 +3135,7 @@ func flattenStoredInfoTypeDictionaryMap(c *Client, i interface{}) map[string]Sto
 
 	items := make(map[string]StoredInfoTypeDictionary)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeDictionary(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeDictionary(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3145,7 +3143,7 @@ func flattenStoredInfoTypeDictionaryMap(c *Client, i interface{}) map[string]Sto
 
 // flattenStoredInfoTypeDictionarySlice flattens the contents of StoredInfoTypeDictionary from a JSON
 // response object.
-func flattenStoredInfoTypeDictionarySlice(c *Client, i interface{}) []StoredInfoTypeDictionary {
+func flattenStoredInfoTypeDictionarySlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeDictionary {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeDictionary{}
@@ -3157,7 +3155,7 @@ func flattenStoredInfoTypeDictionarySlice(c *Client, i interface{}) []StoredInfo
 
 	items := make([]StoredInfoTypeDictionary, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeDictionary(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeDictionary(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3187,7 +3185,7 @@ func expandStoredInfoTypeDictionary(c *Client, f *StoredInfoTypeDictionary, res 
 
 // flattenStoredInfoTypeDictionary flattens an instance of StoredInfoTypeDictionary from a JSON
 // response object.
-func flattenStoredInfoTypeDictionary(c *Client, i interface{}) *StoredInfoTypeDictionary {
+func flattenStoredInfoTypeDictionary(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeDictionary {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3198,8 +3196,8 @@ func flattenStoredInfoTypeDictionary(c *Client, i interface{}) *StoredInfoTypeDi
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyStoredInfoTypeDictionary
 	}
-	r.WordList = flattenStoredInfoTypeDictionaryWordList(c, m["wordList"])
-	r.CloudStoragePath = flattenStoredInfoTypeDictionaryCloudStoragePath(c, m["cloudStoragePath"])
+	r.WordList = flattenStoredInfoTypeDictionaryWordList(c, m["wordList"], res)
+	r.CloudStoragePath = flattenStoredInfoTypeDictionaryCloudStoragePath(c, m["cloudStoragePath"], res)
 
 	return r
 }
@@ -3247,7 +3245,7 @@ func expandStoredInfoTypeDictionaryWordListSlice(c *Client, f []StoredInfoTypeDi
 
 // flattenStoredInfoTypeDictionaryWordListMap flattens the contents of StoredInfoTypeDictionaryWordList from a JSON
 // response object.
-func flattenStoredInfoTypeDictionaryWordListMap(c *Client, i interface{}) map[string]StoredInfoTypeDictionaryWordList {
+func flattenStoredInfoTypeDictionaryWordListMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeDictionaryWordList {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeDictionaryWordList{}
@@ -3259,7 +3257,7 @@ func flattenStoredInfoTypeDictionaryWordListMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]StoredInfoTypeDictionaryWordList)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeDictionaryWordList(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeDictionaryWordList(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3267,7 +3265,7 @@ func flattenStoredInfoTypeDictionaryWordListMap(c *Client, i interface{}) map[st
 
 // flattenStoredInfoTypeDictionaryWordListSlice flattens the contents of StoredInfoTypeDictionaryWordList from a JSON
 // response object.
-func flattenStoredInfoTypeDictionaryWordListSlice(c *Client, i interface{}) []StoredInfoTypeDictionaryWordList {
+func flattenStoredInfoTypeDictionaryWordListSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeDictionaryWordList {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeDictionaryWordList{}
@@ -3279,7 +3277,7 @@ func flattenStoredInfoTypeDictionaryWordListSlice(c *Client, i interface{}) []St
 
 	items := make([]StoredInfoTypeDictionaryWordList, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeDictionaryWordList(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeDictionaryWordList(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3302,7 +3300,7 @@ func expandStoredInfoTypeDictionaryWordList(c *Client, f *StoredInfoTypeDictiona
 
 // flattenStoredInfoTypeDictionaryWordList flattens an instance of StoredInfoTypeDictionaryWordList from a JSON
 // response object.
-func flattenStoredInfoTypeDictionaryWordList(c *Client, i interface{}) *StoredInfoTypeDictionaryWordList {
+func flattenStoredInfoTypeDictionaryWordList(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeDictionaryWordList {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3361,7 +3359,7 @@ func expandStoredInfoTypeDictionaryCloudStoragePathSlice(c *Client, f []StoredIn
 
 // flattenStoredInfoTypeDictionaryCloudStoragePathMap flattens the contents of StoredInfoTypeDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenStoredInfoTypeDictionaryCloudStoragePathMap(c *Client, i interface{}) map[string]StoredInfoTypeDictionaryCloudStoragePath {
+func flattenStoredInfoTypeDictionaryCloudStoragePathMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeDictionaryCloudStoragePath {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeDictionaryCloudStoragePath{}
@@ -3373,7 +3371,7 @@ func flattenStoredInfoTypeDictionaryCloudStoragePathMap(c *Client, i interface{}
 
 	items := make(map[string]StoredInfoTypeDictionaryCloudStoragePath)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeDictionaryCloudStoragePath(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeDictionaryCloudStoragePath(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3381,7 +3379,7 @@ func flattenStoredInfoTypeDictionaryCloudStoragePathMap(c *Client, i interface{}
 
 // flattenStoredInfoTypeDictionaryCloudStoragePathSlice flattens the contents of StoredInfoTypeDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenStoredInfoTypeDictionaryCloudStoragePathSlice(c *Client, i interface{}) []StoredInfoTypeDictionaryCloudStoragePath {
+func flattenStoredInfoTypeDictionaryCloudStoragePathSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeDictionaryCloudStoragePath {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeDictionaryCloudStoragePath{}
@@ -3393,7 +3391,7 @@ func flattenStoredInfoTypeDictionaryCloudStoragePathSlice(c *Client, i interface
 
 	items := make([]StoredInfoTypeDictionaryCloudStoragePath, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeDictionaryCloudStoragePath(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeDictionaryCloudStoragePath(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3416,7 +3414,7 @@ func expandStoredInfoTypeDictionaryCloudStoragePath(c *Client, f *StoredInfoType
 
 // flattenStoredInfoTypeDictionaryCloudStoragePath flattens an instance of StoredInfoTypeDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenStoredInfoTypeDictionaryCloudStoragePath(c *Client, i interface{}) *StoredInfoTypeDictionaryCloudStoragePath {
+func flattenStoredInfoTypeDictionaryCloudStoragePath(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeDictionaryCloudStoragePath {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3475,7 +3473,7 @@ func expandStoredInfoTypeRegexSlice(c *Client, f []StoredInfoTypeRegex, res *Sto
 
 // flattenStoredInfoTypeRegexMap flattens the contents of StoredInfoTypeRegex from a JSON
 // response object.
-func flattenStoredInfoTypeRegexMap(c *Client, i interface{}) map[string]StoredInfoTypeRegex {
+func flattenStoredInfoTypeRegexMap(c *Client, i interface{}, res *StoredInfoType) map[string]StoredInfoTypeRegex {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]StoredInfoTypeRegex{}
@@ -3487,7 +3485,7 @@ func flattenStoredInfoTypeRegexMap(c *Client, i interface{}) map[string]StoredIn
 
 	items := make(map[string]StoredInfoTypeRegex)
 	for k, item := range a {
-		items[k] = *flattenStoredInfoTypeRegex(c, item.(map[string]interface{}))
+		items[k] = *flattenStoredInfoTypeRegex(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3495,7 +3493,7 @@ func flattenStoredInfoTypeRegexMap(c *Client, i interface{}) map[string]StoredIn
 
 // flattenStoredInfoTypeRegexSlice flattens the contents of StoredInfoTypeRegex from a JSON
 // response object.
-func flattenStoredInfoTypeRegexSlice(c *Client, i interface{}) []StoredInfoTypeRegex {
+func flattenStoredInfoTypeRegexSlice(c *Client, i interface{}, res *StoredInfoType) []StoredInfoTypeRegex {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []StoredInfoTypeRegex{}
@@ -3507,7 +3505,7 @@ func flattenStoredInfoTypeRegexSlice(c *Client, i interface{}) []StoredInfoTypeR
 
 	items := make([]StoredInfoTypeRegex, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenStoredInfoTypeRegex(c, item.(map[string]interface{})))
+		items = append(items, *flattenStoredInfoTypeRegex(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3533,7 +3531,7 @@ func expandStoredInfoTypeRegex(c *Client, f *StoredInfoTypeRegex, res *StoredInf
 
 // flattenStoredInfoTypeRegex flattens an instance of StoredInfoTypeRegex from a JSON
 // response object.
-func flattenStoredInfoTypeRegex(c *Client, i interface{}) *StoredInfoTypeRegex {
+func flattenStoredInfoTypeRegex(c *Client, i interface{}, res *StoredInfoType) *StoredInfoTypeRegex {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3555,7 +3553,7 @@ func flattenStoredInfoTypeRegex(c *Client, i interface{}) *StoredInfoTypeRegex {
 // identity).  This is useful in extracting the element from a List call.
 func (r *StoredInfoType) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalStoredInfoType(b, c)
+		cr, err := unmarshalStoredInfoType(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

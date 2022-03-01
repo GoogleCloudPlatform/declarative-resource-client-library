@@ -57,6 +57,11 @@ func encodeStoredInfoTypeCreateRequest(m map[string]interface{}) map[string]inte
 	return encodeDLPCreateRequest(m, "config", "storedInfoTypeId")
 }
 
+// encodeJobTriggerCreateRequest properly encodes the create request for an dlp inspect template.
+func encodeJobTriggerCreateRequest(m map[string]interface{}) map[string]interface{} {
+	return encodeDLPCreateRequest(m, "jobTrigger", "triggerId")
+}
+
 // Update has a custom method because the update mask needs to be in the request body.
 func (op *updateInspectTemplateUpdateInspectTemplateOperation) do(ctx context.Context, r *InspectTemplate, c *Client) error {
 	_, err := c.GetInspectTemplate(ctx, r)
@@ -154,6 +159,42 @@ func (op *updateDeidentifyTemplateUpdateDeidentifyTemplateOperation) do(ctx cont
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateDeidentifyTemplateUpdateDeidentifyTemplateRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Update has a custom method because the update mask needs to be in the request body.
+func (op *updateJobTriggerUpdateJobTriggerOperation) do(ctx context.Context, r *JobTrigger, c *Client) error {
+	_, err := c.GetJobTrigger(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateJobTrigger")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateJobTriggerUpdateJobTriggerRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
+	req = map[string]interface{}{
+		"jobTrigger": req,
+		"updateMask": mask,
+	}
+
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdateJobTriggerUpdateJobTriggerRequest(c, req)
 	if err != nil {
 		return err
 	}

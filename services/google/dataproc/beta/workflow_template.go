@@ -3312,7 +3312,7 @@ func (c *Client) GetWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) (
 		}
 		return nil, err
 	}
-	result, err := unmarshalWorkflowTemplate(b, c)
+	result, err := unmarshalWorkflowTemplate(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -3482,7 +3482,7 @@ func applyWorkflowTemplateDiff(c *Client, ctx context.Context, desired *Workflow
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapWorkflowTemplate(r, c)
+				fullResp, err := unmarshalMapWorkflowTemplate(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

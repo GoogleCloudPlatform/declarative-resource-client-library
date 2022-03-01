@@ -3,13 +3,13 @@
   "parent": "projects/{{project}}/locations/{{region}}",
   "largeCustomDictionary": {
     "outputPath": {
-      "path": "gs://aaa-dont-delete-dcl-dlp-testing/dictionary-3"
+      "path": "gs://aaa-dont-delete-dcl-dlp-testing/large-custom-dictionary-2"
     },
     "bigQueryField": {
       "table": {
         "projectId": "{{project}}",
-        "datasetId": "{{ref:minimal.bigquery.dataset.json:name}}",
-        "tableId": "{{ref:basic.bigquery.table.json:name}}"
+        "datasetId": "{{ref:first.bigquery.dataset.json:name}}",
+        "tableId": "{{ref:first.bigquery.table.json:name}}"
       },
       "field": {
         "name": "sample_field"

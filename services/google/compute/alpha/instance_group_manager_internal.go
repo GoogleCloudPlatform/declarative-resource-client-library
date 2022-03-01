@@ -543,7 +543,7 @@ func (c *Client) listInstanceGroupManager(ctx context.Context, r *InstanceGroupM
 
 	var l []*InstanceGroupManager
 	for _, v := range m.Items {
-		res, err := unmarshalMapInstanceGroupManager(v, c)
+		res, err := unmarshalMapInstanceGroupManager(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -3660,17 +3660,17 @@ func (r *InstanceGroupManager) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInstanceGroupManager decodes JSON responses into the InstanceGroupManager resource schema.
-func unmarshalInstanceGroupManager(b []byte, c *Client) (*InstanceGroupManager, error) {
+func unmarshalInstanceGroupManager(b []byte, c *Client, res *InstanceGroupManager) (*InstanceGroupManager, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInstanceGroupManager(m, c)
+	return unmarshalMapInstanceGroupManager(m, c, res)
 }
 
-func unmarshalMapInstanceGroupManager(m map[string]interface{}, c *Client) (*InstanceGroupManager, error) {
+func unmarshalMapInstanceGroupManager(m map[string]interface{}, c *Client, res *InstanceGroupManager) (*InstanceGroupManager, error) {
 
-	flattened := flattenInstanceGroupManager(c, m)
+	flattened := flattenInstanceGroupManager(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -3752,7 +3752,7 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 
 // flattenInstanceGroupManager flattens InstanceGroupManager from a JSON request object into the
 // InstanceGroupManager type.
-func flattenInstanceGroupManager(c *Client, i interface{}) *InstanceGroupManager {
+func flattenInstanceGroupManager(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManager {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3761,34 +3761,34 @@ func flattenInstanceGroupManager(c *Client, i interface{}) *InstanceGroupManager
 		return nil
 	}
 
-	res := &InstanceGroupManager{}
-	res.Id = dcl.FlattenInteger(m["id"])
-	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Zone = dcl.FlattenString(m["zone"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.DistributionPolicy = flattenInstanceGroupManagerDistributionPolicy(c, m["distributionPolicy"])
-	res.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
-	res.Versions = flattenInstanceGroupManagerVersionsSlice(c, m["versions"])
-	res.InstanceGroup = dcl.FlattenString(m["instanceGroup"])
-	res.TargetPools = dcl.FlattenStringSlice(m["targetPools"])
-	res.BaseInstanceName = dcl.FlattenString(m["baseInstanceName"])
-	res.Fingerprint = dcl.FlattenString(m["fingerprint"])
-	res.CurrentActions = flattenInstanceGroupManagerCurrentActions(c, m["currentActions"])
-	res.Status = flattenInstanceGroupManagerStatus(c, m["status"])
-	res.TargetSize = dcl.FlattenInteger(m["targetSize"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.AutoHealingPolicies = flattenInstanceGroupManagerAutoHealingPoliciesSlice(c, m["autoHealingPolicies"])
-	res.UpdatePolicy = flattenInstanceGroupManagerUpdatePolicy(c, m["updatePolicy"])
-	res.NamedPorts = flattenInstanceGroupManagerNamedPortsSlice(c, m["namedPorts"])
-	res.StatefulPolicy = flattenInstanceGroupManagerStatefulPolicy(c, m["statefulPolicy"])
-	res.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
-	res.FailoverAction = flattenInstanceGroupManagerFailoverActionEnum(m["failoverAction"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &InstanceGroupManager{}
+	resultRes.Id = dcl.FlattenInteger(m["id"])
+	resultRes.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Zone = dcl.FlattenString(m["zone"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.DistributionPolicy = flattenInstanceGroupManagerDistributionPolicy(c, m["distributionPolicy"], res)
+	resultRes.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
+	resultRes.Versions = flattenInstanceGroupManagerVersionsSlice(c, m["versions"], res)
+	resultRes.InstanceGroup = dcl.FlattenString(m["instanceGroup"])
+	resultRes.TargetPools = dcl.FlattenStringSlice(m["targetPools"])
+	resultRes.BaseInstanceName = dcl.FlattenString(m["baseInstanceName"])
+	resultRes.Fingerprint = dcl.FlattenString(m["fingerprint"])
+	resultRes.CurrentActions = flattenInstanceGroupManagerCurrentActions(c, m["currentActions"], res)
+	resultRes.Status = flattenInstanceGroupManagerStatus(c, m["status"], res)
+	resultRes.TargetSize = dcl.FlattenInteger(m["targetSize"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.AutoHealingPolicies = flattenInstanceGroupManagerAutoHealingPoliciesSlice(c, m["autoHealingPolicies"], res)
+	resultRes.UpdatePolicy = flattenInstanceGroupManagerUpdatePolicy(c, m["updatePolicy"], res)
+	resultRes.NamedPorts = flattenInstanceGroupManagerNamedPortsSlice(c, m["namedPorts"], res)
+	resultRes.StatefulPolicy = flattenInstanceGroupManagerStatefulPolicy(c, m["statefulPolicy"], res)
+	resultRes.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
+	resultRes.FailoverAction = flattenInstanceGroupManagerFailoverActionEnum(m["failoverAction"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandInstanceGroupManagerDistributionPolicyMap expands the contents of InstanceGroupManagerDistributionPolicy into a JSON
@@ -3834,7 +3834,7 @@ func expandInstanceGroupManagerDistributionPolicySlice(c *Client, f []InstanceGr
 
 // flattenInstanceGroupManagerDistributionPolicyMap flattens the contents of InstanceGroupManagerDistributionPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicyMap(c *Client, i interface{}) map[string]InstanceGroupManagerDistributionPolicy {
+func flattenInstanceGroupManagerDistributionPolicyMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerDistributionPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerDistributionPolicy{}
@@ -3846,7 +3846,7 @@ func flattenInstanceGroupManagerDistributionPolicyMap(c *Client, i interface{}) 
 
 	items := make(map[string]InstanceGroupManagerDistributionPolicy)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerDistributionPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerDistributionPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3854,7 +3854,7 @@ func flattenInstanceGroupManagerDistributionPolicyMap(c *Client, i interface{}) 
 
 // flattenInstanceGroupManagerDistributionPolicySlice flattens the contents of InstanceGroupManagerDistributionPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicySlice(c *Client, i interface{}) []InstanceGroupManagerDistributionPolicy {
+func flattenInstanceGroupManagerDistributionPolicySlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerDistributionPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerDistributionPolicy{}
@@ -3866,7 +3866,7 @@ func flattenInstanceGroupManagerDistributionPolicySlice(c *Client, i interface{}
 
 	items := make([]InstanceGroupManagerDistributionPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerDistributionPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerDistributionPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3894,7 +3894,7 @@ func expandInstanceGroupManagerDistributionPolicy(c *Client, f *InstanceGroupMan
 
 // flattenInstanceGroupManagerDistributionPolicy flattens an instance of InstanceGroupManagerDistributionPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicy(c *Client, i interface{}) *InstanceGroupManagerDistributionPolicy {
+func flattenInstanceGroupManagerDistributionPolicy(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerDistributionPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3905,7 +3905,7 @@ func flattenInstanceGroupManagerDistributionPolicy(c *Client, i interface{}) *In
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceGroupManagerDistributionPolicy
 	}
-	r.Zones = flattenInstanceGroupManagerDistributionPolicyZonesSlice(c, m["zones"])
+	r.Zones = flattenInstanceGroupManagerDistributionPolicyZonesSlice(c, m["zones"], res)
 	r.TargetShape = flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum(m["targetShape"])
 
 	return r
@@ -3954,7 +3954,7 @@ func expandInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, f []Insta
 
 // flattenInstanceGroupManagerDistributionPolicyZonesMap flattens the contents of InstanceGroupManagerDistributionPolicyZones from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicyZonesMap(c *Client, i interface{}) map[string]InstanceGroupManagerDistributionPolicyZones {
+func flattenInstanceGroupManagerDistributionPolicyZonesMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerDistributionPolicyZones {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerDistributionPolicyZones{}
@@ -3966,7 +3966,7 @@ func flattenInstanceGroupManagerDistributionPolicyZonesMap(c *Client, i interfac
 
 	items := make(map[string]InstanceGroupManagerDistributionPolicyZones)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerDistributionPolicyZones(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerDistributionPolicyZones(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3974,7 +3974,7 @@ func flattenInstanceGroupManagerDistributionPolicyZonesMap(c *Client, i interfac
 
 // flattenInstanceGroupManagerDistributionPolicyZonesSlice flattens the contents of InstanceGroupManagerDistributionPolicyZones from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, i interface{}) []InstanceGroupManagerDistributionPolicyZones {
+func flattenInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerDistributionPolicyZones {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerDistributionPolicyZones{}
@@ -3986,7 +3986,7 @@ func flattenInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, i interf
 
 	items := make([]InstanceGroupManagerDistributionPolicyZones, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerDistributionPolicyZones(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerDistributionPolicyZones(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4009,7 +4009,7 @@ func expandInstanceGroupManagerDistributionPolicyZones(c *Client, f *InstanceGro
 
 // flattenInstanceGroupManagerDistributionPolicyZones flattens an instance of InstanceGroupManagerDistributionPolicyZones from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicyZones(c *Client, i interface{}) *InstanceGroupManagerDistributionPolicyZones {
+func flattenInstanceGroupManagerDistributionPolicyZones(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerDistributionPolicyZones {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4068,7 +4068,7 @@ func expandInstanceGroupManagerVersionsSlice(c *Client, f []InstanceGroupManager
 
 // flattenInstanceGroupManagerVersionsMap flattens the contents of InstanceGroupManagerVersions from a JSON
 // response object.
-func flattenInstanceGroupManagerVersionsMap(c *Client, i interface{}) map[string]InstanceGroupManagerVersions {
+func flattenInstanceGroupManagerVersionsMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerVersions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerVersions{}
@@ -4080,7 +4080,7 @@ func flattenInstanceGroupManagerVersionsMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]InstanceGroupManagerVersions)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerVersions(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerVersions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4088,7 +4088,7 @@ func flattenInstanceGroupManagerVersionsMap(c *Client, i interface{}) map[string
 
 // flattenInstanceGroupManagerVersionsSlice flattens the contents of InstanceGroupManagerVersions from a JSON
 // response object.
-func flattenInstanceGroupManagerVersionsSlice(c *Client, i interface{}) []InstanceGroupManagerVersions {
+func flattenInstanceGroupManagerVersionsSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerVersions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerVersions{}
@@ -4100,7 +4100,7 @@ func flattenInstanceGroupManagerVersionsSlice(c *Client, i interface{}) []Instan
 
 	items := make([]InstanceGroupManagerVersions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerVersions(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerVersions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4131,7 +4131,7 @@ func expandInstanceGroupManagerVersions(c *Client, f *InstanceGroupManagerVersio
 
 // flattenInstanceGroupManagerVersions flattens an instance of InstanceGroupManagerVersions from a JSON
 // response object.
-func flattenInstanceGroupManagerVersions(c *Client, i interface{}) *InstanceGroupManagerVersions {
+func flattenInstanceGroupManagerVersions(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerVersions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4144,7 +4144,7 @@ func flattenInstanceGroupManagerVersions(c *Client, i interface{}) *InstanceGrou
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
-	r.TargetSize = flattenInstanceGroupManagerFixedOrPercent(c, m["targetSize"])
+	r.TargetSize = flattenInstanceGroupManagerFixedOrPercent(c, m["targetSize"], res)
 
 	return r
 }
@@ -4192,7 +4192,7 @@ func expandInstanceGroupManagerFixedOrPercentSlice(c *Client, f []InstanceGroupM
 
 // flattenInstanceGroupManagerFixedOrPercentMap flattens the contents of InstanceGroupManagerFixedOrPercent from a JSON
 // response object.
-func flattenInstanceGroupManagerFixedOrPercentMap(c *Client, i interface{}) map[string]InstanceGroupManagerFixedOrPercent {
+func flattenInstanceGroupManagerFixedOrPercentMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerFixedOrPercent {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerFixedOrPercent{}
@@ -4204,7 +4204,7 @@ func flattenInstanceGroupManagerFixedOrPercentMap(c *Client, i interface{}) map[
 
 	items := make(map[string]InstanceGroupManagerFixedOrPercent)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4212,7 +4212,7 @@ func flattenInstanceGroupManagerFixedOrPercentMap(c *Client, i interface{}) map[
 
 // flattenInstanceGroupManagerFixedOrPercentSlice flattens the contents of InstanceGroupManagerFixedOrPercent from a JSON
 // response object.
-func flattenInstanceGroupManagerFixedOrPercentSlice(c *Client, i interface{}) []InstanceGroupManagerFixedOrPercent {
+func flattenInstanceGroupManagerFixedOrPercentSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerFixedOrPercent {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerFixedOrPercent{}
@@ -4224,7 +4224,7 @@ func flattenInstanceGroupManagerFixedOrPercentSlice(c *Client, i interface{}) []
 
 	items := make([]InstanceGroupManagerFixedOrPercent, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4250,7 +4250,7 @@ func expandInstanceGroupManagerFixedOrPercent(c *Client, f *InstanceGroupManager
 
 // flattenInstanceGroupManagerFixedOrPercent flattens an instance of InstanceGroupManagerFixedOrPercent from a JSON
 // response object.
-func flattenInstanceGroupManagerFixedOrPercent(c *Client, i interface{}) *InstanceGroupManagerFixedOrPercent {
+func flattenInstanceGroupManagerFixedOrPercent(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerFixedOrPercent {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4311,7 +4311,7 @@ func expandInstanceGroupManagerCurrentActionsSlice(c *Client, f []InstanceGroupM
 
 // flattenInstanceGroupManagerCurrentActionsMap flattens the contents of InstanceGroupManagerCurrentActions from a JSON
 // response object.
-func flattenInstanceGroupManagerCurrentActionsMap(c *Client, i interface{}) map[string]InstanceGroupManagerCurrentActions {
+func flattenInstanceGroupManagerCurrentActionsMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerCurrentActions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerCurrentActions{}
@@ -4323,7 +4323,7 @@ func flattenInstanceGroupManagerCurrentActionsMap(c *Client, i interface{}) map[
 
 	items := make(map[string]InstanceGroupManagerCurrentActions)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4331,7 +4331,7 @@ func flattenInstanceGroupManagerCurrentActionsMap(c *Client, i interface{}) map[
 
 // flattenInstanceGroupManagerCurrentActionsSlice flattens the contents of InstanceGroupManagerCurrentActions from a JSON
 // response object.
-func flattenInstanceGroupManagerCurrentActionsSlice(c *Client, i interface{}) []InstanceGroupManagerCurrentActions {
+func flattenInstanceGroupManagerCurrentActionsSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerCurrentActions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerCurrentActions{}
@@ -4343,7 +4343,7 @@ func flattenInstanceGroupManagerCurrentActionsSlice(c *Client, i interface{}) []
 
 	items := make([]InstanceGroupManagerCurrentActions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4363,7 +4363,7 @@ func expandInstanceGroupManagerCurrentActions(c *Client, f *InstanceGroupManager
 
 // flattenInstanceGroupManagerCurrentActions flattens an instance of InstanceGroupManagerCurrentActions from a JSON
 // response object.
-func flattenInstanceGroupManagerCurrentActions(c *Client, i interface{}) *InstanceGroupManagerCurrentActions {
+func flattenInstanceGroupManagerCurrentActions(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerCurrentActions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4430,7 +4430,7 @@ func expandInstanceGroupManagerStatusSlice(c *Client, f []InstanceGroupManagerSt
 
 // flattenInstanceGroupManagerStatusMap flattens the contents of InstanceGroupManagerStatus from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatus {
+func flattenInstanceGroupManagerStatusMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatus {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatus{}
@@ -4442,7 +4442,7 @@ func flattenInstanceGroupManagerStatusMap(c *Client, i interface{}) map[string]I
 
 	items := make(map[string]InstanceGroupManagerStatus)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerStatus(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatus(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4450,7 +4450,7 @@ func flattenInstanceGroupManagerStatusMap(c *Client, i interface{}) map[string]I
 
 // flattenInstanceGroupManagerStatusSlice flattens the contents of InstanceGroupManagerStatus from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusSlice(c *Client, i interface{}) []InstanceGroupManagerStatus {
+func flattenInstanceGroupManagerStatusSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatus {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatus{}
@@ -4462,7 +4462,7 @@ func flattenInstanceGroupManagerStatusSlice(c *Client, i interface{}) []Instance
 
 	items := make([]InstanceGroupManagerStatus, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerStatus(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatus(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4482,7 +4482,7 @@ func expandInstanceGroupManagerStatus(c *Client, f *InstanceGroupManagerStatus, 
 
 // flattenInstanceGroupManagerStatus flattens an instance of InstanceGroupManagerStatus from a JSON
 // response object.
-func flattenInstanceGroupManagerStatus(c *Client, i interface{}) *InstanceGroupManagerStatus {
+func flattenInstanceGroupManagerStatus(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatus {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4494,8 +4494,8 @@ func flattenInstanceGroupManagerStatus(c *Client, i interface{}) *InstanceGroupM
 		return EmptyInstanceGroupManagerStatus
 	}
 	r.IsStable = dcl.FlattenBool(m["isStable"])
-	r.VersionTarget = flattenInstanceGroupManagerStatusVersionTarget(c, m["versionTarget"])
-	r.Stateful = flattenInstanceGroupManagerStatusStateful(c, m["stateful"])
+	r.VersionTarget = flattenInstanceGroupManagerStatusVersionTarget(c, m["versionTarget"], res)
+	r.Stateful = flattenInstanceGroupManagerStatusStateful(c, m["stateful"], res)
 	r.Autoscaler = dcl.FlattenString(m["autoscaler"])
 
 	return r
@@ -4544,7 +4544,7 @@ func expandInstanceGroupManagerStatusVersionTargetSlice(c *Client, f []InstanceG
 
 // flattenInstanceGroupManagerStatusVersionTargetMap flattens the contents of InstanceGroupManagerStatusVersionTarget from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusVersionTargetMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatusVersionTarget {
+func flattenInstanceGroupManagerStatusVersionTargetMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatusVersionTarget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatusVersionTarget{}
@@ -4556,7 +4556,7 @@ func flattenInstanceGroupManagerStatusVersionTargetMap(c *Client, i interface{})
 
 	items := make(map[string]InstanceGroupManagerStatusVersionTarget)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerStatusVersionTarget(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatusVersionTarget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4564,7 +4564,7 @@ func flattenInstanceGroupManagerStatusVersionTargetMap(c *Client, i interface{})
 
 // flattenInstanceGroupManagerStatusVersionTargetSlice flattens the contents of InstanceGroupManagerStatusVersionTarget from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusVersionTargetSlice(c *Client, i interface{}) []InstanceGroupManagerStatusVersionTarget {
+func flattenInstanceGroupManagerStatusVersionTargetSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatusVersionTarget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatusVersionTarget{}
@@ -4576,7 +4576,7 @@ func flattenInstanceGroupManagerStatusVersionTargetSlice(c *Client, i interface{
 
 	items := make([]InstanceGroupManagerStatusVersionTarget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerStatusVersionTarget(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatusVersionTarget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4596,7 +4596,7 @@ func expandInstanceGroupManagerStatusVersionTarget(c *Client, f *InstanceGroupMa
 
 // flattenInstanceGroupManagerStatusVersionTarget flattens an instance of InstanceGroupManagerStatusVersionTarget from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusVersionTarget(c *Client, i interface{}) *InstanceGroupManagerStatusVersionTarget {
+func flattenInstanceGroupManagerStatusVersionTarget(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatusVersionTarget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4655,7 +4655,7 @@ func expandInstanceGroupManagerStatusStatefulSlice(c *Client, f []InstanceGroupM
 
 // flattenInstanceGroupManagerStatusStatefulMap flattens the contents of InstanceGroupManagerStatusStateful from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusStatefulMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatusStateful {
+func flattenInstanceGroupManagerStatusStatefulMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatusStateful {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatusStateful{}
@@ -4667,7 +4667,7 @@ func flattenInstanceGroupManagerStatusStatefulMap(c *Client, i interface{}) map[
 
 	items := make(map[string]InstanceGroupManagerStatusStateful)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerStatusStateful(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatusStateful(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4675,7 +4675,7 @@ func flattenInstanceGroupManagerStatusStatefulMap(c *Client, i interface{}) map[
 
 // flattenInstanceGroupManagerStatusStatefulSlice flattens the contents of InstanceGroupManagerStatusStateful from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusStatefulSlice(c *Client, i interface{}) []InstanceGroupManagerStatusStateful {
+func flattenInstanceGroupManagerStatusStatefulSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatusStateful {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatusStateful{}
@@ -4687,7 +4687,7 @@ func flattenInstanceGroupManagerStatusStatefulSlice(c *Client, i interface{}) []
 
 	items := make([]InstanceGroupManagerStatusStateful, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerStatusStateful(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatusStateful(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4707,7 +4707,7 @@ func expandInstanceGroupManagerStatusStateful(c *Client, f *InstanceGroupManager
 
 // flattenInstanceGroupManagerStatusStateful flattens an instance of InstanceGroupManagerStatusStateful from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusStateful(c *Client, i interface{}) *InstanceGroupManagerStatusStateful {
+func flattenInstanceGroupManagerStatusStateful(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatusStateful {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4719,7 +4719,7 @@ func flattenInstanceGroupManagerStatusStateful(c *Client, i interface{}) *Instan
 		return EmptyInstanceGroupManagerStatusStateful
 	}
 	r.HasStatefulConfig = dcl.FlattenBool(m["hasStatefulConfig"])
-	r.PerInstanceConfigs = flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, m["perInstanceConfigs"])
+	r.PerInstanceConfigs = flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, m["perInstanceConfigs"], res)
 	r.IsStateful = dcl.FlattenBool(m["isStateful"])
 
 	return r
@@ -4768,7 +4768,7 @@ func expandInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c *Client, 
 
 // flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsMap flattens the contents of InstanceGroupManagerStatusStatefulPerInstanceConfigs from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
@@ -4780,7 +4780,7 @@ func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsMap(c *Client, i
 
 	items := make(map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4788,7 +4788,7 @@ func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsMap(c *Client, i
 
 // flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice flattens the contents of InstanceGroupManagerStatusStatefulPerInstanceConfigs from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c *Client, i interface{}) []InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatusStatefulPerInstanceConfigs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
@@ -4800,7 +4800,7 @@ func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c *Client,
 
 	items := make([]InstanceGroupManagerStatusStatefulPerInstanceConfigs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4823,7 +4823,7 @@ func expandInstanceGroupManagerStatusStatefulPerInstanceConfigs(c *Client, f *In
 
 // flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs flattens an instance of InstanceGroupManagerStatusStatefulPerInstanceConfigs from a JSON
 // response object.
-func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c *Client, i interface{}) *InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatusStatefulPerInstanceConfigs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4882,7 +4882,7 @@ func expandInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, f []InstanceG
 
 // flattenInstanceGroupManagerAutoHealingPoliciesMap flattens the contents of InstanceGroupManagerAutoHealingPolicies from a JSON
 // response object.
-func flattenInstanceGroupManagerAutoHealingPoliciesMap(c *Client, i interface{}) map[string]InstanceGroupManagerAutoHealingPolicies {
+func flattenInstanceGroupManagerAutoHealingPoliciesMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerAutoHealingPolicies {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerAutoHealingPolicies{}
@@ -4894,7 +4894,7 @@ func flattenInstanceGroupManagerAutoHealingPoliciesMap(c *Client, i interface{})
 
 	items := make(map[string]InstanceGroupManagerAutoHealingPolicies)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerAutoHealingPolicies(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerAutoHealingPolicies(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4902,7 +4902,7 @@ func flattenInstanceGroupManagerAutoHealingPoliciesMap(c *Client, i interface{})
 
 // flattenInstanceGroupManagerAutoHealingPoliciesSlice flattens the contents of InstanceGroupManagerAutoHealingPolicies from a JSON
 // response object.
-func flattenInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, i interface{}) []InstanceGroupManagerAutoHealingPolicies {
+func flattenInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerAutoHealingPolicies {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerAutoHealingPolicies{}
@@ -4914,7 +4914,7 @@ func flattenInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, i interface{
 
 	items := make([]InstanceGroupManagerAutoHealingPolicies, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerAutoHealingPolicies(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerAutoHealingPolicies(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4940,7 +4940,7 @@ func expandInstanceGroupManagerAutoHealingPolicies(c *Client, f *InstanceGroupMa
 
 // flattenInstanceGroupManagerAutoHealingPolicies flattens an instance of InstanceGroupManagerAutoHealingPolicies from a JSON
 // response object.
-func flattenInstanceGroupManagerAutoHealingPolicies(c *Client, i interface{}) *InstanceGroupManagerAutoHealingPolicies {
+func flattenInstanceGroupManagerAutoHealingPolicies(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerAutoHealingPolicies {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5000,7 +5000,7 @@ func expandInstanceGroupManagerUpdatePolicySlice(c *Client, f []InstanceGroupMan
 
 // flattenInstanceGroupManagerUpdatePolicyMap flattens the contents of InstanceGroupManagerUpdatePolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicy {
+func flattenInstanceGroupManagerUpdatePolicyMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerUpdatePolicy{}
@@ -5012,7 +5012,7 @@ func flattenInstanceGroupManagerUpdatePolicyMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]InstanceGroupManagerUpdatePolicy)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerUpdatePolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerUpdatePolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5020,7 +5020,7 @@ func flattenInstanceGroupManagerUpdatePolicyMap(c *Client, i interface{}) map[st
 
 // flattenInstanceGroupManagerUpdatePolicySlice flattens the contents of InstanceGroupManagerUpdatePolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicySlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicy {
+func flattenInstanceGroupManagerUpdatePolicySlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerUpdatePolicy{}
@@ -5032,7 +5032,7 @@ func flattenInstanceGroupManagerUpdatePolicySlice(c *Client, i interface{}) []In
 
 	items := make([]InstanceGroupManagerUpdatePolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerUpdatePolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerUpdatePolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5080,7 +5080,7 @@ func expandInstanceGroupManagerUpdatePolicy(c *Client, f *InstanceGroupManagerUp
 
 // flattenInstanceGroupManagerUpdatePolicy flattens an instance of InstanceGroupManagerUpdatePolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicy(c *Client, i interface{}) *InstanceGroupManagerUpdatePolicy {
+func flattenInstanceGroupManagerUpdatePolicy(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerUpdatePolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5094,8 +5094,8 @@ func flattenInstanceGroupManagerUpdatePolicy(c *Client, i interface{}) *Instance
 	r.Type = flattenInstanceGroupManagerUpdatePolicyTypeEnum(m["type"])
 	r.InstanceRedistributionType = flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(m["instanceRedistributionType"])
 	r.MinimalAction = flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(m["minimalAction"])
-	r.MaxSurge = flattenInstanceGroupManagerFixedOrPercent(c, m["maxSurge"])
-	r.MaxUnavailable = flattenInstanceGroupManagerFixedOrPercent(c, m["maxUnavailable"])
+	r.MaxSurge = flattenInstanceGroupManagerFixedOrPercent(c, m["maxSurge"], res)
+	r.MaxUnavailable = flattenInstanceGroupManagerFixedOrPercent(c, m["maxUnavailable"], res)
 	r.ReplacementMethod = flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(m["replacementMethod"])
 	r.MostDisruptiveAllowedAction = flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(m["mostDisruptiveAllowedAction"])
 	r.MinReadySec = dcl.FlattenInteger(m["minReadySec"])
@@ -5146,7 +5146,7 @@ func expandInstanceGroupManagerNamedPortsSlice(c *Client, f []InstanceGroupManag
 
 // flattenInstanceGroupManagerNamedPortsMap flattens the contents of InstanceGroupManagerNamedPorts from a JSON
 // response object.
-func flattenInstanceGroupManagerNamedPortsMap(c *Client, i interface{}) map[string]InstanceGroupManagerNamedPorts {
+func flattenInstanceGroupManagerNamedPortsMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerNamedPorts {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerNamedPorts{}
@@ -5158,7 +5158,7 @@ func flattenInstanceGroupManagerNamedPortsMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]InstanceGroupManagerNamedPorts)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5166,7 +5166,7 @@ func flattenInstanceGroupManagerNamedPortsMap(c *Client, i interface{}) map[stri
 
 // flattenInstanceGroupManagerNamedPortsSlice flattens the contents of InstanceGroupManagerNamedPorts from a JSON
 // response object.
-func flattenInstanceGroupManagerNamedPortsSlice(c *Client, i interface{}) []InstanceGroupManagerNamedPorts {
+func flattenInstanceGroupManagerNamedPortsSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerNamedPorts {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerNamedPorts{}
@@ -5178,7 +5178,7 @@ func flattenInstanceGroupManagerNamedPortsSlice(c *Client, i interface{}) []Inst
 
 	items := make([]InstanceGroupManagerNamedPorts, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5204,7 +5204,7 @@ func expandInstanceGroupManagerNamedPorts(c *Client, f *InstanceGroupManagerName
 
 // flattenInstanceGroupManagerNamedPorts flattens an instance of InstanceGroupManagerNamedPorts from a JSON
 // response object.
-func flattenInstanceGroupManagerNamedPorts(c *Client, i interface{}) *InstanceGroupManagerNamedPorts {
+func flattenInstanceGroupManagerNamedPorts(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerNamedPorts {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5264,7 +5264,7 @@ func expandInstanceGroupManagerStatefulPolicySlice(c *Client, f []InstanceGroupM
 
 // flattenInstanceGroupManagerStatefulPolicyMap flattens the contents of InstanceGroupManagerStatefulPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicy {
+func flattenInstanceGroupManagerStatefulPolicyMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatefulPolicy{}
@@ -5276,7 +5276,7 @@ func flattenInstanceGroupManagerStatefulPolicyMap(c *Client, i interface{}) map[
 
 	items := make(map[string]InstanceGroupManagerStatefulPolicy)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerStatefulPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatefulPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5284,7 +5284,7 @@ func flattenInstanceGroupManagerStatefulPolicyMap(c *Client, i interface{}) map[
 
 // flattenInstanceGroupManagerStatefulPolicySlice flattens the contents of InstanceGroupManagerStatefulPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicySlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicy {
+func flattenInstanceGroupManagerStatefulPolicySlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatefulPolicy{}
@@ -5296,7 +5296,7 @@ func flattenInstanceGroupManagerStatefulPolicySlice(c *Client, i interface{}) []
 
 	items := make([]InstanceGroupManagerStatefulPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerStatefulPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5321,7 +5321,7 @@ func expandInstanceGroupManagerStatefulPolicy(c *Client, f *InstanceGroupManager
 
 // flattenInstanceGroupManagerStatefulPolicy flattens an instance of InstanceGroupManagerStatefulPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicy(c *Client, i interface{}) *InstanceGroupManagerStatefulPolicy {
+func flattenInstanceGroupManagerStatefulPolicy(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatefulPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5332,7 +5332,7 @@ func flattenInstanceGroupManagerStatefulPolicy(c *Client, i interface{}) *Instan
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceGroupManagerStatefulPolicy
 	}
-	r.PreservedState = flattenInstanceGroupManagerStatefulPolicyPreservedState(c, m["preservedState"])
+	r.PreservedState = flattenInstanceGroupManagerStatefulPolicyPreservedState(c, m["preservedState"], res)
 
 	return r
 }
@@ -5380,7 +5380,7 @@ func expandInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Client, f []
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedStateMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedState from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedStateMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicyPreservedState {
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicyPreservedState {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatefulPolicyPreservedState{}
@@ -5392,7 +5392,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateMap(c *Client, i int
 
 	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedState)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedState(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedState(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5400,7 +5400,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateMap(c *Client, i int
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedStateSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedState from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicyPreservedState {
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicyPreservedState {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatefulPolicyPreservedState{}
@@ -5412,7 +5412,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Client, i i
 
 	items := make([]InstanceGroupManagerStatefulPolicyPreservedState, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedState(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedState(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5437,7 +5437,7 @@ func expandInstanceGroupManagerStatefulPolicyPreservedState(c *Client, f *Instan
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedState flattens an instance of InstanceGroupManagerStatefulPolicyPreservedState from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedState(c *Client, i interface{}) *InstanceGroupManagerStatefulPolicyPreservedState {
+func flattenInstanceGroupManagerStatefulPolicyPreservedState(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatefulPolicyPreservedState {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5448,7 +5448,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedState(c *Client, i interf
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceGroupManagerStatefulPolicyPreservedState
 	}
-	r.Disks = flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c, m["disks"])
+	r.Disks = flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c, m["disks"], res)
 
 	return r
 }
@@ -5496,7 +5496,7 @@ func expandInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c *Client,
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisks from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks {
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
@@ -5508,7 +5508,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c *Client, 
 
 	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5516,7 +5516,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c *Client, 
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisks from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicyPreservedStateDisks {
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
@@ -5528,7 +5528,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c *Client
 
 	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateDisks, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5551,7 +5551,7 @@ func expandInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, f *I
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks flattens an instance of InstanceGroupManagerStatefulPolicyPreservedStateDisks from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, i interface{}) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5569,7 +5569,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, i i
 
 // flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumMap flattens the contents of InstanceGroupManagerDistributionPolicyTargetShapeEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerDistributionPolicyTargetShapeEnum {
+func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerDistributionPolicyTargetShapeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerDistributionPolicyTargetShapeEnum{}
@@ -5589,7 +5589,7 @@ func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumMap(c *Client, 
 
 // flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumSlice flattens the contents of InstanceGroupManagerDistributionPolicyTargetShapeEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumSlice(c *Client, i interface{}) []InstanceGroupManagerDistributionPolicyTargetShapeEnum {
+func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerDistributionPolicyTargetShapeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerDistributionPolicyTargetShapeEnum{}
@@ -5620,7 +5620,7 @@ func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum(i interface{})
 
 // flattenInstanceGroupManagerUpdatePolicyTypeEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyTypeEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyTypeEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyTypeEnum {
+func flattenInstanceGroupManagerUpdatePolicyTypeEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicyTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerUpdatePolicyTypeEnum{}
@@ -5640,7 +5640,7 @@ func flattenInstanceGroupManagerUpdatePolicyTypeEnumMap(c *Client, i interface{}
 
 // flattenInstanceGroupManagerUpdatePolicyTypeEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyTypeEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyTypeEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyTypeEnum {
+func flattenInstanceGroupManagerUpdatePolicyTypeEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicyTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerUpdatePolicyTypeEnum{}
@@ -5671,7 +5671,7 @@ func flattenInstanceGroupManagerUpdatePolicyTypeEnum(i interface{}) *InstanceGro
 
 // flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
+func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum{}
@@ -5691,7 +5691,7 @@ func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumMap(c 
 
 // flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
+func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum{}
@@ -5722,7 +5722,7 @@ func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(i int
 
 // flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyMinimalActionEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMinimalActionEnum {
+func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicyMinimalActionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerUpdatePolicyMinimalActionEnum{}
@@ -5742,7 +5742,7 @@ func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumMap(c *Client, i in
 
 // flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyMinimalActionEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyMinimalActionEnum {
+func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicyMinimalActionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerUpdatePolicyMinimalActionEnum{}
@@ -5773,7 +5773,7 @@ func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(i interface{}) *In
 
 // flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyReplacementMethodEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerUpdatePolicyReplacementMethodEnum{}
@@ -5793,7 +5793,7 @@ func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumMap(c *Client, 
 
 // flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyReplacementMethodEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerUpdatePolicyReplacementMethodEnum{}
@@ -5824,7 +5824,7 @@ func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(i interface{})
 
 // flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
+func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum{}
@@ -5844,7 +5844,7 @@ func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumMap(c
 
 // flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
+func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum{}
@@ -5875,7 +5875,7 @@ func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(i in
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum{}
@@ -5895,7 +5895,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumM
 
 // flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumSlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum{}
@@ -5926,7 +5926,7 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(
 
 // flattenInstanceGroupManagerFailoverActionEnumMap flattens the contents of InstanceGroupManagerFailoverActionEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerFailoverActionEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerFailoverActionEnum {
+func flattenInstanceGroupManagerFailoverActionEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerFailoverActionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceGroupManagerFailoverActionEnum{}
@@ -5946,7 +5946,7 @@ func flattenInstanceGroupManagerFailoverActionEnumMap(c *Client, i interface{}) 
 
 // flattenInstanceGroupManagerFailoverActionEnumSlice flattens the contents of InstanceGroupManagerFailoverActionEnum from a JSON
 // response object.
-func flattenInstanceGroupManagerFailoverActionEnumSlice(c *Client, i interface{}) []InstanceGroupManagerFailoverActionEnum {
+func flattenInstanceGroupManagerFailoverActionEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerFailoverActionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceGroupManagerFailoverActionEnum{}
@@ -5980,7 +5980,7 @@ func flattenInstanceGroupManagerFailoverActionEnum(i interface{}) *InstanceGroup
 // identity).  This is useful in extracting the element from a List call.
 func (r *InstanceGroupManager) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInstanceGroupManager(b, c)
+		cr, err := unmarshalInstanceGroupManager(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

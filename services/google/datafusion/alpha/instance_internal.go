@@ -113,28 +113,14 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	res := f
 	_ = res
 
-	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
-		req["type"] = v
-	}
 	if v := f.EnableStackdriverLogging; !dcl.IsEmptyValueIndirect(v) {
 		req["enableStackdriverLogging"] = v
 	}
 	if v := f.EnableStackdriverMonitoring; !dcl.IsEmptyValueIndirect(v) {
 		req["enableStackdriverMonitoring"] = v
 	}
-	if v, err := expandInstanceNetworkConfig(c, f.NetworkConfig, res); err != nil {
-		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["networkConfig"] = v
-	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
-	}
-	if v := f.Options; !dcl.IsEmptyValueIndirect(v) {
-		req["options"] = v
-	}
-	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
-		req["zone"] = v
 	}
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		req["version"] = v
@@ -253,7 +239,7 @@ func (c *Client) listInstance(ctx context.Context, r *Instance, pageToken string
 
 	var l []*Instance
 	for _, v := range m.Instances {
-		res, err := unmarshalMapInstance(v, c)
+		res, err := unmarshalMapInstance(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -988,7 +974,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1016,7 +1002,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareInstanceNetworkConfigNewStyle, EmptyObject: EmptyInstanceNetworkConfig, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareInstanceNetworkConfigNewStyle, EmptyObject: EmptyInstanceNetworkConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1030,7 +1016,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Options, actual.Options, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Options")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Options, actual.Options, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Options")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1072,7 +1058,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1280,17 +1266,17 @@ func (r *Instance) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInstance decodes JSON responses into the Instance resource schema.
-func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
+func unmarshalInstance(b []byte, c *Client, res *Instance) (*Instance, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInstance(m, c)
+	return unmarshalMapInstance(m, c, res)
 }
 
-func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
+func unmarshalMapInstance(m map[string]interface{}, c *Client, res *Instance) (*Instance, error) {
 
-	flattened := flattenInstance(c, m)
+	flattened := flattenInstance(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1361,7 +1347,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 
 // flattenInstance flattens Instance from a JSON request object into the
 // Instance type.
-func flattenInstance(c *Client, i interface{}) *Instance {
+func flattenInstance(c *Client, i interface{}, res *Instance) *Instance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1370,34 +1356,34 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 		return nil
 	}
 
-	res := &Instance{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Type = flattenInstanceTypeEnum(m["type"])
-	res.EnableStackdriverLogging = dcl.FlattenBool(m["enableStackdriverLogging"])
-	res.EnableStackdriverMonitoring = dcl.FlattenBool(m["enableStackdriverMonitoring"])
-	res.PrivateInstance = dcl.FlattenBool(m["privateInstance"])
-	res.NetworkConfig = flattenInstanceNetworkConfig(c, m["networkConfig"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Options = dcl.FlattenKeyValuePairs(m["options"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.State = flattenInstanceStateEnum(m["state"])
-	res.StateMessage = dcl.FlattenString(m["stateMessage"])
-	res.ServiceEndpoint = dcl.FlattenString(m["serviceEndpoint"])
-	res.Zone = dcl.FlattenString(m["zone"])
-	res.Version = dcl.FlattenString(m["version"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.AvailableVersion = flattenInstanceAvailableVersionSlice(c, m["availableVersion"])
-	res.ApiEndpoint = dcl.FlattenString(m["apiEndpoint"])
-	res.GcsBucket = dcl.FlattenString(m["gcsBucket"])
-	res.P4ServiceAccount = dcl.FlattenString(m["p4ServiceAccount"])
-	res.TenantProjectId = dcl.FlattenString(m["tenantProjectId"])
-	res.DataprocServiceAccount = dcl.FlattenString(m["dataprocServiceAccount"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Instance{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Type = flattenInstanceTypeEnum(m["type"])
+	resultRes.EnableStackdriverLogging = dcl.FlattenBool(m["enableStackdriverLogging"])
+	resultRes.EnableStackdriverMonitoring = dcl.FlattenBool(m["enableStackdriverMonitoring"])
+	resultRes.PrivateInstance = dcl.FlattenBool(m["privateInstance"])
+	resultRes.NetworkConfig = flattenInstanceNetworkConfig(c, m["networkConfig"], res)
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Options = dcl.FlattenKeyValuePairs(m["options"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.State = flattenInstanceStateEnum(m["state"])
+	resultRes.StateMessage = dcl.FlattenString(m["stateMessage"])
+	resultRes.ServiceEndpoint = dcl.FlattenString(m["serviceEndpoint"])
+	resultRes.Zone = dcl.FlattenString(m["zone"])
+	resultRes.Version = dcl.FlattenString(m["version"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.AvailableVersion = flattenInstanceAvailableVersionSlice(c, m["availableVersion"], res)
+	resultRes.ApiEndpoint = dcl.FlattenString(m["apiEndpoint"])
+	resultRes.GcsBucket = dcl.FlattenString(m["gcsBucket"])
+	resultRes.P4ServiceAccount = dcl.FlattenString(m["p4ServiceAccount"])
+	resultRes.TenantProjectId = dcl.FlattenString(m["tenantProjectId"])
+	resultRes.DataprocServiceAccount = dcl.FlattenString(m["dataprocServiceAccount"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandInstanceNetworkConfigMap expands the contents of InstanceNetworkConfig into a JSON
@@ -1443,7 +1429,7 @@ func expandInstanceNetworkConfigSlice(c *Client, f []InstanceNetworkConfig, res 
 
 // flattenInstanceNetworkConfigMap flattens the contents of InstanceNetworkConfig from a JSON
 // response object.
-func flattenInstanceNetworkConfigMap(c *Client, i interface{}) map[string]InstanceNetworkConfig {
+func flattenInstanceNetworkConfigMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworkConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworkConfig{}
@@ -1455,7 +1441,7 @@ func flattenInstanceNetworkConfigMap(c *Client, i interface{}) map[string]Instan
 
 	items := make(map[string]InstanceNetworkConfig)
 	for k, item := range a {
-		items[k] = *flattenInstanceNetworkConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceNetworkConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1463,7 +1449,7 @@ func flattenInstanceNetworkConfigMap(c *Client, i interface{}) map[string]Instan
 
 // flattenInstanceNetworkConfigSlice flattens the contents of InstanceNetworkConfig from a JSON
 // response object.
-func flattenInstanceNetworkConfigSlice(c *Client, i interface{}) []InstanceNetworkConfig {
+func flattenInstanceNetworkConfigSlice(c *Client, i interface{}, res *Instance) []InstanceNetworkConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworkConfig{}
@@ -1475,7 +1461,7 @@ func flattenInstanceNetworkConfigSlice(c *Client, i interface{}) []InstanceNetwo
 
 	items := make([]InstanceNetworkConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceNetworkConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceNetworkConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1501,7 +1487,7 @@ func expandInstanceNetworkConfig(c *Client, f *InstanceNetworkConfig, res *Insta
 
 // flattenInstanceNetworkConfig flattens an instance of InstanceNetworkConfig from a JSON
 // response object.
-func flattenInstanceNetworkConfig(c *Client, i interface{}) *InstanceNetworkConfig {
+func flattenInstanceNetworkConfig(c *Client, i interface{}, res *Instance) *InstanceNetworkConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1561,7 +1547,7 @@ func expandInstanceAvailableVersionSlice(c *Client, f []InstanceAvailableVersion
 
 // flattenInstanceAvailableVersionMap flattens the contents of InstanceAvailableVersion from a JSON
 // response object.
-func flattenInstanceAvailableVersionMap(c *Client, i interface{}) map[string]InstanceAvailableVersion {
+func flattenInstanceAvailableVersionMap(c *Client, i interface{}, res *Instance) map[string]InstanceAvailableVersion {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceAvailableVersion{}
@@ -1573,7 +1559,7 @@ func flattenInstanceAvailableVersionMap(c *Client, i interface{}) map[string]Ins
 
 	items := make(map[string]InstanceAvailableVersion)
 	for k, item := range a {
-		items[k] = *flattenInstanceAvailableVersion(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceAvailableVersion(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1581,7 +1567,7 @@ func flattenInstanceAvailableVersionMap(c *Client, i interface{}) map[string]Ins
 
 // flattenInstanceAvailableVersionSlice flattens the contents of InstanceAvailableVersion from a JSON
 // response object.
-func flattenInstanceAvailableVersionSlice(c *Client, i interface{}) []InstanceAvailableVersion {
+func flattenInstanceAvailableVersionSlice(c *Client, i interface{}, res *Instance) []InstanceAvailableVersion {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceAvailableVersion{}
@@ -1593,7 +1579,7 @@ func flattenInstanceAvailableVersionSlice(c *Client, i interface{}) []InstanceAv
 
 	items := make([]InstanceAvailableVersion, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceAvailableVersion(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceAvailableVersion(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1613,7 +1599,7 @@ func expandInstanceAvailableVersion(c *Client, f *InstanceAvailableVersion, res 
 
 // flattenInstanceAvailableVersion flattens an instance of InstanceAvailableVersion from a JSON
 // response object.
-func flattenInstanceAvailableVersion(c *Client, i interface{}) *InstanceAvailableVersion {
+func flattenInstanceAvailableVersion(c *Client, i interface{}, res *Instance) *InstanceAvailableVersion {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1633,7 +1619,7 @@ func flattenInstanceAvailableVersion(c *Client, i interface{}) *InstanceAvailabl
 
 // flattenInstanceTypeEnumMap flattens the contents of InstanceTypeEnum from a JSON
 // response object.
-func flattenInstanceTypeEnumMap(c *Client, i interface{}) map[string]InstanceTypeEnum {
+func flattenInstanceTypeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceTypeEnum{}
@@ -1653,7 +1639,7 @@ func flattenInstanceTypeEnumMap(c *Client, i interface{}) map[string]InstanceTyp
 
 // flattenInstanceTypeEnumSlice flattens the contents of InstanceTypeEnum from a JSON
 // response object.
-func flattenInstanceTypeEnumSlice(c *Client, i interface{}) []InstanceTypeEnum {
+func flattenInstanceTypeEnumSlice(c *Client, i interface{}, res *Instance) []InstanceTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceTypeEnum{}
@@ -1684,7 +1670,7 @@ func flattenInstanceTypeEnum(i interface{}) *InstanceTypeEnum {
 
 // flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+func flattenInstanceStateEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceStateEnum{}
@@ -1704,7 +1690,7 @@ func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceSt
 
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
+func flattenInstanceStateEnumSlice(c *Client, i interface{}, res *Instance) []InstanceStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceStateEnum{}
@@ -1738,7 +1724,7 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Instance) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInstance(b, c)
+		cr, err := unmarshalInstance(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

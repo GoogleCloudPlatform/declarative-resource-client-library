@@ -1518,7 +1518,7 @@ func (c *Client) GetConfig(ctx context.Context, r *Config) (*Config, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalConfig(b, c)
+	result, err := unmarshalConfig(b, c, r)
 	if err != nil {
 		return nil, err
 	}

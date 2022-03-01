@@ -223,7 +223,7 @@ func (c *Client) GetNetwork(ctx context.Context, r *Network) (*Network, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalNetwork(b, c)
+	result, err := unmarshalNetwork(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -395,7 +395,7 @@ func applyNetworkDiff(c *Client, ctx context.Context, desired *Network, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapNetwork(r, c)
+				fullResp, err := unmarshalMapNetwork(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -235,7 +235,7 @@ func (c *Client) GetConnector(ctx context.Context, r *Connector) (*Connector, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalConnector(b, c)
+	result, err := unmarshalConnector(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -405,7 +405,7 @@ func applyConnectorDiff(c *Client, ctx context.Context, desired *Connector, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapConnector(r, c)
+				fullResp, err := unmarshalMapConnector(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

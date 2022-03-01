@@ -2097,7 +2097,7 @@ func (c *Client) GetCertificate(ctx context.Context, r *Certificate) (*Certifica
 		}
 		return nil, err
 	}
-	result, err := unmarshalCertificate(b, c)
+	result, err := unmarshalCertificate(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -2268,7 +2268,7 @@ func applyCertificateDiff(c *Client, ctx context.Context, desired *Certificate, 
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapCertificate(r, c)
+				fullResp, err := unmarshalMapCertificate(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

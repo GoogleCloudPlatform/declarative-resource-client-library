@@ -25,14 +25,9 @@ import (
 
 type Key struct {
 	Name         *string          `json:"name"`
-	Uid          *string          `json:"uid"`
 	DisplayName  *string          `json:"displayName"`
 	KeyString    *string          `json:"keyString"`
-	CreateTime   *string          `json:"createTime"`
-	UpdateTime   *string          `json:"updateTime"`
-	DeleteTime   *string          `json:"deleteTime"`
 	Restrictions *KeyRestrictions `json:"restrictions"`
-	Etag         *string          `json:"etag"`
 	Project      *string          `json:"project"`
 }
 
@@ -397,14 +392,9 @@ func (r *Key) ID() (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
 		"name":         dcl.ValueOrEmptyString(nr.Name),
-		"uid":          dcl.ValueOrEmptyString(nr.Uid),
 		"displayName":  dcl.ValueOrEmptyString(nr.DisplayName),
 		"keyString":    dcl.ValueOrEmptyString(nr.KeyString),
-		"createTime":   dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":   dcl.ValueOrEmptyString(nr.UpdateTime),
-		"deleteTime":   dcl.ValueOrEmptyString(nr.DeleteTime),
 		"restrictions": dcl.ValueOrEmptyString(nr.Restrictions),
-		"etag":         dcl.ValueOrEmptyString(nr.Etag),
 		"project":      dcl.ValueOrEmptyString(nr.Project),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/global/keys/{{name}}", params), nil
@@ -619,7 +609,7 @@ func applyKeyDiff(c *Client, ctx context.Context, desired *Key, rawDesired *Key,
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapKey(r, c)
+				fullResp, err := unmarshalMapKey(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

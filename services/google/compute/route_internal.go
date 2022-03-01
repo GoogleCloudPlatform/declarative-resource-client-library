@@ -140,7 +140,7 @@ func (c *Client) listRoute(ctx context.Context, r *Route, pageToken string, page
 
 	var l []*Route
 	for _, v := range m.Items {
-		res, err := unmarshalMapRoute(v, c)
+		res, err := unmarshalMapRoute(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -965,15 +965,15 @@ func (r *Route) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalRoute decodes JSON responses into the Route resource schema.
-func unmarshalRoute(b []byte, c *Client) (*Route, error) {
+func unmarshalRoute(b []byte, c *Client, res *Route) (*Route, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapRoute(m, c)
+	return unmarshalMapRoute(m, c, res)
 }
 
-func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
+func unmarshalMapRoute(m map[string]interface{}, c *Client, res *Route) (*Route, error) {
 	if v, err := dcl.MapFromListOfKeyValues(m, []string{"warnings", "data", "items"}, "key", "value"); err != nil {
 		return nil, err
 	} else {
@@ -984,7 +984,7 @@ func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
 		)
 	}
 
-	flattened := flattenRoute(c, m)
+	flattened := flattenRoute(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1044,7 +1044,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 
 // flattenRoute flattens Route from a JSON request object into the
 // Route type.
-func flattenRoute(c *Client, i interface{}) *Route {
+func flattenRoute(c *Client, i interface{}, res *Route) *Route {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1053,30 +1053,30 @@ func flattenRoute(c *Client, i interface{}) *Route {
 		return nil
 	}
 
-	res := &Route{}
-	res.Id = dcl.FlattenInteger(m["id"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Network = dcl.FlattenString(m["network"])
-	res.Tag = dcl.FlattenStringSlice(m["tags"])
-	res.DestRange = dcl.FlattenString(m["destRange"])
-	res.Priority = dcl.FlattenInteger(m["priority"])
+	resultRes := &Route{}
+	resultRes.Id = dcl.FlattenInteger(m["id"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Network = dcl.FlattenString(m["network"])
+	resultRes.Tag = dcl.FlattenStringSlice(m["tags"])
+	resultRes.DestRange = dcl.FlattenString(m["destRange"])
+	resultRes.Priority = dcl.FlattenInteger(m["priority"])
 	if _, ok := m["priority"]; !ok {
 		c.Config.Logger.Info("Using default value for priority")
-		res.Priority = dcl.Int64(1000)
+		resultRes.Priority = dcl.Int64(1000)
 	}
-	res.NextHopInstance = dcl.FlattenString(m["nextHopInstance"])
-	res.NextHopIP = dcl.FlattenString(m["nextHopIp"])
-	res.NextHopNetwork = dcl.FlattenString(m["nextHopNetwork"])
-	res.NextHopGateway = dcl.FlattenString(m["nextHopGateway"])
-	res.NextHopPeering = dcl.FlattenString(m["nextHopPeering"])
-	res.NextHopIlb = dcl.FlattenString(m["nextHopIlb"])
-	res.Warning = flattenRouteWarningSlice(c, m["warnings"])
-	res.NextHopVpnTunnel = dcl.FlattenString(m["nextHopVpnTunnel"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes.NextHopInstance = dcl.FlattenString(m["nextHopInstance"])
+	resultRes.NextHopIP = dcl.FlattenString(m["nextHopIp"])
+	resultRes.NextHopNetwork = dcl.FlattenString(m["nextHopNetwork"])
+	resultRes.NextHopGateway = dcl.FlattenString(m["nextHopGateway"])
+	resultRes.NextHopPeering = dcl.FlattenString(m["nextHopPeering"])
+	resultRes.NextHopIlb = dcl.FlattenString(m["nextHopIlb"])
+	resultRes.Warning = flattenRouteWarningSlice(c, m["warnings"], res)
+	resultRes.NextHopVpnTunnel = dcl.FlattenString(m["nextHopVpnTunnel"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandRouteWarningMap expands the contents of RouteWarning into a JSON
@@ -1122,7 +1122,7 @@ func expandRouteWarningSlice(c *Client, f []RouteWarning, res *Route) ([]map[str
 
 // flattenRouteWarningMap flattens the contents of RouteWarning from a JSON
 // response object.
-func flattenRouteWarningMap(c *Client, i interface{}) map[string]RouteWarning {
+func flattenRouteWarningMap(c *Client, i interface{}, res *Route) map[string]RouteWarning {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RouteWarning{}
@@ -1134,7 +1134,7 @@ func flattenRouteWarningMap(c *Client, i interface{}) map[string]RouteWarning {
 
 	items := make(map[string]RouteWarning)
 	for k, item := range a {
-		items[k] = *flattenRouteWarning(c, item.(map[string]interface{}))
+		items[k] = *flattenRouteWarning(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1142,7 +1142,7 @@ func flattenRouteWarningMap(c *Client, i interface{}) map[string]RouteWarning {
 
 // flattenRouteWarningSlice flattens the contents of RouteWarning from a JSON
 // response object.
-func flattenRouteWarningSlice(c *Client, i interface{}) []RouteWarning {
+func flattenRouteWarningSlice(c *Client, i interface{}, res *Route) []RouteWarning {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RouteWarning{}
@@ -1154,7 +1154,7 @@ func flattenRouteWarningSlice(c *Client, i interface{}) []RouteWarning {
 
 	items := make([]RouteWarning, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRouteWarning(c, item.(map[string]interface{})))
+		items = append(items, *flattenRouteWarning(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1174,7 +1174,7 @@ func expandRouteWarning(c *Client, f *RouteWarning, res *Route) (map[string]inte
 
 // flattenRouteWarning flattens an instance of RouteWarning from a JSON
 // response object.
-func flattenRouteWarning(c *Client, i interface{}) *RouteWarning {
+func flattenRouteWarning(c *Client, i interface{}, res *Route) *RouteWarning {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1194,7 +1194,7 @@ func flattenRouteWarning(c *Client, i interface{}) *RouteWarning {
 
 // flattenRouteWarningCodeEnumMap flattens the contents of RouteWarningCodeEnum from a JSON
 // response object.
-func flattenRouteWarningCodeEnumMap(c *Client, i interface{}) map[string]RouteWarningCodeEnum {
+func flattenRouteWarningCodeEnumMap(c *Client, i interface{}, res *Route) map[string]RouteWarningCodeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RouteWarningCodeEnum{}
@@ -1214,7 +1214,7 @@ func flattenRouteWarningCodeEnumMap(c *Client, i interface{}) map[string]RouteWa
 
 // flattenRouteWarningCodeEnumSlice flattens the contents of RouteWarningCodeEnum from a JSON
 // response object.
-func flattenRouteWarningCodeEnumSlice(c *Client, i interface{}) []RouteWarningCodeEnum {
+func flattenRouteWarningCodeEnumSlice(c *Client, i interface{}, res *Route) []RouteWarningCodeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RouteWarningCodeEnum{}
@@ -1248,7 +1248,7 @@ func flattenRouteWarningCodeEnum(i interface{}) *RouteWarningCodeEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Route) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalRoute(b, c)
+		cr, err := unmarshalRoute(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -218,7 +218,7 @@ func (c *Client) listWorkloadIdentityPool(ctx context.Context, r *WorkloadIdenti
 
 	var l []*WorkloadIdentityPool
 	for _, v := range m.WorkloadIdentityPools {
-		res, err := unmarshalMapWorkloadIdentityPool(v, c)
+		res, err := unmarshalMapWorkloadIdentityPool(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -587,17 +587,17 @@ func (r *WorkloadIdentityPool) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalWorkloadIdentityPool decodes JSON responses into the WorkloadIdentityPool resource schema.
-func unmarshalWorkloadIdentityPool(b []byte, c *Client) (*WorkloadIdentityPool, error) {
+func unmarshalWorkloadIdentityPool(b []byte, c *Client, res *WorkloadIdentityPool) (*WorkloadIdentityPool, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapWorkloadIdentityPool(m, c)
+	return unmarshalMapWorkloadIdentityPool(m, c, res)
 }
 
-func unmarshalMapWorkloadIdentityPool(m map[string]interface{}, c *Client) (*WorkloadIdentityPool, error) {
+func unmarshalMapWorkloadIdentityPool(m map[string]interface{}, c *Client, res *WorkloadIdentityPool) (*WorkloadIdentityPool, error) {
 
-	flattened := flattenWorkloadIdentityPool(c, m)
+	flattened := flattenWorkloadIdentityPool(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -639,7 +639,7 @@ func expandWorkloadIdentityPool(c *Client, f *WorkloadIdentityPool) (map[string]
 
 // flattenWorkloadIdentityPool flattens WorkloadIdentityPool from a JSON request object into the
 // WorkloadIdentityPool type.
-func flattenWorkloadIdentityPool(c *Client, i interface{}) *WorkloadIdentityPool {
+func flattenWorkloadIdentityPool(c *Client, i interface{}, res *WorkloadIdentityPool) *WorkloadIdentityPool {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -648,21 +648,21 @@ func flattenWorkloadIdentityPool(c *Client, i interface{}) *WorkloadIdentityPool
 		return nil
 	}
 
-	res := &WorkloadIdentityPool{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.State = flattenWorkloadIdentityPoolStateEnum(m["state"])
-	res.Disabled = dcl.FlattenBool(m["disabled"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &WorkloadIdentityPool{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.State = flattenWorkloadIdentityPoolStateEnum(m["state"])
+	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // flattenWorkloadIdentityPoolStateEnumMap flattens the contents of WorkloadIdentityPoolStateEnum from a JSON
 // response object.
-func flattenWorkloadIdentityPoolStateEnumMap(c *Client, i interface{}) map[string]WorkloadIdentityPoolStateEnum {
+func flattenWorkloadIdentityPoolStateEnumMap(c *Client, i interface{}, res *WorkloadIdentityPool) map[string]WorkloadIdentityPoolStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadIdentityPoolStateEnum{}
@@ -682,7 +682,7 @@ func flattenWorkloadIdentityPoolStateEnumMap(c *Client, i interface{}) map[strin
 
 // flattenWorkloadIdentityPoolStateEnumSlice flattens the contents of WorkloadIdentityPoolStateEnum from a JSON
 // response object.
-func flattenWorkloadIdentityPoolStateEnumSlice(c *Client, i interface{}) []WorkloadIdentityPoolStateEnum {
+func flattenWorkloadIdentityPoolStateEnumSlice(c *Client, i interface{}, res *WorkloadIdentityPool) []WorkloadIdentityPoolStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadIdentityPoolStateEnum{}
@@ -716,7 +716,7 @@ func flattenWorkloadIdentityPoolStateEnum(i interface{}) *WorkloadIdentityPoolSt
 // identity).  This is useful in extracting the element from a List call.
 func (r *WorkloadIdentityPool) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalWorkloadIdentityPool(b, c)
+		cr, err := unmarshalWorkloadIdentityPool(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

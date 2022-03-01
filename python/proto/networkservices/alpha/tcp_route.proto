@@ -33,6 +33,7 @@ message NetworkservicesAlphaTcpRoute {
   map<string, string> labels = 9;
   string project = 10;
   string location = 11;
+  string self_link = 12;
 }
 
 message NetworkservicesAlphaTcpRouteRules {

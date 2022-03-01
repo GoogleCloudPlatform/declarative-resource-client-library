@@ -267,7 +267,7 @@ func (c *Client) listAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy
 
 	var l []*AutoscalingPolicy
 	for _, v := range m.Policies {
-		res, err := unmarshalMapAutoscalingPolicy(v, c)
+		res, err := unmarshalMapAutoscalingPolicy(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1318,17 +1318,17 @@ func (r *AutoscalingPolicy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalAutoscalingPolicy decodes JSON responses into the AutoscalingPolicy resource schema.
-func unmarshalAutoscalingPolicy(b []byte, c *Client) (*AutoscalingPolicy, error) {
+func unmarshalAutoscalingPolicy(b []byte, c *Client, res *AutoscalingPolicy) (*AutoscalingPolicy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapAutoscalingPolicy(m, c)
+	return unmarshalMapAutoscalingPolicy(m, c, res)
 }
 
-func unmarshalMapAutoscalingPolicy(m map[string]interface{}, c *Client) (*AutoscalingPolicy, error) {
+func unmarshalMapAutoscalingPolicy(m map[string]interface{}, c *Client, res *AutoscalingPolicy) (*AutoscalingPolicy, error) {
 
-	flattened := flattenAutoscalingPolicy(c, m)
+	flattened := flattenAutoscalingPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1374,7 +1374,7 @@ func expandAutoscalingPolicy(c *Client, f *AutoscalingPolicy) (map[string]interf
 
 // flattenAutoscalingPolicy flattens AutoscalingPolicy from a JSON request object into the
 // AutoscalingPolicy type.
-func flattenAutoscalingPolicy(c *Client, i interface{}) *AutoscalingPolicy {
+func flattenAutoscalingPolicy(c *Client, i interface{}, res *AutoscalingPolicy) *AutoscalingPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1383,15 +1383,15 @@ func flattenAutoscalingPolicy(c *Client, i interface{}) *AutoscalingPolicy {
 		return nil
 	}
 
-	res := &AutoscalingPolicy{}
-	res.Name = dcl.FlattenString(m["id"])
-	res.BasicAlgorithm = flattenAutoscalingPolicyBasicAlgorithm(c, m["basicAlgorithm"])
-	res.WorkerConfig = flattenAutoscalingPolicyWorkerConfig(c, m["workerConfig"])
-	res.SecondaryWorkerConfig = flattenAutoscalingPolicySecondaryWorkerConfig(c, m["secondaryWorkerConfig"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &AutoscalingPolicy{}
+	resultRes.Name = dcl.FlattenString(m["id"])
+	resultRes.BasicAlgorithm = flattenAutoscalingPolicyBasicAlgorithm(c, m["basicAlgorithm"], res)
+	resultRes.WorkerConfig = flattenAutoscalingPolicyWorkerConfig(c, m["workerConfig"], res)
+	resultRes.SecondaryWorkerConfig = flattenAutoscalingPolicySecondaryWorkerConfig(c, m["secondaryWorkerConfig"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandAutoscalingPolicyBasicAlgorithmMap expands the contents of AutoscalingPolicyBasicAlgorithm into a JSON
@@ -1437,7 +1437,7 @@ func expandAutoscalingPolicyBasicAlgorithmSlice(c *Client, f []AutoscalingPolicy
 
 // flattenAutoscalingPolicyBasicAlgorithmMap flattens the contents of AutoscalingPolicyBasicAlgorithm from a JSON
 // response object.
-func flattenAutoscalingPolicyBasicAlgorithmMap(c *Client, i interface{}) map[string]AutoscalingPolicyBasicAlgorithm {
+func flattenAutoscalingPolicyBasicAlgorithmMap(c *Client, i interface{}, res *AutoscalingPolicy) map[string]AutoscalingPolicyBasicAlgorithm {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AutoscalingPolicyBasicAlgorithm{}
@@ -1449,7 +1449,7 @@ func flattenAutoscalingPolicyBasicAlgorithmMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]AutoscalingPolicyBasicAlgorithm)
 	for k, item := range a {
-		items[k] = *flattenAutoscalingPolicyBasicAlgorithm(c, item.(map[string]interface{}))
+		items[k] = *flattenAutoscalingPolicyBasicAlgorithm(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1457,7 +1457,7 @@ func flattenAutoscalingPolicyBasicAlgorithmMap(c *Client, i interface{}) map[str
 
 // flattenAutoscalingPolicyBasicAlgorithmSlice flattens the contents of AutoscalingPolicyBasicAlgorithm from a JSON
 // response object.
-func flattenAutoscalingPolicyBasicAlgorithmSlice(c *Client, i interface{}) []AutoscalingPolicyBasicAlgorithm {
+func flattenAutoscalingPolicyBasicAlgorithmSlice(c *Client, i interface{}, res *AutoscalingPolicy) []AutoscalingPolicyBasicAlgorithm {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AutoscalingPolicyBasicAlgorithm{}
@@ -1469,7 +1469,7 @@ func flattenAutoscalingPolicyBasicAlgorithmSlice(c *Client, i interface{}) []Aut
 
 	items := make([]AutoscalingPolicyBasicAlgorithm, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAutoscalingPolicyBasicAlgorithm(c, item.(map[string]interface{})))
+		items = append(items, *flattenAutoscalingPolicyBasicAlgorithm(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1497,7 +1497,7 @@ func expandAutoscalingPolicyBasicAlgorithm(c *Client, f *AutoscalingPolicyBasicA
 
 // flattenAutoscalingPolicyBasicAlgorithm flattens an instance of AutoscalingPolicyBasicAlgorithm from a JSON
 // response object.
-func flattenAutoscalingPolicyBasicAlgorithm(c *Client, i interface{}) *AutoscalingPolicyBasicAlgorithm {
+func flattenAutoscalingPolicyBasicAlgorithm(c *Client, i interface{}, res *AutoscalingPolicy) *AutoscalingPolicyBasicAlgorithm {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1508,7 +1508,7 @@ func flattenAutoscalingPolicyBasicAlgorithm(c *Client, i interface{}) *Autoscali
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyAutoscalingPolicyBasicAlgorithm
 	}
-	r.YarnConfig = flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c, m["yarnConfig"])
+	r.YarnConfig = flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c, m["yarnConfig"], res)
 	r.CooldownPeriod = dcl.FlattenString(m["cooldownPeriod"])
 
 	return r
@@ -1557,7 +1557,7 @@ func expandAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, f []Autosca
 
 // flattenAutoscalingPolicyBasicAlgorithmYarnConfigMap flattens the contents of AutoscalingPolicyBasicAlgorithmYarnConfig from a JSON
 // response object.
-func flattenAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, i interface{}) map[string]AutoscalingPolicyBasicAlgorithmYarnConfig {
+func flattenAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, i interface{}, res *AutoscalingPolicy) map[string]AutoscalingPolicyBasicAlgorithmYarnConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AutoscalingPolicyBasicAlgorithmYarnConfig{}
@@ -1569,7 +1569,7 @@ func flattenAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, i interface{
 
 	items := make(map[string]AutoscalingPolicyBasicAlgorithmYarnConfig)
 	for k, item := range a {
-		items[k] = *flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1577,7 +1577,7 @@ func flattenAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, i interface{
 
 // flattenAutoscalingPolicyBasicAlgorithmYarnConfigSlice flattens the contents of AutoscalingPolicyBasicAlgorithmYarnConfig from a JSON
 // response object.
-func flattenAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, i interface{}) []AutoscalingPolicyBasicAlgorithmYarnConfig {
+func flattenAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, i interface{}, res *AutoscalingPolicy) []AutoscalingPolicyBasicAlgorithmYarnConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AutoscalingPolicyBasicAlgorithmYarnConfig{}
@@ -1589,7 +1589,7 @@ func flattenAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, i interfac
 
 	items := make([]AutoscalingPolicyBasicAlgorithmYarnConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1624,7 +1624,7 @@ func expandAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, f *AutoscalingPo
 
 // flattenAutoscalingPolicyBasicAlgorithmYarnConfig flattens an instance of AutoscalingPolicyBasicAlgorithmYarnConfig from a JSON
 // response object.
-func flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, i interface{}) *AutoscalingPolicyBasicAlgorithmYarnConfig {
+func flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, i interface{}, res *AutoscalingPolicy) *AutoscalingPolicyBasicAlgorithmYarnConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1687,7 +1687,7 @@ func expandAutoscalingPolicyWorkerConfigSlice(c *Client, f []AutoscalingPolicyWo
 
 // flattenAutoscalingPolicyWorkerConfigMap flattens the contents of AutoscalingPolicyWorkerConfig from a JSON
 // response object.
-func flattenAutoscalingPolicyWorkerConfigMap(c *Client, i interface{}) map[string]AutoscalingPolicyWorkerConfig {
+func flattenAutoscalingPolicyWorkerConfigMap(c *Client, i interface{}, res *AutoscalingPolicy) map[string]AutoscalingPolicyWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AutoscalingPolicyWorkerConfig{}
@@ -1699,7 +1699,7 @@ func flattenAutoscalingPolicyWorkerConfigMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]AutoscalingPolicyWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenAutoscalingPolicyWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenAutoscalingPolicyWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1707,7 +1707,7 @@ func flattenAutoscalingPolicyWorkerConfigMap(c *Client, i interface{}) map[strin
 
 // flattenAutoscalingPolicyWorkerConfigSlice flattens the contents of AutoscalingPolicyWorkerConfig from a JSON
 // response object.
-func flattenAutoscalingPolicyWorkerConfigSlice(c *Client, i interface{}) []AutoscalingPolicyWorkerConfig {
+func flattenAutoscalingPolicyWorkerConfigSlice(c *Client, i interface{}, res *AutoscalingPolicy) []AutoscalingPolicyWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AutoscalingPolicyWorkerConfig{}
@@ -1719,7 +1719,7 @@ func flattenAutoscalingPolicyWorkerConfigSlice(c *Client, i interface{}) []Autos
 
 	items := make([]AutoscalingPolicyWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAutoscalingPolicyWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenAutoscalingPolicyWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1748,7 +1748,7 @@ func expandAutoscalingPolicyWorkerConfig(c *Client, f *AutoscalingPolicyWorkerCo
 
 // flattenAutoscalingPolicyWorkerConfig flattens an instance of AutoscalingPolicyWorkerConfig from a JSON
 // response object.
-func flattenAutoscalingPolicyWorkerConfig(c *Client, i interface{}) *AutoscalingPolicyWorkerConfig {
+func flattenAutoscalingPolicyWorkerConfig(c *Client, i interface{}, res *AutoscalingPolicy) *AutoscalingPolicyWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1809,7 +1809,7 @@ func expandAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, f []Autoscalin
 
 // flattenAutoscalingPolicySecondaryWorkerConfigMap flattens the contents of AutoscalingPolicySecondaryWorkerConfig from a JSON
 // response object.
-func flattenAutoscalingPolicySecondaryWorkerConfigMap(c *Client, i interface{}) map[string]AutoscalingPolicySecondaryWorkerConfig {
+func flattenAutoscalingPolicySecondaryWorkerConfigMap(c *Client, i interface{}, res *AutoscalingPolicy) map[string]AutoscalingPolicySecondaryWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AutoscalingPolicySecondaryWorkerConfig{}
@@ -1821,7 +1821,7 @@ func flattenAutoscalingPolicySecondaryWorkerConfigMap(c *Client, i interface{}) 
 
 	items := make(map[string]AutoscalingPolicySecondaryWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenAutoscalingPolicySecondaryWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenAutoscalingPolicySecondaryWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1829,7 +1829,7 @@ func flattenAutoscalingPolicySecondaryWorkerConfigMap(c *Client, i interface{}) 
 
 // flattenAutoscalingPolicySecondaryWorkerConfigSlice flattens the contents of AutoscalingPolicySecondaryWorkerConfig from a JSON
 // response object.
-func flattenAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, i interface{}) []AutoscalingPolicySecondaryWorkerConfig {
+func flattenAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, i interface{}, res *AutoscalingPolicy) []AutoscalingPolicySecondaryWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AutoscalingPolicySecondaryWorkerConfig{}
@@ -1841,7 +1841,7 @@ func flattenAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, i interface{}
 
 	items := make([]AutoscalingPolicySecondaryWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAutoscalingPolicySecondaryWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenAutoscalingPolicySecondaryWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1870,7 +1870,7 @@ func expandAutoscalingPolicySecondaryWorkerConfig(c *Client, f *AutoscalingPolic
 
 // flattenAutoscalingPolicySecondaryWorkerConfig flattens an instance of AutoscalingPolicySecondaryWorkerConfig from a JSON
 // response object.
-func flattenAutoscalingPolicySecondaryWorkerConfig(c *Client, i interface{}) *AutoscalingPolicySecondaryWorkerConfig {
+func flattenAutoscalingPolicySecondaryWorkerConfig(c *Client, i interface{}, res *AutoscalingPolicy) *AutoscalingPolicySecondaryWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1893,7 +1893,7 @@ func flattenAutoscalingPolicySecondaryWorkerConfig(c *Client, i interface{}) *Au
 // identity).  This is useful in extracting the element from a List call.
 func (r *AutoscalingPolicy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalAutoscalingPolicy(b, c)
+		cr, err := unmarshalAutoscalingPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

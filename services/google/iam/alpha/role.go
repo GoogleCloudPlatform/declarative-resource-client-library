@@ -234,7 +234,7 @@ func (c *Client) GetRole(ctx context.Context, r *Role) (*Role, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalRole(b, c)
+	result, err := unmarshalRole(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -403,7 +403,7 @@ func applyRoleDiff(c *Client, ctx context.Context, desired *Role, rawDesired *Ro
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapRole(r, c)
+				fullResp, err := unmarshalMapRole(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

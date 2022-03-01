@@ -381,7 +381,7 @@ func (c *Client) GetInstance(ctx context.Context, r *Instance) (*Instance, error
 		}
 		return nil, err
 	}
-	result, err := unmarshalInstance(b, c)
+	result, err := unmarshalInstance(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -551,7 +551,7 @@ func applyInstanceDiff(c *Client, ctx context.Context, desired *Instance, rawDes
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapInstance(r, c)
+				fullResp, err := unmarshalMapInstance(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

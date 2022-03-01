@@ -214,7 +214,7 @@ func (c *Client) listTenant(ctx context.Context, r *Tenant, pageToken string, pa
 
 	var l []*Tenant
 	for _, v := range m.Tenants {
-		res, err := unmarshalMapTenant(v, c)
+		res, err := unmarshalMapTenant(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -819,17 +819,17 @@ func (r *Tenant) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalTenant decodes JSON responses into the Tenant resource schema.
-func unmarshalTenant(b []byte, c *Client) (*Tenant, error) {
+func unmarshalTenant(b []byte, c *Client, res *Tenant) (*Tenant, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapTenant(m, c)
+	return unmarshalMapTenant(m, c, res)
 }
 
-func unmarshalMapTenant(m map[string]interface{}, c *Client) (*Tenant, error) {
+func unmarshalMapTenant(m map[string]interface{}, c *Client, res *Tenant) (*Tenant, error) {
 
-	flattened := flattenTenant(c, m)
+	flattened := flattenTenant(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -880,7 +880,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 
 // flattenTenant flattens Tenant from a JSON request object into the
 // Tenant type.
-func flattenTenant(c *Client, i interface{}) *Tenant {
+func flattenTenant(c *Client, i interface{}, res *Tenant) *Tenant {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -889,18 +889,18 @@ func flattenTenant(c *Client, i interface{}) *Tenant {
 		return nil
 	}
 
-	res := &Tenant{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.AllowPasswordSignup = dcl.FlattenBool(m["allowPasswordSignup"])
-	res.EnableEmailLinkSignin = dcl.FlattenBool(m["enableEmailLinkSignin"])
-	res.DisableAuth = dcl.FlattenBool(m["disableAuth"])
-	res.EnableAnonymousUser = dcl.FlattenBool(m["enableAnonymousUser"])
-	res.MfaConfig = flattenTenantMfaConfig(c, m["mfaConfig"])
-	res.TestPhoneNumbers = dcl.FlattenKeyValuePairs(m["testPhoneNumbers"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Tenant{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.AllowPasswordSignup = dcl.FlattenBool(m["allowPasswordSignup"])
+	resultRes.EnableEmailLinkSignin = dcl.FlattenBool(m["enableEmailLinkSignin"])
+	resultRes.DisableAuth = dcl.FlattenBool(m["disableAuth"])
+	resultRes.EnableAnonymousUser = dcl.FlattenBool(m["enableAnonymousUser"])
+	resultRes.MfaConfig = flattenTenantMfaConfig(c, m["mfaConfig"], res)
+	resultRes.TestPhoneNumbers = dcl.FlattenKeyValuePairs(m["testPhoneNumbers"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandTenantMfaConfigMap expands the contents of TenantMfaConfig into a JSON
@@ -946,7 +946,7 @@ func expandTenantMfaConfigSlice(c *Client, f []TenantMfaConfig, res *Tenant) ([]
 
 // flattenTenantMfaConfigMap flattens the contents of TenantMfaConfig from a JSON
 // response object.
-func flattenTenantMfaConfigMap(c *Client, i interface{}) map[string]TenantMfaConfig {
+func flattenTenantMfaConfigMap(c *Client, i interface{}, res *Tenant) map[string]TenantMfaConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TenantMfaConfig{}
@@ -958,7 +958,7 @@ func flattenTenantMfaConfigMap(c *Client, i interface{}) map[string]TenantMfaCon
 
 	items := make(map[string]TenantMfaConfig)
 	for k, item := range a {
-		items[k] = *flattenTenantMfaConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenTenantMfaConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -966,7 +966,7 @@ func flattenTenantMfaConfigMap(c *Client, i interface{}) map[string]TenantMfaCon
 
 // flattenTenantMfaConfigSlice flattens the contents of TenantMfaConfig from a JSON
 // response object.
-func flattenTenantMfaConfigSlice(c *Client, i interface{}) []TenantMfaConfig {
+func flattenTenantMfaConfigSlice(c *Client, i interface{}, res *Tenant) []TenantMfaConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TenantMfaConfig{}
@@ -978,7 +978,7 @@ func flattenTenantMfaConfigSlice(c *Client, i interface{}) []TenantMfaConfig {
 
 	items := make([]TenantMfaConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTenantMfaConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenTenantMfaConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1004,7 +1004,7 @@ func expandTenantMfaConfig(c *Client, f *TenantMfaConfig, res *Tenant) (map[stri
 
 // flattenTenantMfaConfig flattens an instance of TenantMfaConfig from a JSON
 // response object.
-func flattenTenantMfaConfig(c *Client, i interface{}) *TenantMfaConfig {
+func flattenTenantMfaConfig(c *Client, i interface{}, res *Tenant) *TenantMfaConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1016,14 +1016,14 @@ func flattenTenantMfaConfig(c *Client, i interface{}) *TenantMfaConfig {
 		return EmptyTenantMfaConfig
 	}
 	r.State = flattenTenantMfaConfigStateEnum(m["state"])
-	r.EnabledProviders = flattenTenantMfaConfigEnabledProvidersEnumSlice(c, m["enabledProviders"])
+	r.EnabledProviders = flattenTenantMfaConfigEnabledProvidersEnumSlice(c, m["enabledProviders"], res)
 
 	return r
 }
 
 // flattenTenantMfaConfigStateEnumMap flattens the contents of TenantMfaConfigStateEnum from a JSON
 // response object.
-func flattenTenantMfaConfigStateEnumMap(c *Client, i interface{}) map[string]TenantMfaConfigStateEnum {
+func flattenTenantMfaConfigStateEnumMap(c *Client, i interface{}, res *Tenant) map[string]TenantMfaConfigStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TenantMfaConfigStateEnum{}
@@ -1043,7 +1043,7 @@ func flattenTenantMfaConfigStateEnumMap(c *Client, i interface{}) map[string]Ten
 
 // flattenTenantMfaConfigStateEnumSlice flattens the contents of TenantMfaConfigStateEnum from a JSON
 // response object.
-func flattenTenantMfaConfigStateEnumSlice(c *Client, i interface{}) []TenantMfaConfigStateEnum {
+func flattenTenantMfaConfigStateEnumSlice(c *Client, i interface{}, res *Tenant) []TenantMfaConfigStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TenantMfaConfigStateEnum{}
@@ -1074,7 +1074,7 @@ func flattenTenantMfaConfigStateEnum(i interface{}) *TenantMfaConfigStateEnum {
 
 // flattenTenantMfaConfigEnabledProvidersEnumMap flattens the contents of TenantMfaConfigEnabledProvidersEnum from a JSON
 // response object.
-func flattenTenantMfaConfigEnabledProvidersEnumMap(c *Client, i interface{}) map[string]TenantMfaConfigEnabledProvidersEnum {
+func flattenTenantMfaConfigEnabledProvidersEnumMap(c *Client, i interface{}, res *Tenant) map[string]TenantMfaConfigEnabledProvidersEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TenantMfaConfigEnabledProvidersEnum{}
@@ -1094,7 +1094,7 @@ func flattenTenantMfaConfigEnabledProvidersEnumMap(c *Client, i interface{}) map
 
 // flattenTenantMfaConfigEnabledProvidersEnumSlice flattens the contents of TenantMfaConfigEnabledProvidersEnum from a JSON
 // response object.
-func flattenTenantMfaConfigEnabledProvidersEnumSlice(c *Client, i interface{}) []TenantMfaConfigEnabledProvidersEnum {
+func flattenTenantMfaConfigEnabledProvidersEnumSlice(c *Client, i interface{}, res *Tenant) []TenantMfaConfigEnabledProvidersEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TenantMfaConfigEnabledProvidersEnum{}
@@ -1128,7 +1128,7 @@ func flattenTenantMfaConfigEnabledProvidersEnum(i interface{}) *TenantMfaConfigE
 // identity).  This is useful in extracting the element from a List call.
 func (r *Tenant) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalTenant(b, c)
+		cr, err := unmarshalTenant(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

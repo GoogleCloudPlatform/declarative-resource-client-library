@@ -279,7 +279,7 @@ func (c *Client) listBudget(ctx context.Context, r *Budget, pageToken string, pa
 
 	var l []*Budget
 	for _, v := range m.Budgets {
-		res, err := unmarshalMapBudget(v, c)
+		res, err := unmarshalMapBudget(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -2327,17 +2327,17 @@ func (r *Budget) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalBudget decodes JSON responses into the Budget resource schema.
-func unmarshalBudget(b []byte, c *Client) (*Budget, error) {
+func unmarshalBudget(b []byte, c *Client, res *Budget) (*Budget, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapBudget(m, c)
+	return unmarshalMapBudget(m, c, res)
 }
 
-func unmarshalMapBudget(m map[string]interface{}, c *Client) (*Budget, error) {
+func unmarshalMapBudget(m map[string]interface{}, c *Client, res *Budget) (*Budget, error) {
 
-	flattened := flattenBudget(c, m)
+	flattened := flattenBudget(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2388,7 +2388,7 @@ func expandBudget(c *Client, f *Budget) (map[string]interface{}, error) {
 
 // flattenBudget flattens Budget from a JSON request object into the
 // Budget type.
-func flattenBudget(c *Client, i interface{}) *Budget {
+func flattenBudget(c *Client, i interface{}, res *Budget) *Budget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2397,17 +2397,17 @@ func flattenBudget(c *Client, i interface{}) *Budget {
 		return nil
 	}
 
-	res := &Budget{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.BudgetFilter = flattenBudgetBudgetFilter(c, m["budgetFilter"])
-	res.Amount = flattenBudgetAmount(c, m["amount"])
-	res.ThresholdRules = flattenBudgetThresholdRulesSlice(c, m["thresholdRules"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.AllUpdatesRule = flattenBudgetAllUpdatesRule(c, m["allUpdatesRule"])
-	res.BillingAccount = dcl.FlattenString(m["billingAccount"])
+	resultRes := &Budget{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.BudgetFilter = flattenBudgetBudgetFilter(c, m["budgetFilter"], res)
+	resultRes.Amount = flattenBudgetAmount(c, m["amount"], res)
+	resultRes.ThresholdRules = flattenBudgetThresholdRulesSlice(c, m["thresholdRules"], res)
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.AllUpdatesRule = flattenBudgetAllUpdatesRule(c, m["allUpdatesRule"], res)
+	resultRes.BillingAccount = dcl.FlattenString(m["billingAccount"])
 
-	return res
+	return resultRes
 }
 
 // expandBudgetBudgetFilterMap expands the contents of BudgetBudgetFilter into a JSON
@@ -2453,7 +2453,7 @@ func expandBudgetBudgetFilterSlice(c *Client, f []BudgetBudgetFilter, res *Budge
 
 // flattenBudgetBudgetFilterMap flattens the contents of BudgetBudgetFilter from a JSON
 // response object.
-func flattenBudgetBudgetFilterMap(c *Client, i interface{}) map[string]BudgetBudgetFilter {
+func flattenBudgetBudgetFilterMap(c *Client, i interface{}, res *Budget) map[string]BudgetBudgetFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetBudgetFilter{}
@@ -2465,7 +2465,7 @@ func flattenBudgetBudgetFilterMap(c *Client, i interface{}) map[string]BudgetBud
 
 	items := make(map[string]BudgetBudgetFilter)
 	for k, item := range a {
-		items[k] = *flattenBudgetBudgetFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetBudgetFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2473,7 +2473,7 @@ func flattenBudgetBudgetFilterMap(c *Client, i interface{}) map[string]BudgetBud
 
 // flattenBudgetBudgetFilterSlice flattens the contents of BudgetBudgetFilter from a JSON
 // response object.
-func flattenBudgetBudgetFilterSlice(c *Client, i interface{}) []BudgetBudgetFilter {
+func flattenBudgetBudgetFilterSlice(c *Client, i interface{}, res *Budget) []BudgetBudgetFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetBudgetFilter{}
@@ -2485,7 +2485,7 @@ func flattenBudgetBudgetFilterSlice(c *Client, i interface{}) []BudgetBudgetFilt
 
 	items := make([]BudgetBudgetFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetBudgetFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetBudgetFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2533,7 +2533,7 @@ func expandBudgetBudgetFilter(c *Client, f *BudgetBudgetFilter, res *Budget) (ma
 
 // flattenBudgetBudgetFilter flattens an instance of BudgetBudgetFilter from a JSON
 // response object.
-func flattenBudgetBudgetFilter(c *Client, i interface{}) *BudgetBudgetFilter {
+func flattenBudgetBudgetFilter(c *Client, i interface{}, res *Budget) *BudgetBudgetFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2551,7 +2551,7 @@ func flattenBudgetBudgetFilter(c *Client, i interface{}) *BudgetBudgetFilter {
 	r.Subaccounts = dcl.FlattenStringSlice(m["subaccounts"])
 	r.Labels = flattenBudgetFilterLabels(m["labels"])
 	r.CalendarPeriod = flattenBudgetBudgetFilterCalendarPeriodEnum(m["calendarPeriod"])
-	r.CustomPeriod = flattenBudgetBudgetFilterCustomPeriod(c, m["customPeriod"])
+	r.CustomPeriod = flattenBudgetBudgetFilterCustomPeriod(c, m["customPeriod"], res)
 
 	return r
 }
@@ -2599,7 +2599,7 @@ func expandBudgetBudgetFilterLabelsSlice(c *Client, f []BudgetBudgetFilterLabels
 
 // flattenBudgetBudgetFilterLabelsMap flattens the contents of BudgetBudgetFilterLabels from a JSON
 // response object.
-func flattenBudgetBudgetFilterLabelsMap(c *Client, i interface{}) map[string]BudgetBudgetFilterLabels {
+func flattenBudgetBudgetFilterLabelsMap(c *Client, i interface{}, res *Budget) map[string]BudgetBudgetFilterLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetBudgetFilterLabels{}
@@ -2611,7 +2611,7 @@ func flattenBudgetBudgetFilterLabelsMap(c *Client, i interface{}) map[string]Bud
 
 	items := make(map[string]BudgetBudgetFilterLabels)
 	for k, item := range a {
-		items[k] = *flattenBudgetBudgetFilterLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetBudgetFilterLabels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2619,7 +2619,7 @@ func flattenBudgetBudgetFilterLabelsMap(c *Client, i interface{}) map[string]Bud
 
 // flattenBudgetBudgetFilterLabelsSlice flattens the contents of BudgetBudgetFilterLabels from a JSON
 // response object.
-func flattenBudgetBudgetFilterLabelsSlice(c *Client, i interface{}) []BudgetBudgetFilterLabels {
+func flattenBudgetBudgetFilterLabelsSlice(c *Client, i interface{}, res *Budget) []BudgetBudgetFilterLabels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetBudgetFilterLabels{}
@@ -2631,7 +2631,7 @@ func flattenBudgetBudgetFilterLabelsSlice(c *Client, i interface{}) []BudgetBudg
 
 	items := make([]BudgetBudgetFilterLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetBudgetFilterLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetBudgetFilterLabels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2654,7 +2654,7 @@ func expandBudgetBudgetFilterLabels(c *Client, f *BudgetBudgetFilterLabels, res 
 
 // flattenBudgetBudgetFilterLabels flattens an instance of BudgetBudgetFilterLabels from a JSON
 // response object.
-func flattenBudgetBudgetFilterLabels(c *Client, i interface{}) *BudgetBudgetFilterLabels {
+func flattenBudgetBudgetFilterLabels(c *Client, i interface{}, res *Budget) *BudgetBudgetFilterLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2713,7 +2713,7 @@ func expandBudgetBudgetFilterCustomPeriodSlice(c *Client, f []BudgetBudgetFilter
 
 // flattenBudgetBudgetFilterCustomPeriodMap flattens the contents of BudgetBudgetFilterCustomPeriod from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodMap(c *Client, i interface{}) map[string]BudgetBudgetFilterCustomPeriod {
+func flattenBudgetBudgetFilterCustomPeriodMap(c *Client, i interface{}, res *Budget) map[string]BudgetBudgetFilterCustomPeriod {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetBudgetFilterCustomPeriod{}
@@ -2725,7 +2725,7 @@ func flattenBudgetBudgetFilterCustomPeriodMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]BudgetBudgetFilterCustomPeriod)
 	for k, item := range a {
-		items[k] = *flattenBudgetBudgetFilterCustomPeriod(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetBudgetFilterCustomPeriod(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2733,7 +2733,7 @@ func flattenBudgetBudgetFilterCustomPeriodMap(c *Client, i interface{}) map[stri
 
 // flattenBudgetBudgetFilterCustomPeriodSlice flattens the contents of BudgetBudgetFilterCustomPeriod from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodSlice(c *Client, i interface{}) []BudgetBudgetFilterCustomPeriod {
+func flattenBudgetBudgetFilterCustomPeriodSlice(c *Client, i interface{}, res *Budget) []BudgetBudgetFilterCustomPeriod {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetBudgetFilterCustomPeriod{}
@@ -2745,7 +2745,7 @@ func flattenBudgetBudgetFilterCustomPeriodSlice(c *Client, i interface{}) []Budg
 
 	items := make([]BudgetBudgetFilterCustomPeriod, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetBudgetFilterCustomPeriod(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetBudgetFilterCustomPeriod(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2775,7 +2775,7 @@ func expandBudgetBudgetFilterCustomPeriod(c *Client, f *BudgetBudgetFilterCustom
 
 // flattenBudgetBudgetFilterCustomPeriod flattens an instance of BudgetBudgetFilterCustomPeriod from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriod(c *Client, i interface{}) *BudgetBudgetFilterCustomPeriod {
+func flattenBudgetBudgetFilterCustomPeriod(c *Client, i interface{}, res *Budget) *BudgetBudgetFilterCustomPeriod {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2786,8 +2786,8 @@ func flattenBudgetBudgetFilterCustomPeriod(c *Client, i interface{}) *BudgetBudg
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyBudgetBudgetFilterCustomPeriod
 	}
-	r.StartDate = flattenBudgetBudgetFilterCustomPeriodStartDate(c, m["startDate"])
-	r.EndDate = flattenBudgetBudgetFilterCustomPeriodEndDate(c, m["endDate"])
+	r.StartDate = flattenBudgetBudgetFilterCustomPeriodStartDate(c, m["startDate"], res)
+	r.EndDate = flattenBudgetBudgetFilterCustomPeriodEndDate(c, m["endDate"], res)
 
 	return r
 }
@@ -2835,7 +2835,7 @@ func expandBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, f []BudgetBud
 
 // flattenBudgetBudgetFilterCustomPeriodStartDateMap flattens the contents of BudgetBudgetFilterCustomPeriodStartDate from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodStartDateMap(c *Client, i interface{}) map[string]BudgetBudgetFilterCustomPeriodStartDate {
+func flattenBudgetBudgetFilterCustomPeriodStartDateMap(c *Client, i interface{}, res *Budget) map[string]BudgetBudgetFilterCustomPeriodStartDate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetBudgetFilterCustomPeriodStartDate{}
@@ -2847,7 +2847,7 @@ func flattenBudgetBudgetFilterCustomPeriodStartDateMap(c *Client, i interface{})
 
 	items := make(map[string]BudgetBudgetFilterCustomPeriodStartDate)
 	for k, item := range a {
-		items[k] = *flattenBudgetBudgetFilterCustomPeriodStartDate(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetBudgetFilterCustomPeriodStartDate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2855,7 +2855,7 @@ func flattenBudgetBudgetFilterCustomPeriodStartDateMap(c *Client, i interface{})
 
 // flattenBudgetBudgetFilterCustomPeriodStartDateSlice flattens the contents of BudgetBudgetFilterCustomPeriodStartDate from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, i interface{}) []BudgetBudgetFilterCustomPeriodStartDate {
+func flattenBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, i interface{}, res *Budget) []BudgetBudgetFilterCustomPeriodStartDate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetBudgetFilterCustomPeriodStartDate{}
@@ -2867,7 +2867,7 @@ func flattenBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, i interface{
 
 	items := make([]BudgetBudgetFilterCustomPeriodStartDate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetBudgetFilterCustomPeriodStartDate(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetBudgetFilterCustomPeriodStartDate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2896,7 +2896,7 @@ func expandBudgetBudgetFilterCustomPeriodStartDate(c *Client, f *BudgetBudgetFil
 
 // flattenBudgetBudgetFilterCustomPeriodStartDate flattens an instance of BudgetBudgetFilterCustomPeriodStartDate from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodStartDate(c *Client, i interface{}) *BudgetBudgetFilterCustomPeriodStartDate {
+func flattenBudgetBudgetFilterCustomPeriodStartDate(c *Client, i interface{}, res *Budget) *BudgetBudgetFilterCustomPeriodStartDate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2957,7 +2957,7 @@ func expandBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, f []BudgetBudge
 
 // flattenBudgetBudgetFilterCustomPeriodEndDateMap flattens the contents of BudgetBudgetFilterCustomPeriodEndDate from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodEndDateMap(c *Client, i interface{}) map[string]BudgetBudgetFilterCustomPeriodEndDate {
+func flattenBudgetBudgetFilterCustomPeriodEndDateMap(c *Client, i interface{}, res *Budget) map[string]BudgetBudgetFilterCustomPeriodEndDate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetBudgetFilterCustomPeriodEndDate{}
@@ -2969,7 +2969,7 @@ func flattenBudgetBudgetFilterCustomPeriodEndDateMap(c *Client, i interface{}) m
 
 	items := make(map[string]BudgetBudgetFilterCustomPeriodEndDate)
 	for k, item := range a {
-		items[k] = *flattenBudgetBudgetFilterCustomPeriodEndDate(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetBudgetFilterCustomPeriodEndDate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2977,7 +2977,7 @@ func flattenBudgetBudgetFilterCustomPeriodEndDateMap(c *Client, i interface{}) m
 
 // flattenBudgetBudgetFilterCustomPeriodEndDateSlice flattens the contents of BudgetBudgetFilterCustomPeriodEndDate from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, i interface{}) []BudgetBudgetFilterCustomPeriodEndDate {
+func flattenBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, i interface{}, res *Budget) []BudgetBudgetFilterCustomPeriodEndDate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetBudgetFilterCustomPeriodEndDate{}
@@ -2989,7 +2989,7 @@ func flattenBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, i interface{})
 
 	items := make([]BudgetBudgetFilterCustomPeriodEndDate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetBudgetFilterCustomPeriodEndDate(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetBudgetFilterCustomPeriodEndDate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3018,7 +3018,7 @@ func expandBudgetBudgetFilterCustomPeriodEndDate(c *Client, f *BudgetBudgetFilte
 
 // flattenBudgetBudgetFilterCustomPeriodEndDate flattens an instance of BudgetBudgetFilterCustomPeriodEndDate from a JSON
 // response object.
-func flattenBudgetBudgetFilterCustomPeriodEndDate(c *Client, i interface{}) *BudgetBudgetFilterCustomPeriodEndDate {
+func flattenBudgetBudgetFilterCustomPeriodEndDate(c *Client, i interface{}, res *Budget) *BudgetBudgetFilterCustomPeriodEndDate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3079,7 +3079,7 @@ func expandBudgetAmountSlice(c *Client, f []BudgetAmount, res *Budget) ([]map[st
 
 // flattenBudgetAmountMap flattens the contents of BudgetAmount from a JSON
 // response object.
-func flattenBudgetAmountMap(c *Client, i interface{}) map[string]BudgetAmount {
+func flattenBudgetAmountMap(c *Client, i interface{}, res *Budget) map[string]BudgetAmount {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetAmount{}
@@ -3091,7 +3091,7 @@ func flattenBudgetAmountMap(c *Client, i interface{}) map[string]BudgetAmount {
 
 	items := make(map[string]BudgetAmount)
 	for k, item := range a {
-		items[k] = *flattenBudgetAmount(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetAmount(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3099,7 +3099,7 @@ func flattenBudgetAmountMap(c *Client, i interface{}) map[string]BudgetAmount {
 
 // flattenBudgetAmountSlice flattens the contents of BudgetAmount from a JSON
 // response object.
-func flattenBudgetAmountSlice(c *Client, i interface{}) []BudgetAmount {
+func flattenBudgetAmountSlice(c *Client, i interface{}, res *Budget) []BudgetAmount {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetAmount{}
@@ -3111,7 +3111,7 @@ func flattenBudgetAmountSlice(c *Client, i interface{}) []BudgetAmount {
 
 	items := make([]BudgetAmount, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetAmount(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetAmount(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3141,7 +3141,7 @@ func expandBudgetAmount(c *Client, f *BudgetAmount, res *Budget) (map[string]int
 
 // flattenBudgetAmount flattens an instance of BudgetAmount from a JSON
 // response object.
-func flattenBudgetAmount(c *Client, i interface{}) *BudgetAmount {
+func flattenBudgetAmount(c *Client, i interface{}, res *Budget) *BudgetAmount {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3152,8 +3152,8 @@ func flattenBudgetAmount(c *Client, i interface{}) *BudgetAmount {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyBudgetAmount
 	}
-	r.SpecifiedAmount = flattenBudgetAmountSpecifiedAmount(c, m["specifiedAmount"])
-	r.LastPeriodAmount = flattenBudgetAmountLastPeriodAmount(c, m["lastPeriodAmount"])
+	r.SpecifiedAmount = flattenBudgetAmountSpecifiedAmount(c, m["specifiedAmount"], res)
+	r.LastPeriodAmount = flattenBudgetAmountLastPeriodAmount(c, m["lastPeriodAmount"], res)
 
 	return r
 }
@@ -3201,7 +3201,7 @@ func expandBudgetAmountSpecifiedAmountSlice(c *Client, f []BudgetAmountSpecified
 
 // flattenBudgetAmountSpecifiedAmountMap flattens the contents of BudgetAmountSpecifiedAmount from a JSON
 // response object.
-func flattenBudgetAmountSpecifiedAmountMap(c *Client, i interface{}) map[string]BudgetAmountSpecifiedAmount {
+func flattenBudgetAmountSpecifiedAmountMap(c *Client, i interface{}, res *Budget) map[string]BudgetAmountSpecifiedAmount {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetAmountSpecifiedAmount{}
@@ -3213,7 +3213,7 @@ func flattenBudgetAmountSpecifiedAmountMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]BudgetAmountSpecifiedAmount)
 	for k, item := range a {
-		items[k] = *flattenBudgetAmountSpecifiedAmount(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetAmountSpecifiedAmount(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3221,7 +3221,7 @@ func flattenBudgetAmountSpecifiedAmountMap(c *Client, i interface{}) map[string]
 
 // flattenBudgetAmountSpecifiedAmountSlice flattens the contents of BudgetAmountSpecifiedAmount from a JSON
 // response object.
-func flattenBudgetAmountSpecifiedAmountSlice(c *Client, i interface{}) []BudgetAmountSpecifiedAmount {
+func flattenBudgetAmountSpecifiedAmountSlice(c *Client, i interface{}, res *Budget) []BudgetAmountSpecifiedAmount {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetAmountSpecifiedAmount{}
@@ -3233,7 +3233,7 @@ func flattenBudgetAmountSpecifiedAmountSlice(c *Client, i interface{}) []BudgetA
 
 	items := make([]BudgetAmountSpecifiedAmount, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetAmountSpecifiedAmount(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetAmountSpecifiedAmount(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3262,7 +3262,7 @@ func expandBudgetAmountSpecifiedAmount(c *Client, f *BudgetAmountSpecifiedAmount
 
 // flattenBudgetAmountSpecifiedAmount flattens an instance of BudgetAmountSpecifiedAmount from a JSON
 // response object.
-func flattenBudgetAmountSpecifiedAmount(c *Client, i interface{}) *BudgetAmountSpecifiedAmount {
+func flattenBudgetAmountSpecifiedAmount(c *Client, i interface{}, res *Budget) *BudgetAmountSpecifiedAmount {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3323,7 +3323,7 @@ func expandBudgetAmountLastPeriodAmountSlice(c *Client, f []BudgetAmountLastPeri
 
 // flattenBudgetAmountLastPeriodAmountMap flattens the contents of BudgetAmountLastPeriodAmount from a JSON
 // response object.
-func flattenBudgetAmountLastPeriodAmountMap(c *Client, i interface{}) map[string]BudgetAmountLastPeriodAmount {
+func flattenBudgetAmountLastPeriodAmountMap(c *Client, i interface{}, res *Budget) map[string]BudgetAmountLastPeriodAmount {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetAmountLastPeriodAmount{}
@@ -3335,7 +3335,7 @@ func flattenBudgetAmountLastPeriodAmountMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]BudgetAmountLastPeriodAmount)
 	for k, item := range a {
-		items[k] = *flattenBudgetAmountLastPeriodAmount(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetAmountLastPeriodAmount(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3343,7 +3343,7 @@ func flattenBudgetAmountLastPeriodAmountMap(c *Client, i interface{}) map[string
 
 // flattenBudgetAmountLastPeriodAmountSlice flattens the contents of BudgetAmountLastPeriodAmount from a JSON
 // response object.
-func flattenBudgetAmountLastPeriodAmountSlice(c *Client, i interface{}) []BudgetAmountLastPeriodAmount {
+func flattenBudgetAmountLastPeriodAmountSlice(c *Client, i interface{}, res *Budget) []BudgetAmountLastPeriodAmount {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetAmountLastPeriodAmount{}
@@ -3355,7 +3355,7 @@ func flattenBudgetAmountLastPeriodAmountSlice(c *Client, i interface{}) []Budget
 
 	items := make([]BudgetAmountLastPeriodAmount, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetAmountLastPeriodAmount(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetAmountLastPeriodAmount(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3375,7 +3375,7 @@ func expandBudgetAmountLastPeriodAmount(c *Client, f *BudgetAmountLastPeriodAmou
 
 // flattenBudgetAmountLastPeriodAmount flattens an instance of BudgetAmountLastPeriodAmount from a JSON
 // response object.
-func flattenBudgetAmountLastPeriodAmount(c *Client, i interface{}) *BudgetAmountLastPeriodAmount {
+func flattenBudgetAmountLastPeriodAmount(c *Client, i interface{}, res *Budget) *BudgetAmountLastPeriodAmount {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3433,7 +3433,7 @@ func expandBudgetThresholdRulesSlice(c *Client, f []BudgetThresholdRules, res *B
 
 // flattenBudgetThresholdRulesMap flattens the contents of BudgetThresholdRules from a JSON
 // response object.
-func flattenBudgetThresholdRulesMap(c *Client, i interface{}) map[string]BudgetThresholdRules {
+func flattenBudgetThresholdRulesMap(c *Client, i interface{}, res *Budget) map[string]BudgetThresholdRules {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetThresholdRules{}
@@ -3445,7 +3445,7 @@ func flattenBudgetThresholdRulesMap(c *Client, i interface{}) map[string]BudgetT
 
 	items := make(map[string]BudgetThresholdRules)
 	for k, item := range a {
-		items[k] = *flattenBudgetThresholdRules(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetThresholdRules(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3453,7 +3453,7 @@ func flattenBudgetThresholdRulesMap(c *Client, i interface{}) map[string]BudgetT
 
 // flattenBudgetThresholdRulesSlice flattens the contents of BudgetThresholdRules from a JSON
 // response object.
-func flattenBudgetThresholdRulesSlice(c *Client, i interface{}) []BudgetThresholdRules {
+func flattenBudgetThresholdRulesSlice(c *Client, i interface{}, res *Budget) []BudgetThresholdRules {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetThresholdRules{}
@@ -3465,7 +3465,7 @@ func flattenBudgetThresholdRulesSlice(c *Client, i interface{}) []BudgetThreshol
 
 	items := make([]BudgetThresholdRules, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetThresholdRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetThresholdRules(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3491,7 +3491,7 @@ func expandBudgetThresholdRules(c *Client, f *BudgetThresholdRules, res *Budget)
 
 // flattenBudgetThresholdRules flattens an instance of BudgetThresholdRules from a JSON
 // response object.
-func flattenBudgetThresholdRules(c *Client, i interface{}) *BudgetThresholdRules {
+func flattenBudgetThresholdRules(c *Client, i interface{}, res *Budget) *BudgetThresholdRules {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3551,7 +3551,7 @@ func expandBudgetAllUpdatesRuleSlice(c *Client, f []BudgetAllUpdatesRule, res *B
 
 // flattenBudgetAllUpdatesRuleMap flattens the contents of BudgetAllUpdatesRule from a JSON
 // response object.
-func flattenBudgetAllUpdatesRuleMap(c *Client, i interface{}) map[string]BudgetAllUpdatesRule {
+func flattenBudgetAllUpdatesRuleMap(c *Client, i interface{}, res *Budget) map[string]BudgetAllUpdatesRule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetAllUpdatesRule{}
@@ -3563,7 +3563,7 @@ func flattenBudgetAllUpdatesRuleMap(c *Client, i interface{}) map[string]BudgetA
 
 	items := make(map[string]BudgetAllUpdatesRule)
 	for k, item := range a {
-		items[k] = *flattenBudgetAllUpdatesRule(c, item.(map[string]interface{}))
+		items[k] = *flattenBudgetAllUpdatesRule(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3571,7 +3571,7 @@ func flattenBudgetAllUpdatesRuleMap(c *Client, i interface{}) map[string]BudgetA
 
 // flattenBudgetAllUpdatesRuleSlice flattens the contents of BudgetAllUpdatesRule from a JSON
 // response object.
-func flattenBudgetAllUpdatesRuleSlice(c *Client, i interface{}) []BudgetAllUpdatesRule {
+func flattenBudgetAllUpdatesRuleSlice(c *Client, i interface{}, res *Budget) []BudgetAllUpdatesRule {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetAllUpdatesRule{}
@@ -3583,7 +3583,7 @@ func flattenBudgetAllUpdatesRuleSlice(c *Client, i interface{}) []BudgetAllUpdat
 
 	items := make([]BudgetAllUpdatesRule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBudgetAllUpdatesRule(c, item.(map[string]interface{})))
+		items = append(items, *flattenBudgetAllUpdatesRule(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3615,7 +3615,7 @@ func expandBudgetAllUpdatesRule(c *Client, f *BudgetAllUpdatesRule, res *Budget)
 
 // flattenBudgetAllUpdatesRule flattens an instance of BudgetAllUpdatesRule from a JSON
 // response object.
-func flattenBudgetAllUpdatesRule(c *Client, i interface{}) *BudgetAllUpdatesRule {
+func flattenBudgetAllUpdatesRule(c *Client, i interface{}, res *Budget) *BudgetAllUpdatesRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3636,7 +3636,7 @@ func flattenBudgetAllUpdatesRule(c *Client, i interface{}) *BudgetAllUpdatesRule
 
 // flattenBudgetBudgetFilterCreditTypesTreatmentEnumMap flattens the contents of BudgetBudgetFilterCreditTypesTreatmentEnum from a JSON
 // response object.
-func flattenBudgetBudgetFilterCreditTypesTreatmentEnumMap(c *Client, i interface{}) map[string]BudgetBudgetFilterCreditTypesTreatmentEnum {
+func flattenBudgetBudgetFilterCreditTypesTreatmentEnumMap(c *Client, i interface{}, res *Budget) map[string]BudgetBudgetFilterCreditTypesTreatmentEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetBudgetFilterCreditTypesTreatmentEnum{}
@@ -3656,7 +3656,7 @@ func flattenBudgetBudgetFilterCreditTypesTreatmentEnumMap(c *Client, i interface
 
 // flattenBudgetBudgetFilterCreditTypesTreatmentEnumSlice flattens the contents of BudgetBudgetFilterCreditTypesTreatmentEnum from a JSON
 // response object.
-func flattenBudgetBudgetFilterCreditTypesTreatmentEnumSlice(c *Client, i interface{}) []BudgetBudgetFilterCreditTypesTreatmentEnum {
+func flattenBudgetBudgetFilterCreditTypesTreatmentEnumSlice(c *Client, i interface{}, res *Budget) []BudgetBudgetFilterCreditTypesTreatmentEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetBudgetFilterCreditTypesTreatmentEnum{}
@@ -3687,7 +3687,7 @@ func flattenBudgetBudgetFilterCreditTypesTreatmentEnum(i interface{}) *BudgetBud
 
 // flattenBudgetBudgetFilterCalendarPeriodEnumMap flattens the contents of BudgetBudgetFilterCalendarPeriodEnum from a JSON
 // response object.
-func flattenBudgetBudgetFilterCalendarPeriodEnumMap(c *Client, i interface{}) map[string]BudgetBudgetFilterCalendarPeriodEnum {
+func flattenBudgetBudgetFilterCalendarPeriodEnumMap(c *Client, i interface{}, res *Budget) map[string]BudgetBudgetFilterCalendarPeriodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetBudgetFilterCalendarPeriodEnum{}
@@ -3707,7 +3707,7 @@ func flattenBudgetBudgetFilterCalendarPeriodEnumMap(c *Client, i interface{}) ma
 
 // flattenBudgetBudgetFilterCalendarPeriodEnumSlice flattens the contents of BudgetBudgetFilterCalendarPeriodEnum from a JSON
 // response object.
-func flattenBudgetBudgetFilterCalendarPeriodEnumSlice(c *Client, i interface{}) []BudgetBudgetFilterCalendarPeriodEnum {
+func flattenBudgetBudgetFilterCalendarPeriodEnumSlice(c *Client, i interface{}, res *Budget) []BudgetBudgetFilterCalendarPeriodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetBudgetFilterCalendarPeriodEnum{}
@@ -3738,7 +3738,7 @@ func flattenBudgetBudgetFilterCalendarPeriodEnum(i interface{}) *BudgetBudgetFil
 
 // flattenBudgetThresholdRulesSpendBasisEnumMap flattens the contents of BudgetThresholdRulesSpendBasisEnum from a JSON
 // response object.
-func flattenBudgetThresholdRulesSpendBasisEnumMap(c *Client, i interface{}) map[string]BudgetThresholdRulesSpendBasisEnum {
+func flattenBudgetThresholdRulesSpendBasisEnumMap(c *Client, i interface{}, res *Budget) map[string]BudgetThresholdRulesSpendBasisEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BudgetThresholdRulesSpendBasisEnum{}
@@ -3758,7 +3758,7 @@ func flattenBudgetThresholdRulesSpendBasisEnumMap(c *Client, i interface{}) map[
 
 // flattenBudgetThresholdRulesSpendBasisEnumSlice flattens the contents of BudgetThresholdRulesSpendBasisEnum from a JSON
 // response object.
-func flattenBudgetThresholdRulesSpendBasisEnumSlice(c *Client, i interface{}) []BudgetThresholdRulesSpendBasisEnum {
+func flattenBudgetThresholdRulesSpendBasisEnumSlice(c *Client, i interface{}, res *Budget) []BudgetThresholdRulesSpendBasisEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BudgetThresholdRulesSpendBasisEnum{}
@@ -3792,7 +3792,7 @@ func flattenBudgetThresholdRulesSpendBasisEnum(i interface{}) *BudgetThresholdRu
 // identity).  This is useful in extracting the element from a List call.
 func (r *Budget) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalBudget(b, c)
+		cr, err := unmarshalBudget(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

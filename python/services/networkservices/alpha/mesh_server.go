@@ -34,6 +34,7 @@ func ProtoToMesh(p *alphapb.NetworkservicesAlphaMesh) *alpha.Mesh {
 		InterceptionPort: dcl.Int64OrNil(p.GetInterceptionPort()),
 		Project:          dcl.StringOrNil(p.GetProject()),
 		Location:         dcl.StringOrNil(p.GetLocation()),
+		SelfLink:         dcl.StringOrNil(p.GetSelfLink()),
 	}
 	return obj
 }
@@ -48,6 +49,7 @@ func MeshToProto(resource *alpha.Mesh) *alphapb.NetworkservicesAlphaMesh {
 	p.SetInterceptionPort(dcl.ValueOrEmptyInt64(resource.InterceptionPort))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r

@@ -208,7 +208,7 @@ func (c *Client) listReservation(ctx context.Context, r *Reservation, pageToken 
 
 	var l []*Reservation
 	for _, v := range m.Reservations {
-		res, err := unmarshalMapReservation(v, c)
+		res, err := unmarshalMapReservation(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -606,17 +606,17 @@ func (r *Reservation) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalReservation decodes JSON responses into the Reservation resource schema.
-func unmarshalReservation(b []byte, c *Client) (*Reservation, error) {
+func unmarshalReservation(b []byte, c *Client, res *Reservation) (*Reservation, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapReservation(m, c)
+	return unmarshalMapReservation(m, c, res)
 }
 
-func unmarshalMapReservation(m map[string]interface{}, c *Client) (*Reservation, error) {
+func unmarshalMapReservation(m map[string]interface{}, c *Client, res *Reservation) (*Reservation, error) {
 
-	flattened := flattenReservation(c, m)
+	flattened := flattenReservation(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -658,7 +658,7 @@ func expandReservation(c *Client, f *Reservation) (map[string]interface{}, error
 
 // flattenReservation flattens Reservation from a JSON request object into the
 // Reservation type.
-func flattenReservation(c *Client, i interface{}) *Reservation {
+func flattenReservation(c *Client, i interface{}, res *Reservation) *Reservation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -667,17 +667,17 @@ func flattenReservation(c *Client, i interface{}) *Reservation {
 		return nil
 	}
 
-	res := &Reservation{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.SlotCapacity = dcl.FlattenInteger(m["slotCapacity"])
-	res.IgnoreIdleSlots = dcl.FlattenBool(m["ignoreIdleSlots"])
-	res.CreationTime = dcl.FlattenString(m["creationTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.MaxConcurrency = dcl.FlattenInteger(m["maxConcurrency"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Reservation{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.SlotCapacity = dcl.FlattenInteger(m["slotCapacity"])
+	resultRes.IgnoreIdleSlots = dcl.FlattenBool(m["ignoreIdleSlots"])
+	resultRes.CreationTime = dcl.FlattenString(m["creationTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.MaxConcurrency = dcl.FlattenInteger(m["maxConcurrency"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -685,7 +685,7 @@ func flattenReservation(c *Client, i interface{}) *Reservation {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Reservation) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalReservation(b, c)
+		cr, err := unmarshalReservation(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

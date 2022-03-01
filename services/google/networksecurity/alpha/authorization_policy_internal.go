@@ -279,7 +279,7 @@ func (c *Client) listAuthorizationPolicy(ctx context.Context, r *AuthorizationPo
 
 	var l []*AuthorizationPolicy
 	for _, v := range m.AuthorizationPolicies {
-		res, err := unmarshalMapAuthorizationPolicy(v, c)
+		res, err := unmarshalMapAuthorizationPolicy(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1357,17 +1357,17 @@ func (r *AuthorizationPolicy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalAuthorizationPolicy decodes JSON responses into the AuthorizationPolicy resource schema.
-func unmarshalAuthorizationPolicy(b []byte, c *Client) (*AuthorizationPolicy, error) {
+func unmarshalAuthorizationPolicy(b []byte, c *Client, res *AuthorizationPolicy) (*AuthorizationPolicy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapAuthorizationPolicy(m, c)
+	return unmarshalMapAuthorizationPolicy(m, c, res)
 }
 
-func unmarshalMapAuthorizationPolicy(m map[string]interface{}, c *Client) (*AuthorizationPolicy, error) {
+func unmarshalMapAuthorizationPolicy(m map[string]interface{}, c *Client, res *AuthorizationPolicy) (*AuthorizationPolicy, error) {
 
-	flattened := flattenAuthorizationPolicy(c, m)
+	flattened := flattenAuthorizationPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1414,7 +1414,7 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 
 // flattenAuthorizationPolicy flattens AuthorizationPolicy from a JSON request object into the
 // AuthorizationPolicy type.
-func flattenAuthorizationPolicy(c *Client, i interface{}) *AuthorizationPolicy {
+func flattenAuthorizationPolicy(c *Client, i interface{}, res *AuthorizationPolicy) *AuthorizationPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1423,18 +1423,18 @@ func flattenAuthorizationPolicy(c *Client, i interface{}) *AuthorizationPolicy {
 		return nil
 	}
 
-	res := &AuthorizationPolicy{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Action = flattenAuthorizationPolicyActionEnum(m["action"])
-	res.Rules = flattenAuthorizationPolicyRulesSlice(c, m["rules"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &AuthorizationPolicy{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Action = flattenAuthorizationPolicyActionEnum(m["action"])
+	resultRes.Rules = flattenAuthorizationPolicyRulesSlice(c, m["rules"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandAuthorizationPolicyRulesMap expands the contents of AuthorizationPolicyRules into a JSON
@@ -1480,7 +1480,7 @@ func expandAuthorizationPolicyRulesSlice(c *Client, f []AuthorizationPolicyRules
 
 // flattenAuthorizationPolicyRulesMap flattens the contents of AuthorizationPolicyRules from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesMap(c *Client, i interface{}) map[string]AuthorizationPolicyRules {
+func flattenAuthorizationPolicyRulesMap(c *Client, i interface{}, res *AuthorizationPolicy) map[string]AuthorizationPolicyRules {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AuthorizationPolicyRules{}
@@ -1492,7 +1492,7 @@ func flattenAuthorizationPolicyRulesMap(c *Client, i interface{}) map[string]Aut
 
 	items := make(map[string]AuthorizationPolicyRules)
 	for k, item := range a {
-		items[k] = *flattenAuthorizationPolicyRules(c, item.(map[string]interface{}))
+		items[k] = *flattenAuthorizationPolicyRules(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1500,7 +1500,7 @@ func flattenAuthorizationPolicyRulesMap(c *Client, i interface{}) map[string]Aut
 
 // flattenAuthorizationPolicyRulesSlice flattens the contents of AuthorizationPolicyRules from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesSlice(c *Client, i interface{}) []AuthorizationPolicyRules {
+func flattenAuthorizationPolicyRulesSlice(c *Client, i interface{}, res *AuthorizationPolicy) []AuthorizationPolicyRules {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AuthorizationPolicyRules{}
@@ -1512,7 +1512,7 @@ func flattenAuthorizationPolicyRulesSlice(c *Client, i interface{}) []Authorizat
 
 	items := make([]AuthorizationPolicyRules, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAuthorizationPolicyRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenAuthorizationPolicyRules(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1542,7 +1542,7 @@ func expandAuthorizationPolicyRules(c *Client, f *AuthorizationPolicyRules, res 
 
 // flattenAuthorizationPolicyRules flattens an instance of AuthorizationPolicyRules from a JSON
 // response object.
-func flattenAuthorizationPolicyRules(c *Client, i interface{}) *AuthorizationPolicyRules {
+func flattenAuthorizationPolicyRules(c *Client, i interface{}, res *AuthorizationPolicy) *AuthorizationPolicyRules {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1553,8 +1553,8 @@ func flattenAuthorizationPolicyRules(c *Client, i interface{}) *AuthorizationPol
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyAuthorizationPolicyRules
 	}
-	r.Sources = flattenAuthorizationPolicyRulesSourcesSlice(c, m["sources"])
-	r.Destinations = flattenAuthorizationPolicyRulesDestinationsSlice(c, m["destinations"])
+	r.Sources = flattenAuthorizationPolicyRulesSourcesSlice(c, m["sources"], res)
+	r.Destinations = flattenAuthorizationPolicyRulesDestinationsSlice(c, m["destinations"], res)
 
 	return r
 }
@@ -1602,7 +1602,7 @@ func expandAuthorizationPolicyRulesSourcesSlice(c *Client, f []AuthorizationPoli
 
 // flattenAuthorizationPolicyRulesSourcesMap flattens the contents of AuthorizationPolicyRulesSources from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesSourcesMap(c *Client, i interface{}) map[string]AuthorizationPolicyRulesSources {
+func flattenAuthorizationPolicyRulesSourcesMap(c *Client, i interface{}, res *AuthorizationPolicy) map[string]AuthorizationPolicyRulesSources {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AuthorizationPolicyRulesSources{}
@@ -1614,7 +1614,7 @@ func flattenAuthorizationPolicyRulesSourcesMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]AuthorizationPolicyRulesSources)
 	for k, item := range a {
-		items[k] = *flattenAuthorizationPolicyRulesSources(c, item.(map[string]interface{}))
+		items[k] = *flattenAuthorizationPolicyRulesSources(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1622,7 +1622,7 @@ func flattenAuthorizationPolicyRulesSourcesMap(c *Client, i interface{}) map[str
 
 // flattenAuthorizationPolicyRulesSourcesSlice flattens the contents of AuthorizationPolicyRulesSources from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesSourcesSlice(c *Client, i interface{}) []AuthorizationPolicyRulesSources {
+func flattenAuthorizationPolicyRulesSourcesSlice(c *Client, i interface{}, res *AuthorizationPolicy) []AuthorizationPolicyRulesSources {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AuthorizationPolicyRulesSources{}
@@ -1634,7 +1634,7 @@ func flattenAuthorizationPolicyRulesSourcesSlice(c *Client, i interface{}) []Aut
 
 	items := make([]AuthorizationPolicyRulesSources, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAuthorizationPolicyRulesSources(c, item.(map[string]interface{})))
+		items = append(items, *flattenAuthorizationPolicyRulesSources(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1660,7 +1660,7 @@ func expandAuthorizationPolicyRulesSources(c *Client, f *AuthorizationPolicyRule
 
 // flattenAuthorizationPolicyRulesSources flattens an instance of AuthorizationPolicyRulesSources from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesSources(c *Client, i interface{}) *AuthorizationPolicyRulesSources {
+func flattenAuthorizationPolicyRulesSources(c *Client, i interface{}, res *AuthorizationPolicy) *AuthorizationPolicyRulesSources {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1720,7 +1720,7 @@ func expandAuthorizationPolicyRulesDestinationsSlice(c *Client, f []Authorizatio
 
 // flattenAuthorizationPolicyRulesDestinationsMap flattens the contents of AuthorizationPolicyRulesDestinations from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesDestinationsMap(c *Client, i interface{}) map[string]AuthorizationPolicyRulesDestinations {
+func flattenAuthorizationPolicyRulesDestinationsMap(c *Client, i interface{}, res *AuthorizationPolicy) map[string]AuthorizationPolicyRulesDestinations {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AuthorizationPolicyRulesDestinations{}
@@ -1732,7 +1732,7 @@ func flattenAuthorizationPolicyRulesDestinationsMap(c *Client, i interface{}) ma
 
 	items := make(map[string]AuthorizationPolicyRulesDestinations)
 	for k, item := range a {
-		items[k] = *flattenAuthorizationPolicyRulesDestinations(c, item.(map[string]interface{}))
+		items[k] = *flattenAuthorizationPolicyRulesDestinations(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1740,7 +1740,7 @@ func flattenAuthorizationPolicyRulesDestinationsMap(c *Client, i interface{}) ma
 
 // flattenAuthorizationPolicyRulesDestinationsSlice flattens the contents of AuthorizationPolicyRulesDestinations from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesDestinationsSlice(c *Client, i interface{}) []AuthorizationPolicyRulesDestinations {
+func flattenAuthorizationPolicyRulesDestinationsSlice(c *Client, i interface{}, res *AuthorizationPolicy) []AuthorizationPolicyRulesDestinations {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AuthorizationPolicyRulesDestinations{}
@@ -1752,7 +1752,7 @@ func flattenAuthorizationPolicyRulesDestinationsSlice(c *Client, i interface{}) 
 
 	items := make([]AuthorizationPolicyRulesDestinations, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAuthorizationPolicyRulesDestinations(c, item.(map[string]interface{})))
+		items = append(items, *flattenAuthorizationPolicyRulesDestinations(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1786,7 +1786,7 @@ func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolic
 
 // flattenAuthorizationPolicyRulesDestinations flattens an instance of AuthorizationPolicyRulesDestinations from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesDestinations(c *Client, i interface{}) *AuthorizationPolicyRulesDestinations {
+func flattenAuthorizationPolicyRulesDestinations(c *Client, i interface{}, res *AuthorizationPolicy) *AuthorizationPolicyRulesDestinations {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1800,7 +1800,7 @@ func flattenAuthorizationPolicyRulesDestinations(c *Client, i interface{}) *Auth
 	r.Hosts = dcl.FlattenStringSlice(m["hosts"])
 	r.Ports = dcl.FlattenIntSlice(m["ports"])
 	r.Methods = dcl.FlattenStringSlice(m["methods"])
-	r.HttpHeaderMatch = flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, m["httpHeaderMatch"])
+	r.HttpHeaderMatch = flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, m["httpHeaderMatch"], res)
 
 	return r
 }
@@ -1848,7 +1848,7 @@ func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, f
 
 // flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap flattens the contents of AuthorizationPolicyRulesDestinationsHttpHeaderMatch from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, i interface{}) map[string]AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
+func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, i interface{}, res *AuthorizationPolicy) map[string]AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
@@ -1860,7 +1860,7 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, i 
 
 	items := make(map[string]AuthorizationPolicyRulesDestinationsHttpHeaderMatch)
 	for k, item := range a {
-		items[k] = *flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, item.(map[string]interface{}))
+		items[k] = *flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1868,7 +1868,7 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, i 
 
 // flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice flattens the contents of AuthorizationPolicyRulesDestinationsHttpHeaderMatch from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, i interface{}) []AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
+func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, i interface{}, res *AuthorizationPolicy) []AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
@@ -1880,7 +1880,7 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, 
 
 	items := make([]AuthorizationPolicyRulesDestinationsHttpHeaderMatch, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, item.(map[string]interface{})))
+		items = append(items, *flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1906,7 +1906,7 @@ func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, f *Aut
 
 // flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch flattens an instance of AuthorizationPolicyRulesDestinationsHttpHeaderMatch from a JSON
 // response object.
-func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, i interface{}) *AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
+func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, i interface{}, res *AuthorizationPolicy) *AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1925,7 +1925,7 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, i int
 
 // flattenAuthorizationPolicyActionEnumMap flattens the contents of AuthorizationPolicyActionEnum from a JSON
 // response object.
-func flattenAuthorizationPolicyActionEnumMap(c *Client, i interface{}) map[string]AuthorizationPolicyActionEnum {
+func flattenAuthorizationPolicyActionEnumMap(c *Client, i interface{}, res *AuthorizationPolicy) map[string]AuthorizationPolicyActionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AuthorizationPolicyActionEnum{}
@@ -1945,7 +1945,7 @@ func flattenAuthorizationPolicyActionEnumMap(c *Client, i interface{}) map[strin
 
 // flattenAuthorizationPolicyActionEnumSlice flattens the contents of AuthorizationPolicyActionEnum from a JSON
 // response object.
-func flattenAuthorizationPolicyActionEnumSlice(c *Client, i interface{}) []AuthorizationPolicyActionEnum {
+func flattenAuthorizationPolicyActionEnumSlice(c *Client, i interface{}, res *AuthorizationPolicy) []AuthorizationPolicyActionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AuthorizationPolicyActionEnum{}
@@ -1979,7 +1979,7 @@ func flattenAuthorizationPolicyActionEnum(i interface{}) *AuthorizationPolicyAct
 // identity).  This is useful in extracting the element from a List call.
 func (r *AuthorizationPolicy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalAuthorizationPolicy(b, c)
+		cr, err := unmarshalAuthorizationPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

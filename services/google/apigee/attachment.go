@@ -138,7 +138,7 @@ func (c *Client) GetAttachment(ctx context.Context, r *Attachment) (*Attachment,
 		}
 		return nil, err
 	}
-	result, err := unmarshalAttachment(b, c)
+	result, err := unmarshalAttachment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +307,7 @@ func applyAttachmentDiff(c *Client, ctx context.Context, desired *Attachment, ra
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapAttachment(r, c)
+				fullResp, err := unmarshalMapAttachment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -641,7 +641,7 @@ func (c *Client) GetLogMetric(ctx context.Context, r *LogMetric) (*LogMetric, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalLogMetric(b, c)
+	result, err := unmarshalLogMetric(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -810,7 +810,7 @@ func applyLogMetricDiff(c *Client, ctx context.Context, desired *LogMetric, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapLogMetric(r, c)
+				fullResp, err := unmarshalMapLogMetric(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

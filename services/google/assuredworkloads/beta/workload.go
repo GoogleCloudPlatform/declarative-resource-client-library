@@ -385,7 +385,7 @@ func (c *Client) GetWorkload(ctx context.Context, r *Workload) (*Workload, error
 		}
 		return nil, err
 	}
-	result, err := unmarshalWorkload(b, c)
+	result, err := unmarshalWorkload(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -555,7 +555,7 @@ func applyWorkloadDiff(c *Client, ctx context.Context, desired *Workload, rawDes
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapWorkload(r, c)
+				fullResp, err := unmarshalMapWorkload(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

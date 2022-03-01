@@ -1340,8 +1340,6 @@ components:
                       items:
                         type: object
                         x-dcl-go-type: WorkflowTemplatePlacementManagedClusterConfigInitializationActions
-                        required:
-                        - executableFile
                         properties:
                           executableFile:
                             type: string

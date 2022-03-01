@@ -22,14 +22,9 @@ class Key(object):
     def __init__(
         self,
         name: str = None,
-        uid: str = None,
         display_name: str = None,
         key_string: str = None,
-        create_time: str = None,
-        update_time: str = None,
-        delete_time: str = None,
         restrictions: dict = None,
-        etag: str = None,
         project: str = None,
         service_account_file: str = "",
     ):
@@ -63,14 +58,9 @@ class Key(object):
 
         response = stub.ApplyApikeysKey(request)
         self.name = Primitive.from_proto(response.name)
-        self.uid = Primitive.from_proto(response.uid)
         self.display_name = Primitive.from_proto(response.display_name)
         self.key_string = Primitive.from_proto(response.key_string)
-        self.create_time = Primitive.from_proto(response.create_time)
-        self.update_time = Primitive.from_proto(response.update_time)
-        self.delete_time = Primitive.from_proto(response.delete_time)
         self.restrictions = KeyRestrictions.from_proto(response.restrictions)
-        self.etag = Primitive.from_proto(response.etag)
         self.project = Primitive.from_proto(response.project)
 
     def delete(self):

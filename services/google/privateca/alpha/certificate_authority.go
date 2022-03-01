@@ -2400,7 +2400,7 @@ func (c *Client) GetCertificateAuthority(ctx context.Context, r *CertificateAuth
 		}
 		return nil, err
 	}
-	result, err := unmarshalCertificateAuthority(b, c)
+	result, err := unmarshalCertificateAuthority(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -2571,7 +2571,7 @@ func applyCertificateAuthorityDiff(c *Client, ctx context.Context, desired *Cert
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapCertificateAuthority(r, c)
+				fullResp, err := unmarshalMapCertificateAuthority(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -231,9 +231,6 @@ func (r *WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig) validate()
 	return nil
 }
 func (r *WorkflowTemplatePlacementManagedClusterConfigInitializationActions) validate() error {
-	if err := dcl.Required(r, "executableFile"); err != nil {
-		return err
-	}
 	return nil
 }
 func (r *WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig) validate() error {
@@ -601,7 +598,7 @@ func (c *Client) listWorkflowTemplate(ctx context.Context, r *WorkflowTemplate, 
 
 	var l []*WorkflowTemplate
 	for _, v := range m.Templates {
-		res, err := unmarshalMapWorkflowTemplate(v, c)
+		res, err := unmarshalMapWorkflowTemplate(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -10789,17 +10786,17 @@ func (r *WorkflowTemplate) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalWorkflowTemplate decodes JSON responses into the WorkflowTemplate resource schema.
-func unmarshalWorkflowTemplate(b []byte, c *Client) (*WorkflowTemplate, error) {
+func unmarshalWorkflowTemplate(b []byte, c *Client, res *WorkflowTemplate) (*WorkflowTemplate, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapWorkflowTemplate(m, c)
+	return unmarshalMapWorkflowTemplate(m, c, res)
 }
 
-func unmarshalMapWorkflowTemplate(m map[string]interface{}, c *Client) (*WorkflowTemplate, error) {
+func unmarshalMapWorkflowTemplate(m map[string]interface{}, c *Client, res *WorkflowTemplate) (*WorkflowTemplate, error) {
 
-	flattened := flattenWorkflowTemplate(c, m)
+	flattened := flattenWorkflowTemplate(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -10853,7 +10850,7 @@ func expandWorkflowTemplate(c *Client, f *WorkflowTemplate) (map[string]interfac
 
 // flattenWorkflowTemplate flattens WorkflowTemplate from a JSON request object into the
 // WorkflowTemplate type.
-func flattenWorkflowTemplate(c *Client, i interface{}) *WorkflowTemplate {
+func flattenWorkflowTemplate(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10862,20 +10859,20 @@ func flattenWorkflowTemplate(c *Client, i interface{}) *WorkflowTemplate {
 		return nil
 	}
 
-	res := &WorkflowTemplate{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Version = dcl.FlattenInteger(m["version"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Placement = flattenWorkflowTemplatePlacement(c, m["placement"])
-	res.Jobs = flattenWorkflowTemplateJobsSlice(c, m["jobs"])
-	res.Parameters = flattenWorkflowTemplateParametersSlice(c, m["parameters"])
-	res.DagTimeout = dcl.FlattenString(m["dagTimeout"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &WorkflowTemplate{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Version = dcl.FlattenInteger(m["version"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Placement = flattenWorkflowTemplatePlacement(c, m["placement"], res)
+	resultRes.Jobs = flattenWorkflowTemplateJobsSlice(c, m["jobs"], res)
+	resultRes.Parameters = flattenWorkflowTemplateParametersSlice(c, m["parameters"], res)
+	resultRes.DagTimeout = dcl.FlattenString(m["dagTimeout"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandWorkflowTemplatePlacementMap expands the contents of WorkflowTemplatePlacement into a JSON
@@ -10921,7 +10918,7 @@ func expandWorkflowTemplatePlacementSlice(c *Client, f []WorkflowTemplatePlaceme
 
 // flattenWorkflowTemplatePlacementMap flattens the contents of WorkflowTemplatePlacement from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacement {
+func flattenWorkflowTemplatePlacementMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacement {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacement{}
@@ -10933,7 +10930,7 @@ func flattenWorkflowTemplatePlacementMap(c *Client, i interface{}) map[string]Wo
 
 	items := make(map[string]WorkflowTemplatePlacement)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacement(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacement(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10941,7 +10938,7 @@ func flattenWorkflowTemplatePlacementMap(c *Client, i interface{}) map[string]Wo
 
 // flattenWorkflowTemplatePlacementSlice flattens the contents of WorkflowTemplatePlacement from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementSlice(c *Client, i interface{}) []WorkflowTemplatePlacement {
+func flattenWorkflowTemplatePlacementSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacement {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacement{}
@@ -10953,7 +10950,7 @@ func flattenWorkflowTemplatePlacementSlice(c *Client, i interface{}) []WorkflowT
 
 	items := make([]WorkflowTemplatePlacement, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacement(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacement(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10983,7 +10980,7 @@ func expandWorkflowTemplatePlacement(c *Client, f *WorkflowTemplatePlacement, re
 
 // flattenWorkflowTemplatePlacement flattens an instance of WorkflowTemplatePlacement from a JSON
 // response object.
-func flattenWorkflowTemplatePlacement(c *Client, i interface{}) *WorkflowTemplatePlacement {
+func flattenWorkflowTemplatePlacement(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacement {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10994,8 +10991,8 @@ func flattenWorkflowTemplatePlacement(c *Client, i interface{}) *WorkflowTemplat
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyWorkflowTemplatePlacement
 	}
-	r.ManagedCluster = flattenWorkflowTemplatePlacementManagedCluster(c, m["managedCluster"])
-	r.ClusterSelector = flattenWorkflowTemplatePlacementClusterSelector(c, m["clusterSelector"])
+	r.ManagedCluster = flattenWorkflowTemplatePlacementManagedCluster(c, m["managedCluster"], res)
+	r.ClusterSelector = flattenWorkflowTemplatePlacementClusterSelector(c, m["clusterSelector"], res)
 
 	return r
 }
@@ -11043,7 +11040,7 @@ func expandWorkflowTemplatePlacementManagedClusterSlice(c *Client, f []WorkflowT
 
 // flattenWorkflowTemplatePlacementManagedClusterMap flattens the contents of WorkflowTemplatePlacementManagedCluster from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedCluster {
+func flattenWorkflowTemplatePlacementManagedClusterMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedCluster {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedCluster{}
@@ -11055,7 +11052,7 @@ func flattenWorkflowTemplatePlacementManagedClusterMap(c *Client, i interface{})
 
 	items := make(map[string]WorkflowTemplatePlacementManagedCluster)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedCluster(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedCluster(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11063,7 +11060,7 @@ func flattenWorkflowTemplatePlacementManagedClusterMap(c *Client, i interface{})
 
 // flattenWorkflowTemplatePlacementManagedClusterSlice flattens the contents of WorkflowTemplatePlacementManagedCluster from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedCluster {
+func flattenWorkflowTemplatePlacementManagedClusterSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedCluster {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedCluster{}
@@ -11075,7 +11072,7 @@ func flattenWorkflowTemplatePlacementManagedClusterSlice(c *Client, i interface{
 
 	items := make([]WorkflowTemplatePlacementManagedCluster, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedCluster(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedCluster(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11106,7 +11103,7 @@ func expandWorkflowTemplatePlacementManagedCluster(c *Client, f *WorkflowTemplat
 
 // flattenWorkflowTemplatePlacementManagedCluster flattens an instance of WorkflowTemplatePlacementManagedCluster from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedCluster(c *Client, i interface{}) *WorkflowTemplatePlacementManagedCluster {
+func flattenWorkflowTemplatePlacementManagedCluster(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedCluster {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11118,7 +11115,7 @@ func flattenWorkflowTemplatePlacementManagedCluster(c *Client, i interface{}) *W
 		return EmptyWorkflowTemplatePlacementManagedCluster
 	}
 	r.ClusterName = dcl.FlattenString(m["clusterName"])
-	r.Config = flattenWorkflowTemplatePlacementManagedClusterConfig(c, m["config"])
+	r.Config = flattenWorkflowTemplatePlacementManagedClusterConfig(c, m["config"], res)
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
@@ -11167,7 +11164,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSlice(c *Client, f []Wor
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfig{}
@@ -11179,7 +11176,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMap(c *Client, i interf
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11187,7 +11184,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMap(c *Client, i interf
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfig{}
@@ -11199,7 +11196,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSlice(c *Client, i inte
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11290,7 +11287,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfig(c *Client, f *WorkflowT
 
 // flattenWorkflowTemplatePlacementManagedClusterConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11303,19 +11300,19 @@ func flattenWorkflowTemplatePlacementManagedClusterConfig(c *Client, i interface
 	}
 	r.StagingBucket = dcl.FlattenString(m["configBucket"])
 	r.TempBucket = dcl.FlattenString(m["tempBucket"])
-	r.GceClusterConfig = flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c, m["gceClusterConfig"])
-	r.MasterConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c, m["masterConfig"])
-	r.WorkerConfig = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c, m["workerConfig"])
-	r.SecondaryWorkerConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c, m["secondaryWorkerConfig"])
-	r.SoftwareConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c, m["softwareConfig"])
-	r.InitializationActions = flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSlice(c, m["initializationActions"])
-	r.EncryptionConfig = flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c, m["encryptionConfig"])
-	r.AutoscalingConfig = flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c, m["autoscalingConfig"])
-	r.SecurityConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c, m["securityConfig"])
-	r.LifecycleConfig = flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c, m["lifecycleConfig"])
-	r.EndpointConfig = flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c, m["endpointConfig"])
-	r.GkeClusterConfig = flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c, m["gkeClusterConfig"])
-	r.MetastoreConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c, m["metastoreConfig"])
+	r.GceClusterConfig = flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c, m["gceClusterConfig"], res)
+	r.MasterConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c, m["masterConfig"], res)
+	r.WorkerConfig = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c, m["workerConfig"], res)
+	r.SecondaryWorkerConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c, m["secondaryWorkerConfig"], res)
+	r.SoftwareConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c, m["softwareConfig"], res)
+	r.InitializationActions = flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSlice(c, m["initializationActions"], res)
+	r.EncryptionConfig = flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c, m["encryptionConfig"], res)
+	r.AutoscalingConfig = flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c, m["autoscalingConfig"], res)
+	r.SecurityConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c, m["securityConfig"], res)
+	r.LifecycleConfig = flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c, m["lifecycleConfig"], res)
+	r.EndpointConfig = flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c, m["endpointConfig"], res)
+	r.GkeClusterConfig = flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c, m["gkeClusterConfig"], res)
+	r.MetastoreConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c, m["metastoreConfig"], res)
 
 	return r
 }
@@ -11363,7 +11360,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigSlice(c 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig{}
@@ -11375,7 +11372,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigMap(c *
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11383,7 +11380,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigMap(c *
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig{}
@@ -11395,7 +11392,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigSlice(c
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11452,7 +11449,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c *Clie
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11472,8 +11469,8 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c *Cli
 	r.ServiceAccountScopes = dcl.FlattenStringSlice(m["serviceAccountScopes"])
 	r.Tags = dcl.FlattenStringSlice(m["tags"])
 	r.Metadata = dcl.FlattenKeyValuePairs(m["metadata"])
-	r.ReservationAffinity = flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c, m["reservationAffinity"])
-	r.NodeGroupAffinity = flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c, m["nodeGroupAffinity"])
+	r.ReservationAffinity = flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c, m["reservationAffinity"], res)
+	r.NodeGroupAffinity = flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c, m["nodeGroupAffinity"], res)
 
 	return r
 }
@@ -11521,7 +11518,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservat
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity{}
@@ -11533,7 +11530,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReserva
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11541,7 +11538,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReserva
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinitySlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinitySlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinitySlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity{}
@@ -11553,7 +11550,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReserva
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11582,7 +11579,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservat
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity flattens an instance of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11643,7 +11640,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGrou
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{}
@@ -11655,7 +11652,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGro
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11663,7 +11660,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGro
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinitySlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{}
@@ -11675,7 +11672,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGro
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11698,7 +11695,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGrou
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity flattens an instance of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11757,7 +11754,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfigSlice(c *Cli
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfig{}
@@ -11769,7 +11766,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigMap(c *Clie
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11777,7 +11774,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigMap(c *Clie
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigMasterConfig{}
@@ -11789,7 +11786,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigSlice(c *Cl
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigMasterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11834,7 +11831,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c *Client, 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigMasterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11849,11 +11846,11 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c *Client,
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
 	r.Image = dcl.FlattenString(m["imageUri"])
 	r.MachineType = dcl.FlattenString(m["machineTypeUri"])
-	r.DiskConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c, m["diskConfig"])
+	r.DiskConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c, m["diskConfig"], res)
 	r.IsPreemptible = dcl.FlattenBool(m["isPreemptible"])
 	r.Preemptibility = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum(m["preemptibility"])
-	r.ManagedGroupConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c, m["managedGroupConfig"])
-	r.Accelerators = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsSlice(c, m["accelerators"])
+	r.ManagedGroupConfig = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c, m["managedGroupConfig"], res)
+	r.Accelerators = flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsSlice(c, m["accelerators"], res)
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
 
 	return r
@@ -11902,7 +11899,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigSl
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig{}
@@ -11914,7 +11911,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigM
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11922,7 +11919,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigM
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig{}
@@ -11934,7 +11931,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigS
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11963,7 +11960,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12024,7 +12021,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroup
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig{}
@@ -12036,7 +12033,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGrou
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12044,7 +12041,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGrou
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig{}
@@ -12056,7 +12053,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGrou
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12076,7 +12073,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroup
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12136,7 +12133,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators{}
@@ -12148,7 +12145,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerator
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12156,7 +12153,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerator
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators{}
@@ -12168,7 +12165,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerator
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12194,7 +12191,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators flattens an instance of WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12254,7 +12251,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfigSlice(c *Cli
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfig{}
@@ -12266,7 +12263,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigMap(c *Clie
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12274,7 +12271,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigMap(c *Clie
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigWorkerConfig{}
@@ -12286,7 +12283,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigSlice(c *Cl
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12331,7 +12328,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c *Client, 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigWorkerConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12346,11 +12343,11 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c *Client,
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
 	r.Image = dcl.FlattenString(m["imageUri"])
 	r.MachineType = dcl.FlattenString(m["machineTypeUri"])
-	r.DiskConfig = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c, m["diskConfig"])
+	r.DiskConfig = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c, m["diskConfig"], res)
 	r.IsPreemptible = dcl.FlattenBool(m["isPreemptible"])
 	r.Preemptibility = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum(m["preemptibility"])
-	r.ManagedGroupConfig = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"])
-	r.Accelerators = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsSlice(c, m["accelerators"])
+	r.ManagedGroupConfig = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"], res)
+	r.Accelerators = flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsSlice(c, m["accelerators"], res)
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
 
 	return r
@@ -12399,7 +12396,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigSl
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig{}
@@ -12411,7 +12408,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigM
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12419,7 +12416,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigM
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig{}
@@ -12431,7 +12428,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigS
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12460,7 +12457,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12521,7 +12518,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroup
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig{}
@@ -12533,7 +12530,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGrou
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12541,7 +12538,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGrou
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig{}
@@ -12553,7 +12550,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGrou
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12573,7 +12570,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroup
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12633,7 +12630,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators{}
@@ -12645,7 +12642,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerator
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12653,7 +12650,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerator
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators{}
@@ -12665,7 +12662,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerator
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12691,7 +12688,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators flattens an instance of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12751,7 +12748,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigSli
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig{}
@@ -12763,7 +12760,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMa
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12771,7 +12768,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMa
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig{}
@@ -12783,7 +12780,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigSl
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12828,7 +12825,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12843,11 +12840,11 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(c
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
 	r.Image = dcl.FlattenString(m["imageUri"])
 	r.MachineType = dcl.FlattenString(m["machineTypeUri"])
-	r.DiskConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c, m["diskConfig"])
+	r.DiskConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c, m["diskConfig"], res)
 	r.IsPreemptible = dcl.FlattenBool(m["isPreemptible"])
 	r.Preemptibility = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum(m["preemptibility"])
-	r.ManagedGroupConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"])
-	r.Accelerators = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c, m["accelerators"])
+	r.ManagedGroupConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"], res)
+	r.Accelerators = flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c, m["accelerators"], res)
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
 
 	return r
@@ -12896,7 +12893,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDis
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig{}
@@ -12908,7 +12905,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDi
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12916,7 +12913,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDi
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig{}
@@ -12928,7 +12925,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDi
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12957,7 +12954,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDis
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13018,7 +13015,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMan
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig{}
@@ -13030,7 +13027,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMa
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13038,7 +13035,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMa
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig{}
@@ -13050,7 +13047,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMa
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13070,7 +13067,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMan
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13130,7 +13127,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcc
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators{}
@@ -13142,7 +13139,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAc
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13150,7 +13147,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAc
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators{}
@@ -13162,7 +13159,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAc
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13188,7 +13185,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcc
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators flattens an instance of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13248,7 +13245,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigSlice(c *C
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig{}
@@ -13260,7 +13257,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigMap(c *Cl
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13268,7 +13265,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigMap(c *Cl
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig{}
@@ -13280,7 +13277,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigSlice(c *
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13309,7 +13306,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c *Client
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13322,7 +13319,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(c *Clien
 	}
 	r.ImageVersion = dcl.FlattenString(m["imageVersion"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	r.OptionalComponents = flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c, m["optionalComponents"])
+	r.OptionalComponents = flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c, m["optionalComponents"], res)
 
 	return r
 }
@@ -13370,7 +13367,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSli
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigInitializationActions from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
+func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigInitializationActions{}
@@ -13382,7 +13379,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsMa
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigInitializationActions)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActions(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13390,7 +13387,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsMa
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigInitializationActions from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
+func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigInitializationActions{}
@@ -13402,7 +13399,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSl
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigInitializationActions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActions(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13428,7 +13425,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigInitializationActions(c 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActions flattens an instance of WorkflowTemplatePlacementManagedClusterConfigInitializationActions from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActions(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
+func flattenWorkflowTemplatePlacementManagedClusterConfigInitializationActions(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13488,7 +13485,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigSlice(c 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig{}
@@ -13500,7 +13497,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigMap(c *
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13508,7 +13505,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigMap(c *
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig{}
@@ -13520,7 +13517,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigSlice(c
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13543,7 +13540,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c *Clie
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13602,7 +13599,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigSlice(c
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig{}
@@ -13614,7 +13611,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigMap(c 
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13622,7 +13619,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigMap(c 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig{}
@@ -13634,7 +13631,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigSlice(
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13657,7 +13654,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c *Cli
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13716,7 +13713,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecurityConfigSlice(c *C
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecurityConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfig{}
@@ -13728,7 +13725,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigMap(c *Cl
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13736,7 +13733,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigMap(c *Cl
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecurityConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSecurityConfig{}
@@ -13748,7 +13745,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigSlice(c *
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigSecurityConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13773,7 +13770,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c *Client
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigSecurityConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13784,7 +13781,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(c *Clien
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyWorkflowTemplatePlacementManagedClusterConfigSecurityConfig
 	}
-	r.KerberosConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c, m["kerberosConfig"])
+	r.KerberosConfig = flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c, m["kerberosConfig"], res)
 
 	return r
 }
@@ -13832,7 +13829,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosCo
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig{}
@@ -13844,7 +13841,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosC
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13852,7 +13849,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosC
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig{}
@@ -13864,7 +13861,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosC
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13929,7 +13926,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosCo
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14002,7 +13999,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigSlice(c *
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig{}
@@ -14014,7 +14011,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigMap(c *C
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14022,7 +14019,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigMap(c *C
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig{}
@@ -14034,7 +14031,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigSlice(c 
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14063,7 +14060,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c *Clien
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14125,7 +14122,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigEndpointConfigSlice(c *C
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigEndpointConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigEndpointConfig{}
@@ -14137,7 +14134,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigMap(c *Cl
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigEndpointConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14145,7 +14142,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigMap(c *Cl
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigEndpointConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigEndpointConfig{}
@@ -14157,7 +14154,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfigSlice(c *
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigEndpointConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14180,7 +14177,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c *Client
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigEndpointConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14240,7 +14237,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigSlice(c 
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig{}
@@ -14252,7 +14249,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigMap(c *
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14260,7 +14257,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigMap(c *
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig{}
@@ -14272,7 +14269,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigSlice(c
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14297,7 +14294,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c *Clie
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14308,7 +14305,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig(c *Cli
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig
 	}
-	r.NamespacedGkeDeploymentTarget = flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, m["namespacedGkeDeploymentTarget"])
+	r.NamespacedGkeDeploymentTarget = flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, m["namespacedGkeDeploymentTarget"], res)
 
 	return r
 }
@@ -14356,7 +14353,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespac
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
@@ -14368,7 +14365,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespa
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14376,7 +14373,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespa
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
@@ -14388,7 +14385,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespa
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14414,7 +14411,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespac
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget flattens an instance of WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14474,7 +14471,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigSlice(c *
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig{}
@@ -14486,7 +14483,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigMap(c *C
 
 	items := make(map[string]WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14494,7 +14491,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigMap(c *C
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig{}
@@ -14506,7 +14503,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigSlice(c 
 
 	items := make([]WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14529,7 +14526,7 @@ func expandWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c *Clien
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig flattens an instance of WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementManagedClusterConfigMetastoreConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14588,7 +14585,7 @@ func expandWorkflowTemplatePlacementClusterSelectorSlice(c *Client, f []Workflow
 
 // flattenWorkflowTemplatePlacementClusterSelectorMap flattens the contents of WorkflowTemplatePlacementClusterSelector from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementClusterSelectorMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementClusterSelector {
+func flattenWorkflowTemplatePlacementClusterSelectorMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementClusterSelector {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementClusterSelector{}
@@ -14600,7 +14597,7 @@ func flattenWorkflowTemplatePlacementClusterSelectorMap(c *Client, i interface{}
 
 	items := make(map[string]WorkflowTemplatePlacementClusterSelector)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementClusterSelector(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplatePlacementClusterSelector(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14608,7 +14605,7 @@ func flattenWorkflowTemplatePlacementClusterSelectorMap(c *Client, i interface{}
 
 // flattenWorkflowTemplatePlacementClusterSelectorSlice flattens the contents of WorkflowTemplatePlacementClusterSelector from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementClusterSelectorSlice(c *Client, i interface{}) []WorkflowTemplatePlacementClusterSelector {
+func flattenWorkflowTemplatePlacementClusterSelectorSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementClusterSelector {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementClusterSelector{}
@@ -14620,7 +14617,7 @@ func flattenWorkflowTemplatePlacementClusterSelectorSlice(c *Client, i interface
 
 	items := make([]WorkflowTemplatePlacementClusterSelector, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementClusterSelector(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplatePlacementClusterSelector(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14646,7 +14643,7 @@ func expandWorkflowTemplatePlacementClusterSelector(c *Client, f *WorkflowTempla
 
 // flattenWorkflowTemplatePlacementClusterSelector flattens an instance of WorkflowTemplatePlacementClusterSelector from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementClusterSelector(c *Client, i interface{}) *WorkflowTemplatePlacementClusterSelector {
+func flattenWorkflowTemplatePlacementClusterSelector(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplatePlacementClusterSelector {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14706,7 +14703,7 @@ func expandWorkflowTemplateJobsSlice(c *Client, f []WorkflowTemplateJobs, res *W
 
 // flattenWorkflowTemplateJobsMap flattens the contents of WorkflowTemplateJobs from a JSON
 // response object.
-func flattenWorkflowTemplateJobsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobs {
+func flattenWorkflowTemplateJobsMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobs{}
@@ -14718,7 +14715,7 @@ func flattenWorkflowTemplateJobsMap(c *Client, i interface{}) map[string]Workflo
 
 	items := make(map[string]WorkflowTemplateJobs)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobs(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14726,7 +14723,7 @@ func flattenWorkflowTemplateJobsMap(c *Client, i interface{}) map[string]Workflo
 
 // flattenWorkflowTemplateJobsSlice flattens the contents of WorkflowTemplateJobs from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSlice(c *Client, i interface{}) []WorkflowTemplateJobs {
+func flattenWorkflowTemplateJobsSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobs{}
@@ -14738,7 +14735,7 @@ func flattenWorkflowTemplateJobsSlice(c *Client, i interface{}) []WorkflowTempla
 
 	items := make([]WorkflowTemplateJobs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobs(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14812,7 +14809,7 @@ func expandWorkflowTemplateJobs(c *Client, f *WorkflowTemplateJobs, res *Workflo
 
 // flattenWorkflowTemplateJobs flattens an instance of WorkflowTemplateJobs from a JSON
 // response object.
-func flattenWorkflowTemplateJobs(c *Client, i interface{}) *WorkflowTemplateJobs {
+func flattenWorkflowTemplateJobs(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14824,16 +14821,16 @@ func flattenWorkflowTemplateJobs(c *Client, i interface{}) *WorkflowTemplateJobs
 		return EmptyWorkflowTemplateJobs
 	}
 	r.StepId = dcl.FlattenString(m["stepId"])
-	r.HadoopJob = flattenWorkflowTemplateJobsHadoopJob(c, m["hadoopJob"])
-	r.SparkJob = flattenWorkflowTemplateJobsSparkJob(c, m["sparkJob"])
-	r.PysparkJob = flattenWorkflowTemplateJobsPysparkJob(c, m["pysparkJob"])
-	r.HiveJob = flattenWorkflowTemplateJobsHiveJob(c, m["hiveJob"])
-	r.PigJob = flattenWorkflowTemplateJobsPigJob(c, m["pigJob"])
-	r.SparkRJob = flattenWorkflowTemplateJobsSparkRJob(c, m["sparkRJob"])
-	r.SparkSqlJob = flattenWorkflowTemplateJobsSparkSqlJob(c, m["sparkSqlJob"])
-	r.PrestoJob = flattenWorkflowTemplateJobsPrestoJob(c, m["prestoJob"])
+	r.HadoopJob = flattenWorkflowTemplateJobsHadoopJob(c, m["hadoopJob"], res)
+	r.SparkJob = flattenWorkflowTemplateJobsSparkJob(c, m["sparkJob"], res)
+	r.PysparkJob = flattenWorkflowTemplateJobsPysparkJob(c, m["pysparkJob"], res)
+	r.HiveJob = flattenWorkflowTemplateJobsHiveJob(c, m["hiveJob"], res)
+	r.PigJob = flattenWorkflowTemplateJobsPigJob(c, m["pigJob"], res)
+	r.SparkRJob = flattenWorkflowTemplateJobsSparkRJob(c, m["sparkRJob"], res)
+	r.SparkSqlJob = flattenWorkflowTemplateJobsSparkSqlJob(c, m["sparkSqlJob"], res)
+	r.PrestoJob = flattenWorkflowTemplateJobsPrestoJob(c, m["prestoJob"], res)
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.Scheduling = flattenWorkflowTemplateJobsScheduling(c, m["scheduling"])
+	r.Scheduling = flattenWorkflowTemplateJobsScheduling(c, m["scheduling"], res)
 	r.PrerequisiteStepIds = dcl.FlattenStringSlice(m["prerequisiteStepIds"])
 
 	return r
@@ -14882,7 +14879,7 @@ func expandWorkflowTemplateJobsHadoopJobSlice(c *Client, f []WorkflowTemplateJob
 
 // flattenWorkflowTemplateJobsHadoopJobMap flattens the contents of WorkflowTemplateJobsHadoopJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHadoopJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHadoopJob {
+func flattenWorkflowTemplateJobsHadoopJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsHadoopJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsHadoopJob{}
@@ -14894,7 +14891,7 @@ func flattenWorkflowTemplateJobsHadoopJobMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]WorkflowTemplateJobsHadoopJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHadoopJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsHadoopJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14902,7 +14899,7 @@ func flattenWorkflowTemplateJobsHadoopJobMap(c *Client, i interface{}) map[strin
 
 // flattenWorkflowTemplateJobsHadoopJobSlice flattens the contents of WorkflowTemplateJobsHadoopJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHadoopJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsHadoopJob {
+func flattenWorkflowTemplateJobsHadoopJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsHadoopJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsHadoopJob{}
@@ -14914,7 +14911,7 @@ func flattenWorkflowTemplateJobsHadoopJobSlice(c *Client, i interface{}) []Workf
 
 	items := make([]WorkflowTemplateJobsHadoopJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHadoopJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsHadoopJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14960,7 +14957,7 @@ func expandWorkflowTemplateJobsHadoopJob(c *Client, f *WorkflowTemplateJobsHadoo
 
 // flattenWorkflowTemplateJobsHadoopJob flattens an instance of WorkflowTemplateJobsHadoopJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHadoopJob(c *Client, i interface{}) *WorkflowTemplateJobsHadoopJob {
+func flattenWorkflowTemplateJobsHadoopJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsHadoopJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14978,7 +14975,7 @@ func flattenWorkflowTemplateJobsHadoopJob(c *Client, i interface{}) *WorkflowTem
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	r.LoggingConfig = flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c, m["loggingConfig"])
+	r.LoggingConfig = flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c, m["loggingConfig"], res)
 
 	return r
 }
@@ -15026,7 +15023,7 @@ func expandWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, f []Workfl
 
 // flattenWorkflowTemplateJobsHadoopJobLoggingConfigMap flattens the contents of WorkflowTemplateJobsHadoopJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHadoopJobLoggingConfig {
+func flattenWorkflowTemplateJobsHadoopJobLoggingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsHadoopJobLoggingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsHadoopJobLoggingConfig{}
@@ -15038,7 +15035,7 @@ func flattenWorkflowTemplateJobsHadoopJobLoggingConfigMap(c *Client, i interface
 
 	items := make(map[string]WorkflowTemplateJobsHadoopJobLoggingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15046,7 +15043,7 @@ func flattenWorkflowTemplateJobsHadoopJobLoggingConfigMap(c *Client, i interface
 
 // flattenWorkflowTemplateJobsHadoopJobLoggingConfigSlice flattens the contents of WorkflowTemplateJobsHadoopJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, i interface{}) []WorkflowTemplateJobsHadoopJobLoggingConfig {
+func flattenWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsHadoopJobLoggingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsHadoopJobLoggingConfig{}
@@ -15058,7 +15055,7 @@ func flattenWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, i interfa
 
 	items := make([]WorkflowTemplateJobsHadoopJobLoggingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15081,7 +15078,7 @@ func expandWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, f *WorkflowTemp
 
 // flattenWorkflowTemplateJobsHadoopJobLoggingConfig flattens an instance of WorkflowTemplateJobsHadoopJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, i interface{}) *WorkflowTemplateJobsHadoopJobLoggingConfig {
+func flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsHadoopJobLoggingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15140,7 +15137,7 @@ func expandWorkflowTemplateJobsSparkJobSlice(c *Client, f []WorkflowTemplateJobs
 
 // flattenWorkflowTemplateJobsSparkJobMap flattens the contents of WorkflowTemplateJobsSparkJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkJob {
+func flattenWorkflowTemplateJobsSparkJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsSparkJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsSparkJob{}
@@ -15152,7 +15149,7 @@ func flattenWorkflowTemplateJobsSparkJobMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]WorkflowTemplateJobsSparkJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsSparkJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15160,7 +15157,7 @@ func flattenWorkflowTemplateJobsSparkJobMap(c *Client, i interface{}) map[string
 
 // flattenWorkflowTemplateJobsSparkJobSlice flattens the contents of WorkflowTemplateJobsSparkJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkJob {
+func flattenWorkflowTemplateJobsSparkJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsSparkJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsSparkJob{}
@@ -15172,7 +15169,7 @@ func flattenWorkflowTemplateJobsSparkJobSlice(c *Client, i interface{}) []Workfl
 
 	items := make([]WorkflowTemplateJobsSparkJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsSparkJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15218,7 +15215,7 @@ func expandWorkflowTemplateJobsSparkJob(c *Client, f *WorkflowTemplateJobsSparkJ
 
 // flattenWorkflowTemplateJobsSparkJob flattens an instance of WorkflowTemplateJobsSparkJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkJob(c *Client, i interface{}) *WorkflowTemplateJobsSparkJob {
+func flattenWorkflowTemplateJobsSparkJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsSparkJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15236,7 +15233,7 @@ func flattenWorkflowTemplateJobsSparkJob(c *Client, i interface{}) *WorkflowTemp
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	r.LoggingConfig = flattenWorkflowTemplateJobsSparkJobLoggingConfig(c, m["loggingConfig"])
+	r.LoggingConfig = flattenWorkflowTemplateJobsSparkJobLoggingConfig(c, m["loggingConfig"], res)
 
 	return r
 }
@@ -15284,7 +15281,7 @@ func expandWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, f []Workflo
 
 // flattenWorkflowTemplateJobsSparkJobLoggingConfigMap flattens the contents of WorkflowTemplateJobsSparkJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkJobLoggingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsSparkJobLoggingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsSparkJobLoggingConfig{}
@@ -15296,7 +15293,7 @@ func flattenWorkflowTemplateJobsSparkJobLoggingConfigMap(c *Client, i interface{
 
 	items := make(map[string]WorkflowTemplateJobsSparkJobLoggingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkJobLoggingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsSparkJobLoggingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15304,7 +15301,7 @@ func flattenWorkflowTemplateJobsSparkJobLoggingConfigMap(c *Client, i interface{
 
 // flattenWorkflowTemplateJobsSparkJobLoggingConfigSlice flattens the contents of WorkflowTemplateJobsSparkJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsSparkJobLoggingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsSparkJobLoggingConfig{}
@@ -15316,7 +15313,7 @@ func flattenWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, i interfac
 
 	items := make([]WorkflowTemplateJobsSparkJobLoggingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkJobLoggingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsSparkJobLoggingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15339,7 +15336,7 @@ func expandWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, f *WorkflowTempl
 
 // flattenWorkflowTemplateJobsSparkJobLoggingConfig flattens an instance of WorkflowTemplateJobsSparkJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, i interface{}) *WorkflowTemplateJobsSparkJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsSparkJobLoggingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15398,7 +15395,7 @@ func expandWorkflowTemplateJobsPysparkJobSlice(c *Client, f []WorkflowTemplateJo
 
 // flattenWorkflowTemplateJobsPysparkJobMap flattens the contents of WorkflowTemplateJobsPysparkJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPysparkJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPysparkJob {
+func flattenWorkflowTemplateJobsPysparkJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPysparkJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPysparkJob{}
@@ -15410,7 +15407,7 @@ func flattenWorkflowTemplateJobsPysparkJobMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]WorkflowTemplateJobsPysparkJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPysparkJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPysparkJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15418,7 +15415,7 @@ func flattenWorkflowTemplateJobsPysparkJobMap(c *Client, i interface{}) map[stri
 
 // flattenWorkflowTemplateJobsPysparkJobSlice flattens the contents of WorkflowTemplateJobsPysparkJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPysparkJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsPysparkJob {
+func flattenWorkflowTemplateJobsPysparkJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPysparkJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPysparkJob{}
@@ -15430,7 +15427,7 @@ func flattenWorkflowTemplateJobsPysparkJobSlice(c *Client, i interface{}) []Work
 
 	items := make([]WorkflowTemplateJobsPysparkJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPysparkJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPysparkJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15476,7 +15473,7 @@ func expandWorkflowTemplateJobsPysparkJob(c *Client, f *WorkflowTemplateJobsPysp
 
 // flattenWorkflowTemplateJobsPysparkJob flattens an instance of WorkflowTemplateJobsPysparkJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPysparkJob(c *Client, i interface{}) *WorkflowTemplateJobsPysparkJob {
+func flattenWorkflowTemplateJobsPysparkJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPysparkJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15494,7 +15491,7 @@ func flattenWorkflowTemplateJobsPysparkJob(c *Client, i interface{}) *WorkflowTe
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	r.LoggingConfig = flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c, m["loggingConfig"])
+	r.LoggingConfig = flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c, m["loggingConfig"], res)
 
 	return r
 }
@@ -15542,7 +15539,7 @@ func expandWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, f []Workf
 
 // flattenWorkflowTemplateJobsPysparkJobLoggingConfigMap flattens the contents of WorkflowTemplateJobsPysparkJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPysparkJobLoggingConfig {
+func flattenWorkflowTemplateJobsPysparkJobLoggingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPysparkJobLoggingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPysparkJobLoggingConfig{}
@@ -15554,7 +15551,7 @@ func flattenWorkflowTemplateJobsPysparkJobLoggingConfigMap(c *Client, i interfac
 
 	items := make(map[string]WorkflowTemplateJobsPysparkJobLoggingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15562,7 +15559,7 @@ func flattenWorkflowTemplateJobsPysparkJobLoggingConfigMap(c *Client, i interfac
 
 // flattenWorkflowTemplateJobsPysparkJobLoggingConfigSlice flattens the contents of WorkflowTemplateJobsPysparkJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, i interface{}) []WorkflowTemplateJobsPysparkJobLoggingConfig {
+func flattenWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPysparkJobLoggingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPysparkJobLoggingConfig{}
@@ -15574,7 +15571,7 @@ func flattenWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, i interf
 
 	items := make([]WorkflowTemplateJobsPysparkJobLoggingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15597,7 +15594,7 @@ func expandWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, f *WorkflowTem
 
 // flattenWorkflowTemplateJobsPysparkJobLoggingConfig flattens an instance of WorkflowTemplateJobsPysparkJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, i interface{}) *WorkflowTemplateJobsPysparkJobLoggingConfig {
+func flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPysparkJobLoggingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15656,7 +15653,7 @@ func expandWorkflowTemplateJobsHiveJobSlice(c *Client, f []WorkflowTemplateJobsH
 
 // flattenWorkflowTemplateJobsHiveJobMap flattens the contents of WorkflowTemplateJobsHiveJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHiveJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHiveJob {
+func flattenWorkflowTemplateJobsHiveJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsHiveJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsHiveJob{}
@@ -15668,7 +15665,7 @@ func flattenWorkflowTemplateJobsHiveJobMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]WorkflowTemplateJobsHiveJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHiveJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsHiveJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15676,7 +15673,7 @@ func flattenWorkflowTemplateJobsHiveJobMap(c *Client, i interface{}) map[string]
 
 // flattenWorkflowTemplateJobsHiveJobSlice flattens the contents of WorkflowTemplateJobsHiveJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHiveJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsHiveJob {
+func flattenWorkflowTemplateJobsHiveJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsHiveJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsHiveJob{}
@@ -15688,7 +15685,7 @@ func flattenWorkflowTemplateJobsHiveJobSlice(c *Client, i interface{}) []Workflo
 
 	items := make([]WorkflowTemplateJobsHiveJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHiveJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsHiveJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15728,7 +15725,7 @@ func expandWorkflowTemplateJobsHiveJob(c *Client, f *WorkflowTemplateJobsHiveJob
 
 // flattenWorkflowTemplateJobsHiveJob flattens an instance of WorkflowTemplateJobsHiveJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHiveJob(c *Client, i interface{}) *WorkflowTemplateJobsHiveJob {
+func flattenWorkflowTemplateJobsHiveJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsHiveJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15740,7 +15737,7 @@ func flattenWorkflowTemplateJobsHiveJob(c *Client, i interface{}) *WorkflowTempl
 		return EmptyWorkflowTemplateJobsHiveJob
 	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
-	r.QueryList = flattenWorkflowTemplateJobsHiveJobQueryList(c, m["queryList"])
+	r.QueryList = flattenWorkflowTemplateJobsHiveJobQueryList(c, m["queryList"], res)
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
 	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
@@ -15792,7 +15789,7 @@ func expandWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, f []WorkflowTemp
 
 // flattenWorkflowTemplateJobsHiveJobQueryListMap flattens the contents of WorkflowTemplateJobsHiveJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHiveJobQueryListMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHiveJobQueryList {
+func flattenWorkflowTemplateJobsHiveJobQueryListMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsHiveJobQueryList {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsHiveJobQueryList{}
@@ -15804,7 +15801,7 @@ func flattenWorkflowTemplateJobsHiveJobQueryListMap(c *Client, i interface{}) ma
 
 	items := make(map[string]WorkflowTemplateJobsHiveJobQueryList)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHiveJobQueryList(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsHiveJobQueryList(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15812,7 +15809,7 @@ func flattenWorkflowTemplateJobsHiveJobQueryListMap(c *Client, i interface{}) ma
 
 // flattenWorkflowTemplateJobsHiveJobQueryListSlice flattens the contents of WorkflowTemplateJobsHiveJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, i interface{}) []WorkflowTemplateJobsHiveJobQueryList {
+func flattenWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsHiveJobQueryList {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsHiveJobQueryList{}
@@ -15824,7 +15821,7 @@ func flattenWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, i interface{}) 
 
 	items := make([]WorkflowTemplateJobsHiveJobQueryList, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHiveJobQueryList(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsHiveJobQueryList(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15847,7 +15844,7 @@ func expandWorkflowTemplateJobsHiveJobQueryList(c *Client, f *WorkflowTemplateJo
 
 // flattenWorkflowTemplateJobsHiveJobQueryList flattens an instance of WorkflowTemplateJobsHiveJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsHiveJobQueryList(c *Client, i interface{}) *WorkflowTemplateJobsHiveJobQueryList {
+func flattenWorkflowTemplateJobsHiveJobQueryList(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsHiveJobQueryList {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15906,7 +15903,7 @@ func expandWorkflowTemplateJobsPigJobSlice(c *Client, f []WorkflowTemplateJobsPi
 
 // flattenWorkflowTemplateJobsPigJobMap flattens the contents of WorkflowTemplateJobsPigJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPigJob {
+func flattenWorkflowTemplateJobsPigJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPigJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPigJob{}
@@ -15918,7 +15915,7 @@ func flattenWorkflowTemplateJobsPigJobMap(c *Client, i interface{}) map[string]W
 
 	items := make(map[string]WorkflowTemplateJobsPigJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPigJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPigJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -15926,7 +15923,7 @@ func flattenWorkflowTemplateJobsPigJobMap(c *Client, i interface{}) map[string]W
 
 // flattenWorkflowTemplateJobsPigJobSlice flattens the contents of WorkflowTemplateJobsPigJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsPigJob {
+func flattenWorkflowTemplateJobsPigJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPigJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPigJob{}
@@ -15938,7 +15935,7 @@ func flattenWorkflowTemplateJobsPigJobSlice(c *Client, i interface{}) []Workflow
 
 	items := make([]WorkflowTemplateJobsPigJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPigJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPigJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -15983,7 +15980,7 @@ func expandWorkflowTemplateJobsPigJob(c *Client, f *WorkflowTemplateJobsPigJob, 
 
 // flattenWorkflowTemplateJobsPigJob flattens an instance of WorkflowTemplateJobsPigJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJob(c *Client, i interface{}) *WorkflowTemplateJobsPigJob {
+func flattenWorkflowTemplateJobsPigJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPigJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -15995,12 +15992,12 @@ func flattenWorkflowTemplateJobsPigJob(c *Client, i interface{}) *WorkflowTempla
 		return EmptyWorkflowTemplateJobsPigJob
 	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
-	r.QueryList = flattenWorkflowTemplateJobsPigJobQueryList(c, m["queryList"])
+	r.QueryList = flattenWorkflowTemplateJobsPigJobQueryList(c, m["queryList"], res)
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
 	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
-	r.LoggingConfig = flattenWorkflowTemplateJobsPigJobLoggingConfig(c, m["loggingConfig"])
+	r.LoggingConfig = flattenWorkflowTemplateJobsPigJobLoggingConfig(c, m["loggingConfig"], res)
 
 	return r
 }
@@ -16048,7 +16045,7 @@ func expandWorkflowTemplateJobsPigJobQueryListSlice(c *Client, f []WorkflowTempl
 
 // flattenWorkflowTemplateJobsPigJobQueryListMap flattens the contents of WorkflowTemplateJobsPigJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobQueryListMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPigJobQueryList {
+func flattenWorkflowTemplateJobsPigJobQueryListMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPigJobQueryList {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPigJobQueryList{}
@@ -16060,7 +16057,7 @@ func flattenWorkflowTemplateJobsPigJobQueryListMap(c *Client, i interface{}) map
 
 	items := make(map[string]WorkflowTemplateJobsPigJobQueryList)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPigJobQueryList(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPigJobQueryList(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16068,7 +16065,7 @@ func flattenWorkflowTemplateJobsPigJobQueryListMap(c *Client, i interface{}) map
 
 // flattenWorkflowTemplateJobsPigJobQueryListSlice flattens the contents of WorkflowTemplateJobsPigJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobQueryListSlice(c *Client, i interface{}) []WorkflowTemplateJobsPigJobQueryList {
+func flattenWorkflowTemplateJobsPigJobQueryListSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPigJobQueryList {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPigJobQueryList{}
@@ -16080,7 +16077,7 @@ func flattenWorkflowTemplateJobsPigJobQueryListSlice(c *Client, i interface{}) [
 
 	items := make([]WorkflowTemplateJobsPigJobQueryList, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPigJobQueryList(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPigJobQueryList(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16103,7 +16100,7 @@ func expandWorkflowTemplateJobsPigJobQueryList(c *Client, f *WorkflowTemplateJob
 
 // flattenWorkflowTemplateJobsPigJobQueryList flattens an instance of WorkflowTemplateJobsPigJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobQueryList(c *Client, i interface{}) *WorkflowTemplateJobsPigJobQueryList {
+func flattenWorkflowTemplateJobsPigJobQueryList(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPigJobQueryList {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16162,7 +16159,7 @@ func expandWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, f []WorkflowT
 
 // flattenWorkflowTemplateJobsPigJobLoggingConfigMap flattens the contents of WorkflowTemplateJobsPigJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobLoggingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPigJobLoggingConfig {
+func flattenWorkflowTemplateJobsPigJobLoggingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPigJobLoggingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPigJobLoggingConfig{}
@@ -16174,7 +16171,7 @@ func flattenWorkflowTemplateJobsPigJobLoggingConfigMap(c *Client, i interface{})
 
 	items := make(map[string]WorkflowTemplateJobsPigJobLoggingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPigJobLoggingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPigJobLoggingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16182,7 +16179,7 @@ func flattenWorkflowTemplateJobsPigJobLoggingConfigMap(c *Client, i interface{})
 
 // flattenWorkflowTemplateJobsPigJobLoggingConfigSlice flattens the contents of WorkflowTemplateJobsPigJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, i interface{}) []WorkflowTemplateJobsPigJobLoggingConfig {
+func flattenWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPigJobLoggingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPigJobLoggingConfig{}
@@ -16194,7 +16191,7 @@ func flattenWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, i interface{
 
 	items := make([]WorkflowTemplateJobsPigJobLoggingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPigJobLoggingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPigJobLoggingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16217,7 +16214,7 @@ func expandWorkflowTemplateJobsPigJobLoggingConfig(c *Client, f *WorkflowTemplat
 
 // flattenWorkflowTemplateJobsPigJobLoggingConfig flattens an instance of WorkflowTemplateJobsPigJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPigJobLoggingConfig(c *Client, i interface{}) *WorkflowTemplateJobsPigJobLoggingConfig {
+func flattenWorkflowTemplateJobsPigJobLoggingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPigJobLoggingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16276,7 +16273,7 @@ func expandWorkflowTemplateJobsSparkRJobSlice(c *Client, f []WorkflowTemplateJob
 
 // flattenWorkflowTemplateJobsSparkRJobMap flattens the contents of WorkflowTemplateJobsSparkRJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkRJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkRJob {
+func flattenWorkflowTemplateJobsSparkRJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsSparkRJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsSparkRJob{}
@@ -16288,7 +16285,7 @@ func flattenWorkflowTemplateJobsSparkRJobMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]WorkflowTemplateJobsSparkRJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkRJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsSparkRJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16296,7 +16293,7 @@ func flattenWorkflowTemplateJobsSparkRJobMap(c *Client, i interface{}) map[strin
 
 // flattenWorkflowTemplateJobsSparkRJobSlice flattens the contents of WorkflowTemplateJobsSparkRJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkRJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkRJob {
+func flattenWorkflowTemplateJobsSparkRJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsSparkRJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsSparkRJob{}
@@ -16308,7 +16305,7 @@ func flattenWorkflowTemplateJobsSparkRJobSlice(c *Client, i interface{}) []Workf
 
 	items := make([]WorkflowTemplateJobsSparkRJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkRJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsSparkRJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16348,7 +16345,7 @@ func expandWorkflowTemplateJobsSparkRJob(c *Client, f *WorkflowTemplateJobsSpark
 
 // flattenWorkflowTemplateJobsSparkRJob flattens an instance of WorkflowTemplateJobsSparkRJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkRJob(c *Client, i interface{}) *WorkflowTemplateJobsSparkRJob {
+func flattenWorkflowTemplateJobsSparkRJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsSparkRJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16364,7 +16361,7 @@ func flattenWorkflowTemplateJobsSparkRJob(c *Client, i interface{}) *WorkflowTem
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	r.LoggingConfig = flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c, m["loggingConfig"])
+	r.LoggingConfig = flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c, m["loggingConfig"], res)
 
 	return r
 }
@@ -16412,7 +16409,7 @@ func expandWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, f []Workfl
 
 // flattenWorkflowTemplateJobsSparkRJobLoggingConfigMap flattens the contents of WorkflowTemplateJobsSparkRJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkRJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkRJobLoggingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsSparkRJobLoggingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsSparkRJobLoggingConfig{}
@@ -16424,7 +16421,7 @@ func flattenWorkflowTemplateJobsSparkRJobLoggingConfigMap(c *Client, i interface
 
 	items := make(map[string]WorkflowTemplateJobsSparkRJobLoggingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16432,7 +16429,7 @@ func flattenWorkflowTemplateJobsSparkRJobLoggingConfigMap(c *Client, i interface
 
 // flattenWorkflowTemplateJobsSparkRJobLoggingConfigSlice flattens the contents of WorkflowTemplateJobsSparkRJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkRJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsSparkRJobLoggingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsSparkRJobLoggingConfig{}
@@ -16444,7 +16441,7 @@ func flattenWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, i interfa
 
 	items := make([]WorkflowTemplateJobsSparkRJobLoggingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16467,7 +16464,7 @@ func expandWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, f *WorkflowTemp
 
 // flattenWorkflowTemplateJobsSparkRJobLoggingConfig flattens an instance of WorkflowTemplateJobsSparkRJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, i interface{}) *WorkflowTemplateJobsSparkRJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsSparkRJobLoggingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16526,7 +16523,7 @@ func expandWorkflowTemplateJobsSparkSqlJobSlice(c *Client, f []WorkflowTemplateJ
 
 // flattenWorkflowTemplateJobsSparkSqlJobMap flattens the contents of WorkflowTemplateJobsSparkSqlJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkSqlJob {
+func flattenWorkflowTemplateJobsSparkSqlJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsSparkSqlJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsSparkSqlJob{}
@@ -16538,7 +16535,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]WorkflowTemplateJobsSparkSqlJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkSqlJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsSparkSqlJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16546,7 +16543,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobMap(c *Client, i interface{}) map[str
 
 // flattenWorkflowTemplateJobsSparkSqlJobSlice flattens the contents of WorkflowTemplateJobsSparkSqlJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkSqlJob {
+func flattenWorkflowTemplateJobsSparkSqlJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsSparkSqlJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsSparkSqlJob{}
@@ -16558,7 +16555,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobSlice(c *Client, i interface{}) []Wor
 
 	items := make([]WorkflowTemplateJobsSparkSqlJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16600,7 +16597,7 @@ func expandWorkflowTemplateJobsSparkSqlJob(c *Client, f *WorkflowTemplateJobsSpa
 
 // flattenWorkflowTemplateJobsSparkSqlJob flattens an instance of WorkflowTemplateJobsSparkSqlJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJob(c *Client, i interface{}) *WorkflowTemplateJobsSparkSqlJob {
+func flattenWorkflowTemplateJobsSparkSqlJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsSparkSqlJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16612,11 +16609,11 @@ func flattenWorkflowTemplateJobsSparkSqlJob(c *Client, i interface{}) *WorkflowT
 		return EmptyWorkflowTemplateJobsSparkSqlJob
 	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
-	r.QueryList = flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, m["queryList"])
+	r.QueryList = flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, m["queryList"], res)
 	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
-	r.LoggingConfig = flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, m["loggingConfig"])
+	r.LoggingConfig = flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, m["loggingConfig"], res)
 
 	return r
 }
@@ -16664,7 +16661,7 @@ func expandWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, f []Workflow
 
 // flattenWorkflowTemplateJobsSparkSqlJobQueryListMap flattens the contents of WorkflowTemplateJobsSparkSqlJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobQueryListMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkSqlJobQueryList {
+func flattenWorkflowTemplateJobsSparkSqlJobQueryListMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsSparkSqlJobQueryList {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsSparkSqlJobQueryList{}
@@ -16676,7 +16673,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobQueryListMap(c *Client, i interface{}
 
 	items := make(map[string]WorkflowTemplateJobsSparkSqlJobQueryList)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16684,7 +16681,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobQueryListMap(c *Client, i interface{}
 
 // flattenWorkflowTemplateJobsSparkSqlJobQueryListSlice flattens the contents of WorkflowTemplateJobsSparkSqlJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkSqlJobQueryList {
+func flattenWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsSparkSqlJobQueryList {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsSparkSqlJobQueryList{}
@@ -16696,7 +16693,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, i interface
 
 	items := make([]WorkflowTemplateJobsSparkSqlJobQueryList, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16719,7 +16716,7 @@ func expandWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, f *WorkflowTempla
 
 // flattenWorkflowTemplateJobsSparkSqlJobQueryList flattens an instance of WorkflowTemplateJobsSparkSqlJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, i interface{}) *WorkflowTemplateJobsSparkSqlJobQueryList {
+func flattenWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsSparkSqlJobQueryList {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16778,7 +16775,7 @@ func expandWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, f []Work
 
 // flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigMap flattens the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
@@ -16790,7 +16787,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigMap(c *Client, i interfa
 
 	items := make(map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16798,7 +16795,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigMap(c *Client, i interfa
 
 // flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice flattens the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkSqlJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
@@ -16810,7 +16807,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, i inter
 
 	items := make([]WorkflowTemplateJobsSparkSqlJobLoggingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16833,7 +16830,7 @@ func expandWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, f *WorkflowTe
 
 // flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig flattens an instance of WorkflowTemplateJobsSparkSqlJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, i interface{}) *WorkflowTemplateJobsSparkSqlJobLoggingConfig {
+func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16892,7 +16889,7 @@ func expandWorkflowTemplateJobsPrestoJobSlice(c *Client, f []WorkflowTemplateJob
 
 // flattenWorkflowTemplateJobsPrestoJobMap flattens the contents of WorkflowTemplateJobsPrestoJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPrestoJob {
+func flattenWorkflowTemplateJobsPrestoJobMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPrestoJob {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPrestoJob{}
@@ -16904,7 +16901,7 @@ func flattenWorkflowTemplateJobsPrestoJobMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]WorkflowTemplateJobsPrestoJob)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPrestoJob(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPrestoJob(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -16912,7 +16909,7 @@ func flattenWorkflowTemplateJobsPrestoJobMap(c *Client, i interface{}) map[strin
 
 // flattenWorkflowTemplateJobsPrestoJobSlice flattens the contents of WorkflowTemplateJobsPrestoJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobSlice(c *Client, i interface{}) []WorkflowTemplateJobsPrestoJob {
+func flattenWorkflowTemplateJobsPrestoJobSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPrestoJob {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPrestoJob{}
@@ -16924,7 +16921,7 @@ func flattenWorkflowTemplateJobsPrestoJobSlice(c *Client, i interface{}) []Workf
 
 	items := make([]WorkflowTemplateJobsPrestoJob, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPrestoJob(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPrestoJob(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -16969,7 +16966,7 @@ func expandWorkflowTemplateJobsPrestoJob(c *Client, f *WorkflowTemplateJobsPrest
 
 // flattenWorkflowTemplateJobsPrestoJob flattens an instance of WorkflowTemplateJobsPrestoJob from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJob(c *Client, i interface{}) *WorkflowTemplateJobsPrestoJob {
+func flattenWorkflowTemplateJobsPrestoJob(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPrestoJob {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -16981,12 +16978,12 @@ func flattenWorkflowTemplateJobsPrestoJob(c *Client, i interface{}) *WorkflowTem
 		return EmptyWorkflowTemplateJobsPrestoJob
 	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
-	r.QueryList = flattenWorkflowTemplateJobsPrestoJobQueryList(c, m["queryList"])
+	r.QueryList = flattenWorkflowTemplateJobsPrestoJobQueryList(c, m["queryList"], res)
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
 	r.OutputFormat = dcl.FlattenString(m["outputFormat"])
 	r.ClientTags = dcl.FlattenStringSlice(m["clientTags"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	r.LoggingConfig = flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c, m["loggingConfig"])
+	r.LoggingConfig = flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c, m["loggingConfig"], res)
 
 	return r
 }
@@ -17034,7 +17031,7 @@ func expandWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, f []WorkflowTe
 
 // flattenWorkflowTemplateJobsPrestoJobQueryListMap flattens the contents of WorkflowTemplateJobsPrestoJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobQueryListMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPrestoJobQueryList {
+func flattenWorkflowTemplateJobsPrestoJobQueryListMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPrestoJobQueryList {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPrestoJobQueryList{}
@@ -17046,7 +17043,7 @@ func flattenWorkflowTemplateJobsPrestoJobQueryListMap(c *Client, i interface{}) 
 
 	items := make(map[string]WorkflowTemplateJobsPrestoJobQueryList)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPrestoJobQueryList(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPrestoJobQueryList(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -17054,7 +17051,7 @@ func flattenWorkflowTemplateJobsPrestoJobQueryListMap(c *Client, i interface{}) 
 
 // flattenWorkflowTemplateJobsPrestoJobQueryListSlice flattens the contents of WorkflowTemplateJobsPrestoJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, i interface{}) []WorkflowTemplateJobsPrestoJobQueryList {
+func flattenWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPrestoJobQueryList {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPrestoJobQueryList{}
@@ -17066,7 +17063,7 @@ func flattenWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, i interface{}
 
 	items := make([]WorkflowTemplateJobsPrestoJobQueryList, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPrestoJobQueryList(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPrestoJobQueryList(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -17089,7 +17086,7 @@ func expandWorkflowTemplateJobsPrestoJobQueryList(c *Client, f *WorkflowTemplate
 
 // flattenWorkflowTemplateJobsPrestoJobQueryList flattens an instance of WorkflowTemplateJobsPrestoJobQueryList from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobQueryList(c *Client, i interface{}) *WorkflowTemplateJobsPrestoJobQueryList {
+func flattenWorkflowTemplateJobsPrestoJobQueryList(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPrestoJobQueryList {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -17148,7 +17145,7 @@ func expandWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, f []Workfl
 
 // flattenWorkflowTemplateJobsPrestoJobLoggingConfigMap flattens the contents of WorkflowTemplateJobsPrestoJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfigMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPrestoJobLoggingConfig {
+func flattenWorkflowTemplateJobsPrestoJobLoggingConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsPrestoJobLoggingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsPrestoJobLoggingConfig{}
@@ -17160,7 +17157,7 @@ func flattenWorkflowTemplateJobsPrestoJobLoggingConfigMap(c *Client, i interface
 
 	items := make(map[string]WorkflowTemplateJobsPrestoJobLoggingConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -17168,7 +17165,7 @@ func flattenWorkflowTemplateJobsPrestoJobLoggingConfigMap(c *Client, i interface
 
 // flattenWorkflowTemplateJobsPrestoJobLoggingConfigSlice flattens the contents of WorkflowTemplateJobsPrestoJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, i interface{}) []WorkflowTemplateJobsPrestoJobLoggingConfig {
+func flattenWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsPrestoJobLoggingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsPrestoJobLoggingConfig{}
@@ -17180,7 +17177,7 @@ func flattenWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, i interfa
 
 	items := make([]WorkflowTemplateJobsPrestoJobLoggingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -17203,7 +17200,7 @@ func expandWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, f *WorkflowTemp
 
 // flattenWorkflowTemplateJobsPrestoJobLoggingConfig flattens an instance of WorkflowTemplateJobsPrestoJobLoggingConfig from a JSON
 // response object.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, i interface{}) *WorkflowTemplateJobsPrestoJobLoggingConfig {
+func flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsPrestoJobLoggingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -17262,7 +17259,7 @@ func expandWorkflowTemplateJobsSchedulingSlice(c *Client, f []WorkflowTemplateJo
 
 // flattenWorkflowTemplateJobsSchedulingMap flattens the contents of WorkflowTemplateJobsScheduling from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSchedulingMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsScheduling {
+func flattenWorkflowTemplateJobsSchedulingMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateJobsScheduling {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateJobsScheduling{}
@@ -17274,7 +17271,7 @@ func flattenWorkflowTemplateJobsSchedulingMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]WorkflowTemplateJobsScheduling)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsScheduling(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateJobsScheduling(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -17282,7 +17279,7 @@ func flattenWorkflowTemplateJobsSchedulingMap(c *Client, i interface{}) map[stri
 
 // flattenWorkflowTemplateJobsSchedulingSlice flattens the contents of WorkflowTemplateJobsScheduling from a JSON
 // response object.
-func flattenWorkflowTemplateJobsSchedulingSlice(c *Client, i interface{}) []WorkflowTemplateJobsScheduling {
+func flattenWorkflowTemplateJobsSchedulingSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateJobsScheduling {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateJobsScheduling{}
@@ -17294,7 +17291,7 @@ func flattenWorkflowTemplateJobsSchedulingSlice(c *Client, i interface{}) []Work
 
 	items := make([]WorkflowTemplateJobsScheduling, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsScheduling(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateJobsScheduling(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -17320,7 +17317,7 @@ func expandWorkflowTemplateJobsScheduling(c *Client, f *WorkflowTemplateJobsSche
 
 // flattenWorkflowTemplateJobsScheduling flattens an instance of WorkflowTemplateJobsScheduling from a JSON
 // response object.
-func flattenWorkflowTemplateJobsScheduling(c *Client, i interface{}) *WorkflowTemplateJobsScheduling {
+func flattenWorkflowTemplateJobsScheduling(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateJobsScheduling {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -17380,7 +17377,7 @@ func expandWorkflowTemplateParametersSlice(c *Client, f []WorkflowTemplateParame
 
 // flattenWorkflowTemplateParametersMap flattens the contents of WorkflowTemplateParameters from a JSON
 // response object.
-func flattenWorkflowTemplateParametersMap(c *Client, i interface{}) map[string]WorkflowTemplateParameters {
+func flattenWorkflowTemplateParametersMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateParameters {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateParameters{}
@@ -17392,7 +17389,7 @@ func flattenWorkflowTemplateParametersMap(c *Client, i interface{}) map[string]W
 
 	items := make(map[string]WorkflowTemplateParameters)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateParameters(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateParameters(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -17400,7 +17397,7 @@ func flattenWorkflowTemplateParametersMap(c *Client, i interface{}) map[string]W
 
 // flattenWorkflowTemplateParametersSlice flattens the contents of WorkflowTemplateParameters from a JSON
 // response object.
-func flattenWorkflowTemplateParametersSlice(c *Client, i interface{}) []WorkflowTemplateParameters {
+func flattenWorkflowTemplateParametersSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateParameters {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateParameters{}
@@ -17412,7 +17409,7 @@ func flattenWorkflowTemplateParametersSlice(c *Client, i interface{}) []Workflow
 
 	items := make([]WorkflowTemplateParameters, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateParameters(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateParameters(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -17446,7 +17443,7 @@ func expandWorkflowTemplateParameters(c *Client, f *WorkflowTemplateParameters, 
 
 // flattenWorkflowTemplateParameters flattens an instance of WorkflowTemplateParameters from a JSON
 // response object.
-func flattenWorkflowTemplateParameters(c *Client, i interface{}) *WorkflowTemplateParameters {
+func flattenWorkflowTemplateParameters(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateParameters {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -17460,7 +17457,7 @@ func flattenWorkflowTemplateParameters(c *Client, i interface{}) *WorkflowTempla
 	r.Name = dcl.FlattenString(m["name"])
 	r.Fields = dcl.FlattenStringSlice(m["fields"])
 	r.Description = dcl.FlattenString(m["description"])
-	r.Validation = flattenWorkflowTemplateParametersValidation(c, m["validation"])
+	r.Validation = flattenWorkflowTemplateParametersValidation(c, m["validation"], res)
 
 	return r
 }
@@ -17508,7 +17505,7 @@ func expandWorkflowTemplateParametersValidationSlice(c *Client, f []WorkflowTemp
 
 // flattenWorkflowTemplateParametersValidationMap flattens the contents of WorkflowTemplateParametersValidation from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationMap(c *Client, i interface{}) map[string]WorkflowTemplateParametersValidation {
+func flattenWorkflowTemplateParametersValidationMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateParametersValidation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateParametersValidation{}
@@ -17520,7 +17517,7 @@ func flattenWorkflowTemplateParametersValidationMap(c *Client, i interface{}) ma
 
 	items := make(map[string]WorkflowTemplateParametersValidation)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateParametersValidation(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateParametersValidation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -17528,7 +17525,7 @@ func flattenWorkflowTemplateParametersValidationMap(c *Client, i interface{}) ma
 
 // flattenWorkflowTemplateParametersValidationSlice flattens the contents of WorkflowTemplateParametersValidation from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationSlice(c *Client, i interface{}) []WorkflowTemplateParametersValidation {
+func flattenWorkflowTemplateParametersValidationSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateParametersValidation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateParametersValidation{}
@@ -17540,7 +17537,7 @@ func flattenWorkflowTemplateParametersValidationSlice(c *Client, i interface{}) 
 
 	items := make([]WorkflowTemplateParametersValidation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateParametersValidation(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateParametersValidation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -17570,7 +17567,7 @@ func expandWorkflowTemplateParametersValidation(c *Client, f *WorkflowTemplatePa
 
 // flattenWorkflowTemplateParametersValidation flattens an instance of WorkflowTemplateParametersValidation from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidation(c *Client, i interface{}) *WorkflowTemplateParametersValidation {
+func flattenWorkflowTemplateParametersValidation(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateParametersValidation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -17581,8 +17578,8 @@ func flattenWorkflowTemplateParametersValidation(c *Client, i interface{}) *Work
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyWorkflowTemplateParametersValidation
 	}
-	r.Regex = flattenWorkflowTemplateParametersValidationRegex(c, m["regex"])
-	r.Values = flattenWorkflowTemplateParametersValidationValues(c, m["values"])
+	r.Regex = flattenWorkflowTemplateParametersValidationRegex(c, m["regex"], res)
+	r.Values = flattenWorkflowTemplateParametersValidationValues(c, m["values"], res)
 
 	return r
 }
@@ -17630,7 +17627,7 @@ func expandWorkflowTemplateParametersValidationRegexSlice(c *Client, f []Workflo
 
 // flattenWorkflowTemplateParametersValidationRegexMap flattens the contents of WorkflowTemplateParametersValidationRegex from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationRegexMap(c *Client, i interface{}) map[string]WorkflowTemplateParametersValidationRegex {
+func flattenWorkflowTemplateParametersValidationRegexMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateParametersValidationRegex {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateParametersValidationRegex{}
@@ -17642,7 +17639,7 @@ func flattenWorkflowTemplateParametersValidationRegexMap(c *Client, i interface{
 
 	items := make(map[string]WorkflowTemplateParametersValidationRegex)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateParametersValidationRegex(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateParametersValidationRegex(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -17650,7 +17647,7 @@ func flattenWorkflowTemplateParametersValidationRegexMap(c *Client, i interface{
 
 // flattenWorkflowTemplateParametersValidationRegexSlice flattens the contents of WorkflowTemplateParametersValidationRegex from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationRegexSlice(c *Client, i interface{}) []WorkflowTemplateParametersValidationRegex {
+func flattenWorkflowTemplateParametersValidationRegexSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateParametersValidationRegex {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateParametersValidationRegex{}
@@ -17662,7 +17659,7 @@ func flattenWorkflowTemplateParametersValidationRegexSlice(c *Client, i interfac
 
 	items := make([]WorkflowTemplateParametersValidationRegex, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateParametersValidationRegex(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateParametersValidationRegex(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -17685,7 +17682,7 @@ func expandWorkflowTemplateParametersValidationRegex(c *Client, f *WorkflowTempl
 
 // flattenWorkflowTemplateParametersValidationRegex flattens an instance of WorkflowTemplateParametersValidationRegex from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationRegex(c *Client, i interface{}) *WorkflowTemplateParametersValidationRegex {
+func flattenWorkflowTemplateParametersValidationRegex(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateParametersValidationRegex {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -17744,7 +17741,7 @@ func expandWorkflowTemplateParametersValidationValuesSlice(c *Client, f []Workfl
 
 // flattenWorkflowTemplateParametersValidationValuesMap flattens the contents of WorkflowTemplateParametersValidationValues from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationValuesMap(c *Client, i interface{}) map[string]WorkflowTemplateParametersValidationValues {
+func flattenWorkflowTemplateParametersValidationValuesMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateParametersValidationValues {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplateParametersValidationValues{}
@@ -17756,7 +17753,7 @@ func flattenWorkflowTemplateParametersValidationValuesMap(c *Client, i interface
 
 	items := make(map[string]WorkflowTemplateParametersValidationValues)
 	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateParametersValidationValues(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkflowTemplateParametersValidationValues(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -17764,7 +17761,7 @@ func flattenWorkflowTemplateParametersValidationValuesMap(c *Client, i interface
 
 // flattenWorkflowTemplateParametersValidationValuesSlice flattens the contents of WorkflowTemplateParametersValidationValues from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationValuesSlice(c *Client, i interface{}) []WorkflowTemplateParametersValidationValues {
+func flattenWorkflowTemplateParametersValidationValuesSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateParametersValidationValues {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplateParametersValidationValues{}
@@ -17776,7 +17773,7 @@ func flattenWorkflowTemplateParametersValidationValuesSlice(c *Client, i interfa
 
 	items := make([]WorkflowTemplateParametersValidationValues, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateParametersValidationValues(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkflowTemplateParametersValidationValues(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -17799,7 +17796,7 @@ func expandWorkflowTemplateParametersValidationValues(c *Client, f *WorkflowTemp
 
 // flattenWorkflowTemplateParametersValidationValues flattens an instance of WorkflowTemplateParametersValidationValues from a JSON
 // response object.
-func flattenWorkflowTemplateParametersValidationValues(c *Client, i interface{}) *WorkflowTemplateParametersValidationValues {
+func flattenWorkflowTemplateParametersValidationValues(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateParametersValidationValues {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -17817,7 +17814,7 @@ func flattenWorkflowTemplateParametersValidationValues(c *Client, i interface{})
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum{}
@@ -17837,7 +17834,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivate
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum{}
@@ -17868,7 +17865,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivate
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum{}
@@ -17888,7 +17885,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReserva
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum{}
@@ -17919,7 +17916,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReserva
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum{}
@@ -17939,7 +17936,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibil
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnumSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibilityEnum{}
@@ -17970,7 +17967,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigMasterConfigPreemptibil
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum{}
@@ -17990,7 +17987,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibil
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibilityEnum{}
@@ -18021,7 +18018,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigWorkerConfigPreemptibil
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum{}
@@ -18041,7 +18038,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPr
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPreemptibilityEnum{}
@@ -18072,7 +18069,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigPr
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumMap flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum{}
@@ -18092,7 +18089,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalC
 
 // flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumSlice flattens the contents of WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum from a JSON
 // response object.
-func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum {
+func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum{}
@@ -18126,7 +18123,7 @@ func flattenWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalC
 // identity).  This is useful in extracting the element from a List call.
 func (r *WorkflowTemplate) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalWorkflowTemplate(b, c)
+		cr, err := unmarshalWorkflowTemplate(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

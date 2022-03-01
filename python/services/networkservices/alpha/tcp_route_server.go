@@ -85,6 +85,7 @@ func ProtoToTcpRoute(p *alphapb.NetworkservicesAlphaTcpRoute) *alpha.TcpRoute {
 		Description: dcl.StringOrNil(p.GetDescription()),
 		Project:     dcl.StringOrNil(p.GetProject()),
 		Location:    dcl.StringOrNil(p.GetLocation()),
+		SelfLink:    dcl.StringOrNil(p.GetSelfLink()),
 	}
 	for _, r := range p.GetRules() {
 		obj.Rules = append(obj.Rules, *ProtoToNetworkservicesAlphaTcpRouteRules(r))
@@ -162,6 +163,7 @@ func TcpRouteToProto(resource *alpha.TcpRoute) *alphapb.NetworkservicesAlphaTcpR
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 	sRules := make([]*alphapb.NetworkservicesAlphaTcpRouteRules, len(resource.Rules))
 	for i, r := range resource.Rules {
 		sRules[i] = NetworkservicesAlphaTcpRouteRulesToProto(&r)

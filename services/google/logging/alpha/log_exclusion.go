@@ -144,7 +144,7 @@ func (c *Client) GetLogExclusion(ctx context.Context, r *LogExclusion) (*LogExcl
 		}
 		return nil, err
 	}
-	result, err := unmarshalLogExclusion(b, c)
+	result, err := unmarshalLogExclusion(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +313,7 @@ func applyLogExclusionDiff(c *Client, ctx context.Context, desired *LogExclusion
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapLogExclusion(r, c)
+				fullResp, err := unmarshalMapLogExclusion(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

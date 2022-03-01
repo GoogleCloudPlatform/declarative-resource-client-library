@@ -147,7 +147,7 @@ func (c *Client) GetRealm(ctx context.Context, r *Realm) (*Realm, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalRealm(b, c)
+	result, err := unmarshalRealm(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +317,7 @@ func applyRealmDiff(c *Client, ctx context.Context, desired *Realm, rawDesired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapRealm(r, c)
+				fullResp, err := unmarshalMapRealm(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

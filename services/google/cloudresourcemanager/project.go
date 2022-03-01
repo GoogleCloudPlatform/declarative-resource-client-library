@@ -168,7 +168,7 @@ func (c *Client) GetProject(ctx context.Context, r *Project) (*Project, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalProject(b, c)
+	result, err := unmarshalProject(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -336,7 +336,7 @@ func applyProjectDiff(c *Client, ctx context.Context, desired *Project, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapProject(r, c)
+				fullResp, err := unmarshalMapProject(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

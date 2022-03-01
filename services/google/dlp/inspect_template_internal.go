@@ -384,7 +384,7 @@ func (c *Client) listInspectTemplate(ctx context.Context, r *InspectTemplate, pa
 
 	var l []*InspectTemplate
 	for _, v := range m.InspectTemplates {
-		res, err := unmarshalMapInspectTemplate(v, c)
+		res, err := unmarshalMapInspectTemplate(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -5093,17 +5093,17 @@ func (r *InspectTemplate) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInspectTemplate decodes JSON responses into the InspectTemplate resource schema.
-func unmarshalInspectTemplate(b []byte, c *Client) (*InspectTemplate, error) {
+func unmarshalInspectTemplate(b []byte, c *Client, res *InspectTemplate) (*InspectTemplate, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInspectTemplate(m, c)
+	return unmarshalMapInspectTemplate(m, c, res)
 }
 
-func unmarshalMapInspectTemplate(m map[string]interface{}, c *Client) (*InspectTemplate, error) {
+func unmarshalMapInspectTemplate(m map[string]interface{}, c *Client, res *InspectTemplate) (*InspectTemplate, error) {
 
-	flattened := flattenInspectTemplate(c, m)
+	flattened := flattenInspectTemplate(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -5115,9 +5115,7 @@ func expandInspectTemplate(c *Client, f *InspectTemplate) (map[string]interface{
 	m := make(map[string]interface{})
 	res := f
 	_ = res
-	if v, err := dcl.DeriveField("%s/inspectTemplates/%s", f.Name, f.Parent, dcl.SelfLinkToName(f.Name)); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
@@ -5147,7 +5145,7 @@ func expandInspectTemplate(c *Client, f *InspectTemplate) (map[string]interface{
 
 // flattenInspectTemplate flattens InspectTemplate from a JSON request object into the
 // InspectTemplate type.
-func flattenInspectTemplate(c *Client, i interface{}) *InspectTemplate {
+func flattenInspectTemplate(c *Client, i interface{}, res *InspectTemplate) *InspectTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5156,18 +5154,18 @@ func flattenInspectTemplate(c *Client, i interface{}) *InspectTemplate {
 		return nil
 	}
 
-	res := &InspectTemplate{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.InspectConfig = flattenInspectTemplateInspectConfig(c, m["inspectConfig"])
-	res.LocationId = dcl.FlattenString(m["locationId"])
-	res.Parent = dcl.FlattenString(m["parent"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &InspectTemplate{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.InspectConfig = flattenInspectTemplateInspectConfig(c, m["inspectConfig"], res)
+	resultRes.LocationId = dcl.FlattenString(m["locationId"])
+	resultRes.Parent = dcl.FlattenString(m["parent"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandInspectTemplateInspectConfigMap expands the contents of InspectTemplateInspectConfig into a JSON
@@ -5213,7 +5211,7 @@ func expandInspectTemplateInspectConfigSlice(c *Client, f []InspectTemplateInspe
 
 // flattenInspectTemplateInspectConfigMap flattens the contents of InspectTemplateInspectConfig from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfig {
+func flattenInspectTemplateInspectConfigMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfig{}
@@ -5225,7 +5223,7 @@ func flattenInspectTemplateInspectConfigMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]InspectTemplateInspectConfig)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5233,7 +5231,7 @@ func flattenInspectTemplateInspectConfigMap(c *Client, i interface{}) map[string
 
 // flattenInspectTemplateInspectConfigSlice flattens the contents of InspectTemplateInspectConfig from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigSlice(c *Client, i interface{}) []InspectTemplateInspectConfig {
+func flattenInspectTemplateInspectConfigSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfig{}
@@ -5245,7 +5243,7 @@ func flattenInspectTemplateInspectConfigSlice(c *Client, i interface{}) []Inspec
 
 	items := make([]InspectTemplateInspectConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5297,7 +5295,7 @@ func expandInspectTemplateInspectConfig(c *Client, f *InspectTemplateInspectConf
 
 // flattenInspectTemplateInspectConfig flattens an instance of InspectTemplateInspectConfig from a JSON
 // response object.
-func flattenInspectTemplateInspectConfig(c *Client, i interface{}) *InspectTemplateInspectConfig {
+func flattenInspectTemplateInspectConfig(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5308,14 +5306,14 @@ func flattenInspectTemplateInspectConfig(c *Client, i interface{}) *InspectTempl
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfig
 	}
-	r.InfoTypes = flattenInspectTemplateInspectConfigInfoTypesSlice(c, m["infoTypes"])
+	r.InfoTypes = flattenInspectTemplateInspectConfigInfoTypesSlice(c, m["infoTypes"], res)
 	r.MinLikelihood = flattenInspectTemplateInspectConfigMinLikelihoodEnum(m["minLikelihood"])
-	r.Limits = flattenInspectTemplateInspectConfigLimits(c, m["limits"])
+	r.Limits = flattenInspectTemplateInspectConfigLimits(c, m["limits"], res)
 	r.IncludeQuote = dcl.FlattenBool(m["includeQuote"])
 	r.ExcludeInfoTypes = dcl.FlattenBool(m["excludeInfoTypes"])
-	r.CustomInfoTypes = flattenInspectTemplateInspectConfigCustomInfoTypesSlice(c, m["customInfoTypes"])
-	r.ContentOptions = flattenInspectTemplateInspectConfigContentOptionsEnumSlice(c, m["contentOptions"])
-	r.RuleSet = flattenInspectTemplateInspectConfigRuleSetSlice(c, m["ruleSet"])
+	r.CustomInfoTypes = flattenInspectTemplateInspectConfigCustomInfoTypesSlice(c, m["customInfoTypes"], res)
+	r.ContentOptions = flattenInspectTemplateInspectConfigContentOptionsEnumSlice(c, m["contentOptions"], res)
+	r.RuleSet = flattenInspectTemplateInspectConfigRuleSetSlice(c, m["ruleSet"], res)
 
 	return r
 }
@@ -5363,7 +5361,7 @@ func expandInspectTemplateInspectConfigInfoTypesSlice(c *Client, f []InspectTemp
 
 // flattenInspectTemplateInspectConfigInfoTypesMap flattens the contents of InspectTemplateInspectConfigInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigInfoTypesMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigInfoTypes {
+func flattenInspectTemplateInspectConfigInfoTypesMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigInfoTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigInfoTypes{}
@@ -5375,7 +5373,7 @@ func flattenInspectTemplateInspectConfigInfoTypesMap(c *Client, i interface{}) m
 
 	items := make(map[string]InspectTemplateInspectConfigInfoTypes)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigInfoTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigInfoTypes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5383,7 +5381,7 @@ func flattenInspectTemplateInspectConfigInfoTypesMap(c *Client, i interface{}) m
 
 // flattenInspectTemplateInspectConfigInfoTypesSlice flattens the contents of InspectTemplateInspectConfigInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigInfoTypesSlice(c *Client, i interface{}) []InspectTemplateInspectConfigInfoTypes {
+func flattenInspectTemplateInspectConfigInfoTypesSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigInfoTypes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigInfoTypes{}
@@ -5395,7 +5393,7 @@ func flattenInspectTemplateInspectConfigInfoTypesSlice(c *Client, i interface{})
 
 	items := make([]InspectTemplateInspectConfigInfoTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigInfoTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigInfoTypes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5418,7 +5416,7 @@ func expandInspectTemplateInspectConfigInfoTypes(c *Client, f *InspectTemplateIn
 
 // flattenInspectTemplateInspectConfigInfoTypes flattens an instance of InspectTemplateInspectConfigInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigInfoTypes(c *Client, i interface{}) *InspectTemplateInspectConfigInfoTypes {
+func flattenInspectTemplateInspectConfigInfoTypes(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigInfoTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5477,7 +5475,7 @@ func expandInspectTemplateInspectConfigLimitsSlice(c *Client, f []InspectTemplat
 
 // flattenInspectTemplateInspectConfigLimitsMap flattens the contents of InspectTemplateInspectConfigLimits from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigLimits {
+func flattenInspectTemplateInspectConfigLimitsMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigLimits {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigLimits{}
@@ -5489,7 +5487,7 @@ func flattenInspectTemplateInspectConfigLimitsMap(c *Client, i interface{}) map[
 
 	items := make(map[string]InspectTemplateInspectConfigLimits)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigLimits(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigLimits(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5497,7 +5495,7 @@ func flattenInspectTemplateInspectConfigLimitsMap(c *Client, i interface{}) map[
 
 // flattenInspectTemplateInspectConfigLimitsSlice flattens the contents of InspectTemplateInspectConfigLimits from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsSlice(c *Client, i interface{}) []InspectTemplateInspectConfigLimits {
+func flattenInspectTemplateInspectConfigLimitsSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigLimits {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigLimits{}
@@ -5509,7 +5507,7 @@ func flattenInspectTemplateInspectConfigLimitsSlice(c *Client, i interface{}) []
 
 	items := make([]InspectTemplateInspectConfigLimits, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigLimits(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigLimits(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5540,7 +5538,7 @@ func expandInspectTemplateInspectConfigLimits(c *Client, f *InspectTemplateInspe
 
 // flattenInspectTemplateInspectConfigLimits flattens an instance of InspectTemplateInspectConfigLimits from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimits(c *Client, i interface{}) *InspectTemplateInspectConfigLimits {
+func flattenInspectTemplateInspectConfigLimits(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigLimits {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5553,7 +5551,7 @@ func flattenInspectTemplateInspectConfigLimits(c *Client, i interface{}) *Inspec
 	}
 	r.MaxFindingsPerItem = dcl.FlattenInteger(m["maxFindingsPerItem"])
 	r.MaxFindingsPerRequest = dcl.FlattenInteger(m["maxFindingsPerRequest"])
-	r.MaxFindingsPerInfoType = flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c, m["maxFindingsPerInfoType"])
+	r.MaxFindingsPerInfoType = flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c, m["maxFindingsPerInfoType"], res)
 
 	return r
 }
@@ -5601,7 +5599,7 @@ func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c *Clie
 
 // flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap flattens the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
+func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType{}
@@ -5613,7 +5611,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap(c *Clien
 
 	items := make(map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5621,7 +5619,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeMap(c *Clien
 
 // flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice flattens the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c *Client, i interface{}) []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
+func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType{}
@@ -5633,7 +5631,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(c *Cli
 
 	items := make([]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5661,7 +5659,7 @@ func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c *Client, f
 
 // flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType flattens an instance of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c *Client, i interface{}) *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
+func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5672,7 +5670,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(c *Client, 
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType
 	}
-	r.InfoType = flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, m["infoType"])
+	r.InfoType = flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, m["infoType"], res)
 	r.MaxFindings = dcl.FlattenInteger(m["maxFindings"])
 
 	return r
@@ -5721,7 +5719,7 @@ func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice
 
 // flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap flattens the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
+func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType{}
@@ -5733,7 +5731,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap(
 
 	items := make(map[string]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5741,7 +5739,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeMap(
 
 // flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice flattens the contents of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice(c *Client, i interface{}) []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
+func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType{}
@@ -5753,7 +5751,7 @@ func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlic
 
 	items := make([]InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5776,7 +5774,7 @@ func expandInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c *C
 
 // flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType flattens an instance of InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c *Client, i interface{}) *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
+func flattenInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5835,7 +5833,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, f []Inspe
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypes {
+func flattenInspectTemplateInspectConfigCustomInfoTypesMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypes{}
@@ -5847,7 +5845,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesMap(c *Client, i interfac
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypes)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5855,7 +5853,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesMap(c *Client, i interfac
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypes {
+func flattenInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypes{}
@@ -5867,7 +5865,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, i interf
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5918,7 +5916,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypes(c *Client, f *InspectTemp
 
 // flattenInspectTemplateInspectConfigCustomInfoTypes flattens an instance of InspectTemplateInspectConfigCustomInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypes(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypes {
+func flattenInspectTemplateInspectConfigCustomInfoTypes(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5929,12 +5927,12 @@ func flattenInspectTemplateInspectConfigCustomInfoTypes(c *Client, i interface{}
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigCustomInfoTypes
 	}
-	r.InfoType = flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c, m["infoType"])
+	r.InfoType = flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c, m["infoType"], res)
 	r.Likelihood = flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(m["likelihood"])
-	r.Dictionary = flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c, m["dictionary"])
-	r.Regex = flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c, m["regex"])
-	r.SurrogateType = flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, m["surrogateType"])
-	r.StoredType = flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c, m["storedType"])
+	r.Dictionary = flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c, m["dictionary"], res)
+	r.Regex = flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c, m["regex"], res)
+	r.SurrogateType = flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, m["surrogateType"], res)
+	r.StoredType = flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c, m["storedType"], res)
 	r.ExclusionType = flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum(m["exclusionType"])
 
 	return r
@@ -5983,7 +5981,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *Client, f
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesInfoType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesInfoType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesInfoType{}
@@ -5995,7 +5993,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap(c *Client, i 
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesInfoType)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6003,7 +6001,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeMap(c *Client, i 
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesInfoType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesInfoType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesInfoType{}
@@ -6015,7 +6013,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *Client, 
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypesInfoType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6038,7 +6036,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesInfoType(c *Client, f *Ins
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesInfoType flattens an instance of InspectTemplateInspectConfigCustomInfoTypesInfoType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesInfoType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesInfoType(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypesInfoType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6097,7 +6095,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c *Client,
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDictionary from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDictionary {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesDictionary {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesDictionary{}
@@ -6109,7 +6107,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryMap(c *Client, 
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDictionary)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6117,7 +6115,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryMap(c *Client, 
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionarySlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDictionary from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDictionary {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesDictionary {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesDictionary{}
@@ -6129,7 +6127,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c *Client
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypesDictionary, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6159,7 +6157,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionary(c *Client, f *I
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionary flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDictionary from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDictionary {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypesDictionary {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6170,8 +6168,8 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionary(c *Client, i i
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigCustomInfoTypesDictionary
 	}
-	r.WordList = flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, m["wordList"])
-	r.CloudStoragePath = flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, m["cloudStoragePath"])
+	r.WordList = flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, m["wordList"], res)
+	r.CloudStoragePath = flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, m["cloudStoragePath"], res)
 
 	return r
 }
@@ -6219,7 +6217,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(c 
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList{}
@@ -6231,7 +6229,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap(c *
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6239,7 +6237,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListMap(c *
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList{}
@@ -6251,7 +6249,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(c
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6274,7 +6272,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c *Clie
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6333,7 +6331,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath{}
@@ -6345,7 +6343,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePat
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6353,7 +6351,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePat
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath{}
@@ -6365,7 +6363,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePat
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6388,7 +6386,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath flattens an instance of InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
+func flattenInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6447,7 +6445,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Client, f []
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesRegexMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesRegexMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesRegex {
+func flattenInspectTemplateInspectConfigCustomInfoTypesRegexMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesRegex {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesRegex{}
@@ -6459,7 +6457,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesRegexMap(c *Client, i int
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesRegex)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6467,7 +6465,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesRegexMap(c *Client, i int
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesRegexSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesRegex {
+func flattenInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesRegex {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesRegex{}
@@ -6479,7 +6477,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Client, i i
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypesRegex, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6505,7 +6503,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesRegex(c *Client, f *Inspec
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesRegex flattens an instance of InspectTemplateInspectConfigCustomInfoTypesRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesRegex {
+func flattenInspectTemplateInspectConfigCustomInfoTypesRegex(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypesRegex {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6565,7 +6563,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(c *Clie
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesSurrogateType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesSurrogateType{}
@@ -6577,7 +6575,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap(c *Clien
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesSurrogateType)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6585,7 +6583,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeMap(c *Clien
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesSurrogateType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesSurrogateType{}
@@ -6597,7 +6595,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(c *Cli
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypesSurrogateType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6617,7 +6615,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c *Client, f
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType flattens an instance of InspectTemplateInspectConfigCustomInfoTypesSurrogateType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesSurrogateType(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6675,7 +6673,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c *Client,
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesStoredType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesStoredType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesStoredType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesStoredType{}
@@ -6687,7 +6685,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap(c *Client, 
 
 	items := make(map[string]InspectTemplateInspectConfigCustomInfoTypesStoredType)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6695,7 +6693,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeMap(c *Client, 
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesStoredType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesStoredType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesStoredType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesStoredType{}
@@ -6707,7 +6705,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c *Client
 
 	items := make([]InspectTemplateInspectConfigCustomInfoTypesStoredType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6730,7 +6728,7 @@ func expandInspectTemplateInspectConfigCustomInfoTypesStoredType(c *Client, f *I
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesStoredType flattens an instance of InspectTemplateInspectConfigCustomInfoTypesStoredType from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c *Client, i interface{}) *InspectTemplateInspectConfigCustomInfoTypesStoredType {
+func flattenInspectTemplateInspectConfigCustomInfoTypesStoredType(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigCustomInfoTypesStoredType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6790,7 +6788,7 @@ func expandInspectTemplateInspectConfigRuleSetSlice(c *Client, f []InspectTempla
 
 // flattenInspectTemplateInspectConfigRuleSetMap flattens the contents of InspectTemplateInspectConfigRuleSet from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSet {
+func flattenInspectTemplateInspectConfigRuleSetMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSet {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSet{}
@@ -6802,7 +6800,7 @@ func flattenInspectTemplateInspectConfigRuleSetMap(c *Client, i interface{}) map
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSet)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSet(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSet(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6810,7 +6808,7 @@ func flattenInspectTemplateInspectConfigRuleSetMap(c *Client, i interface{}) map
 
 // flattenInspectTemplateInspectConfigRuleSetSlice flattens the contents of InspectTemplateInspectConfigRuleSet from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSet {
+func flattenInspectTemplateInspectConfigRuleSetSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSet {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSet{}
@@ -6822,7 +6820,7 @@ func flattenInspectTemplateInspectConfigRuleSetSlice(c *Client, i interface{}) [
 
 	items := make([]InspectTemplateInspectConfigRuleSet, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSet(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSet(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6852,7 +6850,7 @@ func expandInspectTemplateInspectConfigRuleSet(c *Client, f *InspectTemplateInsp
 
 // flattenInspectTemplateInspectConfigRuleSet flattens an instance of InspectTemplateInspectConfigRuleSet from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSet(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSet {
+func flattenInspectTemplateInspectConfigRuleSet(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSet {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6863,8 +6861,8 @@ func flattenInspectTemplateInspectConfigRuleSet(c *Client, i interface{}) *Inspe
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigRuleSet
 	}
-	r.InfoTypes = flattenInspectTemplateInspectConfigRuleSetInfoTypesSlice(c, m["infoTypes"])
-	r.Rules = flattenInspectTemplateInspectConfigRuleSetRulesSlice(c, m["rules"])
+	r.InfoTypes = flattenInspectTemplateInspectConfigRuleSetInfoTypesSlice(c, m["infoTypes"], res)
+	r.Rules = flattenInspectTemplateInspectConfigRuleSetRulesSlice(c, m["rules"], res)
 
 	return r
 }
@@ -6912,7 +6910,7 @@ func expandInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client, f []Insp
 
 // flattenInspectTemplateInspectConfigRuleSetInfoTypesMap flattens the contents of InspectTemplateInspectConfigRuleSetInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetInfoTypesMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetInfoTypesMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetInfoTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetInfoTypes{}
@@ -6924,7 +6922,7 @@ func flattenInspectTemplateInspectConfigRuleSetInfoTypesMap(c *Client, i interfa
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetInfoTypes)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetInfoTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetInfoTypes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6932,7 +6930,7 @@ func flattenInspectTemplateInspectConfigRuleSetInfoTypesMap(c *Client, i interfa
 
 // flattenInspectTemplateInspectConfigRuleSetInfoTypesSlice flattens the contents of InspectTemplateInspectConfigRuleSetInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetInfoTypes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetInfoTypes{}
@@ -6944,7 +6942,7 @@ func flattenInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client, i inter
 
 	items := make([]InspectTemplateInspectConfigRuleSetInfoTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetInfoTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetInfoTypes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6967,7 +6965,7 @@ func expandInspectTemplateInspectConfigRuleSetInfoTypes(c *Client, f *InspectTem
 
 // flattenInspectTemplateInspectConfigRuleSetInfoTypes flattens an instance of InspectTemplateInspectConfigRuleSetInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetInfoTypes(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetInfoTypes(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetInfoTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7026,7 +7024,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, f []InspectT
 
 // flattenInspectTemplateInspectConfigRuleSetRulesMap flattens the contents of InspectTemplateInspectConfigRuleSetRules from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRules {
+func flattenInspectTemplateInspectConfigRuleSetRulesMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRules {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRules{}
@@ -7038,7 +7036,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesMap(c *Client, i interface{}
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRules)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRules(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRules(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7046,7 +7044,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesMap(c *Client, i interface{}
 
 // flattenInspectTemplateInspectConfigRuleSetRulesSlice flattens the contents of InspectTemplateInspectConfigRuleSetRules from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRules {
+func flattenInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRules {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRules{}
@@ -7058,7 +7056,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, i interface
 
 	items := make([]InspectTemplateInspectConfigRuleSetRules, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRules(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7088,7 +7086,7 @@ func expandInspectTemplateInspectConfigRuleSetRules(c *Client, f *InspectTemplat
 
 // flattenInspectTemplateInspectConfigRuleSetRules flattens an instance of InspectTemplateInspectConfigRuleSetRules from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRules(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRules {
+func flattenInspectTemplateInspectConfigRuleSetRules(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRules {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7099,8 +7097,8 @@ func flattenInspectTemplateInspectConfigRuleSetRules(c *Client, i interface{}) *
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigRuleSetRules
 	}
-	r.HotwordRule = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, m["hotwordRule"])
-	r.ExclusionRule = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, m["exclusionRule"])
+	r.HotwordRule = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, m["hotwordRule"], res)
+	r.ExclusionRule = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, m["exclusionRule"], res)
 
 	return r
 }
@@ -7148,7 +7146,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *Client, f
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRule from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRule {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRule{}
@@ -7160,7 +7158,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap(c *Client, i 
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRule)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7168,7 +7166,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleMap(c *Client, i 
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRule from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesHotwordRule {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesHotwordRule {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesHotwordRule{}
@@ -7180,7 +7178,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *Client, 
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesHotwordRule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7215,7 +7213,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRule(c *Client, f *Ins
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule flattens an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRule from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesHotwordRule {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesHotwordRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7226,9 +7224,9 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRule(c *Client, i int
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigRuleSetRulesHotwordRule
 	}
-	r.HotwordRegex = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, m["hotwordRegex"])
-	r.Proximity = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, m["proximity"])
-	r.LikelihoodAdjustment = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, m["likelihoodAdjustment"])
+	r.HotwordRegex = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, m["hotwordRegex"], res)
+	r.Proximity = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, m["proximity"], res)
+	r.LikelihoodAdjustment = flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, m["likelihoodAdjustment"], res)
 
 	return r
 }
@@ -7276,7 +7274,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice(
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex{}
@@ -7288,7 +7286,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap(c
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7296,7 +7294,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexMap(c
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex{}
@@ -7308,7 +7306,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7334,7 +7332,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c *Cl
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex flattens an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7394,7 +7392,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(c *
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity{}
@@ -7406,7 +7404,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap(c *C
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7414,7 +7412,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityMap(c *C
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity{}
@@ -7426,7 +7424,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(c 
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7452,7 +7450,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c *Clien
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity flattens an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7512,7 +7510,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustme
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment{}
@@ -7524,7 +7522,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7532,7 +7530,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment{}
@@ -7544,7 +7542,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7570,7 +7568,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustme
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment flattens an instance of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7630,7 +7628,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c *Client,
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRule from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRule {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRule{}
@@ -7642,7 +7640,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap(c *Client, 
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRule)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7650,7 +7648,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMap(c *Client, 
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRule from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRule {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRule {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRule{}
@@ -7662,7 +7660,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c *Client
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesExclusionRule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7700,7 +7698,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRule(c *Client, f *I
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule flattens an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRule from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRule {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesExclusionRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7711,9 +7709,9 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRule(c *Client, i i
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRule
 	}
-	r.Dictionary = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, m["dictionary"])
-	r.Regex = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, m["regex"])
-	r.ExcludeInfoTypes = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, m["excludeInfoTypes"])
+	r.Dictionary = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, m["dictionary"], res)
+	r.Regex = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, m["regex"], res)
+	r.ExcludeInfoTypes = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, m["excludeInfoTypes"], res)
 	r.MatchingType = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum(m["matchingType"])
 
 	return r
@@ -7762,7 +7760,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice(
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary{}
@@ -7774,7 +7772,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap(c
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7782,7 +7780,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryMap(c
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary{}
@@ -7794,7 +7792,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7824,7 +7822,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c *Cl
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary flattens an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7835,8 +7833,8 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(c *C
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary
 	}
-	r.WordList = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, m["wordList"])
-	r.CloudStoragePath = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, m["cloudStoragePath"])
+	r.WordList = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, m["wordList"], res)
+	r.CloudStoragePath = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, m["cloudStoragePath"], res)
 
 	return r
 }
@@ -7884,7 +7882,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordLi
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList{}
@@ -7896,7 +7894,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordL
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7904,7 +7902,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordL
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList{}
@@ -7916,7 +7914,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordL
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7939,7 +7937,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordLi
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList flattens an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7998,7 +7996,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudS
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath{}
@@ -8010,7 +8008,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloud
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8018,7 +8016,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloud
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath{}
@@ -8030,7 +8028,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloud
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8053,7 +8051,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudS
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath flattens an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8112,7 +8110,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(c *Cl
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex{}
@@ -8124,7 +8122,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap(c *Cli
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8132,7 +8130,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexMap(c *Cli
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex{}
@@ -8144,7 +8142,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(c *C
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8170,7 +8168,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c *Client,
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex flattens an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8230,7 +8228,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes{}
@@ -8242,7 +8240,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8250,7 +8248,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes{}
@@ -8262,7 +8260,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8287,7 +8285,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes flattens an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8298,7 +8296,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 	}
-	r.InfoTypes = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c, m["infoTypes"])
+	r.InfoTypes = flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c, m["infoTypes"], res)
 
 	return r
 }
@@ -8346,7 +8344,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes{}
@@ -8358,7 +8356,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 	items := make(map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes)
 	for k, item := range a {
-		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8366,7 +8364,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes{}
@@ -8378,7 +8376,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 	items := make([]InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8401,7 +8399,7 @@ func expandInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes flattens an instance of InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c *Client, i interface{}) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(c *Client, i interface{}, res *InspectTemplate) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8419,7 +8417,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoType
 
 // flattenInspectTemplateInspectConfigMinLikelihoodEnumMap flattens the contents of InspectTemplateInspectConfigMinLikelihoodEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigMinLikelihoodEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigMinLikelihoodEnum {
+func flattenInspectTemplateInspectConfigMinLikelihoodEnumMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigMinLikelihoodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigMinLikelihoodEnum{}
@@ -8439,7 +8437,7 @@ func flattenInspectTemplateInspectConfigMinLikelihoodEnumMap(c *Client, i interf
 
 // flattenInspectTemplateInspectConfigMinLikelihoodEnumSlice flattens the contents of InspectTemplateInspectConfigMinLikelihoodEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigMinLikelihoodEnumSlice(c *Client, i interface{}) []InspectTemplateInspectConfigMinLikelihoodEnum {
+func flattenInspectTemplateInspectConfigMinLikelihoodEnumSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigMinLikelihoodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigMinLikelihoodEnum{}
@@ -8470,7 +8468,7 @@ func flattenInspectTemplateInspectConfigMinLikelihoodEnum(i interface{}) *Inspec
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
+func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum{}
@@ -8490,7 +8488,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumMap(c *Clie
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
+func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnumSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum{}
@@ -8521,7 +8519,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(i interfac
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumMap flattens the contents of InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
+func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum{}
@@ -8541,7 +8539,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumMap(c *C
 
 // flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumSlice flattens the contents of InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumSlice(c *Client, i interface{}) []InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
+func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnumSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum{}
@@ -8572,7 +8570,7 @@ func flattenInspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum(i inter
 
 // flattenInspectTemplateInspectConfigContentOptionsEnumMap flattens the contents of InspectTemplateInspectConfigContentOptionsEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigContentOptionsEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigContentOptionsEnum {
+func flattenInspectTemplateInspectConfigContentOptionsEnumMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigContentOptionsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigContentOptionsEnum{}
@@ -8592,7 +8590,7 @@ func flattenInspectTemplateInspectConfigContentOptionsEnumMap(c *Client, i inter
 
 // flattenInspectTemplateInspectConfigContentOptionsEnumSlice flattens the contents of InspectTemplateInspectConfigContentOptionsEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigContentOptionsEnumSlice(c *Client, i interface{}) []InspectTemplateInspectConfigContentOptionsEnum {
+func flattenInspectTemplateInspectConfigContentOptionsEnumSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigContentOptionsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigContentOptionsEnum{}
@@ -8623,7 +8621,7 @@ func flattenInspectTemplateInspectConfigContentOptionsEnum(i interface{}) *Inspe
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum{}
@@ -8643,7 +8641,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 
 // flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
+func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnumSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum{}
@@ -8674,7 +8672,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustm
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumMap flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumMap(c *Client, i interface{}) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumMap(c *Client, i interface{}, res *InspectTemplate) map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum{}
@@ -8694,7 +8692,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnu
 
 // flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumSlice flattens the contents of InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum from a JSON
 // response object.
-func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumSlice(c *Client, i interface{}) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum {
+func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnumSlice(c *Client, i interface{}, res *InspectTemplate) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnum{}
@@ -8728,7 +8726,7 @@ func flattenInspectTemplateInspectConfigRuleSetRulesExclusionRuleMatchingTypeEnu
 // identity).  This is useful in extracting the element from a List call.
 func (r *InspectTemplate) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInspectTemplate(b, c)
+		cr, err := unmarshalInspectTemplate(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

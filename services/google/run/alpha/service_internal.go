@@ -437,7 +437,7 @@ func (c *Client) listService(ctx context.Context, r *Service, pageToken string, 
 
 	var l []*Service
 	for _, v := range m.Services {
-		res, err := unmarshalMapService(v, c)
+		res, err := unmarshalMapService(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -4430,17 +4430,17 @@ func (r *Service) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalService decodes JSON responses into the Service resource schema.
-func unmarshalService(b []byte, c *Client) (*Service, error) {
+func unmarshalService(b []byte, c *Client, res *Service) (*Service, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapService(m, c)
+	return unmarshalMapService(m, c, res)
 }
 
-func unmarshalMapService(m map[string]interface{}, c *Client) (*Service, error) {
+func unmarshalMapService(m map[string]interface{}, c *Client, res *Service) (*Service, error) {
 
-	flattened := flattenService(c, m)
+	flattened := flattenService(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -4506,7 +4506,7 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 
 // flattenService flattens Service from a JSON request object into the
 // Service type.
-func flattenService(c *Client, i interface{}) *Service {
+func flattenService(c *Client, i interface{}, res *Service) *Service {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4515,37 +4515,37 @@ func flattenService(c *Client, i interface{}) *Service {
 		return nil
 	}
 
-	res := &Service{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.Generation = dcl.FlattenInteger(m["generation"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	res.ExpireTime = dcl.FlattenString(m["expireTime"])
-	res.Creator = dcl.FlattenString(m["creator"])
-	res.LastModifier = dcl.FlattenString(m["lastModifier"])
-	res.Client = dcl.FlattenString(m["client"])
-	res.ClientVersion = dcl.FlattenString(m["clientVersion"])
-	res.Ingress = flattenServiceIngressEnum(m["ingress"])
-	res.LaunchStage = flattenServiceLaunchStageEnum(m["launchStage"])
-	res.BinaryAuthorization = flattenServiceBinaryAuthorization(c, m["binaryAuthorization"])
-	res.Template = flattenServiceTemplate(c, m["template"])
-	res.Traffic = flattenServiceTrafficSlice(c, m["traffic"])
-	res.TerminalCondition = flattenServiceGooglecloudrunopv2Condition(c, m["terminalCondition"])
-	res.LatestReadyRevision = dcl.FlattenString(m["latestReadyRevision"])
-	res.LatestCreatedRevision = dcl.FlattenString(m["latestCreatedRevision"])
-	res.TrafficStatuses = flattenServiceTrafficStatusesSlice(c, m["trafficStatuses"])
-	res.Uri = dcl.FlattenString(m["uri"])
-	res.Reconciling = dcl.FlattenBool(m["reconciling"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Service{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.Generation = dcl.FlattenInteger(m["generation"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	resultRes.ExpireTime = dcl.FlattenString(m["expireTime"])
+	resultRes.Creator = dcl.FlattenString(m["creator"])
+	resultRes.LastModifier = dcl.FlattenString(m["lastModifier"])
+	resultRes.Client = dcl.FlattenString(m["client"])
+	resultRes.ClientVersion = dcl.FlattenString(m["clientVersion"])
+	resultRes.Ingress = flattenServiceIngressEnum(m["ingress"])
+	resultRes.LaunchStage = flattenServiceLaunchStageEnum(m["launchStage"])
+	resultRes.BinaryAuthorization = flattenServiceBinaryAuthorization(c, m["binaryAuthorization"], res)
+	resultRes.Template = flattenServiceTemplate(c, m["template"], res)
+	resultRes.Traffic = flattenServiceTrafficSlice(c, m["traffic"], res)
+	resultRes.TerminalCondition = flattenServiceGooglecloudrunopv2Condition(c, m["terminalCondition"], res)
+	resultRes.LatestReadyRevision = dcl.FlattenString(m["latestReadyRevision"])
+	resultRes.LatestCreatedRevision = dcl.FlattenString(m["latestCreatedRevision"])
+	resultRes.TrafficStatuses = flattenServiceTrafficStatusesSlice(c, m["trafficStatuses"], res)
+	resultRes.Uri = dcl.FlattenString(m["uri"])
+	resultRes.Reconciling = dcl.FlattenBool(m["reconciling"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandServiceBinaryAuthorizationMap expands the contents of ServiceBinaryAuthorization into a JSON
@@ -4591,7 +4591,7 @@ func expandServiceBinaryAuthorizationSlice(c *Client, f []ServiceBinaryAuthoriza
 
 // flattenServiceBinaryAuthorizationMap flattens the contents of ServiceBinaryAuthorization from a JSON
 // response object.
-func flattenServiceBinaryAuthorizationMap(c *Client, i interface{}) map[string]ServiceBinaryAuthorization {
+func flattenServiceBinaryAuthorizationMap(c *Client, i interface{}, res *Service) map[string]ServiceBinaryAuthorization {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceBinaryAuthorization{}
@@ -4603,7 +4603,7 @@ func flattenServiceBinaryAuthorizationMap(c *Client, i interface{}) map[string]S
 
 	items := make(map[string]ServiceBinaryAuthorization)
 	for k, item := range a {
-		items[k] = *flattenServiceBinaryAuthorization(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceBinaryAuthorization(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4611,7 +4611,7 @@ func flattenServiceBinaryAuthorizationMap(c *Client, i interface{}) map[string]S
 
 // flattenServiceBinaryAuthorizationSlice flattens the contents of ServiceBinaryAuthorization from a JSON
 // response object.
-func flattenServiceBinaryAuthorizationSlice(c *Client, i interface{}) []ServiceBinaryAuthorization {
+func flattenServiceBinaryAuthorizationSlice(c *Client, i interface{}, res *Service) []ServiceBinaryAuthorization {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceBinaryAuthorization{}
@@ -4623,7 +4623,7 @@ func flattenServiceBinaryAuthorizationSlice(c *Client, i interface{}) []ServiceB
 
 	items := make([]ServiceBinaryAuthorization, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceBinaryAuthorization(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceBinaryAuthorization(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4649,7 +4649,7 @@ func expandServiceBinaryAuthorization(c *Client, f *ServiceBinaryAuthorization, 
 
 // flattenServiceBinaryAuthorization flattens an instance of ServiceBinaryAuthorization from a JSON
 // response object.
-func flattenServiceBinaryAuthorization(c *Client, i interface{}) *ServiceBinaryAuthorization {
+func flattenServiceBinaryAuthorization(c *Client, i interface{}, res *Service) *ServiceBinaryAuthorization {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4709,7 +4709,7 @@ func expandServiceTemplateSlice(c *Client, f []ServiceTemplate, res *Service) ([
 
 // flattenServiceTemplateMap flattens the contents of ServiceTemplate from a JSON
 // response object.
-func flattenServiceTemplateMap(c *Client, i interface{}) map[string]ServiceTemplate {
+func flattenServiceTemplateMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplate{}
@@ -4721,7 +4721,7 @@ func flattenServiceTemplateMap(c *Client, i interface{}) map[string]ServiceTempl
 
 	items := make(map[string]ServiceTemplate)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplate(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4729,7 +4729,7 @@ func flattenServiceTemplateMap(c *Client, i interface{}) map[string]ServiceTempl
 
 // flattenServiceTemplateSlice flattens the contents of ServiceTemplate from a JSON
 // response object.
-func flattenServiceTemplateSlice(c *Client, i interface{}) []ServiceTemplate {
+func flattenServiceTemplateSlice(c *Client, i interface{}, res *Service) []ServiceTemplate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplate{}
@@ -4741,7 +4741,7 @@ func flattenServiceTemplateSlice(c *Client, i interface{}) []ServiceTemplate {
 
 	items := make([]ServiceTemplate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplate(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4805,7 +4805,7 @@ func expandServiceTemplate(c *Client, f *ServiceTemplate, res *Service) (map[str
 
 // flattenServiceTemplate flattens an instance of ServiceTemplate from a JSON
 // response object.
-func flattenServiceTemplate(c *Client, i interface{}) *ServiceTemplate {
+func flattenServiceTemplate(c *Client, i interface{}, res *Service) *ServiceTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4819,13 +4819,13 @@ func flattenServiceTemplate(c *Client, i interface{}) *ServiceTemplate {
 	r.Revision = dcl.FlattenString(m["revision"])
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
-	r.Scaling = flattenServiceTemplateScaling(c, m["scaling"])
-	r.VPCAccess = flattenServiceTemplateVPCAccess(c, m["vpcAccess"])
+	r.Scaling = flattenServiceTemplateScaling(c, m["scaling"], res)
+	r.VPCAccess = flattenServiceTemplateVPCAccess(c, m["vpcAccess"], res)
 	r.ContainerConcurrency = dcl.FlattenInteger(m["containerConcurrency"])
 	r.Timeout = dcl.FlattenString(m["timeout"])
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
-	r.Containers = flattenServiceTemplateContainersSlice(c, m["containers"])
-	r.Volumes = flattenServiceTemplateVolumesSlice(c, m["volumes"])
+	r.Containers = flattenServiceTemplateContainersSlice(c, m["containers"], res)
+	r.Volumes = flattenServiceTemplateVolumesSlice(c, m["volumes"], res)
 	r.Confidential = dcl.FlattenBool(m["confidential"])
 	r.ExecutionEnvironment = flattenServiceTemplateExecutionEnvironmentEnum(m["executionEnvironment"])
 
@@ -4875,7 +4875,7 @@ func expandServiceTemplateScalingSlice(c *Client, f []ServiceTemplateScaling, re
 
 // flattenServiceTemplateScalingMap flattens the contents of ServiceTemplateScaling from a JSON
 // response object.
-func flattenServiceTemplateScalingMap(c *Client, i interface{}) map[string]ServiceTemplateScaling {
+func flattenServiceTemplateScalingMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateScaling {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateScaling{}
@@ -4887,7 +4887,7 @@ func flattenServiceTemplateScalingMap(c *Client, i interface{}) map[string]Servi
 
 	items := make(map[string]ServiceTemplateScaling)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateScaling(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateScaling(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4895,7 +4895,7 @@ func flattenServiceTemplateScalingMap(c *Client, i interface{}) map[string]Servi
 
 // flattenServiceTemplateScalingSlice flattens the contents of ServiceTemplateScaling from a JSON
 // response object.
-func flattenServiceTemplateScalingSlice(c *Client, i interface{}) []ServiceTemplateScaling {
+func flattenServiceTemplateScalingSlice(c *Client, i interface{}, res *Service) []ServiceTemplateScaling {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateScaling{}
@@ -4907,7 +4907,7 @@ func flattenServiceTemplateScalingSlice(c *Client, i interface{}) []ServiceTempl
 
 	items := make([]ServiceTemplateScaling, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateScaling(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateScaling(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4933,7 +4933,7 @@ func expandServiceTemplateScaling(c *Client, f *ServiceTemplateScaling, res *Ser
 
 // flattenServiceTemplateScaling flattens an instance of ServiceTemplateScaling from a JSON
 // response object.
-func flattenServiceTemplateScaling(c *Client, i interface{}) *ServiceTemplateScaling {
+func flattenServiceTemplateScaling(c *Client, i interface{}, res *Service) *ServiceTemplateScaling {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4993,7 +4993,7 @@ func expandServiceTemplateVPCAccessSlice(c *Client, f []ServiceTemplateVPCAccess
 
 // flattenServiceTemplateVPCAccessMap flattens the contents of ServiceTemplateVPCAccess from a JSON
 // response object.
-func flattenServiceTemplateVPCAccessMap(c *Client, i interface{}) map[string]ServiceTemplateVPCAccess {
+func flattenServiceTemplateVPCAccessMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateVPCAccess {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateVPCAccess{}
@@ -5005,7 +5005,7 @@ func flattenServiceTemplateVPCAccessMap(c *Client, i interface{}) map[string]Ser
 
 	items := make(map[string]ServiceTemplateVPCAccess)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateVPCAccess(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateVPCAccess(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5013,7 +5013,7 @@ func flattenServiceTemplateVPCAccessMap(c *Client, i interface{}) map[string]Ser
 
 // flattenServiceTemplateVPCAccessSlice flattens the contents of ServiceTemplateVPCAccess from a JSON
 // response object.
-func flattenServiceTemplateVPCAccessSlice(c *Client, i interface{}) []ServiceTemplateVPCAccess {
+func flattenServiceTemplateVPCAccessSlice(c *Client, i interface{}, res *Service) []ServiceTemplateVPCAccess {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateVPCAccess{}
@@ -5025,7 +5025,7 @@ func flattenServiceTemplateVPCAccessSlice(c *Client, i interface{}) []ServiceTem
 
 	items := make([]ServiceTemplateVPCAccess, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateVPCAccess(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateVPCAccess(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5051,7 +5051,7 @@ func expandServiceTemplateVPCAccess(c *Client, f *ServiceTemplateVPCAccess, res 
 
 // flattenServiceTemplateVPCAccess flattens an instance of ServiceTemplateVPCAccess from a JSON
 // response object.
-func flattenServiceTemplateVPCAccess(c *Client, i interface{}) *ServiceTemplateVPCAccess {
+func flattenServiceTemplateVPCAccess(c *Client, i interface{}, res *Service) *ServiceTemplateVPCAccess {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5111,7 +5111,7 @@ func expandServiceTemplateContainersSlice(c *Client, f []ServiceTemplateContaine
 
 // flattenServiceTemplateContainersMap flattens the contents of ServiceTemplateContainers from a JSON
 // response object.
-func flattenServiceTemplateContainersMap(c *Client, i interface{}) map[string]ServiceTemplateContainers {
+func flattenServiceTemplateContainersMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateContainers {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateContainers{}
@@ -5123,7 +5123,7 @@ func flattenServiceTemplateContainersMap(c *Client, i interface{}) map[string]Se
 
 	items := make(map[string]ServiceTemplateContainers)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateContainers(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateContainers(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5131,7 +5131,7 @@ func flattenServiceTemplateContainersMap(c *Client, i interface{}) map[string]Se
 
 // flattenServiceTemplateContainersSlice flattens the contents of ServiceTemplateContainers from a JSON
 // response object.
-func flattenServiceTemplateContainersSlice(c *Client, i interface{}) []ServiceTemplateContainers {
+func flattenServiceTemplateContainersSlice(c *Client, i interface{}, res *Service) []ServiceTemplateContainers {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateContainers{}
@@ -5143,7 +5143,7 @@ func flattenServiceTemplateContainersSlice(c *Client, i interface{}) []ServiceTe
 
 	items := make([]ServiceTemplateContainers, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateContainers(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateContainers(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5195,7 +5195,7 @@ func expandServiceTemplateContainers(c *Client, f *ServiceTemplateContainers, re
 
 // flattenServiceTemplateContainers flattens an instance of ServiceTemplateContainers from a JSON
 // response object.
-func flattenServiceTemplateContainers(c *Client, i interface{}) *ServiceTemplateContainers {
+func flattenServiceTemplateContainers(c *Client, i interface{}, res *Service) *ServiceTemplateContainers {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5210,10 +5210,10 @@ func flattenServiceTemplateContainers(c *Client, i interface{}) *ServiceTemplate
 	r.Image = dcl.FlattenString(m["image"])
 	r.Command = dcl.FlattenStringSlice(m["command"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
-	r.Env = flattenServiceTemplateContainersEnvSlice(c, m["env"])
-	r.Resources = flattenServiceTemplateContainersResources(c, m["resources"])
-	r.Ports = flattenServiceTemplateContainersPortsSlice(c, m["ports"])
-	r.VolumeMounts = flattenServiceTemplateContainersVolumeMountsSlice(c, m["volumeMounts"])
+	r.Env = flattenServiceTemplateContainersEnvSlice(c, m["env"], res)
+	r.Resources = flattenServiceTemplateContainersResources(c, m["resources"], res)
+	r.Ports = flattenServiceTemplateContainersPortsSlice(c, m["ports"], res)
+	r.VolumeMounts = flattenServiceTemplateContainersVolumeMountsSlice(c, m["volumeMounts"], res)
 
 	return r
 }
@@ -5261,7 +5261,7 @@ func expandServiceTemplateContainersEnvSlice(c *Client, f []ServiceTemplateConta
 
 // flattenServiceTemplateContainersEnvMap flattens the contents of ServiceTemplateContainersEnv from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvMap(c *Client, i interface{}) map[string]ServiceTemplateContainersEnv {
+func flattenServiceTemplateContainersEnvMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateContainersEnv {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateContainersEnv{}
@@ -5273,7 +5273,7 @@ func flattenServiceTemplateContainersEnvMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ServiceTemplateContainersEnv)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateContainersEnv(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateContainersEnv(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5281,7 +5281,7 @@ func flattenServiceTemplateContainersEnvMap(c *Client, i interface{}) map[string
 
 // flattenServiceTemplateContainersEnvSlice flattens the contents of ServiceTemplateContainersEnv from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvSlice(c *Client, i interface{}) []ServiceTemplateContainersEnv {
+func flattenServiceTemplateContainersEnvSlice(c *Client, i interface{}, res *Service) []ServiceTemplateContainersEnv {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateContainersEnv{}
@@ -5293,7 +5293,7 @@ func flattenServiceTemplateContainersEnvSlice(c *Client, i interface{}) []Servic
 
 	items := make([]ServiceTemplateContainersEnv, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateContainersEnv(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateContainersEnv(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5324,7 +5324,7 @@ func expandServiceTemplateContainersEnv(c *Client, f *ServiceTemplateContainersE
 
 // flattenServiceTemplateContainersEnv flattens an instance of ServiceTemplateContainersEnv from a JSON
 // response object.
-func flattenServiceTemplateContainersEnv(c *Client, i interface{}) *ServiceTemplateContainersEnv {
+func flattenServiceTemplateContainersEnv(c *Client, i interface{}, res *Service) *ServiceTemplateContainersEnv {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5337,7 +5337,7 @@ func flattenServiceTemplateContainersEnv(c *Client, i interface{}) *ServiceTempl
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
-	r.ValueSource = flattenServiceTemplateContainersEnvValueSource(c, m["valueSource"])
+	r.ValueSource = flattenServiceTemplateContainersEnvValueSource(c, m["valueSource"], res)
 
 	return r
 }
@@ -5385,7 +5385,7 @@ func expandServiceTemplateContainersEnvValueSourceSlice(c *Client, f []ServiceTe
 
 // flattenServiceTemplateContainersEnvValueSourceMap flattens the contents of ServiceTemplateContainersEnvValueSource from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvValueSourceMap(c *Client, i interface{}) map[string]ServiceTemplateContainersEnvValueSource {
+func flattenServiceTemplateContainersEnvValueSourceMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateContainersEnvValueSource {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateContainersEnvValueSource{}
@@ -5397,7 +5397,7 @@ func flattenServiceTemplateContainersEnvValueSourceMap(c *Client, i interface{})
 
 	items := make(map[string]ServiceTemplateContainersEnvValueSource)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateContainersEnvValueSource(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateContainersEnvValueSource(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5405,7 +5405,7 @@ func flattenServiceTemplateContainersEnvValueSourceMap(c *Client, i interface{})
 
 // flattenServiceTemplateContainersEnvValueSourceSlice flattens the contents of ServiceTemplateContainersEnvValueSource from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvValueSourceSlice(c *Client, i interface{}) []ServiceTemplateContainersEnvValueSource {
+func flattenServiceTemplateContainersEnvValueSourceSlice(c *Client, i interface{}, res *Service) []ServiceTemplateContainersEnvValueSource {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateContainersEnvValueSource{}
@@ -5417,7 +5417,7 @@ func flattenServiceTemplateContainersEnvValueSourceSlice(c *Client, i interface{
 
 	items := make([]ServiceTemplateContainersEnvValueSource, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateContainersEnvValueSource(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateContainersEnvValueSource(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5442,7 +5442,7 @@ func expandServiceTemplateContainersEnvValueSource(c *Client, f *ServiceTemplate
 
 // flattenServiceTemplateContainersEnvValueSource flattens an instance of ServiceTemplateContainersEnvValueSource from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvValueSource(c *Client, i interface{}) *ServiceTemplateContainersEnvValueSource {
+func flattenServiceTemplateContainersEnvValueSource(c *Client, i interface{}, res *Service) *ServiceTemplateContainersEnvValueSource {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5453,7 +5453,7 @@ func flattenServiceTemplateContainersEnvValueSource(c *Client, i interface{}) *S
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceTemplateContainersEnvValueSource
 	}
-	r.SecretKeyRef = flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c, m["secretKeyRef"])
+	r.SecretKeyRef = flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c, m["secretKeyRef"], res)
 
 	return r
 }
@@ -5501,7 +5501,7 @@ func expandServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *Client, f
 
 // flattenServiceTemplateContainersEnvValueSourceSecretKeyRefMap flattens the contents of ServiceTemplateContainersEnvValueSourceSecretKeyRef from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefMap(c *Client, i interface{}) map[string]ServiceTemplateContainersEnvValueSourceSecretKeyRef {
+func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateContainersEnvValueSourceSecretKeyRef {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateContainersEnvValueSourceSecretKeyRef{}
@@ -5513,7 +5513,7 @@ func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefMap(c *Client, i 
 
 	items := make(map[string]ServiceTemplateContainersEnvValueSourceSecretKeyRef)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5521,7 +5521,7 @@ func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefMap(c *Client, i 
 
 // flattenServiceTemplateContainersEnvValueSourceSecretKeyRefSlice flattens the contents of ServiceTemplateContainersEnvValueSourceSecretKeyRef from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *Client, i interface{}) []ServiceTemplateContainersEnvValueSourceSecretKeyRef {
+func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *Client, i interface{}, res *Service) []ServiceTemplateContainersEnvValueSourceSecretKeyRef {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateContainersEnvValueSourceSecretKeyRef{}
@@ -5533,7 +5533,7 @@ func flattenServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *Client, 
 
 	items := make([]ServiceTemplateContainersEnvValueSourceSecretKeyRef, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5563,7 +5563,7 @@ func expandServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Client, f *Ser
 
 // flattenServiceTemplateContainersEnvValueSourceSecretKeyRef flattens an instance of ServiceTemplateContainersEnvValueSourceSecretKeyRef from a JSON
 // response object.
-func flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Client, i interface{}) *ServiceTemplateContainersEnvValueSourceSecretKeyRef {
+func flattenServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Client, i interface{}, res *Service) *ServiceTemplateContainersEnvValueSourceSecretKeyRef {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5623,7 +5623,7 @@ func expandServiceTemplateContainersResourcesSlice(c *Client, f []ServiceTemplat
 
 // flattenServiceTemplateContainersResourcesMap flattens the contents of ServiceTemplateContainersResources from a JSON
 // response object.
-func flattenServiceTemplateContainersResourcesMap(c *Client, i interface{}) map[string]ServiceTemplateContainersResources {
+func flattenServiceTemplateContainersResourcesMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateContainersResources {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateContainersResources{}
@@ -5635,7 +5635,7 @@ func flattenServiceTemplateContainersResourcesMap(c *Client, i interface{}) map[
 
 	items := make(map[string]ServiceTemplateContainersResources)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateContainersResources(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateContainersResources(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5643,7 +5643,7 @@ func flattenServiceTemplateContainersResourcesMap(c *Client, i interface{}) map[
 
 // flattenServiceTemplateContainersResourcesSlice flattens the contents of ServiceTemplateContainersResources from a JSON
 // response object.
-func flattenServiceTemplateContainersResourcesSlice(c *Client, i interface{}) []ServiceTemplateContainersResources {
+func flattenServiceTemplateContainersResourcesSlice(c *Client, i interface{}, res *Service) []ServiceTemplateContainersResources {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateContainersResources{}
@@ -5655,7 +5655,7 @@ func flattenServiceTemplateContainersResourcesSlice(c *Client, i interface{}) []
 
 	items := make([]ServiceTemplateContainersResources, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateContainersResources(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateContainersResources(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5681,7 +5681,7 @@ func expandServiceTemplateContainersResources(c *Client, f *ServiceTemplateConta
 
 // flattenServiceTemplateContainersResources flattens an instance of ServiceTemplateContainersResources from a JSON
 // response object.
-func flattenServiceTemplateContainersResources(c *Client, i interface{}) *ServiceTemplateContainersResources {
+func flattenServiceTemplateContainersResources(c *Client, i interface{}, res *Service) *ServiceTemplateContainersResources {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5741,7 +5741,7 @@ func expandServiceTemplateContainersPortsSlice(c *Client, f []ServiceTemplateCon
 
 // flattenServiceTemplateContainersPortsMap flattens the contents of ServiceTemplateContainersPorts from a JSON
 // response object.
-func flattenServiceTemplateContainersPortsMap(c *Client, i interface{}) map[string]ServiceTemplateContainersPorts {
+func flattenServiceTemplateContainersPortsMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateContainersPorts {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateContainersPorts{}
@@ -5753,7 +5753,7 @@ func flattenServiceTemplateContainersPortsMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]ServiceTemplateContainersPorts)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateContainersPorts(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateContainersPorts(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5761,7 +5761,7 @@ func flattenServiceTemplateContainersPortsMap(c *Client, i interface{}) map[stri
 
 // flattenServiceTemplateContainersPortsSlice flattens the contents of ServiceTemplateContainersPorts from a JSON
 // response object.
-func flattenServiceTemplateContainersPortsSlice(c *Client, i interface{}) []ServiceTemplateContainersPorts {
+func flattenServiceTemplateContainersPortsSlice(c *Client, i interface{}, res *Service) []ServiceTemplateContainersPorts {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateContainersPorts{}
@@ -5773,7 +5773,7 @@ func flattenServiceTemplateContainersPortsSlice(c *Client, i interface{}) []Serv
 
 	items := make([]ServiceTemplateContainersPorts, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateContainersPorts(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateContainersPorts(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5799,7 +5799,7 @@ func expandServiceTemplateContainersPorts(c *Client, f *ServiceTemplateContainer
 
 // flattenServiceTemplateContainersPorts flattens an instance of ServiceTemplateContainersPorts from a JSON
 // response object.
-func flattenServiceTemplateContainersPorts(c *Client, i interface{}) *ServiceTemplateContainersPorts {
+func flattenServiceTemplateContainersPorts(c *Client, i interface{}, res *Service) *ServiceTemplateContainersPorts {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5859,7 +5859,7 @@ func expandServiceTemplateContainersVolumeMountsSlice(c *Client, f []ServiceTemp
 
 // flattenServiceTemplateContainersVolumeMountsMap flattens the contents of ServiceTemplateContainersVolumeMounts from a JSON
 // response object.
-func flattenServiceTemplateContainersVolumeMountsMap(c *Client, i interface{}) map[string]ServiceTemplateContainersVolumeMounts {
+func flattenServiceTemplateContainersVolumeMountsMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateContainersVolumeMounts {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateContainersVolumeMounts{}
@@ -5871,7 +5871,7 @@ func flattenServiceTemplateContainersVolumeMountsMap(c *Client, i interface{}) m
 
 	items := make(map[string]ServiceTemplateContainersVolumeMounts)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateContainersVolumeMounts(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateContainersVolumeMounts(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5879,7 +5879,7 @@ func flattenServiceTemplateContainersVolumeMountsMap(c *Client, i interface{}) m
 
 // flattenServiceTemplateContainersVolumeMountsSlice flattens the contents of ServiceTemplateContainersVolumeMounts from a JSON
 // response object.
-func flattenServiceTemplateContainersVolumeMountsSlice(c *Client, i interface{}) []ServiceTemplateContainersVolumeMounts {
+func flattenServiceTemplateContainersVolumeMountsSlice(c *Client, i interface{}, res *Service) []ServiceTemplateContainersVolumeMounts {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateContainersVolumeMounts{}
@@ -5891,7 +5891,7 @@ func flattenServiceTemplateContainersVolumeMountsSlice(c *Client, i interface{})
 
 	items := make([]ServiceTemplateContainersVolumeMounts, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateContainersVolumeMounts(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateContainersVolumeMounts(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5917,7 +5917,7 @@ func expandServiceTemplateContainersVolumeMounts(c *Client, f *ServiceTemplateCo
 
 // flattenServiceTemplateContainersVolumeMounts flattens an instance of ServiceTemplateContainersVolumeMounts from a JSON
 // response object.
-func flattenServiceTemplateContainersVolumeMounts(c *Client, i interface{}) *ServiceTemplateContainersVolumeMounts {
+func flattenServiceTemplateContainersVolumeMounts(c *Client, i interface{}, res *Service) *ServiceTemplateContainersVolumeMounts {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5977,7 +5977,7 @@ func expandServiceTemplateVolumesSlice(c *Client, f []ServiceTemplateVolumes, re
 
 // flattenServiceTemplateVolumesMap flattens the contents of ServiceTemplateVolumes from a JSON
 // response object.
-func flattenServiceTemplateVolumesMap(c *Client, i interface{}) map[string]ServiceTemplateVolumes {
+func flattenServiceTemplateVolumesMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateVolumes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateVolumes{}
@@ -5989,7 +5989,7 @@ func flattenServiceTemplateVolumesMap(c *Client, i interface{}) map[string]Servi
 
 	items := make(map[string]ServiceTemplateVolumes)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateVolumes(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateVolumes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5997,7 +5997,7 @@ func flattenServiceTemplateVolumesMap(c *Client, i interface{}) map[string]Servi
 
 // flattenServiceTemplateVolumesSlice flattens the contents of ServiceTemplateVolumes from a JSON
 // response object.
-func flattenServiceTemplateVolumesSlice(c *Client, i interface{}) []ServiceTemplateVolumes {
+func flattenServiceTemplateVolumesSlice(c *Client, i interface{}, res *Service) []ServiceTemplateVolumes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateVolumes{}
@@ -6009,7 +6009,7 @@ func flattenServiceTemplateVolumesSlice(c *Client, i interface{}) []ServiceTempl
 
 	items := make([]ServiceTemplateVolumes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateVolumes(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateVolumes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6042,7 +6042,7 @@ func expandServiceTemplateVolumes(c *Client, f *ServiceTemplateVolumes, res *Ser
 
 // flattenServiceTemplateVolumes flattens an instance of ServiceTemplateVolumes from a JSON
 // response object.
-func flattenServiceTemplateVolumes(c *Client, i interface{}) *ServiceTemplateVolumes {
+func flattenServiceTemplateVolumes(c *Client, i interface{}, res *Service) *ServiceTemplateVolumes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6054,8 +6054,8 @@ func flattenServiceTemplateVolumes(c *Client, i interface{}) *ServiceTemplateVol
 		return EmptyServiceTemplateVolumes
 	}
 	r.Name = dcl.FlattenString(m["name"])
-	r.Secret = flattenServiceTemplateVolumesSecret(c, m["secret"])
-	r.CloudSqlInstance = flattenServiceTemplateVolumesCloudSqlInstance(c, m["cloudSqlInstance"])
+	r.Secret = flattenServiceTemplateVolumesSecret(c, m["secret"], res)
+	r.CloudSqlInstance = flattenServiceTemplateVolumesCloudSqlInstance(c, m["cloudSqlInstance"], res)
 
 	return r
 }
@@ -6103,7 +6103,7 @@ func expandServiceTemplateVolumesSecretSlice(c *Client, f []ServiceTemplateVolum
 
 // flattenServiceTemplateVolumesSecretMap flattens the contents of ServiceTemplateVolumesSecret from a JSON
 // response object.
-func flattenServiceTemplateVolumesSecretMap(c *Client, i interface{}) map[string]ServiceTemplateVolumesSecret {
+func flattenServiceTemplateVolumesSecretMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateVolumesSecret {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateVolumesSecret{}
@@ -6115,7 +6115,7 @@ func flattenServiceTemplateVolumesSecretMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ServiceTemplateVolumesSecret)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateVolumesSecret(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateVolumesSecret(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6123,7 +6123,7 @@ func flattenServiceTemplateVolumesSecretMap(c *Client, i interface{}) map[string
 
 // flattenServiceTemplateVolumesSecretSlice flattens the contents of ServiceTemplateVolumesSecret from a JSON
 // response object.
-func flattenServiceTemplateVolumesSecretSlice(c *Client, i interface{}) []ServiceTemplateVolumesSecret {
+func flattenServiceTemplateVolumesSecretSlice(c *Client, i interface{}, res *Service) []ServiceTemplateVolumesSecret {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateVolumesSecret{}
@@ -6135,7 +6135,7 @@ func flattenServiceTemplateVolumesSecretSlice(c *Client, i interface{}) []Servic
 
 	items := make([]ServiceTemplateVolumesSecret, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateVolumesSecret(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateVolumesSecret(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6166,7 +6166,7 @@ func expandServiceTemplateVolumesSecret(c *Client, f *ServiceTemplateVolumesSecr
 
 // flattenServiceTemplateVolumesSecret flattens an instance of ServiceTemplateVolumesSecret from a JSON
 // response object.
-func flattenServiceTemplateVolumesSecret(c *Client, i interface{}) *ServiceTemplateVolumesSecret {
+func flattenServiceTemplateVolumesSecret(c *Client, i interface{}, res *Service) *ServiceTemplateVolumesSecret {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6178,7 +6178,7 @@ func flattenServiceTemplateVolumesSecret(c *Client, i interface{}) *ServiceTempl
 		return EmptyServiceTemplateVolumesSecret
 	}
 	r.Secret = dcl.FlattenString(m["secret"])
-	r.Items = flattenServiceTemplateVolumesSecretItemsSlice(c, m["items"])
+	r.Items = flattenServiceTemplateVolumesSecretItemsSlice(c, m["items"], res)
 	r.DefaultMode = dcl.FlattenInteger(m["defaultMode"])
 
 	return r
@@ -6227,7 +6227,7 @@ func expandServiceTemplateVolumesSecretItemsSlice(c *Client, f []ServiceTemplate
 
 // flattenServiceTemplateVolumesSecretItemsMap flattens the contents of ServiceTemplateVolumesSecretItems from a JSON
 // response object.
-func flattenServiceTemplateVolumesSecretItemsMap(c *Client, i interface{}) map[string]ServiceTemplateVolumesSecretItems {
+func flattenServiceTemplateVolumesSecretItemsMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateVolumesSecretItems {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateVolumesSecretItems{}
@@ -6239,7 +6239,7 @@ func flattenServiceTemplateVolumesSecretItemsMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]ServiceTemplateVolumesSecretItems)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateVolumesSecretItems(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateVolumesSecretItems(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6247,7 +6247,7 @@ func flattenServiceTemplateVolumesSecretItemsMap(c *Client, i interface{}) map[s
 
 // flattenServiceTemplateVolumesSecretItemsSlice flattens the contents of ServiceTemplateVolumesSecretItems from a JSON
 // response object.
-func flattenServiceTemplateVolumesSecretItemsSlice(c *Client, i interface{}) []ServiceTemplateVolumesSecretItems {
+func flattenServiceTemplateVolumesSecretItemsSlice(c *Client, i interface{}, res *Service) []ServiceTemplateVolumesSecretItems {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateVolumesSecretItems{}
@@ -6259,7 +6259,7 @@ func flattenServiceTemplateVolumesSecretItemsSlice(c *Client, i interface{}) []S
 
 	items := make([]ServiceTemplateVolumesSecretItems, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateVolumesSecretItems(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateVolumesSecretItems(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6290,7 +6290,7 @@ func expandServiceTemplateVolumesSecretItems(c *Client, f *ServiceTemplateVolume
 
 // flattenServiceTemplateVolumesSecretItems flattens an instance of ServiceTemplateVolumesSecretItems from a JSON
 // response object.
-func flattenServiceTemplateVolumesSecretItems(c *Client, i interface{}) *ServiceTemplateVolumesSecretItems {
+func flattenServiceTemplateVolumesSecretItems(c *Client, i interface{}, res *Service) *ServiceTemplateVolumesSecretItems {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6351,7 +6351,7 @@ func expandServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, f []ServiceTem
 
 // flattenServiceTemplateVolumesCloudSqlInstanceMap flattens the contents of ServiceTemplateVolumesCloudSqlInstance from a JSON
 // response object.
-func flattenServiceTemplateVolumesCloudSqlInstanceMap(c *Client, i interface{}) map[string]ServiceTemplateVolumesCloudSqlInstance {
+func flattenServiceTemplateVolumesCloudSqlInstanceMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateVolumesCloudSqlInstance {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateVolumesCloudSqlInstance{}
@@ -6363,7 +6363,7 @@ func flattenServiceTemplateVolumesCloudSqlInstanceMap(c *Client, i interface{}) 
 
 	items := make(map[string]ServiceTemplateVolumesCloudSqlInstance)
 	for k, item := range a {
-		items[k] = *flattenServiceTemplateVolumesCloudSqlInstance(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTemplateVolumesCloudSqlInstance(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6371,7 +6371,7 @@ func flattenServiceTemplateVolumesCloudSqlInstanceMap(c *Client, i interface{}) 
 
 // flattenServiceTemplateVolumesCloudSqlInstanceSlice flattens the contents of ServiceTemplateVolumesCloudSqlInstance from a JSON
 // response object.
-func flattenServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, i interface{}) []ServiceTemplateVolumesCloudSqlInstance {
+func flattenServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, i interface{}, res *Service) []ServiceTemplateVolumesCloudSqlInstance {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateVolumesCloudSqlInstance{}
@@ -6383,7 +6383,7 @@ func flattenServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, i interface{}
 
 	items := make([]ServiceTemplateVolumesCloudSqlInstance, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTemplateVolumesCloudSqlInstance(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTemplateVolumesCloudSqlInstance(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6406,7 +6406,7 @@ func expandServiceTemplateVolumesCloudSqlInstance(c *Client, f *ServiceTemplateV
 
 // flattenServiceTemplateVolumesCloudSqlInstance flattens an instance of ServiceTemplateVolumesCloudSqlInstance from a JSON
 // response object.
-func flattenServiceTemplateVolumesCloudSqlInstance(c *Client, i interface{}) *ServiceTemplateVolumesCloudSqlInstance {
+func flattenServiceTemplateVolumesCloudSqlInstance(c *Client, i interface{}, res *Service) *ServiceTemplateVolumesCloudSqlInstance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6465,7 +6465,7 @@ func expandServiceTrafficSlice(c *Client, f []ServiceTraffic, res *Service) ([]m
 
 // flattenServiceTrafficMap flattens the contents of ServiceTraffic from a JSON
 // response object.
-func flattenServiceTrafficMap(c *Client, i interface{}) map[string]ServiceTraffic {
+func flattenServiceTrafficMap(c *Client, i interface{}, res *Service) map[string]ServiceTraffic {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTraffic{}
@@ -6477,7 +6477,7 @@ func flattenServiceTrafficMap(c *Client, i interface{}) map[string]ServiceTraffi
 
 	items := make(map[string]ServiceTraffic)
 	for k, item := range a {
-		items[k] = *flattenServiceTraffic(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTraffic(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6485,7 +6485,7 @@ func flattenServiceTrafficMap(c *Client, i interface{}) map[string]ServiceTraffi
 
 // flattenServiceTrafficSlice flattens the contents of ServiceTraffic from a JSON
 // response object.
-func flattenServiceTrafficSlice(c *Client, i interface{}) []ServiceTraffic {
+func flattenServiceTrafficSlice(c *Client, i interface{}, res *Service) []ServiceTraffic {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTraffic{}
@@ -6497,7 +6497,7 @@ func flattenServiceTrafficSlice(c *Client, i interface{}) []ServiceTraffic {
 
 	items := make([]ServiceTraffic, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTraffic(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTraffic(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6529,7 +6529,7 @@ func expandServiceTraffic(c *Client, f *ServiceTraffic, res *Service) (map[strin
 
 // flattenServiceTraffic flattens an instance of ServiceTraffic from a JSON
 // response object.
-func flattenServiceTraffic(c *Client, i interface{}) *ServiceTraffic {
+func flattenServiceTraffic(c *Client, i interface{}, res *Service) *ServiceTraffic {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6591,7 +6591,7 @@ func expandServiceGooglecloudrunopv2ConditionSlice(c *Client, f []ServiceGooglec
 
 // flattenServiceGooglecloudrunopv2ConditionMap flattens the contents of ServiceGooglecloudrunopv2Condition from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2Condition {
+func flattenServiceGooglecloudrunopv2ConditionMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2Condition {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2Condition{}
@@ -6603,7 +6603,7 @@ func flattenServiceGooglecloudrunopv2ConditionMap(c *Client, i interface{}) map[
 
 	items := make(map[string]ServiceGooglecloudrunopv2Condition)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2Condition(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceGooglecloudrunopv2Condition(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6611,7 +6611,7 @@ func flattenServiceGooglecloudrunopv2ConditionMap(c *Client, i interface{}) map[
 
 // flattenServiceGooglecloudrunopv2ConditionSlice flattens the contents of ServiceGooglecloudrunopv2Condition from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2Condition {
+func flattenServiceGooglecloudrunopv2ConditionSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2Condition {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2Condition{}
@@ -6623,7 +6623,7 @@ func flattenServiceGooglecloudrunopv2ConditionSlice(c *Client, i interface{}) []
 
 	items := make([]ServiceGooglecloudrunopv2Condition, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2Condition(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceGooglecloudrunopv2Condition(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6673,7 +6673,7 @@ func expandServiceGooglecloudrunopv2Condition(c *Client, f *ServiceGooglecloudru
 
 // flattenServiceGooglecloudrunopv2Condition flattens an instance of ServiceGooglecloudrunopv2Condition from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2Condition(c *Client, i interface{}) *ServiceGooglecloudrunopv2Condition {
+func flattenServiceGooglecloudrunopv2Condition(c *Client, i interface{}, res *Service) *ServiceGooglecloudrunopv2Condition {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6741,7 +6741,7 @@ func expandServiceTrafficStatusesSlice(c *Client, f []ServiceTrafficStatuses, re
 
 // flattenServiceTrafficStatusesMap flattens the contents of ServiceTrafficStatuses from a JSON
 // response object.
-func flattenServiceTrafficStatusesMap(c *Client, i interface{}) map[string]ServiceTrafficStatuses {
+func flattenServiceTrafficStatusesMap(c *Client, i interface{}, res *Service) map[string]ServiceTrafficStatuses {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTrafficStatuses{}
@@ -6753,7 +6753,7 @@ func flattenServiceTrafficStatusesMap(c *Client, i interface{}) map[string]Servi
 
 	items := make(map[string]ServiceTrafficStatuses)
 	for k, item := range a {
-		items[k] = *flattenServiceTrafficStatuses(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTrafficStatuses(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6761,7 +6761,7 @@ func flattenServiceTrafficStatusesMap(c *Client, i interface{}) map[string]Servi
 
 // flattenServiceTrafficStatusesSlice flattens the contents of ServiceTrafficStatuses from a JSON
 // response object.
-func flattenServiceTrafficStatusesSlice(c *Client, i interface{}) []ServiceTrafficStatuses {
+func flattenServiceTrafficStatusesSlice(c *Client, i interface{}, res *Service) []ServiceTrafficStatuses {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTrafficStatuses{}
@@ -6773,7 +6773,7 @@ func flattenServiceTrafficStatusesSlice(c *Client, i interface{}) []ServiceTraff
 
 	items := make([]ServiceTrafficStatuses, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTrafficStatuses(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTrafficStatuses(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6808,7 +6808,7 @@ func expandServiceTrafficStatuses(c *Client, f *ServiceTrafficStatuses, res *Ser
 
 // flattenServiceTrafficStatuses flattens an instance of ServiceTrafficStatuses from a JSON
 // response object.
-func flattenServiceTrafficStatuses(c *Client, i interface{}) *ServiceTrafficStatuses {
+func flattenServiceTrafficStatuses(c *Client, i interface{}, res *Service) *ServiceTrafficStatuses {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6830,7 +6830,7 @@ func flattenServiceTrafficStatuses(c *Client, i interface{}) *ServiceTrafficStat
 
 // flattenServiceIngressEnumMap flattens the contents of ServiceIngressEnum from a JSON
 // response object.
-func flattenServiceIngressEnumMap(c *Client, i interface{}) map[string]ServiceIngressEnum {
+func flattenServiceIngressEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceIngressEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceIngressEnum{}
@@ -6850,7 +6850,7 @@ func flattenServiceIngressEnumMap(c *Client, i interface{}) map[string]ServiceIn
 
 // flattenServiceIngressEnumSlice flattens the contents of ServiceIngressEnum from a JSON
 // response object.
-func flattenServiceIngressEnumSlice(c *Client, i interface{}) []ServiceIngressEnum {
+func flattenServiceIngressEnumSlice(c *Client, i interface{}, res *Service) []ServiceIngressEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceIngressEnum{}
@@ -6881,7 +6881,7 @@ func flattenServiceIngressEnum(i interface{}) *ServiceIngressEnum {
 
 // flattenServiceLaunchStageEnumMap flattens the contents of ServiceLaunchStageEnum from a JSON
 // response object.
-func flattenServiceLaunchStageEnumMap(c *Client, i interface{}) map[string]ServiceLaunchStageEnum {
+func flattenServiceLaunchStageEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceLaunchStageEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLaunchStageEnum{}
@@ -6901,7 +6901,7 @@ func flattenServiceLaunchStageEnumMap(c *Client, i interface{}) map[string]Servi
 
 // flattenServiceLaunchStageEnumSlice flattens the contents of ServiceLaunchStageEnum from a JSON
 // response object.
-func flattenServiceLaunchStageEnumSlice(c *Client, i interface{}) []ServiceLaunchStageEnum {
+func flattenServiceLaunchStageEnumSlice(c *Client, i interface{}, res *Service) []ServiceLaunchStageEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLaunchStageEnum{}
@@ -6932,7 +6932,7 @@ func flattenServiceLaunchStageEnum(i interface{}) *ServiceLaunchStageEnum {
 
 // flattenServiceTemplateVPCAccessEgressEnumMap flattens the contents of ServiceTemplateVPCAccessEgressEnum from a JSON
 // response object.
-func flattenServiceTemplateVPCAccessEgressEnumMap(c *Client, i interface{}) map[string]ServiceTemplateVPCAccessEgressEnum {
+func flattenServiceTemplateVPCAccessEgressEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateVPCAccessEgressEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateVPCAccessEgressEnum{}
@@ -6952,7 +6952,7 @@ func flattenServiceTemplateVPCAccessEgressEnumMap(c *Client, i interface{}) map[
 
 // flattenServiceTemplateVPCAccessEgressEnumSlice flattens the contents of ServiceTemplateVPCAccessEgressEnum from a JSON
 // response object.
-func flattenServiceTemplateVPCAccessEgressEnumSlice(c *Client, i interface{}) []ServiceTemplateVPCAccessEgressEnum {
+func flattenServiceTemplateVPCAccessEgressEnumSlice(c *Client, i interface{}, res *Service) []ServiceTemplateVPCAccessEgressEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateVPCAccessEgressEnum{}
@@ -6983,7 +6983,7 @@ func flattenServiceTemplateVPCAccessEgressEnum(i interface{}) *ServiceTemplateVP
 
 // flattenServiceTemplateExecutionEnvironmentEnumMap flattens the contents of ServiceTemplateExecutionEnvironmentEnum from a JSON
 // response object.
-func flattenServiceTemplateExecutionEnvironmentEnumMap(c *Client, i interface{}) map[string]ServiceTemplateExecutionEnvironmentEnum {
+func flattenServiceTemplateExecutionEnvironmentEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTemplateExecutionEnvironmentEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTemplateExecutionEnvironmentEnum{}
@@ -7003,7 +7003,7 @@ func flattenServiceTemplateExecutionEnvironmentEnumMap(c *Client, i interface{})
 
 // flattenServiceTemplateExecutionEnvironmentEnumSlice flattens the contents of ServiceTemplateExecutionEnvironmentEnum from a JSON
 // response object.
-func flattenServiceTemplateExecutionEnvironmentEnumSlice(c *Client, i interface{}) []ServiceTemplateExecutionEnvironmentEnum {
+func flattenServiceTemplateExecutionEnvironmentEnumSlice(c *Client, i interface{}, res *Service) []ServiceTemplateExecutionEnvironmentEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTemplateExecutionEnvironmentEnum{}
@@ -7034,7 +7034,7 @@ func flattenServiceTemplateExecutionEnvironmentEnum(i interface{}) *ServiceTempl
 
 // flattenServiceTrafficTypeEnumMap flattens the contents of ServiceTrafficTypeEnum from a JSON
 // response object.
-func flattenServiceTrafficTypeEnumMap(c *Client, i interface{}) map[string]ServiceTrafficTypeEnum {
+func flattenServiceTrafficTypeEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTrafficTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTrafficTypeEnum{}
@@ -7054,7 +7054,7 @@ func flattenServiceTrafficTypeEnumMap(c *Client, i interface{}) map[string]Servi
 
 // flattenServiceTrafficTypeEnumSlice flattens the contents of ServiceTrafficTypeEnum from a JSON
 // response object.
-func flattenServiceTrafficTypeEnumSlice(c *Client, i interface{}) []ServiceTrafficTypeEnum {
+func flattenServiceTrafficTypeEnumSlice(c *Client, i interface{}, res *Service) []ServiceTrafficTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTrafficTypeEnum{}
@@ -7085,7 +7085,7 @@ func flattenServiceTrafficTypeEnum(i interface{}) *ServiceTrafficTypeEnum {
 
 // flattenServiceGooglecloudrunopv2ConditionStateEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionStateEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionStateEnumMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2ConditionStateEnum {
+func flattenServiceGooglecloudrunopv2ConditionStateEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2ConditionStateEnum{}
@@ -7105,7 +7105,7 @@ func flattenServiceGooglecloudrunopv2ConditionStateEnumMap(c *Client, i interfac
 
 // flattenServiceGooglecloudrunopv2ConditionStateEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionStateEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionStateEnumSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2ConditionStateEnum {
+func flattenServiceGooglecloudrunopv2ConditionStateEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2ConditionStateEnum{}
@@ -7136,7 +7136,7 @@ func flattenServiceGooglecloudrunopv2ConditionStateEnum(i interface{}) *ServiceG
 
 // flattenServiceGooglecloudrunopv2ConditionSeverityEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionSeverityEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionSeverityEnumMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2ConditionSeverityEnum {
+func flattenServiceGooglecloudrunopv2ConditionSeverityEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionSeverityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2ConditionSeverityEnum{}
@@ -7156,7 +7156,7 @@ func flattenServiceGooglecloudrunopv2ConditionSeverityEnumMap(c *Client, i inter
 
 // flattenServiceGooglecloudrunopv2ConditionSeverityEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionSeverityEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionSeverityEnumSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2ConditionSeverityEnum {
+func flattenServiceGooglecloudrunopv2ConditionSeverityEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionSeverityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2ConditionSeverityEnum{}
@@ -7187,7 +7187,7 @@ func flattenServiceGooglecloudrunopv2ConditionSeverityEnum(i interface{}) *Servi
 
 // flattenServiceGooglecloudrunopv2ConditionReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionReasonEnumMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2ConditionReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2ConditionReasonEnum{}
@@ -7207,7 +7207,7 @@ func flattenServiceGooglecloudrunopv2ConditionReasonEnumMap(c *Client, i interfa
 
 // flattenServiceGooglecloudrunopv2ConditionReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionReasonEnumSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2ConditionReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2ConditionReasonEnum{}
@@ -7238,7 +7238,7 @@ func flattenServiceGooglecloudrunopv2ConditionReasonEnum(i interface{}) *Service
 
 // flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionInternalReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2ConditionInternalReasonEnum{}
@@ -7258,7 +7258,7 @@ func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumMap(c *Client, i
 
 // flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionInternalReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2ConditionInternalReasonEnum{}
@@ -7289,7 +7289,7 @@ func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnum(i interface{}) 
 
 // flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum{}
@@ -7309,7 +7309,7 @@ func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumMap(c *Clie
 
 // flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum{}
@@ -7340,7 +7340,7 @@ func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(i interfac
 
 // flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionRevisionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum{}
@@ -7360,7 +7360,7 @@ func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumMap(c *Client, i
 
 // flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionRevisionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2ConditionRevisionReasonEnum{}
@@ -7391,7 +7391,7 @@ func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnum(i interface{}) 
 
 // flattenServiceGooglecloudrunopv2ConditionJobReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionJobReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumMap(c *Client, i interface{}) map[string]ServiceGooglecloudrunopv2ConditionJobReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionJobReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceGooglecloudrunopv2ConditionJobReasonEnum{}
@@ -7411,7 +7411,7 @@ func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumMap(c *Client, i inte
 
 // flattenServiceGooglecloudrunopv2ConditionJobReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionJobReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumSlice(c *Client, i interface{}) []ServiceGooglecloudrunopv2ConditionJobReasonEnum {
+func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionJobReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceGooglecloudrunopv2ConditionJobReasonEnum{}
@@ -7442,7 +7442,7 @@ func flattenServiceGooglecloudrunopv2ConditionJobReasonEnum(i interface{}) *Serv
 
 // flattenServiceTrafficStatusesTypeEnumMap flattens the contents of ServiceTrafficStatusesTypeEnum from a JSON
 // response object.
-func flattenServiceTrafficStatusesTypeEnumMap(c *Client, i interface{}) map[string]ServiceTrafficStatusesTypeEnum {
+func flattenServiceTrafficStatusesTypeEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTrafficStatusesTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTrafficStatusesTypeEnum{}
@@ -7462,7 +7462,7 @@ func flattenServiceTrafficStatusesTypeEnumMap(c *Client, i interface{}) map[stri
 
 // flattenServiceTrafficStatusesTypeEnumSlice flattens the contents of ServiceTrafficStatusesTypeEnum from a JSON
 // response object.
-func flattenServiceTrafficStatusesTypeEnumSlice(c *Client, i interface{}) []ServiceTrafficStatusesTypeEnum {
+func flattenServiceTrafficStatusesTypeEnumSlice(c *Client, i interface{}, res *Service) []ServiceTrafficStatusesTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTrafficStatusesTypeEnum{}
@@ -7496,7 +7496,7 @@ func flattenServiceTrafficStatusesTypeEnum(i interface{}) *ServiceTrafficStatuse
 // identity).  This is useful in extracting the element from a List call.
 func (r *Service) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalService(b, c)
+		cr, err := unmarshalService(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -460,7 +460,7 @@ func (c *Client) GetWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPool,
 		}
 		return nil, err
 	}
-	result, err := unmarshalWorkerPool(b, c)
+	result, err := unmarshalWorkerPool(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -630,7 +630,7 @@ func applyWorkerPoolDiff(c *Client, ctx context.Context, desired *WorkerPool, ra
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapWorkerPool(r, c)
+				fullResp, err := unmarshalMapWorkerPool(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

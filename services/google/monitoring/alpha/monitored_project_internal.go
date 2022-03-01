@@ -127,7 +127,7 @@ func (c *Client) listMonitoredProject(ctx context.Context, r *MonitoredProject, 
 
 	var l []*MonitoredProject
 	for _, v := range m.MonitoredProjects {
-		res, err := unmarshalMapMonitoredProject(v, c)
+		res, err := unmarshalMapMonitoredProject(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -431,17 +431,17 @@ func (r *MonitoredProject) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalMonitoredProject decodes JSON responses into the MonitoredProject resource schema.
-func unmarshalMonitoredProject(b []byte, c *Client) (*MonitoredProject, error) {
+func unmarshalMonitoredProject(b []byte, c *Client, res *MonitoredProject) (*MonitoredProject, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapMonitoredProject(m, c)
+	return unmarshalMapMonitoredProject(m, c, res)
 }
 
-func unmarshalMapMonitoredProject(m map[string]interface{}, c *Client) (*MonitoredProject, error) {
+func unmarshalMapMonitoredProject(m map[string]interface{}, c *Client, res *MonitoredProject) (*MonitoredProject, error) {
 
-	flattened := flattenMonitoredProject(c, m)
+	flattened := flattenMonitoredProject(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -469,7 +469,7 @@ func expandMonitoredProject(c *Client, f *MonitoredProject) (map[string]interfac
 
 // flattenMonitoredProject flattens MonitoredProject from a JSON request object into the
 // MonitoredProject type.
-func flattenMonitoredProject(c *Client, i interface{}) *MonitoredProject {
+func flattenMonitoredProject(c *Client, i interface{}, res *MonitoredProject) *MonitoredProject {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -478,12 +478,12 @@ func flattenMonitoredProject(c *Client, i interface{}) *MonitoredProject {
 		return nil
 	}
 
-	res := &MonitoredProject{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.MetricsScope = dcl.FlattenString(m["metricsScope"])
+	resultRes := &MonitoredProject{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.MetricsScope = dcl.FlattenString(m["metricsScope"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -491,7 +491,7 @@ func flattenMonitoredProject(c *Client, i interface{}) *MonitoredProject {
 // identity).  This is useful in extracting the element from a List call.
 func (r *MonitoredProject) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalMonitoredProject(b, c)
+		cr, err := unmarshalMonitoredProject(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

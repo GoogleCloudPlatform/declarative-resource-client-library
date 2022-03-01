@@ -142,7 +142,7 @@ func (c *Client) GetGroup(ctx context.Context, r *Group) (*Group, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalGroup(b, c)
+	result, err := unmarshalGroup(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +311,7 @@ func applyGroupDiff(c *Client, ctx context.Context, desired *Group, rawDesired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapGroup(r, c)
+				fullResp, err := unmarshalMapGroup(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

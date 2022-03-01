@@ -1924,7 +1924,7 @@ func (c *Client) GetPatchDeployment(ctx context.Context, r *PatchDeployment) (*P
 		}
 		return nil, err
 	}
-	result, err := unmarshalPatchDeployment(b, c)
+	result, err := unmarshalPatchDeployment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -2093,7 +2093,7 @@ func applyPatchDeploymentDiff(c *Client, ctx context.Context, desired *PatchDepl
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapPatchDeployment(r, c)
+				fullResp, err := unmarshalMapPatchDeployment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

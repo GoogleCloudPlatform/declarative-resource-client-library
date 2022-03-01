@@ -537,17 +537,17 @@ func (r *Fleet) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFleet decodes JSON responses into the Fleet resource schema.
-func unmarshalFleet(b []byte, c *Client) (*Fleet, error) {
+func unmarshalFleet(b []byte, c *Client, res *Fleet) (*Fleet, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFleet(m, c)
+	return unmarshalMapFleet(m, c, res)
 }
 
-func unmarshalMapFleet(m map[string]interface{}, c *Client) (*Fleet, error) {
+func unmarshalMapFleet(m map[string]interface{}, c *Client, res *Fleet) (*Fleet, error) {
 
-	flattened := flattenFleet(c, m)
+	flattened := flattenFleet(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -586,7 +586,7 @@ func expandFleet(c *Client, f *Fleet) (map[string]interface{}, error) {
 
 // flattenFleet flattens Fleet from a JSON request object into the
 // Fleet type.
-func flattenFleet(c *Client, i interface{}) *Fleet {
+func flattenFleet(c *Client, i interface{}, res *Fleet) *Fleet {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -595,17 +595,17 @@ func flattenFleet(c *Client, i interface{}) *Fleet {
 		return nil
 	}
 
-	res := &Fleet{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.ManagedNamespaces = dcl.FlattenBool(m["managedNamespaces"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Fleet{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.ManagedNamespaces = dcl.FlattenBool(m["managedNamespaces"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -613,7 +613,7 @@ func flattenFleet(c *Client, i interface{}) *Fleet {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Fleet) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFleet(b, c)
+		cr, err := unmarshalFleet(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

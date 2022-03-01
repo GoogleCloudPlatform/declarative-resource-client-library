@@ -68,7 +68,7 @@ func (c *Client) GetWorkloadIdentityPool(ctx context.Context, r *WorkloadIdentit
 		}
 		return nil, err
 	}
-	result, err := unmarshalWorkloadIdentityPool(b, c)
+	result, err := unmarshalWorkloadIdentityPool(b, c, r)
 	if err != nil {
 		return nil, err
 	}

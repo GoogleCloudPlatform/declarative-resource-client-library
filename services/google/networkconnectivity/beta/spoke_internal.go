@@ -267,7 +267,7 @@ func (c *Client) listSpoke(ctx context.Context, r *Spoke, pageToken string, page
 
 	var l []*Spoke
 	for _, v := range m.Spokes {
-		res, err := unmarshalMapSpoke(v, c)
+		res, err := unmarshalMapSpoke(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1438,17 +1438,17 @@ func (r *Spoke) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalSpoke decodes JSON responses into the Spoke resource schema.
-func unmarshalSpoke(b []byte, c *Client) (*Spoke, error) {
+func unmarshalSpoke(b []byte, c *Client, res *Spoke) (*Spoke, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapSpoke(m, c)
+	return unmarshalMapSpoke(m, c, res)
 }
 
-func unmarshalMapSpoke(m map[string]interface{}, c *Client) (*Spoke, error) {
+func unmarshalMapSpoke(m map[string]interface{}, c *Client, res *Spoke) (*Spoke, error) {
 
-	flattened := flattenSpoke(c, m)
+	flattened := flattenSpoke(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1505,7 +1505,7 @@ func expandSpoke(c *Client, f *Spoke) (map[string]interface{}, error) {
 
 // flattenSpoke flattens Spoke from a JSON request object into the
 // Spoke type.
-func flattenSpoke(c *Client, i interface{}) *Spoke {
+func flattenSpoke(c *Client, i interface{}, res *Spoke) *Spoke {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1514,22 +1514,22 @@ func flattenSpoke(c *Client, i interface{}) *Spoke {
 		return nil
 	}
 
-	res := &Spoke{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Hub = dcl.FlattenString(m["hub"])
-	res.LinkedVpnTunnels = flattenSpokeLinkedVpnTunnels(c, m["linkedVpnTunnels"])
-	res.LinkedInterconnectAttachments = flattenSpokeLinkedInterconnectAttachments(c, m["linkedInterconnectAttachments"])
-	res.LinkedRouterApplianceInstances = flattenSpokeLinkedRouterApplianceInstances(c, m["linkedRouterApplianceInstances"])
-	res.UniqueId = dcl.FlattenString(m["uniqueId"])
-	res.State = flattenSpokeStateEnum(m["state"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Spoke{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Hub = dcl.FlattenString(m["hub"])
+	resultRes.LinkedVpnTunnels = flattenSpokeLinkedVpnTunnels(c, m["linkedVpnTunnels"], res)
+	resultRes.LinkedInterconnectAttachments = flattenSpokeLinkedInterconnectAttachments(c, m["linkedInterconnectAttachments"], res)
+	resultRes.LinkedRouterApplianceInstances = flattenSpokeLinkedRouterApplianceInstances(c, m["linkedRouterApplianceInstances"], res)
+	resultRes.UniqueId = dcl.FlattenString(m["uniqueId"])
+	resultRes.State = flattenSpokeStateEnum(m["state"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandSpokeLinkedVpnTunnelsMap expands the contents of SpokeLinkedVpnTunnels into a JSON
@@ -1575,7 +1575,7 @@ func expandSpokeLinkedVpnTunnelsSlice(c *Client, f []SpokeLinkedVpnTunnels, res 
 
 // flattenSpokeLinkedVpnTunnelsMap flattens the contents of SpokeLinkedVpnTunnels from a JSON
 // response object.
-func flattenSpokeLinkedVpnTunnelsMap(c *Client, i interface{}) map[string]SpokeLinkedVpnTunnels {
+func flattenSpokeLinkedVpnTunnelsMap(c *Client, i interface{}, res *Spoke) map[string]SpokeLinkedVpnTunnels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SpokeLinkedVpnTunnels{}
@@ -1587,7 +1587,7 @@ func flattenSpokeLinkedVpnTunnelsMap(c *Client, i interface{}) map[string]SpokeL
 
 	items := make(map[string]SpokeLinkedVpnTunnels)
 	for k, item := range a {
-		items[k] = *flattenSpokeLinkedVpnTunnels(c, item.(map[string]interface{}))
+		items[k] = *flattenSpokeLinkedVpnTunnels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1595,7 +1595,7 @@ func flattenSpokeLinkedVpnTunnelsMap(c *Client, i interface{}) map[string]SpokeL
 
 // flattenSpokeLinkedVpnTunnelsSlice flattens the contents of SpokeLinkedVpnTunnels from a JSON
 // response object.
-func flattenSpokeLinkedVpnTunnelsSlice(c *Client, i interface{}) []SpokeLinkedVpnTunnels {
+func flattenSpokeLinkedVpnTunnelsSlice(c *Client, i interface{}, res *Spoke) []SpokeLinkedVpnTunnels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SpokeLinkedVpnTunnels{}
@@ -1607,7 +1607,7 @@ func flattenSpokeLinkedVpnTunnelsSlice(c *Client, i interface{}) []SpokeLinkedVp
 
 	items := make([]SpokeLinkedVpnTunnels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenSpokeLinkedVpnTunnels(c, item.(map[string]interface{})))
+		items = append(items, *flattenSpokeLinkedVpnTunnels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1633,7 +1633,7 @@ func expandSpokeLinkedVpnTunnels(c *Client, f *SpokeLinkedVpnTunnels, res *Spoke
 
 // flattenSpokeLinkedVpnTunnels flattens an instance of SpokeLinkedVpnTunnels from a JSON
 // response object.
-func flattenSpokeLinkedVpnTunnels(c *Client, i interface{}) *SpokeLinkedVpnTunnels {
+func flattenSpokeLinkedVpnTunnels(c *Client, i interface{}, res *Spoke) *SpokeLinkedVpnTunnels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1693,7 +1693,7 @@ func expandSpokeLinkedInterconnectAttachmentsSlice(c *Client, f []SpokeLinkedInt
 
 // flattenSpokeLinkedInterconnectAttachmentsMap flattens the contents of SpokeLinkedInterconnectAttachments from a JSON
 // response object.
-func flattenSpokeLinkedInterconnectAttachmentsMap(c *Client, i interface{}) map[string]SpokeLinkedInterconnectAttachments {
+func flattenSpokeLinkedInterconnectAttachmentsMap(c *Client, i interface{}, res *Spoke) map[string]SpokeLinkedInterconnectAttachments {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SpokeLinkedInterconnectAttachments{}
@@ -1705,7 +1705,7 @@ func flattenSpokeLinkedInterconnectAttachmentsMap(c *Client, i interface{}) map[
 
 	items := make(map[string]SpokeLinkedInterconnectAttachments)
 	for k, item := range a {
-		items[k] = *flattenSpokeLinkedInterconnectAttachments(c, item.(map[string]interface{}))
+		items[k] = *flattenSpokeLinkedInterconnectAttachments(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1713,7 +1713,7 @@ func flattenSpokeLinkedInterconnectAttachmentsMap(c *Client, i interface{}) map[
 
 // flattenSpokeLinkedInterconnectAttachmentsSlice flattens the contents of SpokeLinkedInterconnectAttachments from a JSON
 // response object.
-func flattenSpokeLinkedInterconnectAttachmentsSlice(c *Client, i interface{}) []SpokeLinkedInterconnectAttachments {
+func flattenSpokeLinkedInterconnectAttachmentsSlice(c *Client, i interface{}, res *Spoke) []SpokeLinkedInterconnectAttachments {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SpokeLinkedInterconnectAttachments{}
@@ -1725,7 +1725,7 @@ func flattenSpokeLinkedInterconnectAttachmentsSlice(c *Client, i interface{}) []
 
 	items := make([]SpokeLinkedInterconnectAttachments, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenSpokeLinkedInterconnectAttachments(c, item.(map[string]interface{})))
+		items = append(items, *flattenSpokeLinkedInterconnectAttachments(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1751,7 +1751,7 @@ func expandSpokeLinkedInterconnectAttachments(c *Client, f *SpokeLinkedInterconn
 
 // flattenSpokeLinkedInterconnectAttachments flattens an instance of SpokeLinkedInterconnectAttachments from a JSON
 // response object.
-func flattenSpokeLinkedInterconnectAttachments(c *Client, i interface{}) *SpokeLinkedInterconnectAttachments {
+func flattenSpokeLinkedInterconnectAttachments(c *Client, i interface{}, res *Spoke) *SpokeLinkedInterconnectAttachments {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1811,7 +1811,7 @@ func expandSpokeLinkedRouterApplianceInstancesSlice(c *Client, f []SpokeLinkedRo
 
 // flattenSpokeLinkedRouterApplianceInstancesMap flattens the contents of SpokeLinkedRouterApplianceInstances from a JSON
 // response object.
-func flattenSpokeLinkedRouterApplianceInstancesMap(c *Client, i interface{}) map[string]SpokeLinkedRouterApplianceInstances {
+func flattenSpokeLinkedRouterApplianceInstancesMap(c *Client, i interface{}, res *Spoke) map[string]SpokeLinkedRouterApplianceInstances {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SpokeLinkedRouterApplianceInstances{}
@@ -1823,7 +1823,7 @@ func flattenSpokeLinkedRouterApplianceInstancesMap(c *Client, i interface{}) map
 
 	items := make(map[string]SpokeLinkedRouterApplianceInstances)
 	for k, item := range a {
-		items[k] = *flattenSpokeLinkedRouterApplianceInstances(c, item.(map[string]interface{}))
+		items[k] = *flattenSpokeLinkedRouterApplianceInstances(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1831,7 +1831,7 @@ func flattenSpokeLinkedRouterApplianceInstancesMap(c *Client, i interface{}) map
 
 // flattenSpokeLinkedRouterApplianceInstancesSlice flattens the contents of SpokeLinkedRouterApplianceInstances from a JSON
 // response object.
-func flattenSpokeLinkedRouterApplianceInstancesSlice(c *Client, i interface{}) []SpokeLinkedRouterApplianceInstances {
+func flattenSpokeLinkedRouterApplianceInstancesSlice(c *Client, i interface{}, res *Spoke) []SpokeLinkedRouterApplianceInstances {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SpokeLinkedRouterApplianceInstances{}
@@ -1843,7 +1843,7 @@ func flattenSpokeLinkedRouterApplianceInstancesSlice(c *Client, i interface{}) [
 
 	items := make([]SpokeLinkedRouterApplianceInstances, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenSpokeLinkedRouterApplianceInstances(c, item.(map[string]interface{})))
+		items = append(items, *flattenSpokeLinkedRouterApplianceInstances(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1871,7 +1871,7 @@ func expandSpokeLinkedRouterApplianceInstances(c *Client, f *SpokeLinkedRouterAp
 
 // flattenSpokeLinkedRouterApplianceInstances flattens an instance of SpokeLinkedRouterApplianceInstances from a JSON
 // response object.
-func flattenSpokeLinkedRouterApplianceInstances(c *Client, i interface{}) *SpokeLinkedRouterApplianceInstances {
+func flattenSpokeLinkedRouterApplianceInstances(c *Client, i interface{}, res *Spoke) *SpokeLinkedRouterApplianceInstances {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1882,7 +1882,7 @@ func flattenSpokeLinkedRouterApplianceInstances(c *Client, i interface{}) *Spoke
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptySpokeLinkedRouterApplianceInstances
 	}
-	r.Instances = flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c, m["instances"])
+	r.Instances = flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c, m["instances"], res)
 	r.SiteToSiteDataTransfer = dcl.FlattenBool(m["siteToSiteDataTransfer"])
 
 	return r
@@ -1931,7 +1931,7 @@ func expandSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, f []Spok
 
 // flattenSpokeLinkedRouterApplianceInstancesInstancesMap flattens the contents of SpokeLinkedRouterApplianceInstancesInstances from a JSON
 // response object.
-func flattenSpokeLinkedRouterApplianceInstancesInstancesMap(c *Client, i interface{}) map[string]SpokeLinkedRouterApplianceInstancesInstances {
+func flattenSpokeLinkedRouterApplianceInstancesInstancesMap(c *Client, i interface{}, res *Spoke) map[string]SpokeLinkedRouterApplianceInstancesInstances {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SpokeLinkedRouterApplianceInstancesInstances{}
@@ -1943,7 +1943,7 @@ func flattenSpokeLinkedRouterApplianceInstancesInstancesMap(c *Client, i interfa
 
 	items := make(map[string]SpokeLinkedRouterApplianceInstancesInstances)
 	for k, item := range a {
-		items[k] = *flattenSpokeLinkedRouterApplianceInstancesInstances(c, item.(map[string]interface{}))
+		items[k] = *flattenSpokeLinkedRouterApplianceInstancesInstances(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1951,7 +1951,7 @@ func flattenSpokeLinkedRouterApplianceInstancesInstancesMap(c *Client, i interfa
 
 // flattenSpokeLinkedRouterApplianceInstancesInstancesSlice flattens the contents of SpokeLinkedRouterApplianceInstancesInstances from a JSON
 // response object.
-func flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, i interface{}) []SpokeLinkedRouterApplianceInstancesInstances {
+func flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, i interface{}, res *Spoke) []SpokeLinkedRouterApplianceInstancesInstances {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SpokeLinkedRouterApplianceInstancesInstances{}
@@ -1963,7 +1963,7 @@ func flattenSpokeLinkedRouterApplianceInstancesInstancesSlice(c *Client, i inter
 
 	items := make([]SpokeLinkedRouterApplianceInstancesInstances, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenSpokeLinkedRouterApplianceInstancesInstances(c, item.(map[string]interface{})))
+		items = append(items, *flattenSpokeLinkedRouterApplianceInstancesInstances(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1989,7 +1989,7 @@ func expandSpokeLinkedRouterApplianceInstancesInstances(c *Client, f *SpokeLinke
 
 // flattenSpokeLinkedRouterApplianceInstancesInstances flattens an instance of SpokeLinkedRouterApplianceInstancesInstances from a JSON
 // response object.
-func flattenSpokeLinkedRouterApplianceInstancesInstances(c *Client, i interface{}) *SpokeLinkedRouterApplianceInstancesInstances {
+func flattenSpokeLinkedRouterApplianceInstancesInstances(c *Client, i interface{}, res *Spoke) *SpokeLinkedRouterApplianceInstancesInstances {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2008,7 +2008,7 @@ func flattenSpokeLinkedRouterApplianceInstancesInstances(c *Client, i interface{
 
 // flattenSpokeStateEnumMap flattens the contents of SpokeStateEnum from a JSON
 // response object.
-func flattenSpokeStateEnumMap(c *Client, i interface{}) map[string]SpokeStateEnum {
+func flattenSpokeStateEnumMap(c *Client, i interface{}, res *Spoke) map[string]SpokeStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SpokeStateEnum{}
@@ -2028,7 +2028,7 @@ func flattenSpokeStateEnumMap(c *Client, i interface{}) map[string]SpokeStateEnu
 
 // flattenSpokeStateEnumSlice flattens the contents of SpokeStateEnum from a JSON
 // response object.
-func flattenSpokeStateEnumSlice(c *Client, i interface{}) []SpokeStateEnum {
+func flattenSpokeStateEnumSlice(c *Client, i interface{}, res *Spoke) []SpokeStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SpokeStateEnum{}
@@ -2062,7 +2062,7 @@ func flattenSpokeStateEnum(i interface{}) *SpokeStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Spoke) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalSpoke(b, c)
+		cr, err := unmarshalSpoke(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

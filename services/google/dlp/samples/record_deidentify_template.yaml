@@ -22,7 +22,7 @@ updates:
 - resource: samples/update_record.deidentify_template.json
   dependencies: []
 variables:
-- name: project
-  type: project
+- name: org_id
+  type: org_id
 - name: region
   type: region

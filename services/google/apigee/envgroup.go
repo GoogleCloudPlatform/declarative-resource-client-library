@@ -169,7 +169,7 @@ func (c *Client) GetEnvgroup(ctx context.Context, r *Envgroup) (*Envgroup, error
 		}
 		return nil, err
 	}
-	result, err := unmarshalEnvgroup(b, c)
+	result, err := unmarshalEnvgroup(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -338,7 +338,7 @@ func applyEnvgroupDiff(c *Client, ctx context.Context, desired *Envgroup, rawDes
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapEnvgroup(r, c)
+				fullResp, err := unmarshalMapEnvgroup(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

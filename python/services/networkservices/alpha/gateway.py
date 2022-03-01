@@ -36,6 +36,7 @@ class Gateway(object):
         authorization_policy: str = None,
         project: str = None,
         location: str = None,
+        self_link: str = None,
         service_account_file: str = "",
     ):
 
@@ -109,6 +110,7 @@ class Gateway(object):
         self.authorization_policy = Primitive.from_proto(response.authorization_policy)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.self_link = Primitive.from_proto(response.self_link)
 
     def delete(self):
         stub = gateway_pb2_grpc.NetworkservicesAlphaGatewayServiceStub(

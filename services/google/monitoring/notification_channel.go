@@ -175,7 +175,7 @@ func (c *Client) GetNotificationChannel(ctx context.Context, r *NotificationChan
 		}
 		return nil, err
 	}
-	result, err := unmarshalNotificationChannel(b, c)
+	result, err := unmarshalNotificationChannel(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -347,7 +347,7 @@ func applyNotificationChannelDiff(c *Client, ctx context.Context, desired *Notif
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapNotificationChannel(r, c)
+				fullResp, err := unmarshalMapNotificationChannel(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

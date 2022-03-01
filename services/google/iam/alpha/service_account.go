@@ -243,7 +243,7 @@ func (c *Client) GetServiceAccount(ctx context.Context, r *ServiceAccount) (*Ser
 		}
 		return nil, err
 	}
-	result, err := unmarshalServiceAccount(b, c)
+	result, err := unmarshalServiceAccount(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -412,7 +412,7 @@ func applyServiceAccountDiff(c *Client, ctx context.Context, desired *ServiceAcc
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapServiceAccount(r, c)
+				fullResp, err := unmarshalMapServiceAccount(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -356,7 +356,7 @@ func (c *Client) GetAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy)
 		}
 		return nil, err
 	}
-	result, err := unmarshalAutoscalingPolicy(b, c)
+	result, err := unmarshalAutoscalingPolicy(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -526,7 +526,7 @@ func applyAutoscalingPolicyDiff(c *Client, ctx context.Context, desired *Autosca
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapAutoscalingPolicy(r, c)
+				fullResp, err := unmarshalMapAutoscalingPolicy(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

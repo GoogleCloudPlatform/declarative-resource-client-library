@@ -239,7 +239,7 @@ func (c *Client) listHttpFilter(ctx context.Context, r *HttpFilter, pageToken st
 
 	var l []*HttpFilter
 	for _, v := range m.HttpFilters {
-		res, err := unmarshalMapHttpFilter(v, c)
+		res, err := unmarshalMapHttpFilter(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -703,17 +703,17 @@ func (r *HttpFilter) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalHttpFilter decodes JSON responses into the HttpFilter resource schema.
-func unmarshalHttpFilter(b []byte, c *Client) (*HttpFilter, error) {
+func unmarshalHttpFilter(b []byte, c *Client, res *HttpFilter) (*HttpFilter, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapHttpFilter(m, c)
+	return unmarshalMapHttpFilter(m, c, res)
 }
 
-func unmarshalMapHttpFilter(m map[string]interface{}, c *Client) (*HttpFilter, error) {
+func unmarshalMapHttpFilter(m map[string]interface{}, c *Client, res *HttpFilter) (*HttpFilter, error) {
 
-	flattened := flattenHttpFilter(c, m)
+	flattened := flattenHttpFilter(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -761,7 +761,7 @@ func expandHttpFilter(c *Client, f *HttpFilter) (map[string]interface{}, error) 
 
 // flattenHttpFilter flattens HttpFilter from a JSON request object into the
 // HttpFilter type.
-func flattenHttpFilter(c *Client, i interface{}) *HttpFilter {
+func flattenHttpFilter(c *Client, i interface{}, res *HttpFilter) *HttpFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -770,19 +770,19 @@ func flattenHttpFilter(c *Client, i interface{}) *HttpFilter {
 		return nil
 	}
 
-	res := &HttpFilter{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.FilterName = dcl.FlattenString(m["filterName"])
-	res.ConfigTypeUrl = dcl.FlattenString(m["configTypeUrl"])
-	res.Config = dcl.FlattenString(m["config"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &HttpFilter{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.FilterName = dcl.FlattenString(m["filterName"])
+	resultRes.ConfigTypeUrl = dcl.FlattenString(m["configTypeUrl"])
+	resultRes.Config = dcl.FlattenString(m["config"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -790,7 +790,7 @@ func flattenHttpFilter(c *Client, i interface{}) *HttpFilter {
 // identity).  This is useful in extracting the element from a List call.
 func (r *HttpFilter) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalHttpFilter(b, c)
+		cr, err := unmarshalHttpFilter(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -227,7 +227,7 @@ func (c *Client) listTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdp
 
 	var l []*TenantOAuthIdpConfig
 	for _, v := range m.OauthIdpConfigs {
-		res, err := unmarshalMapTenantOAuthIdpConfig(v, c)
+		res, err := unmarshalMapTenantOAuthIdpConfig(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -848,17 +848,17 @@ func (r *TenantOAuthIdpConfig) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalTenantOAuthIdpConfig decodes JSON responses into the TenantOAuthIdpConfig resource schema.
-func unmarshalTenantOAuthIdpConfig(b []byte, c *Client) (*TenantOAuthIdpConfig, error) {
+func unmarshalTenantOAuthIdpConfig(b []byte, c *Client, res *TenantOAuthIdpConfig) (*TenantOAuthIdpConfig, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapTenantOAuthIdpConfig(m, c)
+	return unmarshalMapTenantOAuthIdpConfig(m, c, res)
 }
 
-func unmarshalMapTenantOAuthIdpConfig(m map[string]interface{}, c *Client) (*TenantOAuthIdpConfig, error) {
+func unmarshalMapTenantOAuthIdpConfig(m map[string]interface{}, c *Client, res *TenantOAuthIdpConfig) (*TenantOAuthIdpConfig, error) {
 
-	flattened := flattenTenantOAuthIdpConfig(c, m)
+	flattened := flattenTenantOAuthIdpConfig(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -909,7 +909,7 @@ func expandTenantOAuthIdpConfig(c *Client, f *TenantOAuthIdpConfig) (map[string]
 
 // flattenTenantOAuthIdpConfig flattens TenantOAuthIdpConfig from a JSON request object into the
 // TenantOAuthIdpConfig type.
-func flattenTenantOAuthIdpConfig(c *Client, i interface{}) *TenantOAuthIdpConfig {
+func flattenTenantOAuthIdpConfig(c *Client, i interface{}, res *TenantOAuthIdpConfig) *TenantOAuthIdpConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -918,18 +918,18 @@ func flattenTenantOAuthIdpConfig(c *Client, i interface{}) *TenantOAuthIdpConfig
 		return nil
 	}
 
-	res := &TenantOAuthIdpConfig{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.ClientId = dcl.FlattenString(m["clientId"])
-	res.Issuer = dcl.FlattenString(m["issuer"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Enabled = dcl.FlattenBool(m["enabled"])
-	res.ClientSecret = dcl.FlattenString(m["clientSecret"])
-	res.ResponseType = flattenTenantOAuthIdpConfigResponseType(c, m["responseType"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Tenant = dcl.FlattenString(m["tenant"])
+	resultRes := &TenantOAuthIdpConfig{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.ClientId = dcl.FlattenString(m["clientId"])
+	resultRes.Issuer = dcl.FlattenString(m["issuer"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Enabled = dcl.FlattenBool(m["enabled"])
+	resultRes.ClientSecret = dcl.FlattenString(m["clientSecret"])
+	resultRes.ResponseType = flattenTenantOAuthIdpConfigResponseType(c, m["responseType"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Tenant = dcl.FlattenString(m["tenant"])
 
-	return res
+	return resultRes
 }
 
 // expandTenantOAuthIdpConfigResponseTypeMap expands the contents of TenantOAuthIdpConfigResponseType into a JSON
@@ -975,7 +975,7 @@ func expandTenantOAuthIdpConfigResponseTypeSlice(c *Client, f []TenantOAuthIdpCo
 
 // flattenTenantOAuthIdpConfigResponseTypeMap flattens the contents of TenantOAuthIdpConfigResponseType from a JSON
 // response object.
-func flattenTenantOAuthIdpConfigResponseTypeMap(c *Client, i interface{}) map[string]TenantOAuthIdpConfigResponseType {
+func flattenTenantOAuthIdpConfigResponseTypeMap(c *Client, i interface{}, res *TenantOAuthIdpConfig) map[string]TenantOAuthIdpConfigResponseType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TenantOAuthIdpConfigResponseType{}
@@ -987,7 +987,7 @@ func flattenTenantOAuthIdpConfigResponseTypeMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]TenantOAuthIdpConfigResponseType)
 	for k, item := range a {
-		items[k] = *flattenTenantOAuthIdpConfigResponseType(c, item.(map[string]interface{}))
+		items[k] = *flattenTenantOAuthIdpConfigResponseType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -995,7 +995,7 @@ func flattenTenantOAuthIdpConfigResponseTypeMap(c *Client, i interface{}) map[st
 
 // flattenTenantOAuthIdpConfigResponseTypeSlice flattens the contents of TenantOAuthIdpConfigResponseType from a JSON
 // response object.
-func flattenTenantOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []TenantOAuthIdpConfigResponseType {
+func flattenTenantOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}, res *TenantOAuthIdpConfig) []TenantOAuthIdpConfigResponseType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TenantOAuthIdpConfigResponseType{}
@@ -1007,7 +1007,7 @@ func flattenTenantOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []Te
 
 	items := make([]TenantOAuthIdpConfigResponseType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTenantOAuthIdpConfigResponseType(c, item.(map[string]interface{})))
+		items = append(items, *flattenTenantOAuthIdpConfigResponseType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1036,7 +1036,7 @@ func expandTenantOAuthIdpConfigResponseType(c *Client, f *TenantOAuthIdpConfigRe
 
 // flattenTenantOAuthIdpConfigResponseType flattens an instance of TenantOAuthIdpConfigResponseType from a JSON
 // response object.
-func flattenTenantOAuthIdpConfigResponseType(c *Client, i interface{}) *TenantOAuthIdpConfigResponseType {
+func flattenTenantOAuthIdpConfigResponseType(c *Client, i interface{}, res *TenantOAuthIdpConfig) *TenantOAuthIdpConfigResponseType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1059,7 +1059,7 @@ func flattenTenantOAuthIdpConfigResponseType(c *Client, i interface{}) *TenantOA
 // identity).  This is useful in extracting the element from a List call.
 func (r *TenantOAuthIdpConfig) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalTenantOAuthIdpConfig(b, c)
+		cr, err := unmarshalTenantOAuthIdpConfig(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

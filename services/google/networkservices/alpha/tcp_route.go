@@ -37,6 +37,7 @@ type TcpRoute struct {
 	Labels      map[string]string `json:"labels"`
 	Project     *string           `json:"project"`
 	Location    *string           `json:"location"`
+	SelfLink    *string           `json:"selfLink"`
 }
 
 func (r *TcpRoute) String() string {
@@ -266,6 +267,7 @@ func (r *TcpRoute) ID() (string, error) {
 		"labels":      dcl.ValueOrEmptyString(nr.Labels),
 		"project":     dcl.ValueOrEmptyString(nr.Project),
 		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"selfLink":    dcl.ValueOrEmptyString(nr.SelfLink),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/tcpRoutes/{{name}}", params), nil
 }
@@ -352,7 +354,7 @@ func (c *Client) GetTcpRoute(ctx context.Context, r *TcpRoute) (*TcpRoute, error
 		}
 		return nil, err
 	}
-	result, err := unmarshalTcpRoute(b, c)
+	result, err := unmarshalTcpRoute(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -522,7 +524,7 @@ func applyTcpRouteDiff(c *Client, ctx context.Context, desired *TcpRoute, rawDes
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapTcpRoute(r, c)
+				fullResp, err := unmarshalMapTcpRoute(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

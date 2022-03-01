@@ -154,7 +154,7 @@ func (c *Client) listRuleset(ctx context.Context, r *Ruleset, pageToken string, 
 
 	var l []*Ruleset
 	for _, v := range m.Rulesets {
-		res, err := unmarshalMapRuleset(v, c)
+		res, err := unmarshalMapRuleset(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -956,17 +956,17 @@ func (r *Ruleset) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalRuleset decodes JSON responses into the Ruleset resource schema.
-func unmarshalRuleset(b []byte, c *Client) (*Ruleset, error) {
+func unmarshalRuleset(b []byte, c *Client, res *Ruleset) (*Ruleset, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapRuleset(m, c)
+	return unmarshalMapRuleset(m, c, res)
 }
 
-func unmarshalMapRuleset(m map[string]interface{}, c *Client) (*Ruleset, error) {
+func unmarshalMapRuleset(m map[string]interface{}, c *Client, res *Ruleset) (*Ruleset, error) {
 
-	flattened := flattenRuleset(c, m)
+	flattened := flattenRuleset(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -999,7 +999,7 @@ func expandRuleset(c *Client, f *Ruleset) (map[string]interface{}, error) {
 
 // flattenRuleset flattens Ruleset from a JSON request object into the
 // Ruleset type.
-func flattenRuleset(c *Client, i interface{}) *Ruleset {
+func flattenRuleset(c *Client, i interface{}, res *Ruleset) *Ruleset {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1008,14 +1008,14 @@ func flattenRuleset(c *Client, i interface{}) *Ruleset {
 		return nil
 	}
 
-	res := &Ruleset{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Source = flattenRulesetSource(c, m["source"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.Metadata = flattenRulesetMetadata(c, m["metadata"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Ruleset{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Source = flattenRulesetSource(c, m["source"], res)
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.Metadata = flattenRulesetMetadata(c, m["metadata"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandRulesetSourceMap expands the contents of RulesetSource into a JSON
@@ -1061,7 +1061,7 @@ func expandRulesetSourceSlice(c *Client, f []RulesetSource, res *Ruleset) ([]map
 
 // flattenRulesetSourceMap flattens the contents of RulesetSource from a JSON
 // response object.
-func flattenRulesetSourceMap(c *Client, i interface{}) map[string]RulesetSource {
+func flattenRulesetSourceMap(c *Client, i interface{}, res *Ruleset) map[string]RulesetSource {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RulesetSource{}
@@ -1073,7 +1073,7 @@ func flattenRulesetSourceMap(c *Client, i interface{}) map[string]RulesetSource 
 
 	items := make(map[string]RulesetSource)
 	for k, item := range a {
-		items[k] = *flattenRulesetSource(c, item.(map[string]interface{}))
+		items[k] = *flattenRulesetSource(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1081,7 +1081,7 @@ func flattenRulesetSourceMap(c *Client, i interface{}) map[string]RulesetSource 
 
 // flattenRulesetSourceSlice flattens the contents of RulesetSource from a JSON
 // response object.
-func flattenRulesetSourceSlice(c *Client, i interface{}) []RulesetSource {
+func flattenRulesetSourceSlice(c *Client, i interface{}, res *Ruleset) []RulesetSource {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RulesetSource{}
@@ -1093,7 +1093,7 @@ func flattenRulesetSourceSlice(c *Client, i interface{}) []RulesetSource {
 
 	items := make([]RulesetSource, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRulesetSource(c, item.(map[string]interface{})))
+		items = append(items, *flattenRulesetSource(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1121,7 +1121,7 @@ func expandRulesetSource(c *Client, f *RulesetSource, res *Ruleset) (map[string]
 
 // flattenRulesetSource flattens an instance of RulesetSource from a JSON
 // response object.
-func flattenRulesetSource(c *Client, i interface{}) *RulesetSource {
+func flattenRulesetSource(c *Client, i interface{}, res *Ruleset) *RulesetSource {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1132,7 +1132,7 @@ func flattenRulesetSource(c *Client, i interface{}) *RulesetSource {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyRulesetSource
 	}
-	r.Files = flattenRulesetSourceFilesSlice(c, m["files"])
+	r.Files = flattenRulesetSourceFilesSlice(c, m["files"], res)
 	r.Language = flattenRulesetSourceLanguageEnum(m["language"])
 
 	return r
@@ -1181,7 +1181,7 @@ func expandRulesetSourceFilesSlice(c *Client, f []RulesetSourceFiles, res *Rules
 
 // flattenRulesetSourceFilesMap flattens the contents of RulesetSourceFiles from a JSON
 // response object.
-func flattenRulesetSourceFilesMap(c *Client, i interface{}) map[string]RulesetSourceFiles {
+func flattenRulesetSourceFilesMap(c *Client, i interface{}, res *Ruleset) map[string]RulesetSourceFiles {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RulesetSourceFiles{}
@@ -1193,7 +1193,7 @@ func flattenRulesetSourceFilesMap(c *Client, i interface{}) map[string]RulesetSo
 
 	items := make(map[string]RulesetSourceFiles)
 	for k, item := range a {
-		items[k] = *flattenRulesetSourceFiles(c, item.(map[string]interface{}))
+		items[k] = *flattenRulesetSourceFiles(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1201,7 +1201,7 @@ func flattenRulesetSourceFilesMap(c *Client, i interface{}) map[string]RulesetSo
 
 // flattenRulesetSourceFilesSlice flattens the contents of RulesetSourceFiles from a JSON
 // response object.
-func flattenRulesetSourceFilesSlice(c *Client, i interface{}) []RulesetSourceFiles {
+func flattenRulesetSourceFilesSlice(c *Client, i interface{}, res *Ruleset) []RulesetSourceFiles {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RulesetSourceFiles{}
@@ -1213,7 +1213,7 @@ func flattenRulesetSourceFilesSlice(c *Client, i interface{}) []RulesetSourceFil
 
 	items := make([]RulesetSourceFiles, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRulesetSourceFiles(c, item.(map[string]interface{})))
+		items = append(items, *flattenRulesetSourceFiles(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1242,7 +1242,7 @@ func expandRulesetSourceFiles(c *Client, f *RulesetSourceFiles, res *Ruleset) (m
 
 // flattenRulesetSourceFiles flattens an instance of RulesetSourceFiles from a JSON
 // response object.
-func flattenRulesetSourceFiles(c *Client, i interface{}) *RulesetSourceFiles {
+func flattenRulesetSourceFiles(c *Client, i interface{}, res *Ruleset) *RulesetSourceFiles {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1303,7 +1303,7 @@ func expandRulesetMetadataSlice(c *Client, f []RulesetMetadata, res *Ruleset) ([
 
 // flattenRulesetMetadataMap flattens the contents of RulesetMetadata from a JSON
 // response object.
-func flattenRulesetMetadataMap(c *Client, i interface{}) map[string]RulesetMetadata {
+func flattenRulesetMetadataMap(c *Client, i interface{}, res *Ruleset) map[string]RulesetMetadata {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RulesetMetadata{}
@@ -1315,7 +1315,7 @@ func flattenRulesetMetadataMap(c *Client, i interface{}) map[string]RulesetMetad
 
 	items := make(map[string]RulesetMetadata)
 	for k, item := range a {
-		items[k] = *flattenRulesetMetadata(c, item.(map[string]interface{}))
+		items[k] = *flattenRulesetMetadata(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1323,7 +1323,7 @@ func flattenRulesetMetadataMap(c *Client, i interface{}) map[string]RulesetMetad
 
 // flattenRulesetMetadataSlice flattens the contents of RulesetMetadata from a JSON
 // response object.
-func flattenRulesetMetadataSlice(c *Client, i interface{}) []RulesetMetadata {
+func flattenRulesetMetadataSlice(c *Client, i interface{}, res *Ruleset) []RulesetMetadata {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RulesetMetadata{}
@@ -1335,7 +1335,7 @@ func flattenRulesetMetadataSlice(c *Client, i interface{}) []RulesetMetadata {
 
 	items := make([]RulesetMetadata, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRulesetMetadata(c, item.(map[string]interface{})))
+		items = append(items, *flattenRulesetMetadata(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1358,7 +1358,7 @@ func expandRulesetMetadata(c *Client, f *RulesetMetadata, res *Ruleset) (map[str
 
 // flattenRulesetMetadata flattens an instance of RulesetMetadata from a JSON
 // response object.
-func flattenRulesetMetadata(c *Client, i interface{}) *RulesetMetadata {
+func flattenRulesetMetadata(c *Client, i interface{}, res *Ruleset) *RulesetMetadata {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1376,7 +1376,7 @@ func flattenRulesetMetadata(c *Client, i interface{}) *RulesetMetadata {
 
 // flattenRulesetSourceLanguageEnumMap flattens the contents of RulesetSourceLanguageEnum from a JSON
 // response object.
-func flattenRulesetSourceLanguageEnumMap(c *Client, i interface{}) map[string]RulesetSourceLanguageEnum {
+func flattenRulesetSourceLanguageEnumMap(c *Client, i interface{}, res *Ruleset) map[string]RulesetSourceLanguageEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RulesetSourceLanguageEnum{}
@@ -1396,7 +1396,7 @@ func flattenRulesetSourceLanguageEnumMap(c *Client, i interface{}) map[string]Ru
 
 // flattenRulesetSourceLanguageEnumSlice flattens the contents of RulesetSourceLanguageEnum from a JSON
 // response object.
-func flattenRulesetSourceLanguageEnumSlice(c *Client, i interface{}) []RulesetSourceLanguageEnum {
+func flattenRulesetSourceLanguageEnumSlice(c *Client, i interface{}, res *Ruleset) []RulesetSourceLanguageEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RulesetSourceLanguageEnum{}
@@ -1430,7 +1430,7 @@ func flattenRulesetSourceLanguageEnum(i interface{}) *RulesetSourceLanguageEnum 
 // identity).  This is useful in extracting the element from a List call.
 func (r *Ruleset) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalRuleset(b, c)
+		cr, err := unmarshalRuleset(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

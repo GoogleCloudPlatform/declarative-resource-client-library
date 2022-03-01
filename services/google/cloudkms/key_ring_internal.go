@@ -123,7 +123,7 @@ func (c *Client) listKeyRing(ctx context.Context, r *KeyRing, pageToken string, 
 
 	var l []*KeyRing
 	for _, v := range m.KeyRings {
-		res, err := unmarshalMapKeyRing(v, c)
+		res, err := unmarshalMapKeyRing(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -399,17 +399,17 @@ func (r *KeyRing) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalKeyRing decodes JSON responses into the KeyRing resource schema.
-func unmarshalKeyRing(b []byte, c *Client) (*KeyRing, error) {
+func unmarshalKeyRing(b []byte, c *Client, res *KeyRing) (*KeyRing, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapKeyRing(m, c)
+	return unmarshalMapKeyRing(m, c, res)
 }
 
-func unmarshalMapKeyRing(m map[string]interface{}, c *Client) (*KeyRing, error) {
+func unmarshalMapKeyRing(m map[string]interface{}, c *Client, res *KeyRing) (*KeyRing, error) {
 
-	flattened := flattenKeyRing(c, m)
+	flattened := flattenKeyRing(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -442,7 +442,7 @@ func expandKeyRing(c *Client, f *KeyRing) (map[string]interface{}, error) {
 
 // flattenKeyRing flattens KeyRing from a JSON request object into the
 // KeyRing type.
-func flattenKeyRing(c *Client, i interface{}) *KeyRing {
+func flattenKeyRing(c *Client, i interface{}, res *KeyRing) *KeyRing {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -451,13 +451,13 @@ func flattenKeyRing(c *Client, i interface{}) *KeyRing {
 		return nil
 	}
 
-	res := &KeyRing{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &KeyRing{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -465,7 +465,7 @@ func flattenKeyRing(c *Client, i interface{}) *KeyRing {
 // identity).  This is useful in extracting the element from a List call.
 func (r *KeyRing) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalKeyRing(b, c)
+		cr, err := unmarshalKeyRing(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

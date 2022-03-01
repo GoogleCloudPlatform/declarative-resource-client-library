@@ -258,7 +258,7 @@ func (c *Client) GetFeatureMembership(ctx context.Context, r *FeatureMembership)
 	if err != nil {
 		return nil, err
 	}
-	result, err := unmarshalMapFeatureMembership(spec, c)
+	result, err := unmarshalMapFeatureMembership(spec, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +305,7 @@ func (c *Client) ListFeatureMembership(ctx context.Context, project, location, f
 		if !ok {
 			return nil, errors.New("membership spec was not of map type")
 		}
-		ri, err := unmarshalMapFeatureMembership(m, c)
+		ri, err := unmarshalMapFeatureMembership(m, c, r)
 		if err != nil {
 			return nil, err
 		}

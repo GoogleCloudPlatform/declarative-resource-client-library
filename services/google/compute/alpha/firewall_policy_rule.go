@@ -284,7 +284,7 @@ func (c *Client) GetFirewallPolicyRule(ctx context.Context, r *FirewallPolicyRul
 		}
 		return nil, err
 	}
-	result, err := unmarshalFirewallPolicyRule(b, c)
+	result, err := unmarshalFirewallPolicyRule(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -453,7 +453,7 @@ func applyFirewallPolicyRuleDiff(c *Client, ctx context.Context, desired *Firewa
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapFirewallPolicyRule(r, c)
+				fullResp, err := unmarshalMapFirewallPolicyRule(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

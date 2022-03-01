@@ -577,7 +577,7 @@ func (c *Client) GetUptimeCheckConfig(ctx context.Context, r *UptimeCheckConfig)
 		}
 		return nil, err
 	}
-	result, err := unmarshalUptimeCheckConfig(b, c)
+	result, err := unmarshalUptimeCheckConfig(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -749,7 +749,7 @@ func applyUptimeCheckConfigDiff(c *Client, ctx context.Context, desired *UptimeC
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapUptimeCheckConfig(r, c)
+				fullResp, err := unmarshalMapUptimeCheckConfig(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

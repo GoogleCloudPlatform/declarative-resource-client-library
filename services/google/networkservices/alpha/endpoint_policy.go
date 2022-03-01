@@ -403,7 +403,7 @@ func (c *Client) GetEndpointPolicy(ctx context.Context, r *EndpointPolicy) (*End
 		}
 		return nil, err
 	}
-	result, err := unmarshalEndpointPolicy(b, c)
+	result, err := unmarshalEndpointPolicy(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -573,7 +573,7 @@ func applyEndpointPolicyDiff(c *Client, ctx context.Context, desired *EndpointPo
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapEndpointPolicy(r, c)
+				fullResp, err := unmarshalMapEndpointPolicy(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -211,7 +211,7 @@ func (c *Client) GetBackup(ctx context.Context, r *Backup) (*Backup, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalBackup(b, c)
+	result, err := unmarshalBackup(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -381,7 +381,7 @@ func applyBackupDiff(c *Client, ctx context.Context, desired *Backup, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapBackup(r, c)
+				fullResp, err := unmarshalMapBackup(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

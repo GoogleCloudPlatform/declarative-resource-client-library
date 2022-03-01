@@ -38,6 +38,7 @@ type HttpRoute struct {
 	Rules       []HttpRouteRules  `json:"rules"`
 	Project     *string           `json:"project"`
 	Location    *string           `json:"location"`
+	SelfLink    *string           `json:"selfLink"`
 }
 
 func (r *HttpRoute) String() string {
@@ -1083,6 +1084,7 @@ func (r *HttpRoute) ID() (string, error) {
 		"rules":       dcl.ValueOrEmptyString(nr.Rules),
 		"project":     dcl.ValueOrEmptyString(nr.Project),
 		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"selfLink":    dcl.ValueOrEmptyString(nr.SelfLink),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/httpRoutes/{{name}}", params), nil
 }
@@ -1169,7 +1171,7 @@ func (c *Client) GetHttpRoute(ctx context.Context, r *HttpRoute) (*HttpRoute, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalHttpRoute(b, c)
+	result, err := unmarshalHttpRoute(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1339,7 +1341,7 @@ func applyHttpRouteDiff(c *Client, ctx context.Context, desired *HttpRoute, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapHttpRoute(r, c)
+				fullResp, err := unmarshalMapHttpRoute(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -420,17 +420,17 @@ func (r *MetricsScope) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalMetricsScope decodes JSON responses into the MetricsScope resource schema.
-func unmarshalMetricsScope(b []byte, c *Client) (*MetricsScope, error) {
+func unmarshalMetricsScope(b []byte, c *Client, res *MetricsScope) (*MetricsScope, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapMetricsScope(m, c)
+	return unmarshalMapMetricsScope(m, c, res)
 }
 
-func unmarshalMapMetricsScope(m map[string]interface{}, c *Client) (*MetricsScope, error) {
+func unmarshalMapMetricsScope(m map[string]interface{}, c *Client, res *MetricsScope) (*MetricsScope, error) {
 
-	flattened := flattenMetricsScope(c, m)
+	flattened := flattenMetricsScope(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -453,7 +453,7 @@ func expandMetricsScope(c *Client, f *MetricsScope) (map[string]interface{}, err
 
 // flattenMetricsScope flattens MetricsScope from a JSON request object into the
 // MetricsScope type.
-func flattenMetricsScope(c *Client, i interface{}) *MetricsScope {
+func flattenMetricsScope(c *Client, i interface{}, res *MetricsScope) *MetricsScope {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -462,13 +462,13 @@ func flattenMetricsScope(c *Client, i interface{}) *MetricsScope {
 		return nil
 	}
 
-	res := &MetricsScope{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.MonitoredProjects = flattenMetricsScopeMonitoredProjectsSlice(c, m["monitoredProjects"])
+	resultRes := &MetricsScope{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.MonitoredProjects = flattenMetricsScopeMonitoredProjectsSlice(c, m["monitoredProjects"], res)
 
-	return res
+	return resultRes
 }
 
 // expandMetricsScopeMonitoredProjectsMap expands the contents of MetricsScopeMonitoredProjects into a JSON
@@ -514,7 +514,7 @@ func expandMetricsScopeMonitoredProjectsSlice(c *Client, f []MetricsScopeMonitor
 
 // flattenMetricsScopeMonitoredProjectsMap flattens the contents of MetricsScopeMonitoredProjects from a JSON
 // response object.
-func flattenMetricsScopeMonitoredProjectsMap(c *Client, i interface{}) map[string]MetricsScopeMonitoredProjects {
+func flattenMetricsScopeMonitoredProjectsMap(c *Client, i interface{}, res *MetricsScope) map[string]MetricsScopeMonitoredProjects {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MetricsScopeMonitoredProjects{}
@@ -526,7 +526,7 @@ func flattenMetricsScopeMonitoredProjectsMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]MetricsScopeMonitoredProjects)
 	for k, item := range a {
-		items[k] = *flattenMetricsScopeMonitoredProjects(c, item.(map[string]interface{}))
+		items[k] = *flattenMetricsScopeMonitoredProjects(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -534,7 +534,7 @@ func flattenMetricsScopeMonitoredProjectsMap(c *Client, i interface{}) map[strin
 
 // flattenMetricsScopeMonitoredProjectsSlice flattens the contents of MetricsScopeMonitoredProjects from a JSON
 // response object.
-func flattenMetricsScopeMonitoredProjectsSlice(c *Client, i interface{}) []MetricsScopeMonitoredProjects {
+func flattenMetricsScopeMonitoredProjectsSlice(c *Client, i interface{}, res *MetricsScope) []MetricsScopeMonitoredProjects {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MetricsScopeMonitoredProjects{}
@@ -546,7 +546,7 @@ func flattenMetricsScopeMonitoredProjectsSlice(c *Client, i interface{}) []Metri
 
 	items := make([]MetricsScopeMonitoredProjects, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricsScopeMonitoredProjects(c, item.(map[string]interface{})))
+		items = append(items, *flattenMetricsScopeMonitoredProjects(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -569,7 +569,7 @@ func expandMetricsScopeMonitoredProjects(c *Client, f *MetricsScopeMonitoredProj
 
 // flattenMetricsScopeMonitoredProjects flattens an instance of MetricsScopeMonitoredProjects from a JSON
 // response object.
-func flattenMetricsScopeMonitoredProjects(c *Client, i interface{}) *MetricsScopeMonitoredProjects {
+func flattenMetricsScopeMonitoredProjects(c *Client, i interface{}, res *MetricsScope) *MetricsScopeMonitoredProjects {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -591,7 +591,7 @@ func flattenMetricsScopeMonitoredProjects(c *Client, i interface{}) *MetricsScop
 // identity).  This is useful in extracting the element from a List call.
 func (r *MetricsScope) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalMetricsScope(b, c)
+		cr, err := unmarshalMetricsScope(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

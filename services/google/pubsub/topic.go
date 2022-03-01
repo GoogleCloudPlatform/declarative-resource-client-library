@@ -188,7 +188,7 @@ func (c *Client) GetTopic(ctx context.Context, r *Topic) (*Topic, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalTopic(b, c)
+	result, err := unmarshalTopic(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +357,7 @@ func applyTopicDiff(c *Client, ctx context.Context, desired *Topic, rawDesired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapTopic(r, c)
+				fullResp, err := unmarshalMapTopic(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

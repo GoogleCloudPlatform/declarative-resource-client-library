@@ -316,7 +316,7 @@ func (c *Client) GetRuleset(ctx context.Context, r *Ruleset) (*Ruleset, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalRuleset(b, c)
+	result, err := unmarshalRuleset(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -485,7 +485,7 @@ func applyRulesetDiff(c *Client, ctx context.Context, desired *Ruleset, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapRuleset(r, c)
+				fullResp, err := unmarshalMapRuleset(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -174,7 +174,7 @@ func (c *Client) listFirewallPolicy(ctx context.Context, r *FirewallPolicy, page
 
 	var l []*FirewallPolicy
 	for _, v := range m.Items {
-		res, err := unmarshalMapFirewallPolicy(v, c)
+		res, err := unmarshalMapFirewallPolicy(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -554,17 +554,17 @@ func (r *FirewallPolicy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFirewallPolicy decodes JSON responses into the FirewallPolicy resource schema.
-func unmarshalFirewallPolicy(b []byte, c *Client) (*FirewallPolicy, error) {
+func unmarshalFirewallPolicy(b []byte, c *Client, res *FirewallPolicy) (*FirewallPolicy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFirewallPolicy(m, c)
+	return unmarshalMapFirewallPolicy(m, c, res)
 }
 
-func unmarshalMapFirewallPolicy(m map[string]interface{}, c *Client) (*FirewallPolicy, error) {
+func unmarshalMapFirewallPolicy(m map[string]interface{}, c *Client, res *FirewallPolicy) (*FirewallPolicy, error) {
 
-	flattened := flattenFirewallPolicy(c, m)
+	flattened := flattenFirewallPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -594,7 +594,7 @@ func expandFirewallPolicy(c *Client, f *FirewallPolicy) (map[string]interface{},
 
 // flattenFirewallPolicy flattens FirewallPolicy from a JSON request object into the
 // FirewallPolicy type.
-func flattenFirewallPolicy(c *Client, i interface{}) *FirewallPolicy {
+func flattenFirewallPolicy(c *Client, i interface{}, res *FirewallPolicy) *FirewallPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -603,19 +603,19 @@ func flattenFirewallPolicy(c *Client, i interface{}) *FirewallPolicy {
 		return nil
 	}
 
-	res := &FirewallPolicy{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Id = dcl.FlattenString(m["id"])
-	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Fingerprint = dcl.FlattenString(m["fingerprint"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
-	res.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
-	res.ShortName = dcl.FlattenString(m["shortName"])
-	res.Parent = dcl.FlattenString(m["parent"])
+	resultRes := &FirewallPolicy{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Id = dcl.FlattenString(m["id"])
+	resultRes.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Fingerprint = dcl.FlattenString(m["fingerprint"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
+	resultRes.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
+	resultRes.ShortName = dcl.FlattenString(m["shortName"])
+	resultRes.Parent = dcl.FlattenString(m["parent"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -623,7 +623,7 @@ func flattenFirewallPolicy(c *Client, i interface{}) *FirewallPolicy {
 // identity).  This is useful in extracting the element from a List call.
 func (r *FirewallPolicy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFirewallPolicy(b, c)
+		cr, err := unmarshalFirewallPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

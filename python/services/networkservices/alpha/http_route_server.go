@@ -313,6 +313,7 @@ func ProtoToHttpRoute(p *alphapb.NetworkservicesAlphaHttpRoute) *alpha.HttpRoute
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 		Project:     dcl.StringOrNil(p.GetProject()),
 		Location:    dcl.StringOrNil(p.GetLocation()),
+		SelfLink:    dcl.StringOrNil(p.GetSelfLink()),
 	}
 	for _, r := range p.GetHostnames() {
 		obj.Hostnames = append(obj.Hostnames, r)
@@ -648,6 +649,7 @@ func HttpRouteToProto(resource *alpha.HttpRoute) *alphapb.NetworkservicesAlphaHt
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 	sHostnames := make([]string, len(resource.Hostnames))
 	for i, r := range resource.Hostnames {
 		sHostnames[i] = r

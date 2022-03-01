@@ -20,12 +20,12 @@ versions:
 - beta
 resource: samples/big_query_field.stored_info_type.json
 dependencies:
-- samples/minimal.bigquery.dataset.json
-- samples/basic.bigquery.table.json
+- samples/first.bigquery.dataset.json
+- samples/first.bigquery.table.json
 variables:
-- name: _dataset
+- name: _dataset1
   type: resource_name
-- name: _table
+- name: _table1
   type: resource_name
 - name: project
   type: project

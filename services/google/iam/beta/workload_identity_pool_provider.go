@@ -283,7 +283,7 @@ func (c *Client) GetWorkloadIdentityPoolProvider(ctx context.Context, r *Workloa
 		}
 		return nil, err
 	}
-	result, err := unmarshalWorkloadIdentityPoolProvider(b, c)
+	result, err := unmarshalWorkloadIdentityPoolProvider(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -454,7 +454,7 @@ func applyWorkloadIdentityPoolProviderDiff(c *Client, ctx context.Context, desir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapWorkloadIdentityPoolProvider(r, c)
+				fullResp, err := unmarshalMapWorkloadIdentityPoolProvider(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

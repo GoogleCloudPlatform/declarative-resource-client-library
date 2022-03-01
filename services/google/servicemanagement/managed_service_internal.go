@@ -123,7 +123,7 @@ func (c *Client) listManagedService(ctx context.Context, r *ManagedService, page
 
 	var l []*ManagedService
 	for _, v := range m.Services {
-		res, err := unmarshalMapManagedService(v, c)
+		res, err := unmarshalMapManagedService(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -425,17 +425,17 @@ func (r *ManagedService) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalManagedService decodes JSON responses into the ManagedService resource schema.
-func unmarshalManagedService(b []byte, c *Client) (*ManagedService, error) {
+func unmarshalManagedService(b []byte, c *Client, res *ManagedService) (*ManagedService, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapManagedService(m, c)
+	return unmarshalMapManagedService(m, c, res)
 }
 
-func unmarshalMapManagedService(m map[string]interface{}, c *Client) (*ManagedService, error) {
+func unmarshalMapManagedService(m map[string]interface{}, c *Client, res *ManagedService) (*ManagedService, error) {
 
-	flattened := flattenManagedService(c, m)
+	flattened := flattenManagedService(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -459,7 +459,7 @@ func expandManagedService(c *Client, f *ManagedService) (map[string]interface{},
 
 // flattenManagedService flattens ManagedService from a JSON request object into the
 // ManagedService type.
-func flattenManagedService(c *Client, i interface{}) *ManagedService {
+func flattenManagedService(c *Client, i interface{}, res *ManagedService) *ManagedService {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -468,11 +468,11 @@ func flattenManagedService(c *Client, i interface{}) *ManagedService {
 		return nil
 	}
 
-	res := &ManagedService{}
-	res.Name = dcl.FlattenString(m["serviceName"])
-	res.Project = dcl.FlattenString(m["producerProjectId"])
+	resultRes := &ManagedService{}
+	resultRes.Name = dcl.FlattenString(m["serviceName"])
+	resultRes.Project = dcl.FlattenString(m["producerProjectId"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -480,7 +480,7 @@ func flattenManagedService(c *Client, i interface{}) *ManagedService {
 // identity).  This is useful in extracting the element from a List call.
 func (r *ManagedService) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalManagedService(b, c)
+		cr, err := unmarshalManagedService(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -1542,17 +1542,17 @@ func (r *FeatureMembership) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFeatureMembership decodes JSON responses into the FeatureMembership resource schema.
-func unmarshalFeatureMembership(b []byte, c *Client) (*FeatureMembership, error) {
+func unmarshalFeatureMembership(b []byte, c *Client, res *FeatureMembership) (*FeatureMembership, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFeatureMembership(m, c)
+	return unmarshalMapFeatureMembership(m, c, res)
 }
 
-func unmarshalMapFeatureMembership(m map[string]interface{}, c *Client) (*FeatureMembership, error) {
+func unmarshalMapFeatureMembership(m map[string]interface{}, c *Client, res *FeatureMembership) (*FeatureMembership, error) {
 
-	flattened := flattenFeatureMembership(c, m)
+	flattened := flattenFeatureMembership(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1595,7 +1595,7 @@ func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interf
 
 // flattenFeatureMembership flattens FeatureMembership from a JSON request object into the
 // FeatureMembership type.
-func flattenFeatureMembership(c *Client, i interface{}) *FeatureMembership {
+func flattenFeatureMembership(c *Client, i interface{}, res *FeatureMembership) *FeatureMembership {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1604,14 +1604,14 @@ func flattenFeatureMembership(c *Client, i interface{}) *FeatureMembership {
 		return nil
 	}
 
-	res := &FeatureMembership{}
-	res.Configmanagement = flattenFeatureMembershipConfigmanagement(c, m["configmanagement"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Feature = dcl.FlattenString(m["feature"])
-	res.Membership = dcl.FlattenString(m["membership"])
+	resultRes := &FeatureMembership{}
+	resultRes.Configmanagement = flattenFeatureMembershipConfigmanagement(c, m["configmanagement"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Feature = dcl.FlattenString(m["feature"])
+	resultRes.Membership = dcl.FlattenString(m["membership"])
 
-	return res
+	return resultRes
 }
 
 // expandFeatureMembershipConfigmanagementMap expands the contents of FeatureMembershipConfigmanagement into a JSON
@@ -1657,7 +1657,7 @@ func expandFeatureMembershipConfigmanagementSlice(c *Client, f []FeatureMembersh
 
 // flattenFeatureMembershipConfigmanagementMap flattens the contents of FeatureMembershipConfigmanagement from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementMap(c *Client, i interface{}) map[string]FeatureMembershipConfigmanagement {
+func flattenFeatureMembershipConfigmanagementMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagement {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureMembershipConfigmanagement{}
@@ -1669,7 +1669,7 @@ func flattenFeatureMembershipConfigmanagementMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]FeatureMembershipConfigmanagement)
 	for k, item := range a {
-		items[k] = *flattenFeatureMembershipConfigmanagement(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureMembershipConfigmanagement(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1677,7 +1677,7 @@ func flattenFeatureMembershipConfigmanagementMap(c *Client, i interface{}) map[s
 
 // flattenFeatureMembershipConfigmanagementSlice flattens the contents of FeatureMembershipConfigmanagement from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementSlice(c *Client, i interface{}) []FeatureMembershipConfigmanagement {
+func flattenFeatureMembershipConfigmanagementSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagement {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureMembershipConfigmanagement{}
@@ -1689,7 +1689,7 @@ func flattenFeatureMembershipConfigmanagementSlice(c *Client, i interface{}) []F
 
 	items := make([]FeatureMembershipConfigmanagement, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureMembershipConfigmanagement(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureMembershipConfigmanagement(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1732,7 +1732,7 @@ func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConf
 
 // flattenFeatureMembershipConfigmanagement flattens an instance of FeatureMembershipConfigmanagement from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagement(c *Client, i interface{}) *FeatureMembershipConfigmanagement {
+func flattenFeatureMembershipConfigmanagement(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagement {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1743,10 +1743,10 @@ func flattenFeatureMembershipConfigmanagement(c *Client, i interface{}) *Feature
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureMembershipConfigmanagement
 	}
-	r.ConfigSync = flattenFeatureMembershipConfigmanagementConfigSync(c, m["configSync"])
-	r.PolicyController = flattenFeatureMembershipConfigmanagementPolicyController(c, m["policyController"])
-	r.Binauthz = flattenFeatureMembershipConfigmanagementBinauthz(c, m["binauthz"])
-	r.HierarchyController = flattenFeatureMembershipConfigmanagementHierarchyController(c, m["hierarchyController"])
+	r.ConfigSync = flattenFeatureMembershipConfigmanagementConfigSync(c, m["configSync"], res)
+	r.PolicyController = flattenFeatureMembershipConfigmanagementPolicyController(c, m["policyController"], res)
+	r.Binauthz = flattenFeatureMembershipConfigmanagementBinauthz(c, m["binauthz"], res)
+	r.HierarchyController = flattenFeatureMembershipConfigmanagementHierarchyController(c, m["hierarchyController"], res)
 	r.Version = dcl.FlattenString(m["version"])
 
 	return r
@@ -1795,7 +1795,7 @@ func expandFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, f []Featu
 
 // flattenFeatureMembershipConfigmanagementConfigSyncMap flattens the contents of FeatureMembershipConfigmanagementConfigSync from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementConfigSyncMap(c *Client, i interface{}) map[string]FeatureMembershipConfigmanagementConfigSync {
+func flattenFeatureMembershipConfigmanagementConfigSyncMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagementConfigSync {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureMembershipConfigmanagementConfigSync{}
@@ -1807,7 +1807,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncMap(c *Client, i interfac
 
 	items := make(map[string]FeatureMembershipConfigmanagementConfigSync)
 	for k, item := range a {
-		items[k] = *flattenFeatureMembershipConfigmanagementConfigSync(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureMembershipConfigmanagementConfigSync(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1815,7 +1815,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncMap(c *Client, i interfac
 
 // flattenFeatureMembershipConfigmanagementConfigSyncSlice flattens the contents of FeatureMembershipConfigmanagementConfigSync from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, i interface{}) []FeatureMembershipConfigmanagementConfigSync {
+func flattenFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagementConfigSync {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureMembershipConfigmanagementConfigSync{}
@@ -1827,7 +1827,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, i interf
 
 	items := make([]FeatureMembershipConfigmanagementConfigSync, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureMembershipConfigmanagementConfigSync(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureMembershipConfigmanagementConfigSync(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1855,7 +1855,7 @@ func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMemb
 
 // flattenFeatureMembershipConfigmanagementConfigSync flattens an instance of FeatureMembershipConfigmanagementConfigSync from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}) *FeatureMembershipConfigmanagementConfigSync {
+func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagementConfigSync {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1866,7 +1866,7 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureMembershipConfigmanagementConfigSync
 	}
-	r.Git = flattenFeatureMembershipConfigmanagementConfigSyncGit(c, m["git"])
+	r.Git = flattenFeatureMembershipConfigmanagementConfigSyncGit(c, m["git"], res)
 	r.SourceFormat = dcl.FlattenString(m["sourceFormat"])
 
 	return r
@@ -1915,7 +1915,7 @@ func expandFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, f []Fe
 
 // flattenFeatureMembershipConfigmanagementConfigSyncGitMap flattens the contents of FeatureMembershipConfigmanagementConfigSyncGit from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, i interface{}) map[string]FeatureMembershipConfigmanagementConfigSyncGit {
+func flattenFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagementConfigSyncGit {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureMembershipConfigmanagementConfigSyncGit{}
@@ -1927,7 +1927,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, i inter
 
 	items := make(map[string]FeatureMembershipConfigmanagementConfigSyncGit)
 	for k, item := range a {
-		items[k] = *flattenFeatureMembershipConfigmanagementConfigSyncGit(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureMembershipConfigmanagementConfigSyncGit(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1935,7 +1935,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, i inter
 
 // flattenFeatureMembershipConfigmanagementConfigSyncGitSlice flattens the contents of FeatureMembershipConfigmanagementConfigSyncGit from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, i interface{}) []FeatureMembershipConfigmanagementConfigSyncGit {
+func flattenFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagementConfigSyncGit {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureMembershipConfigmanagementConfigSyncGit{}
@@ -1947,7 +1947,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, i int
 
 	items := make([]FeatureMembershipConfigmanagementConfigSyncGit, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureMembershipConfigmanagementConfigSyncGit(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureMembershipConfigmanagementConfigSyncGit(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1991,7 +1991,7 @@ func expandFeatureMembershipConfigmanagementConfigSyncGit(c *Client, f *FeatureM
 
 // flattenFeatureMembershipConfigmanagementConfigSyncGit flattens an instance of FeatureMembershipConfigmanagementConfigSyncGit from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementConfigSyncGit(c *Client, i interface{}) *FeatureMembershipConfigmanagementConfigSyncGit {
+func flattenFeatureMembershipConfigmanagementConfigSyncGit(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagementConfigSyncGit {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2057,7 +2057,7 @@ func expandFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, f [
 
 // flattenFeatureMembershipConfigmanagementPolicyControllerMap flattens the contents of FeatureMembershipConfigmanagementPolicyController from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, i interface{}) map[string]FeatureMembershipConfigmanagementPolicyController {
+func flattenFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagementPolicyController {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureMembershipConfigmanagementPolicyController{}
@@ -2069,7 +2069,7 @@ func flattenFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, i in
 
 	items := make(map[string]FeatureMembershipConfigmanagementPolicyController)
 	for k, item := range a {
-		items[k] = *flattenFeatureMembershipConfigmanagementPolicyController(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureMembershipConfigmanagementPolicyController(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2077,7 +2077,7 @@ func flattenFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, i in
 
 // flattenFeatureMembershipConfigmanagementPolicyControllerSlice flattens the contents of FeatureMembershipConfigmanagementPolicyController from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, i interface{}) []FeatureMembershipConfigmanagementPolicyController {
+func flattenFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagementPolicyController {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureMembershipConfigmanagementPolicyController{}
@@ -2089,7 +2089,7 @@ func flattenFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, i 
 
 	items := make([]FeatureMembershipConfigmanagementPolicyController, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureMembershipConfigmanagementPolicyController(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureMembershipConfigmanagementPolicyController(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2127,7 +2127,7 @@ func expandFeatureMembershipConfigmanagementPolicyController(c *Client, f *Featu
 
 // flattenFeatureMembershipConfigmanagementPolicyController flattens an instance of FeatureMembershipConfigmanagementPolicyController from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementPolicyController(c *Client, i interface{}) *FeatureMembershipConfigmanagementPolicyController {
+func flattenFeatureMembershipConfigmanagementPolicyController(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagementPolicyController {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2191,7 +2191,7 @@ func expandFeatureMembershipConfigmanagementBinauthzSlice(c *Client, f []Feature
 
 // flattenFeatureMembershipConfigmanagementBinauthzMap flattens the contents of FeatureMembershipConfigmanagementBinauthz from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementBinauthzMap(c *Client, i interface{}) map[string]FeatureMembershipConfigmanagementBinauthz {
+func flattenFeatureMembershipConfigmanagementBinauthzMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagementBinauthz {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureMembershipConfigmanagementBinauthz{}
@@ -2203,7 +2203,7 @@ func flattenFeatureMembershipConfigmanagementBinauthzMap(c *Client, i interface{
 
 	items := make(map[string]FeatureMembershipConfigmanagementBinauthz)
 	for k, item := range a {
-		items[k] = *flattenFeatureMembershipConfigmanagementBinauthz(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureMembershipConfigmanagementBinauthz(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2211,7 +2211,7 @@ func flattenFeatureMembershipConfigmanagementBinauthzMap(c *Client, i interface{
 
 // flattenFeatureMembershipConfigmanagementBinauthzSlice flattens the contents of FeatureMembershipConfigmanagementBinauthz from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementBinauthzSlice(c *Client, i interface{}) []FeatureMembershipConfigmanagementBinauthz {
+func flattenFeatureMembershipConfigmanagementBinauthzSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagementBinauthz {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureMembershipConfigmanagementBinauthz{}
@@ -2223,7 +2223,7 @@ func flattenFeatureMembershipConfigmanagementBinauthzSlice(c *Client, i interfac
 
 	items := make([]FeatureMembershipConfigmanagementBinauthz, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureMembershipConfigmanagementBinauthz(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureMembershipConfigmanagementBinauthz(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2246,7 +2246,7 @@ func expandFeatureMembershipConfigmanagementBinauthz(c *Client, f *FeatureMember
 
 // flattenFeatureMembershipConfigmanagementBinauthz flattens an instance of FeatureMembershipConfigmanagementBinauthz from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementBinauthz(c *Client, i interface{}) *FeatureMembershipConfigmanagementBinauthz {
+func flattenFeatureMembershipConfigmanagementBinauthz(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagementBinauthz {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2305,7 +2305,7 @@ func expandFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client, 
 
 // flattenFeatureMembershipConfigmanagementHierarchyControllerMap flattens the contents of FeatureMembershipConfigmanagementHierarchyController from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, i interface{}) map[string]FeatureMembershipConfigmanagementHierarchyController {
+func flattenFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagementHierarchyController {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureMembershipConfigmanagementHierarchyController{}
@@ -2317,7 +2317,7 @@ func flattenFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, i
 
 	items := make(map[string]FeatureMembershipConfigmanagementHierarchyController)
 	for k, item := range a {
-		items[k] = *flattenFeatureMembershipConfigmanagementHierarchyController(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureMembershipConfigmanagementHierarchyController(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2325,7 +2325,7 @@ func flattenFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, i
 
 // flattenFeatureMembershipConfigmanagementHierarchyControllerSlice flattens the contents of FeatureMembershipConfigmanagementHierarchyController from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client, i interface{}) []FeatureMembershipConfigmanagementHierarchyController {
+func flattenFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagementHierarchyController {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureMembershipConfigmanagementHierarchyController{}
@@ -2337,7 +2337,7 @@ func flattenFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client,
 
 	items := make([]FeatureMembershipConfigmanagementHierarchyController, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureMembershipConfigmanagementHierarchyController(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureMembershipConfigmanagementHierarchyController(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2366,7 +2366,7 @@ func expandFeatureMembershipConfigmanagementHierarchyController(c *Client, f *Fe
 
 // flattenFeatureMembershipConfigmanagementHierarchyController flattens an instance of FeatureMembershipConfigmanagementHierarchyController from a JSON
 // response object.
-func flattenFeatureMembershipConfigmanagementHierarchyController(c *Client, i interface{}) *FeatureMembershipConfigmanagementHierarchyController {
+func flattenFeatureMembershipConfigmanagementHierarchyController(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagementHierarchyController {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2389,7 +2389,7 @@ func flattenFeatureMembershipConfigmanagementHierarchyController(c *Client, i in
 // identity).  This is useful in extracting the element from a List call.
 func (r *FeatureMembership) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFeatureMembership(b, c)
+		cr, err := unmarshalFeatureMembership(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

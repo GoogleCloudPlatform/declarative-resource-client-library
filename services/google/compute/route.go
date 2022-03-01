@@ -245,7 +245,7 @@ func (c *Client) GetRoute(ctx context.Context, r *Route) (*Route, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalRoute(b, c)
+	result, err := unmarshalRoute(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -417,7 +417,7 @@ func applyRouteDiff(c *Client, ctx context.Context, desired *Route, rawDesired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapRoute(r, c)
+				fullResp, err := unmarshalMapRoute(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

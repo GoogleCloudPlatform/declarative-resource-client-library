@@ -266,7 +266,7 @@ func (c *Client) listCryptoKey(ctx context.Context, r *CryptoKey, pageToken stri
 
 	var l []*CryptoKey
 	for _, v := range m.CryptoKeys {
-		res, err := unmarshalMapCryptoKey(v, c)
+		res, err := unmarshalMapCryptoKey(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1595,17 +1595,17 @@ func (r *CryptoKey) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalCryptoKey decodes JSON responses into the CryptoKey resource schema.
-func unmarshalCryptoKey(b []byte, c *Client) (*CryptoKey, error) {
+func unmarshalCryptoKey(b []byte, c *Client, res *CryptoKey) (*CryptoKey, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapCryptoKey(m, c)
+	return unmarshalMapCryptoKey(m, c, res)
 }
 
-func unmarshalMapCryptoKey(m map[string]interface{}, c *Client) (*CryptoKey, error) {
+func unmarshalMapCryptoKey(m map[string]interface{}, c *Client, res *CryptoKey) (*CryptoKey, error) {
 
-	flattened := flattenCryptoKey(c, m)
+	flattened := flattenCryptoKey(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1666,7 +1666,7 @@ func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 
 // flattenCryptoKey flattens CryptoKey from a JSON request object into the
 // CryptoKey type.
-func flattenCryptoKey(c *Client, i interface{}) *CryptoKey {
+func flattenCryptoKey(c *Client, i interface{}, res *CryptoKey) *CryptoKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1675,22 +1675,22 @@ func flattenCryptoKey(c *Client, i interface{}) *CryptoKey {
 		return nil
 	}
 
-	res := &CryptoKey{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Primary = flattenCryptoKeyPrimary(c, m["primary"])
-	res.Purpose = flattenCryptoKeyPurposeEnum(m["purpose"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.NextRotationTime = dcl.FlattenString(m["nextRotationTime"])
-	res.RotationPeriod = dcl.FlattenString(m["rotationPeriod"])
-	res.VersionTemplate = flattenCryptoKeyVersionTemplate(c, m["versionTemplate"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.ImportOnly = dcl.FlattenBool(m["importOnly"])
-	res.DestroyScheduledDuration = dcl.FlattenString(m["destroyScheduledDuration"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.KeyRing = dcl.FlattenString(m["keyRing"])
+	resultRes := &CryptoKey{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Primary = flattenCryptoKeyPrimary(c, m["primary"], res)
+	resultRes.Purpose = flattenCryptoKeyPurposeEnum(m["purpose"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.NextRotationTime = dcl.FlattenString(m["nextRotationTime"])
+	resultRes.RotationPeriod = dcl.FlattenString(m["rotationPeriod"])
+	resultRes.VersionTemplate = flattenCryptoKeyVersionTemplate(c, m["versionTemplate"], res)
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.ImportOnly = dcl.FlattenBool(m["importOnly"])
+	resultRes.DestroyScheduledDuration = dcl.FlattenString(m["destroyScheduledDuration"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.KeyRing = dcl.FlattenString(m["keyRing"])
 
-	return res
+	return resultRes
 }
 
 // expandCryptoKeyPrimaryMap expands the contents of CryptoKeyPrimary into a JSON
@@ -1736,7 +1736,7 @@ func expandCryptoKeyPrimarySlice(c *Client, f []CryptoKeyPrimary, res *CryptoKey
 
 // flattenCryptoKeyPrimaryMap flattens the contents of CryptoKeyPrimary from a JSON
 // response object.
-func flattenCryptoKeyPrimaryMap(c *Client, i interface{}) map[string]CryptoKeyPrimary {
+func flattenCryptoKeyPrimaryMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimary {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimary{}
@@ -1748,7 +1748,7 @@ func flattenCryptoKeyPrimaryMap(c *Client, i interface{}) map[string]CryptoKeyPr
 
 	items := make(map[string]CryptoKeyPrimary)
 	for k, item := range a {
-		items[k] = *flattenCryptoKeyPrimary(c, item.(map[string]interface{}))
+		items[k] = *flattenCryptoKeyPrimary(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1756,7 +1756,7 @@ func flattenCryptoKeyPrimaryMap(c *Client, i interface{}) map[string]CryptoKeyPr
 
 // flattenCryptoKeyPrimarySlice flattens the contents of CryptoKeyPrimary from a JSON
 // response object.
-func flattenCryptoKeyPrimarySlice(c *Client, i interface{}) []CryptoKeyPrimary {
+func flattenCryptoKeyPrimarySlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimary {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimary{}
@@ -1768,7 +1768,7 @@ func flattenCryptoKeyPrimarySlice(c *Client, i interface{}) []CryptoKeyPrimary {
 
 	items := make([]CryptoKeyPrimary, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCryptoKeyPrimary(c, item.(map[string]interface{})))
+		items = append(items, *flattenCryptoKeyPrimary(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1799,7 +1799,7 @@ func expandCryptoKeyPrimary(c *Client, f *CryptoKeyPrimary, res *CryptoKey) (map
 
 // flattenCryptoKeyPrimary flattens an instance of CryptoKeyPrimary from a JSON
 // response object.
-func flattenCryptoKeyPrimary(c *Client, i interface{}) *CryptoKeyPrimary {
+func flattenCryptoKeyPrimary(c *Client, i interface{}, res *CryptoKey) *CryptoKeyPrimary {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1814,7 +1814,7 @@ func flattenCryptoKeyPrimary(c *Client, i interface{}) *CryptoKeyPrimary {
 	r.State = flattenCryptoKeyPrimaryStateEnum(m["state"])
 	r.ProtectionLevel = flattenCryptoKeyPrimaryProtectionLevelEnum(m["protectionLevel"])
 	r.Algorithm = flattenCryptoKeyPrimaryAlgorithmEnum(m["algorithm"])
-	r.Attestation = flattenCryptoKeyPrimaryAttestation(c, m["attestation"])
+	r.Attestation = flattenCryptoKeyPrimaryAttestation(c, m["attestation"], res)
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.GenerateTime = dcl.FlattenString(m["generateTime"])
 	r.DestroyTime = dcl.FlattenString(m["destroyTime"])
@@ -1822,7 +1822,7 @@ func flattenCryptoKeyPrimary(c *Client, i interface{}) *CryptoKeyPrimary {
 	r.ImportJob = dcl.FlattenString(m["importJob"])
 	r.ImportTime = dcl.FlattenString(m["importTime"])
 	r.ImportFailureReason = dcl.FlattenString(m["importFailureReason"])
-	r.ExternalProtectionLevelOptions = flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c, m["externalProtectionLevelOptions"])
+	r.ExternalProtectionLevelOptions = flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c, m["externalProtectionLevelOptions"], res)
 	r.ReimportEligible = dcl.FlattenBool(m["reimportEligible"])
 
 	return r
@@ -1871,7 +1871,7 @@ func expandCryptoKeyPrimaryAttestationSlice(c *Client, f []CryptoKeyPrimaryAttes
 
 // flattenCryptoKeyPrimaryAttestationMap flattens the contents of CryptoKeyPrimaryAttestation from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestationMap(c *Client, i interface{}) map[string]CryptoKeyPrimaryAttestation {
+func flattenCryptoKeyPrimaryAttestationMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimaryAttestation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimaryAttestation{}
@@ -1883,7 +1883,7 @@ func flattenCryptoKeyPrimaryAttestationMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]CryptoKeyPrimaryAttestation)
 	for k, item := range a {
-		items[k] = *flattenCryptoKeyPrimaryAttestation(c, item.(map[string]interface{}))
+		items[k] = *flattenCryptoKeyPrimaryAttestation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1891,7 +1891,7 @@ func flattenCryptoKeyPrimaryAttestationMap(c *Client, i interface{}) map[string]
 
 // flattenCryptoKeyPrimaryAttestationSlice flattens the contents of CryptoKeyPrimaryAttestation from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestationSlice(c *Client, i interface{}) []CryptoKeyPrimaryAttestation {
+func flattenCryptoKeyPrimaryAttestationSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimaryAttestation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimaryAttestation{}
@@ -1903,7 +1903,7 @@ func flattenCryptoKeyPrimaryAttestationSlice(c *Client, i interface{}) []CryptoK
 
 	items := make([]CryptoKeyPrimaryAttestation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCryptoKeyPrimaryAttestation(c, item.(map[string]interface{})))
+		items = append(items, *flattenCryptoKeyPrimaryAttestation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1923,7 +1923,7 @@ func expandCryptoKeyPrimaryAttestation(c *Client, f *CryptoKeyPrimaryAttestation
 
 // flattenCryptoKeyPrimaryAttestation flattens an instance of CryptoKeyPrimaryAttestation from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestation(c *Client, i interface{}) *CryptoKeyPrimaryAttestation {
+func flattenCryptoKeyPrimaryAttestation(c *Client, i interface{}, res *CryptoKey) *CryptoKeyPrimaryAttestation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1936,7 +1936,7 @@ func flattenCryptoKeyPrimaryAttestation(c *Client, i interface{}) *CryptoKeyPrim
 	}
 	r.Format = flattenCryptoKeyPrimaryAttestationFormatEnum(m["format"])
 	r.Content = dcl.FlattenString(m["content"])
-	r.CertChains = flattenCryptoKeyPrimaryAttestationCertChains(c, m["certChains"])
+	r.CertChains = flattenCryptoKeyPrimaryAttestationCertChains(c, m["certChains"], res)
 
 	return r
 }
@@ -1984,7 +1984,7 @@ func expandCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, f []CryptoKeyPr
 
 // flattenCryptoKeyPrimaryAttestationCertChainsMap flattens the contents of CryptoKeyPrimaryAttestationCertChains from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestationCertChainsMap(c *Client, i interface{}) map[string]CryptoKeyPrimaryAttestationCertChains {
+func flattenCryptoKeyPrimaryAttestationCertChainsMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimaryAttestationCertChains {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimaryAttestationCertChains{}
@@ -1996,7 +1996,7 @@ func flattenCryptoKeyPrimaryAttestationCertChainsMap(c *Client, i interface{}) m
 
 	items := make(map[string]CryptoKeyPrimaryAttestationCertChains)
 	for k, item := range a {
-		items[k] = *flattenCryptoKeyPrimaryAttestationCertChains(c, item.(map[string]interface{}))
+		items[k] = *flattenCryptoKeyPrimaryAttestationCertChains(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2004,7 +2004,7 @@ func flattenCryptoKeyPrimaryAttestationCertChainsMap(c *Client, i interface{}) m
 
 // flattenCryptoKeyPrimaryAttestationCertChainsSlice flattens the contents of CryptoKeyPrimaryAttestationCertChains from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, i interface{}) []CryptoKeyPrimaryAttestationCertChains {
+func flattenCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimaryAttestationCertChains {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimaryAttestationCertChains{}
@@ -2016,7 +2016,7 @@ func flattenCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, i interface{})
 
 	items := make([]CryptoKeyPrimaryAttestationCertChains, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCryptoKeyPrimaryAttestationCertChains(c, item.(map[string]interface{})))
+		items = append(items, *flattenCryptoKeyPrimaryAttestationCertChains(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2045,7 +2045,7 @@ func expandCryptoKeyPrimaryAttestationCertChains(c *Client, f *CryptoKeyPrimaryA
 
 // flattenCryptoKeyPrimaryAttestationCertChains flattens an instance of CryptoKeyPrimaryAttestationCertChains from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestationCertChains(c *Client, i interface{}) *CryptoKeyPrimaryAttestationCertChains {
+func flattenCryptoKeyPrimaryAttestationCertChains(c *Client, i interface{}, res *CryptoKey) *CryptoKeyPrimaryAttestationCertChains {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2106,7 +2106,7 @@ func expandCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Client, f []Cr
 
 // flattenCryptoKeyPrimaryExternalProtectionLevelOptionsMap flattens the contents of CryptoKeyPrimaryExternalProtectionLevelOptions from a JSON
 // response object.
-func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsMap(c *Client, i interface{}) map[string]CryptoKeyPrimaryExternalProtectionLevelOptions {
+func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimaryExternalProtectionLevelOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimaryExternalProtectionLevelOptions{}
@@ -2118,7 +2118,7 @@ func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsMap(c *Client, i inter
 
 	items := make(map[string]CryptoKeyPrimaryExternalProtectionLevelOptions)
 	for k, item := range a {
-		items[k] = *flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2126,7 +2126,7 @@ func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsMap(c *Client, i inter
 
 // flattenCryptoKeyPrimaryExternalProtectionLevelOptionsSlice flattens the contents of CryptoKeyPrimaryExternalProtectionLevelOptions from a JSON
 // response object.
-func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Client, i interface{}) []CryptoKeyPrimaryExternalProtectionLevelOptions {
+func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimaryExternalProtectionLevelOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimaryExternalProtectionLevelOptions{}
@@ -2138,7 +2138,7 @@ func flattenCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Client, i int
 
 	items := make([]CryptoKeyPrimaryExternalProtectionLevelOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2161,7 +2161,7 @@ func expandCryptoKeyPrimaryExternalProtectionLevelOptions(c *Client, f *CryptoKe
 
 // flattenCryptoKeyPrimaryExternalProtectionLevelOptions flattens an instance of CryptoKeyPrimaryExternalProtectionLevelOptions from a JSON
 // response object.
-func flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c *Client, i interface{}) *CryptoKeyPrimaryExternalProtectionLevelOptions {
+func flattenCryptoKeyPrimaryExternalProtectionLevelOptions(c *Client, i interface{}, res *CryptoKey) *CryptoKeyPrimaryExternalProtectionLevelOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2220,7 +2220,7 @@ func expandCryptoKeyVersionTemplateSlice(c *Client, f []CryptoKeyVersionTemplate
 
 // flattenCryptoKeyVersionTemplateMap flattens the contents of CryptoKeyVersionTemplate from a JSON
 // response object.
-func flattenCryptoKeyVersionTemplateMap(c *Client, i interface{}) map[string]CryptoKeyVersionTemplate {
+func flattenCryptoKeyVersionTemplateMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyVersionTemplate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyVersionTemplate{}
@@ -2232,7 +2232,7 @@ func flattenCryptoKeyVersionTemplateMap(c *Client, i interface{}) map[string]Cry
 
 	items := make(map[string]CryptoKeyVersionTemplate)
 	for k, item := range a {
-		items[k] = *flattenCryptoKeyVersionTemplate(c, item.(map[string]interface{}))
+		items[k] = *flattenCryptoKeyVersionTemplate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2240,7 +2240,7 @@ func flattenCryptoKeyVersionTemplateMap(c *Client, i interface{}) map[string]Cry
 
 // flattenCryptoKeyVersionTemplateSlice flattens the contents of CryptoKeyVersionTemplate from a JSON
 // response object.
-func flattenCryptoKeyVersionTemplateSlice(c *Client, i interface{}) []CryptoKeyVersionTemplate {
+func flattenCryptoKeyVersionTemplateSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyVersionTemplate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyVersionTemplate{}
@@ -2252,7 +2252,7 @@ func flattenCryptoKeyVersionTemplateSlice(c *Client, i interface{}) []CryptoKeyV
 
 	items := make([]CryptoKeyVersionTemplate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCryptoKeyVersionTemplate(c, item.(map[string]interface{})))
+		items = append(items, *flattenCryptoKeyVersionTemplate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2278,7 +2278,7 @@ func expandCryptoKeyVersionTemplate(c *Client, f *CryptoKeyVersionTemplate, res 
 
 // flattenCryptoKeyVersionTemplate flattens an instance of CryptoKeyVersionTemplate from a JSON
 // response object.
-func flattenCryptoKeyVersionTemplate(c *Client, i interface{}) *CryptoKeyVersionTemplate {
+func flattenCryptoKeyVersionTemplate(c *Client, i interface{}, res *CryptoKey) *CryptoKeyVersionTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2297,7 +2297,7 @@ func flattenCryptoKeyVersionTemplate(c *Client, i interface{}) *CryptoKeyVersion
 
 // flattenCryptoKeyPrimaryStateEnumMap flattens the contents of CryptoKeyPrimaryStateEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryStateEnumMap(c *Client, i interface{}) map[string]CryptoKeyPrimaryStateEnum {
+func flattenCryptoKeyPrimaryStateEnumMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimaryStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimaryStateEnum{}
@@ -2317,7 +2317,7 @@ func flattenCryptoKeyPrimaryStateEnumMap(c *Client, i interface{}) map[string]Cr
 
 // flattenCryptoKeyPrimaryStateEnumSlice flattens the contents of CryptoKeyPrimaryStateEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryStateEnumSlice(c *Client, i interface{}) []CryptoKeyPrimaryStateEnum {
+func flattenCryptoKeyPrimaryStateEnumSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimaryStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimaryStateEnum{}
@@ -2348,7 +2348,7 @@ func flattenCryptoKeyPrimaryStateEnum(i interface{}) *CryptoKeyPrimaryStateEnum 
 
 // flattenCryptoKeyPrimaryProtectionLevelEnumMap flattens the contents of CryptoKeyPrimaryProtectionLevelEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryProtectionLevelEnumMap(c *Client, i interface{}) map[string]CryptoKeyPrimaryProtectionLevelEnum {
+func flattenCryptoKeyPrimaryProtectionLevelEnumMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimaryProtectionLevelEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimaryProtectionLevelEnum{}
@@ -2368,7 +2368,7 @@ func flattenCryptoKeyPrimaryProtectionLevelEnumMap(c *Client, i interface{}) map
 
 // flattenCryptoKeyPrimaryProtectionLevelEnumSlice flattens the contents of CryptoKeyPrimaryProtectionLevelEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryProtectionLevelEnumSlice(c *Client, i interface{}) []CryptoKeyPrimaryProtectionLevelEnum {
+func flattenCryptoKeyPrimaryProtectionLevelEnumSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimaryProtectionLevelEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimaryProtectionLevelEnum{}
@@ -2399,7 +2399,7 @@ func flattenCryptoKeyPrimaryProtectionLevelEnum(i interface{}) *CryptoKeyPrimary
 
 // flattenCryptoKeyPrimaryAlgorithmEnumMap flattens the contents of CryptoKeyPrimaryAlgorithmEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAlgorithmEnumMap(c *Client, i interface{}) map[string]CryptoKeyPrimaryAlgorithmEnum {
+func flattenCryptoKeyPrimaryAlgorithmEnumMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimaryAlgorithmEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimaryAlgorithmEnum{}
@@ -2419,7 +2419,7 @@ func flattenCryptoKeyPrimaryAlgorithmEnumMap(c *Client, i interface{}) map[strin
 
 // flattenCryptoKeyPrimaryAlgorithmEnumSlice flattens the contents of CryptoKeyPrimaryAlgorithmEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAlgorithmEnumSlice(c *Client, i interface{}) []CryptoKeyPrimaryAlgorithmEnum {
+func flattenCryptoKeyPrimaryAlgorithmEnumSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimaryAlgorithmEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimaryAlgorithmEnum{}
@@ -2450,7 +2450,7 @@ func flattenCryptoKeyPrimaryAlgorithmEnum(i interface{}) *CryptoKeyPrimaryAlgori
 
 // flattenCryptoKeyPrimaryAttestationFormatEnumMap flattens the contents of CryptoKeyPrimaryAttestationFormatEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestationFormatEnumMap(c *Client, i interface{}) map[string]CryptoKeyPrimaryAttestationFormatEnum {
+func flattenCryptoKeyPrimaryAttestationFormatEnumMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPrimaryAttestationFormatEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPrimaryAttestationFormatEnum{}
@@ -2470,7 +2470,7 @@ func flattenCryptoKeyPrimaryAttestationFormatEnumMap(c *Client, i interface{}) m
 
 // flattenCryptoKeyPrimaryAttestationFormatEnumSlice flattens the contents of CryptoKeyPrimaryAttestationFormatEnum from a JSON
 // response object.
-func flattenCryptoKeyPrimaryAttestationFormatEnumSlice(c *Client, i interface{}) []CryptoKeyPrimaryAttestationFormatEnum {
+func flattenCryptoKeyPrimaryAttestationFormatEnumSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPrimaryAttestationFormatEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPrimaryAttestationFormatEnum{}
@@ -2501,7 +2501,7 @@ func flattenCryptoKeyPrimaryAttestationFormatEnum(i interface{}) *CryptoKeyPrima
 
 // flattenCryptoKeyPurposeEnumMap flattens the contents of CryptoKeyPurposeEnum from a JSON
 // response object.
-func flattenCryptoKeyPurposeEnumMap(c *Client, i interface{}) map[string]CryptoKeyPurposeEnum {
+func flattenCryptoKeyPurposeEnumMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyPurposeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyPurposeEnum{}
@@ -2521,7 +2521,7 @@ func flattenCryptoKeyPurposeEnumMap(c *Client, i interface{}) map[string]CryptoK
 
 // flattenCryptoKeyPurposeEnumSlice flattens the contents of CryptoKeyPurposeEnum from a JSON
 // response object.
-func flattenCryptoKeyPurposeEnumSlice(c *Client, i interface{}) []CryptoKeyPurposeEnum {
+func flattenCryptoKeyPurposeEnumSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyPurposeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyPurposeEnum{}
@@ -2552,7 +2552,7 @@ func flattenCryptoKeyPurposeEnum(i interface{}) *CryptoKeyPurposeEnum {
 
 // flattenCryptoKeyVersionTemplateProtectionLevelEnumMap flattens the contents of CryptoKeyVersionTemplateProtectionLevelEnum from a JSON
 // response object.
-func flattenCryptoKeyVersionTemplateProtectionLevelEnumMap(c *Client, i interface{}) map[string]CryptoKeyVersionTemplateProtectionLevelEnum {
+func flattenCryptoKeyVersionTemplateProtectionLevelEnumMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyVersionTemplateProtectionLevelEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyVersionTemplateProtectionLevelEnum{}
@@ -2572,7 +2572,7 @@ func flattenCryptoKeyVersionTemplateProtectionLevelEnumMap(c *Client, i interfac
 
 // flattenCryptoKeyVersionTemplateProtectionLevelEnumSlice flattens the contents of CryptoKeyVersionTemplateProtectionLevelEnum from a JSON
 // response object.
-func flattenCryptoKeyVersionTemplateProtectionLevelEnumSlice(c *Client, i interface{}) []CryptoKeyVersionTemplateProtectionLevelEnum {
+func flattenCryptoKeyVersionTemplateProtectionLevelEnumSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyVersionTemplateProtectionLevelEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyVersionTemplateProtectionLevelEnum{}
@@ -2603,7 +2603,7 @@ func flattenCryptoKeyVersionTemplateProtectionLevelEnum(i interface{}) *CryptoKe
 
 // flattenCryptoKeyVersionTemplateAlgorithmEnumMap flattens the contents of CryptoKeyVersionTemplateAlgorithmEnum from a JSON
 // response object.
-func flattenCryptoKeyVersionTemplateAlgorithmEnumMap(c *Client, i interface{}) map[string]CryptoKeyVersionTemplateAlgorithmEnum {
+func flattenCryptoKeyVersionTemplateAlgorithmEnumMap(c *Client, i interface{}, res *CryptoKey) map[string]CryptoKeyVersionTemplateAlgorithmEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CryptoKeyVersionTemplateAlgorithmEnum{}
@@ -2623,7 +2623,7 @@ func flattenCryptoKeyVersionTemplateAlgorithmEnumMap(c *Client, i interface{}) m
 
 // flattenCryptoKeyVersionTemplateAlgorithmEnumSlice flattens the contents of CryptoKeyVersionTemplateAlgorithmEnum from a JSON
 // response object.
-func flattenCryptoKeyVersionTemplateAlgorithmEnumSlice(c *Client, i interface{}) []CryptoKeyVersionTemplateAlgorithmEnum {
+func flattenCryptoKeyVersionTemplateAlgorithmEnumSlice(c *Client, i interface{}, res *CryptoKey) []CryptoKeyVersionTemplateAlgorithmEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CryptoKeyVersionTemplateAlgorithmEnum{}
@@ -2657,7 +2657,7 @@ func flattenCryptoKeyVersionTemplateAlgorithmEnum(i interface{}) *CryptoKeyVersi
 // identity).  This is useful in extracting the element from a List call.
 func (r *CryptoKey) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCryptoKey(b, c)
+		cr, err := unmarshalCryptoKey(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

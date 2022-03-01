@@ -116,6 +116,12 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          readOnly: true
+          description: Output only. Server-defined URL of this resource
+          x-kubernetes-immutable: true
         updateTime:
           type: string
           format: date-time

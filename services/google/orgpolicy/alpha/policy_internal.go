@@ -220,7 +220,7 @@ func (c *Client) listPolicy(ctx context.Context, r *Policy, pageToken string, pa
 
 	var l []*Policy
 	for _, v := range m.Policies {
-		res, err := unmarshalMapPolicy(v, c)
+		res, err := unmarshalMapPolicy(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1291,17 +1291,17 @@ func (r *Policy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalPolicy decodes JSON responses into the Policy resource schema.
-func unmarshalPolicy(b []byte, c *Client) (*Policy, error) {
+func unmarshalPolicy(b []byte, c *Client, res *Policy) (*Policy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapPolicy(m, c)
+	return unmarshalMapPolicy(m, c, res)
 }
 
-func unmarshalMapPolicy(m map[string]interface{}, c *Client) (*Policy, error) {
+func unmarshalMapPolicy(m map[string]interface{}, c *Client, res *Policy) (*Policy, error) {
 
-	flattened := flattenPolicy(c, m)
+	flattened := flattenPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1334,7 +1334,7 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 
 // flattenPolicy flattens Policy from a JSON request object into the
 // Policy type.
-func flattenPolicy(c *Client, i interface{}) *Policy {
+func flattenPolicy(c *Client, i interface{}, res *Policy) *Policy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1343,12 +1343,12 @@ func flattenPolicy(c *Client, i interface{}) *Policy {
 		return nil
 	}
 
-	res := &Policy{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Spec = flattenPolicySpec(c, m["spec"])
-	res.Parent = dcl.FlattenString(m["parent"])
+	resultRes := &Policy{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Spec = flattenPolicySpec(c, m["spec"], res)
+	resultRes.Parent = dcl.FlattenString(m["parent"])
 
-	return res
+	return resultRes
 }
 
 // expandPolicySpecMap expands the contents of PolicySpec into a JSON
@@ -1394,7 +1394,7 @@ func expandPolicySpecSlice(c *Client, f []PolicySpec, res *Policy) ([]map[string
 
 // flattenPolicySpecMap flattens the contents of PolicySpec from a JSON
 // response object.
-func flattenPolicySpecMap(c *Client, i interface{}) map[string]PolicySpec {
+func flattenPolicySpecMap(c *Client, i interface{}, res *Policy) map[string]PolicySpec {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicySpec{}
@@ -1406,7 +1406,7 @@ func flattenPolicySpecMap(c *Client, i interface{}) map[string]PolicySpec {
 
 	items := make(map[string]PolicySpec)
 	for k, item := range a {
-		items[k] = *flattenPolicySpec(c, item.(map[string]interface{}))
+		items[k] = *flattenPolicySpec(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1414,7 +1414,7 @@ func flattenPolicySpecMap(c *Client, i interface{}) map[string]PolicySpec {
 
 // flattenPolicySpecSlice flattens the contents of PolicySpec from a JSON
 // response object.
-func flattenPolicySpecSlice(c *Client, i interface{}) []PolicySpec {
+func flattenPolicySpecSlice(c *Client, i interface{}, res *Policy) []PolicySpec {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicySpec{}
@@ -1426,7 +1426,7 @@ func flattenPolicySpecSlice(c *Client, i interface{}) []PolicySpec {
 
 	items := make([]PolicySpec, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicySpec(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicySpec(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1457,7 +1457,7 @@ func expandPolicySpec(c *Client, f *PolicySpec, res *Policy) (map[string]interfa
 
 // flattenPolicySpec flattens an instance of PolicySpec from a JSON
 // response object.
-func flattenPolicySpec(c *Client, i interface{}) *PolicySpec {
+func flattenPolicySpec(c *Client, i interface{}, res *Policy) *PolicySpec {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1470,7 +1470,7 @@ func flattenPolicySpec(c *Client, i interface{}) *PolicySpec {
 	}
 	r.Etag = dcl.FlattenString(m["etag"])
 	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Rules = flattenPolicySpecRulesSlice(c, m["rules"])
+	r.Rules = flattenPolicySpecRulesSlice(c, m["rules"], res)
 	r.InheritFromParent = dcl.FlattenBool(m["inheritFromParent"])
 	r.Reset = dcl.FlattenBool(m["reset"])
 
@@ -1520,7 +1520,7 @@ func expandPolicySpecRulesSlice(c *Client, f []PolicySpecRules, res *Policy) ([]
 
 // flattenPolicySpecRulesMap flattens the contents of PolicySpecRules from a JSON
 // response object.
-func flattenPolicySpecRulesMap(c *Client, i interface{}) map[string]PolicySpecRules {
+func flattenPolicySpecRulesMap(c *Client, i interface{}, res *Policy) map[string]PolicySpecRules {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicySpecRules{}
@@ -1532,7 +1532,7 @@ func flattenPolicySpecRulesMap(c *Client, i interface{}) map[string]PolicySpecRu
 
 	items := make(map[string]PolicySpecRules)
 	for k, item := range a {
-		items[k] = *flattenPolicySpecRules(c, item.(map[string]interface{}))
+		items[k] = *flattenPolicySpecRules(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1540,7 +1540,7 @@ func flattenPolicySpecRulesMap(c *Client, i interface{}) map[string]PolicySpecRu
 
 // flattenPolicySpecRulesSlice flattens the contents of PolicySpecRules from a JSON
 // response object.
-func flattenPolicySpecRulesSlice(c *Client, i interface{}) []PolicySpecRules {
+func flattenPolicySpecRulesSlice(c *Client, i interface{}, res *Policy) []PolicySpecRules {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicySpecRules{}
@@ -1552,7 +1552,7 @@ func flattenPolicySpecRulesSlice(c *Client, i interface{}) []PolicySpecRules {
 
 	items := make([]PolicySpecRules, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicySpecRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicySpecRules(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1591,7 +1591,7 @@ func expandPolicySpecRules(c *Client, f *PolicySpecRules, res *Policy) (map[stri
 
 // flattenPolicySpecRules flattens an instance of PolicySpecRules from a JSON
 // response object.
-func flattenPolicySpecRules(c *Client, i interface{}) *PolicySpecRules {
+func flattenPolicySpecRules(c *Client, i interface{}, res *Policy) *PolicySpecRules {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1602,11 +1602,11 @@ func flattenPolicySpecRules(c *Client, i interface{}) *PolicySpecRules {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyPolicySpecRules
 	}
-	r.Values = flattenPolicySpecRulesValues(c, m["values"])
+	r.Values = flattenPolicySpecRulesValues(c, m["values"], res)
 	r.AllowAll = dcl.FlattenBool(m["allowAll"])
 	r.DenyAll = dcl.FlattenBool(m["denyAll"])
 	r.Enforce = dcl.FlattenBool(m["enforce"])
-	r.Condition = flattenPolicySpecRulesCondition(c, m["condition"])
+	r.Condition = flattenPolicySpecRulesCondition(c, m["condition"], res)
 
 	return r
 }
@@ -1654,7 +1654,7 @@ func expandPolicySpecRulesValuesSlice(c *Client, f []PolicySpecRulesValues, res 
 
 // flattenPolicySpecRulesValuesMap flattens the contents of PolicySpecRulesValues from a JSON
 // response object.
-func flattenPolicySpecRulesValuesMap(c *Client, i interface{}) map[string]PolicySpecRulesValues {
+func flattenPolicySpecRulesValuesMap(c *Client, i interface{}, res *Policy) map[string]PolicySpecRulesValues {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicySpecRulesValues{}
@@ -1666,7 +1666,7 @@ func flattenPolicySpecRulesValuesMap(c *Client, i interface{}) map[string]Policy
 
 	items := make(map[string]PolicySpecRulesValues)
 	for k, item := range a {
-		items[k] = *flattenPolicySpecRulesValues(c, item.(map[string]interface{}))
+		items[k] = *flattenPolicySpecRulesValues(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1674,7 +1674,7 @@ func flattenPolicySpecRulesValuesMap(c *Client, i interface{}) map[string]Policy
 
 // flattenPolicySpecRulesValuesSlice flattens the contents of PolicySpecRulesValues from a JSON
 // response object.
-func flattenPolicySpecRulesValuesSlice(c *Client, i interface{}) []PolicySpecRulesValues {
+func flattenPolicySpecRulesValuesSlice(c *Client, i interface{}, res *Policy) []PolicySpecRulesValues {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicySpecRulesValues{}
@@ -1686,7 +1686,7 @@ func flattenPolicySpecRulesValuesSlice(c *Client, i interface{}) []PolicySpecRul
 
 	items := make([]PolicySpecRulesValues, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicySpecRulesValues(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicySpecRulesValues(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1712,7 +1712,7 @@ func expandPolicySpecRulesValues(c *Client, f *PolicySpecRulesValues, res *Polic
 
 // flattenPolicySpecRulesValues flattens an instance of PolicySpecRulesValues from a JSON
 // response object.
-func flattenPolicySpecRulesValues(c *Client, i interface{}) *PolicySpecRulesValues {
+func flattenPolicySpecRulesValues(c *Client, i interface{}, res *Policy) *PolicySpecRulesValues {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1772,7 +1772,7 @@ func expandPolicySpecRulesConditionSlice(c *Client, f []PolicySpecRulesCondition
 
 // flattenPolicySpecRulesConditionMap flattens the contents of PolicySpecRulesCondition from a JSON
 // response object.
-func flattenPolicySpecRulesConditionMap(c *Client, i interface{}) map[string]PolicySpecRulesCondition {
+func flattenPolicySpecRulesConditionMap(c *Client, i interface{}, res *Policy) map[string]PolicySpecRulesCondition {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicySpecRulesCondition{}
@@ -1784,7 +1784,7 @@ func flattenPolicySpecRulesConditionMap(c *Client, i interface{}) map[string]Pol
 
 	items := make(map[string]PolicySpecRulesCondition)
 	for k, item := range a {
-		items[k] = *flattenPolicySpecRulesCondition(c, item.(map[string]interface{}))
+		items[k] = *flattenPolicySpecRulesCondition(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1792,7 +1792,7 @@ func flattenPolicySpecRulesConditionMap(c *Client, i interface{}) map[string]Pol
 
 // flattenPolicySpecRulesConditionSlice flattens the contents of PolicySpecRulesCondition from a JSON
 // response object.
-func flattenPolicySpecRulesConditionSlice(c *Client, i interface{}) []PolicySpecRulesCondition {
+func flattenPolicySpecRulesConditionSlice(c *Client, i interface{}, res *Policy) []PolicySpecRulesCondition {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicySpecRulesCondition{}
@@ -1804,7 +1804,7 @@ func flattenPolicySpecRulesConditionSlice(c *Client, i interface{}) []PolicySpec
 
 	items := make([]PolicySpecRulesCondition, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicySpecRulesCondition(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicySpecRulesCondition(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1836,7 +1836,7 @@ func expandPolicySpecRulesCondition(c *Client, f *PolicySpecRulesCondition, res 
 
 // flattenPolicySpecRulesCondition flattens an instance of PolicySpecRulesCondition from a JSON
 // response object.
-func flattenPolicySpecRulesCondition(c *Client, i interface{}) *PolicySpecRulesCondition {
+func flattenPolicySpecRulesCondition(c *Client, i interface{}, res *Policy) *PolicySpecRulesCondition {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1860,7 +1860,7 @@ func flattenPolicySpecRulesCondition(c *Client, i interface{}) *PolicySpecRulesC
 // identity).  This is useful in extracting the element from a List call.
 func (r *Policy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalPolicy(b, c)
+		cr, err := unmarshalPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

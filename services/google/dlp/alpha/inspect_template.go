@@ -1645,7 +1645,7 @@ func (c *Client) GetInspectTemplate(ctx context.Context, r *InspectTemplate) (*I
 		}
 		return nil, err
 	}
-	result, err := unmarshalInspectTemplate(b, c)
+	result, err := unmarshalInspectTemplate(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1815,7 +1815,7 @@ func applyInspectTemplateDiff(c *Client, ctx context.Context, desired *InspectTe
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapInspectTemplate(r, c)
+				fullResp, err := unmarshalMapInspectTemplate(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

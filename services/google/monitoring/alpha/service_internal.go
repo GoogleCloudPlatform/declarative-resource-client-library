@@ -223,7 +223,7 @@ func (c *Client) listService(ctx context.Context, r *Service, pageToken string, 
 
 	var l []*Service
 	for _, v := range m.Services {
-		res, err := unmarshalMapService(v, c)
+		res, err := unmarshalMapService(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -844,17 +844,17 @@ func (r *Service) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalService decodes JSON responses into the Service resource schema.
-func unmarshalService(b []byte, c *Client) (*Service, error) {
+func unmarshalService(b []byte, c *Client, res *Service) (*Service, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapService(m, c)
+	return unmarshalMapService(m, c, res)
 }
 
-func unmarshalMapService(m map[string]interface{}, c *Client) (*Service, error) {
+func unmarshalMapService(m map[string]interface{}, c *Client, res *Service) (*Service, error) {
 
-	flattened := flattenService(c, m)
+	flattened := flattenService(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -898,7 +898,7 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 
 // flattenService flattens Service from a JSON request object into the
 // Service type.
-func flattenService(c *Client, i interface{}) *Service {
+func flattenService(c *Client, i interface{}, res *Service) *Service {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -907,19 +907,19 @@ func flattenService(c *Client, i interface{}) *Service {
 		return nil
 	}
 
-	res := &Service{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Custom = flattenServiceCustom(c, m["custom"])
+	resultRes := &Service{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Custom = flattenServiceCustom(c, m["custom"], res)
 	if _, ok := m["custom"]; !ok {
 		c.Config.Logger.Info("Using default value for custom")
-		res.Custom = &ServiceCustom{}
+		resultRes.Custom = &ServiceCustom{}
 	}
-	res.Telemetry = flattenServiceTelemetry(c, m["telemetry"])
-	res.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes.Telemetry = flattenServiceTelemetry(c, m["telemetry"], res)
+	resultRes.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandServiceCustomMap expands the contents of ServiceCustom into a JSON
@@ -965,7 +965,7 @@ func expandServiceCustomSlice(c *Client, f []ServiceCustom, res *Service) ([]map
 
 // flattenServiceCustomMap flattens the contents of ServiceCustom from a JSON
 // response object.
-func flattenServiceCustomMap(c *Client, i interface{}) map[string]ServiceCustom {
+func flattenServiceCustomMap(c *Client, i interface{}, res *Service) map[string]ServiceCustom {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceCustom{}
@@ -977,7 +977,7 @@ func flattenServiceCustomMap(c *Client, i interface{}) map[string]ServiceCustom 
 
 	items := make(map[string]ServiceCustom)
 	for k, item := range a {
-		items[k] = *flattenServiceCustom(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceCustom(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -985,7 +985,7 @@ func flattenServiceCustomMap(c *Client, i interface{}) map[string]ServiceCustom 
 
 // flattenServiceCustomSlice flattens the contents of ServiceCustom from a JSON
 // response object.
-func flattenServiceCustomSlice(c *Client, i interface{}) []ServiceCustom {
+func flattenServiceCustomSlice(c *Client, i interface{}, res *Service) []ServiceCustom {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceCustom{}
@@ -997,7 +997,7 @@ func flattenServiceCustomSlice(c *Client, i interface{}) []ServiceCustom {
 
 	items := make([]ServiceCustom, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceCustom(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceCustom(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1017,7 +1017,7 @@ func expandServiceCustom(c *Client, f *ServiceCustom, res *Service) (map[string]
 
 // flattenServiceCustom flattens an instance of ServiceCustom from a JSON
 // response object.
-func flattenServiceCustom(c *Client, i interface{}) *ServiceCustom {
+func flattenServiceCustom(c *Client, i interface{}, res *Service) *ServiceCustom {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1075,7 +1075,7 @@ func expandServiceTelemetrySlice(c *Client, f []ServiceTelemetry, res *Service) 
 
 // flattenServiceTelemetryMap flattens the contents of ServiceTelemetry from a JSON
 // response object.
-func flattenServiceTelemetryMap(c *Client, i interface{}) map[string]ServiceTelemetry {
+func flattenServiceTelemetryMap(c *Client, i interface{}, res *Service) map[string]ServiceTelemetry {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceTelemetry{}
@@ -1087,7 +1087,7 @@ func flattenServiceTelemetryMap(c *Client, i interface{}) map[string]ServiceTele
 
 	items := make(map[string]ServiceTelemetry)
 	for k, item := range a {
-		items[k] = *flattenServiceTelemetry(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceTelemetry(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1095,7 +1095,7 @@ func flattenServiceTelemetryMap(c *Client, i interface{}) map[string]ServiceTele
 
 // flattenServiceTelemetrySlice flattens the contents of ServiceTelemetry from a JSON
 // response object.
-func flattenServiceTelemetrySlice(c *Client, i interface{}) []ServiceTelemetry {
+func flattenServiceTelemetrySlice(c *Client, i interface{}, res *Service) []ServiceTelemetry {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceTelemetry{}
@@ -1107,7 +1107,7 @@ func flattenServiceTelemetrySlice(c *Client, i interface{}) []ServiceTelemetry {
 
 	items := make([]ServiceTelemetry, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceTelemetry(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceTelemetry(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1130,7 +1130,7 @@ func expandServiceTelemetry(c *Client, f *ServiceTelemetry, res *Service) (map[s
 
 // flattenServiceTelemetry flattens an instance of ServiceTelemetry from a JSON
 // response object.
-func flattenServiceTelemetry(c *Client, i interface{}) *ServiceTelemetry {
+func flattenServiceTelemetry(c *Client, i interface{}, res *Service) *ServiceTelemetry {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1151,7 +1151,7 @@ func flattenServiceTelemetry(c *Client, i interface{}) *ServiceTelemetry {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Service) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalService(b, c)
+		cr, err := unmarshalService(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

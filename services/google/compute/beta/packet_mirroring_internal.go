@@ -281,7 +281,7 @@ func (c *Client) listPacketMirroring(ctx context.Context, r *PacketMirroring, pa
 
 	var l []*PacketMirroring
 	for _, v := range m.Items {
-		res, err := unmarshalMapPacketMirroring(v, c)
+		res, err := unmarshalMapPacketMirroring(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1729,17 +1729,17 @@ func (r *PacketMirroring) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalPacketMirroring decodes JSON responses into the PacketMirroring resource schema.
-func unmarshalPacketMirroring(b []byte, c *Client) (*PacketMirroring, error) {
+func unmarshalPacketMirroring(b []byte, c *Client, res *PacketMirroring) (*PacketMirroring, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapPacketMirroring(m, c)
+	return unmarshalMapPacketMirroring(m, c, res)
 }
 
-func unmarshalMapPacketMirroring(m map[string]interface{}, c *Client) (*PacketMirroring, error) {
+func unmarshalMapPacketMirroring(m map[string]interface{}, c *Client, res *PacketMirroring) (*PacketMirroring, error) {
 
-	flattened := flattenPacketMirroring(c, m)
+	flattened := flattenPacketMirroring(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1799,7 +1799,7 @@ func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{
 
 // flattenPacketMirroring flattens PacketMirroring from a JSON request object into the
 // PacketMirroring type.
-func flattenPacketMirroring(c *Client, i interface{}) *PacketMirroring {
+func flattenPacketMirroring(c *Client, i interface{}, res *PacketMirroring) *PacketMirroring {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1808,22 +1808,22 @@ func flattenPacketMirroring(c *Client, i interface{}) *PacketMirroring {
 		return nil
 	}
 
-	res := &PacketMirroring{}
-	res.Id = dcl.FlattenInteger(m["id"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.Network = flattenPacketMirroringNetwork(c, m["network"])
-	res.Priority = dcl.FlattenInteger(m["priority"])
-	res.CollectorIlb = flattenPacketMirroringCollectorIlb(c, m["collectorIlb"])
-	res.MirroredResources = flattenPacketMirroringMirroredResources(c, m["mirroredResources"])
-	res.Filter = flattenPacketMirroringFilter(c, m["filter"])
-	res.Enable = flattenPacketMirroringEnableEnum(m["enable"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &PacketMirroring{}
+	resultRes.Id = dcl.FlattenInteger(m["id"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.Network = flattenPacketMirroringNetwork(c, m["network"], res)
+	resultRes.Priority = dcl.FlattenInteger(m["priority"])
+	resultRes.CollectorIlb = flattenPacketMirroringCollectorIlb(c, m["collectorIlb"], res)
+	resultRes.MirroredResources = flattenPacketMirroringMirroredResources(c, m["mirroredResources"], res)
+	resultRes.Filter = flattenPacketMirroringFilter(c, m["filter"], res)
+	resultRes.Enable = flattenPacketMirroringEnableEnum(m["enable"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandPacketMirroringNetworkMap expands the contents of PacketMirroringNetwork into a JSON
@@ -1869,7 +1869,7 @@ func expandPacketMirroringNetworkSlice(c *Client, f []PacketMirroringNetwork, re
 
 // flattenPacketMirroringNetworkMap flattens the contents of PacketMirroringNetwork from a JSON
 // response object.
-func flattenPacketMirroringNetworkMap(c *Client, i interface{}) map[string]PacketMirroringNetwork {
+func flattenPacketMirroringNetworkMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringNetwork {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringNetwork{}
@@ -1881,7 +1881,7 @@ func flattenPacketMirroringNetworkMap(c *Client, i interface{}) map[string]Packe
 
 	items := make(map[string]PacketMirroringNetwork)
 	for k, item := range a {
-		items[k] = *flattenPacketMirroringNetwork(c, item.(map[string]interface{}))
+		items[k] = *flattenPacketMirroringNetwork(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1889,7 +1889,7 @@ func flattenPacketMirroringNetworkMap(c *Client, i interface{}) map[string]Packe
 
 // flattenPacketMirroringNetworkSlice flattens the contents of PacketMirroringNetwork from a JSON
 // response object.
-func flattenPacketMirroringNetworkSlice(c *Client, i interface{}) []PacketMirroringNetwork {
+func flattenPacketMirroringNetworkSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringNetwork {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringNetwork{}
@@ -1901,7 +1901,7 @@ func flattenPacketMirroringNetworkSlice(c *Client, i interface{}) []PacketMirror
 
 	items := make([]PacketMirroringNetwork, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPacketMirroringNetwork(c, item.(map[string]interface{})))
+		items = append(items, *flattenPacketMirroringNetwork(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1924,7 +1924,7 @@ func expandPacketMirroringNetwork(c *Client, f *PacketMirroringNetwork, res *Pac
 
 // flattenPacketMirroringNetwork flattens an instance of PacketMirroringNetwork from a JSON
 // response object.
-func flattenPacketMirroringNetwork(c *Client, i interface{}) *PacketMirroringNetwork {
+func flattenPacketMirroringNetwork(c *Client, i interface{}, res *PacketMirroring) *PacketMirroringNetwork {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1984,7 +1984,7 @@ func expandPacketMirroringCollectorIlbSlice(c *Client, f []PacketMirroringCollec
 
 // flattenPacketMirroringCollectorIlbMap flattens the contents of PacketMirroringCollectorIlb from a JSON
 // response object.
-func flattenPacketMirroringCollectorIlbMap(c *Client, i interface{}) map[string]PacketMirroringCollectorIlb {
+func flattenPacketMirroringCollectorIlbMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringCollectorIlb {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringCollectorIlb{}
@@ -1996,7 +1996,7 @@ func flattenPacketMirroringCollectorIlbMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]PacketMirroringCollectorIlb)
 	for k, item := range a {
-		items[k] = *flattenPacketMirroringCollectorIlb(c, item.(map[string]interface{}))
+		items[k] = *flattenPacketMirroringCollectorIlb(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2004,7 +2004,7 @@ func flattenPacketMirroringCollectorIlbMap(c *Client, i interface{}) map[string]
 
 // flattenPacketMirroringCollectorIlbSlice flattens the contents of PacketMirroringCollectorIlb from a JSON
 // response object.
-func flattenPacketMirroringCollectorIlbSlice(c *Client, i interface{}) []PacketMirroringCollectorIlb {
+func flattenPacketMirroringCollectorIlbSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringCollectorIlb {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringCollectorIlb{}
@@ -2016,7 +2016,7 @@ func flattenPacketMirroringCollectorIlbSlice(c *Client, i interface{}) []PacketM
 
 	items := make([]PacketMirroringCollectorIlb, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPacketMirroringCollectorIlb(c, item.(map[string]interface{})))
+		items = append(items, *flattenPacketMirroringCollectorIlb(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2039,7 +2039,7 @@ func expandPacketMirroringCollectorIlb(c *Client, f *PacketMirroringCollectorIlb
 
 // flattenPacketMirroringCollectorIlb flattens an instance of PacketMirroringCollectorIlb from a JSON
 // response object.
-func flattenPacketMirroringCollectorIlb(c *Client, i interface{}) *PacketMirroringCollectorIlb {
+func flattenPacketMirroringCollectorIlb(c *Client, i interface{}, res *PacketMirroring) *PacketMirroringCollectorIlb {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2099,7 +2099,7 @@ func expandPacketMirroringMirroredResourcesSlice(c *Client, f []PacketMirroringM
 
 // flattenPacketMirroringMirroredResourcesMap flattens the contents of PacketMirroringMirroredResources from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesMap(c *Client, i interface{}) map[string]PacketMirroringMirroredResources {
+func flattenPacketMirroringMirroredResourcesMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringMirroredResources {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringMirroredResources{}
@@ -2111,7 +2111,7 @@ func flattenPacketMirroringMirroredResourcesMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]PacketMirroringMirroredResources)
 	for k, item := range a {
-		items[k] = *flattenPacketMirroringMirroredResources(c, item.(map[string]interface{}))
+		items[k] = *flattenPacketMirroringMirroredResources(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2119,7 +2119,7 @@ func flattenPacketMirroringMirroredResourcesMap(c *Client, i interface{}) map[st
 
 // flattenPacketMirroringMirroredResourcesSlice flattens the contents of PacketMirroringMirroredResources from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesSlice(c *Client, i interface{}) []PacketMirroringMirroredResources {
+func flattenPacketMirroringMirroredResourcesSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringMirroredResources {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringMirroredResources{}
@@ -2131,7 +2131,7 @@ func flattenPacketMirroringMirroredResourcesSlice(c *Client, i interface{}) []Pa
 
 	items := make([]PacketMirroringMirroredResources, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPacketMirroringMirroredResources(c, item.(map[string]interface{})))
+		items = append(items, *flattenPacketMirroringMirroredResources(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2164,7 +2164,7 @@ func expandPacketMirroringMirroredResources(c *Client, f *PacketMirroringMirrore
 
 // flattenPacketMirroringMirroredResources flattens an instance of PacketMirroringMirroredResources from a JSON
 // response object.
-func flattenPacketMirroringMirroredResources(c *Client, i interface{}) *PacketMirroringMirroredResources {
+func flattenPacketMirroringMirroredResources(c *Client, i interface{}, res *PacketMirroring) *PacketMirroringMirroredResources {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2175,8 +2175,8 @@ func flattenPacketMirroringMirroredResources(c *Client, i interface{}) *PacketMi
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyPacketMirroringMirroredResources
 	}
-	r.Subnetworks = flattenPacketMirroringMirroredResourcesSubnetworksSlice(c, m["subnetworks"])
-	r.Instances = flattenPacketMirroringMirroredResourcesInstancesSlice(c, m["instances"])
+	r.Subnetworks = flattenPacketMirroringMirroredResourcesSubnetworksSlice(c, m["subnetworks"], res)
+	r.Instances = flattenPacketMirroringMirroredResourcesInstancesSlice(c, m["instances"], res)
 	r.Tags = dcl.FlattenStringSlice(m["tags"])
 
 	return r
@@ -2225,7 +2225,7 @@ func expandPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, f []Packe
 
 // flattenPacketMirroringMirroredResourcesSubnetworksMap flattens the contents of PacketMirroringMirroredResourcesSubnetworks from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesSubnetworksMap(c *Client, i interface{}) map[string]PacketMirroringMirroredResourcesSubnetworks {
+func flattenPacketMirroringMirroredResourcesSubnetworksMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringMirroredResourcesSubnetworks {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringMirroredResourcesSubnetworks{}
@@ -2237,7 +2237,7 @@ func flattenPacketMirroringMirroredResourcesSubnetworksMap(c *Client, i interfac
 
 	items := make(map[string]PacketMirroringMirroredResourcesSubnetworks)
 	for k, item := range a {
-		items[k] = *flattenPacketMirroringMirroredResourcesSubnetworks(c, item.(map[string]interface{}))
+		items[k] = *flattenPacketMirroringMirroredResourcesSubnetworks(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2245,7 +2245,7 @@ func flattenPacketMirroringMirroredResourcesSubnetworksMap(c *Client, i interfac
 
 // flattenPacketMirroringMirroredResourcesSubnetworksSlice flattens the contents of PacketMirroringMirroredResourcesSubnetworks from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, i interface{}) []PacketMirroringMirroredResourcesSubnetworks {
+func flattenPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringMirroredResourcesSubnetworks {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringMirroredResourcesSubnetworks{}
@@ -2257,7 +2257,7 @@ func flattenPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, i interf
 
 	items := make([]PacketMirroringMirroredResourcesSubnetworks, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPacketMirroringMirroredResourcesSubnetworks(c, item.(map[string]interface{})))
+		items = append(items, *flattenPacketMirroringMirroredResourcesSubnetworks(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2280,7 +2280,7 @@ func expandPacketMirroringMirroredResourcesSubnetworks(c *Client, f *PacketMirro
 
 // flattenPacketMirroringMirroredResourcesSubnetworks flattens an instance of PacketMirroringMirroredResourcesSubnetworks from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesSubnetworks(c *Client, i interface{}) *PacketMirroringMirroredResourcesSubnetworks {
+func flattenPacketMirroringMirroredResourcesSubnetworks(c *Client, i interface{}, res *PacketMirroring) *PacketMirroringMirroredResourcesSubnetworks {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2340,7 +2340,7 @@ func expandPacketMirroringMirroredResourcesInstancesSlice(c *Client, f []PacketM
 
 // flattenPacketMirroringMirroredResourcesInstancesMap flattens the contents of PacketMirroringMirroredResourcesInstances from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesInstancesMap(c *Client, i interface{}) map[string]PacketMirroringMirroredResourcesInstances {
+func flattenPacketMirroringMirroredResourcesInstancesMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringMirroredResourcesInstances {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringMirroredResourcesInstances{}
@@ -2352,7 +2352,7 @@ func flattenPacketMirroringMirroredResourcesInstancesMap(c *Client, i interface{
 
 	items := make(map[string]PacketMirroringMirroredResourcesInstances)
 	for k, item := range a {
-		items[k] = *flattenPacketMirroringMirroredResourcesInstances(c, item.(map[string]interface{}))
+		items[k] = *flattenPacketMirroringMirroredResourcesInstances(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2360,7 +2360,7 @@ func flattenPacketMirroringMirroredResourcesInstancesMap(c *Client, i interface{
 
 // flattenPacketMirroringMirroredResourcesInstancesSlice flattens the contents of PacketMirroringMirroredResourcesInstances from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesInstancesSlice(c *Client, i interface{}) []PacketMirroringMirroredResourcesInstances {
+func flattenPacketMirroringMirroredResourcesInstancesSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringMirroredResourcesInstances {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringMirroredResourcesInstances{}
@@ -2372,7 +2372,7 @@ func flattenPacketMirroringMirroredResourcesInstancesSlice(c *Client, i interfac
 
 	items := make([]PacketMirroringMirroredResourcesInstances, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPacketMirroringMirroredResourcesInstances(c, item.(map[string]interface{})))
+		items = append(items, *flattenPacketMirroringMirroredResourcesInstances(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2395,7 +2395,7 @@ func expandPacketMirroringMirroredResourcesInstances(c *Client, f *PacketMirrori
 
 // flattenPacketMirroringMirroredResourcesInstances flattens an instance of PacketMirroringMirroredResourcesInstances from a JSON
 // response object.
-func flattenPacketMirroringMirroredResourcesInstances(c *Client, i interface{}) *PacketMirroringMirroredResourcesInstances {
+func flattenPacketMirroringMirroredResourcesInstances(c *Client, i interface{}, res *PacketMirroring) *PacketMirroringMirroredResourcesInstances {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2455,7 +2455,7 @@ func expandPacketMirroringFilterSlice(c *Client, f []PacketMirroringFilter, res 
 
 // flattenPacketMirroringFilterMap flattens the contents of PacketMirroringFilter from a JSON
 // response object.
-func flattenPacketMirroringFilterMap(c *Client, i interface{}) map[string]PacketMirroringFilter {
+func flattenPacketMirroringFilterMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringFilter{}
@@ -2467,7 +2467,7 @@ func flattenPacketMirroringFilterMap(c *Client, i interface{}) map[string]Packet
 
 	items := make(map[string]PacketMirroringFilter)
 	for k, item := range a {
-		items[k] = *flattenPacketMirroringFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenPacketMirroringFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2475,7 +2475,7 @@ func flattenPacketMirroringFilterMap(c *Client, i interface{}) map[string]Packet
 
 // flattenPacketMirroringFilterSlice flattens the contents of PacketMirroringFilter from a JSON
 // response object.
-func flattenPacketMirroringFilterSlice(c *Client, i interface{}) []PacketMirroringFilter {
+func flattenPacketMirroringFilterSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringFilter{}
@@ -2487,7 +2487,7 @@ func flattenPacketMirroringFilterSlice(c *Client, i interface{}) []PacketMirrori
 
 	items := make([]PacketMirroringFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPacketMirroringFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenPacketMirroringFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2516,7 +2516,7 @@ func expandPacketMirroringFilter(c *Client, f *PacketMirroringFilter, res *Packe
 
 // flattenPacketMirroringFilter flattens an instance of PacketMirroringFilter from a JSON
 // response object.
-func flattenPacketMirroringFilter(c *Client, i interface{}) *PacketMirroringFilter {
+func flattenPacketMirroringFilter(c *Client, i interface{}, res *PacketMirroring) *PacketMirroringFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2536,7 +2536,7 @@ func flattenPacketMirroringFilter(c *Client, i interface{}) *PacketMirroringFilt
 
 // flattenPacketMirroringFilterDirectionEnumMap flattens the contents of PacketMirroringFilterDirectionEnum from a JSON
 // response object.
-func flattenPacketMirroringFilterDirectionEnumMap(c *Client, i interface{}) map[string]PacketMirroringFilterDirectionEnum {
+func flattenPacketMirroringFilterDirectionEnumMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringFilterDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringFilterDirectionEnum{}
@@ -2556,7 +2556,7 @@ func flattenPacketMirroringFilterDirectionEnumMap(c *Client, i interface{}) map[
 
 // flattenPacketMirroringFilterDirectionEnumSlice flattens the contents of PacketMirroringFilterDirectionEnum from a JSON
 // response object.
-func flattenPacketMirroringFilterDirectionEnumSlice(c *Client, i interface{}) []PacketMirroringFilterDirectionEnum {
+func flattenPacketMirroringFilterDirectionEnumSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringFilterDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringFilterDirectionEnum{}
@@ -2587,7 +2587,7 @@ func flattenPacketMirroringFilterDirectionEnum(i interface{}) *PacketMirroringFi
 
 // flattenPacketMirroringEnableEnumMap flattens the contents of PacketMirroringEnableEnum from a JSON
 // response object.
-func flattenPacketMirroringEnableEnumMap(c *Client, i interface{}) map[string]PacketMirroringEnableEnum {
+func flattenPacketMirroringEnableEnumMap(c *Client, i interface{}, res *PacketMirroring) map[string]PacketMirroringEnableEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PacketMirroringEnableEnum{}
@@ -2607,7 +2607,7 @@ func flattenPacketMirroringEnableEnumMap(c *Client, i interface{}) map[string]Pa
 
 // flattenPacketMirroringEnableEnumSlice flattens the contents of PacketMirroringEnableEnum from a JSON
 // response object.
-func flattenPacketMirroringEnableEnumSlice(c *Client, i interface{}) []PacketMirroringEnableEnum {
+func flattenPacketMirroringEnableEnumSlice(c *Client, i interface{}, res *PacketMirroring) []PacketMirroringEnableEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PacketMirroringEnableEnum{}
@@ -2641,7 +2641,7 @@ func flattenPacketMirroringEnableEnum(i interface{}) *PacketMirroringEnableEnum 
 // identity).  This is useful in extracting the element from a List call.
 func (r *PacketMirroring) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalPacketMirroring(b, c)
+		cr, err := unmarshalPacketMirroring(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -633,7 +633,7 @@ func (c *Client) GetCryptoKey(ctx context.Context, r *CryptoKey) (*CryptoKey, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalCryptoKey(b, c)
+	result, err := unmarshalCryptoKey(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -767,7 +767,7 @@ func applyCryptoKeyDiff(c *Client, ctx context.Context, desired *CryptoKey, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapCryptoKey(r, c)
+				fullResp, err := unmarshalMapCryptoKey(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

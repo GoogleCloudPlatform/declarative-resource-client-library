@@ -612,17 +612,17 @@ func (r *TagKey) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalTagKey decodes JSON responses into the TagKey resource schema.
-func unmarshalTagKey(b []byte, c *Client) (*TagKey, error) {
+func unmarshalTagKey(b []byte, c *Client, res *TagKey) (*TagKey, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapTagKey(m, c)
+	return unmarshalMapTagKey(m, c, res)
 }
 
-func unmarshalMapTagKey(m map[string]interface{}, c *Client) (*TagKey, error) {
+func unmarshalMapTagKey(m map[string]interface{}, c *Client, res *TagKey) (*TagKey, error) {
 
-	flattened := flattenTagKey(c, m)
+	flattened := flattenTagKey(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -660,7 +660,7 @@ func expandTagKey(c *Client, f *TagKey) (map[string]interface{}, error) {
 
 // flattenTagKey flattens TagKey from a JSON request object into the
 // TagKey type.
-func flattenTagKey(c *Client, i interface{}) *TagKey {
+func flattenTagKey(c *Client, i interface{}, res *TagKey) *TagKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -669,24 +669,24 @@ func flattenTagKey(c *Client, i interface{}) *TagKey {
 		return nil
 	}
 
-	res := &TagKey{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Parent = dcl.FlattenString(m["parent"])
-	res.ShortName = dcl.FlattenString(m["shortName"])
-	res.NamespacedName = dcl.FlattenString(m["namespacedName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Purpose = flattenTagKeyPurposeEnum(m["purpose"])
-	res.PurposeData = dcl.FlattenKeyValuePairs(m["purposeData"])
+	resultRes := &TagKey{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Parent = dcl.FlattenString(m["parent"])
+	resultRes.ShortName = dcl.FlattenString(m["shortName"])
+	resultRes.NamespacedName = dcl.FlattenString(m["namespacedName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Purpose = flattenTagKeyPurposeEnum(m["purpose"])
+	resultRes.PurposeData = dcl.FlattenKeyValuePairs(m["purposeData"])
 
-	return res
+	return resultRes
 }
 
 // flattenTagKeyPurposeEnumMap flattens the contents of TagKeyPurposeEnum from a JSON
 // response object.
-func flattenTagKeyPurposeEnumMap(c *Client, i interface{}) map[string]TagKeyPurposeEnum {
+func flattenTagKeyPurposeEnumMap(c *Client, i interface{}, res *TagKey) map[string]TagKeyPurposeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TagKeyPurposeEnum{}
@@ -706,7 +706,7 @@ func flattenTagKeyPurposeEnumMap(c *Client, i interface{}) map[string]TagKeyPurp
 
 // flattenTagKeyPurposeEnumSlice flattens the contents of TagKeyPurposeEnum from a JSON
 // response object.
-func flattenTagKeyPurposeEnumSlice(c *Client, i interface{}) []TagKeyPurposeEnum {
+func flattenTagKeyPurposeEnumSlice(c *Client, i interface{}, res *TagKey) []TagKeyPurposeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TagKeyPurposeEnum{}
@@ -740,7 +740,7 @@ func flattenTagKeyPurposeEnum(i interface{}) *TagKeyPurposeEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *TagKey) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalTagKey(b, c)
+		cr, err := unmarshalTagKey(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

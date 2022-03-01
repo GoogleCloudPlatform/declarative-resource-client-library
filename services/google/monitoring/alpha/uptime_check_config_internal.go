@@ -287,7 +287,7 @@ func (c *Client) listUptimeCheckConfig(ctx context.Context, r *UptimeCheckConfig
 
 	var l []*UptimeCheckConfig
 	for _, v := range m.UptimeCheckConfigs {
-		res, err := unmarshalMapUptimeCheckConfig(v, c)
+		res, err := unmarshalMapUptimeCheckConfig(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1889,17 +1889,17 @@ func (r *UptimeCheckConfig) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalUptimeCheckConfig decodes JSON responses into the UptimeCheckConfig resource schema.
-func unmarshalUptimeCheckConfig(b []byte, c *Client) (*UptimeCheckConfig, error) {
+func unmarshalUptimeCheckConfig(b []byte, c *Client, res *UptimeCheckConfig) (*UptimeCheckConfig, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapUptimeCheckConfig(m, c)
+	return unmarshalMapUptimeCheckConfig(m, c, res)
 }
 
-func unmarshalMapUptimeCheckConfig(m map[string]interface{}, c *Client) (*UptimeCheckConfig, error) {
+func unmarshalMapUptimeCheckConfig(m map[string]interface{}, c *Client, res *UptimeCheckConfig) (*UptimeCheckConfig, error) {
 
-	flattened := flattenUptimeCheckConfig(c, m)
+	flattened := flattenUptimeCheckConfig(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1962,7 +1962,7 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 
 // flattenUptimeCheckConfig flattens UptimeCheckConfig from a JSON request object into the
 // UptimeCheckConfig type.
-func flattenUptimeCheckConfig(c *Client, i interface{}) *UptimeCheckConfig {
+func flattenUptimeCheckConfig(c *Client, i interface{}, res *UptimeCheckConfig) *UptimeCheckConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1971,24 +1971,24 @@ func flattenUptimeCheckConfig(c *Client, i interface{}) *UptimeCheckConfig {
 		return nil
 	}
 
-	res := &UptimeCheckConfig{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.MonitoredResource = flattenUptimeCheckConfigMonitoredResource(c, m["monitoredResource"])
-	res.ResourceGroup = flattenUptimeCheckConfigResourceGroup(c, m["resourceGroup"])
-	res.HttpCheck = flattenUptimeCheckConfigHttpCheck(c, m["httpCheck"])
-	res.TcpCheck = flattenUptimeCheckConfigTcpCheck(c, m["tcpCheck"])
-	res.Period = dcl.FlattenString(m["period"])
+	resultRes := &UptimeCheckConfig{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.MonitoredResource = flattenUptimeCheckConfigMonitoredResource(c, m["monitoredResource"], res)
+	resultRes.ResourceGroup = flattenUptimeCheckConfigResourceGroup(c, m["resourceGroup"], res)
+	resultRes.HttpCheck = flattenUptimeCheckConfigHttpCheck(c, m["httpCheck"], res)
+	resultRes.TcpCheck = flattenUptimeCheckConfigTcpCheck(c, m["tcpCheck"], res)
+	resultRes.Period = dcl.FlattenString(m["period"])
 	if _, ok := m["period"]; !ok {
 		c.Config.Logger.Info("Using default value for period")
-		res.Period = dcl.String("60s")
+		resultRes.Period = dcl.String("60s")
 	}
-	res.Timeout = dcl.FlattenString(m["timeout"])
-	res.ContentMatchers = flattenUptimeCheckConfigContentMatchersSlice(c, m["contentMatchers"])
-	res.SelectedRegions = dcl.FlattenStringSlice(m["selectedRegions"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes.Timeout = dcl.FlattenString(m["timeout"])
+	resultRes.ContentMatchers = flattenUptimeCheckConfigContentMatchersSlice(c, m["contentMatchers"], res)
+	resultRes.SelectedRegions = dcl.FlattenStringSlice(m["selectedRegions"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandUptimeCheckConfigMonitoredResourceMap expands the contents of UptimeCheckConfigMonitoredResource into a JSON
@@ -2034,7 +2034,7 @@ func expandUptimeCheckConfigMonitoredResourceSlice(c *Client, f []UptimeCheckCon
 
 // flattenUptimeCheckConfigMonitoredResourceMap flattens the contents of UptimeCheckConfigMonitoredResource from a JSON
 // response object.
-func flattenUptimeCheckConfigMonitoredResourceMap(c *Client, i interface{}) map[string]UptimeCheckConfigMonitoredResource {
+func flattenUptimeCheckConfigMonitoredResourceMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigMonitoredResource {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigMonitoredResource{}
@@ -2046,7 +2046,7 @@ func flattenUptimeCheckConfigMonitoredResourceMap(c *Client, i interface{}) map[
 
 	items := make(map[string]UptimeCheckConfigMonitoredResource)
 	for k, item := range a {
-		items[k] = *flattenUptimeCheckConfigMonitoredResource(c, item.(map[string]interface{}))
+		items[k] = *flattenUptimeCheckConfigMonitoredResource(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2054,7 +2054,7 @@ func flattenUptimeCheckConfigMonitoredResourceMap(c *Client, i interface{}) map[
 
 // flattenUptimeCheckConfigMonitoredResourceSlice flattens the contents of UptimeCheckConfigMonitoredResource from a JSON
 // response object.
-func flattenUptimeCheckConfigMonitoredResourceSlice(c *Client, i interface{}) []UptimeCheckConfigMonitoredResource {
+func flattenUptimeCheckConfigMonitoredResourceSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigMonitoredResource {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigMonitoredResource{}
@@ -2066,7 +2066,7 @@ func flattenUptimeCheckConfigMonitoredResourceSlice(c *Client, i interface{}) []
 
 	items := make([]UptimeCheckConfigMonitoredResource, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigMonitoredResource(c, item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigMonitoredResource(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2092,7 +2092,7 @@ func expandUptimeCheckConfigMonitoredResource(c *Client, f *UptimeCheckConfigMon
 
 // flattenUptimeCheckConfigMonitoredResource flattens an instance of UptimeCheckConfigMonitoredResource from a JSON
 // response object.
-func flattenUptimeCheckConfigMonitoredResource(c *Client, i interface{}) *UptimeCheckConfigMonitoredResource {
+func flattenUptimeCheckConfigMonitoredResource(c *Client, i interface{}, res *UptimeCheckConfig) *UptimeCheckConfigMonitoredResource {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2152,7 +2152,7 @@ func expandUptimeCheckConfigResourceGroupSlice(c *Client, f []UptimeCheckConfigR
 
 // flattenUptimeCheckConfigResourceGroupMap flattens the contents of UptimeCheckConfigResourceGroup from a JSON
 // response object.
-func flattenUptimeCheckConfigResourceGroupMap(c *Client, i interface{}) map[string]UptimeCheckConfigResourceGroup {
+func flattenUptimeCheckConfigResourceGroupMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigResourceGroup {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigResourceGroup{}
@@ -2164,7 +2164,7 @@ func flattenUptimeCheckConfigResourceGroupMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]UptimeCheckConfigResourceGroup)
 	for k, item := range a {
-		items[k] = *flattenUptimeCheckConfigResourceGroup(c, item.(map[string]interface{}))
+		items[k] = *flattenUptimeCheckConfigResourceGroup(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2172,7 +2172,7 @@ func flattenUptimeCheckConfigResourceGroupMap(c *Client, i interface{}) map[stri
 
 // flattenUptimeCheckConfigResourceGroupSlice flattens the contents of UptimeCheckConfigResourceGroup from a JSON
 // response object.
-func flattenUptimeCheckConfigResourceGroupSlice(c *Client, i interface{}) []UptimeCheckConfigResourceGroup {
+func flattenUptimeCheckConfigResourceGroupSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigResourceGroup {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigResourceGroup{}
@@ -2184,7 +2184,7 @@ func flattenUptimeCheckConfigResourceGroupSlice(c *Client, i interface{}) []Upti
 
 	items := make([]UptimeCheckConfigResourceGroup, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigResourceGroup(c, item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigResourceGroup(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2212,7 +2212,7 @@ func expandUptimeCheckConfigResourceGroup(c *Client, f *UptimeCheckConfigResourc
 
 // flattenUptimeCheckConfigResourceGroup flattens an instance of UptimeCheckConfigResourceGroup from a JSON
 // response object.
-func flattenUptimeCheckConfigResourceGroup(c *Client, i interface{}) *UptimeCheckConfigResourceGroup {
+func flattenUptimeCheckConfigResourceGroup(c *Client, i interface{}, res *UptimeCheckConfig) *UptimeCheckConfigResourceGroup {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2272,7 +2272,7 @@ func expandUptimeCheckConfigHttpCheckSlice(c *Client, f []UptimeCheckConfigHttpC
 
 // flattenUptimeCheckConfigHttpCheckMap flattens the contents of UptimeCheckConfigHttpCheck from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckMap(c *Client, i interface{}) map[string]UptimeCheckConfigHttpCheck {
+func flattenUptimeCheckConfigHttpCheckMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigHttpCheck {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigHttpCheck{}
@@ -2284,7 +2284,7 @@ func flattenUptimeCheckConfigHttpCheckMap(c *Client, i interface{}) map[string]U
 
 	items := make(map[string]UptimeCheckConfigHttpCheck)
 	for k, item := range a {
-		items[k] = *flattenUptimeCheckConfigHttpCheck(c, item.(map[string]interface{}))
+		items[k] = *flattenUptimeCheckConfigHttpCheck(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2292,7 +2292,7 @@ func flattenUptimeCheckConfigHttpCheckMap(c *Client, i interface{}) map[string]U
 
 // flattenUptimeCheckConfigHttpCheckSlice flattens the contents of UptimeCheckConfigHttpCheck from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckSlice(c *Client, i interface{}) []UptimeCheckConfigHttpCheck {
+func flattenUptimeCheckConfigHttpCheckSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigHttpCheck {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigHttpCheck{}
@@ -2304,7 +2304,7 @@ func flattenUptimeCheckConfigHttpCheckSlice(c *Client, i interface{}) []UptimeCh
 
 	items := make([]UptimeCheckConfigHttpCheck, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigHttpCheck(c, item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigHttpCheck(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2356,7 +2356,7 @@ func expandUptimeCheckConfigHttpCheck(c *Client, f *UptimeCheckConfigHttpCheck, 
 
 // flattenUptimeCheckConfigHttpCheck flattens an instance of UptimeCheckConfigHttpCheck from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheck(c *Client, i interface{}) *UptimeCheckConfigHttpCheck {
+func flattenUptimeCheckConfigHttpCheck(c *Client, i interface{}, res *UptimeCheckConfig) *UptimeCheckConfigHttpCheck {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2379,7 +2379,7 @@ func flattenUptimeCheckConfigHttpCheck(c *Client, i interface{}) *UptimeCheckCon
 		r.Path = dcl.String("/")
 	}
 	r.Port = dcl.FlattenInteger(m["port"])
-	r.AuthInfo = flattenUptimeCheckConfigHttpCheckAuthInfo(c, m["authInfo"])
+	r.AuthInfo = flattenUptimeCheckConfigHttpCheckAuthInfo(c, m["authInfo"], res)
 	r.MaskHeaders = dcl.FlattenBool(m["maskHeaders"])
 	r.Headers = dcl.FlattenKeyValuePairs(m["headers"])
 	r.ContentType = flattenUptimeCheckConfigHttpCheckContentTypeEnum(m["contentType"])
@@ -2432,7 +2432,7 @@ func expandUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, f []UptimeCheckCon
 
 // flattenUptimeCheckConfigHttpCheckAuthInfoMap flattens the contents of UptimeCheckConfigHttpCheckAuthInfo from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, i interface{}) map[string]UptimeCheckConfigHttpCheckAuthInfo {
+func flattenUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigHttpCheckAuthInfo {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigHttpCheckAuthInfo{}
@@ -2444,7 +2444,7 @@ func flattenUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, i interface{}) map[
 
 	items := make(map[string]UptimeCheckConfigHttpCheckAuthInfo)
 	for k, item := range a {
-		items[k] = *flattenUptimeCheckConfigHttpCheckAuthInfo(c, item.(map[string]interface{}))
+		items[k] = *flattenUptimeCheckConfigHttpCheckAuthInfo(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2452,7 +2452,7 @@ func flattenUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, i interface{}) map[
 
 // flattenUptimeCheckConfigHttpCheckAuthInfoSlice flattens the contents of UptimeCheckConfigHttpCheckAuthInfo from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, i interface{}) []UptimeCheckConfigHttpCheckAuthInfo {
+func flattenUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigHttpCheckAuthInfo {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigHttpCheckAuthInfo{}
@@ -2464,7 +2464,7 @@ func flattenUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, i interface{}) []
 
 	items := make([]UptimeCheckConfigHttpCheckAuthInfo, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigHttpCheckAuthInfo(c, item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigHttpCheckAuthInfo(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2490,7 +2490,7 @@ func expandUptimeCheckConfigHttpCheckAuthInfo(c *Client, f *UptimeCheckConfigHtt
 
 // flattenUptimeCheckConfigHttpCheckAuthInfo flattens an instance of UptimeCheckConfigHttpCheckAuthInfo from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckAuthInfo(c *Client, i interface{}) *UptimeCheckConfigHttpCheckAuthInfo {
+func flattenUptimeCheckConfigHttpCheckAuthInfo(c *Client, i interface{}, res *UptimeCheckConfig) *UptimeCheckConfigHttpCheckAuthInfo {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2550,7 +2550,7 @@ func expandUptimeCheckConfigTcpCheckSlice(c *Client, f []UptimeCheckConfigTcpChe
 
 // flattenUptimeCheckConfigTcpCheckMap flattens the contents of UptimeCheckConfigTcpCheck from a JSON
 // response object.
-func flattenUptimeCheckConfigTcpCheckMap(c *Client, i interface{}) map[string]UptimeCheckConfigTcpCheck {
+func flattenUptimeCheckConfigTcpCheckMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigTcpCheck {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigTcpCheck{}
@@ -2562,7 +2562,7 @@ func flattenUptimeCheckConfigTcpCheckMap(c *Client, i interface{}) map[string]Up
 
 	items := make(map[string]UptimeCheckConfigTcpCheck)
 	for k, item := range a {
-		items[k] = *flattenUptimeCheckConfigTcpCheck(c, item.(map[string]interface{}))
+		items[k] = *flattenUptimeCheckConfigTcpCheck(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2570,7 +2570,7 @@ func flattenUptimeCheckConfigTcpCheckMap(c *Client, i interface{}) map[string]Up
 
 // flattenUptimeCheckConfigTcpCheckSlice flattens the contents of UptimeCheckConfigTcpCheck from a JSON
 // response object.
-func flattenUptimeCheckConfigTcpCheckSlice(c *Client, i interface{}) []UptimeCheckConfigTcpCheck {
+func flattenUptimeCheckConfigTcpCheckSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigTcpCheck {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigTcpCheck{}
@@ -2582,7 +2582,7 @@ func flattenUptimeCheckConfigTcpCheckSlice(c *Client, i interface{}) []UptimeChe
 
 	items := make([]UptimeCheckConfigTcpCheck, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigTcpCheck(c, item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigTcpCheck(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2605,7 +2605,7 @@ func expandUptimeCheckConfigTcpCheck(c *Client, f *UptimeCheckConfigTcpCheck, re
 
 // flattenUptimeCheckConfigTcpCheck flattens an instance of UptimeCheckConfigTcpCheck from a JSON
 // response object.
-func flattenUptimeCheckConfigTcpCheck(c *Client, i interface{}) *UptimeCheckConfigTcpCheck {
+func flattenUptimeCheckConfigTcpCheck(c *Client, i interface{}, res *UptimeCheckConfig) *UptimeCheckConfigTcpCheck {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2664,7 +2664,7 @@ func expandUptimeCheckConfigContentMatchersSlice(c *Client, f []UptimeCheckConfi
 
 // flattenUptimeCheckConfigContentMatchersMap flattens the contents of UptimeCheckConfigContentMatchers from a JSON
 // response object.
-func flattenUptimeCheckConfigContentMatchersMap(c *Client, i interface{}) map[string]UptimeCheckConfigContentMatchers {
+func flattenUptimeCheckConfigContentMatchersMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigContentMatchers {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigContentMatchers{}
@@ -2676,7 +2676,7 @@ func flattenUptimeCheckConfigContentMatchersMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]UptimeCheckConfigContentMatchers)
 	for k, item := range a {
-		items[k] = *flattenUptimeCheckConfigContentMatchers(c, item.(map[string]interface{}))
+		items[k] = *flattenUptimeCheckConfigContentMatchers(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2684,7 +2684,7 @@ func flattenUptimeCheckConfigContentMatchersMap(c *Client, i interface{}) map[st
 
 // flattenUptimeCheckConfigContentMatchersSlice flattens the contents of UptimeCheckConfigContentMatchers from a JSON
 // response object.
-func flattenUptimeCheckConfigContentMatchersSlice(c *Client, i interface{}) []UptimeCheckConfigContentMatchers {
+func flattenUptimeCheckConfigContentMatchersSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigContentMatchers {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigContentMatchers{}
@@ -2696,7 +2696,7 @@ func flattenUptimeCheckConfigContentMatchersSlice(c *Client, i interface{}) []Up
 
 	items := make([]UptimeCheckConfigContentMatchers, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigContentMatchers(c, item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigContentMatchers(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2722,7 +2722,7 @@ func expandUptimeCheckConfigContentMatchers(c *Client, f *UptimeCheckConfigConte
 
 // flattenUptimeCheckConfigContentMatchers flattens an instance of UptimeCheckConfigContentMatchers from a JSON
 // response object.
-func flattenUptimeCheckConfigContentMatchers(c *Client, i interface{}) *UptimeCheckConfigContentMatchers {
+func flattenUptimeCheckConfigContentMatchers(c *Client, i interface{}, res *UptimeCheckConfig) *UptimeCheckConfigContentMatchers {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2745,7 +2745,7 @@ func flattenUptimeCheckConfigContentMatchers(c *Client, i interface{}) *UptimeCh
 
 // flattenUptimeCheckConfigResourceGroupResourceTypeEnumMap flattens the contents of UptimeCheckConfigResourceGroupResourceTypeEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigResourceGroupResourceTypeEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigResourceGroupResourceTypeEnum {
+func flattenUptimeCheckConfigResourceGroupResourceTypeEnumMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigResourceGroupResourceTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigResourceGroupResourceTypeEnum{}
@@ -2765,7 +2765,7 @@ func flattenUptimeCheckConfigResourceGroupResourceTypeEnumMap(c *Client, i inter
 
 // flattenUptimeCheckConfigResourceGroupResourceTypeEnumSlice flattens the contents of UptimeCheckConfigResourceGroupResourceTypeEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigResourceGroupResourceTypeEnumSlice(c *Client, i interface{}) []UptimeCheckConfigResourceGroupResourceTypeEnum {
+func flattenUptimeCheckConfigResourceGroupResourceTypeEnumSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigResourceGroupResourceTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigResourceGroupResourceTypeEnum{}
@@ -2796,7 +2796,7 @@ func flattenUptimeCheckConfigResourceGroupResourceTypeEnum(i interface{}) *Uptim
 
 // flattenUptimeCheckConfigHttpCheckRequestMethodEnumMap flattens the contents of UptimeCheckConfigHttpCheckRequestMethodEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckRequestMethodEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigHttpCheckRequestMethodEnum {
+func flattenUptimeCheckConfigHttpCheckRequestMethodEnumMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigHttpCheckRequestMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigHttpCheckRequestMethodEnum{}
@@ -2816,7 +2816,7 @@ func flattenUptimeCheckConfigHttpCheckRequestMethodEnumMap(c *Client, i interfac
 
 // flattenUptimeCheckConfigHttpCheckRequestMethodEnumSlice flattens the contents of UptimeCheckConfigHttpCheckRequestMethodEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckRequestMethodEnumSlice(c *Client, i interface{}) []UptimeCheckConfigHttpCheckRequestMethodEnum {
+func flattenUptimeCheckConfigHttpCheckRequestMethodEnumSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigHttpCheckRequestMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigHttpCheckRequestMethodEnum{}
@@ -2847,7 +2847,7 @@ func flattenUptimeCheckConfigHttpCheckRequestMethodEnum(i interface{}) *UptimeCh
 
 // flattenUptimeCheckConfigHttpCheckContentTypeEnumMap flattens the contents of UptimeCheckConfigHttpCheckContentTypeEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckContentTypeEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigHttpCheckContentTypeEnum {
+func flattenUptimeCheckConfigHttpCheckContentTypeEnumMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigHttpCheckContentTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigHttpCheckContentTypeEnum{}
@@ -2867,7 +2867,7 @@ func flattenUptimeCheckConfigHttpCheckContentTypeEnumMap(c *Client, i interface{
 
 // flattenUptimeCheckConfigHttpCheckContentTypeEnumSlice flattens the contents of UptimeCheckConfigHttpCheckContentTypeEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigHttpCheckContentTypeEnumSlice(c *Client, i interface{}) []UptimeCheckConfigHttpCheckContentTypeEnum {
+func flattenUptimeCheckConfigHttpCheckContentTypeEnumSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigHttpCheckContentTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigHttpCheckContentTypeEnum{}
@@ -2898,7 +2898,7 @@ func flattenUptimeCheckConfigHttpCheckContentTypeEnum(i interface{}) *UptimeChec
 
 // flattenUptimeCheckConfigContentMatchersMatcherEnumMap flattens the contents of UptimeCheckConfigContentMatchersMatcherEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigContentMatchersMatcherEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigContentMatchersMatcherEnum {
+func flattenUptimeCheckConfigContentMatchersMatcherEnumMap(c *Client, i interface{}, res *UptimeCheckConfig) map[string]UptimeCheckConfigContentMatchersMatcherEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]UptimeCheckConfigContentMatchersMatcherEnum{}
@@ -2918,7 +2918,7 @@ func flattenUptimeCheckConfigContentMatchersMatcherEnumMap(c *Client, i interfac
 
 // flattenUptimeCheckConfigContentMatchersMatcherEnumSlice flattens the contents of UptimeCheckConfigContentMatchersMatcherEnum from a JSON
 // response object.
-func flattenUptimeCheckConfigContentMatchersMatcherEnumSlice(c *Client, i interface{}) []UptimeCheckConfigContentMatchersMatcherEnum {
+func flattenUptimeCheckConfigContentMatchersMatcherEnumSlice(c *Client, i interface{}, res *UptimeCheckConfig) []UptimeCheckConfigContentMatchersMatcherEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []UptimeCheckConfigContentMatchersMatcherEnum{}
@@ -2952,7 +2952,7 @@ func flattenUptimeCheckConfigContentMatchersMatcherEnum(i interface{}) *UptimeCh
 // identity).  This is useful in extracting the element from a List call.
 func (r *UptimeCheckConfig) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalUptimeCheckConfig(b, c)
+		cr, err := unmarshalUptimeCheckConfig(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

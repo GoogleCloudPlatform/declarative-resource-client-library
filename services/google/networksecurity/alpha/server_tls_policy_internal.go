@@ -338,7 +338,7 @@ func (c *Client) listServerTlsPolicy(ctx context.Context, r *ServerTlsPolicy, pa
 
 	var l []*ServerTlsPolicy
 	for _, v := range m.ServerTlsPolicies {
-		res, err := unmarshalMapServerTlsPolicy(v, c)
+		res, err := unmarshalMapServerTlsPolicy(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -2039,17 +2039,17 @@ func (r *ServerTlsPolicy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalServerTlsPolicy decodes JSON responses into the ServerTlsPolicy resource schema.
-func unmarshalServerTlsPolicy(b []byte, c *Client) (*ServerTlsPolicy, error) {
+func unmarshalServerTlsPolicy(b []byte, c *Client, res *ServerTlsPolicy) (*ServerTlsPolicy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapServerTlsPolicy(m, c)
+	return unmarshalMapServerTlsPolicy(m, c, res)
 }
 
-func unmarshalMapServerTlsPolicy(m map[string]interface{}, c *Client) (*ServerTlsPolicy, error) {
+func unmarshalMapServerTlsPolicy(m map[string]interface{}, c *Client, res *ServerTlsPolicy) (*ServerTlsPolicy, error) {
 
-	flattened := flattenServerTlsPolicy(c, m)
+	flattened := flattenServerTlsPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2101,7 +2101,7 @@ func expandServerTlsPolicy(c *Client, f *ServerTlsPolicy) (map[string]interface{
 
 // flattenServerTlsPolicy flattens ServerTlsPolicy from a JSON request object into the
 // ServerTlsPolicy type.
-func flattenServerTlsPolicy(c *Client, i interface{}) *ServerTlsPolicy {
+func flattenServerTlsPolicy(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2110,19 +2110,19 @@ func flattenServerTlsPolicy(c *Client, i interface{}) *ServerTlsPolicy {
 		return nil
 	}
 
-	res := &ServerTlsPolicy{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.AllowOpen = dcl.FlattenBool(m["allowOpen"])
-	res.ServerCertificate = flattenServerTlsPolicyServerCertificate(c, m["serverCertificate"])
-	res.MtlsPolicy = flattenServerTlsPolicyMtlsPolicy(c, m["mtlsPolicy"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &ServerTlsPolicy{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.AllowOpen = dcl.FlattenBool(m["allowOpen"])
+	resultRes.ServerCertificate = flattenServerTlsPolicyServerCertificate(c, m["serverCertificate"], res)
+	resultRes.MtlsPolicy = flattenServerTlsPolicyMtlsPolicy(c, m["mtlsPolicy"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandServerTlsPolicyServerCertificateMap expands the contents of ServerTlsPolicyServerCertificate into a JSON
@@ -2168,7 +2168,7 @@ func expandServerTlsPolicyServerCertificateSlice(c *Client, f []ServerTlsPolicyS
 
 // flattenServerTlsPolicyServerCertificateMap flattens the contents of ServerTlsPolicyServerCertificate from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateMap(c *Client, i interface{}) map[string]ServerTlsPolicyServerCertificate {
+func flattenServerTlsPolicyServerCertificateMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyServerCertificate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyServerCertificate{}
@@ -2180,7 +2180,7 @@ func flattenServerTlsPolicyServerCertificateMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]ServerTlsPolicyServerCertificate)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyServerCertificate(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyServerCertificate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2188,7 +2188,7 @@ func flattenServerTlsPolicyServerCertificateMap(c *Client, i interface{}) map[st
 
 // flattenServerTlsPolicyServerCertificateSlice flattens the contents of ServerTlsPolicyServerCertificate from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateSlice(c *Client, i interface{}) []ServerTlsPolicyServerCertificate {
+func flattenServerTlsPolicyServerCertificateSlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyServerCertificate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyServerCertificate{}
@@ -2200,7 +2200,7 @@ func flattenServerTlsPolicyServerCertificateSlice(c *Client, i interface{}) []Se
 
 	items := make([]ServerTlsPolicyServerCertificate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyServerCertificate(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyServerCertificate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2235,7 +2235,7 @@ func expandServerTlsPolicyServerCertificate(c *Client, f *ServerTlsPolicyServerC
 
 // flattenServerTlsPolicyServerCertificate flattens an instance of ServerTlsPolicyServerCertificate from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificate(c *Client, i interface{}) *ServerTlsPolicyServerCertificate {
+func flattenServerTlsPolicyServerCertificate(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyServerCertificate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2246,9 +2246,9 @@ func flattenServerTlsPolicyServerCertificate(c *Client, i interface{}) *ServerTl
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServerTlsPolicyServerCertificate
 	}
-	r.LocalFilepath = flattenServerTlsPolicyServerCertificateLocalFilepath(c, m["localFilepath"])
-	r.GrpcEndpoint = flattenServerTlsPolicyServerCertificateGrpcEndpoint(c, m["grpcEndpoint"])
-	r.CertificateProviderInstance = flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c, m["certificateProviderInstance"])
+	r.LocalFilepath = flattenServerTlsPolicyServerCertificateLocalFilepath(c, m["localFilepath"], res)
+	r.GrpcEndpoint = flattenServerTlsPolicyServerCertificateGrpcEndpoint(c, m["grpcEndpoint"], res)
+	r.CertificateProviderInstance = flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c, m["certificateProviderInstance"], res)
 
 	return r
 }
@@ -2296,7 +2296,7 @@ func expandServerTlsPolicyServerCertificateLocalFilepathSlice(c *Client, f []Ser
 
 // flattenServerTlsPolicyServerCertificateLocalFilepathMap flattens the contents of ServerTlsPolicyServerCertificateLocalFilepath from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateLocalFilepathMap(c *Client, i interface{}) map[string]ServerTlsPolicyServerCertificateLocalFilepath {
+func flattenServerTlsPolicyServerCertificateLocalFilepathMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyServerCertificateLocalFilepath {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyServerCertificateLocalFilepath{}
@@ -2308,7 +2308,7 @@ func flattenServerTlsPolicyServerCertificateLocalFilepathMap(c *Client, i interf
 
 	items := make(map[string]ServerTlsPolicyServerCertificateLocalFilepath)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyServerCertificateLocalFilepath(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyServerCertificateLocalFilepath(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2316,7 +2316,7 @@ func flattenServerTlsPolicyServerCertificateLocalFilepathMap(c *Client, i interf
 
 // flattenServerTlsPolicyServerCertificateLocalFilepathSlice flattens the contents of ServerTlsPolicyServerCertificateLocalFilepath from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateLocalFilepathSlice(c *Client, i interface{}) []ServerTlsPolicyServerCertificateLocalFilepath {
+func flattenServerTlsPolicyServerCertificateLocalFilepathSlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyServerCertificateLocalFilepath {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyServerCertificateLocalFilepath{}
@@ -2328,7 +2328,7 @@ func flattenServerTlsPolicyServerCertificateLocalFilepathSlice(c *Client, i inte
 
 	items := make([]ServerTlsPolicyServerCertificateLocalFilepath, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyServerCertificateLocalFilepath(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyServerCertificateLocalFilepath(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2354,7 +2354,7 @@ func expandServerTlsPolicyServerCertificateLocalFilepath(c *Client, f *ServerTls
 
 // flattenServerTlsPolicyServerCertificateLocalFilepath flattens an instance of ServerTlsPolicyServerCertificateLocalFilepath from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateLocalFilepath(c *Client, i interface{}) *ServerTlsPolicyServerCertificateLocalFilepath {
+func flattenServerTlsPolicyServerCertificateLocalFilepath(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyServerCertificateLocalFilepath {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2414,7 +2414,7 @@ func expandServerTlsPolicyServerCertificateGrpcEndpointSlice(c *Client, f []Serv
 
 // flattenServerTlsPolicyServerCertificateGrpcEndpointMap flattens the contents of ServerTlsPolicyServerCertificateGrpcEndpoint from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateGrpcEndpointMap(c *Client, i interface{}) map[string]ServerTlsPolicyServerCertificateGrpcEndpoint {
+func flattenServerTlsPolicyServerCertificateGrpcEndpointMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyServerCertificateGrpcEndpoint {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyServerCertificateGrpcEndpoint{}
@@ -2426,7 +2426,7 @@ func flattenServerTlsPolicyServerCertificateGrpcEndpointMap(c *Client, i interfa
 
 	items := make(map[string]ServerTlsPolicyServerCertificateGrpcEndpoint)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyServerCertificateGrpcEndpoint(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyServerCertificateGrpcEndpoint(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2434,7 +2434,7 @@ func flattenServerTlsPolicyServerCertificateGrpcEndpointMap(c *Client, i interfa
 
 // flattenServerTlsPolicyServerCertificateGrpcEndpointSlice flattens the contents of ServerTlsPolicyServerCertificateGrpcEndpoint from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateGrpcEndpointSlice(c *Client, i interface{}) []ServerTlsPolicyServerCertificateGrpcEndpoint {
+func flattenServerTlsPolicyServerCertificateGrpcEndpointSlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyServerCertificateGrpcEndpoint {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyServerCertificateGrpcEndpoint{}
@@ -2446,7 +2446,7 @@ func flattenServerTlsPolicyServerCertificateGrpcEndpointSlice(c *Client, i inter
 
 	items := make([]ServerTlsPolicyServerCertificateGrpcEndpoint, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyServerCertificateGrpcEndpoint(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyServerCertificateGrpcEndpoint(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2469,7 +2469,7 @@ func expandServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, f *ServerTlsP
 
 // flattenServerTlsPolicyServerCertificateGrpcEndpoint flattens an instance of ServerTlsPolicyServerCertificateGrpcEndpoint from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, i interface{}) *ServerTlsPolicyServerCertificateGrpcEndpoint {
+func flattenServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyServerCertificateGrpcEndpoint {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2528,7 +2528,7 @@ func expandServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(c *C
 
 // flattenServerTlsPolicyServerCertificateCertificateProviderInstanceMap flattens the contents of ServerTlsPolicyServerCertificateCertificateProviderInstance from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceMap(c *Client, i interface{}) map[string]ServerTlsPolicyServerCertificateCertificateProviderInstance {
+func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyServerCertificateCertificateProviderInstance {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyServerCertificateCertificateProviderInstance{}
@@ -2540,7 +2540,7 @@ func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceMap(c *Cl
 
 	items := make(map[string]ServerTlsPolicyServerCertificateCertificateProviderInstance)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2548,7 +2548,7 @@ func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceMap(c *Cl
 
 // flattenServerTlsPolicyServerCertificateCertificateProviderInstanceSlice flattens the contents of ServerTlsPolicyServerCertificateCertificateProviderInstance from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(c *Client, i interface{}) []ServerTlsPolicyServerCertificateCertificateProviderInstance {
+func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyServerCertificateCertificateProviderInstance {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyServerCertificateCertificateProviderInstance{}
@@ -2560,7 +2560,7 @@ func flattenServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(c *
 
 	items := make([]ServerTlsPolicyServerCertificateCertificateProviderInstance, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2583,7 +2583,7 @@ func expandServerTlsPolicyServerCertificateCertificateProviderInstance(c *Client
 
 // flattenServerTlsPolicyServerCertificateCertificateProviderInstance flattens an instance of ServerTlsPolicyServerCertificateCertificateProviderInstance from a JSON
 // response object.
-func flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c *Client, i interface{}) *ServerTlsPolicyServerCertificateCertificateProviderInstance {
+func flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyServerCertificateCertificateProviderInstance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2642,7 +2642,7 @@ func expandServerTlsPolicyMtlsPolicySlice(c *Client, f []ServerTlsPolicyMtlsPoli
 
 // flattenServerTlsPolicyMtlsPolicyMap flattens the contents of ServerTlsPolicyMtlsPolicy from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyMap(c *Client, i interface{}) map[string]ServerTlsPolicyMtlsPolicy {
+func flattenServerTlsPolicyMtlsPolicyMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyMtlsPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyMtlsPolicy{}
@@ -2654,7 +2654,7 @@ func flattenServerTlsPolicyMtlsPolicyMap(c *Client, i interface{}) map[string]Se
 
 	items := make(map[string]ServerTlsPolicyMtlsPolicy)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyMtlsPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyMtlsPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2662,7 +2662,7 @@ func flattenServerTlsPolicyMtlsPolicyMap(c *Client, i interface{}) map[string]Se
 
 // flattenServerTlsPolicyMtlsPolicySlice flattens the contents of ServerTlsPolicyMtlsPolicy from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicySlice(c *Client, i interface{}) []ServerTlsPolicyMtlsPolicy {
+func flattenServerTlsPolicyMtlsPolicySlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyMtlsPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyMtlsPolicy{}
@@ -2674,7 +2674,7 @@ func flattenServerTlsPolicyMtlsPolicySlice(c *Client, i interface{}) []ServerTls
 
 	items := make([]ServerTlsPolicyMtlsPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyMtlsPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyMtlsPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2699,7 +2699,7 @@ func expandServerTlsPolicyMtlsPolicy(c *Client, f *ServerTlsPolicyMtlsPolicy, re
 
 // flattenServerTlsPolicyMtlsPolicy flattens an instance of ServerTlsPolicyMtlsPolicy from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicy(c *Client, i interface{}) *ServerTlsPolicyMtlsPolicy {
+func flattenServerTlsPolicyMtlsPolicy(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyMtlsPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2710,7 +2710,7 @@ func flattenServerTlsPolicyMtlsPolicy(c *Client, i interface{}) *ServerTlsPolicy
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServerTlsPolicyMtlsPolicy
 	}
-	r.ClientValidationCa = flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice(c, m["clientValidationCa"])
+	r.ClientValidationCa = flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice(c, m["clientValidationCa"], res)
 
 	return r
 }
@@ -2758,7 +2758,7 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaSlice(c *Client, f []Serve
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaMap flattens the contents of ServerTlsPolicyMtlsPolicyClientValidationCa from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaMap(c *Client, i interface{}) map[string]ServerTlsPolicyMtlsPolicyClientValidationCa {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyMtlsPolicyClientValidationCa {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyMtlsPolicyClientValidationCa{}
@@ -2770,7 +2770,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaMap(c *Client, i interfac
 
 	items := make(map[string]ServerTlsPolicyMtlsPolicyClientValidationCa)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyMtlsPolicyClientValidationCa(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyMtlsPolicyClientValidationCa(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2778,7 +2778,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaMap(c *Client, i interfac
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice flattens the contents of ServerTlsPolicyMtlsPolicyClientValidationCa from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice(c *Client, i interface{}) []ServerTlsPolicyMtlsPolicyClientValidationCa {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyMtlsPolicyClientValidationCa {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyMtlsPolicyClientValidationCa{}
@@ -2790,7 +2790,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice(c *Client, i interf
 
 	items := make([]ServerTlsPolicyMtlsPolicyClientValidationCa, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyMtlsPolicyClientValidationCa(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyMtlsPolicyClientValidationCa(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2823,7 +2823,7 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, f *ServerTlsPo
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCa flattens an instance of ServerTlsPolicyMtlsPolicyClientValidationCa from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, i interface{}) *ServerTlsPolicyMtlsPolicyClientValidationCa {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyMtlsPolicyClientValidationCa {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2835,8 +2835,8 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, i interface{}
 		return EmptyServerTlsPolicyMtlsPolicyClientValidationCa
 	}
 	r.CaCertPath = dcl.FlattenString(m["caCertPath"])
-	r.GrpcEndpoint = flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, m["grpcEndpoint"])
-	r.CertificateProviderInstance = flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, m["certificateProviderInstance"])
+	r.GrpcEndpoint = flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, m["grpcEndpoint"], res)
+	r.CertificateProviderInstance = flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, m["certificateProviderInstance"], res)
 
 	return r
 }
@@ -2884,7 +2884,7 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(c *Clien
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap flattens the contents of ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap(c *Client, i interface{}) map[string]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint{}
@@ -2896,7 +2896,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap(c *Client
 
 	items := make(map[string]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2904,7 +2904,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointMap(c *Client
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice flattens the contents of ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(c *Client, i interface{}) []ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint{}
@@ -2916,7 +2916,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(c *Clie
 
 	items := make([]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2939,7 +2939,7 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, f 
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint flattens an instance of ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, i interface{}) *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2998,7 +2998,7 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanc
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceMap flattens the contents of ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceMap(c *Client, i interface{}) map[string]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceMap(c *Client, i interface{}, res *ServerTlsPolicy) map[string]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance{}
@@ -3010,7 +3010,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstan
 
 	items := make(map[string]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance)
 	for k, item := range a {
-		items[k] = *flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, item.(map[string]interface{}))
+		items[k] = *flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3018,7 +3018,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstan
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceSlice flattens the contents of ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceSlice(c *Client, i interface{}) []ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceSlice(c *Client, i interface{}, res *ServerTlsPolicy) []ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance{}
@@ -3030,7 +3030,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstan
 
 	items := make([]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, item.(map[string]interface{})))
+		items = append(items, *flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3053,7 +3053,7 @@ func expandServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanc
 
 // flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance flattens an instance of ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance from a JSON
 // response object.
-func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c *Client, i interface{}) *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
+func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c *Client, i interface{}, res *ServerTlsPolicy) *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3074,7 +3074,7 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstan
 // identity).  This is useful in extracting the element from a List call.
 func (r *ServerTlsPolicy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalServerTlsPolicy(b, c)
+		cr, err := unmarshalServerTlsPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

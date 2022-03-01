@@ -142,7 +142,7 @@ func (c *Client) GetRelease(ctx context.Context, r *Release) (*Release, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalRelease(b, c)
+	result, err := unmarshalRelease(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +311,7 @@ func applyReleaseDiff(c *Client, ctx context.Context, desired *Release, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapRelease(r, c)
+				fullResp, err := unmarshalMapRelease(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

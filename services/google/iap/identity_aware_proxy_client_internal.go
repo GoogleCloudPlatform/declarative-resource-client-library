@@ -131,7 +131,7 @@ func (c *Client) listIdentityAwareProxyClient(ctx context.Context, r *IdentityAw
 
 	var l []*IdentityAwareProxyClient
 	for _, v := range m.Items {
-		res, err := unmarshalMapIdentityAwareProxyClient(v, c)
+		res, err := unmarshalMapIdentityAwareProxyClient(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -492,17 +492,17 @@ func (r *IdentityAwareProxyClient) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalIdentityAwareProxyClient decodes JSON responses into the IdentityAwareProxyClient resource schema.
-func unmarshalIdentityAwareProxyClient(b []byte, c *Client) (*IdentityAwareProxyClient, error) {
+func unmarshalIdentityAwareProxyClient(b []byte, c *Client, res *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapIdentityAwareProxyClient(m, c)
+	return unmarshalMapIdentityAwareProxyClient(m, c, res)
 }
 
-func unmarshalMapIdentityAwareProxyClient(m map[string]interface{}, c *Client) (*IdentityAwareProxyClient, error) {
+func unmarshalMapIdentityAwareProxyClient(m map[string]interface{}, c *Client, res *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
 
-	flattened := flattenIdentityAwareProxyClient(c, m)
+	flattened := flattenIdentityAwareProxyClient(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -538,7 +538,7 @@ func expandIdentityAwareProxyClient(c *Client, f *IdentityAwareProxyClient) (map
 
 // flattenIdentityAwareProxyClient flattens IdentityAwareProxyClient from a JSON request object into the
 // IdentityAwareProxyClient type.
-func flattenIdentityAwareProxyClient(c *Client, i interface{}) *IdentityAwareProxyClient {
+func flattenIdentityAwareProxyClient(c *Client, i interface{}, res *IdentityAwareProxyClient) *IdentityAwareProxyClient {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -547,14 +547,14 @@ func flattenIdentityAwareProxyClient(c *Client, i interface{}) *IdentityAwarePro
 		return nil
 	}
 
-	res := &IdentityAwareProxyClient{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Secret = dcl.FlattenString(m["secret"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Brand = dcl.FlattenString(m["brand"])
+	resultRes := &IdentityAwareProxyClient{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Secret = dcl.FlattenString(m["secret"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Brand = dcl.FlattenString(m["brand"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -562,7 +562,7 @@ func flattenIdentityAwareProxyClient(c *Client, i interface{}) *IdentityAwarePro
 // identity).  This is useful in extracting the element from a List call.
 func (r *IdentityAwareProxyClient) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalIdentityAwareProxyClient(b, c)
+		cr, err := unmarshalIdentityAwareProxyClient(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

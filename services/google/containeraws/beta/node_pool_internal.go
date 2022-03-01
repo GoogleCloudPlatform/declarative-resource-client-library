@@ -335,7 +335,7 @@ func (c *Client) listNodePool(ctx context.Context, r *NodePool, pageToken string
 
 	var l []*NodePool
 	for _, v := range m.AwsNodePools {
-		res, err := unmarshalMapNodePool(v, c)
+		res, err := unmarshalMapNodePool(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -2051,17 +2051,17 @@ func (r *NodePool) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalNodePool decodes JSON responses into the NodePool resource schema.
-func unmarshalNodePool(b []byte, c *Client) (*NodePool, error) {
+func unmarshalNodePool(b []byte, c *Client, res *NodePool) (*NodePool, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapNodePool(m, c)
+	return unmarshalMapNodePool(m, c, res)
 }
 
-func unmarshalMapNodePool(m map[string]interface{}, c *Client) (*NodePool, error) {
+func unmarshalMapNodePool(m map[string]interface{}, c *Client, res *NodePool) (*NodePool, error) {
 
-	flattened := flattenNodePool(c, m)
+	flattened := flattenNodePool(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2123,7 +2123,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 
 // flattenNodePool flattens NodePool from a JSON request object into the
 // NodePool type.
-func flattenNodePool(c *Client, i interface{}) *NodePool {
+func flattenNodePool(c *Client, i interface{}, res *NodePool) *NodePool {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2132,25 +2132,25 @@ func flattenNodePool(c *Client, i interface{}) *NodePool {
 		return nil
 	}
 
-	res := &NodePool{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Version = dcl.FlattenString(m["version"])
-	res.Config = flattenNodePoolConfig(c, m["config"])
-	res.Autoscaling = flattenNodePoolAutoscaling(c, m["autoscaling"])
-	res.SubnetId = dcl.FlattenString(m["subnetId"])
-	res.State = flattenNodePoolStateEnum(m["state"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.Reconciling = dcl.FlattenBool(m["reconciling"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
-	res.MaxPodsConstraint = flattenNodePoolMaxPodsConstraint(c, m["maxPodsConstraint"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Cluster = dcl.FlattenString(m["cluster"])
+	resultRes := &NodePool{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Version = dcl.FlattenString(m["version"])
+	resultRes.Config = flattenNodePoolConfig(c, m["config"], res)
+	resultRes.Autoscaling = flattenNodePoolAutoscaling(c, m["autoscaling"], res)
+	resultRes.SubnetId = dcl.FlattenString(m["subnetId"])
+	resultRes.State = flattenNodePoolStateEnum(m["state"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.Reconciling = dcl.FlattenBool(m["reconciling"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
+	resultRes.MaxPodsConstraint = flattenNodePoolMaxPodsConstraint(c, m["maxPodsConstraint"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Cluster = dcl.FlattenString(m["cluster"])
 
-	return res
+	return resultRes
 }
 
 // expandNodePoolConfigMap expands the contents of NodePoolConfig into a JSON
@@ -2196,7 +2196,7 @@ func expandNodePoolConfigSlice(c *Client, f []NodePoolConfig, res *NodePool) ([]
 
 // flattenNodePoolConfigMap flattens the contents of NodePoolConfig from a JSON
 // response object.
-func flattenNodePoolConfigMap(c *Client, i interface{}) map[string]NodePoolConfig {
+func flattenNodePoolConfigMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolConfig{}
@@ -2208,7 +2208,7 @@ func flattenNodePoolConfigMap(c *Client, i interface{}) map[string]NodePoolConfi
 
 	items := make(map[string]NodePoolConfig)
 	for k, item := range a {
-		items[k] = *flattenNodePoolConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenNodePoolConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2216,7 +2216,7 @@ func flattenNodePoolConfigMap(c *Client, i interface{}) map[string]NodePoolConfi
 
 // flattenNodePoolConfigSlice flattens the contents of NodePoolConfig from a JSON
 // response object.
-func flattenNodePoolConfigSlice(c *Client, i interface{}) []NodePoolConfig {
+func flattenNodePoolConfigSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolConfig{}
@@ -2228,7 +2228,7 @@ func flattenNodePoolConfigSlice(c *Client, i interface{}) []NodePoolConfig {
 
 	items := make([]NodePoolConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2283,7 +2283,7 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig, res *NodePool) (map[stri
 
 // flattenNodePoolConfig flattens an instance of NodePoolConfig from a JSON
 // response object.
-func flattenNodePoolConfig(c *Client, i interface{}) *NodePoolConfig {
+func flattenNodePoolConfig(c *Client, i interface{}, res *NodePool) *NodePoolConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2295,13 +2295,13 @@ func flattenNodePoolConfig(c *Client, i interface{}) *NodePoolConfig {
 		return EmptyNodePoolConfig
 	}
 	r.InstanceType = dcl.FlattenString(m["instanceType"])
-	r.RootVolume = flattenNodePoolConfigRootVolume(c, m["rootVolume"])
-	r.Taints = flattenNodePoolConfigTaintsSlice(c, m["taints"])
+	r.RootVolume = flattenNodePoolConfigRootVolume(c, m["rootVolume"], res)
+	r.Taints = flattenNodePoolConfigTaintsSlice(c, m["taints"], res)
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.Tags = dcl.FlattenKeyValuePairs(m["tags"])
 	r.IamInstanceProfile = dcl.FlattenString(m["iamInstanceProfile"])
-	r.ConfigEncryption = flattenNodePoolConfigConfigEncryption(c, m["configEncryption"])
-	r.SshConfig = flattenNodePoolConfigSshConfig(c, m["sshConfig"])
+	r.ConfigEncryption = flattenNodePoolConfigConfigEncryption(c, m["configEncryption"], res)
+	r.SshConfig = flattenNodePoolConfigSshConfig(c, m["sshConfig"], res)
 	r.SecurityGroupIds = dcl.FlattenStringSlice(m["securityGroupIds"])
 
 	return r
@@ -2350,7 +2350,7 @@ func expandNodePoolConfigRootVolumeSlice(c *Client, f []NodePoolConfigRootVolume
 
 // flattenNodePoolConfigRootVolumeMap flattens the contents of NodePoolConfigRootVolume from a JSON
 // response object.
-func flattenNodePoolConfigRootVolumeMap(c *Client, i interface{}) map[string]NodePoolConfigRootVolume {
+func flattenNodePoolConfigRootVolumeMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigRootVolume {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolConfigRootVolume{}
@@ -2362,7 +2362,7 @@ func flattenNodePoolConfigRootVolumeMap(c *Client, i interface{}) map[string]Nod
 
 	items := make(map[string]NodePoolConfigRootVolume)
 	for k, item := range a {
-		items[k] = *flattenNodePoolConfigRootVolume(c, item.(map[string]interface{}))
+		items[k] = *flattenNodePoolConfigRootVolume(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2370,7 +2370,7 @@ func flattenNodePoolConfigRootVolumeMap(c *Client, i interface{}) map[string]Nod
 
 // flattenNodePoolConfigRootVolumeSlice flattens the contents of NodePoolConfigRootVolume from a JSON
 // response object.
-func flattenNodePoolConfigRootVolumeSlice(c *Client, i interface{}) []NodePoolConfigRootVolume {
+func flattenNodePoolConfigRootVolumeSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigRootVolume {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolConfigRootVolume{}
@@ -2382,7 +2382,7 @@ func flattenNodePoolConfigRootVolumeSlice(c *Client, i interface{}) []NodePoolCo
 
 	items := make([]NodePoolConfigRootVolume, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConfigRootVolume(c, item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConfigRootVolume(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2414,7 +2414,7 @@ func expandNodePoolConfigRootVolume(c *Client, f *NodePoolConfigRootVolume, res 
 
 // flattenNodePoolConfigRootVolume flattens an instance of NodePoolConfigRootVolume from a JSON
 // response object.
-func flattenNodePoolConfigRootVolume(c *Client, i interface{}) *NodePoolConfigRootVolume {
+func flattenNodePoolConfigRootVolume(c *Client, i interface{}, res *NodePool) *NodePoolConfigRootVolume {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2476,7 +2476,7 @@ func expandNodePoolConfigTaintsSlice(c *Client, f []NodePoolConfigTaints, res *N
 
 // flattenNodePoolConfigTaintsMap flattens the contents of NodePoolConfigTaints from a JSON
 // response object.
-func flattenNodePoolConfigTaintsMap(c *Client, i interface{}) map[string]NodePoolConfigTaints {
+func flattenNodePoolConfigTaintsMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigTaints {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolConfigTaints{}
@@ -2488,7 +2488,7 @@ func flattenNodePoolConfigTaintsMap(c *Client, i interface{}) map[string]NodePoo
 
 	items := make(map[string]NodePoolConfigTaints)
 	for k, item := range a {
-		items[k] = *flattenNodePoolConfigTaints(c, item.(map[string]interface{}))
+		items[k] = *flattenNodePoolConfigTaints(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2496,7 +2496,7 @@ func flattenNodePoolConfigTaintsMap(c *Client, i interface{}) map[string]NodePoo
 
 // flattenNodePoolConfigTaintsSlice flattens the contents of NodePoolConfigTaints from a JSON
 // response object.
-func flattenNodePoolConfigTaintsSlice(c *Client, i interface{}) []NodePoolConfigTaints {
+func flattenNodePoolConfigTaintsSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigTaints {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolConfigTaints{}
@@ -2508,7 +2508,7 @@ func flattenNodePoolConfigTaintsSlice(c *Client, i interface{}) []NodePoolConfig
 
 	items := make([]NodePoolConfigTaints, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConfigTaints(c, item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConfigTaints(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2537,7 +2537,7 @@ func expandNodePoolConfigTaints(c *Client, f *NodePoolConfigTaints, res *NodePoo
 
 // flattenNodePoolConfigTaints flattens an instance of NodePoolConfigTaints from a JSON
 // response object.
-func flattenNodePoolConfigTaints(c *Client, i interface{}) *NodePoolConfigTaints {
+func flattenNodePoolConfigTaints(c *Client, i interface{}, res *NodePool) *NodePoolConfigTaints {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2598,7 +2598,7 @@ func expandNodePoolConfigConfigEncryptionSlice(c *Client, f []NodePoolConfigConf
 
 // flattenNodePoolConfigConfigEncryptionMap flattens the contents of NodePoolConfigConfigEncryption from a JSON
 // response object.
-func flattenNodePoolConfigConfigEncryptionMap(c *Client, i interface{}) map[string]NodePoolConfigConfigEncryption {
+func flattenNodePoolConfigConfigEncryptionMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigConfigEncryption {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolConfigConfigEncryption{}
@@ -2610,7 +2610,7 @@ func flattenNodePoolConfigConfigEncryptionMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]NodePoolConfigConfigEncryption)
 	for k, item := range a {
-		items[k] = *flattenNodePoolConfigConfigEncryption(c, item.(map[string]interface{}))
+		items[k] = *flattenNodePoolConfigConfigEncryption(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2618,7 +2618,7 @@ func flattenNodePoolConfigConfigEncryptionMap(c *Client, i interface{}) map[stri
 
 // flattenNodePoolConfigConfigEncryptionSlice flattens the contents of NodePoolConfigConfigEncryption from a JSON
 // response object.
-func flattenNodePoolConfigConfigEncryptionSlice(c *Client, i interface{}) []NodePoolConfigConfigEncryption {
+func flattenNodePoolConfigConfigEncryptionSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigConfigEncryption {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolConfigConfigEncryption{}
@@ -2630,7 +2630,7 @@ func flattenNodePoolConfigConfigEncryptionSlice(c *Client, i interface{}) []Node
 
 	items := make([]NodePoolConfigConfigEncryption, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConfigConfigEncryption(c, item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConfigConfigEncryption(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2653,7 +2653,7 @@ func expandNodePoolConfigConfigEncryption(c *Client, f *NodePoolConfigConfigEncr
 
 // flattenNodePoolConfigConfigEncryption flattens an instance of NodePoolConfigConfigEncryption from a JSON
 // response object.
-func flattenNodePoolConfigConfigEncryption(c *Client, i interface{}) *NodePoolConfigConfigEncryption {
+func flattenNodePoolConfigConfigEncryption(c *Client, i interface{}, res *NodePool) *NodePoolConfigConfigEncryption {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2712,7 +2712,7 @@ func expandNodePoolConfigSshConfigSlice(c *Client, f []NodePoolConfigSshConfig, 
 
 // flattenNodePoolConfigSshConfigMap flattens the contents of NodePoolConfigSshConfig from a JSON
 // response object.
-func flattenNodePoolConfigSshConfigMap(c *Client, i interface{}) map[string]NodePoolConfigSshConfig {
+func flattenNodePoolConfigSshConfigMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigSshConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolConfigSshConfig{}
@@ -2724,7 +2724,7 @@ func flattenNodePoolConfigSshConfigMap(c *Client, i interface{}) map[string]Node
 
 	items := make(map[string]NodePoolConfigSshConfig)
 	for k, item := range a {
-		items[k] = *flattenNodePoolConfigSshConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenNodePoolConfigSshConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2732,7 +2732,7 @@ func flattenNodePoolConfigSshConfigMap(c *Client, i interface{}) map[string]Node
 
 // flattenNodePoolConfigSshConfigSlice flattens the contents of NodePoolConfigSshConfig from a JSON
 // response object.
-func flattenNodePoolConfigSshConfigSlice(c *Client, i interface{}) []NodePoolConfigSshConfig {
+func flattenNodePoolConfigSshConfigSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigSshConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolConfigSshConfig{}
@@ -2744,7 +2744,7 @@ func flattenNodePoolConfigSshConfigSlice(c *Client, i interface{}) []NodePoolCon
 
 	items := make([]NodePoolConfigSshConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConfigSshConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConfigSshConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2767,7 +2767,7 @@ func expandNodePoolConfigSshConfig(c *Client, f *NodePoolConfigSshConfig, res *N
 
 // flattenNodePoolConfigSshConfig flattens an instance of NodePoolConfigSshConfig from a JSON
 // response object.
-func flattenNodePoolConfigSshConfig(c *Client, i interface{}) *NodePoolConfigSshConfig {
+func flattenNodePoolConfigSshConfig(c *Client, i interface{}, res *NodePool) *NodePoolConfigSshConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2826,7 +2826,7 @@ func expandNodePoolAutoscalingSlice(c *Client, f []NodePoolAutoscaling, res *Nod
 
 // flattenNodePoolAutoscalingMap flattens the contents of NodePoolAutoscaling from a JSON
 // response object.
-func flattenNodePoolAutoscalingMap(c *Client, i interface{}) map[string]NodePoolAutoscaling {
+func flattenNodePoolAutoscalingMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolAutoscaling {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolAutoscaling{}
@@ -2838,7 +2838,7 @@ func flattenNodePoolAutoscalingMap(c *Client, i interface{}) map[string]NodePool
 
 	items := make(map[string]NodePoolAutoscaling)
 	for k, item := range a {
-		items[k] = *flattenNodePoolAutoscaling(c, item.(map[string]interface{}))
+		items[k] = *flattenNodePoolAutoscaling(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2846,7 +2846,7 @@ func flattenNodePoolAutoscalingMap(c *Client, i interface{}) map[string]NodePool
 
 // flattenNodePoolAutoscalingSlice flattens the contents of NodePoolAutoscaling from a JSON
 // response object.
-func flattenNodePoolAutoscalingSlice(c *Client, i interface{}) []NodePoolAutoscaling {
+func flattenNodePoolAutoscalingSlice(c *Client, i interface{}, res *NodePool) []NodePoolAutoscaling {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolAutoscaling{}
@@ -2858,7 +2858,7 @@ func flattenNodePoolAutoscalingSlice(c *Client, i interface{}) []NodePoolAutosca
 
 	items := make([]NodePoolAutoscaling, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolAutoscaling(c, item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolAutoscaling(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2884,7 +2884,7 @@ func expandNodePoolAutoscaling(c *Client, f *NodePoolAutoscaling, res *NodePool)
 
 // flattenNodePoolAutoscaling flattens an instance of NodePoolAutoscaling from a JSON
 // response object.
-func flattenNodePoolAutoscaling(c *Client, i interface{}) *NodePoolAutoscaling {
+func flattenNodePoolAutoscaling(c *Client, i interface{}, res *NodePool) *NodePoolAutoscaling {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2944,7 +2944,7 @@ func expandNodePoolMaxPodsConstraintSlice(c *Client, f []NodePoolMaxPodsConstrai
 
 // flattenNodePoolMaxPodsConstraintMap flattens the contents of NodePoolMaxPodsConstraint from a JSON
 // response object.
-func flattenNodePoolMaxPodsConstraintMap(c *Client, i interface{}) map[string]NodePoolMaxPodsConstraint {
+func flattenNodePoolMaxPodsConstraintMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolMaxPodsConstraint {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolMaxPodsConstraint{}
@@ -2956,7 +2956,7 @@ func flattenNodePoolMaxPodsConstraintMap(c *Client, i interface{}) map[string]No
 
 	items := make(map[string]NodePoolMaxPodsConstraint)
 	for k, item := range a {
-		items[k] = *flattenNodePoolMaxPodsConstraint(c, item.(map[string]interface{}))
+		items[k] = *flattenNodePoolMaxPodsConstraint(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2964,7 +2964,7 @@ func flattenNodePoolMaxPodsConstraintMap(c *Client, i interface{}) map[string]No
 
 // flattenNodePoolMaxPodsConstraintSlice flattens the contents of NodePoolMaxPodsConstraint from a JSON
 // response object.
-func flattenNodePoolMaxPodsConstraintSlice(c *Client, i interface{}) []NodePoolMaxPodsConstraint {
+func flattenNodePoolMaxPodsConstraintSlice(c *Client, i interface{}, res *NodePool) []NodePoolMaxPodsConstraint {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolMaxPodsConstraint{}
@@ -2976,7 +2976,7 @@ func flattenNodePoolMaxPodsConstraintSlice(c *Client, i interface{}) []NodePoolM
 
 	items := make([]NodePoolMaxPodsConstraint, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolMaxPodsConstraint(c, item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolMaxPodsConstraint(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2999,7 +2999,7 @@ func expandNodePoolMaxPodsConstraint(c *Client, f *NodePoolMaxPodsConstraint, re
 
 // flattenNodePoolMaxPodsConstraint flattens an instance of NodePoolMaxPodsConstraint from a JSON
 // response object.
-func flattenNodePoolMaxPodsConstraint(c *Client, i interface{}) *NodePoolMaxPodsConstraint {
+func flattenNodePoolMaxPodsConstraint(c *Client, i interface{}, res *NodePool) *NodePoolMaxPodsConstraint {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3017,7 +3017,7 @@ func flattenNodePoolMaxPodsConstraint(c *Client, i interface{}) *NodePoolMaxPods
 
 // flattenNodePoolConfigRootVolumeVolumeTypeEnumMap flattens the contents of NodePoolConfigRootVolumeVolumeTypeEnum from a JSON
 // response object.
-func flattenNodePoolConfigRootVolumeVolumeTypeEnumMap(c *Client, i interface{}) map[string]NodePoolConfigRootVolumeVolumeTypeEnum {
+func flattenNodePoolConfigRootVolumeVolumeTypeEnumMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigRootVolumeVolumeTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolConfigRootVolumeVolumeTypeEnum{}
@@ -3037,7 +3037,7 @@ func flattenNodePoolConfigRootVolumeVolumeTypeEnumMap(c *Client, i interface{}) 
 
 // flattenNodePoolConfigRootVolumeVolumeTypeEnumSlice flattens the contents of NodePoolConfigRootVolumeVolumeTypeEnum from a JSON
 // response object.
-func flattenNodePoolConfigRootVolumeVolumeTypeEnumSlice(c *Client, i interface{}) []NodePoolConfigRootVolumeVolumeTypeEnum {
+func flattenNodePoolConfigRootVolumeVolumeTypeEnumSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigRootVolumeVolumeTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolConfigRootVolumeVolumeTypeEnum{}
@@ -3068,7 +3068,7 @@ func flattenNodePoolConfigRootVolumeVolumeTypeEnum(i interface{}) *NodePoolConfi
 
 // flattenNodePoolConfigTaintsEffectEnumMap flattens the contents of NodePoolConfigTaintsEffectEnum from a JSON
 // response object.
-func flattenNodePoolConfigTaintsEffectEnumMap(c *Client, i interface{}) map[string]NodePoolConfigTaintsEffectEnum {
+func flattenNodePoolConfigTaintsEffectEnumMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigTaintsEffectEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolConfigTaintsEffectEnum{}
@@ -3088,7 +3088,7 @@ func flattenNodePoolConfigTaintsEffectEnumMap(c *Client, i interface{}) map[stri
 
 // flattenNodePoolConfigTaintsEffectEnumSlice flattens the contents of NodePoolConfigTaintsEffectEnum from a JSON
 // response object.
-func flattenNodePoolConfigTaintsEffectEnumSlice(c *Client, i interface{}) []NodePoolConfigTaintsEffectEnum {
+func flattenNodePoolConfigTaintsEffectEnumSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigTaintsEffectEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolConfigTaintsEffectEnum{}
@@ -3119,7 +3119,7 @@ func flattenNodePoolConfigTaintsEffectEnum(i interface{}) *NodePoolConfigTaintsE
 
 // flattenNodePoolStateEnumMap flattens the contents of NodePoolStateEnum from a JSON
 // response object.
-func flattenNodePoolStateEnumMap(c *Client, i interface{}) map[string]NodePoolStateEnum {
+func flattenNodePoolStateEnumMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NodePoolStateEnum{}
@@ -3139,7 +3139,7 @@ func flattenNodePoolStateEnumMap(c *Client, i interface{}) map[string]NodePoolSt
 
 // flattenNodePoolStateEnumSlice flattens the contents of NodePoolStateEnum from a JSON
 // response object.
-func flattenNodePoolStateEnumSlice(c *Client, i interface{}) []NodePoolStateEnum {
+func flattenNodePoolStateEnumSlice(c *Client, i interface{}, res *NodePool) []NodePoolStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NodePoolStateEnum{}
@@ -3173,7 +3173,7 @@ func flattenNodePoolStateEnum(i interface{}) *NodePoolStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *NodePool) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalNodePool(b, c)
+		cr, err := unmarshalNodePool(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

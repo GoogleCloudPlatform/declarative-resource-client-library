@@ -432,7 +432,7 @@ func (c *Client) GetForwardingRule(ctx context.Context, r *ForwardingRule) (*For
 		}
 		return nil, err
 	}
-	result, err := unmarshalForwardingRule(b, c)
+	result, err := unmarshalForwardingRule(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -620,7 +620,7 @@ func applyForwardingRuleDiff(c *Client, ctx context.Context, desired *Forwarding
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapForwardingRule(r, c)
+				fullResp, err := unmarshalMapForwardingRule(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

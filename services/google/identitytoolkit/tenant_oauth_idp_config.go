@@ -203,7 +203,7 @@ func (c *Client) GetTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdpC
 		}
 		return nil, err
 	}
-	result, err := unmarshalTenantOAuthIdpConfig(b, c)
+	result, err := unmarshalTenantOAuthIdpConfig(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -373,7 +373,7 @@ func applyTenantOAuthIdpConfigDiff(c *Client, ctx context.Context, desired *Tena
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapTenantOAuthIdpConfig(r, c)
+				fullResp, err := unmarshalMapTenantOAuthIdpConfig(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

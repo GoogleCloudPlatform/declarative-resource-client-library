@@ -244,7 +244,7 @@ func (c *Client) listServiceAccount(ctx context.Context, r *ServiceAccount, page
 
 	var l []*ServiceAccount
 	for _, v := range m.Accounts {
-		res, err := unmarshalMapServiceAccount(v, c)
+		res, err := unmarshalMapServiceAccount(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -995,17 +995,17 @@ func (r *ServiceAccount) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalServiceAccount decodes JSON responses into the ServiceAccount resource schema.
-func unmarshalServiceAccount(b []byte, c *Client) (*ServiceAccount, error) {
+func unmarshalServiceAccount(b []byte, c *Client, res *ServiceAccount) (*ServiceAccount, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapServiceAccount(m, c)
+	return unmarshalMapServiceAccount(m, c, res)
 }
 
-func unmarshalMapServiceAccount(m map[string]interface{}, c *Client) (*ServiceAccount, error) {
+func unmarshalMapServiceAccount(m map[string]interface{}, c *Client, res *ServiceAccount) (*ServiceAccount, error) {
 
-	flattened := flattenServiceAccount(c, m)
+	flattened := flattenServiceAccount(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1042,7 +1042,7 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 
 // flattenServiceAccount flattens ServiceAccount from a JSON request object into the
 // ServiceAccount type.
-func flattenServiceAccount(c *Client, i interface{}) *ServiceAccount {
+func flattenServiceAccount(c *Client, i interface{}, res *ServiceAccount) *ServiceAccount {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1051,18 +1051,18 @@ func flattenServiceAccount(c *Client, i interface{}) *ServiceAccount {
 		return nil
 	}
 
-	res := &ServiceAccount{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Project = dcl.FlattenString(m["projectId"])
-	res.UniqueId = dcl.FlattenString(m["uniqueId"])
-	res.Email = dcl.FlattenString(m["email"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.OAuth2ClientId = dcl.FlattenString(m["oauth2ClientId"])
-	res.ActasResources = flattenServiceAccountActasResources(c, m["actasResources"])
-	res.Disabled = dcl.FlattenBool(m["disabled"])
+	resultRes := &ServiceAccount{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Project = dcl.FlattenString(m["projectId"])
+	resultRes.UniqueId = dcl.FlattenString(m["uniqueId"])
+	resultRes.Email = dcl.FlattenString(m["email"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.OAuth2ClientId = dcl.FlattenString(m["oauth2ClientId"])
+	resultRes.ActasResources = flattenServiceAccountActasResources(c, m["actasResources"], res)
+	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
 
-	return res
+	return resultRes
 }
 
 // expandServiceAccountActasResourcesMap expands the contents of ServiceAccountActasResources into a JSON
@@ -1108,7 +1108,7 @@ func expandServiceAccountActasResourcesSlice(c *Client, f []ServiceAccountActasR
 
 // flattenServiceAccountActasResourcesMap flattens the contents of ServiceAccountActasResources from a JSON
 // response object.
-func flattenServiceAccountActasResourcesMap(c *Client, i interface{}) map[string]ServiceAccountActasResources {
+func flattenServiceAccountActasResourcesMap(c *Client, i interface{}, res *ServiceAccount) map[string]ServiceAccountActasResources {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceAccountActasResources{}
@@ -1120,7 +1120,7 @@ func flattenServiceAccountActasResourcesMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ServiceAccountActasResources)
 	for k, item := range a {
-		items[k] = *flattenServiceAccountActasResources(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceAccountActasResources(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1128,7 +1128,7 @@ func flattenServiceAccountActasResourcesMap(c *Client, i interface{}) map[string
 
 // flattenServiceAccountActasResourcesSlice flattens the contents of ServiceAccountActasResources from a JSON
 // response object.
-func flattenServiceAccountActasResourcesSlice(c *Client, i interface{}) []ServiceAccountActasResources {
+func flattenServiceAccountActasResourcesSlice(c *Client, i interface{}, res *ServiceAccount) []ServiceAccountActasResources {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceAccountActasResources{}
@@ -1140,7 +1140,7 @@ func flattenServiceAccountActasResourcesSlice(c *Client, i interface{}) []Servic
 
 	items := make([]ServiceAccountActasResources, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceAccountActasResources(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceAccountActasResources(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1165,7 +1165,7 @@ func expandServiceAccountActasResources(c *Client, f *ServiceAccountActasResourc
 
 // flattenServiceAccountActasResources flattens an instance of ServiceAccountActasResources from a JSON
 // response object.
-func flattenServiceAccountActasResources(c *Client, i interface{}) *ServiceAccountActasResources {
+func flattenServiceAccountActasResources(c *Client, i interface{}, res *ServiceAccount) *ServiceAccountActasResources {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1176,7 +1176,7 @@ func flattenServiceAccountActasResources(c *Client, i interface{}) *ServiceAccou
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceAccountActasResources
 	}
-	r.Resources = flattenServiceAccountActasResourcesResourcesSlice(c, m["resources"])
+	r.Resources = flattenServiceAccountActasResourcesResourcesSlice(c, m["resources"], res)
 
 	return r
 }
@@ -1224,7 +1224,7 @@ func expandServiceAccountActasResourcesResourcesSlice(c *Client, f []ServiceAcco
 
 // flattenServiceAccountActasResourcesResourcesMap flattens the contents of ServiceAccountActasResourcesResources from a JSON
 // response object.
-func flattenServiceAccountActasResourcesResourcesMap(c *Client, i interface{}) map[string]ServiceAccountActasResourcesResources {
+func flattenServiceAccountActasResourcesResourcesMap(c *Client, i interface{}, res *ServiceAccount) map[string]ServiceAccountActasResourcesResources {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceAccountActasResourcesResources{}
@@ -1236,7 +1236,7 @@ func flattenServiceAccountActasResourcesResourcesMap(c *Client, i interface{}) m
 
 	items := make(map[string]ServiceAccountActasResourcesResources)
 	for k, item := range a {
-		items[k] = *flattenServiceAccountActasResourcesResources(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceAccountActasResourcesResources(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1244,7 +1244,7 @@ func flattenServiceAccountActasResourcesResourcesMap(c *Client, i interface{}) m
 
 // flattenServiceAccountActasResourcesResourcesSlice flattens the contents of ServiceAccountActasResourcesResources from a JSON
 // response object.
-func flattenServiceAccountActasResourcesResourcesSlice(c *Client, i interface{}) []ServiceAccountActasResourcesResources {
+func flattenServiceAccountActasResourcesResourcesSlice(c *Client, i interface{}, res *ServiceAccount) []ServiceAccountActasResourcesResources {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceAccountActasResourcesResources{}
@@ -1256,7 +1256,7 @@ func flattenServiceAccountActasResourcesResourcesSlice(c *Client, i interface{})
 
 	items := make([]ServiceAccountActasResourcesResources, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceAccountActasResourcesResources(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceAccountActasResourcesResources(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1279,7 +1279,7 @@ func expandServiceAccountActasResourcesResources(c *Client, f *ServiceAccountAct
 
 // flattenServiceAccountActasResourcesResources flattens an instance of ServiceAccountActasResourcesResources from a JSON
 // response object.
-func flattenServiceAccountActasResourcesResources(c *Client, i interface{}) *ServiceAccountActasResourcesResources {
+func flattenServiceAccountActasResourcesResources(c *Client, i interface{}, res *ServiceAccount) *ServiceAccountActasResourcesResources {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1300,7 +1300,7 @@ func flattenServiceAccountActasResourcesResources(c *Client, i interface{}) *Ser
 // identity).  This is useful in extracting the element from a List call.
 func (r *ServiceAccount) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalServiceAccount(b, c)
+		cr, err := unmarshalServiceAccount(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

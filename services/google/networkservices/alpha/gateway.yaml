@@ -148,6 +148,12 @@ components:
             single coniguration to the proxy/load balancer. Max length 64 characters.
             Scope should start with a letter and can only have letters, numbers, hyphens.
           x-kubernetes-immutable: true
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          readOnly: true
+          description: Output only. Server-defined URL of this resource
+          x-kubernetes-immutable: true
         serverTlsPolicy:
           type: string
           x-dcl-go-name: ServerTlsPolicy

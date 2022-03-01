@@ -176,7 +176,7 @@ func (c *Client) GetLogBucket(ctx context.Context, r *LogBucket) (*LogBucket, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalLogBucket(b, c)
+	result, err := unmarshalLogBucket(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -346,7 +346,7 @@ func applyLogBucketDiff(c *Client, ctx context.Context, desired *LogBucket, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapLogBucket(r, c)
+				fullResp, err := unmarshalMapLogBucket(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

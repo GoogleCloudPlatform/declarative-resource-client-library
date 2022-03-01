@@ -127,7 +127,7 @@ func (c *Client) GetTagKey(ctx context.Context, r *TagKey) (*TagKey, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalTagKey(b, c)
+	result, err := unmarshalTagKey(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -271,7 +271,7 @@ func applyTagKeyDiff(c *Client, ctx context.Context, desired *TagKey, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapTagKey(r, c)
+				fullResp, err := unmarshalMapTagKey(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

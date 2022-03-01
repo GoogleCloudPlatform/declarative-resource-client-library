@@ -222,7 +222,7 @@ func (c *Client) listBackup(ctx context.Context, r *Backup, pageToken string, pa
 
 	var l []*Backup
 	for _, v := range m.Backups {
-		res, err := unmarshalMapBackup(v, c)
+		res, err := unmarshalMapBackup(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -707,17 +707,17 @@ func (r *Backup) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalBackup decodes JSON responses into the Backup resource schema.
-func unmarshalBackup(b []byte, c *Client) (*Backup, error) {
+func unmarshalBackup(b []byte, c *Client, res *Backup) (*Backup, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapBackup(m, c)
+	return unmarshalMapBackup(m, c, res)
 }
 
-func unmarshalMapBackup(m map[string]interface{}, c *Client) (*Backup, error) {
+func unmarshalMapBackup(m map[string]interface{}, c *Client, res *Backup) (*Backup, error) {
 
-	flattened := flattenBackup(c, m)
+	flattened := flattenBackup(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -762,7 +762,7 @@ func expandBackup(c *Client, f *Backup) (map[string]interface{}, error) {
 
 // flattenBackup flattens Backup from a JSON request object into the
 // Backup type.
-func flattenBackup(c *Client, i interface{}) *Backup {
+func flattenBackup(c *Client, i interface{}, res *Backup) *Backup {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -771,27 +771,27 @@ func flattenBackup(c *Client, i interface{}) *Backup {
 		return nil
 	}
 
-	res := &Backup{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.State = flattenBackupStateEnum(m["state"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.CapacityGb = dcl.FlattenInteger(m["capacityGb"])
-	res.StorageBytes = dcl.FlattenInteger(m["storageBytes"])
-	res.SourceInstance = dcl.FlattenString(m["sourceInstance"])
-	res.SourceFileShare = dcl.FlattenString(m["sourceFileShare"])
-	res.SourceInstanceTier = flattenBackupSourceInstanceTierEnum(m["sourceInstanceTier"])
-	res.DownloadBytes = dcl.FlattenInteger(m["downloadBytes"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Backup{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.State = flattenBackupStateEnum(m["state"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.CapacityGb = dcl.FlattenInteger(m["capacityGb"])
+	resultRes.StorageBytes = dcl.FlattenInteger(m["storageBytes"])
+	resultRes.SourceInstance = dcl.FlattenString(m["sourceInstance"])
+	resultRes.SourceFileShare = dcl.FlattenString(m["sourceFileShare"])
+	resultRes.SourceInstanceTier = flattenBackupSourceInstanceTierEnum(m["sourceInstanceTier"])
+	resultRes.DownloadBytes = dcl.FlattenInteger(m["downloadBytes"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // flattenBackupStateEnumMap flattens the contents of BackupStateEnum from a JSON
 // response object.
-func flattenBackupStateEnumMap(c *Client, i interface{}) map[string]BackupStateEnum {
+func flattenBackupStateEnumMap(c *Client, i interface{}, res *Backup) map[string]BackupStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BackupStateEnum{}
@@ -811,7 +811,7 @@ func flattenBackupStateEnumMap(c *Client, i interface{}) map[string]BackupStateE
 
 // flattenBackupStateEnumSlice flattens the contents of BackupStateEnum from a JSON
 // response object.
-func flattenBackupStateEnumSlice(c *Client, i interface{}) []BackupStateEnum {
+func flattenBackupStateEnumSlice(c *Client, i interface{}, res *Backup) []BackupStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BackupStateEnum{}
@@ -842,7 +842,7 @@ func flattenBackupStateEnum(i interface{}) *BackupStateEnum {
 
 // flattenBackupSourceInstanceTierEnumMap flattens the contents of BackupSourceInstanceTierEnum from a JSON
 // response object.
-func flattenBackupSourceInstanceTierEnumMap(c *Client, i interface{}) map[string]BackupSourceInstanceTierEnum {
+func flattenBackupSourceInstanceTierEnumMap(c *Client, i interface{}, res *Backup) map[string]BackupSourceInstanceTierEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BackupSourceInstanceTierEnum{}
@@ -862,7 +862,7 @@ func flattenBackupSourceInstanceTierEnumMap(c *Client, i interface{}) map[string
 
 // flattenBackupSourceInstanceTierEnumSlice flattens the contents of BackupSourceInstanceTierEnum from a JSON
 // response object.
-func flattenBackupSourceInstanceTierEnumSlice(c *Client, i interface{}) []BackupSourceInstanceTierEnum {
+func flattenBackupSourceInstanceTierEnumSlice(c *Client, i interface{}, res *Backup) []BackupSourceInstanceTierEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BackupSourceInstanceTierEnum{}
@@ -896,7 +896,7 @@ func flattenBackupSourceInstanceTierEnum(i interface{}) *BackupSourceInstanceTie
 // identity).  This is useful in extracting the element from a List call.
 func (r *Backup) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalBackup(b, c)
+		cr, err := unmarshalBackup(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

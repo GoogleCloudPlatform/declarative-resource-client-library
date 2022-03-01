@@ -141,7 +141,7 @@ func (c *Client) GetIdentityAwareProxyClient(ctx context.Context, r *IdentityAwa
 		}
 		return nil, err
 	}
-	result, err := unmarshalIdentityAwareProxyClient(b, c)
+	result, err := unmarshalIdentityAwareProxyClient(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +311,7 @@ func applyIdentityAwareProxyClientDiff(c *Client, ctx context.Context, desired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapIdentityAwareProxyClient(r, c)
+				fullResp, err := unmarshalMapIdentityAwareProxyClient(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

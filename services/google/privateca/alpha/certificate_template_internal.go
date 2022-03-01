@@ -341,7 +341,7 @@ func (c *Client) listCertificateTemplate(ctx context.Context, r *CertificateTemp
 
 	var l []*CertificateTemplate
 	for _, v := range m.CertificateTemplates {
-		res, err := unmarshalMapCertificateTemplate(v, c)
+		res, err := unmarshalMapCertificateTemplate(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -3002,17 +3002,17 @@ func (r *CertificateTemplate) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalCertificateTemplate decodes JSON responses into the CertificateTemplate resource schema.
-func unmarshalCertificateTemplate(b []byte, c *Client) (*CertificateTemplate, error) {
+func unmarshalCertificateTemplate(b []byte, c *Client, res *CertificateTemplate) (*CertificateTemplate, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapCertificateTemplate(m, c)
+	return unmarshalMapCertificateTemplate(m, c, res)
 }
 
-func unmarshalMapCertificateTemplate(m map[string]interface{}, c *Client) (*CertificateTemplate, error) {
+func unmarshalMapCertificateTemplate(m map[string]interface{}, c *Client, res *CertificateTemplate) (*CertificateTemplate, error) {
 
-	flattened := flattenCertificateTemplate(c, m)
+	flattened := flattenCertificateTemplate(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -3066,7 +3066,7 @@ func expandCertificateTemplate(c *Client, f *CertificateTemplate) (map[string]in
 
 // flattenCertificateTemplate flattens CertificateTemplate from a JSON request object into the
 // CertificateTemplate type.
-func flattenCertificateTemplate(c *Client, i interface{}) *CertificateTemplate {
+func flattenCertificateTemplate(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3075,19 +3075,19 @@ func flattenCertificateTemplate(c *Client, i interface{}) *CertificateTemplate {
 		return nil
 	}
 
-	res := &CertificateTemplate{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.PredefinedValues = flattenCertificateTemplatePredefinedValues(c, m["predefinedValues"])
-	res.IdentityConstraints = flattenCertificateTemplateIdentityConstraints(c, m["identityConstraints"])
-	res.PassthroughExtensions = flattenCertificateTemplatePassthroughExtensions(c, m["passthroughExtensions"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &CertificateTemplate{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.PredefinedValues = flattenCertificateTemplatePredefinedValues(c, m["predefinedValues"], res)
+	resultRes.IdentityConstraints = flattenCertificateTemplateIdentityConstraints(c, m["identityConstraints"], res)
+	resultRes.PassthroughExtensions = flattenCertificateTemplatePassthroughExtensions(c, m["passthroughExtensions"], res)
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandCertificateTemplatePredefinedValuesMap expands the contents of CertificateTemplatePredefinedValues into a JSON
@@ -3133,7 +3133,7 @@ func expandCertificateTemplatePredefinedValuesSlice(c *Client, f []CertificateTe
 
 // flattenCertificateTemplatePredefinedValuesMap flattens the contents of CertificateTemplatePredefinedValues from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValues {
+func flattenCertificateTemplatePredefinedValuesMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValues {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValues{}
@@ -3145,7 +3145,7 @@ func flattenCertificateTemplatePredefinedValuesMap(c *Client, i interface{}) map
 
 	items := make(map[string]CertificateTemplatePredefinedValues)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValues(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValues(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3153,7 +3153,7 @@ func flattenCertificateTemplatePredefinedValuesMap(c *Client, i interface{}) map
 
 // flattenCertificateTemplatePredefinedValuesSlice flattens the contents of CertificateTemplatePredefinedValues from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValues {
+func flattenCertificateTemplatePredefinedValuesSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValues {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValues{}
@@ -3165,7 +3165,7 @@ func flattenCertificateTemplatePredefinedValuesSlice(c *Client, i interface{}) [
 
 	items := make([]CertificateTemplatePredefinedValues, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValues(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValues(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3208,7 +3208,7 @@ func expandCertificateTemplatePredefinedValues(c *Client, f *CertificateTemplate
 
 // flattenCertificateTemplatePredefinedValues flattens an instance of CertificateTemplatePredefinedValues from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValues(c *Client, i interface{}) *CertificateTemplatePredefinedValues {
+func flattenCertificateTemplatePredefinedValues(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValues {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3219,11 +3219,11 @@ func flattenCertificateTemplatePredefinedValues(c *Client, i interface{}) *Certi
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCertificateTemplatePredefinedValues
 	}
-	r.KeyUsage = flattenCertificateTemplatePredefinedValuesKeyUsage(c, m["keyUsage"])
-	r.CaOptions = flattenCertificateTemplatePredefinedValuesCaOptions(c, m["caOptions"])
-	r.PolicyIds = flattenCertificateTemplatePredefinedValuesPolicyIdsSlice(c, m["policyIds"])
+	r.KeyUsage = flattenCertificateTemplatePredefinedValuesKeyUsage(c, m["keyUsage"], res)
+	r.CaOptions = flattenCertificateTemplatePredefinedValuesCaOptions(c, m["caOptions"], res)
+	r.PolicyIds = flattenCertificateTemplatePredefinedValuesPolicyIdsSlice(c, m["policyIds"], res)
 	r.AiaOcspServers = dcl.FlattenStringSlice(m["aiaOcspServers"])
-	r.AdditionalExtensions = flattenCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c, m["additionalExtensions"])
+	r.AdditionalExtensions = flattenCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c, m["additionalExtensions"], res)
 
 	return r
 }
@@ -3271,7 +3271,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, f []Certi
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageMap flattens the contents of CertificateTemplatePredefinedValuesKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesKeyUsage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesKeyUsage{}
@@ -3283,7 +3283,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageMap(c *Client, i interfac
 
 	items := make(map[string]CertificateTemplatePredefinedValuesKeyUsage)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsage(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3291,7 +3291,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageMap(c *Client, i interfac
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageSlice flattens the contents of CertificateTemplatePredefinedValuesKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesKeyUsage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesKeyUsage{}
@@ -3303,7 +3303,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, i interf
 
 	items := make([]CertificateTemplatePredefinedValuesKeyUsage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsage(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3338,7 +3338,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsage(c *Client, f *Certificate
 
 // flattenCertificateTemplatePredefinedValuesKeyUsage flattens an instance of CertificateTemplatePredefinedValuesKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsage(c *Client, i interface{}) *CertificateTemplatePredefinedValuesKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsage(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3349,9 +3349,9 @@ func flattenCertificateTemplatePredefinedValuesKeyUsage(c *Client, i interface{}
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCertificateTemplatePredefinedValuesKeyUsage
 	}
-	r.BaseKeyUsage = flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, m["baseKeyUsage"])
-	r.ExtendedKeyUsage = flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, m["extendedKeyUsage"])
-	r.UnknownExtendedKeyUsages = flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, m["unknownExtendedKeyUsages"])
+	r.BaseKeyUsage = flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, m["baseKeyUsage"], res)
+	r.ExtendedKeyUsage = flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, m["extendedKeyUsage"], res)
+	r.UnknownExtendedKeyUsages = flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, m["unknownExtendedKeyUsages"], res)
 
 	return r
 }
@@ -3399,7 +3399,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(c *Clien
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap flattens the contents of CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{}
@@ -3411,7 +3411,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap(c *Client
 
 	items := make(map[string]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3419,7 +3419,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageMap(c *Client
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice flattens the contents of CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{}
@@ -3431,7 +3431,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(c *Clie
 
 	items := make([]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3478,7 +3478,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c *Client, f 
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage flattens an instance of CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c *Client, i interface{}) *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3545,7 +3545,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(c *C
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap flattens the contents of CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{}
@@ -3557,7 +3557,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap(c *Cl
 
 	items := make(map[string]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3565,7 +3565,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageMap(c *Cl
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice flattens the contents of CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{}
@@ -3577,7 +3577,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(c *
 
 	items := make([]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3615,7 +3615,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c *Client
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage flattens an instance of CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c *Client, i interface{}) *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
+func flattenCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3679,7 +3679,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSl
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesMap flattens the contents of CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
+func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages{}
@@ -3691,7 +3691,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesM
 
 	items := make(map[string]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3699,7 +3699,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesM
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice flattens the contents of CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
+func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages{}
@@ -3711,7 +3711,7 @@ func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesS
 
 	items := make([]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3734,7 +3734,7 @@ func expandCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c
 
 // flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages flattens an instance of CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c *Client, i interface{}) *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
+func flattenCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3793,7 +3793,7 @@ func expandCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client, f []Cert
 
 // flattenCertificateTemplatePredefinedValuesCaOptionsMap flattens the contents of CertificateTemplatePredefinedValuesCaOptions from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesCaOptionsMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesCaOptions {
+func flattenCertificateTemplatePredefinedValuesCaOptionsMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesCaOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesCaOptions{}
@@ -3805,7 +3805,7 @@ func flattenCertificateTemplatePredefinedValuesCaOptionsMap(c *Client, i interfa
 
 	items := make(map[string]CertificateTemplatePredefinedValuesCaOptions)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesCaOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesCaOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3813,7 +3813,7 @@ func flattenCertificateTemplatePredefinedValuesCaOptionsMap(c *Client, i interfa
 
 // flattenCertificateTemplatePredefinedValuesCaOptionsSlice flattens the contents of CertificateTemplatePredefinedValuesCaOptions from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesCaOptions {
+func flattenCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesCaOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesCaOptions{}
@@ -3825,7 +3825,7 @@ func flattenCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client, i inter
 
 	items := make([]CertificateTemplatePredefinedValuesCaOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesCaOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesCaOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3851,7 +3851,7 @@ func expandCertificateTemplatePredefinedValuesCaOptions(c *Client, f *Certificat
 
 // flattenCertificateTemplatePredefinedValuesCaOptions flattens an instance of CertificateTemplatePredefinedValuesCaOptions from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesCaOptions(c *Client, i interface{}) *CertificateTemplatePredefinedValuesCaOptions {
+func flattenCertificateTemplatePredefinedValuesCaOptions(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesCaOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3911,7 +3911,7 @@ func expandCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client, f []Cert
 
 // flattenCertificateTemplatePredefinedValuesPolicyIdsMap flattens the contents of CertificateTemplatePredefinedValuesPolicyIds from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesPolicyIdsMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesPolicyIds {
+func flattenCertificateTemplatePredefinedValuesPolicyIdsMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesPolicyIds {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesPolicyIds{}
@@ -3923,7 +3923,7 @@ func flattenCertificateTemplatePredefinedValuesPolicyIdsMap(c *Client, i interfa
 
 	items := make(map[string]CertificateTemplatePredefinedValuesPolicyIds)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesPolicyIds(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesPolicyIds(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3931,7 +3931,7 @@ func flattenCertificateTemplatePredefinedValuesPolicyIdsMap(c *Client, i interfa
 
 // flattenCertificateTemplatePredefinedValuesPolicyIdsSlice flattens the contents of CertificateTemplatePredefinedValuesPolicyIds from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesPolicyIds {
+func flattenCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesPolicyIds {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesPolicyIds{}
@@ -3943,7 +3943,7 @@ func flattenCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client, i inter
 
 	items := make([]CertificateTemplatePredefinedValuesPolicyIds, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesPolicyIds(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesPolicyIds(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3966,7 +3966,7 @@ func expandCertificateTemplatePredefinedValuesPolicyIds(c *Client, f *Certificat
 
 // flattenCertificateTemplatePredefinedValuesPolicyIds flattens an instance of CertificateTemplatePredefinedValuesPolicyIds from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesPolicyIds(c *Client, i interface{}) *CertificateTemplatePredefinedValuesPolicyIds {
+func flattenCertificateTemplatePredefinedValuesPolicyIds(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesPolicyIds {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4025,7 +4025,7 @@ func expandCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c *Clien
 
 // flattenCertificateTemplatePredefinedValuesAdditionalExtensionsMap flattens the contents of CertificateTemplatePredefinedValuesAdditionalExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesAdditionalExtensions {
+func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesAdditionalExtensions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesAdditionalExtensions{}
@@ -4037,7 +4037,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsMap(c *Client
 
 	items := make(map[string]CertificateTemplatePredefinedValuesAdditionalExtensions)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4045,7 +4045,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsMap(c *Client
 
 // flattenCertificateTemplatePredefinedValuesAdditionalExtensionsSlice flattens the contents of CertificateTemplatePredefinedValuesAdditionalExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesAdditionalExtensions {
+func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesAdditionalExtensions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesAdditionalExtensions{}
@@ -4057,7 +4057,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c *Clie
 
 	items := make([]CertificateTemplatePredefinedValuesAdditionalExtensions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4088,7 +4088,7 @@ func expandCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, f 
 
 // flattenCertificateTemplatePredefinedValuesAdditionalExtensions flattens an instance of CertificateTemplatePredefinedValuesAdditionalExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, i interface{}) *CertificateTemplatePredefinedValuesAdditionalExtensions {
+func flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesAdditionalExtensions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4099,7 +4099,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, i
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCertificateTemplatePredefinedValuesAdditionalExtensions
 	}
-	r.ObjectId = flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, m["objectId"])
+	r.ObjectId = flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, m["objectId"], res)
 	r.Critical = dcl.FlattenBool(m["critical"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -4149,7 +4149,7 @@ func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice(
 
 // flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap flattens the contents of CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap(c *Client, i interface{}) map[string]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
+func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
@@ -4161,7 +4161,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap(c
 
 	items := make(map[string]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4169,7 +4169,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdMap(c
 
 // flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice flattens the contents of CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice(c *Client, i interface{}) []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
+func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
@@ -4181,7 +4181,7 @@ func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice
 
 	items := make([]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4204,7 +4204,7 @@ func expandCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c *Cl
 
 // flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId flattens an instance of CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId from a JSON
 // response object.
-func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c *Client, i interface{}) *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
+func flattenCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4263,7 +4263,7 @@ func expandCertificateTemplateIdentityConstraintsSlice(c *Client, f []Certificat
 
 // flattenCertificateTemplateIdentityConstraintsMap flattens the contents of CertificateTemplateIdentityConstraints from a JSON
 // response object.
-func flattenCertificateTemplateIdentityConstraintsMap(c *Client, i interface{}) map[string]CertificateTemplateIdentityConstraints {
+func flattenCertificateTemplateIdentityConstraintsMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplateIdentityConstraints {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplateIdentityConstraints{}
@@ -4275,7 +4275,7 @@ func flattenCertificateTemplateIdentityConstraintsMap(c *Client, i interface{}) 
 
 	items := make(map[string]CertificateTemplateIdentityConstraints)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplateIdentityConstraints(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplateIdentityConstraints(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4283,7 +4283,7 @@ func flattenCertificateTemplateIdentityConstraintsMap(c *Client, i interface{}) 
 
 // flattenCertificateTemplateIdentityConstraintsSlice flattens the contents of CertificateTemplateIdentityConstraints from a JSON
 // response object.
-func flattenCertificateTemplateIdentityConstraintsSlice(c *Client, i interface{}) []CertificateTemplateIdentityConstraints {
+func flattenCertificateTemplateIdentityConstraintsSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplateIdentityConstraints {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplateIdentityConstraints{}
@@ -4295,7 +4295,7 @@ func flattenCertificateTemplateIdentityConstraintsSlice(c *Client, i interface{}
 
 	items := make([]CertificateTemplateIdentityConstraints, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplateIdentityConstraints(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplateIdentityConstraints(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4326,7 +4326,7 @@ func expandCertificateTemplateIdentityConstraints(c *Client, f *CertificateTempl
 
 // flattenCertificateTemplateIdentityConstraints flattens an instance of CertificateTemplateIdentityConstraints from a JSON
 // response object.
-func flattenCertificateTemplateIdentityConstraints(c *Client, i interface{}) *CertificateTemplateIdentityConstraints {
+func flattenCertificateTemplateIdentityConstraints(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplateIdentityConstraints {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4337,7 +4337,7 @@ func flattenCertificateTemplateIdentityConstraints(c *Client, i interface{}) *Ce
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCertificateTemplateIdentityConstraints
 	}
-	r.CelExpression = flattenCertificateTemplateIdentityConstraintsCelExpression(c, m["celExpression"])
+	r.CelExpression = flattenCertificateTemplateIdentityConstraintsCelExpression(c, m["celExpression"], res)
 	r.AllowSubjectPassthrough = dcl.FlattenBool(m["allowSubjectPassthrough"])
 	r.AllowSubjectAltNamesPassthrough = dcl.FlattenBool(m["allowSubjectAltNamesPassthrough"])
 
@@ -4387,7 +4387,7 @@ func expandCertificateTemplateIdentityConstraintsCelExpressionSlice(c *Client, f
 
 // flattenCertificateTemplateIdentityConstraintsCelExpressionMap flattens the contents of CertificateTemplateIdentityConstraintsCelExpression from a JSON
 // response object.
-func flattenCertificateTemplateIdentityConstraintsCelExpressionMap(c *Client, i interface{}) map[string]CertificateTemplateIdentityConstraintsCelExpression {
+func flattenCertificateTemplateIdentityConstraintsCelExpressionMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplateIdentityConstraintsCelExpression {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplateIdentityConstraintsCelExpression{}
@@ -4399,7 +4399,7 @@ func flattenCertificateTemplateIdentityConstraintsCelExpressionMap(c *Client, i 
 
 	items := make(map[string]CertificateTemplateIdentityConstraintsCelExpression)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplateIdentityConstraintsCelExpression(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplateIdentityConstraintsCelExpression(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4407,7 +4407,7 @@ func flattenCertificateTemplateIdentityConstraintsCelExpressionMap(c *Client, i 
 
 // flattenCertificateTemplateIdentityConstraintsCelExpressionSlice flattens the contents of CertificateTemplateIdentityConstraintsCelExpression from a JSON
 // response object.
-func flattenCertificateTemplateIdentityConstraintsCelExpressionSlice(c *Client, i interface{}) []CertificateTemplateIdentityConstraintsCelExpression {
+func flattenCertificateTemplateIdentityConstraintsCelExpressionSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplateIdentityConstraintsCelExpression {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplateIdentityConstraintsCelExpression{}
@@ -4419,7 +4419,7 @@ func flattenCertificateTemplateIdentityConstraintsCelExpressionSlice(c *Client, 
 
 	items := make([]CertificateTemplateIdentityConstraintsCelExpression, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplateIdentityConstraintsCelExpression(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplateIdentityConstraintsCelExpression(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4451,7 +4451,7 @@ func expandCertificateTemplateIdentityConstraintsCelExpression(c *Client, f *Cer
 
 // flattenCertificateTemplateIdentityConstraintsCelExpression flattens an instance of CertificateTemplateIdentityConstraintsCelExpression from a JSON
 // response object.
-func flattenCertificateTemplateIdentityConstraintsCelExpression(c *Client, i interface{}) *CertificateTemplateIdentityConstraintsCelExpression {
+func flattenCertificateTemplateIdentityConstraintsCelExpression(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplateIdentityConstraintsCelExpression {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4513,7 +4513,7 @@ func expandCertificateTemplatePassthroughExtensionsSlice(c *Client, f []Certific
 
 // flattenCertificateTemplatePassthroughExtensionsMap flattens the contents of CertificateTemplatePassthroughExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensionsMap(c *Client, i interface{}) map[string]CertificateTemplatePassthroughExtensions {
+func flattenCertificateTemplatePassthroughExtensionsMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePassthroughExtensions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePassthroughExtensions{}
@@ -4525,7 +4525,7 @@ func flattenCertificateTemplatePassthroughExtensionsMap(c *Client, i interface{}
 
 	items := make(map[string]CertificateTemplatePassthroughExtensions)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePassthroughExtensions(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePassthroughExtensions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4533,7 +4533,7 @@ func flattenCertificateTemplatePassthroughExtensionsMap(c *Client, i interface{}
 
 // flattenCertificateTemplatePassthroughExtensionsSlice flattens the contents of CertificateTemplatePassthroughExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensionsSlice(c *Client, i interface{}) []CertificateTemplatePassthroughExtensions {
+func flattenCertificateTemplatePassthroughExtensionsSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePassthroughExtensions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePassthroughExtensions{}
@@ -4545,7 +4545,7 @@ func flattenCertificateTemplatePassthroughExtensionsSlice(c *Client, i interface
 
 	items := make([]CertificateTemplatePassthroughExtensions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePassthroughExtensions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePassthroughExtensions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4573,7 +4573,7 @@ func expandCertificateTemplatePassthroughExtensions(c *Client, f *CertificateTem
 
 // flattenCertificateTemplatePassthroughExtensions flattens an instance of CertificateTemplatePassthroughExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensions(c *Client, i interface{}) *CertificateTemplatePassthroughExtensions {
+func flattenCertificateTemplatePassthroughExtensions(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePassthroughExtensions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4584,8 +4584,8 @@ func flattenCertificateTemplatePassthroughExtensions(c *Client, i interface{}) *
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCertificateTemplatePassthroughExtensions
 	}
-	r.KnownExtensions = flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumSlice(c, m["knownExtensions"])
-	r.AdditionalExtensions = flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c, m["additionalExtensions"])
+	r.KnownExtensions = flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumSlice(c, m["knownExtensions"], res)
+	r.AdditionalExtensions = flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c, m["additionalExtensions"], res)
 
 	return r
 }
@@ -4633,7 +4633,7 @@ func expandCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c *
 
 // flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap flattens the contents of CertificateTemplatePassthroughExtensionsAdditionalExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap(c *Client, i interface{}) map[string]CertificateTemplatePassthroughExtensionsAdditionalExtensions {
+func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePassthroughExtensionsAdditionalExtensions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePassthroughExtensionsAdditionalExtensions{}
@@ -4645,7 +4645,7 @@ func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap(c *C
 
 	items := make(map[string]CertificateTemplatePassthroughExtensionsAdditionalExtensions)
 	for k, item := range a {
-		items[k] = *flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{}))
+		items[k] = *flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4653,7 +4653,7 @@ func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsMap(c *C
 
 // flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice flattens the contents of CertificateTemplatePassthroughExtensionsAdditionalExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c *Client, i interface{}) []CertificateTemplatePassthroughExtensionsAdditionalExtensions {
+func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePassthroughExtensionsAdditionalExtensions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePassthroughExtensionsAdditionalExtensions{}
@@ -4665,7 +4665,7 @@ func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(c 
 
 	items := make([]CertificateTemplatePassthroughExtensionsAdditionalExtensions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4688,7 +4688,7 @@ func expandCertificateTemplatePassthroughExtensionsAdditionalExtensions(c *Clien
 
 // flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions flattens an instance of CertificateTemplatePassthroughExtensionsAdditionalExtensions from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions(c *Client, i interface{}) *CertificateTemplatePassthroughExtensionsAdditionalExtensions {
+func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions(c *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePassthroughExtensionsAdditionalExtensions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4706,7 +4706,7 @@ func flattenCertificateTemplatePassthroughExtensionsAdditionalExtensions(c *Clie
 
 // flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumMap flattens the contents of CertificateTemplatePassthroughExtensionsKnownExtensionsEnum from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumMap(c *Client, i interface{}) map[string]CertificateTemplatePassthroughExtensionsKnownExtensionsEnum {
+func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumMap(c *Client, i interface{}, res *CertificateTemplate) map[string]CertificateTemplatePassthroughExtensionsKnownExtensionsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CertificateTemplatePassthroughExtensionsKnownExtensionsEnum{}
@@ -4726,7 +4726,7 @@ func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumMap(c *Cl
 
 // flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumSlice flattens the contents of CertificateTemplatePassthroughExtensionsKnownExtensionsEnum from a JSON
 // response object.
-func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumSlice(c *Client, i interface{}) []CertificateTemplatePassthroughExtensionsKnownExtensionsEnum {
+func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnumSlice(c *Client, i interface{}, res *CertificateTemplate) []CertificateTemplatePassthroughExtensionsKnownExtensionsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CertificateTemplatePassthroughExtensionsKnownExtensionsEnum{}
@@ -4760,7 +4760,7 @@ func flattenCertificateTemplatePassthroughExtensionsKnownExtensionsEnum(i interf
 // identity).  This is useful in extracting the element from a List call.
 func (r *CertificateTemplate) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCertificateTemplate(b, c)
+		cr, err := unmarshalCertificateTemplate(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

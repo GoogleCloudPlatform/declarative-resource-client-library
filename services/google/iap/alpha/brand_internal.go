@@ -110,7 +110,7 @@ func (c *Client) listBrand(ctx context.Context, r *Brand, pageToken string, page
 
 	var l []*Brand
 	for _, v := range m.Brands {
-		res, err := unmarshalMapBrand(v, c)
+		res, err := unmarshalMapBrand(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -415,17 +415,17 @@ func (r *Brand) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalBrand decodes JSON responses into the Brand resource schema.
-func unmarshalBrand(b []byte, c *Client) (*Brand, error) {
+func unmarshalBrand(b []byte, c *Client, res *Brand) (*Brand, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapBrand(m, c)
+	return unmarshalMapBrand(m, c, res)
 }
 
-func unmarshalMapBrand(m map[string]interface{}, c *Client) (*Brand, error) {
+func unmarshalMapBrand(m map[string]interface{}, c *Client, res *Brand) (*Brand, error) {
 
-	flattened := flattenBrand(c, m)
+	flattened := flattenBrand(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -459,7 +459,7 @@ func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 
 // flattenBrand flattens Brand from a JSON request object into the
 // Brand type.
-func flattenBrand(c *Client, i interface{}) *Brand {
+func flattenBrand(c *Client, i interface{}, res *Brand) *Brand {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -468,14 +468,14 @@ func flattenBrand(c *Client, i interface{}) *Brand {
 		return nil
 	}
 
-	res := &Brand{}
-	res.ApplicationTitle = dcl.FlattenString(m["applicationTitle"])
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.OrgInternalOnly = dcl.FlattenBool(m["orgInternalOnly"])
-	res.SupportEmail = dcl.FlattenString(m["supportEmail"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Brand{}
+	resultRes.ApplicationTitle = dcl.FlattenString(m["applicationTitle"])
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.OrgInternalOnly = dcl.FlattenBool(m["orgInternalOnly"])
+	resultRes.SupportEmail = dcl.FlattenString(m["supportEmail"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -483,7 +483,7 @@ func flattenBrand(c *Client, i interface{}) *Brand {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Brand) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalBrand(b, c)
+		cr, err := unmarshalBrand(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

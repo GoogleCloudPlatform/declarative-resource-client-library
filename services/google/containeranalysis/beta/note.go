@@ -1696,7 +1696,7 @@ func (c *Client) GetNote(ctx context.Context, r *Note) (*Note, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalNote(b, c)
+	result, err := unmarshalNote(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1865,7 +1865,7 @@ func applyNoteDiff(c *Client, ctx context.Context, desired *Note, rawDesired *No
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapNote(r, c)
+				fullResp, err := unmarshalMapNote(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

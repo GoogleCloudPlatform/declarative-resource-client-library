@@ -729,7 +729,7 @@ func (c *Client) GetJob(ctx context.Context, r *Job) (*Job, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalJob(b, c)
+	result, err := unmarshalJob(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -899,7 +899,7 @@ func applyJobDiff(c *Client, ctx context.Context, desired *Job, rawDesired *Job,
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapJob(r, c)
+				fullResp, err := unmarshalMapJob(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

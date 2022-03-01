@@ -10837,7 +10837,7 @@ func (c *Client) GetDeidentifyTemplate(ctx context.Context, r *DeidentifyTemplat
 		}
 		return nil, err
 	}
-	result, err := unmarshalDeidentifyTemplate(b, c)
+	result, err := unmarshalDeidentifyTemplate(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -11007,7 +11007,7 @@ func applyDeidentifyTemplateDiff(c *Client, ctx context.Context, desired *Deiden
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapDeidentifyTemplate(r, c)
+				fullResp, err := unmarshalMapDeidentifyTemplate(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

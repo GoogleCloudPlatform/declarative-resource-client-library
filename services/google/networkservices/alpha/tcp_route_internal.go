@@ -289,7 +289,7 @@ func (c *Client) listTcpRoute(ctx context.Context, r *TcpRoute, pageToken string
 
 	var l []*TcpRoute
 	for _, v := range m.TcpRoutes {
-		res, err := unmarshalMapTcpRoute(v, c)
+		res, err := unmarshalMapTcpRoute(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -622,6 +622,14 @@ func canonicalizeTcpRouteNewState(c *Client, rawNew, rawDesired *TcpRoute) (*Tcp
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
+		rawNew.SelfLink = rawDesired.SelfLink
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
+	}
 
 	return rawNew, nil
 }
@@ -1193,6 +1201,13 @@ func diffTcpRoute(c *Client, desired, actual *TcpRoute, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareTcpRouteRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1348,6 +1363,7 @@ func (r *TcpRoute) urlNormalized() *TcpRoute {
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -1379,17 +1395,17 @@ func (r *TcpRoute) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalTcpRoute decodes JSON responses into the TcpRoute resource schema.
-func unmarshalTcpRoute(b []byte, c *Client) (*TcpRoute, error) {
+func unmarshalTcpRoute(b []byte, c *Client, res *TcpRoute) (*TcpRoute, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapTcpRoute(m, c)
+	return unmarshalMapTcpRoute(m, c, res)
 }
 
-func unmarshalMapTcpRoute(m map[string]interface{}, c *Client) (*TcpRoute, error) {
+func unmarshalMapTcpRoute(m map[string]interface{}, c *Client, res *TcpRoute) (*TcpRoute, error) {
 
-	flattened := flattenTcpRoute(c, m)
+	flattened := flattenTcpRoute(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1442,7 +1458,7 @@ func expandTcpRoute(c *Client, f *TcpRoute) (map[string]interface{}, error) {
 
 // flattenTcpRoute flattens TcpRoute from a JSON request object into the
 // TcpRoute type.
-func flattenTcpRoute(c *Client, i interface{}) *TcpRoute {
+func flattenTcpRoute(c *Client, i interface{}, res *TcpRoute) *TcpRoute {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1451,20 +1467,21 @@ func flattenTcpRoute(c *Client, i interface{}) *TcpRoute {
 		return nil
 	}
 
-	res := &TcpRoute{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Rules = flattenTcpRouteRulesSlice(c, m["rules"])
-	res.Routers = dcl.FlattenStringSlice(m["routers"])
-	res.Meshes = dcl.FlattenStringSlice(m["meshes"])
-	res.Gateways = dcl.FlattenStringSlice(m["gateways"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &TcpRoute{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Rules = flattenTcpRouteRulesSlice(c, m["rules"], res)
+	resultRes.Routers = dcl.FlattenStringSlice(m["routers"])
+	resultRes.Meshes = dcl.FlattenStringSlice(m["meshes"])
+	resultRes.Gateways = dcl.FlattenStringSlice(m["gateways"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return res
+	return resultRes
 }
 
 // expandTcpRouteRulesMap expands the contents of TcpRouteRules into a JSON
@@ -1510,7 +1527,7 @@ func expandTcpRouteRulesSlice(c *Client, f []TcpRouteRules, res *TcpRoute) ([]ma
 
 // flattenTcpRouteRulesMap flattens the contents of TcpRouteRules from a JSON
 // response object.
-func flattenTcpRouteRulesMap(c *Client, i interface{}) map[string]TcpRouteRules {
+func flattenTcpRouteRulesMap(c *Client, i interface{}, res *TcpRoute) map[string]TcpRouteRules {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TcpRouteRules{}
@@ -1522,7 +1539,7 @@ func flattenTcpRouteRulesMap(c *Client, i interface{}) map[string]TcpRouteRules 
 
 	items := make(map[string]TcpRouteRules)
 	for k, item := range a {
-		items[k] = *flattenTcpRouteRules(c, item.(map[string]interface{}))
+		items[k] = *flattenTcpRouteRules(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1530,7 +1547,7 @@ func flattenTcpRouteRulesMap(c *Client, i interface{}) map[string]TcpRouteRules 
 
 // flattenTcpRouteRulesSlice flattens the contents of TcpRouteRules from a JSON
 // response object.
-func flattenTcpRouteRulesSlice(c *Client, i interface{}) []TcpRouteRules {
+func flattenTcpRouteRulesSlice(c *Client, i interface{}, res *TcpRoute) []TcpRouteRules {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TcpRouteRules{}
@@ -1542,7 +1559,7 @@ func flattenTcpRouteRulesSlice(c *Client, i interface{}) []TcpRouteRules {
 
 	items := make([]TcpRouteRules, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTcpRouteRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenTcpRouteRules(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1572,7 +1589,7 @@ func expandTcpRouteRules(c *Client, f *TcpRouteRules, res *TcpRoute) (map[string
 
 // flattenTcpRouteRules flattens an instance of TcpRouteRules from a JSON
 // response object.
-func flattenTcpRouteRules(c *Client, i interface{}) *TcpRouteRules {
+func flattenTcpRouteRules(c *Client, i interface{}, res *TcpRoute) *TcpRouteRules {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1583,8 +1600,8 @@ func flattenTcpRouteRules(c *Client, i interface{}) *TcpRouteRules {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTcpRouteRules
 	}
-	r.Matches = flattenTcpRouteRulesMatchesSlice(c, m["matches"])
-	r.Action = flattenTcpRouteRulesAction(c, m["action"])
+	r.Matches = flattenTcpRouteRulesMatchesSlice(c, m["matches"], res)
+	r.Action = flattenTcpRouteRulesAction(c, m["action"], res)
 
 	return r
 }
@@ -1632,7 +1649,7 @@ func expandTcpRouteRulesMatchesSlice(c *Client, f []TcpRouteRulesMatches, res *T
 
 // flattenTcpRouteRulesMatchesMap flattens the contents of TcpRouteRulesMatches from a JSON
 // response object.
-func flattenTcpRouteRulesMatchesMap(c *Client, i interface{}) map[string]TcpRouteRulesMatches {
+func flattenTcpRouteRulesMatchesMap(c *Client, i interface{}, res *TcpRoute) map[string]TcpRouteRulesMatches {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TcpRouteRulesMatches{}
@@ -1644,7 +1661,7 @@ func flattenTcpRouteRulesMatchesMap(c *Client, i interface{}) map[string]TcpRout
 
 	items := make(map[string]TcpRouteRulesMatches)
 	for k, item := range a {
-		items[k] = *flattenTcpRouteRulesMatches(c, item.(map[string]interface{}))
+		items[k] = *flattenTcpRouteRulesMatches(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1652,7 +1669,7 @@ func flattenTcpRouteRulesMatchesMap(c *Client, i interface{}) map[string]TcpRout
 
 // flattenTcpRouteRulesMatchesSlice flattens the contents of TcpRouteRulesMatches from a JSON
 // response object.
-func flattenTcpRouteRulesMatchesSlice(c *Client, i interface{}) []TcpRouteRulesMatches {
+func flattenTcpRouteRulesMatchesSlice(c *Client, i interface{}, res *TcpRoute) []TcpRouteRulesMatches {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TcpRouteRulesMatches{}
@@ -1664,7 +1681,7 @@ func flattenTcpRouteRulesMatchesSlice(c *Client, i interface{}) []TcpRouteRulesM
 
 	items := make([]TcpRouteRulesMatches, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTcpRouteRulesMatches(c, item.(map[string]interface{})))
+		items = append(items, *flattenTcpRouteRulesMatches(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1690,7 +1707,7 @@ func expandTcpRouteRulesMatches(c *Client, f *TcpRouteRulesMatches, res *TcpRout
 
 // flattenTcpRouteRulesMatches flattens an instance of TcpRouteRulesMatches from a JSON
 // response object.
-func flattenTcpRouteRulesMatches(c *Client, i interface{}) *TcpRouteRulesMatches {
+func flattenTcpRouteRulesMatches(c *Client, i interface{}, res *TcpRoute) *TcpRouteRulesMatches {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1750,7 +1767,7 @@ func expandTcpRouteRulesActionSlice(c *Client, f []TcpRouteRulesAction, res *Tcp
 
 // flattenTcpRouteRulesActionMap flattens the contents of TcpRouteRulesAction from a JSON
 // response object.
-func flattenTcpRouteRulesActionMap(c *Client, i interface{}) map[string]TcpRouteRulesAction {
+func flattenTcpRouteRulesActionMap(c *Client, i interface{}, res *TcpRoute) map[string]TcpRouteRulesAction {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TcpRouteRulesAction{}
@@ -1762,7 +1779,7 @@ func flattenTcpRouteRulesActionMap(c *Client, i interface{}) map[string]TcpRoute
 
 	items := make(map[string]TcpRouteRulesAction)
 	for k, item := range a {
-		items[k] = *flattenTcpRouteRulesAction(c, item.(map[string]interface{}))
+		items[k] = *flattenTcpRouteRulesAction(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1770,7 +1787,7 @@ func flattenTcpRouteRulesActionMap(c *Client, i interface{}) map[string]TcpRoute
 
 // flattenTcpRouteRulesActionSlice flattens the contents of TcpRouteRulesAction from a JSON
 // response object.
-func flattenTcpRouteRulesActionSlice(c *Client, i interface{}) []TcpRouteRulesAction {
+func flattenTcpRouteRulesActionSlice(c *Client, i interface{}, res *TcpRoute) []TcpRouteRulesAction {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TcpRouteRulesAction{}
@@ -1782,7 +1799,7 @@ func flattenTcpRouteRulesActionSlice(c *Client, i interface{}) []TcpRouteRulesAc
 
 	items := make([]TcpRouteRulesAction, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTcpRouteRulesAction(c, item.(map[string]interface{})))
+		items = append(items, *flattenTcpRouteRulesAction(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1810,7 +1827,7 @@ func expandTcpRouteRulesAction(c *Client, f *TcpRouteRulesAction, res *TcpRoute)
 
 // flattenTcpRouteRulesAction flattens an instance of TcpRouteRulesAction from a JSON
 // response object.
-func flattenTcpRouteRulesAction(c *Client, i interface{}) *TcpRouteRulesAction {
+func flattenTcpRouteRulesAction(c *Client, i interface{}, res *TcpRoute) *TcpRouteRulesAction {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1821,7 +1838,7 @@ func flattenTcpRouteRulesAction(c *Client, i interface{}) *TcpRouteRulesAction {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTcpRouteRulesAction
 	}
-	r.Destinations = flattenTcpRouteRulesActionDestinationsSlice(c, m["destinations"])
+	r.Destinations = flattenTcpRouteRulesActionDestinationsSlice(c, m["destinations"], res)
 	r.OriginalDestination = dcl.FlattenBool(m["originalDestination"])
 
 	return r
@@ -1870,7 +1887,7 @@ func expandTcpRouteRulesActionDestinationsSlice(c *Client, f []TcpRouteRulesActi
 
 // flattenTcpRouteRulesActionDestinationsMap flattens the contents of TcpRouteRulesActionDestinations from a JSON
 // response object.
-func flattenTcpRouteRulesActionDestinationsMap(c *Client, i interface{}) map[string]TcpRouteRulesActionDestinations {
+func flattenTcpRouteRulesActionDestinationsMap(c *Client, i interface{}, res *TcpRoute) map[string]TcpRouteRulesActionDestinations {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TcpRouteRulesActionDestinations{}
@@ -1882,7 +1899,7 @@ func flattenTcpRouteRulesActionDestinationsMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]TcpRouteRulesActionDestinations)
 	for k, item := range a {
-		items[k] = *flattenTcpRouteRulesActionDestinations(c, item.(map[string]interface{}))
+		items[k] = *flattenTcpRouteRulesActionDestinations(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1890,7 +1907,7 @@ func flattenTcpRouteRulesActionDestinationsMap(c *Client, i interface{}) map[str
 
 // flattenTcpRouteRulesActionDestinationsSlice flattens the contents of TcpRouteRulesActionDestinations from a JSON
 // response object.
-func flattenTcpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []TcpRouteRulesActionDestinations {
+func flattenTcpRouteRulesActionDestinationsSlice(c *Client, i interface{}, res *TcpRoute) []TcpRouteRulesActionDestinations {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TcpRouteRulesActionDestinations{}
@@ -1902,7 +1919,7 @@ func flattenTcpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Tcp
 
 	items := make([]TcpRouteRulesActionDestinations, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTcpRouteRulesActionDestinations(c, item.(map[string]interface{})))
+		items = append(items, *flattenTcpRouteRulesActionDestinations(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1928,7 +1945,7 @@ func expandTcpRouteRulesActionDestinations(c *Client, f *TcpRouteRulesActionDest
 
 // flattenTcpRouteRulesActionDestinations flattens an instance of TcpRouteRulesActionDestinations from a JSON
 // response object.
-func flattenTcpRouteRulesActionDestinations(c *Client, i interface{}) *TcpRouteRulesActionDestinations {
+func flattenTcpRouteRulesActionDestinations(c *Client, i interface{}, res *TcpRoute) *TcpRouteRulesActionDestinations {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1950,7 +1967,7 @@ func flattenTcpRouteRulesActionDestinations(c *Client, i interface{}) *TcpRouteR
 // identity).  This is useful in extracting the element from a List call.
 func (r *TcpRoute) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalTcpRoute(b, c)
+		cr, err := unmarshalTcpRoute(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

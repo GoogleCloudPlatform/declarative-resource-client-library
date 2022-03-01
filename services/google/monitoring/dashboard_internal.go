@@ -589,7 +589,7 @@ func (c *Client) listDashboard(ctx context.Context, r *Dashboard, pageToken stri
 
 	var l []*Dashboard
 	for _, v := range m.Dashboards {
-		res, err := unmarshalMapDashboard(v, c)
+		res, err := unmarshalMapDashboard(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -8445,17 +8445,17 @@ func (r *Dashboard) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalDashboard decodes JSON responses into the Dashboard resource schema.
-func unmarshalDashboard(b []byte, c *Client) (*Dashboard, error) {
+func unmarshalDashboard(b []byte, c *Client, res *Dashboard) (*Dashboard, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapDashboard(m, c)
+	return unmarshalMapDashboard(m, c, res)
 }
 
-func unmarshalMapDashboard(m map[string]interface{}, c *Client) (*Dashboard, error) {
+func unmarshalMapDashboard(m map[string]interface{}, c *Client, res *Dashboard) (*Dashboard, error) {
 
-	flattened := flattenDashboard(c, m)
+	flattened := flattenDashboard(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -8506,7 +8506,7 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 
 // flattenDashboard flattens Dashboard from a JSON request object into the
 // Dashboard type.
-func flattenDashboard(c *Client, i interface{}) *Dashboard {
+func flattenDashboard(c *Client, i interface{}, res *Dashboard) *Dashboard {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8515,17 +8515,17 @@ func flattenDashboard(c *Client, i interface{}) *Dashboard {
 		return nil
 	}
 
-	res := &Dashboard{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.GridLayout = flattenDashboardGridLayout(c, m["gridLayout"])
-	res.MosaicLayout = flattenDashboardMosaicLayout(c, m["mosaicLayout"])
-	res.RowLayout = flattenDashboardRowLayout(c, m["rowLayout"])
-	res.ColumnLayout = flattenDashboardColumnLayout(c, m["columnLayout"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Etag = dcl.FlattenString(m["etag"])
+	resultRes := &Dashboard{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.GridLayout = flattenDashboardGridLayout(c, m["gridLayout"], res)
+	resultRes.MosaicLayout = flattenDashboardMosaicLayout(c, m["mosaicLayout"], res)
+	resultRes.RowLayout = flattenDashboardRowLayout(c, m["rowLayout"], res)
+	resultRes.ColumnLayout = flattenDashboardColumnLayout(c, m["columnLayout"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
 
-	return res
+	return resultRes
 }
 
 // expandDashboardGridLayoutMap expands the contents of DashboardGridLayout into a JSON
@@ -8571,7 +8571,7 @@ func expandDashboardGridLayoutSlice(c *Client, f []DashboardGridLayout, res *Das
 
 // flattenDashboardGridLayoutMap flattens the contents of DashboardGridLayout from a JSON
 // response object.
-func flattenDashboardGridLayoutMap(c *Client, i interface{}) map[string]DashboardGridLayout {
+func flattenDashboardGridLayoutMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardGridLayout {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardGridLayout{}
@@ -8583,7 +8583,7 @@ func flattenDashboardGridLayoutMap(c *Client, i interface{}) map[string]Dashboar
 
 	items := make(map[string]DashboardGridLayout)
 	for k, item := range a {
-		items[k] = *flattenDashboardGridLayout(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardGridLayout(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8591,7 +8591,7 @@ func flattenDashboardGridLayoutMap(c *Client, i interface{}) map[string]Dashboar
 
 // flattenDashboardGridLayoutSlice flattens the contents of DashboardGridLayout from a JSON
 // response object.
-func flattenDashboardGridLayoutSlice(c *Client, i interface{}) []DashboardGridLayout {
+func flattenDashboardGridLayoutSlice(c *Client, i interface{}, res *Dashboard) []DashboardGridLayout {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardGridLayout{}
@@ -8603,7 +8603,7 @@ func flattenDashboardGridLayoutSlice(c *Client, i interface{}) []DashboardGridLa
 
 	items := make([]DashboardGridLayout, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardGridLayout(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardGridLayout(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8629,7 +8629,7 @@ func expandDashboardGridLayout(c *Client, f *DashboardGridLayout, res *Dashboard
 
 // flattenDashboardGridLayout flattens an instance of DashboardGridLayout from a JSON
 // response object.
-func flattenDashboardGridLayout(c *Client, i interface{}) *DashboardGridLayout {
+func flattenDashboardGridLayout(c *Client, i interface{}, res *Dashboard) *DashboardGridLayout {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8641,7 +8641,7 @@ func flattenDashboardGridLayout(c *Client, i interface{}) *DashboardGridLayout {
 		return EmptyDashboardGridLayout
 	}
 	r.Columns = dcl.FlattenInteger(m["columns"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
+	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"], res)
 
 	return r
 }
@@ -8689,7 +8689,7 @@ func expandDashboardMosaicLayoutSlice(c *Client, f []DashboardMosaicLayout, res 
 
 // flattenDashboardMosaicLayoutMap flattens the contents of DashboardMosaicLayout from a JSON
 // response object.
-func flattenDashboardMosaicLayoutMap(c *Client, i interface{}) map[string]DashboardMosaicLayout {
+func flattenDashboardMosaicLayoutMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardMosaicLayout {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardMosaicLayout{}
@@ -8701,7 +8701,7 @@ func flattenDashboardMosaicLayoutMap(c *Client, i interface{}) map[string]Dashbo
 
 	items := make(map[string]DashboardMosaicLayout)
 	for k, item := range a {
-		items[k] = *flattenDashboardMosaicLayout(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardMosaicLayout(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8709,7 +8709,7 @@ func flattenDashboardMosaicLayoutMap(c *Client, i interface{}) map[string]Dashbo
 
 // flattenDashboardMosaicLayoutSlice flattens the contents of DashboardMosaicLayout from a JSON
 // response object.
-func flattenDashboardMosaicLayoutSlice(c *Client, i interface{}) []DashboardMosaicLayout {
+func flattenDashboardMosaicLayoutSlice(c *Client, i interface{}, res *Dashboard) []DashboardMosaicLayout {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardMosaicLayout{}
@@ -8721,7 +8721,7 @@ func flattenDashboardMosaicLayoutSlice(c *Client, i interface{}) []DashboardMosa
 
 	items := make([]DashboardMosaicLayout, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardMosaicLayout(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardMosaicLayout(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8749,7 +8749,7 @@ func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout, res *Dashb
 
 // flattenDashboardMosaicLayout flattens an instance of DashboardMosaicLayout from a JSON
 // response object.
-func flattenDashboardMosaicLayout(c *Client, i interface{}) *DashboardMosaicLayout {
+func flattenDashboardMosaicLayout(c *Client, i interface{}, res *Dashboard) *DashboardMosaicLayout {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8761,7 +8761,7 @@ func flattenDashboardMosaicLayout(c *Client, i interface{}) *DashboardMosaicLayo
 		return EmptyDashboardMosaicLayout
 	}
 	r.Columns = dcl.FlattenInteger(m["columns"])
-	r.Tiles = flattenDashboardMosaicLayoutTilesSlice(c, m["tiles"])
+	r.Tiles = flattenDashboardMosaicLayoutTilesSlice(c, m["tiles"], res)
 
 	return r
 }
@@ -8809,7 +8809,7 @@ func expandDashboardMosaicLayoutTilesSlice(c *Client, f []DashboardMosaicLayoutT
 
 // flattenDashboardMosaicLayoutTilesMap flattens the contents of DashboardMosaicLayoutTiles from a JSON
 // response object.
-func flattenDashboardMosaicLayoutTilesMap(c *Client, i interface{}) map[string]DashboardMosaicLayoutTiles {
+func flattenDashboardMosaicLayoutTilesMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardMosaicLayoutTiles {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardMosaicLayoutTiles{}
@@ -8821,7 +8821,7 @@ func flattenDashboardMosaicLayoutTilesMap(c *Client, i interface{}) map[string]D
 
 	items := make(map[string]DashboardMosaicLayoutTiles)
 	for k, item := range a {
-		items[k] = *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8829,7 +8829,7 @@ func flattenDashboardMosaicLayoutTilesMap(c *Client, i interface{}) map[string]D
 
 // flattenDashboardMosaicLayoutTilesSlice flattens the contents of DashboardMosaicLayoutTiles from a JSON
 // response object.
-func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}) []DashboardMosaicLayoutTiles {
+func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}, res *Dashboard) []DashboardMosaicLayoutTiles {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardMosaicLayoutTiles{}
@@ -8841,7 +8841,7 @@ func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}) []Dashboar
 
 	items := make([]DashboardMosaicLayoutTiles, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8878,7 +8878,7 @@ func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles, 
 
 // flattenDashboardMosaicLayoutTiles flattens an instance of DashboardMosaicLayoutTiles from a JSON
 // response object.
-func flattenDashboardMosaicLayoutTiles(c *Client, i interface{}) *DashboardMosaicLayoutTiles {
+func flattenDashboardMosaicLayoutTiles(c *Client, i interface{}, res *Dashboard) *DashboardMosaicLayoutTiles {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8893,7 +8893,7 @@ func flattenDashboardMosaicLayoutTiles(c *Client, i interface{}) *DashboardMosai
 	r.YPos = dcl.FlattenInteger(m["yPos"])
 	r.Width = dcl.FlattenInteger(m["width"])
 	r.Height = dcl.FlattenInteger(m["height"])
-	r.Widget = flattenDashboardWidget(c, m["widget"])
+	r.Widget = flattenDashboardWidget(c, m["widget"], res)
 
 	return r
 }
@@ -8941,7 +8941,7 @@ func expandDashboardRowLayoutSlice(c *Client, f []DashboardRowLayout, res *Dashb
 
 // flattenDashboardRowLayoutMap flattens the contents of DashboardRowLayout from a JSON
 // response object.
-func flattenDashboardRowLayoutMap(c *Client, i interface{}) map[string]DashboardRowLayout {
+func flattenDashboardRowLayoutMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardRowLayout {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardRowLayout{}
@@ -8953,7 +8953,7 @@ func flattenDashboardRowLayoutMap(c *Client, i interface{}) map[string]Dashboard
 
 	items := make(map[string]DashboardRowLayout)
 	for k, item := range a {
-		items[k] = *flattenDashboardRowLayout(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardRowLayout(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8961,7 +8961,7 @@ func flattenDashboardRowLayoutMap(c *Client, i interface{}) map[string]Dashboard
 
 // flattenDashboardRowLayoutSlice flattens the contents of DashboardRowLayout from a JSON
 // response object.
-func flattenDashboardRowLayoutSlice(c *Client, i interface{}) []DashboardRowLayout {
+func flattenDashboardRowLayoutSlice(c *Client, i interface{}, res *Dashboard) []DashboardRowLayout {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardRowLayout{}
@@ -8973,7 +8973,7 @@ func flattenDashboardRowLayoutSlice(c *Client, i interface{}) []DashboardRowLayo
 
 	items := make([]DashboardRowLayout, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardRowLayout(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardRowLayout(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8998,7 +8998,7 @@ func expandDashboardRowLayout(c *Client, f *DashboardRowLayout, res *Dashboard) 
 
 // flattenDashboardRowLayout flattens an instance of DashboardRowLayout from a JSON
 // response object.
-func flattenDashboardRowLayout(c *Client, i interface{}) *DashboardRowLayout {
+func flattenDashboardRowLayout(c *Client, i interface{}, res *Dashboard) *DashboardRowLayout {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9009,7 +9009,7 @@ func flattenDashboardRowLayout(c *Client, i interface{}) *DashboardRowLayout {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardRowLayout
 	}
-	r.Rows = flattenDashboardRowLayoutRowsSlice(c, m["rows"])
+	r.Rows = flattenDashboardRowLayoutRowsSlice(c, m["rows"], res)
 
 	return r
 }
@@ -9057,7 +9057,7 @@ func expandDashboardRowLayoutRowsSlice(c *Client, f []DashboardRowLayoutRows, re
 
 // flattenDashboardRowLayoutRowsMap flattens the contents of DashboardRowLayoutRows from a JSON
 // response object.
-func flattenDashboardRowLayoutRowsMap(c *Client, i interface{}) map[string]DashboardRowLayoutRows {
+func flattenDashboardRowLayoutRowsMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardRowLayoutRows {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardRowLayoutRows{}
@@ -9069,7 +9069,7 @@ func flattenDashboardRowLayoutRowsMap(c *Client, i interface{}) map[string]Dashb
 
 	items := make(map[string]DashboardRowLayoutRows)
 	for k, item := range a {
-		items[k] = *flattenDashboardRowLayoutRows(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardRowLayoutRows(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9077,7 +9077,7 @@ func flattenDashboardRowLayoutRowsMap(c *Client, i interface{}) map[string]Dashb
 
 // flattenDashboardRowLayoutRowsSlice flattens the contents of DashboardRowLayoutRows from a JSON
 // response object.
-func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}) []DashboardRowLayoutRows {
+func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}, res *Dashboard) []DashboardRowLayoutRows {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardRowLayoutRows{}
@@ -9089,7 +9089,7 @@ func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}) []DashboardRow
 
 	items := make([]DashboardRowLayoutRows, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardRowLayoutRows(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardRowLayoutRows(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9115,7 +9115,7 @@ func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows, res *Das
 
 // flattenDashboardRowLayoutRows flattens an instance of DashboardRowLayoutRows from a JSON
 // response object.
-func flattenDashboardRowLayoutRows(c *Client, i interface{}) *DashboardRowLayoutRows {
+func flattenDashboardRowLayoutRows(c *Client, i interface{}, res *Dashboard) *DashboardRowLayoutRows {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9127,7 +9127,7 @@ func flattenDashboardRowLayoutRows(c *Client, i interface{}) *DashboardRowLayout
 		return EmptyDashboardRowLayoutRows
 	}
 	r.Weight = dcl.FlattenInteger(m["weight"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
+	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"], res)
 
 	return r
 }
@@ -9175,7 +9175,7 @@ func expandDashboardColumnLayoutSlice(c *Client, f []DashboardColumnLayout, res 
 
 // flattenDashboardColumnLayoutMap flattens the contents of DashboardColumnLayout from a JSON
 // response object.
-func flattenDashboardColumnLayoutMap(c *Client, i interface{}) map[string]DashboardColumnLayout {
+func flattenDashboardColumnLayoutMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardColumnLayout {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardColumnLayout{}
@@ -9187,7 +9187,7 @@ func flattenDashboardColumnLayoutMap(c *Client, i interface{}) map[string]Dashbo
 
 	items := make(map[string]DashboardColumnLayout)
 	for k, item := range a {
-		items[k] = *flattenDashboardColumnLayout(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardColumnLayout(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9195,7 +9195,7 @@ func flattenDashboardColumnLayoutMap(c *Client, i interface{}) map[string]Dashbo
 
 // flattenDashboardColumnLayoutSlice flattens the contents of DashboardColumnLayout from a JSON
 // response object.
-func flattenDashboardColumnLayoutSlice(c *Client, i interface{}) []DashboardColumnLayout {
+func flattenDashboardColumnLayoutSlice(c *Client, i interface{}, res *Dashboard) []DashboardColumnLayout {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardColumnLayout{}
@@ -9207,7 +9207,7 @@ func flattenDashboardColumnLayoutSlice(c *Client, i interface{}) []DashboardColu
 
 	items := make([]DashboardColumnLayout, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardColumnLayout(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardColumnLayout(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9232,7 +9232,7 @@ func expandDashboardColumnLayout(c *Client, f *DashboardColumnLayout, res *Dashb
 
 // flattenDashboardColumnLayout flattens an instance of DashboardColumnLayout from a JSON
 // response object.
-func flattenDashboardColumnLayout(c *Client, i interface{}) *DashboardColumnLayout {
+func flattenDashboardColumnLayout(c *Client, i interface{}, res *Dashboard) *DashboardColumnLayout {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9243,7 +9243,7 @@ func flattenDashboardColumnLayout(c *Client, i interface{}) *DashboardColumnLayo
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardColumnLayout
 	}
-	r.Columns = flattenDashboardColumnLayoutColumnsSlice(c, m["columns"])
+	r.Columns = flattenDashboardColumnLayoutColumnsSlice(c, m["columns"], res)
 
 	return r
 }
@@ -9291,7 +9291,7 @@ func expandDashboardColumnLayoutColumnsSlice(c *Client, f []DashboardColumnLayou
 
 // flattenDashboardColumnLayoutColumnsMap flattens the contents of DashboardColumnLayoutColumns from a JSON
 // response object.
-func flattenDashboardColumnLayoutColumnsMap(c *Client, i interface{}) map[string]DashboardColumnLayoutColumns {
+func flattenDashboardColumnLayoutColumnsMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardColumnLayoutColumns {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardColumnLayoutColumns{}
@@ -9303,7 +9303,7 @@ func flattenDashboardColumnLayoutColumnsMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]DashboardColumnLayoutColumns)
 	for k, item := range a {
-		items[k] = *flattenDashboardColumnLayoutColumns(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardColumnLayoutColumns(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9311,7 +9311,7 @@ func flattenDashboardColumnLayoutColumnsMap(c *Client, i interface{}) map[string
 
 // flattenDashboardColumnLayoutColumnsSlice flattens the contents of DashboardColumnLayoutColumns from a JSON
 // response object.
-func flattenDashboardColumnLayoutColumnsSlice(c *Client, i interface{}) []DashboardColumnLayoutColumns {
+func flattenDashboardColumnLayoutColumnsSlice(c *Client, i interface{}, res *Dashboard) []DashboardColumnLayoutColumns {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardColumnLayoutColumns{}
@@ -9323,7 +9323,7 @@ func flattenDashboardColumnLayoutColumnsSlice(c *Client, i interface{}) []Dashbo
 
 	items := make([]DashboardColumnLayoutColumns, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardColumnLayoutColumns(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardColumnLayoutColumns(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9351,7 +9351,7 @@ func expandDashboardColumnLayoutColumns(c *Client, f *DashboardColumnLayoutColum
 
 // flattenDashboardColumnLayoutColumns flattens an instance of DashboardColumnLayoutColumns from a JSON
 // response object.
-func flattenDashboardColumnLayoutColumns(c *Client, i interface{}) *DashboardColumnLayoutColumns {
+func flattenDashboardColumnLayoutColumns(c *Client, i interface{}, res *Dashboard) *DashboardColumnLayoutColumns {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9363,7 +9363,7 @@ func flattenDashboardColumnLayoutColumns(c *Client, i interface{}) *DashboardCol
 		return EmptyDashboardColumnLayoutColumns
 	}
 	r.Weight = dcl.FlattenInteger(m["weight"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
+	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"], res)
 
 	return r
 }
@@ -9411,7 +9411,7 @@ func expandDashboardWidgetSlice(c *Client, f []DashboardWidget, res *Dashboard) 
 
 // flattenDashboardWidgetMap flattens the contents of DashboardWidget from a JSON
 // response object.
-func flattenDashboardWidgetMap(c *Client, i interface{}) map[string]DashboardWidget {
+func flattenDashboardWidgetMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidget{}
@@ -9423,7 +9423,7 @@ func flattenDashboardWidgetMap(c *Client, i interface{}) map[string]DashboardWid
 
 	items := make(map[string]DashboardWidget)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidget(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9431,7 +9431,7 @@ func flattenDashboardWidgetMap(c *Client, i interface{}) map[string]DashboardWid
 
 // flattenDashboardWidgetSlice flattens the contents of DashboardWidget from a JSON
 // response object.
-func flattenDashboardWidgetSlice(c *Client, i interface{}) []DashboardWidget {
+func flattenDashboardWidgetSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidget{}
@@ -9443,7 +9443,7 @@ func flattenDashboardWidgetSlice(c *Client, i interface{}) []DashboardWidget {
 
 	items := make([]DashboardWidget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidget(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9486,7 +9486,7 @@ func expandDashboardWidget(c *Client, f *DashboardWidget, res *Dashboard) (map[s
 
 // flattenDashboardWidget flattens an instance of DashboardWidget from a JSON
 // response object.
-func flattenDashboardWidget(c *Client, i interface{}) *DashboardWidget {
+func flattenDashboardWidget(c *Client, i interface{}, res *Dashboard) *DashboardWidget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9498,10 +9498,10 @@ func flattenDashboardWidget(c *Client, i interface{}) *DashboardWidget {
 		return EmptyDashboardWidget
 	}
 	r.Title = dcl.FlattenString(m["title"])
-	r.XyChart = flattenDashboardWidgetXyChart(c, m["xyChart"])
-	r.Scorecard = flattenDashboardWidgetScorecard(c, m["scorecard"])
-	r.Text = flattenDashboardWidgetText(c, m["text"])
-	r.Blank = flattenDashboardWidgetBlank(c, m["blank"])
+	r.XyChart = flattenDashboardWidgetXyChart(c, m["xyChart"], res)
+	r.Scorecard = flattenDashboardWidgetScorecard(c, m["scorecard"], res)
+	r.Text = flattenDashboardWidgetText(c, m["text"], res)
+	r.Blank = flattenDashboardWidgetBlank(c, m["blank"], res)
 
 	return r
 }
@@ -9549,7 +9549,7 @@ func expandDashboardWidgetXyChartSlice(c *Client, f []DashboardWidgetXyChart, re
 
 // flattenDashboardWidgetXyChartMap flattens the contents of DashboardWidgetXyChart from a JSON
 // response object.
-func flattenDashboardWidgetXyChartMap(c *Client, i interface{}) map[string]DashboardWidgetXyChart {
+func flattenDashboardWidgetXyChartMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChart {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChart{}
@@ -9561,7 +9561,7 @@ func flattenDashboardWidgetXyChartMap(c *Client, i interface{}) map[string]Dashb
 
 	items := make(map[string]DashboardWidgetXyChart)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChart(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChart(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9569,7 +9569,7 @@ func flattenDashboardWidgetXyChartMap(c *Client, i interface{}) map[string]Dashb
 
 // flattenDashboardWidgetXyChartSlice flattens the contents of DashboardWidgetXyChart from a JSON
 // response object.
-func flattenDashboardWidgetXyChartSlice(c *Client, i interface{}) []DashboardWidgetXyChart {
+func flattenDashboardWidgetXyChartSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChart {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChart{}
@@ -9581,7 +9581,7 @@ func flattenDashboardWidgetXyChartSlice(c *Client, i interface{}) []DashboardWid
 
 	items := make([]DashboardWidgetXyChart, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChart(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChart(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9629,7 +9629,7 @@ func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart, res *Das
 
 // flattenDashboardWidgetXyChart flattens an instance of DashboardWidgetXyChart from a JSON
 // response object.
-func flattenDashboardWidgetXyChart(c *Client, i interface{}) *DashboardWidgetXyChart {
+func flattenDashboardWidgetXyChart(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChart {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9640,12 +9640,12 @@ func flattenDashboardWidgetXyChart(c *Client, i interface{}) *DashboardWidgetXyC
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardWidgetXyChart
 	}
-	r.DataSets = flattenDashboardWidgetXyChartDataSetsSlice(c, m["dataSets"])
+	r.DataSets = flattenDashboardWidgetXyChartDataSetsSlice(c, m["dataSets"], res)
 	r.TimeshiftDuration = dcl.FlattenString(m["timeshiftDuration"])
-	r.Thresholds = flattenDashboardWidgetXyChartThresholdsSlice(c, m["thresholds"])
-	r.XAxis = flattenDashboardWidgetXyChartXAxis(c, m["xAxis"])
-	r.YAxis = flattenDashboardWidgetXyChartYAxis(c, m["yAxis"])
-	r.ChartOptions = flattenDashboardWidgetXyChartChartOptions(c, m["chartOptions"])
+	r.Thresholds = flattenDashboardWidgetXyChartThresholdsSlice(c, m["thresholds"], res)
+	r.XAxis = flattenDashboardWidgetXyChartXAxis(c, m["xAxis"], res)
+	r.YAxis = flattenDashboardWidgetXyChartYAxis(c, m["yAxis"], res)
+	r.ChartOptions = flattenDashboardWidgetXyChartChartOptions(c, m["chartOptions"], res)
 
 	return r
 }
@@ -9693,7 +9693,7 @@ func expandDashboardWidgetXyChartDataSetsSlice(c *Client, f []DashboardWidgetXyC
 
 // flattenDashboardWidgetXyChartDataSetsMap flattens the contents of DashboardWidgetXyChartDataSets from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSets {
+func flattenDashboardWidgetXyChartDataSetsMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSets {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSets{}
@@ -9705,7 +9705,7 @@ func flattenDashboardWidgetXyChartDataSetsMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]DashboardWidgetXyChartDataSets)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSets(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSets(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9713,7 +9713,7 @@ func flattenDashboardWidgetXyChartDataSetsMap(c *Client, i interface{}) map[stri
 
 // flattenDashboardWidgetXyChartDataSetsSlice flattens the contents of DashboardWidgetXyChartDataSets from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSets {
+func flattenDashboardWidgetXyChartDataSetsSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSets {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSets{}
@@ -9725,7 +9725,7 @@ func flattenDashboardWidgetXyChartDataSetsSlice(c *Client, i interface{}) []Dash
 
 	items := make([]DashboardWidgetXyChartDataSets, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSets(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSets(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9759,7 +9759,7 @@ func expandDashboardWidgetXyChartDataSets(c *Client, f *DashboardWidgetXyChartDa
 
 // flattenDashboardWidgetXyChartDataSets flattens an instance of DashboardWidgetXyChartDataSets from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSets(c *Client, i interface{}) *DashboardWidgetXyChartDataSets {
+func flattenDashboardWidgetXyChartDataSets(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSets {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9770,7 +9770,7 @@ func flattenDashboardWidgetXyChartDataSets(c *Client, i interface{}) *DashboardW
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardWidgetXyChartDataSets
 	}
-	r.TimeSeriesQuery = flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, m["timeSeriesQuery"])
+	r.TimeSeriesQuery = flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, m["timeSeriesQuery"], res)
 	r.PlotType = flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(m["plotType"])
 	r.LegendTemplate = dcl.FlattenString(m["legendTemplate"])
 	r.MinAlignmentPeriod = dcl.FlattenString(m["minAlignmentPeriod"])
@@ -9821,7 +9821,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, f []Das
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQuery from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQuery {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQuery {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQuery{}
@@ -9833,7 +9833,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, i interf
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQuery)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9841,7 +9841,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, i interf
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQuery from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQuery {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQuery {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQuery{}
@@ -9853,7 +9853,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, i inte
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQuery, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9889,7 +9889,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, f *Dashboard
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQuery from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQuery {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQuery {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9900,8 +9900,8 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, i interface
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQuery
 	}
-	r.TimeSeriesFilter = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, m["timeSeriesFilter"])
-	r.TimeSeriesFilterRatio = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, m["timeSeriesFilterRatio"])
+	r.TimeSeriesFilter = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, m["timeSeriesFilter"], res)
+	r.TimeSeriesFilterRatio = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, m["timeSeriesFilterRatio"], res)
 	r.TimeSeriesQueryLanguage = dcl.FlattenString(m["timeSeriesQueryLanguage"])
 	r.UnitOverride = dcl.FlattenString(m["unitOverride"])
 
@@ -9951,7 +9951,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c 
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
@@ -9963,7 +9963,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9971,7 +9971,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
@@ -9983,7 +9983,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10021,7 +10021,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Clie
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10033,9 +10033,9 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Cli
 		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
 	}
 	r.Filter = dcl.FlattenString(m["filter"])
-	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, m["aggregation"])
-	r.SecondaryAggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, m["secondaryAggregation"])
-	r.PickTimeSeriesFilter = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"])
+	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, m["aggregation"], res)
+	r.SecondaryAggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, m["secondaryAggregation"], res)
+	r.PickTimeSeriesFilter = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"], res)
 
 	return r
 }
@@ -10083,7 +10083,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregat
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
@@ -10095,7 +10095,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10103,7 +10103,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
@@ -10115,7 +10115,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10147,7 +10147,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregat
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10209,7 +10209,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondar
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
@@ -10221,7 +10221,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10229,7 +10229,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
@@ -10241,7 +10241,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10273,7 +10273,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondar
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10335,7 +10335,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTime
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
@@ -10347,7 +10347,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10355,7 +10355,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
@@ -10367,7 +10367,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10396,7 +10396,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTime
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10457,7 +10457,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSli
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{}
@@ -10469,7 +10469,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMa
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10477,7 +10477,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMa
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{}
@@ -10489,7 +10489,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSl
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10529,7 +10529,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c 
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10540,10 +10540,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
 	}
-	r.Numerator = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, m["numerator"])
-	r.Denominator = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, m["denominator"])
-	r.SecondaryAggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, m["secondaryAggregation"])
-	r.PickTimeSeriesFilter = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"])
+	r.Numerator = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, m["numerator"], res)
+	r.Denominator = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, m["denominator"], res)
+	r.SecondaryAggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, m["secondaryAggregation"], res)
+	r.PickTimeSeriesFilter = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"], res)
 
 	return r
 }
@@ -10591,7 +10591,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
@@ -10603,7 +10603,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10611,7 +10611,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
@@ -10623,7 +10623,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10651,7 +10651,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10663,7 +10663,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	}
 	r.Filter = dcl.FlattenString(m["filter"])
-	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, m["aggregation"])
+	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, m["aggregation"], res)
 
 	return r
 }
@@ -10711,7 +10711,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
@@ -10723,7 +10723,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10731,7 +10731,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
@@ -10743,7 +10743,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10775,7 +10775,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10837,7 +10837,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
@@ -10849,7 +10849,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10857,7 +10857,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
@@ -10869,7 +10869,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10897,7 +10897,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10909,7 +10909,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	}
 	r.Filter = dcl.FlattenString(m["filter"])
-	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, m["aggregation"])
+	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, m["aggregation"], res)
 
 	return r
 }
@@ -10957,7 +10957,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
@@ -10969,7 +10969,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10977,7 +10977,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
@@ -10989,7 +10989,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11021,7 +11021,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11083,7 +11083,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSec
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
@@ -11095,7 +11095,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11103,7 +11103,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
@@ -11115,7 +11115,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11147,7 +11147,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSec
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11209,7 +11209,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPic
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
@@ -11221,7 +11221,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11229,7 +11229,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
@@ -11241,7 +11241,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11270,7 +11270,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPic
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11331,7 +11331,7 @@ func expandDashboardWidgetXyChartThresholdsSlice(c *Client, f []DashboardWidgetX
 
 // flattenDashboardWidgetXyChartThresholdsMap flattens the contents of DashboardWidgetXyChartThresholds from a JSON
 // response object.
-func flattenDashboardWidgetXyChartThresholdsMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartThresholds {
+func flattenDashboardWidgetXyChartThresholdsMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartThresholds {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartThresholds{}
@@ -11343,7 +11343,7 @@ func flattenDashboardWidgetXyChartThresholdsMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]DashboardWidgetXyChartThresholds)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartThresholds(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartThresholds(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11351,7 +11351,7 @@ func flattenDashboardWidgetXyChartThresholdsMap(c *Client, i interface{}) map[st
 
 // flattenDashboardWidgetXyChartThresholdsSlice flattens the contents of DashboardWidgetXyChartThresholds from a JSON
 // response object.
-func flattenDashboardWidgetXyChartThresholdsSlice(c *Client, i interface{}) []DashboardWidgetXyChartThresholds {
+func flattenDashboardWidgetXyChartThresholdsSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartThresholds {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartThresholds{}
@@ -11363,7 +11363,7 @@ func flattenDashboardWidgetXyChartThresholdsSlice(c *Client, i interface{}) []Da
 
 	items := make([]DashboardWidgetXyChartThresholds, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartThresholds(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartThresholds(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11395,7 +11395,7 @@ func expandDashboardWidgetXyChartThresholds(c *Client, f *DashboardWidgetXyChart
 
 // flattenDashboardWidgetXyChartThresholds flattens an instance of DashboardWidgetXyChartThresholds from a JSON
 // response object.
-func flattenDashboardWidgetXyChartThresholds(c *Client, i interface{}) *DashboardWidgetXyChartThresholds {
+func flattenDashboardWidgetXyChartThresholds(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartThresholds {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11457,7 +11457,7 @@ func expandDashboardWidgetXyChartXAxisSlice(c *Client, f []DashboardWidgetXyChar
 
 // flattenDashboardWidgetXyChartXAxisMap flattens the contents of DashboardWidgetXyChartXAxis from a JSON
 // response object.
-func flattenDashboardWidgetXyChartXAxisMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartXAxis {
+func flattenDashboardWidgetXyChartXAxisMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartXAxis {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartXAxis{}
@@ -11469,7 +11469,7 @@ func flattenDashboardWidgetXyChartXAxisMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]DashboardWidgetXyChartXAxis)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartXAxis(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartXAxis(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11477,7 +11477,7 @@ func flattenDashboardWidgetXyChartXAxisMap(c *Client, i interface{}) map[string]
 
 // flattenDashboardWidgetXyChartXAxisSlice flattens the contents of DashboardWidgetXyChartXAxis from a JSON
 // response object.
-func flattenDashboardWidgetXyChartXAxisSlice(c *Client, i interface{}) []DashboardWidgetXyChartXAxis {
+func flattenDashboardWidgetXyChartXAxisSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartXAxis {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartXAxis{}
@@ -11489,7 +11489,7 @@ func flattenDashboardWidgetXyChartXAxisSlice(c *Client, i interface{}) []Dashboa
 
 	items := make([]DashboardWidgetXyChartXAxis, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartXAxis(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartXAxis(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11515,7 +11515,7 @@ func expandDashboardWidgetXyChartXAxis(c *Client, f *DashboardWidgetXyChartXAxis
 
 // flattenDashboardWidgetXyChartXAxis flattens an instance of DashboardWidgetXyChartXAxis from a JSON
 // response object.
-func flattenDashboardWidgetXyChartXAxis(c *Client, i interface{}) *DashboardWidgetXyChartXAxis {
+func flattenDashboardWidgetXyChartXAxis(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartXAxis {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11575,7 +11575,7 @@ func expandDashboardWidgetXyChartYAxisSlice(c *Client, f []DashboardWidgetXyChar
 
 // flattenDashboardWidgetXyChartYAxisMap flattens the contents of DashboardWidgetXyChartYAxis from a JSON
 // response object.
-func flattenDashboardWidgetXyChartYAxisMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartYAxis {
+func flattenDashboardWidgetXyChartYAxisMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartYAxis {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartYAxis{}
@@ -11587,7 +11587,7 @@ func flattenDashboardWidgetXyChartYAxisMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]DashboardWidgetXyChartYAxis)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartYAxis(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartYAxis(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11595,7 +11595,7 @@ func flattenDashboardWidgetXyChartYAxisMap(c *Client, i interface{}) map[string]
 
 // flattenDashboardWidgetXyChartYAxisSlice flattens the contents of DashboardWidgetXyChartYAxis from a JSON
 // response object.
-func flattenDashboardWidgetXyChartYAxisSlice(c *Client, i interface{}) []DashboardWidgetXyChartYAxis {
+func flattenDashboardWidgetXyChartYAxisSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartYAxis {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartYAxis{}
@@ -11607,7 +11607,7 @@ func flattenDashboardWidgetXyChartYAxisSlice(c *Client, i interface{}) []Dashboa
 
 	items := make([]DashboardWidgetXyChartYAxis, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartYAxis(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartYAxis(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11633,7 +11633,7 @@ func expandDashboardWidgetXyChartYAxis(c *Client, f *DashboardWidgetXyChartYAxis
 
 // flattenDashboardWidgetXyChartYAxis flattens an instance of DashboardWidgetXyChartYAxis from a JSON
 // response object.
-func flattenDashboardWidgetXyChartYAxis(c *Client, i interface{}) *DashboardWidgetXyChartYAxis {
+func flattenDashboardWidgetXyChartYAxis(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartYAxis {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11693,7 +11693,7 @@ func expandDashboardWidgetXyChartChartOptionsSlice(c *Client, f []DashboardWidge
 
 // flattenDashboardWidgetXyChartChartOptionsMap flattens the contents of DashboardWidgetXyChartChartOptions from a JSON
 // response object.
-func flattenDashboardWidgetXyChartChartOptionsMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartChartOptions {
+func flattenDashboardWidgetXyChartChartOptionsMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartChartOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartChartOptions{}
@@ -11705,7 +11705,7 @@ func flattenDashboardWidgetXyChartChartOptionsMap(c *Client, i interface{}) map[
 
 	items := make(map[string]DashboardWidgetXyChartChartOptions)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartChartOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetXyChartChartOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11713,7 +11713,7 @@ func flattenDashboardWidgetXyChartChartOptionsMap(c *Client, i interface{}) map[
 
 // flattenDashboardWidgetXyChartChartOptionsSlice flattens the contents of DashboardWidgetXyChartChartOptions from a JSON
 // response object.
-func flattenDashboardWidgetXyChartChartOptionsSlice(c *Client, i interface{}) []DashboardWidgetXyChartChartOptions {
+func flattenDashboardWidgetXyChartChartOptionsSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartChartOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartChartOptions{}
@@ -11725,7 +11725,7 @@ func flattenDashboardWidgetXyChartChartOptionsSlice(c *Client, i interface{}) []
 
 	items := make([]DashboardWidgetXyChartChartOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartChartOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartChartOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11748,7 +11748,7 @@ func expandDashboardWidgetXyChartChartOptions(c *Client, f *DashboardWidgetXyCha
 
 // flattenDashboardWidgetXyChartChartOptions flattens an instance of DashboardWidgetXyChartChartOptions from a JSON
 // response object.
-func flattenDashboardWidgetXyChartChartOptions(c *Client, i interface{}) *DashboardWidgetXyChartChartOptions {
+func flattenDashboardWidgetXyChartChartOptions(c *Client, i interface{}, res *Dashboard) *DashboardWidgetXyChartChartOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11807,7 +11807,7 @@ func expandDashboardWidgetScorecardSlice(c *Client, f []DashboardWidgetScorecard
 
 // flattenDashboardWidgetScorecardMap flattens the contents of DashboardWidgetScorecard from a JSON
 // response object.
-func flattenDashboardWidgetScorecardMap(c *Client, i interface{}) map[string]DashboardWidgetScorecard {
+func flattenDashboardWidgetScorecardMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecard {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecard{}
@@ -11819,7 +11819,7 @@ func flattenDashboardWidgetScorecardMap(c *Client, i interface{}) map[string]Das
 
 	items := make(map[string]DashboardWidgetScorecard)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecard(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecard(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11827,7 +11827,7 @@ func flattenDashboardWidgetScorecardMap(c *Client, i interface{}) map[string]Das
 
 // flattenDashboardWidgetScorecardSlice flattens the contents of DashboardWidgetScorecard from a JSON
 // response object.
-func flattenDashboardWidgetScorecardSlice(c *Client, i interface{}) []DashboardWidgetScorecard {
+func flattenDashboardWidgetScorecardSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecard {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecard{}
@@ -11839,7 +11839,7 @@ func flattenDashboardWidgetScorecardSlice(c *Client, i interface{}) []DashboardW
 
 	items := make([]DashboardWidgetScorecard, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecard(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecard(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11879,7 +11879,7 @@ func expandDashboardWidgetScorecard(c *Client, f *DashboardWidgetScorecard, res 
 
 // flattenDashboardWidgetScorecard flattens an instance of DashboardWidgetScorecard from a JSON
 // response object.
-func flattenDashboardWidgetScorecard(c *Client, i interface{}) *DashboardWidgetScorecard {
+func flattenDashboardWidgetScorecard(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecard {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11890,10 +11890,10 @@ func flattenDashboardWidgetScorecard(c *Client, i interface{}) *DashboardWidgetS
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardWidgetScorecard
 	}
-	r.TimeSeriesQuery = flattenDashboardWidgetScorecardTimeSeriesQuery(c, m["timeSeriesQuery"])
-	r.GaugeView = flattenDashboardWidgetScorecardGaugeView(c, m["gaugeView"])
-	r.SparkChartView = flattenDashboardWidgetScorecardSparkChartView(c, m["sparkChartView"])
-	r.Thresholds = flattenDashboardWidgetScorecardThresholdsSlice(c, m["thresholds"])
+	r.TimeSeriesQuery = flattenDashboardWidgetScorecardTimeSeriesQuery(c, m["timeSeriesQuery"], res)
+	r.GaugeView = flattenDashboardWidgetScorecardGaugeView(c, m["gaugeView"], res)
+	r.SparkChartView = flattenDashboardWidgetScorecardSparkChartView(c, m["sparkChartView"], res)
+	r.Thresholds = flattenDashboardWidgetScorecardThresholdsSlice(c, m["thresholds"], res)
 
 	return r
 }
@@ -11941,7 +11941,7 @@ func expandDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, f []Dashboard
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryMap flattens the contents of DashboardWidgetScorecardTimeSeriesQuery from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQuery {
+func flattenDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQuery {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQuery{}
@@ -11953,7 +11953,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, i interface{})
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQuery)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQuery(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQuery(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11961,7 +11961,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, i interface{})
 
 // flattenDashboardWidgetScorecardTimeSeriesQuerySlice flattens the contents of DashboardWidgetScorecardTimeSeriesQuery from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQuery {
+func flattenDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQuery {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQuery{}
@@ -11973,7 +11973,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, i interface{
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQuery, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQuery(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQuery(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12009,7 +12009,7 @@ func expandDashboardWidgetScorecardTimeSeriesQuery(c *Client, f *DashboardWidget
 
 // flattenDashboardWidgetScorecardTimeSeriesQuery flattens an instance of DashboardWidgetScorecardTimeSeriesQuery from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQuery(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQuery {
+func flattenDashboardWidgetScorecardTimeSeriesQuery(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQuery {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12020,8 +12020,8 @@ func flattenDashboardWidgetScorecardTimeSeriesQuery(c *Client, i interface{}) *D
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardWidgetScorecardTimeSeriesQuery
 	}
-	r.TimeSeriesFilter = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, m["timeSeriesFilter"])
-	r.TimeSeriesFilterRatio = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, m["timeSeriesFilterRatio"])
+	r.TimeSeriesFilter = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, m["timeSeriesFilter"], res)
+	r.TimeSeriesFilterRatio = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, m["timeSeriesFilterRatio"], res)
 	r.TimeSeriesQueryLanguage = dcl.FlattenString(m["timeSeriesQueryLanguage"])
 	r.UnitOverride = dcl.FlattenString(m["unitOverride"])
 
@@ -12071,7 +12071,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Clien
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
@@ -12083,7 +12083,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12091,7 +12091,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
@@ -12103,7 +12103,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Clie
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12141,7 +12141,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, f 
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12153,9 +12153,9 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, i
 		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
 	}
 	r.Filter = dcl.FlattenString(m["filter"])
-	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, m["aggregation"])
-	r.SecondaryAggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, m["secondaryAggregation"])
-	r.PickTimeSeriesFilter = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"])
+	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, m["aggregation"], res)
+	r.SecondaryAggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, m["secondaryAggregation"], res)
+	r.PickTimeSeriesFilter = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"], res)
 
 	return r
 }
@@ -12203,7 +12203,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSli
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
@@ -12215,7 +12215,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMa
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12223,7 +12223,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMa
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
@@ -12235,7 +12235,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSl
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12267,7 +12267,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c 
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12329,7 +12329,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
@@ -12341,7 +12341,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12349,7 +12349,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
@@ -12361,7 +12361,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12393,7 +12393,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12455,7 +12455,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeries
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
@@ -12467,7 +12467,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12475,7 +12475,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
@@ -12487,7 +12487,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12516,7 +12516,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeries
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12577,7 +12577,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{}
@@ -12589,7 +12589,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *C
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12597,7 +12597,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *C
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{}
@@ -12609,7 +12609,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c 
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12649,7 +12649,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Clien
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12660,10 +12660,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Clie
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	}
-	r.Numerator = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, m["numerator"])
-	r.Denominator = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, m["denominator"])
-	r.SecondaryAggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, m["secondaryAggregation"])
-	r.PickTimeSeriesFilter = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"])
+	r.Numerator = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, m["numerator"], res)
+	r.Denominator = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, m["denominator"], res)
+	r.SecondaryAggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, m["secondaryAggregation"], res)
+	r.PickTimeSeriesFilter = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, m["pickTimeSeriesFilter"], res)
 
 	return r
 }
@@ -12711,7 +12711,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
@@ -12723,7 +12723,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12731,7 +12731,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
@@ -12743,7 +12743,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12771,7 +12771,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12783,7 +12783,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	}
 	r.Filter = dcl.FlattenString(m["filter"])
-	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, m["aggregation"])
+	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, m["aggregation"], res)
 
 	return r
 }
@@ -12831,7 +12831,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
@@ -12843,7 +12843,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12851,7 +12851,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
@@ -12863,7 +12863,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12895,7 +12895,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12957,7 +12957,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
@@ -12969,7 +12969,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12977,7 +12977,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
@@ -12989,7 +12989,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13017,7 +13017,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13029,7 +13029,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	}
 	r.Filter = dcl.FlattenString(m["filter"])
-	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, m["aggregation"])
+	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, m["aggregation"], res)
 
 	return r
 }
@@ -13077,7 +13077,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
@@ -13089,7 +13089,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13097,7 +13097,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
@@ -13109,7 +13109,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13141,7 +13141,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13203,7 +13203,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondary
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
@@ -13215,7 +13215,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13223,7 +13223,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
@@ -13235,7 +13235,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13267,7 +13267,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondary
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13329,7 +13329,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeS
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
@@ -13341,7 +13341,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13349,7 +13349,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
@@ -13361,7 +13361,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13390,7 +13390,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeS
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13451,7 +13451,7 @@ func expandDashboardWidgetScorecardGaugeViewSlice(c *Client, f []DashboardWidget
 
 // flattenDashboardWidgetScorecardGaugeViewMap flattens the contents of DashboardWidgetScorecardGaugeView from a JSON
 // response object.
-func flattenDashboardWidgetScorecardGaugeViewMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardGaugeView {
+func flattenDashboardWidgetScorecardGaugeViewMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardGaugeView {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardGaugeView{}
@@ -13463,7 +13463,7 @@ func flattenDashboardWidgetScorecardGaugeViewMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]DashboardWidgetScorecardGaugeView)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardGaugeView(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardGaugeView(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13471,7 +13471,7 @@ func flattenDashboardWidgetScorecardGaugeViewMap(c *Client, i interface{}) map[s
 
 // flattenDashboardWidgetScorecardGaugeViewSlice flattens the contents of DashboardWidgetScorecardGaugeView from a JSON
 // response object.
-func flattenDashboardWidgetScorecardGaugeViewSlice(c *Client, i interface{}) []DashboardWidgetScorecardGaugeView {
+func flattenDashboardWidgetScorecardGaugeViewSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardGaugeView {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardGaugeView{}
@@ -13483,7 +13483,7 @@ func flattenDashboardWidgetScorecardGaugeViewSlice(c *Client, i interface{}) []D
 
 	items := make([]DashboardWidgetScorecardGaugeView, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardGaugeView(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardGaugeView(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13509,7 +13509,7 @@ func expandDashboardWidgetScorecardGaugeView(c *Client, f *DashboardWidgetScorec
 
 // flattenDashboardWidgetScorecardGaugeView flattens an instance of DashboardWidgetScorecardGaugeView from a JSON
 // response object.
-func flattenDashboardWidgetScorecardGaugeView(c *Client, i interface{}) *DashboardWidgetScorecardGaugeView {
+func flattenDashboardWidgetScorecardGaugeView(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardGaugeView {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13569,7 +13569,7 @@ func expandDashboardWidgetScorecardSparkChartViewSlice(c *Client, f []DashboardW
 
 // flattenDashboardWidgetScorecardSparkChartViewMap flattens the contents of DashboardWidgetScorecardSparkChartView from a JSON
 // response object.
-func flattenDashboardWidgetScorecardSparkChartViewMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardSparkChartView {
+func flattenDashboardWidgetScorecardSparkChartViewMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardSparkChartView {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardSparkChartView{}
@@ -13581,7 +13581,7 @@ func flattenDashboardWidgetScorecardSparkChartViewMap(c *Client, i interface{}) 
 
 	items := make(map[string]DashboardWidgetScorecardSparkChartView)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardSparkChartView(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardSparkChartView(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13589,7 +13589,7 @@ func flattenDashboardWidgetScorecardSparkChartViewMap(c *Client, i interface{}) 
 
 // flattenDashboardWidgetScorecardSparkChartViewSlice flattens the contents of DashboardWidgetScorecardSparkChartView from a JSON
 // response object.
-func flattenDashboardWidgetScorecardSparkChartViewSlice(c *Client, i interface{}) []DashboardWidgetScorecardSparkChartView {
+func flattenDashboardWidgetScorecardSparkChartViewSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardSparkChartView {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardSparkChartView{}
@@ -13601,7 +13601,7 @@ func flattenDashboardWidgetScorecardSparkChartViewSlice(c *Client, i interface{}
 
 	items := make([]DashboardWidgetScorecardSparkChartView, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSparkChartView(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSparkChartView(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13627,7 +13627,7 @@ func expandDashboardWidgetScorecardSparkChartView(c *Client, f *DashboardWidgetS
 
 // flattenDashboardWidgetScorecardSparkChartView flattens an instance of DashboardWidgetScorecardSparkChartView from a JSON
 // response object.
-func flattenDashboardWidgetScorecardSparkChartView(c *Client, i interface{}) *DashboardWidgetScorecardSparkChartView {
+func flattenDashboardWidgetScorecardSparkChartView(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardSparkChartView {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13687,7 +13687,7 @@ func expandDashboardWidgetScorecardThresholdsSlice(c *Client, f []DashboardWidge
 
 // flattenDashboardWidgetScorecardThresholdsMap flattens the contents of DashboardWidgetScorecardThresholds from a JSON
 // response object.
-func flattenDashboardWidgetScorecardThresholdsMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardThresholds {
+func flattenDashboardWidgetScorecardThresholdsMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardThresholds {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardThresholds{}
@@ -13699,7 +13699,7 @@ func flattenDashboardWidgetScorecardThresholdsMap(c *Client, i interface{}) map[
 
 	items := make(map[string]DashboardWidgetScorecardThresholds)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardThresholds(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetScorecardThresholds(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13707,7 +13707,7 @@ func flattenDashboardWidgetScorecardThresholdsMap(c *Client, i interface{}) map[
 
 // flattenDashboardWidgetScorecardThresholdsSlice flattens the contents of DashboardWidgetScorecardThresholds from a JSON
 // response object.
-func flattenDashboardWidgetScorecardThresholdsSlice(c *Client, i interface{}) []DashboardWidgetScorecardThresholds {
+func flattenDashboardWidgetScorecardThresholdsSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardThresholds {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardThresholds{}
@@ -13719,7 +13719,7 @@ func flattenDashboardWidgetScorecardThresholdsSlice(c *Client, i interface{}) []
 
 	items := make([]DashboardWidgetScorecardThresholds, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardThresholds(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardThresholds(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13751,7 +13751,7 @@ func expandDashboardWidgetScorecardThresholds(c *Client, f *DashboardWidgetScore
 
 // flattenDashboardWidgetScorecardThresholds flattens an instance of DashboardWidgetScorecardThresholds from a JSON
 // response object.
-func flattenDashboardWidgetScorecardThresholds(c *Client, i interface{}) *DashboardWidgetScorecardThresholds {
+func flattenDashboardWidgetScorecardThresholds(c *Client, i interface{}, res *Dashboard) *DashboardWidgetScorecardThresholds {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13813,7 +13813,7 @@ func expandDashboardWidgetTextSlice(c *Client, f []DashboardWidgetText, res *Das
 
 // flattenDashboardWidgetTextMap flattens the contents of DashboardWidgetText from a JSON
 // response object.
-func flattenDashboardWidgetTextMap(c *Client, i interface{}) map[string]DashboardWidgetText {
+func flattenDashboardWidgetTextMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetText {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetText{}
@@ -13825,7 +13825,7 @@ func flattenDashboardWidgetTextMap(c *Client, i interface{}) map[string]Dashboar
 
 	items := make(map[string]DashboardWidgetText)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetText(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetText(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13833,7 +13833,7 @@ func flattenDashboardWidgetTextMap(c *Client, i interface{}) map[string]Dashboar
 
 // flattenDashboardWidgetTextSlice flattens the contents of DashboardWidgetText from a JSON
 // response object.
-func flattenDashboardWidgetTextSlice(c *Client, i interface{}) []DashboardWidgetText {
+func flattenDashboardWidgetTextSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetText {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetText{}
@@ -13845,7 +13845,7 @@ func flattenDashboardWidgetTextSlice(c *Client, i interface{}) []DashboardWidget
 
 	items := make([]DashboardWidgetText, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetText(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetText(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13871,7 +13871,7 @@ func expandDashboardWidgetText(c *Client, f *DashboardWidgetText, res *Dashboard
 
 // flattenDashboardWidgetText flattens an instance of DashboardWidgetText from a JSON
 // response object.
-func flattenDashboardWidgetText(c *Client, i interface{}) *DashboardWidgetText {
+func flattenDashboardWidgetText(c *Client, i interface{}, res *Dashboard) *DashboardWidgetText {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13931,7 +13931,7 @@ func expandDashboardWidgetBlankSlice(c *Client, f []DashboardWidgetBlank, res *D
 
 // flattenDashboardWidgetBlankMap flattens the contents of DashboardWidgetBlank from a JSON
 // response object.
-func flattenDashboardWidgetBlankMap(c *Client, i interface{}) map[string]DashboardWidgetBlank {
+func flattenDashboardWidgetBlankMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetBlank {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetBlank{}
@@ -13943,7 +13943,7 @@ func flattenDashboardWidgetBlankMap(c *Client, i interface{}) map[string]Dashboa
 
 	items := make(map[string]DashboardWidgetBlank)
 	for k, item := range a {
-		items[k] = *flattenDashboardWidgetBlank(c, item.(map[string]interface{}))
+		items[k] = *flattenDashboardWidgetBlank(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13951,7 +13951,7 @@ func flattenDashboardWidgetBlankMap(c *Client, i interface{}) map[string]Dashboa
 
 // flattenDashboardWidgetBlankSlice flattens the contents of DashboardWidgetBlank from a JSON
 // response object.
-func flattenDashboardWidgetBlankSlice(c *Client, i interface{}) []DashboardWidgetBlank {
+func flattenDashboardWidgetBlankSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetBlank {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetBlank{}
@@ -13963,7 +13963,7 @@ func flattenDashboardWidgetBlankSlice(c *Client, i interface{}) []DashboardWidge
 
 	items := make([]DashboardWidgetBlank, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetBlank(c, item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetBlank(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13983,7 +13983,7 @@ func expandDashboardWidgetBlank(c *Client, f *DashboardWidgetBlank, res *Dashboa
 
 // flattenDashboardWidgetBlank flattens an instance of DashboardWidgetBlank from a JSON
 // response object.
-func flattenDashboardWidgetBlank(c *Client, i interface{}) *DashboardWidgetBlank {
+func flattenDashboardWidgetBlank(c *Client, i interface{}, res *Dashboard) *DashboardWidgetBlank {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14000,7 +14000,7 @@ func flattenDashboardWidgetBlank(c *Client, i interface{}) *DashboardWidgetBlank
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
@@ -14020,7 +14020,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
@@ -14051,7 +14051,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
@@ -14071,7 +14071,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
@@ -14102,7 +14102,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
@@ -14122,7 +14122,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
@@ -14153,7 +14153,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
@@ -14173,7 +14173,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
@@ -14204,7 +14204,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
@@ -14224,7 +14224,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
@@ -14255,7 +14255,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
@@ -14275,7 +14275,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
@@ -14306,7 +14306,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
@@ -14326,7 +14326,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
@@ -14357,7 +14357,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
@@ -14377,7 +14377,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
@@ -14408,7 +14408,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
@@ -14428,7 +14428,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
@@ -14459,7 +14459,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
@@ -14479,7 +14479,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
@@ -14510,7 +14510,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
@@ -14530,7 +14530,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
@@ -14561,7 +14561,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
@@ -14581,7 +14581,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
@@ -14612,7 +14612,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
@@ -14632,7 +14632,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
@@ -14663,7 +14663,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
@@ -14683,7 +14683,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
@@ -14714,7 +14714,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 // flattenDashboardWidgetXyChartDataSetsPlotTypeEnumMap flattens the contents of DashboardWidgetXyChartDataSetsPlotTypeEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsPlotTypeEnum {
+func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartDataSetsPlotTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartDataSetsPlotTypeEnum{}
@@ -14734,7 +14734,7 @@ func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumMap(c *Client, i interface
 
 // flattenDashboardWidgetXyChartDataSetsPlotTypeEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsPlotTypeEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsPlotTypeEnum {
+func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartDataSetsPlotTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartDataSetsPlotTypeEnum{}
@@ -14765,7 +14765,7 @@ func flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(i interface{}) *Dashboard
 
 // flattenDashboardWidgetXyChartThresholdsColorEnumMap flattens the contents of DashboardWidgetXyChartThresholdsColorEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartThresholdsColorEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartThresholdsColorEnum {
+func flattenDashboardWidgetXyChartThresholdsColorEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartThresholdsColorEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartThresholdsColorEnum{}
@@ -14785,7 +14785,7 @@ func flattenDashboardWidgetXyChartThresholdsColorEnumMap(c *Client, i interface{
 
 // flattenDashboardWidgetXyChartThresholdsColorEnumSlice flattens the contents of DashboardWidgetXyChartThresholdsColorEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartThresholdsColorEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartThresholdsColorEnum {
+func flattenDashboardWidgetXyChartThresholdsColorEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartThresholdsColorEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartThresholdsColorEnum{}
@@ -14816,7 +14816,7 @@ func flattenDashboardWidgetXyChartThresholdsColorEnum(i interface{}) *DashboardW
 
 // flattenDashboardWidgetXyChartThresholdsDirectionEnumMap flattens the contents of DashboardWidgetXyChartThresholdsDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartThresholdsDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartThresholdsDirectionEnum {
+func flattenDashboardWidgetXyChartThresholdsDirectionEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartThresholdsDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartThresholdsDirectionEnum{}
@@ -14836,7 +14836,7 @@ func flattenDashboardWidgetXyChartThresholdsDirectionEnumMap(c *Client, i interf
 
 // flattenDashboardWidgetXyChartThresholdsDirectionEnumSlice flattens the contents of DashboardWidgetXyChartThresholdsDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartThresholdsDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartThresholdsDirectionEnum {
+func flattenDashboardWidgetXyChartThresholdsDirectionEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartThresholdsDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartThresholdsDirectionEnum{}
@@ -14867,7 +14867,7 @@ func flattenDashboardWidgetXyChartThresholdsDirectionEnum(i interface{}) *Dashbo
 
 // flattenDashboardWidgetXyChartXAxisScaleEnumMap flattens the contents of DashboardWidgetXyChartXAxisScaleEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartXAxisScaleEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartXAxisScaleEnum {
+func flattenDashboardWidgetXyChartXAxisScaleEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartXAxisScaleEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartXAxisScaleEnum{}
@@ -14887,7 +14887,7 @@ func flattenDashboardWidgetXyChartXAxisScaleEnumMap(c *Client, i interface{}) ma
 
 // flattenDashboardWidgetXyChartXAxisScaleEnumSlice flattens the contents of DashboardWidgetXyChartXAxisScaleEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartXAxisScaleEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartXAxisScaleEnum {
+func flattenDashboardWidgetXyChartXAxisScaleEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartXAxisScaleEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartXAxisScaleEnum{}
@@ -14918,7 +14918,7 @@ func flattenDashboardWidgetXyChartXAxisScaleEnum(i interface{}) *DashboardWidget
 
 // flattenDashboardWidgetXyChartYAxisScaleEnumMap flattens the contents of DashboardWidgetXyChartYAxisScaleEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartYAxisScaleEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartYAxisScaleEnum {
+func flattenDashboardWidgetXyChartYAxisScaleEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartYAxisScaleEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartYAxisScaleEnum{}
@@ -14938,7 +14938,7 @@ func flattenDashboardWidgetXyChartYAxisScaleEnumMap(c *Client, i interface{}) ma
 
 // flattenDashboardWidgetXyChartYAxisScaleEnumSlice flattens the contents of DashboardWidgetXyChartYAxisScaleEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartYAxisScaleEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartYAxisScaleEnum {
+func flattenDashboardWidgetXyChartYAxisScaleEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartYAxisScaleEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartYAxisScaleEnum{}
@@ -14969,7 +14969,7 @@ func flattenDashboardWidgetXyChartYAxisScaleEnum(i interface{}) *DashboardWidget
 
 // flattenDashboardWidgetXyChartChartOptionsModeEnumMap flattens the contents of DashboardWidgetXyChartChartOptionsModeEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartChartOptionsModeEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartChartOptionsModeEnum {
+func flattenDashboardWidgetXyChartChartOptionsModeEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetXyChartChartOptionsModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetXyChartChartOptionsModeEnum{}
@@ -14989,7 +14989,7 @@ func flattenDashboardWidgetXyChartChartOptionsModeEnumMap(c *Client, i interface
 
 // flattenDashboardWidgetXyChartChartOptionsModeEnumSlice flattens the contents of DashboardWidgetXyChartChartOptionsModeEnum from a JSON
 // response object.
-func flattenDashboardWidgetXyChartChartOptionsModeEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartChartOptionsModeEnum {
+func flattenDashboardWidgetXyChartChartOptionsModeEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetXyChartChartOptionsModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetXyChartChartOptionsModeEnum{}
@@ -15020,7 +15020,7 @@ func flattenDashboardWidgetXyChartChartOptionsModeEnum(i interface{}) *Dashboard
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
@@ -15040,7 +15040,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPe
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
@@ -15071,7 +15071,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPe
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
@@ -15091,7 +15091,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCr
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
@@ -15122,7 +15122,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCr
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
@@ -15142,7 +15142,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
@@ -15173,7 +15173,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
@@ -15193,7 +15193,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
@@ -15224,7 +15224,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
@@ -15244,7 +15244,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
@@ -15275,7 +15275,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
@@ -15295,7 +15295,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
@@ -15326,7 +15326,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
@@ -15346,7 +15346,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
@@ -15377,7 +15377,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
@@ -15397,7 +15397,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
@@ -15428,7 +15428,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
@@ -15448,7 +15448,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
@@ -15479,7 +15479,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
@@ -15499,7 +15499,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
@@ -15530,7 +15530,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
@@ -15550,7 +15550,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
@@ -15581,7 +15581,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
@@ -15601,7 +15601,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
@@ -15632,7 +15632,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
@@ -15652,7 +15652,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
@@ -15683,7 +15683,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
@@ -15703,7 +15703,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
@@ -15734,7 +15734,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 // flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumMap flattens the contents of DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
+func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum{}
@@ -15754,7 +15754,7 @@ func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumMap(c *Clien
 
 // flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice flattens the contents of DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
+func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum{}
@@ -15785,7 +15785,7 @@ func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(i interface
 
 // flattenDashboardWidgetScorecardThresholdsColorEnumMap flattens the contents of DashboardWidgetScorecardThresholdsColorEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardThresholdsColorEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardThresholdsColorEnum {
+func flattenDashboardWidgetScorecardThresholdsColorEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardThresholdsColorEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardThresholdsColorEnum{}
@@ -15805,7 +15805,7 @@ func flattenDashboardWidgetScorecardThresholdsColorEnumMap(c *Client, i interfac
 
 // flattenDashboardWidgetScorecardThresholdsColorEnumSlice flattens the contents of DashboardWidgetScorecardThresholdsColorEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardThresholdsColorEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardThresholdsColorEnum {
+func flattenDashboardWidgetScorecardThresholdsColorEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardThresholdsColorEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardThresholdsColorEnum{}
@@ -15836,7 +15836,7 @@ func flattenDashboardWidgetScorecardThresholdsColorEnum(i interface{}) *Dashboar
 
 // flattenDashboardWidgetScorecardThresholdsDirectionEnumMap flattens the contents of DashboardWidgetScorecardThresholdsDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardThresholdsDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardThresholdsDirectionEnum {
+func flattenDashboardWidgetScorecardThresholdsDirectionEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetScorecardThresholdsDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetScorecardThresholdsDirectionEnum{}
@@ -15856,7 +15856,7 @@ func flattenDashboardWidgetScorecardThresholdsDirectionEnumMap(c *Client, i inte
 
 // flattenDashboardWidgetScorecardThresholdsDirectionEnumSlice flattens the contents of DashboardWidgetScorecardThresholdsDirectionEnum from a JSON
 // response object.
-func flattenDashboardWidgetScorecardThresholdsDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardThresholdsDirectionEnum {
+func flattenDashboardWidgetScorecardThresholdsDirectionEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetScorecardThresholdsDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetScorecardThresholdsDirectionEnum{}
@@ -15887,7 +15887,7 @@ func flattenDashboardWidgetScorecardThresholdsDirectionEnum(i interface{}) *Dash
 
 // flattenDashboardWidgetTextFormatEnumMap flattens the contents of DashboardWidgetTextFormatEnum from a JSON
 // response object.
-func flattenDashboardWidgetTextFormatEnumMap(c *Client, i interface{}) map[string]DashboardWidgetTextFormatEnum {
+func flattenDashboardWidgetTextFormatEnumMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardWidgetTextFormatEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]DashboardWidgetTextFormatEnum{}
@@ -15907,7 +15907,7 @@ func flattenDashboardWidgetTextFormatEnumMap(c *Client, i interface{}) map[strin
 
 // flattenDashboardWidgetTextFormatEnumSlice flattens the contents of DashboardWidgetTextFormatEnum from a JSON
 // response object.
-func flattenDashboardWidgetTextFormatEnumSlice(c *Client, i interface{}) []DashboardWidgetTextFormatEnum {
+func flattenDashboardWidgetTextFormatEnumSlice(c *Client, i interface{}, res *Dashboard) []DashboardWidgetTextFormatEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []DashboardWidgetTextFormatEnum{}
@@ -15941,7 +15941,7 @@ func flattenDashboardWidgetTextFormatEnum(i interface{}) *DashboardWidgetTextFor
 // identity).  This is useful in extracting the element from a List call.
 func (r *Dashboard) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalDashboard(b, c)
+		cr, err := unmarshalDashboard(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

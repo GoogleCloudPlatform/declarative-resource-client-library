@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="dlp", resources=["deidentify_template","inspect_template","stored_info_type"])
+connector(name="dlp", resources=["deidentify_template","inspect_template","job_trigger","stored_info_type"])

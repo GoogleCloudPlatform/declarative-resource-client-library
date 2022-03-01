@@ -224,7 +224,7 @@ func (c *Client) listCapacityCommitment(ctx context.Context, r *CapacityCommitme
 
 	var l []*CapacityCommitment
 	for _, v := range m.CapacityCommitments {
-		res, err := unmarshalMapCapacityCommitment(v, c)
+		res, err := unmarshalMapCapacityCommitment(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -991,17 +991,17 @@ func (r *CapacityCommitment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalCapacityCommitment decodes JSON responses into the CapacityCommitment resource schema.
-func unmarshalCapacityCommitment(b []byte, c *Client) (*CapacityCommitment, error) {
+func unmarshalCapacityCommitment(b []byte, c *Client, res *CapacityCommitment) (*CapacityCommitment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapCapacityCommitment(m, c)
+	return unmarshalMapCapacityCommitment(m, c, res)
 }
 
-func unmarshalMapCapacityCommitment(m map[string]interface{}, c *Client) (*CapacityCommitment, error) {
+func unmarshalMapCapacityCommitment(m map[string]interface{}, c *Client, res *CapacityCommitment) (*CapacityCommitment, error) {
 
-	flattened := flattenCapacityCommitment(c, m)
+	flattened := flattenCapacityCommitment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1043,7 +1043,7 @@ func expandCapacityCommitment(c *Client, f *CapacityCommitment) (map[string]inte
 
 // flattenCapacityCommitment flattens CapacityCommitment from a JSON request object into the
 // CapacityCommitment type.
-func flattenCapacityCommitment(c *Client, i interface{}) *CapacityCommitment {
+func flattenCapacityCommitment(c *Client, i interface{}, res *CapacityCommitment) *CapacityCommitment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1052,19 +1052,19 @@ func flattenCapacityCommitment(c *Client, i interface{}) *CapacityCommitment {
 		return nil
 	}
 
-	res := &CapacityCommitment{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.SlotCount = dcl.FlattenInteger(m["slotCount"])
-	res.Plan = flattenCapacityCommitmentPlanEnum(m["plan"])
-	res.State = flattenCapacityCommitmentStateEnum(m["state"])
-	res.CommitmentStartTime = dcl.FlattenString(m["commitmentStartTime"])
-	res.CommitmentEndTime = dcl.FlattenString(m["commitmentEndTime"])
-	res.FailureStatus = flattenCapacityCommitmentFailureStatus(c, m["failureStatus"])
-	res.RenewalPlan = flattenCapacityCommitmentRenewalPlanEnum(m["renewalPlan"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &CapacityCommitment{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.SlotCount = dcl.FlattenInteger(m["slotCount"])
+	resultRes.Plan = flattenCapacityCommitmentPlanEnum(m["plan"])
+	resultRes.State = flattenCapacityCommitmentStateEnum(m["state"])
+	resultRes.CommitmentStartTime = dcl.FlattenString(m["commitmentStartTime"])
+	resultRes.CommitmentEndTime = dcl.FlattenString(m["commitmentEndTime"])
+	resultRes.FailureStatus = flattenCapacityCommitmentFailureStatus(c, m["failureStatus"], res)
+	resultRes.RenewalPlan = flattenCapacityCommitmentRenewalPlanEnum(m["renewalPlan"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandCapacityCommitmentFailureStatusMap expands the contents of CapacityCommitmentFailureStatus into a JSON
@@ -1110,7 +1110,7 @@ func expandCapacityCommitmentFailureStatusSlice(c *Client, f []CapacityCommitmen
 
 // flattenCapacityCommitmentFailureStatusMap flattens the contents of CapacityCommitmentFailureStatus from a JSON
 // response object.
-func flattenCapacityCommitmentFailureStatusMap(c *Client, i interface{}) map[string]CapacityCommitmentFailureStatus {
+func flattenCapacityCommitmentFailureStatusMap(c *Client, i interface{}, res *CapacityCommitment) map[string]CapacityCommitmentFailureStatus {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CapacityCommitmentFailureStatus{}
@@ -1122,7 +1122,7 @@ func flattenCapacityCommitmentFailureStatusMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]CapacityCommitmentFailureStatus)
 	for k, item := range a {
-		items[k] = *flattenCapacityCommitmentFailureStatus(c, item.(map[string]interface{}))
+		items[k] = *flattenCapacityCommitmentFailureStatus(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1130,7 +1130,7 @@ func flattenCapacityCommitmentFailureStatusMap(c *Client, i interface{}) map[str
 
 // flattenCapacityCommitmentFailureStatusSlice flattens the contents of CapacityCommitmentFailureStatus from a JSON
 // response object.
-func flattenCapacityCommitmentFailureStatusSlice(c *Client, i interface{}) []CapacityCommitmentFailureStatus {
+func flattenCapacityCommitmentFailureStatusSlice(c *Client, i interface{}, res *CapacityCommitment) []CapacityCommitmentFailureStatus {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CapacityCommitmentFailureStatus{}
@@ -1142,7 +1142,7 @@ func flattenCapacityCommitmentFailureStatusSlice(c *Client, i interface{}) []Cap
 
 	items := make([]CapacityCommitmentFailureStatus, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCapacityCommitmentFailureStatus(c, item.(map[string]interface{})))
+		items = append(items, *flattenCapacityCommitmentFailureStatus(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1173,7 +1173,7 @@ func expandCapacityCommitmentFailureStatus(c *Client, f *CapacityCommitmentFailu
 
 // flattenCapacityCommitmentFailureStatus flattens an instance of CapacityCommitmentFailureStatus from a JSON
 // response object.
-func flattenCapacityCommitmentFailureStatus(c *Client, i interface{}) *CapacityCommitmentFailureStatus {
+func flattenCapacityCommitmentFailureStatus(c *Client, i interface{}, res *CapacityCommitment) *CapacityCommitmentFailureStatus {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1186,7 +1186,7 @@ func flattenCapacityCommitmentFailureStatus(c *Client, i interface{}) *CapacityC
 	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
-	r.Details = flattenCapacityCommitmentFailureStatusDetailsSlice(c, m["details"])
+	r.Details = flattenCapacityCommitmentFailureStatusDetailsSlice(c, m["details"], res)
 
 	return r
 }
@@ -1234,7 +1234,7 @@ func expandCapacityCommitmentFailureStatusDetailsSlice(c *Client, f []CapacityCo
 
 // flattenCapacityCommitmentFailureStatusDetailsMap flattens the contents of CapacityCommitmentFailureStatusDetails from a JSON
 // response object.
-func flattenCapacityCommitmentFailureStatusDetailsMap(c *Client, i interface{}) map[string]CapacityCommitmentFailureStatusDetails {
+func flattenCapacityCommitmentFailureStatusDetailsMap(c *Client, i interface{}, res *CapacityCommitment) map[string]CapacityCommitmentFailureStatusDetails {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CapacityCommitmentFailureStatusDetails{}
@@ -1246,7 +1246,7 @@ func flattenCapacityCommitmentFailureStatusDetailsMap(c *Client, i interface{}) 
 
 	items := make(map[string]CapacityCommitmentFailureStatusDetails)
 	for k, item := range a {
-		items[k] = *flattenCapacityCommitmentFailureStatusDetails(c, item.(map[string]interface{}))
+		items[k] = *flattenCapacityCommitmentFailureStatusDetails(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1254,7 +1254,7 @@ func flattenCapacityCommitmentFailureStatusDetailsMap(c *Client, i interface{}) 
 
 // flattenCapacityCommitmentFailureStatusDetailsSlice flattens the contents of CapacityCommitmentFailureStatusDetails from a JSON
 // response object.
-func flattenCapacityCommitmentFailureStatusDetailsSlice(c *Client, i interface{}) []CapacityCommitmentFailureStatusDetails {
+func flattenCapacityCommitmentFailureStatusDetailsSlice(c *Client, i interface{}, res *CapacityCommitment) []CapacityCommitmentFailureStatusDetails {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CapacityCommitmentFailureStatusDetails{}
@@ -1266,7 +1266,7 @@ func flattenCapacityCommitmentFailureStatusDetailsSlice(c *Client, i interface{}
 
 	items := make([]CapacityCommitmentFailureStatusDetails, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCapacityCommitmentFailureStatusDetails(c, item.(map[string]interface{})))
+		items = append(items, *flattenCapacityCommitmentFailureStatusDetails(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1292,7 +1292,7 @@ func expandCapacityCommitmentFailureStatusDetails(c *Client, f *CapacityCommitme
 
 // flattenCapacityCommitmentFailureStatusDetails flattens an instance of CapacityCommitmentFailureStatusDetails from a JSON
 // response object.
-func flattenCapacityCommitmentFailureStatusDetails(c *Client, i interface{}) *CapacityCommitmentFailureStatusDetails {
+func flattenCapacityCommitmentFailureStatusDetails(c *Client, i interface{}, res *CapacityCommitment) *CapacityCommitmentFailureStatusDetails {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1311,7 +1311,7 @@ func flattenCapacityCommitmentFailureStatusDetails(c *Client, i interface{}) *Ca
 
 // flattenCapacityCommitmentPlanEnumMap flattens the contents of CapacityCommitmentPlanEnum from a JSON
 // response object.
-func flattenCapacityCommitmentPlanEnumMap(c *Client, i interface{}) map[string]CapacityCommitmentPlanEnum {
+func flattenCapacityCommitmentPlanEnumMap(c *Client, i interface{}, res *CapacityCommitment) map[string]CapacityCommitmentPlanEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CapacityCommitmentPlanEnum{}
@@ -1331,7 +1331,7 @@ func flattenCapacityCommitmentPlanEnumMap(c *Client, i interface{}) map[string]C
 
 // flattenCapacityCommitmentPlanEnumSlice flattens the contents of CapacityCommitmentPlanEnum from a JSON
 // response object.
-func flattenCapacityCommitmentPlanEnumSlice(c *Client, i interface{}) []CapacityCommitmentPlanEnum {
+func flattenCapacityCommitmentPlanEnumSlice(c *Client, i interface{}, res *CapacityCommitment) []CapacityCommitmentPlanEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CapacityCommitmentPlanEnum{}
@@ -1362,7 +1362,7 @@ func flattenCapacityCommitmentPlanEnum(i interface{}) *CapacityCommitmentPlanEnu
 
 // flattenCapacityCommitmentStateEnumMap flattens the contents of CapacityCommitmentStateEnum from a JSON
 // response object.
-func flattenCapacityCommitmentStateEnumMap(c *Client, i interface{}) map[string]CapacityCommitmentStateEnum {
+func flattenCapacityCommitmentStateEnumMap(c *Client, i interface{}, res *CapacityCommitment) map[string]CapacityCommitmentStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CapacityCommitmentStateEnum{}
@@ -1382,7 +1382,7 @@ func flattenCapacityCommitmentStateEnumMap(c *Client, i interface{}) map[string]
 
 // flattenCapacityCommitmentStateEnumSlice flattens the contents of CapacityCommitmentStateEnum from a JSON
 // response object.
-func flattenCapacityCommitmentStateEnumSlice(c *Client, i interface{}) []CapacityCommitmentStateEnum {
+func flattenCapacityCommitmentStateEnumSlice(c *Client, i interface{}, res *CapacityCommitment) []CapacityCommitmentStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CapacityCommitmentStateEnum{}
@@ -1413,7 +1413,7 @@ func flattenCapacityCommitmentStateEnum(i interface{}) *CapacityCommitmentStateE
 
 // flattenCapacityCommitmentRenewalPlanEnumMap flattens the contents of CapacityCommitmentRenewalPlanEnum from a JSON
 // response object.
-func flattenCapacityCommitmentRenewalPlanEnumMap(c *Client, i interface{}) map[string]CapacityCommitmentRenewalPlanEnum {
+func flattenCapacityCommitmentRenewalPlanEnumMap(c *Client, i interface{}, res *CapacityCommitment) map[string]CapacityCommitmentRenewalPlanEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CapacityCommitmentRenewalPlanEnum{}
@@ -1433,7 +1433,7 @@ func flattenCapacityCommitmentRenewalPlanEnumMap(c *Client, i interface{}) map[s
 
 // flattenCapacityCommitmentRenewalPlanEnumSlice flattens the contents of CapacityCommitmentRenewalPlanEnum from a JSON
 // response object.
-func flattenCapacityCommitmentRenewalPlanEnumSlice(c *Client, i interface{}) []CapacityCommitmentRenewalPlanEnum {
+func flattenCapacityCommitmentRenewalPlanEnumSlice(c *Client, i interface{}, res *CapacityCommitment) []CapacityCommitmentRenewalPlanEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CapacityCommitmentRenewalPlanEnum{}
@@ -1467,7 +1467,7 @@ func flattenCapacityCommitmentRenewalPlanEnum(i interface{}) *CapacityCommitment
 // identity).  This is useful in extracting the element from a List call.
 func (r *CapacityCommitment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCapacityCommitment(b, c)
+		cr, err := unmarshalCapacityCommitment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

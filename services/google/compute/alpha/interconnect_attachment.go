@@ -451,7 +451,7 @@ func (c *Client) GetInterconnectAttachment(ctx context.Context, r *InterconnectA
 		}
 		return nil, err
 	}
-	result, err := unmarshalInterconnectAttachment(b, c)
+	result, err := unmarshalInterconnectAttachment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -621,7 +621,7 @@ func applyInterconnectAttachmentDiff(c *Client, ctx context.Context, desired *In
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapInterconnectAttachment(r, c)
+				fullResp, err := unmarshalMapInterconnectAttachment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

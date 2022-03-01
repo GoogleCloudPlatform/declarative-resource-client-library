@@ -426,7 +426,7 @@ func (c *Client) listNote(ctx context.Context, r *Note, pageToken string, pageSi
 
 	var l []*Note
 	for _, v := range m.Notes {
-		res, err := unmarshalMapNote(v, c)
+		res, err := unmarshalMapNote(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -4516,17 +4516,17 @@ func (r *Note) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalNote decodes JSON responses into the Note resource schema.
-func unmarshalNote(b []byte, c *Client) (*Note, error) {
+func unmarshalNote(b []byte, c *Client, res *Note) (*Note, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapNote(m, c)
+	return unmarshalMapNote(m, c, res)
 }
 
-func unmarshalMapNote(m map[string]interface{}, c *Client) (*Note, error) {
+func unmarshalMapNote(m map[string]interface{}, c *Client, res *Note) (*Note, error) {
 
-	flattened := flattenNote(c, m)
+	flattened := flattenNote(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -4606,7 +4606,7 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 
 // flattenNote flattens Note from a JSON request object into the
 // Note type.
-func flattenNote(c *Client, i interface{}) *Note {
+func flattenNote(c *Client, i interface{}, res *Note) *Note {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4615,25 +4615,25 @@ func flattenNote(c *Client, i interface{}) *Note {
 		return nil
 	}
 
-	res := &Note{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.ShortDescription = dcl.FlattenString(m["shortDescription"])
-	res.LongDescription = dcl.FlattenString(m["longDescription"])
-	res.RelatedUrl = flattenNoteRelatedUrlSlice(c, m["relatedUrl"])
-	res.ExpirationTime = dcl.FlattenString(m["expirationTime"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.RelatedNoteNames = dcl.FlattenStringSlice(m["relatedNoteNames"])
-	res.Vulnerability = flattenNoteVulnerability(c, m["vulnerability"])
-	res.Build = flattenNoteBuild(c, m["build"])
-	res.Image = flattenNoteImage(c, m["image"])
-	res.Package = flattenNotePackage(c, m["package"])
-	res.Discovery = flattenNoteDiscovery(c, m["discovery"])
-	res.Deployment = flattenNoteDeployment(c, m["deployment"])
-	res.Attestation = flattenNoteAttestation(c, m["attestation"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Note{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.ShortDescription = dcl.FlattenString(m["shortDescription"])
+	resultRes.LongDescription = dcl.FlattenString(m["longDescription"])
+	resultRes.RelatedUrl = flattenNoteRelatedUrlSlice(c, m["relatedUrl"], res)
+	resultRes.ExpirationTime = dcl.FlattenString(m["expirationTime"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.RelatedNoteNames = dcl.FlattenStringSlice(m["relatedNoteNames"])
+	resultRes.Vulnerability = flattenNoteVulnerability(c, m["vulnerability"], res)
+	resultRes.Build = flattenNoteBuild(c, m["build"], res)
+	resultRes.Image = flattenNoteImage(c, m["image"], res)
+	resultRes.Package = flattenNotePackage(c, m["package"], res)
+	resultRes.Discovery = flattenNoteDiscovery(c, m["discovery"], res)
+	resultRes.Deployment = flattenNoteDeployment(c, m["deployment"], res)
+	resultRes.Attestation = flattenNoteAttestation(c, m["attestation"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandNoteRelatedUrlMap expands the contents of NoteRelatedUrl into a JSON
@@ -4679,7 +4679,7 @@ func expandNoteRelatedUrlSlice(c *Client, f []NoteRelatedUrl, res *Note) ([]map[
 
 // flattenNoteRelatedUrlMap flattens the contents of NoteRelatedUrl from a JSON
 // response object.
-func flattenNoteRelatedUrlMap(c *Client, i interface{}) map[string]NoteRelatedUrl {
+func flattenNoteRelatedUrlMap(c *Client, i interface{}, res *Note) map[string]NoteRelatedUrl {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteRelatedUrl{}
@@ -4691,7 +4691,7 @@ func flattenNoteRelatedUrlMap(c *Client, i interface{}) map[string]NoteRelatedUr
 
 	items := make(map[string]NoteRelatedUrl)
 	for k, item := range a {
-		items[k] = *flattenNoteRelatedUrl(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteRelatedUrl(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4699,7 +4699,7 @@ func flattenNoteRelatedUrlMap(c *Client, i interface{}) map[string]NoteRelatedUr
 
 // flattenNoteRelatedUrlSlice flattens the contents of NoteRelatedUrl from a JSON
 // response object.
-func flattenNoteRelatedUrlSlice(c *Client, i interface{}) []NoteRelatedUrl {
+func flattenNoteRelatedUrlSlice(c *Client, i interface{}, res *Note) []NoteRelatedUrl {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteRelatedUrl{}
@@ -4711,7 +4711,7 @@ func flattenNoteRelatedUrlSlice(c *Client, i interface{}) []NoteRelatedUrl {
 
 	items := make([]NoteRelatedUrl, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteRelatedUrl(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteRelatedUrl(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4737,7 +4737,7 @@ func expandNoteRelatedUrl(c *Client, f *NoteRelatedUrl, res *Note) (map[string]i
 
 // flattenNoteRelatedUrl flattens an instance of NoteRelatedUrl from a JSON
 // response object.
-func flattenNoteRelatedUrl(c *Client, i interface{}) *NoteRelatedUrl {
+func flattenNoteRelatedUrl(c *Client, i interface{}, res *Note) *NoteRelatedUrl {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4797,7 +4797,7 @@ func expandNoteVulnerabilitySlice(c *Client, f []NoteVulnerability, res *Note) (
 
 // flattenNoteVulnerabilityMap flattens the contents of NoteVulnerability from a JSON
 // response object.
-func flattenNoteVulnerabilityMap(c *Client, i interface{}) map[string]NoteVulnerability {
+func flattenNoteVulnerabilityMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerability {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerability{}
@@ -4809,7 +4809,7 @@ func flattenNoteVulnerabilityMap(c *Client, i interface{}) map[string]NoteVulner
 
 	items := make(map[string]NoteVulnerability)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerability(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerability(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4817,7 +4817,7 @@ func flattenNoteVulnerabilityMap(c *Client, i interface{}) map[string]NoteVulner
 
 // flattenNoteVulnerabilitySlice flattens the contents of NoteVulnerability from a JSON
 // response object.
-func flattenNoteVulnerabilitySlice(c *Client, i interface{}) []NoteVulnerability {
+func flattenNoteVulnerabilitySlice(c *Client, i interface{}, res *Note) []NoteVulnerability {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerability{}
@@ -4829,7 +4829,7 @@ func flattenNoteVulnerabilitySlice(c *Client, i interface{}) []NoteVulnerability
 
 	items := make([]NoteVulnerability, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerability(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerability(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4873,7 +4873,7 @@ func expandNoteVulnerability(c *Client, f *NoteVulnerability, res *Note) (map[st
 
 // flattenNoteVulnerability flattens an instance of NoteVulnerability from a JSON
 // response object.
-func flattenNoteVulnerability(c *Client, i interface{}) *NoteVulnerability {
+func flattenNoteVulnerability(c *Client, i interface{}, res *Note) *NoteVulnerability {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4886,9 +4886,9 @@ func flattenNoteVulnerability(c *Client, i interface{}) *NoteVulnerability {
 	}
 	r.CvssScore = dcl.FlattenDouble(m["cvssScore"])
 	r.Severity = flattenNoteVulnerabilitySeverityEnum(m["severity"])
-	r.Details = flattenNoteVulnerabilityDetailsSlice(c, m["details"])
-	r.CvssV3 = flattenNoteVulnerabilityCvssV3(c, m["cvssV3"])
-	r.WindowsDetails = flattenNoteVulnerabilityWindowsDetailsSlice(c, m["windowsDetails"])
+	r.Details = flattenNoteVulnerabilityDetailsSlice(c, m["details"], res)
+	r.CvssV3 = flattenNoteVulnerabilityCvssV3(c, m["cvssV3"], res)
+	r.WindowsDetails = flattenNoteVulnerabilityWindowsDetailsSlice(c, m["windowsDetails"], res)
 	r.SourceUpdateTime = dcl.FlattenString(m["sourceUpdateTime"])
 
 	return r
@@ -4937,7 +4937,7 @@ func expandNoteVulnerabilityDetailsSlice(c *Client, f []NoteVulnerabilityDetails
 
 // flattenNoteVulnerabilityDetailsMap flattens the contents of NoteVulnerabilityDetails from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetails {
+func flattenNoteVulnerabilityDetailsMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetails {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityDetails{}
@@ -4949,7 +4949,7 @@ func flattenNoteVulnerabilityDetailsMap(c *Client, i interface{}) map[string]Not
 
 	items := make(map[string]NoteVulnerabilityDetails)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerabilityDetails(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerabilityDetails(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4957,7 +4957,7 @@ func flattenNoteVulnerabilityDetailsMap(c *Client, i interface{}) map[string]Not
 
 // flattenNoteVulnerabilityDetailsSlice flattens the contents of NoteVulnerabilityDetails from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsSlice(c *Client, i interface{}) []NoteVulnerabilityDetails {
+func flattenNoteVulnerabilityDetailsSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetails {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityDetails{}
@@ -4969,7 +4969,7 @@ func flattenNoteVulnerabilityDetailsSlice(c *Client, i interface{}) []NoteVulner
 
 	items := make([]NoteVulnerabilityDetails, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityDetails(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityDetails(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5031,7 +5031,7 @@ func expandNoteVulnerabilityDetails(c *Client, f *NoteVulnerabilityDetails, res 
 
 // flattenNoteVulnerabilityDetails flattens an instance of NoteVulnerabilityDetails from a JSON
 // response object.
-func flattenNoteVulnerabilityDetails(c *Client, i interface{}) *NoteVulnerabilityDetails {
+func flattenNoteVulnerabilityDetails(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetails {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5047,11 +5047,11 @@ func flattenNoteVulnerabilityDetails(c *Client, i interface{}) *NoteVulnerabilit
 	r.PackageType = dcl.FlattenString(m["packageType"])
 	r.AffectedCpeUri = dcl.FlattenString(m["affectedCpeUri"])
 	r.AffectedPackage = dcl.FlattenString(m["affectedPackage"])
-	r.AffectedVersionStart = flattenNoteVulnerabilityDetailsAffectedVersionStart(c, m["affectedVersionStart"])
-	r.AffectedVersionEnd = flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, m["affectedVersionEnd"])
+	r.AffectedVersionStart = flattenNoteVulnerabilityDetailsAffectedVersionStart(c, m["affectedVersionStart"], res)
+	r.AffectedVersionEnd = flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, m["affectedVersionEnd"], res)
 	r.FixedCpeUri = dcl.FlattenString(m["fixedCpeUri"])
 	r.FixedPackage = dcl.FlattenString(m["fixedPackage"])
-	r.FixedVersion = flattenNoteVulnerabilityDetailsFixedVersion(c, m["fixedVersion"])
+	r.FixedVersion = flattenNoteVulnerabilityDetailsFixedVersion(c, m["fixedVersion"], res)
 	r.IsObsolete = dcl.FlattenBool(m["isObsolete"])
 	r.SourceUpdateTime = dcl.FlattenString(m["sourceUpdateTime"])
 
@@ -5101,7 +5101,7 @@ func expandNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, f []Note
 
 // flattenNoteVulnerabilityDetailsAffectedVersionStartMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionStart from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsAffectedVersionStart {
+func flattenNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionStart {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityDetailsAffectedVersionStart{}
@@ -5113,7 +5113,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, i interfa
 
 	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionStart)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionStart(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionStart(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5121,7 +5121,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, i interfa
 
 // flattenNoteVulnerabilityDetailsAffectedVersionStartSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionStart from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, i interface{}) []NoteVulnerabilityDetailsAffectedVersionStart {
+func flattenNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionStart {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityDetailsAffectedVersionStart{}
@@ -5133,7 +5133,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, i inter
 
 	items := make([]NoteVulnerabilityDetailsAffectedVersionStart, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionStart(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionStart(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5168,7 +5168,7 @@ func expandNoteVulnerabilityDetailsAffectedVersionStart(c *Client, f *NoteVulner
 
 // flattenNoteVulnerabilityDetailsAffectedVersionStart flattens an instance of NoteVulnerabilityDetailsAffectedVersionStart from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionStart(c *Client, i interface{}) *NoteVulnerabilityDetailsAffectedVersionStart {
+func flattenNoteVulnerabilityDetailsAffectedVersionStart(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetailsAffectedVersionStart {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5231,7 +5231,7 @@ func expandNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, f []NoteVu
 
 // flattenNoteVulnerabilityDetailsAffectedVersionEndMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionEnd from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsAffectedVersionEnd {
+func flattenNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionEnd {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityDetailsAffectedVersionEnd{}
@@ -5243,7 +5243,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, i interface
 
 	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionEnd)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5251,7 +5251,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, i interface
 
 // flattenNoteVulnerabilityDetailsAffectedVersionEndSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionEnd from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, i interface{}) []NoteVulnerabilityDetailsAffectedVersionEnd {
+func flattenNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionEnd {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityDetailsAffectedVersionEnd{}
@@ -5263,7 +5263,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, i interfa
 
 	items := make([]NoteVulnerabilityDetailsAffectedVersionEnd, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5298,7 +5298,7 @@ func expandNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, f *NoteVulnerab
 
 // flattenNoteVulnerabilityDetailsAffectedVersionEnd flattens an instance of NoteVulnerabilityDetailsAffectedVersionEnd from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, i interface{}) *NoteVulnerabilityDetailsAffectedVersionEnd {
+func flattenNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetailsAffectedVersionEnd {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5361,7 +5361,7 @@ func expandNoteVulnerabilityDetailsFixedVersionSlice(c *Client, f []NoteVulnerab
 
 // flattenNoteVulnerabilityDetailsFixedVersionMap flattens the contents of NoteVulnerabilityDetailsFixedVersion from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsFixedVersionMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsFixedVersion {
+func flattenNoteVulnerabilityDetailsFixedVersionMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsFixedVersion {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityDetailsFixedVersion{}
@@ -5373,7 +5373,7 @@ func flattenNoteVulnerabilityDetailsFixedVersionMap(c *Client, i interface{}) ma
 
 	items := make(map[string]NoteVulnerabilityDetailsFixedVersion)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerabilityDetailsFixedVersion(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerabilityDetailsFixedVersion(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5381,7 +5381,7 @@ func flattenNoteVulnerabilityDetailsFixedVersionMap(c *Client, i interface{}) ma
 
 // flattenNoteVulnerabilityDetailsFixedVersionSlice flattens the contents of NoteVulnerabilityDetailsFixedVersion from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsFixedVersionSlice(c *Client, i interface{}) []NoteVulnerabilityDetailsFixedVersion {
+func flattenNoteVulnerabilityDetailsFixedVersionSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsFixedVersion {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityDetailsFixedVersion{}
@@ -5393,7 +5393,7 @@ func flattenNoteVulnerabilityDetailsFixedVersionSlice(c *Client, i interface{}) 
 
 	items := make([]NoteVulnerabilityDetailsFixedVersion, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityDetailsFixedVersion(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityDetailsFixedVersion(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5428,7 +5428,7 @@ func expandNoteVulnerabilityDetailsFixedVersion(c *Client, f *NoteVulnerabilityD
 
 // flattenNoteVulnerabilityDetailsFixedVersion flattens an instance of NoteVulnerabilityDetailsFixedVersion from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsFixedVersion(c *Client, i interface{}) *NoteVulnerabilityDetailsFixedVersion {
+func flattenNoteVulnerabilityDetailsFixedVersion(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetailsFixedVersion {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5491,7 +5491,7 @@ func expandNoteVulnerabilityCvssV3Slice(c *Client, f []NoteVulnerabilityCvssV3, 
 
 // flattenNoteVulnerabilityCvssV3Map flattens the contents of NoteVulnerabilityCvssV3 from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3Map(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3 {
+func flattenNoteVulnerabilityCvssV3Map(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3 {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3{}
@@ -5503,7 +5503,7 @@ func flattenNoteVulnerabilityCvssV3Map(c *Client, i interface{}) map[string]Note
 
 	items := make(map[string]NoteVulnerabilityCvssV3)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerabilityCvssV3(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerabilityCvssV3(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5511,7 +5511,7 @@ func flattenNoteVulnerabilityCvssV3Map(c *Client, i interface{}) map[string]Note
 
 // flattenNoteVulnerabilityCvssV3Slice flattens the contents of NoteVulnerabilityCvssV3 from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3Slice(c *Client, i interface{}) []NoteVulnerabilityCvssV3 {
+func flattenNoteVulnerabilityCvssV3Slice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3 {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3{}
@@ -5523,7 +5523,7 @@ func flattenNoteVulnerabilityCvssV3Slice(c *Client, i interface{}) []NoteVulnera
 
 	items := make([]NoteVulnerabilityCvssV3, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5576,7 +5576,7 @@ func expandNoteVulnerabilityCvssV3(c *Client, f *NoteVulnerabilityCvssV3, res *N
 
 // flattenNoteVulnerabilityCvssV3 flattens an instance of NoteVulnerabilityCvssV3 from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3(c *Client, i interface{}) *NoteVulnerabilityCvssV3 {
+func flattenNoteVulnerabilityCvssV3(c *Client, i interface{}, res *Note) *NoteVulnerabilityCvssV3 {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5645,7 +5645,7 @@ func expandNoteVulnerabilityWindowsDetailsSlice(c *Client, f []NoteVulnerability
 
 // flattenNoteVulnerabilityWindowsDetailsMap flattens the contents of NoteVulnerabilityWindowsDetails from a JSON
 // response object.
-func flattenNoteVulnerabilityWindowsDetailsMap(c *Client, i interface{}) map[string]NoteVulnerabilityWindowsDetails {
+func flattenNoteVulnerabilityWindowsDetailsMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityWindowsDetails {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityWindowsDetails{}
@@ -5657,7 +5657,7 @@ func flattenNoteVulnerabilityWindowsDetailsMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]NoteVulnerabilityWindowsDetails)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerabilityWindowsDetails(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerabilityWindowsDetails(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5665,7 +5665,7 @@ func flattenNoteVulnerabilityWindowsDetailsMap(c *Client, i interface{}) map[str
 
 // flattenNoteVulnerabilityWindowsDetailsSlice flattens the contents of NoteVulnerabilityWindowsDetails from a JSON
 // response object.
-func flattenNoteVulnerabilityWindowsDetailsSlice(c *Client, i interface{}) []NoteVulnerabilityWindowsDetails {
+func flattenNoteVulnerabilityWindowsDetailsSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityWindowsDetails {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityWindowsDetails{}
@@ -5677,7 +5677,7 @@ func flattenNoteVulnerabilityWindowsDetailsSlice(c *Client, i interface{}) []Not
 
 	items := make([]NoteVulnerabilityWindowsDetails, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityWindowsDetails(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityWindowsDetails(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5711,7 +5711,7 @@ func expandNoteVulnerabilityWindowsDetails(c *Client, f *NoteVulnerabilityWindow
 
 // flattenNoteVulnerabilityWindowsDetails flattens an instance of NoteVulnerabilityWindowsDetails from a JSON
 // response object.
-func flattenNoteVulnerabilityWindowsDetails(c *Client, i interface{}) *NoteVulnerabilityWindowsDetails {
+func flattenNoteVulnerabilityWindowsDetails(c *Client, i interface{}, res *Note) *NoteVulnerabilityWindowsDetails {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5725,7 +5725,7 @@ func flattenNoteVulnerabilityWindowsDetails(c *Client, i interface{}) *NoteVulne
 	r.CpeUri = dcl.FlattenString(m["cpeUri"])
 	r.Name = dcl.FlattenString(m["name"])
 	r.Description = dcl.FlattenString(m["description"])
-	r.FixingKbs = flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, m["fixingKbs"])
+	r.FixingKbs = flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, m["fixingKbs"], res)
 
 	return r
 }
@@ -5773,7 +5773,7 @@ func expandNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, f []NoteVuln
 
 // flattenNoteVulnerabilityWindowsDetailsFixingKbsMap flattens the contents of NoteVulnerabilityWindowsDetailsFixingKbs from a JSON
 // response object.
-func flattenNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, i interface{}) map[string]NoteVulnerabilityWindowsDetailsFixingKbs {
+func flattenNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityWindowsDetailsFixingKbs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityWindowsDetailsFixingKbs{}
@@ -5785,7 +5785,7 @@ func flattenNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, i interface{}
 
 	items := make(map[string]NoteVulnerabilityWindowsDetailsFixingKbs)
 	for k, item := range a {
-		items[k] = *flattenNoteVulnerabilityWindowsDetailsFixingKbs(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteVulnerabilityWindowsDetailsFixingKbs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5793,7 +5793,7 @@ func flattenNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, i interface{}
 
 // flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice flattens the contents of NoteVulnerabilityWindowsDetailsFixingKbs from a JSON
 // response object.
-func flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, i interface{}) []NoteVulnerabilityWindowsDetailsFixingKbs {
+func flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityWindowsDetailsFixingKbs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityWindowsDetailsFixingKbs{}
@@ -5805,7 +5805,7 @@ func flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, i interface
 
 	items := make([]NoteVulnerabilityWindowsDetailsFixingKbs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityWindowsDetailsFixingKbs(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityWindowsDetailsFixingKbs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5831,7 +5831,7 @@ func expandNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, f *NoteVulnerabil
 
 // flattenNoteVulnerabilityWindowsDetailsFixingKbs flattens an instance of NoteVulnerabilityWindowsDetailsFixingKbs from a JSON
 // response object.
-func flattenNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, i interface{}) *NoteVulnerabilityWindowsDetailsFixingKbs {
+func flattenNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, i interface{}, res *Note) *NoteVulnerabilityWindowsDetailsFixingKbs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5891,7 +5891,7 @@ func expandNoteBuildSlice(c *Client, f []NoteBuild, res *Note) ([]map[string]int
 
 // flattenNoteBuildMap flattens the contents of NoteBuild from a JSON
 // response object.
-func flattenNoteBuildMap(c *Client, i interface{}) map[string]NoteBuild {
+func flattenNoteBuildMap(c *Client, i interface{}, res *Note) map[string]NoteBuild {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteBuild{}
@@ -5903,7 +5903,7 @@ func flattenNoteBuildMap(c *Client, i interface{}) map[string]NoteBuild {
 
 	items := make(map[string]NoteBuild)
 	for k, item := range a {
-		items[k] = *flattenNoteBuild(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteBuild(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5911,7 +5911,7 @@ func flattenNoteBuildMap(c *Client, i interface{}) map[string]NoteBuild {
 
 // flattenNoteBuildSlice flattens the contents of NoteBuild from a JSON
 // response object.
-func flattenNoteBuildSlice(c *Client, i interface{}) []NoteBuild {
+func flattenNoteBuildSlice(c *Client, i interface{}, res *Note) []NoteBuild {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteBuild{}
@@ -5923,7 +5923,7 @@ func flattenNoteBuildSlice(c *Client, i interface{}) []NoteBuild {
 
 	items := make([]NoteBuild, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteBuild(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteBuild(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5946,7 +5946,7 @@ func expandNoteBuild(c *Client, f *NoteBuild, res *Note) (map[string]interface{}
 
 // flattenNoteBuild flattens an instance of NoteBuild from a JSON
 // response object.
-func flattenNoteBuild(c *Client, i interface{}) *NoteBuild {
+func flattenNoteBuild(c *Client, i interface{}, res *Note) *NoteBuild {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6005,7 +6005,7 @@ func expandNoteImageSlice(c *Client, f []NoteImage, res *Note) ([]map[string]int
 
 // flattenNoteImageMap flattens the contents of NoteImage from a JSON
 // response object.
-func flattenNoteImageMap(c *Client, i interface{}) map[string]NoteImage {
+func flattenNoteImageMap(c *Client, i interface{}, res *Note) map[string]NoteImage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteImage{}
@@ -6017,7 +6017,7 @@ func flattenNoteImageMap(c *Client, i interface{}) map[string]NoteImage {
 
 	items := make(map[string]NoteImage)
 	for k, item := range a {
-		items[k] = *flattenNoteImage(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteImage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6025,7 +6025,7 @@ func flattenNoteImageMap(c *Client, i interface{}) map[string]NoteImage {
 
 // flattenNoteImageSlice flattens the contents of NoteImage from a JSON
 // response object.
-func flattenNoteImageSlice(c *Client, i interface{}) []NoteImage {
+func flattenNoteImageSlice(c *Client, i interface{}, res *Note) []NoteImage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteImage{}
@@ -6037,7 +6037,7 @@ func flattenNoteImageSlice(c *Client, i interface{}) []NoteImage {
 
 	items := make([]NoteImage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteImage(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteImage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6065,7 +6065,7 @@ func expandNoteImage(c *Client, f *NoteImage, res *Note) (map[string]interface{}
 
 // flattenNoteImage flattens an instance of NoteImage from a JSON
 // response object.
-func flattenNoteImage(c *Client, i interface{}) *NoteImage {
+func flattenNoteImage(c *Client, i interface{}, res *Note) *NoteImage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6077,7 +6077,7 @@ func flattenNoteImage(c *Client, i interface{}) *NoteImage {
 		return EmptyNoteImage
 	}
 	r.ResourceUrl = dcl.FlattenString(m["resourceUrl"])
-	r.Fingerprint = flattenNoteImageFingerprint(c, m["fingerprint"])
+	r.Fingerprint = flattenNoteImageFingerprint(c, m["fingerprint"], res)
 
 	return r
 }
@@ -6125,7 +6125,7 @@ func expandNoteImageFingerprintSlice(c *Client, f []NoteImageFingerprint, res *N
 
 // flattenNoteImageFingerprintMap flattens the contents of NoteImageFingerprint from a JSON
 // response object.
-func flattenNoteImageFingerprintMap(c *Client, i interface{}) map[string]NoteImageFingerprint {
+func flattenNoteImageFingerprintMap(c *Client, i interface{}, res *Note) map[string]NoteImageFingerprint {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteImageFingerprint{}
@@ -6137,7 +6137,7 @@ func flattenNoteImageFingerprintMap(c *Client, i interface{}) map[string]NoteIma
 
 	items := make(map[string]NoteImageFingerprint)
 	for k, item := range a {
-		items[k] = *flattenNoteImageFingerprint(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteImageFingerprint(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6145,7 +6145,7 @@ func flattenNoteImageFingerprintMap(c *Client, i interface{}) map[string]NoteIma
 
 // flattenNoteImageFingerprintSlice flattens the contents of NoteImageFingerprint from a JSON
 // response object.
-func flattenNoteImageFingerprintSlice(c *Client, i interface{}) []NoteImageFingerprint {
+func flattenNoteImageFingerprintSlice(c *Client, i interface{}, res *Note) []NoteImageFingerprint {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteImageFingerprint{}
@@ -6157,7 +6157,7 @@ func flattenNoteImageFingerprintSlice(c *Client, i interface{}) []NoteImageFinge
 
 	items := make([]NoteImageFingerprint, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteImageFingerprint(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteImageFingerprint(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6183,7 +6183,7 @@ func expandNoteImageFingerprint(c *Client, f *NoteImageFingerprint, res *Note) (
 
 // flattenNoteImageFingerprint flattens an instance of NoteImageFingerprint from a JSON
 // response object.
-func flattenNoteImageFingerprint(c *Client, i interface{}) *NoteImageFingerprint {
+func flattenNoteImageFingerprint(c *Client, i interface{}, res *Note) *NoteImageFingerprint {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6244,7 +6244,7 @@ func expandNotePackageSlice(c *Client, f []NotePackage, res *Note) ([]map[string
 
 // flattenNotePackageMap flattens the contents of NotePackage from a JSON
 // response object.
-func flattenNotePackageMap(c *Client, i interface{}) map[string]NotePackage {
+func flattenNotePackageMap(c *Client, i interface{}, res *Note) map[string]NotePackage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NotePackage{}
@@ -6256,7 +6256,7 @@ func flattenNotePackageMap(c *Client, i interface{}) map[string]NotePackage {
 
 	items := make(map[string]NotePackage)
 	for k, item := range a {
-		items[k] = *flattenNotePackage(c, item.(map[string]interface{}))
+		items[k] = *flattenNotePackage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6264,7 +6264,7 @@ func flattenNotePackageMap(c *Client, i interface{}) map[string]NotePackage {
 
 // flattenNotePackageSlice flattens the contents of NotePackage from a JSON
 // response object.
-func flattenNotePackageSlice(c *Client, i interface{}) []NotePackage {
+func flattenNotePackageSlice(c *Client, i interface{}, res *Note) []NotePackage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NotePackage{}
@@ -6276,7 +6276,7 @@ func flattenNotePackageSlice(c *Client, i interface{}) []NotePackage {
 
 	items := make([]NotePackage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNotePackage(c, item.(map[string]interface{})))
+		items = append(items, *flattenNotePackage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6304,7 +6304,7 @@ func expandNotePackage(c *Client, f *NotePackage, res *Note) (map[string]interfa
 
 // flattenNotePackage flattens an instance of NotePackage from a JSON
 // response object.
-func flattenNotePackage(c *Client, i interface{}) *NotePackage {
+func flattenNotePackage(c *Client, i interface{}, res *Note) *NotePackage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6316,7 +6316,7 @@ func flattenNotePackage(c *Client, i interface{}) *NotePackage {
 		return EmptyNotePackage
 	}
 	r.Name = dcl.FlattenString(m["name"])
-	r.Distribution = flattenNotePackageDistributionSlice(c, m["distribution"])
+	r.Distribution = flattenNotePackageDistributionSlice(c, m["distribution"], res)
 
 	return r
 }
@@ -6364,7 +6364,7 @@ func expandNotePackageDistributionSlice(c *Client, f []NotePackageDistribution, 
 
 // flattenNotePackageDistributionMap flattens the contents of NotePackageDistribution from a JSON
 // response object.
-func flattenNotePackageDistributionMap(c *Client, i interface{}) map[string]NotePackageDistribution {
+func flattenNotePackageDistributionMap(c *Client, i interface{}, res *Note) map[string]NotePackageDistribution {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NotePackageDistribution{}
@@ -6376,7 +6376,7 @@ func flattenNotePackageDistributionMap(c *Client, i interface{}) map[string]Note
 
 	items := make(map[string]NotePackageDistribution)
 	for k, item := range a {
-		items[k] = *flattenNotePackageDistribution(c, item.(map[string]interface{}))
+		items[k] = *flattenNotePackageDistribution(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6384,7 +6384,7 @@ func flattenNotePackageDistributionMap(c *Client, i interface{}) map[string]Note
 
 // flattenNotePackageDistributionSlice flattens the contents of NotePackageDistribution from a JSON
 // response object.
-func flattenNotePackageDistributionSlice(c *Client, i interface{}) []NotePackageDistribution {
+func flattenNotePackageDistributionSlice(c *Client, i interface{}, res *Note) []NotePackageDistribution {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NotePackageDistribution{}
@@ -6396,7 +6396,7 @@ func flattenNotePackageDistributionSlice(c *Client, i interface{}) []NotePackage
 
 	items := make([]NotePackageDistribution, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNotePackageDistribution(c, item.(map[string]interface{})))
+		items = append(items, *flattenNotePackageDistribution(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6436,7 +6436,7 @@ func expandNotePackageDistribution(c *Client, f *NotePackageDistribution, res *N
 
 // flattenNotePackageDistribution flattens an instance of NotePackageDistribution from a JSON
 // response object.
-func flattenNotePackageDistribution(c *Client, i interface{}) *NotePackageDistribution {
+func flattenNotePackageDistribution(c *Client, i interface{}, res *Note) *NotePackageDistribution {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6449,7 +6449,7 @@ func flattenNotePackageDistribution(c *Client, i interface{}) *NotePackageDistri
 	}
 	r.CpeUri = dcl.FlattenString(m["cpeUri"])
 	r.Architecture = flattenNotePackageDistributionArchitectureEnum(m["architecture"])
-	r.LatestVersion = flattenNotePackageDistributionLatestVersion(c, m["latestVersion"])
+	r.LatestVersion = flattenNotePackageDistributionLatestVersion(c, m["latestVersion"], res)
 	r.Maintainer = dcl.FlattenString(m["maintainer"])
 	r.Url = dcl.FlattenString(m["url"])
 	r.Description = dcl.FlattenString(m["description"])
@@ -6500,7 +6500,7 @@ func expandNotePackageDistributionLatestVersionSlice(c *Client, f []NotePackageD
 
 // flattenNotePackageDistributionLatestVersionMap flattens the contents of NotePackageDistributionLatestVersion from a JSON
 // response object.
-func flattenNotePackageDistributionLatestVersionMap(c *Client, i interface{}) map[string]NotePackageDistributionLatestVersion {
+func flattenNotePackageDistributionLatestVersionMap(c *Client, i interface{}, res *Note) map[string]NotePackageDistributionLatestVersion {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NotePackageDistributionLatestVersion{}
@@ -6512,7 +6512,7 @@ func flattenNotePackageDistributionLatestVersionMap(c *Client, i interface{}) ma
 
 	items := make(map[string]NotePackageDistributionLatestVersion)
 	for k, item := range a {
-		items[k] = *flattenNotePackageDistributionLatestVersion(c, item.(map[string]interface{}))
+		items[k] = *flattenNotePackageDistributionLatestVersion(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6520,7 +6520,7 @@ func flattenNotePackageDistributionLatestVersionMap(c *Client, i interface{}) ma
 
 // flattenNotePackageDistributionLatestVersionSlice flattens the contents of NotePackageDistributionLatestVersion from a JSON
 // response object.
-func flattenNotePackageDistributionLatestVersionSlice(c *Client, i interface{}) []NotePackageDistributionLatestVersion {
+func flattenNotePackageDistributionLatestVersionSlice(c *Client, i interface{}, res *Note) []NotePackageDistributionLatestVersion {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NotePackageDistributionLatestVersion{}
@@ -6532,7 +6532,7 @@ func flattenNotePackageDistributionLatestVersionSlice(c *Client, i interface{}) 
 
 	items := make([]NotePackageDistributionLatestVersion, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNotePackageDistributionLatestVersion(c, item.(map[string]interface{})))
+		items = append(items, *flattenNotePackageDistributionLatestVersion(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6567,7 +6567,7 @@ func expandNotePackageDistributionLatestVersion(c *Client, f *NotePackageDistrib
 
 // flattenNotePackageDistributionLatestVersion flattens an instance of NotePackageDistributionLatestVersion from a JSON
 // response object.
-func flattenNotePackageDistributionLatestVersion(c *Client, i interface{}) *NotePackageDistributionLatestVersion {
+func flattenNotePackageDistributionLatestVersion(c *Client, i interface{}, res *Note) *NotePackageDistributionLatestVersion {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6630,7 +6630,7 @@ func expandNoteDiscoverySlice(c *Client, f []NoteDiscovery, res *Note) ([]map[st
 
 // flattenNoteDiscoveryMap flattens the contents of NoteDiscovery from a JSON
 // response object.
-func flattenNoteDiscoveryMap(c *Client, i interface{}) map[string]NoteDiscovery {
+func flattenNoteDiscoveryMap(c *Client, i interface{}, res *Note) map[string]NoteDiscovery {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteDiscovery{}
@@ -6642,7 +6642,7 @@ func flattenNoteDiscoveryMap(c *Client, i interface{}) map[string]NoteDiscovery 
 
 	items := make(map[string]NoteDiscovery)
 	for k, item := range a {
-		items[k] = *flattenNoteDiscovery(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteDiscovery(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6650,7 +6650,7 @@ func flattenNoteDiscoveryMap(c *Client, i interface{}) map[string]NoteDiscovery 
 
 // flattenNoteDiscoverySlice flattens the contents of NoteDiscovery from a JSON
 // response object.
-func flattenNoteDiscoverySlice(c *Client, i interface{}) []NoteDiscovery {
+func flattenNoteDiscoverySlice(c *Client, i interface{}, res *Note) []NoteDiscovery {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteDiscovery{}
@@ -6662,7 +6662,7 @@ func flattenNoteDiscoverySlice(c *Client, i interface{}) []NoteDiscovery {
 
 	items := make([]NoteDiscovery, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteDiscovery(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteDiscovery(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6685,7 +6685,7 @@ func expandNoteDiscovery(c *Client, f *NoteDiscovery, res *Note) (map[string]int
 
 // flattenNoteDiscovery flattens an instance of NoteDiscovery from a JSON
 // response object.
-func flattenNoteDiscovery(c *Client, i interface{}) *NoteDiscovery {
+func flattenNoteDiscovery(c *Client, i interface{}, res *Note) *NoteDiscovery {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6744,7 +6744,7 @@ func expandNoteDeploymentSlice(c *Client, f []NoteDeployment, res *Note) ([]map[
 
 // flattenNoteDeploymentMap flattens the contents of NoteDeployment from a JSON
 // response object.
-func flattenNoteDeploymentMap(c *Client, i interface{}) map[string]NoteDeployment {
+func flattenNoteDeploymentMap(c *Client, i interface{}, res *Note) map[string]NoteDeployment {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteDeployment{}
@@ -6756,7 +6756,7 @@ func flattenNoteDeploymentMap(c *Client, i interface{}) map[string]NoteDeploymen
 
 	items := make(map[string]NoteDeployment)
 	for k, item := range a {
-		items[k] = *flattenNoteDeployment(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteDeployment(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6764,7 +6764,7 @@ func flattenNoteDeploymentMap(c *Client, i interface{}) map[string]NoteDeploymen
 
 // flattenNoteDeploymentSlice flattens the contents of NoteDeployment from a JSON
 // response object.
-func flattenNoteDeploymentSlice(c *Client, i interface{}) []NoteDeployment {
+func flattenNoteDeploymentSlice(c *Client, i interface{}, res *Note) []NoteDeployment {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteDeployment{}
@@ -6776,7 +6776,7 @@ func flattenNoteDeploymentSlice(c *Client, i interface{}) []NoteDeployment {
 
 	items := make([]NoteDeployment, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteDeployment(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteDeployment(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6799,7 +6799,7 @@ func expandNoteDeployment(c *Client, f *NoteDeployment, res *Note) (map[string]i
 
 // flattenNoteDeployment flattens an instance of NoteDeployment from a JSON
 // response object.
-func flattenNoteDeployment(c *Client, i interface{}) *NoteDeployment {
+func flattenNoteDeployment(c *Client, i interface{}, res *Note) *NoteDeployment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6858,7 +6858,7 @@ func expandNoteAttestationSlice(c *Client, f []NoteAttestation, res *Note) ([]ma
 
 // flattenNoteAttestationMap flattens the contents of NoteAttestation from a JSON
 // response object.
-func flattenNoteAttestationMap(c *Client, i interface{}) map[string]NoteAttestation {
+func flattenNoteAttestationMap(c *Client, i interface{}, res *Note) map[string]NoteAttestation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteAttestation{}
@@ -6870,7 +6870,7 @@ func flattenNoteAttestationMap(c *Client, i interface{}) map[string]NoteAttestat
 
 	items := make(map[string]NoteAttestation)
 	for k, item := range a {
-		items[k] = *flattenNoteAttestation(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteAttestation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6878,7 +6878,7 @@ func flattenNoteAttestationMap(c *Client, i interface{}) map[string]NoteAttestat
 
 // flattenNoteAttestationSlice flattens the contents of NoteAttestation from a JSON
 // response object.
-func flattenNoteAttestationSlice(c *Client, i interface{}) []NoteAttestation {
+func flattenNoteAttestationSlice(c *Client, i interface{}, res *Note) []NoteAttestation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteAttestation{}
@@ -6890,7 +6890,7 @@ func flattenNoteAttestationSlice(c *Client, i interface{}) []NoteAttestation {
 
 	items := make([]NoteAttestation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteAttestation(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteAttestation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6915,7 +6915,7 @@ func expandNoteAttestation(c *Client, f *NoteAttestation, res *Note) (map[string
 
 // flattenNoteAttestation flattens an instance of NoteAttestation from a JSON
 // response object.
-func flattenNoteAttestation(c *Client, i interface{}) *NoteAttestation {
+func flattenNoteAttestation(c *Client, i interface{}, res *Note) *NoteAttestation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6926,7 +6926,7 @@ func flattenNoteAttestation(c *Client, i interface{}) *NoteAttestation {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyNoteAttestation
 	}
-	r.Hint = flattenNoteAttestationHint(c, m["hint"])
+	r.Hint = flattenNoteAttestationHint(c, m["hint"], res)
 
 	return r
 }
@@ -6974,7 +6974,7 @@ func expandNoteAttestationHintSlice(c *Client, f []NoteAttestationHint, res *Not
 
 // flattenNoteAttestationHintMap flattens the contents of NoteAttestationHint from a JSON
 // response object.
-func flattenNoteAttestationHintMap(c *Client, i interface{}) map[string]NoteAttestationHint {
+func flattenNoteAttestationHintMap(c *Client, i interface{}, res *Note) map[string]NoteAttestationHint {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteAttestationHint{}
@@ -6986,7 +6986,7 @@ func flattenNoteAttestationHintMap(c *Client, i interface{}) map[string]NoteAtte
 
 	items := make(map[string]NoteAttestationHint)
 	for k, item := range a {
-		items[k] = *flattenNoteAttestationHint(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteAttestationHint(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6994,7 +6994,7 @@ func flattenNoteAttestationHintMap(c *Client, i interface{}) map[string]NoteAtte
 
 // flattenNoteAttestationHintSlice flattens the contents of NoteAttestationHint from a JSON
 // response object.
-func flattenNoteAttestationHintSlice(c *Client, i interface{}) []NoteAttestationHint {
+func flattenNoteAttestationHintSlice(c *Client, i interface{}, res *Note) []NoteAttestationHint {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteAttestationHint{}
@@ -7006,7 +7006,7 @@ func flattenNoteAttestationHintSlice(c *Client, i interface{}) []NoteAttestation
 
 	items := make([]NoteAttestationHint, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteAttestationHint(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteAttestationHint(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7029,7 +7029,7 @@ func expandNoteAttestationHint(c *Client, f *NoteAttestationHint, res *Note) (ma
 
 // flattenNoteAttestationHint flattens an instance of NoteAttestationHint from a JSON
 // response object.
-func flattenNoteAttestationHint(c *Client, i interface{}) *NoteAttestationHint {
+func flattenNoteAttestationHint(c *Client, i interface{}, res *Note) *NoteAttestationHint {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7047,7 +7047,7 @@ func flattenNoteAttestationHint(c *Client, i interface{}) *NoteAttestationHint {
 
 // flattenNoteVulnerabilitySeverityEnumMap flattens the contents of NoteVulnerabilitySeverityEnum from a JSON
 // response object.
-func flattenNoteVulnerabilitySeverityEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilitySeverityEnum {
+func flattenNoteVulnerabilitySeverityEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilitySeverityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilitySeverityEnum{}
@@ -7067,7 +7067,7 @@ func flattenNoteVulnerabilitySeverityEnumMap(c *Client, i interface{}) map[strin
 
 // flattenNoteVulnerabilitySeverityEnumSlice flattens the contents of NoteVulnerabilitySeverityEnum from a JSON
 // response object.
-func flattenNoteVulnerabilitySeverityEnumSlice(c *Client, i interface{}) []NoteVulnerabilitySeverityEnum {
+func flattenNoteVulnerabilitySeverityEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilitySeverityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilitySeverityEnum{}
@@ -7098,7 +7098,7 @@ func flattenNoteVulnerabilitySeverityEnum(i interface{}) *NoteVulnerabilitySever
 
 // flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionStartKindEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
+func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
@@ -7118,7 +7118,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap(c *Client, i
 
 // flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionStartKindEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice(c *Client, i interface{}) []NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
+func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
@@ -7149,7 +7149,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(i interface{}) 
 
 // flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionEndKindEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
+func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
@@ -7169,7 +7169,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap(c *Client, i i
 
 // flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionEndKindEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice(c *Client, i interface{}) []NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
+func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
@@ -7200,7 +7200,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(i interface{}) *N
 
 // flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap flattens the contents of NoteVulnerabilityDetailsFixedVersionKindEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsFixedVersionKindEnum {
+func flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsFixedVersionKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityDetailsFixedVersionKindEnum{}
@@ -7220,7 +7220,7 @@ func flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap(c *Client, i interfa
 
 // flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice flattens the contents of NoteVulnerabilityDetailsFixedVersionKindEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice(c *Client, i interface{}) []NoteVulnerabilityDetailsFixedVersionKindEnum {
+func flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsFixedVersionKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityDetailsFixedVersionKindEnum{}
@@ -7251,7 +7251,7 @@ func flattenNoteVulnerabilityDetailsFixedVersionKindEnum(i interface{}) *NoteVul
 
 // flattenNoteVulnerabilityCvssV3AttackVectorEnumMap flattens the contents of NoteVulnerabilityCvssV3AttackVectorEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3AttackVectorEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3AttackVectorEnum {
+func flattenNoteVulnerabilityCvssV3AttackVectorEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3AttackVectorEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3AttackVectorEnum{}
@@ -7271,7 +7271,7 @@ func flattenNoteVulnerabilityCvssV3AttackVectorEnumMap(c *Client, i interface{})
 
 // flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice flattens the contents of NoteVulnerabilityCvssV3AttackVectorEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3AttackVectorEnum {
+func flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3AttackVectorEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3AttackVectorEnum{}
@@ -7302,7 +7302,7 @@ func flattenNoteVulnerabilityCvssV3AttackVectorEnum(i interface{}) *NoteVulnerab
 
 // flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap flattens the contents of NoteVulnerabilityCvssV3AttackComplexityEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3AttackComplexityEnum {
+func flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3AttackComplexityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3AttackComplexityEnum{}
@@ -7322,7 +7322,7 @@ func flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap(c *Client, i interfac
 
 // flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice flattens the contents of NoteVulnerabilityCvssV3AttackComplexityEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3AttackComplexityEnum {
+func flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3AttackComplexityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3AttackComplexityEnum{}
@@ -7353,7 +7353,7 @@ func flattenNoteVulnerabilityCvssV3AttackComplexityEnum(i interface{}) *NoteVuln
 
 // flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap flattens the contents of NoteVulnerabilityCvssV3PrivilegesRequiredEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
+func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
@@ -7373,7 +7373,7 @@ func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap(c *Client, i interf
 
 // flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice flattens the contents of NoteVulnerabilityCvssV3PrivilegesRequiredEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
+func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
@@ -7404,7 +7404,7 @@ func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(i interface{}) *NoteVu
 
 // flattenNoteVulnerabilityCvssV3UserInteractionEnumMap flattens the contents of NoteVulnerabilityCvssV3UserInteractionEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3UserInteractionEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3UserInteractionEnum {
+func flattenNoteVulnerabilityCvssV3UserInteractionEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3UserInteractionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3UserInteractionEnum{}
@@ -7424,7 +7424,7 @@ func flattenNoteVulnerabilityCvssV3UserInteractionEnumMap(c *Client, i interface
 
 // flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice flattens the contents of NoteVulnerabilityCvssV3UserInteractionEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3UserInteractionEnum {
+func flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3UserInteractionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3UserInteractionEnum{}
@@ -7455,7 +7455,7 @@ func flattenNoteVulnerabilityCvssV3UserInteractionEnum(i interface{}) *NoteVulne
 
 // flattenNoteVulnerabilityCvssV3ScopeEnumMap flattens the contents of NoteVulnerabilityCvssV3ScopeEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3ScopeEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3ScopeEnum {
+func flattenNoteVulnerabilityCvssV3ScopeEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3ScopeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3ScopeEnum{}
@@ -7475,7 +7475,7 @@ func flattenNoteVulnerabilityCvssV3ScopeEnumMap(c *Client, i interface{}) map[st
 
 // flattenNoteVulnerabilityCvssV3ScopeEnumSlice flattens the contents of NoteVulnerabilityCvssV3ScopeEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3ScopeEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3ScopeEnum {
+func flattenNoteVulnerabilityCvssV3ScopeEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3ScopeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3ScopeEnum{}
@@ -7506,7 +7506,7 @@ func flattenNoteVulnerabilityCvssV3ScopeEnum(i interface{}) *NoteVulnerabilityCv
 
 // flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3ConfidentialityImpactEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
+func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
@@ -7526,7 +7526,7 @@ func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap(c *Client, i int
 
 // flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3ConfidentialityImpactEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
+func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
@@ -7557,7 +7557,7 @@ func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(i interface{}) *Not
 
 // flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3IntegrityImpactEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum {
+func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum{}
@@ -7577,7 +7577,7 @@ func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap(c *Client, i interface
 
 // flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3IntegrityImpactEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3IntegrityImpactEnum {
+func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3IntegrityImpactEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3IntegrityImpactEnum{}
@@ -7608,7 +7608,7 @@ func flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(i interface{}) *NoteVulne
 
 // flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3AvailabilityImpactEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum {
+func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
@@ -7628,7 +7628,7 @@ func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap(c *Client, i interf
 
 // flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3AvailabilityImpactEnum from a JSON
 // response object.
-func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3AvailabilityImpactEnum {
+func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3AvailabilityImpactEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
@@ -7659,7 +7659,7 @@ func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(i interface{}) *NoteVu
 
 // flattenNotePackageDistributionArchitectureEnumMap flattens the contents of NotePackageDistributionArchitectureEnum from a JSON
 // response object.
-func flattenNotePackageDistributionArchitectureEnumMap(c *Client, i interface{}) map[string]NotePackageDistributionArchitectureEnum {
+func flattenNotePackageDistributionArchitectureEnumMap(c *Client, i interface{}, res *Note) map[string]NotePackageDistributionArchitectureEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NotePackageDistributionArchitectureEnum{}
@@ -7679,7 +7679,7 @@ func flattenNotePackageDistributionArchitectureEnumMap(c *Client, i interface{})
 
 // flattenNotePackageDistributionArchitectureEnumSlice flattens the contents of NotePackageDistributionArchitectureEnum from a JSON
 // response object.
-func flattenNotePackageDistributionArchitectureEnumSlice(c *Client, i interface{}) []NotePackageDistributionArchitectureEnum {
+func flattenNotePackageDistributionArchitectureEnumSlice(c *Client, i interface{}, res *Note) []NotePackageDistributionArchitectureEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NotePackageDistributionArchitectureEnum{}
@@ -7710,7 +7710,7 @@ func flattenNotePackageDistributionArchitectureEnum(i interface{}) *NotePackageD
 
 // flattenNotePackageDistributionLatestVersionKindEnumMap flattens the contents of NotePackageDistributionLatestVersionKindEnum from a JSON
 // response object.
-func flattenNotePackageDistributionLatestVersionKindEnumMap(c *Client, i interface{}) map[string]NotePackageDistributionLatestVersionKindEnum {
+func flattenNotePackageDistributionLatestVersionKindEnumMap(c *Client, i interface{}, res *Note) map[string]NotePackageDistributionLatestVersionKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NotePackageDistributionLatestVersionKindEnum{}
@@ -7730,7 +7730,7 @@ func flattenNotePackageDistributionLatestVersionKindEnumMap(c *Client, i interfa
 
 // flattenNotePackageDistributionLatestVersionKindEnumSlice flattens the contents of NotePackageDistributionLatestVersionKindEnum from a JSON
 // response object.
-func flattenNotePackageDistributionLatestVersionKindEnumSlice(c *Client, i interface{}) []NotePackageDistributionLatestVersionKindEnum {
+func flattenNotePackageDistributionLatestVersionKindEnumSlice(c *Client, i interface{}, res *Note) []NotePackageDistributionLatestVersionKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NotePackageDistributionLatestVersionKindEnum{}
@@ -7761,7 +7761,7 @@ func flattenNotePackageDistributionLatestVersionKindEnum(i interface{}) *NotePac
 
 // flattenNoteDiscoveryAnalysisKindEnumMap flattens the contents of NoteDiscoveryAnalysisKindEnum from a JSON
 // response object.
-func flattenNoteDiscoveryAnalysisKindEnumMap(c *Client, i interface{}) map[string]NoteDiscoveryAnalysisKindEnum {
+func flattenNoteDiscoveryAnalysisKindEnumMap(c *Client, i interface{}, res *Note) map[string]NoteDiscoveryAnalysisKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NoteDiscoveryAnalysisKindEnum{}
@@ -7781,7 +7781,7 @@ func flattenNoteDiscoveryAnalysisKindEnumMap(c *Client, i interface{}) map[strin
 
 // flattenNoteDiscoveryAnalysisKindEnumSlice flattens the contents of NoteDiscoveryAnalysisKindEnum from a JSON
 // response object.
-func flattenNoteDiscoveryAnalysisKindEnumSlice(c *Client, i interface{}) []NoteDiscoveryAnalysisKindEnum {
+func flattenNoteDiscoveryAnalysisKindEnumSlice(c *Client, i interface{}, res *Note) []NoteDiscoveryAnalysisKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NoteDiscoveryAnalysisKindEnum{}
@@ -7815,7 +7815,7 @@ func flattenNoteDiscoveryAnalysisKindEnum(i interface{}) *NoteDiscoveryAnalysisK
 // identity).  This is useful in extracting the element from a List call.
 func (r *Note) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalNote(b, c)
+		cr, err := unmarshalNote(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

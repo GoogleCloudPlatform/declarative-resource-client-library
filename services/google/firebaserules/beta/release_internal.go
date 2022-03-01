@@ -194,7 +194,7 @@ func (c *Client) listRelease(ctx context.Context, r *Release, pageToken string, 
 
 	var l []*Release
 	for _, v := range m.Releases {
-		res, err := unmarshalMapRelease(v, c)
+		res, err := unmarshalMapRelease(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -546,17 +546,17 @@ func (r *Release) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalRelease decodes JSON responses into the Release resource schema.
-func unmarshalRelease(b []byte, c *Client) (*Release, error) {
+func unmarshalRelease(b []byte, c *Client, res *Release) (*Release, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapRelease(m, c)
+	return unmarshalMapRelease(m, c, res)
 }
 
-func unmarshalMapRelease(m map[string]interface{}, c *Client) (*Release, error) {
+func unmarshalMapRelease(m map[string]interface{}, c *Client, res *Release) (*Release, error) {
 
-	flattened := flattenRelease(c, m)
+	flattened := flattenRelease(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -587,7 +587,7 @@ func expandRelease(c *Client, f *Release) (map[string]interface{}, error) {
 
 // flattenRelease flattens Release from a JSON request object into the
 // Release type.
-func flattenRelease(c *Client, i interface{}) *Release {
+func flattenRelease(c *Client, i interface{}, res *Release) *Release {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -596,15 +596,15 @@ func flattenRelease(c *Client, i interface{}) *Release {
 		return nil
 	}
 
-	res := &Release{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.RulesetName = dcl.FlattenString(m["rulesetName"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Disabled = dcl.FlattenBool(m["disabled"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Release{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.RulesetName = dcl.FlattenString(m["rulesetName"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -612,7 +612,7 @@ func flattenRelease(c *Client, i interface{}) *Release {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Release) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalRelease(b, c)
+		cr, err := unmarshalRelease(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

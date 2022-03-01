@@ -1184,7 +1184,7 @@ func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupMa
 		}
 		return nil, err
 	}
-	result, err := unmarshalInstanceGroupManager(b, c)
+	result, err := unmarshalInstanceGroupManager(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1368,7 +1368,7 @@ func applyInstanceGroupManagerDiff(c *Client, ctx context.Context, desired *Inst
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapInstanceGroupManager(r, c)
+				fullResp, err := unmarshalMapInstanceGroupManager(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

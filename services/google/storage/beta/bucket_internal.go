@@ -295,7 +295,7 @@ func (c *Client) listBucket(ctx context.Context, r *Bucket, pageToken string, pa
 
 	var l []*Bucket
 	for _, v := range m.Items {
-		res, err := unmarshalMapBucket(v, c)
+		res, err := unmarshalMapBucket(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -2000,17 +2000,17 @@ func (r *Bucket) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalBucket decodes JSON responses into the Bucket resource schema.
-func unmarshalBucket(b []byte, c *Client) (*Bucket, error) {
+func unmarshalBucket(b []byte, c *Client, res *Bucket) (*Bucket, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapBucket(m, c)
+	return unmarshalMapBucket(m, c, res)
 }
 
-func unmarshalMapBucket(m map[string]interface{}, c *Client) (*Bucket, error) {
+func unmarshalMapBucket(m map[string]interface{}, c *Client, res *Bucket) (*Bucket, error) {
 
-	flattened := flattenBucket(c, m)
+	flattened := flattenBucket(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2067,7 +2067,7 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 
 // flattenBucket flattens Bucket from a JSON request object into the
 // Bucket type.
-func flattenBucket(c *Client, i interface{}) *Bucket {
+func flattenBucket(c *Client, i interface{}, res *Bucket) *Bucket {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2076,18 +2076,18 @@ func flattenBucket(c *Client, i interface{}) *Bucket {
 		return nil
 	}
 
-	res := &Bucket{}
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Cors = flattenBucketCorsSlice(c, m["cors"])
-	res.Lifecycle = flattenBucketLifecycle(c, m["lifecycle"])
-	res.Logging = flattenBucketLogging(c, m["logging"])
-	res.StorageClass = flattenBucketStorageClassEnum(m["storageClass"])
-	res.Versioning = flattenBucketVersioning(c, m["versioning"])
-	res.Website = flattenBucketWebsite(c, m["website"])
+	resultRes := &Bucket{}
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Cors = flattenBucketCorsSlice(c, m["cors"], res)
+	resultRes.Lifecycle = flattenBucketLifecycle(c, m["lifecycle"], res)
+	resultRes.Logging = flattenBucketLogging(c, m["logging"], res)
+	resultRes.StorageClass = flattenBucketStorageClassEnum(m["storageClass"])
+	resultRes.Versioning = flattenBucketVersioning(c, m["versioning"], res)
+	resultRes.Website = flattenBucketWebsite(c, m["website"], res)
 
-	return res
+	return resultRes
 }
 
 // expandBucketCorsMap expands the contents of BucketCors into a JSON
@@ -2133,7 +2133,7 @@ func expandBucketCorsSlice(c *Client, f []BucketCors, res *Bucket) ([]map[string
 
 // flattenBucketCorsMap flattens the contents of BucketCors from a JSON
 // response object.
-func flattenBucketCorsMap(c *Client, i interface{}) map[string]BucketCors {
+func flattenBucketCorsMap(c *Client, i interface{}, res *Bucket) map[string]BucketCors {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketCors{}
@@ -2145,7 +2145,7 @@ func flattenBucketCorsMap(c *Client, i interface{}) map[string]BucketCors {
 
 	items := make(map[string]BucketCors)
 	for k, item := range a {
-		items[k] = *flattenBucketCors(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketCors(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2153,7 +2153,7 @@ func flattenBucketCorsMap(c *Client, i interface{}) map[string]BucketCors {
 
 // flattenBucketCorsSlice flattens the contents of BucketCors from a JSON
 // response object.
-func flattenBucketCorsSlice(c *Client, i interface{}) []BucketCors {
+func flattenBucketCorsSlice(c *Client, i interface{}, res *Bucket) []BucketCors {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketCors{}
@@ -2165,7 +2165,7 @@ func flattenBucketCorsSlice(c *Client, i interface{}) []BucketCors {
 
 	items := make([]BucketCors, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketCors(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketCors(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2197,7 +2197,7 @@ func expandBucketCors(c *Client, f *BucketCors, res *Bucket) (map[string]interfa
 
 // flattenBucketCors flattens an instance of BucketCors from a JSON
 // response object.
-func flattenBucketCors(c *Client, i interface{}) *BucketCors {
+func flattenBucketCors(c *Client, i interface{}, res *Bucket) *BucketCors {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2259,7 +2259,7 @@ func expandBucketLifecycleSlice(c *Client, f []BucketLifecycle, res *Bucket) ([]
 
 // flattenBucketLifecycleMap flattens the contents of BucketLifecycle from a JSON
 // response object.
-func flattenBucketLifecycleMap(c *Client, i interface{}) map[string]BucketLifecycle {
+func flattenBucketLifecycleMap(c *Client, i interface{}, res *Bucket) map[string]BucketLifecycle {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketLifecycle{}
@@ -2271,7 +2271,7 @@ func flattenBucketLifecycleMap(c *Client, i interface{}) map[string]BucketLifecy
 
 	items := make(map[string]BucketLifecycle)
 	for k, item := range a {
-		items[k] = *flattenBucketLifecycle(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketLifecycle(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2279,7 +2279,7 @@ func flattenBucketLifecycleMap(c *Client, i interface{}) map[string]BucketLifecy
 
 // flattenBucketLifecycleSlice flattens the contents of BucketLifecycle from a JSON
 // response object.
-func flattenBucketLifecycleSlice(c *Client, i interface{}) []BucketLifecycle {
+func flattenBucketLifecycleSlice(c *Client, i interface{}, res *Bucket) []BucketLifecycle {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketLifecycle{}
@@ -2291,7 +2291,7 @@ func flattenBucketLifecycleSlice(c *Client, i interface{}) []BucketLifecycle {
 
 	items := make([]BucketLifecycle, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketLifecycle(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketLifecycle(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2316,7 +2316,7 @@ func expandBucketLifecycle(c *Client, f *BucketLifecycle, res *Bucket) (map[stri
 
 // flattenBucketLifecycle flattens an instance of BucketLifecycle from a JSON
 // response object.
-func flattenBucketLifecycle(c *Client, i interface{}) *BucketLifecycle {
+func flattenBucketLifecycle(c *Client, i interface{}, res *Bucket) *BucketLifecycle {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2327,7 +2327,7 @@ func flattenBucketLifecycle(c *Client, i interface{}) *BucketLifecycle {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyBucketLifecycle
 	}
-	r.Rule = flattenBucketLifecycleRuleSlice(c, m["rule"])
+	r.Rule = flattenBucketLifecycleRuleSlice(c, m["rule"], res)
 
 	return r
 }
@@ -2375,7 +2375,7 @@ func expandBucketLifecycleRuleSlice(c *Client, f []BucketLifecycleRule, res *Buc
 
 // flattenBucketLifecycleRuleMap flattens the contents of BucketLifecycleRule from a JSON
 // response object.
-func flattenBucketLifecycleRuleMap(c *Client, i interface{}) map[string]BucketLifecycleRule {
+func flattenBucketLifecycleRuleMap(c *Client, i interface{}, res *Bucket) map[string]BucketLifecycleRule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketLifecycleRule{}
@@ -2387,7 +2387,7 @@ func flattenBucketLifecycleRuleMap(c *Client, i interface{}) map[string]BucketLi
 
 	items := make(map[string]BucketLifecycleRule)
 	for k, item := range a {
-		items[k] = *flattenBucketLifecycleRule(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketLifecycleRule(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2395,7 +2395,7 @@ func flattenBucketLifecycleRuleMap(c *Client, i interface{}) map[string]BucketLi
 
 // flattenBucketLifecycleRuleSlice flattens the contents of BucketLifecycleRule from a JSON
 // response object.
-func flattenBucketLifecycleRuleSlice(c *Client, i interface{}) []BucketLifecycleRule {
+func flattenBucketLifecycleRuleSlice(c *Client, i interface{}, res *Bucket) []BucketLifecycleRule {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketLifecycleRule{}
@@ -2407,7 +2407,7 @@ func flattenBucketLifecycleRuleSlice(c *Client, i interface{}) []BucketLifecycle
 
 	items := make([]BucketLifecycleRule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketLifecycleRule(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketLifecycleRule(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2437,7 +2437,7 @@ func expandBucketLifecycleRule(c *Client, f *BucketLifecycleRule, res *Bucket) (
 
 // flattenBucketLifecycleRule flattens an instance of BucketLifecycleRule from a JSON
 // response object.
-func flattenBucketLifecycleRule(c *Client, i interface{}) *BucketLifecycleRule {
+func flattenBucketLifecycleRule(c *Client, i interface{}, res *Bucket) *BucketLifecycleRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2448,8 +2448,8 @@ func flattenBucketLifecycleRule(c *Client, i interface{}) *BucketLifecycleRule {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyBucketLifecycleRule
 	}
-	r.Action = flattenBucketLifecycleRuleAction(c, m["action"])
-	r.Condition = flattenBucketLifecycleRuleCondition(c, m["condition"])
+	r.Action = flattenBucketLifecycleRuleAction(c, m["action"], res)
+	r.Condition = flattenBucketLifecycleRuleCondition(c, m["condition"], res)
 
 	return r
 }
@@ -2497,7 +2497,7 @@ func expandBucketLifecycleRuleActionSlice(c *Client, f []BucketLifecycleRuleActi
 
 // flattenBucketLifecycleRuleActionMap flattens the contents of BucketLifecycleRuleAction from a JSON
 // response object.
-func flattenBucketLifecycleRuleActionMap(c *Client, i interface{}) map[string]BucketLifecycleRuleAction {
+func flattenBucketLifecycleRuleActionMap(c *Client, i interface{}, res *Bucket) map[string]BucketLifecycleRuleAction {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketLifecycleRuleAction{}
@@ -2509,7 +2509,7 @@ func flattenBucketLifecycleRuleActionMap(c *Client, i interface{}) map[string]Bu
 
 	items := make(map[string]BucketLifecycleRuleAction)
 	for k, item := range a {
-		items[k] = *flattenBucketLifecycleRuleAction(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketLifecycleRuleAction(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2517,7 +2517,7 @@ func flattenBucketLifecycleRuleActionMap(c *Client, i interface{}) map[string]Bu
 
 // flattenBucketLifecycleRuleActionSlice flattens the contents of BucketLifecycleRuleAction from a JSON
 // response object.
-func flattenBucketLifecycleRuleActionSlice(c *Client, i interface{}) []BucketLifecycleRuleAction {
+func flattenBucketLifecycleRuleActionSlice(c *Client, i interface{}, res *Bucket) []BucketLifecycleRuleAction {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketLifecycleRuleAction{}
@@ -2529,7 +2529,7 @@ func flattenBucketLifecycleRuleActionSlice(c *Client, i interface{}) []BucketLif
 
 	items := make([]BucketLifecycleRuleAction, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketLifecycleRuleAction(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketLifecycleRuleAction(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2555,7 +2555,7 @@ func expandBucketLifecycleRuleAction(c *Client, f *BucketLifecycleRuleAction, re
 
 // flattenBucketLifecycleRuleAction flattens an instance of BucketLifecycleRuleAction from a JSON
 // response object.
-func flattenBucketLifecycleRuleAction(c *Client, i interface{}) *BucketLifecycleRuleAction {
+func flattenBucketLifecycleRuleAction(c *Client, i interface{}, res *Bucket) *BucketLifecycleRuleAction {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2615,7 +2615,7 @@ func expandBucketLifecycleRuleConditionSlice(c *Client, f []BucketLifecycleRuleC
 
 // flattenBucketLifecycleRuleConditionMap flattens the contents of BucketLifecycleRuleCondition from a JSON
 // response object.
-func flattenBucketLifecycleRuleConditionMap(c *Client, i interface{}) map[string]BucketLifecycleRuleCondition {
+func flattenBucketLifecycleRuleConditionMap(c *Client, i interface{}, res *Bucket) map[string]BucketLifecycleRuleCondition {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketLifecycleRuleCondition{}
@@ -2627,7 +2627,7 @@ func flattenBucketLifecycleRuleConditionMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]BucketLifecycleRuleCondition)
 	for k, item := range a {
-		items[k] = *flattenBucketLifecycleRuleCondition(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketLifecycleRuleCondition(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2635,7 +2635,7 @@ func flattenBucketLifecycleRuleConditionMap(c *Client, i interface{}) map[string
 
 // flattenBucketLifecycleRuleConditionSlice flattens the contents of BucketLifecycleRuleCondition from a JSON
 // response object.
-func flattenBucketLifecycleRuleConditionSlice(c *Client, i interface{}) []BucketLifecycleRuleCondition {
+func flattenBucketLifecycleRuleConditionSlice(c *Client, i interface{}, res *Bucket) []BucketLifecycleRuleCondition {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketLifecycleRuleCondition{}
@@ -2647,7 +2647,7 @@ func flattenBucketLifecycleRuleConditionSlice(c *Client, i interface{}) []Bucket
 
 	items := make([]BucketLifecycleRuleCondition, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketLifecycleRuleCondition(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketLifecycleRuleCondition(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2684,7 +2684,7 @@ func expandBucketLifecycleRuleCondition(c *Client, f *BucketLifecycleRuleConditi
 
 // flattenBucketLifecycleRuleCondition flattens an instance of BucketLifecycleRuleCondition from a JSON
 // response object.
-func flattenBucketLifecycleRuleCondition(c *Client, i interface{}) *BucketLifecycleRuleCondition {
+func flattenBucketLifecycleRuleCondition(c *Client, i interface{}, res *Bucket) *BucketLifecycleRuleCondition {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2747,7 +2747,7 @@ func expandBucketLoggingSlice(c *Client, f []BucketLogging, res *Bucket) ([]map[
 
 // flattenBucketLoggingMap flattens the contents of BucketLogging from a JSON
 // response object.
-func flattenBucketLoggingMap(c *Client, i interface{}) map[string]BucketLogging {
+func flattenBucketLoggingMap(c *Client, i interface{}, res *Bucket) map[string]BucketLogging {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketLogging{}
@@ -2759,7 +2759,7 @@ func flattenBucketLoggingMap(c *Client, i interface{}) map[string]BucketLogging 
 
 	items := make(map[string]BucketLogging)
 	for k, item := range a {
-		items[k] = *flattenBucketLogging(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketLogging(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2767,7 +2767,7 @@ func flattenBucketLoggingMap(c *Client, i interface{}) map[string]BucketLogging 
 
 // flattenBucketLoggingSlice flattens the contents of BucketLogging from a JSON
 // response object.
-func flattenBucketLoggingSlice(c *Client, i interface{}) []BucketLogging {
+func flattenBucketLoggingSlice(c *Client, i interface{}, res *Bucket) []BucketLogging {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketLogging{}
@@ -2779,7 +2779,7 @@ func flattenBucketLoggingSlice(c *Client, i interface{}) []BucketLogging {
 
 	items := make([]BucketLogging, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketLogging(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketLogging(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2805,7 +2805,7 @@ func expandBucketLogging(c *Client, f *BucketLogging, res *Bucket) (map[string]i
 
 // flattenBucketLogging flattens an instance of BucketLogging from a JSON
 // response object.
-func flattenBucketLogging(c *Client, i interface{}) *BucketLogging {
+func flattenBucketLogging(c *Client, i interface{}, res *Bucket) *BucketLogging {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2865,7 +2865,7 @@ func expandBucketVersioningSlice(c *Client, f []BucketVersioning, res *Bucket) (
 
 // flattenBucketVersioningMap flattens the contents of BucketVersioning from a JSON
 // response object.
-func flattenBucketVersioningMap(c *Client, i interface{}) map[string]BucketVersioning {
+func flattenBucketVersioningMap(c *Client, i interface{}, res *Bucket) map[string]BucketVersioning {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketVersioning{}
@@ -2877,7 +2877,7 @@ func flattenBucketVersioningMap(c *Client, i interface{}) map[string]BucketVersi
 
 	items := make(map[string]BucketVersioning)
 	for k, item := range a {
-		items[k] = *flattenBucketVersioning(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketVersioning(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2885,7 +2885,7 @@ func flattenBucketVersioningMap(c *Client, i interface{}) map[string]BucketVersi
 
 // flattenBucketVersioningSlice flattens the contents of BucketVersioning from a JSON
 // response object.
-func flattenBucketVersioningSlice(c *Client, i interface{}) []BucketVersioning {
+func flattenBucketVersioningSlice(c *Client, i interface{}, res *Bucket) []BucketVersioning {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketVersioning{}
@@ -2897,7 +2897,7 @@ func flattenBucketVersioningSlice(c *Client, i interface{}) []BucketVersioning {
 
 	items := make([]BucketVersioning, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketVersioning(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketVersioning(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2920,7 +2920,7 @@ func expandBucketVersioning(c *Client, f *BucketVersioning, res *Bucket) (map[st
 
 // flattenBucketVersioning flattens an instance of BucketVersioning from a JSON
 // response object.
-func flattenBucketVersioning(c *Client, i interface{}) *BucketVersioning {
+func flattenBucketVersioning(c *Client, i interface{}, res *Bucket) *BucketVersioning {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2979,7 +2979,7 @@ func expandBucketWebsiteSlice(c *Client, f []BucketWebsite, res *Bucket) ([]map[
 
 // flattenBucketWebsiteMap flattens the contents of BucketWebsite from a JSON
 // response object.
-func flattenBucketWebsiteMap(c *Client, i interface{}) map[string]BucketWebsite {
+func flattenBucketWebsiteMap(c *Client, i interface{}, res *Bucket) map[string]BucketWebsite {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketWebsite{}
@@ -2991,7 +2991,7 @@ func flattenBucketWebsiteMap(c *Client, i interface{}) map[string]BucketWebsite 
 
 	items := make(map[string]BucketWebsite)
 	for k, item := range a {
-		items[k] = *flattenBucketWebsite(c, item.(map[string]interface{}))
+		items[k] = *flattenBucketWebsite(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2999,7 +2999,7 @@ func flattenBucketWebsiteMap(c *Client, i interface{}) map[string]BucketWebsite 
 
 // flattenBucketWebsiteSlice flattens the contents of BucketWebsite from a JSON
 // response object.
-func flattenBucketWebsiteSlice(c *Client, i interface{}) []BucketWebsite {
+func flattenBucketWebsiteSlice(c *Client, i interface{}, res *Bucket) []BucketWebsite {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketWebsite{}
@@ -3011,7 +3011,7 @@ func flattenBucketWebsiteSlice(c *Client, i interface{}) []BucketWebsite {
 
 	items := make([]BucketWebsite, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketWebsite(c, item.(map[string]interface{})))
+		items = append(items, *flattenBucketWebsite(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3037,7 +3037,7 @@ func expandBucketWebsite(c *Client, f *BucketWebsite, res *Bucket) (map[string]i
 
 // flattenBucketWebsite flattens an instance of BucketWebsite from a JSON
 // response object.
-func flattenBucketWebsite(c *Client, i interface{}) *BucketWebsite {
+func flattenBucketWebsite(c *Client, i interface{}, res *Bucket) *BucketWebsite {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3056,7 +3056,7 @@ func flattenBucketWebsite(c *Client, i interface{}) *BucketWebsite {
 
 // flattenBucketLifecycleRuleActionTypeEnumMap flattens the contents of BucketLifecycleRuleActionTypeEnum from a JSON
 // response object.
-func flattenBucketLifecycleRuleActionTypeEnumMap(c *Client, i interface{}) map[string]BucketLifecycleRuleActionTypeEnum {
+func flattenBucketLifecycleRuleActionTypeEnumMap(c *Client, i interface{}, res *Bucket) map[string]BucketLifecycleRuleActionTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketLifecycleRuleActionTypeEnum{}
@@ -3076,7 +3076,7 @@ func flattenBucketLifecycleRuleActionTypeEnumMap(c *Client, i interface{}) map[s
 
 // flattenBucketLifecycleRuleActionTypeEnumSlice flattens the contents of BucketLifecycleRuleActionTypeEnum from a JSON
 // response object.
-func flattenBucketLifecycleRuleActionTypeEnumSlice(c *Client, i interface{}) []BucketLifecycleRuleActionTypeEnum {
+func flattenBucketLifecycleRuleActionTypeEnumSlice(c *Client, i interface{}, res *Bucket) []BucketLifecycleRuleActionTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketLifecycleRuleActionTypeEnum{}
@@ -3107,7 +3107,7 @@ func flattenBucketLifecycleRuleActionTypeEnum(i interface{}) *BucketLifecycleRul
 
 // flattenBucketLifecycleRuleConditionWithStateEnumMap flattens the contents of BucketLifecycleRuleConditionWithStateEnum from a JSON
 // response object.
-func flattenBucketLifecycleRuleConditionWithStateEnumMap(c *Client, i interface{}) map[string]BucketLifecycleRuleConditionWithStateEnum {
+func flattenBucketLifecycleRuleConditionWithStateEnumMap(c *Client, i interface{}, res *Bucket) map[string]BucketLifecycleRuleConditionWithStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketLifecycleRuleConditionWithStateEnum{}
@@ -3127,7 +3127,7 @@ func flattenBucketLifecycleRuleConditionWithStateEnumMap(c *Client, i interface{
 
 // flattenBucketLifecycleRuleConditionWithStateEnumSlice flattens the contents of BucketLifecycleRuleConditionWithStateEnum from a JSON
 // response object.
-func flattenBucketLifecycleRuleConditionWithStateEnumSlice(c *Client, i interface{}) []BucketLifecycleRuleConditionWithStateEnum {
+func flattenBucketLifecycleRuleConditionWithStateEnumSlice(c *Client, i interface{}, res *Bucket) []BucketLifecycleRuleConditionWithStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketLifecycleRuleConditionWithStateEnum{}
@@ -3158,7 +3158,7 @@ func flattenBucketLifecycleRuleConditionWithStateEnum(i interface{}) *BucketLife
 
 // flattenBucketStorageClassEnumMap flattens the contents of BucketStorageClassEnum from a JSON
 // response object.
-func flattenBucketStorageClassEnumMap(c *Client, i interface{}) map[string]BucketStorageClassEnum {
+func flattenBucketStorageClassEnumMap(c *Client, i interface{}, res *Bucket) map[string]BucketStorageClassEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]BucketStorageClassEnum{}
@@ -3178,7 +3178,7 @@ func flattenBucketStorageClassEnumMap(c *Client, i interface{}) map[string]Bucke
 
 // flattenBucketStorageClassEnumSlice flattens the contents of BucketStorageClassEnum from a JSON
 // response object.
-func flattenBucketStorageClassEnumSlice(c *Client, i interface{}) []BucketStorageClassEnum {
+func flattenBucketStorageClassEnumSlice(c *Client, i interface{}, res *Bucket) []BucketStorageClassEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []BucketStorageClassEnum{}
@@ -3212,7 +3212,7 @@ func flattenBucketStorageClassEnum(i interface{}) *BucketStorageClassEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Bucket) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalBucket(b, c)
+		cr, err := unmarshalBucket(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

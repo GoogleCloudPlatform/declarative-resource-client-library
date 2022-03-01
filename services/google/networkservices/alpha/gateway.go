@@ -37,6 +37,7 @@ type Gateway struct {
 	AuthorizationPolicy *string           `json:"authorizationPolicy"`
 	Project             *string           `json:"project"`
 	Location            *string           `json:"location"`
+	SelfLink            *string           `json:"selfLink"`
 }
 
 func (r *Gateway) String() string {
@@ -99,6 +100,7 @@ func (r *Gateway) ID() (string, error) {
 		"authorizationPolicy": dcl.ValueOrEmptyString(nr.AuthorizationPolicy),
 		"project":             dcl.ValueOrEmptyString(nr.Project),
 		"location":            dcl.ValueOrEmptyString(nr.Location),
+		"selfLink":            dcl.ValueOrEmptyString(nr.SelfLink),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/gateways/{{name}}", params), nil
 }
@@ -185,7 +187,7 @@ func (c *Client) GetGateway(ctx context.Context, r *Gateway) (*Gateway, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalGateway(b, c)
+	result, err := unmarshalGateway(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +357,7 @@ func applyGatewayDiff(c *Client, ctx context.Context, desired *Gateway, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapGateway(r, c)
+				fullResp, err := unmarshalMapGateway(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

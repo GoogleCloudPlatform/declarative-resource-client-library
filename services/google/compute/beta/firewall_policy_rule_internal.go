@@ -211,7 +211,7 @@ func (c *Client) listFirewallPolicyRule(ctx context.Context, r *FirewallPolicyRu
 
 	var l []*FirewallPolicyRule
 	for _, v := range m.Rules {
-		res, err := unmarshalMapFirewallPolicyRule(v, c)
+		res, err := unmarshalMapFirewallPolicyRule(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -960,17 +960,17 @@ func (r *FirewallPolicyRule) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFirewallPolicyRule decodes JSON responses into the FirewallPolicyRule resource schema.
-func unmarshalFirewallPolicyRule(b []byte, c *Client) (*FirewallPolicyRule, error) {
+func unmarshalFirewallPolicyRule(b []byte, c *Client, res *FirewallPolicyRule) (*FirewallPolicyRule, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFirewallPolicyRule(m, c)
+	return unmarshalMapFirewallPolicyRule(m, c, res)
 }
 
-func unmarshalMapFirewallPolicyRule(m map[string]interface{}, c *Client) (*FirewallPolicyRule, error) {
+func unmarshalMapFirewallPolicyRule(m map[string]interface{}, c *Client, res *FirewallPolicyRule) (*FirewallPolicyRule, error) {
 
-	flattened := flattenFirewallPolicyRule(c, m)
+	flattened := flattenFirewallPolicyRule(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1020,7 +1020,7 @@ func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]inte
 
 // flattenFirewallPolicyRule flattens FirewallPolicyRule from a JSON request object into the
 // FirewallPolicyRule type.
-func flattenFirewallPolicyRule(c *Client, i interface{}) *FirewallPolicyRule {
+func flattenFirewallPolicyRule(c *Client, i interface{}, res *FirewallPolicyRule) *FirewallPolicyRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1029,21 +1029,21 @@ func flattenFirewallPolicyRule(c *Client, i interface{}) *FirewallPolicyRule {
 		return nil
 	}
 
-	res := &FirewallPolicyRule{}
-	res.Description = dcl.FlattenString(m["description"])
-	res.Priority = dcl.FlattenInteger(m["priority"])
-	res.Match = flattenFirewallPolicyRuleMatch(c, m["match"])
-	res.Action = dcl.FlattenString(m["action"])
-	res.Direction = flattenFirewallPolicyRuleDirectionEnum(m["direction"])
-	res.TargetResources = dcl.FlattenStringSlice(m["targetResources"])
-	res.EnableLogging = dcl.FlattenBool(m["enableLogging"])
-	res.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
-	res.TargetServiceAccounts = dcl.FlattenStringSlice(m["targetServiceAccounts"])
-	res.Disabled = dcl.FlattenBool(m["disabled"])
-	res.Kind = dcl.FlattenString(m["kind"])
-	res.FirewallPolicy = dcl.FlattenString(m["firewallPolicy"])
+	resultRes := &FirewallPolicyRule{}
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Priority = dcl.FlattenInteger(m["priority"])
+	resultRes.Match = flattenFirewallPolicyRuleMatch(c, m["match"], res)
+	resultRes.Action = dcl.FlattenString(m["action"])
+	resultRes.Direction = flattenFirewallPolicyRuleDirectionEnum(m["direction"])
+	resultRes.TargetResources = dcl.FlattenStringSlice(m["targetResources"])
+	resultRes.EnableLogging = dcl.FlattenBool(m["enableLogging"])
+	resultRes.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
+	resultRes.TargetServiceAccounts = dcl.FlattenStringSlice(m["targetServiceAccounts"])
+	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
+	resultRes.Kind = dcl.FlattenString(m["kind"])
+	resultRes.FirewallPolicy = dcl.FlattenString(m["firewallPolicy"])
 
-	return res
+	return resultRes
 }
 
 // expandFirewallPolicyRuleMatchMap expands the contents of FirewallPolicyRuleMatch into a JSON
@@ -1089,7 +1089,7 @@ func expandFirewallPolicyRuleMatchSlice(c *Client, f []FirewallPolicyRuleMatch, 
 
 // flattenFirewallPolicyRuleMatchMap flattens the contents of FirewallPolicyRuleMatch from a JSON
 // response object.
-func flattenFirewallPolicyRuleMatchMap(c *Client, i interface{}) map[string]FirewallPolicyRuleMatch {
+func flattenFirewallPolicyRuleMatchMap(c *Client, i interface{}, res *FirewallPolicyRule) map[string]FirewallPolicyRuleMatch {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FirewallPolicyRuleMatch{}
@@ -1101,7 +1101,7 @@ func flattenFirewallPolicyRuleMatchMap(c *Client, i interface{}) map[string]Fire
 
 	items := make(map[string]FirewallPolicyRuleMatch)
 	for k, item := range a {
-		items[k] = *flattenFirewallPolicyRuleMatch(c, item.(map[string]interface{}))
+		items[k] = *flattenFirewallPolicyRuleMatch(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1109,7 +1109,7 @@ func flattenFirewallPolicyRuleMatchMap(c *Client, i interface{}) map[string]Fire
 
 // flattenFirewallPolicyRuleMatchSlice flattens the contents of FirewallPolicyRuleMatch from a JSON
 // response object.
-func flattenFirewallPolicyRuleMatchSlice(c *Client, i interface{}) []FirewallPolicyRuleMatch {
+func flattenFirewallPolicyRuleMatchSlice(c *Client, i interface{}, res *FirewallPolicyRule) []FirewallPolicyRuleMatch {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FirewallPolicyRuleMatch{}
@@ -1121,7 +1121,7 @@ func flattenFirewallPolicyRuleMatchSlice(c *Client, i interface{}) []FirewallPol
 
 	items := make([]FirewallPolicyRuleMatch, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFirewallPolicyRuleMatch(c, item.(map[string]interface{})))
+		items = append(items, *flattenFirewallPolicyRuleMatch(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1152,7 +1152,7 @@ func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch, res *F
 
 // flattenFirewallPolicyRuleMatch flattens an instance of FirewallPolicyRuleMatch from a JSON
 // response object.
-func flattenFirewallPolicyRuleMatch(c *Client, i interface{}) *FirewallPolicyRuleMatch {
+func flattenFirewallPolicyRuleMatch(c *Client, i interface{}, res *FirewallPolicyRule) *FirewallPolicyRuleMatch {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1165,7 +1165,7 @@ func flattenFirewallPolicyRuleMatch(c *Client, i interface{}) *FirewallPolicyRul
 	}
 	r.SrcIPRanges = dcl.FlattenStringSlice(m["srcIpRanges"])
 	r.DestIPRanges = dcl.FlattenStringSlice(m["destIpRanges"])
-	r.Layer4Configs = flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c, m["layer4Configs"])
+	r.Layer4Configs = flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c, m["layer4Configs"], res)
 
 	return r
 }
@@ -1213,7 +1213,7 @@ func expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, f []FirewallPoli
 
 // flattenFirewallPolicyRuleMatchLayer4ConfigsMap flattens the contents of FirewallPolicyRuleMatchLayer4Configs from a JSON
 // response object.
-func flattenFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, i interface{}) map[string]FirewallPolicyRuleMatchLayer4Configs {
+func flattenFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, i interface{}, res *FirewallPolicyRule) map[string]FirewallPolicyRuleMatchLayer4Configs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FirewallPolicyRuleMatchLayer4Configs{}
@@ -1225,7 +1225,7 @@ func flattenFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, i interface{}) ma
 
 	items := make(map[string]FirewallPolicyRuleMatchLayer4Configs)
 	for k, item := range a {
-		items[k] = *flattenFirewallPolicyRuleMatchLayer4Configs(c, item.(map[string]interface{}))
+		items[k] = *flattenFirewallPolicyRuleMatchLayer4Configs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1233,7 +1233,7 @@ func flattenFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, i interface{}) ma
 
 // flattenFirewallPolicyRuleMatchLayer4ConfigsSlice flattens the contents of FirewallPolicyRuleMatchLayer4Configs from a JSON
 // response object.
-func flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, i interface{}) []FirewallPolicyRuleMatchLayer4Configs {
+func flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, i interface{}, res *FirewallPolicyRule) []FirewallPolicyRuleMatchLayer4Configs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FirewallPolicyRuleMatchLayer4Configs{}
@@ -1245,7 +1245,7 @@ func flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, i interface{}) 
 
 	items := make([]FirewallPolicyRuleMatchLayer4Configs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFirewallPolicyRuleMatchLayer4Configs(c, item.(map[string]interface{})))
+		items = append(items, *flattenFirewallPolicyRuleMatchLayer4Configs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1271,7 +1271,7 @@ func expandFirewallPolicyRuleMatchLayer4Configs(c *Client, f *FirewallPolicyRule
 
 // flattenFirewallPolicyRuleMatchLayer4Configs flattens an instance of FirewallPolicyRuleMatchLayer4Configs from a JSON
 // response object.
-func flattenFirewallPolicyRuleMatchLayer4Configs(c *Client, i interface{}) *FirewallPolicyRuleMatchLayer4Configs {
+func flattenFirewallPolicyRuleMatchLayer4Configs(c *Client, i interface{}, res *FirewallPolicyRule) *FirewallPolicyRuleMatchLayer4Configs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1290,7 +1290,7 @@ func flattenFirewallPolicyRuleMatchLayer4Configs(c *Client, i interface{}) *Fire
 
 // flattenFirewallPolicyRuleDirectionEnumMap flattens the contents of FirewallPolicyRuleDirectionEnum from a JSON
 // response object.
-func flattenFirewallPolicyRuleDirectionEnumMap(c *Client, i interface{}) map[string]FirewallPolicyRuleDirectionEnum {
+func flattenFirewallPolicyRuleDirectionEnumMap(c *Client, i interface{}, res *FirewallPolicyRule) map[string]FirewallPolicyRuleDirectionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FirewallPolicyRuleDirectionEnum{}
@@ -1310,7 +1310,7 @@ func flattenFirewallPolicyRuleDirectionEnumMap(c *Client, i interface{}) map[str
 
 // flattenFirewallPolicyRuleDirectionEnumSlice flattens the contents of FirewallPolicyRuleDirectionEnum from a JSON
 // response object.
-func flattenFirewallPolicyRuleDirectionEnumSlice(c *Client, i interface{}) []FirewallPolicyRuleDirectionEnum {
+func flattenFirewallPolicyRuleDirectionEnumSlice(c *Client, i interface{}, res *FirewallPolicyRule) []FirewallPolicyRuleDirectionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FirewallPolicyRuleDirectionEnum{}
@@ -1344,7 +1344,7 @@ func flattenFirewallPolicyRuleDirectionEnum(i interface{}) *FirewallPolicyRuleDi
 // identity).  This is useful in extracting the element from a List call.
 func (r *FirewallPolicyRule) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFirewallPolicyRule(b, c)
+		cr, err := unmarshalFirewallPolicyRule(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

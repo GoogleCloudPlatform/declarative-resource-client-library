@@ -452,7 +452,7 @@ func (c *Client) listGuestPolicy(ctx context.Context, r *GuestPolicy, pageToken 
 
 	var l []*GuestPolicy
 	for _, v := range m.GuestPolicies {
-		res, err := unmarshalMapGuestPolicy(v, c)
+		res, err := unmarshalMapGuestPolicy(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -5964,17 +5964,17 @@ func (r *GuestPolicy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalGuestPolicy decodes JSON responses into the GuestPolicy resource schema.
-func unmarshalGuestPolicy(b []byte, c *Client) (*GuestPolicy, error) {
+func unmarshalGuestPolicy(b []byte, c *Client, res *GuestPolicy) (*GuestPolicy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapGuestPolicy(m, c)
+	return unmarshalMapGuestPolicy(m, c, res)
 }
 
-func unmarshalMapGuestPolicy(m map[string]interface{}, c *Client) (*GuestPolicy, error) {
+func unmarshalMapGuestPolicy(m map[string]interface{}, c *Client, res *GuestPolicy) (*GuestPolicy, error) {
 
-	flattened := flattenGuestPolicy(c, m)
+	flattened := flattenGuestPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -6023,7 +6023,7 @@ func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error
 
 // flattenGuestPolicy flattens GuestPolicy from a JSON request object into the
 // GuestPolicy type.
-func flattenGuestPolicy(c *Client, i interface{}) *GuestPolicy {
+func flattenGuestPolicy(c *Client, i interface{}, res *GuestPolicy) *GuestPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6032,19 +6032,19 @@ func flattenGuestPolicy(c *Client, i interface{}) *GuestPolicy {
 		return nil
 	}
 
-	res := &GuestPolicy{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Assignment = flattenGuestPolicyAssignment(c, m["assignment"])
-	res.Packages = flattenGuestPolicyPackagesSlice(c, m["packages"])
-	res.PackageRepositories = flattenGuestPolicyPackageRepositoriesSlice(c, m["packageRepositories"])
-	res.Recipes = flattenGuestPolicyRecipesSlice(c, m["recipes"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &GuestPolicy{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Assignment = flattenGuestPolicyAssignment(c, m["assignment"], res)
+	resultRes.Packages = flattenGuestPolicyPackagesSlice(c, m["packages"], res)
+	resultRes.PackageRepositories = flattenGuestPolicyPackageRepositoriesSlice(c, m["packageRepositories"], res)
+	resultRes.Recipes = flattenGuestPolicyRecipesSlice(c, m["recipes"], res)
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandGuestPolicyAssignmentMap expands the contents of GuestPolicyAssignment into a JSON
@@ -6090,7 +6090,7 @@ func expandGuestPolicyAssignmentSlice(c *Client, f []GuestPolicyAssignment, res 
 
 // flattenGuestPolicyAssignmentMap flattens the contents of GuestPolicyAssignment from a JSON
 // response object.
-func flattenGuestPolicyAssignmentMap(c *Client, i interface{}) map[string]GuestPolicyAssignment {
+func flattenGuestPolicyAssignmentMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyAssignment {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyAssignment{}
@@ -6102,7 +6102,7 @@ func flattenGuestPolicyAssignmentMap(c *Client, i interface{}) map[string]GuestP
 
 	items := make(map[string]GuestPolicyAssignment)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyAssignment(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyAssignment(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6110,7 +6110,7 @@ func flattenGuestPolicyAssignmentMap(c *Client, i interface{}) map[string]GuestP
 
 // flattenGuestPolicyAssignmentSlice flattens the contents of GuestPolicyAssignment from a JSON
 // response object.
-func flattenGuestPolicyAssignmentSlice(c *Client, i interface{}) []GuestPolicyAssignment {
+func flattenGuestPolicyAssignmentSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyAssignment {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyAssignment{}
@@ -6122,7 +6122,7 @@ func flattenGuestPolicyAssignmentSlice(c *Client, i interface{}) []GuestPolicyAs
 
 	items := make([]GuestPolicyAssignment, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyAssignment(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyAssignment(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6163,7 +6163,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment, res *Guest
 
 // flattenGuestPolicyAssignment flattens an instance of GuestPolicyAssignment from a JSON
 // response object.
-func flattenGuestPolicyAssignment(c *Client, i interface{}) *GuestPolicyAssignment {
+func flattenGuestPolicyAssignment(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyAssignment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6174,11 +6174,11 @@ func flattenGuestPolicyAssignment(c *Client, i interface{}) *GuestPolicyAssignme
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGuestPolicyAssignment
 	}
-	r.GroupLabels = flattenGuestPolicyAssignmentGroupLabelsSlice(c, m["groupLabels"])
+	r.GroupLabels = flattenGuestPolicyAssignmentGroupLabelsSlice(c, m["groupLabels"], res)
 	r.Zones = dcl.FlattenStringSlice(m["zones"])
 	r.Instances = flattenGuestPolicyInstances(m["instances"])
 	r.InstanceNamePrefixes = dcl.FlattenStringSlice(m["instanceNamePrefixes"])
-	r.OSTypes = flattenGuestPolicyAssignmentOSTypesSlice(c, m["osTypes"])
+	r.OSTypes = flattenGuestPolicyAssignmentOSTypesSlice(c, m["osTypes"], res)
 
 	return r
 }
@@ -6226,7 +6226,7 @@ func expandGuestPolicyAssignmentGroupLabelsSlice(c *Client, f []GuestPolicyAssig
 
 // flattenGuestPolicyAssignmentGroupLabelsMap flattens the contents of GuestPolicyAssignmentGroupLabels from a JSON
 // response object.
-func flattenGuestPolicyAssignmentGroupLabelsMap(c *Client, i interface{}) map[string]GuestPolicyAssignmentGroupLabels {
+func flattenGuestPolicyAssignmentGroupLabelsMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyAssignmentGroupLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyAssignmentGroupLabels{}
@@ -6238,7 +6238,7 @@ func flattenGuestPolicyAssignmentGroupLabelsMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]GuestPolicyAssignmentGroupLabels)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyAssignmentGroupLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyAssignmentGroupLabels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6246,7 +6246,7 @@ func flattenGuestPolicyAssignmentGroupLabelsMap(c *Client, i interface{}) map[st
 
 // flattenGuestPolicyAssignmentGroupLabelsSlice flattens the contents of GuestPolicyAssignmentGroupLabels from a JSON
 // response object.
-func flattenGuestPolicyAssignmentGroupLabelsSlice(c *Client, i interface{}) []GuestPolicyAssignmentGroupLabels {
+func flattenGuestPolicyAssignmentGroupLabelsSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyAssignmentGroupLabels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyAssignmentGroupLabels{}
@@ -6258,7 +6258,7 @@ func flattenGuestPolicyAssignmentGroupLabelsSlice(c *Client, i interface{}) []Gu
 
 	items := make([]GuestPolicyAssignmentGroupLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyAssignmentGroupLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyAssignmentGroupLabels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6281,7 +6281,7 @@ func expandGuestPolicyAssignmentGroupLabels(c *Client, f *GuestPolicyAssignmentG
 
 // flattenGuestPolicyAssignmentGroupLabels flattens an instance of GuestPolicyAssignmentGroupLabels from a JSON
 // response object.
-func flattenGuestPolicyAssignmentGroupLabels(c *Client, i interface{}) *GuestPolicyAssignmentGroupLabels {
+func flattenGuestPolicyAssignmentGroupLabels(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyAssignmentGroupLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6340,7 +6340,7 @@ func expandGuestPolicyAssignmentOSTypesSlice(c *Client, f []GuestPolicyAssignmen
 
 // flattenGuestPolicyAssignmentOSTypesMap flattens the contents of GuestPolicyAssignmentOSTypes from a JSON
 // response object.
-func flattenGuestPolicyAssignmentOSTypesMap(c *Client, i interface{}) map[string]GuestPolicyAssignmentOSTypes {
+func flattenGuestPolicyAssignmentOSTypesMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyAssignmentOSTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyAssignmentOSTypes{}
@@ -6352,7 +6352,7 @@ func flattenGuestPolicyAssignmentOSTypesMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]GuestPolicyAssignmentOSTypes)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyAssignmentOSTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyAssignmentOSTypes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6360,7 +6360,7 @@ func flattenGuestPolicyAssignmentOSTypesMap(c *Client, i interface{}) map[string
 
 // flattenGuestPolicyAssignmentOSTypesSlice flattens the contents of GuestPolicyAssignmentOSTypes from a JSON
 // response object.
-func flattenGuestPolicyAssignmentOSTypesSlice(c *Client, i interface{}) []GuestPolicyAssignmentOSTypes {
+func flattenGuestPolicyAssignmentOSTypesSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyAssignmentOSTypes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyAssignmentOSTypes{}
@@ -6372,7 +6372,7 @@ func flattenGuestPolicyAssignmentOSTypesSlice(c *Client, i interface{}) []GuestP
 
 	items := make([]GuestPolicyAssignmentOSTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyAssignmentOSTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyAssignmentOSTypes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6401,7 +6401,7 @@ func expandGuestPolicyAssignmentOSTypes(c *Client, f *GuestPolicyAssignmentOSTyp
 
 // flattenGuestPolicyAssignmentOSTypes flattens an instance of GuestPolicyAssignmentOSTypes from a JSON
 // response object.
-func flattenGuestPolicyAssignmentOSTypes(c *Client, i interface{}) *GuestPolicyAssignmentOSTypes {
+func flattenGuestPolicyAssignmentOSTypes(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyAssignmentOSTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6462,7 +6462,7 @@ func expandGuestPolicyPackagesSlice(c *Client, f []GuestPolicyPackages, res *Gue
 
 // flattenGuestPolicyPackagesMap flattens the contents of GuestPolicyPackages from a JSON
 // response object.
-func flattenGuestPolicyPackagesMap(c *Client, i interface{}) map[string]GuestPolicyPackages {
+func flattenGuestPolicyPackagesMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackages {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackages{}
@@ -6474,7 +6474,7 @@ func flattenGuestPolicyPackagesMap(c *Client, i interface{}) map[string]GuestPol
 
 	items := make(map[string]GuestPolicyPackages)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyPackages(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyPackages(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6482,7 +6482,7 @@ func flattenGuestPolicyPackagesMap(c *Client, i interface{}) map[string]GuestPol
 
 // flattenGuestPolicyPackagesSlice flattens the contents of GuestPolicyPackages from a JSON
 // response object.
-func flattenGuestPolicyPackagesSlice(c *Client, i interface{}) []GuestPolicyPackages {
+func flattenGuestPolicyPackagesSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackages {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackages{}
@@ -6494,7 +6494,7 @@ func flattenGuestPolicyPackagesSlice(c *Client, i interface{}) []GuestPolicyPack
 
 	items := make([]GuestPolicyPackages, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyPackages(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyPackages(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6523,7 +6523,7 @@ func expandGuestPolicyPackages(c *Client, f *GuestPolicyPackages, res *GuestPoli
 
 // flattenGuestPolicyPackages flattens an instance of GuestPolicyPackages from a JSON
 // response object.
-func flattenGuestPolicyPackages(c *Client, i interface{}) *GuestPolicyPackages {
+func flattenGuestPolicyPackages(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyPackages {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6584,7 +6584,7 @@ func expandGuestPolicyPackageRepositoriesSlice(c *Client, f []GuestPolicyPackage
 
 // flattenGuestPolicyPackageRepositoriesMap flattens the contents of GuestPolicyPackageRepositories from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesMap(c *Client, i interface{}) map[string]GuestPolicyPackageRepositories {
+func flattenGuestPolicyPackageRepositoriesMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackageRepositories {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackageRepositories{}
@@ -6596,7 +6596,7 @@ func flattenGuestPolicyPackageRepositoriesMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]GuestPolicyPackageRepositories)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyPackageRepositories(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyPackageRepositories(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6604,7 +6604,7 @@ func flattenGuestPolicyPackageRepositoriesMap(c *Client, i interface{}) map[stri
 
 // flattenGuestPolicyPackageRepositoriesSlice flattens the contents of GuestPolicyPackageRepositories from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesSlice(c *Client, i interface{}) []GuestPolicyPackageRepositories {
+func flattenGuestPolicyPackageRepositoriesSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackageRepositories {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackageRepositories{}
@@ -6616,7 +6616,7 @@ func flattenGuestPolicyPackageRepositoriesSlice(c *Client, i interface{}) []Gues
 
 	items := make([]GuestPolicyPackageRepositories, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyPackageRepositories(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyPackageRepositories(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6656,7 +6656,7 @@ func expandGuestPolicyPackageRepositories(c *Client, f *GuestPolicyPackageReposi
 
 // flattenGuestPolicyPackageRepositories flattens an instance of GuestPolicyPackageRepositories from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositories(c *Client, i interface{}) *GuestPolicyPackageRepositories {
+func flattenGuestPolicyPackageRepositories(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyPackageRepositories {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6667,10 +6667,10 @@ func flattenGuestPolicyPackageRepositories(c *Client, i interface{}) *GuestPolic
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGuestPolicyPackageRepositories
 	}
-	r.Apt = flattenGuestPolicyPackageRepositoriesApt(c, m["apt"])
-	r.Yum = flattenGuestPolicyPackageRepositoriesYum(c, m["yum"])
-	r.Zypper = flattenGuestPolicyPackageRepositoriesZypper(c, m["zypper"])
-	r.Goo = flattenGuestPolicyPackageRepositoriesGoo(c, m["goo"])
+	r.Apt = flattenGuestPolicyPackageRepositoriesApt(c, m["apt"], res)
+	r.Yum = flattenGuestPolicyPackageRepositoriesYum(c, m["yum"], res)
+	r.Zypper = flattenGuestPolicyPackageRepositoriesZypper(c, m["zypper"], res)
+	r.Goo = flattenGuestPolicyPackageRepositoriesGoo(c, m["goo"], res)
 
 	return r
 }
@@ -6718,7 +6718,7 @@ func expandGuestPolicyPackageRepositoriesAptSlice(c *Client, f []GuestPolicyPack
 
 // flattenGuestPolicyPackageRepositoriesAptMap flattens the contents of GuestPolicyPackageRepositoriesApt from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesAptMap(c *Client, i interface{}) map[string]GuestPolicyPackageRepositoriesApt {
+func flattenGuestPolicyPackageRepositoriesAptMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackageRepositoriesApt {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackageRepositoriesApt{}
@@ -6730,7 +6730,7 @@ func flattenGuestPolicyPackageRepositoriesAptMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]GuestPolicyPackageRepositoriesApt)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyPackageRepositoriesApt(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyPackageRepositoriesApt(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6738,7 +6738,7 @@ func flattenGuestPolicyPackageRepositoriesAptMap(c *Client, i interface{}) map[s
 
 // flattenGuestPolicyPackageRepositoriesAptSlice flattens the contents of GuestPolicyPackageRepositoriesApt from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesAptSlice(c *Client, i interface{}) []GuestPolicyPackageRepositoriesApt {
+func flattenGuestPolicyPackageRepositoriesAptSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackageRepositoriesApt {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackageRepositoriesApt{}
@@ -6750,7 +6750,7 @@ func flattenGuestPolicyPackageRepositoriesAptSlice(c *Client, i interface{}) []G
 
 	items := make([]GuestPolicyPackageRepositoriesApt, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyPackageRepositoriesApt(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyPackageRepositoriesApt(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6785,7 +6785,7 @@ func expandGuestPolicyPackageRepositoriesApt(c *Client, f *GuestPolicyPackageRep
 
 // flattenGuestPolicyPackageRepositoriesApt flattens an instance of GuestPolicyPackageRepositoriesApt from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesApt(c *Client, i interface{}) *GuestPolicyPackageRepositoriesApt {
+func flattenGuestPolicyPackageRepositoriesApt(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyPackageRepositoriesApt {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6848,7 +6848,7 @@ func expandGuestPolicyPackageRepositoriesYumSlice(c *Client, f []GuestPolicyPack
 
 // flattenGuestPolicyPackageRepositoriesYumMap flattens the contents of GuestPolicyPackageRepositoriesYum from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesYumMap(c *Client, i interface{}) map[string]GuestPolicyPackageRepositoriesYum {
+func flattenGuestPolicyPackageRepositoriesYumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackageRepositoriesYum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackageRepositoriesYum{}
@@ -6860,7 +6860,7 @@ func flattenGuestPolicyPackageRepositoriesYumMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]GuestPolicyPackageRepositoriesYum)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyPackageRepositoriesYum(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyPackageRepositoriesYum(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6868,7 +6868,7 @@ func flattenGuestPolicyPackageRepositoriesYumMap(c *Client, i interface{}) map[s
 
 // flattenGuestPolicyPackageRepositoriesYumSlice flattens the contents of GuestPolicyPackageRepositoriesYum from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesYumSlice(c *Client, i interface{}) []GuestPolicyPackageRepositoriesYum {
+func flattenGuestPolicyPackageRepositoriesYumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackageRepositoriesYum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackageRepositoriesYum{}
@@ -6880,7 +6880,7 @@ func flattenGuestPolicyPackageRepositoriesYumSlice(c *Client, i interface{}) []G
 
 	items := make([]GuestPolicyPackageRepositoriesYum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyPackageRepositoriesYum(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyPackageRepositoriesYum(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6912,7 +6912,7 @@ func expandGuestPolicyPackageRepositoriesYum(c *Client, f *GuestPolicyPackageRep
 
 // flattenGuestPolicyPackageRepositoriesYum flattens an instance of GuestPolicyPackageRepositoriesYum from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesYum(c *Client, i interface{}) *GuestPolicyPackageRepositoriesYum {
+func flattenGuestPolicyPackageRepositoriesYum(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyPackageRepositoriesYum {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6974,7 +6974,7 @@ func expandGuestPolicyPackageRepositoriesZypperSlice(c *Client, f []GuestPolicyP
 
 // flattenGuestPolicyPackageRepositoriesZypperMap flattens the contents of GuestPolicyPackageRepositoriesZypper from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesZypperMap(c *Client, i interface{}) map[string]GuestPolicyPackageRepositoriesZypper {
+func flattenGuestPolicyPackageRepositoriesZypperMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackageRepositoriesZypper {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackageRepositoriesZypper{}
@@ -6986,7 +6986,7 @@ func flattenGuestPolicyPackageRepositoriesZypperMap(c *Client, i interface{}) ma
 
 	items := make(map[string]GuestPolicyPackageRepositoriesZypper)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyPackageRepositoriesZypper(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyPackageRepositoriesZypper(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6994,7 +6994,7 @@ func flattenGuestPolicyPackageRepositoriesZypperMap(c *Client, i interface{}) ma
 
 // flattenGuestPolicyPackageRepositoriesZypperSlice flattens the contents of GuestPolicyPackageRepositoriesZypper from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesZypperSlice(c *Client, i interface{}) []GuestPolicyPackageRepositoriesZypper {
+func flattenGuestPolicyPackageRepositoriesZypperSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackageRepositoriesZypper {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackageRepositoriesZypper{}
@@ -7006,7 +7006,7 @@ func flattenGuestPolicyPackageRepositoriesZypperSlice(c *Client, i interface{}) 
 
 	items := make([]GuestPolicyPackageRepositoriesZypper, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyPackageRepositoriesZypper(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyPackageRepositoriesZypper(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7038,7 +7038,7 @@ func expandGuestPolicyPackageRepositoriesZypper(c *Client, f *GuestPolicyPackage
 
 // flattenGuestPolicyPackageRepositoriesZypper flattens an instance of GuestPolicyPackageRepositoriesZypper from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesZypper(c *Client, i interface{}) *GuestPolicyPackageRepositoriesZypper {
+func flattenGuestPolicyPackageRepositoriesZypper(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyPackageRepositoriesZypper {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7100,7 +7100,7 @@ func expandGuestPolicyPackageRepositoriesGooSlice(c *Client, f []GuestPolicyPack
 
 // flattenGuestPolicyPackageRepositoriesGooMap flattens the contents of GuestPolicyPackageRepositoriesGoo from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesGooMap(c *Client, i interface{}) map[string]GuestPolicyPackageRepositoriesGoo {
+func flattenGuestPolicyPackageRepositoriesGooMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackageRepositoriesGoo {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackageRepositoriesGoo{}
@@ -7112,7 +7112,7 @@ func flattenGuestPolicyPackageRepositoriesGooMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]GuestPolicyPackageRepositoriesGoo)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyPackageRepositoriesGoo(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyPackageRepositoriesGoo(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7120,7 +7120,7 @@ func flattenGuestPolicyPackageRepositoriesGooMap(c *Client, i interface{}) map[s
 
 // flattenGuestPolicyPackageRepositoriesGooSlice flattens the contents of GuestPolicyPackageRepositoriesGoo from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesGooSlice(c *Client, i interface{}) []GuestPolicyPackageRepositoriesGoo {
+func flattenGuestPolicyPackageRepositoriesGooSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackageRepositoriesGoo {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackageRepositoriesGoo{}
@@ -7132,7 +7132,7 @@ func flattenGuestPolicyPackageRepositoriesGooSlice(c *Client, i interface{}) []G
 
 	items := make([]GuestPolicyPackageRepositoriesGoo, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyPackageRepositoriesGoo(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyPackageRepositoriesGoo(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7158,7 +7158,7 @@ func expandGuestPolicyPackageRepositoriesGoo(c *Client, f *GuestPolicyPackageRep
 
 // flattenGuestPolicyPackageRepositoriesGoo flattens an instance of GuestPolicyPackageRepositoriesGoo from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesGoo(c *Client, i interface{}) *GuestPolicyPackageRepositoriesGoo {
+func flattenGuestPolicyPackageRepositoriesGoo(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyPackageRepositoriesGoo {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7218,7 +7218,7 @@ func expandGuestPolicyRecipesSlice(c *Client, f []GuestPolicyRecipes, res *Guest
 
 // flattenGuestPolicyRecipesMap flattens the contents of GuestPolicyRecipes from a JSON
 // response object.
-func flattenGuestPolicyRecipesMap(c *Client, i interface{}) map[string]GuestPolicyRecipes {
+func flattenGuestPolicyRecipesMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipes{}
@@ -7230,7 +7230,7 @@ func flattenGuestPolicyRecipesMap(c *Client, i interface{}) map[string]GuestPoli
 
 	items := make(map[string]GuestPolicyRecipes)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipes(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7238,7 +7238,7 @@ func flattenGuestPolicyRecipesMap(c *Client, i interface{}) map[string]GuestPoli
 
 // flattenGuestPolicyRecipesSlice flattens the contents of GuestPolicyRecipes from a JSON
 // response object.
-func flattenGuestPolicyRecipesSlice(c *Client, i interface{}) []GuestPolicyRecipes {
+func flattenGuestPolicyRecipesSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipes{}
@@ -7250,7 +7250,7 @@ func flattenGuestPolicyRecipesSlice(c *Client, i interface{}) []GuestPolicyRecip
 
 	items := make([]GuestPolicyRecipes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipes(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7294,7 +7294,7 @@ func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes, res *GuestPolicy
 
 // flattenGuestPolicyRecipes flattens an instance of GuestPolicyRecipes from a JSON
 // response object.
-func flattenGuestPolicyRecipes(c *Client, i interface{}) *GuestPolicyRecipes {
+func flattenGuestPolicyRecipes(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7307,9 +7307,9 @@ func flattenGuestPolicyRecipes(c *Client, i interface{}) *GuestPolicyRecipes {
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Version = dcl.FlattenString(m["version"])
-	r.Artifacts = flattenGuestPolicyRecipesArtifactsSlice(c, m["artifacts"])
-	r.InstallSteps = flattenGuestPolicyRecipesInstallStepsSlice(c, m["installSteps"])
-	r.UpdateSteps = flattenGuestPolicyRecipesUpdateStepsSlice(c, m["updateSteps"])
+	r.Artifacts = flattenGuestPolicyRecipesArtifactsSlice(c, m["artifacts"], res)
+	r.InstallSteps = flattenGuestPolicyRecipesInstallStepsSlice(c, m["installSteps"], res)
+	r.UpdateSteps = flattenGuestPolicyRecipesUpdateStepsSlice(c, m["updateSteps"], res)
 	r.DesiredState = flattenGuestPolicyRecipesDesiredStateEnum(m["desiredState"])
 
 	return r
@@ -7358,7 +7358,7 @@ func expandGuestPolicyRecipesArtifactsSlice(c *Client, f []GuestPolicyRecipesArt
 
 // flattenGuestPolicyRecipesArtifactsMap flattens the contents of GuestPolicyRecipesArtifacts from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsMap(c *Client, i interface{}) map[string]GuestPolicyRecipesArtifacts {
+func flattenGuestPolicyRecipesArtifactsMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesArtifacts {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesArtifacts{}
@@ -7370,7 +7370,7 @@ func flattenGuestPolicyRecipesArtifactsMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]GuestPolicyRecipesArtifacts)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesArtifacts(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesArtifacts(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7378,7 +7378,7 @@ func flattenGuestPolicyRecipesArtifactsMap(c *Client, i interface{}) map[string]
 
 // flattenGuestPolicyRecipesArtifactsSlice flattens the contents of GuestPolicyRecipesArtifacts from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsSlice(c *Client, i interface{}) []GuestPolicyRecipesArtifacts {
+func flattenGuestPolicyRecipesArtifactsSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesArtifacts {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesArtifacts{}
@@ -7390,7 +7390,7 @@ func flattenGuestPolicyRecipesArtifactsSlice(c *Client, i interface{}) []GuestPo
 
 	items := make([]GuestPolicyRecipesArtifacts, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesArtifacts(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesArtifacts(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7426,7 +7426,7 @@ func expandGuestPolicyRecipesArtifacts(c *Client, f *GuestPolicyRecipesArtifacts
 
 // flattenGuestPolicyRecipesArtifacts flattens an instance of GuestPolicyRecipesArtifacts from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifacts(c *Client, i interface{}) *GuestPolicyRecipesArtifacts {
+func flattenGuestPolicyRecipesArtifacts(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesArtifacts {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7438,8 +7438,8 @@ func flattenGuestPolicyRecipesArtifacts(c *Client, i interface{}) *GuestPolicyRe
 		return EmptyGuestPolicyRecipesArtifacts
 	}
 	r.Id = dcl.FlattenString(m["id"])
-	r.Remote = flattenGuestPolicyRecipesArtifactsRemote(c, m["remote"])
-	r.Gcs = flattenGuestPolicyRecipesArtifactsGcs(c, m["gcs"])
+	r.Remote = flattenGuestPolicyRecipesArtifactsRemote(c, m["remote"], res)
+	r.Gcs = flattenGuestPolicyRecipesArtifactsGcs(c, m["gcs"], res)
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
 	return r
@@ -7488,7 +7488,7 @@ func expandGuestPolicyRecipesArtifactsRemoteSlice(c *Client, f []GuestPolicyReci
 
 // flattenGuestPolicyRecipesArtifactsRemoteMap flattens the contents of GuestPolicyRecipesArtifactsRemote from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsRemoteMap(c *Client, i interface{}) map[string]GuestPolicyRecipesArtifactsRemote {
+func flattenGuestPolicyRecipesArtifactsRemoteMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesArtifactsRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesArtifactsRemote{}
@@ -7500,7 +7500,7 @@ func flattenGuestPolicyRecipesArtifactsRemoteMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]GuestPolicyRecipesArtifactsRemote)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesArtifactsRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesArtifactsRemote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7508,7 +7508,7 @@ func flattenGuestPolicyRecipesArtifactsRemoteMap(c *Client, i interface{}) map[s
 
 // flattenGuestPolicyRecipesArtifactsRemoteSlice flattens the contents of GuestPolicyRecipesArtifactsRemote from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsRemoteSlice(c *Client, i interface{}) []GuestPolicyRecipesArtifactsRemote {
+func flattenGuestPolicyRecipesArtifactsRemoteSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesArtifactsRemote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesArtifactsRemote{}
@@ -7520,7 +7520,7 @@ func flattenGuestPolicyRecipesArtifactsRemoteSlice(c *Client, i interface{}) []G
 
 	items := make([]GuestPolicyRecipesArtifactsRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesArtifactsRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesArtifactsRemote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7546,7 +7546,7 @@ func expandGuestPolicyRecipesArtifactsRemote(c *Client, f *GuestPolicyRecipesArt
 
 // flattenGuestPolicyRecipesArtifactsRemote flattens an instance of GuestPolicyRecipesArtifactsRemote from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsRemote(c *Client, i interface{}) *GuestPolicyRecipesArtifactsRemote {
+func flattenGuestPolicyRecipesArtifactsRemote(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesArtifactsRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7606,7 +7606,7 @@ func expandGuestPolicyRecipesArtifactsGcsSlice(c *Client, f []GuestPolicyRecipes
 
 // flattenGuestPolicyRecipesArtifactsGcsMap flattens the contents of GuestPolicyRecipesArtifactsGcs from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsGcsMap(c *Client, i interface{}) map[string]GuestPolicyRecipesArtifactsGcs {
+func flattenGuestPolicyRecipesArtifactsGcsMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesArtifactsGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesArtifactsGcs{}
@@ -7618,7 +7618,7 @@ func flattenGuestPolicyRecipesArtifactsGcsMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]GuestPolicyRecipesArtifactsGcs)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesArtifactsGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesArtifactsGcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7626,7 +7626,7 @@ func flattenGuestPolicyRecipesArtifactsGcsMap(c *Client, i interface{}) map[stri
 
 // flattenGuestPolicyRecipesArtifactsGcsSlice flattens the contents of GuestPolicyRecipesArtifactsGcs from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsGcsSlice(c *Client, i interface{}) []GuestPolicyRecipesArtifactsGcs {
+func flattenGuestPolicyRecipesArtifactsGcsSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesArtifactsGcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesArtifactsGcs{}
@@ -7638,7 +7638,7 @@ func flattenGuestPolicyRecipesArtifactsGcsSlice(c *Client, i interface{}) []Gues
 
 	items := make([]GuestPolicyRecipesArtifactsGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesArtifactsGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesArtifactsGcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7667,7 +7667,7 @@ func expandGuestPolicyRecipesArtifactsGcs(c *Client, f *GuestPolicyRecipesArtifa
 
 // flattenGuestPolicyRecipesArtifactsGcs flattens an instance of GuestPolicyRecipesArtifactsGcs from a JSON
 // response object.
-func flattenGuestPolicyRecipesArtifactsGcs(c *Client, i interface{}) *GuestPolicyRecipesArtifactsGcs {
+func flattenGuestPolicyRecipesArtifactsGcs(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesArtifactsGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7728,7 +7728,7 @@ func expandGuestPolicyRecipesInstallStepsSlice(c *Client, f []GuestPolicyRecipes
 
 // flattenGuestPolicyRecipesInstallStepsMap flattens the contents of GuestPolicyRecipesInstallSteps from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallSteps {
+func flattenGuestPolicyRecipesInstallStepsMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallSteps {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallSteps{}
@@ -7740,7 +7740,7 @@ func flattenGuestPolicyRecipesInstallStepsMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]GuestPolicyRecipesInstallSteps)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallSteps(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallSteps(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7748,7 +7748,7 @@ func flattenGuestPolicyRecipesInstallStepsMap(c *Client, i interface{}) map[stri
 
 // flattenGuestPolicyRecipesInstallStepsSlice flattens the contents of GuestPolicyRecipesInstallSteps from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallSteps {
+func flattenGuestPolicyRecipesInstallStepsSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallSteps {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallSteps{}
@@ -7760,7 +7760,7 @@ func flattenGuestPolicyRecipesInstallStepsSlice(c *Client, i interface{}) []Gues
 
 	items := make([]GuestPolicyRecipesInstallSteps, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallSteps(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallSteps(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7815,7 +7815,7 @@ func expandGuestPolicyRecipesInstallSteps(c *Client, f *GuestPolicyRecipesInstal
 
 // flattenGuestPolicyRecipesInstallSteps flattens an instance of GuestPolicyRecipesInstallSteps from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallSteps(c *Client, i interface{}) *GuestPolicyRecipesInstallSteps {
+func flattenGuestPolicyRecipesInstallSteps(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallSteps {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7826,13 +7826,13 @@ func flattenGuestPolicyRecipesInstallSteps(c *Client, i interface{}) *GuestPolic
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGuestPolicyRecipesInstallSteps
 	}
-	r.FileCopy = flattenGuestPolicyRecipesInstallStepsFileCopy(c, m["fileCopy"])
-	r.ArchiveExtraction = flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c, m["archiveExtraction"])
-	r.MsiInstallation = flattenGuestPolicyRecipesInstallStepsMsiInstallation(c, m["msiInstallation"])
-	r.DpkgInstallation = flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c, m["dpkgInstallation"])
-	r.RpmInstallation = flattenGuestPolicyRecipesInstallStepsRpmInstallation(c, m["rpmInstallation"])
-	r.FileExec = flattenGuestPolicyRecipesInstallStepsFileExec(c, m["fileExec"])
-	r.ScriptRun = flattenGuestPolicyRecipesInstallStepsScriptRun(c, m["scriptRun"])
+	r.FileCopy = flattenGuestPolicyRecipesInstallStepsFileCopy(c, m["fileCopy"], res)
+	r.ArchiveExtraction = flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c, m["archiveExtraction"], res)
+	r.MsiInstallation = flattenGuestPolicyRecipesInstallStepsMsiInstallation(c, m["msiInstallation"], res)
+	r.DpkgInstallation = flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c, m["dpkgInstallation"], res)
+	r.RpmInstallation = flattenGuestPolicyRecipesInstallStepsRpmInstallation(c, m["rpmInstallation"], res)
+	r.FileExec = flattenGuestPolicyRecipesInstallStepsFileExec(c, m["fileExec"], res)
+	r.ScriptRun = flattenGuestPolicyRecipesInstallStepsScriptRun(c, m["scriptRun"], res)
 
 	return r
 }
@@ -7880,7 +7880,7 @@ func expandGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, f []GuestPolic
 
 // flattenGuestPolicyRecipesInstallStepsFileCopyMap flattens the contents of GuestPolicyRecipesInstallStepsFileCopy from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsFileCopy {
+func flattenGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsFileCopy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsFileCopy{}
@@ -7892,7 +7892,7 @@ func flattenGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, i interface{}) 
 
 	items := make(map[string]GuestPolicyRecipesInstallStepsFileCopy)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallStepsFileCopy(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallStepsFileCopy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7900,7 +7900,7 @@ func flattenGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, i interface{}) 
 
 // flattenGuestPolicyRecipesInstallStepsFileCopySlice flattens the contents of GuestPolicyRecipesInstallStepsFileCopy from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsFileCopy {
+func flattenGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsFileCopy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsFileCopy{}
@@ -7912,7 +7912,7 @@ func flattenGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, i interface{}
 
 	items := make([]GuestPolicyRecipesInstallStepsFileCopy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallStepsFileCopy(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallStepsFileCopy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7944,7 +7944,7 @@ func expandGuestPolicyRecipesInstallStepsFileCopy(c *Client, f *GuestPolicyRecip
 
 // flattenGuestPolicyRecipesInstallStepsFileCopy flattens an instance of GuestPolicyRecipesInstallStepsFileCopy from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsFileCopy(c *Client, i interface{}) *GuestPolicyRecipesInstallStepsFileCopy {
+func flattenGuestPolicyRecipesInstallStepsFileCopy(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallStepsFileCopy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8006,7 +8006,7 @@ func expandGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, f []G
 
 // flattenGuestPolicyRecipesInstallStepsArchiveExtractionMap flattens the contents of GuestPolicyRecipesInstallStepsArchiveExtraction from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsArchiveExtraction {
+func flattenGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsArchiveExtraction {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsArchiveExtraction{}
@@ -8018,7 +8018,7 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, i inte
 
 	items := make(map[string]GuestPolicyRecipesInstallStepsArchiveExtraction)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8026,7 +8026,7 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, i inte
 
 // flattenGuestPolicyRecipesInstallStepsArchiveExtractionSlice flattens the contents of GuestPolicyRecipesInstallStepsArchiveExtraction from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsArchiveExtraction {
+func flattenGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsArchiveExtraction {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsArchiveExtraction{}
@@ -8038,7 +8038,7 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, i in
 
 	items := make([]GuestPolicyRecipesInstallStepsArchiveExtraction, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8067,7 +8067,7 @@ func expandGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, f *GuestPo
 
 // flattenGuestPolicyRecipesInstallStepsArchiveExtraction flattens an instance of GuestPolicyRecipesInstallStepsArchiveExtraction from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, i interface{}) *GuestPolicyRecipesInstallStepsArchiveExtraction {
+func flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallStepsArchiveExtraction {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8128,7 +8128,7 @@ func expandGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, f []Gue
 
 // flattenGuestPolicyRecipesInstallStepsMsiInstallationMap flattens the contents of GuestPolicyRecipesInstallStepsMsiInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsMsiInstallation {
+func flattenGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsMsiInstallation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsMsiInstallation{}
@@ -8140,7 +8140,7 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, i interf
 
 	items := make(map[string]GuestPolicyRecipesInstallStepsMsiInstallation)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallStepsMsiInstallation(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallStepsMsiInstallation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8148,7 +8148,7 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, i interf
 
 // flattenGuestPolicyRecipesInstallStepsMsiInstallationSlice flattens the contents of GuestPolicyRecipesInstallStepsMsiInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsMsiInstallation {
+func flattenGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsMsiInstallation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsMsiInstallation{}
@@ -8160,7 +8160,7 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, i inte
 
 	items := make([]GuestPolicyRecipesInstallStepsMsiInstallation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallStepsMsiInstallation(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallStepsMsiInstallation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8189,7 +8189,7 @@ func expandGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, f *GuestPoli
 
 // flattenGuestPolicyRecipesInstallStepsMsiInstallation flattens an instance of GuestPolicyRecipesInstallStepsMsiInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, i interface{}) *GuestPolicyRecipesInstallStepsMsiInstallation {
+func flattenGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallStepsMsiInstallation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8250,7 +8250,7 @@ func expandGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, f []Gu
 
 // flattenGuestPolicyRecipesInstallStepsDpkgInstallationMap flattens the contents of GuestPolicyRecipesInstallStepsDpkgInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsDpkgInstallation {
+func flattenGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsDpkgInstallation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsDpkgInstallation{}
@@ -8262,7 +8262,7 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, i inter
 
 	items := make(map[string]GuestPolicyRecipesInstallStepsDpkgInstallation)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8270,7 +8270,7 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, i inter
 
 // flattenGuestPolicyRecipesInstallStepsDpkgInstallationSlice flattens the contents of GuestPolicyRecipesInstallStepsDpkgInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsDpkgInstallation {
+func flattenGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsDpkgInstallation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsDpkgInstallation{}
@@ -8282,7 +8282,7 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, i int
 
 	items := make([]GuestPolicyRecipesInstallStepsDpkgInstallation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8305,7 +8305,7 @@ func expandGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, f *GuestPol
 
 // flattenGuestPolicyRecipesInstallStepsDpkgInstallation flattens an instance of GuestPolicyRecipesInstallStepsDpkgInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, i interface{}) *GuestPolicyRecipesInstallStepsDpkgInstallation {
+func flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallStepsDpkgInstallation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8364,7 +8364,7 @@ func expandGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, f []Gue
 
 // flattenGuestPolicyRecipesInstallStepsRpmInstallationMap flattens the contents of GuestPolicyRecipesInstallStepsRpmInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsRpmInstallation {
+func flattenGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsRpmInstallation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsRpmInstallation{}
@@ -8376,7 +8376,7 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, i interf
 
 	items := make(map[string]GuestPolicyRecipesInstallStepsRpmInstallation)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallStepsRpmInstallation(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallStepsRpmInstallation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8384,7 +8384,7 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, i interf
 
 // flattenGuestPolicyRecipesInstallStepsRpmInstallationSlice flattens the contents of GuestPolicyRecipesInstallStepsRpmInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsRpmInstallation {
+func flattenGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsRpmInstallation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsRpmInstallation{}
@@ -8396,7 +8396,7 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, i inte
 
 	items := make([]GuestPolicyRecipesInstallStepsRpmInstallation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallStepsRpmInstallation(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallStepsRpmInstallation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8419,7 +8419,7 @@ func expandGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, f *GuestPoli
 
 // flattenGuestPolicyRecipesInstallStepsRpmInstallation flattens an instance of GuestPolicyRecipesInstallStepsRpmInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, i interface{}) *GuestPolicyRecipesInstallStepsRpmInstallation {
+func flattenGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallStepsRpmInstallation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8478,7 +8478,7 @@ func expandGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, f []GuestPolic
 
 // flattenGuestPolicyRecipesInstallStepsFileExecMap flattens the contents of GuestPolicyRecipesInstallStepsFileExec from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsFileExecMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsFileExec {
+func flattenGuestPolicyRecipesInstallStepsFileExecMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsFileExec {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsFileExec{}
@@ -8490,7 +8490,7 @@ func flattenGuestPolicyRecipesInstallStepsFileExecMap(c *Client, i interface{}) 
 
 	items := make(map[string]GuestPolicyRecipesInstallStepsFileExec)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallStepsFileExec(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallStepsFileExec(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8498,7 +8498,7 @@ func flattenGuestPolicyRecipesInstallStepsFileExecMap(c *Client, i interface{}) 
 
 // flattenGuestPolicyRecipesInstallStepsFileExecSlice flattens the contents of GuestPolicyRecipesInstallStepsFileExec from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsFileExec {
+func flattenGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsFileExec {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsFileExec{}
@@ -8510,7 +8510,7 @@ func flattenGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, i interface{}
 
 	items := make([]GuestPolicyRecipesInstallStepsFileExec, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallStepsFileExec(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallStepsFileExec(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8542,7 +8542,7 @@ func expandGuestPolicyRecipesInstallStepsFileExec(c *Client, f *GuestPolicyRecip
 
 // flattenGuestPolicyRecipesInstallStepsFileExec flattens an instance of GuestPolicyRecipesInstallStepsFileExec from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsFileExec(c *Client, i interface{}) *GuestPolicyRecipesInstallStepsFileExec {
+func flattenGuestPolicyRecipesInstallStepsFileExec(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallStepsFileExec {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8604,7 +8604,7 @@ func expandGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, f []GuestPoli
 
 // flattenGuestPolicyRecipesInstallStepsScriptRunMap flattens the contents of GuestPolicyRecipesInstallStepsScriptRun from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsScriptRun {
+func flattenGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsScriptRun {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsScriptRun{}
@@ -8616,7 +8616,7 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, i interface{})
 
 	items := make(map[string]GuestPolicyRecipesInstallStepsScriptRun)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesInstallStepsScriptRun(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesInstallStepsScriptRun(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8624,7 +8624,7 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, i interface{})
 
 // flattenGuestPolicyRecipesInstallStepsScriptRunSlice flattens the contents of GuestPolicyRecipesInstallStepsScriptRun from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsScriptRun {
+func flattenGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsScriptRun {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsScriptRun{}
@@ -8636,7 +8636,7 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, i interface{
 
 	items := make([]GuestPolicyRecipesInstallStepsScriptRun, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesInstallStepsScriptRun(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesInstallStepsScriptRun(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8665,7 +8665,7 @@ func expandGuestPolicyRecipesInstallStepsScriptRun(c *Client, f *GuestPolicyReci
 
 // flattenGuestPolicyRecipesInstallStepsScriptRun flattens an instance of GuestPolicyRecipesInstallStepsScriptRun from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsScriptRun(c *Client, i interface{}) *GuestPolicyRecipesInstallStepsScriptRun {
+func flattenGuestPolicyRecipesInstallStepsScriptRun(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesInstallStepsScriptRun {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8726,7 +8726,7 @@ func expandGuestPolicyRecipesUpdateStepsSlice(c *Client, f []GuestPolicyRecipesU
 
 // flattenGuestPolicyRecipesUpdateStepsMap flattens the contents of GuestPolicyRecipesUpdateSteps from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateSteps {
+func flattenGuestPolicyRecipesUpdateStepsMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateSteps {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateSteps{}
@@ -8738,7 +8738,7 @@ func flattenGuestPolicyRecipesUpdateStepsMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]GuestPolicyRecipesUpdateSteps)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateSteps(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateSteps(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8746,7 +8746,7 @@ func flattenGuestPolicyRecipesUpdateStepsMap(c *Client, i interface{}) map[strin
 
 // flattenGuestPolicyRecipesUpdateStepsSlice flattens the contents of GuestPolicyRecipesUpdateSteps from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateSteps {
+func flattenGuestPolicyRecipesUpdateStepsSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateSteps {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateSteps{}
@@ -8758,7 +8758,7 @@ func flattenGuestPolicyRecipesUpdateStepsSlice(c *Client, i interface{}) []Guest
 
 	items := make([]GuestPolicyRecipesUpdateSteps, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateSteps(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateSteps(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8813,7 +8813,7 @@ func expandGuestPolicyRecipesUpdateSteps(c *Client, f *GuestPolicyRecipesUpdateS
 
 // flattenGuestPolicyRecipesUpdateSteps flattens an instance of GuestPolicyRecipesUpdateSteps from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateSteps(c *Client, i interface{}) *GuestPolicyRecipesUpdateSteps {
+func flattenGuestPolicyRecipesUpdateSteps(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateSteps {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8824,13 +8824,13 @@ func flattenGuestPolicyRecipesUpdateSteps(c *Client, i interface{}) *GuestPolicy
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGuestPolicyRecipesUpdateSteps
 	}
-	r.FileCopy = flattenGuestPolicyRecipesUpdateStepsFileCopy(c, m["fileCopy"])
-	r.ArchiveExtraction = flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c, m["archiveExtraction"])
-	r.MsiInstallation = flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c, m["msiInstallation"])
-	r.DpkgInstallation = flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c, m["dpkgInstallation"])
-	r.RpmInstallation = flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c, m["rpmInstallation"])
-	r.FileExec = flattenGuestPolicyRecipesUpdateStepsFileExec(c, m["fileExec"])
-	r.ScriptRun = flattenGuestPolicyRecipesUpdateStepsScriptRun(c, m["scriptRun"])
+	r.FileCopy = flattenGuestPolicyRecipesUpdateStepsFileCopy(c, m["fileCopy"], res)
+	r.ArchiveExtraction = flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c, m["archiveExtraction"], res)
+	r.MsiInstallation = flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c, m["msiInstallation"], res)
+	r.DpkgInstallation = flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c, m["dpkgInstallation"], res)
+	r.RpmInstallation = flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c, m["rpmInstallation"], res)
+	r.FileExec = flattenGuestPolicyRecipesUpdateStepsFileExec(c, m["fileExec"], res)
+	r.ScriptRun = flattenGuestPolicyRecipesUpdateStepsScriptRun(c, m["scriptRun"], res)
 
 	return r
 }
@@ -8878,7 +8878,7 @@ func expandGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, f []GuestPolicy
 
 // flattenGuestPolicyRecipesUpdateStepsFileCopyMap flattens the contents of GuestPolicyRecipesUpdateStepsFileCopy from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsFileCopy {
+func flattenGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsFileCopy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsFileCopy{}
@@ -8890,7 +8890,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, i interface{}) m
 
 	items := make(map[string]GuestPolicyRecipesUpdateStepsFileCopy)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateStepsFileCopy(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsFileCopy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8898,7 +8898,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, i interface{}) m
 
 // flattenGuestPolicyRecipesUpdateStepsFileCopySlice flattens the contents of GuestPolicyRecipesUpdateStepsFileCopy from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsFileCopy {
+func flattenGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsFileCopy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsFileCopy{}
@@ -8910,7 +8910,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, i interface{})
 
 	items := make([]GuestPolicyRecipesUpdateStepsFileCopy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateStepsFileCopy(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateStepsFileCopy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8942,7 +8942,7 @@ func expandGuestPolicyRecipesUpdateStepsFileCopy(c *Client, f *GuestPolicyRecipe
 
 // flattenGuestPolicyRecipesUpdateStepsFileCopy flattens an instance of GuestPolicyRecipesUpdateStepsFileCopy from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsFileCopy(c *Client, i interface{}) *GuestPolicyRecipesUpdateStepsFileCopy {
+func flattenGuestPolicyRecipesUpdateStepsFileCopy(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateStepsFileCopy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9004,7 +9004,7 @@ func expandGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, f []Gu
 
 // flattenGuestPolicyRecipesUpdateStepsArchiveExtractionMap flattens the contents of GuestPolicyRecipesUpdateStepsArchiveExtraction from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsArchiveExtraction {
+func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsArchiveExtraction {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsArchiveExtraction{}
@@ -9016,7 +9016,7 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, i inter
 
 	items := make(map[string]GuestPolicyRecipesUpdateStepsArchiveExtraction)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9024,7 +9024,7 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, i inter
 
 // flattenGuestPolicyRecipesUpdateStepsArchiveExtractionSlice flattens the contents of GuestPolicyRecipesUpdateStepsArchiveExtraction from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsArchiveExtraction {
+func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsArchiveExtraction {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsArchiveExtraction{}
@@ -9036,7 +9036,7 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, i int
 
 	items := make([]GuestPolicyRecipesUpdateStepsArchiveExtraction, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9065,7 +9065,7 @@ func expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, f *GuestPol
 
 // flattenGuestPolicyRecipesUpdateStepsArchiveExtraction flattens an instance of GuestPolicyRecipesUpdateStepsArchiveExtraction from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, i interface{}) *GuestPolicyRecipesUpdateStepsArchiveExtraction {
+func flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateStepsArchiveExtraction {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9126,7 +9126,7 @@ func expandGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, f []Gues
 
 // flattenGuestPolicyRecipesUpdateStepsMsiInstallationMap flattens the contents of GuestPolicyRecipesUpdateStepsMsiInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsMsiInstallation {
+func flattenGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsMsiInstallation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsMsiInstallation{}
@@ -9138,7 +9138,7 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, i interfa
 
 	items := make(map[string]GuestPolicyRecipesUpdateStepsMsiInstallation)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9146,7 +9146,7 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, i interfa
 
 // flattenGuestPolicyRecipesUpdateStepsMsiInstallationSlice flattens the contents of GuestPolicyRecipesUpdateStepsMsiInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsMsiInstallation {
+func flattenGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsMsiInstallation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsMsiInstallation{}
@@ -9158,7 +9158,7 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, i inter
 
 	items := make([]GuestPolicyRecipesUpdateStepsMsiInstallation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9187,7 +9187,7 @@ func expandGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, f *GuestPolic
 
 // flattenGuestPolicyRecipesUpdateStepsMsiInstallation flattens an instance of GuestPolicyRecipesUpdateStepsMsiInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, i interface{}) *GuestPolicyRecipesUpdateStepsMsiInstallation {
+func flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateStepsMsiInstallation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9248,7 +9248,7 @@ func expandGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, f []Gue
 
 // flattenGuestPolicyRecipesUpdateStepsDpkgInstallationMap flattens the contents of GuestPolicyRecipesUpdateStepsDpkgInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsDpkgInstallation {
+func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsDpkgInstallation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsDpkgInstallation{}
@@ -9260,7 +9260,7 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, i interf
 
 	items := make(map[string]GuestPolicyRecipesUpdateStepsDpkgInstallation)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9268,7 +9268,7 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, i interf
 
 // flattenGuestPolicyRecipesUpdateStepsDpkgInstallationSlice flattens the contents of GuestPolicyRecipesUpdateStepsDpkgInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsDpkgInstallation {
+func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsDpkgInstallation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsDpkgInstallation{}
@@ -9280,7 +9280,7 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, i inte
 
 	items := make([]GuestPolicyRecipesUpdateStepsDpkgInstallation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9303,7 +9303,7 @@ func expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, f *GuestPoli
 
 // flattenGuestPolicyRecipesUpdateStepsDpkgInstallation flattens an instance of GuestPolicyRecipesUpdateStepsDpkgInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, i interface{}) *GuestPolicyRecipesUpdateStepsDpkgInstallation {
+func flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateStepsDpkgInstallation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9362,7 +9362,7 @@ func expandGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, f []Gues
 
 // flattenGuestPolicyRecipesUpdateStepsRpmInstallationMap flattens the contents of GuestPolicyRecipesUpdateStepsRpmInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsRpmInstallation {
+func flattenGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsRpmInstallation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsRpmInstallation{}
@@ -9374,7 +9374,7 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, i interfa
 
 	items := make(map[string]GuestPolicyRecipesUpdateStepsRpmInstallation)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9382,7 +9382,7 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, i interfa
 
 // flattenGuestPolicyRecipesUpdateStepsRpmInstallationSlice flattens the contents of GuestPolicyRecipesUpdateStepsRpmInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsRpmInstallation {
+func flattenGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsRpmInstallation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsRpmInstallation{}
@@ -9394,7 +9394,7 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, i inter
 
 	items := make([]GuestPolicyRecipesUpdateStepsRpmInstallation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9417,7 +9417,7 @@ func expandGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, f *GuestPolic
 
 // flattenGuestPolicyRecipesUpdateStepsRpmInstallation flattens an instance of GuestPolicyRecipesUpdateStepsRpmInstallation from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, i interface{}) *GuestPolicyRecipesUpdateStepsRpmInstallation {
+func flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateStepsRpmInstallation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9476,7 +9476,7 @@ func expandGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, f []GuestPolicy
 
 // flattenGuestPolicyRecipesUpdateStepsFileExecMap flattens the contents of GuestPolicyRecipesUpdateStepsFileExec from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsFileExec {
+func flattenGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsFileExec {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsFileExec{}
@@ -9488,7 +9488,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, i interface{}) m
 
 	items := make(map[string]GuestPolicyRecipesUpdateStepsFileExec)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateStepsFileExec(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsFileExec(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9496,7 +9496,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, i interface{}) m
 
 // flattenGuestPolicyRecipesUpdateStepsFileExecSlice flattens the contents of GuestPolicyRecipesUpdateStepsFileExec from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsFileExec {
+func flattenGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsFileExec {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsFileExec{}
@@ -9508,7 +9508,7 @@ func flattenGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, i interface{})
 
 	items := make([]GuestPolicyRecipesUpdateStepsFileExec, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateStepsFileExec(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateStepsFileExec(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9540,7 +9540,7 @@ func expandGuestPolicyRecipesUpdateStepsFileExec(c *Client, f *GuestPolicyRecipe
 
 // flattenGuestPolicyRecipesUpdateStepsFileExec flattens an instance of GuestPolicyRecipesUpdateStepsFileExec from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsFileExec(c *Client, i interface{}) *GuestPolicyRecipesUpdateStepsFileExec {
+func flattenGuestPolicyRecipesUpdateStepsFileExec(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateStepsFileExec {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9602,7 +9602,7 @@ func expandGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, f []GuestPolic
 
 // flattenGuestPolicyRecipesUpdateStepsScriptRunMap flattens the contents of GuestPolicyRecipesUpdateStepsScriptRun from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsScriptRun {
+func flattenGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsScriptRun {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsScriptRun{}
@@ -9614,7 +9614,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, i interface{}) 
 
 	items := make(map[string]GuestPolicyRecipesUpdateStepsScriptRun)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyRecipesUpdateStepsScriptRun(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsScriptRun(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9622,7 +9622,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, i interface{}) 
 
 // flattenGuestPolicyRecipesUpdateStepsScriptRunSlice flattens the contents of GuestPolicyRecipesUpdateStepsScriptRun from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsScriptRun {
+func flattenGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsScriptRun {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsScriptRun{}
@@ -9634,7 +9634,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, i interface{}
 
 	items := make([]GuestPolicyRecipesUpdateStepsScriptRun, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyRecipesUpdateStepsScriptRun(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyRecipesUpdateStepsScriptRun(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9663,7 +9663,7 @@ func expandGuestPolicyRecipesUpdateStepsScriptRun(c *Client, f *GuestPolicyRecip
 
 // flattenGuestPolicyRecipesUpdateStepsScriptRun flattens an instance of GuestPolicyRecipesUpdateStepsScriptRun from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsScriptRun(c *Client, i interface{}) *GuestPolicyRecipesUpdateStepsScriptRun {
+func flattenGuestPolicyRecipesUpdateStepsScriptRun(c *Client, i interface{}, res *GuestPolicy) *GuestPolicyRecipesUpdateStepsScriptRun {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9683,7 +9683,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRun(c *Client, i interface{}) *Gu
 
 // flattenGuestPolicyPackagesDesiredStateEnumMap flattens the contents of GuestPolicyPackagesDesiredStateEnum from a JSON
 // response object.
-func flattenGuestPolicyPackagesDesiredStateEnumMap(c *Client, i interface{}) map[string]GuestPolicyPackagesDesiredStateEnum {
+func flattenGuestPolicyPackagesDesiredStateEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackagesDesiredStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackagesDesiredStateEnum{}
@@ -9703,7 +9703,7 @@ func flattenGuestPolicyPackagesDesiredStateEnumMap(c *Client, i interface{}) map
 
 // flattenGuestPolicyPackagesDesiredStateEnumSlice flattens the contents of GuestPolicyPackagesDesiredStateEnum from a JSON
 // response object.
-func flattenGuestPolicyPackagesDesiredStateEnumSlice(c *Client, i interface{}) []GuestPolicyPackagesDesiredStateEnum {
+func flattenGuestPolicyPackagesDesiredStateEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackagesDesiredStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackagesDesiredStateEnum{}
@@ -9734,7 +9734,7 @@ func flattenGuestPolicyPackagesDesiredStateEnum(i interface{}) *GuestPolicyPacka
 
 // flattenGuestPolicyPackagesManagerEnumMap flattens the contents of GuestPolicyPackagesManagerEnum from a JSON
 // response object.
-func flattenGuestPolicyPackagesManagerEnumMap(c *Client, i interface{}) map[string]GuestPolicyPackagesManagerEnum {
+func flattenGuestPolicyPackagesManagerEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackagesManagerEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackagesManagerEnum{}
@@ -9754,7 +9754,7 @@ func flattenGuestPolicyPackagesManagerEnumMap(c *Client, i interface{}) map[stri
 
 // flattenGuestPolicyPackagesManagerEnumSlice flattens the contents of GuestPolicyPackagesManagerEnum from a JSON
 // response object.
-func flattenGuestPolicyPackagesManagerEnumSlice(c *Client, i interface{}) []GuestPolicyPackagesManagerEnum {
+func flattenGuestPolicyPackagesManagerEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackagesManagerEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackagesManagerEnum{}
@@ -9785,7 +9785,7 @@ func flattenGuestPolicyPackagesManagerEnum(i interface{}) *GuestPolicyPackagesMa
 
 // flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumMap flattens the contents of GuestPolicyPackageRepositoriesAptArchiveTypeEnum from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumMap(c *Client, i interface{}) map[string]GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
+func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyPackageRepositoriesAptArchiveTypeEnum{}
@@ -9805,7 +9805,7 @@ func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumMap(c *Client, i int
 
 // flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice flattens the contents of GuestPolicyPackageRepositoriesAptArchiveTypeEnum from a JSON
 // response object.
-func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice(c *Client, i interface{}) []GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
+func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyPackageRepositoriesAptArchiveTypeEnum{}
@@ -9836,7 +9836,7 @@ func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnum(i interface{}) *Gue
 
 // flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumMap flattens the contents of GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum {
+func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum{}
@@ -9856,7 +9856,7 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumMap(c *Client
 
 // flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumSlice flattens the contents of GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum {
+func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum{}
@@ -9887,7 +9887,7 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(i interface{
 
 // flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumMap flattens the contents of GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
+func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum{}
@@ -9907,7 +9907,7 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumMap(c *Client,
 
 // flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice flattens the contents of GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
+func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum{}
@@ -9938,7 +9938,7 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(i interface{}
 
 // flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumMap flattens the contents of GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum {
+func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum{}
@@ -9958,7 +9958,7 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumMap(c *Client,
 
 // flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumSlice flattens the contents of GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum {
+func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum{}
@@ -9989,7 +9989,7 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(i interface{}
 
 // flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumMap flattens the contents of GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
+func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum{}
@@ -10009,7 +10009,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumMap(c *Client, 
 
 // flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice flattens the contents of GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
+func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum{}
@@ -10040,7 +10040,7 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(i interface{})
 
 // flattenGuestPolicyRecipesDesiredStateEnumMap flattens the contents of GuestPolicyRecipesDesiredStateEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesDesiredStateEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesDesiredStateEnum {
+func flattenGuestPolicyRecipesDesiredStateEnumMap(c *Client, i interface{}, res *GuestPolicy) map[string]GuestPolicyRecipesDesiredStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GuestPolicyRecipesDesiredStateEnum{}
@@ -10060,7 +10060,7 @@ func flattenGuestPolicyRecipesDesiredStateEnumMap(c *Client, i interface{}) map[
 
 // flattenGuestPolicyRecipesDesiredStateEnumSlice flattens the contents of GuestPolicyRecipesDesiredStateEnum from a JSON
 // response object.
-func flattenGuestPolicyRecipesDesiredStateEnumSlice(c *Client, i interface{}) []GuestPolicyRecipesDesiredStateEnum {
+func flattenGuestPolicyRecipesDesiredStateEnumSlice(c *Client, i interface{}, res *GuestPolicy) []GuestPolicyRecipesDesiredStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GuestPolicyRecipesDesiredStateEnum{}
@@ -10094,7 +10094,7 @@ func flattenGuestPolicyRecipesDesiredStateEnum(i interface{}) *GuestPolicyRecipe
 // identity).  This is useful in extracting the element from a List call.
 func (r *GuestPolicy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalGuestPolicy(b, c)
+		cr, err := unmarshalGuestPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

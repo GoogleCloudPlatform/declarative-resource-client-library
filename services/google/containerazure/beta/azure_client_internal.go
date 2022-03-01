@@ -144,7 +144,7 @@ func (c *Client) listClient(ctx context.Context, r *AzureClient, pageToken strin
 
 	var l []*AzureClient
 	for _, v := range m.AzureClients {
-		res, err := unmarshalMapClient(v, c)
+		res, err := unmarshalMapClient(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -557,17 +557,17 @@ func (r *AzureClient) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalClient decodes JSON responses into the Client resource schema.
-func unmarshalClient(b []byte, c *Client) (*AzureClient, error) {
+func unmarshalClient(b []byte, c *Client, res *AzureClient) (*AzureClient, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapClient(m, c)
+	return unmarshalMapClient(m, c, res)
 }
 
-func unmarshalMapClient(m map[string]interface{}, c *Client) (*AzureClient, error) {
+func unmarshalMapClient(m map[string]interface{}, c *Client, res *AzureClient) (*AzureClient, error) {
 
-	flattened := flattenClient(c, m)
+	flattened := flattenClient(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -606,7 +606,7 @@ func expandClient(c *Client, f *AzureClient) (map[string]interface{}, error) {
 
 // flattenClient flattens Client from a JSON request object into the
 // Client type.
-func flattenClient(c *Client, i interface{}) *AzureClient {
+func flattenClient(c *Client, i interface{}, res *AzureClient) *AzureClient {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -615,17 +615,17 @@ func flattenClient(c *Client, i interface{}) *AzureClient {
 		return nil
 	}
 
-	res := &AzureClient{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.TenantId = dcl.FlattenString(m["tenantId"])
-	res.ApplicationId = dcl.FlattenString(m["applicationId"])
-	res.Certificate = dcl.FlattenString(m["pemCertificate"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &AzureClient{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.TenantId = dcl.FlattenString(m["tenantId"])
+	resultRes.ApplicationId = dcl.FlattenString(m["applicationId"])
+	resultRes.Certificate = dcl.FlattenString(m["pemCertificate"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -633,7 +633,7 @@ func flattenClient(c *Client, i interface{}) *AzureClient {
 // identity).  This is useful in extracting the element from a List call.
 func (r *AzureClient) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalClient(b, c)
+		cr, err := unmarshalClient(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -2689,7 +2689,7 @@ func (c *Client) GetOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignmen
 		}
 		return nil, err
 	}
-	result, err := unmarshalOSPolicyAssignment(b, c)
+	result, err := unmarshalOSPolicyAssignment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -2859,7 +2859,7 @@ func applyOSPolicyAssignmentDiff(c *Client, ctx context.Context, desired *OSPoli
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapOSPolicyAssignment(r, c)
+				fullResp, err := unmarshalMapOSPolicyAssignment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

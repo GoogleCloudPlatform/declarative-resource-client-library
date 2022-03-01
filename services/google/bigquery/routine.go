@@ -527,7 +527,7 @@ func (c *Client) GetRoutine(ctx context.Context, r *Routine) (*Routine, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalRoutine(b, c)
+	result, err := unmarshalRoutine(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -697,7 +697,7 @@ func applyRoutineDiff(c *Client, ctx context.Context, desired *Routine, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapRoutine(r, c)
+				fullResp, err := unmarshalMapRoutine(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

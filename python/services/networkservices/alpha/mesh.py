@@ -29,6 +29,7 @@ class Mesh(object):
         interception_port: int = None,
         project: str = None,
         location: str = None,
+        self_link: str = None,
         service_account_file: str = "",
     ):
 
@@ -75,6 +76,7 @@ class Mesh(object):
         self.interception_port = Primitive.from_proto(response.interception_port)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.self_link = Primitive.from_proto(response.self_link)
 
     def delete(self):
         stub = mesh_pb2_grpc.NetworkservicesAlphaMeshServiceStub(channel.Channel())

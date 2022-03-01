@@ -611,7 +611,7 @@ func (c *Client) GetNodePool(ctx context.Context, r *NodePool) (*NodePool, error
 		}
 		return nil, err
 	}
-	result, err := unmarshalNodePool(b, c)
+	result, err := unmarshalNodePool(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -782,7 +782,7 @@ func applyNodePoolDiff(c *Client, ctx context.Context, desired *NodePool, rawDes
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapNodePool(r, c)
+				fullResp, err := unmarshalMapNodePool(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

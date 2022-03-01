@@ -446,7 +446,7 @@ func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalFeature(b, c)
+	result, err := unmarshalFeature(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -616,7 +616,7 @@ func applyFeatureDiff(c *Client, ctx context.Context, desired *Feature, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapFeature(r, c)
+				fullResp, err := unmarshalMapFeature(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

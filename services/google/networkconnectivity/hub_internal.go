@@ -212,7 +212,7 @@ func (c *Client) listHub(ctx context.Context, r *Hub, pageToken string, pageSize
 
 	var l []*Hub
 	for _, v := range m.Hubs {
-		res, err := unmarshalMapHub(v, c)
+		res, err := unmarshalMapHub(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -780,17 +780,17 @@ func (r *Hub) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalHub decodes JSON responses into the Hub resource schema.
-func unmarshalHub(b []byte, c *Client) (*Hub, error) {
+func unmarshalHub(b []byte, c *Client, res *Hub) (*Hub, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapHub(m, c)
+	return unmarshalMapHub(m, c, res)
 }
 
-func unmarshalMapHub(m map[string]interface{}, c *Client) (*Hub, error) {
+func unmarshalMapHub(m map[string]interface{}, c *Client, res *Hub) (*Hub, error) {
 
-	flattened := flattenHub(c, m)
+	flattened := flattenHub(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -824,7 +824,7 @@ func expandHub(c *Client, f *Hub) (map[string]interface{}, error) {
 
 // flattenHub flattens Hub from a JSON request object into the
 // Hub type.
-func flattenHub(c *Client, i interface{}) *Hub {
+func flattenHub(c *Client, i interface{}, res *Hub) *Hub {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -833,18 +833,18 @@ func flattenHub(c *Client, i interface{}) *Hub {
 		return nil
 	}
 
-	res := &Hub{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.UniqueId = dcl.FlattenString(m["uniqueId"])
-	res.State = flattenHubStateEnum(m["state"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.RoutingVpcs = flattenHubRoutingVpcsSlice(c, m["routingVpcs"])
+	resultRes := &Hub{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.UniqueId = dcl.FlattenString(m["uniqueId"])
+	resultRes.State = flattenHubStateEnum(m["state"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.RoutingVpcs = flattenHubRoutingVpcsSlice(c, m["routingVpcs"], res)
 
-	return res
+	return resultRes
 }
 
 // expandHubRoutingVpcsMap expands the contents of HubRoutingVpcs into a JSON
@@ -890,7 +890,7 @@ func expandHubRoutingVpcsSlice(c *Client, f []HubRoutingVpcs, res *Hub) ([]map[s
 
 // flattenHubRoutingVpcsMap flattens the contents of HubRoutingVpcs from a JSON
 // response object.
-func flattenHubRoutingVpcsMap(c *Client, i interface{}) map[string]HubRoutingVpcs {
+func flattenHubRoutingVpcsMap(c *Client, i interface{}, res *Hub) map[string]HubRoutingVpcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HubRoutingVpcs{}
@@ -902,7 +902,7 @@ func flattenHubRoutingVpcsMap(c *Client, i interface{}) map[string]HubRoutingVpc
 
 	items := make(map[string]HubRoutingVpcs)
 	for k, item := range a {
-		items[k] = *flattenHubRoutingVpcs(c, item.(map[string]interface{}))
+		items[k] = *flattenHubRoutingVpcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -910,7 +910,7 @@ func flattenHubRoutingVpcsMap(c *Client, i interface{}) map[string]HubRoutingVpc
 
 // flattenHubRoutingVpcsSlice flattens the contents of HubRoutingVpcs from a JSON
 // response object.
-func flattenHubRoutingVpcsSlice(c *Client, i interface{}) []HubRoutingVpcs {
+func flattenHubRoutingVpcsSlice(c *Client, i interface{}, res *Hub) []HubRoutingVpcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HubRoutingVpcs{}
@@ -922,7 +922,7 @@ func flattenHubRoutingVpcsSlice(c *Client, i interface{}) []HubRoutingVpcs {
 
 	items := make([]HubRoutingVpcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHubRoutingVpcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenHubRoutingVpcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -945,7 +945,7 @@ func expandHubRoutingVpcs(c *Client, f *HubRoutingVpcs, res *Hub) (map[string]in
 
 // flattenHubRoutingVpcs flattens an instance of HubRoutingVpcs from a JSON
 // response object.
-func flattenHubRoutingVpcs(c *Client, i interface{}) *HubRoutingVpcs {
+func flattenHubRoutingVpcs(c *Client, i interface{}, res *Hub) *HubRoutingVpcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -963,7 +963,7 @@ func flattenHubRoutingVpcs(c *Client, i interface{}) *HubRoutingVpcs {
 
 // flattenHubStateEnumMap flattens the contents of HubStateEnum from a JSON
 // response object.
-func flattenHubStateEnumMap(c *Client, i interface{}) map[string]HubStateEnum {
+func flattenHubStateEnumMap(c *Client, i interface{}, res *Hub) map[string]HubStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HubStateEnum{}
@@ -983,7 +983,7 @@ func flattenHubStateEnumMap(c *Client, i interface{}) map[string]HubStateEnum {
 
 // flattenHubStateEnumSlice flattens the contents of HubStateEnum from a JSON
 // response object.
-func flattenHubStateEnumSlice(c *Client, i interface{}) []HubStateEnum {
+func flattenHubStateEnumSlice(c *Client, i interface{}, res *Hub) []HubStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HubStateEnum{}
@@ -1017,7 +1017,7 @@ func flattenHubStateEnum(i interface{}) *HubStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Hub) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalHub(b, c)
+		cr, err := unmarshalHub(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

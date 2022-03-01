@@ -436,7 +436,7 @@ func (c *Client) GetKey(ctx context.Context, r *Key) (*Key, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalKey(b, c)
+	result, err := unmarshalKey(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -605,7 +605,7 @@ func applyKeyDiff(c *Client, ctx context.Context, desired *Key, rawDesired *Key,
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapKey(r, c)
+				fullResp, err := unmarshalMapKey(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

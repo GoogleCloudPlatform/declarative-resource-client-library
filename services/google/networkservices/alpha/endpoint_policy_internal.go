@@ -272,7 +272,7 @@ func (c *Client) listEndpointPolicy(ctx context.Context, r *EndpointPolicy, page
 
 	var l []*EndpointPolicy
 	for _, v := range m.EndpointPolicies {
-		res, err := unmarshalMapEndpointPolicy(v, c)
+		res, err := unmarshalMapEndpointPolicy(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1375,17 +1375,17 @@ func (r *EndpointPolicy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalEndpointPolicy decodes JSON responses into the EndpointPolicy resource schema.
-func unmarshalEndpointPolicy(b []byte, c *Client) (*EndpointPolicy, error) {
+func unmarshalEndpointPolicy(b []byte, c *Client, res *EndpointPolicy) (*EndpointPolicy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapEndpointPolicy(m, c)
+	return unmarshalMapEndpointPolicy(m, c, res)
 }
 
-func unmarshalMapEndpointPolicy(m map[string]interface{}, c *Client) (*EndpointPolicy, error) {
+func unmarshalMapEndpointPolicy(m map[string]interface{}, c *Client, res *EndpointPolicy) (*EndpointPolicy, error) {
 
-	flattened := flattenEndpointPolicy(c, m)
+	flattened := flattenEndpointPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1446,7 +1446,7 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 
 // flattenEndpointPolicy flattens EndpointPolicy from a JSON request object into the
 // EndpointPolicy type.
-func flattenEndpointPolicy(c *Client, i interface{}) *EndpointPolicy {
+func flattenEndpointPolicy(c *Client, i interface{}, res *EndpointPolicy) *EndpointPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1455,22 +1455,22 @@ func flattenEndpointPolicy(c *Client, i interface{}) *EndpointPolicy {
 		return nil
 	}
 
-	res := &EndpointPolicy{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Type = flattenEndpointPolicyTypeEnum(m["type"])
-	res.AuthorizationPolicy = dcl.FlattenString(m["authorizationPolicy"])
-	res.EndpointMatcher = flattenEndpointPolicyEndpointMatcher(c, m["endpointMatcher"])
-	res.TrafficPortSelector = flattenEndpointPolicyTrafficPortSelector(c, m["trafficPortSelector"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.ServerTlsPolicy = dcl.FlattenString(m["serverTlsPolicy"])
-	res.ClientTlsPolicy = dcl.FlattenString(m["clientTlsPolicy"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &EndpointPolicy{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Type = flattenEndpointPolicyTypeEnum(m["type"])
+	resultRes.AuthorizationPolicy = dcl.FlattenString(m["authorizationPolicy"])
+	resultRes.EndpointMatcher = flattenEndpointPolicyEndpointMatcher(c, m["endpointMatcher"], res)
+	resultRes.TrafficPortSelector = flattenEndpointPolicyTrafficPortSelector(c, m["trafficPortSelector"], res)
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.ServerTlsPolicy = dcl.FlattenString(m["serverTlsPolicy"])
+	resultRes.ClientTlsPolicy = dcl.FlattenString(m["clientTlsPolicy"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandEndpointPolicyEndpointMatcherMap expands the contents of EndpointPolicyEndpointMatcher into a JSON
@@ -1516,7 +1516,7 @@ func expandEndpointPolicyEndpointMatcherSlice(c *Client, f []EndpointPolicyEndpo
 
 // flattenEndpointPolicyEndpointMatcherMap flattens the contents of EndpointPolicyEndpointMatcher from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMap(c *Client, i interface{}) map[string]EndpointPolicyEndpointMatcher {
+func flattenEndpointPolicyEndpointMatcherMap(c *Client, i interface{}, res *EndpointPolicy) map[string]EndpointPolicyEndpointMatcher {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EndpointPolicyEndpointMatcher{}
@@ -1528,7 +1528,7 @@ func flattenEndpointPolicyEndpointMatcherMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]EndpointPolicyEndpointMatcher)
 	for k, item := range a {
-		items[k] = *flattenEndpointPolicyEndpointMatcher(c, item.(map[string]interface{}))
+		items[k] = *flattenEndpointPolicyEndpointMatcher(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1536,7 +1536,7 @@ func flattenEndpointPolicyEndpointMatcherMap(c *Client, i interface{}) map[strin
 
 // flattenEndpointPolicyEndpointMatcherSlice flattens the contents of EndpointPolicyEndpointMatcher from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherSlice(c *Client, i interface{}) []EndpointPolicyEndpointMatcher {
+func flattenEndpointPolicyEndpointMatcherSlice(c *Client, i interface{}, res *EndpointPolicy) []EndpointPolicyEndpointMatcher {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EndpointPolicyEndpointMatcher{}
@@ -1548,7 +1548,7 @@ func flattenEndpointPolicyEndpointMatcherSlice(c *Client, i interface{}) []Endpo
 
 	items := make([]EndpointPolicyEndpointMatcher, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenEndpointPolicyEndpointMatcher(c, item.(map[string]interface{})))
+		items = append(items, *flattenEndpointPolicyEndpointMatcher(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1573,7 +1573,7 @@ func expandEndpointPolicyEndpointMatcher(c *Client, f *EndpointPolicyEndpointMat
 
 // flattenEndpointPolicyEndpointMatcher flattens an instance of EndpointPolicyEndpointMatcher from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcher(c *Client, i interface{}) *EndpointPolicyEndpointMatcher {
+func flattenEndpointPolicyEndpointMatcher(c *Client, i interface{}, res *EndpointPolicy) *EndpointPolicyEndpointMatcher {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1584,7 +1584,7 @@ func flattenEndpointPolicyEndpointMatcher(c *Client, i interface{}) *EndpointPol
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyEndpointPolicyEndpointMatcher
 	}
-	r.MetadataLabelMatcher = flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, m["metadataLabelMatcher"])
+	r.MetadataLabelMatcher = flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, m["metadataLabelMatcher"], res)
 
 	return r
 }
@@ -1632,7 +1632,7 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Client, f [
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMap flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcher from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMap(c *Client, i interface{}) map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcher {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMap(c *Client, i interface{}, res *EndpointPolicy) map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcher {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
@@ -1644,7 +1644,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMap(c *Client, i in
 
 	items := make(map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcher)
 	for k, item := range a {
-		items[k] = *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, item.(map[string]interface{}))
+		items[k] = *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1652,7 +1652,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMap(c *Client, i in
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcher from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Client, i interface{}) []EndpointPolicyEndpointMatcherMetadataLabelMatcher {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Client, i interface{}, res *EndpointPolicy) []EndpointPolicyEndpointMatcherMetadataLabelMatcher {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
@@ -1664,7 +1664,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Client, i 
 
 	items := make([]EndpointPolicyEndpointMatcherMetadataLabelMatcher, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, item.(map[string]interface{})))
+		items = append(items, *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1692,7 +1692,7 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, f *Endpo
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher flattens an instance of EndpointPolicyEndpointMatcherMetadataLabelMatcher from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, i interface{}) *EndpointPolicyEndpointMatcherMetadataLabelMatcher {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, i interface{}, res *EndpointPolicy) *EndpointPolicyEndpointMatcherMetadataLabelMatcher {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1704,7 +1704,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, i inter
 		return EmptyEndpointPolicyEndpointMatcherMetadataLabelMatcher
 	}
 	r.MetadataLabelMatchCriteria = flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(m["metadataLabelMatchCriteria"])
-	r.MetadataLabels = flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, m["metadataLabels"])
+	r.MetadataLabels = flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, m["metadataLabels"], res)
 
 	return r
 }
@@ -1752,7 +1752,7 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap(c *Client, i interface{}) map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap(c *Client, i interface{}, res *EndpointPolicy) map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels{}
@@ -1764,7 +1764,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap(c
 
 	items := make(map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels)
 	for k, item := range a {
-		items[k] = *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1772,7 +1772,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsMap(c
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c *Client, i interface{}) []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c *Client, i interface{}, res *EndpointPolicy) []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels{}
@@ -1784,7 +1784,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice
 
 	items := make([]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1810,7 +1810,7 @@ func expandEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Cl
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels flattens an instance of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, i interface{}) *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, i interface{}, res *EndpointPolicy) *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1870,7 +1870,7 @@ func expandEndpointPolicyTrafficPortSelectorSlice(c *Client, f []EndpointPolicyT
 
 // flattenEndpointPolicyTrafficPortSelectorMap flattens the contents of EndpointPolicyTrafficPortSelector from a JSON
 // response object.
-func flattenEndpointPolicyTrafficPortSelectorMap(c *Client, i interface{}) map[string]EndpointPolicyTrafficPortSelector {
+func flattenEndpointPolicyTrafficPortSelectorMap(c *Client, i interface{}, res *EndpointPolicy) map[string]EndpointPolicyTrafficPortSelector {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EndpointPolicyTrafficPortSelector{}
@@ -1882,7 +1882,7 @@ func flattenEndpointPolicyTrafficPortSelectorMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]EndpointPolicyTrafficPortSelector)
 	for k, item := range a {
-		items[k] = *flattenEndpointPolicyTrafficPortSelector(c, item.(map[string]interface{}))
+		items[k] = *flattenEndpointPolicyTrafficPortSelector(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1890,7 +1890,7 @@ func flattenEndpointPolicyTrafficPortSelectorMap(c *Client, i interface{}) map[s
 
 // flattenEndpointPolicyTrafficPortSelectorSlice flattens the contents of EndpointPolicyTrafficPortSelector from a JSON
 // response object.
-func flattenEndpointPolicyTrafficPortSelectorSlice(c *Client, i interface{}) []EndpointPolicyTrafficPortSelector {
+func flattenEndpointPolicyTrafficPortSelectorSlice(c *Client, i interface{}, res *EndpointPolicy) []EndpointPolicyTrafficPortSelector {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EndpointPolicyTrafficPortSelector{}
@@ -1902,7 +1902,7 @@ func flattenEndpointPolicyTrafficPortSelectorSlice(c *Client, i interface{}) []E
 
 	items := make([]EndpointPolicyTrafficPortSelector, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenEndpointPolicyTrafficPortSelector(c, item.(map[string]interface{})))
+		items = append(items, *flattenEndpointPolicyTrafficPortSelector(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1925,7 +1925,7 @@ func expandEndpointPolicyTrafficPortSelector(c *Client, f *EndpointPolicyTraffic
 
 // flattenEndpointPolicyTrafficPortSelector flattens an instance of EndpointPolicyTrafficPortSelector from a JSON
 // response object.
-func flattenEndpointPolicyTrafficPortSelector(c *Client, i interface{}) *EndpointPolicyTrafficPortSelector {
+func flattenEndpointPolicyTrafficPortSelector(c *Client, i interface{}, res *EndpointPolicy) *EndpointPolicyTrafficPortSelector {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1943,7 +1943,7 @@ func flattenEndpointPolicyTrafficPortSelector(c *Client, i interface{}) *Endpoin
 
 // flattenEndpointPolicyTypeEnumMap flattens the contents of EndpointPolicyTypeEnum from a JSON
 // response object.
-func flattenEndpointPolicyTypeEnumMap(c *Client, i interface{}) map[string]EndpointPolicyTypeEnum {
+func flattenEndpointPolicyTypeEnumMap(c *Client, i interface{}, res *EndpointPolicy) map[string]EndpointPolicyTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EndpointPolicyTypeEnum{}
@@ -1963,7 +1963,7 @@ func flattenEndpointPolicyTypeEnumMap(c *Client, i interface{}) map[string]Endpo
 
 // flattenEndpointPolicyTypeEnumSlice flattens the contents of EndpointPolicyTypeEnum from a JSON
 // response object.
-func flattenEndpointPolicyTypeEnumSlice(c *Client, i interface{}) []EndpointPolicyTypeEnum {
+func flattenEndpointPolicyTypeEnumSlice(c *Client, i interface{}, res *EndpointPolicy) []EndpointPolicyTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EndpointPolicyTypeEnum{}
@@ -1994,7 +1994,7 @@ func flattenEndpointPolicyTypeEnum(i interface{}) *EndpointPolicyTypeEnum {
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumMap flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumMap(c *Client, i interface{}) map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumMap(c *Client, i interface{}, res *EndpointPolicy) map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum{}
@@ -2014,7 +2014,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchC
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumSlice flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum from a JSON
 // response object.
-func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumSlice(c *Client, i interface{}) []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumSlice(c *Client, i interface{}, res *EndpointPolicy) []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum{}
@@ -2048,7 +2048,7 @@ func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchC
 // identity).  This is useful in extracting the element from a List call.
 func (r *EndpointPolicy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalEndpointPolicy(b, c)
+		cr, err := unmarshalEndpointPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

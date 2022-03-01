@@ -204,7 +204,7 @@ func (c *Client) listRole(ctx context.Context, r *Role, pageToken string, pageSi
 
 	var l []*Role
 	for _, v := range m.Roles {
-		res, err := unmarshalMapRole(v, c)
+		res, err := unmarshalMapRole(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -874,17 +874,17 @@ func (r *Role) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalRole decodes JSON responses into the Role resource schema.
-func unmarshalRole(b []byte, c *Client) (*Role, error) {
+func unmarshalRole(b []byte, c *Client, res *Role) (*Role, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapRole(m, c)
+	return unmarshalMapRole(m, c, res)
 }
 
-func unmarshalMapRole(m map[string]interface{}, c *Client) (*Role, error) {
+func unmarshalMapRole(m map[string]interface{}, c *Client, res *Role) (*Role, error) {
 
-	flattened := flattenRole(c, m)
+	flattened := flattenRole(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -947,7 +947,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 
 // flattenRole flattens Role from a JSON request object into the
 // Role type.
-func flattenRole(c *Client, i interface{}) *Role {
+func flattenRole(c *Client, i interface{}, res *Role) *Role {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -956,22 +956,22 @@ func flattenRole(c *Client, i interface{}) *Role {
 		return nil
 	}
 
-	res := &Role{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Title = dcl.FlattenString(m["title"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.LocalizedValues = flattenRoleLocalizedValues(c, m["localizedValues"])
-	res.LifecyclePhase = dcl.FlattenString(m["lifecyclePhase"])
-	res.GroupName = dcl.FlattenString(m["groupName"])
-	res.GroupTitle = dcl.FlattenString(m["groupTitle"])
-	res.IncludedPermissions = dcl.FlattenStringSlice(m["includedPermissions"])
-	res.Stage = flattenRoleStageEnum(m["stage"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Deleted = dcl.FlattenBool(m["deleted"])
-	res.IncludedRoles = dcl.FlattenStringSlice(m["includedRoles"])
-	res.Parent = dcl.FlattenString(m["parent"])
+	resultRes := &Role{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Title = dcl.FlattenString(m["title"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.LocalizedValues = flattenRoleLocalizedValues(c, m["localizedValues"], res)
+	resultRes.LifecyclePhase = dcl.FlattenString(m["lifecyclePhase"])
+	resultRes.GroupName = dcl.FlattenString(m["groupName"])
+	resultRes.GroupTitle = dcl.FlattenString(m["groupTitle"])
+	resultRes.IncludedPermissions = dcl.FlattenStringSlice(m["includedPermissions"])
+	resultRes.Stage = flattenRoleStageEnum(m["stage"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Deleted = dcl.FlattenBool(m["deleted"])
+	resultRes.IncludedRoles = dcl.FlattenStringSlice(m["includedRoles"])
+	resultRes.Parent = dcl.FlattenString(m["parent"])
 
-	return res
+	return resultRes
 }
 
 // expandRoleLocalizedValuesMap expands the contents of RoleLocalizedValues into a JSON
@@ -1017,7 +1017,7 @@ func expandRoleLocalizedValuesSlice(c *Client, f []RoleLocalizedValues, res *Rol
 
 // flattenRoleLocalizedValuesMap flattens the contents of RoleLocalizedValues from a JSON
 // response object.
-func flattenRoleLocalizedValuesMap(c *Client, i interface{}) map[string]RoleLocalizedValues {
+func flattenRoleLocalizedValuesMap(c *Client, i interface{}, res *Role) map[string]RoleLocalizedValues {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoleLocalizedValues{}
@@ -1029,7 +1029,7 @@ func flattenRoleLocalizedValuesMap(c *Client, i interface{}) map[string]RoleLoca
 
 	items := make(map[string]RoleLocalizedValues)
 	for k, item := range a {
-		items[k] = *flattenRoleLocalizedValues(c, item.(map[string]interface{}))
+		items[k] = *flattenRoleLocalizedValues(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1037,7 +1037,7 @@ func flattenRoleLocalizedValuesMap(c *Client, i interface{}) map[string]RoleLoca
 
 // flattenRoleLocalizedValuesSlice flattens the contents of RoleLocalizedValues from a JSON
 // response object.
-func flattenRoleLocalizedValuesSlice(c *Client, i interface{}) []RoleLocalizedValues {
+func flattenRoleLocalizedValuesSlice(c *Client, i interface{}, res *Role) []RoleLocalizedValues {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoleLocalizedValues{}
@@ -1049,7 +1049,7 @@ func flattenRoleLocalizedValuesSlice(c *Client, i interface{}) []RoleLocalizedVa
 
 	items := make([]RoleLocalizedValues, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRoleLocalizedValues(c, item.(map[string]interface{})))
+		items = append(items, *flattenRoleLocalizedValues(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1075,7 +1075,7 @@ func expandRoleLocalizedValues(c *Client, f *RoleLocalizedValues, res *Role) (ma
 
 // flattenRoleLocalizedValues flattens an instance of RoleLocalizedValues from a JSON
 // response object.
-func flattenRoleLocalizedValues(c *Client, i interface{}) *RoleLocalizedValues {
+func flattenRoleLocalizedValues(c *Client, i interface{}, res *Role) *RoleLocalizedValues {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1094,7 +1094,7 @@ func flattenRoleLocalizedValues(c *Client, i interface{}) *RoleLocalizedValues {
 
 // flattenRoleStageEnumMap flattens the contents of RoleStageEnum from a JSON
 // response object.
-func flattenRoleStageEnumMap(c *Client, i interface{}) map[string]RoleStageEnum {
+func flattenRoleStageEnumMap(c *Client, i interface{}, res *Role) map[string]RoleStageEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoleStageEnum{}
@@ -1114,7 +1114,7 @@ func flattenRoleStageEnumMap(c *Client, i interface{}) map[string]RoleStageEnum 
 
 // flattenRoleStageEnumSlice flattens the contents of RoleStageEnum from a JSON
 // response object.
-func flattenRoleStageEnumSlice(c *Client, i interface{}) []RoleStageEnum {
+func flattenRoleStageEnumSlice(c *Client, i interface{}, res *Role) []RoleStageEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoleStageEnum{}
@@ -1148,7 +1148,7 @@ func flattenRoleStageEnum(i interface{}) *RoleStageEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Role) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalRole(b, c)
+		cr, err := unmarshalRole(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

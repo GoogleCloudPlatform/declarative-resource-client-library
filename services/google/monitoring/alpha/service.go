@@ -233,7 +233,7 @@ func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalService(b, c)
+	result, err := unmarshalService(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -405,7 +405,7 @@ func applyServiceDiff(c *Client, ctx context.Context, desired *Service, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapService(r, c)
+				fullResp, err := unmarshalMapService(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

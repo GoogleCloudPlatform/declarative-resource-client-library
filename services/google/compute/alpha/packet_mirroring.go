@@ -513,7 +513,7 @@ func (c *Client) GetPacketMirroring(ctx context.Context, r *PacketMirroring) (*P
 		}
 		return nil, err
 	}
-	result, err := unmarshalPacketMirroring(b, c)
+	result, err := unmarshalPacketMirroring(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -683,7 +683,7 @@ func applyPacketMirroringDiff(c *Client, ctx context.Context, desired *PacketMir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapPacketMirroring(r, c)
+				fullResp, err := unmarshalMapPacketMirroring(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

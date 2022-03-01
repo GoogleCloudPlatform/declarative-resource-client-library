@@ -200,7 +200,7 @@ func (c *Client) listLogExclusion(ctx context.Context, r *LogExclusion, pageToke
 
 	var l []*LogExclusion
 	for _, v := range m.Exclusions {
-		res, err := unmarshalMapLogExclusion(v, c)
+		res, err := unmarshalMapLogExclusion(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -595,17 +595,17 @@ func (r *LogExclusion) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalLogExclusion decodes JSON responses into the LogExclusion resource schema.
-func unmarshalLogExclusion(b []byte, c *Client) (*LogExclusion, error) {
+func unmarshalLogExclusion(b []byte, c *Client, res *LogExclusion) (*LogExclusion, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapLogExclusion(m, c)
+	return unmarshalMapLogExclusion(m, c, res)
 }
 
-func unmarshalMapLogExclusion(m map[string]interface{}, c *Client) (*LogExclusion, error) {
+func unmarshalMapLogExclusion(m map[string]interface{}, c *Client, res *LogExclusion) (*LogExclusion, error) {
 
-	flattened := flattenLogExclusion(c, m)
+	flattened := flattenLogExclusion(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -640,7 +640,7 @@ func expandLogExclusion(c *Client, f *LogExclusion) (map[string]interface{}, err
 
 // flattenLogExclusion flattens LogExclusion from a JSON request object into the
 // LogExclusion type.
-func flattenLogExclusion(c *Client, i interface{}) *LogExclusion {
+func flattenLogExclusion(c *Client, i interface{}, res *LogExclusion) *LogExclusion {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -649,16 +649,16 @@ func flattenLogExclusion(c *Client, i interface{}) *LogExclusion {
 		return nil
 	}
 
-	res := &LogExclusion{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Filter = dcl.FlattenString(m["filter"])
-	res.Disabled = dcl.FlattenBool(m["disabled"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Parent = dcl.FlattenString(m["parent"])
+	resultRes := &LogExclusion{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Filter = dcl.FlattenString(m["filter"])
+	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Parent = dcl.FlattenString(m["parent"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -666,7 +666,7 @@ func flattenLogExclusion(c *Client, i interface{}) *LogExclusion {
 // identity).  This is useful in extracting the element from a List call.
 func (r *LogExclusion) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalLogExclusion(b, c)
+		cr, err := unmarshalLogExclusion(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -1909,7 +1909,7 @@ func (c *Client) GetGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPoli
 		}
 		return nil, err
 	}
-	result, err := unmarshalGuestPolicy(b, c)
+	result, err := unmarshalGuestPolicy(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -2078,7 +2078,7 @@ func applyGuestPolicyDiff(c *Client, ctx context.Context, desired *GuestPolicy, 
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapGuestPolicy(r, c)
+				fullResp, err := unmarshalMapGuestPolicy(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

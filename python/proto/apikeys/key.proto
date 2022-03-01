@@ -23,15 +23,10 @@ import "proto/empty.proto";
 
 message ApikeysKey {
   string name = 1;
-  string uid = 2;
-  string display_name = 3;
-  string key_string = 4;
-  string create_time = 5;
-  string update_time = 6;
-  string delete_time = 7;
-  ApikeysKeyRestrictions restrictions = 8;
-  string etag = 9;
-  string project = 10;
+  string display_name = 2;
+  string key_string = 3;
+  ApikeysKeyRestrictions restrictions = 4;
+  string project = 5;
 }
 
 message ApikeysKeyRestrictions {

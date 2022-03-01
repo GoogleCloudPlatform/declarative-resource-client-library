@@ -20,12 +20,16 @@ resource: samples/basic.instance.json
 dependencies:
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
+- samples/compute.serviceusage.service.json
+- samples/datafusion.serviceusage.service.json
 - samples/basic.compute.network.json
 updates:
 - resource: samples/update.instance.json
   dependencies:
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
+  - samples/compute.serviceusage.service.json
+  - samples/datafusion.serviceusage.service.json
   - samples/basic.compute.network.json
 variables:
 - name: billing_account
@@ -38,5 +42,5 @@ variables:
   type: resource_name
 - name: org_id
   type: org_id
-- name: project
-  type: project
+- name: zone
+  type: zone

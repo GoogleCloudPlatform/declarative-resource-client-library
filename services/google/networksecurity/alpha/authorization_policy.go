@@ -381,7 +381,7 @@ func (c *Client) GetAuthorizationPolicy(ctx context.Context, r *AuthorizationPol
 		}
 		return nil, err
 	}
-	result, err := unmarshalAuthorizationPolicy(b, c)
+	result, err := unmarshalAuthorizationPolicy(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -551,7 +551,7 @@ func applyAuthorizationPolicyDiff(c *Client, ctx context.Context, desired *Autho
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapAuthorizationPolicy(r, c)
+				fullResp, err := unmarshalMapAuthorizationPolicy(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

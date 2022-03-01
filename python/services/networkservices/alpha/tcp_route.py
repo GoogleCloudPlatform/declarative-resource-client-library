@@ -34,6 +34,7 @@ class TcpRoute(object):
         labels: dict = None,
         project: str = None,
         location: str = None,
+        self_link: str = None,
         service_account_file: str = "",
     ):
 
@@ -91,6 +92,7 @@ class TcpRoute(object):
         self.labels = Primitive.from_proto(response.labels)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.self_link = Primitive.from_proto(response.self_link)
 
     def delete(self):
         stub = tcp_route_pb2_grpc.NetworkservicesAlphaTcpRouteServiceStub(

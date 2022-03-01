@@ -247,7 +247,7 @@ func (c *Client) listInstance(ctx context.Context, r *Instance, pageToken string
 
 	var l []*Instance
 	for _, v := range m.Instances {
-		res, err := unmarshalMapInstance(v, c)
+		res, err := unmarshalMapInstance(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1243,17 +1243,17 @@ func (r *Instance) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInstance decodes JSON responses into the Instance resource schema.
-func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
+func unmarshalInstance(b []byte, c *Client, res *Instance) (*Instance, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInstance(m, c)
+	return unmarshalMapInstance(m, c, res)
 }
 
-func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
+func unmarshalMapInstance(m map[string]interface{}, c *Client, res *Instance) (*Instance, error) {
 
-	flattened := flattenInstance(c, m)
+	flattened := flattenInstance(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1305,7 +1305,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 
 // flattenInstance flattens Instance from a JSON request object into the
 // Instance type.
-func flattenInstance(c *Client, i interface{}) *Instance {
+func flattenInstance(c *Client, i interface{}, res *Instance) *Instance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1314,21 +1314,21 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 		return nil
 	}
 
-	res := &Instance{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.State = flattenInstanceStateEnum(m["state"])
-	res.StatusMessage = dcl.FlattenString(m["statusMessage"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.Tier = flattenInstanceTierEnum(m["tier"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.FileShares = flattenInstanceFileSharesSlice(c, m["fileShares"])
-	res.Networks = flattenInstanceNetworksSlice(c, m["networks"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Instance{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.State = flattenInstanceStateEnum(m["state"])
+	resultRes.StatusMessage = dcl.FlattenString(m["statusMessage"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.Tier = flattenInstanceTierEnum(m["tier"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.FileShares = flattenInstanceFileSharesSlice(c, m["fileShares"], res)
+	resultRes.Networks = flattenInstanceNetworksSlice(c, m["networks"], res)
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandInstanceFileSharesMap expands the contents of InstanceFileShares into a JSON
@@ -1374,7 +1374,7 @@ func expandInstanceFileSharesSlice(c *Client, f []InstanceFileShares, res *Insta
 
 // flattenInstanceFileSharesMap flattens the contents of InstanceFileShares from a JSON
 // response object.
-func flattenInstanceFileSharesMap(c *Client, i interface{}) map[string]InstanceFileShares {
+func flattenInstanceFileSharesMap(c *Client, i interface{}, res *Instance) map[string]InstanceFileShares {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceFileShares{}
@@ -1386,7 +1386,7 @@ func flattenInstanceFileSharesMap(c *Client, i interface{}) map[string]InstanceF
 
 	items := make(map[string]InstanceFileShares)
 	for k, item := range a {
-		items[k] = *flattenInstanceFileShares(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceFileShares(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1394,7 +1394,7 @@ func flattenInstanceFileSharesMap(c *Client, i interface{}) map[string]InstanceF
 
 // flattenInstanceFileSharesSlice flattens the contents of InstanceFileShares from a JSON
 // response object.
-func flattenInstanceFileSharesSlice(c *Client, i interface{}) []InstanceFileShares {
+func flattenInstanceFileSharesSlice(c *Client, i interface{}, res *Instance) []InstanceFileShares {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceFileShares{}
@@ -1406,7 +1406,7 @@ func flattenInstanceFileSharesSlice(c *Client, i interface{}) []InstanceFileShar
 
 	items := make([]InstanceFileShares, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceFileShares(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceFileShares(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1440,7 +1440,7 @@ func expandInstanceFileShares(c *Client, f *InstanceFileShares, res *Instance) (
 
 // flattenInstanceFileShares flattens an instance of InstanceFileShares from a JSON
 // response object.
-func flattenInstanceFileShares(c *Client, i interface{}) *InstanceFileShares {
+func flattenInstanceFileShares(c *Client, i interface{}, res *Instance) *InstanceFileShares {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1454,7 +1454,7 @@ func flattenInstanceFileShares(c *Client, i interface{}) *InstanceFileShares {
 	r.Name = dcl.FlattenString(m["name"])
 	r.CapacityGb = dcl.FlattenInteger(m["capacityGb"])
 	r.SourceBackup = dcl.FlattenString(m["sourceBackup"])
-	r.NfsExportOptions = flattenInstanceFileSharesNfsExportOptionsSlice(c, m["nfsExportOptions"])
+	r.NfsExportOptions = flattenInstanceFileSharesNfsExportOptionsSlice(c, m["nfsExportOptions"], res)
 
 	return r
 }
@@ -1502,7 +1502,7 @@ func expandInstanceFileSharesNfsExportOptionsSlice(c *Client, f []InstanceFileSh
 
 // flattenInstanceFileSharesNfsExportOptionsMap flattens the contents of InstanceFileSharesNfsExportOptions from a JSON
 // response object.
-func flattenInstanceFileSharesNfsExportOptionsMap(c *Client, i interface{}) map[string]InstanceFileSharesNfsExportOptions {
+func flattenInstanceFileSharesNfsExportOptionsMap(c *Client, i interface{}, res *Instance) map[string]InstanceFileSharesNfsExportOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceFileSharesNfsExportOptions{}
@@ -1514,7 +1514,7 @@ func flattenInstanceFileSharesNfsExportOptionsMap(c *Client, i interface{}) map[
 
 	items := make(map[string]InstanceFileSharesNfsExportOptions)
 	for k, item := range a {
-		items[k] = *flattenInstanceFileSharesNfsExportOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceFileSharesNfsExportOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1522,7 +1522,7 @@ func flattenInstanceFileSharesNfsExportOptionsMap(c *Client, i interface{}) map[
 
 // flattenInstanceFileSharesNfsExportOptionsSlice flattens the contents of InstanceFileSharesNfsExportOptions from a JSON
 // response object.
-func flattenInstanceFileSharesNfsExportOptionsSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptions {
+func flattenInstanceFileSharesNfsExportOptionsSlice(c *Client, i interface{}, res *Instance) []InstanceFileSharesNfsExportOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceFileSharesNfsExportOptions{}
@@ -1534,7 +1534,7 @@ func flattenInstanceFileSharesNfsExportOptionsSlice(c *Client, i interface{}) []
 
 	items := make([]InstanceFileSharesNfsExportOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceFileSharesNfsExportOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceFileSharesNfsExportOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1569,7 +1569,7 @@ func expandInstanceFileSharesNfsExportOptions(c *Client, f *InstanceFileSharesNf
 
 // flattenInstanceFileSharesNfsExportOptions flattens an instance of InstanceFileSharesNfsExportOptions from a JSON
 // response object.
-func flattenInstanceFileSharesNfsExportOptions(c *Client, i interface{}) *InstanceFileSharesNfsExportOptions {
+func flattenInstanceFileSharesNfsExportOptions(c *Client, i interface{}, res *Instance) *InstanceFileSharesNfsExportOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1632,7 +1632,7 @@ func expandInstanceNetworksSlice(c *Client, f []InstanceNetworks, res *Instance)
 
 // flattenInstanceNetworksMap flattens the contents of InstanceNetworks from a JSON
 // response object.
-func flattenInstanceNetworksMap(c *Client, i interface{}) map[string]InstanceNetworks {
+func flattenInstanceNetworksMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworks {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworks{}
@@ -1644,7 +1644,7 @@ func flattenInstanceNetworksMap(c *Client, i interface{}) map[string]InstanceNet
 
 	items := make(map[string]InstanceNetworks)
 	for k, item := range a {
-		items[k] = *flattenInstanceNetworks(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceNetworks(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1652,7 +1652,7 @@ func flattenInstanceNetworksMap(c *Client, i interface{}) map[string]InstanceNet
 
 // flattenInstanceNetworksSlice flattens the contents of InstanceNetworks from a JSON
 // response object.
-func flattenInstanceNetworksSlice(c *Client, i interface{}) []InstanceNetworks {
+func flattenInstanceNetworksSlice(c *Client, i interface{}, res *Instance) []InstanceNetworks {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworks{}
@@ -1664,7 +1664,7 @@ func flattenInstanceNetworksSlice(c *Client, i interface{}) []InstanceNetworks {
 
 	items := make([]InstanceNetworks, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceNetworks(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceNetworks(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1695,7 +1695,7 @@ func expandInstanceNetworks(c *Client, f *InstanceNetworks, res *Instance) (map[
 
 // flattenInstanceNetworks flattens an instance of InstanceNetworks from a JSON
 // response object.
-func flattenInstanceNetworks(c *Client, i interface{}) *InstanceNetworks {
+func flattenInstanceNetworks(c *Client, i interface{}, res *Instance) *InstanceNetworks {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1707,7 +1707,7 @@ func flattenInstanceNetworks(c *Client, i interface{}) *InstanceNetworks {
 		return EmptyInstanceNetworks
 	}
 	r.Network = dcl.FlattenString(m["network"])
-	r.Modes = flattenInstanceNetworksModesEnumSlice(c, m["modes"])
+	r.Modes = flattenInstanceNetworksModesEnumSlice(c, m["modes"], res)
 	r.ReservedIPRange = dcl.FlattenString(m["reservedIpRange"])
 	r.IPAddresses = dcl.FlattenStringSlice(m["ipAddresses"])
 
@@ -1716,7 +1716,7 @@ func flattenInstanceNetworks(c *Client, i interface{}) *InstanceNetworks {
 
 // flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+func flattenInstanceStateEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceStateEnum{}
@@ -1736,7 +1736,7 @@ func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceSt
 
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
+func flattenInstanceStateEnumSlice(c *Client, i interface{}, res *Instance) []InstanceStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceStateEnum{}
@@ -1767,7 +1767,7 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 
 // flattenInstanceTierEnumMap flattens the contents of InstanceTierEnum from a JSON
 // response object.
-func flattenInstanceTierEnumMap(c *Client, i interface{}) map[string]InstanceTierEnum {
+func flattenInstanceTierEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceTierEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceTierEnum{}
@@ -1787,7 +1787,7 @@ func flattenInstanceTierEnumMap(c *Client, i interface{}) map[string]InstanceTie
 
 // flattenInstanceTierEnumSlice flattens the contents of InstanceTierEnum from a JSON
 // response object.
-func flattenInstanceTierEnumSlice(c *Client, i interface{}) []InstanceTierEnum {
+func flattenInstanceTierEnumSlice(c *Client, i interface{}, res *Instance) []InstanceTierEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceTierEnum{}
@@ -1818,7 +1818,7 @@ func flattenInstanceTierEnum(i interface{}) *InstanceTierEnum {
 
 // flattenInstanceFileSharesNfsExportOptionsAccessModeEnumMap flattens the contents of InstanceFileSharesNfsExportOptionsAccessModeEnum from a JSON
 // response object.
-func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumMap(c *Client, i interface{}) map[string]InstanceFileSharesNfsExportOptionsAccessModeEnum {
+func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceFileSharesNfsExportOptionsAccessModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceFileSharesNfsExportOptionsAccessModeEnum{}
@@ -1838,7 +1838,7 @@ func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumMap(c *Client, i int
 
 // flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice flattens the contents of InstanceFileSharesNfsExportOptionsAccessModeEnum from a JSON
 // response object.
-func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptionsAccessModeEnum {
+func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice(c *Client, i interface{}, res *Instance) []InstanceFileSharesNfsExportOptionsAccessModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceFileSharesNfsExportOptionsAccessModeEnum{}
@@ -1869,7 +1869,7 @@ func flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(i interface{}) *Ins
 
 // flattenInstanceFileSharesNfsExportOptionsSquashModeEnumMap flattens the contents of InstanceFileSharesNfsExportOptionsSquashModeEnum from a JSON
 // response object.
-func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumMap(c *Client, i interface{}) map[string]InstanceFileSharesNfsExportOptionsSquashModeEnum {
+func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceFileSharesNfsExportOptionsSquashModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceFileSharesNfsExportOptionsSquashModeEnum{}
@@ -1889,7 +1889,7 @@ func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumMap(c *Client, i int
 
 // flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice flattens the contents of InstanceFileSharesNfsExportOptionsSquashModeEnum from a JSON
 // response object.
-func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptionsSquashModeEnum {
+func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice(c *Client, i interface{}, res *Instance) []InstanceFileSharesNfsExportOptionsSquashModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceFileSharesNfsExportOptionsSquashModeEnum{}
@@ -1920,7 +1920,7 @@ func flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(i interface{}) *Ins
 
 // flattenInstanceNetworksModesEnumMap flattens the contents of InstanceNetworksModesEnum from a JSON
 // response object.
-func flattenInstanceNetworksModesEnumMap(c *Client, i interface{}) map[string]InstanceNetworksModesEnum {
+func flattenInstanceNetworksModesEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceNetworksModesEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceNetworksModesEnum{}
@@ -1940,7 +1940,7 @@ func flattenInstanceNetworksModesEnumMap(c *Client, i interface{}) map[string]In
 
 // flattenInstanceNetworksModesEnumSlice flattens the contents of InstanceNetworksModesEnum from a JSON
 // response object.
-func flattenInstanceNetworksModesEnumSlice(c *Client, i interface{}) []InstanceNetworksModesEnum {
+func flattenInstanceNetworksModesEnumSlice(c *Client, i interface{}, res *Instance) []InstanceNetworksModesEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceNetworksModesEnum{}
@@ -1974,7 +1974,7 @@ func flattenInstanceNetworksModesEnum(i interface{}) *InstanceNetworksModesEnum 
 // identity).  This is useful in extracting the element from a List call.
 func (r *Instance) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInstance(b, c)
+		cr, err := unmarshalInstance(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

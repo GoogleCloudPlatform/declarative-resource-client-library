@@ -134,7 +134,7 @@ func (c *Client) GetManagedService(ctx context.Context, r *ManagedService) (*Man
 		}
 		return nil, err
 	}
-	result, err := unmarshalManagedService(b, c)
+	result, err := unmarshalManagedService(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -302,7 +302,7 @@ func applyManagedServiceDiff(c *Client, ctx context.Context, desired *ManagedSer
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapManagedService(r, c)
+				fullResp, err := unmarshalMapManagedService(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

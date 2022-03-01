@@ -217,7 +217,7 @@ func (c *Client) listAttestor(ctx context.Context, r *Attestor, pageToken string
 
 	var l []*Attestor
 	for _, v := range m.Attestors {
-		res, err := unmarshalMapAttestor(v, c)
+		res, err := unmarshalMapAttestor(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1074,17 +1074,17 @@ func (r *Attestor) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalAttestor decodes JSON responses into the Attestor resource schema.
-func unmarshalAttestor(b []byte, c *Client) (*Attestor, error) {
+func unmarshalAttestor(b []byte, c *Client, res *Attestor) (*Attestor, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapAttestor(m, c)
+	return unmarshalMapAttestor(m, c, res)
 }
 
-func unmarshalMapAttestor(m map[string]interface{}, c *Client) (*Attestor, error) {
+func unmarshalMapAttestor(m map[string]interface{}, c *Client, res *Attestor) (*Attestor, error) {
 
-	flattened := flattenAttestor(c, m)
+	flattened := flattenAttestor(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1120,7 +1120,7 @@ func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 
 // flattenAttestor flattens Attestor from a JSON request object into the
 // Attestor type.
-func flattenAttestor(c *Client, i interface{}) *Attestor {
+func flattenAttestor(c *Client, i interface{}, res *Attestor) *Attestor {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1129,14 +1129,14 @@ func flattenAttestor(c *Client, i interface{}) *Attestor {
 		return nil
 	}
 
-	res := &Attestor{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.UserOwnedDrydockNote = flattenAttestorUserOwnedDrydockNote(c, m["userOwnedGrafeasNote"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Attestor{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.UserOwnedDrydockNote = flattenAttestorUserOwnedDrydockNote(c, m["userOwnedGrafeasNote"], res)
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandAttestorUserOwnedDrydockNoteMap expands the contents of AttestorUserOwnedDrydockNote into a JSON
@@ -1182,7 +1182,7 @@ func expandAttestorUserOwnedDrydockNoteSlice(c *Client, f []AttestorUserOwnedDry
 
 // flattenAttestorUserOwnedDrydockNoteMap flattens the contents of AttestorUserOwnedDrydockNote from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNoteMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNote {
+func flattenAttestorUserOwnedDrydockNoteMap(c *Client, i interface{}, res *Attestor) map[string]AttestorUserOwnedDrydockNote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AttestorUserOwnedDrydockNote{}
@@ -1194,7 +1194,7 @@ func flattenAttestorUserOwnedDrydockNoteMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]AttestorUserOwnedDrydockNote)
 	for k, item := range a {
-		items[k] = *flattenAttestorUserOwnedDrydockNote(c, item.(map[string]interface{}))
+		items[k] = *flattenAttestorUserOwnedDrydockNote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1202,7 +1202,7 @@ func flattenAttestorUserOwnedDrydockNoteMap(c *Client, i interface{}) map[string
 
 // flattenAttestorUserOwnedDrydockNoteSlice flattens the contents of AttestorUserOwnedDrydockNote from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNoteSlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNote {
+func flattenAttestorUserOwnedDrydockNoteSlice(c *Client, i interface{}, res *Attestor) []AttestorUserOwnedDrydockNote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AttestorUserOwnedDrydockNote{}
@@ -1214,7 +1214,7 @@ func flattenAttestorUserOwnedDrydockNoteSlice(c *Client, i interface{}) []Attest
 
 	items := make([]AttestorUserOwnedDrydockNote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAttestorUserOwnedDrydockNote(c, item.(map[string]interface{})))
+		items = append(items, *flattenAttestorUserOwnedDrydockNote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1242,7 +1242,7 @@ func expandAttestorUserOwnedDrydockNote(c *Client, f *AttestorUserOwnedDrydockNo
 
 // flattenAttestorUserOwnedDrydockNote flattens an instance of AttestorUserOwnedDrydockNote from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNote(c *Client, i interface{}) *AttestorUserOwnedDrydockNote {
+func flattenAttestorUserOwnedDrydockNote(c *Client, i interface{}, res *Attestor) *AttestorUserOwnedDrydockNote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1254,7 +1254,7 @@ func flattenAttestorUserOwnedDrydockNote(c *Client, i interface{}) *AttestorUser
 		return EmptyAttestorUserOwnedDrydockNote
 	}
 	r.NoteReference = dcl.FlattenString(m["noteReference"])
-	r.PublicKeys = flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c, m["publicKeys"])
+	r.PublicKeys = flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c, m["publicKeys"], res)
 	r.DelegationServiceAccountEmail = dcl.FlattenString(m["delegationServiceAccountEmail"])
 
 	return r
@@ -1303,7 +1303,7 @@ func expandAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, f []AttestorUs
 
 // flattenAttestorUserOwnedDrydockNotePublicKeysMap flattens the contents of AttestorUserOwnedDrydockNotePublicKeys from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNotePublicKeys {
+func flattenAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, i interface{}, res *Attestor) map[string]AttestorUserOwnedDrydockNotePublicKeys {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AttestorUserOwnedDrydockNotePublicKeys{}
@@ -1315,7 +1315,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, i interface{}) 
 
 	items := make(map[string]AttestorUserOwnedDrydockNotePublicKeys)
 	for k, item := range a {
-		items[k] = *flattenAttestorUserOwnedDrydockNotePublicKeys(c, item.(map[string]interface{}))
+		items[k] = *flattenAttestorUserOwnedDrydockNotePublicKeys(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1323,7 +1323,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, i interface{}) 
 
 // flattenAttestorUserOwnedDrydockNotePublicKeysSlice flattens the contents of AttestorUserOwnedDrydockNotePublicKeys from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNotePublicKeys {
+func flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, i interface{}, res *Attestor) []AttestorUserOwnedDrydockNotePublicKeys {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AttestorUserOwnedDrydockNotePublicKeys{}
@@ -1335,7 +1335,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, i interface{}
 
 	items := make([]AttestorUserOwnedDrydockNotePublicKeys, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAttestorUserOwnedDrydockNotePublicKeys(c, item.(map[string]interface{})))
+		items = append(items, *flattenAttestorUserOwnedDrydockNotePublicKeys(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1369,7 +1369,7 @@ func expandAttestorUserOwnedDrydockNotePublicKeys(c *Client, f *AttestorUserOwne
 
 // flattenAttestorUserOwnedDrydockNotePublicKeys flattens an instance of AttestorUserOwnedDrydockNotePublicKeys from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeys(c *Client, i interface{}) *AttestorUserOwnedDrydockNotePublicKeys {
+func flattenAttestorUserOwnedDrydockNotePublicKeys(c *Client, i interface{}, res *Attestor) *AttestorUserOwnedDrydockNotePublicKeys {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1383,7 +1383,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeys(c *Client, i interface{}) *At
 	r.Comment = dcl.FlattenString(m["comment"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.AsciiArmoredPgpPublicKey = dcl.FlattenString(m["asciiArmoredPgpPublicKey"])
-	r.PkixPublicKey = flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, m["pkixPublicKey"])
+	r.PkixPublicKey = flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, m["pkixPublicKey"], res)
 
 	return r
 }
@@ -1431,7 +1431,7 @@ func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, f
 
 // flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, i interface{}, res *Attestor) map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
@@ -1443,7 +1443,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, i 
 
 	items := make(map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey)
 	for k, item := range a {
-		items[k] = *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, item.(map[string]interface{}))
+		items[k] = *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1451,7 +1451,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, i 
 
 // flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, i interface{}, res *Attestor) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
@@ -1463,7 +1463,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, 
 
 	items := make([]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, item.(map[string]interface{})))
+		items = append(items, *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1489,7 +1489,7 @@ func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, f *Att
 
 // flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey flattens an instance of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, i interface{}) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, i interface{}, res *Attestor) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1508,7 +1508,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, i int
 
 // flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumMap flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumMap(c *Client, i interface{}, res *Attestor) map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
@@ -1528,7 +1528,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorith
 
 // flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum from a JSON
 // response object.
-func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice(c *Client, i interface{}, res *Attestor) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
@@ -1562,7 +1562,7 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorith
 // identity).  This is useful in extracting the element from a List call.
 func (r *Attestor) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalAttestor(b, c)
+		cr, err := unmarshalAttestor(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

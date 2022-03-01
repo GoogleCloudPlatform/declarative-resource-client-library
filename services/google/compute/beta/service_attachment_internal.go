@@ -268,7 +268,7 @@ func (c *Client) listServiceAttachment(ctx context.Context, r *ServiceAttachment
 
 	var l []*ServiceAttachment
 	for _, v := range m.Items {
-		res, err := unmarshalMapServiceAttachment(v, c)
+		res, err := unmarshalMapServiceAttachment(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1294,17 +1294,17 @@ func (r *ServiceAttachment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalServiceAttachment decodes JSON responses into the ServiceAttachment resource schema.
-func unmarshalServiceAttachment(b []byte, c *Client) (*ServiceAttachment, error) {
+func unmarshalServiceAttachment(b []byte, c *Client, res *ServiceAttachment) (*ServiceAttachment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapServiceAttachment(m, c)
+	return unmarshalMapServiceAttachment(m, c, res)
 }
 
-func unmarshalMapServiceAttachment(m map[string]interface{}, c *Client) (*ServiceAttachment, error) {
+func unmarshalMapServiceAttachment(m map[string]interface{}, c *Client, res *ServiceAttachment) (*ServiceAttachment, error) {
 
-	flattened := flattenServiceAttachment(c, m)
+	flattened := flattenServiceAttachment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1360,7 +1360,7 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 
 // flattenServiceAttachment flattens ServiceAttachment from a JSON request object into the
 // ServiceAttachment type.
-func flattenServiceAttachment(c *Client, i interface{}) *ServiceAttachment {
+func flattenServiceAttachment(c *Client, i interface{}, res *ServiceAttachment) *ServiceAttachment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1369,25 +1369,25 @@ func flattenServiceAttachment(c *Client, i interface{}) *ServiceAttachment {
 		return nil
 	}
 
-	res := &ServiceAttachment{}
-	res.Id = dcl.FlattenInteger(m["id"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.TargetService = dcl.FlattenString(m["targetService"])
-	res.ConnectionPreference = flattenServiceAttachmentConnectionPreferenceEnum(m["connectionPreference"])
-	res.ConnectedEndpoints = flattenServiceAttachmentConnectedEndpointsSlice(c, m["connectedEndpoints"])
-	res.NatSubnets = dcl.FlattenStringSlice(m["natSubnets"])
-	res.EnableProxyProtocol = dcl.FlattenBool(m["enableProxyProtocol"])
-	res.ConsumerRejectLists = dcl.FlattenStringSlice(m["consumerRejectLists"])
-	res.ConsumerAcceptLists = flattenServiceAttachmentConsumerAcceptListsSlice(c, m["consumerAcceptLists"])
-	res.PscServiceAttachmentId = flattenServiceAttachmentPscServiceAttachmentId(c, m["pscServiceAttachmentId"])
-	res.Fingerprint = dcl.FlattenString(m["fingerprint"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &ServiceAttachment{}
+	resultRes.Id = dcl.FlattenInteger(m["id"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.TargetService = dcl.FlattenString(m["targetService"])
+	resultRes.ConnectionPreference = flattenServiceAttachmentConnectionPreferenceEnum(m["connectionPreference"])
+	resultRes.ConnectedEndpoints = flattenServiceAttachmentConnectedEndpointsSlice(c, m["connectedEndpoints"], res)
+	resultRes.NatSubnets = dcl.FlattenStringSlice(m["natSubnets"])
+	resultRes.EnableProxyProtocol = dcl.FlattenBool(m["enableProxyProtocol"])
+	resultRes.ConsumerRejectLists = dcl.FlattenStringSlice(m["consumerRejectLists"])
+	resultRes.ConsumerAcceptLists = flattenServiceAttachmentConsumerAcceptListsSlice(c, m["consumerAcceptLists"], res)
+	resultRes.PscServiceAttachmentId = flattenServiceAttachmentPscServiceAttachmentId(c, m["pscServiceAttachmentId"], res)
+	resultRes.Fingerprint = dcl.FlattenString(m["fingerprint"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandServiceAttachmentConnectedEndpointsMap expands the contents of ServiceAttachmentConnectedEndpoints into a JSON
@@ -1433,7 +1433,7 @@ func expandServiceAttachmentConnectedEndpointsSlice(c *Client, f []ServiceAttach
 
 // flattenServiceAttachmentConnectedEndpointsMap flattens the contents of ServiceAttachmentConnectedEndpoints from a JSON
 // response object.
-func flattenServiceAttachmentConnectedEndpointsMap(c *Client, i interface{}) map[string]ServiceAttachmentConnectedEndpoints {
+func flattenServiceAttachmentConnectedEndpointsMap(c *Client, i interface{}, res *ServiceAttachment) map[string]ServiceAttachmentConnectedEndpoints {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceAttachmentConnectedEndpoints{}
@@ -1445,7 +1445,7 @@ func flattenServiceAttachmentConnectedEndpointsMap(c *Client, i interface{}) map
 
 	items := make(map[string]ServiceAttachmentConnectedEndpoints)
 	for k, item := range a {
-		items[k] = *flattenServiceAttachmentConnectedEndpoints(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceAttachmentConnectedEndpoints(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1453,7 +1453,7 @@ func flattenServiceAttachmentConnectedEndpointsMap(c *Client, i interface{}) map
 
 // flattenServiceAttachmentConnectedEndpointsSlice flattens the contents of ServiceAttachmentConnectedEndpoints from a JSON
 // response object.
-func flattenServiceAttachmentConnectedEndpointsSlice(c *Client, i interface{}) []ServiceAttachmentConnectedEndpoints {
+func flattenServiceAttachmentConnectedEndpointsSlice(c *Client, i interface{}, res *ServiceAttachment) []ServiceAttachmentConnectedEndpoints {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceAttachmentConnectedEndpoints{}
@@ -1465,7 +1465,7 @@ func flattenServiceAttachmentConnectedEndpointsSlice(c *Client, i interface{}) [
 
 	items := make([]ServiceAttachmentConnectedEndpoints, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceAttachmentConnectedEndpoints(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceAttachmentConnectedEndpoints(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1494,7 +1494,7 @@ func expandServiceAttachmentConnectedEndpoints(c *Client, f *ServiceAttachmentCo
 
 // flattenServiceAttachmentConnectedEndpoints flattens an instance of ServiceAttachmentConnectedEndpoints from a JSON
 // response object.
-func flattenServiceAttachmentConnectedEndpoints(c *Client, i interface{}) *ServiceAttachmentConnectedEndpoints {
+func flattenServiceAttachmentConnectedEndpoints(c *Client, i interface{}, res *ServiceAttachment) *ServiceAttachmentConnectedEndpoints {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1555,7 +1555,7 @@ func expandServiceAttachmentConsumerAcceptListsSlice(c *Client, f []ServiceAttac
 
 // flattenServiceAttachmentConsumerAcceptListsMap flattens the contents of ServiceAttachmentConsumerAcceptLists from a JSON
 // response object.
-func flattenServiceAttachmentConsumerAcceptListsMap(c *Client, i interface{}) map[string]ServiceAttachmentConsumerAcceptLists {
+func flattenServiceAttachmentConsumerAcceptListsMap(c *Client, i interface{}, res *ServiceAttachment) map[string]ServiceAttachmentConsumerAcceptLists {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceAttachmentConsumerAcceptLists{}
@@ -1567,7 +1567,7 @@ func flattenServiceAttachmentConsumerAcceptListsMap(c *Client, i interface{}) ma
 
 	items := make(map[string]ServiceAttachmentConsumerAcceptLists)
 	for k, item := range a {
-		items[k] = *flattenServiceAttachmentConsumerAcceptLists(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceAttachmentConsumerAcceptLists(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1575,7 +1575,7 @@ func flattenServiceAttachmentConsumerAcceptListsMap(c *Client, i interface{}) ma
 
 // flattenServiceAttachmentConsumerAcceptListsSlice flattens the contents of ServiceAttachmentConsumerAcceptLists from a JSON
 // response object.
-func flattenServiceAttachmentConsumerAcceptListsSlice(c *Client, i interface{}) []ServiceAttachmentConsumerAcceptLists {
+func flattenServiceAttachmentConsumerAcceptListsSlice(c *Client, i interface{}, res *ServiceAttachment) []ServiceAttachmentConsumerAcceptLists {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceAttachmentConsumerAcceptLists{}
@@ -1587,7 +1587,7 @@ func flattenServiceAttachmentConsumerAcceptListsSlice(c *Client, i interface{}) 
 
 	items := make([]ServiceAttachmentConsumerAcceptLists, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceAttachmentConsumerAcceptLists(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceAttachmentConsumerAcceptLists(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1615,7 +1615,7 @@ func expandServiceAttachmentConsumerAcceptLists(c *Client, f *ServiceAttachmentC
 
 // flattenServiceAttachmentConsumerAcceptLists flattens an instance of ServiceAttachmentConsumerAcceptLists from a JSON
 // response object.
-func flattenServiceAttachmentConsumerAcceptLists(c *Client, i interface{}) *ServiceAttachmentConsumerAcceptLists {
+func flattenServiceAttachmentConsumerAcceptLists(c *Client, i interface{}, res *ServiceAttachment) *ServiceAttachmentConsumerAcceptLists {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1675,7 +1675,7 @@ func expandServiceAttachmentPscServiceAttachmentIdSlice(c *Client, f []ServiceAt
 
 // flattenServiceAttachmentPscServiceAttachmentIdMap flattens the contents of ServiceAttachmentPscServiceAttachmentId from a JSON
 // response object.
-func flattenServiceAttachmentPscServiceAttachmentIdMap(c *Client, i interface{}) map[string]ServiceAttachmentPscServiceAttachmentId {
+func flattenServiceAttachmentPscServiceAttachmentIdMap(c *Client, i interface{}, res *ServiceAttachment) map[string]ServiceAttachmentPscServiceAttachmentId {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceAttachmentPscServiceAttachmentId{}
@@ -1687,7 +1687,7 @@ func flattenServiceAttachmentPscServiceAttachmentIdMap(c *Client, i interface{})
 
 	items := make(map[string]ServiceAttachmentPscServiceAttachmentId)
 	for k, item := range a {
-		items[k] = *flattenServiceAttachmentPscServiceAttachmentId(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceAttachmentPscServiceAttachmentId(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1695,7 +1695,7 @@ func flattenServiceAttachmentPscServiceAttachmentIdMap(c *Client, i interface{})
 
 // flattenServiceAttachmentPscServiceAttachmentIdSlice flattens the contents of ServiceAttachmentPscServiceAttachmentId from a JSON
 // response object.
-func flattenServiceAttachmentPscServiceAttachmentIdSlice(c *Client, i interface{}) []ServiceAttachmentPscServiceAttachmentId {
+func flattenServiceAttachmentPscServiceAttachmentIdSlice(c *Client, i interface{}, res *ServiceAttachment) []ServiceAttachmentPscServiceAttachmentId {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceAttachmentPscServiceAttachmentId{}
@@ -1707,7 +1707,7 @@ func flattenServiceAttachmentPscServiceAttachmentIdSlice(c *Client, i interface{
 
 	items := make([]ServiceAttachmentPscServiceAttachmentId, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceAttachmentPscServiceAttachmentId(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceAttachmentPscServiceAttachmentId(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1727,7 +1727,7 @@ func expandServiceAttachmentPscServiceAttachmentId(c *Client, f *ServiceAttachme
 
 // flattenServiceAttachmentPscServiceAttachmentId flattens an instance of ServiceAttachmentPscServiceAttachmentId from a JSON
 // response object.
-func flattenServiceAttachmentPscServiceAttachmentId(c *Client, i interface{}) *ServiceAttachmentPscServiceAttachmentId {
+func flattenServiceAttachmentPscServiceAttachmentId(c *Client, i interface{}, res *ServiceAttachment) *ServiceAttachmentPscServiceAttachmentId {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1746,7 +1746,7 @@ func flattenServiceAttachmentPscServiceAttachmentId(c *Client, i interface{}) *S
 
 // flattenServiceAttachmentConnectionPreferenceEnumMap flattens the contents of ServiceAttachmentConnectionPreferenceEnum from a JSON
 // response object.
-func flattenServiceAttachmentConnectionPreferenceEnumMap(c *Client, i interface{}) map[string]ServiceAttachmentConnectionPreferenceEnum {
+func flattenServiceAttachmentConnectionPreferenceEnumMap(c *Client, i interface{}, res *ServiceAttachment) map[string]ServiceAttachmentConnectionPreferenceEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceAttachmentConnectionPreferenceEnum{}
@@ -1766,7 +1766,7 @@ func flattenServiceAttachmentConnectionPreferenceEnumMap(c *Client, i interface{
 
 // flattenServiceAttachmentConnectionPreferenceEnumSlice flattens the contents of ServiceAttachmentConnectionPreferenceEnum from a JSON
 // response object.
-func flattenServiceAttachmentConnectionPreferenceEnumSlice(c *Client, i interface{}) []ServiceAttachmentConnectionPreferenceEnum {
+func flattenServiceAttachmentConnectionPreferenceEnumSlice(c *Client, i interface{}, res *ServiceAttachment) []ServiceAttachmentConnectionPreferenceEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceAttachmentConnectionPreferenceEnum{}
@@ -1797,7 +1797,7 @@ func flattenServiceAttachmentConnectionPreferenceEnum(i interface{}) *ServiceAtt
 
 // flattenServiceAttachmentConnectedEndpointsStatusEnumMap flattens the contents of ServiceAttachmentConnectedEndpointsStatusEnum from a JSON
 // response object.
-func flattenServiceAttachmentConnectedEndpointsStatusEnumMap(c *Client, i interface{}) map[string]ServiceAttachmentConnectedEndpointsStatusEnum {
+func flattenServiceAttachmentConnectedEndpointsStatusEnumMap(c *Client, i interface{}, res *ServiceAttachment) map[string]ServiceAttachmentConnectedEndpointsStatusEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceAttachmentConnectedEndpointsStatusEnum{}
@@ -1817,7 +1817,7 @@ func flattenServiceAttachmentConnectedEndpointsStatusEnumMap(c *Client, i interf
 
 // flattenServiceAttachmentConnectedEndpointsStatusEnumSlice flattens the contents of ServiceAttachmentConnectedEndpointsStatusEnum from a JSON
 // response object.
-func flattenServiceAttachmentConnectedEndpointsStatusEnumSlice(c *Client, i interface{}) []ServiceAttachmentConnectedEndpointsStatusEnum {
+func flattenServiceAttachmentConnectedEndpointsStatusEnumSlice(c *Client, i interface{}, res *ServiceAttachment) []ServiceAttachmentConnectedEndpointsStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceAttachmentConnectedEndpointsStatusEnum{}
@@ -1851,7 +1851,7 @@ func flattenServiceAttachmentConnectedEndpointsStatusEnum(i interface{}) *Servic
 // identity).  This is useful in extracting the element from a List call.
 func (r *ServiceAttachment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalServiceAttachment(b, c)
+		cr, err := unmarshalServiceAttachment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

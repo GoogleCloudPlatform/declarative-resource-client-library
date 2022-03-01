@@ -370,7 +370,7 @@ func (c *Client) GetOrganization(ctx context.Context, r *Organization) (*Organiz
 		}
 		return nil, err
 	}
-	result, err := unmarshalOrganization(b, c)
+	result, err := unmarshalOrganization(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -542,7 +542,7 @@ func applyOrganizationDiff(c *Client, ctx context.Context, desired *Organization
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapOrganization(r, c)
+				fullResp, err := unmarshalMapOrganization(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

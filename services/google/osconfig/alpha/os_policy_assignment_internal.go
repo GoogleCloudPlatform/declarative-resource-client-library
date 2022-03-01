@@ -768,7 +768,7 @@ func (c *Client) listOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignme
 
 	var l []*OSPolicyAssignment
 	for _, v := range m.OsPolicyAssignments {
-		res, err := unmarshalMapOSPolicyAssignment(v, c)
+		res, err := unmarshalMapOSPolicyAssignment(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -9224,17 +9224,17 @@ func (r *OSPolicyAssignment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalOSPolicyAssignment decodes JSON responses into the OSPolicyAssignment resource schema.
-func unmarshalOSPolicyAssignment(b []byte, c *Client) (*OSPolicyAssignment, error) {
+func unmarshalOSPolicyAssignment(b []byte, c *Client, res *OSPolicyAssignment) (*OSPolicyAssignment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapOSPolicyAssignment(m, c)
+	return unmarshalMapOSPolicyAssignment(m, c, res)
 }
 
-func unmarshalMapOSPolicyAssignment(m map[string]interface{}, c *Client) (*OSPolicyAssignment, error) {
+func unmarshalMapOSPolicyAssignment(m map[string]interface{}, c *Client, res *OSPolicyAssignment) (*OSPolicyAssignment, error) {
 
-	flattened := flattenOSPolicyAssignment(c, m)
+	flattened := flattenOSPolicyAssignment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -9285,7 +9285,7 @@ func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]inte
 
 // flattenOSPolicyAssignment flattens OSPolicyAssignment from a JSON request object into the
 // OSPolicyAssignment type.
-func flattenOSPolicyAssignment(c *Client, i interface{}) *OSPolicyAssignment {
+func flattenOSPolicyAssignment(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9294,24 +9294,24 @@ func flattenOSPolicyAssignment(c *Client, i interface{}) *OSPolicyAssignment {
 		return nil
 	}
 
-	res := &OSPolicyAssignment{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.OSPolicies = flattenOSPolicyAssignmentOSPoliciesSlice(c, m["osPolicies"])
-	res.InstanceFilter = flattenOSPolicyAssignmentInstanceFilter(c, m["instanceFilter"])
-	res.Rollout = flattenOSPolicyAssignmentRollout(c, m["rollout"])
-	res.RevisionId = dcl.FlattenString(m["revisionId"])
-	res.RevisionCreateTime = dcl.FlattenString(m["revisionCreateTime"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.RolloutState = flattenOSPolicyAssignmentRolloutStateEnum(m["rolloutState"])
-	res.Baseline = dcl.FlattenBool(m["baseline"])
-	res.Deleted = dcl.FlattenBool(m["deleted"])
-	res.Reconciling = dcl.FlattenBool(m["reconciling"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &OSPolicyAssignment{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.OSPolicies = flattenOSPolicyAssignmentOSPoliciesSlice(c, m["osPolicies"], res)
+	resultRes.InstanceFilter = flattenOSPolicyAssignmentInstanceFilter(c, m["instanceFilter"], res)
+	resultRes.Rollout = flattenOSPolicyAssignmentRollout(c, m["rollout"], res)
+	resultRes.RevisionId = dcl.FlattenString(m["revisionId"])
+	resultRes.RevisionCreateTime = dcl.FlattenString(m["revisionCreateTime"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.RolloutState = flattenOSPolicyAssignmentRolloutStateEnum(m["rolloutState"])
+	resultRes.Baseline = dcl.FlattenBool(m["baseline"])
+	resultRes.Deleted = dcl.FlattenBool(m["deleted"])
+	resultRes.Reconciling = dcl.FlattenBool(m["reconciling"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandOSPolicyAssignmentOSPoliciesMap expands the contents of OSPolicyAssignmentOSPolicies into a JSON
@@ -9357,7 +9357,7 @@ func expandOSPolicyAssignmentOSPoliciesSlice(c *Client, f []OSPolicyAssignmentOS
 
 // flattenOSPolicyAssignmentOSPoliciesMap flattens the contents of OSPolicyAssignmentOSPolicies from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPolicies {
+func flattenOSPolicyAssignmentOSPoliciesMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPolicies {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPolicies{}
@@ -9369,7 +9369,7 @@ func flattenOSPolicyAssignmentOSPoliciesMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]OSPolicyAssignmentOSPolicies)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPolicies(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPolicies(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9377,7 +9377,7 @@ func flattenOSPolicyAssignmentOSPoliciesMap(c *Client, i interface{}) map[string
 
 // flattenOSPolicyAssignmentOSPoliciesSlice flattens the contents of OSPolicyAssignmentOSPolicies from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPolicies {
+func flattenOSPolicyAssignmentOSPoliciesSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPolicies {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPolicies{}
@@ -9389,7 +9389,7 @@ func flattenOSPolicyAssignmentOSPoliciesSlice(c *Client, i interface{}) []OSPoli
 
 	items := make([]OSPolicyAssignmentOSPolicies, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPolicies(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPolicies(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9426,7 +9426,7 @@ func expandOSPolicyAssignmentOSPolicies(c *Client, f *OSPolicyAssignmentOSPolici
 
 // flattenOSPolicyAssignmentOSPolicies flattens an instance of OSPolicyAssignmentOSPolicies from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPolicies(c *Client, i interface{}) *OSPolicyAssignmentOSPolicies {
+func flattenOSPolicyAssignmentOSPolicies(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPolicies {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9440,7 +9440,7 @@ func flattenOSPolicyAssignmentOSPolicies(c *Client, i interface{}) *OSPolicyAssi
 	r.Id = dcl.FlattenString(m["id"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.Mode = flattenOSPolicyAssignmentOSPoliciesModeEnum(m["mode"])
-	r.ResourceGroups = flattenOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c, m["resourceGroups"])
+	r.ResourceGroups = flattenOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c, m["resourceGroups"], res)
 	r.AllowNoResourceGroupMatch = dcl.FlattenBool(m["allowNoResourceGroupMatch"])
 
 	return r
@@ -9489,7 +9489,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, f []OSPoli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroups from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroups {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroups {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroups{}
@@ -9501,7 +9501,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsMap(c *Client, i interface
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroups)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroups(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroups(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9509,7 +9509,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsMap(c *Client, i interface
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroups from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroups {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroups {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroups{}
@@ -9521,7 +9521,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, i interfa
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroups, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroups(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroups(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9551,7 +9551,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, f *OSPolicyAssi
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroups flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroups from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroups {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroups {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9562,8 +9562,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, i interface{})
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroups
 	}
-	r.InventoryFilters = flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c, m["inventoryFilters"])
-	r.Resources = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c, m["resources"])
+	r.InventoryFilters = flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c, m["inventoryFilters"], res)
+	r.Resources = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c, m["resources"], res)
 
 	return r
 }
@@ -9611,7 +9611,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c *Cl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters{}
@@ -9623,7 +9623,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap(c *Cli
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9631,7 +9631,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersMap(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters{}
@@ -9643,7 +9643,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(c *C
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9669,7 +9669,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c *Client,
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9729,7 +9729,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *Client, f
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResources from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResources {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResources {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResources{}
@@ -9741,7 +9741,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap(c *Client, i 
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResources)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9749,7 +9749,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesMap(c *Client, i 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResources from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResources {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResources {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResources{}
@@ -9761,7 +9761,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *Client, 
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResources, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9804,7 +9804,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, f *OSP
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResources from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResources {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResources {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9816,10 +9816,10 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, i int
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResources
 	}
 	r.Id = dcl.FlattenString(m["id"])
-	r.Pkg = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, m["pkg"])
-	r.Repository = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, m["repository"])
-	r.Exec = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, m["exec"])
-	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, m["file"])
+	r.Pkg = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, m["pkg"], res)
+	r.Repository = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, m["repository"], res)
+	r.Exec = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, m["exec"], res)
+	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, m["file"], res)
 
 	return r
 }
@@ -9867,7 +9867,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(c *Client
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{}
@@ -9879,7 +9879,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap(c *Client,
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9887,7 +9887,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMap(c *Client,
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{}
@@ -9899,7 +9899,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(c *Clien
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9957,7 +9957,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, f *
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9969,13 +9969,13 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, i 
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg
 	}
 	r.DesiredState = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum(m["desiredState"])
-	r.Apt = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, m["apt"])
-	r.Deb = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, m["deb"])
-	r.Yum = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, m["yum"])
-	r.Zypper = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, m["zypper"])
-	r.Rpm = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, m["rpm"])
-	r.Googet = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, m["googet"])
-	r.Msi = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, m["msi"])
+	r.Apt = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, m["apt"], res)
+	r.Deb = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, m["deb"], res)
+	r.Yum = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, m["yum"], res)
+	r.Zypper = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, m["zypper"], res)
+	r.Rpm = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, m["rpm"], res)
+	r.Googet = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, m["googet"], res)
+	r.Msi = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, m["msi"], res)
 
 	return r
 }
@@ -10023,7 +10023,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt{}
@@ -10035,7 +10035,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap(c *Clie
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10043,7 +10043,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptMap(c *Clie
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt{}
@@ -10055,7 +10055,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(c *Cl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10078,7 +10078,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client, 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10137,7 +10137,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
@@ -10149,7 +10149,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap(c *Clie
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10157,7 +10157,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebMap(c *Clie
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
@@ -10169,7 +10169,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(c *Cl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10197,7 +10197,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10208,7 +10208,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client,
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
 	}
-	r.Source = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, m["source"])
+	r.Source = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, m["source"], res)
 	r.PullDeps = dcl.FlattenBool(m["pullDeps"])
 
 	return r
@@ -10257,7 +10257,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{}
@@ -10269,7 +10269,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap(c
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10277,7 +10277,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceMap(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{}
@@ -10289,7 +10289,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10325,7 +10325,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *Cl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10336,8 +10336,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *C
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	}
-	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, m["remote"])
-	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, m["gcs"])
+	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, m["remote"], res)
+	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, m["gcs"], res)
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
@@ -10387,7 +10387,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{}
@@ -10399,7 +10399,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemot
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10407,7 +10407,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemot
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{}
@@ -10419,7 +10419,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemot
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10445,7 +10445,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10505,7 +10505,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{}
@@ -10517,7 +10517,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMa
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10525,7 +10525,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsMa
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{}
@@ -10537,7 +10537,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10566,7 +10566,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10627,7 +10627,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{}
@@ -10639,7 +10639,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap(c *Clie
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10647,7 +10647,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumMap(c *Clie
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{}
@@ -10659,7 +10659,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(c *Cl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10682,7 +10682,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client, 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10741,7 +10741,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(c *
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{}
@@ -10753,7 +10753,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap(c *C
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10761,7 +10761,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperMap(c *C
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{}
@@ -10773,7 +10773,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(c 
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10796,7 +10796,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Clien
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10855,7 +10855,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
@@ -10867,7 +10867,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap(c *Clie
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10875,7 +10875,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmMap(c *Clie
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
@@ -10887,7 +10887,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(c *Cl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10915,7 +10915,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10926,7 +10926,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client,
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
 	}
-	r.Source = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, m["source"])
+	r.Source = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, m["source"], res)
 	r.PullDeps = dcl.FlattenBool(m["pullDeps"])
 
 	return r
@@ -10975,7 +10975,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource{}
@@ -10987,7 +10987,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap(c
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10995,7 +10995,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceMap(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource{}
@@ -11007,7 +11007,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11043,7 +11043,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c *Cl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11054,8 +11054,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(c *C
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource
 	}
-	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, m["remote"])
-	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, m["gcs"])
+	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, m["remote"], res)
+	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, m["gcs"], res)
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
@@ -11105,7 +11105,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote{}
@@ -11117,7 +11117,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemot
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11125,7 +11125,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemot
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote{}
@@ -11137,7 +11137,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemot
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11163,7 +11163,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11223,7 +11223,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs{}
@@ -11235,7 +11235,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMa
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11243,7 +11243,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsMa
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs{}
@@ -11255,7 +11255,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11284,7 +11284,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11345,7 +11345,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(c *
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget{}
@@ -11357,7 +11357,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap(c *C
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11365,7 +11365,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetMap(c *C
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget{}
@@ -11377,7 +11377,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(c 
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11400,7 +11400,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Clien
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11459,7 +11459,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
@@ -11471,7 +11471,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap(c *Clie
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11479,7 +11479,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiMap(c *Clie
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
@@ -11491,7 +11491,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(c *Cl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11519,7 +11519,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11530,7 +11530,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client,
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi
 	}
-	r.Source = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, m["source"])
+	r.Source = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, m["source"], res)
 	r.Properties = dcl.FlattenStringSlice(m["properties"])
 
 	return r
@@ -11579,7 +11579,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource{}
@@ -11591,7 +11591,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap(c
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11599,7 +11599,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceMap(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource{}
@@ -11611,7 +11611,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11647,7 +11647,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c *Cl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11658,8 +11658,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(c *C
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource
 	}
-	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, m["remote"])
-	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, m["gcs"])
+	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, m["remote"], res)
+	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, m["gcs"], res)
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
@@ -11709,7 +11709,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote{}
@@ -11721,7 +11721,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemot
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11729,7 +11729,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemot
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote{}
@@ -11741,7 +11741,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemot
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11767,7 +11767,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11827,7 +11827,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs{}
@@ -11839,7 +11839,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMa
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11847,7 +11847,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsMa
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs{}
@@ -11859,7 +11859,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -11888,7 +11888,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -11949,7 +11949,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(c 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository{}
@@ -11961,7 +11961,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap(c *
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -11969,7 +11969,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryMap(c *
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository{}
@@ -11981,7 +11981,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(c
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12021,7 +12021,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Clie
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12032,10 +12032,10 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Cli
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository
 	}
-	r.Apt = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, m["apt"])
-	r.Yum = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, m["yum"])
-	r.Zypper = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, m["zypper"])
-	r.Goo = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, m["goo"])
+	r.Apt = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, m["apt"], res)
+	r.Yum = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, m["yum"], res)
+	r.Zypper = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, m["zypper"], res)
+	r.Goo = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, m["goo"], res)
 
 	return r
 }
@@ -12083,7 +12083,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{}
@@ -12095,7 +12095,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap(
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12103,7 +12103,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptMap(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{}
@@ -12115,7 +12115,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlic
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12150,7 +12150,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *C
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12213,7 +12213,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum{}
@@ -12225,7 +12225,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap(
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12233,7 +12233,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumMap(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum{}
@@ -12245,7 +12245,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlic
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12277,7 +12277,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *C
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12339,7 +12339,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper{}
@@ -12351,7 +12351,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperM
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12359,7 +12359,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperM
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper{}
@@ -12371,7 +12371,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperS
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12403,7 +12403,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12465,7 +12465,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo{}
@@ -12477,7 +12477,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap(
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12485,7 +12485,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooMap(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo{}
@@ -12497,7 +12497,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlic
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12523,7 +12523,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *C
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12583,7 +12583,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(c *Clien
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{}
@@ -12595,7 +12595,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap(c *Client
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12603,7 +12603,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecMap(c *Client
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{}
@@ -12615,7 +12615,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(c *Clie
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12645,7 +12645,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, f 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12656,8 +12656,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, i
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
 	}
-	r.Validate = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, m["validate"])
-	r.Enforce = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, m["enforce"])
+	r.Validate = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, m["validate"], res)
+	r.Enforce = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, m["enforce"], res)
 
 	return r
 }
@@ -12705,7 +12705,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate{}
@@ -12717,7 +12717,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap(c
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12725,7 +12725,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateMap(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate{}
@@ -12737,7 +12737,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12774,7 +12774,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c *Cl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12785,7 +12785,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(c *C
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 	}
-	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, m["file"])
+	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, m["file"], res)
 	r.Script = dcl.FlattenString(m["script"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
 	r.Interpreter = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum(m["interpreter"])
@@ -12837,7 +12837,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile{}
@@ -12849,7 +12849,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileM
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12857,7 +12857,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileM
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile{}
@@ -12869,7 +12869,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileS
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -12905,7 +12905,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -12916,8 +12916,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile
 	}
-	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, m["remote"])
-	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, m["gcs"])
+	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, m["remote"], res)
+	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, m["gcs"], res)
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
@@ -12967,7 +12967,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRe
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote{}
@@ -12979,7 +12979,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileR
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -12987,7 +12987,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileR
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote{}
@@ -12999,7 +12999,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileR
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13025,7 +13025,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRe
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13085,7 +13085,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGc
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs{}
@@ -13097,7 +13097,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileG
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13105,7 +13105,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileG
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs{}
@@ -13117,7 +13117,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileG
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13146,7 +13146,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGc
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13207,7 +13207,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce{}
@@ -13219,7 +13219,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap(c 
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13227,7 +13227,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceMap(c 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce{}
@@ -13239,7 +13239,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13276,7 +13276,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13287,7 +13287,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(c *Cl
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce
 	}
-	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, m["file"])
+	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, m["file"], res)
 	r.Script = dcl.FlattenString(m["script"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
 	r.Interpreter = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum(m["interpreter"])
@@ -13339,7 +13339,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile{}
@@ -13351,7 +13351,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMa
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13359,7 +13359,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileMa
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile{}
@@ -13371,7 +13371,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSl
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13407,7 +13407,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13418,8 +13418,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(c
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile
 	}
-	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, m["remote"])
-	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, m["gcs"])
+	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, m["remote"], res)
+	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, m["gcs"], res)
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
@@ -13469,7 +13469,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRem
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote{}
@@ -13481,7 +13481,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRe
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13489,7 +13489,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRe
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote{}
@@ -13501,7 +13501,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRe
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13527,7 +13527,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRem
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13587,7 +13587,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs{}
@@ -13599,7 +13599,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGc
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13607,7 +13607,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGc
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs{}
@@ -13619,7 +13619,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGc
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13648,7 +13648,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13709,7 +13709,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(c *Clien
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
@@ -13721,7 +13721,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap(c *Client
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13729,7 +13729,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileMap(c *Client
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
@@ -13741,7 +13741,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(c *Clie
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13775,7 +13775,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, f 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13786,7 +13786,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, i
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile
 	}
-	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, m["file"])
+	r.File = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, m["file"], res)
 	r.Content = dcl.FlattenString(m["content"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.State = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(m["state"])
@@ -13838,7 +13838,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(c *C
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile{}
@@ -13850,7 +13850,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap(c *Cl
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13858,7 +13858,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileMap(c *Cl
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile{}
@@ -13870,7 +13870,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(c *
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -13906,7 +13906,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c *Client
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -13917,8 +13917,8 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(c *Clien
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile
 	}
-	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, m["remote"])
-	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, m["gcs"])
+	r.Remote = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, m["remote"], res)
+	r.Gcs = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, m["gcs"], res)
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
@@ -13968,7 +13968,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlic
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote{}
@@ -13980,7 +13980,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -13988,7 +13988,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteMap
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote{}
@@ -14000,7 +14000,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSli
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14026,7 +14026,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c *
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14086,7 +14086,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(c
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs{}
@@ -14098,7 +14098,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap(c 
 
 	items := make(map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14106,7 +14106,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsMap(c 
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs{}
@@ -14118,7 +14118,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(
 
 	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14147,7 +14147,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c *Cli
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs flattens an instance of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c *Client, i interface{}) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14208,7 +14208,7 @@ func expandOSPolicyAssignmentInstanceFilterSlice(c *Client, f []OSPolicyAssignme
 
 // flattenOSPolicyAssignmentInstanceFilterMap flattens the contents of OSPolicyAssignmentInstanceFilter from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterMap(c *Client, i interface{}) map[string]OSPolicyAssignmentInstanceFilter {
+func flattenOSPolicyAssignmentInstanceFilterMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentInstanceFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentInstanceFilter{}
@@ -14220,7 +14220,7 @@ func flattenOSPolicyAssignmentInstanceFilterMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]OSPolicyAssignmentInstanceFilter)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentInstanceFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentInstanceFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14228,7 +14228,7 @@ func flattenOSPolicyAssignmentInstanceFilterMap(c *Client, i interface{}) map[st
 
 // flattenOSPolicyAssignmentInstanceFilterSlice flattens the contents of OSPolicyAssignmentInstanceFilter from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterSlice(c *Client, i interface{}) []OSPolicyAssignmentInstanceFilter {
+func flattenOSPolicyAssignmentInstanceFilterSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentInstanceFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentInstanceFilter{}
@@ -14240,7 +14240,7 @@ func flattenOSPolicyAssignmentInstanceFilterSlice(c *Client, i interface{}) []OS
 
 	items := make([]OSPolicyAssignmentInstanceFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentInstanceFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentInstanceFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14278,7 +14278,7 @@ func expandOSPolicyAssignmentInstanceFilter(c *Client, f *OSPolicyAssignmentInst
 
 // flattenOSPolicyAssignmentInstanceFilter flattens an instance of OSPolicyAssignmentInstanceFilter from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilter(c *Client, i interface{}) *OSPolicyAssignmentInstanceFilter {
+func flattenOSPolicyAssignmentInstanceFilter(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentInstanceFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14290,9 +14290,9 @@ func flattenOSPolicyAssignmentInstanceFilter(c *Client, i interface{}) *OSPolicy
 		return EmptyOSPolicyAssignmentInstanceFilter
 	}
 	r.All = dcl.FlattenBool(m["all"])
-	r.InclusionLabels = flattenOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c, m["inclusionLabels"])
-	r.ExclusionLabels = flattenOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c, m["exclusionLabels"])
-	r.Inventories = flattenOSPolicyAssignmentInstanceFilterInventoriesSlice(c, m["inventories"])
+	r.InclusionLabels = flattenOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c, m["inclusionLabels"], res)
+	r.ExclusionLabels = flattenOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c, m["exclusionLabels"], res)
+	r.Inventories = flattenOSPolicyAssignmentInstanceFilterInventoriesSlice(c, m["inventories"], res)
 
 	return r
 }
@@ -14340,7 +14340,7 @@ func expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Client, f []O
 
 // flattenOSPolicyAssignmentInstanceFilterInclusionLabelsMap flattens the contents of OSPolicyAssignmentInstanceFilterInclusionLabels from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentInstanceFilterInclusionLabels {
+func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentInstanceFilterInclusionLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentInstanceFilterInclusionLabels{}
@@ -14352,7 +14352,7 @@ func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsMap(c *Client, i inte
 
 	items := make(map[string]OSPolicyAssignmentInstanceFilterInclusionLabels)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentInstanceFilterInclusionLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentInstanceFilterInclusionLabels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14360,7 +14360,7 @@ func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsMap(c *Client, i inte
 
 // flattenOSPolicyAssignmentInstanceFilterInclusionLabelsSlice flattens the contents of OSPolicyAssignmentInstanceFilterInclusionLabels from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Client, i interface{}) []OSPolicyAssignmentInstanceFilterInclusionLabels {
+func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentInstanceFilterInclusionLabels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentInstanceFilterInclusionLabels{}
@@ -14372,7 +14372,7 @@ func flattenOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Client, i in
 
 	items := make([]OSPolicyAssignmentInstanceFilterInclusionLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentInstanceFilterInclusionLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentInstanceFilterInclusionLabels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14395,7 +14395,7 @@ func expandOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, f *OSPolic
 
 // flattenOSPolicyAssignmentInstanceFilterInclusionLabels flattens an instance of OSPolicyAssignmentInstanceFilterInclusionLabels from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, i interface{}) *OSPolicyAssignmentInstanceFilterInclusionLabels {
+func flattenOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentInstanceFilterInclusionLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14454,7 +14454,7 @@ func expandOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Client, f []O
 
 // flattenOSPolicyAssignmentInstanceFilterExclusionLabelsMap flattens the contents of OSPolicyAssignmentInstanceFilterExclusionLabels from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentInstanceFilterExclusionLabels {
+func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentInstanceFilterExclusionLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentInstanceFilterExclusionLabels{}
@@ -14466,7 +14466,7 @@ func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsMap(c *Client, i inte
 
 	items := make(map[string]OSPolicyAssignmentInstanceFilterExclusionLabels)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentInstanceFilterExclusionLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentInstanceFilterExclusionLabels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14474,7 +14474,7 @@ func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsMap(c *Client, i inte
 
 // flattenOSPolicyAssignmentInstanceFilterExclusionLabelsSlice flattens the contents of OSPolicyAssignmentInstanceFilterExclusionLabels from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Client, i interface{}) []OSPolicyAssignmentInstanceFilterExclusionLabels {
+func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentInstanceFilterExclusionLabels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentInstanceFilterExclusionLabels{}
@@ -14486,7 +14486,7 @@ func flattenOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Client, i in
 
 	items := make([]OSPolicyAssignmentInstanceFilterExclusionLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentInstanceFilterExclusionLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentInstanceFilterExclusionLabels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14509,7 +14509,7 @@ func expandOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, f *OSPolic
 
 // flattenOSPolicyAssignmentInstanceFilterExclusionLabels flattens an instance of OSPolicyAssignmentInstanceFilterExclusionLabels from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, i interface{}) *OSPolicyAssignmentInstanceFilterExclusionLabels {
+func flattenOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentInstanceFilterExclusionLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14568,7 +14568,7 @@ func expandOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, f []OSPol
 
 // flattenOSPolicyAssignmentInstanceFilterInventoriesMap flattens the contents of OSPolicyAssignmentInstanceFilterInventories from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterInventoriesMap(c *Client, i interface{}) map[string]OSPolicyAssignmentInstanceFilterInventories {
+func flattenOSPolicyAssignmentInstanceFilterInventoriesMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentInstanceFilterInventories {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentInstanceFilterInventories{}
@@ -14580,7 +14580,7 @@ func flattenOSPolicyAssignmentInstanceFilterInventoriesMap(c *Client, i interfac
 
 	items := make(map[string]OSPolicyAssignmentInstanceFilterInventories)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentInstanceFilterInventories(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentInstanceFilterInventories(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14588,7 +14588,7 @@ func flattenOSPolicyAssignmentInstanceFilterInventoriesMap(c *Client, i interfac
 
 // flattenOSPolicyAssignmentInstanceFilterInventoriesSlice flattens the contents of OSPolicyAssignmentInstanceFilterInventories from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, i interface{}) []OSPolicyAssignmentInstanceFilterInventories {
+func flattenOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentInstanceFilterInventories {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentInstanceFilterInventories{}
@@ -14600,7 +14600,7 @@ func flattenOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, i interf
 
 	items := make([]OSPolicyAssignmentInstanceFilterInventories, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentInstanceFilterInventories(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentInstanceFilterInventories(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14626,7 +14626,7 @@ func expandOSPolicyAssignmentInstanceFilterInventories(c *Client, f *OSPolicyAss
 
 // flattenOSPolicyAssignmentInstanceFilterInventories flattens an instance of OSPolicyAssignmentInstanceFilterInventories from a JSON
 // response object.
-func flattenOSPolicyAssignmentInstanceFilterInventories(c *Client, i interface{}) *OSPolicyAssignmentInstanceFilterInventories {
+func flattenOSPolicyAssignmentInstanceFilterInventories(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentInstanceFilterInventories {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14686,7 +14686,7 @@ func expandOSPolicyAssignmentRolloutSlice(c *Client, f []OSPolicyAssignmentRollo
 
 // flattenOSPolicyAssignmentRolloutMap flattens the contents of OSPolicyAssignmentRollout from a JSON
 // response object.
-func flattenOSPolicyAssignmentRolloutMap(c *Client, i interface{}) map[string]OSPolicyAssignmentRollout {
+func flattenOSPolicyAssignmentRolloutMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentRollout {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentRollout{}
@@ -14698,7 +14698,7 @@ func flattenOSPolicyAssignmentRolloutMap(c *Client, i interface{}) map[string]OS
 
 	items := make(map[string]OSPolicyAssignmentRollout)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentRollout(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentRollout(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14706,7 +14706,7 @@ func flattenOSPolicyAssignmentRolloutMap(c *Client, i interface{}) map[string]OS
 
 // flattenOSPolicyAssignmentRolloutSlice flattens the contents of OSPolicyAssignmentRollout from a JSON
 // response object.
-func flattenOSPolicyAssignmentRolloutSlice(c *Client, i interface{}) []OSPolicyAssignmentRollout {
+func flattenOSPolicyAssignmentRolloutSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentRollout {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentRollout{}
@@ -14718,7 +14718,7 @@ func flattenOSPolicyAssignmentRolloutSlice(c *Client, i interface{}) []OSPolicyA
 
 	items := make([]OSPolicyAssignmentRollout, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentRollout(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentRollout(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14746,7 +14746,7 @@ func expandOSPolicyAssignmentRollout(c *Client, f *OSPolicyAssignmentRollout, re
 
 // flattenOSPolicyAssignmentRollout flattens an instance of OSPolicyAssignmentRollout from a JSON
 // response object.
-func flattenOSPolicyAssignmentRollout(c *Client, i interface{}) *OSPolicyAssignmentRollout {
+func flattenOSPolicyAssignmentRollout(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentRollout {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14757,7 +14757,7 @@ func flattenOSPolicyAssignmentRollout(c *Client, i interface{}) *OSPolicyAssignm
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentRollout
 	}
-	r.DisruptionBudget = flattenOSPolicyAssignmentRolloutDisruptionBudget(c, m["disruptionBudget"])
+	r.DisruptionBudget = flattenOSPolicyAssignmentRolloutDisruptionBudget(c, m["disruptionBudget"], res)
 	r.MinWaitDuration = dcl.FlattenString(m["minWaitDuration"])
 
 	return r
@@ -14806,7 +14806,7 @@ func expandOSPolicyAssignmentRolloutDisruptionBudgetSlice(c *Client, f []OSPolic
 
 // flattenOSPolicyAssignmentRolloutDisruptionBudgetMap flattens the contents of OSPolicyAssignmentRolloutDisruptionBudget from a JSON
 // response object.
-func flattenOSPolicyAssignmentRolloutDisruptionBudgetMap(c *Client, i interface{}) map[string]OSPolicyAssignmentRolloutDisruptionBudget {
+func flattenOSPolicyAssignmentRolloutDisruptionBudgetMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentRolloutDisruptionBudget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentRolloutDisruptionBudget{}
@@ -14818,7 +14818,7 @@ func flattenOSPolicyAssignmentRolloutDisruptionBudgetMap(c *Client, i interface{
 
 	items := make(map[string]OSPolicyAssignmentRolloutDisruptionBudget)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentRolloutDisruptionBudget(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentRolloutDisruptionBudget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -14826,7 +14826,7 @@ func flattenOSPolicyAssignmentRolloutDisruptionBudgetMap(c *Client, i interface{
 
 // flattenOSPolicyAssignmentRolloutDisruptionBudgetSlice flattens the contents of OSPolicyAssignmentRolloutDisruptionBudget from a JSON
 // response object.
-func flattenOSPolicyAssignmentRolloutDisruptionBudgetSlice(c *Client, i interface{}) []OSPolicyAssignmentRolloutDisruptionBudget {
+func flattenOSPolicyAssignmentRolloutDisruptionBudgetSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentRolloutDisruptionBudget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentRolloutDisruptionBudget{}
@@ -14838,7 +14838,7 @@ func flattenOSPolicyAssignmentRolloutDisruptionBudgetSlice(c *Client, i interfac
 
 	items := make([]OSPolicyAssignmentRolloutDisruptionBudget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentRolloutDisruptionBudget(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentRolloutDisruptionBudget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -14864,7 +14864,7 @@ func expandOSPolicyAssignmentRolloutDisruptionBudget(c *Client, f *OSPolicyAssig
 
 // flattenOSPolicyAssignmentRolloutDisruptionBudget flattens an instance of OSPolicyAssignmentRolloutDisruptionBudget from a JSON
 // response object.
-func flattenOSPolicyAssignmentRolloutDisruptionBudget(c *Client, i interface{}) *OSPolicyAssignmentRolloutDisruptionBudget {
+func flattenOSPolicyAssignmentRolloutDisruptionBudget(c *Client, i interface{}, res *OSPolicyAssignment) *OSPolicyAssignmentRolloutDisruptionBudget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -14883,7 +14883,7 @@ func flattenOSPolicyAssignmentRolloutDisruptionBudget(c *Client, i interface{}) 
 
 // flattenOSPolicyAssignmentOSPoliciesModeEnumMap flattens the contents of OSPolicyAssignmentOSPoliciesModeEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesModeEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesModeEnum {
+func flattenOSPolicyAssignmentOSPoliciesModeEnumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesModeEnum{}
@@ -14903,7 +14903,7 @@ func flattenOSPolicyAssignmentOSPoliciesModeEnumMap(c *Client, i interface{}) ma
 
 // flattenOSPolicyAssignmentOSPoliciesModeEnumSlice flattens the contents of OSPolicyAssignmentOSPoliciesModeEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesModeEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesModeEnum {
+func flattenOSPolicyAssignmentOSPoliciesModeEnumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesModeEnum{}
@@ -14934,7 +14934,7 @@ func flattenOSPolicyAssignmentOSPoliciesModeEnum(i interface{}) *OSPolicyAssignm
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum{}
@@ -14954,7 +14954,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEn
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum{}
@@ -14985,7 +14985,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEn
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum{}
@@ -15005,7 +15005,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArch
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum{}
@@ -15036,7 +15036,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArch
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum{}
@@ -15056,7 +15056,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInter
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInterpreterEnum{}
@@ -15087,7 +15087,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateInter
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum{}
@@ -15107,7 +15107,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterp
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterpreterEnum{}
@@ -15138,7 +15138,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceInterp
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum{}
@@ -15158,7 +15158,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumMap(
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumSlice flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
+func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum{}
@@ -15189,7 +15189,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(i i
 
 // flattenOSPolicyAssignmentRolloutStateEnumMap flattens the contents of OSPolicyAssignmentRolloutStateEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentRolloutStateEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentRolloutStateEnum {
+func flattenOSPolicyAssignmentRolloutStateEnumMap(c *Client, i interface{}, res *OSPolicyAssignment) map[string]OSPolicyAssignmentRolloutStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OSPolicyAssignmentRolloutStateEnum{}
@@ -15209,7 +15209,7 @@ func flattenOSPolicyAssignmentRolloutStateEnumMap(c *Client, i interface{}) map[
 
 // flattenOSPolicyAssignmentRolloutStateEnumSlice flattens the contents of OSPolicyAssignmentRolloutStateEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentRolloutStateEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentRolloutStateEnum {
+func flattenOSPolicyAssignmentRolloutStateEnumSlice(c *Client, i interface{}, res *OSPolicyAssignment) []OSPolicyAssignmentRolloutStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OSPolicyAssignmentRolloutStateEnum{}
@@ -15243,7 +15243,7 @@ func flattenOSPolicyAssignmentRolloutStateEnum(i interface{}) *OSPolicyAssignmen
 // identity).  This is useful in extracting the element from a List call.
 func (r *OSPolicyAssignment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalOSPolicyAssignment(b, c)
+		cr, err := unmarshalOSPolicyAssignment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

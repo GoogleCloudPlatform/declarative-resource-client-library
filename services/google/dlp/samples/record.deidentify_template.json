@@ -1,5 +1,5 @@
 {
-  "parent": "projects/{{project}}",
+  "parent": "organizations/{{org_id}}",
   "location": "{{region}}",
   "displayName": "sample-template",
   "description": "A sample deidentify template",

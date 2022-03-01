@@ -292,7 +292,7 @@ func (c *Client) listWorkerPool(ctx context.Context, r *WorkerPool, pageToken st
 
 	var l []*WorkerPool
 	for _, v := range m.WorkerPools {
-		res, err := unmarshalMapWorkerPool(v, c)
+		res, err := unmarshalMapWorkerPool(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1632,17 +1632,17 @@ func (r *WorkerPool) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalWorkerPool decodes JSON responses into the WorkerPool resource schema.
-func unmarshalWorkerPool(b []byte, c *Client) (*WorkerPool, error) {
+func unmarshalWorkerPool(b []byte, c *Client, res *WorkerPool) (*WorkerPool, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapWorkerPool(m, c)
+	return unmarshalMapWorkerPool(m, c, res)
 }
 
-func unmarshalMapWorkerPool(m map[string]interface{}, c *Client) (*WorkerPool, error) {
+func unmarshalMapWorkerPool(m map[string]interface{}, c *Client, res *WorkerPool) (*WorkerPool, error) {
 
-	flattened := flattenWorkerPool(c, m)
+	flattened := flattenWorkerPool(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1696,7 +1696,7 @@ func expandWorkerPool(c *Client, f *WorkerPool) (map[string]interface{}, error) 
 
 // flattenWorkerPool flattens WorkerPool from a JSON request object into the
 // WorkerPool type.
-func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
+func flattenWorkerPool(c *Client, i interface{}, res *WorkerPool) *WorkerPool {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1705,23 +1705,23 @@ func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
 		return nil
 	}
 
-	res := &WorkerPool{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	res.State = flattenWorkerPoolStateEnum(m["state"])
-	res.PrivatePoolV1Config = flattenWorkerPoolPrivatePoolV1Config(c, m["privatePoolV1Config"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"])
-	res.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &WorkerPool{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	resultRes.State = flattenWorkerPoolStateEnum(m["state"])
+	resultRes.PrivatePoolV1Config = flattenWorkerPoolPrivatePoolV1Config(c, m["privatePoolV1Config"], res)
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"], res)
+	resultRes.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandWorkerPoolPrivatePoolV1ConfigMap expands the contents of WorkerPoolPrivatePoolV1Config into a JSON
@@ -1767,7 +1767,7 @@ func expandWorkerPoolPrivatePoolV1ConfigSlice(c *Client, f []WorkerPoolPrivatePo
 
 // flattenWorkerPoolPrivatePoolV1ConfigMap flattens the contents of WorkerPoolPrivatePoolV1Config from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1Config {
+func flattenWorkerPoolPrivatePoolV1ConfigMap(c *Client, i interface{}, res *WorkerPool) map[string]WorkerPoolPrivatePoolV1Config {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkerPoolPrivatePoolV1Config{}
@@ -1779,7 +1779,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]WorkerPoolPrivatePoolV1Config)
 	for k, item := range a {
-		items[k] = *flattenWorkerPoolPrivatePoolV1Config(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkerPoolPrivatePoolV1Config(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1787,7 +1787,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigMap(c *Client, i interface{}) map[strin
 
 // flattenWorkerPoolPrivatePoolV1ConfigSlice flattens the contents of WorkerPoolPrivatePoolV1Config from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1Config {
+func flattenWorkerPoolPrivatePoolV1ConfigSlice(c *Client, i interface{}, res *WorkerPool) []WorkerPoolPrivatePoolV1Config {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkerPoolPrivatePoolV1Config{}
@@ -1799,7 +1799,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigSlice(c *Client, i interface{}) []Worke
 
 	items := make([]WorkerPoolPrivatePoolV1Config, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkerPoolPrivatePoolV1Config(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkerPoolPrivatePoolV1Config(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1829,7 +1829,7 @@ func expandWorkerPoolPrivatePoolV1Config(c *Client, f *WorkerPoolPrivatePoolV1Co
 
 // flattenWorkerPoolPrivatePoolV1Config flattens an instance of WorkerPoolPrivatePoolV1Config from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1Config(c *Client, i interface{}) *WorkerPoolPrivatePoolV1Config {
+func flattenWorkerPoolPrivatePoolV1Config(c *Client, i interface{}, res *WorkerPool) *WorkerPoolPrivatePoolV1Config {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1840,8 +1840,8 @@ func flattenWorkerPoolPrivatePoolV1Config(c *Client, i interface{}) *WorkerPoolP
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyWorkerPoolPrivatePoolV1Config
 	}
-	r.WorkerConfig = flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, m["workerConfig"])
-	r.NetworkConfig = flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, m["networkConfig"])
+	r.WorkerConfig = flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, m["workerConfig"], res)
+	r.NetworkConfig = flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, m["networkConfig"], res)
 
 	return r
 }
@@ -1889,7 +1889,7 @@ func expandWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, f []WorkerP
 
 // flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigMap flattens the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, i interface{}, res *WorkerPool) map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
@@ -1901,7 +1901,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, i interface{
 
 	items := make(map[string]WorkerPoolPrivatePoolV1ConfigWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1909,7 +1909,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigMap(c *Client, i interface{
 
 // flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice flattens the contents of WorkerPoolPrivatePoolV1ConfigWorkerConfig from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, i interface{}, res *WorkerPool) []WorkerPoolPrivatePoolV1ConfigWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
@@ -1921,7 +1921,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, i interfac
 
 	items := make([]WorkerPoolPrivatePoolV1ConfigWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1947,7 +1947,7 @@ func expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, f *WorkerPoolPri
 
 // flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig flattens an instance of WorkerPoolPrivatePoolV1ConfigWorkerConfig from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, i interface{}) *WorkerPoolPrivatePoolV1ConfigWorkerConfig {
+func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, i interface{}, res *WorkerPool) *WorkerPoolPrivatePoolV1ConfigWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2007,7 +2007,7 @@ func expandWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, f []Worker
 
 // flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigMap flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, i interface{}, res *WorkerPool) map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
@@ -2019,7 +2019,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, i interface
 
 	items := make(map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2027,7 +2027,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigMap(c *Client, i interface
 
 // flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfig from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, i interface{}, res *WorkerPool) []WorkerPoolPrivatePoolV1ConfigNetworkConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
@@ -2039,7 +2039,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, i interfa
 
 	items := make([]WorkerPoolPrivatePoolV1ConfigNetworkConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2065,7 +2065,7 @@ func expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, f *WorkerPoolPr
 
 // flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig flattens an instance of WorkerPoolPrivatePoolV1ConfigNetworkConfig from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, i interface{}) *WorkerPoolPrivatePoolV1ConfigNetworkConfig {
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, i interface{}, res *WorkerPool) *WorkerPoolPrivatePoolV1ConfigNetworkConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2125,7 +2125,7 @@ func expandWorkerPoolWorkerConfigSlice(c *Client, f []WorkerPoolWorkerConfig, re
 
 // flattenWorkerPoolWorkerConfigMap flattens the contents of WorkerPoolWorkerConfig from a JSON
 // response object.
-func flattenWorkerPoolWorkerConfigMap(c *Client, i interface{}) map[string]WorkerPoolWorkerConfig {
+func flattenWorkerPoolWorkerConfigMap(c *Client, i interface{}, res *WorkerPool) map[string]WorkerPoolWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkerPoolWorkerConfig{}
@@ -2137,7 +2137,7 @@ func flattenWorkerPoolWorkerConfigMap(c *Client, i interface{}) map[string]Worke
 
 	items := make(map[string]WorkerPoolWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkerPoolWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkerPoolWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2145,7 +2145,7 @@ func flattenWorkerPoolWorkerConfigMap(c *Client, i interface{}) map[string]Worke
 
 // flattenWorkerPoolWorkerConfigSlice flattens the contents of WorkerPoolWorkerConfig from a JSON
 // response object.
-func flattenWorkerPoolWorkerConfigSlice(c *Client, i interface{}) []WorkerPoolWorkerConfig {
+func flattenWorkerPoolWorkerConfigSlice(c *Client, i interface{}, res *WorkerPool) []WorkerPoolWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkerPoolWorkerConfig{}
@@ -2157,7 +2157,7 @@ func flattenWorkerPoolWorkerConfigSlice(c *Client, i interface{}) []WorkerPoolWo
 
 	items := make([]WorkerPoolWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkerPoolWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkerPoolWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2186,7 +2186,7 @@ func expandWorkerPoolWorkerConfig(c *Client, f *WorkerPoolWorkerConfig, res *Wor
 
 // flattenWorkerPoolWorkerConfig flattens an instance of WorkerPoolWorkerConfig from a JSON
 // response object.
-func flattenWorkerPoolWorkerConfig(c *Client, i interface{}) *WorkerPoolWorkerConfig {
+func flattenWorkerPoolWorkerConfig(c *Client, i interface{}, res *WorkerPool) *WorkerPoolWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2247,7 +2247,7 @@ func expandWorkerPoolNetworkConfigSlice(c *Client, f []WorkerPoolNetworkConfig, 
 
 // flattenWorkerPoolNetworkConfigMap flattens the contents of WorkerPoolNetworkConfig from a JSON
 // response object.
-func flattenWorkerPoolNetworkConfigMap(c *Client, i interface{}) map[string]WorkerPoolNetworkConfig {
+func flattenWorkerPoolNetworkConfigMap(c *Client, i interface{}, res *WorkerPool) map[string]WorkerPoolNetworkConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkerPoolNetworkConfig{}
@@ -2259,7 +2259,7 @@ func flattenWorkerPoolNetworkConfigMap(c *Client, i interface{}) map[string]Work
 
 	items := make(map[string]WorkerPoolNetworkConfig)
 	for k, item := range a {
-		items[k] = *flattenWorkerPoolNetworkConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkerPoolNetworkConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2267,7 +2267,7 @@ func flattenWorkerPoolNetworkConfigMap(c *Client, i interface{}) map[string]Work
 
 // flattenWorkerPoolNetworkConfigSlice flattens the contents of WorkerPoolNetworkConfig from a JSON
 // response object.
-func flattenWorkerPoolNetworkConfigSlice(c *Client, i interface{}) []WorkerPoolNetworkConfig {
+func flattenWorkerPoolNetworkConfigSlice(c *Client, i interface{}, res *WorkerPool) []WorkerPoolNetworkConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkerPoolNetworkConfig{}
@@ -2279,7 +2279,7 @@ func flattenWorkerPoolNetworkConfigSlice(c *Client, i interface{}) []WorkerPoolN
 
 	items := make([]WorkerPoolNetworkConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkerPoolNetworkConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkerPoolNetworkConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2302,7 +2302,7 @@ func expandWorkerPoolNetworkConfig(c *Client, f *WorkerPoolNetworkConfig, res *W
 
 // flattenWorkerPoolNetworkConfig flattens an instance of WorkerPoolNetworkConfig from a JSON
 // response object.
-func flattenWorkerPoolNetworkConfig(c *Client, i interface{}) *WorkerPoolNetworkConfig {
+func flattenWorkerPoolNetworkConfig(c *Client, i interface{}, res *WorkerPool) *WorkerPoolNetworkConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2320,7 +2320,7 @@ func flattenWorkerPoolNetworkConfig(c *Client, i interface{}) *WorkerPoolNetwork
 
 // flattenWorkerPoolStateEnumMap flattens the contents of WorkerPoolStateEnum from a JSON
 // response object.
-func flattenWorkerPoolStateEnumMap(c *Client, i interface{}) map[string]WorkerPoolStateEnum {
+func flattenWorkerPoolStateEnumMap(c *Client, i interface{}, res *WorkerPool) map[string]WorkerPoolStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkerPoolStateEnum{}
@@ -2340,7 +2340,7 @@ func flattenWorkerPoolStateEnumMap(c *Client, i interface{}) map[string]WorkerPo
 
 // flattenWorkerPoolStateEnumSlice flattens the contents of WorkerPoolStateEnum from a JSON
 // response object.
-func flattenWorkerPoolStateEnumSlice(c *Client, i interface{}) []WorkerPoolStateEnum {
+func flattenWorkerPoolStateEnumSlice(c *Client, i interface{}, res *WorkerPool) []WorkerPoolStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkerPoolStateEnum{}
@@ -2371,7 +2371,7 @@ func flattenWorkerPoolStateEnum(i interface{}) *WorkerPoolStateEnum {
 
 // flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumMap flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumMap(c *Client, i interface{}) map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumMap(c *Client, i interface{}, res *WorkerPool) map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum{}
@@ -2391,7 +2391,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumMap(c *Cli
 
 // flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumSlice flattens the contents of WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum from a JSON
 // response object.
-func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumSlice(c *Client, i interface{}) []WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
+func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumSlice(c *Client, i interface{}, res *WorkerPool) []WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum{}
@@ -2425,7 +2425,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(i interfa
 // identity).  This is useful in extracting the element from a List call.
 func (r *WorkerPool) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalWorkerPool(b, c)
+		cr, err := unmarshalWorkerPool(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

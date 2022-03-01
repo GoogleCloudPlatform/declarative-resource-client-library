@@ -67,21 +67,42 @@ func (r *KeyRestrictions) validate() error {
 	return nil
 }
 func (r *KeyRestrictionsBrowserKeyRestrictions) validate() error {
+	if err := dcl.Required(r, "allowedReferrers"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *KeyRestrictionsServerKeyRestrictions) validate() error {
+	if err := dcl.Required(r, "allowedIps"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *KeyRestrictionsAndroidKeyRestrictions) validate() error {
+	if err := dcl.Required(r, "allowedApplications"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) validate() error {
+	if err := dcl.Required(r, "sha1Fingerprint"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "packageName"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *KeyRestrictionsIosKeyRestrictions) validate() error {
+	if err := dcl.Required(r, "allowedBundleIds"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *KeyRestrictionsApiTargets) validate() error {
+	if err := dcl.Required(r, "service"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *Key) basePath() string {
@@ -259,7 +280,7 @@ func (c *Client) listKey(ctx context.Context, r *Key, pageToken string, pageSize
 
 	var l []*Key
 	for _, v := range m.Keys {
-		res, err := unmarshalMapKey(v, c)
+		res, err := unmarshalMapKey(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -470,14 +491,6 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 
 	rawNew.Name = rawDesired.Name
 
-	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
-			rawNew.Uid = rawDesired.Uid
-		}
-	}
-
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
@@ -494,33 +507,10 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
-	} else {
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
-	} else {
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		rawNew.DeleteTime = rawDesired.DeleteTime
-	} else {
-	}
-
 	if dcl.IsNotReturnedByServer(rawNew.Restrictions) && dcl.IsNotReturnedByServer(rawDesired.Restrictions) {
 		rawNew.Restrictions = rawDesired.Restrictions
 	} else {
 		rawNew.Restrictions = canonicalizeNewKeyRestrictions(c, rawDesired.Restrictions, rawNew.Restrictions)
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
-			rawNew.Etag = rawDesired.Etag
-		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -1410,13 +1400,6 @@ func diffKey(c *Client, desired, actual *Key, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateKeyUpdateKeyOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1431,35 +1414,7 @@ func diffKey(c *Client, desired, actual *Key, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.Restrictions, actual.Restrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsNewStyle, EmptyObject: EmptyKeyRestrictions, OperationSelector: dcl.TriggersOperation("updateKeyUpdateKeyOperation")}, fn.AddNest("Restrictions")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1726,10 +1681,8 @@ func compareKeyRestrictionsApiTargetsNewStyle(d, a interface{}, fn dcl.FieldName
 func (r *Key) urlNormalized() *Key {
 	normalized := dcl.Copy(*r).(Key)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.KeyString = dcl.SelfLinkToName(r.KeyString)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1761,17 +1714,17 @@ func (r *Key) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalKey decodes JSON responses into the Key resource schema.
-func unmarshalKey(b []byte, c *Client) (*Key, error) {
+func unmarshalKey(b []byte, c *Client, res *Key) (*Key, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapKey(m, c)
+	return unmarshalMapKey(m, c, res)
 }
 
-func unmarshalMapKey(m map[string]interface{}, c *Client) (*Key, error) {
+func unmarshalMapKey(m map[string]interface{}, c *Client, res *Key) (*Key, error) {
 
-	flattened := flattenKey(c, m)
+	flattened := flattenKey(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1807,7 +1760,7 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 
 // flattenKey flattens Key from a JSON request object into the
 // Key type.
-func flattenKey(c *Client, i interface{}) *Key {
+func flattenKey(c *Client, i interface{}, res *Key) *Key {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1816,19 +1769,14 @@ func flattenKey(c *Client, i interface{}) *Key {
 		return nil
 	}
 
-	res := &Key{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.KeyString = dcl.FlattenString(m["keyString"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	res.Restrictions = flattenKeyRestrictions(c, m["restrictions"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Key{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.KeyString = dcl.FlattenString(m["keyString"])
+	resultRes.Restrictions = flattenKeyRestrictions(c, m["restrictions"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandKeyRestrictionsMap expands the contents of KeyRestrictions into a JSON
@@ -1874,7 +1822,7 @@ func expandKeyRestrictionsSlice(c *Client, f []KeyRestrictions, res *Key) ([]map
 
 // flattenKeyRestrictionsMap flattens the contents of KeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsMap(c *Client, i interface{}) map[string]KeyRestrictions {
+func flattenKeyRestrictionsMap(c *Client, i interface{}, res *Key) map[string]KeyRestrictions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyRestrictions{}
@@ -1886,7 +1834,7 @@ func flattenKeyRestrictionsMap(c *Client, i interface{}) map[string]KeyRestricti
 
 	items := make(map[string]KeyRestrictions)
 	for k, item := range a {
-		items[k] = *flattenKeyRestrictions(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyRestrictions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1894,7 +1842,7 @@ func flattenKeyRestrictionsMap(c *Client, i interface{}) map[string]KeyRestricti
 
 // flattenKeyRestrictionsSlice flattens the contents of KeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsSlice(c *Client, i interface{}) []KeyRestrictions {
+func flattenKeyRestrictionsSlice(c *Client, i interface{}, res *Key) []KeyRestrictions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyRestrictions{}
@@ -1906,7 +1854,7 @@ func flattenKeyRestrictionsSlice(c *Client, i interface{}) []KeyRestrictions {
 
 	items := make([]KeyRestrictions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyRestrictions(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyRestrictions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1951,7 +1899,7 @@ func expandKeyRestrictions(c *Client, f *KeyRestrictions, res *Key) (map[string]
 
 // flattenKeyRestrictions flattens an instance of KeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictions(c *Client, i interface{}) *KeyRestrictions {
+func flattenKeyRestrictions(c *Client, i interface{}, res *Key) *KeyRestrictions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1962,11 +1910,11 @@ func flattenKeyRestrictions(c *Client, i interface{}) *KeyRestrictions {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyKeyRestrictions
 	}
-	r.BrowserKeyRestrictions = flattenKeyRestrictionsBrowserKeyRestrictions(c, m["browserKeyRestrictions"])
-	r.ServerKeyRestrictions = flattenKeyRestrictionsServerKeyRestrictions(c, m["serverKeyRestrictions"])
-	r.AndroidKeyRestrictions = flattenKeyRestrictionsAndroidKeyRestrictions(c, m["androidKeyRestrictions"])
-	r.IosKeyRestrictions = flattenKeyRestrictionsIosKeyRestrictions(c, m["iosKeyRestrictions"])
-	r.ApiTargets = flattenKeyRestrictionsApiTargetsSlice(c, m["apiTargets"])
+	r.BrowserKeyRestrictions = flattenKeyRestrictionsBrowserKeyRestrictions(c, m["browserKeyRestrictions"], res)
+	r.ServerKeyRestrictions = flattenKeyRestrictionsServerKeyRestrictions(c, m["serverKeyRestrictions"], res)
+	r.AndroidKeyRestrictions = flattenKeyRestrictionsAndroidKeyRestrictions(c, m["androidKeyRestrictions"], res)
+	r.IosKeyRestrictions = flattenKeyRestrictionsIosKeyRestrictions(c, m["iosKeyRestrictions"], res)
+	r.ApiTargets = flattenKeyRestrictionsApiTargetsSlice(c, m["apiTargets"], res)
 
 	return r
 }
@@ -2014,7 +1962,7 @@ func expandKeyRestrictionsBrowserKeyRestrictionsSlice(c *Client, f []KeyRestrict
 
 // flattenKeyRestrictionsBrowserKeyRestrictionsMap flattens the contents of KeyRestrictionsBrowserKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsBrowserKeyRestrictionsMap(c *Client, i interface{}) map[string]KeyRestrictionsBrowserKeyRestrictions {
+func flattenKeyRestrictionsBrowserKeyRestrictionsMap(c *Client, i interface{}, res *Key) map[string]KeyRestrictionsBrowserKeyRestrictions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyRestrictionsBrowserKeyRestrictions{}
@@ -2026,7 +1974,7 @@ func flattenKeyRestrictionsBrowserKeyRestrictionsMap(c *Client, i interface{}) m
 
 	items := make(map[string]KeyRestrictionsBrowserKeyRestrictions)
 	for k, item := range a {
-		items[k] = *flattenKeyRestrictionsBrowserKeyRestrictions(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyRestrictionsBrowserKeyRestrictions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2034,7 +1982,7 @@ func flattenKeyRestrictionsBrowserKeyRestrictionsMap(c *Client, i interface{}) m
 
 // flattenKeyRestrictionsBrowserKeyRestrictionsSlice flattens the contents of KeyRestrictionsBrowserKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsBrowserKeyRestrictionsSlice(c *Client, i interface{}) []KeyRestrictionsBrowserKeyRestrictions {
+func flattenKeyRestrictionsBrowserKeyRestrictionsSlice(c *Client, i interface{}, res *Key) []KeyRestrictionsBrowserKeyRestrictions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyRestrictionsBrowserKeyRestrictions{}
@@ -2046,7 +1994,7 @@ func flattenKeyRestrictionsBrowserKeyRestrictionsSlice(c *Client, i interface{})
 
 	items := make([]KeyRestrictionsBrowserKeyRestrictions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyRestrictionsBrowserKeyRestrictions(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyRestrictionsBrowserKeyRestrictions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2069,7 +2017,7 @@ func expandKeyRestrictionsBrowserKeyRestrictions(c *Client, f *KeyRestrictionsBr
 
 // flattenKeyRestrictionsBrowserKeyRestrictions flattens an instance of KeyRestrictionsBrowserKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsBrowserKeyRestrictions(c *Client, i interface{}) *KeyRestrictionsBrowserKeyRestrictions {
+func flattenKeyRestrictionsBrowserKeyRestrictions(c *Client, i interface{}, res *Key) *KeyRestrictionsBrowserKeyRestrictions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2128,7 +2076,7 @@ func expandKeyRestrictionsServerKeyRestrictionsSlice(c *Client, f []KeyRestricti
 
 // flattenKeyRestrictionsServerKeyRestrictionsMap flattens the contents of KeyRestrictionsServerKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsServerKeyRestrictionsMap(c *Client, i interface{}) map[string]KeyRestrictionsServerKeyRestrictions {
+func flattenKeyRestrictionsServerKeyRestrictionsMap(c *Client, i interface{}, res *Key) map[string]KeyRestrictionsServerKeyRestrictions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyRestrictionsServerKeyRestrictions{}
@@ -2140,7 +2088,7 @@ func flattenKeyRestrictionsServerKeyRestrictionsMap(c *Client, i interface{}) ma
 
 	items := make(map[string]KeyRestrictionsServerKeyRestrictions)
 	for k, item := range a {
-		items[k] = *flattenKeyRestrictionsServerKeyRestrictions(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyRestrictionsServerKeyRestrictions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2148,7 +2096,7 @@ func flattenKeyRestrictionsServerKeyRestrictionsMap(c *Client, i interface{}) ma
 
 // flattenKeyRestrictionsServerKeyRestrictionsSlice flattens the contents of KeyRestrictionsServerKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsServerKeyRestrictionsSlice(c *Client, i interface{}) []KeyRestrictionsServerKeyRestrictions {
+func flattenKeyRestrictionsServerKeyRestrictionsSlice(c *Client, i interface{}, res *Key) []KeyRestrictionsServerKeyRestrictions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyRestrictionsServerKeyRestrictions{}
@@ -2160,7 +2108,7 @@ func flattenKeyRestrictionsServerKeyRestrictionsSlice(c *Client, i interface{}) 
 
 	items := make([]KeyRestrictionsServerKeyRestrictions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyRestrictionsServerKeyRestrictions(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyRestrictionsServerKeyRestrictions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2183,7 +2131,7 @@ func expandKeyRestrictionsServerKeyRestrictions(c *Client, f *KeyRestrictionsSer
 
 // flattenKeyRestrictionsServerKeyRestrictions flattens an instance of KeyRestrictionsServerKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsServerKeyRestrictions(c *Client, i interface{}) *KeyRestrictionsServerKeyRestrictions {
+func flattenKeyRestrictionsServerKeyRestrictions(c *Client, i interface{}, res *Key) *KeyRestrictionsServerKeyRestrictions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2242,7 +2190,7 @@ func expandKeyRestrictionsAndroidKeyRestrictionsSlice(c *Client, f []KeyRestrict
 
 // flattenKeyRestrictionsAndroidKeyRestrictionsMap flattens the contents of KeyRestrictionsAndroidKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsAndroidKeyRestrictionsMap(c *Client, i interface{}) map[string]KeyRestrictionsAndroidKeyRestrictions {
+func flattenKeyRestrictionsAndroidKeyRestrictionsMap(c *Client, i interface{}, res *Key) map[string]KeyRestrictionsAndroidKeyRestrictions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyRestrictionsAndroidKeyRestrictions{}
@@ -2254,7 +2202,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsMap(c *Client, i interface{}) m
 
 	items := make(map[string]KeyRestrictionsAndroidKeyRestrictions)
 	for k, item := range a {
-		items[k] = *flattenKeyRestrictionsAndroidKeyRestrictions(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyRestrictionsAndroidKeyRestrictions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2262,7 +2210,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsMap(c *Client, i interface{}) m
 
 // flattenKeyRestrictionsAndroidKeyRestrictionsSlice flattens the contents of KeyRestrictionsAndroidKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsAndroidKeyRestrictionsSlice(c *Client, i interface{}) []KeyRestrictionsAndroidKeyRestrictions {
+func flattenKeyRestrictionsAndroidKeyRestrictionsSlice(c *Client, i interface{}, res *Key) []KeyRestrictionsAndroidKeyRestrictions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyRestrictionsAndroidKeyRestrictions{}
@@ -2274,7 +2222,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsSlice(c *Client, i interface{})
 
 	items := make([]KeyRestrictionsAndroidKeyRestrictions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyRestrictionsAndroidKeyRestrictions(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyRestrictionsAndroidKeyRestrictions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2299,7 +2247,7 @@ func expandKeyRestrictionsAndroidKeyRestrictions(c *Client, f *KeyRestrictionsAn
 
 // flattenKeyRestrictionsAndroidKeyRestrictions flattens an instance of KeyRestrictionsAndroidKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsAndroidKeyRestrictions(c *Client, i interface{}) *KeyRestrictionsAndroidKeyRestrictions {
+func flattenKeyRestrictionsAndroidKeyRestrictions(c *Client, i interface{}, res *Key) *KeyRestrictionsAndroidKeyRestrictions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2310,7 +2258,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictions(c *Client, i interface{}) *Key
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyKeyRestrictionsAndroidKeyRestrictions
 	}
-	r.AllowedApplications = flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c, m["allowedApplications"])
+	r.AllowedApplications = flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c, m["allowedApplications"], res)
 
 	return r
 }
@@ -2358,7 +2306,7 @@ func expandKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c *Clie
 
 // flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsMap flattens the contents of KeyRestrictionsAndroidKeyRestrictionsAllowedApplications from a JSON
 // response object.
-func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsMap(c *Client, i interface{}) map[string]KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
+func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsMap(c *Client, i interface{}, res *Key) map[string]KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{}
@@ -2370,7 +2318,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsMap(c *Clien
 
 	items := make(map[string]KeyRestrictionsAndroidKeyRestrictionsAllowedApplications)
 	for k, item := range a {
-		items[k] = *flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2378,7 +2326,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsMap(c *Clien
 
 // flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice flattens the contents of KeyRestrictionsAndroidKeyRestrictionsAllowedApplications from a JSON
 // response object.
-func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c *Client, i interface{}) []KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
+func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c *Client, i interface{}, res *Key) []KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{}
@@ -2390,7 +2338,7 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c *Cli
 
 	items := make([]KeyRestrictionsAndroidKeyRestrictionsAllowedApplications, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2416,7 +2364,7 @@ func expandKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c *Client, f
 
 // flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications flattens an instance of KeyRestrictionsAndroidKeyRestrictionsAllowedApplications from a JSON
 // response object.
-func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c *Client, i interface{}) *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
+func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c *Client, i interface{}, res *Key) *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2476,7 +2424,7 @@ func expandKeyRestrictionsIosKeyRestrictionsSlice(c *Client, f []KeyRestrictions
 
 // flattenKeyRestrictionsIosKeyRestrictionsMap flattens the contents of KeyRestrictionsIosKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsIosKeyRestrictionsMap(c *Client, i interface{}) map[string]KeyRestrictionsIosKeyRestrictions {
+func flattenKeyRestrictionsIosKeyRestrictionsMap(c *Client, i interface{}, res *Key) map[string]KeyRestrictionsIosKeyRestrictions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyRestrictionsIosKeyRestrictions{}
@@ -2488,7 +2436,7 @@ func flattenKeyRestrictionsIosKeyRestrictionsMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]KeyRestrictionsIosKeyRestrictions)
 	for k, item := range a {
-		items[k] = *flattenKeyRestrictionsIosKeyRestrictions(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyRestrictionsIosKeyRestrictions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2496,7 +2444,7 @@ func flattenKeyRestrictionsIosKeyRestrictionsMap(c *Client, i interface{}) map[s
 
 // flattenKeyRestrictionsIosKeyRestrictionsSlice flattens the contents of KeyRestrictionsIosKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsIosKeyRestrictionsSlice(c *Client, i interface{}) []KeyRestrictionsIosKeyRestrictions {
+func flattenKeyRestrictionsIosKeyRestrictionsSlice(c *Client, i interface{}, res *Key) []KeyRestrictionsIosKeyRestrictions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyRestrictionsIosKeyRestrictions{}
@@ -2508,7 +2456,7 @@ func flattenKeyRestrictionsIosKeyRestrictionsSlice(c *Client, i interface{}) []K
 
 	items := make([]KeyRestrictionsIosKeyRestrictions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyRestrictionsIosKeyRestrictions(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyRestrictionsIosKeyRestrictions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2531,7 +2479,7 @@ func expandKeyRestrictionsIosKeyRestrictions(c *Client, f *KeyRestrictionsIosKey
 
 // flattenKeyRestrictionsIosKeyRestrictions flattens an instance of KeyRestrictionsIosKeyRestrictions from a JSON
 // response object.
-func flattenKeyRestrictionsIosKeyRestrictions(c *Client, i interface{}) *KeyRestrictionsIosKeyRestrictions {
+func flattenKeyRestrictionsIosKeyRestrictions(c *Client, i interface{}, res *Key) *KeyRestrictionsIosKeyRestrictions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2590,7 +2538,7 @@ func expandKeyRestrictionsApiTargetsSlice(c *Client, f []KeyRestrictionsApiTarge
 
 // flattenKeyRestrictionsApiTargetsMap flattens the contents of KeyRestrictionsApiTargets from a JSON
 // response object.
-func flattenKeyRestrictionsApiTargetsMap(c *Client, i interface{}) map[string]KeyRestrictionsApiTargets {
+func flattenKeyRestrictionsApiTargetsMap(c *Client, i interface{}, res *Key) map[string]KeyRestrictionsApiTargets {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyRestrictionsApiTargets{}
@@ -2602,7 +2550,7 @@ func flattenKeyRestrictionsApiTargetsMap(c *Client, i interface{}) map[string]Ke
 
 	items := make(map[string]KeyRestrictionsApiTargets)
 	for k, item := range a {
-		items[k] = *flattenKeyRestrictionsApiTargets(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyRestrictionsApiTargets(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2610,7 +2558,7 @@ func flattenKeyRestrictionsApiTargetsMap(c *Client, i interface{}) map[string]Ke
 
 // flattenKeyRestrictionsApiTargetsSlice flattens the contents of KeyRestrictionsApiTargets from a JSON
 // response object.
-func flattenKeyRestrictionsApiTargetsSlice(c *Client, i interface{}) []KeyRestrictionsApiTargets {
+func flattenKeyRestrictionsApiTargetsSlice(c *Client, i interface{}, res *Key) []KeyRestrictionsApiTargets {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyRestrictionsApiTargets{}
@@ -2622,7 +2570,7 @@ func flattenKeyRestrictionsApiTargetsSlice(c *Client, i interface{}) []KeyRestri
 
 	items := make([]KeyRestrictionsApiTargets, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyRestrictionsApiTargets(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyRestrictionsApiTargets(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2648,7 +2596,7 @@ func expandKeyRestrictionsApiTargets(c *Client, f *KeyRestrictionsApiTargets, re
 
 // flattenKeyRestrictionsApiTargets flattens an instance of KeyRestrictionsApiTargets from a JSON
 // response object.
-func flattenKeyRestrictionsApiTargets(c *Client, i interface{}) *KeyRestrictionsApiTargets {
+func flattenKeyRestrictionsApiTargets(c *Client, i interface{}, res *Key) *KeyRestrictionsApiTargets {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2670,7 +2618,7 @@ func flattenKeyRestrictionsApiTargets(c *Client, i interface{}) *KeyRestrictions
 // identity).  This is useful in extracting the element from a List call.
 func (r *Key) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalKey(b, c)
+		cr, err := unmarshalKey(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

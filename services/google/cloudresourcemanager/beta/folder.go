@@ -174,7 +174,7 @@ func (c *Client) GetFolder(ctx context.Context, r *Folder) (*Folder, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalFolder(b, c)
+	result, err := unmarshalFolder(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -342,7 +342,7 @@ func applyFolderDiff(c *Client, ctx context.Context, desired *Folder, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapFolder(r, c)
+				fullResp, err := unmarshalMapFolder(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

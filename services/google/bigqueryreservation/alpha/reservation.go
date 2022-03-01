@@ -147,7 +147,7 @@ func (c *Client) GetReservation(ctx context.Context, r *Reservation) (*Reservati
 		}
 		return nil, err
 	}
-	result, err := unmarshalReservation(b, c)
+	result, err := unmarshalReservation(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +317,7 @@ func applyReservationDiff(c *Client, ctx context.Context, desired *Reservation, 
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapReservation(r, c)
+				fullResp, err := unmarshalMapReservation(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

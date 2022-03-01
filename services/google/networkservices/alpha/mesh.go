@@ -32,6 +32,7 @@ type Mesh struct {
 	InterceptionPort *int64            `json:"interceptionPort"`
 	Project          *string           `json:"project"`
 	Location         *string           `json:"location"`
+	SelfLink         *string           `json:"selfLink"`
 }
 
 func (r *Mesh) String() string {
@@ -62,6 +63,7 @@ func (r *Mesh) ID() (string, error) {
 		"interceptionPort": dcl.ValueOrEmptyString(nr.InterceptionPort),
 		"project":          dcl.ValueOrEmptyString(nr.Project),
 		"location":         dcl.ValueOrEmptyString(nr.Location),
+		"selfLink":         dcl.ValueOrEmptyString(nr.SelfLink),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/meshes/{{name}}", params), nil
 }
@@ -148,7 +150,7 @@ func (c *Client) GetMesh(ctx context.Context, r *Mesh) (*Mesh, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalMesh(b, c)
+	result, err := unmarshalMesh(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -318,7 +320,7 @@ func applyMeshDiff(c *Client, ctx context.Context, desired *Mesh, rawDesired *Me
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapMesh(r, c)
+				fullResp, err := unmarshalMapMesh(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

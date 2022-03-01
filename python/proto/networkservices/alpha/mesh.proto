@@ -30,6 +30,7 @@ message NetworkservicesAlphaMesh {
   int64 interception_port = 6;
   string project = 7;
   string location = 8;
+  string self_link = 9;
 }
 
 message ApplyNetworkservicesAlphaMeshRequest {

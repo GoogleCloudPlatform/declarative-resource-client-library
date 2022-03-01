@@ -743,7 +743,7 @@ func (c *Client) GetBudget(ctx context.Context, r *Budget) (*Budget, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalBudget(b, c)
+	result, err := unmarshalBudget(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -912,7 +912,7 @@ func applyBudgetDiff(c *Client, ctx context.Context, desired *Budget, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapBudget(r, c)
+				fullResp, err := unmarshalMapBudget(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

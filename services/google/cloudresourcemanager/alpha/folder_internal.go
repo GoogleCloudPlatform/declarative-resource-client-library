@@ -216,7 +216,7 @@ func (c *Client) listFolder(ctx context.Context, r *Folder, pageToken string, pa
 
 	var l []*Folder
 	for _, v := range m.Folders {
-		res, err := unmarshalMapFolder(v, c)
+		res, err := unmarshalMapFolder(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -601,17 +601,17 @@ func (r *Folder) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFolder decodes JSON responses into the Folder resource schema.
-func unmarshalFolder(b []byte, c *Client) (*Folder, error) {
+func unmarshalFolder(b []byte, c *Client, res *Folder) (*Folder, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFolder(m, c)
+	return unmarshalMapFolder(m, c, res)
 }
 
-func unmarshalMapFolder(m map[string]interface{}, c *Client) (*Folder, error) {
+func unmarshalMapFolder(m map[string]interface{}, c *Client, res *Folder) (*Folder, error) {
 
-	flattened := flattenFolder(c, m)
+	flattened := flattenFolder(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -638,7 +638,7 @@ func expandFolder(c *Client, f *Folder) (map[string]interface{}, error) {
 
 // flattenFolder flattens Folder from a JSON request object into the
 // Folder type.
-func flattenFolder(c *Client, i interface{}) *Folder {
+func flattenFolder(c *Client, i interface{}, res *Folder) *Folder {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -647,22 +647,22 @@ func flattenFolder(c *Client, i interface{}) *Folder {
 		return nil
 	}
 
-	res := &Folder{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Parent = dcl.FlattenString(m["parent"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.State = flattenFolderStateEnum(m["state"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	res.Etag = dcl.FlattenString(m["etag"])
+	resultRes := &Folder{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Parent = dcl.FlattenString(m["parent"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.State = flattenFolderStateEnum(m["state"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
 
-	return res
+	return resultRes
 }
 
 // flattenFolderStateEnumMap flattens the contents of FolderStateEnum from a JSON
 // response object.
-func flattenFolderStateEnumMap(c *Client, i interface{}) map[string]FolderStateEnum {
+func flattenFolderStateEnumMap(c *Client, i interface{}, res *Folder) map[string]FolderStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FolderStateEnum{}
@@ -682,7 +682,7 @@ func flattenFolderStateEnumMap(c *Client, i interface{}) map[string]FolderStateE
 
 // flattenFolderStateEnumSlice flattens the contents of FolderStateEnum from a JSON
 // response object.
-func flattenFolderStateEnumSlice(c *Client, i interface{}) []FolderStateEnum {
+func flattenFolderStateEnumSlice(c *Client, i interface{}, res *Folder) []FolderStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FolderStateEnum{}
@@ -716,7 +716,7 @@ func flattenFolderStateEnum(i interface{}) *FolderStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Folder) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFolder(b, c)
+		cr, err := unmarshalFolder(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

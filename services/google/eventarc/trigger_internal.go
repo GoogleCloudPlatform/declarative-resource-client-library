@@ -299,7 +299,7 @@ func (c *Client) listTrigger(ctx context.Context, r *Trigger, pageToken string, 
 
 	var l []*Trigger
 	for _, v := range m.Triggers {
-		res, err := unmarshalMapTrigger(v, c)
+		res, err := unmarshalMapTrigger(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1573,17 +1573,17 @@ func (r *Trigger) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalTrigger decodes JSON responses into the Trigger resource schema.
-func unmarshalTrigger(b []byte, c *Client) (*Trigger, error) {
+func unmarshalTrigger(b []byte, c *Client, res *Trigger) (*Trigger, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapTrigger(m, c)
+	return unmarshalMapTrigger(m, c, res)
 }
 
-func unmarshalMapTrigger(m map[string]interface{}, c *Client) (*Trigger, error) {
+func unmarshalMapTrigger(m map[string]interface{}, c *Client, res *Trigger) (*Trigger, error) {
 
-	flattened := flattenTrigger(c, m)
+	flattened := flattenTrigger(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1637,7 +1637,7 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 
 // flattenTrigger flattens Trigger from a JSON request object into the
 // Trigger type.
-func flattenTrigger(c *Client, i interface{}) *Trigger {
+func flattenTrigger(c *Client, i interface{}, res *Trigger) *Trigger {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1646,21 +1646,21 @@ func flattenTrigger(c *Client, i interface{}) *Trigger {
 		return nil
 	}
 
-	res := &Trigger{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Uid = dcl.FlattenString(m["uid"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["eventFilters"])
-	res.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
-	res.Destination = flattenTriggerDestination(c, m["destination"])
-	res.Transport = flattenTriggerTransport(c, m["transport"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Trigger{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["eventFilters"], res)
+	resultRes.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
+	resultRes.Destination = flattenTriggerDestination(c, m["destination"], res)
+	resultRes.Transport = flattenTriggerTransport(c, m["transport"], res)
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandTriggerMatchingCriteriaMap expands the contents of TriggerMatchingCriteria into a JSON
@@ -1706,7 +1706,7 @@ func expandTriggerMatchingCriteriaSlice(c *Client, f []TriggerMatchingCriteria, 
 
 // flattenTriggerMatchingCriteriaMap flattens the contents of TriggerMatchingCriteria from a JSON
 // response object.
-func flattenTriggerMatchingCriteriaMap(c *Client, i interface{}) map[string]TriggerMatchingCriteria {
+func flattenTriggerMatchingCriteriaMap(c *Client, i interface{}, res *Trigger) map[string]TriggerMatchingCriteria {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TriggerMatchingCriteria{}
@@ -1718,7 +1718,7 @@ func flattenTriggerMatchingCriteriaMap(c *Client, i interface{}) map[string]Trig
 
 	items := make(map[string]TriggerMatchingCriteria)
 	for k, item := range a {
-		items[k] = *flattenTriggerMatchingCriteria(c, item.(map[string]interface{}))
+		items[k] = *flattenTriggerMatchingCriteria(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1726,7 +1726,7 @@ func flattenTriggerMatchingCriteriaMap(c *Client, i interface{}) map[string]Trig
 
 // flattenTriggerMatchingCriteriaSlice flattens the contents of TriggerMatchingCriteria from a JSON
 // response object.
-func flattenTriggerMatchingCriteriaSlice(c *Client, i interface{}) []TriggerMatchingCriteria {
+func flattenTriggerMatchingCriteriaSlice(c *Client, i interface{}, res *Trigger) []TriggerMatchingCriteria {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TriggerMatchingCriteria{}
@@ -1738,7 +1738,7 @@ func flattenTriggerMatchingCriteriaSlice(c *Client, i interface{}) []TriggerMatc
 
 	items := make([]TriggerMatchingCriteria, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTriggerMatchingCriteria(c, item.(map[string]interface{})))
+		items = append(items, *flattenTriggerMatchingCriteria(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1764,7 +1764,7 @@ func expandTriggerMatchingCriteria(c *Client, f *TriggerMatchingCriteria, res *T
 
 // flattenTriggerMatchingCriteria flattens an instance of TriggerMatchingCriteria from a JSON
 // response object.
-func flattenTriggerMatchingCriteria(c *Client, i interface{}) *TriggerMatchingCriteria {
+func flattenTriggerMatchingCriteria(c *Client, i interface{}, res *Trigger) *TriggerMatchingCriteria {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1824,7 +1824,7 @@ func expandTriggerDestinationSlice(c *Client, f []TriggerDestination, res *Trigg
 
 // flattenTriggerDestinationMap flattens the contents of TriggerDestination from a JSON
 // response object.
-func flattenTriggerDestinationMap(c *Client, i interface{}) map[string]TriggerDestination {
+func flattenTriggerDestinationMap(c *Client, i interface{}, res *Trigger) map[string]TriggerDestination {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TriggerDestination{}
@@ -1836,7 +1836,7 @@ func flattenTriggerDestinationMap(c *Client, i interface{}) map[string]TriggerDe
 
 	items := make(map[string]TriggerDestination)
 	for k, item := range a {
-		items[k] = *flattenTriggerDestination(c, item.(map[string]interface{}))
+		items[k] = *flattenTriggerDestination(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1844,7 +1844,7 @@ func flattenTriggerDestinationMap(c *Client, i interface{}) map[string]TriggerDe
 
 // flattenTriggerDestinationSlice flattens the contents of TriggerDestination from a JSON
 // response object.
-func flattenTriggerDestinationSlice(c *Client, i interface{}) []TriggerDestination {
+func flattenTriggerDestinationSlice(c *Client, i interface{}, res *Trigger) []TriggerDestination {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TriggerDestination{}
@@ -1856,7 +1856,7 @@ func flattenTriggerDestinationSlice(c *Client, i interface{}) []TriggerDestinati
 
 	items := make([]TriggerDestination, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTriggerDestination(c, item.(map[string]interface{})))
+		items = append(items, *flattenTriggerDestination(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1886,7 +1886,7 @@ func expandTriggerDestination(c *Client, f *TriggerDestination, res *Trigger) (m
 
 // flattenTriggerDestination flattens an instance of TriggerDestination from a JSON
 // response object.
-func flattenTriggerDestination(c *Client, i interface{}) *TriggerDestination {
+func flattenTriggerDestination(c *Client, i interface{}, res *Trigger) *TriggerDestination {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1897,7 +1897,7 @@ func flattenTriggerDestination(c *Client, i interface{}) *TriggerDestination {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTriggerDestination
 	}
-	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRun"])
+	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRun"], res)
 	r.CloudFunction = dcl.FlattenString(m["cloudFunction"])
 
 	return r
@@ -1946,7 +1946,7 @@ func expandTriggerDestinationCloudRunServiceSlice(c *Client, f []TriggerDestinat
 
 // flattenTriggerDestinationCloudRunServiceMap flattens the contents of TriggerDestinationCloudRunService from a JSON
 // response object.
-func flattenTriggerDestinationCloudRunServiceMap(c *Client, i interface{}) map[string]TriggerDestinationCloudRunService {
+func flattenTriggerDestinationCloudRunServiceMap(c *Client, i interface{}, res *Trigger) map[string]TriggerDestinationCloudRunService {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TriggerDestinationCloudRunService{}
@@ -1958,7 +1958,7 @@ func flattenTriggerDestinationCloudRunServiceMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]TriggerDestinationCloudRunService)
 	for k, item := range a {
-		items[k] = *flattenTriggerDestinationCloudRunService(c, item.(map[string]interface{}))
+		items[k] = *flattenTriggerDestinationCloudRunService(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1966,7 +1966,7 @@ func flattenTriggerDestinationCloudRunServiceMap(c *Client, i interface{}) map[s
 
 // flattenTriggerDestinationCloudRunServiceSlice flattens the contents of TriggerDestinationCloudRunService from a JSON
 // response object.
-func flattenTriggerDestinationCloudRunServiceSlice(c *Client, i interface{}) []TriggerDestinationCloudRunService {
+func flattenTriggerDestinationCloudRunServiceSlice(c *Client, i interface{}, res *Trigger) []TriggerDestinationCloudRunService {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TriggerDestinationCloudRunService{}
@@ -1978,7 +1978,7 @@ func flattenTriggerDestinationCloudRunServiceSlice(c *Client, i interface{}) []T
 
 	items := make([]TriggerDestinationCloudRunService, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTriggerDestinationCloudRunService(c, item.(map[string]interface{})))
+		items = append(items, *flattenTriggerDestinationCloudRunService(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2009,7 +2009,7 @@ func expandTriggerDestinationCloudRunService(c *Client, f *TriggerDestinationClo
 
 // flattenTriggerDestinationCloudRunService flattens an instance of TriggerDestinationCloudRunService from a JSON
 // response object.
-func flattenTriggerDestinationCloudRunService(c *Client, i interface{}) *TriggerDestinationCloudRunService {
+func flattenTriggerDestinationCloudRunService(c *Client, i interface{}, res *Trigger) *TriggerDestinationCloudRunService {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2070,7 +2070,7 @@ func expandTriggerTransportSlice(c *Client, f []TriggerTransport, res *Trigger) 
 
 // flattenTriggerTransportMap flattens the contents of TriggerTransport from a JSON
 // response object.
-func flattenTriggerTransportMap(c *Client, i interface{}) map[string]TriggerTransport {
+func flattenTriggerTransportMap(c *Client, i interface{}, res *Trigger) map[string]TriggerTransport {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TriggerTransport{}
@@ -2082,7 +2082,7 @@ func flattenTriggerTransportMap(c *Client, i interface{}) map[string]TriggerTran
 
 	items := make(map[string]TriggerTransport)
 	for k, item := range a {
-		items[k] = *flattenTriggerTransport(c, item.(map[string]interface{}))
+		items[k] = *flattenTriggerTransport(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2090,7 +2090,7 @@ func flattenTriggerTransportMap(c *Client, i interface{}) map[string]TriggerTran
 
 // flattenTriggerTransportSlice flattens the contents of TriggerTransport from a JSON
 // response object.
-func flattenTriggerTransportSlice(c *Client, i interface{}) []TriggerTransport {
+func flattenTriggerTransportSlice(c *Client, i interface{}, res *Trigger) []TriggerTransport {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TriggerTransport{}
@@ -2102,7 +2102,7 @@ func flattenTriggerTransportSlice(c *Client, i interface{}) []TriggerTransport {
 
 	items := make([]TriggerTransport, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTriggerTransport(c, item.(map[string]interface{})))
+		items = append(items, *flattenTriggerTransport(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2127,7 +2127,7 @@ func expandTriggerTransport(c *Client, f *TriggerTransport, res *Trigger) (map[s
 
 // flattenTriggerTransport flattens an instance of TriggerTransport from a JSON
 // response object.
-func flattenTriggerTransport(c *Client, i interface{}) *TriggerTransport {
+func flattenTriggerTransport(c *Client, i interface{}, res *Trigger) *TriggerTransport {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2138,7 +2138,7 @@ func flattenTriggerTransport(c *Client, i interface{}) *TriggerTransport {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTriggerTransport
 	}
-	r.Pubsub = flattenTriggerTransportPubsub(c, m["pubsub"])
+	r.Pubsub = flattenTriggerTransportPubsub(c, m["pubsub"], res)
 
 	return r
 }
@@ -2186,7 +2186,7 @@ func expandTriggerTransportPubsubSlice(c *Client, f []TriggerTransportPubsub, re
 
 // flattenTriggerTransportPubsubMap flattens the contents of TriggerTransportPubsub from a JSON
 // response object.
-func flattenTriggerTransportPubsubMap(c *Client, i interface{}) map[string]TriggerTransportPubsub {
+func flattenTriggerTransportPubsubMap(c *Client, i interface{}, res *Trigger) map[string]TriggerTransportPubsub {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TriggerTransportPubsub{}
@@ -2198,7 +2198,7 @@ func flattenTriggerTransportPubsubMap(c *Client, i interface{}) map[string]Trigg
 
 	items := make(map[string]TriggerTransportPubsub)
 	for k, item := range a {
-		items[k] = *flattenTriggerTransportPubsub(c, item.(map[string]interface{}))
+		items[k] = *flattenTriggerTransportPubsub(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2206,7 +2206,7 @@ func flattenTriggerTransportPubsubMap(c *Client, i interface{}) map[string]Trigg
 
 // flattenTriggerTransportPubsubSlice flattens the contents of TriggerTransportPubsub from a JSON
 // response object.
-func flattenTriggerTransportPubsubSlice(c *Client, i interface{}) []TriggerTransportPubsub {
+func flattenTriggerTransportPubsubSlice(c *Client, i interface{}, res *Trigger) []TriggerTransportPubsub {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TriggerTransportPubsub{}
@@ -2218,7 +2218,7 @@ func flattenTriggerTransportPubsubSlice(c *Client, i interface{}) []TriggerTrans
 
 	items := make([]TriggerTransportPubsub, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTriggerTransportPubsub(c, item.(map[string]interface{})))
+		items = append(items, *flattenTriggerTransportPubsub(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2243,7 +2243,7 @@ func expandTriggerTransportPubsub(c *Client, f *TriggerTransportPubsub, res *Tri
 
 // flattenTriggerTransportPubsub flattens an instance of TriggerTransportPubsub from a JSON
 // response object.
-func flattenTriggerTransportPubsub(c *Client, i interface{}) *TriggerTransportPubsub {
+func flattenTriggerTransportPubsub(c *Client, i interface{}, res *Trigger) *TriggerTransportPubsub {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2265,7 +2265,7 @@ func flattenTriggerTransportPubsub(c *Client, i interface{}) *TriggerTransportPu
 // identity).  This is useful in extracting the element from a List call.
 func (r *Trigger) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalTrigger(b, c)
+		cr, err := unmarshalTrigger(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

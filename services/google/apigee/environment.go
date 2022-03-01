@@ -125,7 +125,7 @@ func (c *Client) GetEnvironment(ctx context.Context, r *Environment) (*Environme
 		}
 		return nil, err
 	}
-	result, err := unmarshalEnvironment(b, c)
+	result, err := unmarshalEnvironment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +294,7 @@ func applyEnvironmentDiff(c *Client, ctx context.Context, desired *Environment, 
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapEnvironment(r, c)
+				fullResp, err := unmarshalMapEnvironment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -511,7 +511,7 @@ func (c *Client) GetPrivateCloud(ctx context.Context, r *PrivateCloud) (*Private
 		}
 		return nil, err
 	}
-	result, err := unmarshalPrivateCloud(b, c)
+	result, err := unmarshalPrivateCloud(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -681,7 +681,7 @@ func applyPrivateCloudDiff(c *Client, ctx context.Context, desired *PrivateCloud
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapPrivateCloud(r, c)
+				fullResp, err := unmarshalMapPrivateCloud(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

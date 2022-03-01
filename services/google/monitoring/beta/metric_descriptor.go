@@ -395,7 +395,7 @@ func (c *Client) GetMetricDescriptor(ctx context.Context, r *MetricDescriptor) (
 		}
 		return nil, err
 	}
-	result, err := unmarshalMetricDescriptor(b, c)
+	result, err := unmarshalMetricDescriptor(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -564,7 +564,7 @@ func applyMetricDescriptorDiff(c *Client, ctx context.Context, desired *MetricDe
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapMetricDescriptor(r, c)
+				fullResp, err := unmarshalMapMetricDescriptor(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

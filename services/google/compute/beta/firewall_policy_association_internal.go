@@ -129,7 +129,7 @@ func (c *Client) listFirewallPolicyAssociation(ctx context.Context, r *FirewallP
 
 	var l []*FirewallPolicyAssociation
 	for _, v := range m.Associations {
-		res, err := unmarshalMapFirewallPolicyAssociation(v, c)
+		res, err := unmarshalMapFirewallPolicyAssociation(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -399,17 +399,17 @@ func (r *FirewallPolicyAssociation) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFirewallPolicyAssociation decodes JSON responses into the FirewallPolicyAssociation resource schema.
-func unmarshalFirewallPolicyAssociation(b []byte, c *Client) (*FirewallPolicyAssociation, error) {
+func unmarshalFirewallPolicyAssociation(b []byte, c *Client, res *FirewallPolicyAssociation) (*FirewallPolicyAssociation, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFirewallPolicyAssociation(m, c)
+	return unmarshalMapFirewallPolicyAssociation(m, c, res)
 }
 
-func unmarshalMapFirewallPolicyAssociation(m map[string]interface{}, c *Client) (*FirewallPolicyAssociation, error) {
+func unmarshalMapFirewallPolicyAssociation(m map[string]interface{}, c *Client, res *FirewallPolicyAssociation) (*FirewallPolicyAssociation, error) {
 
-	flattened := flattenFirewallPolicyAssociation(c, m)
+	flattened := flattenFirewallPolicyAssociation(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -436,7 +436,7 @@ func expandFirewallPolicyAssociation(c *Client, f *FirewallPolicyAssociation) (m
 
 // flattenFirewallPolicyAssociation flattens FirewallPolicyAssociation from a JSON request object into the
 // FirewallPolicyAssociation type.
-func flattenFirewallPolicyAssociation(c *Client, i interface{}) *FirewallPolicyAssociation {
+func flattenFirewallPolicyAssociation(c *Client, i interface{}, res *FirewallPolicyAssociation) *FirewallPolicyAssociation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -445,13 +445,13 @@ func flattenFirewallPolicyAssociation(c *Client, i interface{}) *FirewallPolicyA
 		return nil
 	}
 
-	res := &FirewallPolicyAssociation{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.AttachmentTarget = dcl.FlattenString(m["attachmentTarget"])
-	res.FirewallPolicy = dcl.FlattenString(m["firewallPolicyId"])
-	res.ShortName = dcl.FlattenString(m["shortName"])
+	resultRes := &FirewallPolicyAssociation{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.AttachmentTarget = dcl.FlattenString(m["attachmentTarget"])
+	resultRes.FirewallPolicy = dcl.FlattenString(m["firewallPolicyId"])
+	resultRes.ShortName = dcl.FlattenString(m["shortName"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -459,7 +459,7 @@ func flattenFirewallPolicyAssociation(c *Client, i interface{}) *FirewallPolicyA
 // identity).  This is useful in extracting the element from a List call.
 func (r *FirewallPolicyAssociation) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFirewallPolicyAssociation(b, c)
+		cr, err := unmarshalFirewallPolicyAssociation(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -35,6 +35,7 @@ class GrpcRoute(object):
         rules: list = None,
         project: str = None,
         location: str = None,
+        self_link: str = None,
         service_account_file: str = "",
     ):
 
@@ -96,6 +97,7 @@ class GrpcRoute(object):
         self.rules = GrpcRouteRulesArray.from_proto(response.rules)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.self_link = Primitive.from_proto(response.self_link)
 
     def delete(self):
         stub = grpc_route_pb2_grpc.NetworkservicesAlphaGrpcRouteServiceStub(

@@ -314,7 +314,7 @@ func (c *Client) listRoutine(ctx context.Context, r *Routine, pageToken string, 
 
 	var l []*Routine
 	for _, v := range m.Routines {
-		res, err := unmarshalMapRoutine(v, c)
+		res, err := unmarshalMapRoutine(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1519,15 +1519,15 @@ func (r *Routine) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalRoutine decodes JSON responses into the Routine resource schema.
-func unmarshalRoutine(b []byte, c *Client) (*Routine, error) {
+func unmarshalRoutine(b []byte, c *Client, res *Routine) (*Routine, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapRoutine(m, c)
+	return unmarshalMapRoutine(m, c, res)
 }
 
-func unmarshalMapRoutine(m map[string]interface{}, c *Client) (*Routine, error) {
+func unmarshalMapRoutine(m map[string]interface{}, c *Client, res *Routine) (*Routine, error) {
 	dcl.MoveMapEntry(
 		m,
 		[]string{"routineReference", "routineId"},
@@ -1544,7 +1544,7 @@ func unmarshalMapRoutine(m map[string]interface{}, c *Client) (*Routine, error) 
 		[]string{"dataset"},
 	)
 
-	flattened := flattenRoutine(c, m)
+	flattened := flattenRoutine(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1602,7 +1602,7 @@ func expandRoutine(c *Client, f *Routine) (map[string]interface{}, error) {
 
 // flattenRoutine flattens Routine from a JSON request object into the
 // Routine type.
-func flattenRoutine(c *Client, i interface{}) *Routine {
+func flattenRoutine(c *Client, i interface{}, res *Routine) *Routine {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1611,24 +1611,24 @@ func flattenRoutine(c *Client, i interface{}) *Routine {
 		return nil
 	}
 
-	res := &Routine{}
-	res.Etag = dcl.FlattenString(m["etag"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Dataset = dcl.FlattenString(m["dataset"])
-	res.RoutineType = flattenRoutineRoutineTypeEnum(m["routineType"])
-	res.CreationTime = dcl.FlattenInteger(m["creationTime"])
-	res.LastModifiedTime = dcl.FlattenInteger(m["lastModifiedTime"])
-	res.Language = flattenRoutineLanguageEnum(m["language"])
-	res.Arguments = flattenRoutineArgumentsSlice(c, m["arguments"])
-	res.ReturnType = flattenRoutineArgumentsDataType(c, m["returnType"])
-	res.ImportedLibraries = dcl.FlattenStringSlice(m["importedLibraries"])
-	res.DefinitionBody = dcl.FlattenString(m["definitionBody"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.DeterminismLevel = flattenRoutineDeterminismLevelEnum(m["determinismLevel"])
-	res.StrictMode = dcl.FlattenBool(m["strictMode"])
+	resultRes := &Routine{}
+	resultRes.Etag = dcl.FlattenString(m["etag"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Dataset = dcl.FlattenString(m["dataset"])
+	resultRes.RoutineType = flattenRoutineRoutineTypeEnum(m["routineType"])
+	resultRes.CreationTime = dcl.FlattenInteger(m["creationTime"])
+	resultRes.LastModifiedTime = dcl.FlattenInteger(m["lastModifiedTime"])
+	resultRes.Language = flattenRoutineLanguageEnum(m["language"])
+	resultRes.Arguments = flattenRoutineArgumentsSlice(c, m["arguments"], res)
+	resultRes.ReturnType = flattenRoutineArgumentsDataType(c, m["returnType"], res)
+	resultRes.ImportedLibraries = dcl.FlattenStringSlice(m["importedLibraries"])
+	resultRes.DefinitionBody = dcl.FlattenString(m["definitionBody"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.DeterminismLevel = flattenRoutineDeterminismLevelEnum(m["determinismLevel"])
+	resultRes.StrictMode = dcl.FlattenBool(m["strictMode"])
 
-	return res
+	return resultRes
 }
 
 // expandRoutineArgumentsMap expands the contents of RoutineArguments into a JSON
@@ -1674,7 +1674,7 @@ func expandRoutineArgumentsSlice(c *Client, f []RoutineArguments, res *Routine) 
 
 // flattenRoutineArgumentsMap flattens the contents of RoutineArguments from a JSON
 // response object.
-func flattenRoutineArgumentsMap(c *Client, i interface{}) map[string]RoutineArguments {
+func flattenRoutineArgumentsMap(c *Client, i interface{}, res *Routine) map[string]RoutineArguments {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineArguments{}
@@ -1686,7 +1686,7 @@ func flattenRoutineArgumentsMap(c *Client, i interface{}) map[string]RoutineArgu
 
 	items := make(map[string]RoutineArguments)
 	for k, item := range a {
-		items[k] = *flattenRoutineArguments(c, item.(map[string]interface{}))
+		items[k] = *flattenRoutineArguments(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1694,7 +1694,7 @@ func flattenRoutineArgumentsMap(c *Client, i interface{}) map[string]RoutineArgu
 
 // flattenRoutineArgumentsSlice flattens the contents of RoutineArguments from a JSON
 // response object.
-func flattenRoutineArgumentsSlice(c *Client, i interface{}) []RoutineArguments {
+func flattenRoutineArgumentsSlice(c *Client, i interface{}, res *Routine) []RoutineArguments {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineArguments{}
@@ -1706,7 +1706,7 @@ func flattenRoutineArgumentsSlice(c *Client, i interface{}) []RoutineArguments {
 
 	items := make([]RoutineArguments, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRoutineArguments(c, item.(map[string]interface{})))
+		items = append(items, *flattenRoutineArguments(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1740,7 +1740,7 @@ func expandRoutineArguments(c *Client, f *RoutineArguments, res *Routine) (map[s
 
 // flattenRoutineArguments flattens an instance of RoutineArguments from a JSON
 // response object.
-func flattenRoutineArguments(c *Client, i interface{}) *RoutineArguments {
+func flattenRoutineArguments(c *Client, i interface{}, res *Routine) *RoutineArguments {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1754,7 +1754,7 @@ func flattenRoutineArguments(c *Client, i interface{}) *RoutineArguments {
 	r.Name = dcl.FlattenString(m["name"])
 	r.ArgumentKind = flattenRoutineArgumentsArgumentKindEnum(m["argumentKind"])
 	r.Mode = flattenRoutineArgumentsModeEnum(m["mode"])
-	r.DataType = flattenRoutineArgumentsDataType(c, m["dataType"])
+	r.DataType = flattenRoutineArgumentsDataType(c, m["dataType"], res)
 
 	return r
 }
@@ -1802,7 +1802,7 @@ func expandRoutineArgumentsDataTypeSlice(c *Client, f []RoutineArgumentsDataType
 
 // flattenRoutineArgumentsDataTypeMap flattens the contents of RoutineArgumentsDataType from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeMap(c *Client, i interface{}) map[string]RoutineArgumentsDataType {
+func flattenRoutineArgumentsDataTypeMap(c *Client, i interface{}, res *Routine) map[string]RoutineArgumentsDataType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineArgumentsDataType{}
@@ -1814,7 +1814,7 @@ func flattenRoutineArgumentsDataTypeMap(c *Client, i interface{}) map[string]Rou
 
 	items := make(map[string]RoutineArgumentsDataType)
 	for k, item := range a {
-		items[k] = *flattenRoutineArgumentsDataType(c, item.(map[string]interface{}))
+		items[k] = *flattenRoutineArgumentsDataType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1822,7 +1822,7 @@ func flattenRoutineArgumentsDataTypeMap(c *Client, i interface{}) map[string]Rou
 
 // flattenRoutineArgumentsDataTypeSlice flattens the contents of RoutineArgumentsDataType from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeSlice(c *Client, i interface{}) []RoutineArgumentsDataType {
+func flattenRoutineArgumentsDataTypeSlice(c *Client, i interface{}, res *Routine) []RoutineArgumentsDataType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineArgumentsDataType{}
@@ -1834,7 +1834,7 @@ func flattenRoutineArgumentsDataTypeSlice(c *Client, i interface{}) []RoutineArg
 
 	items := make([]RoutineArgumentsDataType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRoutineArgumentsDataType(c, item.(map[string]interface{})))
+		items = append(items, *flattenRoutineArgumentsDataType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1867,7 +1867,7 @@ func expandRoutineArgumentsDataType(c *Client, f *RoutineArgumentsDataType, res 
 
 // flattenRoutineArgumentsDataType flattens an instance of RoutineArgumentsDataType from a JSON
 // response object.
-func flattenRoutineArgumentsDataType(c *Client, i interface{}) *RoutineArgumentsDataType {
+func flattenRoutineArgumentsDataType(c *Client, i interface{}, res *Routine) *RoutineArgumentsDataType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1879,8 +1879,8 @@ func flattenRoutineArgumentsDataType(c *Client, i interface{}) *RoutineArguments
 		return EmptyRoutineArgumentsDataType
 	}
 	r.TypeKind = flattenRoutineArgumentsDataTypeTypeKindEnum(m["typeKind"])
-	r.ArrayElementType = flattenRoutineArgumentsDataType(c, m["arrayElementType"])
-	r.StructType = flattenRoutineArgumentsDataTypeStructType(c, m["structType"])
+	r.ArrayElementType = flattenRoutineArgumentsDataType(c, m["arrayElementType"], res)
+	r.StructType = flattenRoutineArgumentsDataTypeStructType(c, m["structType"], res)
 
 	return r
 }
@@ -1928,7 +1928,7 @@ func expandRoutineArgumentsDataTypeStructTypeSlice(c *Client, f []RoutineArgumen
 
 // flattenRoutineArgumentsDataTypeStructTypeMap flattens the contents of RoutineArgumentsDataTypeStructType from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeStructTypeMap(c *Client, i interface{}) map[string]RoutineArgumentsDataTypeStructType {
+func flattenRoutineArgumentsDataTypeStructTypeMap(c *Client, i interface{}, res *Routine) map[string]RoutineArgumentsDataTypeStructType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineArgumentsDataTypeStructType{}
@@ -1940,7 +1940,7 @@ func flattenRoutineArgumentsDataTypeStructTypeMap(c *Client, i interface{}) map[
 
 	items := make(map[string]RoutineArgumentsDataTypeStructType)
 	for k, item := range a {
-		items[k] = *flattenRoutineArgumentsDataTypeStructType(c, item.(map[string]interface{}))
+		items[k] = *flattenRoutineArgumentsDataTypeStructType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1948,7 +1948,7 @@ func flattenRoutineArgumentsDataTypeStructTypeMap(c *Client, i interface{}) map[
 
 // flattenRoutineArgumentsDataTypeStructTypeSlice flattens the contents of RoutineArgumentsDataTypeStructType from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeStructTypeSlice(c *Client, i interface{}) []RoutineArgumentsDataTypeStructType {
+func flattenRoutineArgumentsDataTypeStructTypeSlice(c *Client, i interface{}, res *Routine) []RoutineArgumentsDataTypeStructType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineArgumentsDataTypeStructType{}
@@ -1960,7 +1960,7 @@ func flattenRoutineArgumentsDataTypeStructTypeSlice(c *Client, i interface{}) []
 
 	items := make([]RoutineArgumentsDataTypeStructType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRoutineArgumentsDataTypeStructType(c, item.(map[string]interface{})))
+		items = append(items, *flattenRoutineArgumentsDataTypeStructType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1985,7 +1985,7 @@ func expandRoutineArgumentsDataTypeStructType(c *Client, f *RoutineArgumentsData
 
 // flattenRoutineArgumentsDataTypeStructType flattens an instance of RoutineArgumentsDataTypeStructType from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeStructType(c *Client, i interface{}) *RoutineArgumentsDataTypeStructType {
+func flattenRoutineArgumentsDataTypeStructType(c *Client, i interface{}, res *Routine) *RoutineArgumentsDataTypeStructType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1996,7 +1996,7 @@ func flattenRoutineArgumentsDataTypeStructType(c *Client, i interface{}) *Routin
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyRoutineArgumentsDataTypeStructType
 	}
-	r.Fields = flattenRoutineArgumentsDataTypeStructTypeFieldsSlice(c, m["fields"])
+	r.Fields = flattenRoutineArgumentsDataTypeStructTypeFieldsSlice(c, m["fields"], res)
 
 	return r
 }
@@ -2044,7 +2044,7 @@ func expandRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, f []RoutineA
 
 // flattenRoutineArgumentsDataTypeStructTypeFieldsMap flattens the contents of RoutineArgumentsDataTypeStructTypeFields from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeStructTypeFieldsMap(c *Client, i interface{}) map[string]RoutineArgumentsDataTypeStructTypeFields {
+func flattenRoutineArgumentsDataTypeStructTypeFieldsMap(c *Client, i interface{}, res *Routine) map[string]RoutineArgumentsDataTypeStructTypeFields {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineArgumentsDataTypeStructTypeFields{}
@@ -2056,7 +2056,7 @@ func flattenRoutineArgumentsDataTypeStructTypeFieldsMap(c *Client, i interface{}
 
 	items := make(map[string]RoutineArgumentsDataTypeStructTypeFields)
 	for k, item := range a {
-		items[k] = *flattenRoutineArgumentsDataTypeStructTypeFields(c, item.(map[string]interface{}))
+		items[k] = *flattenRoutineArgumentsDataTypeStructTypeFields(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2064,7 +2064,7 @@ func flattenRoutineArgumentsDataTypeStructTypeFieldsMap(c *Client, i interface{}
 
 // flattenRoutineArgumentsDataTypeStructTypeFieldsSlice flattens the contents of RoutineArgumentsDataTypeStructTypeFields from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, i interface{}) []RoutineArgumentsDataTypeStructTypeFields {
+func flattenRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, i interface{}, res *Routine) []RoutineArgumentsDataTypeStructTypeFields {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineArgumentsDataTypeStructTypeFields{}
@@ -2076,7 +2076,7 @@ func flattenRoutineArgumentsDataTypeStructTypeFieldsSlice(c *Client, i interface
 
 	items := make([]RoutineArgumentsDataTypeStructTypeFields, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRoutineArgumentsDataTypeStructTypeFields(c, item.(map[string]interface{})))
+		items = append(items, *flattenRoutineArgumentsDataTypeStructTypeFields(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2104,7 +2104,7 @@ func expandRoutineArgumentsDataTypeStructTypeFields(c *Client, f *RoutineArgumen
 
 // flattenRoutineArgumentsDataTypeStructTypeFields flattens an instance of RoutineArgumentsDataTypeStructTypeFields from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeStructTypeFields(c *Client, i interface{}) *RoutineArgumentsDataTypeStructTypeFields {
+func flattenRoutineArgumentsDataTypeStructTypeFields(c *Client, i interface{}, res *Routine) *RoutineArgumentsDataTypeStructTypeFields {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2116,14 +2116,14 @@ func flattenRoutineArgumentsDataTypeStructTypeFields(c *Client, i interface{}) *
 		return EmptyRoutineArgumentsDataTypeStructTypeFields
 	}
 	r.Name = dcl.FlattenString(m["name"])
-	r.Type = flattenRoutineArgumentsDataType(c, m["type"])
+	r.Type = flattenRoutineArgumentsDataType(c, m["type"], res)
 
 	return r
 }
 
 // flattenRoutineRoutineTypeEnumMap flattens the contents of RoutineRoutineTypeEnum from a JSON
 // response object.
-func flattenRoutineRoutineTypeEnumMap(c *Client, i interface{}) map[string]RoutineRoutineTypeEnum {
+func flattenRoutineRoutineTypeEnumMap(c *Client, i interface{}, res *Routine) map[string]RoutineRoutineTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineRoutineTypeEnum{}
@@ -2143,7 +2143,7 @@ func flattenRoutineRoutineTypeEnumMap(c *Client, i interface{}) map[string]Routi
 
 // flattenRoutineRoutineTypeEnumSlice flattens the contents of RoutineRoutineTypeEnum from a JSON
 // response object.
-func flattenRoutineRoutineTypeEnumSlice(c *Client, i interface{}) []RoutineRoutineTypeEnum {
+func flattenRoutineRoutineTypeEnumSlice(c *Client, i interface{}, res *Routine) []RoutineRoutineTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineRoutineTypeEnum{}
@@ -2174,7 +2174,7 @@ func flattenRoutineRoutineTypeEnum(i interface{}) *RoutineRoutineTypeEnum {
 
 // flattenRoutineLanguageEnumMap flattens the contents of RoutineLanguageEnum from a JSON
 // response object.
-func flattenRoutineLanguageEnumMap(c *Client, i interface{}) map[string]RoutineLanguageEnum {
+func flattenRoutineLanguageEnumMap(c *Client, i interface{}, res *Routine) map[string]RoutineLanguageEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineLanguageEnum{}
@@ -2194,7 +2194,7 @@ func flattenRoutineLanguageEnumMap(c *Client, i interface{}) map[string]RoutineL
 
 // flattenRoutineLanguageEnumSlice flattens the contents of RoutineLanguageEnum from a JSON
 // response object.
-func flattenRoutineLanguageEnumSlice(c *Client, i interface{}) []RoutineLanguageEnum {
+func flattenRoutineLanguageEnumSlice(c *Client, i interface{}, res *Routine) []RoutineLanguageEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineLanguageEnum{}
@@ -2225,7 +2225,7 @@ func flattenRoutineLanguageEnum(i interface{}) *RoutineLanguageEnum {
 
 // flattenRoutineArgumentsArgumentKindEnumMap flattens the contents of RoutineArgumentsArgumentKindEnum from a JSON
 // response object.
-func flattenRoutineArgumentsArgumentKindEnumMap(c *Client, i interface{}) map[string]RoutineArgumentsArgumentKindEnum {
+func flattenRoutineArgumentsArgumentKindEnumMap(c *Client, i interface{}, res *Routine) map[string]RoutineArgumentsArgumentKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineArgumentsArgumentKindEnum{}
@@ -2245,7 +2245,7 @@ func flattenRoutineArgumentsArgumentKindEnumMap(c *Client, i interface{}) map[st
 
 // flattenRoutineArgumentsArgumentKindEnumSlice flattens the contents of RoutineArgumentsArgumentKindEnum from a JSON
 // response object.
-func flattenRoutineArgumentsArgumentKindEnumSlice(c *Client, i interface{}) []RoutineArgumentsArgumentKindEnum {
+func flattenRoutineArgumentsArgumentKindEnumSlice(c *Client, i interface{}, res *Routine) []RoutineArgumentsArgumentKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineArgumentsArgumentKindEnum{}
@@ -2276,7 +2276,7 @@ func flattenRoutineArgumentsArgumentKindEnum(i interface{}) *RoutineArgumentsArg
 
 // flattenRoutineArgumentsModeEnumMap flattens the contents of RoutineArgumentsModeEnum from a JSON
 // response object.
-func flattenRoutineArgumentsModeEnumMap(c *Client, i interface{}) map[string]RoutineArgumentsModeEnum {
+func flattenRoutineArgumentsModeEnumMap(c *Client, i interface{}, res *Routine) map[string]RoutineArgumentsModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineArgumentsModeEnum{}
@@ -2296,7 +2296,7 @@ func flattenRoutineArgumentsModeEnumMap(c *Client, i interface{}) map[string]Rou
 
 // flattenRoutineArgumentsModeEnumSlice flattens the contents of RoutineArgumentsModeEnum from a JSON
 // response object.
-func flattenRoutineArgumentsModeEnumSlice(c *Client, i interface{}) []RoutineArgumentsModeEnum {
+func flattenRoutineArgumentsModeEnumSlice(c *Client, i interface{}, res *Routine) []RoutineArgumentsModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineArgumentsModeEnum{}
@@ -2327,7 +2327,7 @@ func flattenRoutineArgumentsModeEnum(i interface{}) *RoutineArgumentsModeEnum {
 
 // flattenRoutineArgumentsDataTypeTypeKindEnumMap flattens the contents of RoutineArgumentsDataTypeTypeKindEnum from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeTypeKindEnumMap(c *Client, i interface{}) map[string]RoutineArgumentsDataTypeTypeKindEnum {
+func flattenRoutineArgumentsDataTypeTypeKindEnumMap(c *Client, i interface{}, res *Routine) map[string]RoutineArgumentsDataTypeTypeKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineArgumentsDataTypeTypeKindEnum{}
@@ -2347,7 +2347,7 @@ func flattenRoutineArgumentsDataTypeTypeKindEnumMap(c *Client, i interface{}) ma
 
 // flattenRoutineArgumentsDataTypeTypeKindEnumSlice flattens the contents of RoutineArgumentsDataTypeTypeKindEnum from a JSON
 // response object.
-func flattenRoutineArgumentsDataTypeTypeKindEnumSlice(c *Client, i interface{}) []RoutineArgumentsDataTypeTypeKindEnum {
+func flattenRoutineArgumentsDataTypeTypeKindEnumSlice(c *Client, i interface{}, res *Routine) []RoutineArgumentsDataTypeTypeKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineArgumentsDataTypeTypeKindEnum{}
@@ -2378,7 +2378,7 @@ func flattenRoutineArgumentsDataTypeTypeKindEnum(i interface{}) *RoutineArgument
 
 // flattenRoutineDeterminismLevelEnumMap flattens the contents of RoutineDeterminismLevelEnum from a JSON
 // response object.
-func flattenRoutineDeterminismLevelEnumMap(c *Client, i interface{}) map[string]RoutineDeterminismLevelEnum {
+func flattenRoutineDeterminismLevelEnumMap(c *Client, i interface{}, res *Routine) map[string]RoutineDeterminismLevelEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]RoutineDeterminismLevelEnum{}
@@ -2398,7 +2398,7 @@ func flattenRoutineDeterminismLevelEnumMap(c *Client, i interface{}) map[string]
 
 // flattenRoutineDeterminismLevelEnumSlice flattens the contents of RoutineDeterminismLevelEnum from a JSON
 // response object.
-func flattenRoutineDeterminismLevelEnumSlice(c *Client, i interface{}) []RoutineDeterminismLevelEnum {
+func flattenRoutineDeterminismLevelEnumSlice(c *Client, i interface{}, res *Routine) []RoutineDeterminismLevelEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []RoutineDeterminismLevelEnum{}
@@ -2432,7 +2432,7 @@ func flattenRoutineDeterminismLevelEnum(i interface{}) *RoutineDeterminismLevelE
 // identity).  This is useful in extracting the element from a List call.
 func (r *Routine) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalRoutine(b, c)
+		cr, err := unmarshalRoutine(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

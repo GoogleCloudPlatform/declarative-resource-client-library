@@ -204,7 +204,7 @@ func (c *Client) listVpnTunnel(ctx context.Context, r *VpnTunnel, pageToken stri
 
 	var l []*VpnTunnel
 	for _, v := range m.Items {
-		res, err := unmarshalMapVpnTunnel(v, c)
+		res, err := unmarshalMapVpnTunnel(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -900,17 +900,17 @@ func (r *VpnTunnel) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalVpnTunnel decodes JSON responses into the VpnTunnel resource schema.
-func unmarshalVpnTunnel(b []byte, c *Client) (*VpnTunnel, error) {
+func unmarshalVpnTunnel(b []byte, c *Client, res *VpnTunnel) (*VpnTunnel, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapVpnTunnel(m, c)
+	return unmarshalMapVpnTunnel(m, c, res)
 }
 
-func unmarshalMapVpnTunnel(m map[string]interface{}, c *Client) (*VpnTunnel, error) {
+func unmarshalMapVpnTunnel(m map[string]interface{}, c *Client, res *VpnTunnel) (*VpnTunnel, error) {
 
-	flattened := flattenVpnTunnel(c, m)
+	flattened := flattenVpnTunnel(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -983,7 +983,7 @@ func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 
 // flattenVpnTunnel flattens VpnTunnel from a JSON request object into the
 // VpnTunnel type.
-func flattenVpnTunnel(c *Client, i interface{}) *VpnTunnel {
+func flattenVpnTunnel(c *Client, i interface{}, res *VpnTunnel) *VpnTunnel {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -992,40 +992,40 @@ func flattenVpnTunnel(c *Client, i interface{}) *VpnTunnel {
 		return nil
 	}
 
-	res := &VpnTunnel{}
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Id = dcl.FlattenInteger(m["id"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.TargetVpnGateway = dcl.FlattenString(m["targetVpnGateway"])
-	res.VpnGateway = dcl.FlattenString(m["vpnGateway"])
-	res.VpnGatewayInterface = dcl.FlattenInteger(m["vpnGatewayInterface"])
-	res.PeerExternalGateway = dcl.FlattenString(m["peerExternalGateway"])
-	res.PeerExternalGatewayInterface = dcl.FlattenInteger(m["peerExternalGatewayInterface"])
-	res.PeerGcpGateway = dcl.FlattenString(m["peerGcpGateway"])
-	res.Router = dcl.FlattenString(m["router"])
-	res.PeerIP = dcl.FlattenString(m["peerIp"])
-	res.SharedSecret = dcl.FlattenSecretValue(m["sharedSecret"])
-	res.SharedSecretHash = dcl.FlattenString(m["sharedSecretHash"])
-	res.Status = flattenVpnTunnelStatusEnum(m["status"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.IkeVersion = dcl.FlattenInteger(m["ikeVersion"])
+	resultRes := &VpnTunnel{}
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Id = dcl.FlattenInteger(m["id"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.TargetVpnGateway = dcl.FlattenString(m["targetVpnGateway"])
+	resultRes.VpnGateway = dcl.FlattenString(m["vpnGateway"])
+	resultRes.VpnGatewayInterface = dcl.FlattenInteger(m["vpnGatewayInterface"])
+	resultRes.PeerExternalGateway = dcl.FlattenString(m["peerExternalGateway"])
+	resultRes.PeerExternalGatewayInterface = dcl.FlattenInteger(m["peerExternalGatewayInterface"])
+	resultRes.PeerGcpGateway = dcl.FlattenString(m["peerGcpGateway"])
+	resultRes.Router = dcl.FlattenString(m["router"])
+	resultRes.PeerIP = dcl.FlattenString(m["peerIp"])
+	resultRes.SharedSecret = dcl.FlattenSecretValue(m["sharedSecret"])
+	resultRes.SharedSecretHash = dcl.FlattenString(m["sharedSecretHash"])
+	resultRes.Status = flattenVpnTunnelStatusEnum(m["status"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.IkeVersion = dcl.FlattenInteger(m["ikeVersion"])
 	if _, ok := m["ikeVersion"]; !ok {
 		c.Config.Logger.Info("Using default value for ikeVersion")
-		res.IkeVersion = dcl.Int64(2)
+		resultRes.IkeVersion = dcl.Int64(2)
 	}
-	res.DetailedStatus = dcl.FlattenString(m["detailedStatus"])
-	res.LocalTrafficSelector = dcl.FlattenStringSlice(m["localTrafficSelector"])
-	res.RemoteTrafficSelector = dcl.FlattenStringSlice(m["remoteTrafficSelector"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes.DetailedStatus = dcl.FlattenString(m["detailedStatus"])
+	resultRes.LocalTrafficSelector = dcl.FlattenStringSlice(m["localTrafficSelector"])
+	resultRes.RemoteTrafficSelector = dcl.FlattenStringSlice(m["remoteTrafficSelector"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // flattenVpnTunnelStatusEnumMap flattens the contents of VpnTunnelStatusEnum from a JSON
 // response object.
-func flattenVpnTunnelStatusEnumMap(c *Client, i interface{}) map[string]VpnTunnelStatusEnum {
+func flattenVpnTunnelStatusEnumMap(c *Client, i interface{}, res *VpnTunnel) map[string]VpnTunnelStatusEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]VpnTunnelStatusEnum{}
@@ -1045,7 +1045,7 @@ func flattenVpnTunnelStatusEnumMap(c *Client, i interface{}) map[string]VpnTunne
 
 // flattenVpnTunnelStatusEnumSlice flattens the contents of VpnTunnelStatusEnum from a JSON
 // response object.
-func flattenVpnTunnelStatusEnumSlice(c *Client, i interface{}) []VpnTunnelStatusEnum {
+func flattenVpnTunnelStatusEnumSlice(c *Client, i interface{}, res *VpnTunnel) []VpnTunnelStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []VpnTunnelStatusEnum{}
@@ -1079,7 +1079,7 @@ func flattenVpnTunnelStatusEnum(i interface{}) *VpnTunnelStatusEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *VpnTunnel) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalVpnTunnel(b, c)
+		cr, err := unmarshalVpnTunnel(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

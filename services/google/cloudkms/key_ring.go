@@ -139,7 +139,7 @@ func (c *Client) GetKeyRing(ctx context.Context, r *KeyRing) (*KeyRing, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalKeyRing(b, c)
+	result, err := unmarshalKeyRing(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func applyKeyRingDiff(c *Client, ctx context.Context, desired *KeyRing, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapKeyRing(r, c)
+				fullResp, err := unmarshalMapKeyRing(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

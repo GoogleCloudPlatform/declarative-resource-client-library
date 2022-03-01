@@ -585,15 +585,15 @@ func (r *Environment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalEnvironment decodes JSON responses into the Environment resource schema.
-func unmarshalEnvironment(b []byte, c *Client) (*Environment, error) {
+func unmarshalEnvironment(b []byte, c *Client, res *Environment) (*Environment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapEnvironment(m, c)
+	return unmarshalMapEnvironment(m, c, res)
 }
 
-func unmarshalMapEnvironment(m map[string]interface{}, c *Client) (*Environment, error) {
+func unmarshalMapEnvironment(m map[string]interface{}, c *Client, res *Environment) (*Environment, error) {
 	if v, err := dcl.MapFromListOfKeyValues(m, []string{"properties", "property"}, "name", "value"); err != nil {
 		return nil, err
 	} else {
@@ -604,7 +604,7 @@ func unmarshalMapEnvironment(m map[string]interface{}, c *Client) (*Environment,
 		)
 	}
 
-	flattened := flattenEnvironment(c, m)
+	flattened := flattenEnvironment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -641,7 +641,7 @@ func expandEnvironment(c *Client, f *Environment) (map[string]interface{}, error
 
 // flattenEnvironment flattens Environment from a JSON request object into the
 // Environment type.
-func flattenEnvironment(c *Client, i interface{}) *Environment {
+func flattenEnvironment(c *Client, i interface{}, res *Environment) *Environment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -650,22 +650,22 @@ func flattenEnvironment(c *Client, i interface{}) *Environment {
 		return nil
 	}
 
-	res := &Environment{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreatedAt = dcl.FlattenInteger(m["createdAt"])
-	res.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
-	res.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.State = flattenEnvironmentStateEnum(m["state"])
-	res.ApigeeOrganization = dcl.FlattenString(m["apigeeOrganization"])
+	resultRes := &Environment{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreatedAt = dcl.FlattenInteger(m["createdAt"])
+	resultRes.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
+	resultRes.Properties = dcl.FlattenKeyValuePairs(m["properties"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.State = flattenEnvironmentStateEnum(m["state"])
+	resultRes.ApigeeOrganization = dcl.FlattenString(m["apigeeOrganization"])
 
-	return res
+	return resultRes
 }
 
 // flattenEnvironmentStateEnumMap flattens the contents of EnvironmentStateEnum from a JSON
 // response object.
-func flattenEnvironmentStateEnumMap(c *Client, i interface{}) map[string]EnvironmentStateEnum {
+func flattenEnvironmentStateEnumMap(c *Client, i interface{}, res *Environment) map[string]EnvironmentStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EnvironmentStateEnum{}
@@ -685,7 +685,7 @@ func flattenEnvironmentStateEnumMap(c *Client, i interface{}) map[string]Environ
 
 // flattenEnvironmentStateEnumSlice flattens the contents of EnvironmentStateEnum from a JSON
 // response object.
-func flattenEnvironmentStateEnumSlice(c *Client, i interface{}) []EnvironmentStateEnum {
+func flattenEnvironmentStateEnumSlice(c *Client, i interface{}, res *Environment) []EnvironmentStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EnvironmentStateEnum{}
@@ -719,7 +719,7 @@ func flattenEnvironmentStateEnum(i interface{}) *EnvironmentStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Environment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalEnvironment(b, c)
+		cr, err := unmarshalEnvironment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -212,7 +212,7 @@ func (c *Client) listTopic(ctx context.Context, r *Topic, pageToken string, page
 
 	var l []*Topic
 	for _, v := range m.Topics {
-		res, err := unmarshalMapTopic(v, c)
+		res, err := unmarshalMapTopic(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -736,17 +736,17 @@ func (r *Topic) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalTopic decodes JSON responses into the Topic resource schema.
-func unmarshalTopic(b []byte, c *Client) (*Topic, error) {
+func unmarshalTopic(b []byte, c *Client, res *Topic) (*Topic, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapTopic(m, c)
+	return unmarshalMapTopic(m, c, res)
 }
 
-func unmarshalMapTopic(m map[string]interface{}, c *Client) (*Topic, error) {
+func unmarshalMapTopic(m map[string]interface{}, c *Client, res *Topic) (*Topic, error) {
 
-	flattened := flattenTopic(c, m)
+	flattened := flattenTopic(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -785,7 +785,7 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 
 // flattenTopic flattens Topic from a JSON request object into the
 // Topic type.
-func flattenTopic(c *Client, i interface{}) *Topic {
+func flattenTopic(c *Client, i interface{}, res *Topic) *Topic {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -794,14 +794,14 @@ func flattenTopic(c *Client, i interface{}) *Topic {
 		return nil
 	}
 
-	res := &Topic{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.MessageStoragePolicy = flattenTopicMessageStoragePolicy(c, m["messageStoragePolicy"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Topic{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.MessageStoragePolicy = flattenTopicMessageStoragePolicy(c, m["messageStoragePolicy"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandTopicMessageStoragePolicyMap expands the contents of TopicMessageStoragePolicy into a JSON
@@ -847,7 +847,7 @@ func expandTopicMessageStoragePolicySlice(c *Client, f []TopicMessageStoragePoli
 
 // flattenTopicMessageStoragePolicyMap flattens the contents of TopicMessageStoragePolicy from a JSON
 // response object.
-func flattenTopicMessageStoragePolicyMap(c *Client, i interface{}) map[string]TopicMessageStoragePolicy {
+func flattenTopicMessageStoragePolicyMap(c *Client, i interface{}, res *Topic) map[string]TopicMessageStoragePolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]TopicMessageStoragePolicy{}
@@ -859,7 +859,7 @@ func flattenTopicMessageStoragePolicyMap(c *Client, i interface{}) map[string]To
 
 	items := make(map[string]TopicMessageStoragePolicy)
 	for k, item := range a {
-		items[k] = *flattenTopicMessageStoragePolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenTopicMessageStoragePolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -867,7 +867,7 @@ func flattenTopicMessageStoragePolicyMap(c *Client, i interface{}) map[string]To
 
 // flattenTopicMessageStoragePolicySlice flattens the contents of TopicMessageStoragePolicy from a JSON
 // response object.
-func flattenTopicMessageStoragePolicySlice(c *Client, i interface{}) []TopicMessageStoragePolicy {
+func flattenTopicMessageStoragePolicySlice(c *Client, i interface{}, res *Topic) []TopicMessageStoragePolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []TopicMessageStoragePolicy{}
@@ -879,7 +879,7 @@ func flattenTopicMessageStoragePolicySlice(c *Client, i interface{}) []TopicMess
 
 	items := make([]TopicMessageStoragePolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTopicMessageStoragePolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenTopicMessageStoragePolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -902,7 +902,7 @@ func expandTopicMessageStoragePolicy(c *Client, f *TopicMessageStoragePolicy, re
 
 // flattenTopicMessageStoragePolicy flattens an instance of TopicMessageStoragePolicy from a JSON
 // response object.
-func flattenTopicMessageStoragePolicy(c *Client, i interface{}) *TopicMessageStoragePolicy {
+func flattenTopicMessageStoragePolicy(c *Client, i interface{}, res *Topic) *TopicMessageStoragePolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -923,7 +923,7 @@ func flattenTopicMessageStoragePolicy(c *Client, i interface{}) *TopicMessageSto
 // identity).  This is useful in extracting the element from a List call.
 func (r *Topic) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalTopic(b, c)
+		cr, err := unmarshalTopic(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

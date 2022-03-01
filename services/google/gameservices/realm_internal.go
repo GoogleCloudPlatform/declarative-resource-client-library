@@ -219,7 +219,7 @@ func (c *Client) listRealm(ctx context.Context, r *Realm, pageToken string, page
 
 	var l []*Realm
 	for _, v := range m.Items {
-		res, err := unmarshalMapRealm(v, c)
+		res, err := unmarshalMapRealm(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -641,17 +641,17 @@ func (r *Realm) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalRealm decodes JSON responses into the Realm resource schema.
-func unmarshalRealm(b []byte, c *Client) (*Realm, error) {
+func unmarshalRealm(b []byte, c *Client, res *Realm) (*Realm, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapRealm(m, c)
+	return unmarshalMapRealm(m, c, res)
 }
 
-func unmarshalMapRealm(m map[string]interface{}, c *Client) (*Realm, error) {
+func unmarshalMapRealm(m map[string]interface{}, c *Client, res *Realm) (*Realm, error) {
 
-	flattened := flattenRealm(c, m)
+	flattened := flattenRealm(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -691,7 +691,7 @@ func expandRealm(c *Client, f *Realm) (map[string]interface{}, error) {
 
 // flattenRealm flattens Realm from a JSON request object into the
 // Realm type.
-func flattenRealm(c *Client, i interface{}) *Realm {
+func flattenRealm(c *Client, i interface{}, res *Realm) *Realm {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -700,17 +700,17 @@ func flattenRealm(c *Client, i interface{}) *Realm {
 		return nil
 	}
 
-	res := &Realm{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.TimeZone = dcl.FlattenString(m["timeZone"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Realm{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.TimeZone = dcl.FlattenString(m["timeZone"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -718,7 +718,7 @@ func flattenRealm(c *Client, i interface{}) *Realm {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Realm) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalRealm(b, c)
+		cr, err := unmarshalRealm(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

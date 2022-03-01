@@ -579,7 +579,7 @@ func (c *Client) listPatchDeployment(ctx context.Context, r *PatchDeployment, pa
 
 	var l []*PatchDeployment
 	for _, v := range m.PatchDeployments {
-		res, err := unmarshalMapPatchDeployment(v, c)
+		res, err := unmarshalMapPatchDeployment(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -6181,17 +6181,17 @@ func (r *PatchDeployment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalPatchDeployment decodes JSON responses into the PatchDeployment resource schema.
-func unmarshalPatchDeployment(b []byte, c *Client) (*PatchDeployment, error) {
+func unmarshalPatchDeployment(b []byte, c *Client, res *PatchDeployment) (*PatchDeployment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapPatchDeployment(m, c)
+	return unmarshalMapPatchDeployment(m, c, res)
 }
 
-func unmarshalMapPatchDeployment(m map[string]interface{}, c *Client) (*PatchDeployment, error) {
+func unmarshalMapPatchDeployment(m map[string]interface{}, c *Client, res *PatchDeployment) (*PatchDeployment, error) {
 
-	flattened := flattenPatchDeployment(c, m)
+	flattened := flattenPatchDeployment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -6250,7 +6250,7 @@ func expandPatchDeployment(c *Client, f *PatchDeployment) (map[string]interface{
 
 // flattenPatchDeployment flattens PatchDeployment from a JSON request object into the
 // PatchDeployment type.
-func flattenPatchDeployment(c *Client, i interface{}) *PatchDeployment {
+func flattenPatchDeployment(c *Client, i interface{}, res *PatchDeployment) *PatchDeployment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6259,21 +6259,21 @@ func flattenPatchDeployment(c *Client, i interface{}) *PatchDeployment {
 		return nil
 	}
 
-	res := &PatchDeployment{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.InstanceFilter = flattenPatchDeploymentInstanceFilter(c, m["instanceFilter"])
-	res.PatchConfig = flattenPatchDeploymentPatchConfig(c, m["patchConfig"])
-	res.Duration = dcl.FlattenString(m["duration"])
-	res.OneTimeSchedule = flattenPatchDeploymentOneTimeSchedule(c, m["oneTimeSchedule"])
-	res.RecurringSchedule = flattenPatchDeploymentRecurringSchedule(c, m["recurringSchedule"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.LastExecuteTime = dcl.FlattenString(m["lastExecuteTime"])
-	res.Rollout = flattenPatchDeploymentRollout(c, m["rollout"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &PatchDeployment{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.InstanceFilter = flattenPatchDeploymentInstanceFilter(c, m["instanceFilter"], res)
+	resultRes.PatchConfig = flattenPatchDeploymentPatchConfig(c, m["patchConfig"], res)
+	resultRes.Duration = dcl.FlattenString(m["duration"])
+	resultRes.OneTimeSchedule = flattenPatchDeploymentOneTimeSchedule(c, m["oneTimeSchedule"], res)
+	resultRes.RecurringSchedule = flattenPatchDeploymentRecurringSchedule(c, m["recurringSchedule"], res)
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.LastExecuteTime = dcl.FlattenString(m["lastExecuteTime"])
+	resultRes.Rollout = flattenPatchDeploymentRollout(c, m["rollout"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandPatchDeploymentInstanceFilterMap expands the contents of PatchDeploymentInstanceFilter into a JSON
@@ -6319,7 +6319,7 @@ func expandPatchDeploymentInstanceFilterSlice(c *Client, f []PatchDeploymentInst
 
 // flattenPatchDeploymentInstanceFilterMap flattens the contents of PatchDeploymentInstanceFilter from a JSON
 // response object.
-func flattenPatchDeploymentInstanceFilterMap(c *Client, i interface{}) map[string]PatchDeploymentInstanceFilter {
+func flattenPatchDeploymentInstanceFilterMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentInstanceFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentInstanceFilter{}
@@ -6331,7 +6331,7 @@ func flattenPatchDeploymentInstanceFilterMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]PatchDeploymentInstanceFilter)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentInstanceFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentInstanceFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6339,7 +6339,7 @@ func flattenPatchDeploymentInstanceFilterMap(c *Client, i interface{}) map[strin
 
 // flattenPatchDeploymentInstanceFilterSlice flattens the contents of PatchDeploymentInstanceFilter from a JSON
 // response object.
-func flattenPatchDeploymentInstanceFilterSlice(c *Client, i interface{}) []PatchDeploymentInstanceFilter {
+func flattenPatchDeploymentInstanceFilterSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentInstanceFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentInstanceFilter{}
@@ -6351,7 +6351,7 @@ func flattenPatchDeploymentInstanceFilterSlice(c *Client, i interface{}) []Patch
 
 	items := make([]PatchDeploymentInstanceFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentInstanceFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentInstanceFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6388,7 +6388,7 @@ func expandPatchDeploymentInstanceFilter(c *Client, f *PatchDeploymentInstanceFi
 
 // flattenPatchDeploymentInstanceFilter flattens an instance of PatchDeploymentInstanceFilter from a JSON
 // response object.
-func flattenPatchDeploymentInstanceFilter(c *Client, i interface{}) *PatchDeploymentInstanceFilter {
+func flattenPatchDeploymentInstanceFilter(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentInstanceFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6400,7 +6400,7 @@ func flattenPatchDeploymentInstanceFilter(c *Client, i interface{}) *PatchDeploy
 		return EmptyPatchDeploymentInstanceFilter
 	}
 	r.All = dcl.FlattenBool(m["all"])
-	r.GroupLabels = flattenPatchDeploymentInstanceFilterGroupLabelsSlice(c, m["groupLabels"])
+	r.GroupLabels = flattenPatchDeploymentInstanceFilterGroupLabelsSlice(c, m["groupLabels"], res)
 	r.Zones = dcl.FlattenStringSlice(m["zones"])
 	r.Instances = dcl.FlattenStringSlice(m["instances"])
 	r.InstanceNamePrefixes = dcl.FlattenStringSlice(m["instanceNamePrefixes"])
@@ -6451,7 +6451,7 @@ func expandPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, f []PatchDep
 
 // flattenPatchDeploymentInstanceFilterGroupLabelsMap flattens the contents of PatchDeploymentInstanceFilterGroupLabels from a JSON
 // response object.
-func flattenPatchDeploymentInstanceFilterGroupLabelsMap(c *Client, i interface{}) map[string]PatchDeploymentInstanceFilterGroupLabels {
+func flattenPatchDeploymentInstanceFilterGroupLabelsMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentInstanceFilterGroupLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentInstanceFilterGroupLabels{}
@@ -6463,7 +6463,7 @@ func flattenPatchDeploymentInstanceFilterGroupLabelsMap(c *Client, i interface{}
 
 	items := make(map[string]PatchDeploymentInstanceFilterGroupLabels)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentInstanceFilterGroupLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentInstanceFilterGroupLabels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6471,7 +6471,7 @@ func flattenPatchDeploymentInstanceFilterGroupLabelsMap(c *Client, i interface{}
 
 // flattenPatchDeploymentInstanceFilterGroupLabelsSlice flattens the contents of PatchDeploymentInstanceFilterGroupLabels from a JSON
 // response object.
-func flattenPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, i interface{}) []PatchDeploymentInstanceFilterGroupLabels {
+func flattenPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentInstanceFilterGroupLabels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentInstanceFilterGroupLabels{}
@@ -6483,7 +6483,7 @@ func flattenPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, i interface
 
 	items := make([]PatchDeploymentInstanceFilterGroupLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentInstanceFilterGroupLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentInstanceFilterGroupLabels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6506,7 +6506,7 @@ func expandPatchDeploymentInstanceFilterGroupLabels(c *Client, f *PatchDeploymen
 
 // flattenPatchDeploymentInstanceFilterGroupLabels flattens an instance of PatchDeploymentInstanceFilterGroupLabels from a JSON
 // response object.
-func flattenPatchDeploymentInstanceFilterGroupLabels(c *Client, i interface{}) *PatchDeploymentInstanceFilterGroupLabels {
+func flattenPatchDeploymentInstanceFilterGroupLabels(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentInstanceFilterGroupLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6565,7 +6565,7 @@ func expandPatchDeploymentPatchConfigSlice(c *Client, f []PatchDeploymentPatchCo
 
 // flattenPatchDeploymentPatchConfigMap flattens the contents of PatchDeploymentPatchConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfig {
+func flattenPatchDeploymentPatchConfigMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfig{}
@@ -6577,7 +6577,7 @@ func flattenPatchDeploymentPatchConfigMap(c *Client, i interface{}) map[string]P
 
 	items := make(map[string]PatchDeploymentPatchConfig)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6585,7 +6585,7 @@ func flattenPatchDeploymentPatchConfigMap(c *Client, i interface{}) map[string]P
 
 // flattenPatchDeploymentPatchConfigSlice flattens the contents of PatchDeploymentPatchConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigSlice(c *Client, i interface{}) []PatchDeploymentPatchConfig {
+func flattenPatchDeploymentPatchConfigSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfig{}
@@ -6597,7 +6597,7 @@ func flattenPatchDeploymentPatchConfigSlice(c *Client, i interface{}) []PatchDep
 
 	items := make([]PatchDeploymentPatchConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6660,7 +6660,7 @@ func expandPatchDeploymentPatchConfig(c *Client, f *PatchDeploymentPatchConfig, 
 
 // flattenPatchDeploymentPatchConfig flattens an instance of PatchDeploymentPatchConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfig(c *Client, i interface{}) *PatchDeploymentPatchConfig {
+func flattenPatchDeploymentPatchConfig(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6672,14 +6672,14 @@ func flattenPatchDeploymentPatchConfig(c *Client, i interface{}) *PatchDeploymen
 		return EmptyPatchDeploymentPatchConfig
 	}
 	r.RebootConfig = flattenPatchDeploymentPatchConfigRebootConfigEnum(m["rebootConfig"])
-	r.Apt = flattenPatchDeploymentPatchConfigApt(c, m["apt"])
-	r.Yum = flattenPatchDeploymentPatchConfigYum(c, m["yum"])
-	r.Goo = flattenPatchDeploymentPatchConfigGoo(c, m["goo"])
-	r.Zypper = flattenPatchDeploymentPatchConfigZypper(c, m["zypper"])
-	r.WindowsUpdate = flattenPatchDeploymentPatchConfigWindowsUpdate(c, m["windowsUpdate"])
-	r.PreStep = flattenPatchDeploymentPatchConfigPreStep(c, m["preStep"])
-	r.PostStep = flattenPatchDeploymentPatchConfigPostStep(c, m["postStep"])
-	r.RetryStrategy = flattenPatchDeploymentPatchConfigRetryStrategy(c, m["retryStrategy"])
+	r.Apt = flattenPatchDeploymentPatchConfigApt(c, m["apt"], res)
+	r.Yum = flattenPatchDeploymentPatchConfigYum(c, m["yum"], res)
+	r.Goo = flattenPatchDeploymentPatchConfigGoo(c, m["goo"], res)
+	r.Zypper = flattenPatchDeploymentPatchConfigZypper(c, m["zypper"], res)
+	r.WindowsUpdate = flattenPatchDeploymentPatchConfigWindowsUpdate(c, m["windowsUpdate"], res)
+	r.PreStep = flattenPatchDeploymentPatchConfigPreStep(c, m["preStep"], res)
+	r.PostStep = flattenPatchDeploymentPatchConfigPostStep(c, m["postStep"], res)
+	r.RetryStrategy = flattenPatchDeploymentPatchConfigRetryStrategy(c, m["retryStrategy"], res)
 
 	return r
 }
@@ -6727,7 +6727,7 @@ func expandPatchDeploymentPatchConfigAptSlice(c *Client, f []PatchDeploymentPatc
 
 // flattenPatchDeploymentPatchConfigAptMap flattens the contents of PatchDeploymentPatchConfigApt from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigAptMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigApt {
+func flattenPatchDeploymentPatchConfigAptMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigApt {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigApt{}
@@ -6739,7 +6739,7 @@ func flattenPatchDeploymentPatchConfigAptMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]PatchDeploymentPatchConfigApt)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigApt(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigApt(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6747,7 +6747,7 @@ func flattenPatchDeploymentPatchConfigAptMap(c *Client, i interface{}) map[strin
 
 // flattenPatchDeploymentPatchConfigAptSlice flattens the contents of PatchDeploymentPatchConfigApt from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigAptSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigApt {
+func flattenPatchDeploymentPatchConfigAptSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigApt {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigApt{}
@@ -6759,7 +6759,7 @@ func flattenPatchDeploymentPatchConfigAptSlice(c *Client, i interface{}) []Patch
 
 	items := make([]PatchDeploymentPatchConfigApt, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigApt(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigApt(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6788,7 +6788,7 @@ func expandPatchDeploymentPatchConfigApt(c *Client, f *PatchDeploymentPatchConfi
 
 // flattenPatchDeploymentPatchConfigApt flattens an instance of PatchDeploymentPatchConfigApt from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigApt(c *Client, i interface{}) *PatchDeploymentPatchConfigApt {
+func flattenPatchDeploymentPatchConfigApt(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigApt {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6849,7 +6849,7 @@ func expandPatchDeploymentPatchConfigYumSlice(c *Client, f []PatchDeploymentPatc
 
 // flattenPatchDeploymentPatchConfigYumMap flattens the contents of PatchDeploymentPatchConfigYum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigYumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigYum {
+func flattenPatchDeploymentPatchConfigYumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigYum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigYum{}
@@ -6861,7 +6861,7 @@ func flattenPatchDeploymentPatchConfigYumMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]PatchDeploymentPatchConfigYum)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigYum(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigYum(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6869,7 +6869,7 @@ func flattenPatchDeploymentPatchConfigYumMap(c *Client, i interface{}) map[strin
 
 // flattenPatchDeploymentPatchConfigYumSlice flattens the contents of PatchDeploymentPatchConfigYum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigYumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigYum {
+func flattenPatchDeploymentPatchConfigYumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigYum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigYum{}
@@ -6881,7 +6881,7 @@ func flattenPatchDeploymentPatchConfigYumSlice(c *Client, i interface{}) []Patch
 
 	items := make([]PatchDeploymentPatchConfigYum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigYum(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigYum(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6913,7 +6913,7 @@ func expandPatchDeploymentPatchConfigYum(c *Client, f *PatchDeploymentPatchConfi
 
 // flattenPatchDeploymentPatchConfigYum flattens an instance of PatchDeploymentPatchConfigYum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigYum(c *Client, i interface{}) *PatchDeploymentPatchConfigYum {
+func flattenPatchDeploymentPatchConfigYum(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigYum {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6975,7 +6975,7 @@ func expandPatchDeploymentPatchConfigGooSlice(c *Client, f []PatchDeploymentPatc
 
 // flattenPatchDeploymentPatchConfigGooMap flattens the contents of PatchDeploymentPatchConfigGoo from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigGooMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigGoo {
+func flattenPatchDeploymentPatchConfigGooMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigGoo {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigGoo{}
@@ -6987,7 +6987,7 @@ func flattenPatchDeploymentPatchConfigGooMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]PatchDeploymentPatchConfigGoo)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigGoo(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigGoo(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6995,7 +6995,7 @@ func flattenPatchDeploymentPatchConfigGooMap(c *Client, i interface{}) map[strin
 
 // flattenPatchDeploymentPatchConfigGooSlice flattens the contents of PatchDeploymentPatchConfigGoo from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigGooSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigGoo {
+func flattenPatchDeploymentPatchConfigGooSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigGoo {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigGoo{}
@@ -7007,7 +7007,7 @@ func flattenPatchDeploymentPatchConfigGooSlice(c *Client, i interface{}) []Patch
 
 	items := make([]PatchDeploymentPatchConfigGoo, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigGoo(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigGoo(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7027,7 +7027,7 @@ func expandPatchDeploymentPatchConfigGoo(c *Client, f *PatchDeploymentPatchConfi
 
 // flattenPatchDeploymentPatchConfigGoo flattens an instance of PatchDeploymentPatchConfigGoo from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigGoo(c *Client, i interface{}) *PatchDeploymentPatchConfigGoo {
+func flattenPatchDeploymentPatchConfigGoo(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigGoo {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7085,7 +7085,7 @@ func expandPatchDeploymentPatchConfigZypperSlice(c *Client, f []PatchDeploymentP
 
 // flattenPatchDeploymentPatchConfigZypperMap flattens the contents of PatchDeploymentPatchConfigZypper from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigZypperMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigZypper {
+func flattenPatchDeploymentPatchConfigZypperMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigZypper {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigZypper{}
@@ -7097,7 +7097,7 @@ func flattenPatchDeploymentPatchConfigZypperMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]PatchDeploymentPatchConfigZypper)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigZypper(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigZypper(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7105,7 +7105,7 @@ func flattenPatchDeploymentPatchConfigZypperMap(c *Client, i interface{}) map[st
 
 // flattenPatchDeploymentPatchConfigZypperSlice flattens the contents of PatchDeploymentPatchConfigZypper from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigZypperSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigZypper {
+func flattenPatchDeploymentPatchConfigZypperSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigZypper {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigZypper{}
@@ -7117,7 +7117,7 @@ func flattenPatchDeploymentPatchConfigZypperSlice(c *Client, i interface{}) []Pa
 
 	items := make([]PatchDeploymentPatchConfigZypper, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigZypper(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigZypper(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7155,7 +7155,7 @@ func expandPatchDeploymentPatchConfigZypper(c *Client, f *PatchDeploymentPatchCo
 
 // flattenPatchDeploymentPatchConfigZypper flattens an instance of PatchDeploymentPatchConfigZypper from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigZypper(c *Client, i interface{}) *PatchDeploymentPatchConfigZypper {
+func flattenPatchDeploymentPatchConfigZypper(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigZypper {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7219,7 +7219,7 @@ func expandPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, f []PatchDepl
 
 // flattenPatchDeploymentPatchConfigWindowsUpdateMap flattens the contents of PatchDeploymentPatchConfigWindowsUpdate from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigWindowsUpdateMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigWindowsUpdate {
+func flattenPatchDeploymentPatchConfigWindowsUpdateMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigWindowsUpdate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigWindowsUpdate{}
@@ -7231,7 +7231,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdateMap(c *Client, i interface{})
 
 	items := make(map[string]PatchDeploymentPatchConfigWindowsUpdate)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigWindowsUpdate(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigWindowsUpdate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7239,7 +7239,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdateMap(c *Client, i interface{})
 
 // flattenPatchDeploymentPatchConfigWindowsUpdateSlice flattens the contents of PatchDeploymentPatchConfigWindowsUpdate from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigWindowsUpdate {
+func flattenPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigWindowsUpdate {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigWindowsUpdate{}
@@ -7251,7 +7251,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, i interface{
 
 	items := make([]PatchDeploymentPatchConfigWindowsUpdate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigWindowsUpdate(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigWindowsUpdate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7280,7 +7280,7 @@ func expandPatchDeploymentPatchConfigWindowsUpdate(c *Client, f *PatchDeployment
 
 // flattenPatchDeploymentPatchConfigWindowsUpdate flattens an instance of PatchDeploymentPatchConfigWindowsUpdate from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigWindowsUpdate(c *Client, i interface{}) *PatchDeploymentPatchConfigWindowsUpdate {
+func flattenPatchDeploymentPatchConfigWindowsUpdate(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigWindowsUpdate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7291,7 +7291,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdate(c *Client, i interface{}) *P
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyPatchDeploymentPatchConfigWindowsUpdate
 	}
-	r.Classifications = flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumSlice(c, m["classifications"])
+	r.Classifications = flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumSlice(c, m["classifications"], res)
 	r.Excludes = dcl.FlattenStringSlice(m["excludes"])
 	r.ExclusivePatches = dcl.FlattenStringSlice(m["exclusivePatches"])
 
@@ -7341,7 +7341,7 @@ func expandPatchDeploymentPatchConfigPreStepSlice(c *Client, f []PatchDeployment
 
 // flattenPatchDeploymentPatchConfigPreStepMap flattens the contents of PatchDeploymentPatchConfigPreStep from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPreStep {
+func flattenPatchDeploymentPatchConfigPreStepMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPreStep {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPreStep{}
@@ -7353,7 +7353,7 @@ func flattenPatchDeploymentPatchConfigPreStepMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]PatchDeploymentPatchConfigPreStep)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPreStep(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPreStep(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7361,7 +7361,7 @@ func flattenPatchDeploymentPatchConfigPreStepMap(c *Client, i interface{}) map[s
 
 // flattenPatchDeploymentPatchConfigPreStepSlice flattens the contents of PatchDeploymentPatchConfigPreStep from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPreStep {
+func flattenPatchDeploymentPatchConfigPreStepSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPreStep {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPreStep{}
@@ -7373,7 +7373,7 @@ func flattenPatchDeploymentPatchConfigPreStepSlice(c *Client, i interface{}) []P
 
 	items := make([]PatchDeploymentPatchConfigPreStep, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPreStep(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPreStep(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7403,7 +7403,7 @@ func expandPatchDeploymentPatchConfigPreStep(c *Client, f *PatchDeploymentPatchC
 
 // flattenPatchDeploymentPatchConfigPreStep flattens an instance of PatchDeploymentPatchConfigPreStep from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStep(c *Client, i interface{}) *PatchDeploymentPatchConfigPreStep {
+func flattenPatchDeploymentPatchConfigPreStep(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPreStep {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7414,8 +7414,8 @@ func flattenPatchDeploymentPatchConfigPreStep(c *Client, i interface{}) *PatchDe
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyPatchDeploymentPatchConfigPreStep
 	}
-	r.LinuxExecStepConfig = flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, m["linuxExecStepConfig"])
-	r.WindowsExecStepConfig = flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, m["windowsExecStepConfig"])
+	r.LinuxExecStepConfig = flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, m["linuxExecStepConfig"], res)
+	r.WindowsExecStepConfig = flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, m["windowsExecStepConfig"], res)
 
 	return r
 }
@@ -7463,7 +7463,7 @@ func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c *Client, 
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap flattens the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfig{}
@@ -7475,7 +7475,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap(c *Client, i
 
 	items := make(map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfig)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7483,7 +7483,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigMap(c *Client, i
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice flattens the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig{}
@@ -7495,7 +7495,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c *Client,
 
 	items := make([]PatchDeploymentPatchConfigPreStepLinuxExecStepConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7529,7 +7529,7 @@ func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, f *Pa
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig flattens an instance of PatchDeploymentPatchConfigPreStepLinuxExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, i interface{}) *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7541,7 +7541,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfig(c *Client, i in
 		return EmptyPatchDeploymentPatchConfigPreStepLinuxExecStepConfig
 	}
 	r.LocalPath = dcl.FlattenString(m["localPath"])
-	r.GcsObject = flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, m["gcsObject"])
+	r.GcsObject = flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, m["gcsObject"], res)
 	r.AllowedSuccessCodes = dcl.FlattenIntSlice(m["allowedSuccessCodes"])
 	r.Interpreter = flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum(m["interpreter"])
 
@@ -7591,7 +7591,7 @@ func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(c 
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap flattens the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject{}
@@ -7603,7 +7603,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap(c *
 
 	items := make(map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7611,7 +7611,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectMap(c *
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice flattens the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject{}
@@ -7623,7 +7623,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(c
 
 	items := make([]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7652,7 +7652,7 @@ func expandPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c *Clie
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject flattens an instance of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c *Client, i interface{}) *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7713,7 +7713,7 @@ func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(c *Client
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap flattens the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfig{}
@@ -7725,7 +7725,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap(c *Client,
 
 	items := make(map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfig)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7733,7 +7733,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigMap(c *Client,
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice flattens the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig{}
@@ -7745,7 +7745,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(c *Clien
 
 	items := make([]PatchDeploymentPatchConfigPreStepWindowsExecStepConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7779,7 +7779,7 @@ func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, f *
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig flattens an instance of PatchDeploymentPatchConfigPreStepWindowsExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, i interface{}) *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7791,7 +7791,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfig(c *Client, i 
 		return EmptyPatchDeploymentPatchConfigPreStepWindowsExecStepConfig
 	}
 	r.LocalPath = dcl.FlattenString(m["localPath"])
-	r.GcsObject = flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, m["gcsObject"])
+	r.GcsObject = flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, m["gcsObject"], res)
 	r.AllowedSuccessCodes = dcl.FlattenIntSlice(m["allowedSuccessCodes"])
 	r.Interpreter = flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum(m["interpreter"])
 
@@ -7841,7 +7841,7 @@ func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice(
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap flattens the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject{}
@@ -7853,7 +7853,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap(c
 
 	items := make(map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7861,7 +7861,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectMap(c
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice flattens the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject{}
@@ -7873,7 +7873,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice
 
 	items := make([]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7902,7 +7902,7 @@ func expandPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c *Cl
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject flattens an instance of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c *Client, i interface{}) *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7963,7 +7963,7 @@ func expandPatchDeploymentPatchConfigPostStepSlice(c *Client, f []PatchDeploymen
 
 // flattenPatchDeploymentPatchConfigPostStepMap flattens the contents of PatchDeploymentPatchConfigPostStep from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPostStep {
+func flattenPatchDeploymentPatchConfigPostStepMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPostStep {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPostStep{}
@@ -7975,7 +7975,7 @@ func flattenPatchDeploymentPatchConfigPostStepMap(c *Client, i interface{}) map[
 
 	items := make(map[string]PatchDeploymentPatchConfigPostStep)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPostStep(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPostStep(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7983,7 +7983,7 @@ func flattenPatchDeploymentPatchConfigPostStepMap(c *Client, i interface{}) map[
 
 // flattenPatchDeploymentPatchConfigPostStepSlice flattens the contents of PatchDeploymentPatchConfigPostStep from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPostStep {
+func flattenPatchDeploymentPatchConfigPostStepSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPostStep {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPostStep{}
@@ -7995,7 +7995,7 @@ func flattenPatchDeploymentPatchConfigPostStepSlice(c *Client, i interface{}) []
 
 	items := make([]PatchDeploymentPatchConfigPostStep, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPostStep(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPostStep(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8025,7 +8025,7 @@ func expandPatchDeploymentPatchConfigPostStep(c *Client, f *PatchDeploymentPatch
 
 // flattenPatchDeploymentPatchConfigPostStep flattens an instance of PatchDeploymentPatchConfigPostStep from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStep(c *Client, i interface{}) *PatchDeploymentPatchConfigPostStep {
+func flattenPatchDeploymentPatchConfigPostStep(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPostStep {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8036,8 +8036,8 @@ func flattenPatchDeploymentPatchConfigPostStep(c *Client, i interface{}) *PatchD
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyPatchDeploymentPatchConfigPostStep
 	}
-	r.LinuxExecStepConfig = flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, m["linuxExecStepConfig"])
-	r.WindowsExecStepConfig = flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, m["windowsExecStepConfig"])
+	r.LinuxExecStepConfig = flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, m["linuxExecStepConfig"], res)
+	r.WindowsExecStepConfig = flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, m["windowsExecStepConfig"], res)
 
 	return r
 }
@@ -8085,7 +8085,7 @@ func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c *Client,
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap flattens the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfig{}
@@ -8097,7 +8097,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap(c *Client, 
 
 	items := make(map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfig)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8105,7 +8105,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigMap(c *Client, 
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice flattens the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig{}
@@ -8117,7 +8117,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c *Client
 
 	items := make([]PatchDeploymentPatchConfigPostStepLinuxExecStepConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8151,7 +8151,7 @@ func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, f *P
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig flattens an instance of PatchDeploymentPatchConfigPostStepLinuxExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, i interface{}) *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8163,7 +8163,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfig(c *Client, i i
 		return EmptyPatchDeploymentPatchConfigPostStepLinuxExecStepConfig
 	}
 	r.LocalPath = dcl.FlattenString(m["localPath"])
-	r.GcsObject = flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, m["gcsObject"])
+	r.GcsObject = flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, m["gcsObject"], res)
 	r.AllowedSuccessCodes = dcl.FlattenIntSlice(m["allowedSuccessCodes"])
 	r.Interpreter = flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum(m["interpreter"])
 
@@ -8213,7 +8213,7 @@ func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(c
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap flattens the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject{}
@@ -8225,7 +8225,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap(c 
 
 	items := make(map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8233,7 +8233,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectMap(c 
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice flattens the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject{}
@@ -8245,7 +8245,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(
 
 	items := make([]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8274,7 +8274,7 @@ func expandPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c *Cli
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject flattens an instance of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c *Client, i interface{}) *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8335,7 +8335,7 @@ func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(c *Clien
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap flattens the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfig{}
@@ -8347,7 +8347,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap(c *Client
 
 	items := make(map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfig)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8355,7 +8355,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigMap(c *Client
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice flattens the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig{}
@@ -8367,7 +8367,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(c *Clie
 
 	items := make([]PatchDeploymentPatchConfigPostStepWindowsExecStepConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8401,7 +8401,7 @@ func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, f 
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig flattens an instance of PatchDeploymentPatchConfigPostStepWindowsExecStepConfig from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, i interface{}) *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8413,7 +8413,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfig(c *Client, i
 		return EmptyPatchDeploymentPatchConfigPostStepWindowsExecStepConfig
 	}
 	r.LocalPath = dcl.FlattenString(m["localPath"])
-	r.GcsObject = flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, m["gcsObject"])
+	r.GcsObject = flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, m["gcsObject"], res)
 	r.AllowedSuccessCodes = dcl.FlattenIntSlice(m["allowedSuccessCodes"])
 	r.Interpreter = flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum(m["interpreter"])
 
@@ -8463,7 +8463,7 @@ func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap flattens the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject{}
@@ -8475,7 +8475,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap(
 
 	items := make(map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8483,7 +8483,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectMap(
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice flattens the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject{}
@@ -8495,7 +8495,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlic
 
 	items := make([]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8524,7 +8524,7 @@ func expandPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c *C
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject flattens an instance of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c *Client, i interface{}) *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8585,7 +8585,7 @@ func expandPatchDeploymentPatchConfigRetryStrategySlice(c *Client, f []PatchDepl
 
 // flattenPatchDeploymentPatchConfigRetryStrategyMap flattens the contents of PatchDeploymentPatchConfigRetryStrategy from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigRetryStrategyMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigRetryStrategy {
+func flattenPatchDeploymentPatchConfigRetryStrategyMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigRetryStrategy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigRetryStrategy{}
@@ -8597,7 +8597,7 @@ func flattenPatchDeploymentPatchConfigRetryStrategyMap(c *Client, i interface{})
 
 	items := make(map[string]PatchDeploymentPatchConfigRetryStrategy)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentPatchConfigRetryStrategy(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentPatchConfigRetryStrategy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8605,7 +8605,7 @@ func flattenPatchDeploymentPatchConfigRetryStrategyMap(c *Client, i interface{})
 
 // flattenPatchDeploymentPatchConfigRetryStrategySlice flattens the contents of PatchDeploymentPatchConfigRetryStrategy from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigRetryStrategySlice(c *Client, i interface{}) []PatchDeploymentPatchConfigRetryStrategy {
+func flattenPatchDeploymentPatchConfigRetryStrategySlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigRetryStrategy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigRetryStrategy{}
@@ -8617,7 +8617,7 @@ func flattenPatchDeploymentPatchConfigRetryStrategySlice(c *Client, i interface{
 
 	items := make([]PatchDeploymentPatchConfigRetryStrategy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentPatchConfigRetryStrategy(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentPatchConfigRetryStrategy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8640,7 +8640,7 @@ func expandPatchDeploymentPatchConfigRetryStrategy(c *Client, f *PatchDeployment
 
 // flattenPatchDeploymentPatchConfigRetryStrategy flattens an instance of PatchDeploymentPatchConfigRetryStrategy from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigRetryStrategy(c *Client, i interface{}) *PatchDeploymentPatchConfigRetryStrategy {
+func flattenPatchDeploymentPatchConfigRetryStrategy(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentPatchConfigRetryStrategy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8699,7 +8699,7 @@ func expandPatchDeploymentOneTimeScheduleSlice(c *Client, f []PatchDeploymentOne
 
 // flattenPatchDeploymentOneTimeScheduleMap flattens the contents of PatchDeploymentOneTimeSchedule from a JSON
 // response object.
-func flattenPatchDeploymentOneTimeScheduleMap(c *Client, i interface{}) map[string]PatchDeploymentOneTimeSchedule {
+func flattenPatchDeploymentOneTimeScheduleMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentOneTimeSchedule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentOneTimeSchedule{}
@@ -8711,7 +8711,7 @@ func flattenPatchDeploymentOneTimeScheduleMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]PatchDeploymentOneTimeSchedule)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentOneTimeSchedule(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentOneTimeSchedule(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8719,7 +8719,7 @@ func flattenPatchDeploymentOneTimeScheduleMap(c *Client, i interface{}) map[stri
 
 // flattenPatchDeploymentOneTimeScheduleSlice flattens the contents of PatchDeploymentOneTimeSchedule from a JSON
 // response object.
-func flattenPatchDeploymentOneTimeScheduleSlice(c *Client, i interface{}) []PatchDeploymentOneTimeSchedule {
+func flattenPatchDeploymentOneTimeScheduleSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentOneTimeSchedule {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentOneTimeSchedule{}
@@ -8731,7 +8731,7 @@ func flattenPatchDeploymentOneTimeScheduleSlice(c *Client, i interface{}) []Patc
 
 	items := make([]PatchDeploymentOneTimeSchedule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentOneTimeSchedule(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentOneTimeSchedule(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8754,7 +8754,7 @@ func expandPatchDeploymentOneTimeSchedule(c *Client, f *PatchDeploymentOneTimeSc
 
 // flattenPatchDeploymentOneTimeSchedule flattens an instance of PatchDeploymentOneTimeSchedule from a JSON
 // response object.
-func flattenPatchDeploymentOneTimeSchedule(c *Client, i interface{}) *PatchDeploymentOneTimeSchedule {
+func flattenPatchDeploymentOneTimeSchedule(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentOneTimeSchedule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8813,7 +8813,7 @@ func expandPatchDeploymentRecurringScheduleSlice(c *Client, f []PatchDeploymentR
 
 // flattenPatchDeploymentRecurringScheduleMap flattens the contents of PatchDeploymentRecurringSchedule from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringSchedule {
+func flattenPatchDeploymentRecurringScheduleMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringSchedule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringSchedule{}
@@ -8825,7 +8825,7 @@ func flattenPatchDeploymentRecurringScheduleMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]PatchDeploymentRecurringSchedule)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRecurringSchedule(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRecurringSchedule(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8833,7 +8833,7 @@ func flattenPatchDeploymentRecurringScheduleMap(c *Client, i interface{}) map[st
 
 // flattenPatchDeploymentRecurringScheduleSlice flattens the contents of PatchDeploymentRecurringSchedule from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleSlice(c *Client, i interface{}) []PatchDeploymentRecurringSchedule {
+func flattenPatchDeploymentRecurringScheduleSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringSchedule {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringSchedule{}
@@ -8845,7 +8845,7 @@ func flattenPatchDeploymentRecurringScheduleSlice(c *Client, i interface{}) []Pa
 
 	items := make([]PatchDeploymentRecurringSchedule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRecurringSchedule(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRecurringSchedule(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8894,7 +8894,7 @@ func expandPatchDeploymentRecurringSchedule(c *Client, f *PatchDeploymentRecurri
 
 // flattenPatchDeploymentRecurringSchedule flattens an instance of PatchDeploymentRecurringSchedule from a JSON
 // response object.
-func flattenPatchDeploymentRecurringSchedule(c *Client, i interface{}) *PatchDeploymentRecurringSchedule {
+func flattenPatchDeploymentRecurringSchedule(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRecurringSchedule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8905,13 +8905,13 @@ func flattenPatchDeploymentRecurringSchedule(c *Client, i interface{}) *PatchDep
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyPatchDeploymentRecurringSchedule
 	}
-	r.TimeZone = flattenPatchDeploymentRecurringScheduleTimeZone(c, m["timeZone"])
+	r.TimeZone = flattenPatchDeploymentRecurringScheduleTimeZone(c, m["timeZone"], res)
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.EndTime = dcl.FlattenString(m["endTime"])
-	r.TimeOfDay = flattenPatchDeploymentRecurringScheduleTimeOfDay(c, m["timeOfDay"])
+	r.TimeOfDay = flattenPatchDeploymentRecurringScheduleTimeOfDay(c, m["timeOfDay"], res)
 	r.Frequency = flattenPatchDeploymentRecurringScheduleFrequencyEnum(m["frequency"])
-	r.Weekly = flattenPatchDeploymentRecurringScheduleWeekly(c, m["weekly"])
-	r.Monthly = flattenPatchDeploymentRecurringScheduleMonthly(c, m["monthly"])
+	r.Weekly = flattenPatchDeploymentRecurringScheduleWeekly(c, m["weekly"], res)
+	r.Monthly = flattenPatchDeploymentRecurringScheduleMonthly(c, m["monthly"], res)
 	r.LastExecuteTime = dcl.FlattenString(m["lastExecuteTime"])
 	r.NextExecuteTime = dcl.FlattenString(m["nextExecuteTime"])
 
@@ -8961,7 +8961,7 @@ func expandPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, f []PatchDep
 
 // flattenPatchDeploymentRecurringScheduleTimeZoneMap flattens the contents of PatchDeploymentRecurringScheduleTimeZone from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleTimeZoneMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleTimeZone {
+func flattenPatchDeploymentRecurringScheduleTimeZoneMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleTimeZone {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleTimeZone{}
@@ -8973,7 +8973,7 @@ func flattenPatchDeploymentRecurringScheduleTimeZoneMap(c *Client, i interface{}
 
 	items := make(map[string]PatchDeploymentRecurringScheduleTimeZone)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRecurringScheduleTimeZone(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRecurringScheduleTimeZone(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8981,7 +8981,7 @@ func flattenPatchDeploymentRecurringScheduleTimeZoneMap(c *Client, i interface{}
 
 // flattenPatchDeploymentRecurringScheduleTimeZoneSlice flattens the contents of PatchDeploymentRecurringScheduleTimeZone from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleTimeZone {
+func flattenPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleTimeZone {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleTimeZone{}
@@ -8993,7 +8993,7 @@ func flattenPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, i interface
 
 	items := make([]PatchDeploymentRecurringScheduleTimeZone, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRecurringScheduleTimeZone(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRecurringScheduleTimeZone(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9019,7 +9019,7 @@ func expandPatchDeploymentRecurringScheduleTimeZone(c *Client, f *PatchDeploymen
 
 // flattenPatchDeploymentRecurringScheduleTimeZone flattens an instance of PatchDeploymentRecurringScheduleTimeZone from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleTimeZone(c *Client, i interface{}) *PatchDeploymentRecurringScheduleTimeZone {
+func flattenPatchDeploymentRecurringScheduleTimeZone(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRecurringScheduleTimeZone {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9079,7 +9079,7 @@ func expandPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, f []PatchDe
 
 // flattenPatchDeploymentRecurringScheduleTimeOfDayMap flattens the contents of PatchDeploymentRecurringScheduleTimeOfDay from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleTimeOfDayMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleTimeOfDay {
+func flattenPatchDeploymentRecurringScheduleTimeOfDayMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleTimeOfDay {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleTimeOfDay{}
@@ -9091,7 +9091,7 @@ func flattenPatchDeploymentRecurringScheduleTimeOfDayMap(c *Client, i interface{
 
 	items := make(map[string]PatchDeploymentRecurringScheduleTimeOfDay)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRecurringScheduleTimeOfDay(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRecurringScheduleTimeOfDay(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9099,7 +9099,7 @@ func flattenPatchDeploymentRecurringScheduleTimeOfDayMap(c *Client, i interface{
 
 // flattenPatchDeploymentRecurringScheduleTimeOfDaySlice flattens the contents of PatchDeploymentRecurringScheduleTimeOfDay from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleTimeOfDay {
+func flattenPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleTimeOfDay {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleTimeOfDay{}
@@ -9111,7 +9111,7 @@ func flattenPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, i interfac
 
 	items := make([]PatchDeploymentRecurringScheduleTimeOfDay, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRecurringScheduleTimeOfDay(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRecurringScheduleTimeOfDay(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9143,7 +9143,7 @@ func expandPatchDeploymentRecurringScheduleTimeOfDay(c *Client, f *PatchDeployme
 
 // flattenPatchDeploymentRecurringScheduleTimeOfDay flattens an instance of PatchDeploymentRecurringScheduleTimeOfDay from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleTimeOfDay(c *Client, i interface{}) *PatchDeploymentRecurringScheduleTimeOfDay {
+func flattenPatchDeploymentRecurringScheduleTimeOfDay(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRecurringScheduleTimeOfDay {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9205,7 +9205,7 @@ func expandPatchDeploymentRecurringScheduleWeeklySlice(c *Client, f []PatchDeplo
 
 // flattenPatchDeploymentRecurringScheduleWeeklyMap flattens the contents of PatchDeploymentRecurringScheduleWeekly from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleWeeklyMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleWeekly {
+func flattenPatchDeploymentRecurringScheduleWeeklyMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleWeekly {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleWeekly{}
@@ -9217,7 +9217,7 @@ func flattenPatchDeploymentRecurringScheduleWeeklyMap(c *Client, i interface{}) 
 
 	items := make(map[string]PatchDeploymentRecurringScheduleWeekly)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRecurringScheduleWeekly(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRecurringScheduleWeekly(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9225,7 +9225,7 @@ func flattenPatchDeploymentRecurringScheduleWeeklyMap(c *Client, i interface{}) 
 
 // flattenPatchDeploymentRecurringScheduleWeeklySlice flattens the contents of PatchDeploymentRecurringScheduleWeekly from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleWeeklySlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleWeekly {
+func flattenPatchDeploymentRecurringScheduleWeeklySlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleWeekly {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleWeekly{}
@@ -9237,7 +9237,7 @@ func flattenPatchDeploymentRecurringScheduleWeeklySlice(c *Client, i interface{}
 
 	items := make([]PatchDeploymentRecurringScheduleWeekly, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRecurringScheduleWeekly(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRecurringScheduleWeekly(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9260,7 +9260,7 @@ func expandPatchDeploymentRecurringScheduleWeekly(c *Client, f *PatchDeploymentR
 
 // flattenPatchDeploymentRecurringScheduleWeekly flattens an instance of PatchDeploymentRecurringScheduleWeekly from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleWeekly(c *Client, i interface{}) *PatchDeploymentRecurringScheduleWeekly {
+func flattenPatchDeploymentRecurringScheduleWeekly(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRecurringScheduleWeekly {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9319,7 +9319,7 @@ func expandPatchDeploymentRecurringScheduleMonthlySlice(c *Client, f []PatchDepl
 
 // flattenPatchDeploymentRecurringScheduleMonthlyMap flattens the contents of PatchDeploymentRecurringScheduleMonthly from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthlyMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleMonthly {
+func flattenPatchDeploymentRecurringScheduleMonthlyMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleMonthly {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleMonthly{}
@@ -9331,7 +9331,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyMap(c *Client, i interface{})
 
 	items := make(map[string]PatchDeploymentRecurringScheduleMonthly)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRecurringScheduleMonthly(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRecurringScheduleMonthly(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9339,7 +9339,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyMap(c *Client, i interface{})
 
 // flattenPatchDeploymentRecurringScheduleMonthlySlice flattens the contents of PatchDeploymentRecurringScheduleMonthly from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthlySlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleMonthly {
+func flattenPatchDeploymentRecurringScheduleMonthlySlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleMonthly {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleMonthly{}
@@ -9351,7 +9351,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlySlice(c *Client, i interface{
 
 	items := make([]PatchDeploymentRecurringScheduleMonthly, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRecurringScheduleMonthly(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRecurringScheduleMonthly(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9379,7 +9379,7 @@ func expandPatchDeploymentRecurringScheduleMonthly(c *Client, f *PatchDeployment
 
 // flattenPatchDeploymentRecurringScheduleMonthly flattens an instance of PatchDeploymentRecurringScheduleMonthly from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthly(c *Client, i interface{}) *PatchDeploymentRecurringScheduleMonthly {
+func flattenPatchDeploymentRecurringScheduleMonthly(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRecurringScheduleMonthly {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9390,7 +9390,7 @@ func flattenPatchDeploymentRecurringScheduleMonthly(c *Client, i interface{}) *P
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyPatchDeploymentRecurringScheduleMonthly
 	}
-	r.WeekDayOfMonth = flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, m["weekDayOfMonth"])
+	r.WeekDayOfMonth = flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, m["weekDayOfMonth"], res)
 	r.MonthDay = dcl.FlattenInteger(m["monthDay"])
 
 	return r
@@ -9439,7 +9439,7 @@ func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c *Client,
 
 // flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap flattens the contents of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
+func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth{}
@@ -9451,7 +9451,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap(c *Client, 
 
 	items := make(map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9459,7 +9459,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthMap(c *Client, 
 
 // flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice flattens the contents of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
+func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth{}
@@ -9471,7 +9471,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c *Client
 
 	items := make([]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9497,7 +9497,7 @@ func expandPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c *Client, f *P
 
 // flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth flattens an instance of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c *Client, i interface{}) *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
+func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9557,7 +9557,7 @@ func expandPatchDeploymentRolloutSlice(c *Client, f []PatchDeploymentRollout, re
 
 // flattenPatchDeploymentRolloutMap flattens the contents of PatchDeploymentRollout from a JSON
 // response object.
-func flattenPatchDeploymentRolloutMap(c *Client, i interface{}) map[string]PatchDeploymentRollout {
+func flattenPatchDeploymentRolloutMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRollout {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRollout{}
@@ -9569,7 +9569,7 @@ func flattenPatchDeploymentRolloutMap(c *Client, i interface{}) map[string]Patch
 
 	items := make(map[string]PatchDeploymentRollout)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRollout(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRollout(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9577,7 +9577,7 @@ func flattenPatchDeploymentRolloutMap(c *Client, i interface{}) map[string]Patch
 
 // flattenPatchDeploymentRolloutSlice flattens the contents of PatchDeploymentRollout from a JSON
 // response object.
-func flattenPatchDeploymentRolloutSlice(c *Client, i interface{}) []PatchDeploymentRollout {
+func flattenPatchDeploymentRolloutSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRollout {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRollout{}
@@ -9589,7 +9589,7 @@ func flattenPatchDeploymentRolloutSlice(c *Client, i interface{}) []PatchDeploym
 
 	items := make([]PatchDeploymentRollout, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRollout(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRollout(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9617,7 +9617,7 @@ func expandPatchDeploymentRollout(c *Client, f *PatchDeploymentRollout, res *Pat
 
 // flattenPatchDeploymentRollout flattens an instance of PatchDeploymentRollout from a JSON
 // response object.
-func flattenPatchDeploymentRollout(c *Client, i interface{}) *PatchDeploymentRollout {
+func flattenPatchDeploymentRollout(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRollout {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9629,7 +9629,7 @@ func flattenPatchDeploymentRollout(c *Client, i interface{}) *PatchDeploymentRol
 		return EmptyPatchDeploymentRollout
 	}
 	r.Mode = flattenPatchDeploymentRolloutModeEnum(m["mode"])
-	r.DisruptionBudget = flattenPatchDeploymentRolloutDisruptionBudget(c, m["disruptionBudget"])
+	r.DisruptionBudget = flattenPatchDeploymentRolloutDisruptionBudget(c, m["disruptionBudget"], res)
 
 	return r
 }
@@ -9677,7 +9677,7 @@ func expandPatchDeploymentRolloutDisruptionBudgetSlice(c *Client, f []PatchDeplo
 
 // flattenPatchDeploymentRolloutDisruptionBudgetMap flattens the contents of PatchDeploymentRolloutDisruptionBudget from a JSON
 // response object.
-func flattenPatchDeploymentRolloutDisruptionBudgetMap(c *Client, i interface{}) map[string]PatchDeploymentRolloutDisruptionBudget {
+func flattenPatchDeploymentRolloutDisruptionBudgetMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRolloutDisruptionBudget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRolloutDisruptionBudget{}
@@ -9689,7 +9689,7 @@ func flattenPatchDeploymentRolloutDisruptionBudgetMap(c *Client, i interface{}) 
 
 	items := make(map[string]PatchDeploymentRolloutDisruptionBudget)
 	for k, item := range a {
-		items[k] = *flattenPatchDeploymentRolloutDisruptionBudget(c, item.(map[string]interface{}))
+		items[k] = *flattenPatchDeploymentRolloutDisruptionBudget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9697,7 +9697,7 @@ func flattenPatchDeploymentRolloutDisruptionBudgetMap(c *Client, i interface{}) 
 
 // flattenPatchDeploymentRolloutDisruptionBudgetSlice flattens the contents of PatchDeploymentRolloutDisruptionBudget from a JSON
 // response object.
-func flattenPatchDeploymentRolloutDisruptionBudgetSlice(c *Client, i interface{}) []PatchDeploymentRolloutDisruptionBudget {
+func flattenPatchDeploymentRolloutDisruptionBudgetSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRolloutDisruptionBudget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRolloutDisruptionBudget{}
@@ -9709,7 +9709,7 @@ func flattenPatchDeploymentRolloutDisruptionBudgetSlice(c *Client, i interface{}
 
 	items := make([]PatchDeploymentRolloutDisruptionBudget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPatchDeploymentRolloutDisruptionBudget(c, item.(map[string]interface{})))
+		items = append(items, *flattenPatchDeploymentRolloutDisruptionBudget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9735,7 +9735,7 @@ func expandPatchDeploymentRolloutDisruptionBudget(c *Client, f *PatchDeploymentR
 
 // flattenPatchDeploymentRolloutDisruptionBudget flattens an instance of PatchDeploymentRolloutDisruptionBudget from a JSON
 // response object.
-func flattenPatchDeploymentRolloutDisruptionBudget(c *Client, i interface{}) *PatchDeploymentRolloutDisruptionBudget {
+func flattenPatchDeploymentRolloutDisruptionBudget(c *Client, i interface{}, res *PatchDeployment) *PatchDeploymentRolloutDisruptionBudget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9754,7 +9754,7 @@ func flattenPatchDeploymentRolloutDisruptionBudget(c *Client, i interface{}) *Pa
 
 // flattenPatchDeploymentPatchConfigRebootConfigEnumMap flattens the contents of PatchDeploymentPatchConfigRebootConfigEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigRebootConfigEnumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigRebootConfigEnum {
+func flattenPatchDeploymentPatchConfigRebootConfigEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigRebootConfigEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigRebootConfigEnum{}
@@ -9774,7 +9774,7 @@ func flattenPatchDeploymentPatchConfigRebootConfigEnumMap(c *Client, i interface
 
 // flattenPatchDeploymentPatchConfigRebootConfigEnumSlice flattens the contents of PatchDeploymentPatchConfigRebootConfigEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigRebootConfigEnumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigRebootConfigEnum {
+func flattenPatchDeploymentPatchConfigRebootConfigEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigRebootConfigEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigRebootConfigEnum{}
@@ -9805,7 +9805,7 @@ func flattenPatchDeploymentPatchConfigRebootConfigEnum(i interface{}) *PatchDepl
 
 // flattenPatchDeploymentPatchConfigAptTypeEnumMap flattens the contents of PatchDeploymentPatchConfigAptTypeEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigAptTypeEnumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigAptTypeEnum {
+func flattenPatchDeploymentPatchConfigAptTypeEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigAptTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigAptTypeEnum{}
@@ -9825,7 +9825,7 @@ func flattenPatchDeploymentPatchConfigAptTypeEnumMap(c *Client, i interface{}) m
 
 // flattenPatchDeploymentPatchConfigAptTypeEnumSlice flattens the contents of PatchDeploymentPatchConfigAptTypeEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigAptTypeEnumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigAptTypeEnum {
+func flattenPatchDeploymentPatchConfigAptTypeEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigAptTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigAptTypeEnum{}
@@ -9856,7 +9856,7 @@ func flattenPatchDeploymentPatchConfigAptTypeEnum(i interface{}) *PatchDeploymen
 
 // flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumMap flattens the contents of PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum {
+func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum{}
@@ -9876,7 +9876,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumMap(c *Cli
 
 // flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumSlice flattens the contents of PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum {
+func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum{}
@@ -9907,7 +9907,7 @@ func flattenPatchDeploymentPatchConfigWindowsUpdateClassificationsEnum(i interfa
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumMap flattens the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum{}
@@ -9927,7 +9927,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumM
 
 // flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumSlice flattens the contents of PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum{}
@@ -9958,7 +9958,7 @@ func flattenPatchDeploymentPatchConfigPreStepLinuxExecStepConfigInterpreterEnum(
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumMap flattens the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum{}
@@ -9978,7 +9978,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnu
 
 // flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumSlice flattens the contents of PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnum{}
@@ -10009,7 +10009,7 @@ func flattenPatchDeploymentPatchConfigPreStepWindowsExecStepConfigInterpreterEnu
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumMap flattens the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum{}
@@ -10029,7 +10029,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum
 
 // flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumSlice flattens the contents of PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum{}
@@ -10060,7 +10060,7 @@ func flattenPatchDeploymentPatchConfigPostStepLinuxExecStepConfigInterpreterEnum
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumMap flattens the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumMap(c *Client, i interface{}) map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum{}
@@ -10080,7 +10080,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEn
 
 // flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumSlice flattens the contents of PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum from a JSON
 // response object.
-func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumSlice(c *Client, i interface{}) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum {
+func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEnum{}
@@ -10111,7 +10111,7 @@ func flattenPatchDeploymentPatchConfigPostStepWindowsExecStepConfigInterpreterEn
 
 // flattenPatchDeploymentRecurringScheduleFrequencyEnumMap flattens the contents of PatchDeploymentRecurringScheduleFrequencyEnum from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleFrequencyEnumMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleFrequencyEnum {
+func flattenPatchDeploymentRecurringScheduleFrequencyEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleFrequencyEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleFrequencyEnum{}
@@ -10131,7 +10131,7 @@ func flattenPatchDeploymentRecurringScheduleFrequencyEnumMap(c *Client, i interf
 
 // flattenPatchDeploymentRecurringScheduleFrequencyEnumSlice flattens the contents of PatchDeploymentRecurringScheduleFrequencyEnum from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleFrequencyEnumSlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleFrequencyEnum {
+func flattenPatchDeploymentRecurringScheduleFrequencyEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleFrequencyEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleFrequencyEnum{}
@@ -10162,7 +10162,7 @@ func flattenPatchDeploymentRecurringScheduleFrequencyEnum(i interface{}) *PatchD
 
 // flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumMap flattens the contents of PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum {
+func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum{}
@@ -10182,7 +10182,7 @@ func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumMap(c *Client, i 
 
 // flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumSlice flattens the contents of PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumSlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum {
+func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum{}
@@ -10213,7 +10213,7 @@ func flattenPatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum(i interface{}) *
 
 // flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumMap flattens the contents of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumMap(c *Client, i interface{}) map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum {
+func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum{}
@@ -10233,7 +10233,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumMa
 
 // flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumSlice flattens the contents of PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum from a JSON
 // response object.
-func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumSlice(c *Client, i interface{}) []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum {
+func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum{}
@@ -10264,7 +10264,7 @@ func flattenPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthDayOfWeekEnum(i
 
 // flattenPatchDeploymentRolloutModeEnumMap flattens the contents of PatchDeploymentRolloutModeEnum from a JSON
 // response object.
-func flattenPatchDeploymentRolloutModeEnumMap(c *Client, i interface{}) map[string]PatchDeploymentRolloutModeEnum {
+func flattenPatchDeploymentRolloutModeEnumMap(c *Client, i interface{}, res *PatchDeployment) map[string]PatchDeploymentRolloutModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PatchDeploymentRolloutModeEnum{}
@@ -10284,7 +10284,7 @@ func flattenPatchDeploymentRolloutModeEnumMap(c *Client, i interface{}) map[stri
 
 // flattenPatchDeploymentRolloutModeEnumSlice flattens the contents of PatchDeploymentRolloutModeEnum from a JSON
 // response object.
-func flattenPatchDeploymentRolloutModeEnumSlice(c *Client, i interface{}) []PatchDeploymentRolloutModeEnum {
+func flattenPatchDeploymentRolloutModeEnumSlice(c *Client, i interface{}, res *PatchDeployment) []PatchDeploymentRolloutModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PatchDeploymentRolloutModeEnum{}
@@ -10318,7 +10318,7 @@ func flattenPatchDeploymentRolloutModeEnum(i interface{}) *PatchDeploymentRollou
 // identity).  This is useful in extracting the element from a List call.
 func (r *PatchDeployment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalPatchDeployment(b, c)
+		cr, err := unmarshalPatchDeployment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -131,7 +131,7 @@ func (c *Client) listInstance(ctx context.Context, r *Instance, pageToken string
 
 	var l []*Instance
 	for _, v := range m.Instances {
-		res, err := unmarshalMapInstance(v, c)
+		res, err := unmarshalMapInstance(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -612,17 +612,17 @@ func (r *Instance) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInstance decodes JSON responses into the Instance resource schema.
-func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
+func unmarshalInstance(b []byte, c *Client, res *Instance) (*Instance, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInstance(m, c)
+	return unmarshalMapInstance(m, c, res)
 }
 
-func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
+func unmarshalMapInstance(m map[string]interface{}, c *Client, res *Instance) (*Instance, error) {
 
-	flattened := flattenInstance(c, m)
+	flattened := flattenInstance(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -663,7 +663,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 
 // flattenInstance flattens Instance from a JSON request object into the
 // Instance type.
-func flattenInstance(c *Client, i interface{}) *Instance {
+func flattenInstance(c *Client, i interface{}, res *Instance) *Instance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -672,26 +672,26 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 		return nil
 	}
 
-	res := &Instance{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.PeeringCidrRange = flattenInstancePeeringCidrRangeEnum(m["peeringCidrRange"])
-	res.Host = dcl.FlattenString(m["host"])
-	res.Port = dcl.FlattenString(m["port"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.CreatedAt = dcl.FlattenInteger(m["createdAt"])
-	res.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
-	res.DiskEncryptionKeyName = dcl.FlattenString(m["diskEncryptionKeyName"])
-	res.State = flattenInstanceStateEnum(m["state"])
-	res.ApigeeOrganization = dcl.FlattenString(m["apigeeOrganization"])
+	resultRes := &Instance{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.PeeringCidrRange = flattenInstancePeeringCidrRangeEnum(m["peeringCidrRange"])
+	resultRes.Host = dcl.FlattenString(m["host"])
+	resultRes.Port = dcl.FlattenString(m["port"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.CreatedAt = dcl.FlattenInteger(m["createdAt"])
+	resultRes.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
+	resultRes.DiskEncryptionKeyName = dcl.FlattenString(m["diskEncryptionKeyName"])
+	resultRes.State = flattenInstanceStateEnum(m["state"])
+	resultRes.ApigeeOrganization = dcl.FlattenString(m["apigeeOrganization"])
 
-	return res
+	return resultRes
 }
 
 // flattenInstancePeeringCidrRangeEnumMap flattens the contents of InstancePeeringCidrRangeEnum from a JSON
 // response object.
-func flattenInstancePeeringCidrRangeEnumMap(c *Client, i interface{}) map[string]InstancePeeringCidrRangeEnum {
+func flattenInstancePeeringCidrRangeEnumMap(c *Client, i interface{}, res *Instance) map[string]InstancePeeringCidrRangeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstancePeeringCidrRangeEnum{}
@@ -711,7 +711,7 @@ func flattenInstancePeeringCidrRangeEnumMap(c *Client, i interface{}) map[string
 
 // flattenInstancePeeringCidrRangeEnumSlice flattens the contents of InstancePeeringCidrRangeEnum from a JSON
 // response object.
-func flattenInstancePeeringCidrRangeEnumSlice(c *Client, i interface{}) []InstancePeeringCidrRangeEnum {
+func flattenInstancePeeringCidrRangeEnumSlice(c *Client, i interface{}, res *Instance) []InstancePeeringCidrRangeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstancePeeringCidrRangeEnum{}
@@ -742,7 +742,7 @@ func flattenInstancePeeringCidrRangeEnum(i interface{}) *InstancePeeringCidrRang
 
 // flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+func flattenInstanceStateEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceStateEnum{}
@@ -762,7 +762,7 @@ func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceSt
 
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
+func flattenInstanceStateEnumSlice(c *Client, i interface{}, res *Instance) []InstanceStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceStateEnum{}
@@ -796,7 +796,7 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Instance) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInstance(b, c)
+		cr, err := unmarshalInstance(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

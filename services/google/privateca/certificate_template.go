@@ -862,7 +862,7 @@ func (c *Client) GetCertificateTemplate(ctx context.Context, r *CertificateTempl
 		}
 		return nil, err
 	}
-	result, err := unmarshalCertificateTemplate(b, c)
+	result, err := unmarshalCertificateTemplate(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1032,7 +1032,7 @@ func applyCertificateTemplateDiff(c *Client, ctx context.Context, desired *Certi
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapCertificateTemplate(r, c)
+				fullResp, err := unmarshalMapCertificateTemplate(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

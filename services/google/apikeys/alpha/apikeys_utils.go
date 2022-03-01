@@ -86,7 +86,7 @@ func (c *Client) GetKey(ctx context.Context, r *Key) (*Key, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalKey(b, c)
+	result, err := unmarshalKey(b, c, r)
 	if err != nil {
 		return nil, err
 	}

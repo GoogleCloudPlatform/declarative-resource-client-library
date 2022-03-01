@@ -190,6 +190,7 @@ func ProtoToGrpcRoute(p *alphapb.NetworkservicesAlphaGrpcRoute) *alpha.GrpcRoute
 		Description: dcl.StringOrNil(p.GetDescription()),
 		Project:     dcl.StringOrNil(p.GetProject()),
 		Location:    dcl.StringOrNil(p.GetLocation()),
+		SelfLink:    dcl.StringOrNil(p.GetSelfLink()),
 	}
 	for _, r := range p.GetHostnames() {
 		obj.Hostnames = append(obj.Hostnames, r)
@@ -371,6 +372,7 @@ func GrpcRouteToProto(resource *alpha.GrpcRoute) *alphapb.NetworkservicesAlphaGr
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r

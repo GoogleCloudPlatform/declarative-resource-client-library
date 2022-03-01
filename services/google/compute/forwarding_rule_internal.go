@@ -401,7 +401,7 @@ func (c *Client) listForwardingRule(ctx context.Context, r *ForwardingRule, page
 
 	var l []*ForwardingRule
 	for _, v := range m.Items {
-		res, err := unmarshalMapForwardingRule(v, c)
+		res, err := unmarshalMapForwardingRule(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1521,17 +1521,17 @@ func (r *ForwardingRule) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalForwardingRule decodes JSON responses into the ForwardingRule resource schema.
-func unmarshalForwardingRule(b []byte, c *Client) (*ForwardingRule, error) {
+func unmarshalForwardingRule(b []byte, c *Client, res *ForwardingRule) (*ForwardingRule, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapForwardingRule(m, c)
+	return unmarshalMapForwardingRule(m, c, res)
 }
 
-func unmarshalMapForwardingRule(m map[string]interface{}, c *Client) (*ForwardingRule, error) {
+func unmarshalMapForwardingRule(m map[string]interface{}, c *Client, res *ForwardingRule) (*ForwardingRule, error) {
 
-	flattened := flattenForwardingRule(c, m)
+	flattened := flattenForwardingRule(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1629,7 +1629,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 
 // flattenForwardingRule flattens ForwardingRule from a JSON request object into the
 // ForwardingRule type.
-func flattenForwardingRule(c *Client, i interface{}) *ForwardingRule {
+func flattenForwardingRule(c *Client, i interface{}, res *ForwardingRule) *ForwardingRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1638,35 +1638,35 @@ func flattenForwardingRule(c *Client, i interface{}) *ForwardingRule {
 		return nil
 	}
 
-	res := &ForwardingRule{}
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.AllPorts = dcl.FlattenBool(m["allPorts"])
-	res.AllowGlobalAccess = dcl.FlattenBool(m["allowGlobalAccess"])
-	res.LabelFingerprint = dcl.FlattenString(m["labelFingerprint"])
-	res.BackendService = dcl.FlattenString(m["backendService"])
-	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.IPAddress = dcl.FlattenString(m["IPAddress"])
-	res.IPProtocol = flattenForwardingRuleIPProtocolEnum(m["IPProtocol"])
-	res.IPVersion = flattenForwardingRuleIPVersionEnum(m["ipVersion"])
-	res.IsMirroringCollector = dcl.FlattenBool(m["isMirroringCollector"])
-	res.LoadBalancingScheme = flattenForwardingRuleLoadBalancingSchemeEnum(m["loadBalancingScheme"])
-	res.MetadataFilter = flattenForwardingRuleMetadataFilterSlice(c, m["metadataFilters"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Network = dcl.FlattenString(m["network"])
-	res.NetworkTier = flattenForwardingRuleNetworkTierEnum(m["networkTier"])
-	res.PortRange = dcl.FlattenString(m["portRange"])
-	res.Ports = dcl.FlattenStringSlice(m["ports"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.ServiceLabel = dcl.FlattenString(m["serviceLabel"])
-	res.ServiceName = dcl.FlattenString(m["serviceName"])
-	res.Subnetwork = dcl.FlattenString(m["subnetwork"])
-	res.Target = dcl.FlattenString(m["target"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &ForwardingRule{}
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.AllPorts = dcl.FlattenBool(m["allPorts"])
+	resultRes.AllowGlobalAccess = dcl.FlattenBool(m["allowGlobalAccess"])
+	resultRes.LabelFingerprint = dcl.FlattenString(m["labelFingerprint"])
+	resultRes.BackendService = dcl.FlattenString(m["backendService"])
+	resultRes.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.IPAddress = dcl.FlattenString(m["IPAddress"])
+	resultRes.IPProtocol = flattenForwardingRuleIPProtocolEnum(m["IPProtocol"])
+	resultRes.IPVersion = flattenForwardingRuleIPVersionEnum(m["ipVersion"])
+	resultRes.IsMirroringCollector = dcl.FlattenBool(m["isMirroringCollector"])
+	resultRes.LoadBalancingScheme = flattenForwardingRuleLoadBalancingSchemeEnum(m["loadBalancingScheme"])
+	resultRes.MetadataFilter = flattenForwardingRuleMetadataFilterSlice(c, m["metadataFilters"], res)
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Network = dcl.FlattenString(m["network"])
+	resultRes.NetworkTier = flattenForwardingRuleNetworkTierEnum(m["networkTier"])
+	resultRes.PortRange = dcl.FlattenString(m["portRange"])
+	resultRes.Ports = dcl.FlattenStringSlice(m["ports"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.ServiceLabel = dcl.FlattenString(m["serviceLabel"])
+	resultRes.ServiceName = dcl.FlattenString(m["serviceName"])
+	resultRes.Subnetwork = dcl.FlattenString(m["subnetwork"])
+	resultRes.Target = dcl.FlattenString(m["target"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandForwardingRuleMetadataFilterMap expands the contents of ForwardingRuleMetadataFilter into a JSON
@@ -1712,7 +1712,7 @@ func expandForwardingRuleMetadataFilterSlice(c *Client, f []ForwardingRuleMetada
 
 // flattenForwardingRuleMetadataFilterMap flattens the contents of ForwardingRuleMetadataFilter from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilterMap(c *Client, i interface{}) map[string]ForwardingRuleMetadataFilter {
+func flattenForwardingRuleMetadataFilterMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleMetadataFilter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ForwardingRuleMetadataFilter{}
@@ -1724,7 +1724,7 @@ func flattenForwardingRuleMetadataFilterMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ForwardingRuleMetadataFilter)
 	for k, item := range a {
-		items[k] = *flattenForwardingRuleMetadataFilter(c, item.(map[string]interface{}))
+		items[k] = *flattenForwardingRuleMetadataFilter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1732,7 +1732,7 @@ func flattenForwardingRuleMetadataFilterMap(c *Client, i interface{}) map[string
 
 // flattenForwardingRuleMetadataFilterSlice flattens the contents of ForwardingRuleMetadataFilter from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilterSlice(c *Client, i interface{}) []ForwardingRuleMetadataFilter {
+func flattenForwardingRuleMetadataFilterSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleMetadataFilter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ForwardingRuleMetadataFilter{}
@@ -1744,7 +1744,7 @@ func flattenForwardingRuleMetadataFilterSlice(c *Client, i interface{}) []Forwar
 
 	items := make([]ForwardingRuleMetadataFilter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenForwardingRuleMetadataFilter(c, item.(map[string]interface{})))
+		items = append(items, *flattenForwardingRuleMetadataFilter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1772,7 +1772,7 @@ func expandForwardingRuleMetadataFilter(c *Client, f *ForwardingRuleMetadataFilt
 
 // flattenForwardingRuleMetadataFilter flattens an instance of ForwardingRuleMetadataFilter from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilter(c *Client, i interface{}) *ForwardingRuleMetadataFilter {
+func flattenForwardingRuleMetadataFilter(c *Client, i interface{}, res *ForwardingRule) *ForwardingRuleMetadataFilter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1784,7 +1784,7 @@ func flattenForwardingRuleMetadataFilter(c *Client, i interface{}) *ForwardingRu
 		return EmptyForwardingRuleMetadataFilter
 	}
 	r.FilterMatchCriteria = flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(m["filterMatchCriteria"])
-	r.FilterLabel = flattenForwardingRuleMetadataFilterFilterLabelSlice(c, m["filterLabels"])
+	r.FilterLabel = flattenForwardingRuleMetadataFilterFilterLabelSlice(c, m["filterLabels"], res)
 
 	return r
 }
@@ -1832,7 +1832,7 @@ func expandForwardingRuleMetadataFilterFilterLabelSlice(c *Client, f []Forwardin
 
 // flattenForwardingRuleMetadataFilterFilterLabelMap flattens the contents of ForwardingRuleMetadataFilterFilterLabel from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilterFilterLabelMap(c *Client, i interface{}) map[string]ForwardingRuleMetadataFilterFilterLabel {
+func flattenForwardingRuleMetadataFilterFilterLabelMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleMetadataFilterFilterLabel {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ForwardingRuleMetadataFilterFilterLabel{}
@@ -1844,7 +1844,7 @@ func flattenForwardingRuleMetadataFilterFilterLabelMap(c *Client, i interface{})
 
 	items := make(map[string]ForwardingRuleMetadataFilterFilterLabel)
 	for k, item := range a {
-		items[k] = *flattenForwardingRuleMetadataFilterFilterLabel(c, item.(map[string]interface{}))
+		items[k] = *flattenForwardingRuleMetadataFilterFilterLabel(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1852,7 +1852,7 @@ func flattenForwardingRuleMetadataFilterFilterLabelMap(c *Client, i interface{})
 
 // flattenForwardingRuleMetadataFilterFilterLabelSlice flattens the contents of ForwardingRuleMetadataFilterFilterLabel from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilterFilterLabelSlice(c *Client, i interface{}) []ForwardingRuleMetadataFilterFilterLabel {
+func flattenForwardingRuleMetadataFilterFilterLabelSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleMetadataFilterFilterLabel {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ForwardingRuleMetadataFilterFilterLabel{}
@@ -1864,7 +1864,7 @@ func flattenForwardingRuleMetadataFilterFilterLabelSlice(c *Client, i interface{
 
 	items := make([]ForwardingRuleMetadataFilterFilterLabel, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenForwardingRuleMetadataFilterFilterLabel(c, item.(map[string]interface{})))
+		items = append(items, *flattenForwardingRuleMetadataFilterFilterLabel(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1890,7 +1890,7 @@ func expandForwardingRuleMetadataFilterFilterLabel(c *Client, f *ForwardingRuleM
 
 // flattenForwardingRuleMetadataFilterFilterLabel flattens an instance of ForwardingRuleMetadataFilterFilterLabel from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilterFilterLabel(c *Client, i interface{}) *ForwardingRuleMetadataFilterFilterLabel {
+func flattenForwardingRuleMetadataFilterFilterLabel(c *Client, i interface{}, res *ForwardingRule) *ForwardingRuleMetadataFilterFilterLabel {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1909,7 +1909,7 @@ func flattenForwardingRuleMetadataFilterFilterLabel(c *Client, i interface{}) *F
 
 // flattenForwardingRuleIPProtocolEnumMap flattens the contents of ForwardingRuleIPProtocolEnum from a JSON
 // response object.
-func flattenForwardingRuleIPProtocolEnumMap(c *Client, i interface{}) map[string]ForwardingRuleIPProtocolEnum {
+func flattenForwardingRuleIPProtocolEnumMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleIPProtocolEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ForwardingRuleIPProtocolEnum{}
@@ -1929,7 +1929,7 @@ func flattenForwardingRuleIPProtocolEnumMap(c *Client, i interface{}) map[string
 
 // flattenForwardingRuleIPProtocolEnumSlice flattens the contents of ForwardingRuleIPProtocolEnum from a JSON
 // response object.
-func flattenForwardingRuleIPProtocolEnumSlice(c *Client, i interface{}) []ForwardingRuleIPProtocolEnum {
+func flattenForwardingRuleIPProtocolEnumSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleIPProtocolEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ForwardingRuleIPProtocolEnum{}
@@ -1960,7 +1960,7 @@ func flattenForwardingRuleIPProtocolEnum(i interface{}) *ForwardingRuleIPProtoco
 
 // flattenForwardingRuleIPVersionEnumMap flattens the contents of ForwardingRuleIPVersionEnum from a JSON
 // response object.
-func flattenForwardingRuleIPVersionEnumMap(c *Client, i interface{}) map[string]ForwardingRuleIPVersionEnum {
+func flattenForwardingRuleIPVersionEnumMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleIPVersionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ForwardingRuleIPVersionEnum{}
@@ -1980,7 +1980,7 @@ func flattenForwardingRuleIPVersionEnumMap(c *Client, i interface{}) map[string]
 
 // flattenForwardingRuleIPVersionEnumSlice flattens the contents of ForwardingRuleIPVersionEnum from a JSON
 // response object.
-func flattenForwardingRuleIPVersionEnumSlice(c *Client, i interface{}) []ForwardingRuleIPVersionEnum {
+func flattenForwardingRuleIPVersionEnumSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleIPVersionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ForwardingRuleIPVersionEnum{}
@@ -2011,7 +2011,7 @@ func flattenForwardingRuleIPVersionEnum(i interface{}) *ForwardingRuleIPVersionE
 
 // flattenForwardingRuleLoadBalancingSchemeEnumMap flattens the contents of ForwardingRuleLoadBalancingSchemeEnum from a JSON
 // response object.
-func flattenForwardingRuleLoadBalancingSchemeEnumMap(c *Client, i interface{}) map[string]ForwardingRuleLoadBalancingSchemeEnum {
+func flattenForwardingRuleLoadBalancingSchemeEnumMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleLoadBalancingSchemeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ForwardingRuleLoadBalancingSchemeEnum{}
@@ -2031,7 +2031,7 @@ func flattenForwardingRuleLoadBalancingSchemeEnumMap(c *Client, i interface{}) m
 
 // flattenForwardingRuleLoadBalancingSchemeEnumSlice flattens the contents of ForwardingRuleLoadBalancingSchemeEnum from a JSON
 // response object.
-func flattenForwardingRuleLoadBalancingSchemeEnumSlice(c *Client, i interface{}) []ForwardingRuleLoadBalancingSchemeEnum {
+func flattenForwardingRuleLoadBalancingSchemeEnumSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleLoadBalancingSchemeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ForwardingRuleLoadBalancingSchemeEnum{}
@@ -2062,7 +2062,7 @@ func flattenForwardingRuleLoadBalancingSchemeEnum(i interface{}) *ForwardingRule
 
 // flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumMap flattens the contents of ForwardingRuleMetadataFilterFilterMatchCriteriaEnum from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumMap(c *Client, i interface{}) map[string]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
+func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum{}
@@ -2082,7 +2082,7 @@ func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumMap(c *Client, i 
 
 // flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice flattens the contents of ForwardingRuleMetadataFilterFilterMatchCriteriaEnum from a JSON
 // response object.
-func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice(c *Client, i interface{}) []ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
+func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ForwardingRuleMetadataFilterFilterMatchCriteriaEnum{}
@@ -2113,7 +2113,7 @@ func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(i interface{}) *
 
 // flattenForwardingRuleNetworkTierEnumMap flattens the contents of ForwardingRuleNetworkTierEnum from a JSON
 // response object.
-func flattenForwardingRuleNetworkTierEnumMap(c *Client, i interface{}) map[string]ForwardingRuleNetworkTierEnum {
+func flattenForwardingRuleNetworkTierEnumMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleNetworkTierEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ForwardingRuleNetworkTierEnum{}
@@ -2133,7 +2133,7 @@ func flattenForwardingRuleNetworkTierEnumMap(c *Client, i interface{}) map[strin
 
 // flattenForwardingRuleNetworkTierEnumSlice flattens the contents of ForwardingRuleNetworkTierEnum from a JSON
 // response object.
-func flattenForwardingRuleNetworkTierEnumSlice(c *Client, i interface{}) []ForwardingRuleNetworkTierEnum {
+func flattenForwardingRuleNetworkTierEnumSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleNetworkTierEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ForwardingRuleNetworkTierEnum{}
@@ -2167,7 +2167,7 @@ func flattenForwardingRuleNetworkTierEnum(i interface{}) *ForwardingRuleNetworkT
 // identity).  This is useful in extracting the element from a List call.
 func (r *ForwardingRule) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalForwardingRule(b, c)
+		cr, err := unmarshalForwardingRule(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

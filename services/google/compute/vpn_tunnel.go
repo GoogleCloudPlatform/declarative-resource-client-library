@@ -202,7 +202,7 @@ func (c *Client) GetVpnTunnel(ctx context.Context, r *VpnTunnel) (*VpnTunnel, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalVpnTunnel(b, c)
+	result, err := unmarshalVpnTunnel(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -375,7 +375,7 @@ func applyVpnTunnelDiff(c *Client, ctx context.Context, desired *VpnTunnel, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapVpnTunnel(r, c)
+				fullResp, err := unmarshalMapVpnTunnel(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

@@ -266,7 +266,7 @@ func (c *Client) listWorkloadIdentityPoolProvider(ctx context.Context, r *Worklo
 
 	var l []*WorkloadIdentityPoolProvider
 	for _, v := range m.WorkloadIdentityPoolProviders {
-		res, err := unmarshalMapWorkloadIdentityPoolProvider(v, c)
+		res, err := unmarshalMapWorkloadIdentityPoolProvider(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1087,17 +1087,17 @@ func (r *WorkloadIdentityPoolProvider) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalWorkloadIdentityPoolProvider decodes JSON responses into the WorkloadIdentityPoolProvider resource schema.
-func unmarshalWorkloadIdentityPoolProvider(b []byte, c *Client) (*WorkloadIdentityPoolProvider, error) {
+func unmarshalWorkloadIdentityPoolProvider(b []byte, c *Client, res *WorkloadIdentityPoolProvider) (*WorkloadIdentityPoolProvider, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapWorkloadIdentityPoolProvider(m, c)
+	return unmarshalMapWorkloadIdentityPoolProvider(m, c, res)
 }
 
-func unmarshalMapWorkloadIdentityPoolProvider(m map[string]interface{}, c *Client) (*WorkloadIdentityPoolProvider, error) {
+func unmarshalMapWorkloadIdentityPoolProvider(m map[string]interface{}, c *Client, res *WorkloadIdentityPoolProvider) (*WorkloadIdentityPoolProvider, error) {
 
-	flattened := flattenWorkloadIdentityPoolProvider(c, m)
+	flattened := flattenWorkloadIdentityPoolProvider(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1160,7 +1160,7 @@ func expandWorkloadIdentityPoolProvider(c *Client, f *WorkloadIdentityPoolProvid
 
 // flattenWorkloadIdentityPoolProvider flattens WorkloadIdentityPoolProvider from a JSON request object into the
 // WorkloadIdentityPoolProvider type.
-func flattenWorkloadIdentityPoolProvider(c *Client, i interface{}) *WorkloadIdentityPoolProvider {
+func flattenWorkloadIdentityPoolProvider(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) *WorkloadIdentityPoolProvider {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1169,21 +1169,21 @@ func flattenWorkloadIdentityPoolProvider(c *Client, i interface{}) *WorkloadIden
 		return nil
 	}
 
-	res := &WorkloadIdentityPoolProvider{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.State = flattenWorkloadIdentityPoolProviderStateEnum(m["state"])
-	res.Disabled = dcl.FlattenBool(m["disabled"])
-	res.AttributeMapping = dcl.FlattenKeyValuePairs(m["attributeMapping"])
-	res.AttributeCondition = dcl.FlattenString(m["attributeCondition"])
-	res.Aws = flattenWorkloadIdentityPoolProviderAws(c, m["aws"])
-	res.Oidc = flattenWorkloadIdentityPoolProviderOidc(c, m["oidc"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.WorkloadIdentityPool = dcl.FlattenString(m["workloadIdentityPool"])
+	resultRes := &WorkloadIdentityPoolProvider{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.State = flattenWorkloadIdentityPoolProviderStateEnum(m["state"])
+	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
+	resultRes.AttributeMapping = dcl.FlattenKeyValuePairs(m["attributeMapping"])
+	resultRes.AttributeCondition = dcl.FlattenString(m["attributeCondition"])
+	resultRes.Aws = flattenWorkloadIdentityPoolProviderAws(c, m["aws"], res)
+	resultRes.Oidc = flattenWorkloadIdentityPoolProviderOidc(c, m["oidc"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.WorkloadIdentityPool = dcl.FlattenString(m["workloadIdentityPool"])
 
-	return res
+	return resultRes
 }
 
 // expandWorkloadIdentityPoolProviderAwsMap expands the contents of WorkloadIdentityPoolProviderAws into a JSON
@@ -1229,7 +1229,7 @@ func expandWorkloadIdentityPoolProviderAwsSlice(c *Client, f []WorkloadIdentityP
 
 // flattenWorkloadIdentityPoolProviderAwsMap flattens the contents of WorkloadIdentityPoolProviderAws from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderAwsMap(c *Client, i interface{}) map[string]WorkloadIdentityPoolProviderAws {
+func flattenWorkloadIdentityPoolProviderAwsMap(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) map[string]WorkloadIdentityPoolProviderAws {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadIdentityPoolProviderAws{}
@@ -1241,7 +1241,7 @@ func flattenWorkloadIdentityPoolProviderAwsMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]WorkloadIdentityPoolProviderAws)
 	for k, item := range a {
-		items[k] = *flattenWorkloadIdentityPoolProviderAws(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkloadIdentityPoolProviderAws(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1249,7 +1249,7 @@ func flattenWorkloadIdentityPoolProviderAwsMap(c *Client, i interface{}) map[str
 
 // flattenWorkloadIdentityPoolProviderAwsSlice flattens the contents of WorkloadIdentityPoolProviderAws from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderAwsSlice(c *Client, i interface{}) []WorkloadIdentityPoolProviderAws {
+func flattenWorkloadIdentityPoolProviderAwsSlice(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) []WorkloadIdentityPoolProviderAws {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadIdentityPoolProviderAws{}
@@ -1261,7 +1261,7 @@ func flattenWorkloadIdentityPoolProviderAwsSlice(c *Client, i interface{}) []Wor
 
 	items := make([]WorkloadIdentityPoolProviderAws, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkloadIdentityPoolProviderAws(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkloadIdentityPoolProviderAws(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1287,7 +1287,7 @@ func expandWorkloadIdentityPoolProviderAws(c *Client, f *WorkloadIdentityPoolPro
 
 // flattenWorkloadIdentityPoolProviderAws flattens an instance of WorkloadIdentityPoolProviderAws from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderAws(c *Client, i interface{}) *WorkloadIdentityPoolProviderAws {
+func flattenWorkloadIdentityPoolProviderAws(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) *WorkloadIdentityPoolProviderAws {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1347,7 +1347,7 @@ func expandWorkloadIdentityPoolProviderOidcSlice(c *Client, f []WorkloadIdentity
 
 // flattenWorkloadIdentityPoolProviderOidcMap flattens the contents of WorkloadIdentityPoolProviderOidc from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderOidcMap(c *Client, i interface{}) map[string]WorkloadIdentityPoolProviderOidc {
+func flattenWorkloadIdentityPoolProviderOidcMap(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) map[string]WorkloadIdentityPoolProviderOidc {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadIdentityPoolProviderOidc{}
@@ -1359,7 +1359,7 @@ func flattenWorkloadIdentityPoolProviderOidcMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]WorkloadIdentityPoolProviderOidc)
 	for k, item := range a {
-		items[k] = *flattenWorkloadIdentityPoolProviderOidc(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkloadIdentityPoolProviderOidc(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1367,7 +1367,7 @@ func flattenWorkloadIdentityPoolProviderOidcMap(c *Client, i interface{}) map[st
 
 // flattenWorkloadIdentityPoolProviderOidcSlice flattens the contents of WorkloadIdentityPoolProviderOidc from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderOidcSlice(c *Client, i interface{}) []WorkloadIdentityPoolProviderOidc {
+func flattenWorkloadIdentityPoolProviderOidcSlice(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) []WorkloadIdentityPoolProviderOidc {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadIdentityPoolProviderOidc{}
@@ -1379,7 +1379,7 @@ func flattenWorkloadIdentityPoolProviderOidcSlice(c *Client, i interface{}) []Wo
 
 	items := make([]WorkloadIdentityPoolProviderOidc, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkloadIdentityPoolProviderOidc(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkloadIdentityPoolProviderOidc(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1405,7 +1405,7 @@ func expandWorkloadIdentityPoolProviderOidc(c *Client, f *WorkloadIdentityPoolPr
 
 // flattenWorkloadIdentityPoolProviderOidc flattens an instance of WorkloadIdentityPoolProviderOidc from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderOidc(c *Client, i interface{}) *WorkloadIdentityPoolProviderOidc {
+func flattenWorkloadIdentityPoolProviderOidc(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) *WorkloadIdentityPoolProviderOidc {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1424,7 +1424,7 @@ func flattenWorkloadIdentityPoolProviderOidc(c *Client, i interface{}) *Workload
 
 // flattenWorkloadIdentityPoolProviderStateEnumMap flattens the contents of WorkloadIdentityPoolProviderStateEnum from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderStateEnumMap(c *Client, i interface{}) map[string]WorkloadIdentityPoolProviderStateEnum {
+func flattenWorkloadIdentityPoolProviderStateEnumMap(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) map[string]WorkloadIdentityPoolProviderStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadIdentityPoolProviderStateEnum{}
@@ -1444,7 +1444,7 @@ func flattenWorkloadIdentityPoolProviderStateEnumMap(c *Client, i interface{}) m
 
 // flattenWorkloadIdentityPoolProviderStateEnumSlice flattens the contents of WorkloadIdentityPoolProviderStateEnum from a JSON
 // response object.
-func flattenWorkloadIdentityPoolProviderStateEnumSlice(c *Client, i interface{}) []WorkloadIdentityPoolProviderStateEnum {
+func flattenWorkloadIdentityPoolProviderStateEnumSlice(c *Client, i interface{}, res *WorkloadIdentityPoolProvider) []WorkloadIdentityPoolProviderStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadIdentityPoolProviderStateEnum{}
@@ -1478,7 +1478,7 @@ func flattenWorkloadIdentityPoolProviderStateEnum(i interface{}) *WorkloadIdenti
 // identity).  This is useful in extracting the element from a List call.
 func (r *WorkloadIdentityPoolProvider) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalWorkloadIdentityPoolProvider(b, c)
+		cr, err := unmarshalWorkloadIdentityPoolProvider(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

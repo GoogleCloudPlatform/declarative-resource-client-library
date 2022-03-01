@@ -261,7 +261,7 @@ func (c *Client) listGateway(ctx context.Context, r *Gateway, pageToken string, 
 
 	var l []*Gateway
 	for _, v := range m.Gateways {
-		res, err := unmarshalMapGateway(v, c)
+		res, err := unmarshalMapGateway(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -623,6 +623,14 @@ func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gatew
 
 	rawNew.Location = rawDesired.Location
 
+	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
+		rawNew.SelfLink = rawDesired.SelfLink
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
+	}
+
 	return rawNew, nil
 }
 
@@ -735,6 +743,13 @@ func diffGateway(c *Client, desired, actual *Gateway, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 
@@ -750,6 +765,7 @@ func (r *Gateway) urlNormalized() *Gateway {
 	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -781,17 +797,17 @@ func (r *Gateway) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalGateway decodes JSON responses into the Gateway resource schema.
-func unmarshalGateway(b []byte, c *Client) (*Gateway, error) {
+func unmarshalGateway(b []byte, c *Client, res *Gateway) (*Gateway, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapGateway(m, c)
+	return unmarshalMapGateway(m, c, res)
 }
 
-func unmarshalMapGateway(m map[string]interface{}, c *Client) (*Gateway, error) {
+func unmarshalMapGateway(m map[string]interface{}, c *Client, res *Gateway) (*Gateway, error) {
 
-	flattened := flattenGateway(c, m)
+	flattened := flattenGateway(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -848,7 +864,7 @@ func expandGateway(c *Client, f *Gateway) (map[string]interface{}, error) {
 
 // flattenGateway flattens Gateway from a JSON request object into the
 // Gateway type.
-func flattenGateway(c *Client, i interface{}) *Gateway {
+func flattenGateway(c *Client, i interface{}, res *Gateway) *Gateway {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -857,27 +873,28 @@ func flattenGateway(c *Client, i interface{}) *Gateway {
 		return nil
 	}
 
-	res := &Gateway{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Type = flattenGatewayTypeEnum(m["type"])
-	res.Addresses = dcl.FlattenStringSlice(m["addresses"])
-	res.Ports = dcl.FlattenIntSlice(m["ports"])
-	res.Scope = dcl.FlattenString(m["scope"])
-	res.ServerTlsPolicy = dcl.FlattenString(m["serverTlsPolicy"])
-	res.AuthorizationPolicy = dcl.FlattenString(m["authorizationPolicy"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Gateway{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Type = flattenGatewayTypeEnum(m["type"])
+	resultRes.Addresses = dcl.FlattenStringSlice(m["addresses"])
+	resultRes.Ports = dcl.FlattenIntSlice(m["ports"])
+	resultRes.Scope = dcl.FlattenString(m["scope"])
+	resultRes.ServerTlsPolicy = dcl.FlattenString(m["serverTlsPolicy"])
+	resultRes.AuthorizationPolicy = dcl.FlattenString(m["authorizationPolicy"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return res
+	return resultRes
 }
 
 // flattenGatewayTypeEnumMap flattens the contents of GatewayTypeEnum from a JSON
 // response object.
-func flattenGatewayTypeEnumMap(c *Client, i interface{}) map[string]GatewayTypeEnum {
+func flattenGatewayTypeEnumMap(c *Client, i interface{}, res *Gateway) map[string]GatewayTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GatewayTypeEnum{}
@@ -897,7 +914,7 @@ func flattenGatewayTypeEnumMap(c *Client, i interface{}) map[string]GatewayTypeE
 
 // flattenGatewayTypeEnumSlice flattens the contents of GatewayTypeEnum from a JSON
 // response object.
-func flattenGatewayTypeEnumSlice(c *Client, i interface{}) []GatewayTypeEnum {
+func flattenGatewayTypeEnumSlice(c *Client, i interface{}, res *Gateway) []GatewayTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GatewayTypeEnum{}
@@ -931,7 +948,7 @@ func flattenGatewayTypeEnum(i interface{}) *GatewayTypeEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Gateway) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalGateway(b, c)
+		cr, err := unmarshalGateway(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

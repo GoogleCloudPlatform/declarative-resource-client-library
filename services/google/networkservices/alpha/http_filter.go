@@ -151,7 +151,7 @@ func (c *Client) GetHttpFilter(ctx context.Context, r *HttpFilter) (*HttpFilter,
 		}
 		return nil, err
 	}
-	result, err := unmarshalHttpFilter(b, c)
+	result, err := unmarshalHttpFilter(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -321,7 +321,7 @@ func applyHttpFilterDiff(c *Client, ctx context.Context, desired *HttpFilter, ra
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapHttpFilter(r, c)
+				fullResp, err := unmarshalMapHttpFilter(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

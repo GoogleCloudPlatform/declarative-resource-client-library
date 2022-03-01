@@ -382,7 +382,7 @@ func (c *Client) listCaPool(ctx context.Context, r *CaPool, pageToken string, pa
 
 	var l []*CaPool
 	for _, v := range m.CaPools {
-		res, err := unmarshalMapCaPool(v, c)
+		res, err := unmarshalMapCaPool(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -3971,17 +3971,17 @@ func (r *CaPool) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalCaPool decodes JSON responses into the CaPool resource schema.
-func unmarshalCaPool(b []byte, c *Client) (*CaPool, error) {
+func unmarshalCaPool(b []byte, c *Client, res *CaPool) (*CaPool, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapCaPool(m, c)
+	return unmarshalMapCaPool(m, c, res)
 }
 
-func unmarshalMapCaPool(m map[string]interface{}, c *Client) (*CaPool, error) {
+func unmarshalMapCaPool(m map[string]interface{}, c *Client, res *CaPool) (*CaPool, error) {
 
-	flattened := flattenCaPool(c, m)
+	flattened := flattenCaPool(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -4030,7 +4030,7 @@ func expandCaPool(c *Client, f *CaPool) (map[string]interface{}, error) {
 
 // flattenCaPool flattens CaPool from a JSON request object into the
 // CaPool type.
-func flattenCaPool(c *Client, i interface{}) *CaPool {
+func flattenCaPool(c *Client, i interface{}, res *CaPool) *CaPool {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4039,16 +4039,16 @@ func flattenCaPool(c *Client, i interface{}) *CaPool {
 		return nil
 	}
 
-	res := &CaPool{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Tier = flattenCaPoolTierEnum(m["tier"])
-	res.IssuancePolicy = flattenCaPoolIssuancePolicy(c, m["issuancePolicy"])
-	res.PublishingOptions = flattenCaPoolPublishingOptions(c, m["publishingOptions"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &CaPool{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Tier = flattenCaPoolTierEnum(m["tier"])
+	resultRes.IssuancePolicy = flattenCaPoolIssuancePolicy(c, m["issuancePolicy"], res)
+	resultRes.PublishingOptions = flattenCaPoolPublishingOptions(c, m["publishingOptions"], res)
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandCaPoolIssuancePolicyMap expands the contents of CaPoolIssuancePolicy into a JSON
@@ -4094,7 +4094,7 @@ func expandCaPoolIssuancePolicySlice(c *Client, f []CaPoolIssuancePolicy, res *C
 
 // flattenCaPoolIssuancePolicyMap flattens the contents of CaPoolIssuancePolicy from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicy {
+func flattenCaPoolIssuancePolicyMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicy{}
@@ -4106,7 +4106,7 @@ func flattenCaPoolIssuancePolicyMap(c *Client, i interface{}) map[string]CaPoolI
 
 	items := make(map[string]CaPoolIssuancePolicy)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4114,7 +4114,7 @@ func flattenCaPoolIssuancePolicyMap(c *Client, i interface{}) map[string]CaPoolI
 
 // flattenCaPoolIssuancePolicySlice flattens the contents of CaPoolIssuancePolicy from a JSON
 // response object.
-func flattenCaPoolIssuancePolicySlice(c *Client, i interface{}) []CaPoolIssuancePolicy {
+func flattenCaPoolIssuancePolicySlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicy{}
@@ -4126,7 +4126,7 @@ func flattenCaPoolIssuancePolicySlice(c *Client, i interface{}) []CaPoolIssuance
 
 	items := make([]CaPoolIssuancePolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4174,7 +4174,7 @@ func expandCaPoolIssuancePolicy(c *Client, f *CaPoolIssuancePolicy, res *CaPool)
 
 // flattenCaPoolIssuancePolicy flattens an instance of CaPoolIssuancePolicy from a JSON
 // response object.
-func flattenCaPoolIssuancePolicy(c *Client, i interface{}) *CaPoolIssuancePolicy {
+func flattenCaPoolIssuancePolicy(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4185,12 +4185,12 @@ func flattenCaPoolIssuancePolicy(c *Client, i interface{}) *CaPoolIssuancePolicy
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCaPoolIssuancePolicy
 	}
-	r.AllowedKeyTypes = flattenCaPoolIssuancePolicyAllowedKeyTypesSlice(c, m["allowedKeyTypes"])
+	r.AllowedKeyTypes = flattenCaPoolIssuancePolicyAllowedKeyTypesSlice(c, m["allowedKeyTypes"], res)
 	r.MaximumLifetime = dcl.FlattenString(m["maximumLifetime"])
-	r.AllowedIssuanceModes = flattenCaPoolIssuancePolicyAllowedIssuanceModes(c, m["allowedIssuanceModes"])
-	r.BaselineValues = flattenCaPoolIssuancePolicyBaselineValues(c, m["baselineValues"])
-	r.IdentityConstraints = flattenCaPoolIssuancePolicyIdentityConstraints(c, m["identityConstraints"])
-	r.PassthroughExtensions = flattenCaPoolIssuancePolicyPassthroughExtensions(c, m["passthroughExtensions"])
+	r.AllowedIssuanceModes = flattenCaPoolIssuancePolicyAllowedIssuanceModes(c, m["allowedIssuanceModes"], res)
+	r.BaselineValues = flattenCaPoolIssuancePolicyBaselineValues(c, m["baselineValues"], res)
+	r.IdentityConstraints = flattenCaPoolIssuancePolicyIdentityConstraints(c, m["identityConstraints"], res)
+	r.PassthroughExtensions = flattenCaPoolIssuancePolicyPassthroughExtensions(c, m["passthroughExtensions"], res)
 
 	return r
 }
@@ -4238,7 +4238,7 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, f []CaPoolIssuanc
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesMap flattens the contents of CaPoolIssuancePolicyAllowedKeyTypes from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyAllowedKeyTypes {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyAllowedKeyTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyAllowedKeyTypes{}
@@ -4250,7 +4250,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesMap(c *Client, i interface{}) map
 
 	items := make(map[string]CaPoolIssuancePolicyAllowedKeyTypes)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyAllowedKeyTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyAllowedKeyTypes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4258,7 +4258,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesMap(c *Client, i interface{}) map
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesSlice flattens the contents of CaPoolIssuancePolicyAllowedKeyTypes from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, i interface{}) []CaPoolIssuancePolicyAllowedKeyTypes {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyAllowedKeyTypes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyAllowedKeyTypes{}
@@ -4270,7 +4270,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesSlice(c *Client, i interface{}) [
 
 	items := make([]CaPoolIssuancePolicyAllowedKeyTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyAllowedKeyTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyAllowedKeyTypes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4300,7 +4300,7 @@ func expandCaPoolIssuancePolicyAllowedKeyTypes(c *Client, f *CaPoolIssuancePolic
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypes flattens an instance of CaPoolIssuancePolicyAllowedKeyTypes from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypes(c *Client, i interface{}) *CaPoolIssuancePolicyAllowedKeyTypes {
+func flattenCaPoolIssuancePolicyAllowedKeyTypes(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyAllowedKeyTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4311,8 +4311,8 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypes(c *Client, i interface{}) *CaPoo
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCaPoolIssuancePolicyAllowedKeyTypes
 	}
-	r.Rsa = flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c, m["rsa"])
-	r.EllipticCurve = flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, m["ellipticCurve"])
+	r.Rsa = flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c, m["rsa"], res)
+	r.EllipticCurve = flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, m["ellipticCurve"], res)
 
 	return r
 }
@@ -4360,7 +4360,7 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(c *Client, f []CaPoolIssu
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesRsaMap flattens the contents of CaPoolIssuancePolicyAllowedKeyTypesRsa from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyAllowedKeyTypesRsa {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyAllowedKeyTypesRsa {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyAllowedKeyTypesRsa{}
@@ -4372,7 +4372,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaMap(c *Client, i interface{}) 
 
 	items := make(map[string]CaPoolIssuancePolicyAllowedKeyTypesRsa)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4380,7 +4380,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaMap(c *Client, i interface{}) 
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesRsaSlice flattens the contents of CaPoolIssuancePolicyAllowedKeyTypesRsa from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(c *Client, i interface{}) []CaPoolIssuancePolicyAllowedKeyTypesRsa {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyAllowedKeyTypesRsa {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyAllowedKeyTypesRsa{}
@@ -4392,7 +4392,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesRsaSlice(c *Client, i interface{}
 
 	items := make([]CaPoolIssuancePolicyAllowedKeyTypesRsa, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4418,7 +4418,7 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesRsa(c *Client, f *CaPoolIssuancePo
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesRsa flattens an instance of CaPoolIssuancePolicyAllowedKeyTypesRsa from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c *Client, i interface{}) *CaPoolIssuancePolicyAllowedKeyTypesRsa {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesRsa(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyAllowedKeyTypesRsa {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4478,7 +4478,7 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(c *Client, f []
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap flattens the contents of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve{}
@@ -4490,7 +4490,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap(c *Client, i int
 
 	items := make(map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4498,7 +4498,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveMap(c *Client, i int
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice flattens the contents of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(c *Client, i interface{}) []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve{}
@@ -4510,7 +4510,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSlice(c *Client, i i
 
 	items := make([]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4533,7 +4533,7 @@ func expandCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c *Client, f *CaPool
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve flattens an instance of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c *Client, i interface{}) *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4592,7 +4592,7 @@ func expandCaPoolIssuancePolicyAllowedIssuanceModesSlice(c *Client, f []CaPoolIs
 
 // flattenCaPoolIssuancePolicyAllowedIssuanceModesMap flattens the contents of CaPoolIssuancePolicyAllowedIssuanceModes from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedIssuanceModesMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyAllowedIssuanceModes {
+func flattenCaPoolIssuancePolicyAllowedIssuanceModesMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyAllowedIssuanceModes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyAllowedIssuanceModes{}
@@ -4604,7 +4604,7 @@ func flattenCaPoolIssuancePolicyAllowedIssuanceModesMap(c *Client, i interface{}
 
 	items := make(map[string]CaPoolIssuancePolicyAllowedIssuanceModes)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyAllowedIssuanceModes(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyAllowedIssuanceModes(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4612,7 +4612,7 @@ func flattenCaPoolIssuancePolicyAllowedIssuanceModesMap(c *Client, i interface{}
 
 // flattenCaPoolIssuancePolicyAllowedIssuanceModesSlice flattens the contents of CaPoolIssuancePolicyAllowedIssuanceModes from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedIssuanceModesSlice(c *Client, i interface{}) []CaPoolIssuancePolicyAllowedIssuanceModes {
+func flattenCaPoolIssuancePolicyAllowedIssuanceModesSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyAllowedIssuanceModes {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyAllowedIssuanceModes{}
@@ -4624,7 +4624,7 @@ func flattenCaPoolIssuancePolicyAllowedIssuanceModesSlice(c *Client, i interface
 
 	items := make([]CaPoolIssuancePolicyAllowedIssuanceModes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyAllowedIssuanceModes(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyAllowedIssuanceModes(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4650,7 +4650,7 @@ func expandCaPoolIssuancePolicyAllowedIssuanceModes(c *Client, f *CaPoolIssuance
 
 // flattenCaPoolIssuancePolicyAllowedIssuanceModes flattens an instance of CaPoolIssuancePolicyAllowedIssuanceModes from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedIssuanceModes(c *Client, i interface{}) *CaPoolIssuancePolicyAllowedIssuanceModes {
+func flattenCaPoolIssuancePolicyAllowedIssuanceModes(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyAllowedIssuanceModes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4710,7 +4710,7 @@ func expandCaPoolIssuancePolicyBaselineValuesSlice(c *Client, f []CaPoolIssuance
 
 // flattenCaPoolIssuancePolicyBaselineValuesMap flattens the contents of CaPoolIssuancePolicyBaselineValues from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValues {
+func flattenCaPoolIssuancePolicyBaselineValuesMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValues {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValues{}
@@ -4722,7 +4722,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesMap(c *Client, i interface{}) map[
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValues)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValues(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValues(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4730,7 +4730,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesMap(c *Client, i interface{}) map[
 
 // flattenCaPoolIssuancePolicyBaselineValuesSlice flattens the contents of CaPoolIssuancePolicyBaselineValues from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValues {
+func flattenCaPoolIssuancePolicyBaselineValuesSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValues {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValues{}
@@ -4742,7 +4742,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesSlice(c *Client, i interface{}) []
 
 	items := make([]CaPoolIssuancePolicyBaselineValues, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValues(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValues(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4785,7 +4785,7 @@ func expandCaPoolIssuancePolicyBaselineValues(c *Client, f *CaPoolIssuancePolicy
 
 // flattenCaPoolIssuancePolicyBaselineValues flattens an instance of CaPoolIssuancePolicyBaselineValues from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValues(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValues {
+func flattenCaPoolIssuancePolicyBaselineValues(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValues {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4796,11 +4796,11 @@ func flattenCaPoolIssuancePolicyBaselineValues(c *Client, i interface{}) *CaPool
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCaPoolIssuancePolicyBaselineValues
 	}
-	r.KeyUsage = flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c, m["keyUsage"])
-	r.CaOptions = flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c, m["caOptions"])
-	r.PolicyIds = flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c, m["policyIds"])
+	r.KeyUsage = flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c, m["keyUsage"], res)
+	r.CaOptions = flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c, m["caOptions"], res)
+	r.PolicyIds = flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c, m["policyIds"], res)
 	r.AiaOcspServers = dcl.FlattenStringSlice(m["aiaOcspServers"])
-	r.AdditionalExtensions = flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c, m["additionalExtensions"])
+	r.AdditionalExtensions = flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c, m["additionalExtensions"], res)
 
 	return r
 }
@@ -4848,7 +4848,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(c *Client, f []CaPool
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageMap flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesKeyUsage{}
@@ -4860,7 +4860,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageMap(c *Client, i interface
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesKeyUsage)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4868,7 +4868,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageMap(c *Client, i interface
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesKeyUsage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesKeyUsage{}
@@ -4880,7 +4880,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageSlice(c *Client, i interfa
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesKeyUsage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4915,7 +4915,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsage(c *Client, f *CaPoolIssuan
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsage flattens an instance of CaPoolIssuancePolicyBaselineValuesKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesKeyUsage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4926,9 +4926,9 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c *Client, i interface{})
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCaPoolIssuancePolicyBaselineValuesKeyUsage
 	}
-	r.BaseKeyUsage = flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, m["baseKeyUsage"])
-	r.ExtendedKeyUsage = flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, m["extendedKeyUsage"])
-	r.UnknownExtendedKeyUsages = flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, m["unknownExtendedKeyUsages"])
+	r.BaseKeyUsage = flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, m["baseKeyUsage"], res)
+	r.ExtendedKeyUsage = flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, m["extendedKeyUsage"], res)
+	r.UnknownExtendedKeyUsages = flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c, m["unknownExtendedKeyUsages"], res)
 
 	return r
 }
@@ -4976,7 +4976,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(c *Client
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage{}
@@ -4988,7 +4988,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap(c *Client,
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4996,7 +4996,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageMap(c *Client,
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage{}
@@ -5008,7 +5008,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageSlice(c *Clien
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5055,7 +5055,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c *Client, f *
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage flattens an instance of CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5122,7 +5122,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(c *Cl
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage{}
@@ -5134,7 +5134,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap(c *Cli
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5142,7 +5142,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageMap(c *Cli
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage{}
@@ -5154,7 +5154,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageSlice(c *C
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5192,7 +5192,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c *Client,
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage flattens an instance of CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5256,7 +5256,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSli
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMap flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages{}
@@ -5268,7 +5268,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMa
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5276,7 +5276,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesMa
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages{}
@@ -5288,7 +5288,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesSl
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5311,7 +5311,7 @@ func expandCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c 
 
 // flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages flattens an instance of CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages {
+func flattenCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5370,7 +5370,7 @@ func expandCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(c *Client, f []CaPoo
 
 // flattenCaPoolIssuancePolicyBaselineValuesCaOptionsMap flattens the contents of CaPoolIssuancePolicyBaselineValuesCaOptions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesCaOptions {
+func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesCaOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesCaOptions{}
@@ -5382,7 +5382,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsMap(c *Client, i interfac
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesCaOptions)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5390,7 +5390,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsMap(c *Client, i interfac
 
 // flattenCaPoolIssuancePolicyBaselineValuesCaOptionsSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesCaOptions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesCaOptions {
+func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesCaOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesCaOptions{}
@@ -5402,7 +5402,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesCaOptionsSlice(c *Client, i interf
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesCaOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5428,7 +5428,7 @@ func expandCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, f *CaPoolIssua
 
 // flattenCaPoolIssuancePolicyBaselineValuesCaOptions flattens an instance of CaPoolIssuancePolicyBaselineValuesCaOptions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesCaOptions {
+func flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesCaOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5488,7 +5488,7 @@ func expandCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, f []CaPoo
 
 // flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsMap flattens the contents of CaPoolIssuancePolicyBaselineValuesPolicyIds from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesPolicyIds {
+func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesPolicyIds {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesPolicyIds{}
@@ -5500,7 +5500,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsMap(c *Client, i interfac
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesPolicyIds)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesPolicyIds(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesPolicyIds(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5508,7 +5508,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsMap(c *Client, i interfac
 
 // flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesPolicyIds from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesPolicyIds {
+func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesPolicyIds {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesPolicyIds{}
@@ -5520,7 +5520,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c *Client, i interf
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesPolicyIds, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesPolicyIds(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesPolicyIds(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5543,7 +5543,7 @@ func expandCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, f *CaPoolIssua
 
 // flattenCaPoolIssuancePolicyBaselineValuesPolicyIds flattens an instance of CaPoolIssuancePolicyBaselineValuesPolicyIds from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesPolicyIds {
+func flattenCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesPolicyIds {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5602,7 +5602,7 @@ func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Client
 
 // flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap flattens the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensions {
+func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensions{}
@@ -5614,7 +5614,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap(c *Client,
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensions)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5622,7 +5622,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsMap(c *Client,
 
 // flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesAdditionalExtensions {
+func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesAdditionalExtensions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesAdditionalExtensions{}
@@ -5634,7 +5634,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c *Clien
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesAdditionalExtensions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5665,7 +5665,7 @@ func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, f *
 
 // flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions flattens an instance of CaPoolIssuancePolicyBaselineValuesAdditionalExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesAdditionalExtensions {
+func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesAdditionalExtensions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5676,7 +5676,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensions(c *Client, i 
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCaPoolIssuancePolicyBaselineValuesAdditionalExtensions
 	}
-	r.ObjectId = flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, m["objectId"])
+	r.ObjectId = flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, m["objectId"], res)
 	r.Critical = dcl.FlattenBool(m["critical"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -5726,7 +5726,7 @@ func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(c
 
 // flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap flattens the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
+func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId{}
@@ -5738,7 +5738,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap(c 
 
 	items := make(map[string]CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5746,7 +5746,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdMap(c 
 
 // flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice flattens the contents of CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(c *Client, i interface{}) []CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
+func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId{}
@@ -5758,7 +5758,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdSlice(
 
 	items := make([]CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5781,7 +5781,7 @@ func expandCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c *Cli
 
 // flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId flattens an instance of CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c *Client, i interface{}) *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
+func flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5840,7 +5840,7 @@ func expandCaPoolIssuancePolicyIdentityConstraintsSlice(c *Client, f []CaPoolIss
 
 // flattenCaPoolIssuancePolicyIdentityConstraintsMap flattens the contents of CaPoolIssuancePolicyIdentityConstraints from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyIdentityConstraintsMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyIdentityConstraints {
+func flattenCaPoolIssuancePolicyIdentityConstraintsMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyIdentityConstraints {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyIdentityConstraints{}
@@ -5852,7 +5852,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsMap(c *Client, i interface{})
 
 	items := make(map[string]CaPoolIssuancePolicyIdentityConstraints)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyIdentityConstraints(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyIdentityConstraints(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5860,7 +5860,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsMap(c *Client, i interface{})
 
 // flattenCaPoolIssuancePolicyIdentityConstraintsSlice flattens the contents of CaPoolIssuancePolicyIdentityConstraints from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyIdentityConstraintsSlice(c *Client, i interface{}) []CaPoolIssuancePolicyIdentityConstraints {
+func flattenCaPoolIssuancePolicyIdentityConstraintsSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyIdentityConstraints {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyIdentityConstraints{}
@@ -5872,7 +5872,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsSlice(c *Client, i interface{
 
 	items := make([]CaPoolIssuancePolicyIdentityConstraints, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyIdentityConstraints(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyIdentityConstraints(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5903,7 +5903,7 @@ func expandCaPoolIssuancePolicyIdentityConstraints(c *Client, f *CaPoolIssuanceP
 
 // flattenCaPoolIssuancePolicyIdentityConstraints flattens an instance of CaPoolIssuancePolicyIdentityConstraints from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyIdentityConstraints(c *Client, i interface{}) *CaPoolIssuancePolicyIdentityConstraints {
+func flattenCaPoolIssuancePolicyIdentityConstraints(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyIdentityConstraints {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5914,7 +5914,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraints(c *Client, i interface{}) *C
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCaPoolIssuancePolicyIdentityConstraints
 	}
-	r.CelExpression = flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, m["celExpression"])
+	r.CelExpression = flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, m["celExpression"], res)
 	r.AllowSubjectPassthrough = dcl.FlattenBool(m["allowSubjectPassthrough"])
 	r.AllowSubjectAltNamesPassthrough = dcl.FlattenBool(m["allowSubjectAltNamesPassthrough"])
 
@@ -5964,7 +5964,7 @@ func expandCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(c *Client, 
 
 // flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap flattens the contents of CaPoolIssuancePolicyIdentityConstraintsCelExpression from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyIdentityConstraintsCelExpression {
+func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyIdentityConstraintsCelExpression {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyIdentityConstraintsCelExpression{}
@@ -5976,7 +5976,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap(c *Client, i
 
 	items := make(map[string]CaPoolIssuancePolicyIdentityConstraintsCelExpression)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5984,7 +5984,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionMap(c *Client, i
 
 // flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice flattens the contents of CaPoolIssuancePolicyIdentityConstraintsCelExpression from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(c *Client, i interface{}) []CaPoolIssuancePolicyIdentityConstraintsCelExpression {
+func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyIdentityConstraintsCelExpression {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyIdentityConstraintsCelExpression{}
@@ -5996,7 +5996,7 @@ func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpressionSlice(c *Client,
 
 	items := make([]CaPoolIssuancePolicyIdentityConstraintsCelExpression, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6028,7 +6028,7 @@ func expandCaPoolIssuancePolicyIdentityConstraintsCelExpression(c *Client, f *Ca
 
 // flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression flattens an instance of CaPoolIssuancePolicyIdentityConstraintsCelExpression from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c *Client, i interface{}) *CaPoolIssuancePolicyIdentityConstraintsCelExpression {
+func flattenCaPoolIssuancePolicyIdentityConstraintsCelExpression(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyIdentityConstraintsCelExpression {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6090,7 +6090,7 @@ func expandCaPoolIssuancePolicyPassthroughExtensionsSlice(c *Client, f []CaPoolI
 
 // flattenCaPoolIssuancePolicyPassthroughExtensionsMap flattens the contents of CaPoolIssuancePolicyPassthroughExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensionsMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyPassthroughExtensions {
+func flattenCaPoolIssuancePolicyPassthroughExtensionsMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyPassthroughExtensions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyPassthroughExtensions{}
@@ -6102,7 +6102,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsMap(c *Client, i interface{
 
 	items := make(map[string]CaPoolIssuancePolicyPassthroughExtensions)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyPassthroughExtensions(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyPassthroughExtensions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6110,7 +6110,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsMap(c *Client, i interface{
 
 // flattenCaPoolIssuancePolicyPassthroughExtensionsSlice flattens the contents of CaPoolIssuancePolicyPassthroughExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensionsSlice(c *Client, i interface{}) []CaPoolIssuancePolicyPassthroughExtensions {
+func flattenCaPoolIssuancePolicyPassthroughExtensionsSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyPassthroughExtensions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyPassthroughExtensions{}
@@ -6122,7 +6122,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsSlice(c *Client, i interfac
 
 	items := make([]CaPoolIssuancePolicyPassthroughExtensions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyPassthroughExtensions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyPassthroughExtensions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6150,7 +6150,7 @@ func expandCaPoolIssuancePolicyPassthroughExtensions(c *Client, f *CaPoolIssuanc
 
 // flattenCaPoolIssuancePolicyPassthroughExtensions flattens an instance of CaPoolIssuancePolicyPassthroughExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensions(c *Client, i interface{}) *CaPoolIssuancePolicyPassthroughExtensions {
+func flattenCaPoolIssuancePolicyPassthroughExtensions(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyPassthroughExtensions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6161,8 +6161,8 @@ func flattenCaPoolIssuancePolicyPassthroughExtensions(c *Client, i interface{}) 
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCaPoolIssuancePolicyPassthroughExtensions
 	}
-	r.KnownExtensions = flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumSlice(c, m["knownExtensions"])
-	r.AdditionalExtensions = flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c, m["additionalExtensions"])
+	r.KnownExtensions = flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumSlice(c, m["knownExtensions"], res)
+	r.AdditionalExtensions = flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c, m["additionalExtensions"], res)
 
 	return r
 }
@@ -6210,7 +6210,7 @@ func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c 
 
 // flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap flattens the contents of CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions {
+func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions{}
@@ -6222,7 +6222,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap(c *
 
 	items := make(map[string]CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions)
 	for k, item := range a {
-		items[k] = *flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6230,7 +6230,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsMap(c *
 
 // flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice flattens the contents of CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c *Client, i interface{}) []CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions {
+func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions{}
@@ -6242,7 +6242,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c
 
 	items := make([]CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6265,7 +6265,7 @@ func expandCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Clie
 
 // flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions flattens an instance of CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Client, i interface{}) *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions {
+func flattenCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Client, i interface{}, res *CaPool) *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6324,7 +6324,7 @@ func expandCaPoolPublishingOptionsSlice(c *Client, f []CaPoolPublishingOptions, 
 
 // flattenCaPoolPublishingOptionsMap flattens the contents of CaPoolPublishingOptions from a JSON
 // response object.
-func flattenCaPoolPublishingOptionsMap(c *Client, i interface{}) map[string]CaPoolPublishingOptions {
+func flattenCaPoolPublishingOptionsMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolPublishingOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolPublishingOptions{}
@@ -6336,7 +6336,7 @@ func flattenCaPoolPublishingOptionsMap(c *Client, i interface{}) map[string]CaPo
 
 	items := make(map[string]CaPoolPublishingOptions)
 	for k, item := range a {
-		items[k] = *flattenCaPoolPublishingOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenCaPoolPublishingOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6344,7 +6344,7 @@ func flattenCaPoolPublishingOptionsMap(c *Client, i interface{}) map[string]CaPo
 
 // flattenCaPoolPublishingOptionsSlice flattens the contents of CaPoolPublishingOptions from a JSON
 // response object.
-func flattenCaPoolPublishingOptionsSlice(c *Client, i interface{}) []CaPoolPublishingOptions {
+func flattenCaPoolPublishingOptionsSlice(c *Client, i interface{}, res *CaPool) []CaPoolPublishingOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolPublishingOptions{}
@@ -6356,7 +6356,7 @@ func flattenCaPoolPublishingOptionsSlice(c *Client, i interface{}) []CaPoolPubli
 
 	items := make([]CaPoolPublishingOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCaPoolPublishingOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenCaPoolPublishingOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6382,7 +6382,7 @@ func expandCaPoolPublishingOptions(c *Client, f *CaPoolPublishingOptions, res *C
 
 // flattenCaPoolPublishingOptions flattens an instance of CaPoolPublishingOptions from a JSON
 // response object.
-func flattenCaPoolPublishingOptions(c *Client, i interface{}) *CaPoolPublishingOptions {
+func flattenCaPoolPublishingOptions(c *Client, i interface{}, res *CaPool) *CaPoolPublishingOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6401,7 +6401,7 @@ func flattenCaPoolPublishingOptions(c *Client, i interface{}) *CaPoolPublishingO
 
 // flattenCaPoolTierEnumMap flattens the contents of CaPoolTierEnum from a JSON
 // response object.
-func flattenCaPoolTierEnumMap(c *Client, i interface{}) map[string]CaPoolTierEnum {
+func flattenCaPoolTierEnumMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolTierEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolTierEnum{}
@@ -6421,7 +6421,7 @@ func flattenCaPoolTierEnumMap(c *Client, i interface{}) map[string]CaPoolTierEnu
 
 // flattenCaPoolTierEnumSlice flattens the contents of CaPoolTierEnum from a JSON
 // response object.
-func flattenCaPoolTierEnumSlice(c *Client, i interface{}) []CaPoolTierEnum {
+func flattenCaPoolTierEnumSlice(c *Client, i interface{}, res *CaPool) []CaPoolTierEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolTierEnum{}
@@ -6452,7 +6452,7 @@ func flattenCaPoolTierEnum(i interface{}) *CaPoolTierEnum {
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumMap flattens the contents of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum{}
@@ -6472,7 +6472,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEn
 
 // flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumSlice flattens the contents of CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumSlice(c *Client, i interface{}) []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum {
+func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnumSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEnum{}
@@ -6503,7 +6503,7 @@ func flattenCaPoolIssuancePolicyAllowedKeyTypesEllipticCurveSignatureAlgorithmEn
 
 // flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumMap flattens the contents of CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumMap(c *Client, i interface{}) map[string]CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum {
+func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumMap(c *Client, i interface{}, res *CaPool) map[string]CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum{}
@@ -6523,7 +6523,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumMap(c *C
 
 // flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumSlice flattens the contents of CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum from a JSON
 // response object.
-func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumSlice(c *Client, i interface{}) []CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum {
+func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnumSlice(c *Client, i interface{}, res *CaPool) []CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []CaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum{}
@@ -6557,7 +6557,7 @@ func flattenCaPoolIssuancePolicyPassthroughExtensionsKnownExtensionsEnum(i inter
 // identity).  This is useful in extracting the element from a List call.
 func (r *CaPool) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCaPool(b, c)
+		cr, err := unmarshalCaPool(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

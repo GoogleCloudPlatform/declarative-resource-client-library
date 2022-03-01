@@ -249,7 +249,7 @@ func (c *Client) listKey(ctx context.Context, r *Key, pageToken string, pageSize
 
 	var l []*Key
 	for _, v := range m.Keys {
-		res, err := unmarshalMapKey(v, c)
+		res, err := unmarshalMapKey(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1381,17 +1381,17 @@ func (r *Key) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalKey decodes JSON responses into the Key resource schema.
-func unmarshalKey(b []byte, c *Client) (*Key, error) {
+func unmarshalKey(b []byte, c *Client, res *Key) (*Key, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapKey(m, c)
+	return unmarshalMapKey(m, c, res)
 }
 
-func unmarshalMapKey(m map[string]interface{}, c *Client) (*Key, error) {
+func unmarshalMapKey(m map[string]interface{}, c *Client, res *Key) (*Key, error) {
 
-	flattened := flattenKey(c, m)
+	flattened := flattenKey(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1445,7 +1445,7 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 
 // flattenKey flattens Key from a JSON request object into the
 // Key type.
-func flattenKey(c *Client, i interface{}) *Key {
+func flattenKey(c *Client, i interface{}, res *Key) *Key {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1454,18 +1454,18 @@ func flattenKey(c *Client, i interface{}) *Key {
 		return nil
 	}
 
-	res := &Key{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.WebSettings = flattenKeyWebSettings(c, m["webSettings"])
-	res.AndroidSettings = flattenKeyAndroidSettings(c, m["androidSettings"])
-	res.IosSettings = flattenKeyIosSettings(c, m["iosSettings"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.TestingOptions = flattenKeyTestingOptions(c, m["testingOptions"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Key{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.WebSettings = flattenKeyWebSettings(c, m["webSettings"], res)
+	resultRes.AndroidSettings = flattenKeyAndroidSettings(c, m["androidSettings"], res)
+	resultRes.IosSettings = flattenKeyIosSettings(c, m["iosSettings"], res)
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.TestingOptions = flattenKeyTestingOptions(c, m["testingOptions"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandKeyWebSettingsMap expands the contents of KeyWebSettings into a JSON
@@ -1511,7 +1511,7 @@ func expandKeyWebSettingsSlice(c *Client, f []KeyWebSettings, res *Key) ([]map[s
 
 // flattenKeyWebSettingsMap flattens the contents of KeyWebSettings from a JSON
 // response object.
-func flattenKeyWebSettingsMap(c *Client, i interface{}) map[string]KeyWebSettings {
+func flattenKeyWebSettingsMap(c *Client, i interface{}, res *Key) map[string]KeyWebSettings {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyWebSettings{}
@@ -1523,7 +1523,7 @@ func flattenKeyWebSettingsMap(c *Client, i interface{}) map[string]KeyWebSetting
 
 	items := make(map[string]KeyWebSettings)
 	for k, item := range a {
-		items[k] = *flattenKeyWebSettings(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyWebSettings(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1531,7 +1531,7 @@ func flattenKeyWebSettingsMap(c *Client, i interface{}) map[string]KeyWebSetting
 
 // flattenKeyWebSettingsSlice flattens the contents of KeyWebSettings from a JSON
 // response object.
-func flattenKeyWebSettingsSlice(c *Client, i interface{}) []KeyWebSettings {
+func flattenKeyWebSettingsSlice(c *Client, i interface{}, res *Key) []KeyWebSettings {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyWebSettings{}
@@ -1543,7 +1543,7 @@ func flattenKeyWebSettingsSlice(c *Client, i interface{}) []KeyWebSettings {
 
 	items := make([]KeyWebSettings, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyWebSettings(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyWebSettings(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1578,7 +1578,7 @@ func expandKeyWebSettings(c *Client, f *KeyWebSettings, res *Key) (map[string]in
 
 // flattenKeyWebSettings flattens an instance of KeyWebSettings from a JSON
 // response object.
-func flattenKeyWebSettings(c *Client, i interface{}) *KeyWebSettings {
+func flattenKeyWebSettings(c *Client, i interface{}, res *Key) *KeyWebSettings {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1641,7 +1641,7 @@ func expandKeyAndroidSettingsSlice(c *Client, f []KeyAndroidSettings, res *Key) 
 
 // flattenKeyAndroidSettingsMap flattens the contents of KeyAndroidSettings from a JSON
 // response object.
-func flattenKeyAndroidSettingsMap(c *Client, i interface{}) map[string]KeyAndroidSettings {
+func flattenKeyAndroidSettingsMap(c *Client, i interface{}, res *Key) map[string]KeyAndroidSettings {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyAndroidSettings{}
@@ -1653,7 +1653,7 @@ func flattenKeyAndroidSettingsMap(c *Client, i interface{}) map[string]KeyAndroi
 
 	items := make(map[string]KeyAndroidSettings)
 	for k, item := range a {
-		items[k] = *flattenKeyAndroidSettings(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyAndroidSettings(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1661,7 +1661,7 @@ func flattenKeyAndroidSettingsMap(c *Client, i interface{}) map[string]KeyAndroi
 
 // flattenKeyAndroidSettingsSlice flattens the contents of KeyAndroidSettings from a JSON
 // response object.
-func flattenKeyAndroidSettingsSlice(c *Client, i interface{}) []KeyAndroidSettings {
+func flattenKeyAndroidSettingsSlice(c *Client, i interface{}, res *Key) []KeyAndroidSettings {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyAndroidSettings{}
@@ -1673,7 +1673,7 @@ func flattenKeyAndroidSettingsSlice(c *Client, i interface{}) []KeyAndroidSettin
 
 	items := make([]KeyAndroidSettings, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyAndroidSettings(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyAndroidSettings(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1699,7 +1699,7 @@ func expandKeyAndroidSettings(c *Client, f *KeyAndroidSettings, res *Key) (map[s
 
 // flattenKeyAndroidSettings flattens an instance of KeyAndroidSettings from a JSON
 // response object.
-func flattenKeyAndroidSettings(c *Client, i interface{}) *KeyAndroidSettings {
+func flattenKeyAndroidSettings(c *Client, i interface{}, res *Key) *KeyAndroidSettings {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1759,7 +1759,7 @@ func expandKeyIosSettingsSlice(c *Client, f []KeyIosSettings, res *Key) ([]map[s
 
 // flattenKeyIosSettingsMap flattens the contents of KeyIosSettings from a JSON
 // response object.
-func flattenKeyIosSettingsMap(c *Client, i interface{}) map[string]KeyIosSettings {
+func flattenKeyIosSettingsMap(c *Client, i interface{}, res *Key) map[string]KeyIosSettings {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyIosSettings{}
@@ -1771,7 +1771,7 @@ func flattenKeyIosSettingsMap(c *Client, i interface{}) map[string]KeyIosSetting
 
 	items := make(map[string]KeyIosSettings)
 	for k, item := range a {
-		items[k] = *flattenKeyIosSettings(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyIosSettings(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1779,7 +1779,7 @@ func flattenKeyIosSettingsMap(c *Client, i interface{}) map[string]KeyIosSetting
 
 // flattenKeyIosSettingsSlice flattens the contents of KeyIosSettings from a JSON
 // response object.
-func flattenKeyIosSettingsSlice(c *Client, i interface{}) []KeyIosSettings {
+func flattenKeyIosSettingsSlice(c *Client, i interface{}, res *Key) []KeyIosSettings {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyIosSettings{}
@@ -1791,7 +1791,7 @@ func flattenKeyIosSettingsSlice(c *Client, i interface{}) []KeyIosSettings {
 
 	items := make([]KeyIosSettings, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyIosSettings(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyIosSettings(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1817,7 +1817,7 @@ func expandKeyIosSettings(c *Client, f *KeyIosSettings, res *Key) (map[string]in
 
 // flattenKeyIosSettings flattens an instance of KeyIosSettings from a JSON
 // response object.
-func flattenKeyIosSettings(c *Client, i interface{}) *KeyIosSettings {
+func flattenKeyIosSettings(c *Client, i interface{}, res *Key) *KeyIosSettings {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1877,7 +1877,7 @@ func expandKeyTestingOptionsSlice(c *Client, f []KeyTestingOptions, res *Key) ([
 
 // flattenKeyTestingOptionsMap flattens the contents of KeyTestingOptions from a JSON
 // response object.
-func flattenKeyTestingOptionsMap(c *Client, i interface{}) map[string]KeyTestingOptions {
+func flattenKeyTestingOptionsMap(c *Client, i interface{}, res *Key) map[string]KeyTestingOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyTestingOptions{}
@@ -1889,7 +1889,7 @@ func flattenKeyTestingOptionsMap(c *Client, i interface{}) map[string]KeyTesting
 
 	items := make(map[string]KeyTestingOptions)
 	for k, item := range a {
-		items[k] = *flattenKeyTestingOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenKeyTestingOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1897,7 +1897,7 @@ func flattenKeyTestingOptionsMap(c *Client, i interface{}) map[string]KeyTesting
 
 // flattenKeyTestingOptionsSlice flattens the contents of KeyTestingOptions from a JSON
 // response object.
-func flattenKeyTestingOptionsSlice(c *Client, i interface{}) []KeyTestingOptions {
+func flattenKeyTestingOptionsSlice(c *Client, i interface{}, res *Key) []KeyTestingOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyTestingOptions{}
@@ -1909,7 +1909,7 @@ func flattenKeyTestingOptionsSlice(c *Client, i interface{}) []KeyTestingOptions
 
 	items := make([]KeyTestingOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenKeyTestingOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenKeyTestingOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1935,7 +1935,7 @@ func expandKeyTestingOptions(c *Client, f *KeyTestingOptions, res *Key) (map[str
 
 // flattenKeyTestingOptions flattens an instance of KeyTestingOptions from a JSON
 // response object.
-func flattenKeyTestingOptions(c *Client, i interface{}) *KeyTestingOptions {
+func flattenKeyTestingOptions(c *Client, i interface{}, res *Key) *KeyTestingOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1954,7 +1954,7 @@ func flattenKeyTestingOptions(c *Client, i interface{}) *KeyTestingOptions {
 
 // flattenKeyWebSettingsIntegrationTypeEnumMap flattens the contents of KeyWebSettingsIntegrationTypeEnum from a JSON
 // response object.
-func flattenKeyWebSettingsIntegrationTypeEnumMap(c *Client, i interface{}) map[string]KeyWebSettingsIntegrationTypeEnum {
+func flattenKeyWebSettingsIntegrationTypeEnumMap(c *Client, i interface{}, res *Key) map[string]KeyWebSettingsIntegrationTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyWebSettingsIntegrationTypeEnum{}
@@ -1974,7 +1974,7 @@ func flattenKeyWebSettingsIntegrationTypeEnumMap(c *Client, i interface{}) map[s
 
 // flattenKeyWebSettingsIntegrationTypeEnumSlice flattens the contents of KeyWebSettingsIntegrationTypeEnum from a JSON
 // response object.
-func flattenKeyWebSettingsIntegrationTypeEnumSlice(c *Client, i interface{}) []KeyWebSettingsIntegrationTypeEnum {
+func flattenKeyWebSettingsIntegrationTypeEnumSlice(c *Client, i interface{}, res *Key) []KeyWebSettingsIntegrationTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyWebSettingsIntegrationTypeEnum{}
@@ -2005,7 +2005,7 @@ func flattenKeyWebSettingsIntegrationTypeEnum(i interface{}) *KeyWebSettingsInte
 
 // flattenKeyWebSettingsChallengeSecurityPreferenceEnumMap flattens the contents of KeyWebSettingsChallengeSecurityPreferenceEnum from a JSON
 // response object.
-func flattenKeyWebSettingsChallengeSecurityPreferenceEnumMap(c *Client, i interface{}) map[string]KeyWebSettingsChallengeSecurityPreferenceEnum {
+func flattenKeyWebSettingsChallengeSecurityPreferenceEnumMap(c *Client, i interface{}, res *Key) map[string]KeyWebSettingsChallengeSecurityPreferenceEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyWebSettingsChallengeSecurityPreferenceEnum{}
@@ -2025,7 +2025,7 @@ func flattenKeyWebSettingsChallengeSecurityPreferenceEnumMap(c *Client, i interf
 
 // flattenKeyWebSettingsChallengeSecurityPreferenceEnumSlice flattens the contents of KeyWebSettingsChallengeSecurityPreferenceEnum from a JSON
 // response object.
-func flattenKeyWebSettingsChallengeSecurityPreferenceEnumSlice(c *Client, i interface{}) []KeyWebSettingsChallengeSecurityPreferenceEnum {
+func flattenKeyWebSettingsChallengeSecurityPreferenceEnumSlice(c *Client, i interface{}, res *Key) []KeyWebSettingsChallengeSecurityPreferenceEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyWebSettingsChallengeSecurityPreferenceEnum{}
@@ -2056,7 +2056,7 @@ func flattenKeyWebSettingsChallengeSecurityPreferenceEnum(i interface{}) *KeyWeb
 
 // flattenKeyTestingOptionsTestingChallengeEnumMap flattens the contents of KeyTestingOptionsTestingChallengeEnum from a JSON
 // response object.
-func flattenKeyTestingOptionsTestingChallengeEnumMap(c *Client, i interface{}) map[string]KeyTestingOptionsTestingChallengeEnum {
+func flattenKeyTestingOptionsTestingChallengeEnumMap(c *Client, i interface{}, res *Key) map[string]KeyTestingOptionsTestingChallengeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]KeyTestingOptionsTestingChallengeEnum{}
@@ -2076,7 +2076,7 @@ func flattenKeyTestingOptionsTestingChallengeEnumMap(c *Client, i interface{}) m
 
 // flattenKeyTestingOptionsTestingChallengeEnumSlice flattens the contents of KeyTestingOptionsTestingChallengeEnum from a JSON
 // response object.
-func flattenKeyTestingOptionsTestingChallengeEnumSlice(c *Client, i interface{}) []KeyTestingOptionsTestingChallengeEnum {
+func flattenKeyTestingOptionsTestingChallengeEnumSlice(c *Client, i interface{}, res *Key) []KeyTestingOptionsTestingChallengeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []KeyTestingOptionsTestingChallengeEnum{}
@@ -2110,7 +2110,7 @@ func flattenKeyTestingOptionsTestingChallengeEnum(i interface{}) *KeyTestingOpti
 // identity).  This is useful in extracting the element from a List call.
 func (r *Key) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalKey(b, c)
+		cr, err := unmarshalKey(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

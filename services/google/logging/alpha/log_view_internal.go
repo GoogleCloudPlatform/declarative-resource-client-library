@@ -206,7 +206,7 @@ func (c *Client) listLogView(ctx context.Context, r *LogView, pageToken string, 
 
 	var l []*LogView
 	for _, v := range m.Views {
-		res, err := unmarshalMapLogView(v, c)
+		res, err := unmarshalMapLogView(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -613,17 +613,17 @@ func (r *LogView) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalLogView decodes JSON responses into the LogView resource schema.
-func unmarshalLogView(b []byte, c *Client) (*LogView, error) {
+func unmarshalLogView(b []byte, c *Client, res *LogView) (*LogView, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapLogView(m, c)
+	return unmarshalMapLogView(m, c, res)
 }
 
-func unmarshalMapLogView(m map[string]interface{}, c *Client) (*LogView, error) {
+func unmarshalMapLogView(m map[string]interface{}, c *Client, res *LogView) (*LogView, error) {
 
-	flattened := flattenLogView(c, m)
+	flattened := flattenLogView(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -667,7 +667,7 @@ func expandLogView(c *Client, f *LogView) (map[string]interface{}, error) {
 
 // flattenLogView flattens LogView from a JSON request object into the
 // LogView type.
-func flattenLogView(c *Client, i interface{}) *LogView {
+func flattenLogView(c *Client, i interface{}, res *LogView) *LogView {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -676,17 +676,17 @@ func flattenLogView(c *Client, i interface{}) *LogView {
 		return nil
 	}
 
-	res := &LogView{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Filter = dcl.FlattenString(m["filter"])
-	res.Parent = dcl.FlattenString(m["parent"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Bucket = dcl.FlattenString(m["bucket"])
+	resultRes := &LogView{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Filter = dcl.FlattenString(m["filter"])
+	resultRes.Parent = dcl.FlattenString(m["parent"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Bucket = dcl.FlattenString(m["bucket"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -694,7 +694,7 @@ func flattenLogView(c *Client, i interface{}) *LogView {
 // identity).  This is useful in extracting the element from a List call.
 func (r *LogView) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalLogView(b, c)
+		cr, err := unmarshalLogView(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

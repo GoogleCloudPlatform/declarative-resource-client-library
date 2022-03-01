@@ -268,7 +268,7 @@ func (c *Client) listLogMetric(ctx context.Context, r *LogMetric, pageToken stri
 
 	var l []*LogMetric
 	for _, v := range m.Metrics {
-		res, err := unmarshalMapLogMetric(v, c)
+		res, err := unmarshalMapLogMetric(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1982,17 +1982,17 @@ func (r *LogMetric) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalLogMetric decodes JSON responses into the LogMetric resource schema.
-func unmarshalLogMetric(b []byte, c *Client) (*LogMetric, error) {
+func unmarshalLogMetric(b []byte, c *Client, res *LogMetric) (*LogMetric, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapLogMetric(m, c)
+	return unmarshalMapLogMetric(m, c, res)
 }
 
-func unmarshalMapLogMetric(m map[string]interface{}, c *Client) (*LogMetric, error) {
+func unmarshalMapLogMetric(m map[string]interface{}, c *Client, res *LogMetric) (*LogMetric, error) {
 
-	flattened := flattenLogMetric(c, m)
+	flattened := flattenLogMetric(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2043,7 +2043,7 @@ func expandLogMetric(c *Client, f *LogMetric) (map[string]interface{}, error) {
 
 // flattenLogMetric flattens LogMetric from a JSON request object into the
 // LogMetric type.
-func flattenLogMetric(c *Client, i interface{}) *LogMetric {
+func flattenLogMetric(c *Client, i interface{}, res *LogMetric) *LogMetric {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2052,20 +2052,20 @@ func flattenLogMetric(c *Client, i interface{}) *LogMetric {
 		return nil
 	}
 
-	res := &LogMetric{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Filter = dcl.FlattenString(m["filter"])
-	res.Disabled = dcl.FlattenBool(m["disabled"])
-	res.MetricDescriptor = flattenLogMetricMetricDescriptor(c, m["metricDescriptor"])
-	res.ValueExtractor = dcl.FlattenString(m["valueExtractor"])
-	res.LabelExtractors = dcl.FlattenKeyValuePairs(m["labelExtractors"])
-	res.BucketOptions = flattenLogMetricBucketOptions(c, m["bucketOptions"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &LogMetric{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Filter = dcl.FlattenString(m["filter"])
+	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
+	resultRes.MetricDescriptor = flattenLogMetricMetricDescriptor(c, m["metricDescriptor"], res)
+	resultRes.ValueExtractor = dcl.FlattenString(m["valueExtractor"])
+	resultRes.LabelExtractors = dcl.FlattenKeyValuePairs(m["labelExtractors"])
+	resultRes.BucketOptions = flattenLogMetricBucketOptions(c, m["bucketOptions"], res)
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandLogMetricMetricDescriptorMap expands the contents of LogMetricMetricDescriptor into a JSON
@@ -2111,7 +2111,7 @@ func expandLogMetricMetricDescriptorSlice(c *Client, f []LogMetricMetricDescript
 
 // flattenLogMetricMetricDescriptorMap flattens the contents of LogMetricMetricDescriptor from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptor {
+func flattenLogMetricMetricDescriptorMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricMetricDescriptor {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricMetricDescriptor{}
@@ -2123,7 +2123,7 @@ func flattenLogMetricMetricDescriptorMap(c *Client, i interface{}) map[string]Lo
 
 	items := make(map[string]LogMetricMetricDescriptor)
 	for k, item := range a {
-		items[k] = *flattenLogMetricMetricDescriptor(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricMetricDescriptor(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2131,7 +2131,7 @@ func flattenLogMetricMetricDescriptorMap(c *Client, i interface{}) map[string]Lo
 
 // flattenLogMetricMetricDescriptorSlice flattens the contents of LogMetricMetricDescriptor from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorSlice(c *Client, i interface{}) []LogMetricMetricDescriptor {
+func flattenLogMetricMetricDescriptorSlice(c *Client, i interface{}, res *LogMetric) []LogMetricMetricDescriptor {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricMetricDescriptor{}
@@ -2143,7 +2143,7 @@ func flattenLogMetricMetricDescriptorSlice(c *Client, i interface{}) []LogMetric
 
 	items := make([]LogMetricMetricDescriptor, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptor(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricMetricDescriptor(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2188,7 +2188,7 @@ func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor, re
 
 // flattenLogMetricMetricDescriptor flattens an instance of LogMetricMetricDescriptor from a JSON
 // response object.
-func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetricDescriptor {
+func flattenLogMetricMetricDescriptor(c *Client, i interface{}, res *LogMetric) *LogMetricMetricDescriptor {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2201,13 +2201,13 @@ func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetric
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Type = dcl.FlattenString(m["type"])
-	r.Labels = flattenLogMetricMetricDescriptorLabelsSlice(c, m["labels"])
+	r.Labels = flattenLogMetricMetricDescriptorLabelsSlice(c, m["labels"], res)
 	r.MetricKind = flattenLogMetricMetricDescriptorMetricKindEnum(m["metricKind"])
 	r.ValueType = flattenLogMetricMetricDescriptorValueTypeEnum(m["valueType"])
 	r.Unit = dcl.FlattenString(m["unit"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Metadata = flattenLogMetricMetricDescriptorMetadata(c, m["metadata"])
+	r.Metadata = flattenLogMetricMetricDescriptorMetadata(c, m["metadata"], res)
 	r.LaunchStage = flattenLogMetricMetricDescriptorLaunchStageEnum(m["launchStage"])
 	r.MonitoredResourceTypes = dcl.FlattenStringSlice(m["monitoredResourceTypes"])
 
@@ -2257,7 +2257,7 @@ func expandLogMetricMetricDescriptorLabelsSlice(c *Client, f []LogMetricMetricDe
 
 // flattenLogMetricMetricDescriptorLabelsMap flattens the contents of LogMetricMetricDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabelsMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorLabels {
+func flattenLogMetricMetricDescriptorLabelsMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricMetricDescriptorLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricMetricDescriptorLabels{}
@@ -2269,7 +2269,7 @@ func flattenLogMetricMetricDescriptorLabelsMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]LogMetricMetricDescriptorLabels)
 	for k, item := range a {
-		items[k] = *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2277,7 +2277,7 @@ func flattenLogMetricMetricDescriptorLabelsMap(c *Client, i interface{}) map[str
 
 // flattenLogMetricMetricDescriptorLabelsSlice flattens the contents of LogMetricMetricDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabelsSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLabels {
+func flattenLogMetricMetricDescriptorLabelsSlice(c *Client, i interface{}, res *LogMetric) []LogMetricMetricDescriptorLabels {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricMetricDescriptorLabels{}
@@ -2289,7 +2289,7 @@ func flattenLogMetricMetricDescriptorLabelsSlice(c *Client, i interface{}) []Log
 
 	items := make([]LogMetricMetricDescriptorLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2318,7 +2318,7 @@ func expandLogMetricMetricDescriptorLabels(c *Client, f *LogMetricMetricDescript
 
 // flattenLogMetricMetricDescriptorLabels flattens an instance of LogMetricMetricDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabels(c *Client, i interface{}) *LogMetricMetricDescriptorLabels {
+func flattenLogMetricMetricDescriptorLabels(c *Client, i interface{}, res *LogMetric) *LogMetricMetricDescriptorLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2379,7 +2379,7 @@ func expandLogMetricMetricDescriptorMetadataSlice(c *Client, f []LogMetricMetric
 
 // flattenLogMetricMetricDescriptorMetadataMap flattens the contents of LogMetricMetricDescriptorMetadata from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorMetadataMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorMetadata {
+func flattenLogMetricMetricDescriptorMetadataMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricMetricDescriptorMetadata {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricMetricDescriptorMetadata{}
@@ -2391,7 +2391,7 @@ func flattenLogMetricMetricDescriptorMetadataMap(c *Client, i interface{}) map[s
 
 	items := make(map[string]LogMetricMetricDescriptorMetadata)
 	for k, item := range a {
-		items[k] = *flattenLogMetricMetricDescriptorMetadata(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricMetricDescriptorMetadata(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2399,7 +2399,7 @@ func flattenLogMetricMetricDescriptorMetadataMap(c *Client, i interface{}) map[s
 
 // flattenLogMetricMetricDescriptorMetadataSlice flattens the contents of LogMetricMetricDescriptorMetadata from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorMetadataSlice(c *Client, i interface{}) []LogMetricMetricDescriptorMetadata {
+func flattenLogMetricMetricDescriptorMetadataSlice(c *Client, i interface{}, res *LogMetric) []LogMetricMetricDescriptorMetadata {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricMetricDescriptorMetadata{}
@@ -2411,7 +2411,7 @@ func flattenLogMetricMetricDescriptorMetadataSlice(c *Client, i interface{}) []L
 
 	items := make([]LogMetricMetricDescriptorMetadata, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorMetadata(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricMetricDescriptorMetadata(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2437,7 +2437,7 @@ func expandLogMetricMetricDescriptorMetadata(c *Client, f *LogMetricMetricDescri
 
 // flattenLogMetricMetricDescriptorMetadata flattens an instance of LogMetricMetricDescriptorMetadata from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorMetadata(c *Client, i interface{}) *LogMetricMetricDescriptorMetadata {
+func flattenLogMetricMetricDescriptorMetadata(c *Client, i interface{}, res *LogMetric) *LogMetricMetricDescriptorMetadata {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2497,7 +2497,7 @@ func expandLogMetricBucketOptionsSlice(c *Client, f []LogMetricBucketOptions, re
 
 // flattenLogMetricBucketOptionsMap flattens the contents of LogMetricBucketOptions from a JSON
 // response object.
-func flattenLogMetricBucketOptionsMap(c *Client, i interface{}) map[string]LogMetricBucketOptions {
+func flattenLogMetricBucketOptionsMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricBucketOptions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricBucketOptions{}
@@ -2509,7 +2509,7 @@ func flattenLogMetricBucketOptionsMap(c *Client, i interface{}) map[string]LogMe
 
 	items := make(map[string]LogMetricBucketOptions)
 	for k, item := range a {
-		items[k] = *flattenLogMetricBucketOptions(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricBucketOptions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2517,7 +2517,7 @@ func flattenLogMetricBucketOptionsMap(c *Client, i interface{}) map[string]LogMe
 
 // flattenLogMetricBucketOptionsSlice flattens the contents of LogMetricBucketOptions from a JSON
 // response object.
-func flattenLogMetricBucketOptionsSlice(c *Client, i interface{}) []LogMetricBucketOptions {
+func flattenLogMetricBucketOptionsSlice(c *Client, i interface{}, res *LogMetric) []LogMetricBucketOptions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricBucketOptions{}
@@ -2529,7 +2529,7 @@ func flattenLogMetricBucketOptionsSlice(c *Client, i interface{}) []LogMetricBuc
 
 	items := make([]LogMetricBucketOptions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricBucketOptions(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricBucketOptions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2564,7 +2564,7 @@ func expandLogMetricBucketOptions(c *Client, f *LogMetricBucketOptions, res *Log
 
 // flattenLogMetricBucketOptions flattens an instance of LogMetricBucketOptions from a JSON
 // response object.
-func flattenLogMetricBucketOptions(c *Client, i interface{}) *LogMetricBucketOptions {
+func flattenLogMetricBucketOptions(c *Client, i interface{}, res *LogMetric) *LogMetricBucketOptions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2575,9 +2575,9 @@ func flattenLogMetricBucketOptions(c *Client, i interface{}) *LogMetricBucketOpt
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyLogMetricBucketOptions
 	}
-	r.LinearBuckets = flattenLogMetricBucketOptionsLinearBuckets(c, m["linearBuckets"])
-	r.ExponentialBuckets = flattenLogMetricBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
-	r.ExplicitBuckets = flattenLogMetricBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
+	r.LinearBuckets = flattenLogMetricBucketOptionsLinearBuckets(c, m["linearBuckets"], res)
+	r.ExponentialBuckets = flattenLogMetricBucketOptionsExponentialBuckets(c, m["exponentialBuckets"], res)
+	r.ExplicitBuckets = flattenLogMetricBucketOptionsExplicitBuckets(c, m["explicitBuckets"], res)
 
 	return r
 }
@@ -2625,7 +2625,7 @@ func expandLogMetricBucketOptionsLinearBucketsSlice(c *Client, f []LogMetricBuck
 
 // flattenLogMetricBucketOptionsLinearBucketsMap flattens the contents of LogMetricBucketOptionsLinearBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsLinearBucketsMap(c *Client, i interface{}) map[string]LogMetricBucketOptionsLinearBuckets {
+func flattenLogMetricBucketOptionsLinearBucketsMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricBucketOptionsLinearBuckets {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricBucketOptionsLinearBuckets{}
@@ -2637,7 +2637,7 @@ func flattenLogMetricBucketOptionsLinearBucketsMap(c *Client, i interface{}) map
 
 	items := make(map[string]LogMetricBucketOptionsLinearBuckets)
 	for k, item := range a {
-		items[k] = *flattenLogMetricBucketOptionsLinearBuckets(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricBucketOptionsLinearBuckets(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2645,7 +2645,7 @@ func flattenLogMetricBucketOptionsLinearBucketsMap(c *Client, i interface{}) map
 
 // flattenLogMetricBucketOptionsLinearBucketsSlice flattens the contents of LogMetricBucketOptionsLinearBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsLinearBucketsSlice(c *Client, i interface{}) []LogMetricBucketOptionsLinearBuckets {
+func flattenLogMetricBucketOptionsLinearBucketsSlice(c *Client, i interface{}, res *LogMetric) []LogMetricBucketOptionsLinearBuckets {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricBucketOptionsLinearBuckets{}
@@ -2657,7 +2657,7 @@ func flattenLogMetricBucketOptionsLinearBucketsSlice(c *Client, i interface{}) [
 
 	items := make([]LogMetricBucketOptionsLinearBuckets, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricBucketOptionsLinearBuckets(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricBucketOptionsLinearBuckets(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2686,7 +2686,7 @@ func expandLogMetricBucketOptionsLinearBuckets(c *Client, f *LogMetricBucketOpti
 
 // flattenLogMetricBucketOptionsLinearBuckets flattens an instance of LogMetricBucketOptionsLinearBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsLinearBuckets(c *Client, i interface{}) *LogMetricBucketOptionsLinearBuckets {
+func flattenLogMetricBucketOptionsLinearBuckets(c *Client, i interface{}, res *LogMetric) *LogMetricBucketOptionsLinearBuckets {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2747,7 +2747,7 @@ func expandLogMetricBucketOptionsExponentialBucketsSlice(c *Client, f []LogMetri
 
 // flattenLogMetricBucketOptionsExponentialBucketsMap flattens the contents of LogMetricBucketOptionsExponentialBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsExponentialBucketsMap(c *Client, i interface{}) map[string]LogMetricBucketOptionsExponentialBuckets {
+func flattenLogMetricBucketOptionsExponentialBucketsMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricBucketOptionsExponentialBuckets {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricBucketOptionsExponentialBuckets{}
@@ -2759,7 +2759,7 @@ func flattenLogMetricBucketOptionsExponentialBucketsMap(c *Client, i interface{}
 
 	items := make(map[string]LogMetricBucketOptionsExponentialBuckets)
 	for k, item := range a {
-		items[k] = *flattenLogMetricBucketOptionsExponentialBuckets(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricBucketOptionsExponentialBuckets(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2767,7 +2767,7 @@ func flattenLogMetricBucketOptionsExponentialBucketsMap(c *Client, i interface{}
 
 // flattenLogMetricBucketOptionsExponentialBucketsSlice flattens the contents of LogMetricBucketOptionsExponentialBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsExponentialBucketsSlice(c *Client, i interface{}) []LogMetricBucketOptionsExponentialBuckets {
+func flattenLogMetricBucketOptionsExponentialBucketsSlice(c *Client, i interface{}, res *LogMetric) []LogMetricBucketOptionsExponentialBuckets {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricBucketOptionsExponentialBuckets{}
@@ -2779,7 +2779,7 @@ func flattenLogMetricBucketOptionsExponentialBucketsSlice(c *Client, i interface
 
 	items := make([]LogMetricBucketOptionsExponentialBuckets, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricBucketOptionsExponentialBuckets(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricBucketOptionsExponentialBuckets(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2808,7 +2808,7 @@ func expandLogMetricBucketOptionsExponentialBuckets(c *Client, f *LogMetricBucke
 
 // flattenLogMetricBucketOptionsExponentialBuckets flattens an instance of LogMetricBucketOptionsExponentialBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsExponentialBuckets(c *Client, i interface{}) *LogMetricBucketOptionsExponentialBuckets {
+func flattenLogMetricBucketOptionsExponentialBuckets(c *Client, i interface{}, res *LogMetric) *LogMetricBucketOptionsExponentialBuckets {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2869,7 +2869,7 @@ func expandLogMetricBucketOptionsExplicitBucketsSlice(c *Client, f []LogMetricBu
 
 // flattenLogMetricBucketOptionsExplicitBucketsMap flattens the contents of LogMetricBucketOptionsExplicitBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsExplicitBucketsMap(c *Client, i interface{}) map[string]LogMetricBucketOptionsExplicitBuckets {
+func flattenLogMetricBucketOptionsExplicitBucketsMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricBucketOptionsExplicitBuckets {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricBucketOptionsExplicitBuckets{}
@@ -2881,7 +2881,7 @@ func flattenLogMetricBucketOptionsExplicitBucketsMap(c *Client, i interface{}) m
 
 	items := make(map[string]LogMetricBucketOptionsExplicitBuckets)
 	for k, item := range a {
-		items[k] = *flattenLogMetricBucketOptionsExplicitBuckets(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricBucketOptionsExplicitBuckets(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2889,7 +2889,7 @@ func flattenLogMetricBucketOptionsExplicitBucketsMap(c *Client, i interface{}) m
 
 // flattenLogMetricBucketOptionsExplicitBucketsSlice flattens the contents of LogMetricBucketOptionsExplicitBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsExplicitBucketsSlice(c *Client, i interface{}) []LogMetricBucketOptionsExplicitBuckets {
+func flattenLogMetricBucketOptionsExplicitBucketsSlice(c *Client, i interface{}, res *LogMetric) []LogMetricBucketOptionsExplicitBuckets {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricBucketOptionsExplicitBuckets{}
@@ -2901,7 +2901,7 @@ func flattenLogMetricBucketOptionsExplicitBucketsSlice(c *Client, i interface{})
 
 	items := make([]LogMetricBucketOptionsExplicitBuckets, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricBucketOptionsExplicitBuckets(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricBucketOptionsExplicitBuckets(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2924,7 +2924,7 @@ func expandLogMetricBucketOptionsExplicitBuckets(c *Client, f *LogMetricBucketOp
 
 // flattenLogMetricBucketOptionsExplicitBuckets flattens an instance of LogMetricBucketOptionsExplicitBuckets from a JSON
 // response object.
-func flattenLogMetricBucketOptionsExplicitBuckets(c *Client, i interface{}) *LogMetricBucketOptionsExplicitBuckets {
+func flattenLogMetricBucketOptionsExplicitBuckets(c *Client, i interface{}, res *LogMetric) *LogMetricBucketOptionsExplicitBuckets {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2942,7 +2942,7 @@ func flattenLogMetricBucketOptionsExplicitBuckets(c *Client, i interface{}) *Log
 
 // flattenLogMetricMetricDescriptorLabelsValueTypeEnumMap flattens the contents of LogMetricMetricDescriptorLabelsValueTypeEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabelsValueTypeEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorLabelsValueTypeEnum {
+func flattenLogMetricMetricDescriptorLabelsValueTypeEnumMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricMetricDescriptorLabelsValueTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricMetricDescriptorLabelsValueTypeEnum{}
@@ -2962,7 +2962,7 @@ func flattenLogMetricMetricDescriptorLabelsValueTypeEnumMap(c *Client, i interfa
 
 // flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorLabelsValueTypeEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLabelsValueTypeEnum {
+func flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}, res *LogMetric) []LogMetricMetricDescriptorLabelsValueTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricMetricDescriptorLabelsValueTypeEnum{}
@@ -2993,7 +2993,7 @@ func flattenLogMetricMetricDescriptorLabelsValueTypeEnum(i interface{}) *LogMetr
 
 // flattenLogMetricMetricDescriptorMetricKindEnumMap flattens the contents of LogMetricMetricDescriptorMetricKindEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorMetricKindEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorMetricKindEnum {
+func flattenLogMetricMetricDescriptorMetricKindEnumMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricMetricDescriptorMetricKindEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricMetricDescriptorMetricKindEnum{}
@@ -3013,7 +3013,7 @@ func flattenLogMetricMetricDescriptorMetricKindEnumMap(c *Client, i interface{})
 
 // flattenLogMetricMetricDescriptorMetricKindEnumSlice flattens the contents of LogMetricMetricDescriptorMetricKindEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorMetricKindEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorMetricKindEnum {
+func flattenLogMetricMetricDescriptorMetricKindEnumSlice(c *Client, i interface{}, res *LogMetric) []LogMetricMetricDescriptorMetricKindEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricMetricDescriptorMetricKindEnum{}
@@ -3044,7 +3044,7 @@ func flattenLogMetricMetricDescriptorMetricKindEnum(i interface{}) *LogMetricMet
 
 // flattenLogMetricMetricDescriptorValueTypeEnumMap flattens the contents of LogMetricMetricDescriptorValueTypeEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorValueTypeEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorValueTypeEnum {
+func flattenLogMetricMetricDescriptorValueTypeEnumMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricMetricDescriptorValueTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricMetricDescriptorValueTypeEnum{}
@@ -3064,7 +3064,7 @@ func flattenLogMetricMetricDescriptorValueTypeEnumMap(c *Client, i interface{}) 
 
 // flattenLogMetricMetricDescriptorValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorValueTypeEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorValueTypeEnum {
+func flattenLogMetricMetricDescriptorValueTypeEnumSlice(c *Client, i interface{}, res *LogMetric) []LogMetricMetricDescriptorValueTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricMetricDescriptorValueTypeEnum{}
@@ -3095,7 +3095,7 @@ func flattenLogMetricMetricDescriptorValueTypeEnum(i interface{}) *LogMetricMetr
 
 // flattenLogMetricMetricDescriptorLaunchStageEnumMap flattens the contents of LogMetricMetricDescriptorLaunchStageEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLaunchStageEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorLaunchStageEnum {
+func flattenLogMetricMetricDescriptorLaunchStageEnumMap(c *Client, i interface{}, res *LogMetric) map[string]LogMetricMetricDescriptorLaunchStageEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogMetricMetricDescriptorLaunchStageEnum{}
@@ -3115,7 +3115,7 @@ func flattenLogMetricMetricDescriptorLaunchStageEnumMap(c *Client, i interface{}
 
 // flattenLogMetricMetricDescriptorLaunchStageEnumSlice flattens the contents of LogMetricMetricDescriptorLaunchStageEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLaunchStageEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLaunchStageEnum {
+func flattenLogMetricMetricDescriptorLaunchStageEnumSlice(c *Client, i interface{}, res *LogMetric) []LogMetricMetricDescriptorLaunchStageEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogMetricMetricDescriptorLaunchStageEnum{}
@@ -3149,7 +3149,7 @@ func flattenLogMetricMetricDescriptorLaunchStageEnum(i interface{}) *LogMetricMe
 // identity).  This is useful in extracting the element from a List call.
 func (r *LogMetric) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalLogMetric(b, c)
+		cr, err := unmarshalLogMetric(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

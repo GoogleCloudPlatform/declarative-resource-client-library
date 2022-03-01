@@ -260,7 +260,7 @@ func (c *Client) listGroup(ctx context.Context, r *Group, pageToken string, page
 
 	var l []*Group
 	for _, v := range m.Groups {
-		res, err := unmarshalMapGroup(v, c)
+		res, err := unmarshalMapGroup(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1540,17 +1540,17 @@ func (r *Group) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalGroup decodes JSON responses into the Group resource schema.
-func unmarshalGroup(b []byte, c *Client) (*Group, error) {
+func unmarshalGroup(b []byte, c *Client, res *Group) (*Group, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapGroup(m, c)
+	return unmarshalMapGroup(m, c, res)
 }
 
-func unmarshalMapGroup(m map[string]interface{}, c *Client) (*Group, error) {
+func unmarshalMapGroup(m map[string]interface{}, c *Client, res *Group) (*Group, error) {
 
-	flattened := flattenGroup(c, m)
+	flattened := flattenGroup(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1603,7 +1603,7 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 
 // flattenGroup flattens Group from a JSON request object into the
 // Group type.
-func flattenGroup(c *Client, i interface{}) *Group {
+func flattenGroup(c *Client, i interface{}, res *Group) *Group {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1612,23 +1612,23 @@ func flattenGroup(c *Client, i interface{}) *Group {
 		return nil
 	}
 
-	res := &Group{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.GroupKey = flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, m["groupKey"])
-	res.AdditionalGroupKeys = flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c, m["additionalGroupKeys"])
-	res.Parent = dcl.FlattenString(m["parent"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.DirectMemberCount = dcl.FlattenInteger(m["directMemberCount"])
-	res.DirectMemberCountPerType = flattenGroupDirectMemberCountPerType(c, m["directMemberCountPerType"])
-	res.DerivedAliases = flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c, m["derivedAliases"])
-	res.DynamicGroupMetadata = flattenGroupDynamicGroupMetadata(c, m["dynamicGroupMetadata"])
-	res.InitialGroupConfig = flattenGroupInitialGroupConfigEnum(m["initialGroupConfig"])
+	resultRes := &Group{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.GroupKey = flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, m["groupKey"], res)
+	resultRes.AdditionalGroupKeys = flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c, m["additionalGroupKeys"], res)
+	resultRes.Parent = dcl.FlattenString(m["parent"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.DirectMemberCount = dcl.FlattenInteger(m["directMemberCount"])
+	resultRes.DirectMemberCountPerType = flattenGroupDirectMemberCountPerType(c, m["directMemberCountPerType"], res)
+	resultRes.DerivedAliases = flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c, m["derivedAliases"], res)
+	resultRes.DynamicGroupMetadata = flattenGroupDynamicGroupMetadata(c, m["dynamicGroupMetadata"], res)
+	resultRes.InitialGroupConfig = flattenGroupInitialGroupConfigEnum(m["initialGroupConfig"])
 
-	return res
+	return resultRes
 }
 
 // expandGroupGoogleappscloudidentitygroupsvxentitykeyMap expands the contents of GroupGoogleappscloudidentitygroupsvxentitykey into a JSON
@@ -1674,7 +1674,7 @@ func expandGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, f []Gro
 
 // flattenGroupGoogleappscloudidentitygroupsvxentitykeyMap flattens the contents of GroupGoogleappscloudidentitygroupsvxentitykey from a JSON
 // response object.
-func flattenGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, i interface{}) map[string]GroupGoogleappscloudidentitygroupsvxentitykey {
+func flattenGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, i interface{}, res *Group) map[string]GroupGoogleappscloudidentitygroupsvxentitykey {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupGoogleappscloudidentitygroupsvxentitykey{}
@@ -1686,7 +1686,7 @@ func flattenGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, i interf
 
 	items := make(map[string]GroupGoogleappscloudidentitygroupsvxentitykey)
 	for k, item := range a {
-		items[k] = *flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, item.(map[string]interface{}))
+		items[k] = *flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1694,7 +1694,7 @@ func flattenGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, i interf
 
 // flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice flattens the contents of GroupGoogleappscloudidentitygroupsvxentitykey from a JSON
 // response object.
-func flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, i interface{}) []GroupGoogleappscloudidentitygroupsvxentitykey {
+func flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, i interface{}, res *Group) []GroupGoogleappscloudidentitygroupsvxentitykey {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupGoogleappscloudidentitygroupsvxentitykey{}
@@ -1706,7 +1706,7 @@ func flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, i inte
 
 	items := make([]GroupGoogleappscloudidentitygroupsvxentitykey, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, item.(map[string]interface{})))
+		items = append(items, *flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1732,7 +1732,7 @@ func expandGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, f *GroupGoog
 
 // flattenGroupGoogleappscloudidentitygroupsvxentitykey flattens an instance of GroupGoogleappscloudidentitygroupsvxentitykey from a JSON
 // response object.
-func flattenGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, i interface{}) *GroupGoogleappscloudidentitygroupsvxentitykey {
+func flattenGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, i interface{}, res *Group) *GroupGoogleappscloudidentitygroupsvxentitykey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1792,7 +1792,7 @@ func expandGroupDirectMemberCountPerTypeSlice(c *Client, f []GroupDirectMemberCo
 
 // flattenGroupDirectMemberCountPerTypeMap flattens the contents of GroupDirectMemberCountPerType from a JSON
 // response object.
-func flattenGroupDirectMemberCountPerTypeMap(c *Client, i interface{}) map[string]GroupDirectMemberCountPerType {
+func flattenGroupDirectMemberCountPerTypeMap(c *Client, i interface{}, res *Group) map[string]GroupDirectMemberCountPerType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupDirectMemberCountPerType{}
@@ -1804,7 +1804,7 @@ func flattenGroupDirectMemberCountPerTypeMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]GroupDirectMemberCountPerType)
 	for k, item := range a {
-		items[k] = *flattenGroupDirectMemberCountPerType(c, item.(map[string]interface{}))
+		items[k] = *flattenGroupDirectMemberCountPerType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1812,7 +1812,7 @@ func flattenGroupDirectMemberCountPerTypeMap(c *Client, i interface{}) map[strin
 
 // flattenGroupDirectMemberCountPerTypeSlice flattens the contents of GroupDirectMemberCountPerType from a JSON
 // response object.
-func flattenGroupDirectMemberCountPerTypeSlice(c *Client, i interface{}) []GroupDirectMemberCountPerType {
+func flattenGroupDirectMemberCountPerTypeSlice(c *Client, i interface{}, res *Group) []GroupDirectMemberCountPerType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupDirectMemberCountPerType{}
@@ -1824,7 +1824,7 @@ func flattenGroupDirectMemberCountPerTypeSlice(c *Client, i interface{}) []Group
 
 	items := make([]GroupDirectMemberCountPerType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGroupDirectMemberCountPerType(c, item.(map[string]interface{})))
+		items = append(items, *flattenGroupDirectMemberCountPerType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1844,7 +1844,7 @@ func expandGroupDirectMemberCountPerType(c *Client, f *GroupDirectMemberCountPer
 
 // flattenGroupDirectMemberCountPerType flattens an instance of GroupDirectMemberCountPerType from a JSON
 // response object.
-func flattenGroupDirectMemberCountPerType(c *Client, i interface{}) *GroupDirectMemberCountPerType {
+func flattenGroupDirectMemberCountPerType(c *Client, i interface{}, res *Group) *GroupDirectMemberCountPerType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1904,7 +1904,7 @@ func expandGroupDynamicGroupMetadataSlice(c *Client, f []GroupDynamicGroupMetada
 
 // flattenGroupDynamicGroupMetadataMap flattens the contents of GroupDynamicGroupMetadata from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataMap(c *Client, i interface{}) map[string]GroupDynamicGroupMetadata {
+func flattenGroupDynamicGroupMetadataMap(c *Client, i interface{}, res *Group) map[string]GroupDynamicGroupMetadata {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupDynamicGroupMetadata{}
@@ -1916,7 +1916,7 @@ func flattenGroupDynamicGroupMetadataMap(c *Client, i interface{}) map[string]Gr
 
 	items := make(map[string]GroupDynamicGroupMetadata)
 	for k, item := range a {
-		items[k] = *flattenGroupDynamicGroupMetadata(c, item.(map[string]interface{}))
+		items[k] = *flattenGroupDynamicGroupMetadata(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1924,7 +1924,7 @@ func flattenGroupDynamicGroupMetadataMap(c *Client, i interface{}) map[string]Gr
 
 // flattenGroupDynamicGroupMetadataSlice flattens the contents of GroupDynamicGroupMetadata from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataSlice(c *Client, i interface{}) []GroupDynamicGroupMetadata {
+func flattenGroupDynamicGroupMetadataSlice(c *Client, i interface{}, res *Group) []GroupDynamicGroupMetadata {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupDynamicGroupMetadata{}
@@ -1936,7 +1936,7 @@ func flattenGroupDynamicGroupMetadataSlice(c *Client, i interface{}) []GroupDyna
 
 	items := make([]GroupDynamicGroupMetadata, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGroupDynamicGroupMetadata(c, item.(map[string]interface{})))
+		items = append(items, *flattenGroupDynamicGroupMetadata(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1961,7 +1961,7 @@ func expandGroupDynamicGroupMetadata(c *Client, f *GroupDynamicGroupMetadata, re
 
 // flattenGroupDynamicGroupMetadata flattens an instance of GroupDynamicGroupMetadata from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadata(c *Client, i interface{}) *GroupDynamicGroupMetadata {
+func flattenGroupDynamicGroupMetadata(c *Client, i interface{}, res *Group) *GroupDynamicGroupMetadata {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1972,8 +1972,8 @@ func flattenGroupDynamicGroupMetadata(c *Client, i interface{}) *GroupDynamicGro
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGroupDynamicGroupMetadata
 	}
-	r.Queries = flattenGroupDynamicGroupMetadataQueriesSlice(c, m["queries"])
-	r.Status = flattenGroupDynamicGroupMetadataStatus(c, m["status"])
+	r.Queries = flattenGroupDynamicGroupMetadataQueriesSlice(c, m["queries"], res)
+	r.Status = flattenGroupDynamicGroupMetadataStatus(c, m["status"], res)
 
 	return r
 }
@@ -2021,7 +2021,7 @@ func expandGroupDynamicGroupMetadataQueriesSlice(c *Client, f []GroupDynamicGrou
 
 // flattenGroupDynamicGroupMetadataQueriesMap flattens the contents of GroupDynamicGroupMetadataQueries from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataQueriesMap(c *Client, i interface{}) map[string]GroupDynamicGroupMetadataQueries {
+func flattenGroupDynamicGroupMetadataQueriesMap(c *Client, i interface{}, res *Group) map[string]GroupDynamicGroupMetadataQueries {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupDynamicGroupMetadataQueries{}
@@ -2033,7 +2033,7 @@ func flattenGroupDynamicGroupMetadataQueriesMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]GroupDynamicGroupMetadataQueries)
 	for k, item := range a {
-		items[k] = *flattenGroupDynamicGroupMetadataQueries(c, item.(map[string]interface{}))
+		items[k] = *flattenGroupDynamicGroupMetadataQueries(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2041,7 +2041,7 @@ func flattenGroupDynamicGroupMetadataQueriesMap(c *Client, i interface{}) map[st
 
 // flattenGroupDynamicGroupMetadataQueriesSlice flattens the contents of GroupDynamicGroupMetadataQueries from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataQueriesSlice(c *Client, i interface{}) []GroupDynamicGroupMetadataQueries {
+func flattenGroupDynamicGroupMetadataQueriesSlice(c *Client, i interface{}, res *Group) []GroupDynamicGroupMetadataQueries {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupDynamicGroupMetadataQueries{}
@@ -2053,7 +2053,7 @@ func flattenGroupDynamicGroupMetadataQueriesSlice(c *Client, i interface{}) []Gr
 
 	items := make([]GroupDynamicGroupMetadataQueries, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGroupDynamicGroupMetadataQueries(c, item.(map[string]interface{})))
+		items = append(items, *flattenGroupDynamicGroupMetadataQueries(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2079,7 +2079,7 @@ func expandGroupDynamicGroupMetadataQueries(c *Client, f *GroupDynamicGroupMetad
 
 // flattenGroupDynamicGroupMetadataQueries flattens an instance of GroupDynamicGroupMetadataQueries from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataQueries(c *Client, i interface{}) *GroupDynamicGroupMetadataQueries {
+func flattenGroupDynamicGroupMetadataQueries(c *Client, i interface{}, res *Group) *GroupDynamicGroupMetadataQueries {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2139,7 +2139,7 @@ func expandGroupDynamicGroupMetadataStatusSlice(c *Client, f []GroupDynamicGroup
 
 // flattenGroupDynamicGroupMetadataStatusMap flattens the contents of GroupDynamicGroupMetadataStatus from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataStatusMap(c *Client, i interface{}) map[string]GroupDynamicGroupMetadataStatus {
+func flattenGroupDynamicGroupMetadataStatusMap(c *Client, i interface{}, res *Group) map[string]GroupDynamicGroupMetadataStatus {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupDynamicGroupMetadataStatus{}
@@ -2151,7 +2151,7 @@ func flattenGroupDynamicGroupMetadataStatusMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]GroupDynamicGroupMetadataStatus)
 	for k, item := range a {
-		items[k] = *flattenGroupDynamicGroupMetadataStatus(c, item.(map[string]interface{}))
+		items[k] = *flattenGroupDynamicGroupMetadataStatus(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2159,7 +2159,7 @@ func flattenGroupDynamicGroupMetadataStatusMap(c *Client, i interface{}) map[str
 
 // flattenGroupDynamicGroupMetadataStatusSlice flattens the contents of GroupDynamicGroupMetadataStatus from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataStatusSlice(c *Client, i interface{}) []GroupDynamicGroupMetadataStatus {
+func flattenGroupDynamicGroupMetadataStatusSlice(c *Client, i interface{}, res *Group) []GroupDynamicGroupMetadataStatus {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupDynamicGroupMetadataStatus{}
@@ -2171,7 +2171,7 @@ func flattenGroupDynamicGroupMetadataStatusSlice(c *Client, i interface{}) []Gro
 
 	items := make([]GroupDynamicGroupMetadataStatus, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGroupDynamicGroupMetadataStatus(c, item.(map[string]interface{})))
+		items = append(items, *flattenGroupDynamicGroupMetadataStatus(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2197,7 +2197,7 @@ func expandGroupDynamicGroupMetadataStatus(c *Client, f *GroupDynamicGroupMetada
 
 // flattenGroupDynamicGroupMetadataStatus flattens an instance of GroupDynamicGroupMetadataStatus from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataStatus(c *Client, i interface{}) *GroupDynamicGroupMetadataStatus {
+func flattenGroupDynamicGroupMetadataStatus(c *Client, i interface{}, res *Group) *GroupDynamicGroupMetadataStatus {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2216,7 +2216,7 @@ func flattenGroupDynamicGroupMetadataStatus(c *Client, i interface{}) *GroupDyna
 
 // flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumMap flattens the contents of GroupDynamicGroupMetadataQueriesResourceTypeEnum from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumMap(c *Client, i interface{}) map[string]GroupDynamicGroupMetadataQueriesResourceTypeEnum {
+func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumMap(c *Client, i interface{}, res *Group) map[string]GroupDynamicGroupMetadataQueriesResourceTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupDynamicGroupMetadataQueriesResourceTypeEnum{}
@@ -2236,7 +2236,7 @@ func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumMap(c *Client, i int
 
 // flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumSlice flattens the contents of GroupDynamicGroupMetadataQueriesResourceTypeEnum from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumSlice(c *Client, i interface{}) []GroupDynamicGroupMetadataQueriesResourceTypeEnum {
+func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnumSlice(c *Client, i interface{}, res *Group) []GroupDynamicGroupMetadataQueriesResourceTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupDynamicGroupMetadataQueriesResourceTypeEnum{}
@@ -2267,7 +2267,7 @@ func flattenGroupDynamicGroupMetadataQueriesResourceTypeEnum(i interface{}) *Gro
 
 // flattenGroupDynamicGroupMetadataStatusStatusEnumMap flattens the contents of GroupDynamicGroupMetadataStatusStatusEnum from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataStatusStatusEnumMap(c *Client, i interface{}) map[string]GroupDynamicGroupMetadataStatusStatusEnum {
+func flattenGroupDynamicGroupMetadataStatusStatusEnumMap(c *Client, i interface{}, res *Group) map[string]GroupDynamicGroupMetadataStatusStatusEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupDynamicGroupMetadataStatusStatusEnum{}
@@ -2287,7 +2287,7 @@ func flattenGroupDynamicGroupMetadataStatusStatusEnumMap(c *Client, i interface{
 
 // flattenGroupDynamicGroupMetadataStatusStatusEnumSlice flattens the contents of GroupDynamicGroupMetadataStatusStatusEnum from a JSON
 // response object.
-func flattenGroupDynamicGroupMetadataStatusStatusEnumSlice(c *Client, i interface{}) []GroupDynamicGroupMetadataStatusStatusEnum {
+func flattenGroupDynamicGroupMetadataStatusStatusEnumSlice(c *Client, i interface{}, res *Group) []GroupDynamicGroupMetadataStatusStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupDynamicGroupMetadataStatusStatusEnum{}
@@ -2318,7 +2318,7 @@ func flattenGroupDynamicGroupMetadataStatusStatusEnum(i interface{}) *GroupDynam
 
 // flattenGroupInitialGroupConfigEnumMap flattens the contents of GroupInitialGroupConfigEnum from a JSON
 // response object.
-func flattenGroupInitialGroupConfigEnumMap(c *Client, i interface{}) map[string]GroupInitialGroupConfigEnum {
+func flattenGroupInitialGroupConfigEnumMap(c *Client, i interface{}, res *Group) map[string]GroupInitialGroupConfigEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GroupInitialGroupConfigEnum{}
@@ -2338,7 +2338,7 @@ func flattenGroupInitialGroupConfigEnumMap(c *Client, i interface{}) map[string]
 
 // flattenGroupInitialGroupConfigEnumSlice flattens the contents of GroupInitialGroupConfigEnum from a JSON
 // response object.
-func flattenGroupInitialGroupConfigEnumSlice(c *Client, i interface{}) []GroupInitialGroupConfigEnum {
+func flattenGroupInitialGroupConfigEnumSlice(c *Client, i interface{}, res *Group) []GroupInitialGroupConfigEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GroupInitialGroupConfigEnum{}
@@ -2372,7 +2372,7 @@ func flattenGroupInitialGroupConfigEnum(i interface{}) *GroupInitialGroupConfigE
 // identity).  This is useful in extracting the element from a List call.
 func (r *Group) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalGroup(b, c)
+		cr, err := unmarshalGroup(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

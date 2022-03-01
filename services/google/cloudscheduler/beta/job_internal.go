@@ -303,7 +303,7 @@ func (c *Client) listJob(ctx context.Context, r *Job, pageToken string, pageSize
 
 	var l []*Job
 	for _, v := range m.Jobs {
-		res, err := unmarshalMapJob(v, c)
+		res, err := unmarshalMapJob(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -2428,17 +2428,17 @@ func (r *Job) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalJob decodes JSON responses into the Job resource schema.
-func unmarshalJob(b []byte, c *Client) (*Job, error) {
+func unmarshalJob(b []byte, c *Client, res *Job) (*Job, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapJob(m, c)
+	return unmarshalMapJob(m, c, res)
 }
 
-func unmarshalMapJob(m map[string]interface{}, c *Client) (*Job, error) {
+func unmarshalMapJob(m map[string]interface{}, c *Client, res *Job) (*Job, error) {
 
-	flattened := flattenJob(c, m)
+	flattened := flattenJob(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2503,7 +2503,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 
 // flattenJob flattens Job from a JSON request object into the
 // Job type.
-func flattenJob(c *Client, i interface{}) *Job {
+func flattenJob(c *Client, i interface{}, res *Job) *Job {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2512,25 +2512,25 @@ func flattenJob(c *Client, i interface{}) *Job {
 		return nil
 	}
 
-	res := &Job{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.PubsubTarget = flattenJobPubsubTarget(c, m["pubsubTarget"])
-	res.AppEngineHttpTarget = flattenJobAppEngineHttpTarget(c, m["appEngineHttpTarget"])
-	res.HttpTarget = flattenJobHttpTarget(c, m["httpTarget"])
-	res.Schedule = dcl.FlattenString(m["schedule"])
-	res.TimeZone = dcl.FlattenString(m["timeZone"])
-	res.UserUpdateTime = dcl.FlattenString(m["userUpdateTime"])
-	res.State = flattenJobStateEnum(m["state"])
-	res.Status = flattenJobStatus(c, m["status"])
-	res.ScheduleTime = dcl.FlattenString(m["scheduleTime"])
-	res.LastAttemptTime = dcl.FlattenString(m["lastAttemptTime"])
-	res.RetryConfig = flattenJobRetryConfig(c, m["retryConfig"])
-	res.AttemptDeadline = dcl.FlattenString(m["attemptDeadline"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Job{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.PubsubTarget = flattenJobPubsubTarget(c, m["pubsubTarget"], res)
+	resultRes.AppEngineHttpTarget = flattenJobAppEngineHttpTarget(c, m["appEngineHttpTarget"], res)
+	resultRes.HttpTarget = flattenJobHttpTarget(c, m["httpTarget"], res)
+	resultRes.Schedule = dcl.FlattenString(m["schedule"])
+	resultRes.TimeZone = dcl.FlattenString(m["timeZone"])
+	resultRes.UserUpdateTime = dcl.FlattenString(m["userUpdateTime"])
+	resultRes.State = flattenJobStateEnum(m["state"])
+	resultRes.Status = flattenJobStatus(c, m["status"], res)
+	resultRes.ScheduleTime = dcl.FlattenString(m["scheduleTime"])
+	resultRes.LastAttemptTime = dcl.FlattenString(m["lastAttemptTime"])
+	resultRes.RetryConfig = flattenJobRetryConfig(c, m["retryConfig"], res)
+	resultRes.AttemptDeadline = dcl.FlattenString(m["attemptDeadline"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandJobPubsubTargetMap expands the contents of JobPubsubTarget into a JSON
@@ -2576,7 +2576,7 @@ func expandJobPubsubTargetSlice(c *Client, f []JobPubsubTarget, res *Job) ([]map
 
 // flattenJobPubsubTargetMap flattens the contents of JobPubsubTarget from a JSON
 // response object.
-func flattenJobPubsubTargetMap(c *Client, i interface{}) map[string]JobPubsubTarget {
+func flattenJobPubsubTargetMap(c *Client, i interface{}, res *Job) map[string]JobPubsubTarget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobPubsubTarget{}
@@ -2588,7 +2588,7 @@ func flattenJobPubsubTargetMap(c *Client, i interface{}) map[string]JobPubsubTar
 
 	items := make(map[string]JobPubsubTarget)
 	for k, item := range a {
-		items[k] = *flattenJobPubsubTarget(c, item.(map[string]interface{}))
+		items[k] = *flattenJobPubsubTarget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2596,7 +2596,7 @@ func flattenJobPubsubTargetMap(c *Client, i interface{}) map[string]JobPubsubTar
 
 // flattenJobPubsubTargetSlice flattens the contents of JobPubsubTarget from a JSON
 // response object.
-func flattenJobPubsubTargetSlice(c *Client, i interface{}) []JobPubsubTarget {
+func flattenJobPubsubTargetSlice(c *Client, i interface{}, res *Job) []JobPubsubTarget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobPubsubTarget{}
@@ -2608,7 +2608,7 @@ func flattenJobPubsubTargetSlice(c *Client, i interface{}) []JobPubsubTarget {
 
 	items := make([]JobPubsubTarget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobPubsubTarget(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobPubsubTarget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2637,7 +2637,7 @@ func expandJobPubsubTarget(c *Client, f *JobPubsubTarget, res *Job) (map[string]
 
 // flattenJobPubsubTarget flattens an instance of JobPubsubTarget from a JSON
 // response object.
-func flattenJobPubsubTarget(c *Client, i interface{}) *JobPubsubTarget {
+func flattenJobPubsubTarget(c *Client, i interface{}, res *Job) *JobPubsubTarget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2698,7 +2698,7 @@ func expandJobAppEngineHttpTargetSlice(c *Client, f []JobAppEngineHttpTarget, re
 
 // flattenJobAppEngineHttpTargetMap flattens the contents of JobAppEngineHttpTarget from a JSON
 // response object.
-func flattenJobAppEngineHttpTargetMap(c *Client, i interface{}) map[string]JobAppEngineHttpTarget {
+func flattenJobAppEngineHttpTargetMap(c *Client, i interface{}, res *Job) map[string]JobAppEngineHttpTarget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobAppEngineHttpTarget{}
@@ -2710,7 +2710,7 @@ func flattenJobAppEngineHttpTargetMap(c *Client, i interface{}) map[string]JobAp
 
 	items := make(map[string]JobAppEngineHttpTarget)
 	for k, item := range a {
-		items[k] = *flattenJobAppEngineHttpTarget(c, item.(map[string]interface{}))
+		items[k] = *flattenJobAppEngineHttpTarget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2718,7 +2718,7 @@ func flattenJobAppEngineHttpTargetMap(c *Client, i interface{}) map[string]JobAp
 
 // flattenJobAppEngineHttpTargetSlice flattens the contents of JobAppEngineHttpTarget from a JSON
 // response object.
-func flattenJobAppEngineHttpTargetSlice(c *Client, i interface{}) []JobAppEngineHttpTarget {
+func flattenJobAppEngineHttpTargetSlice(c *Client, i interface{}, res *Job) []JobAppEngineHttpTarget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobAppEngineHttpTarget{}
@@ -2730,7 +2730,7 @@ func flattenJobAppEngineHttpTargetSlice(c *Client, i interface{}) []JobAppEngine
 
 	items := make([]JobAppEngineHttpTarget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobAppEngineHttpTarget(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobAppEngineHttpTarget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2767,7 +2767,7 @@ func expandJobAppEngineHttpTarget(c *Client, f *JobAppEngineHttpTarget, res *Job
 
 // flattenJobAppEngineHttpTarget flattens an instance of JobAppEngineHttpTarget from a JSON
 // response object.
-func flattenJobAppEngineHttpTarget(c *Client, i interface{}) *JobAppEngineHttpTarget {
+func flattenJobAppEngineHttpTarget(c *Client, i interface{}, res *Job) *JobAppEngineHttpTarget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2779,7 +2779,7 @@ func flattenJobAppEngineHttpTarget(c *Client, i interface{}) *JobAppEngineHttpTa
 		return EmptyJobAppEngineHttpTarget
 	}
 	r.HttpMethod = flattenJobAppEngineHttpTargetHttpMethodEnum(m["httpMethod"])
-	r.AppEngineRouting = flattenJobAppEngineHttpTargetAppEngineRouting(c, m["appEngineRouting"])
+	r.AppEngineRouting = flattenJobAppEngineHttpTargetAppEngineRouting(c, m["appEngineRouting"], res)
 	r.RelativeUri = dcl.FlattenString(m["relativeUri"])
 	r.Headers = dcl.FlattenKeyValuePairs(m["headers"])
 	r.Body = dcl.FlattenString(m["body"])
@@ -2830,7 +2830,7 @@ func expandJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, f []JobAppEngi
 
 // flattenJobAppEngineHttpTargetAppEngineRoutingMap flattens the contents of JobAppEngineHttpTargetAppEngineRouting from a JSON
 // response object.
-func flattenJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, i interface{}) map[string]JobAppEngineHttpTargetAppEngineRouting {
+func flattenJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, i interface{}, res *Job) map[string]JobAppEngineHttpTargetAppEngineRouting {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobAppEngineHttpTargetAppEngineRouting{}
@@ -2842,7 +2842,7 @@ func flattenJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, i interface{}) 
 
 	items := make(map[string]JobAppEngineHttpTargetAppEngineRouting)
 	for k, item := range a {
-		items[k] = *flattenJobAppEngineHttpTargetAppEngineRouting(c, item.(map[string]interface{}))
+		items[k] = *flattenJobAppEngineHttpTargetAppEngineRouting(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2850,7 +2850,7 @@ func flattenJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, i interface{}) 
 
 // flattenJobAppEngineHttpTargetAppEngineRoutingSlice flattens the contents of JobAppEngineHttpTargetAppEngineRouting from a JSON
 // response object.
-func flattenJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, i interface{}) []JobAppEngineHttpTargetAppEngineRouting {
+func flattenJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, i interface{}, res *Job) []JobAppEngineHttpTargetAppEngineRouting {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobAppEngineHttpTargetAppEngineRouting{}
@@ -2862,7 +2862,7 @@ func flattenJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, i interface{}
 
 	items := make([]JobAppEngineHttpTargetAppEngineRouting, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobAppEngineHttpTargetAppEngineRouting(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobAppEngineHttpTargetAppEngineRouting(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2891,7 +2891,7 @@ func expandJobAppEngineHttpTargetAppEngineRouting(c *Client, f *JobAppEngineHttp
 
 // flattenJobAppEngineHttpTargetAppEngineRouting flattens an instance of JobAppEngineHttpTargetAppEngineRouting from a JSON
 // response object.
-func flattenJobAppEngineHttpTargetAppEngineRouting(c *Client, i interface{}) *JobAppEngineHttpTargetAppEngineRouting {
+func flattenJobAppEngineHttpTargetAppEngineRouting(c *Client, i interface{}, res *Job) *JobAppEngineHttpTargetAppEngineRouting {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2953,7 +2953,7 @@ func expandJobHttpTargetSlice(c *Client, f []JobHttpTarget, res *Job) ([]map[str
 
 // flattenJobHttpTargetMap flattens the contents of JobHttpTarget from a JSON
 // response object.
-func flattenJobHttpTargetMap(c *Client, i interface{}) map[string]JobHttpTarget {
+func flattenJobHttpTargetMap(c *Client, i interface{}, res *Job) map[string]JobHttpTarget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobHttpTarget{}
@@ -2965,7 +2965,7 @@ func flattenJobHttpTargetMap(c *Client, i interface{}) map[string]JobHttpTarget 
 
 	items := make(map[string]JobHttpTarget)
 	for k, item := range a {
-		items[k] = *flattenJobHttpTarget(c, item.(map[string]interface{}))
+		items[k] = *flattenJobHttpTarget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2973,7 +2973,7 @@ func flattenJobHttpTargetMap(c *Client, i interface{}) map[string]JobHttpTarget 
 
 // flattenJobHttpTargetSlice flattens the contents of JobHttpTarget from a JSON
 // response object.
-func flattenJobHttpTargetSlice(c *Client, i interface{}) []JobHttpTarget {
+func flattenJobHttpTargetSlice(c *Client, i interface{}, res *Job) []JobHttpTarget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobHttpTarget{}
@@ -2985,7 +2985,7 @@ func flattenJobHttpTargetSlice(c *Client, i interface{}) []JobHttpTarget {
 
 	items := make([]JobHttpTarget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobHttpTarget(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobHttpTarget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3027,7 +3027,7 @@ func expandJobHttpTarget(c *Client, f *JobHttpTarget, res *Job) (map[string]inte
 
 // flattenJobHttpTarget flattens an instance of JobHttpTarget from a JSON
 // response object.
-func flattenJobHttpTarget(c *Client, i interface{}) *JobHttpTarget {
+func flattenJobHttpTarget(c *Client, i interface{}, res *Job) *JobHttpTarget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3042,8 +3042,8 @@ func flattenJobHttpTarget(c *Client, i interface{}) *JobHttpTarget {
 	r.HttpMethod = flattenJobHttpTargetHttpMethodEnum(m["httpMethod"])
 	r.Headers = dcl.FlattenKeyValuePairs(m["headers"])
 	r.Body = dcl.FlattenString(m["body"])
-	r.OAuthToken = flattenJobHttpTargetOAuthToken(c, m["oauthToken"])
-	r.OidcToken = flattenJobHttpTargetOidcToken(c, m["oidcToken"])
+	r.OAuthToken = flattenJobHttpTargetOAuthToken(c, m["oauthToken"], res)
+	r.OidcToken = flattenJobHttpTargetOidcToken(c, m["oidcToken"], res)
 
 	return r
 }
@@ -3091,7 +3091,7 @@ func expandJobHttpTargetOAuthTokenSlice(c *Client, f []JobHttpTargetOAuthToken, 
 
 // flattenJobHttpTargetOAuthTokenMap flattens the contents of JobHttpTargetOAuthToken from a JSON
 // response object.
-func flattenJobHttpTargetOAuthTokenMap(c *Client, i interface{}) map[string]JobHttpTargetOAuthToken {
+func flattenJobHttpTargetOAuthTokenMap(c *Client, i interface{}, res *Job) map[string]JobHttpTargetOAuthToken {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobHttpTargetOAuthToken{}
@@ -3103,7 +3103,7 @@ func flattenJobHttpTargetOAuthTokenMap(c *Client, i interface{}) map[string]JobH
 
 	items := make(map[string]JobHttpTargetOAuthToken)
 	for k, item := range a {
-		items[k] = *flattenJobHttpTargetOAuthToken(c, item.(map[string]interface{}))
+		items[k] = *flattenJobHttpTargetOAuthToken(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3111,7 +3111,7 @@ func flattenJobHttpTargetOAuthTokenMap(c *Client, i interface{}) map[string]JobH
 
 // flattenJobHttpTargetOAuthTokenSlice flattens the contents of JobHttpTargetOAuthToken from a JSON
 // response object.
-func flattenJobHttpTargetOAuthTokenSlice(c *Client, i interface{}) []JobHttpTargetOAuthToken {
+func flattenJobHttpTargetOAuthTokenSlice(c *Client, i interface{}, res *Job) []JobHttpTargetOAuthToken {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobHttpTargetOAuthToken{}
@@ -3123,7 +3123,7 @@ func flattenJobHttpTargetOAuthTokenSlice(c *Client, i interface{}) []JobHttpTarg
 
 	items := make([]JobHttpTargetOAuthToken, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobHttpTargetOAuthToken(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobHttpTargetOAuthToken(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3149,7 +3149,7 @@ func expandJobHttpTargetOAuthToken(c *Client, f *JobHttpTargetOAuthToken, res *J
 
 // flattenJobHttpTargetOAuthToken flattens an instance of JobHttpTargetOAuthToken from a JSON
 // response object.
-func flattenJobHttpTargetOAuthToken(c *Client, i interface{}) *JobHttpTargetOAuthToken {
+func flattenJobHttpTargetOAuthToken(c *Client, i interface{}, res *Job) *JobHttpTargetOAuthToken {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3209,7 +3209,7 @@ func expandJobHttpTargetOidcTokenSlice(c *Client, f []JobHttpTargetOidcToken, re
 
 // flattenJobHttpTargetOidcTokenMap flattens the contents of JobHttpTargetOidcToken from a JSON
 // response object.
-func flattenJobHttpTargetOidcTokenMap(c *Client, i interface{}) map[string]JobHttpTargetOidcToken {
+func flattenJobHttpTargetOidcTokenMap(c *Client, i interface{}, res *Job) map[string]JobHttpTargetOidcToken {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobHttpTargetOidcToken{}
@@ -3221,7 +3221,7 @@ func flattenJobHttpTargetOidcTokenMap(c *Client, i interface{}) map[string]JobHt
 
 	items := make(map[string]JobHttpTargetOidcToken)
 	for k, item := range a {
-		items[k] = *flattenJobHttpTargetOidcToken(c, item.(map[string]interface{}))
+		items[k] = *flattenJobHttpTargetOidcToken(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3229,7 +3229,7 @@ func flattenJobHttpTargetOidcTokenMap(c *Client, i interface{}) map[string]JobHt
 
 // flattenJobHttpTargetOidcTokenSlice flattens the contents of JobHttpTargetOidcToken from a JSON
 // response object.
-func flattenJobHttpTargetOidcTokenSlice(c *Client, i interface{}) []JobHttpTargetOidcToken {
+func flattenJobHttpTargetOidcTokenSlice(c *Client, i interface{}, res *Job) []JobHttpTargetOidcToken {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobHttpTargetOidcToken{}
@@ -3241,7 +3241,7 @@ func flattenJobHttpTargetOidcTokenSlice(c *Client, i interface{}) []JobHttpTarge
 
 	items := make([]JobHttpTargetOidcToken, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobHttpTargetOidcToken(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobHttpTargetOidcToken(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3267,7 +3267,7 @@ func expandJobHttpTargetOidcToken(c *Client, f *JobHttpTargetOidcToken, res *Job
 
 // flattenJobHttpTargetOidcToken flattens an instance of JobHttpTargetOidcToken from a JSON
 // response object.
-func flattenJobHttpTargetOidcToken(c *Client, i interface{}) *JobHttpTargetOidcToken {
+func flattenJobHttpTargetOidcToken(c *Client, i interface{}, res *Job) *JobHttpTargetOidcToken {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3327,7 +3327,7 @@ func expandJobStatusSlice(c *Client, f []JobStatus, res *Job) ([]map[string]inte
 
 // flattenJobStatusMap flattens the contents of JobStatus from a JSON
 // response object.
-func flattenJobStatusMap(c *Client, i interface{}) map[string]JobStatus {
+func flattenJobStatusMap(c *Client, i interface{}, res *Job) map[string]JobStatus {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobStatus{}
@@ -3339,7 +3339,7 @@ func flattenJobStatusMap(c *Client, i interface{}) map[string]JobStatus {
 
 	items := make(map[string]JobStatus)
 	for k, item := range a {
-		items[k] = *flattenJobStatus(c, item.(map[string]interface{}))
+		items[k] = *flattenJobStatus(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3347,7 +3347,7 @@ func flattenJobStatusMap(c *Client, i interface{}) map[string]JobStatus {
 
 // flattenJobStatusSlice flattens the contents of JobStatus from a JSON
 // response object.
-func flattenJobStatusSlice(c *Client, i interface{}) []JobStatus {
+func flattenJobStatusSlice(c *Client, i interface{}, res *Job) []JobStatus {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobStatus{}
@@ -3359,7 +3359,7 @@ func flattenJobStatusSlice(c *Client, i interface{}) []JobStatus {
 
 	items := make([]JobStatus, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobStatus(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobStatus(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3390,7 +3390,7 @@ func expandJobStatus(c *Client, f *JobStatus, res *Job) (map[string]interface{},
 
 // flattenJobStatus flattens an instance of JobStatus from a JSON
 // response object.
-func flattenJobStatus(c *Client, i interface{}) *JobStatus {
+func flattenJobStatus(c *Client, i interface{}, res *Job) *JobStatus {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3403,7 +3403,7 @@ func flattenJobStatus(c *Client, i interface{}) *JobStatus {
 	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
-	r.Details = flattenJobStatusDetailsSlice(c, m["details"])
+	r.Details = flattenJobStatusDetailsSlice(c, m["details"], res)
 
 	return r
 }
@@ -3451,7 +3451,7 @@ func expandJobStatusDetailsSlice(c *Client, f []JobStatusDetails, res *Job) ([]m
 
 // flattenJobStatusDetailsMap flattens the contents of JobStatusDetails from a JSON
 // response object.
-func flattenJobStatusDetailsMap(c *Client, i interface{}) map[string]JobStatusDetails {
+func flattenJobStatusDetailsMap(c *Client, i interface{}, res *Job) map[string]JobStatusDetails {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobStatusDetails{}
@@ -3463,7 +3463,7 @@ func flattenJobStatusDetailsMap(c *Client, i interface{}) map[string]JobStatusDe
 
 	items := make(map[string]JobStatusDetails)
 	for k, item := range a {
-		items[k] = *flattenJobStatusDetails(c, item.(map[string]interface{}))
+		items[k] = *flattenJobStatusDetails(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3471,7 +3471,7 @@ func flattenJobStatusDetailsMap(c *Client, i interface{}) map[string]JobStatusDe
 
 // flattenJobStatusDetailsSlice flattens the contents of JobStatusDetails from a JSON
 // response object.
-func flattenJobStatusDetailsSlice(c *Client, i interface{}) []JobStatusDetails {
+func flattenJobStatusDetailsSlice(c *Client, i interface{}, res *Job) []JobStatusDetails {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobStatusDetails{}
@@ -3483,7 +3483,7 @@ func flattenJobStatusDetailsSlice(c *Client, i interface{}) []JobStatusDetails {
 
 	items := make([]JobStatusDetails, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobStatusDetails(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobStatusDetails(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3509,7 +3509,7 @@ func expandJobStatusDetails(c *Client, f *JobStatusDetails, res *Job) (map[strin
 
 // flattenJobStatusDetails flattens an instance of JobStatusDetails from a JSON
 // response object.
-func flattenJobStatusDetails(c *Client, i interface{}) *JobStatusDetails {
+func flattenJobStatusDetails(c *Client, i interface{}, res *Job) *JobStatusDetails {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3569,7 +3569,7 @@ func expandJobRetryConfigSlice(c *Client, f []JobRetryConfig, res *Job) ([]map[s
 
 // flattenJobRetryConfigMap flattens the contents of JobRetryConfig from a JSON
 // response object.
-func flattenJobRetryConfigMap(c *Client, i interface{}) map[string]JobRetryConfig {
+func flattenJobRetryConfigMap(c *Client, i interface{}, res *Job) map[string]JobRetryConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobRetryConfig{}
@@ -3581,7 +3581,7 @@ func flattenJobRetryConfigMap(c *Client, i interface{}) map[string]JobRetryConfi
 
 	items := make(map[string]JobRetryConfig)
 	for k, item := range a {
-		items[k] = *flattenJobRetryConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenJobRetryConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3589,7 +3589,7 @@ func flattenJobRetryConfigMap(c *Client, i interface{}) map[string]JobRetryConfi
 
 // flattenJobRetryConfigSlice flattens the contents of JobRetryConfig from a JSON
 // response object.
-func flattenJobRetryConfigSlice(c *Client, i interface{}) []JobRetryConfig {
+func flattenJobRetryConfigSlice(c *Client, i interface{}, res *Job) []JobRetryConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobRetryConfig{}
@@ -3601,7 +3601,7 @@ func flattenJobRetryConfigSlice(c *Client, i interface{}) []JobRetryConfig {
 
 	items := make([]JobRetryConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenJobRetryConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenJobRetryConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3636,7 +3636,7 @@ func expandJobRetryConfig(c *Client, f *JobRetryConfig, res *Job) (map[string]in
 
 // flattenJobRetryConfig flattens an instance of JobRetryConfig from a JSON
 // response object.
-func flattenJobRetryConfig(c *Client, i interface{}) *JobRetryConfig {
+func flattenJobRetryConfig(c *Client, i interface{}, res *Job) *JobRetryConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3658,7 +3658,7 @@ func flattenJobRetryConfig(c *Client, i interface{}) *JobRetryConfig {
 
 // flattenJobAppEngineHttpTargetHttpMethodEnumMap flattens the contents of JobAppEngineHttpTargetHttpMethodEnum from a JSON
 // response object.
-func flattenJobAppEngineHttpTargetHttpMethodEnumMap(c *Client, i interface{}) map[string]JobAppEngineHttpTargetHttpMethodEnum {
+func flattenJobAppEngineHttpTargetHttpMethodEnumMap(c *Client, i interface{}, res *Job) map[string]JobAppEngineHttpTargetHttpMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobAppEngineHttpTargetHttpMethodEnum{}
@@ -3678,7 +3678,7 @@ func flattenJobAppEngineHttpTargetHttpMethodEnumMap(c *Client, i interface{}) ma
 
 // flattenJobAppEngineHttpTargetHttpMethodEnumSlice flattens the contents of JobAppEngineHttpTargetHttpMethodEnum from a JSON
 // response object.
-func flattenJobAppEngineHttpTargetHttpMethodEnumSlice(c *Client, i interface{}) []JobAppEngineHttpTargetHttpMethodEnum {
+func flattenJobAppEngineHttpTargetHttpMethodEnumSlice(c *Client, i interface{}, res *Job) []JobAppEngineHttpTargetHttpMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobAppEngineHttpTargetHttpMethodEnum{}
@@ -3709,7 +3709,7 @@ func flattenJobAppEngineHttpTargetHttpMethodEnum(i interface{}) *JobAppEngineHtt
 
 // flattenJobHttpTargetHttpMethodEnumMap flattens the contents of JobHttpTargetHttpMethodEnum from a JSON
 // response object.
-func flattenJobHttpTargetHttpMethodEnumMap(c *Client, i interface{}) map[string]JobHttpTargetHttpMethodEnum {
+func flattenJobHttpTargetHttpMethodEnumMap(c *Client, i interface{}, res *Job) map[string]JobHttpTargetHttpMethodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobHttpTargetHttpMethodEnum{}
@@ -3729,7 +3729,7 @@ func flattenJobHttpTargetHttpMethodEnumMap(c *Client, i interface{}) map[string]
 
 // flattenJobHttpTargetHttpMethodEnumSlice flattens the contents of JobHttpTargetHttpMethodEnum from a JSON
 // response object.
-func flattenJobHttpTargetHttpMethodEnumSlice(c *Client, i interface{}) []JobHttpTargetHttpMethodEnum {
+func flattenJobHttpTargetHttpMethodEnumSlice(c *Client, i interface{}, res *Job) []JobHttpTargetHttpMethodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobHttpTargetHttpMethodEnum{}
@@ -3760,7 +3760,7 @@ func flattenJobHttpTargetHttpMethodEnum(i interface{}) *JobHttpTargetHttpMethodE
 
 // flattenJobStateEnumMap flattens the contents of JobStateEnum from a JSON
 // response object.
-func flattenJobStateEnumMap(c *Client, i interface{}) map[string]JobStateEnum {
+func flattenJobStateEnumMap(c *Client, i interface{}, res *Job) map[string]JobStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]JobStateEnum{}
@@ -3780,7 +3780,7 @@ func flattenJobStateEnumMap(c *Client, i interface{}) map[string]JobStateEnum {
 
 // flattenJobStateEnumSlice flattens the contents of JobStateEnum from a JSON
 // response object.
-func flattenJobStateEnumSlice(c *Client, i interface{}) []JobStateEnum {
+func flattenJobStateEnumSlice(c *Client, i interface{}, res *Job) []JobStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []JobStateEnum{}
@@ -3814,7 +3814,7 @@ func flattenJobStateEnum(i interface{}) *JobStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Job) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalJob(b, c)
+		cr, err := unmarshalJob(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

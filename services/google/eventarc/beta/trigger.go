@@ -402,7 +402,7 @@ func (c *Client) GetTrigger(ctx context.Context, r *Trigger) (*Trigger, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalTrigger(b, c)
+	result, err := unmarshalTrigger(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -572,7 +572,7 @@ func applyTriggerDiff(c *Client, ctx context.Context, desired *Trigger, rawDesir
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapTrigger(r, c)
+				fullResp, err := unmarshalMapTrigger(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

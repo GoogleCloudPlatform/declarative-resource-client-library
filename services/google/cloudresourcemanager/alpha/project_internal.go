@@ -211,7 +211,7 @@ func (c *Client) listProject(ctx context.Context, r *Project, pageToken string, 
 
 	var l []*Project
 	for _, v := range m.Items {
-		res, err := unmarshalMapProject(v, c)
+		res, err := unmarshalMapProject(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -579,17 +579,17 @@ func (r *Project) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalProject decodes JSON responses into the Project resource schema.
-func unmarshalProject(b []byte, c *Client) (*Project, error) {
+func unmarshalProject(b []byte, c *Client, res *Project) (*Project, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapProject(m, c)
+	return unmarshalMapProject(m, c, res)
 }
 
-func unmarshalMapProject(m map[string]interface{}, c *Client) (*Project, error) {
+func unmarshalMapProject(m map[string]interface{}, c *Client, res *Project) (*Project, error) {
 
-	flattened := flattenProject(c, m)
+	flattened := flattenProject(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -621,7 +621,7 @@ func expandProject(c *Client, f *Project) (map[string]interface{}, error) {
 
 // flattenProject flattens Project from a JSON request object into the
 // Project type.
-func flattenProject(c *Client, i interface{}) *Project {
+func flattenProject(c *Client, i interface{}, res *Project) *Project {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -630,20 +630,20 @@ func flattenProject(c *Client, i interface{}) *Project {
 		return nil
 	}
 
-	res := &Project{}
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.LifecycleState = flattenProjectLifecycleStateEnum(m["lifecycleState"])
-	res.DisplayName = dcl.FlattenString(m["name"])
-	res.Parent = flattenProjectParent(c, m["parent"])
-	res.Name = dcl.FlattenString(m["projectId"])
-	res.ProjectNumber = dcl.FlattenInteger(m["projectNumber"])
+	resultRes := &Project{}
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.LifecycleState = flattenProjectLifecycleStateEnum(m["lifecycleState"])
+	resultRes.DisplayName = dcl.FlattenString(m["name"])
+	resultRes.Parent = flattenProjectParent(c, m["parent"])
+	resultRes.Name = dcl.FlattenString(m["projectId"])
+	resultRes.ProjectNumber = dcl.FlattenInteger(m["projectNumber"])
 
-	return res
+	return resultRes
 }
 
 // flattenProjectLifecycleStateEnumMap flattens the contents of ProjectLifecycleStateEnum from a JSON
 // response object.
-func flattenProjectLifecycleStateEnumMap(c *Client, i interface{}) map[string]ProjectLifecycleStateEnum {
+func flattenProjectLifecycleStateEnumMap(c *Client, i interface{}, res *Project) map[string]ProjectLifecycleStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ProjectLifecycleStateEnum{}
@@ -663,7 +663,7 @@ func flattenProjectLifecycleStateEnumMap(c *Client, i interface{}) map[string]Pr
 
 // flattenProjectLifecycleStateEnumSlice flattens the contents of ProjectLifecycleStateEnum from a JSON
 // response object.
-func flattenProjectLifecycleStateEnumSlice(c *Client, i interface{}) []ProjectLifecycleStateEnum {
+func flattenProjectLifecycleStateEnumSlice(c *Client, i interface{}, res *Project) []ProjectLifecycleStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ProjectLifecycleStateEnum{}
@@ -697,7 +697,7 @@ func flattenProjectLifecycleStateEnum(i interface{}) *ProjectLifecycleStateEnum 
 // identity).  This is useful in extracting the element from a List call.
 func (r *Project) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalProject(b, c)
+		cr, err := unmarshalProject(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

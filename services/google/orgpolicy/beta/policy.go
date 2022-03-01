@@ -372,7 +372,7 @@ func (c *Client) GetPolicy(ctx context.Context, r *Policy) (*Policy, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalPolicy(b, c)
+	result, err := unmarshalPolicy(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -555,7 +555,7 @@ func applyPolicyDiff(c *Client, ctx context.Context, desired *Policy, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapPolicy(r, c)
+				fullResp, err := unmarshalMapPolicy(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

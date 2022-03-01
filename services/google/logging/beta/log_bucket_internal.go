@@ -207,7 +207,7 @@ func (c *Client) listLogBucket(ctx context.Context, r *LogBucket, pageToken stri
 
 	var l []*LogBucket
 	for _, v := range m.Buckets {
-		res, err := unmarshalMapLogBucket(v, c)
+		res, err := unmarshalMapLogBucket(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -586,17 +586,17 @@ func (r *LogBucket) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalLogBucket decodes JSON responses into the LogBucket resource schema.
-func unmarshalLogBucket(b []byte, c *Client) (*LogBucket, error) {
+func unmarshalLogBucket(b []byte, c *Client, res *LogBucket) (*LogBucket, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapLogBucket(m, c)
+	return unmarshalMapLogBucket(m, c, res)
 }
 
-func unmarshalMapLogBucket(m map[string]interface{}, c *Client) (*LogBucket, error) {
+func unmarshalMapLogBucket(m map[string]interface{}, c *Client, res *LogBucket) (*LogBucket, error) {
 
-	flattened := flattenLogBucket(c, m)
+	flattened := flattenLogBucket(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -638,7 +638,7 @@ func expandLogBucket(c *Client, f *LogBucket) (map[string]interface{}, error) {
 
 // flattenLogBucket flattens LogBucket from a JSON request object into the
 // LogBucket type.
-func flattenLogBucket(c *Client, i interface{}) *LogBucket {
+func flattenLogBucket(c *Client, i interface{}, res *LogBucket) *LogBucket {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -647,23 +647,23 @@ func flattenLogBucket(c *Client, i interface{}) *LogBucket {
 		return nil
 	}
 
-	res := &LogBucket{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.RetentionDays = dcl.FlattenInteger(m["retentionDays"])
-	res.Locked = dcl.FlattenBool(m["locked"])
-	res.LifecycleState = flattenLogBucketLifecycleStateEnum(m["lifecycleState"])
-	res.Parent = dcl.FlattenString(m["parent"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &LogBucket{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.RetentionDays = dcl.FlattenInteger(m["retentionDays"])
+	resultRes.Locked = dcl.FlattenBool(m["locked"])
+	resultRes.LifecycleState = flattenLogBucketLifecycleStateEnum(m["lifecycleState"])
+	resultRes.Parent = dcl.FlattenString(m["parent"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // flattenLogBucketLifecycleStateEnumMap flattens the contents of LogBucketLifecycleStateEnum from a JSON
 // response object.
-func flattenLogBucketLifecycleStateEnumMap(c *Client, i interface{}) map[string]LogBucketLifecycleStateEnum {
+func flattenLogBucketLifecycleStateEnumMap(c *Client, i interface{}, res *LogBucket) map[string]LogBucketLifecycleStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]LogBucketLifecycleStateEnum{}
@@ -683,7 +683,7 @@ func flattenLogBucketLifecycleStateEnumMap(c *Client, i interface{}) map[string]
 
 // flattenLogBucketLifecycleStateEnumSlice flattens the contents of LogBucketLifecycleStateEnum from a JSON
 // response object.
-func flattenLogBucketLifecycleStateEnumSlice(c *Client, i interface{}) []LogBucketLifecycleStateEnum {
+func flattenLogBucketLifecycleStateEnumSlice(c *Client, i interface{}, res *LogBucket) []LogBucketLifecycleStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []LogBucketLifecycleStateEnum{}
@@ -717,7 +717,7 @@ func flattenLogBucketLifecycleStateEnum(i interface{}) *LogBucketLifecycleStateE
 // identity).  This is useful in extracting the element from a List call.
 func (r *LogBucket) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalLogBucket(b, c)
+		cr, err := unmarshalLogBucket(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

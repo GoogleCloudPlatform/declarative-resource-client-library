@@ -309,7 +309,7 @@ func (c *Client) listFunction(ctx context.Context, r *Function, pageToken string
 
 	var l []*Function
 	for _, v := range m.Functions {
-		res, err := unmarshalMapFunction(v, c)
+		res, err := unmarshalMapFunction(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1543,17 +1543,17 @@ func (r *Function) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFunction decodes JSON responses into the Function resource schema.
-func unmarshalFunction(b []byte, c *Client) (*Function, error) {
+func unmarshalFunction(b []byte, c *Client, res *Function) (*Function, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFunction(m, c)
+	return unmarshalMapFunction(m, c, res)
 }
 
-func unmarshalMapFunction(m map[string]interface{}, c *Client) (*Function, error) {
+func unmarshalMapFunction(m map[string]interface{}, c *Client, res *Function) (*Function, error) {
 
-	flattened := flattenFunction(c, m)
+	flattened := flattenFunction(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1640,7 +1640,7 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 
 // flattenFunction flattens Function from a JSON request object into the
 // Function type.
-func flattenFunction(c *Client, i interface{}) *Function {
+func flattenFunction(c *Client, i interface{}, res *Function) *Function {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1649,31 +1649,31 @@ func flattenFunction(c *Client, i interface{}) *Function {
 		return nil
 	}
 
-	res := &Function{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.SourceArchiveUrl = dcl.FlattenString(m["sourceArchiveUrl"])
-	res.SourceRepository = flattenFunctionSourceRepository(c, m["sourceRepository"])
-	res.HttpsTrigger = flattenFunctionHttpsTrigger(c, m["httpsTrigger"])
-	res.EventTrigger = flattenFunctionEventTrigger(c, m["eventTrigger"])
-	res.Status = flattenFunctionStatusEnum(m["status"])
-	res.EntryPoint = dcl.FlattenString(m["entryPoint"])
-	res.Runtime = dcl.FlattenString(m["runtime"])
-	res.Timeout = dcl.FlattenString(m["timeout"])
-	res.AvailableMemoryMb = dcl.FlattenInteger(m["availableMemoryMb"])
-	res.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.VersionId = dcl.FlattenInteger(m["versionId"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.EnvironmentVariables = dcl.FlattenKeyValuePairs(m["environmentVariables"])
-	res.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
-	res.VPCConnector = dcl.FlattenString(m["vpcConnector"])
-	res.VPCConnectorEgressSettings = flattenFunctionVPCConnectorEgressSettingsEnum(m["vpcConnectorEgressSettings"])
-	res.IngressSettings = flattenFunctionIngressSettingsEnum(m["ingressSettings"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Function{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.SourceArchiveUrl = dcl.FlattenString(m["sourceArchiveUrl"])
+	resultRes.SourceRepository = flattenFunctionSourceRepository(c, m["sourceRepository"], res)
+	resultRes.HttpsTrigger = flattenFunctionHttpsTrigger(c, m["httpsTrigger"], res)
+	resultRes.EventTrigger = flattenFunctionEventTrigger(c, m["eventTrigger"], res)
+	resultRes.Status = flattenFunctionStatusEnum(m["status"])
+	resultRes.EntryPoint = dcl.FlattenString(m["entryPoint"])
+	resultRes.Runtime = dcl.FlattenString(m["runtime"])
+	resultRes.Timeout = dcl.FlattenString(m["timeout"])
+	resultRes.AvailableMemoryMb = dcl.FlattenInteger(m["availableMemoryMb"])
+	resultRes.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.VersionId = dcl.FlattenInteger(m["versionId"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.EnvironmentVariables = dcl.FlattenKeyValuePairs(m["environmentVariables"])
+	resultRes.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
+	resultRes.VPCConnector = dcl.FlattenString(m["vpcConnector"])
+	resultRes.VPCConnectorEgressSettings = flattenFunctionVPCConnectorEgressSettingsEnum(m["vpcConnectorEgressSettings"])
+	resultRes.IngressSettings = flattenFunctionIngressSettingsEnum(m["ingressSettings"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandFunctionSourceRepositoryMap expands the contents of FunctionSourceRepository into a JSON
@@ -1719,7 +1719,7 @@ func expandFunctionSourceRepositorySlice(c *Client, f []FunctionSourceRepository
 
 // flattenFunctionSourceRepositoryMap flattens the contents of FunctionSourceRepository from a JSON
 // response object.
-func flattenFunctionSourceRepositoryMap(c *Client, i interface{}) map[string]FunctionSourceRepository {
+func flattenFunctionSourceRepositoryMap(c *Client, i interface{}, res *Function) map[string]FunctionSourceRepository {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FunctionSourceRepository{}
@@ -1731,7 +1731,7 @@ func flattenFunctionSourceRepositoryMap(c *Client, i interface{}) map[string]Fun
 
 	items := make(map[string]FunctionSourceRepository)
 	for k, item := range a {
-		items[k] = *flattenFunctionSourceRepository(c, item.(map[string]interface{}))
+		items[k] = *flattenFunctionSourceRepository(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1739,7 +1739,7 @@ func flattenFunctionSourceRepositoryMap(c *Client, i interface{}) map[string]Fun
 
 // flattenFunctionSourceRepositorySlice flattens the contents of FunctionSourceRepository from a JSON
 // response object.
-func flattenFunctionSourceRepositorySlice(c *Client, i interface{}) []FunctionSourceRepository {
+func flattenFunctionSourceRepositorySlice(c *Client, i interface{}, res *Function) []FunctionSourceRepository {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FunctionSourceRepository{}
@@ -1751,7 +1751,7 @@ func flattenFunctionSourceRepositorySlice(c *Client, i interface{}) []FunctionSo
 
 	items := make([]FunctionSourceRepository, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFunctionSourceRepository(c, item.(map[string]interface{})))
+		items = append(items, *flattenFunctionSourceRepository(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1774,7 +1774,7 @@ func expandFunctionSourceRepository(c *Client, f *FunctionSourceRepository, res 
 
 // flattenFunctionSourceRepository flattens an instance of FunctionSourceRepository from a JSON
 // response object.
-func flattenFunctionSourceRepository(c *Client, i interface{}) *FunctionSourceRepository {
+func flattenFunctionSourceRepository(c *Client, i interface{}, res *Function) *FunctionSourceRepository {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1834,7 +1834,7 @@ func expandFunctionHttpsTriggerSlice(c *Client, f []FunctionHttpsTrigger, res *F
 
 // flattenFunctionHttpsTriggerMap flattens the contents of FunctionHttpsTrigger from a JSON
 // response object.
-func flattenFunctionHttpsTriggerMap(c *Client, i interface{}) map[string]FunctionHttpsTrigger {
+func flattenFunctionHttpsTriggerMap(c *Client, i interface{}, res *Function) map[string]FunctionHttpsTrigger {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FunctionHttpsTrigger{}
@@ -1846,7 +1846,7 @@ func flattenFunctionHttpsTriggerMap(c *Client, i interface{}) map[string]Functio
 
 	items := make(map[string]FunctionHttpsTrigger)
 	for k, item := range a {
-		items[k] = *flattenFunctionHttpsTrigger(c, item.(map[string]interface{}))
+		items[k] = *flattenFunctionHttpsTrigger(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1854,7 +1854,7 @@ func flattenFunctionHttpsTriggerMap(c *Client, i interface{}) map[string]Functio
 
 // flattenFunctionHttpsTriggerSlice flattens the contents of FunctionHttpsTrigger from a JSON
 // response object.
-func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}) []FunctionHttpsTrigger {
+func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}, res *Function) []FunctionHttpsTrigger {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FunctionHttpsTrigger{}
@@ -1866,7 +1866,7 @@ func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}) []FunctionHttpsT
 
 	items := make([]FunctionHttpsTrigger, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFunctionHttpsTrigger(c, item.(map[string]interface{})))
+		items = append(items, *flattenFunctionHttpsTrigger(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1889,7 +1889,7 @@ func expandFunctionHttpsTrigger(c *Client, f *FunctionHttpsTrigger, res *Functio
 
 // flattenFunctionHttpsTrigger flattens an instance of FunctionHttpsTrigger from a JSON
 // response object.
-func flattenFunctionHttpsTrigger(c *Client, i interface{}) *FunctionHttpsTrigger {
+func flattenFunctionHttpsTrigger(c *Client, i interface{}, res *Function) *FunctionHttpsTrigger {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1949,7 +1949,7 @@ func expandFunctionEventTriggerSlice(c *Client, f []FunctionEventTrigger, res *F
 
 // flattenFunctionEventTriggerMap flattens the contents of FunctionEventTrigger from a JSON
 // response object.
-func flattenFunctionEventTriggerMap(c *Client, i interface{}) map[string]FunctionEventTrigger {
+func flattenFunctionEventTriggerMap(c *Client, i interface{}, res *Function) map[string]FunctionEventTrigger {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FunctionEventTrigger{}
@@ -1961,7 +1961,7 @@ func flattenFunctionEventTriggerMap(c *Client, i interface{}) map[string]Functio
 
 	items := make(map[string]FunctionEventTrigger)
 	for k, item := range a {
-		items[k] = *flattenFunctionEventTrigger(c, item.(map[string]interface{}))
+		items[k] = *flattenFunctionEventTrigger(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1969,7 +1969,7 @@ func flattenFunctionEventTriggerMap(c *Client, i interface{}) map[string]Functio
 
 // flattenFunctionEventTriggerSlice flattens the contents of FunctionEventTrigger from a JSON
 // response object.
-func flattenFunctionEventTriggerSlice(c *Client, i interface{}) []FunctionEventTrigger {
+func flattenFunctionEventTriggerSlice(c *Client, i interface{}, res *Function) []FunctionEventTrigger {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FunctionEventTrigger{}
@@ -1981,7 +1981,7 @@ func flattenFunctionEventTriggerSlice(c *Client, i interface{}) []FunctionEventT
 
 	items := make([]FunctionEventTrigger, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFunctionEventTrigger(c, item.(map[string]interface{})))
+		items = append(items, *flattenFunctionEventTrigger(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2017,7 +2017,7 @@ func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger, res *Functio
 
 // flattenFunctionEventTrigger flattens an instance of FunctionEventTrigger from a JSON
 // response object.
-func flattenFunctionEventTrigger(c *Client, i interface{}) *FunctionEventTrigger {
+func flattenFunctionEventTrigger(c *Client, i interface{}, res *Function) *FunctionEventTrigger {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2038,7 +2038,7 @@ func flattenFunctionEventTrigger(c *Client, i interface{}) *FunctionEventTrigger
 
 // flattenFunctionHttpsTriggerSecurityLevelEnumMap flattens the contents of FunctionHttpsTriggerSecurityLevelEnum from a JSON
 // response object.
-func flattenFunctionHttpsTriggerSecurityLevelEnumMap(c *Client, i interface{}) map[string]FunctionHttpsTriggerSecurityLevelEnum {
+func flattenFunctionHttpsTriggerSecurityLevelEnumMap(c *Client, i interface{}, res *Function) map[string]FunctionHttpsTriggerSecurityLevelEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FunctionHttpsTriggerSecurityLevelEnum{}
@@ -2058,7 +2058,7 @@ func flattenFunctionHttpsTriggerSecurityLevelEnumMap(c *Client, i interface{}) m
 
 // flattenFunctionHttpsTriggerSecurityLevelEnumSlice flattens the contents of FunctionHttpsTriggerSecurityLevelEnum from a JSON
 // response object.
-func flattenFunctionHttpsTriggerSecurityLevelEnumSlice(c *Client, i interface{}) []FunctionHttpsTriggerSecurityLevelEnum {
+func flattenFunctionHttpsTriggerSecurityLevelEnumSlice(c *Client, i interface{}, res *Function) []FunctionHttpsTriggerSecurityLevelEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FunctionHttpsTriggerSecurityLevelEnum{}
@@ -2089,7 +2089,7 @@ func flattenFunctionHttpsTriggerSecurityLevelEnum(i interface{}) *FunctionHttpsT
 
 // flattenFunctionStatusEnumMap flattens the contents of FunctionStatusEnum from a JSON
 // response object.
-func flattenFunctionStatusEnumMap(c *Client, i interface{}) map[string]FunctionStatusEnum {
+func flattenFunctionStatusEnumMap(c *Client, i interface{}, res *Function) map[string]FunctionStatusEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FunctionStatusEnum{}
@@ -2109,7 +2109,7 @@ func flattenFunctionStatusEnumMap(c *Client, i interface{}) map[string]FunctionS
 
 // flattenFunctionStatusEnumSlice flattens the contents of FunctionStatusEnum from a JSON
 // response object.
-func flattenFunctionStatusEnumSlice(c *Client, i interface{}) []FunctionStatusEnum {
+func flattenFunctionStatusEnumSlice(c *Client, i interface{}, res *Function) []FunctionStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FunctionStatusEnum{}
@@ -2140,7 +2140,7 @@ func flattenFunctionStatusEnum(i interface{}) *FunctionStatusEnum {
 
 // flattenFunctionVPCConnectorEgressSettingsEnumMap flattens the contents of FunctionVPCConnectorEgressSettingsEnum from a JSON
 // response object.
-func flattenFunctionVPCConnectorEgressSettingsEnumMap(c *Client, i interface{}) map[string]FunctionVPCConnectorEgressSettingsEnum {
+func flattenFunctionVPCConnectorEgressSettingsEnumMap(c *Client, i interface{}, res *Function) map[string]FunctionVPCConnectorEgressSettingsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FunctionVPCConnectorEgressSettingsEnum{}
@@ -2160,7 +2160,7 @@ func flattenFunctionVPCConnectorEgressSettingsEnumMap(c *Client, i interface{}) 
 
 // flattenFunctionVPCConnectorEgressSettingsEnumSlice flattens the contents of FunctionVPCConnectorEgressSettingsEnum from a JSON
 // response object.
-func flattenFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, i interface{}) []FunctionVPCConnectorEgressSettingsEnum {
+func flattenFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, i interface{}, res *Function) []FunctionVPCConnectorEgressSettingsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FunctionVPCConnectorEgressSettingsEnum{}
@@ -2191,7 +2191,7 @@ func flattenFunctionVPCConnectorEgressSettingsEnum(i interface{}) *FunctionVPCCo
 
 // flattenFunctionIngressSettingsEnumMap flattens the contents of FunctionIngressSettingsEnum from a JSON
 // response object.
-func flattenFunctionIngressSettingsEnumMap(c *Client, i interface{}) map[string]FunctionIngressSettingsEnum {
+func flattenFunctionIngressSettingsEnumMap(c *Client, i interface{}, res *Function) map[string]FunctionIngressSettingsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FunctionIngressSettingsEnum{}
@@ -2211,7 +2211,7 @@ func flattenFunctionIngressSettingsEnumMap(c *Client, i interface{}) map[string]
 
 // flattenFunctionIngressSettingsEnumSlice flattens the contents of FunctionIngressSettingsEnum from a JSON
 // response object.
-func flattenFunctionIngressSettingsEnumSlice(c *Client, i interface{}) []FunctionIngressSettingsEnum {
+func flattenFunctionIngressSettingsEnumSlice(c *Client, i interface{}, res *Function) []FunctionIngressSettingsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FunctionIngressSettingsEnum{}
@@ -2245,7 +2245,7 @@ func flattenFunctionIngressSettingsEnum(i interface{}) *FunctionIngressSettingsE
 // identity).  This is useful in extracting the element from a List call.
 func (r *Function) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFunction(b, c)
+		cr, err := unmarshalFunction(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

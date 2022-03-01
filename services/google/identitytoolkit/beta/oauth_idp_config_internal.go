@@ -220,7 +220,7 @@ func (c *Client) listOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig, page
 
 	var l []*OAuthIdpConfig
 	for _, v := range m.OauthIdpConfigs {
-		res, err := unmarshalMapOAuthIdpConfig(v, c)
+		res, err := unmarshalMapOAuthIdpConfig(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -824,17 +824,17 @@ func (r *OAuthIdpConfig) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalOAuthIdpConfig decodes JSON responses into the OAuthIdpConfig resource schema.
-func unmarshalOAuthIdpConfig(b []byte, c *Client) (*OAuthIdpConfig, error) {
+func unmarshalOAuthIdpConfig(b []byte, c *Client, res *OAuthIdpConfig) (*OAuthIdpConfig, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapOAuthIdpConfig(m, c)
+	return unmarshalMapOAuthIdpConfig(m, c, res)
 }
 
-func unmarshalMapOAuthIdpConfig(m map[string]interface{}, c *Client) (*OAuthIdpConfig, error) {
+func unmarshalMapOAuthIdpConfig(m map[string]interface{}, c *Client, res *OAuthIdpConfig) (*OAuthIdpConfig, error) {
 
-	flattened := flattenOAuthIdpConfig(c, m)
+	flattened := flattenOAuthIdpConfig(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -880,7 +880,7 @@ func expandOAuthIdpConfig(c *Client, f *OAuthIdpConfig) (map[string]interface{},
 
 // flattenOAuthIdpConfig flattens OAuthIdpConfig from a JSON request object into the
 // OAuthIdpConfig type.
-func flattenOAuthIdpConfig(c *Client, i interface{}) *OAuthIdpConfig {
+func flattenOAuthIdpConfig(c *Client, i interface{}, res *OAuthIdpConfig) *OAuthIdpConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -889,17 +889,17 @@ func flattenOAuthIdpConfig(c *Client, i interface{}) *OAuthIdpConfig {
 		return nil
 	}
 
-	res := &OAuthIdpConfig{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.ClientId = dcl.FlattenString(m["clientId"])
-	res.Issuer = dcl.FlattenString(m["issuer"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Enabled = dcl.FlattenBool(m["enabled"])
-	res.ClientSecret = dcl.FlattenString(m["clientSecret"])
-	res.ResponseType = flattenOAuthIdpConfigResponseType(c, m["responseType"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &OAuthIdpConfig{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.ClientId = dcl.FlattenString(m["clientId"])
+	resultRes.Issuer = dcl.FlattenString(m["issuer"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Enabled = dcl.FlattenBool(m["enabled"])
+	resultRes.ClientSecret = dcl.FlattenString(m["clientSecret"])
+	resultRes.ResponseType = flattenOAuthIdpConfigResponseType(c, m["responseType"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandOAuthIdpConfigResponseTypeMap expands the contents of OAuthIdpConfigResponseType into a JSON
@@ -945,7 +945,7 @@ func expandOAuthIdpConfigResponseTypeSlice(c *Client, f []OAuthIdpConfigResponse
 
 // flattenOAuthIdpConfigResponseTypeMap flattens the contents of OAuthIdpConfigResponseType from a JSON
 // response object.
-func flattenOAuthIdpConfigResponseTypeMap(c *Client, i interface{}) map[string]OAuthIdpConfigResponseType {
+func flattenOAuthIdpConfigResponseTypeMap(c *Client, i interface{}, res *OAuthIdpConfig) map[string]OAuthIdpConfigResponseType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]OAuthIdpConfigResponseType{}
@@ -957,7 +957,7 @@ func flattenOAuthIdpConfigResponseTypeMap(c *Client, i interface{}) map[string]O
 
 	items := make(map[string]OAuthIdpConfigResponseType)
 	for k, item := range a {
-		items[k] = *flattenOAuthIdpConfigResponseType(c, item.(map[string]interface{}))
+		items[k] = *flattenOAuthIdpConfigResponseType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -965,7 +965,7 @@ func flattenOAuthIdpConfigResponseTypeMap(c *Client, i interface{}) map[string]O
 
 // flattenOAuthIdpConfigResponseTypeSlice flattens the contents of OAuthIdpConfigResponseType from a JSON
 // response object.
-func flattenOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []OAuthIdpConfigResponseType {
+func flattenOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}, res *OAuthIdpConfig) []OAuthIdpConfigResponseType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []OAuthIdpConfigResponseType{}
@@ -977,7 +977,7 @@ func flattenOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []OAuthIdp
 
 	items := make([]OAuthIdpConfigResponseType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOAuthIdpConfigResponseType(c, item.(map[string]interface{})))
+		items = append(items, *flattenOAuthIdpConfigResponseType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1006,7 +1006,7 @@ func expandOAuthIdpConfigResponseType(c *Client, f *OAuthIdpConfigResponseType, 
 
 // flattenOAuthIdpConfigResponseType flattens an instance of OAuthIdpConfigResponseType from a JSON
 // response object.
-func flattenOAuthIdpConfigResponseType(c *Client, i interface{}) *OAuthIdpConfigResponseType {
+func flattenOAuthIdpConfigResponseType(c *Client, i interface{}, res *OAuthIdpConfig) *OAuthIdpConfigResponseType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1029,7 +1029,7 @@ func flattenOAuthIdpConfigResponseType(c *Client, i interface{}) *OAuthIdpConfig
 // identity).  This is useful in extracting the element from a List call.
 func (r *OAuthIdpConfig) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalOAuthIdpConfig(b, c)
+		cr, err := unmarshalOAuthIdpConfig(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

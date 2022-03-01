@@ -32,17 +32,8 @@ func KeyToUnstructured(r *dclService.Key) *unstructured.Resource {
 		},
 		Object: make(map[string]interface{}),
 	}
-	if r.CreateTime != nil {
-		u.Object["createTime"] = *r.CreateTime
-	}
-	if r.DeleteTime != nil {
-		u.Object["deleteTime"] = *r.DeleteTime
-	}
 	if r.DisplayName != nil {
 		u.Object["displayName"] = *r.DisplayName
-	}
-	if r.Etag != nil {
-		u.Object["etag"] = *r.Etag
 	}
 	if r.KeyString != nil {
 		u.Object["keyString"] = *r.KeyString
@@ -114,43 +105,16 @@ func KeyToUnstructured(r *dclService.Key) *unstructured.Resource {
 		}
 		u.Object["restrictions"] = rRestrictions
 	}
-	if r.Uid != nil {
-		u.Object["uid"] = *r.Uid
-	}
-	if r.UpdateTime != nil {
-		u.Object["updateTime"] = *r.UpdateTime
-	}
 	return u
 }
 
 func UnstructuredToKey(u *unstructured.Resource) (*dclService.Key, error) {
 	r := &dclService.Key{}
-	if _, ok := u.Object["createTime"]; ok {
-		if s, ok := u.Object["createTime"].(string); ok {
-			r.CreateTime = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.CreateTime: expected string")
-		}
-	}
-	if _, ok := u.Object["deleteTime"]; ok {
-		if s, ok := u.Object["deleteTime"].(string); ok {
-			r.DeleteTime = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.DeleteTime: expected string")
-		}
-	}
 	if _, ok := u.Object["displayName"]; ok {
 		if s, ok := u.Object["displayName"].(string); ok {
 			r.DisplayName = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.DisplayName: expected string")
-		}
-	}
-	if _, ok := u.Object["etag"]; ok {
-		if s, ok := u.Object["etag"].(string); ok {
-			r.Etag = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Etag: expected string")
 		}
 	}
 	if _, ok := u.Object["keyString"]; ok {
@@ -296,20 +260,6 @@ func UnstructuredToKey(u *unstructured.Resource) (*dclService.Key, error) {
 			}
 		} else {
 			return nil, fmt.Errorf("r.Restrictions: expected map[string]interface{}")
-		}
-	}
-	if _, ok := u.Object["uid"]; ok {
-		if s, ok := u.Object["uid"].(string); ok {
-			r.Uid = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Uid: expected string")
-		}
-	}
-	if _, ok := u.Object["updateTime"]; ok {
-		if s, ok := u.Object["updateTime"].(string); ok {
-			r.UpdateTime = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.UpdateTime: expected string")
 		}
 	}
 	return r, nil

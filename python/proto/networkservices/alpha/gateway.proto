@@ -42,6 +42,7 @@ message NetworkservicesAlphaGateway {
   string authorization_policy = 11;
   string project = 12;
   string location = 13;
+  string self_link = 14;
 }
 
 message ApplyNetworkservicesAlphaGatewayRequest {

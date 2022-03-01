@@ -325,7 +325,7 @@ func (c *Client) GetAttestor(ctx context.Context, r *Attestor) (*Attestor, error
 		}
 		return nil, err
 	}
-	result, err := unmarshalAttestor(b, c)
+	result, err := unmarshalAttestor(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -494,7 +494,7 @@ func applyAttestorDiff(c *Client, ctx context.Context, desired *Attestor, rawDes
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapAttestor(r, c)
+				fullResp, err := unmarshalMapAttestor(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

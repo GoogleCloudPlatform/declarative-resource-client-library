@@ -389,7 +389,7 @@ func (c *Client) listPrivateCloud(ctx context.Context, r *PrivateCloud, pageToke
 
 	var l []*PrivateCloud
 	for _, v := range m.PrivateClouds {
-		res, err := unmarshalMapPrivateCloud(v, c)
+		res, err := unmarshalMapPrivateCloud(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1952,17 +1952,17 @@ func (r *PrivateCloud) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalPrivateCloud decodes JSON responses into the PrivateCloud resource schema.
-func unmarshalPrivateCloud(b []byte, c *Client) (*PrivateCloud, error) {
+func unmarshalPrivateCloud(b []byte, c *Client, res *PrivateCloud) (*PrivateCloud, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapPrivateCloud(m, c)
+	return unmarshalMapPrivateCloud(m, c, res)
 }
 
-func unmarshalMapPrivateCloud(m map[string]interface{}, c *Client) (*PrivateCloud, error) {
+func unmarshalMapPrivateCloud(m map[string]interface{}, c *Client, res *PrivateCloud) (*PrivateCloud, error) {
 
-	flattened := flattenPrivateCloud(c, m)
+	flattened := flattenPrivateCloud(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2011,7 +2011,7 @@ func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, err
 
 // flattenPrivateCloud flattens PrivateCloud from a JSON request object into the
 // PrivateCloud type.
-func flattenPrivateCloud(c *Client, i interface{}) *PrivateCloud {
+func flattenPrivateCloud(c *Client, i interface{}, res *PrivateCloud) *PrivateCloud {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2020,25 +2020,25 @@ func flattenPrivateCloud(c *Client, i interface{}) *PrivateCloud {
 		return nil
 	}
 
-	res := &PrivateCloud{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	res.ExpireTime = dcl.FlattenString(m["expireTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.State = flattenPrivateCloudStateEnum(m["state"])
-	res.NetworkConfig = flattenPrivateCloudNetworkConfig(c, m["networkConfig"])
-	res.ManagementCluster = flattenPrivateCloudManagementCluster(c, m["managementCluster"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Conditions = flattenPrivateCloudConditionsSlice(c, m["conditions"])
-	res.Hcx = flattenPrivateCloudHcx(c, m["hcx"])
-	res.Nsx = flattenPrivateCloudNsx(c, m["nsx"])
-	res.Vcenter = flattenPrivateCloudVcenter(c, m["vcenter"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &PrivateCloud{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	resultRes.ExpireTime = dcl.FlattenString(m["expireTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.State = flattenPrivateCloudStateEnum(m["state"])
+	resultRes.NetworkConfig = flattenPrivateCloudNetworkConfig(c, m["networkConfig"], res)
+	resultRes.ManagementCluster = flattenPrivateCloudManagementCluster(c, m["managementCluster"], res)
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Conditions = flattenPrivateCloudConditionsSlice(c, m["conditions"], res)
+	resultRes.Hcx = flattenPrivateCloudHcx(c, m["hcx"], res)
+	resultRes.Nsx = flattenPrivateCloudNsx(c, m["nsx"], res)
+	resultRes.Vcenter = flattenPrivateCloudVcenter(c, m["vcenter"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandPrivateCloudNetworkConfigMap expands the contents of PrivateCloudNetworkConfig into a JSON
@@ -2084,7 +2084,7 @@ func expandPrivateCloudNetworkConfigSlice(c *Client, f []PrivateCloudNetworkConf
 
 // flattenPrivateCloudNetworkConfigMap flattens the contents of PrivateCloudNetworkConfig from a JSON
 // response object.
-func flattenPrivateCloudNetworkConfigMap(c *Client, i interface{}) map[string]PrivateCloudNetworkConfig {
+func flattenPrivateCloudNetworkConfigMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudNetworkConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PrivateCloudNetworkConfig{}
@@ -2096,7 +2096,7 @@ func flattenPrivateCloudNetworkConfigMap(c *Client, i interface{}) map[string]Pr
 
 	items := make(map[string]PrivateCloudNetworkConfig)
 	for k, item := range a {
-		items[k] = *flattenPrivateCloudNetworkConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenPrivateCloudNetworkConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2104,7 +2104,7 @@ func flattenPrivateCloudNetworkConfigMap(c *Client, i interface{}) map[string]Pr
 
 // flattenPrivateCloudNetworkConfigSlice flattens the contents of PrivateCloudNetworkConfig from a JSON
 // response object.
-func flattenPrivateCloudNetworkConfigSlice(c *Client, i interface{}) []PrivateCloudNetworkConfig {
+func flattenPrivateCloudNetworkConfigSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudNetworkConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PrivateCloudNetworkConfig{}
@@ -2116,7 +2116,7 @@ func flattenPrivateCloudNetworkConfigSlice(c *Client, i interface{}) []PrivateCl
 
 	items := make([]PrivateCloudNetworkConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPrivateCloudNetworkConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenPrivateCloudNetworkConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2142,7 +2142,7 @@ func expandPrivateCloudNetworkConfig(c *Client, f *PrivateCloudNetworkConfig, re
 
 // flattenPrivateCloudNetworkConfig flattens an instance of PrivateCloudNetworkConfig from a JSON
 // response object.
-func flattenPrivateCloudNetworkConfig(c *Client, i interface{}) *PrivateCloudNetworkConfig {
+func flattenPrivateCloudNetworkConfig(c *Client, i interface{}, res *PrivateCloud) *PrivateCloudNetworkConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2203,7 +2203,7 @@ func expandPrivateCloudManagementClusterSlice(c *Client, f []PrivateCloudManagem
 
 // flattenPrivateCloudManagementClusterMap flattens the contents of PrivateCloudManagementCluster from a JSON
 // response object.
-func flattenPrivateCloudManagementClusterMap(c *Client, i interface{}) map[string]PrivateCloudManagementCluster {
+func flattenPrivateCloudManagementClusterMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudManagementCluster {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PrivateCloudManagementCluster{}
@@ -2215,7 +2215,7 @@ func flattenPrivateCloudManagementClusterMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]PrivateCloudManagementCluster)
 	for k, item := range a {
-		items[k] = *flattenPrivateCloudManagementCluster(c, item.(map[string]interface{}))
+		items[k] = *flattenPrivateCloudManagementCluster(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2223,7 +2223,7 @@ func flattenPrivateCloudManagementClusterMap(c *Client, i interface{}) map[strin
 
 // flattenPrivateCloudManagementClusterSlice flattens the contents of PrivateCloudManagementCluster from a JSON
 // response object.
-func flattenPrivateCloudManagementClusterSlice(c *Client, i interface{}) []PrivateCloudManagementCluster {
+func flattenPrivateCloudManagementClusterSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudManagementCluster {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PrivateCloudManagementCluster{}
@@ -2235,7 +2235,7 @@ func flattenPrivateCloudManagementClusterSlice(c *Client, i interface{}) []Priva
 
 	items := make([]PrivateCloudManagementCluster, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPrivateCloudManagementCluster(c, item.(map[string]interface{})))
+		items = append(items, *flattenPrivateCloudManagementCluster(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2264,7 +2264,7 @@ func expandPrivateCloudManagementCluster(c *Client, f *PrivateCloudManagementClu
 
 // flattenPrivateCloudManagementCluster flattens an instance of PrivateCloudManagementCluster from a JSON
 // response object.
-func flattenPrivateCloudManagementCluster(c *Client, i interface{}) *PrivateCloudManagementCluster {
+func flattenPrivateCloudManagementCluster(c *Client, i interface{}, res *PrivateCloud) *PrivateCloudManagementCluster {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2325,7 +2325,7 @@ func expandPrivateCloudConditionsSlice(c *Client, f []PrivateCloudConditions, re
 
 // flattenPrivateCloudConditionsMap flattens the contents of PrivateCloudConditions from a JSON
 // response object.
-func flattenPrivateCloudConditionsMap(c *Client, i interface{}) map[string]PrivateCloudConditions {
+func flattenPrivateCloudConditionsMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudConditions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PrivateCloudConditions{}
@@ -2337,7 +2337,7 @@ func flattenPrivateCloudConditionsMap(c *Client, i interface{}) map[string]Priva
 
 	items := make(map[string]PrivateCloudConditions)
 	for k, item := range a {
-		items[k] = *flattenPrivateCloudConditions(c, item.(map[string]interface{}))
+		items[k] = *flattenPrivateCloudConditions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2345,7 +2345,7 @@ func flattenPrivateCloudConditionsMap(c *Client, i interface{}) map[string]Priva
 
 // flattenPrivateCloudConditionsSlice flattens the contents of PrivateCloudConditions from a JSON
 // response object.
-func flattenPrivateCloudConditionsSlice(c *Client, i interface{}) []PrivateCloudConditions {
+func flattenPrivateCloudConditionsSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudConditions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PrivateCloudConditions{}
@@ -2357,7 +2357,7 @@ func flattenPrivateCloudConditionsSlice(c *Client, i interface{}) []PrivateCloud
 
 	items := make([]PrivateCloudConditions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPrivateCloudConditions(c, item.(map[string]interface{})))
+		items = append(items, *flattenPrivateCloudConditions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2377,7 +2377,7 @@ func expandPrivateCloudConditions(c *Client, f *PrivateCloudConditions, res *Pri
 
 // flattenPrivateCloudConditions flattens an instance of PrivateCloudConditions from a JSON
 // response object.
-func flattenPrivateCloudConditions(c *Client, i interface{}) *PrivateCloudConditions {
+func flattenPrivateCloudConditions(c *Client, i interface{}, res *PrivateCloud) *PrivateCloudConditions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2437,7 +2437,7 @@ func expandPrivateCloudHcxSlice(c *Client, f []PrivateCloudHcx, res *PrivateClou
 
 // flattenPrivateCloudHcxMap flattens the contents of PrivateCloudHcx from a JSON
 // response object.
-func flattenPrivateCloudHcxMap(c *Client, i interface{}) map[string]PrivateCloudHcx {
+func flattenPrivateCloudHcxMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudHcx {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PrivateCloudHcx{}
@@ -2449,7 +2449,7 @@ func flattenPrivateCloudHcxMap(c *Client, i interface{}) map[string]PrivateCloud
 
 	items := make(map[string]PrivateCloudHcx)
 	for k, item := range a {
-		items[k] = *flattenPrivateCloudHcx(c, item.(map[string]interface{}))
+		items[k] = *flattenPrivateCloudHcx(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2457,7 +2457,7 @@ func flattenPrivateCloudHcxMap(c *Client, i interface{}) map[string]PrivateCloud
 
 // flattenPrivateCloudHcxSlice flattens the contents of PrivateCloudHcx from a JSON
 // response object.
-func flattenPrivateCloudHcxSlice(c *Client, i interface{}) []PrivateCloudHcx {
+func flattenPrivateCloudHcxSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudHcx {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PrivateCloudHcx{}
@@ -2469,7 +2469,7 @@ func flattenPrivateCloudHcxSlice(c *Client, i interface{}) []PrivateCloudHcx {
 
 	items := make([]PrivateCloudHcx, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPrivateCloudHcx(c, item.(map[string]interface{})))
+		items = append(items, *flattenPrivateCloudHcx(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2501,7 +2501,7 @@ func expandPrivateCloudHcx(c *Client, f *PrivateCloudHcx, res *PrivateCloud) (ma
 
 // flattenPrivateCloudHcx flattens an instance of PrivateCloudHcx from a JSON
 // response object.
-func flattenPrivateCloudHcx(c *Client, i interface{}) *PrivateCloudHcx {
+func flattenPrivateCloudHcx(c *Client, i interface{}, res *PrivateCloud) *PrivateCloudHcx {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2563,7 +2563,7 @@ func expandPrivateCloudNsxSlice(c *Client, f []PrivateCloudNsx, res *PrivateClou
 
 // flattenPrivateCloudNsxMap flattens the contents of PrivateCloudNsx from a JSON
 // response object.
-func flattenPrivateCloudNsxMap(c *Client, i interface{}) map[string]PrivateCloudNsx {
+func flattenPrivateCloudNsxMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudNsx {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PrivateCloudNsx{}
@@ -2575,7 +2575,7 @@ func flattenPrivateCloudNsxMap(c *Client, i interface{}) map[string]PrivateCloud
 
 	items := make(map[string]PrivateCloudNsx)
 	for k, item := range a {
-		items[k] = *flattenPrivateCloudNsx(c, item.(map[string]interface{}))
+		items[k] = *flattenPrivateCloudNsx(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2583,7 +2583,7 @@ func flattenPrivateCloudNsxMap(c *Client, i interface{}) map[string]PrivateCloud
 
 // flattenPrivateCloudNsxSlice flattens the contents of PrivateCloudNsx from a JSON
 // response object.
-func flattenPrivateCloudNsxSlice(c *Client, i interface{}) []PrivateCloudNsx {
+func flattenPrivateCloudNsxSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudNsx {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PrivateCloudNsx{}
@@ -2595,7 +2595,7 @@ func flattenPrivateCloudNsxSlice(c *Client, i interface{}) []PrivateCloudNsx {
 
 	items := make([]PrivateCloudNsx, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPrivateCloudNsx(c, item.(map[string]interface{})))
+		items = append(items, *flattenPrivateCloudNsx(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2627,7 +2627,7 @@ func expandPrivateCloudNsx(c *Client, f *PrivateCloudNsx, res *PrivateCloud) (ma
 
 // flattenPrivateCloudNsx flattens an instance of PrivateCloudNsx from a JSON
 // response object.
-func flattenPrivateCloudNsx(c *Client, i interface{}) *PrivateCloudNsx {
+func flattenPrivateCloudNsx(c *Client, i interface{}, res *PrivateCloud) *PrivateCloudNsx {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2689,7 +2689,7 @@ func expandPrivateCloudVcenterSlice(c *Client, f []PrivateCloudVcenter, res *Pri
 
 // flattenPrivateCloudVcenterMap flattens the contents of PrivateCloudVcenter from a JSON
 // response object.
-func flattenPrivateCloudVcenterMap(c *Client, i interface{}) map[string]PrivateCloudVcenter {
+func flattenPrivateCloudVcenterMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudVcenter {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PrivateCloudVcenter{}
@@ -2701,7 +2701,7 @@ func flattenPrivateCloudVcenterMap(c *Client, i interface{}) map[string]PrivateC
 
 	items := make(map[string]PrivateCloudVcenter)
 	for k, item := range a {
-		items[k] = *flattenPrivateCloudVcenter(c, item.(map[string]interface{}))
+		items[k] = *flattenPrivateCloudVcenter(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2709,7 +2709,7 @@ func flattenPrivateCloudVcenterMap(c *Client, i interface{}) map[string]PrivateC
 
 // flattenPrivateCloudVcenterSlice flattens the contents of PrivateCloudVcenter from a JSON
 // response object.
-func flattenPrivateCloudVcenterSlice(c *Client, i interface{}) []PrivateCloudVcenter {
+func flattenPrivateCloudVcenterSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudVcenter {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PrivateCloudVcenter{}
@@ -2721,7 +2721,7 @@ func flattenPrivateCloudVcenterSlice(c *Client, i interface{}) []PrivateCloudVce
 
 	items := make([]PrivateCloudVcenter, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPrivateCloudVcenter(c, item.(map[string]interface{})))
+		items = append(items, *flattenPrivateCloudVcenter(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2753,7 +2753,7 @@ func expandPrivateCloudVcenter(c *Client, f *PrivateCloudVcenter, res *PrivateCl
 
 // flattenPrivateCloudVcenter flattens an instance of PrivateCloudVcenter from a JSON
 // response object.
-func flattenPrivateCloudVcenter(c *Client, i interface{}) *PrivateCloudVcenter {
+func flattenPrivateCloudVcenter(c *Client, i interface{}, res *PrivateCloud) *PrivateCloudVcenter {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2774,7 +2774,7 @@ func flattenPrivateCloudVcenter(c *Client, i interface{}) *PrivateCloudVcenter {
 
 // flattenPrivateCloudStateEnumMap flattens the contents of PrivateCloudStateEnum from a JSON
 // response object.
-func flattenPrivateCloudStateEnumMap(c *Client, i interface{}) map[string]PrivateCloudStateEnum {
+func flattenPrivateCloudStateEnumMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PrivateCloudStateEnum{}
@@ -2794,7 +2794,7 @@ func flattenPrivateCloudStateEnumMap(c *Client, i interface{}) map[string]Privat
 
 // flattenPrivateCloudStateEnumSlice flattens the contents of PrivateCloudStateEnum from a JSON
 // response object.
-func flattenPrivateCloudStateEnumSlice(c *Client, i interface{}) []PrivateCloudStateEnum {
+func flattenPrivateCloudStateEnumSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PrivateCloudStateEnum{}
@@ -2828,7 +2828,7 @@ func flattenPrivateCloudStateEnum(i interface{}) *PrivateCloudStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *PrivateCloud) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalPrivateCloud(b, c)
+		cr, err := unmarshalPrivateCloud(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

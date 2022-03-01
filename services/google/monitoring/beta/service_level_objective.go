@@ -1544,7 +1544,7 @@ func (c *Client) GetServiceLevelObjective(ctx context.Context, r *ServiceLevelOb
 		}
 		return nil, err
 	}
-	result, err := unmarshalServiceLevelObjective(b, c)
+	result, err := unmarshalServiceLevelObjective(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1714,7 +1714,7 @@ func applyServiceLevelObjectiveDiff(c *Client, ctx context.Context, desired *Ser
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapServiceLevelObjective(r, c)
+				fullResp, err := unmarshalMapServiceLevelObjective(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

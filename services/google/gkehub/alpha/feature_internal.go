@@ -208,7 +208,7 @@ func (c *Client) listFeature(ctx context.Context, r *Feature, pageToken string, 
 
 	var l []*Feature
 	for _, v := range m.Resources {
-		res, err := unmarshalMapFeature(v, c)
+		res, err := unmarshalMapFeature(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -2121,17 +2121,17 @@ func (r *Feature) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalFeature decodes JSON responses into the Feature resource schema.
-func unmarshalFeature(b []byte, c *Client) (*Feature, error) {
+func unmarshalFeature(b []byte, c *Client, res *Feature) (*Feature, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapFeature(m, c)
+	return unmarshalMapFeature(m, c, res)
 }
 
-func unmarshalMapFeature(m map[string]interface{}, c *Client) (*Feature, error) {
+func unmarshalMapFeature(m map[string]interface{}, c *Client, res *Feature) (*Feature, error) {
 
-	flattened := flattenFeature(c, m)
+	flattened := flattenFeature(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2172,7 +2172,7 @@ func expandFeature(c *Client, f *Feature) (map[string]interface{}, error) {
 
 // flattenFeature flattens Feature from a JSON request object into the
 // Feature type.
-func flattenFeature(c *Client, i interface{}) *Feature {
+func flattenFeature(c *Client, i interface{}, res *Feature) *Feature {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2181,19 +2181,19 @@ func flattenFeature(c *Client, i interface{}) *Feature {
 		return nil
 	}
 
-	res := &Feature{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.ResourceState = flattenFeatureResourceState(c, m["resourceState"])
-	res.Spec = flattenFeatureSpec(c, m["spec"])
-	res.State = flattenFeatureState(c, m["state"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Feature{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.ResourceState = flattenFeatureResourceState(c, m["resourceState"], res)
+	resultRes.Spec = flattenFeatureSpec(c, m["spec"], res)
+	resultRes.State = flattenFeatureState(c, m["state"], res)
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandFeatureResourceStateMap expands the contents of FeatureResourceState into a JSON
@@ -2239,7 +2239,7 @@ func expandFeatureResourceStateSlice(c *Client, f []FeatureResourceState, res *F
 
 // flattenFeatureResourceStateMap flattens the contents of FeatureResourceState from a JSON
 // response object.
-func flattenFeatureResourceStateMap(c *Client, i interface{}) map[string]FeatureResourceState {
+func flattenFeatureResourceStateMap(c *Client, i interface{}, res *Feature) map[string]FeatureResourceState {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureResourceState{}
@@ -2251,7 +2251,7 @@ func flattenFeatureResourceStateMap(c *Client, i interface{}) map[string]Feature
 
 	items := make(map[string]FeatureResourceState)
 	for k, item := range a {
-		items[k] = *flattenFeatureResourceState(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureResourceState(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2259,7 +2259,7 @@ func flattenFeatureResourceStateMap(c *Client, i interface{}) map[string]Feature
 
 // flattenFeatureResourceStateSlice flattens the contents of FeatureResourceState from a JSON
 // response object.
-func flattenFeatureResourceStateSlice(c *Client, i interface{}) []FeatureResourceState {
+func flattenFeatureResourceStateSlice(c *Client, i interface{}, res *Feature) []FeatureResourceState {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureResourceState{}
@@ -2271,7 +2271,7 @@ func flattenFeatureResourceStateSlice(c *Client, i interface{}) []FeatureResourc
 
 	items := make([]FeatureResourceState, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureResourceState(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureResourceState(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2291,7 +2291,7 @@ func expandFeatureResourceState(c *Client, f *FeatureResourceState, res *Feature
 
 // flattenFeatureResourceState flattens an instance of FeatureResourceState from a JSON
 // response object.
-func flattenFeatureResourceState(c *Client, i interface{}) *FeatureResourceState {
+func flattenFeatureResourceState(c *Client, i interface{}, res *Feature) *FeatureResourceState {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2351,7 +2351,7 @@ func expandFeatureSpecSlice(c *Client, f []FeatureSpec, res *Feature) ([]map[str
 
 // flattenFeatureSpecMap flattens the contents of FeatureSpec from a JSON
 // response object.
-func flattenFeatureSpecMap(c *Client, i interface{}) map[string]FeatureSpec {
+func flattenFeatureSpecMap(c *Client, i interface{}, res *Feature) map[string]FeatureSpec {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureSpec{}
@@ -2363,7 +2363,7 @@ func flattenFeatureSpecMap(c *Client, i interface{}) map[string]FeatureSpec {
 
 	items := make(map[string]FeatureSpec)
 	for k, item := range a {
-		items[k] = *flattenFeatureSpec(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureSpec(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2371,7 +2371,7 @@ func flattenFeatureSpecMap(c *Client, i interface{}) map[string]FeatureSpec {
 
 // flattenFeatureSpecSlice flattens the contents of FeatureSpec from a JSON
 // response object.
-func flattenFeatureSpecSlice(c *Client, i interface{}) []FeatureSpec {
+func flattenFeatureSpecSlice(c *Client, i interface{}, res *Feature) []FeatureSpec {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureSpec{}
@@ -2383,7 +2383,7 @@ func flattenFeatureSpecSlice(c *Client, i interface{}) []FeatureSpec {
 
 	items := make([]FeatureSpec, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureSpec(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureSpec(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2413,7 +2413,7 @@ func expandFeatureSpec(c *Client, f *FeatureSpec, res *Feature) (map[string]inte
 
 // flattenFeatureSpec flattens an instance of FeatureSpec from a JSON
 // response object.
-func flattenFeatureSpec(c *Client, i interface{}) *FeatureSpec {
+func flattenFeatureSpec(c *Client, i interface{}, res *Feature) *FeatureSpec {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2424,8 +2424,8 @@ func flattenFeatureSpec(c *Client, i interface{}) *FeatureSpec {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureSpec
 	}
-	r.Multiclusteringress = flattenFeatureSpecMulticlusteringress(c, m["multiclusteringress"])
-	r.Cloudauditlogging = flattenFeatureSpecCloudauditlogging(c, m["cloudauditlogging"])
+	r.Multiclusteringress = flattenFeatureSpecMulticlusteringress(c, m["multiclusteringress"], res)
+	r.Cloudauditlogging = flattenFeatureSpecCloudauditlogging(c, m["cloudauditlogging"], res)
 
 	return r
 }
@@ -2473,7 +2473,7 @@ func expandFeatureSpecMulticlusteringressSlice(c *Client, f []FeatureSpecMulticl
 
 // flattenFeatureSpecMulticlusteringressMap flattens the contents of FeatureSpecMulticlusteringress from a JSON
 // response object.
-func flattenFeatureSpecMulticlusteringressMap(c *Client, i interface{}) map[string]FeatureSpecMulticlusteringress {
+func flattenFeatureSpecMulticlusteringressMap(c *Client, i interface{}, res *Feature) map[string]FeatureSpecMulticlusteringress {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureSpecMulticlusteringress{}
@@ -2485,7 +2485,7 @@ func flattenFeatureSpecMulticlusteringressMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]FeatureSpecMulticlusteringress)
 	for k, item := range a {
-		items[k] = *flattenFeatureSpecMulticlusteringress(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureSpecMulticlusteringress(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2493,7 +2493,7 @@ func flattenFeatureSpecMulticlusteringressMap(c *Client, i interface{}) map[stri
 
 // flattenFeatureSpecMulticlusteringressSlice flattens the contents of FeatureSpecMulticlusteringress from a JSON
 // response object.
-func flattenFeatureSpecMulticlusteringressSlice(c *Client, i interface{}) []FeatureSpecMulticlusteringress {
+func flattenFeatureSpecMulticlusteringressSlice(c *Client, i interface{}, res *Feature) []FeatureSpecMulticlusteringress {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureSpecMulticlusteringress{}
@@ -2505,7 +2505,7 @@ func flattenFeatureSpecMulticlusteringressSlice(c *Client, i interface{}) []Feat
 
 	items := make([]FeatureSpecMulticlusteringress, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureSpecMulticlusteringress(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureSpecMulticlusteringress(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2528,7 +2528,7 @@ func expandFeatureSpecMulticlusteringress(c *Client, f *FeatureSpecMulticlusteri
 
 // flattenFeatureSpecMulticlusteringress flattens an instance of FeatureSpecMulticlusteringress from a JSON
 // response object.
-func flattenFeatureSpecMulticlusteringress(c *Client, i interface{}) *FeatureSpecMulticlusteringress {
+func flattenFeatureSpecMulticlusteringress(c *Client, i interface{}, res *Feature) *FeatureSpecMulticlusteringress {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2587,7 +2587,7 @@ func expandFeatureSpecCloudauditloggingSlice(c *Client, f []FeatureSpecCloudaudi
 
 // flattenFeatureSpecCloudauditloggingMap flattens the contents of FeatureSpecCloudauditlogging from a JSON
 // response object.
-func flattenFeatureSpecCloudauditloggingMap(c *Client, i interface{}) map[string]FeatureSpecCloudauditlogging {
+func flattenFeatureSpecCloudauditloggingMap(c *Client, i interface{}, res *Feature) map[string]FeatureSpecCloudauditlogging {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureSpecCloudauditlogging{}
@@ -2599,7 +2599,7 @@ func flattenFeatureSpecCloudauditloggingMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]FeatureSpecCloudauditlogging)
 	for k, item := range a {
-		items[k] = *flattenFeatureSpecCloudauditlogging(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureSpecCloudauditlogging(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2607,7 +2607,7 @@ func flattenFeatureSpecCloudauditloggingMap(c *Client, i interface{}) map[string
 
 // flattenFeatureSpecCloudauditloggingSlice flattens the contents of FeatureSpecCloudauditlogging from a JSON
 // response object.
-func flattenFeatureSpecCloudauditloggingSlice(c *Client, i interface{}) []FeatureSpecCloudauditlogging {
+func flattenFeatureSpecCloudauditloggingSlice(c *Client, i interface{}, res *Feature) []FeatureSpecCloudauditlogging {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureSpecCloudauditlogging{}
@@ -2619,7 +2619,7 @@ func flattenFeatureSpecCloudauditloggingSlice(c *Client, i interface{}) []Featur
 
 	items := make([]FeatureSpecCloudauditlogging, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureSpecCloudauditlogging(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureSpecCloudauditlogging(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2642,7 +2642,7 @@ func expandFeatureSpecCloudauditlogging(c *Client, f *FeatureSpecCloudauditloggi
 
 // flattenFeatureSpecCloudauditlogging flattens an instance of FeatureSpecCloudauditlogging from a JSON
 // response object.
-func flattenFeatureSpecCloudauditlogging(c *Client, i interface{}) *FeatureSpecCloudauditlogging {
+func flattenFeatureSpecCloudauditlogging(c *Client, i interface{}, res *Feature) *FeatureSpecCloudauditlogging {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2701,7 +2701,7 @@ func expandFeatureStateSlice(c *Client, f []FeatureState, res *Feature) ([]map[s
 
 // flattenFeatureStateMap flattens the contents of FeatureState from a JSON
 // response object.
-func flattenFeatureStateMap(c *Client, i interface{}) map[string]FeatureState {
+func flattenFeatureStateMap(c *Client, i interface{}, res *Feature) map[string]FeatureState {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureState{}
@@ -2713,7 +2713,7 @@ func flattenFeatureStateMap(c *Client, i interface{}) map[string]FeatureState {
 
 	items := make(map[string]FeatureState)
 	for k, item := range a {
-		items[k] = *flattenFeatureState(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureState(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2721,7 +2721,7 @@ func flattenFeatureStateMap(c *Client, i interface{}) map[string]FeatureState {
 
 // flattenFeatureStateSlice flattens the contents of FeatureState from a JSON
 // response object.
-func flattenFeatureStateSlice(c *Client, i interface{}) []FeatureState {
+func flattenFeatureStateSlice(c *Client, i interface{}, res *Feature) []FeatureState {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureState{}
@@ -2733,7 +2733,7 @@ func flattenFeatureStateSlice(c *Client, i interface{}) []FeatureState {
 
 	items := make([]FeatureState, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureState(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureState(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2753,7 +2753,7 @@ func expandFeatureState(c *Client, f *FeatureState, res *Feature) (map[string]in
 
 // flattenFeatureState flattens an instance of FeatureState from a JSON
 // response object.
-func flattenFeatureState(c *Client, i interface{}) *FeatureState {
+func flattenFeatureState(c *Client, i interface{}, res *Feature) *FeatureState {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2764,8 +2764,8 @@ func flattenFeatureState(c *Client, i interface{}) *FeatureState {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureState
 	}
-	r.State = flattenFeatureStateState(c, m["state"])
-	r.Servicemesh = flattenFeatureStateServicemesh(c, m["servicemesh"])
+	r.State = flattenFeatureStateState(c, m["state"], res)
+	r.Servicemesh = flattenFeatureStateServicemesh(c, m["servicemesh"], res)
 
 	return r
 }
@@ -2813,7 +2813,7 @@ func expandFeatureStateStateSlice(c *Client, f []FeatureStateState, res *Feature
 
 // flattenFeatureStateStateMap flattens the contents of FeatureStateState from a JSON
 // response object.
-func flattenFeatureStateStateMap(c *Client, i interface{}) map[string]FeatureStateState {
+func flattenFeatureStateStateMap(c *Client, i interface{}, res *Feature) map[string]FeatureStateState {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureStateState{}
@@ -2825,7 +2825,7 @@ func flattenFeatureStateStateMap(c *Client, i interface{}) map[string]FeatureSta
 
 	items := make(map[string]FeatureStateState)
 	for k, item := range a {
-		items[k] = *flattenFeatureStateState(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureStateState(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2833,7 +2833,7 @@ func flattenFeatureStateStateMap(c *Client, i interface{}) map[string]FeatureSta
 
 // flattenFeatureStateStateSlice flattens the contents of FeatureStateState from a JSON
 // response object.
-func flattenFeatureStateStateSlice(c *Client, i interface{}) []FeatureStateState {
+func flattenFeatureStateStateSlice(c *Client, i interface{}, res *Feature) []FeatureStateState {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureStateState{}
@@ -2845,7 +2845,7 @@ func flattenFeatureStateStateSlice(c *Client, i interface{}) []FeatureStateState
 
 	items := make([]FeatureStateState, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureStateState(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureStateState(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2865,7 +2865,7 @@ func expandFeatureStateState(c *Client, f *FeatureStateState, res *Feature) (map
 
 // flattenFeatureStateState flattens an instance of FeatureStateState from a JSON
 // response object.
-func flattenFeatureStateState(c *Client, i interface{}) *FeatureStateState {
+func flattenFeatureStateState(c *Client, i interface{}, res *Feature) *FeatureStateState {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2926,7 +2926,7 @@ func expandFeatureStateServicemeshSlice(c *Client, f []FeatureStateServicemesh, 
 
 // flattenFeatureStateServicemeshMap flattens the contents of FeatureStateServicemesh from a JSON
 // response object.
-func flattenFeatureStateServicemeshMap(c *Client, i interface{}) map[string]FeatureStateServicemesh {
+func flattenFeatureStateServicemeshMap(c *Client, i interface{}, res *Feature) map[string]FeatureStateServicemesh {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureStateServicemesh{}
@@ -2938,7 +2938,7 @@ func flattenFeatureStateServicemeshMap(c *Client, i interface{}) map[string]Feat
 
 	items := make(map[string]FeatureStateServicemesh)
 	for k, item := range a {
-		items[k] = *flattenFeatureStateServicemesh(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureStateServicemesh(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2946,7 +2946,7 @@ func flattenFeatureStateServicemeshMap(c *Client, i interface{}) map[string]Feat
 
 // flattenFeatureStateServicemeshSlice flattens the contents of FeatureStateServicemesh from a JSON
 // response object.
-func flattenFeatureStateServicemeshSlice(c *Client, i interface{}) []FeatureStateServicemesh {
+func flattenFeatureStateServicemeshSlice(c *Client, i interface{}, res *Feature) []FeatureStateServicemesh {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureStateServicemesh{}
@@ -2958,7 +2958,7 @@ func flattenFeatureStateServicemeshSlice(c *Client, i interface{}) []FeatureStat
 
 	items := make([]FeatureStateServicemesh, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureStateServicemesh(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureStateServicemesh(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2978,7 +2978,7 @@ func expandFeatureStateServicemesh(c *Client, f *FeatureStateServicemesh, res *F
 
 // flattenFeatureStateServicemesh flattens an instance of FeatureStateServicemesh from a JSON
 // response object.
-func flattenFeatureStateServicemesh(c *Client, i interface{}) *FeatureStateServicemesh {
+func flattenFeatureStateServicemesh(c *Client, i interface{}, res *Feature) *FeatureStateServicemesh {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2989,7 +2989,7 @@ func flattenFeatureStateServicemesh(c *Client, i interface{}) *FeatureStateServi
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureStateServicemesh
 	}
-	r.AnalysisMessages = flattenFeatureStateServicemeshAnalysisMessagesSlice(c, m["analysisMessages"])
+	r.AnalysisMessages = flattenFeatureStateServicemeshAnalysisMessagesSlice(c, m["analysisMessages"], res)
 
 	return r
 }
@@ -3037,7 +3037,7 @@ func expandFeatureStateServicemeshAnalysisMessagesSlice(c *Client, f []FeatureSt
 
 // flattenFeatureStateServicemeshAnalysisMessagesMap flattens the contents of FeatureStateServicemeshAnalysisMessages from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMap(c *Client, i interface{}) map[string]FeatureStateServicemeshAnalysisMessages {
+func flattenFeatureStateServicemeshAnalysisMessagesMap(c *Client, i interface{}, res *Feature) map[string]FeatureStateServicemeshAnalysisMessages {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureStateServicemeshAnalysisMessages{}
@@ -3049,7 +3049,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMap(c *Client, i interface{})
 
 	items := make(map[string]FeatureStateServicemeshAnalysisMessages)
 	for k, item := range a {
-		items[k] = *flattenFeatureStateServicemeshAnalysisMessages(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureStateServicemeshAnalysisMessages(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3057,7 +3057,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMap(c *Client, i interface{})
 
 // flattenFeatureStateServicemeshAnalysisMessagesSlice flattens the contents of FeatureStateServicemeshAnalysisMessages from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesSlice(c *Client, i interface{}) []FeatureStateServicemeshAnalysisMessages {
+func flattenFeatureStateServicemeshAnalysisMessagesSlice(c *Client, i interface{}, res *Feature) []FeatureStateServicemeshAnalysisMessages {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureStateServicemeshAnalysisMessages{}
@@ -3069,7 +3069,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesSlice(c *Client, i interface{
 
 	items := make([]FeatureStateServicemeshAnalysisMessages, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureStateServicemeshAnalysisMessages(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureStateServicemeshAnalysisMessages(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3089,7 +3089,7 @@ func expandFeatureStateServicemeshAnalysisMessages(c *Client, f *FeatureStateSer
 
 // flattenFeatureStateServicemeshAnalysisMessages flattens an instance of FeatureStateServicemeshAnalysisMessages from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessages(c *Client, i interface{}) *FeatureStateServicemeshAnalysisMessages {
+func flattenFeatureStateServicemeshAnalysisMessages(c *Client, i interface{}, res *Feature) *FeatureStateServicemeshAnalysisMessages {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3100,7 +3100,7 @@ func flattenFeatureStateServicemeshAnalysisMessages(c *Client, i interface{}) *F
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureStateServicemeshAnalysisMessages
 	}
-	r.MessageBase = flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c, m["messageBase"])
+	r.MessageBase = flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c, m["messageBase"], res)
 	r.Description = dcl.FlattenString(m["description"])
 	r.ResourcePaths = dcl.FlattenStringSlice(m["resourcePaths"])
 	r.Args = dcl.FlattenKeyValuePairs(m["args"])
@@ -3151,7 +3151,7 @@ func expandFeatureStateServicemeshAnalysisMessagesMessageBaseSlice(c *Client, f 
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBaseMap flattens the contents of FeatureStateServicemeshAnalysisMessagesMessageBase from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseMap(c *Client, i interface{}) map[string]FeatureStateServicemeshAnalysisMessagesMessageBase {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseMap(c *Client, i interface{}, res *Feature) map[string]FeatureStateServicemeshAnalysisMessagesMessageBase {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureStateServicemeshAnalysisMessagesMessageBase{}
@@ -3163,7 +3163,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseMap(c *Client, i i
 
 	items := make(map[string]FeatureStateServicemeshAnalysisMessagesMessageBase)
 	for k, item := range a {
-		items[k] = *flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3171,7 +3171,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseMap(c *Client, i i
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBaseSlice flattens the contents of FeatureStateServicemeshAnalysisMessagesMessageBase from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseSlice(c *Client, i interface{}) []FeatureStateServicemeshAnalysisMessagesMessageBase {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseSlice(c *Client, i interface{}, res *Feature) []FeatureStateServicemeshAnalysisMessagesMessageBase {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureStateServicemeshAnalysisMessagesMessageBase{}
@@ -3183,7 +3183,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseSlice(c *Client, i
 
 	items := make([]FeatureStateServicemeshAnalysisMessagesMessageBase, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3203,7 +3203,7 @@ func expandFeatureStateServicemeshAnalysisMessagesMessageBase(c *Client, f *Feat
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBase flattens an instance of FeatureStateServicemeshAnalysisMessagesMessageBase from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c *Client, i interface{}) *FeatureStateServicemeshAnalysisMessagesMessageBase {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c *Client, i interface{}, res *Feature) *FeatureStateServicemeshAnalysisMessagesMessageBase {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3214,7 +3214,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBase(c *Client, i inte
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureStateServicemeshAnalysisMessagesMessageBase
 	}
-	r.Type = flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c, m["type"])
+	r.Type = flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c, m["type"], res)
 	r.Level = flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum(m["level"])
 	r.DocumentationUrl = dcl.FlattenString(m["documentationUrl"])
 
@@ -3264,7 +3264,7 @@ func expandFeatureStateServicemeshAnalysisMessagesMessageBaseTypeSlice(c *Client
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeMap flattens the contents of FeatureStateServicemeshAnalysisMessagesMessageBaseType from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeMap(c *Client, i interface{}) map[string]FeatureStateServicemeshAnalysisMessagesMessageBaseType {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeMap(c *Client, i interface{}, res *Feature) map[string]FeatureStateServicemeshAnalysisMessagesMessageBaseType {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureStateServicemeshAnalysisMessagesMessageBaseType{}
@@ -3276,7 +3276,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeMap(c *Client,
 
 	items := make(map[string]FeatureStateServicemeshAnalysisMessagesMessageBaseType)
 	for k, item := range a {
-		items[k] = *flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c, item.(map[string]interface{}))
+		items[k] = *flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3284,7 +3284,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeMap(c *Client,
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeSlice flattens the contents of FeatureStateServicemeshAnalysisMessagesMessageBaseType from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeSlice(c *Client, i interface{}) []FeatureStateServicemeshAnalysisMessagesMessageBaseType {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeSlice(c *Client, i interface{}, res *Feature) []FeatureStateServicemeshAnalysisMessagesMessageBaseType {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureStateServicemeshAnalysisMessagesMessageBaseType{}
@@ -3296,7 +3296,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseTypeSlice(c *Clien
 
 	items := make([]FeatureStateServicemeshAnalysisMessagesMessageBaseType, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c, item.(map[string]interface{})))
+		items = append(items, *flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3316,7 +3316,7 @@ func expandFeatureStateServicemeshAnalysisMessagesMessageBaseType(c *Client, f *
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType flattens an instance of FeatureStateServicemeshAnalysisMessagesMessageBaseType from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c *Client, i interface{}) *FeatureStateServicemeshAnalysisMessagesMessageBaseType {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c *Client, i interface{}, res *Feature) *FeatureStateServicemeshAnalysisMessagesMessageBaseType {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3335,7 +3335,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseType(c *Client, i 
 
 // flattenFeatureResourceStateStateEnumMap flattens the contents of FeatureResourceStateStateEnum from a JSON
 // response object.
-func flattenFeatureResourceStateStateEnumMap(c *Client, i interface{}) map[string]FeatureResourceStateStateEnum {
+func flattenFeatureResourceStateStateEnumMap(c *Client, i interface{}, res *Feature) map[string]FeatureResourceStateStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureResourceStateStateEnum{}
@@ -3355,7 +3355,7 @@ func flattenFeatureResourceStateStateEnumMap(c *Client, i interface{}) map[strin
 
 // flattenFeatureResourceStateStateEnumSlice flattens the contents of FeatureResourceStateStateEnum from a JSON
 // response object.
-func flattenFeatureResourceStateStateEnumSlice(c *Client, i interface{}) []FeatureResourceStateStateEnum {
+func flattenFeatureResourceStateStateEnumSlice(c *Client, i interface{}, res *Feature) []FeatureResourceStateStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureResourceStateStateEnum{}
@@ -3386,7 +3386,7 @@ func flattenFeatureResourceStateStateEnum(i interface{}) *FeatureResourceStateSt
 
 // flattenFeatureStateStateCodeEnumMap flattens the contents of FeatureStateStateCodeEnum from a JSON
 // response object.
-func flattenFeatureStateStateCodeEnumMap(c *Client, i interface{}) map[string]FeatureStateStateCodeEnum {
+func flattenFeatureStateStateCodeEnumMap(c *Client, i interface{}, res *Feature) map[string]FeatureStateStateCodeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureStateStateCodeEnum{}
@@ -3406,7 +3406,7 @@ func flattenFeatureStateStateCodeEnumMap(c *Client, i interface{}) map[string]Fe
 
 // flattenFeatureStateStateCodeEnumSlice flattens the contents of FeatureStateStateCodeEnum from a JSON
 // response object.
-func flattenFeatureStateStateCodeEnumSlice(c *Client, i interface{}) []FeatureStateStateCodeEnum {
+func flattenFeatureStateStateCodeEnumSlice(c *Client, i interface{}, res *Feature) []FeatureStateStateCodeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureStateStateCodeEnum{}
@@ -3437,7 +3437,7 @@ func flattenFeatureStateStateCodeEnum(i interface{}) *FeatureStateStateCodeEnum 
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumMap flattens the contents of FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumMap(c *Client, i interface{}) map[string]FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumMap(c *Client, i interface{}, res *Feature) map[string]FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum{}
@@ -3457,7 +3457,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumMap(c *Cl
 
 // flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumSlice flattens the contents of FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum from a JSON
 // response object.
-func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumSlice(c *Client, i interface{}) []FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum {
+func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumSlice(c *Client, i interface{}, res *Feature) []FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum{}
@@ -3491,7 +3491,7 @@ func flattenFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum(i interf
 // identity).  This is useful in extracting the element from a List call.
 func (r *Feature) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalFeature(b, c)
+		cr, err := unmarshalFeature(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

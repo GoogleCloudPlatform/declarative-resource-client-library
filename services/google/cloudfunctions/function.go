@@ -439,7 +439,7 @@ func (c *Client) GetFunction(ctx context.Context, r *Function) (*Function, error
 		}
 		return nil, err
 	}
-	result, err := unmarshalFunction(b, c)
+	result, err := unmarshalFunction(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -609,7 +609,7 @@ func applyFunctionDiff(c *Client, ctx context.Context, desired *Function, rawDes
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapFunction(r, c)
+				fullResp, err := unmarshalMapFunction(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

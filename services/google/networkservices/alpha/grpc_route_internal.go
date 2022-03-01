@@ -371,7 +371,7 @@ func (c *Client) listGrpcRoute(ctx context.Context, r *GrpcRoute, pageToken stri
 
 	var l []*GrpcRoute
 	for _, v := range m.GrpcRoutes {
-		res, err := unmarshalMapGrpcRoute(v, c)
+		res, err := unmarshalMapGrpcRoute(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -717,6 +717,14 @@ func canonicalizeGrpcRouteNewState(c *Client, rawNew, rawDesired *GrpcRoute) (*G
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
+		rawNew.SelfLink = rawDesired.SelfLink
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
+	}
 
 	return rawNew, nil
 }
@@ -2114,6 +2122,13 @@ func diffGrpcRoute(c *Client, desired, actual *GrpcRoute, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareGrpcRouteRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2520,6 +2535,7 @@ func (r *GrpcRoute) urlNormalized() *GrpcRoute {
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -2551,17 +2567,17 @@ func (r *GrpcRoute) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalGrpcRoute decodes JSON responses into the GrpcRoute resource schema.
-func unmarshalGrpcRoute(b []byte, c *Client) (*GrpcRoute, error) {
+func unmarshalGrpcRoute(b []byte, c *Client, res *GrpcRoute) (*GrpcRoute, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapGrpcRoute(m, c)
+	return unmarshalMapGrpcRoute(m, c, res)
 }
 
-func unmarshalMapGrpcRoute(m map[string]interface{}, c *Client) (*GrpcRoute, error) {
+func unmarshalMapGrpcRoute(m map[string]interface{}, c *Client, res *GrpcRoute) (*GrpcRoute, error) {
 
-	flattened := flattenGrpcRoute(c, m)
+	flattened := flattenGrpcRoute(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -2617,7 +2633,7 @@ func expandGrpcRoute(c *Client, f *GrpcRoute) (map[string]interface{}, error) {
 
 // flattenGrpcRoute flattens GrpcRoute from a JSON request object into the
 // GrpcRoute type.
-func flattenGrpcRoute(c *Client, i interface{}) *GrpcRoute {
+func flattenGrpcRoute(c *Client, i interface{}, res *GrpcRoute) *GrpcRoute {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2626,21 +2642,22 @@ func flattenGrpcRoute(c *Client, i interface{}) *GrpcRoute {
 		return nil
 	}
 
-	res := &GrpcRoute{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Hostnames = dcl.FlattenStringSlice(m["hostnames"])
-	res.Routers = dcl.FlattenStringSlice(m["routers"])
-	res.Meshes = dcl.FlattenStringSlice(m["meshes"])
-	res.Gateways = dcl.FlattenStringSlice(m["gateways"])
-	res.Rules = flattenGrpcRouteRulesSlice(c, m["rules"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &GrpcRoute{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.Hostnames = dcl.FlattenStringSlice(m["hostnames"])
+	resultRes.Routers = dcl.FlattenStringSlice(m["routers"])
+	resultRes.Meshes = dcl.FlattenStringSlice(m["meshes"])
+	resultRes.Gateways = dcl.FlattenStringSlice(m["gateways"])
+	resultRes.Rules = flattenGrpcRouteRulesSlice(c, m["rules"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return res
+	return resultRes
 }
 
 // expandGrpcRouteRulesMap expands the contents of GrpcRouteRules into a JSON
@@ -2686,7 +2703,7 @@ func expandGrpcRouteRulesSlice(c *Client, f []GrpcRouteRules, res *GrpcRoute) ([
 
 // flattenGrpcRouteRulesMap flattens the contents of GrpcRouteRules from a JSON
 // response object.
-func flattenGrpcRouteRulesMap(c *Client, i interface{}) map[string]GrpcRouteRules {
+func flattenGrpcRouteRulesMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRules {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRules{}
@@ -2698,7 +2715,7 @@ func flattenGrpcRouteRulesMap(c *Client, i interface{}) map[string]GrpcRouteRule
 
 	items := make(map[string]GrpcRouteRules)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRules(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRules(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2706,7 +2723,7 @@ func flattenGrpcRouteRulesMap(c *Client, i interface{}) map[string]GrpcRouteRule
 
 // flattenGrpcRouteRulesSlice flattens the contents of GrpcRouteRules from a JSON
 // response object.
-func flattenGrpcRouteRulesSlice(c *Client, i interface{}) []GrpcRouteRules {
+func flattenGrpcRouteRulesSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRules {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRules{}
@@ -2718,7 +2735,7 @@ func flattenGrpcRouteRulesSlice(c *Client, i interface{}) []GrpcRouteRules {
 
 	items := make([]GrpcRouteRules, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRules(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2748,7 +2765,7 @@ func expandGrpcRouteRules(c *Client, f *GrpcRouteRules, res *GrpcRoute) (map[str
 
 // flattenGrpcRouteRules flattens an instance of GrpcRouteRules from a JSON
 // response object.
-func flattenGrpcRouteRules(c *Client, i interface{}) *GrpcRouteRules {
+func flattenGrpcRouteRules(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRules {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2759,8 +2776,8 @@ func flattenGrpcRouteRules(c *Client, i interface{}) *GrpcRouteRules {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGrpcRouteRules
 	}
-	r.Matches = flattenGrpcRouteRulesMatchesSlice(c, m["matches"])
-	r.Action = flattenGrpcRouteRulesAction(c, m["action"])
+	r.Matches = flattenGrpcRouteRulesMatchesSlice(c, m["matches"], res)
+	r.Action = flattenGrpcRouteRulesAction(c, m["action"], res)
 
 	return r
 }
@@ -2808,7 +2825,7 @@ func expandGrpcRouteRulesMatchesSlice(c *Client, f []GrpcRouteRulesMatches, res 
 
 // flattenGrpcRouteRulesMatchesMap flattens the contents of GrpcRouteRulesMatches from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesMap(c *Client, i interface{}) map[string]GrpcRouteRulesMatches {
+func flattenGrpcRouteRulesMatchesMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesMatches {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesMatches{}
@@ -2820,7 +2837,7 @@ func flattenGrpcRouteRulesMatchesMap(c *Client, i interface{}) map[string]GrpcRo
 
 	items := make(map[string]GrpcRouteRulesMatches)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesMatches(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesMatches(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2828,7 +2845,7 @@ func flattenGrpcRouteRulesMatchesMap(c *Client, i interface{}) map[string]GrpcRo
 
 // flattenGrpcRouteRulesMatchesSlice flattens the contents of GrpcRouteRulesMatches from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesSlice(c *Client, i interface{}) []GrpcRouteRulesMatches {
+func flattenGrpcRouteRulesMatchesSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesMatches {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesMatches{}
@@ -2840,7 +2857,7 @@ func flattenGrpcRouteRulesMatchesSlice(c *Client, i interface{}) []GrpcRouteRule
 
 	items := make([]GrpcRouteRulesMatches, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesMatches(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesMatches(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2870,7 +2887,7 @@ func expandGrpcRouteRulesMatches(c *Client, f *GrpcRouteRulesMatches, res *GrpcR
 
 // flattenGrpcRouteRulesMatches flattens an instance of GrpcRouteRulesMatches from a JSON
 // response object.
-func flattenGrpcRouteRulesMatches(c *Client, i interface{}) *GrpcRouteRulesMatches {
+func flattenGrpcRouteRulesMatches(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesMatches {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2881,8 +2898,8 @@ func flattenGrpcRouteRulesMatches(c *Client, i interface{}) *GrpcRouteRulesMatch
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGrpcRouteRulesMatches
 	}
-	r.Method = flattenGrpcRouteRulesMatchesMethod(c, m["method"])
-	r.Headers = flattenGrpcRouteRulesMatchesHeadersSlice(c, m["headers"])
+	r.Method = flattenGrpcRouteRulesMatchesMethod(c, m["method"], res)
+	r.Headers = flattenGrpcRouteRulesMatchesHeadersSlice(c, m["headers"], res)
 
 	return r
 }
@@ -2930,7 +2947,7 @@ func expandGrpcRouteRulesMatchesMethodSlice(c *Client, f []GrpcRouteRulesMatches
 
 // flattenGrpcRouteRulesMatchesMethodMap flattens the contents of GrpcRouteRulesMatchesMethod from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesMethodMap(c *Client, i interface{}) map[string]GrpcRouteRulesMatchesMethod {
+func flattenGrpcRouteRulesMatchesMethodMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesMatchesMethod {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesMatchesMethod{}
@@ -2942,7 +2959,7 @@ func flattenGrpcRouteRulesMatchesMethodMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]GrpcRouteRulesMatchesMethod)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesMatchesMethod(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesMatchesMethod(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2950,7 +2967,7 @@ func flattenGrpcRouteRulesMatchesMethodMap(c *Client, i interface{}) map[string]
 
 // flattenGrpcRouteRulesMatchesMethodSlice flattens the contents of GrpcRouteRulesMatchesMethod from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesMethodSlice(c *Client, i interface{}) []GrpcRouteRulesMatchesMethod {
+func flattenGrpcRouteRulesMatchesMethodSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesMatchesMethod {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesMatchesMethod{}
@@ -2962,7 +2979,7 @@ func flattenGrpcRouteRulesMatchesMethodSlice(c *Client, i interface{}) []GrpcRou
 
 	items := make([]GrpcRouteRulesMatchesMethod, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesMatchesMethod(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesMatchesMethod(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2994,7 +3011,7 @@ func expandGrpcRouteRulesMatchesMethod(c *Client, f *GrpcRouteRulesMatchesMethod
 
 // flattenGrpcRouteRulesMatchesMethod flattens an instance of GrpcRouteRulesMatchesMethod from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesMethod(c *Client, i interface{}) *GrpcRouteRulesMatchesMethod {
+func flattenGrpcRouteRulesMatchesMethod(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesMatchesMethod {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3056,7 +3073,7 @@ func expandGrpcRouteRulesMatchesHeadersSlice(c *Client, f []GrpcRouteRulesMatche
 
 // flattenGrpcRouteRulesMatchesHeadersMap flattens the contents of GrpcRouteRulesMatchesHeaders from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesHeadersMap(c *Client, i interface{}) map[string]GrpcRouteRulesMatchesHeaders {
+func flattenGrpcRouteRulesMatchesHeadersMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesMatchesHeaders {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesMatchesHeaders{}
@@ -3068,7 +3085,7 @@ func flattenGrpcRouteRulesMatchesHeadersMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]GrpcRouteRulesMatchesHeaders)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesMatchesHeaders(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesMatchesHeaders(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3076,7 +3093,7 @@ func flattenGrpcRouteRulesMatchesHeadersMap(c *Client, i interface{}) map[string
 
 // flattenGrpcRouteRulesMatchesHeadersSlice flattens the contents of GrpcRouteRulesMatchesHeaders from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []GrpcRouteRulesMatchesHeaders {
+func flattenGrpcRouteRulesMatchesHeadersSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesMatchesHeaders {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesMatchesHeaders{}
@@ -3088,7 +3105,7 @@ func flattenGrpcRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []GrpcRo
 
 	items := make([]GrpcRouteRulesMatchesHeaders, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesMatchesHeaders(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesMatchesHeaders(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3117,7 +3134,7 @@ func expandGrpcRouteRulesMatchesHeaders(c *Client, f *GrpcRouteRulesMatchesHeade
 
 // flattenGrpcRouteRulesMatchesHeaders flattens an instance of GrpcRouteRulesMatchesHeaders from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesHeaders(c *Client, i interface{}) *GrpcRouteRulesMatchesHeaders {
+func flattenGrpcRouteRulesMatchesHeaders(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesMatchesHeaders {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3178,7 +3195,7 @@ func expandGrpcRouteRulesActionSlice(c *Client, f []GrpcRouteRulesAction, res *G
 
 // flattenGrpcRouteRulesActionMap flattens the contents of GrpcRouteRulesAction from a JSON
 // response object.
-func flattenGrpcRouteRulesActionMap(c *Client, i interface{}) map[string]GrpcRouteRulesAction {
+func flattenGrpcRouteRulesActionMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesAction {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesAction{}
@@ -3190,7 +3207,7 @@ func flattenGrpcRouteRulesActionMap(c *Client, i interface{}) map[string]GrpcRou
 
 	items := make(map[string]GrpcRouteRulesAction)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesAction(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesAction(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3198,7 +3215,7 @@ func flattenGrpcRouteRulesActionMap(c *Client, i interface{}) map[string]GrpcRou
 
 // flattenGrpcRouteRulesActionSlice flattens the contents of GrpcRouteRulesAction from a JSON
 // response object.
-func flattenGrpcRouteRulesActionSlice(c *Client, i interface{}) []GrpcRouteRulesAction {
+func flattenGrpcRouteRulesActionSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesAction {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesAction{}
@@ -3210,7 +3227,7 @@ func flattenGrpcRouteRulesActionSlice(c *Client, i interface{}) []GrpcRouteRules
 
 	items := make([]GrpcRouteRulesAction, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesAction(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesAction(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3248,7 +3265,7 @@ func expandGrpcRouteRulesAction(c *Client, f *GrpcRouteRulesAction, res *GrpcRou
 
 // flattenGrpcRouteRulesAction flattens an instance of GrpcRouteRulesAction from a JSON
 // response object.
-func flattenGrpcRouteRulesAction(c *Client, i interface{}) *GrpcRouteRulesAction {
+func flattenGrpcRouteRulesAction(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesAction {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3259,10 +3276,10 @@ func flattenGrpcRouteRulesAction(c *Client, i interface{}) *GrpcRouteRulesAction
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGrpcRouteRulesAction
 	}
-	r.Destinations = flattenGrpcRouteRulesActionDestinationsSlice(c, m["destinations"])
-	r.FaultInjectionPolicy = flattenGrpcRouteRulesActionFaultInjectionPolicy(c, m["faultInjectionPolicy"])
+	r.Destinations = flattenGrpcRouteRulesActionDestinationsSlice(c, m["destinations"], res)
+	r.FaultInjectionPolicy = flattenGrpcRouteRulesActionFaultInjectionPolicy(c, m["faultInjectionPolicy"], res)
 	r.Timeout = dcl.FlattenString(m["timeout"])
-	r.RetryPolicy = flattenGrpcRouteRulesActionRetryPolicy(c, m["retryPolicy"])
+	r.RetryPolicy = flattenGrpcRouteRulesActionRetryPolicy(c, m["retryPolicy"], res)
 
 	return r
 }
@@ -3310,7 +3327,7 @@ func expandGrpcRouteRulesActionDestinationsSlice(c *Client, f []GrpcRouteRulesAc
 
 // flattenGrpcRouteRulesActionDestinationsMap flattens the contents of GrpcRouteRulesActionDestinations from a JSON
 // response object.
-func flattenGrpcRouteRulesActionDestinationsMap(c *Client, i interface{}) map[string]GrpcRouteRulesActionDestinations {
+func flattenGrpcRouteRulesActionDestinationsMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesActionDestinations {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesActionDestinations{}
@@ -3322,7 +3339,7 @@ func flattenGrpcRouteRulesActionDestinationsMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]GrpcRouteRulesActionDestinations)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesActionDestinations(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesActionDestinations(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3330,7 +3347,7 @@ func flattenGrpcRouteRulesActionDestinationsMap(c *Client, i interface{}) map[st
 
 // flattenGrpcRouteRulesActionDestinationsSlice flattens the contents of GrpcRouteRulesActionDestinations from a JSON
 // response object.
-func flattenGrpcRouteRulesActionDestinationsSlice(c *Client, i interface{}) []GrpcRouteRulesActionDestinations {
+func flattenGrpcRouteRulesActionDestinationsSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesActionDestinations {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesActionDestinations{}
@@ -3342,7 +3359,7 @@ func flattenGrpcRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Gr
 
 	items := make([]GrpcRouteRulesActionDestinations, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesActionDestinations(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesActionDestinations(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3368,7 +3385,7 @@ func expandGrpcRouteRulesActionDestinations(c *Client, f *GrpcRouteRulesActionDe
 
 // flattenGrpcRouteRulesActionDestinations flattens an instance of GrpcRouteRulesActionDestinations from a JSON
 // response object.
-func flattenGrpcRouteRulesActionDestinations(c *Client, i interface{}) *GrpcRouteRulesActionDestinations {
+func flattenGrpcRouteRulesActionDestinations(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesActionDestinations {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3428,7 +3445,7 @@ func expandGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, f []GrpcRout
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicyMap flattens the contents of GrpcRouteRulesActionFaultInjectionPolicy from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}) map[string]GrpcRouteRulesActionFaultInjectionPolicy {
+func flattenGrpcRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesActionFaultInjectionPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesActionFaultInjectionPolicy{}
@@ -3440,7 +3457,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}
 
 	items := make(map[string]GrpcRouteRulesActionFaultInjectionPolicy)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3448,7 +3465,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicySlice flattens the contents of GrpcRouteRulesActionFaultInjectionPolicy from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface{}) []GrpcRouteRulesActionFaultInjectionPolicy {
+func flattenGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesActionFaultInjectionPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesActionFaultInjectionPolicy{}
@@ -3460,7 +3477,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface
 
 	items := make([]GrpcRouteRulesActionFaultInjectionPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3490,7 +3507,7 @@ func expandGrpcRouteRulesActionFaultInjectionPolicy(c *Client, f *GrpcRouteRules
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicy flattens an instance of GrpcRouteRulesActionFaultInjectionPolicy from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}) *GrpcRouteRulesActionFaultInjectionPolicy {
+func flattenGrpcRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesActionFaultInjectionPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3501,8 +3518,8 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}) *
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyGrpcRouteRulesActionFaultInjectionPolicy
 	}
-	r.Delay = flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c, m["delay"])
-	r.Abort = flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c, m["abort"])
+	r.Delay = flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c, m["delay"], res)
+	r.Abort = flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c, m["abort"], res)
 
 	return r
 }
@@ -3550,7 +3567,7 @@ func expandGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, f []Grp
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicyDelayMap flattens the contents of GrpcRouteRulesActionFaultInjectionPolicyDelay from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interface{}) map[string]GrpcRouteRulesActionFaultInjectionPolicyDelay {
+func flattenGrpcRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesActionFaultInjectionPolicyDelay {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesActionFaultInjectionPolicyDelay{}
@@ -3562,7 +3579,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interf
 
 	items := make(map[string]GrpcRouteRulesActionFaultInjectionPolicyDelay)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3570,7 +3587,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interf
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicyDelaySlice flattens the contents of GrpcRouteRulesActionFaultInjectionPolicyDelay from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i interface{}) []GrpcRouteRulesActionFaultInjectionPolicyDelay {
+func flattenGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesActionFaultInjectionPolicyDelay {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesActionFaultInjectionPolicyDelay{}
@@ -3582,7 +3599,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i inte
 
 	items := make([]GrpcRouteRulesActionFaultInjectionPolicyDelay, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3608,7 +3625,7 @@ func expandGrpcRouteRulesActionFaultInjectionPolicyDelay(c *Client, f *GrpcRoute
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicyDelay flattens an instance of GrpcRouteRulesActionFaultInjectionPolicyDelay from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c *Client, i interface{}) *GrpcRouteRulesActionFaultInjectionPolicyDelay {
+func flattenGrpcRouteRulesActionFaultInjectionPolicyDelay(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesActionFaultInjectionPolicyDelay {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3668,7 +3685,7 @@ func expandGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, f []Grp
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicyAbortMap flattens the contents of GrpcRouteRulesActionFaultInjectionPolicyAbort from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interface{}) map[string]GrpcRouteRulesActionFaultInjectionPolicyAbort {
+func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesActionFaultInjectionPolicyAbort {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesActionFaultInjectionPolicyAbort{}
@@ -3680,7 +3697,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interf
 
 	items := make(map[string]GrpcRouteRulesActionFaultInjectionPolicyAbort)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3688,7 +3705,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interf
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicyAbortSlice flattens the contents of GrpcRouteRulesActionFaultInjectionPolicyAbort from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i interface{}) []GrpcRouteRulesActionFaultInjectionPolicyAbort {
+func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesActionFaultInjectionPolicyAbort {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesActionFaultInjectionPolicyAbort{}
@@ -3700,7 +3717,7 @@ func flattenGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i inte
 
 	items := make([]GrpcRouteRulesActionFaultInjectionPolicyAbort, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3726,7 +3743,7 @@ func expandGrpcRouteRulesActionFaultInjectionPolicyAbort(c *Client, f *GrpcRoute
 
 // flattenGrpcRouteRulesActionFaultInjectionPolicyAbort flattens an instance of GrpcRouteRulesActionFaultInjectionPolicyAbort from a JSON
 // response object.
-func flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c *Client, i interface{}) *GrpcRouteRulesActionFaultInjectionPolicyAbort {
+func flattenGrpcRouteRulesActionFaultInjectionPolicyAbort(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesActionFaultInjectionPolicyAbort {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3786,7 +3803,7 @@ func expandGrpcRouteRulesActionRetryPolicySlice(c *Client, f []GrpcRouteRulesAct
 
 // flattenGrpcRouteRulesActionRetryPolicyMap flattens the contents of GrpcRouteRulesActionRetryPolicy from a JSON
 // response object.
-func flattenGrpcRouteRulesActionRetryPolicyMap(c *Client, i interface{}) map[string]GrpcRouteRulesActionRetryPolicy {
+func flattenGrpcRouteRulesActionRetryPolicyMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesActionRetryPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesActionRetryPolicy{}
@@ -3798,7 +3815,7 @@ func flattenGrpcRouteRulesActionRetryPolicyMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]GrpcRouteRulesActionRetryPolicy)
 	for k, item := range a {
-		items[k] = *flattenGrpcRouteRulesActionRetryPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenGrpcRouteRulesActionRetryPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -3806,7 +3823,7 @@ func flattenGrpcRouteRulesActionRetryPolicyMap(c *Client, i interface{}) map[str
 
 // flattenGrpcRouteRulesActionRetryPolicySlice flattens the contents of GrpcRouteRulesActionRetryPolicy from a JSON
 // response object.
-func flattenGrpcRouteRulesActionRetryPolicySlice(c *Client, i interface{}) []GrpcRouteRulesActionRetryPolicy {
+func flattenGrpcRouteRulesActionRetryPolicySlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesActionRetryPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesActionRetryPolicy{}
@@ -3818,7 +3835,7 @@ func flattenGrpcRouteRulesActionRetryPolicySlice(c *Client, i interface{}) []Grp
 
 	items := make([]GrpcRouteRulesActionRetryPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGrpcRouteRulesActionRetryPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenGrpcRouteRulesActionRetryPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -3844,7 +3861,7 @@ func expandGrpcRouteRulesActionRetryPolicy(c *Client, f *GrpcRouteRulesActionRet
 
 // flattenGrpcRouteRulesActionRetryPolicy flattens an instance of GrpcRouteRulesActionRetryPolicy from a JSON
 // response object.
-func flattenGrpcRouteRulesActionRetryPolicy(c *Client, i interface{}) *GrpcRouteRulesActionRetryPolicy {
+func flattenGrpcRouteRulesActionRetryPolicy(c *Client, i interface{}, res *GrpcRoute) *GrpcRouteRulesActionRetryPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -3863,7 +3880,7 @@ func flattenGrpcRouteRulesActionRetryPolicy(c *Client, i interface{}) *GrpcRoute
 
 // flattenGrpcRouteRulesMatchesMethodTypeEnumMap flattens the contents of GrpcRouteRulesMatchesMethodTypeEnum from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesMethodTypeEnumMap(c *Client, i interface{}) map[string]GrpcRouteRulesMatchesMethodTypeEnum {
+func flattenGrpcRouteRulesMatchesMethodTypeEnumMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesMatchesMethodTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesMatchesMethodTypeEnum{}
@@ -3883,7 +3900,7 @@ func flattenGrpcRouteRulesMatchesMethodTypeEnumMap(c *Client, i interface{}) map
 
 // flattenGrpcRouteRulesMatchesMethodTypeEnumSlice flattens the contents of GrpcRouteRulesMatchesMethodTypeEnum from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesMethodTypeEnumSlice(c *Client, i interface{}) []GrpcRouteRulesMatchesMethodTypeEnum {
+func flattenGrpcRouteRulesMatchesMethodTypeEnumSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesMatchesMethodTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesMatchesMethodTypeEnum{}
@@ -3914,7 +3931,7 @@ func flattenGrpcRouteRulesMatchesMethodTypeEnum(i interface{}) *GrpcRouteRulesMa
 
 // flattenGrpcRouteRulesMatchesHeadersTypeEnumMap flattens the contents of GrpcRouteRulesMatchesHeadersTypeEnum from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesHeadersTypeEnumMap(c *Client, i interface{}) map[string]GrpcRouteRulesMatchesHeadersTypeEnum {
+func flattenGrpcRouteRulesMatchesHeadersTypeEnumMap(c *Client, i interface{}, res *GrpcRoute) map[string]GrpcRouteRulesMatchesHeadersTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]GrpcRouteRulesMatchesHeadersTypeEnum{}
@@ -3934,7 +3951,7 @@ func flattenGrpcRouteRulesMatchesHeadersTypeEnumMap(c *Client, i interface{}) ma
 
 // flattenGrpcRouteRulesMatchesHeadersTypeEnumSlice flattens the contents of GrpcRouteRulesMatchesHeadersTypeEnum from a JSON
 // response object.
-func flattenGrpcRouteRulesMatchesHeadersTypeEnumSlice(c *Client, i interface{}) []GrpcRouteRulesMatchesHeadersTypeEnum {
+func flattenGrpcRouteRulesMatchesHeadersTypeEnumSlice(c *Client, i interface{}, res *GrpcRoute) []GrpcRouteRulesMatchesHeadersTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []GrpcRouteRulesMatchesHeadersTypeEnum{}
@@ -3968,7 +3985,7 @@ func flattenGrpcRouteRulesMatchesHeadersTypeEnum(i interface{}) *GrpcRouteRulesM
 // identity).  This is useful in extracting the element from a List call.
 func (r *GrpcRoute) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalGrpcRoute(b, c)
+		cr, err := unmarshalGrpcRoute(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

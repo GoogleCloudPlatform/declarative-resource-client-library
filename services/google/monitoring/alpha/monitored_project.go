@@ -284,7 +284,7 @@ func applyMonitoredProjectDiff(c *Client, ctx context.Context, desired *Monitore
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapMonitoredProject(r, c)
+				fullResp, err := unmarshalMapMonitoredProject(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

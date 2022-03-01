@@ -246,7 +246,7 @@ func (c *Client) listMesh(ctx context.Context, r *Mesh, pageToken string, pageSi
 
 	var l []*Mesh
 	for _, v := range m.Meshes {
-		res, err := unmarshalMapMesh(v, c)
+		res, err := unmarshalMapMesh(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -545,6 +545,14 @@ func canonicalizeMeshNewState(c *Client, rawNew, rawDesired *Mesh) (*Mesh, error
 
 	rawNew.Location = rawDesired.Location
 
+	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
+		rawNew.SelfLink = rawDesired.SelfLink
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
+	}
+
 	return rawNew, nil
 }
 
@@ -622,6 +630,13 @@ func diffMesh(c *Client, desired, actual *Mesh, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 
@@ -634,6 +649,7 @@ func (r *Mesh) urlNormalized() *Mesh {
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -665,17 +681,17 @@ func (r *Mesh) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalMesh decodes JSON responses into the Mesh resource schema.
-func unmarshalMesh(b []byte, c *Client) (*Mesh, error) {
+func unmarshalMesh(b []byte, c *Client, res *Mesh) (*Mesh, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapMesh(m, c)
+	return unmarshalMapMesh(m, c, res)
 }
 
-func unmarshalMapMesh(m map[string]interface{}, c *Client) (*Mesh, error) {
+func unmarshalMapMesh(m map[string]interface{}, c *Client, res *Mesh) (*Mesh, error) {
 
-	flattened := flattenMesh(c, m)
+	flattened := flattenMesh(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -717,7 +733,7 @@ func expandMesh(c *Client, f *Mesh) (map[string]interface{}, error) {
 
 // flattenMesh flattens Mesh from a JSON request object into the
 // Mesh type.
-func flattenMesh(c *Client, i interface{}) *Mesh {
+func flattenMesh(c *Client, i interface{}, res *Mesh) *Mesh {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -726,17 +742,18 @@ func flattenMesh(c *Client, i interface{}) *Mesh {
 		return nil
 	}
 
-	res := &Mesh{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.InterceptionPort = dcl.FlattenInteger(m["interceptionPort"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Mesh{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.InterceptionPort = dcl.FlattenInteger(m["interceptionPort"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -744,7 +761,7 @@ func flattenMesh(c *Client, i interface{}) *Mesh {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Mesh) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalMesh(b, c)
+		cr, err := unmarshalMesh(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

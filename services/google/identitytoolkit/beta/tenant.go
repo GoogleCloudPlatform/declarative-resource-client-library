@@ -253,7 +253,7 @@ func (c *Client) GetTenant(ctx context.Context, r *Tenant) (*Tenant, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalTenant(b, c)
+	result, err := unmarshalTenant(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -422,7 +422,7 @@ func applyTenantDiff(c *Client, ctx context.Context, desired *Tenant, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapTenant(r, c)
+				fullResp, err := unmarshalMapTenant(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

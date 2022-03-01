@@ -537,7 +537,7 @@ func (c *Client) GetServerTlsPolicy(ctx context.Context, r *ServerTlsPolicy) (*S
 		}
 		return nil, err
 	}
-	result, err := unmarshalServerTlsPolicy(b, c)
+	result, err := unmarshalServerTlsPolicy(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -707,7 +707,7 @@ func applyServerTlsPolicyDiff(c *Client, ctx context.Context, desired *ServerTls
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapServerTlsPolicy(r, c)
+				fullResp, err := unmarshalMapServerTlsPolicy(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

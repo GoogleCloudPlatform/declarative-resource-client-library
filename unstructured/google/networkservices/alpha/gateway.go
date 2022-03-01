@@ -70,6 +70,9 @@ func GatewayToUnstructured(r *dclService.Gateway) *unstructured.Resource {
 	if r.Scope != nil {
 		u.Object["scope"] = *r.Scope
 	}
+	if r.SelfLink != nil {
+		u.Object["selfLink"] = *r.SelfLink
+	}
 	if r.ServerTlsPolicy != nil {
 		u.Object["serverTlsPolicy"] = *r.ServerTlsPolicy
 	}
@@ -166,6 +169,13 @@ func UnstructuredToGateway(u *unstructured.Resource) (*dclService.Gateway, error
 			r.Scope = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Scope: expected string")
+		}
+	}
+	if _, ok := u.Object["selfLink"]; ok {
+		if s, ok := u.Object["selfLink"].(string); ok {
+			r.SelfLink = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.SelfLink: expected string")
 		}
 	}
 	if _, ok := u.Object["serverTlsPolicy"]; ok {

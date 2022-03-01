@@ -347,6 +347,9 @@ func HttpRouteToUnstructured(r *dclService.HttpRoute) *unstructured.Resource {
 		rRules = append(rRules, rRulesObject)
 	}
 	u.Object["rules"] = rRules
+	if r.SelfLink != nil {
+		u.Object["selfLink"] = *r.SelfLink
+	}
 	if r.UpdateTime != nil {
 		u.Object["updateTime"] = *r.UpdateTime
 	}
@@ -1023,6 +1026,13 @@ func UnstructuredToHttpRoute(u *unstructured.Resource) (*dclService.HttpRoute, e
 			}
 		} else {
 			return nil, fmt.Errorf("r.Rules: expected []interface{}")
+		}
+	}
+	if _, ok := u.Object["selfLink"]; ok {
+		if s, ok := u.Object["selfLink"].(string); ok {
+			r.SelfLink = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.SelfLink: expected string")
 		}
 	}
 	if _, ok := u.Object["updateTime"]; ok {

@@ -119,14 +119,9 @@ func ProtoToApikeysKeyRestrictionsApiTargets(p *apikeyspb.ApikeysKeyRestrictions
 func ProtoToKey(p *apikeyspb.ApikeysKey) *apikeys.Key {
 	obj := &apikeys.Key{
 		Name:         dcl.StringOrNil(p.GetName()),
-		Uid:          dcl.StringOrNil(p.GetUid()),
 		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
 		KeyString:    dcl.StringOrNil(p.GetKeyString()),
-		CreateTime:   dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:   dcl.StringOrNil(p.GetUpdateTime()),
-		DeleteTime:   dcl.StringOrNil(p.GetDeleteTime()),
 		Restrictions: ProtoToApikeysKeyRestrictions(p.GetRestrictions()),
-		Etag:         dcl.StringOrNil(p.GetEtag()),
 		Project:      dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
@@ -236,14 +231,9 @@ func ApikeysKeyRestrictionsApiTargetsToProto(o *apikeys.KeyRestrictionsApiTarget
 func KeyToProto(resource *apikeys.Key) *apikeyspb.ApikeysKey {
 	p := &apikeyspb.ApikeysKey{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
-	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
 	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetKeyString(dcl.ValueOrEmptyString(resource.KeyString))
-	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
-	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
-	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
 	p.SetRestrictions(ApikeysKeyRestrictionsToProto(resource.Restrictions))
-	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p

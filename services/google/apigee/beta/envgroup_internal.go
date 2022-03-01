@@ -205,7 +205,7 @@ func (c *Client) listEnvgroup(ctx context.Context, r *Envgroup, pageToken string
 
 	var l []*Envgroup
 	for _, v := range m.EnvironmentGroups {
-		res, err := unmarshalMapEnvgroup(v, c)
+		res, err := unmarshalMapEnvgroup(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -582,17 +582,17 @@ func (r *Envgroup) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalEnvgroup decodes JSON responses into the Envgroup resource schema.
-func unmarshalEnvgroup(b []byte, c *Client) (*Envgroup, error) {
+func unmarshalEnvgroup(b []byte, c *Client, res *Envgroup) (*Envgroup, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapEnvgroup(m, c)
+	return unmarshalMapEnvgroup(m, c, res)
 }
 
-func unmarshalMapEnvgroup(m map[string]interface{}, c *Client) (*Envgroup, error) {
+func unmarshalMapEnvgroup(m map[string]interface{}, c *Client, res *Envgroup) (*Envgroup, error) {
 
-	flattened := flattenEnvgroup(c, m)
+	flattened := flattenEnvgroup(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -621,7 +621,7 @@ func expandEnvgroup(c *Client, f *Envgroup) (map[string]interface{}, error) {
 
 // flattenEnvgroup flattens Envgroup from a JSON request object into the
 // Envgroup type.
-func flattenEnvgroup(c *Client, i interface{}) *Envgroup {
+func flattenEnvgroup(c *Client, i interface{}, res *Envgroup) *Envgroup {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -630,20 +630,20 @@ func flattenEnvgroup(c *Client, i interface{}) *Envgroup {
 		return nil
 	}
 
-	res := &Envgroup{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Hostnames = dcl.FlattenStringSlice(m["hostnames"])
-	res.CreatedAt = dcl.FlattenInteger(m["createdAt"])
-	res.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
-	res.State = flattenEnvgroupStateEnum(m["state"])
-	res.ApigeeOrganization = dcl.FlattenString(m["apigeeOrganization"])
+	resultRes := &Envgroup{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Hostnames = dcl.FlattenStringSlice(m["hostnames"])
+	resultRes.CreatedAt = dcl.FlattenInteger(m["createdAt"])
+	resultRes.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
+	resultRes.State = flattenEnvgroupStateEnum(m["state"])
+	resultRes.ApigeeOrganization = dcl.FlattenString(m["apigeeOrganization"])
 
-	return res
+	return resultRes
 }
 
 // flattenEnvgroupStateEnumMap flattens the contents of EnvgroupStateEnum from a JSON
 // response object.
-func flattenEnvgroupStateEnumMap(c *Client, i interface{}) map[string]EnvgroupStateEnum {
+func flattenEnvgroupStateEnumMap(c *Client, i interface{}, res *Envgroup) map[string]EnvgroupStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]EnvgroupStateEnum{}
@@ -663,7 +663,7 @@ func flattenEnvgroupStateEnumMap(c *Client, i interface{}) map[string]EnvgroupSt
 
 // flattenEnvgroupStateEnumSlice flattens the contents of EnvgroupStateEnum from a JSON
 // response object.
-func flattenEnvgroupStateEnumSlice(c *Client, i interface{}) []EnvgroupStateEnum {
+func flattenEnvgroupStateEnumSlice(c *Client, i interface{}, res *Envgroup) []EnvgroupStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []EnvgroupStateEnum{}
@@ -697,7 +697,7 @@ func flattenEnvgroupStateEnum(i interface{}) *EnvgroupStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Envgroup) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalEnvgroup(b, c)
+		cr, err := unmarshalEnvgroup(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

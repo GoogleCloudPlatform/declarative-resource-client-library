@@ -553,7 +553,7 @@ func applyFeatureMembershipDiff(c *Client, ctx context.Context, desired *Feature
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapFeatureMembership(r, c)
+				fullResp, err := unmarshalMapFeatureMembership(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

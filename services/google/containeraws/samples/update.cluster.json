@@ -12,12 +12,12 @@
   "awsRegion": "{{aws_region}}",
   "controlPlane": {
     "version": "1.21.5-gke.2800",
-    "instanceType": "t3.medium",
+    "instanceType": "t3.large",
     "sshConfig": {
       "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"
     },
     "subnetIds": ["{{aws_subnet}}"],
-    "securityGroupIds": ["{{aws_security_group}}"],
+    "securityGroupIds": ["sg-1", "sg-2"],
     "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-controlplane",
     "rootVolume": {
       "sizeGib": 10,
@@ -32,28 +32,31 @@
       "iops": 3000
     },
     "configEncryption": {
-      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/updated-config-encryption-kms-key-arn"
     },
     "databaseEncryption": {
       "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
     },
     "awsServicesAuthentication": {
-      "roleArn": "arn:aws:iam::{{aws_account_id}}:role/{{byo_multicloud_prefix}}-1p-dev-oneplatform",
-      "roleSessionName": "{{byo_multicloud_prefix}}-1p-dev-session"
+      "roleArn": "arn:aws:iam::{{aws_account_id}}:role/{{byo_multicloud_prefix}}-1p-dev-oneplatform-2",
+      "roleSessionName": "{{byo_multicloud_prefix}}-1p-dev-session-2"
     },
     "tags": {
       "owner": "{{test_service_account}}",
       "googleinternal:serviceAccount": "{{test_service_account}}"
     },
     "proxyConfig": {
-      "secretArn": "arn:aws:secretsmanager:us-west-2:126285863215:secret:proxy_config20210824150329476300000001-ABCDEF",
-      "secretVersion": "12345678-ABCD-EFGH-IJKL-987654321098"
+      "secretArn": "arn:aws:secretsmanager:us-west-2:126285863215:secret:proxy_config20210824150329476300000001-ABCDEG",
+      "secretVersion": "12345678-ABCD-EFGH-IJKL-987654321099"
     }
   },
   "authorization": {
     "adminUsers": [
       {
         "username": "{{test_service_account}}"
+      },
+      {
+        "username": "foo@google.com"
       }
     ]
   },

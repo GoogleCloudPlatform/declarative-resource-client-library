@@ -382,7 +382,7 @@ func (c *Client) GetSpoke(ctx context.Context, r *Spoke) (*Spoke, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalSpoke(b, c)
+	result, err := unmarshalSpoke(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -552,7 +552,7 @@ func applySpokeDiff(c *Client, ctx context.Context, desired *Spoke, rawDesired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapSpoke(r, c)
+				fullResp, err := unmarshalMapSpoke(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

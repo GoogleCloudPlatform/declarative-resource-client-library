@@ -200,7 +200,7 @@ func (c *Client) GetOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) (*OAu
 		}
 		return nil, err
 	}
-	result, err := unmarshalOAuthIdpConfig(b, c)
+	result, err := unmarshalOAuthIdpConfig(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -369,7 +369,7 @@ func applyOAuthIdpConfigDiff(c *Client, ctx context.Context, desired *OAuthIdpCo
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapOAuthIdpConfig(r, c)
+				fullResp, err := unmarshalMapOAuthIdpConfig(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

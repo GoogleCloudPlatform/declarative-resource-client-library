@@ -262,7 +262,7 @@ func (c *Client) listInterconnectAttachment(ctx context.Context, r *Interconnect
 
 	var l []*InterconnectAttachment
 	for _, v := range m.Items {
-		res, err := unmarshalMapInterconnectAttachment(v, c)
+		res, err := unmarshalMapInterconnectAttachment(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1315,17 +1315,17 @@ func (r *InterconnectAttachment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInterconnectAttachment decodes JSON responses into the InterconnectAttachment resource schema.
-func unmarshalInterconnectAttachment(b []byte, c *Client) (*InterconnectAttachment, error) {
+func unmarshalInterconnectAttachment(b []byte, c *Client, res *InterconnectAttachment) (*InterconnectAttachment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInterconnectAttachment(m, c)
+	return unmarshalMapInterconnectAttachment(m, c, res)
 }
 
-func unmarshalMapInterconnectAttachment(m map[string]interface{}, c *Client) (*InterconnectAttachment, error) {
+func unmarshalMapInterconnectAttachment(m map[string]interface{}, c *Client, res *InterconnectAttachment) (*InterconnectAttachment, error) {
 
-	flattened := flattenInterconnectAttachment(c, m)
+	flattened := flattenInterconnectAttachment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1404,7 +1404,7 @@ func expandInterconnectAttachment(c *Client, f *InterconnectAttachment) (map[str
 
 // flattenInterconnectAttachment flattens InterconnectAttachment from a JSON request object into the
 // InterconnectAttachment type.
-func flattenInterconnectAttachment(c *Client, i interface{}) *InterconnectAttachment {
+func flattenInterconnectAttachment(c *Client, i interface{}, res *InterconnectAttachment) *InterconnectAttachment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1413,36 +1413,36 @@ func flattenInterconnectAttachment(c *Client, i interface{}) *InterconnectAttach
 		return nil
 	}
 
-	res := &InterconnectAttachment{}
-	res.Description = dcl.FlattenString(m["description"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.Id = dcl.FlattenInteger(m["id"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Interconnect = dcl.FlattenString(m["interconnect"])
-	res.Router = dcl.FlattenString(m["router"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.Mtu = dcl.FlattenInteger(m["mtu"])
-	res.PrivateInterconnectInfo = flattenInterconnectAttachmentPrivateInterconnectInfo(c, m["privateInterconnectInfo"])
-	res.OperationalStatus = flattenInterconnectAttachmentOperationalStatusEnum(m["operationalStatus"])
-	res.CloudRouterIPAddress = dcl.FlattenString(m["cloudRouterIpAddress"])
-	res.CustomerRouterIPAddress = dcl.FlattenString(m["customerRouterIpAddress"])
-	res.Type = flattenInterconnectAttachmentTypeEnum(m["type"])
-	res.PairingKey = dcl.FlattenString(m["pairingKey"])
-	res.AdminEnabled = dcl.FlattenBool(m["adminEnabled"])
-	res.VlanTag8021q = dcl.FlattenInteger(m["vlanTag8021q"])
-	res.EdgeAvailabilityDomain = flattenInterconnectAttachmentEdgeAvailabilityDomainEnum(m["edgeAvailabilityDomain"])
-	res.CandidateSubnets = dcl.FlattenStringSlice(m["candidateSubnets"])
-	res.Bandwidth = flattenInterconnectAttachmentBandwidthEnum(m["bandwidth"])
-	res.PartnerMetadata = flattenInterconnectAttachmentPartnerMetadata(c, m["partnerMetadata"])
-	res.State = flattenInterconnectAttachmentStateEnum(m["state"])
-	res.PartnerAsn = dcl.FlattenInteger(m["partnerAsn"])
-	res.Encryption = flattenInterconnectAttachmentEncryptionEnum(m["encryption"])
-	res.IpsecInternalAddresses = dcl.FlattenStringSlice(m["ipsecInternalAddresses"])
-	res.DataplaneVersion = dcl.FlattenInteger(m["dataplaneVersion"])
-	res.SatisfiesPzs = dcl.FlattenBool(m["satisfiesPzs"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &InterconnectAttachment{}
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.Id = dcl.FlattenInteger(m["id"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Interconnect = dcl.FlattenString(m["interconnect"])
+	resultRes.Router = dcl.FlattenString(m["router"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.Mtu = dcl.FlattenInteger(m["mtu"])
+	resultRes.PrivateInterconnectInfo = flattenInterconnectAttachmentPrivateInterconnectInfo(c, m["privateInterconnectInfo"], res)
+	resultRes.OperationalStatus = flattenInterconnectAttachmentOperationalStatusEnum(m["operationalStatus"])
+	resultRes.CloudRouterIPAddress = dcl.FlattenString(m["cloudRouterIpAddress"])
+	resultRes.CustomerRouterIPAddress = dcl.FlattenString(m["customerRouterIpAddress"])
+	resultRes.Type = flattenInterconnectAttachmentTypeEnum(m["type"])
+	resultRes.PairingKey = dcl.FlattenString(m["pairingKey"])
+	resultRes.AdminEnabled = dcl.FlattenBool(m["adminEnabled"])
+	resultRes.VlanTag8021q = dcl.FlattenInteger(m["vlanTag8021q"])
+	resultRes.EdgeAvailabilityDomain = flattenInterconnectAttachmentEdgeAvailabilityDomainEnum(m["edgeAvailabilityDomain"])
+	resultRes.CandidateSubnets = dcl.FlattenStringSlice(m["candidateSubnets"])
+	resultRes.Bandwidth = flattenInterconnectAttachmentBandwidthEnum(m["bandwidth"])
+	resultRes.PartnerMetadata = flattenInterconnectAttachmentPartnerMetadata(c, m["partnerMetadata"], res)
+	resultRes.State = flattenInterconnectAttachmentStateEnum(m["state"])
+	resultRes.PartnerAsn = dcl.FlattenInteger(m["partnerAsn"])
+	resultRes.Encryption = flattenInterconnectAttachmentEncryptionEnum(m["encryption"])
+	resultRes.IpsecInternalAddresses = dcl.FlattenStringSlice(m["ipsecInternalAddresses"])
+	resultRes.DataplaneVersion = dcl.FlattenInteger(m["dataplaneVersion"])
+	resultRes.SatisfiesPzs = dcl.FlattenBool(m["satisfiesPzs"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // expandInterconnectAttachmentPrivateInterconnectInfoMap expands the contents of InterconnectAttachmentPrivateInterconnectInfo into a JSON
@@ -1488,7 +1488,7 @@ func expandInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client, f []Int
 
 // flattenInterconnectAttachmentPrivateInterconnectInfoMap flattens the contents of InterconnectAttachmentPrivateInterconnectInfo from a JSON
 // response object.
-func flattenInterconnectAttachmentPrivateInterconnectInfoMap(c *Client, i interface{}) map[string]InterconnectAttachmentPrivateInterconnectInfo {
+func flattenInterconnectAttachmentPrivateInterconnectInfoMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentPrivateInterconnectInfo {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentPrivateInterconnectInfo{}
@@ -1500,7 +1500,7 @@ func flattenInterconnectAttachmentPrivateInterconnectInfoMap(c *Client, i interf
 
 	items := make(map[string]InterconnectAttachmentPrivateInterconnectInfo)
 	for k, item := range a {
-		items[k] = *flattenInterconnectAttachmentPrivateInterconnectInfo(c, item.(map[string]interface{}))
+		items[k] = *flattenInterconnectAttachmentPrivateInterconnectInfo(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1508,7 +1508,7 @@ func flattenInterconnectAttachmentPrivateInterconnectInfoMap(c *Client, i interf
 
 // flattenInterconnectAttachmentPrivateInterconnectInfoSlice flattens the contents of InterconnectAttachmentPrivateInterconnectInfo from a JSON
 // response object.
-func flattenInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client, i interface{}) []InterconnectAttachmentPrivateInterconnectInfo {
+func flattenInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentPrivateInterconnectInfo {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentPrivateInterconnectInfo{}
@@ -1520,7 +1520,7 @@ func flattenInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client, i inte
 
 	items := make([]InterconnectAttachmentPrivateInterconnectInfo, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectAttachmentPrivateInterconnectInfo(c, item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectAttachmentPrivateInterconnectInfo(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1540,7 +1540,7 @@ func expandInterconnectAttachmentPrivateInterconnectInfo(c *Client, f *Interconn
 
 // flattenInterconnectAttachmentPrivateInterconnectInfo flattens an instance of InterconnectAttachmentPrivateInterconnectInfo from a JSON
 // response object.
-func flattenInterconnectAttachmentPrivateInterconnectInfo(c *Client, i interface{}) *InterconnectAttachmentPrivateInterconnectInfo {
+func flattenInterconnectAttachmentPrivateInterconnectInfo(c *Client, i interface{}, res *InterconnectAttachment) *InterconnectAttachmentPrivateInterconnectInfo {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1599,7 +1599,7 @@ func expandInterconnectAttachmentPartnerMetadataSlice(c *Client, f []Interconnec
 
 // flattenInterconnectAttachmentPartnerMetadataMap flattens the contents of InterconnectAttachmentPartnerMetadata from a JSON
 // response object.
-func flattenInterconnectAttachmentPartnerMetadataMap(c *Client, i interface{}) map[string]InterconnectAttachmentPartnerMetadata {
+func flattenInterconnectAttachmentPartnerMetadataMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentPartnerMetadata {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentPartnerMetadata{}
@@ -1611,7 +1611,7 @@ func flattenInterconnectAttachmentPartnerMetadataMap(c *Client, i interface{}) m
 
 	items := make(map[string]InterconnectAttachmentPartnerMetadata)
 	for k, item := range a {
-		items[k] = *flattenInterconnectAttachmentPartnerMetadata(c, item.(map[string]interface{}))
+		items[k] = *flattenInterconnectAttachmentPartnerMetadata(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1619,7 +1619,7 @@ func flattenInterconnectAttachmentPartnerMetadataMap(c *Client, i interface{}) m
 
 // flattenInterconnectAttachmentPartnerMetadataSlice flattens the contents of InterconnectAttachmentPartnerMetadata from a JSON
 // response object.
-func flattenInterconnectAttachmentPartnerMetadataSlice(c *Client, i interface{}) []InterconnectAttachmentPartnerMetadata {
+func flattenInterconnectAttachmentPartnerMetadataSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentPartnerMetadata {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentPartnerMetadata{}
@@ -1631,7 +1631,7 @@ func flattenInterconnectAttachmentPartnerMetadataSlice(c *Client, i interface{})
 
 	items := make([]InterconnectAttachmentPartnerMetadata, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectAttachmentPartnerMetadata(c, item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectAttachmentPartnerMetadata(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1660,7 +1660,7 @@ func expandInterconnectAttachmentPartnerMetadata(c *Client, f *InterconnectAttac
 
 // flattenInterconnectAttachmentPartnerMetadata flattens an instance of InterconnectAttachmentPartnerMetadata from a JSON
 // response object.
-func flattenInterconnectAttachmentPartnerMetadata(c *Client, i interface{}) *InterconnectAttachmentPartnerMetadata {
+func flattenInterconnectAttachmentPartnerMetadata(c *Client, i interface{}, res *InterconnectAttachment) *InterconnectAttachmentPartnerMetadata {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1680,7 +1680,7 @@ func flattenInterconnectAttachmentPartnerMetadata(c *Client, i interface{}) *Int
 
 // flattenInterconnectAttachmentOperationalStatusEnumMap flattens the contents of InterconnectAttachmentOperationalStatusEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentOperationalStatusEnumMap(c *Client, i interface{}) map[string]InterconnectAttachmentOperationalStatusEnum {
+func flattenInterconnectAttachmentOperationalStatusEnumMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentOperationalStatusEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentOperationalStatusEnum{}
@@ -1700,7 +1700,7 @@ func flattenInterconnectAttachmentOperationalStatusEnumMap(c *Client, i interfac
 
 // flattenInterconnectAttachmentOperationalStatusEnumSlice flattens the contents of InterconnectAttachmentOperationalStatusEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentOperationalStatusEnumSlice(c *Client, i interface{}) []InterconnectAttachmentOperationalStatusEnum {
+func flattenInterconnectAttachmentOperationalStatusEnumSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentOperationalStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentOperationalStatusEnum{}
@@ -1731,7 +1731,7 @@ func flattenInterconnectAttachmentOperationalStatusEnum(i interface{}) *Intercon
 
 // flattenInterconnectAttachmentTypeEnumMap flattens the contents of InterconnectAttachmentTypeEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentTypeEnumMap(c *Client, i interface{}) map[string]InterconnectAttachmentTypeEnum {
+func flattenInterconnectAttachmentTypeEnumMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentTypeEnum{}
@@ -1751,7 +1751,7 @@ func flattenInterconnectAttachmentTypeEnumMap(c *Client, i interface{}) map[stri
 
 // flattenInterconnectAttachmentTypeEnumSlice flattens the contents of InterconnectAttachmentTypeEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentTypeEnumSlice(c *Client, i interface{}) []InterconnectAttachmentTypeEnum {
+func flattenInterconnectAttachmentTypeEnumSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentTypeEnum{}
@@ -1782,7 +1782,7 @@ func flattenInterconnectAttachmentTypeEnum(i interface{}) *InterconnectAttachmen
 
 // flattenInterconnectAttachmentEdgeAvailabilityDomainEnumMap flattens the contents of InterconnectAttachmentEdgeAvailabilityDomainEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentEdgeAvailabilityDomainEnumMap(c *Client, i interface{}) map[string]InterconnectAttachmentEdgeAvailabilityDomainEnum {
+func flattenInterconnectAttachmentEdgeAvailabilityDomainEnumMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentEdgeAvailabilityDomainEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentEdgeAvailabilityDomainEnum{}
@@ -1802,7 +1802,7 @@ func flattenInterconnectAttachmentEdgeAvailabilityDomainEnumMap(c *Client, i int
 
 // flattenInterconnectAttachmentEdgeAvailabilityDomainEnumSlice flattens the contents of InterconnectAttachmentEdgeAvailabilityDomainEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentEdgeAvailabilityDomainEnumSlice(c *Client, i interface{}) []InterconnectAttachmentEdgeAvailabilityDomainEnum {
+func flattenInterconnectAttachmentEdgeAvailabilityDomainEnumSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentEdgeAvailabilityDomainEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentEdgeAvailabilityDomainEnum{}
@@ -1833,7 +1833,7 @@ func flattenInterconnectAttachmentEdgeAvailabilityDomainEnum(i interface{}) *Int
 
 // flattenInterconnectAttachmentBandwidthEnumMap flattens the contents of InterconnectAttachmentBandwidthEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentBandwidthEnumMap(c *Client, i interface{}) map[string]InterconnectAttachmentBandwidthEnum {
+func flattenInterconnectAttachmentBandwidthEnumMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentBandwidthEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentBandwidthEnum{}
@@ -1853,7 +1853,7 @@ func flattenInterconnectAttachmentBandwidthEnumMap(c *Client, i interface{}) map
 
 // flattenInterconnectAttachmentBandwidthEnumSlice flattens the contents of InterconnectAttachmentBandwidthEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentBandwidthEnumSlice(c *Client, i interface{}) []InterconnectAttachmentBandwidthEnum {
+func flattenInterconnectAttachmentBandwidthEnumSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentBandwidthEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentBandwidthEnum{}
@@ -1884,7 +1884,7 @@ func flattenInterconnectAttachmentBandwidthEnum(i interface{}) *InterconnectAtta
 
 // flattenInterconnectAttachmentStateEnumMap flattens the contents of InterconnectAttachmentStateEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentStateEnumMap(c *Client, i interface{}) map[string]InterconnectAttachmentStateEnum {
+func flattenInterconnectAttachmentStateEnumMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentStateEnum{}
@@ -1904,7 +1904,7 @@ func flattenInterconnectAttachmentStateEnumMap(c *Client, i interface{}) map[str
 
 // flattenInterconnectAttachmentStateEnumSlice flattens the contents of InterconnectAttachmentStateEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentStateEnumSlice(c *Client, i interface{}) []InterconnectAttachmentStateEnum {
+func flattenInterconnectAttachmentStateEnumSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentStateEnum{}
@@ -1935,7 +1935,7 @@ func flattenInterconnectAttachmentStateEnum(i interface{}) *InterconnectAttachme
 
 // flattenInterconnectAttachmentEncryptionEnumMap flattens the contents of InterconnectAttachmentEncryptionEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentEncryptionEnumMap(c *Client, i interface{}) map[string]InterconnectAttachmentEncryptionEnum {
+func flattenInterconnectAttachmentEncryptionEnumMap(c *Client, i interface{}, res *InterconnectAttachment) map[string]InterconnectAttachmentEncryptionEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InterconnectAttachmentEncryptionEnum{}
@@ -1955,7 +1955,7 @@ func flattenInterconnectAttachmentEncryptionEnumMap(c *Client, i interface{}) ma
 
 // flattenInterconnectAttachmentEncryptionEnumSlice flattens the contents of InterconnectAttachmentEncryptionEnum from a JSON
 // response object.
-func flattenInterconnectAttachmentEncryptionEnumSlice(c *Client, i interface{}) []InterconnectAttachmentEncryptionEnum {
+func flattenInterconnectAttachmentEncryptionEnumSlice(c *Client, i interface{}, res *InterconnectAttachment) []InterconnectAttachmentEncryptionEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InterconnectAttachmentEncryptionEnum{}
@@ -1989,7 +1989,7 @@ func flattenInterconnectAttachmentEncryptionEnum(i interface{}) *InterconnectAtt
 // identity).  This is useful in extracting the element from a List call.
 func (r *InterconnectAttachment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInterconnectAttachment(b, c)
+		cr, err := unmarshalInterconnectAttachment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -147,7 +147,7 @@ func (c *Client) GetClient(ctx context.Context, r *AzureClient) (*AzureClient, e
 		}
 		return nil, err
 	}
-	result, err := unmarshalClient(b, c)
+	result, err := unmarshalClient(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +317,7 @@ func applyClientDiff(c *Client, ctx context.Context, desired *AzureClient, rawDe
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapClient(r, c)
+				fullResp, err := unmarshalMapClient(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

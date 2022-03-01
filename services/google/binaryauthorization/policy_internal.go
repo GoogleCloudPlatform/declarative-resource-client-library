@@ -911,17 +911,17 @@ func (r *Policy) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalPolicy decodes JSON responses into the Policy resource schema.
-func unmarshalPolicy(b []byte, c *Client) (*Policy, error) {
+func unmarshalPolicy(b []byte, c *Client, res *Policy) (*Policy, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapPolicy(m, c)
+	return unmarshalMapPolicy(m, c, res)
 }
 
-func unmarshalMapPolicy(m map[string]interface{}, c *Client) (*Policy, error) {
+func unmarshalMapPolicy(m map[string]interface{}, c *Client, res *Policy) (*Policy, error) {
 
-	flattened := flattenPolicy(c, m)
+	flattened := flattenPolicy(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -974,7 +974,7 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 
 // flattenPolicy flattens Policy from a JSON request object into the
 // Policy type.
-func flattenPolicy(c *Client, i interface{}) *Policy {
+func flattenPolicy(c *Client, i interface{}, res *Policy) *Policy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -983,20 +983,20 @@ func flattenPolicy(c *Client, i interface{}) *Policy {
 		return nil
 	}
 
-	res := &Policy{}
-	res.AdmissionWhitelistPatterns = flattenPolicyAdmissionWhitelistPatternsSlice(c, m["admissionWhitelistPatterns"])
-	res.ClusterAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["clusterAdmissionRules"])
-	res.KubernetesNamespaceAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["kubernetesNamespaceAdmissionRules"])
-	res.KubernetesServiceAccountAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["kubernetesServiceAccountAdmissionRules"])
-	res.IstioServiceIdentityAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["istioServiceIdentityAdmissionRules"])
-	res.DefaultAdmissionRule = flattenPolicyAdmissionRule(c, m["defaultAdmissionRule"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.GlobalPolicyEvaluationMode = flattenPolicyGlobalPolicyEvaluationModeEnum(m["globalPolicyEvaluationMode"])
-	res.SelfLink = dcl.FlattenString(m["name"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes := &Policy{}
+	resultRes.AdmissionWhitelistPatterns = flattenPolicyAdmissionWhitelistPatternsSlice(c, m["admissionWhitelistPatterns"], res)
+	resultRes.ClusterAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["clusterAdmissionRules"], res)
+	resultRes.KubernetesNamespaceAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["kubernetesNamespaceAdmissionRules"], res)
+	resultRes.KubernetesServiceAccountAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["kubernetesServiceAccountAdmissionRules"], res)
+	resultRes.IstioServiceIdentityAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["istioServiceIdentityAdmissionRules"], res)
+	resultRes.DefaultAdmissionRule = flattenPolicyAdmissionRule(c, m["defaultAdmissionRule"], res)
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.GlobalPolicyEvaluationMode = flattenPolicyGlobalPolicyEvaluationModeEnum(m["globalPolicyEvaluationMode"])
+	resultRes.SelfLink = dcl.FlattenString(m["name"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 
-	return res
+	return resultRes
 }
 
 // expandPolicyAdmissionWhitelistPatternsMap expands the contents of PolicyAdmissionWhitelistPatterns into a JSON
@@ -1042,7 +1042,7 @@ func expandPolicyAdmissionWhitelistPatternsSlice(c *Client, f []PolicyAdmissionW
 
 // flattenPolicyAdmissionWhitelistPatternsMap flattens the contents of PolicyAdmissionWhitelistPatterns from a JSON
 // response object.
-func flattenPolicyAdmissionWhitelistPatternsMap(c *Client, i interface{}) map[string]PolicyAdmissionWhitelistPatterns {
+func flattenPolicyAdmissionWhitelistPatternsMap(c *Client, i interface{}, res *Policy) map[string]PolicyAdmissionWhitelistPatterns {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicyAdmissionWhitelistPatterns{}
@@ -1054,7 +1054,7 @@ func flattenPolicyAdmissionWhitelistPatternsMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]PolicyAdmissionWhitelistPatterns)
 	for k, item := range a {
-		items[k] = *flattenPolicyAdmissionWhitelistPatterns(c, item.(map[string]interface{}))
+		items[k] = *flattenPolicyAdmissionWhitelistPatterns(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1062,7 +1062,7 @@ func flattenPolicyAdmissionWhitelistPatternsMap(c *Client, i interface{}) map[st
 
 // flattenPolicyAdmissionWhitelistPatternsSlice flattens the contents of PolicyAdmissionWhitelistPatterns from a JSON
 // response object.
-func flattenPolicyAdmissionWhitelistPatternsSlice(c *Client, i interface{}) []PolicyAdmissionWhitelistPatterns {
+func flattenPolicyAdmissionWhitelistPatternsSlice(c *Client, i interface{}, res *Policy) []PolicyAdmissionWhitelistPatterns {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicyAdmissionWhitelistPatterns{}
@@ -1074,7 +1074,7 @@ func flattenPolicyAdmissionWhitelistPatternsSlice(c *Client, i interface{}) []Po
 
 	items := make([]PolicyAdmissionWhitelistPatterns, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicyAdmissionWhitelistPatterns(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicyAdmissionWhitelistPatterns(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1097,7 +1097,7 @@ func expandPolicyAdmissionWhitelistPatterns(c *Client, f *PolicyAdmissionWhiteli
 
 // flattenPolicyAdmissionWhitelistPatterns flattens an instance of PolicyAdmissionWhitelistPatterns from a JSON
 // response object.
-func flattenPolicyAdmissionWhitelistPatterns(c *Client, i interface{}) *PolicyAdmissionWhitelistPatterns {
+func flattenPolicyAdmissionWhitelistPatterns(c *Client, i interface{}, res *Policy) *PolicyAdmissionWhitelistPatterns {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1156,7 +1156,7 @@ func expandPolicyAdmissionRuleSlice(c *Client, f []PolicyAdmissionRule, res *Pol
 
 // flattenPolicyAdmissionRuleMap flattens the contents of PolicyAdmissionRule from a JSON
 // response object.
-func flattenPolicyAdmissionRuleMap(c *Client, i interface{}) map[string]PolicyAdmissionRule {
+func flattenPolicyAdmissionRuleMap(c *Client, i interface{}, res *Policy) map[string]PolicyAdmissionRule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicyAdmissionRule{}
@@ -1168,7 +1168,7 @@ func flattenPolicyAdmissionRuleMap(c *Client, i interface{}) map[string]PolicyAd
 
 	items := make(map[string]PolicyAdmissionRule)
 	for k, item := range a {
-		items[k] = *flattenPolicyAdmissionRule(c, item.(map[string]interface{}))
+		items[k] = *flattenPolicyAdmissionRule(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1176,7 +1176,7 @@ func flattenPolicyAdmissionRuleMap(c *Client, i interface{}) map[string]PolicyAd
 
 // flattenPolicyAdmissionRuleSlice flattens the contents of PolicyAdmissionRule from a JSON
 // response object.
-func flattenPolicyAdmissionRuleSlice(c *Client, i interface{}) []PolicyAdmissionRule {
+func flattenPolicyAdmissionRuleSlice(c *Client, i interface{}, res *Policy) []PolicyAdmissionRule {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicyAdmissionRule{}
@@ -1188,7 +1188,7 @@ func flattenPolicyAdmissionRuleSlice(c *Client, i interface{}) []PolicyAdmission
 
 	items := make([]PolicyAdmissionRule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicyAdmissionRule(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicyAdmissionRule(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1217,7 +1217,7 @@ func expandPolicyAdmissionRule(c *Client, f *PolicyAdmissionRule, res *Policy) (
 
 // flattenPolicyAdmissionRule flattens an instance of PolicyAdmissionRule from a JSON
 // response object.
-func flattenPolicyAdmissionRule(c *Client, i interface{}) *PolicyAdmissionRule {
+func flattenPolicyAdmissionRule(c *Client, i interface{}, res *Policy) *PolicyAdmissionRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1237,7 +1237,7 @@ func flattenPolicyAdmissionRule(c *Client, i interface{}) *PolicyAdmissionRule {
 
 // flattenPolicyAdmissionRuleEvaluationModeEnumMap flattens the contents of PolicyAdmissionRuleEvaluationModeEnum from a JSON
 // response object.
-func flattenPolicyAdmissionRuleEvaluationModeEnumMap(c *Client, i interface{}) map[string]PolicyAdmissionRuleEvaluationModeEnum {
+func flattenPolicyAdmissionRuleEvaluationModeEnumMap(c *Client, i interface{}, res *Policy) map[string]PolicyAdmissionRuleEvaluationModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicyAdmissionRuleEvaluationModeEnum{}
@@ -1257,7 +1257,7 @@ func flattenPolicyAdmissionRuleEvaluationModeEnumMap(c *Client, i interface{}) m
 
 // flattenPolicyAdmissionRuleEvaluationModeEnumSlice flattens the contents of PolicyAdmissionRuleEvaluationModeEnum from a JSON
 // response object.
-func flattenPolicyAdmissionRuleEvaluationModeEnumSlice(c *Client, i interface{}) []PolicyAdmissionRuleEvaluationModeEnum {
+func flattenPolicyAdmissionRuleEvaluationModeEnumSlice(c *Client, i interface{}, res *Policy) []PolicyAdmissionRuleEvaluationModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicyAdmissionRuleEvaluationModeEnum{}
@@ -1288,7 +1288,7 @@ func flattenPolicyAdmissionRuleEvaluationModeEnum(i interface{}) *PolicyAdmissio
 
 // flattenPolicyAdmissionRuleEnforcementModeEnumMap flattens the contents of PolicyAdmissionRuleEnforcementModeEnum from a JSON
 // response object.
-func flattenPolicyAdmissionRuleEnforcementModeEnumMap(c *Client, i interface{}) map[string]PolicyAdmissionRuleEnforcementModeEnum {
+func flattenPolicyAdmissionRuleEnforcementModeEnumMap(c *Client, i interface{}, res *Policy) map[string]PolicyAdmissionRuleEnforcementModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicyAdmissionRuleEnforcementModeEnum{}
@@ -1308,7 +1308,7 @@ func flattenPolicyAdmissionRuleEnforcementModeEnumMap(c *Client, i interface{}) 
 
 // flattenPolicyAdmissionRuleEnforcementModeEnumSlice flattens the contents of PolicyAdmissionRuleEnforcementModeEnum from a JSON
 // response object.
-func flattenPolicyAdmissionRuleEnforcementModeEnumSlice(c *Client, i interface{}) []PolicyAdmissionRuleEnforcementModeEnum {
+func flattenPolicyAdmissionRuleEnforcementModeEnumSlice(c *Client, i interface{}, res *Policy) []PolicyAdmissionRuleEnforcementModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicyAdmissionRuleEnforcementModeEnum{}
@@ -1339,7 +1339,7 @@ func flattenPolicyAdmissionRuleEnforcementModeEnum(i interface{}) *PolicyAdmissi
 
 // flattenPolicyGlobalPolicyEvaluationModeEnumMap flattens the contents of PolicyGlobalPolicyEvaluationModeEnum from a JSON
 // response object.
-func flattenPolicyGlobalPolicyEvaluationModeEnumMap(c *Client, i interface{}) map[string]PolicyGlobalPolicyEvaluationModeEnum {
+func flattenPolicyGlobalPolicyEvaluationModeEnumMap(c *Client, i interface{}, res *Policy) map[string]PolicyGlobalPolicyEvaluationModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]PolicyGlobalPolicyEvaluationModeEnum{}
@@ -1359,7 +1359,7 @@ func flattenPolicyGlobalPolicyEvaluationModeEnumMap(c *Client, i interface{}) ma
 
 // flattenPolicyGlobalPolicyEvaluationModeEnumSlice flattens the contents of PolicyGlobalPolicyEvaluationModeEnum from a JSON
 // response object.
-func flattenPolicyGlobalPolicyEvaluationModeEnumSlice(c *Client, i interface{}) []PolicyGlobalPolicyEvaluationModeEnum {
+func flattenPolicyGlobalPolicyEvaluationModeEnumSlice(c *Client, i interface{}, res *Policy) []PolicyGlobalPolicyEvaluationModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []PolicyGlobalPolicyEvaluationModeEnum{}
@@ -1393,7 +1393,7 @@ func flattenPolicyGlobalPolicyEvaluationModeEnum(i interface{}) *PolicyGlobalPol
 // identity).  This is useful in extracting the element from a List call.
 func (r *Policy) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalPolicy(b, c)
+		cr, err := unmarshalPolicy(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -144,7 +144,7 @@ func (c *Client) listConnector(ctx context.Context, r *Connector, pageToken stri
 
 	var l []*Connector
 	for _, v := range m.Connectors {
-		res, err := unmarshalMapConnector(v, c)
+		res, err := unmarshalMapConnector(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -800,17 +800,17 @@ func (r *Connector) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalConnector decodes JSON responses into the Connector resource schema.
-func unmarshalConnector(b []byte, c *Client) (*Connector, error) {
+func unmarshalConnector(b []byte, c *Client, res *Connector) (*Connector, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapConnector(m, c)
+	return unmarshalMapConnector(m, c, res)
 }
 
-func unmarshalMapConnector(m map[string]interface{}, c *Client) (*Connector, error) {
+func unmarshalMapConnector(m map[string]interface{}, c *Client, res *Connector) (*Connector, error) {
 
-	flattened := flattenConnector(c, m)
+	flattened := flattenConnector(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -871,7 +871,7 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 
 // flattenConnector flattens Connector from a JSON request object into the
 // Connector type.
-func flattenConnector(c *Client, i interface{}) *Connector {
+func flattenConnector(c *Client, i interface{}, res *Connector) *Connector {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -880,22 +880,22 @@ func flattenConnector(c *Client, i interface{}) *Connector {
 		return nil
 	}
 
-	res := &Connector{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Network = dcl.FlattenString(m["network"])
-	res.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
-	res.State = flattenConnectorStateEnum(m["state"])
-	res.MinThroughput = dcl.FlattenInteger(m["minThroughput"])
-	res.MaxThroughput = dcl.FlattenInteger(m["maxThroughput"])
-	res.ConnectedProjects = dcl.FlattenStringSlice(m["connectedProjects"])
-	res.Subnet = flattenConnectorSubnet(c, m["subnet"])
-	res.MachineType = dcl.FlattenString(m["machineType"])
-	res.MinInstances = dcl.FlattenInteger(m["minInstances"])
-	res.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Connector{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Network = dcl.FlattenString(m["network"])
+	resultRes.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
+	resultRes.State = flattenConnectorStateEnum(m["state"])
+	resultRes.MinThroughput = dcl.FlattenInteger(m["minThroughput"])
+	resultRes.MaxThroughput = dcl.FlattenInteger(m["maxThroughput"])
+	resultRes.ConnectedProjects = dcl.FlattenStringSlice(m["connectedProjects"])
+	resultRes.Subnet = flattenConnectorSubnet(c, m["subnet"], res)
+	resultRes.MachineType = dcl.FlattenString(m["machineType"])
+	resultRes.MinInstances = dcl.FlattenInteger(m["minInstances"])
+	resultRes.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandConnectorSubnetMap expands the contents of ConnectorSubnet into a JSON
@@ -941,7 +941,7 @@ func expandConnectorSubnetSlice(c *Client, f []ConnectorSubnet, res *Connector) 
 
 // flattenConnectorSubnetMap flattens the contents of ConnectorSubnet from a JSON
 // response object.
-func flattenConnectorSubnetMap(c *Client, i interface{}) map[string]ConnectorSubnet {
+func flattenConnectorSubnetMap(c *Client, i interface{}, res *Connector) map[string]ConnectorSubnet {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConnectorSubnet{}
@@ -953,7 +953,7 @@ func flattenConnectorSubnetMap(c *Client, i interface{}) map[string]ConnectorSub
 
 	items := make(map[string]ConnectorSubnet)
 	for k, item := range a {
-		items[k] = *flattenConnectorSubnet(c, item.(map[string]interface{}))
+		items[k] = *flattenConnectorSubnet(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -961,7 +961,7 @@ func flattenConnectorSubnetMap(c *Client, i interface{}) map[string]ConnectorSub
 
 // flattenConnectorSubnetSlice flattens the contents of ConnectorSubnet from a JSON
 // response object.
-func flattenConnectorSubnetSlice(c *Client, i interface{}) []ConnectorSubnet {
+func flattenConnectorSubnetSlice(c *Client, i interface{}, res *Connector) []ConnectorSubnet {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConnectorSubnet{}
@@ -973,7 +973,7 @@ func flattenConnectorSubnetSlice(c *Client, i interface{}) []ConnectorSubnet {
 
 	items := make([]ConnectorSubnet, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConnectorSubnet(c, item.(map[string]interface{})))
+		items = append(items, *flattenConnectorSubnet(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1003,7 +1003,7 @@ func expandConnectorSubnet(c *Client, f *ConnectorSubnet, res *Connector) (map[s
 
 // flattenConnectorSubnet flattens an instance of ConnectorSubnet from a JSON
 // response object.
-func flattenConnectorSubnet(c *Client, i interface{}) *ConnectorSubnet {
+func flattenConnectorSubnet(c *Client, i interface{}, res *Connector) *ConnectorSubnet {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1022,7 +1022,7 @@ func flattenConnectorSubnet(c *Client, i interface{}) *ConnectorSubnet {
 
 // flattenConnectorStateEnumMap flattens the contents of ConnectorStateEnum from a JSON
 // response object.
-func flattenConnectorStateEnumMap(c *Client, i interface{}) map[string]ConnectorStateEnum {
+func flattenConnectorStateEnumMap(c *Client, i interface{}, res *Connector) map[string]ConnectorStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ConnectorStateEnum{}
@@ -1042,7 +1042,7 @@ func flattenConnectorStateEnumMap(c *Client, i interface{}) map[string]Connector
 
 // flattenConnectorStateEnumSlice flattens the contents of ConnectorStateEnum from a JSON
 // response object.
-func flattenConnectorStateEnumSlice(c *Client, i interface{}) []ConnectorStateEnum {
+func flattenConnectorStateEnumSlice(c *Client, i interface{}, res *Connector) []ConnectorStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ConnectorStateEnum{}
@@ -1076,7 +1076,7 @@ func flattenConnectorStateEnum(i interface{}) *ConnectorStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Connector) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalConnector(b, c)
+		cr, err := unmarshalConnector(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

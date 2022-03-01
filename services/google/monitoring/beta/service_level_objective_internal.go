@@ -445,7 +445,7 @@ func (c *Client) listServiceLevelObjective(ctx context.Context, r *ServiceLevelO
 
 	var l []*ServiceLevelObjective
 	for _, v := range m.ServiceLevelObjectives {
-		res, err := unmarshalMapServiceLevelObjective(v, c)
+		res, err := unmarshalMapServiceLevelObjective(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -5005,17 +5005,17 @@ func (r *ServiceLevelObjective) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalServiceLevelObjective decodes JSON responses into the ServiceLevelObjective resource schema.
-func unmarshalServiceLevelObjective(b []byte, c *Client) (*ServiceLevelObjective, error) {
+func unmarshalServiceLevelObjective(b []byte, c *Client, res *ServiceLevelObjective) (*ServiceLevelObjective, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapServiceLevelObjective(m, c)
+	return unmarshalMapServiceLevelObjective(m, c, res)
 }
 
-func unmarshalMapServiceLevelObjective(m map[string]interface{}, c *Client) (*ServiceLevelObjective, error) {
+func unmarshalMapServiceLevelObjective(m map[string]interface{}, c *Client, res *ServiceLevelObjective) (*ServiceLevelObjective, error) {
 
-	flattened := flattenServiceLevelObjective(c, m)
+	flattened := flattenServiceLevelObjective(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -5068,7 +5068,7 @@ func expandServiceLevelObjective(c *Client, f *ServiceLevelObjective) (map[strin
 
 // flattenServiceLevelObjective flattens ServiceLevelObjective from a JSON request object into the
 // ServiceLevelObjective type.
-func flattenServiceLevelObjective(c *Client, i interface{}) *ServiceLevelObjective {
+func flattenServiceLevelObjective(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjective {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5077,21 +5077,21 @@ func flattenServiceLevelObjective(c *Client, i interface{}) *ServiceLevelObjecti
 		return nil
 	}
 
-	res := &ServiceLevelObjective{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.ServiceLevelIndicator = flattenServiceLevelObjectiveServiceLevelIndicator(c, m["serviceLevelIndicator"])
-	res.Goal = dcl.FlattenDouble(m["goal"])
-	res.RollingPeriod = dcl.FlattenString(m["rollingPeriod"])
-	res.CalendarPeriod = flattenServiceLevelObjectiveCalendarPeriodEnum(m["calendarPeriod"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	res.ServiceManagementOwned = dcl.FlattenBool(m["serviceManagementOwned"])
-	res.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Service = dcl.FlattenString(m["service"])
+	resultRes := &ServiceLevelObjective{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.ServiceLevelIndicator = flattenServiceLevelObjectiveServiceLevelIndicator(c, m["serviceLevelIndicator"], res)
+	resultRes.Goal = dcl.FlattenDouble(m["goal"])
+	resultRes.RollingPeriod = dcl.FlattenString(m["rollingPeriod"])
+	resultRes.CalendarPeriod = flattenServiceLevelObjectiveCalendarPeriodEnum(m["calendarPeriod"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	resultRes.ServiceManagementOwned = dcl.FlattenBool(m["serviceManagementOwned"])
+	resultRes.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Service = dcl.FlattenString(m["service"])
 
-	return res
+	return resultRes
 }
 
 // expandServiceLevelObjectiveServiceLevelIndicatorMap expands the contents of ServiceLevelObjectiveServiceLevelIndicator into a JSON
@@ -5137,7 +5137,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, f []Servic
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicator from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicator {
+func flattenServiceLevelObjectiveServiceLevelIndicatorMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicator {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicator{}
@@ -5149,7 +5149,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorMap(c *Client, i interface
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicator)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicator(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicator(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5157,7 +5157,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorMap(c *Client, i interface
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicator from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicator {
+func flattenServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicator {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicator{}
@@ -5169,7 +5169,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, i interfa
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicator, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicator(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicator(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5204,7 +5204,7 @@ func expandServiceLevelObjectiveServiceLevelIndicator(c *Client, f *ServiceLevel
 
 // flattenServiceLevelObjectiveServiceLevelIndicator flattens an instance of ServiceLevelObjectiveServiceLevelIndicator from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicator(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicator {
+func flattenServiceLevelObjectiveServiceLevelIndicator(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicator {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5215,9 +5215,9 @@ func flattenServiceLevelObjectiveServiceLevelIndicator(c *Client, i interface{})
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceLevelObjectiveServiceLevelIndicator
 	}
-	r.BasicSli = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, m["basicSli"])
-	r.RequestBased = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, m["requestBased"])
-	r.WindowsBased = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, m["windowsBased"])
+	r.BasicSli = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, m["basicSli"], res)
+	r.RequestBased = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, m["requestBased"], res)
+	r.WindowsBased = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, m["windowsBased"], res)
 
 	return r
 }
@@ -5265,7 +5265,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *Client, f 
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSli from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSli{}
@@ -5277,7 +5277,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliMap(c *Client, i i
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSli)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5285,7 +5285,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliMap(c *Client, i i
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSli from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorBasicSli{}
@@ -5297,7 +5297,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *Client, i
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorBasicSli, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5346,7 +5346,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, f *Serv
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSli from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5360,10 +5360,10 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSli(c *Client, i inte
 	r.Method = dcl.FlattenStringSlice(m["method"])
 	r.Location = dcl.FlattenStringSlice(m["location"])
 	r.Version = dcl.FlattenStringSlice(m["version"])
-	r.Availability = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, m["availability"])
-	r.Latency = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, m["latency"])
-	r.OperationAvailability = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, m["operationAvailability"])
-	r.OperationLatency = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, m["operationLatency"])
+	r.Availability = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, m["availability"], res)
+	r.Latency = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, m["latency"], res)
+	r.OperationAvailability = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, m["operationAvailability"], res)
+	r.OperationLatency = flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, m["operationLatency"], res)
 
 	return r
 }
@@ -5411,7 +5411,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(c
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability{}
@@ -5423,7 +5423,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap(c 
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5431,7 +5431,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityMap(c 
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability{}
@@ -5443,7 +5443,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5463,7 +5463,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c *Cli
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5521,7 +5521,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(c *Cli
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency{}
@@ -5533,7 +5533,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap(c *Clie
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5541,7 +5541,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyMap(c *Clie
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency{}
@@ -5553,7 +5553,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(c *Cl
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5579,7 +5579,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c *Client, 
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5639,7 +5639,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabili
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability{}
@@ -5651,7 +5651,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabil
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5659,7 +5659,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabil
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilitySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilitySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilitySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability{}
@@ -5671,7 +5671,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabil
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5691,7 +5691,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabili
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5749,7 +5749,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySli
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency{}
@@ -5761,7 +5761,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMa
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5769,7 +5769,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyMa
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency{}
@@ -5781,7 +5781,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySl
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5807,7 +5807,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c 
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5867,7 +5867,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(c *Client
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBased from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBased{}
@@ -5879,7 +5879,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap(c *Client,
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBased)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5887,7 +5887,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedMap(c *Client,
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBased from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorRequestBased{}
@@ -5899,7 +5899,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(c *Clien
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorRequestBased, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5929,7 +5929,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBased(c *Client, f *
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBased from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5940,8 +5940,8 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBased(c *Client, i 
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBased
 	}
-	r.GoodTotalRatio = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, m["goodTotalRatio"])
-	r.DistributionCut = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, m["distributionCut"])
+	r.GoodTotalRatio = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, m["goodTotalRatio"], res)
+	r.DistributionCut = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, m["distributionCut"], res)
 
 	return r
 }
@@ -5989,7 +5989,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioS
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio{}
@@ -6001,7 +6001,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6009,7 +6009,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio{}
@@ -6021,7 +6021,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6050,7 +6050,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6111,7 +6111,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut{}
@@ -6123,7 +6123,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6131,7 +6131,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut{}
@@ -6143,7 +6143,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6171,7 +6171,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6183,7 +6183,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 	}
 	r.DistributionFilter = dcl.FlattenString(m["distributionFilter"])
-	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, m["range"])
+	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, m["range"], res)
 
 	return r
 }
@@ -6231,7 +6231,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{}
@@ -6243,7 +6243,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6251,7 +6251,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{}
@@ -6263,7 +6263,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6289,7 +6289,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6349,7 +6349,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(c *Client
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBased from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBased{}
@@ -6361,7 +6361,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap(c *Client,
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBased)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6369,7 +6369,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMap(c *Client,
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBased from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBased{}
@@ -6381,7 +6381,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(c *Clien
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBased, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6422,7 +6422,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, f *
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBased from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6434,9 +6434,9 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBased(c *Client, i 
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBased
 	}
 	r.GoodBadMetricFilter = dcl.FlattenString(m["goodBadMetricFilter"])
-	r.GoodTotalRatioThreshold = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, m["goodTotalRatioThreshold"])
-	r.MetricMeanInRange = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, m["metricMeanInRange"])
-	r.MetricSumInRange = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, m["metricSumInRange"])
+	r.GoodTotalRatioThreshold = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, m["goodTotalRatioThreshold"], res)
+	r.MetricMeanInRange = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, m["metricMeanInRange"], res)
+	r.MetricSumInRange = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, m["metricSumInRange"], res)
 	r.WindowPeriod = dcl.FlattenString(m["windowPeriod"])
 
 	return r
@@ -6485,7 +6485,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold{}
@@ -6497,7 +6497,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6505,7 +6505,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold{}
@@ -6517,7 +6517,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6550,7 +6550,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6561,8 +6561,8 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold
 	}
-	r.Performance = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, m["performance"])
-	r.BasicSliPerformance = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, m["basicSliPerformance"])
+	r.Performance = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, m["performance"], res)
+	r.BasicSliPerformance = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, m["basicSliPerformance"], res)
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -6611,7 +6611,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance{}
@@ -6623,7 +6623,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6631,7 +6631,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance{}
@@ -6643,7 +6643,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6673,7 +6673,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6684,8 +6684,8 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance
 	}
-	r.GoodTotalRatio = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, m["goodTotalRatio"])
-	r.DistributionCut = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, m["distributionCut"])
+	r.GoodTotalRatio = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, m["goodTotalRatio"], res)
+	r.DistributionCut = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, m["distributionCut"], res)
 
 	return r
 }
@@ -6733,7 +6733,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio{}
@@ -6745,7 +6745,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6753,7 +6753,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio{}
@@ -6765,7 +6765,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6794,7 +6794,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6855,7 +6855,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut{}
@@ -6867,7 +6867,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6875,7 +6875,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut{}
@@ -6887,7 +6887,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6915,7 +6915,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6927,7 +6927,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut
 	}
 	r.DistributionFilter = dcl.FlattenString(m["distributionFilter"])
-	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, m["range"])
+	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, m["range"], res)
 
 	return r
 }
@@ -6975,7 +6975,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{}
@@ -6987,7 +6987,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6995,7 +6995,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{}
@@ -7007,7 +7007,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7033,7 +7033,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7093,7 +7093,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance{}
@@ -7105,7 +7105,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7113,7 +7113,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance{}
@@ -7125,7 +7125,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7174,7 +7174,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7188,10 +7188,10 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 	r.Method = dcl.FlattenStringSlice(m["method"])
 	r.Location = dcl.FlattenStringSlice(m["location"])
 	r.Version = dcl.FlattenStringSlice(m["version"])
-	r.Availability = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, m["availability"])
-	r.Latency = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, m["latency"])
-	r.OperationAvailability = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, m["operationAvailability"])
-	r.OperationLatency = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, m["operationLatency"])
+	r.Availability = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, m["availability"], res)
+	r.Latency = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, m["latency"], res)
+	r.OperationAvailability = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, m["operationAvailability"], res)
+	r.OperationLatency = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, m["operationLatency"], res)
 
 	return r
 }
@@ -7239,7 +7239,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability{}
@@ -7251,7 +7251,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7259,7 +7259,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilitySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilitySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilitySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability{}
@@ -7271,7 +7271,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7291,7 +7291,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7349,7 +7349,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency{}
@@ -7361,7 +7361,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7369,7 +7369,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency{}
@@ -7381,7 +7381,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7407,7 +7407,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7467,7 +7467,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability{}
@@ -7479,7 +7479,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7487,7 +7487,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilitySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilitySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilitySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability{}
@@ -7499,7 +7499,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7519,7 +7519,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
 	_, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7577,7 +7577,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency{}
@@ -7589,7 +7589,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7597,7 +7597,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencySlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencySlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencySlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency{}
@@ -7609,7 +7609,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7635,7 +7635,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioT
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7695,7 +7695,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRan
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange{}
@@ -7707,7 +7707,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7715,7 +7715,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange{}
@@ -7727,7 +7727,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7755,7 +7755,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRan
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7767,7 +7767,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange
 	}
 	r.TimeSeries = dcl.FlattenString(m["timeSeries"])
-	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, m["range"])
+	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, m["range"], res)
 
 	return r
 }
@@ -7815,7 +7815,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRan
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{}
@@ -7827,7 +7827,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7835,7 +7835,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{}
@@ -7847,7 +7847,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7873,7 +7873,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRan
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7933,7 +7933,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRang
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange{}
@@ -7945,7 +7945,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7953,7 +7953,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange{}
@@ -7965,7 +7965,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7993,7 +7993,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRang
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8005,7 +8005,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 		return EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange
 	}
 	r.TimeSeries = dcl.FlattenString(m["timeSeries"])
-	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, m["range"])
+	r.Range = flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, m["range"], res)
 
 	return r
 }
@@ -8053,7 +8053,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRang
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{}
@@ -8065,7 +8065,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 	items := make(map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange)
 	for k, item := range a {
-		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, item.(map[string]interface{}))
+		items[k] = *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8073,7 +8073,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{}
@@ -8085,7 +8085,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 	items := make([]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, item.(map[string]interface{})))
+		items = append(items, *flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8111,7 +8111,7 @@ func expandServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRang
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange flattens an instance of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c *Client, i interface{}) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(c *Client, i interface{}, res *ServiceLevelObjective) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8130,7 +8130,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum{}
@@ -8150,7 +8150,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceE
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnumSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum{}
@@ -8181,7 +8181,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceE
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum{}
@@ -8201,7 +8201,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyEx
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnumSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyExperienceEnum{}
@@ -8232,7 +8232,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyEx
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum{}
@@ -8252,7 +8252,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnumSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyExperienceEnum{}
@@ -8283,7 +8283,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumMap flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum{}
@@ -8303,7 +8303,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumSlice flattens the contents of ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumSlice(c *Client, i interface{}) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum {
+func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnumSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyExperienceEnum{}
@@ -8334,7 +8334,7 @@ func flattenServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 
 // flattenServiceLevelObjectiveCalendarPeriodEnumMap flattens the contents of ServiceLevelObjectiveCalendarPeriodEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveCalendarPeriodEnumMap(c *Client, i interface{}) map[string]ServiceLevelObjectiveCalendarPeriodEnum {
+func flattenServiceLevelObjectiveCalendarPeriodEnumMap(c *Client, i interface{}, res *ServiceLevelObjective) map[string]ServiceLevelObjectiveCalendarPeriodEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ServiceLevelObjectiveCalendarPeriodEnum{}
@@ -8354,7 +8354,7 @@ func flattenServiceLevelObjectiveCalendarPeriodEnumMap(c *Client, i interface{})
 
 // flattenServiceLevelObjectiveCalendarPeriodEnumSlice flattens the contents of ServiceLevelObjectiveCalendarPeriodEnum from a JSON
 // response object.
-func flattenServiceLevelObjectiveCalendarPeriodEnumSlice(c *Client, i interface{}) []ServiceLevelObjectiveCalendarPeriodEnum {
+func flattenServiceLevelObjectiveCalendarPeriodEnumSlice(c *Client, i interface{}, res *ServiceLevelObjective) []ServiceLevelObjectiveCalendarPeriodEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ServiceLevelObjectiveCalendarPeriodEnum{}
@@ -8388,7 +8388,7 @@ func flattenServiceLevelObjectiveCalendarPeriodEnum(i interface{}) *ServiceLevel
 // identity).  This is useful in extracting the element from a List call.
 func (r *ServiceLevelObjective) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalServiceLevelObjective(b, c)
+		cr, err := unmarshalServiceLevelObjective(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

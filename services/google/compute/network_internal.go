@@ -174,7 +174,7 @@ func (c *Client) listNetwork(ctx context.Context, r *Network, pageToken string, 
 
 	var l []*Network
 	for _, v := range m.Items {
-		res, err := unmarshalMapNetwork(v, c)
+		res, err := unmarshalMapNetwork(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -764,17 +764,17 @@ func (r *Network) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalNetwork decodes JSON responses into the Network resource schema.
-func unmarshalNetwork(b []byte, c *Client) (*Network, error) {
+func unmarshalNetwork(b []byte, c *Client, res *Network) (*Network, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapNetwork(m, c)
+	return unmarshalMapNetwork(m, c, res)
 }
 
-func unmarshalMapNetwork(m map[string]interface{}, c *Client) (*Network, error) {
+func unmarshalMapNetwork(m map[string]interface{}, c *Client, res *Network) (*Network, error) {
 
-	flattened := flattenNetwork(c, m)
+	flattened := flattenNetwork(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -814,7 +814,7 @@ func expandNetwork(c *Client, f *Network) (map[string]interface{}, error) {
 
 // flattenNetwork flattens Network from a JSON request object into the
 // Network type.
-func flattenNetwork(c *Client, i interface{}) *Network {
+func flattenNetwork(c *Client, i interface{}, res *Network) *Network {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -823,22 +823,22 @@ func flattenNetwork(c *Client, i interface{}) *Network {
 		return nil
 	}
 
-	res := &Network{}
-	res.Description = dcl.FlattenString(m["description"])
-	res.GatewayIPv4 = dcl.FlattenString(m["gatewayIPv4"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.AutoCreateSubnetworks = dcl.FlattenBool(m["autoCreateSubnetworks"])
+	resultRes := &Network{}
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.GatewayIPv4 = dcl.FlattenString(m["gatewayIPv4"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.AutoCreateSubnetworks = dcl.FlattenBool(m["autoCreateSubnetworks"])
 	if _, ok := m["autoCreateSubnetworks"]; !ok {
 		c.Config.Logger.Info("Using default value for autoCreateSubnetworks")
-		res.AutoCreateSubnetworks = dcl.Bool(true)
+		resultRes.AutoCreateSubnetworks = dcl.Bool(true)
 	}
-	res.RoutingConfig = flattenNetworkRoutingConfig(c, m["routingConfig"])
-	res.Mtu = dcl.FlattenInteger(m["mtu"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.SelfLinkWithId = flattenNetworkSelfLinkWithID(m, m["selfLinkWithId"])
+	resultRes.RoutingConfig = flattenNetworkRoutingConfig(c, m["routingConfig"], res)
+	resultRes.Mtu = dcl.FlattenInteger(m["mtu"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.SelfLinkWithId = flattenNetworkSelfLinkWithID(m, m["selfLinkWithId"])
 
-	return res
+	return resultRes
 }
 
 // expandNetworkRoutingConfigMap expands the contents of NetworkRoutingConfig into a JSON
@@ -884,7 +884,7 @@ func expandNetworkRoutingConfigSlice(c *Client, f []NetworkRoutingConfig, res *N
 
 // flattenNetworkRoutingConfigMap flattens the contents of NetworkRoutingConfig from a JSON
 // response object.
-func flattenNetworkRoutingConfigMap(c *Client, i interface{}) map[string]NetworkRoutingConfig {
+func flattenNetworkRoutingConfigMap(c *Client, i interface{}, res *Network) map[string]NetworkRoutingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NetworkRoutingConfig{}
@@ -896,7 +896,7 @@ func flattenNetworkRoutingConfigMap(c *Client, i interface{}) map[string]Network
 
 	items := make(map[string]NetworkRoutingConfig)
 	for k, item := range a {
-		items[k] = *flattenNetworkRoutingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenNetworkRoutingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -904,7 +904,7 @@ func flattenNetworkRoutingConfigMap(c *Client, i interface{}) map[string]Network
 
 // flattenNetworkRoutingConfigSlice flattens the contents of NetworkRoutingConfig from a JSON
 // response object.
-func flattenNetworkRoutingConfigSlice(c *Client, i interface{}) []NetworkRoutingConfig {
+func flattenNetworkRoutingConfigSlice(c *Client, i interface{}, res *Network) []NetworkRoutingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NetworkRoutingConfig{}
@@ -916,7 +916,7 @@ func flattenNetworkRoutingConfigSlice(c *Client, i interface{}) []NetworkRouting
 
 	items := make([]NetworkRoutingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNetworkRoutingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenNetworkRoutingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -939,7 +939,7 @@ func expandNetworkRoutingConfig(c *Client, f *NetworkRoutingConfig, res *Network
 
 // flattenNetworkRoutingConfig flattens an instance of NetworkRoutingConfig from a JSON
 // response object.
-func flattenNetworkRoutingConfig(c *Client, i interface{}) *NetworkRoutingConfig {
+func flattenNetworkRoutingConfig(c *Client, i interface{}, res *Network) *NetworkRoutingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -957,7 +957,7 @@ func flattenNetworkRoutingConfig(c *Client, i interface{}) *NetworkRoutingConfig
 
 // flattenNetworkRoutingConfigRoutingModeEnumMap flattens the contents of NetworkRoutingConfigRoutingModeEnum from a JSON
 // response object.
-func flattenNetworkRoutingConfigRoutingModeEnumMap(c *Client, i interface{}) map[string]NetworkRoutingConfigRoutingModeEnum {
+func flattenNetworkRoutingConfigRoutingModeEnumMap(c *Client, i interface{}, res *Network) map[string]NetworkRoutingConfigRoutingModeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NetworkRoutingConfigRoutingModeEnum{}
@@ -977,7 +977,7 @@ func flattenNetworkRoutingConfigRoutingModeEnumMap(c *Client, i interface{}) map
 
 // flattenNetworkRoutingConfigRoutingModeEnumSlice flattens the contents of NetworkRoutingConfigRoutingModeEnum from a JSON
 // response object.
-func flattenNetworkRoutingConfigRoutingModeEnumSlice(c *Client, i interface{}) []NetworkRoutingConfigRoutingModeEnum {
+func flattenNetworkRoutingConfigRoutingModeEnumSlice(c *Client, i interface{}, res *Network) []NetworkRoutingConfigRoutingModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NetworkRoutingConfigRoutingModeEnum{}
@@ -1011,7 +1011,7 @@ func flattenNetworkRoutingConfigRoutingModeEnum(i interface{}) *NetworkRoutingCo
 // identity).  This is useful in extracting the element from a List call.
 func (r *Network) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalNetwork(b, c)
+		cr, err := unmarshalNetwork(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

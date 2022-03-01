@@ -49,6 +49,7 @@ func ProtoToGateway(p *alphapb.NetworkservicesAlphaGateway) *alpha.Gateway {
 		AuthorizationPolicy: dcl.StringOrNil(p.GetAuthorizationPolicy()),
 		Project:             dcl.StringOrNil(p.GetProject()),
 		Location:            dcl.StringOrNil(p.GetLocation()),
+		SelfLink:            dcl.StringOrNil(p.GetSelfLink()),
 	}
 	for _, r := range p.GetAddresses() {
 		obj.Addresses = append(obj.Addresses, r)
@@ -83,6 +84,7 @@ func GatewayToProto(resource *alpha.Gateway) *alphapb.NetworkservicesAlphaGatewa
 	p.SetAuthorizationPolicy(dcl.ValueOrEmptyString(resource.AuthorizationPolicy))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r

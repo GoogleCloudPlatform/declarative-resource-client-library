@@ -633,7 +633,7 @@ func (c *Client) GetBucket(ctx context.Context, r *Bucket) (*Bucket, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalBucket(b, c)
+	result, err := unmarshalBucket(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -802,7 +802,7 @@ func applyBucketDiff(c *Client, ctx context.Context, desired *Bucket, rawDesired
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapBucket(r, c)
+				fullResp, err := unmarshalMapBucket(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

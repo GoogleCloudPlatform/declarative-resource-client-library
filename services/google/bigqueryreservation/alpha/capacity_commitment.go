@@ -349,7 +349,7 @@ func (c *Client) GetCapacityCommitment(ctx context.Context, r *CapacityCommitmen
 		}
 		return nil, err
 	}
-	result, err := unmarshalCapacityCommitment(b, c)
+	result, err := unmarshalCapacityCommitment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -533,7 +533,7 @@ func applyCapacityCommitmentDiff(c *Client, ctx context.Context, desired *Capaci
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapCapacityCommitment(r, c)
+				fullResp, err := unmarshalMapCapacityCommitment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

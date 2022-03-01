@@ -205,7 +205,7 @@ func (c *Client) listNotificationChannel(ctx context.Context, r *NotificationCha
 
 	var l []*NotificationChannel
 	for _, v := range m.NotificationChannels {
-		res, err := unmarshalMapNotificationChannel(v, c)
+		res, err := unmarshalMapNotificationChannel(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -661,17 +661,17 @@ func (r *NotificationChannel) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalNotificationChannel decodes JSON responses into the NotificationChannel resource schema.
-func unmarshalNotificationChannel(b []byte, c *Client) (*NotificationChannel, error) {
+func unmarshalNotificationChannel(b []byte, c *Client, res *NotificationChannel) (*NotificationChannel, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapNotificationChannel(m, c)
+	return unmarshalMapNotificationChannel(m, c, res)
 }
 
-func unmarshalMapNotificationChannel(m map[string]interface{}, c *Client) (*NotificationChannel, error) {
+func unmarshalMapNotificationChannel(m map[string]interface{}, c *Client, res *NotificationChannel) (*NotificationChannel, error) {
 
-	flattened := flattenNotificationChannel(c, m)
+	flattened := flattenNotificationChannel(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -715,7 +715,7 @@ func expandNotificationChannel(c *Client, f *NotificationChannel) (map[string]in
 
 // flattenNotificationChannel flattens NotificationChannel from a JSON request object into the
 // NotificationChannel type.
-func flattenNotificationChannel(c *Client, i interface{}) *NotificationChannel {
+func flattenNotificationChannel(c *Client, i interface{}, res *NotificationChannel) *NotificationChannel {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -724,27 +724,27 @@ func flattenNotificationChannel(c *Client, i interface{}) *NotificationChannel {
 		return nil
 	}
 
-	res := &NotificationChannel{}
-	res.Description = dcl.FlattenString(m["description"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Enabled = dcl.FlattenBool(m["enabled"])
+	resultRes := &NotificationChannel{}
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Enabled = dcl.FlattenBool(m["enabled"])
 	if _, ok := m["enabled"]; !ok {
 		c.Config.Logger.Info("Using default value for enabled")
-		res.Enabled = dcl.Bool(true)
+		resultRes.Enabled = dcl.Bool(true)
 	}
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Type = dcl.FlattenString(m["type"])
-	res.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
-	res.VerificationStatus = flattenNotificationChannelVerificationStatusEnum(m["verificationStatus"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Type = dcl.FlattenString(m["type"])
+	resultRes.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
+	resultRes.VerificationStatus = flattenNotificationChannelVerificationStatusEnum(m["verificationStatus"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // flattenNotificationChannelVerificationStatusEnumMap flattens the contents of NotificationChannelVerificationStatusEnum from a JSON
 // response object.
-func flattenNotificationChannelVerificationStatusEnumMap(c *Client, i interface{}) map[string]NotificationChannelVerificationStatusEnum {
+func flattenNotificationChannelVerificationStatusEnumMap(c *Client, i interface{}, res *NotificationChannel) map[string]NotificationChannelVerificationStatusEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]NotificationChannelVerificationStatusEnum{}
@@ -764,7 +764,7 @@ func flattenNotificationChannelVerificationStatusEnumMap(c *Client, i interface{
 
 // flattenNotificationChannelVerificationStatusEnumSlice flattens the contents of NotificationChannelVerificationStatusEnum from a JSON
 // response object.
-func flattenNotificationChannelVerificationStatusEnumSlice(c *Client, i interface{}) []NotificationChannelVerificationStatusEnum {
+func flattenNotificationChannelVerificationStatusEnumSlice(c *Client, i interface{}, res *NotificationChannel) []NotificationChannelVerificationStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []NotificationChannelVerificationStatusEnum{}
@@ -798,7 +798,7 @@ func flattenNotificationChannelVerificationStatusEnum(i interface{}) *Notificati
 // identity).  This is useful in extracting the element from a List call.
 func (r *NotificationChannel) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalNotificationChannel(b, c)
+		cr, err := unmarshalNotificationChannel(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

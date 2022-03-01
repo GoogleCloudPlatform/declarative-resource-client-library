@@ -388,7 +388,7 @@ func (c *Client) GetSubnetwork(ctx context.Context, r *Subnetwork) (*Subnetwork,
 		}
 		return nil, err
 	}
-	result, err := unmarshalSubnetwork(b, c)
+	result, err := unmarshalSubnetwork(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -572,7 +572,7 @@ func applySubnetworkDiff(c *Client, ctx context.Context, desired *Subnetwork, ra
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapSubnetwork(r, c)
+				fullResp, err := unmarshalMapSubnetwork(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

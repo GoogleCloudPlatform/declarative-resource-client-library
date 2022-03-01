@@ -203,7 +203,7 @@ func (c *Client) listGroup(ctx context.Context, r *Group, pageToken string, page
 
 	var l []*Group
 	for _, v := range m.Group {
-		res, err := unmarshalMapGroup(v, c)
+		res, err := unmarshalMapGroup(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -604,17 +604,17 @@ func (r *Group) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalGroup decodes JSON responses into the Group resource schema.
-func unmarshalGroup(b []byte, c *Client) (*Group, error) {
+func unmarshalGroup(b []byte, c *Client, res *Group) (*Group, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapGroup(m, c)
+	return unmarshalMapGroup(m, c, res)
 }
 
-func unmarshalMapGroup(m map[string]interface{}, c *Client) (*Group, error) {
+func unmarshalMapGroup(m map[string]interface{}, c *Client, res *Group) (*Group, error) {
 
-	flattened := flattenGroup(c, m)
+	flattened := flattenGroup(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -654,7 +654,7 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 
 // flattenGroup flattens Group from a JSON request object into the
 // Group type.
-func flattenGroup(c *Client, i interface{}) *Group {
+func flattenGroup(c *Client, i interface{}, res *Group) *Group {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -663,15 +663,15 @@ func flattenGroup(c *Client, i interface{}) *Group {
 		return nil
 	}
 
-	res := &Group{}
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Filter = dcl.FlattenString(m["filter"])
-	res.IsCluster = dcl.FlattenBool(m["isCluster"])
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.ParentName = dcl.FlattenString(m["parentName"])
-	res.Project = dcl.FlattenString(m["project"])
+	resultRes := &Group{}
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Filter = dcl.FlattenString(m["filter"])
+	resultRes.IsCluster = dcl.FlattenBool(m["isCluster"])
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.ParentName = dcl.FlattenString(m["parentName"])
+	resultRes.Project = dcl.FlattenString(m["project"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -679,7 +679,7 @@ func flattenGroup(c *Client, i interface{}) *Group {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Group) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalGroup(b, c)
+		cr, err := unmarshalGroup(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

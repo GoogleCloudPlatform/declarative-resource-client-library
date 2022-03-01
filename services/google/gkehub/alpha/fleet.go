@@ -95,7 +95,7 @@ func (c *Client) GetFleet(ctx context.Context, r *Fleet) (*Fleet, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalFleet(b, c)
+	result, err := unmarshalFleet(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +241,7 @@ func applyFleetDiff(c *Client, ctx context.Context, desired *Fleet, rawDesired *
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapFleet(r, c)
+				fullResp, err := unmarshalMapFleet(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

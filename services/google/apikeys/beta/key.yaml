@@ -63,35 +63,11 @@ components:
       - name
       - project
       properties:
-        createTime:
-          type: string
-          format: date-time
-          x-dcl-go-name: CreateTime
-          readOnly: true
-          description: Output only. A timestamp identifying the time this API key
-            was originally created.
-          x-kubernetes-immutable: true
-        deleteTime:
-          type: string
-          format: date-time
-          x-dcl-go-name: DeleteTime
-          readOnly: true
-          description: Output only. A timestamp when this key was deleted. If the
-            resource is not deleted, this must be empty.
-          x-kubernetes-immutable: true
         displayName:
           type: string
           x-dcl-go-name: DisplayName
           description: Human-readable display name of this API key. Modifiable by
             user.
-        etag:
-          type: string
-          x-dcl-go-name: Etag
-          readOnly: true
-          description: Output only. A checksum computed by the server based on the
-            current value of the Key resource. This may be sent on update and delete
-            requests to ensure the client has an up-to-date value before proceeding.
-          x-kubernetes-immutable: true
         keyString:
           type: string
           x-dcl-go-name: KeyString
@@ -132,6 +108,8 @@ components:
               - browserKeyRestrictions
               - serverKeyRestrictions
               - iosKeyRestrictions
+              required:
+              - allowedApplications
               properties:
                 allowedApplications:
                   type: array
@@ -143,6 +121,9 @@ components:
                   items:
                     type: object
                     x-dcl-go-type: KeyRestrictionsAndroidKeyRestrictionsAllowedApplications
+                    required:
+                    - sha1Fingerprint
+                    - packageName
                     properties:
                       packageName:
                         type: string
@@ -167,6 +148,8 @@ components:
               items:
                 type: object
                 x-dcl-go-type: KeyRestrictionsApiTargets
+                required:
+                - service
                 properties:
                   methods:
                     type: array
@@ -198,6 +181,8 @@ components:
               - serverKeyRestrictions
               - androidKeyRestrictions
               - iosKeyRestrictions
+              required:
+              - allowedReferrers
               properties:
                 allowedReferrers:
                   type: array
@@ -218,6 +203,8 @@ components:
               - browserKeyRestrictions
               - serverKeyRestrictions
               - androidKeyRestrictions
+              required:
+              - allowedBundleIds
               properties:
                 allowedBundleIds:
                   type: array
@@ -239,6 +226,8 @@ components:
               - browserKeyRestrictions
               - androidKeyRestrictions
               - iosKeyRestrictions
+              required:
+              - allowedIps
               properties:
                 allowedIps:
                   type: array
@@ -250,17 +239,3 @@ components:
                   items:
                     type: string
                     x-dcl-go-type: string
-        uid:
-          type: string
-          x-dcl-go-name: Uid
-          readOnly: true
-          description: Output only. Unique id in UUID4 format.
-          x-kubernetes-immutable: true
-        updateTime:
-          type: string
-          format: date-time
-          x-dcl-go-name: UpdateTime
-          readOnly: true
-          description: Output only. A timestamp identifying the time this key was
-            last updated.
-          x-kubernetes-immutable: true

@@ -464,7 +464,7 @@ func (c *Client) listCluster(ctx context.Context, r *Cluster, pageToken string, 
 
 	var l []*Cluster
 	for _, v := range m.Clusters {
-		res, err := unmarshalMapCluster(v, c)
+		res, err := unmarshalMapCluster(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -6280,17 +6280,17 @@ func (r *Cluster) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalCluster decodes JSON responses into the Cluster resource schema.
-func unmarshalCluster(b []byte, c *Client) (*Cluster, error) {
+func unmarshalCluster(b []byte, c *Client, res *Cluster) (*Cluster, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapCluster(m, c)
+	return unmarshalMapCluster(m, c, res)
 }
 
-func unmarshalMapCluster(m map[string]interface{}, c *Client) (*Cluster, error) {
+func unmarshalMapCluster(m map[string]interface{}, c *Client, res *Cluster) (*Cluster, error) {
 
-	flattened := flattenCluster(c, m)
+	flattened := flattenCluster(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -6329,7 +6329,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 
 // flattenCluster flattens Cluster from a JSON request object into the
 // Cluster type.
-func flattenCluster(c *Client, i interface{}) *Cluster {
+func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6338,18 +6338,18 @@ func flattenCluster(c *Client, i interface{}) *Cluster {
 		return nil
 	}
 
-	res := &Cluster{}
-	res.Project = dcl.FlattenString(m["projectId"])
-	res.Name = dcl.FlattenString(m["clusterName"])
-	res.Config = flattenClusterConfig(c, m["config"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Status = flattenClusterStatus(c, m["status"])
-	res.StatusHistory = flattenClusterStatusHistorySlice(c, m["statusHistory"])
-	res.ClusterUuid = dcl.FlattenString(m["clusterUuid"])
-	res.Metrics = flattenClusterMetrics(c, m["metrics"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Cluster{}
+	resultRes.Project = dcl.FlattenString(m["projectId"])
+	resultRes.Name = dcl.FlattenString(m["clusterName"])
+	resultRes.Config = flattenClusterConfig(c, m["config"], res)
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Status = flattenClusterStatus(c, m["status"], res)
+	resultRes.StatusHistory = flattenClusterStatusHistorySlice(c, m["statusHistory"], res)
+	resultRes.ClusterUuid = dcl.FlattenString(m["clusterUuid"])
+	resultRes.Metrics = flattenClusterMetrics(c, m["metrics"], res)
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandClusterConfigMap expands the contents of ClusterConfig into a JSON
@@ -6395,7 +6395,7 @@ func expandClusterConfigSlice(c *Client, f []ClusterConfig, res *Cluster) ([]map
 
 // flattenClusterConfigMap flattens the contents of ClusterConfig from a JSON
 // response object.
-func flattenClusterConfigMap(c *Client, i interface{}) map[string]ClusterConfig {
+func flattenClusterConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfig{}
@@ -6407,7 +6407,7 @@ func flattenClusterConfigMap(c *Client, i interface{}) map[string]ClusterConfig 
 
 	items := make(map[string]ClusterConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6415,7 +6415,7 @@ func flattenClusterConfigMap(c *Client, i interface{}) map[string]ClusterConfig 
 
 // flattenClusterConfigSlice flattens the contents of ClusterConfig from a JSON
 // response object.
-func flattenClusterConfigSlice(c *Client, i interface{}) []ClusterConfig {
+func flattenClusterConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfig{}
@@ -6427,7 +6427,7 @@ func flattenClusterConfigSlice(c *Client, i interface{}) []ClusterConfig {
 
 	items := make([]ClusterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6518,7 +6518,7 @@ func expandClusterConfig(c *Client, f *ClusterConfig, res *Cluster) (map[string]
 
 // flattenClusterConfig flattens an instance of ClusterConfig from a JSON
 // response object.
-func flattenClusterConfig(c *Client, i interface{}) *ClusterConfig {
+func flattenClusterConfig(c *Client, i interface{}, res *Cluster) *ClusterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6531,19 +6531,19 @@ func flattenClusterConfig(c *Client, i interface{}) *ClusterConfig {
 	}
 	r.StagingBucket = dcl.FlattenString(m["configBucket"])
 	r.TempBucket = dcl.FlattenString(m["tempBucket"])
-	r.GceClusterConfig = flattenClusterConfigGceClusterConfig(c, m["gceClusterConfig"])
-	r.MasterConfig = flattenClusterConfigMasterConfig(c, m["masterConfig"])
-	r.WorkerConfig = flattenClusterConfigWorkerConfig(c, m["workerConfig"])
-	r.SecondaryWorkerConfig = flattenClusterConfigSecondaryWorkerConfig(c, m["secondaryWorkerConfig"])
-	r.SoftwareConfig = flattenClusterConfigSoftwareConfig(c, m["softwareConfig"])
-	r.InitializationActions = flattenClusterConfigInitializationActionsSlice(c, m["initializationActions"])
-	r.EncryptionConfig = flattenClusterConfigEncryptionConfig(c, m["encryptionConfig"])
-	r.AutoscalingConfig = flattenClusterConfigAutoscalingConfig(c, m["autoscalingConfig"])
-	r.SecurityConfig = flattenClusterConfigSecurityConfig(c, m["securityConfig"])
-	r.LifecycleConfig = flattenClusterConfigLifecycleConfig(c, m["lifecycleConfig"])
-	r.EndpointConfig = flattenClusterConfigEndpointConfig(c, m["endpointConfig"])
-	r.GkeClusterConfig = flattenClusterConfigGkeClusterConfig(c, m["gkeClusterConfig"])
-	r.MetastoreConfig = flattenClusterConfigMetastoreConfig(c, m["metastoreConfig"])
+	r.GceClusterConfig = flattenClusterConfigGceClusterConfig(c, m["gceClusterConfig"], res)
+	r.MasterConfig = flattenClusterConfigMasterConfig(c, m["masterConfig"], res)
+	r.WorkerConfig = flattenClusterConfigWorkerConfig(c, m["workerConfig"], res)
+	r.SecondaryWorkerConfig = flattenClusterConfigSecondaryWorkerConfig(c, m["secondaryWorkerConfig"], res)
+	r.SoftwareConfig = flattenClusterConfigSoftwareConfig(c, m["softwareConfig"], res)
+	r.InitializationActions = flattenClusterConfigInitializationActionsSlice(c, m["initializationActions"], res)
+	r.EncryptionConfig = flattenClusterConfigEncryptionConfig(c, m["encryptionConfig"], res)
+	r.AutoscalingConfig = flattenClusterConfigAutoscalingConfig(c, m["autoscalingConfig"], res)
+	r.SecurityConfig = flattenClusterConfigSecurityConfig(c, m["securityConfig"], res)
+	r.LifecycleConfig = flattenClusterConfigLifecycleConfig(c, m["lifecycleConfig"], res)
+	r.EndpointConfig = flattenClusterConfigEndpointConfig(c, m["endpointConfig"], res)
+	r.GkeClusterConfig = flattenClusterConfigGkeClusterConfig(c, m["gkeClusterConfig"], res)
+	r.MetastoreConfig = flattenClusterConfigMetastoreConfig(c, m["metastoreConfig"], res)
 
 	return r
 }
@@ -6591,7 +6591,7 @@ func expandClusterConfigGceClusterConfigSlice(c *Client, f []ClusterConfigGceClu
 
 // flattenClusterConfigGceClusterConfigMap flattens the contents of ClusterConfigGceClusterConfig from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigMap(c *Client, i interface{}) map[string]ClusterConfigGceClusterConfig {
+func flattenClusterConfigGceClusterConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigGceClusterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigGceClusterConfig{}
@@ -6603,7 +6603,7 @@ func flattenClusterConfigGceClusterConfigMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]ClusterConfigGceClusterConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigGceClusterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigGceClusterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6611,7 +6611,7 @@ func flattenClusterConfigGceClusterConfigMap(c *Client, i interface{}) map[strin
 
 // flattenClusterConfigGceClusterConfigSlice flattens the contents of ClusterConfigGceClusterConfig from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigSlice(c *Client, i interface{}) []ClusterConfigGceClusterConfig {
+func flattenClusterConfigGceClusterConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigGceClusterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigGceClusterConfig{}
@@ -6623,7 +6623,7 @@ func flattenClusterConfigGceClusterConfigSlice(c *Client, i interface{}) []Clust
 
 	items := make([]ClusterConfigGceClusterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigGceClusterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigGceClusterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6680,7 +6680,7 @@ func expandClusterConfigGceClusterConfig(c *Client, f *ClusterConfigGceClusterCo
 
 // flattenClusterConfigGceClusterConfig flattens an instance of ClusterConfigGceClusterConfig from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfig(c *Client, i interface{}) *ClusterConfigGceClusterConfig {
+func flattenClusterConfigGceClusterConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigGceClusterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6700,8 +6700,8 @@ func flattenClusterConfigGceClusterConfig(c *Client, i interface{}) *ClusterConf
 	r.ServiceAccountScopes = dcl.FlattenStringSlice(m["serviceAccountScopes"])
 	r.Tags = dcl.FlattenStringSlice(m["tags"])
 	r.Metadata = dcl.FlattenKeyValuePairs(m["metadata"])
-	r.ReservationAffinity = flattenClusterConfigGceClusterConfigReservationAffinity(c, m["reservationAffinity"])
-	r.NodeGroupAffinity = flattenClusterConfigGceClusterConfigNodeGroupAffinity(c, m["nodeGroupAffinity"])
+	r.ReservationAffinity = flattenClusterConfigGceClusterConfigReservationAffinity(c, m["reservationAffinity"], res)
+	r.NodeGroupAffinity = flattenClusterConfigGceClusterConfigNodeGroupAffinity(c, m["nodeGroupAffinity"], res)
 
 	return r
 }
@@ -6749,7 +6749,7 @@ func expandClusterConfigGceClusterConfigReservationAffinitySlice(c *Client, f []
 
 // flattenClusterConfigGceClusterConfigReservationAffinityMap flattens the contents of ClusterConfigGceClusterConfigReservationAffinity from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigReservationAffinityMap(c *Client, i interface{}) map[string]ClusterConfigGceClusterConfigReservationAffinity {
+func flattenClusterConfigGceClusterConfigReservationAffinityMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigGceClusterConfigReservationAffinity {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigGceClusterConfigReservationAffinity{}
@@ -6761,7 +6761,7 @@ func flattenClusterConfigGceClusterConfigReservationAffinityMap(c *Client, i int
 
 	items := make(map[string]ClusterConfigGceClusterConfigReservationAffinity)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6769,7 +6769,7 @@ func flattenClusterConfigGceClusterConfigReservationAffinityMap(c *Client, i int
 
 // flattenClusterConfigGceClusterConfigReservationAffinitySlice flattens the contents of ClusterConfigGceClusterConfigReservationAffinity from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigReservationAffinitySlice(c *Client, i interface{}) []ClusterConfigGceClusterConfigReservationAffinity {
+func flattenClusterConfigGceClusterConfigReservationAffinitySlice(c *Client, i interface{}, res *Cluster) []ClusterConfigGceClusterConfigReservationAffinity {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigGceClusterConfigReservationAffinity{}
@@ -6781,7 +6781,7 @@ func flattenClusterConfigGceClusterConfigReservationAffinitySlice(c *Client, i i
 
 	items := make([]ClusterConfigGceClusterConfigReservationAffinity, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigGceClusterConfigReservationAffinity(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6810,7 +6810,7 @@ func expandClusterConfigGceClusterConfigReservationAffinity(c *Client, f *Cluste
 
 // flattenClusterConfigGceClusterConfigReservationAffinity flattens an instance of ClusterConfigGceClusterConfigReservationAffinity from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigReservationAffinity(c *Client, i interface{}) *ClusterConfigGceClusterConfigReservationAffinity {
+func flattenClusterConfigGceClusterConfigReservationAffinity(c *Client, i interface{}, res *Cluster) *ClusterConfigGceClusterConfigReservationAffinity {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6871,7 +6871,7 @@ func expandClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client, f []Cl
 
 // flattenClusterConfigGceClusterConfigNodeGroupAffinityMap flattens the contents of ClusterConfigGceClusterConfigNodeGroupAffinity from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigNodeGroupAffinityMap(c *Client, i interface{}) map[string]ClusterConfigGceClusterConfigNodeGroupAffinity {
+func flattenClusterConfigGceClusterConfigNodeGroupAffinityMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigGceClusterConfigNodeGroupAffinity {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigGceClusterConfigNodeGroupAffinity{}
@@ -6883,7 +6883,7 @@ func flattenClusterConfigGceClusterConfigNodeGroupAffinityMap(c *Client, i inter
 
 	items := make(map[string]ClusterConfigGceClusterConfigNodeGroupAffinity)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6891,7 +6891,7 @@ func flattenClusterConfigGceClusterConfigNodeGroupAffinityMap(c *Client, i inter
 
 // flattenClusterConfigGceClusterConfigNodeGroupAffinitySlice flattens the contents of ClusterConfigGceClusterConfigNodeGroupAffinity from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client, i interface{}) []ClusterConfigGceClusterConfigNodeGroupAffinity {
+func flattenClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client, i interface{}, res *Cluster) []ClusterConfigGceClusterConfigNodeGroupAffinity {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigGceClusterConfigNodeGroupAffinity{}
@@ -6903,7 +6903,7 @@ func flattenClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client, i int
 
 	items := make([]ClusterConfigGceClusterConfigNodeGroupAffinity, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigGceClusterConfigNodeGroupAffinity(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6926,7 +6926,7 @@ func expandClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, f *ClusterC
 
 // flattenClusterConfigGceClusterConfigNodeGroupAffinity flattens an instance of ClusterConfigGceClusterConfigNodeGroupAffinity from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, i interface{}) *ClusterConfigGceClusterConfigNodeGroupAffinity {
+func flattenClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, i interface{}, res *Cluster) *ClusterConfigGceClusterConfigNodeGroupAffinity {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6985,7 +6985,7 @@ func expandClusterConfigMasterConfigSlice(c *Client, f []ClusterConfigMasterConf
 
 // flattenClusterConfigMasterConfigMap flattens the contents of ClusterConfigMasterConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigMap(c *Client, i interface{}) map[string]ClusterConfigMasterConfig {
+func flattenClusterConfigMasterConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigMasterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigMasterConfig{}
@@ -6997,7 +6997,7 @@ func flattenClusterConfigMasterConfigMap(c *Client, i interface{}) map[string]Cl
 
 	items := make(map[string]ClusterConfigMasterConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigMasterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigMasterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7005,7 +7005,7 @@ func flattenClusterConfigMasterConfigMap(c *Client, i interface{}) map[string]Cl
 
 // flattenClusterConfigMasterConfigSlice flattens the contents of ClusterConfigMasterConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigSlice(c *Client, i interface{}) []ClusterConfigMasterConfig {
+func flattenClusterConfigMasterConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigMasterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigMasterConfig{}
@@ -7017,7 +7017,7 @@ func flattenClusterConfigMasterConfigSlice(c *Client, i interface{}) []ClusterCo
 
 	items := make([]ClusterConfigMasterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigMasterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigMasterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7062,7 +7062,7 @@ func expandClusterConfigMasterConfig(c *Client, f *ClusterConfigMasterConfig, re
 
 // flattenClusterConfigMasterConfig flattens an instance of ClusterConfigMasterConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfig(c *Client, i interface{}) *ClusterConfigMasterConfig {
+func flattenClusterConfigMasterConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigMasterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7077,11 +7077,11 @@ func flattenClusterConfigMasterConfig(c *Client, i interface{}) *ClusterConfigMa
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
 	r.Image = dcl.FlattenString(m["imageUri"])
 	r.MachineType = dcl.FlattenString(m["machineTypeUri"])
-	r.DiskConfig = flattenClusterConfigMasterConfigDiskConfig(c, m["diskConfig"])
+	r.DiskConfig = flattenClusterConfigMasterConfigDiskConfig(c, m["diskConfig"], res)
 	r.IsPreemptible = dcl.FlattenBool(m["isPreemptible"])
 	r.Preemptibility = flattenClusterConfigMasterConfigPreemptibilityEnum(m["preemptibility"])
-	r.ManagedGroupConfig = flattenClusterConfigMasterConfigManagedGroupConfig(c, m["managedGroupConfig"])
-	r.Accelerators = flattenClusterConfigMasterConfigAcceleratorsSlice(c, m["accelerators"])
+	r.ManagedGroupConfig = flattenClusterConfigMasterConfigManagedGroupConfig(c, m["managedGroupConfig"], res)
+	r.Accelerators = flattenClusterConfigMasterConfigAcceleratorsSlice(c, m["accelerators"], res)
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
 
 	return r
@@ -7130,7 +7130,7 @@ func expandClusterConfigMasterConfigDiskConfigSlice(c *Client, f []ClusterConfig
 
 // flattenClusterConfigMasterConfigDiskConfigMap flattens the contents of ClusterConfigMasterConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigDiskConfigMap(c *Client, i interface{}) map[string]ClusterConfigMasterConfigDiskConfig {
+func flattenClusterConfigMasterConfigDiskConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigMasterConfigDiskConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigMasterConfigDiskConfig{}
@@ -7142,7 +7142,7 @@ func flattenClusterConfigMasterConfigDiskConfigMap(c *Client, i interface{}) map
 
 	items := make(map[string]ClusterConfigMasterConfigDiskConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7150,7 +7150,7 @@ func flattenClusterConfigMasterConfigDiskConfigMap(c *Client, i interface{}) map
 
 // flattenClusterConfigMasterConfigDiskConfigSlice flattens the contents of ClusterConfigMasterConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigDiskConfigSlice(c *Client, i interface{}) []ClusterConfigMasterConfigDiskConfig {
+func flattenClusterConfigMasterConfigDiskConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigMasterConfigDiskConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigMasterConfigDiskConfig{}
@@ -7162,7 +7162,7 @@ func flattenClusterConfigMasterConfigDiskConfigSlice(c *Client, i interface{}) [
 
 	items := make([]ClusterConfigMasterConfigDiskConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigMasterConfigDiskConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7191,7 +7191,7 @@ func expandClusterConfigMasterConfigDiskConfig(c *Client, f *ClusterConfigMaster
 
 // flattenClusterConfigMasterConfigDiskConfig flattens an instance of ClusterConfigMasterConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigDiskConfig(c *Client, i interface{}) *ClusterConfigMasterConfigDiskConfig {
+func flattenClusterConfigMasterConfigDiskConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigMasterConfigDiskConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7252,7 +7252,7 @@ func expandClusterConfigMasterConfigManagedGroupConfigSlice(c *Client, f []Clust
 
 // flattenClusterConfigMasterConfigManagedGroupConfigMap flattens the contents of ClusterConfigMasterConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigManagedGroupConfigMap(c *Client, i interface{}) map[string]ClusterConfigMasterConfigManagedGroupConfig {
+func flattenClusterConfigMasterConfigManagedGroupConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigMasterConfigManagedGroupConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigMasterConfigManagedGroupConfig{}
@@ -7264,7 +7264,7 @@ func flattenClusterConfigMasterConfigManagedGroupConfigMap(c *Client, i interfac
 
 	items := make(map[string]ClusterConfigMasterConfigManagedGroupConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7272,7 +7272,7 @@ func flattenClusterConfigMasterConfigManagedGroupConfigMap(c *Client, i interfac
 
 // flattenClusterConfigMasterConfigManagedGroupConfigSlice flattens the contents of ClusterConfigMasterConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigManagedGroupConfigSlice(c *Client, i interface{}) []ClusterConfigMasterConfigManagedGroupConfig {
+func flattenClusterConfigMasterConfigManagedGroupConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigMasterConfigManagedGroupConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigMasterConfigManagedGroupConfig{}
@@ -7284,7 +7284,7 @@ func flattenClusterConfigMasterConfigManagedGroupConfigSlice(c *Client, i interf
 
 	items := make([]ClusterConfigMasterConfigManagedGroupConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigMasterConfigManagedGroupConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7304,7 +7304,7 @@ func expandClusterConfigMasterConfigManagedGroupConfig(c *Client, f *ClusterConf
 
 // flattenClusterConfigMasterConfigManagedGroupConfig flattens an instance of ClusterConfigMasterConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigMasterConfigManagedGroupConfig(c *Client, i interface{}) *ClusterConfigMasterConfigManagedGroupConfig {
+func flattenClusterConfigMasterConfigManagedGroupConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigMasterConfigManagedGroupConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7364,7 +7364,7 @@ func expandClusterConfigMasterConfigAcceleratorsSlice(c *Client, f []ClusterConf
 
 // flattenClusterConfigMasterConfigAcceleratorsMap flattens the contents of ClusterConfigMasterConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigMasterConfigAcceleratorsMap(c *Client, i interface{}) map[string]ClusterConfigMasterConfigAccelerators {
+func flattenClusterConfigMasterConfigAcceleratorsMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigMasterConfigAccelerators {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigMasterConfigAccelerators{}
@@ -7376,7 +7376,7 @@ func flattenClusterConfigMasterConfigAcceleratorsMap(c *Client, i interface{}) m
 
 	items := make(map[string]ClusterConfigMasterConfigAccelerators)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7384,7 +7384,7 @@ func flattenClusterConfigMasterConfigAcceleratorsMap(c *Client, i interface{}) m
 
 // flattenClusterConfigMasterConfigAcceleratorsSlice flattens the contents of ClusterConfigMasterConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigMasterConfigAcceleratorsSlice(c *Client, i interface{}) []ClusterConfigMasterConfigAccelerators {
+func flattenClusterConfigMasterConfigAcceleratorsSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigMasterConfigAccelerators {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigMasterConfigAccelerators{}
@@ -7396,7 +7396,7 @@ func flattenClusterConfigMasterConfigAcceleratorsSlice(c *Client, i interface{})
 
 	items := make([]ClusterConfigMasterConfigAccelerators, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigMasterConfigAccelerators(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7422,7 +7422,7 @@ func expandClusterConfigMasterConfigAccelerators(c *Client, f *ClusterConfigMast
 
 // flattenClusterConfigMasterConfigAccelerators flattens an instance of ClusterConfigMasterConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigMasterConfigAccelerators(c *Client, i interface{}) *ClusterConfigMasterConfigAccelerators {
+func flattenClusterConfigMasterConfigAccelerators(c *Client, i interface{}, res *Cluster) *ClusterConfigMasterConfigAccelerators {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7482,7 +7482,7 @@ func expandClusterConfigWorkerConfigSlice(c *Client, f []ClusterConfigWorkerConf
 
 // flattenClusterConfigWorkerConfigMap flattens the contents of ClusterConfigWorkerConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigMap(c *Client, i interface{}) map[string]ClusterConfigWorkerConfig {
+func flattenClusterConfigWorkerConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigWorkerConfig{}
@@ -7494,7 +7494,7 @@ func flattenClusterConfigWorkerConfigMap(c *Client, i interface{}) map[string]Cl
 
 	items := make(map[string]ClusterConfigWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7502,7 +7502,7 @@ func flattenClusterConfigWorkerConfigMap(c *Client, i interface{}) map[string]Cl
 
 // flattenClusterConfigWorkerConfigSlice flattens the contents of ClusterConfigWorkerConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigSlice(c *Client, i interface{}) []ClusterConfigWorkerConfig {
+func flattenClusterConfigWorkerConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigWorkerConfig{}
@@ -7514,7 +7514,7 @@ func flattenClusterConfigWorkerConfigSlice(c *Client, i interface{}) []ClusterCo
 
 	items := make([]ClusterConfigWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7559,7 +7559,7 @@ func expandClusterConfigWorkerConfig(c *Client, f *ClusterConfigWorkerConfig, re
 
 // flattenClusterConfigWorkerConfig flattens an instance of ClusterConfigWorkerConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfig(c *Client, i interface{}) *ClusterConfigWorkerConfig {
+func flattenClusterConfigWorkerConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7574,11 +7574,11 @@ func flattenClusterConfigWorkerConfig(c *Client, i interface{}) *ClusterConfigWo
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
 	r.Image = dcl.FlattenString(m["imageUri"])
 	r.MachineType = dcl.FlattenString(m["machineTypeUri"])
-	r.DiskConfig = flattenClusterConfigWorkerConfigDiskConfig(c, m["diskConfig"])
+	r.DiskConfig = flattenClusterConfigWorkerConfigDiskConfig(c, m["diskConfig"], res)
 	r.IsPreemptible = dcl.FlattenBool(m["isPreemptible"])
 	r.Preemptibility = flattenClusterConfigWorkerConfigPreemptibilityEnum(m["preemptibility"])
-	r.ManagedGroupConfig = flattenClusterConfigWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"])
-	r.Accelerators = flattenClusterConfigWorkerConfigAcceleratorsSlice(c, m["accelerators"])
+	r.ManagedGroupConfig = flattenClusterConfigWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"], res)
+	r.Accelerators = flattenClusterConfigWorkerConfigAcceleratorsSlice(c, m["accelerators"], res)
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
 
 	return r
@@ -7627,7 +7627,7 @@ func expandClusterConfigWorkerConfigDiskConfigSlice(c *Client, f []ClusterConfig
 
 // flattenClusterConfigWorkerConfigDiskConfigMap flattens the contents of ClusterConfigWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigDiskConfigMap(c *Client, i interface{}) map[string]ClusterConfigWorkerConfigDiskConfig {
+func flattenClusterConfigWorkerConfigDiskConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigWorkerConfigDiskConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigWorkerConfigDiskConfig{}
@@ -7639,7 +7639,7 @@ func flattenClusterConfigWorkerConfigDiskConfigMap(c *Client, i interface{}) map
 
 	items := make(map[string]ClusterConfigWorkerConfigDiskConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7647,7 +7647,7 @@ func flattenClusterConfigWorkerConfigDiskConfigMap(c *Client, i interface{}) map
 
 // flattenClusterConfigWorkerConfigDiskConfigSlice flattens the contents of ClusterConfigWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigDiskConfigSlice(c *Client, i interface{}) []ClusterConfigWorkerConfigDiskConfig {
+func flattenClusterConfigWorkerConfigDiskConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigWorkerConfigDiskConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigWorkerConfigDiskConfig{}
@@ -7659,7 +7659,7 @@ func flattenClusterConfigWorkerConfigDiskConfigSlice(c *Client, i interface{}) [
 
 	items := make([]ClusterConfigWorkerConfigDiskConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigWorkerConfigDiskConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7688,7 +7688,7 @@ func expandClusterConfigWorkerConfigDiskConfig(c *Client, f *ClusterConfigWorker
 
 // flattenClusterConfigWorkerConfigDiskConfig flattens an instance of ClusterConfigWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigDiskConfig(c *Client, i interface{}) *ClusterConfigWorkerConfigDiskConfig {
+func flattenClusterConfigWorkerConfigDiskConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigWorkerConfigDiskConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7749,7 +7749,7 @@ func expandClusterConfigWorkerConfigManagedGroupConfigSlice(c *Client, f []Clust
 
 // flattenClusterConfigWorkerConfigManagedGroupConfigMap flattens the contents of ClusterConfigWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigManagedGroupConfigMap(c *Client, i interface{}) map[string]ClusterConfigWorkerConfigManagedGroupConfig {
+func flattenClusterConfigWorkerConfigManagedGroupConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigWorkerConfigManagedGroupConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigWorkerConfigManagedGroupConfig{}
@@ -7761,7 +7761,7 @@ func flattenClusterConfigWorkerConfigManagedGroupConfigMap(c *Client, i interfac
 
 	items := make(map[string]ClusterConfigWorkerConfigManagedGroupConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7769,7 +7769,7 @@ func flattenClusterConfigWorkerConfigManagedGroupConfigMap(c *Client, i interfac
 
 // flattenClusterConfigWorkerConfigManagedGroupConfigSlice flattens the contents of ClusterConfigWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}) []ClusterConfigWorkerConfigManagedGroupConfig {
+func flattenClusterConfigWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigWorkerConfigManagedGroupConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigWorkerConfigManagedGroupConfig{}
@@ -7781,7 +7781,7 @@ func flattenClusterConfigWorkerConfigManagedGroupConfigSlice(c *Client, i interf
 
 	items := make([]ClusterConfigWorkerConfigManagedGroupConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7801,7 +7801,7 @@ func expandClusterConfigWorkerConfigManagedGroupConfig(c *Client, f *ClusterConf
 
 // flattenClusterConfigWorkerConfigManagedGroupConfig flattens an instance of ClusterConfigWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigManagedGroupConfig(c *Client, i interface{}) *ClusterConfigWorkerConfigManagedGroupConfig {
+func flattenClusterConfigWorkerConfigManagedGroupConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigWorkerConfigManagedGroupConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7861,7 +7861,7 @@ func expandClusterConfigWorkerConfigAcceleratorsSlice(c *Client, f []ClusterConf
 
 // flattenClusterConfigWorkerConfigAcceleratorsMap flattens the contents of ClusterConfigWorkerConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigAcceleratorsMap(c *Client, i interface{}) map[string]ClusterConfigWorkerConfigAccelerators {
+func flattenClusterConfigWorkerConfigAcceleratorsMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigWorkerConfigAccelerators {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigWorkerConfigAccelerators{}
@@ -7873,7 +7873,7 @@ func flattenClusterConfigWorkerConfigAcceleratorsMap(c *Client, i interface{}) m
 
 	items := make(map[string]ClusterConfigWorkerConfigAccelerators)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7881,7 +7881,7 @@ func flattenClusterConfigWorkerConfigAcceleratorsMap(c *Client, i interface{}) m
 
 // flattenClusterConfigWorkerConfigAcceleratorsSlice flattens the contents of ClusterConfigWorkerConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigAcceleratorsSlice(c *Client, i interface{}) []ClusterConfigWorkerConfigAccelerators {
+func flattenClusterConfigWorkerConfigAcceleratorsSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigWorkerConfigAccelerators {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigWorkerConfigAccelerators{}
@@ -7893,7 +7893,7 @@ func flattenClusterConfigWorkerConfigAcceleratorsSlice(c *Client, i interface{})
 
 	items := make([]ClusterConfigWorkerConfigAccelerators, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigWorkerConfigAccelerators(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -7919,7 +7919,7 @@ func expandClusterConfigWorkerConfigAccelerators(c *Client, f *ClusterConfigWork
 
 // flattenClusterConfigWorkerConfigAccelerators flattens an instance of ClusterConfigWorkerConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigAccelerators(c *Client, i interface{}) *ClusterConfigWorkerConfigAccelerators {
+func flattenClusterConfigWorkerConfigAccelerators(c *Client, i interface{}, res *Cluster) *ClusterConfigWorkerConfigAccelerators {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -7979,7 +7979,7 @@ func expandClusterConfigSecondaryWorkerConfigSlice(c *Client, f []ClusterConfigS
 
 // flattenClusterConfigSecondaryWorkerConfigMap flattens the contents of ClusterConfigSecondaryWorkerConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigMap(c *Client, i interface{}) map[string]ClusterConfigSecondaryWorkerConfig {
+func flattenClusterConfigSecondaryWorkerConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSecondaryWorkerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSecondaryWorkerConfig{}
@@ -7991,7 +7991,7 @@ func flattenClusterConfigSecondaryWorkerConfigMap(c *Client, i interface{}) map[
 
 	items := make(map[string]ClusterConfigSecondaryWorkerConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -7999,7 +7999,7 @@ func flattenClusterConfigSecondaryWorkerConfigMap(c *Client, i interface{}) map[
 
 // flattenClusterConfigSecondaryWorkerConfigSlice flattens the contents of ClusterConfigSecondaryWorkerConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigSlice(c *Client, i interface{}) []ClusterConfigSecondaryWorkerConfig {
+func flattenClusterConfigSecondaryWorkerConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSecondaryWorkerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSecondaryWorkerConfig{}
@@ -8011,7 +8011,7 @@ func flattenClusterConfigSecondaryWorkerConfigSlice(c *Client, i interface{}) []
 
 	items := make([]ClusterConfigSecondaryWorkerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigSecondaryWorkerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8056,7 +8056,7 @@ func expandClusterConfigSecondaryWorkerConfig(c *Client, f *ClusterConfigSeconda
 
 // flattenClusterConfigSecondaryWorkerConfig flattens an instance of ClusterConfigSecondaryWorkerConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfig(c *Client, i interface{}) *ClusterConfigSecondaryWorkerConfig {
+func flattenClusterConfigSecondaryWorkerConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigSecondaryWorkerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8071,11 +8071,11 @@ func flattenClusterConfigSecondaryWorkerConfig(c *Client, i interface{}) *Cluste
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
 	r.Image = dcl.FlattenString(m["imageUri"])
 	r.MachineType = dcl.FlattenString(m["machineTypeUri"])
-	r.DiskConfig = flattenClusterConfigSecondaryWorkerConfigDiskConfig(c, m["diskConfig"])
+	r.DiskConfig = flattenClusterConfigSecondaryWorkerConfigDiskConfig(c, m["diskConfig"], res)
 	r.IsPreemptible = dcl.FlattenBool(m["isPreemptible"])
 	r.Preemptibility = flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnum(m["preemptibility"])
-	r.ManagedGroupConfig = flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"])
-	r.Accelerators = flattenClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c, m["accelerators"])
+	r.ManagedGroupConfig = flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, m["managedGroupConfig"], res)
+	r.Accelerators = flattenClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c, m["accelerators"], res)
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
 
 	return r
@@ -8124,7 +8124,7 @@ func expandClusterConfigSecondaryWorkerConfigDiskConfigSlice(c *Client, f []Clus
 
 // flattenClusterConfigSecondaryWorkerConfigDiskConfigMap flattens the contents of ClusterConfigSecondaryWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigDiskConfigMap(c *Client, i interface{}) map[string]ClusterConfigSecondaryWorkerConfigDiskConfig {
+func flattenClusterConfigSecondaryWorkerConfigDiskConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSecondaryWorkerConfigDiskConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSecondaryWorkerConfigDiskConfig{}
@@ -8136,7 +8136,7 @@ func flattenClusterConfigSecondaryWorkerConfigDiskConfigMap(c *Client, i interfa
 
 	items := make(map[string]ClusterConfigSecondaryWorkerConfigDiskConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8144,7 +8144,7 @@ func flattenClusterConfigSecondaryWorkerConfigDiskConfigMap(c *Client, i interfa
 
 // flattenClusterConfigSecondaryWorkerConfigDiskConfigSlice flattens the contents of ClusterConfigSecondaryWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigDiskConfigSlice(c *Client, i interface{}) []ClusterConfigSecondaryWorkerConfigDiskConfig {
+func flattenClusterConfigSecondaryWorkerConfigDiskConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSecondaryWorkerConfigDiskConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSecondaryWorkerConfigDiskConfig{}
@@ -8156,7 +8156,7 @@ func flattenClusterConfigSecondaryWorkerConfigDiskConfigSlice(c *Client, i inter
 
 	items := make([]ClusterConfigSecondaryWorkerConfigDiskConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigSecondaryWorkerConfigDiskConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8185,7 +8185,7 @@ func expandClusterConfigSecondaryWorkerConfigDiskConfig(c *Client, f *ClusterCon
 
 // flattenClusterConfigSecondaryWorkerConfigDiskConfig flattens an instance of ClusterConfigSecondaryWorkerConfigDiskConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigDiskConfig(c *Client, i interface{}) *ClusterConfigSecondaryWorkerConfigDiskConfig {
+func flattenClusterConfigSecondaryWorkerConfigDiskConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigSecondaryWorkerConfigDiskConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8246,7 +8246,7 @@ func expandClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(c *Client, 
 
 // flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigMap flattens the contents of ClusterConfigSecondaryWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigMap(c *Client, i interface{}) map[string]ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSecondaryWorkerConfigManagedGroupConfig{}
@@ -8258,7 +8258,7 @@ func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigMap(c *Client, i
 
 	items := make(map[string]ClusterConfigSecondaryWorkerConfigManagedGroupConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8266,7 +8266,7 @@ func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigMap(c *Client, i
 
 // flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice flattens the contents of ClusterConfigSecondaryWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}) []ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSecondaryWorkerConfigManagedGroupConfig{}
@@ -8278,7 +8278,7 @@ func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(c *Client,
 
 	items := make([]ClusterConfigSecondaryWorkerConfigManagedGroupConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8298,7 +8298,7 @@ func expandClusterConfigSecondaryWorkerConfigManagedGroupConfig(c *Client, f *Cl
 
 // flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig flattens an instance of ClusterConfigSecondaryWorkerConfigManagedGroupConfig from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c *Client, i interface{}) *ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
+func flattenClusterConfigSecondaryWorkerConfigManagedGroupConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8358,7 +8358,7 @@ func expandClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c *Client, f []Cl
 
 // flattenClusterConfigSecondaryWorkerConfigAcceleratorsMap flattens the contents of ClusterConfigSecondaryWorkerConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigAcceleratorsMap(c *Client, i interface{}) map[string]ClusterConfigSecondaryWorkerConfigAccelerators {
+func flattenClusterConfigSecondaryWorkerConfigAcceleratorsMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSecondaryWorkerConfigAccelerators {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSecondaryWorkerConfigAccelerators{}
@@ -8370,7 +8370,7 @@ func flattenClusterConfigSecondaryWorkerConfigAcceleratorsMap(c *Client, i inter
 
 	items := make(map[string]ClusterConfigSecondaryWorkerConfigAccelerators)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8378,7 +8378,7 @@ func flattenClusterConfigSecondaryWorkerConfigAcceleratorsMap(c *Client, i inter
 
 // flattenClusterConfigSecondaryWorkerConfigAcceleratorsSlice flattens the contents of ClusterConfigSecondaryWorkerConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c *Client, i interface{}) []ClusterConfigSecondaryWorkerConfigAccelerators {
+func flattenClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSecondaryWorkerConfigAccelerators {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSecondaryWorkerConfigAccelerators{}
@@ -8390,7 +8390,7 @@ func flattenClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c *Client, i int
 
 	items := make([]ClusterConfigSecondaryWorkerConfigAccelerators, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigSecondaryWorkerConfigAccelerators(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8416,7 +8416,7 @@ func expandClusterConfigSecondaryWorkerConfigAccelerators(c *Client, f *ClusterC
 
 // flattenClusterConfigSecondaryWorkerConfigAccelerators flattens an instance of ClusterConfigSecondaryWorkerConfigAccelerators from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigAccelerators(c *Client, i interface{}) *ClusterConfigSecondaryWorkerConfigAccelerators {
+func flattenClusterConfigSecondaryWorkerConfigAccelerators(c *Client, i interface{}, res *Cluster) *ClusterConfigSecondaryWorkerConfigAccelerators {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8476,7 +8476,7 @@ func expandClusterConfigSoftwareConfigSlice(c *Client, f []ClusterConfigSoftware
 
 // flattenClusterConfigSoftwareConfigMap flattens the contents of ClusterConfigSoftwareConfig from a JSON
 // response object.
-func flattenClusterConfigSoftwareConfigMap(c *Client, i interface{}) map[string]ClusterConfigSoftwareConfig {
+func flattenClusterConfigSoftwareConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSoftwareConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSoftwareConfig{}
@@ -8488,7 +8488,7 @@ func flattenClusterConfigSoftwareConfigMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]ClusterConfigSoftwareConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigSoftwareConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigSoftwareConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8496,7 +8496,7 @@ func flattenClusterConfigSoftwareConfigMap(c *Client, i interface{}) map[string]
 
 // flattenClusterConfigSoftwareConfigSlice flattens the contents of ClusterConfigSoftwareConfig from a JSON
 // response object.
-func flattenClusterConfigSoftwareConfigSlice(c *Client, i interface{}) []ClusterConfigSoftwareConfig {
+func flattenClusterConfigSoftwareConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSoftwareConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSoftwareConfig{}
@@ -8508,7 +8508,7 @@ func flattenClusterConfigSoftwareConfigSlice(c *Client, i interface{}) []Cluster
 
 	items := make([]ClusterConfigSoftwareConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigSoftwareConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigSoftwareConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8537,7 +8537,7 @@ func expandClusterConfigSoftwareConfig(c *Client, f *ClusterConfigSoftwareConfig
 
 // flattenClusterConfigSoftwareConfig flattens an instance of ClusterConfigSoftwareConfig from a JSON
 // response object.
-func flattenClusterConfigSoftwareConfig(c *Client, i interface{}) *ClusterConfigSoftwareConfig {
+func flattenClusterConfigSoftwareConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigSoftwareConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8550,7 +8550,7 @@ func flattenClusterConfigSoftwareConfig(c *Client, i interface{}) *ClusterConfig
 	}
 	r.ImageVersion = dcl.FlattenString(m["imageVersion"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
-	r.OptionalComponents = flattenClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c, m["optionalComponents"])
+	r.OptionalComponents = flattenClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c, m["optionalComponents"], res)
 
 	return r
 }
@@ -8598,7 +8598,7 @@ func expandClusterConfigInitializationActionsSlice(c *Client, f []ClusterConfigI
 
 // flattenClusterConfigInitializationActionsMap flattens the contents of ClusterConfigInitializationActions from a JSON
 // response object.
-func flattenClusterConfigInitializationActionsMap(c *Client, i interface{}) map[string]ClusterConfigInitializationActions {
+func flattenClusterConfigInitializationActionsMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigInitializationActions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigInitializationActions{}
@@ -8610,7 +8610,7 @@ func flattenClusterConfigInitializationActionsMap(c *Client, i interface{}) map[
 
 	items := make(map[string]ClusterConfigInitializationActions)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigInitializationActions(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigInitializationActions(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8618,7 +8618,7 @@ func flattenClusterConfigInitializationActionsMap(c *Client, i interface{}) map[
 
 // flattenClusterConfigInitializationActionsSlice flattens the contents of ClusterConfigInitializationActions from a JSON
 // response object.
-func flattenClusterConfigInitializationActionsSlice(c *Client, i interface{}) []ClusterConfigInitializationActions {
+func flattenClusterConfigInitializationActionsSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigInitializationActions {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigInitializationActions{}
@@ -8630,7 +8630,7 @@ func flattenClusterConfigInitializationActionsSlice(c *Client, i interface{}) []
 
 	items := make([]ClusterConfigInitializationActions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigInitializationActions(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigInitializationActions(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8656,7 +8656,7 @@ func expandClusterConfigInitializationActions(c *Client, f *ClusterConfigInitial
 
 // flattenClusterConfigInitializationActions flattens an instance of ClusterConfigInitializationActions from a JSON
 // response object.
-func flattenClusterConfigInitializationActions(c *Client, i interface{}) *ClusterConfigInitializationActions {
+func flattenClusterConfigInitializationActions(c *Client, i interface{}, res *Cluster) *ClusterConfigInitializationActions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8716,7 +8716,7 @@ func expandClusterConfigEncryptionConfigSlice(c *Client, f []ClusterConfigEncryp
 
 // flattenClusterConfigEncryptionConfigMap flattens the contents of ClusterConfigEncryptionConfig from a JSON
 // response object.
-func flattenClusterConfigEncryptionConfigMap(c *Client, i interface{}) map[string]ClusterConfigEncryptionConfig {
+func flattenClusterConfigEncryptionConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigEncryptionConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigEncryptionConfig{}
@@ -8728,7 +8728,7 @@ func flattenClusterConfigEncryptionConfigMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]ClusterConfigEncryptionConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigEncryptionConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigEncryptionConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8736,7 +8736,7 @@ func flattenClusterConfigEncryptionConfigMap(c *Client, i interface{}) map[strin
 
 // flattenClusterConfigEncryptionConfigSlice flattens the contents of ClusterConfigEncryptionConfig from a JSON
 // response object.
-func flattenClusterConfigEncryptionConfigSlice(c *Client, i interface{}) []ClusterConfigEncryptionConfig {
+func flattenClusterConfigEncryptionConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigEncryptionConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigEncryptionConfig{}
@@ -8748,7 +8748,7 @@ func flattenClusterConfigEncryptionConfigSlice(c *Client, i interface{}) []Clust
 
 	items := make([]ClusterConfigEncryptionConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigEncryptionConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigEncryptionConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8771,7 +8771,7 @@ func expandClusterConfigEncryptionConfig(c *Client, f *ClusterConfigEncryptionCo
 
 // flattenClusterConfigEncryptionConfig flattens an instance of ClusterConfigEncryptionConfig from a JSON
 // response object.
-func flattenClusterConfigEncryptionConfig(c *Client, i interface{}) *ClusterConfigEncryptionConfig {
+func flattenClusterConfigEncryptionConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigEncryptionConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8830,7 +8830,7 @@ func expandClusterConfigAutoscalingConfigSlice(c *Client, f []ClusterConfigAutos
 
 // flattenClusterConfigAutoscalingConfigMap flattens the contents of ClusterConfigAutoscalingConfig from a JSON
 // response object.
-func flattenClusterConfigAutoscalingConfigMap(c *Client, i interface{}) map[string]ClusterConfigAutoscalingConfig {
+func flattenClusterConfigAutoscalingConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigAutoscalingConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigAutoscalingConfig{}
@@ -8842,7 +8842,7 @@ func flattenClusterConfigAutoscalingConfigMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]ClusterConfigAutoscalingConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigAutoscalingConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigAutoscalingConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8850,7 +8850,7 @@ func flattenClusterConfigAutoscalingConfigMap(c *Client, i interface{}) map[stri
 
 // flattenClusterConfigAutoscalingConfigSlice flattens the contents of ClusterConfigAutoscalingConfig from a JSON
 // response object.
-func flattenClusterConfigAutoscalingConfigSlice(c *Client, i interface{}) []ClusterConfigAutoscalingConfig {
+func flattenClusterConfigAutoscalingConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigAutoscalingConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigAutoscalingConfig{}
@@ -8862,7 +8862,7 @@ func flattenClusterConfigAutoscalingConfigSlice(c *Client, i interface{}) []Clus
 
 	items := make([]ClusterConfigAutoscalingConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigAutoscalingConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigAutoscalingConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -8885,7 +8885,7 @@ func expandClusterConfigAutoscalingConfig(c *Client, f *ClusterConfigAutoscaling
 
 // flattenClusterConfigAutoscalingConfig flattens an instance of ClusterConfigAutoscalingConfig from a JSON
 // response object.
-func flattenClusterConfigAutoscalingConfig(c *Client, i interface{}) *ClusterConfigAutoscalingConfig {
+func flattenClusterConfigAutoscalingConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigAutoscalingConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -8944,7 +8944,7 @@ func expandClusterConfigSecurityConfigSlice(c *Client, f []ClusterConfigSecurity
 
 // flattenClusterConfigSecurityConfigMap flattens the contents of ClusterConfigSecurityConfig from a JSON
 // response object.
-func flattenClusterConfigSecurityConfigMap(c *Client, i interface{}) map[string]ClusterConfigSecurityConfig {
+func flattenClusterConfigSecurityConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSecurityConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSecurityConfig{}
@@ -8956,7 +8956,7 @@ func flattenClusterConfigSecurityConfigMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]ClusterConfigSecurityConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigSecurityConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigSecurityConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -8964,7 +8964,7 @@ func flattenClusterConfigSecurityConfigMap(c *Client, i interface{}) map[string]
 
 // flattenClusterConfigSecurityConfigSlice flattens the contents of ClusterConfigSecurityConfig from a JSON
 // response object.
-func flattenClusterConfigSecurityConfigSlice(c *Client, i interface{}) []ClusterConfigSecurityConfig {
+func flattenClusterConfigSecurityConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSecurityConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSecurityConfig{}
@@ -8976,7 +8976,7 @@ func flattenClusterConfigSecurityConfigSlice(c *Client, i interface{}) []Cluster
 
 	items := make([]ClusterConfigSecurityConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigSecurityConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigSecurityConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9001,7 +9001,7 @@ func expandClusterConfigSecurityConfig(c *Client, f *ClusterConfigSecurityConfig
 
 // flattenClusterConfigSecurityConfig flattens an instance of ClusterConfigSecurityConfig from a JSON
 // response object.
-func flattenClusterConfigSecurityConfig(c *Client, i interface{}) *ClusterConfigSecurityConfig {
+func flattenClusterConfigSecurityConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigSecurityConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9012,7 +9012,7 @@ func flattenClusterConfigSecurityConfig(c *Client, i interface{}) *ClusterConfig
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyClusterConfigSecurityConfig
 	}
-	r.KerberosConfig = flattenClusterConfigSecurityConfigKerberosConfig(c, m["kerberosConfig"])
+	r.KerberosConfig = flattenClusterConfigSecurityConfigKerberosConfig(c, m["kerberosConfig"], res)
 
 	return r
 }
@@ -9060,7 +9060,7 @@ func expandClusterConfigSecurityConfigKerberosConfigSlice(c *Client, f []Cluster
 
 // flattenClusterConfigSecurityConfigKerberosConfigMap flattens the contents of ClusterConfigSecurityConfigKerberosConfig from a JSON
 // response object.
-func flattenClusterConfigSecurityConfigKerberosConfigMap(c *Client, i interface{}) map[string]ClusterConfigSecurityConfigKerberosConfig {
+func flattenClusterConfigSecurityConfigKerberosConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSecurityConfigKerberosConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSecurityConfigKerberosConfig{}
@@ -9072,7 +9072,7 @@ func flattenClusterConfigSecurityConfigKerberosConfigMap(c *Client, i interface{
 
 	items := make(map[string]ClusterConfigSecurityConfigKerberosConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9080,7 +9080,7 @@ func flattenClusterConfigSecurityConfigKerberosConfigMap(c *Client, i interface{
 
 // flattenClusterConfigSecurityConfigKerberosConfigSlice flattens the contents of ClusterConfigSecurityConfigKerberosConfig from a JSON
 // response object.
-func flattenClusterConfigSecurityConfigKerberosConfigSlice(c *Client, i interface{}) []ClusterConfigSecurityConfigKerberosConfig {
+func flattenClusterConfigSecurityConfigKerberosConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSecurityConfigKerberosConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSecurityConfigKerberosConfig{}
@@ -9092,7 +9092,7 @@ func flattenClusterConfigSecurityConfigKerberosConfigSlice(c *Client, i interfac
 
 	items := make([]ClusterConfigSecurityConfigKerberosConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigSecurityConfigKerberosConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9157,7 +9157,7 @@ func expandClusterConfigSecurityConfigKerberosConfig(c *Client, f *ClusterConfig
 
 // flattenClusterConfigSecurityConfigKerberosConfig flattens an instance of ClusterConfigSecurityConfigKerberosConfig from a JSON
 // response object.
-func flattenClusterConfigSecurityConfigKerberosConfig(c *Client, i interface{}) *ClusterConfigSecurityConfigKerberosConfig {
+func flattenClusterConfigSecurityConfigKerberosConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigSecurityConfigKerberosConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9230,7 +9230,7 @@ func expandClusterConfigLifecycleConfigSlice(c *Client, f []ClusterConfigLifecyc
 
 // flattenClusterConfigLifecycleConfigMap flattens the contents of ClusterConfigLifecycleConfig from a JSON
 // response object.
-func flattenClusterConfigLifecycleConfigMap(c *Client, i interface{}) map[string]ClusterConfigLifecycleConfig {
+func flattenClusterConfigLifecycleConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigLifecycleConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigLifecycleConfig{}
@@ -9242,7 +9242,7 @@ func flattenClusterConfigLifecycleConfigMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ClusterConfigLifecycleConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigLifecycleConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigLifecycleConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9250,7 +9250,7 @@ func flattenClusterConfigLifecycleConfigMap(c *Client, i interface{}) map[string
 
 // flattenClusterConfigLifecycleConfigSlice flattens the contents of ClusterConfigLifecycleConfig from a JSON
 // response object.
-func flattenClusterConfigLifecycleConfigSlice(c *Client, i interface{}) []ClusterConfigLifecycleConfig {
+func flattenClusterConfigLifecycleConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigLifecycleConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigLifecycleConfig{}
@@ -9262,7 +9262,7 @@ func flattenClusterConfigLifecycleConfigSlice(c *Client, i interface{}) []Cluste
 
 	items := make([]ClusterConfigLifecycleConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigLifecycleConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigLifecycleConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9291,7 +9291,7 @@ func expandClusterConfigLifecycleConfig(c *Client, f *ClusterConfigLifecycleConf
 
 // flattenClusterConfigLifecycleConfig flattens an instance of ClusterConfigLifecycleConfig from a JSON
 // response object.
-func flattenClusterConfigLifecycleConfig(c *Client, i interface{}) *ClusterConfigLifecycleConfig {
+func flattenClusterConfigLifecycleConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigLifecycleConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9353,7 +9353,7 @@ func expandClusterConfigEndpointConfigSlice(c *Client, f []ClusterConfigEndpoint
 
 // flattenClusterConfigEndpointConfigMap flattens the contents of ClusterConfigEndpointConfig from a JSON
 // response object.
-func flattenClusterConfigEndpointConfigMap(c *Client, i interface{}) map[string]ClusterConfigEndpointConfig {
+func flattenClusterConfigEndpointConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigEndpointConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigEndpointConfig{}
@@ -9365,7 +9365,7 @@ func flattenClusterConfigEndpointConfigMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]ClusterConfigEndpointConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigEndpointConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigEndpointConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9373,7 +9373,7 @@ func flattenClusterConfigEndpointConfigMap(c *Client, i interface{}) map[string]
 
 // flattenClusterConfigEndpointConfigSlice flattens the contents of ClusterConfigEndpointConfig from a JSON
 // response object.
-func flattenClusterConfigEndpointConfigSlice(c *Client, i interface{}) []ClusterConfigEndpointConfig {
+func flattenClusterConfigEndpointConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigEndpointConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigEndpointConfig{}
@@ -9385,7 +9385,7 @@ func flattenClusterConfigEndpointConfigSlice(c *Client, i interface{}) []Cluster
 
 	items := make([]ClusterConfigEndpointConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigEndpointConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigEndpointConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9408,7 +9408,7 @@ func expandClusterConfigEndpointConfig(c *Client, f *ClusterConfigEndpointConfig
 
 // flattenClusterConfigEndpointConfig flattens an instance of ClusterConfigEndpointConfig from a JSON
 // response object.
-func flattenClusterConfigEndpointConfig(c *Client, i interface{}) *ClusterConfigEndpointConfig {
+func flattenClusterConfigEndpointConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigEndpointConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9468,7 +9468,7 @@ func expandClusterConfigGkeClusterConfigSlice(c *Client, f []ClusterConfigGkeClu
 
 // flattenClusterConfigGkeClusterConfigMap flattens the contents of ClusterConfigGkeClusterConfig from a JSON
 // response object.
-func flattenClusterConfigGkeClusterConfigMap(c *Client, i interface{}) map[string]ClusterConfigGkeClusterConfig {
+func flattenClusterConfigGkeClusterConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigGkeClusterConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigGkeClusterConfig{}
@@ -9480,7 +9480,7 @@ func flattenClusterConfigGkeClusterConfigMap(c *Client, i interface{}) map[strin
 
 	items := make(map[string]ClusterConfigGkeClusterConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigGkeClusterConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigGkeClusterConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9488,7 +9488,7 @@ func flattenClusterConfigGkeClusterConfigMap(c *Client, i interface{}) map[strin
 
 // flattenClusterConfigGkeClusterConfigSlice flattens the contents of ClusterConfigGkeClusterConfig from a JSON
 // response object.
-func flattenClusterConfigGkeClusterConfigSlice(c *Client, i interface{}) []ClusterConfigGkeClusterConfig {
+func flattenClusterConfigGkeClusterConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigGkeClusterConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigGkeClusterConfig{}
@@ -9500,7 +9500,7 @@ func flattenClusterConfigGkeClusterConfigSlice(c *Client, i interface{}) []Clust
 
 	items := make([]ClusterConfigGkeClusterConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigGkeClusterConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigGkeClusterConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9525,7 +9525,7 @@ func expandClusterConfigGkeClusterConfig(c *Client, f *ClusterConfigGkeClusterCo
 
 // flattenClusterConfigGkeClusterConfig flattens an instance of ClusterConfigGkeClusterConfig from a JSON
 // response object.
-func flattenClusterConfigGkeClusterConfig(c *Client, i interface{}) *ClusterConfigGkeClusterConfig {
+func flattenClusterConfigGkeClusterConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigGkeClusterConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9536,7 +9536,7 @@ func flattenClusterConfigGkeClusterConfig(c *Client, i interface{}) *ClusterConf
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyClusterConfigGkeClusterConfig
 	}
-	r.NamespacedGkeDeploymentTarget = flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, m["namespacedGkeDeploymentTarget"])
+	r.NamespacedGkeDeploymentTarget = flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, m["namespacedGkeDeploymentTarget"], res)
 
 	return r
 }
@@ -9584,7 +9584,7 @@ func expandClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(c *Cl
 
 // flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap flattens the contents of ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget from a JSON
 // response object.
-func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap(c *Client, i interface{}) map[string]ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
@@ -9596,7 +9596,7 @@ func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap(c *Cli
 
 	items := make(map[string]ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9604,7 +9604,7 @@ func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetMap(c *Cli
 
 // flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice flattens the contents of ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget from a JSON
 // response object.
-func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(c *Client, i interface{}) []ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
@@ -9616,7 +9616,7 @@ func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(c *C
 
 	items := make([]ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9642,7 +9642,7 @@ func expandClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c *Client,
 
 // flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget flattens an instance of ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget from a JSON
 // response object.
-func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c *Client, i interface{}) *ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+func flattenClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c *Client, i interface{}, res *Cluster) *ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9702,7 +9702,7 @@ func expandClusterConfigMetastoreConfigSlice(c *Client, f []ClusterConfigMetasto
 
 // flattenClusterConfigMetastoreConfigMap flattens the contents of ClusterConfigMetastoreConfig from a JSON
 // response object.
-func flattenClusterConfigMetastoreConfigMap(c *Client, i interface{}) map[string]ClusterConfigMetastoreConfig {
+func flattenClusterConfigMetastoreConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigMetastoreConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigMetastoreConfig{}
@@ -9714,7 +9714,7 @@ func flattenClusterConfigMetastoreConfigMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]ClusterConfigMetastoreConfig)
 	for k, item := range a {
-		items[k] = *flattenClusterConfigMetastoreConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterConfigMetastoreConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9722,7 +9722,7 @@ func flattenClusterConfigMetastoreConfigMap(c *Client, i interface{}) map[string
 
 // flattenClusterConfigMetastoreConfigSlice flattens the contents of ClusterConfigMetastoreConfig from a JSON
 // response object.
-func flattenClusterConfigMetastoreConfigSlice(c *Client, i interface{}) []ClusterConfigMetastoreConfig {
+func flattenClusterConfigMetastoreConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigMetastoreConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigMetastoreConfig{}
@@ -9734,7 +9734,7 @@ func flattenClusterConfigMetastoreConfigSlice(c *Client, i interface{}) []Cluste
 
 	items := make([]ClusterConfigMetastoreConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterConfigMetastoreConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterConfigMetastoreConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9757,7 +9757,7 @@ func expandClusterConfigMetastoreConfig(c *Client, f *ClusterConfigMetastoreConf
 
 // flattenClusterConfigMetastoreConfig flattens an instance of ClusterConfigMetastoreConfig from a JSON
 // response object.
-func flattenClusterConfigMetastoreConfig(c *Client, i interface{}) *ClusterConfigMetastoreConfig {
+func flattenClusterConfigMetastoreConfig(c *Client, i interface{}, res *Cluster) *ClusterConfigMetastoreConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9816,7 +9816,7 @@ func expandClusterStatusSlice(c *Client, f []ClusterStatus, res *Cluster) ([]map
 
 // flattenClusterStatusMap flattens the contents of ClusterStatus from a JSON
 // response object.
-func flattenClusterStatusMap(c *Client, i interface{}) map[string]ClusterStatus {
+func flattenClusterStatusMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStatus {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStatus{}
@@ -9828,7 +9828,7 @@ func flattenClusterStatusMap(c *Client, i interface{}) map[string]ClusterStatus 
 
 	items := make(map[string]ClusterStatus)
 	for k, item := range a {
-		items[k] = *flattenClusterStatus(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterStatus(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9836,7 +9836,7 @@ func flattenClusterStatusMap(c *Client, i interface{}) map[string]ClusterStatus 
 
 // flattenClusterStatusSlice flattens the contents of ClusterStatus from a JSON
 // response object.
-func flattenClusterStatusSlice(c *Client, i interface{}) []ClusterStatus {
+func flattenClusterStatusSlice(c *Client, i interface{}, res *Cluster) []ClusterStatus {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStatus{}
@@ -9848,7 +9848,7 @@ func flattenClusterStatusSlice(c *Client, i interface{}) []ClusterStatus {
 
 	items := make([]ClusterStatus, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterStatus(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterStatus(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9868,7 +9868,7 @@ func expandClusterStatus(c *Client, f *ClusterStatus, res *Cluster) (map[string]
 
 // flattenClusterStatus flattens an instance of ClusterStatus from a JSON
 // response object.
-func flattenClusterStatus(c *Client, i interface{}) *ClusterStatus {
+func flattenClusterStatus(c *Client, i interface{}, res *Cluster) *ClusterStatus {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -9930,7 +9930,7 @@ func expandClusterStatusHistorySlice(c *Client, f []ClusterStatusHistory, res *C
 
 // flattenClusterStatusHistoryMap flattens the contents of ClusterStatusHistory from a JSON
 // response object.
-func flattenClusterStatusHistoryMap(c *Client, i interface{}) map[string]ClusterStatusHistory {
+func flattenClusterStatusHistoryMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStatusHistory {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStatusHistory{}
@@ -9942,7 +9942,7 @@ func flattenClusterStatusHistoryMap(c *Client, i interface{}) map[string]Cluster
 
 	items := make(map[string]ClusterStatusHistory)
 	for k, item := range a {
-		items[k] = *flattenClusterStatusHistory(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterStatusHistory(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -9950,7 +9950,7 @@ func flattenClusterStatusHistoryMap(c *Client, i interface{}) map[string]Cluster
 
 // flattenClusterStatusHistorySlice flattens the contents of ClusterStatusHistory from a JSON
 // response object.
-func flattenClusterStatusHistorySlice(c *Client, i interface{}) []ClusterStatusHistory {
+func flattenClusterStatusHistorySlice(c *Client, i interface{}, res *Cluster) []ClusterStatusHistory {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStatusHistory{}
@@ -9962,7 +9962,7 @@ func flattenClusterStatusHistorySlice(c *Client, i interface{}) []ClusterStatusH
 
 	items := make([]ClusterStatusHistory, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterStatusHistory(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterStatusHistory(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -9982,7 +9982,7 @@ func expandClusterStatusHistory(c *Client, f *ClusterStatusHistory, res *Cluster
 
 // flattenClusterStatusHistory flattens an instance of ClusterStatusHistory from a JSON
 // response object.
-func flattenClusterStatusHistory(c *Client, i interface{}) *ClusterStatusHistory {
+func flattenClusterStatusHistory(c *Client, i interface{}, res *Cluster) *ClusterStatusHistory {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10044,7 +10044,7 @@ func expandClusterMetricsSlice(c *Client, f []ClusterMetrics, res *Cluster) ([]m
 
 // flattenClusterMetricsMap flattens the contents of ClusterMetrics from a JSON
 // response object.
-func flattenClusterMetricsMap(c *Client, i interface{}) map[string]ClusterMetrics {
+func flattenClusterMetricsMap(c *Client, i interface{}, res *Cluster) map[string]ClusterMetrics {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterMetrics{}
@@ -10056,7 +10056,7 @@ func flattenClusterMetricsMap(c *Client, i interface{}) map[string]ClusterMetric
 
 	items := make(map[string]ClusterMetrics)
 	for k, item := range a {
-		items[k] = *flattenClusterMetrics(c, item.(map[string]interface{}))
+		items[k] = *flattenClusterMetrics(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -10064,7 +10064,7 @@ func flattenClusterMetricsMap(c *Client, i interface{}) map[string]ClusterMetric
 
 // flattenClusterMetricsSlice flattens the contents of ClusterMetrics from a JSON
 // response object.
-func flattenClusterMetricsSlice(c *Client, i interface{}) []ClusterMetrics {
+func flattenClusterMetricsSlice(c *Client, i interface{}, res *Cluster) []ClusterMetrics {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterMetrics{}
@@ -10076,7 +10076,7 @@ func flattenClusterMetricsSlice(c *Client, i interface{}) []ClusterMetrics {
 
 	items := make([]ClusterMetrics, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenClusterMetrics(c, item.(map[string]interface{})))
+		items = append(items, *flattenClusterMetrics(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -10102,7 +10102,7 @@ func expandClusterMetrics(c *Client, f *ClusterMetrics, res *Cluster) (map[strin
 
 // flattenClusterMetrics flattens an instance of ClusterMetrics from a JSON
 // response object.
-func flattenClusterMetrics(c *Client, i interface{}) *ClusterMetrics {
+func flattenClusterMetrics(c *Client, i interface{}, res *Cluster) *ClusterMetrics {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -10121,7 +10121,7 @@ func flattenClusterMetrics(c *Client, i interface{}) *ClusterMetrics {
 
 // flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap flattens the contents of ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap(c *Client, i interface{}) map[string]ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+func flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum{}
@@ -10141,7 +10141,7 @@ func flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap(c *Clien
 
 // flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice flattens the contents of ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice(c *Client, i interface{}) []ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+func flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum{}
@@ -10172,7 +10172,7 @@ func flattenClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(i interface
 
 // flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap flattens the contents of ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}) map[string]ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+func flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum{}
@@ -10192,7 +10192,7 @@ func flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTy
 
 // flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSlice flattens the contents of ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum from a JSON
 // response object.
-func flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSlice(c *Client, i interface{}) []ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+func flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum{}
@@ -10223,7 +10223,7 @@ func flattenClusterConfigGceClusterConfigReservationAffinityConsumeReservationTy
 
 // flattenClusterConfigMasterConfigPreemptibilityEnumMap flattens the contents of ClusterConfigMasterConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenClusterConfigMasterConfigPreemptibilityEnumMap(c *Client, i interface{}) map[string]ClusterConfigMasterConfigPreemptibilityEnum {
+func flattenClusterConfigMasterConfigPreemptibilityEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigMasterConfigPreemptibilityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigMasterConfigPreemptibilityEnum{}
@@ -10243,7 +10243,7 @@ func flattenClusterConfigMasterConfigPreemptibilityEnumMap(c *Client, i interfac
 
 // flattenClusterConfigMasterConfigPreemptibilityEnumSlice flattens the contents of ClusterConfigMasterConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenClusterConfigMasterConfigPreemptibilityEnumSlice(c *Client, i interface{}) []ClusterConfigMasterConfigPreemptibilityEnum {
+func flattenClusterConfigMasterConfigPreemptibilityEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigMasterConfigPreemptibilityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigMasterConfigPreemptibilityEnum{}
@@ -10274,7 +10274,7 @@ func flattenClusterConfigMasterConfigPreemptibilityEnum(i interface{}) *ClusterC
 
 // flattenClusterConfigWorkerConfigPreemptibilityEnumMap flattens the contents of ClusterConfigWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}) map[string]ClusterConfigWorkerConfigPreemptibilityEnum {
+func flattenClusterConfigWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigWorkerConfigPreemptibilityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigWorkerConfigPreemptibilityEnum{}
@@ -10294,7 +10294,7 @@ func flattenClusterConfigWorkerConfigPreemptibilityEnumMap(c *Client, i interfac
 
 // flattenClusterConfigWorkerConfigPreemptibilityEnumSlice flattens the contents of ClusterConfigWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenClusterConfigWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}) []ClusterConfigWorkerConfigPreemptibilityEnum {
+func flattenClusterConfigWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigWorkerConfigPreemptibilityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigWorkerConfigPreemptibilityEnum{}
@@ -10325,7 +10325,7 @@ func flattenClusterConfigWorkerConfigPreemptibilityEnum(i interface{}) *ClusterC
 
 // flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnumMap flattens the contents of ClusterConfigSecondaryWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}) map[string]ClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+func flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSecondaryWorkerConfigPreemptibilityEnum{}
@@ -10345,7 +10345,7 @@ func flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnumMap(c *Client, i
 
 // flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnumSlice flattens the contents of ClusterConfigSecondaryWorkerConfigPreemptibilityEnum from a JSON
 // response object.
-func flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}) []ClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
+func flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSecondaryWorkerConfigPreemptibilityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSecondaryWorkerConfigPreemptibilityEnum{}
@@ -10376,7 +10376,7 @@ func flattenClusterConfigSecondaryWorkerConfigPreemptibilityEnum(i interface{}) 
 
 // flattenClusterConfigSoftwareConfigOptionalComponentsEnumMap flattens the contents of ClusterConfigSoftwareConfigOptionalComponentsEnum from a JSON
 // response object.
-func flattenClusterConfigSoftwareConfigOptionalComponentsEnumMap(c *Client, i interface{}) map[string]ClusterConfigSoftwareConfigOptionalComponentsEnum {
+func flattenClusterConfigSoftwareConfigOptionalComponentsEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterConfigSoftwareConfigOptionalComponentsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterConfigSoftwareConfigOptionalComponentsEnum{}
@@ -10396,7 +10396,7 @@ func flattenClusterConfigSoftwareConfigOptionalComponentsEnumMap(c *Client, i in
 
 // flattenClusterConfigSoftwareConfigOptionalComponentsEnumSlice flattens the contents of ClusterConfigSoftwareConfigOptionalComponentsEnum from a JSON
 // response object.
-func flattenClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c *Client, i interface{}) []ClusterConfigSoftwareConfigOptionalComponentsEnum {
+func flattenClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterConfigSoftwareConfigOptionalComponentsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterConfigSoftwareConfigOptionalComponentsEnum{}
@@ -10427,7 +10427,7 @@ func flattenClusterConfigSoftwareConfigOptionalComponentsEnum(i interface{}) *Cl
 
 // flattenClusterStatusStateEnumMap flattens the contents of ClusterStatusStateEnum from a JSON
 // response object.
-func flattenClusterStatusStateEnumMap(c *Client, i interface{}) map[string]ClusterStatusStateEnum {
+func flattenClusterStatusStateEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStatusStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStatusStateEnum{}
@@ -10447,7 +10447,7 @@ func flattenClusterStatusStateEnumMap(c *Client, i interface{}) map[string]Clust
 
 // flattenClusterStatusStateEnumSlice flattens the contents of ClusterStatusStateEnum from a JSON
 // response object.
-func flattenClusterStatusStateEnumSlice(c *Client, i interface{}) []ClusterStatusStateEnum {
+func flattenClusterStatusStateEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterStatusStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStatusStateEnum{}
@@ -10478,7 +10478,7 @@ func flattenClusterStatusStateEnum(i interface{}) *ClusterStatusStateEnum {
 
 // flattenClusterStatusSubstateEnumMap flattens the contents of ClusterStatusSubstateEnum from a JSON
 // response object.
-func flattenClusterStatusSubstateEnumMap(c *Client, i interface{}) map[string]ClusterStatusSubstateEnum {
+func flattenClusterStatusSubstateEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStatusSubstateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStatusSubstateEnum{}
@@ -10498,7 +10498,7 @@ func flattenClusterStatusSubstateEnumMap(c *Client, i interface{}) map[string]Cl
 
 // flattenClusterStatusSubstateEnumSlice flattens the contents of ClusterStatusSubstateEnum from a JSON
 // response object.
-func flattenClusterStatusSubstateEnumSlice(c *Client, i interface{}) []ClusterStatusSubstateEnum {
+func flattenClusterStatusSubstateEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterStatusSubstateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStatusSubstateEnum{}
@@ -10529,7 +10529,7 @@ func flattenClusterStatusSubstateEnum(i interface{}) *ClusterStatusSubstateEnum 
 
 // flattenClusterStatusHistoryStateEnumMap flattens the contents of ClusterStatusHistoryStateEnum from a JSON
 // response object.
-func flattenClusterStatusHistoryStateEnumMap(c *Client, i interface{}) map[string]ClusterStatusHistoryStateEnum {
+func flattenClusterStatusHistoryStateEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStatusHistoryStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStatusHistoryStateEnum{}
@@ -10549,7 +10549,7 @@ func flattenClusterStatusHistoryStateEnumMap(c *Client, i interface{}) map[strin
 
 // flattenClusterStatusHistoryStateEnumSlice flattens the contents of ClusterStatusHistoryStateEnum from a JSON
 // response object.
-func flattenClusterStatusHistoryStateEnumSlice(c *Client, i interface{}) []ClusterStatusHistoryStateEnum {
+func flattenClusterStatusHistoryStateEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterStatusHistoryStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStatusHistoryStateEnum{}
@@ -10580,7 +10580,7 @@ func flattenClusterStatusHistoryStateEnum(i interface{}) *ClusterStatusHistorySt
 
 // flattenClusterStatusHistorySubstateEnumMap flattens the contents of ClusterStatusHistorySubstateEnum from a JSON
 // response object.
-func flattenClusterStatusHistorySubstateEnumMap(c *Client, i interface{}) map[string]ClusterStatusHistorySubstateEnum {
+func flattenClusterStatusHistorySubstateEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStatusHistorySubstateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStatusHistorySubstateEnum{}
@@ -10600,7 +10600,7 @@ func flattenClusterStatusHistorySubstateEnumMap(c *Client, i interface{}) map[st
 
 // flattenClusterStatusHistorySubstateEnumSlice flattens the contents of ClusterStatusHistorySubstateEnum from a JSON
 // response object.
-func flattenClusterStatusHistorySubstateEnumSlice(c *Client, i interface{}) []ClusterStatusHistorySubstateEnum {
+func flattenClusterStatusHistorySubstateEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterStatusHistorySubstateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStatusHistorySubstateEnum{}
@@ -10634,7 +10634,7 @@ func flattenClusterStatusHistorySubstateEnum(i interface{}) *ClusterStatusHistor
 // identity).  This is useful in extracting the element from a List call.
 func (r *Cluster) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCluster(b, c)
+		cr, err := unmarshalCluster(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

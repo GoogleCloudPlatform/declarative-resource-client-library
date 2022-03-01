@@ -3477,7 +3477,7 @@ func (c *Client) GetDashboard(ctx context.Context, r *Dashboard) (*Dashboard, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalDashboard(b, c)
+	result, err := unmarshalDashboard(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -3646,7 +3646,7 @@ func applyDashboardDiff(c *Client, ctx context.Context, desired *Dashboard, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapDashboard(r, c)
+				fullResp, err := unmarshalMapDashboard(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

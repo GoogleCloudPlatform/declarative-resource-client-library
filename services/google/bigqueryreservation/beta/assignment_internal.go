@@ -137,7 +137,7 @@ func (c *Client) listAssignment(ctx context.Context, r *Assignment, pageToken st
 
 	var l []*Assignment
 	for _, v := range m.Assignments {
-		res, err := unmarshalMapAssignment(v, c)
+		res, err := unmarshalMapAssignment(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -532,17 +532,17 @@ func (r *Assignment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalAssignment decodes JSON responses into the Assignment resource schema.
-func unmarshalAssignment(b []byte, c *Client) (*Assignment, error) {
+func unmarshalAssignment(b []byte, c *Client, res *Assignment) (*Assignment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapAssignment(m, c)
+	return unmarshalMapAssignment(m, c, res)
 }
 
-func unmarshalMapAssignment(m map[string]interface{}, c *Client) (*Assignment, error) {
+func unmarshalMapAssignment(m map[string]interface{}, c *Client, res *Assignment) (*Assignment, error) {
 
-	flattened := flattenAssignment(c, m)
+	flattened := flattenAssignment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -584,7 +584,7 @@ func expandAssignment(c *Client, f *Assignment) (map[string]interface{}, error) 
 
 // flattenAssignment flattens Assignment from a JSON request object into the
 // Assignment type.
-func flattenAssignment(c *Client, i interface{}) *Assignment {
+func flattenAssignment(c *Client, i interface{}, res *Assignment) *Assignment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -593,21 +593,21 @@ func flattenAssignment(c *Client, i interface{}) *Assignment {
 		return nil
 	}
 
-	res := &Assignment{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Assignee = dcl.FlattenString(m["assignee"])
-	res.JobType = flattenAssignmentJobTypeEnum(m["jobType"])
-	res.State = flattenAssignmentStateEnum(m["state"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Reservation = dcl.FlattenString(m["reservation"])
+	resultRes := &Assignment{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Assignee = dcl.FlattenString(m["assignee"])
+	resultRes.JobType = flattenAssignmentJobTypeEnum(m["jobType"])
+	resultRes.State = flattenAssignmentStateEnum(m["state"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Reservation = dcl.FlattenString(m["reservation"])
 
-	return res
+	return resultRes
 }
 
 // flattenAssignmentJobTypeEnumMap flattens the contents of AssignmentJobTypeEnum from a JSON
 // response object.
-func flattenAssignmentJobTypeEnumMap(c *Client, i interface{}) map[string]AssignmentJobTypeEnum {
+func flattenAssignmentJobTypeEnumMap(c *Client, i interface{}, res *Assignment) map[string]AssignmentJobTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AssignmentJobTypeEnum{}
@@ -627,7 +627,7 @@ func flattenAssignmentJobTypeEnumMap(c *Client, i interface{}) map[string]Assign
 
 // flattenAssignmentJobTypeEnumSlice flattens the contents of AssignmentJobTypeEnum from a JSON
 // response object.
-func flattenAssignmentJobTypeEnumSlice(c *Client, i interface{}) []AssignmentJobTypeEnum {
+func flattenAssignmentJobTypeEnumSlice(c *Client, i interface{}, res *Assignment) []AssignmentJobTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AssignmentJobTypeEnum{}
@@ -658,7 +658,7 @@ func flattenAssignmentJobTypeEnum(i interface{}) *AssignmentJobTypeEnum {
 
 // flattenAssignmentStateEnumMap flattens the contents of AssignmentStateEnum from a JSON
 // response object.
-func flattenAssignmentStateEnumMap(c *Client, i interface{}) map[string]AssignmentStateEnum {
+func flattenAssignmentStateEnumMap(c *Client, i interface{}, res *Assignment) map[string]AssignmentStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]AssignmentStateEnum{}
@@ -678,7 +678,7 @@ func flattenAssignmentStateEnumMap(c *Client, i interface{}) map[string]Assignme
 
 // flattenAssignmentStateEnumSlice flattens the contents of AssignmentStateEnum from a JSON
 // response object.
-func flattenAssignmentStateEnumSlice(c *Client, i interface{}) []AssignmentStateEnum {
+func flattenAssignmentStateEnumSlice(c *Client, i interface{}, res *Assignment) []AssignmentStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []AssignmentStateEnum{}

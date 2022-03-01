@@ -394,7 +394,7 @@ func (c *Client) listHttpRoute(ctx context.Context, r *HttpRoute, pageToken stri
 
 	var l []*HttpRoute
 	for _, v := range m.HttpRoutes {
-		res, err := unmarshalMapHttpRoute(v, c)
+		res, err := unmarshalMapHttpRoute(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -740,6 +740,14 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
+		rawNew.SelfLink = rawDesired.SelfLink
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
+	}
 
 	return rawNew, nil
 }
@@ -3320,6 +3328,13 @@ func diffHttpRoute(c *Client, desired, actual *HttpRoute, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareHttpRouteRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4217,6 +4232,7 @@ func (r *HttpRoute) urlNormalized() *HttpRoute {
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -4248,17 +4264,17 @@ func (r *HttpRoute) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalHttpRoute decodes JSON responses into the HttpRoute resource schema.
-func unmarshalHttpRoute(b []byte, c *Client) (*HttpRoute, error) {
+func unmarshalHttpRoute(b []byte, c *Client, res *HttpRoute) (*HttpRoute, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapHttpRoute(m, c)
+	return unmarshalMapHttpRoute(m, c, res)
 }
 
-func unmarshalMapHttpRoute(m map[string]interface{}, c *Client) (*HttpRoute, error) {
+func unmarshalMapHttpRoute(m map[string]interface{}, c *Client, res *HttpRoute) (*HttpRoute, error) {
 
-	flattened := flattenHttpRoute(c, m)
+	flattened := flattenHttpRoute(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -4314,7 +4330,7 @@ func expandHttpRoute(c *Client, f *HttpRoute) (map[string]interface{}, error) {
 
 // flattenHttpRoute flattens HttpRoute from a JSON request object into the
 // HttpRoute type.
-func flattenHttpRoute(c *Client, i interface{}) *HttpRoute {
+func flattenHttpRoute(c *Client, i interface{}, res *HttpRoute) *HttpRoute {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4323,21 +4339,22 @@ func flattenHttpRoute(c *Client, i interface{}) *HttpRoute {
 		return nil
 	}
 
-	res := &HttpRoute{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Hostnames = dcl.FlattenStringSlice(m["hostnames"])
-	res.Routers = dcl.FlattenStringSlice(m["routers"])
-	res.Meshes = dcl.FlattenStringSlice(m["meshes"])
-	res.Gateways = dcl.FlattenStringSlice(m["gateways"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.Rules = flattenHttpRouteRulesSlice(c, m["rules"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &HttpRoute{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Hostnames = dcl.FlattenStringSlice(m["hostnames"])
+	resultRes.Routers = dcl.FlattenStringSlice(m["routers"])
+	resultRes.Meshes = dcl.FlattenStringSlice(m["meshes"])
+	resultRes.Gateways = dcl.FlattenStringSlice(m["gateways"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.Rules = flattenHttpRouteRulesSlice(c, m["rules"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return res
+	return resultRes
 }
 
 // expandHttpRouteRulesMap expands the contents of HttpRouteRules into a JSON
@@ -4383,7 +4400,7 @@ func expandHttpRouteRulesSlice(c *Client, f []HttpRouteRules, res *HttpRoute) ([
 
 // flattenHttpRouteRulesMap flattens the contents of HttpRouteRules from a JSON
 // response object.
-func flattenHttpRouteRulesMap(c *Client, i interface{}) map[string]HttpRouteRules {
+func flattenHttpRouteRulesMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRules {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRules{}
@@ -4395,7 +4412,7 @@ func flattenHttpRouteRulesMap(c *Client, i interface{}) map[string]HttpRouteRule
 
 	items := make(map[string]HttpRouteRules)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRules(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRules(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4403,7 +4420,7 @@ func flattenHttpRouteRulesMap(c *Client, i interface{}) map[string]HttpRouteRule
 
 // flattenHttpRouteRulesSlice flattens the contents of HttpRouteRules from a JSON
 // response object.
-func flattenHttpRouteRulesSlice(c *Client, i interface{}) []HttpRouteRules {
+func flattenHttpRouteRulesSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRules {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRules{}
@@ -4415,7 +4432,7 @@ func flattenHttpRouteRulesSlice(c *Client, i interface{}) []HttpRouteRules {
 
 	items := make([]HttpRouteRules, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRules(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4445,7 +4462,7 @@ func expandHttpRouteRules(c *Client, f *HttpRouteRules, res *HttpRoute) (map[str
 
 // flattenHttpRouteRules flattens an instance of HttpRouteRules from a JSON
 // response object.
-func flattenHttpRouteRules(c *Client, i interface{}) *HttpRouteRules {
+func flattenHttpRouteRules(c *Client, i interface{}, res *HttpRoute) *HttpRouteRules {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4456,8 +4473,8 @@ func flattenHttpRouteRules(c *Client, i interface{}) *HttpRouteRules {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyHttpRouteRules
 	}
-	r.Matches = flattenHttpRouteRulesMatchesSlice(c, m["matches"])
-	r.Action = flattenHttpRouteRulesAction(c, m["action"])
+	r.Matches = flattenHttpRouteRulesMatchesSlice(c, m["matches"], res)
+	r.Action = flattenHttpRouteRulesAction(c, m["action"], res)
 
 	return r
 }
@@ -4505,7 +4522,7 @@ func expandHttpRouteRulesMatchesSlice(c *Client, f []HttpRouteRulesMatches, res 
 
 // flattenHttpRouteRulesMatchesMap flattens the contents of HttpRouteRulesMatches from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesMap(c *Client, i interface{}) map[string]HttpRouteRulesMatches {
+func flattenHttpRouteRulesMatchesMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesMatches {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesMatches{}
@@ -4517,7 +4534,7 @@ func flattenHttpRouteRulesMatchesMap(c *Client, i interface{}) map[string]HttpRo
 
 	items := make(map[string]HttpRouteRulesMatches)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesMatches(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesMatches(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4525,7 +4542,7 @@ func flattenHttpRouteRulesMatchesMap(c *Client, i interface{}) map[string]HttpRo
 
 // flattenHttpRouteRulesMatchesSlice flattens the contents of HttpRouteRulesMatches from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesSlice(c *Client, i interface{}) []HttpRouteRulesMatches {
+func flattenHttpRouteRulesMatchesSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesMatches {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesMatches{}
@@ -4537,7 +4554,7 @@ func flattenHttpRouteRulesMatchesSlice(c *Client, i interface{}) []HttpRouteRule
 
 	items := make([]HttpRouteRulesMatches, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesMatches(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesMatches(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4579,7 +4596,7 @@ func expandHttpRouteRulesMatches(c *Client, f *HttpRouteRulesMatches, res *HttpR
 
 // flattenHttpRouteRulesMatches flattens an instance of HttpRouteRulesMatches from a JSON
 // response object.
-func flattenHttpRouteRulesMatches(c *Client, i interface{}) *HttpRouteRulesMatches {
+func flattenHttpRouteRulesMatches(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesMatches {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4594,8 +4611,8 @@ func flattenHttpRouteRulesMatches(c *Client, i interface{}) *HttpRouteRulesMatch
 	r.PrefixMatch = dcl.FlattenString(m["prefixMatch"])
 	r.RegexMatch = dcl.FlattenString(m["regexMatch"])
 	r.IgnoreCase = dcl.FlattenBool(m["ignoreCase"])
-	r.Headers = flattenHttpRouteRulesMatchesHeadersSlice(c, m["headers"])
-	r.QueryParameters = flattenHttpRouteRulesMatchesQueryParametersSlice(c, m["queryParameters"])
+	r.Headers = flattenHttpRouteRulesMatchesHeadersSlice(c, m["headers"], res)
+	r.QueryParameters = flattenHttpRouteRulesMatchesQueryParametersSlice(c, m["queryParameters"], res)
 
 	return r
 }
@@ -4643,7 +4660,7 @@ func expandHttpRouteRulesMatchesHeadersSlice(c *Client, f []HttpRouteRulesMatche
 
 // flattenHttpRouteRulesMatchesHeadersMap flattens the contents of HttpRouteRulesMatchesHeaders from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesHeadersMap(c *Client, i interface{}) map[string]HttpRouteRulesMatchesHeaders {
+func flattenHttpRouteRulesMatchesHeadersMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesMatchesHeaders {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesMatchesHeaders{}
@@ -4655,7 +4672,7 @@ func flattenHttpRouteRulesMatchesHeadersMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]HttpRouteRulesMatchesHeaders)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesMatchesHeaders(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesMatchesHeaders(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4663,7 +4680,7 @@ func flattenHttpRouteRulesMatchesHeadersMap(c *Client, i interface{}) map[string
 
 // flattenHttpRouteRulesMatchesHeadersSlice flattens the contents of HttpRouteRulesMatchesHeaders from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []HttpRouteRulesMatchesHeaders {
+func flattenHttpRouteRulesMatchesHeadersSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesMatchesHeaders {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesMatchesHeaders{}
@@ -4675,7 +4692,7 @@ func flattenHttpRouteRulesMatchesHeadersSlice(c *Client, i interface{}) []HttpRo
 
 	items := make([]HttpRouteRulesMatchesHeaders, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesMatchesHeaders(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesMatchesHeaders(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4721,7 +4738,7 @@ func expandHttpRouteRulesMatchesHeaders(c *Client, f *HttpRouteRulesMatchesHeade
 
 // flattenHttpRouteRulesMatchesHeaders flattens an instance of HttpRouteRulesMatchesHeaders from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesHeaders(c *Client, i interface{}) *HttpRouteRulesMatchesHeaders {
+func flattenHttpRouteRulesMatchesHeaders(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesMatchesHeaders {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4738,7 +4755,7 @@ func flattenHttpRouteRulesMatchesHeaders(c *Client, i interface{}) *HttpRouteRul
 	r.PrefixMatch = dcl.FlattenString(m["prefixMatch"])
 	r.PresentMatch = dcl.FlattenBool(m["presentMatch"])
 	r.SuffixMatch = dcl.FlattenString(m["suffixMatch"])
-	r.RangeMatch = flattenHttpRouteRulesMatchesHeadersRangeMatch(c, m["rangeMatch"])
+	r.RangeMatch = flattenHttpRouteRulesMatchesHeadersRangeMatch(c, m["rangeMatch"], res)
 	r.InvertMatch = dcl.FlattenBool(m["invertMatch"])
 
 	return r
@@ -4787,7 +4804,7 @@ func expandHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, f []HttpRouteR
 
 // flattenHttpRouteRulesMatchesHeadersRangeMatchMap flattens the contents of HttpRouteRulesMatchesHeadersRangeMatch from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesHeadersRangeMatchMap(c *Client, i interface{}) map[string]HttpRouteRulesMatchesHeadersRangeMatch {
+func flattenHttpRouteRulesMatchesHeadersRangeMatchMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesMatchesHeadersRangeMatch {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesMatchesHeadersRangeMatch{}
@@ -4799,7 +4816,7 @@ func flattenHttpRouteRulesMatchesHeadersRangeMatchMap(c *Client, i interface{}) 
 
 	items := make(map[string]HttpRouteRulesMatchesHeadersRangeMatch)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesMatchesHeadersRangeMatch(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesMatchesHeadersRangeMatch(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4807,7 +4824,7 @@ func flattenHttpRouteRulesMatchesHeadersRangeMatchMap(c *Client, i interface{}) 
 
 // flattenHttpRouteRulesMatchesHeadersRangeMatchSlice flattens the contents of HttpRouteRulesMatchesHeadersRangeMatch from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, i interface{}) []HttpRouteRulesMatchesHeadersRangeMatch {
+func flattenHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesMatchesHeadersRangeMatch {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesMatchesHeadersRangeMatch{}
@@ -4819,7 +4836,7 @@ func flattenHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, i interface{}
 
 	items := make([]HttpRouteRulesMatchesHeadersRangeMatch, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesMatchesHeadersRangeMatch(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesMatchesHeadersRangeMatch(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4845,7 +4862,7 @@ func expandHttpRouteRulesMatchesHeadersRangeMatch(c *Client, f *HttpRouteRulesMa
 
 // flattenHttpRouteRulesMatchesHeadersRangeMatch flattens an instance of HttpRouteRulesMatchesHeadersRangeMatch from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesHeadersRangeMatch(c *Client, i interface{}) *HttpRouteRulesMatchesHeadersRangeMatch {
+func flattenHttpRouteRulesMatchesHeadersRangeMatch(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesMatchesHeadersRangeMatch {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -4905,7 +4922,7 @@ func expandHttpRouteRulesMatchesQueryParametersSlice(c *Client, f []HttpRouteRul
 
 // flattenHttpRouteRulesMatchesQueryParametersMap flattens the contents of HttpRouteRulesMatchesQueryParameters from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesQueryParametersMap(c *Client, i interface{}) map[string]HttpRouteRulesMatchesQueryParameters {
+func flattenHttpRouteRulesMatchesQueryParametersMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesMatchesQueryParameters {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesMatchesQueryParameters{}
@@ -4917,7 +4934,7 @@ func flattenHttpRouteRulesMatchesQueryParametersMap(c *Client, i interface{}) ma
 
 	items := make(map[string]HttpRouteRulesMatchesQueryParameters)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesMatchesQueryParameters(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesMatchesQueryParameters(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -4925,7 +4942,7 @@ func flattenHttpRouteRulesMatchesQueryParametersMap(c *Client, i interface{}) ma
 
 // flattenHttpRouteRulesMatchesQueryParametersSlice flattens the contents of HttpRouteRulesMatchesQueryParameters from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesQueryParametersSlice(c *Client, i interface{}) []HttpRouteRulesMatchesQueryParameters {
+func flattenHttpRouteRulesMatchesQueryParametersSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesMatchesQueryParameters {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesMatchesQueryParameters{}
@@ -4937,7 +4954,7 @@ func flattenHttpRouteRulesMatchesQueryParametersSlice(c *Client, i interface{}) 
 
 	items := make([]HttpRouteRulesMatchesQueryParameters, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesMatchesQueryParameters(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesMatchesQueryParameters(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -4969,7 +4986,7 @@ func expandHttpRouteRulesMatchesQueryParameters(c *Client, f *HttpRouteRulesMatc
 
 // flattenHttpRouteRulesMatchesQueryParameters flattens an instance of HttpRouteRulesMatchesQueryParameters from a JSON
 // response object.
-func flattenHttpRouteRulesMatchesQueryParameters(c *Client, i interface{}) *HttpRouteRulesMatchesQueryParameters {
+func flattenHttpRouteRulesMatchesQueryParameters(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesMatchesQueryParameters {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5031,7 +5048,7 @@ func expandHttpRouteRulesActionSlice(c *Client, f []HttpRouteRulesAction, res *H
 
 // flattenHttpRouteRulesActionMap flattens the contents of HttpRouteRulesAction from a JSON
 // response object.
-func flattenHttpRouteRulesActionMap(c *Client, i interface{}) map[string]HttpRouteRulesAction {
+func flattenHttpRouteRulesActionMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesAction {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesAction{}
@@ -5043,7 +5060,7 @@ func flattenHttpRouteRulesActionMap(c *Client, i interface{}) map[string]HttpRou
 
 	items := make(map[string]HttpRouteRulesAction)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesAction(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesAction(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5051,7 +5068,7 @@ func flattenHttpRouteRulesActionMap(c *Client, i interface{}) map[string]HttpRou
 
 // flattenHttpRouteRulesActionSlice flattens the contents of HttpRouteRulesAction from a JSON
 // response object.
-func flattenHttpRouteRulesActionSlice(c *Client, i interface{}) []HttpRouteRulesAction {
+func flattenHttpRouteRulesActionSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesAction {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesAction{}
@@ -5063,7 +5080,7 @@ func flattenHttpRouteRulesActionSlice(c *Client, i interface{}) []HttpRouteRules
 
 	items := make([]HttpRouteRulesAction, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesAction(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesAction(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5134,7 +5151,7 @@ func expandHttpRouteRulesAction(c *Client, f *HttpRouteRulesAction, res *HttpRou
 
 // flattenHttpRouteRulesAction flattens an instance of HttpRouteRulesAction from a JSON
 // response object.
-func flattenHttpRouteRulesAction(c *Client, i interface{}) *HttpRouteRulesAction {
+func flattenHttpRouteRulesAction(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesAction {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5145,17 +5162,17 @@ func flattenHttpRouteRulesAction(c *Client, i interface{}) *HttpRouteRulesAction
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyHttpRouteRulesAction
 	}
-	r.Destinations = flattenHttpRouteRulesActionDestinationsSlice(c, m["destinations"])
-	r.Redirect = flattenHttpRouteRulesActionRedirect(c, m["redirect"])
+	r.Destinations = flattenHttpRouteRulesActionDestinationsSlice(c, m["destinations"], res)
+	r.Redirect = flattenHttpRouteRulesActionRedirect(c, m["redirect"], res)
 	r.OriginalDestination = dcl.FlattenBool(m["originalDestination"])
-	r.FaultInjectionPolicy = flattenHttpRouteRulesActionFaultInjectionPolicy(c, m["faultInjectionPolicy"])
-	r.RequestHeaderModifier = flattenHttpRouteRulesActionRequestHeaderModifier(c, m["requestHeaderModifier"])
-	r.ResponseHeaderModifier = flattenHttpRouteRulesActionResponseHeaderModifier(c, m["responseHeaderModifier"])
-	r.UrlRewrite = flattenHttpRouteRulesActionUrlRewrite(c, m["urlRewrite"])
+	r.FaultInjectionPolicy = flattenHttpRouteRulesActionFaultInjectionPolicy(c, m["faultInjectionPolicy"], res)
+	r.RequestHeaderModifier = flattenHttpRouteRulesActionRequestHeaderModifier(c, m["requestHeaderModifier"], res)
+	r.ResponseHeaderModifier = flattenHttpRouteRulesActionResponseHeaderModifier(c, m["responseHeaderModifier"], res)
+	r.UrlRewrite = flattenHttpRouteRulesActionUrlRewrite(c, m["urlRewrite"], res)
 	r.Timeout = dcl.FlattenString(m["timeout"])
-	r.RetryPolicy = flattenHttpRouteRulesActionRetryPolicy(c, m["retryPolicy"])
-	r.RequestMirrorPolicy = flattenHttpRouteRulesActionRequestMirrorPolicy(c, m["requestMirrorPolicy"])
-	r.CorsPolicy = flattenHttpRouteRulesActionCorsPolicy(c, m["corsPolicy"])
+	r.RetryPolicy = flattenHttpRouteRulesActionRetryPolicy(c, m["retryPolicy"], res)
+	r.RequestMirrorPolicy = flattenHttpRouteRulesActionRequestMirrorPolicy(c, m["requestMirrorPolicy"], res)
+	r.CorsPolicy = flattenHttpRouteRulesActionCorsPolicy(c, m["corsPolicy"], res)
 
 	return r
 }
@@ -5203,7 +5220,7 @@ func expandHttpRouteRulesActionDestinationsSlice(c *Client, f []HttpRouteRulesAc
 
 // flattenHttpRouteRulesActionDestinationsMap flattens the contents of HttpRouteRulesActionDestinations from a JSON
 // response object.
-func flattenHttpRouteRulesActionDestinationsMap(c *Client, i interface{}) map[string]HttpRouteRulesActionDestinations {
+func flattenHttpRouteRulesActionDestinationsMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionDestinations {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionDestinations{}
@@ -5215,7 +5232,7 @@ func flattenHttpRouteRulesActionDestinationsMap(c *Client, i interface{}) map[st
 
 	items := make(map[string]HttpRouteRulesActionDestinations)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionDestinations(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionDestinations(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5223,7 +5240,7 @@ func flattenHttpRouteRulesActionDestinationsMap(c *Client, i interface{}) map[st
 
 // flattenHttpRouteRulesActionDestinationsSlice flattens the contents of HttpRouteRulesActionDestinations from a JSON
 // response object.
-func flattenHttpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []HttpRouteRulesActionDestinations {
+func flattenHttpRouteRulesActionDestinationsSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionDestinations {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionDestinations{}
@@ -5235,7 +5252,7 @@ func flattenHttpRouteRulesActionDestinationsSlice(c *Client, i interface{}) []Ht
 
 	items := make([]HttpRouteRulesActionDestinations, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionDestinations(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionDestinations(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5261,7 +5278,7 @@ func expandHttpRouteRulesActionDestinations(c *Client, f *HttpRouteRulesActionDe
 
 // flattenHttpRouteRulesActionDestinations flattens an instance of HttpRouteRulesActionDestinations from a JSON
 // response object.
-func flattenHttpRouteRulesActionDestinations(c *Client, i interface{}) *HttpRouteRulesActionDestinations {
+func flattenHttpRouteRulesActionDestinations(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionDestinations {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5321,7 +5338,7 @@ func expandHttpRouteRulesActionRedirectSlice(c *Client, f []HttpRouteRulesAction
 
 // flattenHttpRouteRulesActionRedirectMap flattens the contents of HttpRouteRulesActionRedirect from a JSON
 // response object.
-func flattenHttpRouteRulesActionRedirectMap(c *Client, i interface{}) map[string]HttpRouteRulesActionRedirect {
+func flattenHttpRouteRulesActionRedirectMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionRedirect {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionRedirect{}
@@ -5333,7 +5350,7 @@ func flattenHttpRouteRulesActionRedirectMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]HttpRouteRulesActionRedirect)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionRedirect(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionRedirect(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5341,7 +5358,7 @@ func flattenHttpRouteRulesActionRedirectMap(c *Client, i interface{}) map[string
 
 // flattenHttpRouteRulesActionRedirectSlice flattens the contents of HttpRouteRulesActionRedirect from a JSON
 // response object.
-func flattenHttpRouteRulesActionRedirectSlice(c *Client, i interface{}) []HttpRouteRulesActionRedirect {
+func flattenHttpRouteRulesActionRedirectSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionRedirect {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionRedirect{}
@@ -5353,7 +5370,7 @@ func flattenHttpRouteRulesActionRedirectSlice(c *Client, i interface{}) []HttpRo
 
 	items := make([]HttpRouteRulesActionRedirect, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionRedirect(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionRedirect(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5394,7 +5411,7 @@ func expandHttpRouteRulesActionRedirect(c *Client, f *HttpRouteRulesActionRedire
 
 // flattenHttpRouteRulesActionRedirect flattens an instance of HttpRouteRulesActionRedirect from a JSON
 // response object.
-func flattenHttpRouteRulesActionRedirect(c *Client, i interface{}) *HttpRouteRulesActionRedirect {
+func flattenHttpRouteRulesActionRedirect(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionRedirect {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5459,7 +5476,7 @@ func expandHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, f []HttpRout
 
 // flattenHttpRouteRulesActionFaultInjectionPolicyMap flattens the contents of HttpRouteRulesActionFaultInjectionPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}) map[string]HttpRouteRulesActionFaultInjectionPolicy {
+func flattenHttpRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionFaultInjectionPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionFaultInjectionPolicy{}
@@ -5471,7 +5488,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}
 
 	items := make(map[string]HttpRouteRulesActionFaultInjectionPolicy)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5479,7 +5496,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyMap(c *Client, i interface{}
 
 // flattenHttpRouteRulesActionFaultInjectionPolicySlice flattens the contents of HttpRouteRulesActionFaultInjectionPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface{}) []HttpRouteRulesActionFaultInjectionPolicy {
+func flattenHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionFaultInjectionPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionFaultInjectionPolicy{}
@@ -5491,7 +5508,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, i interface
 
 	items := make([]HttpRouteRulesActionFaultInjectionPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionFaultInjectionPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5521,7 +5538,7 @@ func expandHttpRouteRulesActionFaultInjectionPolicy(c *Client, f *HttpRouteRules
 
 // flattenHttpRouteRulesActionFaultInjectionPolicy flattens an instance of HttpRouteRulesActionFaultInjectionPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}) *HttpRouteRulesActionFaultInjectionPolicy {
+func flattenHttpRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionFaultInjectionPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5532,8 +5549,8 @@ func flattenHttpRouteRulesActionFaultInjectionPolicy(c *Client, i interface{}) *
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyHttpRouteRulesActionFaultInjectionPolicy
 	}
-	r.Delay = flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c, m["delay"])
-	r.Abort = flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c, m["abort"])
+	r.Delay = flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c, m["delay"], res)
+	r.Abort = flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c, m["abort"], res)
 
 	return r
 }
@@ -5581,7 +5598,7 @@ func expandHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, f []Htt
 
 // flattenHttpRouteRulesActionFaultInjectionPolicyDelayMap flattens the contents of HttpRouteRulesActionFaultInjectionPolicyDelay from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interface{}) map[string]HttpRouteRulesActionFaultInjectionPolicyDelay {
+func flattenHttpRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionFaultInjectionPolicyDelay {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionFaultInjectionPolicyDelay{}
@@ -5593,7 +5610,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interf
 
 	items := make(map[string]HttpRouteRulesActionFaultInjectionPolicyDelay)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5601,7 +5618,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyDelayMap(c *Client, i interf
 
 // flattenHttpRouteRulesActionFaultInjectionPolicyDelaySlice flattens the contents of HttpRouteRulesActionFaultInjectionPolicyDelay from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i interface{}) []HttpRouteRulesActionFaultInjectionPolicyDelay {
+func flattenHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionFaultInjectionPolicyDelay {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionFaultInjectionPolicyDelay{}
@@ -5613,7 +5630,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client, i inte
 
 	items := make([]HttpRouteRulesActionFaultInjectionPolicyDelay, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5639,7 +5656,7 @@ func expandHttpRouteRulesActionFaultInjectionPolicyDelay(c *Client, f *HttpRoute
 
 // flattenHttpRouteRulesActionFaultInjectionPolicyDelay flattens an instance of HttpRouteRulesActionFaultInjectionPolicyDelay from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c *Client, i interface{}) *HttpRouteRulesActionFaultInjectionPolicyDelay {
+func flattenHttpRouteRulesActionFaultInjectionPolicyDelay(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionFaultInjectionPolicyDelay {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5699,7 +5716,7 @@ func expandHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, f []Htt
 
 // flattenHttpRouteRulesActionFaultInjectionPolicyAbortMap flattens the contents of HttpRouteRulesActionFaultInjectionPolicyAbort from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interface{}) map[string]HttpRouteRulesActionFaultInjectionPolicyAbort {
+func flattenHttpRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionFaultInjectionPolicyAbort {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionFaultInjectionPolicyAbort{}
@@ -5711,7 +5728,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interf
 
 	items := make(map[string]HttpRouteRulesActionFaultInjectionPolicyAbort)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5719,7 +5736,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyAbortMap(c *Client, i interf
 
 // flattenHttpRouteRulesActionFaultInjectionPolicyAbortSlice flattens the contents of HttpRouteRulesActionFaultInjectionPolicyAbort from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i interface{}) []HttpRouteRulesActionFaultInjectionPolicyAbort {
+func flattenHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionFaultInjectionPolicyAbort {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionFaultInjectionPolicyAbort{}
@@ -5731,7 +5748,7 @@ func flattenHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client, i inte
 
 	items := make([]HttpRouteRulesActionFaultInjectionPolicyAbort, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5757,7 +5774,7 @@ func expandHttpRouteRulesActionFaultInjectionPolicyAbort(c *Client, f *HttpRoute
 
 // flattenHttpRouteRulesActionFaultInjectionPolicyAbort flattens an instance of HttpRouteRulesActionFaultInjectionPolicyAbort from a JSON
 // response object.
-func flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c *Client, i interface{}) *HttpRouteRulesActionFaultInjectionPolicyAbort {
+func flattenHttpRouteRulesActionFaultInjectionPolicyAbort(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionFaultInjectionPolicyAbort {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5817,7 +5834,7 @@ func expandHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, f []HttpRou
 
 // flattenHttpRouteRulesActionRequestHeaderModifierMap flattens the contents of HttpRouteRulesActionRequestHeaderModifier from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestHeaderModifierMap(c *Client, i interface{}) map[string]HttpRouteRulesActionRequestHeaderModifier {
+func flattenHttpRouteRulesActionRequestHeaderModifierMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionRequestHeaderModifier {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionRequestHeaderModifier{}
@@ -5829,7 +5846,7 @@ func flattenHttpRouteRulesActionRequestHeaderModifierMap(c *Client, i interface{
 
 	items := make(map[string]HttpRouteRulesActionRequestHeaderModifier)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionRequestHeaderModifier(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionRequestHeaderModifier(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5837,7 +5854,7 @@ func flattenHttpRouteRulesActionRequestHeaderModifierMap(c *Client, i interface{
 
 // flattenHttpRouteRulesActionRequestHeaderModifierSlice flattens the contents of HttpRouteRulesActionRequestHeaderModifier from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, i interface{}) []HttpRouteRulesActionRequestHeaderModifier {
+func flattenHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionRequestHeaderModifier {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionRequestHeaderModifier{}
@@ -5849,7 +5866,7 @@ func flattenHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, i interfac
 
 	items := make([]HttpRouteRulesActionRequestHeaderModifier, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionRequestHeaderModifier(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionRequestHeaderModifier(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -5878,7 +5895,7 @@ func expandHttpRouteRulesActionRequestHeaderModifier(c *Client, f *HttpRouteRule
 
 // flattenHttpRouteRulesActionRequestHeaderModifier flattens an instance of HttpRouteRulesActionRequestHeaderModifier from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestHeaderModifier(c *Client, i interface{}) *HttpRouteRulesActionRequestHeaderModifier {
+func flattenHttpRouteRulesActionRequestHeaderModifier(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionRequestHeaderModifier {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -5939,7 +5956,7 @@ func expandHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, f []HttpRo
 
 // flattenHttpRouteRulesActionResponseHeaderModifierMap flattens the contents of HttpRouteRulesActionResponseHeaderModifier from a JSON
 // response object.
-func flattenHttpRouteRulesActionResponseHeaderModifierMap(c *Client, i interface{}) map[string]HttpRouteRulesActionResponseHeaderModifier {
+func flattenHttpRouteRulesActionResponseHeaderModifierMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionResponseHeaderModifier {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionResponseHeaderModifier{}
@@ -5951,7 +5968,7 @@ func flattenHttpRouteRulesActionResponseHeaderModifierMap(c *Client, i interface
 
 	items := make(map[string]HttpRouteRulesActionResponseHeaderModifier)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionResponseHeaderModifier(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionResponseHeaderModifier(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -5959,7 +5976,7 @@ func flattenHttpRouteRulesActionResponseHeaderModifierMap(c *Client, i interface
 
 // flattenHttpRouteRulesActionResponseHeaderModifierSlice flattens the contents of HttpRouteRulesActionResponseHeaderModifier from a JSON
 // response object.
-func flattenHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, i interface{}) []HttpRouteRulesActionResponseHeaderModifier {
+func flattenHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionResponseHeaderModifier {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionResponseHeaderModifier{}
@@ -5971,7 +5988,7 @@ func flattenHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, i interfa
 
 	items := make([]HttpRouteRulesActionResponseHeaderModifier, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionResponseHeaderModifier(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionResponseHeaderModifier(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6000,7 +6017,7 @@ func expandHttpRouteRulesActionResponseHeaderModifier(c *Client, f *HttpRouteRul
 
 // flattenHttpRouteRulesActionResponseHeaderModifier flattens an instance of HttpRouteRulesActionResponseHeaderModifier from a JSON
 // response object.
-func flattenHttpRouteRulesActionResponseHeaderModifier(c *Client, i interface{}) *HttpRouteRulesActionResponseHeaderModifier {
+func flattenHttpRouteRulesActionResponseHeaderModifier(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionResponseHeaderModifier {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6061,7 +6078,7 @@ func expandHttpRouteRulesActionUrlRewriteSlice(c *Client, f []HttpRouteRulesActi
 
 // flattenHttpRouteRulesActionUrlRewriteMap flattens the contents of HttpRouteRulesActionUrlRewrite from a JSON
 // response object.
-func flattenHttpRouteRulesActionUrlRewriteMap(c *Client, i interface{}) map[string]HttpRouteRulesActionUrlRewrite {
+func flattenHttpRouteRulesActionUrlRewriteMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionUrlRewrite {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionUrlRewrite{}
@@ -6073,7 +6090,7 @@ func flattenHttpRouteRulesActionUrlRewriteMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]HttpRouteRulesActionUrlRewrite)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionUrlRewrite(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionUrlRewrite(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6081,7 +6098,7 @@ func flattenHttpRouteRulesActionUrlRewriteMap(c *Client, i interface{}) map[stri
 
 // flattenHttpRouteRulesActionUrlRewriteSlice flattens the contents of HttpRouteRulesActionUrlRewrite from a JSON
 // response object.
-func flattenHttpRouteRulesActionUrlRewriteSlice(c *Client, i interface{}) []HttpRouteRulesActionUrlRewrite {
+func flattenHttpRouteRulesActionUrlRewriteSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionUrlRewrite {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionUrlRewrite{}
@@ -6093,7 +6110,7 @@ func flattenHttpRouteRulesActionUrlRewriteSlice(c *Client, i interface{}) []Http
 
 	items := make([]HttpRouteRulesActionUrlRewrite, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionUrlRewrite(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionUrlRewrite(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6119,7 +6136,7 @@ func expandHttpRouteRulesActionUrlRewrite(c *Client, f *HttpRouteRulesActionUrlR
 
 // flattenHttpRouteRulesActionUrlRewrite flattens an instance of HttpRouteRulesActionUrlRewrite from a JSON
 // response object.
-func flattenHttpRouteRulesActionUrlRewrite(c *Client, i interface{}) *HttpRouteRulesActionUrlRewrite {
+func flattenHttpRouteRulesActionUrlRewrite(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionUrlRewrite {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6179,7 +6196,7 @@ func expandHttpRouteRulesActionRetryPolicySlice(c *Client, f []HttpRouteRulesAct
 
 // flattenHttpRouteRulesActionRetryPolicyMap flattens the contents of HttpRouteRulesActionRetryPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionRetryPolicyMap(c *Client, i interface{}) map[string]HttpRouteRulesActionRetryPolicy {
+func flattenHttpRouteRulesActionRetryPolicyMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionRetryPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionRetryPolicy{}
@@ -6191,7 +6208,7 @@ func flattenHttpRouteRulesActionRetryPolicyMap(c *Client, i interface{}) map[str
 
 	items := make(map[string]HttpRouteRulesActionRetryPolicy)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionRetryPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionRetryPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6199,7 +6216,7 @@ func flattenHttpRouteRulesActionRetryPolicyMap(c *Client, i interface{}) map[str
 
 // flattenHttpRouteRulesActionRetryPolicySlice flattens the contents of HttpRouteRulesActionRetryPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionRetryPolicySlice(c *Client, i interface{}) []HttpRouteRulesActionRetryPolicy {
+func flattenHttpRouteRulesActionRetryPolicySlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionRetryPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionRetryPolicy{}
@@ -6211,7 +6228,7 @@ func flattenHttpRouteRulesActionRetryPolicySlice(c *Client, i interface{}) []Htt
 
 	items := make([]HttpRouteRulesActionRetryPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionRetryPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionRetryPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6240,7 +6257,7 @@ func expandHttpRouteRulesActionRetryPolicy(c *Client, f *HttpRouteRulesActionRet
 
 // flattenHttpRouteRulesActionRetryPolicy flattens an instance of HttpRouteRulesActionRetryPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionRetryPolicy(c *Client, i interface{}) *HttpRouteRulesActionRetryPolicy {
+func flattenHttpRouteRulesActionRetryPolicy(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionRetryPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6301,7 +6318,7 @@ func expandHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, f []HttpRoute
 
 // flattenHttpRouteRulesActionRequestMirrorPolicyMap flattens the contents of HttpRouteRulesActionRequestMirrorPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestMirrorPolicyMap(c *Client, i interface{}) map[string]HttpRouteRulesActionRequestMirrorPolicy {
+func flattenHttpRouteRulesActionRequestMirrorPolicyMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionRequestMirrorPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionRequestMirrorPolicy{}
@@ -6313,7 +6330,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyMap(c *Client, i interface{})
 
 	items := make(map[string]HttpRouteRulesActionRequestMirrorPolicy)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionRequestMirrorPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionRequestMirrorPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6321,7 +6338,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyMap(c *Client, i interface{})
 
 // flattenHttpRouteRulesActionRequestMirrorPolicySlice flattens the contents of HttpRouteRulesActionRequestMirrorPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, i interface{}) []HttpRouteRulesActionRequestMirrorPolicy {
+func flattenHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionRequestMirrorPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionRequestMirrorPolicy{}
@@ -6333,7 +6350,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, i interface{
 
 	items := make([]HttpRouteRulesActionRequestMirrorPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionRequestMirrorPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionRequestMirrorPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6358,7 +6375,7 @@ func expandHttpRouteRulesActionRequestMirrorPolicy(c *Client, f *HttpRouteRulesA
 
 // flattenHttpRouteRulesActionRequestMirrorPolicy flattens an instance of HttpRouteRulesActionRequestMirrorPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestMirrorPolicy(c *Client, i interface{}) *HttpRouteRulesActionRequestMirrorPolicy {
+func flattenHttpRouteRulesActionRequestMirrorPolicy(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionRequestMirrorPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6369,7 +6386,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicy(c *Client, i interface{}) *H
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyHttpRouteRulesActionRequestMirrorPolicy
 	}
-	r.Destination = flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c, m["destination"])
+	r.Destination = flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c, m["destination"], res)
 
 	return r
 }
@@ -6417,7 +6434,7 @@ func expandHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *Client, f 
 
 // flattenHttpRouteRulesActionRequestMirrorPolicyDestinationMap flattens the contents of HttpRouteRulesActionRequestMirrorPolicyDestination from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationMap(c *Client, i interface{}) map[string]HttpRouteRulesActionRequestMirrorPolicyDestination {
+func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionRequestMirrorPolicyDestination {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionRequestMirrorPolicyDestination{}
@@ -6429,7 +6446,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationMap(c *Client, i i
 
 	items := make(map[string]HttpRouteRulesActionRequestMirrorPolicyDestination)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6437,7 +6454,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationMap(c *Client, i i
 
 // flattenHttpRouteRulesActionRequestMirrorPolicyDestinationSlice flattens the contents of HttpRouteRulesActionRequestMirrorPolicyDestination from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *Client, i interface{}) []HttpRouteRulesActionRequestMirrorPolicyDestination {
+func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionRequestMirrorPolicyDestination {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionRequestMirrorPolicyDestination{}
@@ -6449,7 +6466,7 @@ func flattenHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *Client, i
 
 	items := make([]HttpRouteRulesActionRequestMirrorPolicyDestination, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6475,7 +6492,7 @@ func expandHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, f *Http
 
 // flattenHttpRouteRulesActionRequestMirrorPolicyDestination flattens an instance of HttpRouteRulesActionRequestMirrorPolicyDestination from a JSON
 // response object.
-func flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, i interface{}) *HttpRouteRulesActionRequestMirrorPolicyDestination {
+func flattenHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionRequestMirrorPolicyDestination {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6535,7 +6552,7 @@ func expandHttpRouteRulesActionCorsPolicySlice(c *Client, f []HttpRouteRulesActi
 
 // flattenHttpRouteRulesActionCorsPolicyMap flattens the contents of HttpRouteRulesActionCorsPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionCorsPolicyMap(c *Client, i interface{}) map[string]HttpRouteRulesActionCorsPolicy {
+func flattenHttpRouteRulesActionCorsPolicyMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionCorsPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionCorsPolicy{}
@@ -6547,7 +6564,7 @@ func flattenHttpRouteRulesActionCorsPolicyMap(c *Client, i interface{}) map[stri
 
 	items := make(map[string]HttpRouteRulesActionCorsPolicy)
 	for k, item := range a {
-		items[k] = *flattenHttpRouteRulesActionCorsPolicy(c, item.(map[string]interface{}))
+		items[k] = *flattenHttpRouteRulesActionCorsPolicy(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -6555,7 +6572,7 @@ func flattenHttpRouteRulesActionCorsPolicyMap(c *Client, i interface{}) map[stri
 
 // flattenHttpRouteRulesActionCorsPolicySlice flattens the contents of HttpRouteRulesActionCorsPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionCorsPolicySlice(c *Client, i interface{}) []HttpRouteRulesActionCorsPolicy {
+func flattenHttpRouteRulesActionCorsPolicySlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionCorsPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionCorsPolicy{}
@@ -6567,7 +6584,7 @@ func flattenHttpRouteRulesActionCorsPolicySlice(c *Client, i interface{}) []Http
 
 	items := make([]HttpRouteRulesActionCorsPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHttpRouteRulesActionCorsPolicy(c, item.(map[string]interface{})))
+		items = append(items, *flattenHttpRouteRulesActionCorsPolicy(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -6611,7 +6628,7 @@ func expandHttpRouteRulesActionCorsPolicy(c *Client, f *HttpRouteRulesActionCors
 
 // flattenHttpRouteRulesActionCorsPolicy flattens an instance of HttpRouteRulesActionCorsPolicy from a JSON
 // response object.
-func flattenHttpRouteRulesActionCorsPolicy(c *Client, i interface{}) *HttpRouteRulesActionCorsPolicy {
+func flattenHttpRouteRulesActionCorsPolicy(c *Client, i interface{}, res *HttpRoute) *HttpRouteRulesActionCorsPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -6636,7 +6653,7 @@ func flattenHttpRouteRulesActionCorsPolicy(c *Client, i interface{}) *HttpRouteR
 
 // flattenHttpRouteRulesActionRedirectResponseCodeEnumMap flattens the contents of HttpRouteRulesActionRedirectResponseCodeEnum from a JSON
 // response object.
-func flattenHttpRouteRulesActionRedirectResponseCodeEnumMap(c *Client, i interface{}) map[string]HttpRouteRulesActionRedirectResponseCodeEnum {
+func flattenHttpRouteRulesActionRedirectResponseCodeEnumMap(c *Client, i interface{}, res *HttpRoute) map[string]HttpRouteRulesActionRedirectResponseCodeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]HttpRouteRulesActionRedirectResponseCodeEnum{}
@@ -6656,7 +6673,7 @@ func flattenHttpRouteRulesActionRedirectResponseCodeEnumMap(c *Client, i interfa
 
 // flattenHttpRouteRulesActionRedirectResponseCodeEnumSlice flattens the contents of HttpRouteRulesActionRedirectResponseCodeEnum from a JSON
 // response object.
-func flattenHttpRouteRulesActionRedirectResponseCodeEnumSlice(c *Client, i interface{}) []HttpRouteRulesActionRedirectResponseCodeEnum {
+func flattenHttpRouteRulesActionRedirectResponseCodeEnumSlice(c *Client, i interface{}, res *HttpRoute) []HttpRouteRulesActionRedirectResponseCodeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []HttpRouteRulesActionRedirectResponseCodeEnum{}
@@ -6690,7 +6707,7 @@ func flattenHttpRouteRulesActionRedirectResponseCodeEnum(i interface{}) *HttpRou
 // identity).  This is useful in extracting the element from a List call.
 func (r *HttpRoute) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalHttpRoute(b, c)
+		cr, err := unmarshalHttpRoute(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -283,7 +283,7 @@ func (c *Client) GetPolicy(ctx context.Context, r *Policy) (*Policy, error) {
 		}
 		return nil, err
 	}
-	result, err := unmarshalPolicy(b, c)
+	result, err := unmarshalPolicy(b, c, r)
 	if err != nil {
 		return nil, err
 	}

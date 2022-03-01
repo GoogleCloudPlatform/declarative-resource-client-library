@@ -194,7 +194,7 @@ func (c *Client) listInstance(ctx context.Context, r *Instance, pageToken string
 
 	var l []*Instance
 	for _, v := range m.KrmApiHosts {
-		res, err := unmarshalMapInstance(v, c)
+		res, err := unmarshalMapInstance(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1271,17 +1271,17 @@ func (r *Instance) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalInstance decodes JSON responses into the Instance resource schema.
-func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
+func unmarshalInstance(b []byte, c *Client, res *Instance) (*Instance, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapInstance(m, c)
+	return unmarshalMapInstance(m, c, res)
 }
 
-func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
+func unmarshalMapInstance(m map[string]interface{}, c *Client, res *Instance) (*Instance, error) {
 
-	flattened := flattenInstance(c, m)
+	flattened := flattenInstance(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1328,7 +1328,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 
 // flattenInstance flattens Instance from a JSON request object into the
 // Instance type.
-func flattenInstance(c *Client, i interface{}) *Instance {
+func flattenInstance(c *Client, i interface{}, res *Instance) *Instance {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1337,18 +1337,18 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 		return nil
 	}
 
-	res := &Instance{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.BundlesConfig = flattenInstanceBundlesConfig(c, m["bundlesConfig"])
-	res.UsePrivateEndpoint = dcl.FlattenBool(m["usePrivateEndpoint"])
-	res.GkeResourceLink = dcl.FlattenString(m["gkeResourceLink"])
-	res.State = flattenInstanceStateEnum(m["state"])
-	res.ManagementConfig = flattenInstanceManagementConfig(c, m["managementConfig"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Instance{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.BundlesConfig = flattenInstanceBundlesConfig(c, m["bundlesConfig"], res)
+	resultRes.UsePrivateEndpoint = dcl.FlattenBool(m["usePrivateEndpoint"])
+	resultRes.GkeResourceLink = dcl.FlattenString(m["gkeResourceLink"])
+	resultRes.State = flattenInstanceStateEnum(m["state"])
+	resultRes.ManagementConfig = flattenInstanceManagementConfig(c, m["managementConfig"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandInstanceBundlesConfigMap expands the contents of InstanceBundlesConfig into a JSON
@@ -1394,7 +1394,7 @@ func expandInstanceBundlesConfigSlice(c *Client, f []InstanceBundlesConfig, res 
 
 // flattenInstanceBundlesConfigMap flattens the contents of InstanceBundlesConfig from a JSON
 // response object.
-func flattenInstanceBundlesConfigMap(c *Client, i interface{}) map[string]InstanceBundlesConfig {
+func flattenInstanceBundlesConfigMap(c *Client, i interface{}, res *Instance) map[string]InstanceBundlesConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceBundlesConfig{}
@@ -1406,7 +1406,7 @@ func flattenInstanceBundlesConfigMap(c *Client, i interface{}) map[string]Instan
 
 	items := make(map[string]InstanceBundlesConfig)
 	for k, item := range a {
-		items[k] = *flattenInstanceBundlesConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceBundlesConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1414,7 +1414,7 @@ func flattenInstanceBundlesConfigMap(c *Client, i interface{}) map[string]Instan
 
 // flattenInstanceBundlesConfigSlice flattens the contents of InstanceBundlesConfig from a JSON
 // response object.
-func flattenInstanceBundlesConfigSlice(c *Client, i interface{}) []InstanceBundlesConfig {
+func flattenInstanceBundlesConfigSlice(c *Client, i interface{}, res *Instance) []InstanceBundlesConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceBundlesConfig{}
@@ -1426,7 +1426,7 @@ func flattenInstanceBundlesConfigSlice(c *Client, i interface{}) []InstanceBundl
 
 	items := make([]InstanceBundlesConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceBundlesConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceBundlesConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1451,7 +1451,7 @@ func expandInstanceBundlesConfig(c *Client, f *InstanceBundlesConfig, res *Insta
 
 // flattenInstanceBundlesConfig flattens an instance of InstanceBundlesConfig from a JSON
 // response object.
-func flattenInstanceBundlesConfig(c *Client, i interface{}) *InstanceBundlesConfig {
+func flattenInstanceBundlesConfig(c *Client, i interface{}, res *Instance) *InstanceBundlesConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1462,7 +1462,7 @@ func flattenInstanceBundlesConfig(c *Client, i interface{}) *InstanceBundlesConf
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceBundlesConfig
 	}
-	r.ConfigControllerConfig = flattenInstanceBundlesConfigConfigControllerConfig(c, m["configControllerConfig"])
+	r.ConfigControllerConfig = flattenInstanceBundlesConfigConfigControllerConfig(c, m["configControllerConfig"], res)
 
 	return r
 }
@@ -1510,7 +1510,7 @@ func expandInstanceBundlesConfigConfigControllerConfigSlice(c *Client, f []Insta
 
 // flattenInstanceBundlesConfigConfigControllerConfigMap flattens the contents of InstanceBundlesConfigConfigControllerConfig from a JSON
 // response object.
-func flattenInstanceBundlesConfigConfigControllerConfigMap(c *Client, i interface{}) map[string]InstanceBundlesConfigConfigControllerConfig {
+func flattenInstanceBundlesConfigConfigControllerConfigMap(c *Client, i interface{}, res *Instance) map[string]InstanceBundlesConfigConfigControllerConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceBundlesConfigConfigControllerConfig{}
@@ -1522,7 +1522,7 @@ func flattenInstanceBundlesConfigConfigControllerConfigMap(c *Client, i interfac
 
 	items := make(map[string]InstanceBundlesConfigConfigControllerConfig)
 	for k, item := range a {
-		items[k] = *flattenInstanceBundlesConfigConfigControllerConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceBundlesConfigConfigControllerConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1530,7 +1530,7 @@ func flattenInstanceBundlesConfigConfigControllerConfigMap(c *Client, i interfac
 
 // flattenInstanceBundlesConfigConfigControllerConfigSlice flattens the contents of InstanceBundlesConfigConfigControllerConfig from a JSON
 // response object.
-func flattenInstanceBundlesConfigConfigControllerConfigSlice(c *Client, i interface{}) []InstanceBundlesConfigConfigControllerConfig {
+func flattenInstanceBundlesConfigConfigControllerConfigSlice(c *Client, i interface{}, res *Instance) []InstanceBundlesConfigConfigControllerConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceBundlesConfigConfigControllerConfig{}
@@ -1542,7 +1542,7 @@ func flattenInstanceBundlesConfigConfigControllerConfigSlice(c *Client, i interf
 
 	items := make([]InstanceBundlesConfigConfigControllerConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceBundlesConfigConfigControllerConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceBundlesConfigConfigControllerConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1565,7 +1565,7 @@ func expandInstanceBundlesConfigConfigControllerConfig(c *Client, f *InstanceBun
 
 // flattenInstanceBundlesConfigConfigControllerConfig flattens an instance of InstanceBundlesConfigConfigControllerConfig from a JSON
 // response object.
-func flattenInstanceBundlesConfigConfigControllerConfig(c *Client, i interface{}) *InstanceBundlesConfigConfigControllerConfig {
+func flattenInstanceBundlesConfigConfigControllerConfig(c *Client, i interface{}, res *Instance) *InstanceBundlesConfigConfigControllerConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1624,7 +1624,7 @@ func expandInstanceManagementConfigSlice(c *Client, f []InstanceManagementConfig
 
 // flattenInstanceManagementConfigMap flattens the contents of InstanceManagementConfig from a JSON
 // response object.
-func flattenInstanceManagementConfigMap(c *Client, i interface{}) map[string]InstanceManagementConfig {
+func flattenInstanceManagementConfigMap(c *Client, i interface{}, res *Instance) map[string]InstanceManagementConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceManagementConfig{}
@@ -1636,7 +1636,7 @@ func flattenInstanceManagementConfigMap(c *Client, i interface{}) map[string]Ins
 
 	items := make(map[string]InstanceManagementConfig)
 	for k, item := range a {
-		items[k] = *flattenInstanceManagementConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceManagementConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1644,7 +1644,7 @@ func flattenInstanceManagementConfigMap(c *Client, i interface{}) map[string]Ins
 
 // flattenInstanceManagementConfigSlice flattens the contents of InstanceManagementConfig from a JSON
 // response object.
-func flattenInstanceManagementConfigSlice(c *Client, i interface{}) []InstanceManagementConfig {
+func flattenInstanceManagementConfigSlice(c *Client, i interface{}, res *Instance) []InstanceManagementConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceManagementConfig{}
@@ -1656,7 +1656,7 @@ func flattenInstanceManagementConfigSlice(c *Client, i interface{}) []InstanceMa
 
 	items := make([]InstanceManagementConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceManagementConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceManagementConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1681,7 +1681,7 @@ func expandInstanceManagementConfig(c *Client, f *InstanceManagementConfig, res 
 
 // flattenInstanceManagementConfig flattens an instance of InstanceManagementConfig from a JSON
 // response object.
-func flattenInstanceManagementConfig(c *Client, i interface{}) *InstanceManagementConfig {
+func flattenInstanceManagementConfig(c *Client, i interface{}, res *Instance) *InstanceManagementConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1692,7 +1692,7 @@ func flattenInstanceManagementConfig(c *Client, i interface{}) *InstanceManageme
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceManagementConfig
 	}
-	r.StandardManagementConfig = flattenInstanceManagementConfigStandardManagementConfig(c, m["standardManagementConfig"])
+	r.StandardManagementConfig = flattenInstanceManagementConfigStandardManagementConfig(c, m["standardManagementConfig"], res)
 
 	return r
 }
@@ -1740,7 +1740,7 @@ func expandInstanceManagementConfigStandardManagementConfigSlice(c *Client, f []
 
 // flattenInstanceManagementConfigStandardManagementConfigMap flattens the contents of InstanceManagementConfigStandardManagementConfig from a JSON
 // response object.
-func flattenInstanceManagementConfigStandardManagementConfigMap(c *Client, i interface{}) map[string]InstanceManagementConfigStandardManagementConfig {
+func flattenInstanceManagementConfigStandardManagementConfigMap(c *Client, i interface{}, res *Instance) map[string]InstanceManagementConfigStandardManagementConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceManagementConfigStandardManagementConfig{}
@@ -1752,7 +1752,7 @@ func flattenInstanceManagementConfigStandardManagementConfigMap(c *Client, i int
 
 	items := make(map[string]InstanceManagementConfigStandardManagementConfig)
 	for k, item := range a {
-		items[k] = *flattenInstanceManagementConfigStandardManagementConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceManagementConfigStandardManagementConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1760,7 +1760,7 @@ func flattenInstanceManagementConfigStandardManagementConfigMap(c *Client, i int
 
 // flattenInstanceManagementConfigStandardManagementConfigSlice flattens the contents of InstanceManagementConfigStandardManagementConfig from a JSON
 // response object.
-func flattenInstanceManagementConfigStandardManagementConfigSlice(c *Client, i interface{}) []InstanceManagementConfigStandardManagementConfig {
+func flattenInstanceManagementConfigStandardManagementConfigSlice(c *Client, i interface{}, res *Instance) []InstanceManagementConfigStandardManagementConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceManagementConfigStandardManagementConfig{}
@@ -1772,7 +1772,7 @@ func flattenInstanceManagementConfigStandardManagementConfigSlice(c *Client, i i
 
 	items := make([]InstanceManagementConfigStandardManagementConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceManagementConfigStandardManagementConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceManagementConfigStandardManagementConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1813,7 +1813,7 @@ func expandInstanceManagementConfigStandardManagementConfig(c *Client, f *Instan
 
 // flattenInstanceManagementConfigStandardManagementConfig flattens an instance of InstanceManagementConfigStandardManagementConfig from a JSON
 // response object.
-func flattenInstanceManagementConfigStandardManagementConfig(c *Client, i interface{}) *InstanceManagementConfigStandardManagementConfig {
+func flattenInstanceManagementConfigStandardManagementConfig(c *Client, i interface{}, res *Instance) *InstanceManagementConfigStandardManagementConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1837,7 +1837,7 @@ func flattenInstanceManagementConfigStandardManagementConfig(c *Client, i interf
 
 // flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+func flattenInstanceStateEnumMap(c *Client, i interface{}, res *Instance) map[string]InstanceStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]InstanceStateEnum{}
@@ -1857,7 +1857,7 @@ func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceSt
 
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
 // response object.
-func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
+func flattenInstanceStateEnumSlice(c *Client, i interface{}, res *Instance) []InstanceStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []InstanceStateEnum{}
@@ -1891,7 +1891,7 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Instance) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalInstance(b, c)
+		cr, err := unmarshalInstance(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -234,7 +234,7 @@ func (c *Client) listCluster(ctx context.Context, r *Cluster, pageToken string, 
 
 	var l []*Cluster
 	for _, v := range m.Clusters {
-		res, err := unmarshalMapCluster(v, c)
+		res, err := unmarshalMapCluster(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -697,17 +697,17 @@ func (r *Cluster) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalCluster decodes JSON responses into the Cluster resource schema.
-func unmarshalCluster(b []byte, c *Client) (*Cluster, error) {
+func unmarshalCluster(b []byte, c *Client, res *Cluster) (*Cluster, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapCluster(m, c)
+	return unmarshalMapCluster(m, c, res)
 }
 
-func unmarshalMapCluster(m map[string]interface{}, c *Client) (*Cluster, error) {
+func unmarshalMapCluster(m map[string]interface{}, c *Client, res *Cluster) (*Cluster, error) {
 
-	flattened := flattenCluster(c, m)
+	flattened := flattenCluster(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -754,7 +754,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 
 // flattenCluster flattens Cluster from a JSON request object into the
 // Cluster type.
-func flattenCluster(c *Client, i interface{}) *Cluster {
+func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -763,25 +763,25 @@ func flattenCluster(c *Client, i interface{}) *Cluster {
 		return nil
 	}
 
-	res := &Cluster{}
-	res.Name = dcl.FlattenString(m["name"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.State = flattenClusterStateEnum(m["state"])
-	res.Management = dcl.FlattenBool(m["management"])
-	res.NodeTypeId = dcl.FlattenString(m["nodeTypeId"])
-	res.NodeCount = dcl.FlattenInteger(m["nodeCount"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.PrivateCloud = dcl.FlattenString(m["privateCloud"])
+	resultRes := &Cluster{}
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.State = flattenClusterStateEnum(m["state"])
+	resultRes.Management = dcl.FlattenBool(m["management"])
+	resultRes.NodeTypeId = dcl.FlattenString(m["nodeTypeId"])
+	resultRes.NodeCount = dcl.FlattenInteger(m["nodeCount"])
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.PrivateCloud = dcl.FlattenString(m["privateCloud"])
 
-	return res
+	return resultRes
 }
 
 // flattenClusterStateEnumMap flattens the contents of ClusterStateEnum from a JSON
 // response object.
-func flattenClusterStateEnumMap(c *Client, i interface{}) map[string]ClusterStateEnum {
+func flattenClusterStateEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]ClusterStateEnum{}
@@ -801,7 +801,7 @@ func flattenClusterStateEnumMap(c *Client, i interface{}) map[string]ClusterStat
 
 // flattenClusterStateEnumSlice flattens the contents of ClusterStateEnum from a JSON
 // response object.
-func flattenClusterStateEnumSlice(c *Client, i interface{}) []ClusterStateEnum {
+func flattenClusterStateEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []ClusterStateEnum{}
@@ -835,7 +835,7 @@ func flattenClusterStateEnum(i interface{}) *ClusterStateEnum {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Cluster) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCluster(b, c)
+		cr, err := unmarshalCluster(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

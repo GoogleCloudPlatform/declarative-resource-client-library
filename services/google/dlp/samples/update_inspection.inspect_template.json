@@ -1,6 +1,6 @@
 {
   "name": "{{template}}",
-  "parent": "projects/{{project}}",
+  "parent": "organizations/{{org_id}}",
   "location": "global",
   "inspectConfig": {
     "infoTypes": [

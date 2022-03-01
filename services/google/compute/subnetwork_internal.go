@@ -362,7 +362,7 @@ func (c *Client) listSubnetwork(ctx context.Context, r *Subnetwork, pageToken st
 
 	var l []*Subnetwork
 	for _, v := range m.Items {
-		res, err := unmarshalMapSubnetwork(v, c)
+		res, err := unmarshalMapSubnetwork(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1295,17 +1295,17 @@ func (r *Subnetwork) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalSubnetwork decodes JSON responses into the Subnetwork resource schema.
-func unmarshalSubnetwork(b []byte, c *Client) (*Subnetwork, error) {
+func unmarshalSubnetwork(b []byte, c *Client, res *Subnetwork) (*Subnetwork, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapSubnetwork(m, c)
+	return unmarshalMapSubnetwork(m, c, res)
 }
 
-func unmarshalMapSubnetwork(m map[string]interface{}, c *Client) (*Subnetwork, error) {
+func unmarshalMapSubnetwork(m map[string]interface{}, c *Client, res *Subnetwork) (*Subnetwork, error) {
 
-	flattened := flattenSubnetwork(c, m)
+	flattened := flattenSubnetwork(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1367,7 +1367,7 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 
 // flattenSubnetwork flattens Subnetwork from a JSON request object into the
 // Subnetwork type.
-func flattenSubnetwork(c *Client, i interface{}) *Subnetwork {
+func flattenSubnetwork(c *Client, i interface{}, res *Subnetwork) *Subnetwork {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1376,25 +1376,25 @@ func flattenSubnetwork(c *Client, i interface{}) *Subnetwork {
 		return nil
 	}
 
-	res := &Subnetwork{}
-	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.GatewayAddress = dcl.FlattenString(m["gatewayAddress"])
-	res.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
-	res.Name = dcl.FlattenString(m["name"])
-	res.Network = dcl.FlattenString(m["network"])
-	res.Fingerprint = dcl.FlattenString(m["fingerprint"])
-	res.Purpose = flattenSubnetworkPurposeEnum(m["purpose"])
-	res.Role = flattenSubnetworkRoleEnum(m["role"])
-	res.SecondaryIPRanges = flattenSubnetworkSecondaryIPRangesSlice(c, m["secondaryIpRanges"])
-	res.PrivateIPGoogleAccess = dcl.FlattenBool(m["privateIpGoogleAccess"])
-	res.Region = dcl.FlattenString(m["region"])
-	res.LogConfig = flattenSubnetworkLogConfig(c, m["logConfig"])
-	res.Project = dcl.FlattenString(m["project"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
-	res.EnableFlowLogs = dcl.FlattenBool(m["enableFlowLogs"])
+	resultRes := &Subnetwork{}
+	resultRes.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	resultRes.Description = dcl.FlattenString(m["description"])
+	resultRes.GatewayAddress = dcl.FlattenString(m["gatewayAddress"])
+	resultRes.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
+	resultRes.Name = dcl.FlattenString(m["name"])
+	resultRes.Network = dcl.FlattenString(m["network"])
+	resultRes.Fingerprint = dcl.FlattenString(m["fingerprint"])
+	resultRes.Purpose = flattenSubnetworkPurposeEnum(m["purpose"])
+	resultRes.Role = flattenSubnetworkRoleEnum(m["role"])
+	resultRes.SecondaryIPRanges = flattenSubnetworkSecondaryIPRangesSlice(c, m["secondaryIpRanges"], res)
+	resultRes.PrivateIPGoogleAccess = dcl.FlattenBool(m["privateIpGoogleAccess"])
+	resultRes.Region = dcl.FlattenString(m["region"])
+	resultRes.LogConfig = flattenSubnetworkLogConfig(c, m["logConfig"], res)
+	resultRes.Project = dcl.FlattenString(m["project"])
+	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
+	resultRes.EnableFlowLogs = dcl.FlattenBool(m["enableFlowLogs"])
 
-	return res
+	return resultRes
 }
 
 // expandSubnetworkSecondaryIPRangesMap expands the contents of SubnetworkSecondaryIPRanges into a JSON
@@ -1440,7 +1440,7 @@ func expandSubnetworkSecondaryIPRangesSlice(c *Client, f []SubnetworkSecondaryIP
 
 // flattenSubnetworkSecondaryIPRangesMap flattens the contents of SubnetworkSecondaryIPRanges from a JSON
 // response object.
-func flattenSubnetworkSecondaryIPRangesMap(c *Client, i interface{}) map[string]SubnetworkSecondaryIPRanges {
+func flattenSubnetworkSecondaryIPRangesMap(c *Client, i interface{}, res *Subnetwork) map[string]SubnetworkSecondaryIPRanges {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SubnetworkSecondaryIPRanges{}
@@ -1452,7 +1452,7 @@ func flattenSubnetworkSecondaryIPRangesMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]SubnetworkSecondaryIPRanges)
 	for k, item := range a {
-		items[k] = *flattenSubnetworkSecondaryIPRanges(c, item.(map[string]interface{}))
+		items[k] = *flattenSubnetworkSecondaryIPRanges(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1460,7 +1460,7 @@ func flattenSubnetworkSecondaryIPRangesMap(c *Client, i interface{}) map[string]
 
 // flattenSubnetworkSecondaryIPRangesSlice flattens the contents of SubnetworkSecondaryIPRanges from a JSON
 // response object.
-func flattenSubnetworkSecondaryIPRangesSlice(c *Client, i interface{}) []SubnetworkSecondaryIPRanges {
+func flattenSubnetworkSecondaryIPRangesSlice(c *Client, i interface{}, res *Subnetwork) []SubnetworkSecondaryIPRanges {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SubnetworkSecondaryIPRanges{}
@@ -1472,7 +1472,7 @@ func flattenSubnetworkSecondaryIPRangesSlice(c *Client, i interface{}) []Subnetw
 
 	items := make([]SubnetworkSecondaryIPRanges, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenSubnetworkSecondaryIPRanges(c, item.(map[string]interface{})))
+		items = append(items, *flattenSubnetworkSecondaryIPRanges(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1498,7 +1498,7 @@ func expandSubnetworkSecondaryIPRanges(c *Client, f *SubnetworkSecondaryIPRanges
 
 // flattenSubnetworkSecondaryIPRanges flattens an instance of SubnetworkSecondaryIPRanges from a JSON
 // response object.
-func flattenSubnetworkSecondaryIPRanges(c *Client, i interface{}) *SubnetworkSecondaryIPRanges {
+func flattenSubnetworkSecondaryIPRanges(c *Client, i interface{}, res *Subnetwork) *SubnetworkSecondaryIPRanges {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1558,7 +1558,7 @@ func expandSubnetworkLogConfigSlice(c *Client, f []SubnetworkLogConfig, res *Sub
 
 // flattenSubnetworkLogConfigMap flattens the contents of SubnetworkLogConfig from a JSON
 // response object.
-func flattenSubnetworkLogConfigMap(c *Client, i interface{}) map[string]SubnetworkLogConfig {
+func flattenSubnetworkLogConfigMap(c *Client, i interface{}, res *Subnetwork) map[string]SubnetworkLogConfig {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SubnetworkLogConfig{}
@@ -1570,7 +1570,7 @@ func flattenSubnetworkLogConfigMap(c *Client, i interface{}) map[string]Subnetwo
 
 	items := make(map[string]SubnetworkLogConfig)
 	for k, item := range a {
-		items[k] = *flattenSubnetworkLogConfig(c, item.(map[string]interface{}))
+		items[k] = *flattenSubnetworkLogConfig(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1578,7 +1578,7 @@ func flattenSubnetworkLogConfigMap(c *Client, i interface{}) map[string]Subnetwo
 
 // flattenSubnetworkLogConfigSlice flattens the contents of SubnetworkLogConfig from a JSON
 // response object.
-func flattenSubnetworkLogConfigSlice(c *Client, i interface{}) []SubnetworkLogConfig {
+func flattenSubnetworkLogConfigSlice(c *Client, i interface{}, res *Subnetwork) []SubnetworkLogConfig {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SubnetworkLogConfig{}
@@ -1590,7 +1590,7 @@ func flattenSubnetworkLogConfigSlice(c *Client, i interface{}) []SubnetworkLogCo
 
 	items := make([]SubnetworkLogConfig, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenSubnetworkLogConfig(c, item.(map[string]interface{})))
+		items = append(items, *flattenSubnetworkLogConfig(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1619,7 +1619,7 @@ func expandSubnetworkLogConfig(c *Client, f *SubnetworkLogConfig, res *Subnetwor
 
 // flattenSubnetworkLogConfig flattens an instance of SubnetworkLogConfig from a JSON
 // response object.
-func flattenSubnetworkLogConfig(c *Client, i interface{}) *SubnetworkLogConfig {
+func flattenSubnetworkLogConfig(c *Client, i interface{}, res *Subnetwork) *SubnetworkLogConfig {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1651,7 +1651,7 @@ func flattenSubnetworkLogConfig(c *Client, i interface{}) *SubnetworkLogConfig {
 
 // flattenSubnetworkPurposeEnumMap flattens the contents of SubnetworkPurposeEnum from a JSON
 // response object.
-func flattenSubnetworkPurposeEnumMap(c *Client, i interface{}) map[string]SubnetworkPurposeEnum {
+func flattenSubnetworkPurposeEnumMap(c *Client, i interface{}, res *Subnetwork) map[string]SubnetworkPurposeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SubnetworkPurposeEnum{}
@@ -1671,7 +1671,7 @@ func flattenSubnetworkPurposeEnumMap(c *Client, i interface{}) map[string]Subnet
 
 // flattenSubnetworkPurposeEnumSlice flattens the contents of SubnetworkPurposeEnum from a JSON
 // response object.
-func flattenSubnetworkPurposeEnumSlice(c *Client, i interface{}) []SubnetworkPurposeEnum {
+func flattenSubnetworkPurposeEnumSlice(c *Client, i interface{}, res *Subnetwork) []SubnetworkPurposeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SubnetworkPurposeEnum{}
@@ -1702,7 +1702,7 @@ func flattenSubnetworkPurposeEnum(i interface{}) *SubnetworkPurposeEnum {
 
 // flattenSubnetworkRoleEnumMap flattens the contents of SubnetworkRoleEnum from a JSON
 // response object.
-func flattenSubnetworkRoleEnumMap(c *Client, i interface{}) map[string]SubnetworkRoleEnum {
+func flattenSubnetworkRoleEnumMap(c *Client, i interface{}, res *Subnetwork) map[string]SubnetworkRoleEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SubnetworkRoleEnum{}
@@ -1722,7 +1722,7 @@ func flattenSubnetworkRoleEnumMap(c *Client, i interface{}) map[string]Subnetwor
 
 // flattenSubnetworkRoleEnumSlice flattens the contents of SubnetworkRoleEnum from a JSON
 // response object.
-func flattenSubnetworkRoleEnumSlice(c *Client, i interface{}) []SubnetworkRoleEnum {
+func flattenSubnetworkRoleEnumSlice(c *Client, i interface{}, res *Subnetwork) []SubnetworkRoleEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SubnetworkRoleEnum{}
@@ -1753,7 +1753,7 @@ func flattenSubnetworkRoleEnum(i interface{}) *SubnetworkRoleEnum {
 
 // flattenSubnetworkLogConfigAggregationIntervalEnumMap flattens the contents of SubnetworkLogConfigAggregationIntervalEnum from a JSON
 // response object.
-func flattenSubnetworkLogConfigAggregationIntervalEnumMap(c *Client, i interface{}) map[string]SubnetworkLogConfigAggregationIntervalEnum {
+func flattenSubnetworkLogConfigAggregationIntervalEnumMap(c *Client, i interface{}, res *Subnetwork) map[string]SubnetworkLogConfigAggregationIntervalEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SubnetworkLogConfigAggregationIntervalEnum{}
@@ -1773,7 +1773,7 @@ func flattenSubnetworkLogConfigAggregationIntervalEnumMap(c *Client, i interface
 
 // flattenSubnetworkLogConfigAggregationIntervalEnumSlice flattens the contents of SubnetworkLogConfigAggregationIntervalEnum from a JSON
 // response object.
-func flattenSubnetworkLogConfigAggregationIntervalEnumSlice(c *Client, i interface{}) []SubnetworkLogConfigAggregationIntervalEnum {
+func flattenSubnetworkLogConfigAggregationIntervalEnumSlice(c *Client, i interface{}, res *Subnetwork) []SubnetworkLogConfigAggregationIntervalEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SubnetworkLogConfigAggregationIntervalEnum{}
@@ -1804,7 +1804,7 @@ func flattenSubnetworkLogConfigAggregationIntervalEnum(i interface{}) *Subnetwor
 
 // flattenSubnetworkLogConfigMetadataEnumMap flattens the contents of SubnetworkLogConfigMetadataEnum from a JSON
 // response object.
-func flattenSubnetworkLogConfigMetadataEnumMap(c *Client, i interface{}) map[string]SubnetworkLogConfigMetadataEnum {
+func flattenSubnetworkLogConfigMetadataEnumMap(c *Client, i interface{}, res *Subnetwork) map[string]SubnetworkLogConfigMetadataEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]SubnetworkLogConfigMetadataEnum{}
@@ -1824,7 +1824,7 @@ func flattenSubnetworkLogConfigMetadataEnumMap(c *Client, i interface{}) map[str
 
 // flattenSubnetworkLogConfigMetadataEnumSlice flattens the contents of SubnetworkLogConfigMetadataEnum from a JSON
 // response object.
-func flattenSubnetworkLogConfigMetadataEnumSlice(c *Client, i interface{}) []SubnetworkLogConfigMetadataEnum {
+func flattenSubnetworkLogConfigMetadataEnumSlice(c *Client, i interface{}, res *Subnetwork) []SubnetworkLogConfigMetadataEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []SubnetworkLogConfigMetadataEnum{}
@@ -1858,7 +1858,7 @@ func flattenSubnetworkLogConfigMetadataEnum(i interface{}) *SubnetworkLogConfigM
 // identity).  This is useful in extracting the element from a List call.
 func (r *Subnetwork) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalSubnetwork(b, c)
+		cr, err := unmarshalSubnetwork(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

@@ -250,7 +250,7 @@ func (c *Client) listWorkload(ctx context.Context, r *Workload, pageToken string
 
 	var l []*Workload
 	for _, v := range m.Workloads {
-		res, err := unmarshalMapWorkload(v, c)
+		res, err := unmarshalMapWorkload(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1198,17 +1198,17 @@ func (r *Workload) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalWorkload decodes JSON responses into the Workload resource schema.
-func unmarshalWorkload(b []byte, c *Client) (*Workload, error) {
+func unmarshalWorkload(b []byte, c *Client, res *Workload) (*Workload, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapWorkload(m, c)
+	return unmarshalMapWorkload(m, c, res)
 }
 
-func unmarshalMapWorkload(m map[string]interface{}, c *Client) (*Workload, error) {
+func unmarshalMapWorkload(m map[string]interface{}, c *Client, res *Workload) (*Workload, error) {
 
-	flattened := flattenWorkload(c, m)
+	flattened := flattenWorkload(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1266,7 +1266,7 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 
 // flattenWorkload flattens Workload from a JSON request object into the
 // Workload type.
-func flattenWorkload(c *Client, i interface{}) *Workload {
+func flattenWorkload(c *Client, i interface{}, res *Workload) *Workload {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1275,21 +1275,21 @@ func flattenWorkload(c *Client, i interface{}) *Workload {
 		return nil
 	}
 
-	res := &Workload{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.DisplayName = dcl.FlattenString(m["displayName"])
-	res.Resources = flattenWorkloadResourcesSlice(c, m["resources"])
-	res.ComplianceRegime = flattenWorkloadComplianceRegimeEnum(m["complianceRegime"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.BillingAccount = dcl.FlattenString(m["billingAccount"])
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	res.ProvisionedResourcesParent = dcl.FlattenSecretValue(m["provisionedResourcesParent"])
-	res.KmsSettings = flattenWorkloadKmsSettings(c, m["kmsSettings"])
-	res.ResourceSettings = flattenWorkloadResourceSettingsSlice(c, m["resourceSettings"])
-	res.Organization = dcl.FlattenString(m["organization"])
-	res.Location = dcl.FlattenString(m["location"])
+	resultRes := &Workload{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
+	resultRes.Resources = flattenWorkloadResourcesSlice(c, m["resources"], res)
+	resultRes.ComplianceRegime = flattenWorkloadComplianceRegimeEnum(m["complianceRegime"])
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.BillingAccount = dcl.FlattenString(m["billingAccount"])
+	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.ProvisionedResourcesParent = dcl.FlattenSecretValue(m["provisionedResourcesParent"])
+	resultRes.KmsSettings = flattenWorkloadKmsSettings(c, m["kmsSettings"], res)
+	resultRes.ResourceSettings = flattenWorkloadResourceSettingsSlice(c, m["resourceSettings"], res)
+	resultRes.Organization = dcl.FlattenString(m["organization"])
+	resultRes.Location = dcl.FlattenString(m["location"])
 
-	return res
+	return resultRes
 }
 
 // expandWorkloadResourcesMap expands the contents of WorkloadResources into a JSON
@@ -1335,7 +1335,7 @@ func expandWorkloadResourcesSlice(c *Client, f []WorkloadResources, res *Workloa
 
 // flattenWorkloadResourcesMap flattens the contents of WorkloadResources from a JSON
 // response object.
-func flattenWorkloadResourcesMap(c *Client, i interface{}) map[string]WorkloadResources {
+func flattenWorkloadResourcesMap(c *Client, i interface{}, res *Workload) map[string]WorkloadResources {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadResources{}
@@ -1347,7 +1347,7 @@ func flattenWorkloadResourcesMap(c *Client, i interface{}) map[string]WorkloadRe
 
 	items := make(map[string]WorkloadResources)
 	for k, item := range a {
-		items[k] = *flattenWorkloadResources(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkloadResources(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1355,7 +1355,7 @@ func flattenWorkloadResourcesMap(c *Client, i interface{}) map[string]WorkloadRe
 
 // flattenWorkloadResourcesSlice flattens the contents of WorkloadResources from a JSON
 // response object.
-func flattenWorkloadResourcesSlice(c *Client, i interface{}) []WorkloadResources {
+func flattenWorkloadResourcesSlice(c *Client, i interface{}, res *Workload) []WorkloadResources {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadResources{}
@@ -1367,7 +1367,7 @@ func flattenWorkloadResourcesSlice(c *Client, i interface{}) []WorkloadResources
 
 	items := make([]WorkloadResources, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkloadResources(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkloadResources(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1393,7 +1393,7 @@ func expandWorkloadResources(c *Client, f *WorkloadResources, res *Workload) (ma
 
 // flattenWorkloadResources flattens an instance of WorkloadResources from a JSON
 // response object.
-func flattenWorkloadResources(c *Client, i interface{}) *WorkloadResources {
+func flattenWorkloadResources(c *Client, i interface{}, res *Workload) *WorkloadResources {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1453,7 +1453,7 @@ func expandWorkloadKmsSettingsSlice(c *Client, f []WorkloadKmsSettings, res *Wor
 
 // flattenWorkloadKmsSettingsMap flattens the contents of WorkloadKmsSettings from a JSON
 // response object.
-func flattenWorkloadKmsSettingsMap(c *Client, i interface{}) map[string]WorkloadKmsSettings {
+func flattenWorkloadKmsSettingsMap(c *Client, i interface{}, res *Workload) map[string]WorkloadKmsSettings {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadKmsSettings{}
@@ -1465,7 +1465,7 @@ func flattenWorkloadKmsSettingsMap(c *Client, i interface{}) map[string]Workload
 
 	items := make(map[string]WorkloadKmsSettings)
 	for k, item := range a {
-		items[k] = *flattenWorkloadKmsSettings(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkloadKmsSettings(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1473,7 +1473,7 @@ func flattenWorkloadKmsSettingsMap(c *Client, i interface{}) map[string]Workload
 
 // flattenWorkloadKmsSettingsSlice flattens the contents of WorkloadKmsSettings from a JSON
 // response object.
-func flattenWorkloadKmsSettingsSlice(c *Client, i interface{}) []WorkloadKmsSettings {
+func flattenWorkloadKmsSettingsSlice(c *Client, i interface{}, res *Workload) []WorkloadKmsSettings {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadKmsSettings{}
@@ -1485,7 +1485,7 @@ func flattenWorkloadKmsSettingsSlice(c *Client, i interface{}) []WorkloadKmsSett
 
 	items := make([]WorkloadKmsSettings, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkloadKmsSettings(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkloadKmsSettings(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1511,7 +1511,7 @@ func expandWorkloadKmsSettings(c *Client, f *WorkloadKmsSettings, res *Workload)
 
 // flattenWorkloadKmsSettings flattens an instance of WorkloadKmsSettings from a JSON
 // response object.
-func flattenWorkloadKmsSettings(c *Client, i interface{}) *WorkloadKmsSettings {
+func flattenWorkloadKmsSettings(c *Client, i interface{}, res *Workload) *WorkloadKmsSettings {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1571,7 +1571,7 @@ func expandWorkloadResourceSettingsSlice(c *Client, f []WorkloadResourceSettings
 
 // flattenWorkloadResourceSettingsMap flattens the contents of WorkloadResourceSettings from a JSON
 // response object.
-func flattenWorkloadResourceSettingsMap(c *Client, i interface{}) map[string]WorkloadResourceSettings {
+func flattenWorkloadResourceSettingsMap(c *Client, i interface{}, res *Workload) map[string]WorkloadResourceSettings {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadResourceSettings{}
@@ -1583,7 +1583,7 @@ func flattenWorkloadResourceSettingsMap(c *Client, i interface{}) map[string]Wor
 
 	items := make(map[string]WorkloadResourceSettings)
 	for k, item := range a {
-		items[k] = *flattenWorkloadResourceSettings(c, item.(map[string]interface{}))
+		items[k] = *flattenWorkloadResourceSettings(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1591,7 +1591,7 @@ func flattenWorkloadResourceSettingsMap(c *Client, i interface{}) map[string]Wor
 
 // flattenWorkloadResourceSettingsSlice flattens the contents of WorkloadResourceSettings from a JSON
 // response object.
-func flattenWorkloadResourceSettingsSlice(c *Client, i interface{}) []WorkloadResourceSettings {
+func flattenWorkloadResourceSettingsSlice(c *Client, i interface{}, res *Workload) []WorkloadResourceSettings {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadResourceSettings{}
@@ -1603,7 +1603,7 @@ func flattenWorkloadResourceSettingsSlice(c *Client, i interface{}) []WorkloadRe
 
 	items := make([]WorkloadResourceSettings, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenWorkloadResourceSettings(c, item.(map[string]interface{})))
+		items = append(items, *flattenWorkloadResourceSettings(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1629,7 +1629,7 @@ func expandWorkloadResourceSettings(c *Client, f *WorkloadResourceSettings, res 
 
 // flattenWorkloadResourceSettings flattens an instance of WorkloadResourceSettings from a JSON
 // response object.
-func flattenWorkloadResourceSettings(c *Client, i interface{}) *WorkloadResourceSettings {
+func flattenWorkloadResourceSettings(c *Client, i interface{}, res *Workload) *WorkloadResourceSettings {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1648,7 +1648,7 @@ func flattenWorkloadResourceSettings(c *Client, i interface{}) *WorkloadResource
 
 // flattenWorkloadResourcesResourceTypeEnumMap flattens the contents of WorkloadResourcesResourceTypeEnum from a JSON
 // response object.
-func flattenWorkloadResourcesResourceTypeEnumMap(c *Client, i interface{}) map[string]WorkloadResourcesResourceTypeEnum {
+func flattenWorkloadResourcesResourceTypeEnumMap(c *Client, i interface{}, res *Workload) map[string]WorkloadResourcesResourceTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadResourcesResourceTypeEnum{}
@@ -1668,7 +1668,7 @@ func flattenWorkloadResourcesResourceTypeEnumMap(c *Client, i interface{}) map[s
 
 // flattenWorkloadResourcesResourceTypeEnumSlice flattens the contents of WorkloadResourcesResourceTypeEnum from a JSON
 // response object.
-func flattenWorkloadResourcesResourceTypeEnumSlice(c *Client, i interface{}) []WorkloadResourcesResourceTypeEnum {
+func flattenWorkloadResourcesResourceTypeEnumSlice(c *Client, i interface{}, res *Workload) []WorkloadResourcesResourceTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadResourcesResourceTypeEnum{}
@@ -1699,7 +1699,7 @@ func flattenWorkloadResourcesResourceTypeEnum(i interface{}) *WorkloadResourcesR
 
 // flattenWorkloadComplianceRegimeEnumMap flattens the contents of WorkloadComplianceRegimeEnum from a JSON
 // response object.
-func flattenWorkloadComplianceRegimeEnumMap(c *Client, i interface{}) map[string]WorkloadComplianceRegimeEnum {
+func flattenWorkloadComplianceRegimeEnumMap(c *Client, i interface{}, res *Workload) map[string]WorkloadComplianceRegimeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadComplianceRegimeEnum{}
@@ -1719,7 +1719,7 @@ func flattenWorkloadComplianceRegimeEnumMap(c *Client, i interface{}) map[string
 
 // flattenWorkloadComplianceRegimeEnumSlice flattens the contents of WorkloadComplianceRegimeEnum from a JSON
 // response object.
-func flattenWorkloadComplianceRegimeEnumSlice(c *Client, i interface{}) []WorkloadComplianceRegimeEnum {
+func flattenWorkloadComplianceRegimeEnumSlice(c *Client, i interface{}, res *Workload) []WorkloadComplianceRegimeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadComplianceRegimeEnum{}
@@ -1750,7 +1750,7 @@ func flattenWorkloadComplianceRegimeEnum(i interface{}) *WorkloadComplianceRegim
 
 // flattenWorkloadResourceSettingsResourceTypeEnumMap flattens the contents of WorkloadResourceSettingsResourceTypeEnum from a JSON
 // response object.
-func flattenWorkloadResourceSettingsResourceTypeEnumMap(c *Client, i interface{}) map[string]WorkloadResourceSettingsResourceTypeEnum {
+func flattenWorkloadResourceSettingsResourceTypeEnumMap(c *Client, i interface{}, res *Workload) map[string]WorkloadResourceSettingsResourceTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]WorkloadResourceSettingsResourceTypeEnum{}
@@ -1770,7 +1770,7 @@ func flattenWorkloadResourceSettingsResourceTypeEnumMap(c *Client, i interface{}
 
 // flattenWorkloadResourceSettingsResourceTypeEnumSlice flattens the contents of WorkloadResourceSettingsResourceTypeEnum from a JSON
 // response object.
-func flattenWorkloadResourceSettingsResourceTypeEnumSlice(c *Client, i interface{}) []WorkloadResourceSettingsResourceTypeEnum {
+func flattenWorkloadResourceSettingsResourceTypeEnumSlice(c *Client, i interface{}, res *Workload) []WorkloadResourceSettingsResourceTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []WorkloadResourceSettingsResourceTypeEnum{}
@@ -1804,7 +1804,7 @@ func flattenWorkloadResourceSettingsResourceTypeEnum(i interface{}) *WorkloadRes
 // identity).  This is useful in extracting the element from a List call.
 func (r *Workload) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalWorkload(b, c)
+		cr, err := unmarshalWorkload(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

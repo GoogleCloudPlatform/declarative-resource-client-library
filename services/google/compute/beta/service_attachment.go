@@ -369,7 +369,7 @@ func (c *Client) GetServiceAttachment(ctx context.Context, r *ServiceAttachment)
 		}
 		return nil, err
 	}
-	result, err := unmarshalServiceAttachment(b, c)
+	result, err := unmarshalServiceAttachment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -539,7 +539,7 @@ func applyServiceAttachmentDiff(c *Client, ctx context.Context, desired *Service
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapServiceAttachment(r, c)
+				fullResp, err := unmarshalMapServiceAttachment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

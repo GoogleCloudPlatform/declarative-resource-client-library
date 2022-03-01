@@ -128,7 +128,7 @@ func (c *Client) listAttachment(ctx context.Context, r *Attachment, pageToken st
 
 	var l []*Attachment
 	for _, v := range m.EnvironmentGroupAttachments {
-		res, err := unmarshalMapAttachment(v, c)
+		res, err := unmarshalMapAttachment(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -483,17 +483,17 @@ func (r *Attachment) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalAttachment decodes JSON responses into the Attachment resource schema.
-func unmarshalAttachment(b []byte, c *Client) (*Attachment, error) {
+func unmarshalAttachment(b []byte, c *Client, res *Attachment) (*Attachment, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapAttachment(m, c)
+	return unmarshalMapAttachment(m, c, res)
 }
 
-func unmarshalMapAttachment(m map[string]interface{}, c *Client) (*Attachment, error) {
+func unmarshalMapAttachment(m map[string]interface{}, c *Client, res *Attachment) (*Attachment, error) {
 
-	flattened := flattenAttachment(c, m)
+	flattened := flattenAttachment(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -524,7 +524,7 @@ func expandAttachment(c *Client, f *Attachment) (map[string]interface{}, error) 
 
 // flattenAttachment flattens Attachment from a JSON request object into the
 // Attachment type.
-func flattenAttachment(c *Client, i interface{}) *Attachment {
+func flattenAttachment(c *Client, i interface{}, res *Attachment) *Attachment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -533,13 +533,13 @@ func flattenAttachment(c *Client, i interface{}) *Attachment {
 		return nil
 	}
 
-	res := &Attachment{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.Environment = dcl.FlattenString(m["environment"])
-	res.CreatedAt = dcl.FlattenInteger(m["createdAt"])
-	res.Envgroup = dcl.FlattenString(m["envgroup"])
+	resultRes := &Attachment{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Environment = dcl.FlattenString(m["environment"])
+	resultRes.CreatedAt = dcl.FlattenInteger(m["createdAt"])
+	resultRes.Envgroup = dcl.FlattenString(m["envgroup"])
 
-	return res
+	return resultRes
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -547,7 +547,7 @@ func flattenAttachment(c *Client, i interface{}) *Attachment {
 // identity).  This is useful in extracting the element from a List call.
 func (r *Attachment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalAttachment(b, c)
+		cr, err := unmarshalAttachment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

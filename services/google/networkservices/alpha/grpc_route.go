@@ -38,6 +38,7 @@ type GrpcRoute struct {
 	Rules       []GrpcRouteRules  `json:"rules"`
 	Project     *string           `json:"project"`
 	Location    *string           `json:"location"`
+	SelfLink    *string           `json:"selfLink"`
 }
 
 func (r *GrpcRoute) String() string {
@@ -631,6 +632,7 @@ func (r *GrpcRoute) ID() (string, error) {
 		"rules":       dcl.ValueOrEmptyString(nr.Rules),
 		"project":     dcl.ValueOrEmptyString(nr.Project),
 		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"selfLink":    dcl.ValueOrEmptyString(nr.SelfLink),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/grpcRoutes/{{name}}", params), nil
 }
@@ -717,7 +719,7 @@ func (c *Client) GetGrpcRoute(ctx context.Context, r *GrpcRoute) (*GrpcRoute, er
 		}
 		return nil, err
 	}
-	result, err := unmarshalGrpcRoute(b, c)
+	result, err := unmarshalGrpcRoute(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -887,7 +889,7 @@ func applyGrpcRouteDiff(c *Client, ctx context.Context, desired *GrpcRoute, rawD
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapGrpcRoute(r, c)
+				fullResp, err := unmarshalMapGrpcRoute(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

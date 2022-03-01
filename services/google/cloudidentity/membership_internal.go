@@ -232,7 +232,7 @@ func (c *Client) listMembership(ctx context.Context, r *Membership, pageToken st
 
 	var l []*Membership
 	for _, v := range m.Memberships {
-		res, err := unmarshalMapMembership(v, c)
+		res, err := unmarshalMapMembership(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -1593,17 +1593,17 @@ func (r *Membership) marshal(c *Client) ([]byte, error) {
 }
 
 // unmarshalMembership decodes JSON responses into the Membership resource schema.
-func unmarshalMembership(b []byte, c *Client) (*Membership, error) {
+func unmarshalMembership(b []byte, c *Client, res *Membership) (*Membership, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapMembership(m, c)
+	return unmarshalMapMembership(m, c, res)
 }
 
-func unmarshalMapMembership(m map[string]interface{}, c *Client) (*Membership, error) {
+func unmarshalMapMembership(m map[string]interface{}, c *Client, res *Membership) (*Membership, error) {
 
-	flattened := flattenMembership(c, m)
+	flattened := flattenMembership(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
@@ -1641,7 +1641,7 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 
 // flattenMembership flattens Membership from a JSON request object into the
 // Membership type.
-func flattenMembership(c *Client, i interface{}) *Membership {
+func flattenMembership(c *Client, i interface{}, res *Membership) *Membership {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1650,18 +1650,18 @@ func flattenMembership(c *Client, i interface{}) *Membership {
 		return nil
 	}
 
-	res := &Membership{}
-	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	res.PreferredMemberKey = flattenMembershipPreferredMemberKey(c, m["preferredMemberKey"])
-	res.CreateTime = dcl.FlattenString(m["createTime"])
-	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Roles = flattenMembershipRolesSlice(c, m["roles"])
-	res.Type = flattenMembershipTypeEnum(m["type"])
-	res.DeliverySetting = flattenMembershipDeliverySettingEnum(m["deliverySetting"])
-	res.DisplayName = flattenMembershipDisplayName(c, m["displayName"])
-	res.Group = dcl.FlattenString(m["group"])
+	resultRes := &Membership{}
+	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.PreferredMemberKey = flattenMembershipPreferredMemberKey(c, m["preferredMemberKey"], res)
+	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.Roles = flattenMembershipRolesSlice(c, m["roles"], res)
+	resultRes.Type = flattenMembershipTypeEnum(m["type"])
+	resultRes.DeliverySetting = flattenMembershipDeliverySettingEnum(m["deliverySetting"])
+	resultRes.DisplayName = flattenMembershipDisplayName(c, m["displayName"], res)
+	resultRes.Group = dcl.FlattenString(m["group"])
 
-	return res
+	return resultRes
 }
 
 // expandMembershipPreferredMemberKeyMap expands the contents of MembershipPreferredMemberKey into a JSON
@@ -1707,7 +1707,7 @@ func expandMembershipPreferredMemberKeySlice(c *Client, f []MembershipPreferredM
 
 // flattenMembershipPreferredMemberKeyMap flattens the contents of MembershipPreferredMemberKey from a JSON
 // response object.
-func flattenMembershipPreferredMemberKeyMap(c *Client, i interface{}) map[string]MembershipPreferredMemberKey {
+func flattenMembershipPreferredMemberKeyMap(c *Client, i interface{}, res *Membership) map[string]MembershipPreferredMemberKey {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipPreferredMemberKey{}
@@ -1719,7 +1719,7 @@ func flattenMembershipPreferredMemberKeyMap(c *Client, i interface{}) map[string
 
 	items := make(map[string]MembershipPreferredMemberKey)
 	for k, item := range a {
-		items[k] = *flattenMembershipPreferredMemberKey(c, item.(map[string]interface{}))
+		items[k] = *flattenMembershipPreferredMemberKey(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1727,7 +1727,7 @@ func flattenMembershipPreferredMemberKeyMap(c *Client, i interface{}) map[string
 
 // flattenMembershipPreferredMemberKeySlice flattens the contents of MembershipPreferredMemberKey from a JSON
 // response object.
-func flattenMembershipPreferredMemberKeySlice(c *Client, i interface{}) []MembershipPreferredMemberKey {
+func flattenMembershipPreferredMemberKeySlice(c *Client, i interface{}, res *Membership) []MembershipPreferredMemberKey {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipPreferredMemberKey{}
@@ -1739,7 +1739,7 @@ func flattenMembershipPreferredMemberKeySlice(c *Client, i interface{}) []Member
 
 	items := make([]MembershipPreferredMemberKey, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMembershipPreferredMemberKey(c, item.(map[string]interface{})))
+		items = append(items, *flattenMembershipPreferredMemberKey(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1765,7 +1765,7 @@ func expandMembershipPreferredMemberKey(c *Client, f *MembershipPreferredMemberK
 
 // flattenMembershipPreferredMemberKey flattens an instance of MembershipPreferredMemberKey from a JSON
 // response object.
-func flattenMembershipPreferredMemberKey(c *Client, i interface{}) *MembershipPreferredMemberKey {
+func flattenMembershipPreferredMemberKey(c *Client, i interface{}, res *Membership) *MembershipPreferredMemberKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1825,7 +1825,7 @@ func expandMembershipRolesSlice(c *Client, f []MembershipRoles, res *Membership)
 
 // flattenMembershipRolesMap flattens the contents of MembershipRoles from a JSON
 // response object.
-func flattenMembershipRolesMap(c *Client, i interface{}) map[string]MembershipRoles {
+func flattenMembershipRolesMap(c *Client, i interface{}, res *Membership) map[string]MembershipRoles {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipRoles{}
@@ -1837,7 +1837,7 @@ func flattenMembershipRolesMap(c *Client, i interface{}) map[string]MembershipRo
 
 	items := make(map[string]MembershipRoles)
 	for k, item := range a {
-		items[k] = *flattenMembershipRoles(c, item.(map[string]interface{}))
+		items[k] = *flattenMembershipRoles(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1845,7 +1845,7 @@ func flattenMembershipRolesMap(c *Client, i interface{}) map[string]MembershipRo
 
 // flattenMembershipRolesSlice flattens the contents of MembershipRoles from a JSON
 // response object.
-func flattenMembershipRolesSlice(c *Client, i interface{}) []MembershipRoles {
+func flattenMembershipRolesSlice(c *Client, i interface{}, res *Membership) []MembershipRoles {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipRoles{}
@@ -1857,7 +1857,7 @@ func flattenMembershipRolesSlice(c *Client, i interface{}) []MembershipRoles {
 
 	items := make([]MembershipRoles, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMembershipRoles(c, item.(map[string]interface{})))
+		items = append(items, *flattenMembershipRoles(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -1890,7 +1890,7 @@ func expandMembershipRoles(c *Client, f *MembershipRoles, res *Membership) (map[
 
 // flattenMembershipRoles flattens an instance of MembershipRoles from a JSON
 // response object.
-func flattenMembershipRoles(c *Client, i interface{}) *MembershipRoles {
+func flattenMembershipRoles(c *Client, i interface{}, res *Membership) *MembershipRoles {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1902,8 +1902,8 @@ func flattenMembershipRoles(c *Client, i interface{}) *MembershipRoles {
 		return EmptyMembershipRoles
 	}
 	r.Name = dcl.FlattenString(m["name"])
-	r.ExpiryDetail = flattenMembershipRolesExpiryDetail(c, m["expiryDetail"])
-	r.RestrictionEvaluations = flattenMembershipRolesRestrictionEvaluations(c, m["restrictionEvaluations"])
+	r.ExpiryDetail = flattenMembershipRolesExpiryDetail(c, m["expiryDetail"], res)
+	r.RestrictionEvaluations = flattenMembershipRolesRestrictionEvaluations(c, m["restrictionEvaluations"], res)
 
 	return r
 }
@@ -1951,7 +1951,7 @@ func expandMembershipRolesExpiryDetailSlice(c *Client, f []MembershipRolesExpiry
 
 // flattenMembershipRolesExpiryDetailMap flattens the contents of MembershipRolesExpiryDetail from a JSON
 // response object.
-func flattenMembershipRolesExpiryDetailMap(c *Client, i interface{}) map[string]MembershipRolesExpiryDetail {
+func flattenMembershipRolesExpiryDetailMap(c *Client, i interface{}, res *Membership) map[string]MembershipRolesExpiryDetail {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipRolesExpiryDetail{}
@@ -1963,7 +1963,7 @@ func flattenMembershipRolesExpiryDetailMap(c *Client, i interface{}) map[string]
 
 	items := make(map[string]MembershipRolesExpiryDetail)
 	for k, item := range a {
-		items[k] = *flattenMembershipRolesExpiryDetail(c, item.(map[string]interface{}))
+		items[k] = *flattenMembershipRolesExpiryDetail(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -1971,7 +1971,7 @@ func flattenMembershipRolesExpiryDetailMap(c *Client, i interface{}) map[string]
 
 // flattenMembershipRolesExpiryDetailSlice flattens the contents of MembershipRolesExpiryDetail from a JSON
 // response object.
-func flattenMembershipRolesExpiryDetailSlice(c *Client, i interface{}) []MembershipRolesExpiryDetail {
+func flattenMembershipRolesExpiryDetailSlice(c *Client, i interface{}, res *Membership) []MembershipRolesExpiryDetail {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipRolesExpiryDetail{}
@@ -1983,7 +1983,7 @@ func flattenMembershipRolesExpiryDetailSlice(c *Client, i interface{}) []Members
 
 	items := make([]MembershipRolesExpiryDetail, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMembershipRolesExpiryDetail(c, item.(map[string]interface{})))
+		items = append(items, *flattenMembershipRolesExpiryDetail(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2006,7 +2006,7 @@ func expandMembershipRolesExpiryDetail(c *Client, f *MembershipRolesExpiryDetail
 
 // flattenMembershipRolesExpiryDetail flattens an instance of MembershipRolesExpiryDetail from a JSON
 // response object.
-func flattenMembershipRolesExpiryDetail(c *Client, i interface{}) *MembershipRolesExpiryDetail {
+func flattenMembershipRolesExpiryDetail(c *Client, i interface{}, res *Membership) *MembershipRolesExpiryDetail {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2065,7 +2065,7 @@ func expandMembershipRolesRestrictionEvaluationsSlice(c *Client, f []MembershipR
 
 // flattenMembershipRolesRestrictionEvaluationsMap flattens the contents of MembershipRolesRestrictionEvaluations from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluationsMap(c *Client, i interface{}) map[string]MembershipRolesRestrictionEvaluations {
+func flattenMembershipRolesRestrictionEvaluationsMap(c *Client, i interface{}, res *Membership) map[string]MembershipRolesRestrictionEvaluations {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipRolesRestrictionEvaluations{}
@@ -2077,7 +2077,7 @@ func flattenMembershipRolesRestrictionEvaluationsMap(c *Client, i interface{}) m
 
 	items := make(map[string]MembershipRolesRestrictionEvaluations)
 	for k, item := range a {
-		items[k] = *flattenMembershipRolesRestrictionEvaluations(c, item.(map[string]interface{}))
+		items[k] = *flattenMembershipRolesRestrictionEvaluations(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2085,7 +2085,7 @@ func flattenMembershipRolesRestrictionEvaluationsMap(c *Client, i interface{}) m
 
 // flattenMembershipRolesRestrictionEvaluationsSlice flattens the contents of MembershipRolesRestrictionEvaluations from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluationsSlice(c *Client, i interface{}) []MembershipRolesRestrictionEvaluations {
+func flattenMembershipRolesRestrictionEvaluationsSlice(c *Client, i interface{}, res *Membership) []MembershipRolesRestrictionEvaluations {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipRolesRestrictionEvaluations{}
@@ -2097,7 +2097,7 @@ func flattenMembershipRolesRestrictionEvaluationsSlice(c *Client, i interface{})
 
 	items := make([]MembershipRolesRestrictionEvaluations, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMembershipRolesRestrictionEvaluations(c, item.(map[string]interface{})))
+		items = append(items, *flattenMembershipRolesRestrictionEvaluations(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2122,7 +2122,7 @@ func expandMembershipRolesRestrictionEvaluations(c *Client, f *MembershipRolesRe
 
 // flattenMembershipRolesRestrictionEvaluations flattens an instance of MembershipRolesRestrictionEvaluations from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluations(c *Client, i interface{}) *MembershipRolesRestrictionEvaluations {
+func flattenMembershipRolesRestrictionEvaluations(c *Client, i interface{}, res *Membership) *MembershipRolesRestrictionEvaluations {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2133,7 +2133,7 @@ func flattenMembershipRolesRestrictionEvaluations(c *Client, i interface{}) *Mem
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyMembershipRolesRestrictionEvaluations
 	}
-	r.MemberRestrictionEvaluation = flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, m["memberRestrictionEvaluation"])
+	r.MemberRestrictionEvaluation = flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, m["memberRestrictionEvaluation"], res)
 
 	return r
 }
@@ -2181,7 +2181,7 @@ func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice
 
 // flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap flattens the contents of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap(c *Client, i interface{}) map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
+func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap(c *Client, i interface{}, res *Membership) map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation{}
@@ -2193,7 +2193,7 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap(
 
 	items := make(map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation)
 	for k, item := range a {
-		items[k] = *flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, item.(map[string]interface{}))
+		items[k] = *flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2201,7 +2201,7 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationMap(
 
 // flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice flattens the contents of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice(c *Client, i interface{}) []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
+func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice(c *Client, i interface{}, res *Membership) []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation{}
@@ -2213,7 +2213,7 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlic
 
 	items := make([]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, item.(map[string]interface{})))
+		items = append(items, *flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2233,7 +2233,7 @@ func expandMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c *C
 
 // flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation flattens an instance of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c *Client, i interface{}) *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
+func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c *Client, i interface{}, res *Membership) *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2292,7 +2292,7 @@ func expandMembershipDisplayNameSlice(c *Client, f []MembershipDisplayName, res 
 
 // flattenMembershipDisplayNameMap flattens the contents of MembershipDisplayName from a JSON
 // response object.
-func flattenMembershipDisplayNameMap(c *Client, i interface{}) map[string]MembershipDisplayName {
+func flattenMembershipDisplayNameMap(c *Client, i interface{}, res *Membership) map[string]MembershipDisplayName {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipDisplayName{}
@@ -2304,7 +2304,7 @@ func flattenMembershipDisplayNameMap(c *Client, i interface{}) map[string]Member
 
 	items := make(map[string]MembershipDisplayName)
 	for k, item := range a {
-		items[k] = *flattenMembershipDisplayName(c, item.(map[string]interface{}))
+		items[k] = *flattenMembershipDisplayName(c, item.(map[string]interface{}), res)
 	}
 
 	return items
@@ -2312,7 +2312,7 @@ func flattenMembershipDisplayNameMap(c *Client, i interface{}) map[string]Member
 
 // flattenMembershipDisplayNameSlice flattens the contents of MembershipDisplayName from a JSON
 // response object.
-func flattenMembershipDisplayNameSlice(c *Client, i interface{}) []MembershipDisplayName {
+func flattenMembershipDisplayNameSlice(c *Client, i interface{}, res *Membership) []MembershipDisplayName {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipDisplayName{}
@@ -2324,7 +2324,7 @@ func flattenMembershipDisplayNameSlice(c *Client, i interface{}) []MembershipDis
 
 	items := make([]MembershipDisplayName, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMembershipDisplayName(c, item.(map[string]interface{})))
+		items = append(items, *flattenMembershipDisplayName(c, item.(map[string]interface{}), res))
 	}
 
 	return items
@@ -2344,7 +2344,7 @@ func expandMembershipDisplayName(c *Client, f *MembershipDisplayName, res *Membe
 
 // flattenMembershipDisplayName flattens an instance of MembershipDisplayName from a JSON
 // response object.
-func flattenMembershipDisplayName(c *Client, i interface{}) *MembershipDisplayName {
+func flattenMembershipDisplayName(c *Client, i interface{}, res *Membership) *MembershipDisplayName {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -2364,7 +2364,7 @@ func flattenMembershipDisplayName(c *Client, i interface{}) *MembershipDisplayNa
 
 // flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumMap flattens the contents of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumMap(c *Client, i interface{}) map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum {
+func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumMap(c *Client, i interface{}, res *Membership) map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum{}
@@ -2384,7 +2384,7 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStat
 
 // flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumSlice flattens the contents of MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum from a JSON
 // response object.
-func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumSlice(c *Client, i interface{}) []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum {
+func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnumSlice(c *Client, i interface{}, res *Membership) []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum{}
@@ -2415,7 +2415,7 @@ func flattenMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStat
 
 // flattenMembershipTypeEnumMap flattens the contents of MembershipTypeEnum from a JSON
 // response object.
-func flattenMembershipTypeEnumMap(c *Client, i interface{}) map[string]MembershipTypeEnum {
+func flattenMembershipTypeEnumMap(c *Client, i interface{}, res *Membership) map[string]MembershipTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipTypeEnum{}
@@ -2435,7 +2435,7 @@ func flattenMembershipTypeEnumMap(c *Client, i interface{}) map[string]Membershi
 
 // flattenMembershipTypeEnumSlice flattens the contents of MembershipTypeEnum from a JSON
 // response object.
-func flattenMembershipTypeEnumSlice(c *Client, i interface{}) []MembershipTypeEnum {
+func flattenMembershipTypeEnumSlice(c *Client, i interface{}, res *Membership) []MembershipTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipTypeEnum{}
@@ -2466,7 +2466,7 @@ func flattenMembershipTypeEnum(i interface{}) *MembershipTypeEnum {
 
 // flattenMembershipDeliverySettingEnumMap flattens the contents of MembershipDeliverySettingEnum from a JSON
 // response object.
-func flattenMembershipDeliverySettingEnumMap(c *Client, i interface{}) map[string]MembershipDeliverySettingEnum {
+func flattenMembershipDeliverySettingEnumMap(c *Client, i interface{}, res *Membership) map[string]MembershipDeliverySettingEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
 		return map[string]MembershipDeliverySettingEnum{}
@@ -2486,7 +2486,7 @@ func flattenMembershipDeliverySettingEnumMap(c *Client, i interface{}) map[strin
 
 // flattenMembershipDeliverySettingEnumSlice flattens the contents of MembershipDeliverySettingEnum from a JSON
 // response object.
-func flattenMembershipDeliverySettingEnumSlice(c *Client, i interface{}) []MembershipDeliverySettingEnum {
+func flattenMembershipDeliverySettingEnumSlice(c *Client, i interface{}, res *Membership) []MembershipDeliverySettingEnum {
 	a, ok := i.([]interface{})
 	if !ok {
 		return []MembershipDeliverySettingEnum{}
@@ -2520,7 +2520,7 @@ func flattenMembershipDeliverySettingEnum(i interface{}) *MembershipDeliverySett
 // identity).  This is useful in extracting the element from a List call.
 func (r *Membership) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalMembership(b, c)
+		cr, err := unmarshalMembership(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

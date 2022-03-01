@@ -1,7 +1,7 @@
 {
   "name": "{{datafusion_network}}",
-  "project": "{{project}}",
-  "autoCreateSubnetworks": true,
+  "project": "{{ref:compute.serviceusage.service.json:project}}",
+  "autoCreateSubnetworks": false,
   "routingConfig": {
     "routingMode": "REGIONAL"
   }

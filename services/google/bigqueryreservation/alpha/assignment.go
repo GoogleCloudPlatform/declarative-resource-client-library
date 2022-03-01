@@ -200,7 +200,7 @@ func (c *Client) GetAssignment(ctx context.Context, r *Assignment) (*Assignment,
 		}
 		return nil, err
 	}
-	result, err := unmarshalAssignment(b, c)
+	result, err := unmarshalAssignment(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +370,7 @@ func applyAssignmentDiff(c *Client, ctx context.Context, desired *Assignment, ra
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapAssignment(r, c)
+				fullResp, err := unmarshalMapAssignment(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

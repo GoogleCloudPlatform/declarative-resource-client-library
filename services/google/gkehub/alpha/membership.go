@@ -677,7 +677,7 @@ func (c *Client) GetMembership(ctx context.Context, r *Membership) (*Membership,
 		}
 		return nil, err
 	}
-	result, err := unmarshalMembership(b, c)
+	result, err := unmarshalMembership(b, c, r)
 	if err != nil {
 		return nil, err
 	}
@@ -847,7 +847,7 @@ func applyMembershipDiff(c *Client, ctx context.Context, desired *Membership, ra
 
 				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapMembership(r, c)
+				fullResp, err := unmarshalMapMembership(r, c, rawDesired)
 				if err != nil {
 					return nil, err
 				}

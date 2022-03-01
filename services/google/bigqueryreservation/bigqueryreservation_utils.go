@@ -39,7 +39,7 @@ func (r *CapacityCommitment) waitForEndTime(ctx context.Context, _ *Client) erro
 // This resource has a custom matcher so that either name or assignee + job_type can be used depending on which is available.
 func (r *Assignment) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalAssignment(b, c)
+		cr, err := unmarshalAssignment(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
