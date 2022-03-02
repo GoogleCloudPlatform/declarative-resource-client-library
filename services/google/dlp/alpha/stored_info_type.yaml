@@ -103,9 +103,6 @@ components:
                   description: 'A url representing a file or path (no wildcards) in
                     Cloud Storage. Example: gs://[BUCKET_NAME]/dictionary.txt'
                   x-kubernetes-immutable: true
-                  x-dcl-references:
-                  - resource: Storage/Object
-                    field: selfLink
             wordList:
               type: object
               x-dcl-go-name: WordList
@@ -236,9 +233,6 @@ components:
                   description: 'A url representing a file or path (no wildcards) in
                     Cloud Storage. Example: gs://[BUCKET_NAME]/dictionary.txt'
                   x-kubernetes-immutable: true
-                  x-dcl-references:
-                  - resource: Storage/Object
-                    field: selfLink
         location:
           type: string
           x-dcl-go-name: Location

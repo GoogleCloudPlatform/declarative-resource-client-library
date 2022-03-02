@@ -766,7 +766,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryOutputPath(des, initial *Sto
 
 	cDes := &StoredInfoTypeLargeCustomDictionaryOutputPath{}
 
-	if dcl.NameToSelfLink(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -817,7 +817,7 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryOutputPath(c *Client, des
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Path, nw.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 
@@ -1599,7 +1599,7 @@ func canonicalizeStoredInfoTypeDictionaryCloudStoragePath(des, initial *StoredIn
 
 	cDes := &StoredInfoTypeDictionaryCloudStoragePath{}
 
-	if dcl.NameToSelfLink(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -1650,7 +1650,7 @@ func canonicalizeNewStoredInfoTypeDictionaryCloudStoragePath(c *Client, des, nw 
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Path, nw.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 
@@ -1960,7 +1960,7 @@ func compareStoredInfoTypeLargeCustomDictionaryOutputPathNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2191,7 +2191,7 @@ func compareStoredInfoTypeDictionaryCloudStoragePathNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

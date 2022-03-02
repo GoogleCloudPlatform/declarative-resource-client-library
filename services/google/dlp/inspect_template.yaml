@@ -140,9 +140,6 @@ components:
                             x-dcl-go-name: Path
                             description: 'A url representing a file or path (no wildcards)
                               in Cloud Storage. Example: gs://[BUCKET_NAME]/dictionary.txt'
-                            x-dcl-references:
-                            - resource: Storage/Object
-                              field: selfLink
                       wordList:
                         type: object
                         x-dcl-go-name: WordList
@@ -454,9 +451,6 @@ components:
                                       description: 'A url representing a file or path
                                         (no wildcards) in Cloud Storage. Example:
                                         gs://[BUCKET_NAME]/dictionary.txt'
-                                      x-dcl-references:
-                                      - resource: Storage/Object
-                                        field: selfLink
                                 wordList:
                                   type: object
                                   x-dcl-go-name: WordList

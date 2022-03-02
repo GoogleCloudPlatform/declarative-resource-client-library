@@ -1843,7 +1843,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStora
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath{}
 
-	if dcl.NameToSelfLink(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -1894,7 +1894,7 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudSt
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Path, nw.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 
@@ -3540,7 +3540,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath{}
 
-	if dcl.NameToSelfLink(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -3591,7 +3591,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesExclusionRuleDiction
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Path, nw.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 
@@ -4469,7 +4469,7 @@ func compareInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePat
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4943,7 +4943,7 @@ func compareInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloud
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInspectTemplateUpdateInspectTemplateOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
