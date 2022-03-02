@@ -20,10 +20,10 @@
     "securityGroupIds": ["sg-1", "sg-2"],
     "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-controlplane",
     "rootVolume": {
-      "sizeGib": 10,
-      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_volume_encryption_key}}",
-      "volumeType": "GP3",
-      "iops": 3000
+      "sizeGib": 12,
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/updated-volume-encryption-kms-key-arn",
+      "volumeType": "GP2",
+      "iops": 0
     },
     "mainVolume": {
       "sizeGib": 10,
