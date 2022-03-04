@@ -96,11 +96,10 @@ enum IdentitytoolkitAlphaConfigSubtypeEnum {
 
 enum IdentitytoolkitAlphaConfigMfaStateEnum {
   IdentitytoolkitAlphaConfigMfaStateEnumNO_VALUE_DO_NOT_USE = 0;
-  IdentitytoolkitAlphaConfigMfaStateEnumVERIFICATION_STATE_UNSPECIFIED = 1;
-  IdentitytoolkitAlphaConfigMfaStateEnumNOT_STARTED = 2;
-  IdentitytoolkitAlphaConfigMfaStateEnumIN_PROGRESS = 3;
-  IdentitytoolkitAlphaConfigMfaStateEnumFAILED = 4;
-  IdentitytoolkitAlphaConfigMfaStateEnumSUCCEEDED = 5;
+  IdentitytoolkitAlphaConfigMfaStateEnumSTATE_UNSPECIFIED = 1;
+  IdentitytoolkitAlphaConfigMfaStateEnumDISABLED = 2;
+  IdentitytoolkitAlphaConfigMfaStateEnumENABLED = 3;
+  IdentitytoolkitAlphaConfigMfaStateEnumMANDATORY = 4;
 }
 
 message IdentitytoolkitAlphaConfig {

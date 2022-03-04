@@ -127,14 +127,13 @@ components:
               x-dcl-go-name: State
               x-dcl-go-type: ConfigMfaStateEnum
               description: 'Whether MultiFactor Authentication has been enabled for
-                this project. Possible values: VERIFICATION_STATE_UNSPECIFIED, NOT_STARTED,
-                IN_PROGRESS, FAILED, SUCCEEDED'
+                this project. Possible values: STATE_UNSPECIFIED, DISABLED, ENABLED,
+                MANDATORY'
               enum:
-              - VERIFICATION_STATE_UNSPECIFIED
-              - NOT_STARTED
-              - IN_PROGRESS
-              - FAILED
-              - SUCCEEDED
+              - STATE_UNSPECIFIED
+              - DISABLED
+              - ENABLED
+              - MANDATORY
         monitoring:
           type: object
           x-dcl-go-name: Monitoring

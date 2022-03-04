@@ -246,7 +246,7 @@ func (v ConfigMfaStateEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"VERIFICATION_STATE_UNSPECIFIED", "NOT_STARTED", "IN_PROGRESS", "FAILED", "SUCCEEDED"} {
+	for _, s := range []string{"STATE_UNSPECIFIED", "DISABLED", "ENABLED", "MANDATORY"} {
 		if string(v) == s {
 			return nil
 		}

@@ -8,7 +8,7 @@
     "phoneNumber": {
       "enabled": true,
       "testPhoneNumbers": {
-        "+1 203-867-5309": "000000"
+        "+1 555-555-5555": "000000"
       }
     },
     "anonymous": {
@@ -96,7 +96,7 @@
       "disabledUserSignup": true,
       "disabledUserDeletion": true
     },
-    "firebaseSubdomain": "tjr-dm-test-1"
+    "firebaseSubdomain": "{{project}}"
   },
   "mfa": {
     "state": "ENABLED"

@@ -97,7 +97,7 @@
       "disabledUserSignup": false,
       "disabledUserDeletion": false
     },
-    "firebaseSubdomain": "tjr-dm-test-1"
+    "firebaseSubdomain": "{{project}}"
   },
   "mfa": {
     "state": "DISABLED"
